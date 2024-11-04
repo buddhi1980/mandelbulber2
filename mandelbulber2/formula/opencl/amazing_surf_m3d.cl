@@ -38,11 +38,19 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 zCol = z;
 	// no z fold
 	z += fractal->transformCommon.offset000;
-	REAL rr;
+/*	REAL rr;
 	if (!fractal->transformCommon.functionEnabledFalse)
 		rr = dot(z, z);
 	else
 		rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
+	*/
+	REAL rr = dot(z, z);
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
+	}
 
 	REAL m = aux->actualScale;
 	REAL MinR = fractal->mandelbox.mR2;

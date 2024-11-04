@@ -32,15 +32,30 @@ void cFractalTransfInvCylindrical::FormulaCode(
 {
 	double newZx = z.x;
 	double newZy = z.y;
-
-	if (fractal->transformCommon.functionEnabledFalse) newZx = z.x * cos(z.y);
+	double newZz = z.z;
+	
+	if (fractal->transformCommon.functionEnabledFalse) newZx = newZx * cos(z.y);
 	if (fractal->transformCommon.functionEnabledxFalse) newZy = z.x * sin(z.y);
-
-	z = CVector4(z.x * cos(newZy * fractal->transformCommon.scale1),
-				newZx * sin(z.y * fractal->transformCommon.scale1), z.z * fractal->transformCommon.scaleC1,
-				z.w)
-			* fractal->transformCommon.scaleA1;
-
+	// else newZy = z.x * sin(z.z);
+	
+	//x' = x cos(y)
+	//y' = x sin(y)
+	if (!fractal->transformCommon.functionEnabledzFalse)
+	{
+		z = CVector4(z.x * cos(newZy * fractal->transformCommon.scale1),
+					newZx * sin(z.y * fractal->transformCommon.scale1),
+					z.z * fractal->transformCommon.scaleC1,
+					z.w)
+					* fractal->transformCommon.scaleA1;
+	}
+	else
+	{
+		z = CVector4(z.x * cos(newZz * fractal->transformCommon.scale1),
+					z.y * fractal->transformCommon.scaleC1,
+					newZx * sin(z.z * fractal->transformCommon.scale1),
+					z.w)
+					* fractal->transformCommon.scaleA1;
+	}
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA1) * fractal->transformCommon.scaleB1
 					 + fractal->transformCommon.offset1;
 }

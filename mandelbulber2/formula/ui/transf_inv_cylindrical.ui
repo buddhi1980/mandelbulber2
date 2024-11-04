@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_inv_cylindrical</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -30,67 +30,39 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_44" columnstretch="0,0,1">
+    <layout class="QGridLayout" name="gridLayout_27" columnstretch="0">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="6" column="0" colspan="3">
-      <widget class="Line" name="line_33">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_112">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
-        <string>z scale:</string>
+        <string notr="true">temp                       newZy = z.x * sin(z.y)</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_113">
+     <item row="1" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
-        <string>z.y Multiplier:</string>
+        <string notr="true">temp                       newZx = z.x * cos(z.y)</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+     <item row="0" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+       <property name="text">
+        <string notr="true">swap z.y to z.z</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0" colspan="3">
-      <widget class="Line" name="line_30">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -118,14 +90,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_114">
-       <property name="text">
-        <string>z.z scale:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleC_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -153,24 +118,96 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_113">
        <property name="text">
-        <string notr="true">newZx = z.x * cos(z.y)</string>
+        <string>trig scale:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_114">
        <property name="text">
-        <string notr="true">newZy = z.x * sin(z.y)</string>
+        <string>scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_112">
+       <property name="text">
+        <string>z scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
+    <layout class="QGridLayout" name="gridLayout_30" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_105">
        <property name="font">
@@ -180,7 +217,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Analytic DE Scale:</string>
+        <string>scale:</string>
        </property>
       </widget>
      </item>
@@ -219,6 +256,19 @@
       </widget>
      </item>
      <item row="2" column="0">
+      <widget class="QLabel" name="label_109">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="label_106">
        <property name="font">
         <font>
@@ -227,41 +277,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Analytic DE Offset:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+        <string>analytic DE tweaks</string>
        </property>
       </widget>
      </item>
@@ -321,7 +337,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfInvCylindricalIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfInvCylindricalIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
   CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; newZx &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -389,13 +405,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>checkBox_transf_function_enabled_false</tabstop>
-  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
-  <tabstop>spinbox_transf_scaleA_1</tabstop>
-  <tabstop>spinbox_transf_scale_1</tabstop>
-  <tabstop>spinbox_transf_scaleC_1</tabstop>
-  <tabstop>spinbox_transf_scaleB_1</tabstop>
-  <tabstop>spinbox_transf_offset_1</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>

@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx">
      <property name="title">
-      <string>Prism Shape</string>
+      <string>Prism Shape&amp;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

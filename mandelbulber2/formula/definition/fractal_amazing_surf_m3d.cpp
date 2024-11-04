@@ -50,9 +50,17 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	CVector4 zCol = z;
 	// no z fold
 	z += fractal->transformCommon.offset000;
-	double rr;
+/*	double rr;
 	if (!fractal->transformCommon.functionEnabledFalse) rr = z.Dot(z);
 	else rr = z.Dot(z) - z.z * z.z * fractal->transformCommon.scaleB1;
+*/
+	double rr = z.Dot(z);
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		rr = z.Dot(z) - z.z * z.z * fractal->transformCommon.scaleB1;
+	}
 
 	double m = aux.actualScale;
 	double MinR = fractal->mandelbox.mR2;
