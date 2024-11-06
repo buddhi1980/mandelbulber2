@@ -158,7 +158,7 @@ void cFractalMandelboxMenger::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
 			}
 		}
-		z += tempC * fractal->transformCommon.constantMultiplier111;
+		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
 	if (fractal->transformCommon.functionEnabled && aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)

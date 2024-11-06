@@ -37,14 +37,14 @@
      <item row="2" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
-        <string notr="true">temp                       newZy = z.x * sin(z.y)</string>
+        <string notr="true">newZy or new z.z = z.x * sin(z.y or z.z)</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
-        <string notr="true">temp                       newZx = z.x * cos(z.y)</string>
+        <string notr="true">newZx = z.x * cos(z.y or z.z)</string>
        </property>
       </widget>
      </item>

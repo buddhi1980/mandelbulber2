@@ -147,7 +147,7 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){c.z, c.y, c.x, c.w}; break;
 			}
 		}
-		z += tempC * fractal->transformCommon.constantMultiplier111;
+		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
 	if (fractal->transformCommon.functionEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsM
