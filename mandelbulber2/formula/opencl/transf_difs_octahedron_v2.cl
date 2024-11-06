@@ -31,6 +31,13 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	z *= fractal->transformCommon.scaleA1;
 	aux->DE *= fractal->transformCommon.scaleA1;
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	z = fabs(z);
 	REAL m = 0.0f;
 	if (!fractal->transformCommon.functionEnabledAFalse)
@@ -69,7 +76,6 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	addCol = fractal->foldColor.difs0000.x;
 
 	// box
-
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		REAL4 zc = aux->const_c;

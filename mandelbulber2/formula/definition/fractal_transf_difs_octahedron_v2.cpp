@@ -44,6 +44,13 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	z *= fractal->transformCommon.scaleA1;
 	aux.DE *= fractal->transformCommon.scaleA1;
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	z = fabs(z);
 	double m = 0.0;
 	if (!fractal->transformCommon.functionEnabledAFalse)

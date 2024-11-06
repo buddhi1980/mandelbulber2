@@ -8,6 +8,7 @@ v2.33 (?? 2024)
 
 - modified fractal formulas
    amazingSurfM3d, iter controls inv cyl
+	 mandelboxMenger, fix ass cpix multiplier
 	 mandelbulbAbsPower2, catch
 	 mengerPrismShape & mengerPrismShape2, added aux.color
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
@@ -15,6 +16,7 @@ v2.33 (?? 2024)
 	 transfDIFSHexprism & HexprismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
+	 transfInvCylindrical, add z.z option
 
 v2.32 (August 2024)
 
