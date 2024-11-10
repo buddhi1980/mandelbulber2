@@ -48,6 +48,7 @@
 #include <math.h>
 
 #include <QString>
+#include <array>
 
 // #include "include_header_wrapper.hpp"
 
@@ -412,6 +413,8 @@ public:
 		wOutput = w;
 	}
 	inline CVector3 GetXYZ() const { return CVector3(x, y, z); }
+
+	inline std::array<double, 4> GetArray() const { return {x, y, z, w}; }
 
 	inline double Normalize()
 	{

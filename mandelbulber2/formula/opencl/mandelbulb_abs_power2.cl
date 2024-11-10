@@ -40,6 +40,12 @@ REAL4 MandelbulbAbsPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
 
+	if (z.x * z.x + z.y * z.y == 0.0f)
+	{
+		z.y = z.z * z.z;
+		z.z = 0.0f;
+	}
+
 	REAL4 zz = z * z;
 	REAL4 newZ = z;
 	REAL temp = 1.0f - zz.z / (zz.x + zz.y);

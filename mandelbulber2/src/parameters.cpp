@@ -768,3 +768,39 @@ QString cParameterContainer::GetScript(const QString &name) const
 	}
 	return val;
 }
+
+void cParameterContainer::SetEmpty(const QString &name)
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		it->SetEmpty();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::SetEmpty(const QString &name): element '" << name
+							 << "' doesn't exists";
+	}
+}
+
+bool cParameterContainer::IsEmpty(const QString &name) const
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::const_iterator it;
+	it = myMap.find(name);
+	bool val;
+	if (it != myMap.end())
+	{
+		val = it.value().IsEmpty();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::IsEmpty(const QString &name): element '" << name
+							 << "' doesn't exists";
+	}
+	return val;
+}

@@ -163,7 +163,9 @@ private:
 	QString GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const;
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
-	void UpdateAnimationPath() const;
+	void UpdateAnimationPathCameraAndLights() const;
+	void UpdateAnimationPathSingleParameter(int parameterIndex, int vectorComponentIndex) const;
+	void UpdateAnimationPathSingleParameter() const;
 	void UpdateCameraDistanceInformation() const;
 	std::shared_ptr<cRenderJob> PrepareRenderJob(bool *stopRequest);
 	bool InitFrameRanges(sFrameRanges *frameRanges);

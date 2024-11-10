@@ -31,6 +31,13 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	z *= fractal->transformCommon.scaleA1;
 	aux->DE *= fractal->transformCommon.scaleA1;
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	z = fabs(z);
 	REAL m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3_F;
 

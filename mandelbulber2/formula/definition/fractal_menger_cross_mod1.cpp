@@ -29,6 +29,7 @@ cFractalMengerCrossMod1::cFractalMengerCrossMod1() : cAbstractFractal()
 
 void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 
 	if (fractal->transformCommon.functionEnabledx && aux.i >= fractal->transformCommon.startIterations
@@ -43,11 +44,18 @@ void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z) swap(z.y, z.z);
+		if (z.y > z.z)
+		{
+			swap(z.y, z.z);
+		}
 		z.y -= 1.5;
 		z -= gap * CVector4(SQRT_3_4, -1.5, 1.5, 0.0);
 
-		if (z.z > z.x) swap(z.z, z.x);
+		if (z.z > z.x)
+		{
+			swap(z.z, z.x);
+			Col.x = 1.0;
+		}
 		if (fractal->transformCommon.functionEnabledyFalse)
 		{
 			if (z.x >= 0.0)
@@ -82,17 +90,22 @@ void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		// Choose nearest corner/edge to get translation symmetry (all y & z code)
 		double dy = 0.0;
 		double dz = 0.0;
-		if (z.y > 0.5 && z.z > 0.5) // if both y & z > 0.5  then =1.5
+		if (z.y > 0.5 && z.z > 0.5) // if both y & z > 0.5 then =1.5
 		{
 			dy = 1.5;
 			dz = 1.5;
+			Col.y = 1.0;
 		}
 		else if (z.z < z.y)
 		{
 			dy = 1.5; // and dz is unchanged
+			Col.z = 1.0;
 		}
 		else
+		{
 			dz = 1.5; // and dy is unchanged
+			Col.w = 1.0;
+		}
 
 		z.y -= dy;
 		z.z -= dz;
@@ -114,4 +127,19 @@ void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
 	}
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+
+		// && aux.i % 2 == 0
+		aux.color += Col.x + Col.y + Col.z + Col.w;
+	}
+
+
 }

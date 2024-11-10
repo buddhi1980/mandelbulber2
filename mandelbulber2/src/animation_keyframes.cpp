@@ -144,6 +144,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotCellClicked);
 		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, this,
 			&cKeyframeAnimation::slotSliderMovedActualFrame);
+		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotSetCurrentFrame);
 		connect(ui->toolButton_next_frame, &QToolButton::clicked, this,
 			&cKeyframeAnimation::slotClickedNextFrame);
 		connect(ui->toolButton_previousFrame, &QToolButton::clicked, this,
@@ -170,6 +172,11 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
 		connect(ui->checkBox_show_light_path_4, &QCheckBox::stateChanged, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+
+		connect(ui->toolButton_chartZoomIn, &QToolButton::clicked, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotZoomIn);
+		connect(ui->toolButton_chartZoomOut, &QToolButton::clicked, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotZoomOut);
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -264,7 +271,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		UpdateLimitsForFrameRange();
 
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{
@@ -286,7 +294,8 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 		table->removeColumn(index + reservedColumns);
 		keyframes->UpdateFramesIndexesTable();
 		UpdateLimitsForFrameRange();
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 }
 
@@ -329,7 +338,8 @@ void cKeyframeAnimation::slotModifyKeyframe()
 				table->setCellWidget(0, newColumn, thumbWidget);
 			}
 
-			UpdateAnimationPath();
+			UpdateAnimationPathCameraAndLights();
+			UpdateAnimationPathSingleParameter();
 		}
 		else
 		{
@@ -557,11 +567,20 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		if (type == typeVector3)
 		{
 			const CVector3 val = parameter.Get<CVector3>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
-			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
-			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
+			if (parameter.IsEmpty())
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 1, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 2, newColumn, new QTableWidgetItem(""));
+			}
+			else
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
+				table->setItem(
+					row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
+				table->setItem(
+					row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
+			}
 			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
@@ -572,13 +591,24 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		else if (type == typeVector4)
 		{
 			const CVector4 val = parameter.Get<CVector4>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
-			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
-			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
-			table->setItem(
-				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 15)));
+			if (parameter.IsEmpty())
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 1, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 2, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 3, newColumn, new QTableWidgetItem(""));
+			}
+			else
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
+				table->setItem(
+					row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
+				table->setItem(
+					row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
+				table->setItem(
+					row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 15)));
+			}
+
 			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
@@ -591,9 +621,19 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		else if (type == typeRgb)
 		{
 			const sRGB val = parameter.Get<sRGB>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
-			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
-			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
+			if (parameter.IsEmpty())
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 1, newColumn, new QTableWidgetItem(""));
+				table->setItem(row + 2, newColumn, new QTableWidgetItem(""));
+			}
+			else
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
+				table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
+				table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
+			}
+
 			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
@@ -604,7 +644,15 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		else
 		{
 			const QString val = parameter.Get<QString>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(val));
+			if (parameter.IsEmpty())
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(""));
+			}
+			else
+			{
+				table->setItem(row, newColumn, new QTableWidgetItem(val));
+			}
+
 			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
 			table->item(row, newColumn)->setForeground(QBrush(Qt::black));
 		}
@@ -1197,7 +1245,8 @@ void cKeyframeAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange();
 
-	UpdateAnimationPath();
+	UpdateAnimationPathCameraAndLights();
+	UpdateAnimationPathSingleParameter();
 
 	mainInterface->progressBarAnimation->hide();
 }
@@ -1299,39 +1348,45 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		const int parameterFirstRow = parameterRows[rowParameter[row]];
 		const int vectIndex = row - parameterFirstRow;
 
-		using namespace parameterContainer;
-		const enumVarType type = frame.parameters.GetVarType(parameterName);
-
-		if (type == typeVector3)
+		if (cellText.isEmpty())
 		{
-			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
-			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
-			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
-			frame.parameters.Set(parameterName, vect);
-		}
-		else if (type == typeVector4)
-		{
-			CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
-			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
-			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
-			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
-			if (vectIndex == 3) vect.w = systemData.locale.toDouble(cellText);
-			frame.parameters.Set(parameterName, vect);
-		}
-		else if (type == typeRgb)
-		{
-			sRGB col = frame.parameters.Get<sRGB>(parameterName);
-			if (vectIndex == 0) col.R = cellText.toInt();
-			if (vectIndex == 1) col.G = cellText.toInt();
-			if (vectIndex == 2) col.B = cellText.toInt();
-			frame.parameters.Set(parameterName, col);
+			frame.parameters.SetEmpty(parameterName);
 		}
 		else
 		{
-			frame.parameters.Set(parameterName, cellText);
-		}
+			using namespace parameterContainer;
+			const enumVarType type = frame.parameters.GetVarType(parameterName);
 
+			if (type == typeVector3)
+			{
+				CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
+				if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+				if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+				if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+				frame.parameters.Set(parameterName, vect);
+			}
+			else if (type == typeVector4)
+			{
+				CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
+				if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+				if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+				if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+				if (vectIndex == 3) vect.w = systemData.locale.toDouble(cellText);
+				frame.parameters.Set(parameterName, vect);
+			}
+			else if (type == typeRgb)
+			{
+				sRGB col = frame.parameters.Get<sRGB>(parameterName);
+				if (vectIndex == 0) col.R = cellText.toInt();
+				if (vectIndex == 1) col.G = cellText.toInt();
+				if (vectIndex == 2) col.B = cellText.toInt();
+				frame.parameters.Set(parameterName, col);
+			}
+			else
+			{
+				frame.parameters.Set(parameterName, cellText);
+			}
+		}
 		keyframes->ModifyFrame(index, frame);
 
 		// update thumbnail
@@ -1357,7 +1412,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 				thumbWidget->AssignParameters(tempPar, tempFract);
 			}
 		}
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{
@@ -1726,6 +1782,7 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 	{
 		int frameIndex = keyframes->GetFrameIndexForKeyframe(column - reservedColumns);
 		ui->horizontalSlider_actualFrame->setValue(frameIndex);
+		ui->widgetValueChart->slotSetCurrentFrame(frameIndex);
 		updateFrameIndexLabel(frameIndex);
 		RenderFrame(column - reservedColumns);
 	}
@@ -1733,9 +1790,25 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 
 void cKeyframeAnimation::slotCellClicked(int row, int column) const
 {
-	Q_UNUSED(row);
 	Q_UNUSED(column);
 	UpdateCameraDistanceInformation();
+
+	if (row >= reservedRows)
+	{
+		const int parameterIndex = rowParameter.at(row);
+		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
+		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+	}
+}
+
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
+{
+	if (table->currentRow() >= reservedRows)
+	{
+		const int parameterIndex = rowParameter.at(table->currentRow());
+		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
+		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+	}
 }
 
 void cKeyframeAnimation::slotSetConstantTargetDistance()
@@ -1788,7 +1861,7 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
 }
 
-void cKeyframeAnimation::UpdateAnimationPath() const
+void cKeyframeAnimation::UpdateAnimationPathCameraAndLights() const
 {
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
 
@@ -1861,10 +1934,50 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	imageWidget->update();
 }
 
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
+	int parameterIndex, int vectorComponentIndex) const
+{
+	keyframes->ClearMorphCache();
+	cAnimationValueChartWidget::cAnimationPath path;
+
+	cAnimationFrames::sParameterDescription parameterDescr =
+		keyframes->GetListOfParameters().at(parameterIndex);
+
+	QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+
+	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
+	{
+		int keyframe =
+			keyframes->GetKeyframeIndex(frameIndex); // Get the keyframe index for the given frame index
+		int subIndex =
+			keyframes->GetSubIndex(frameIndex); // Get the sub-index for the given frame index
+
+		cOneParameter oneParameter = keyframes->InterpolateSingleParameter(
+			0, keyframe, parameterDescr.parameterName, fullParameterName, subIndex, frameIndex, params);
+
+		// get vector component value
+		CVector4 vect4Value = oneParameter.Get<CVector4>(valueActual);
+		double vectorComponentValue = vect4Value.GetArray()[vectorComponentIndex];
+
+		path.values.push_back(vectorComponentValue);
+	}
+
+	path.keyframeIndices = keyframes->getFramesIndexesTable();
+	path.parameterName = fullParameterName;
+
+	for (int k = 0; k < keyframes->GetNumberOfFrames(); k++)
+	{
+		path.emptyKeyframes.push_back(
+			keyframes->GetFrame(k).parameters.GetAsOneParameter(fullParameterName).IsEmpty());
+	}
+
+	ui->widgetValueChart->SetAnimationPath(path);
+}
+
 void cKeyframeAnimation::slotUpdateAnimationPathSelection()
 {
 	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
-	UpdateAnimationPath();
+	UpdateAnimationPathCameraAndLights();
 }
 
 void cKeyframeAnimation::UpdateActualCameraPosition(const CVector3 &cameraPosition)
@@ -2028,7 +2141,8 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 
 		RefreshTable();
 
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{

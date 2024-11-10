@@ -76,6 +76,103 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	return *this;
 }
 
+cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, int keyframe,
+	const QString &parameterName, const QString &fullParameterName, int subIndex, int frameIndex,
+	const std::shared_ptr<cParameterContainer> &params)
+{
+	// Prepare the interpolator
+	if (morph.size() <= morphTableItemIndex)
+	{
+		// Append a new morph object if the size of morph is less than or equal to morphTableItemIndex
+		morph.append(new cMorph());
+
+		//it cannot be looped if number of frames is less than two.
+		if(frames.size() < 3)
+		{
+			looped = false;
+		}
+
+		// Create morph cache (pre-indexed - counting of number of subframes)
+		int numberOfSubFrames = 0;
+		// Determine the first keyframe index (index for cAnimationFrames) based on whether the
+		// animation is looped
+		int firstFrameIndex = looped ? frames.size() - 2 : 0;
+		// Initialize keyframe index for looped or non-looped animation
+		int keyframeIndex = (looped) ? -2 : 0;
+		// Store the previous keyframe index
+		int previousKeyframeIndex = keyframeIndex;
+
+		// Get the parameter of the first frame
+		cOneParameter previousOnePar =
+			frames.at(firstFrameIndex).parameters.GetAsOneParameter(fullParameterName);
+		// Store the previous frame index
+		int previousK = firstFrameIndex;
+		// Add the number of subframes of the first frame
+		numberOfSubFrames += frames.at(firstFrameIndex).numberOfSubFrames;
+
+		// Determine the start and end frames for the loop (for cAnimationFrames)
+		int startFrame = looped ? frames.size() - 1 : 1;
+		int endFrame = looped ? frames.size() + frames.size() + 2 : frames.size();
+		// Increment keyframe index (first keyframe is already stored a s a previous one)
+		keyframeIndex++;
+
+		// Loop through the frames to build the morph cache
+		for (int k = startFrame; k < endFrame; k++)
+		{
+			// Calculate the modulo of the current frame index
+			int kMod = k % frames.size();
+			// Get the parameter of the current frame
+			cOneParameter onePar = frames.at(kMod).parameters.GetAsOneParameter(fullParameterName);
+			// If the parameter is not empty, add data to the morph object
+			if (!onePar.IsEmpty())
+			{
+				// add parameter from previous keyframe. This trick is needed for correct calculation of
+				// number of subframes
+				morph[morphTableItemIndex]->AddData(
+					previousKeyframeIndex, numberOfSubFrames, previousOnePar);
+				// Update the previous parameter and frame index
+				previousOnePar = onePar;
+				previousK = kMod;
+				previousKeyframeIndex = keyframeIndex;
+				// Reset the number of subframes
+				numberOfSubFrames = 0;
+			}
+			// Add the number of subframes of the current frame
+			numberOfSubFrames += frames.at(kMod).numberOfSubFrames;
+			// Increment keyframe index
+			keyframeIndex++;
+		}
+
+		// Handle the looped case
+		if (looped)
+		{
+			// Calculate the frame index offset for the loop
+			frameIndexOffsetForLoop = frames.at(frames.size() - 2).numberOfSubFrames
+																+ frames.at(frames.size() - 1).numberOfSubFrames;
+
+			// Add data for the last frame in the loop from frame #1
+			morph[morphTableItemIndex]->AddData(frames.size() + 1, frames.at(1).numberOfSubFrames,
+				frames.at(1).parameters.GetAsOneParameter(fullParameterName));
+		}
+		else
+		{
+			// Set the frame index offset for non-looped animation to 0
+			frameIndexOffsetForLoop = 0;
+			// Add data for the last frame
+			morph[morphTableItemIndex]->AddData(frames.size() - 1, 1,
+				frames.at(frames.size() - 1).parameters.GetAsOneParameter(fullParameterName));
+		}
+	}
+
+	// Interpolate each parameter
+	cOneParameter oneParameter =
+		morph[morphTableItemIndex]->Interpolate(frameIndex + frameIndexOffsetForLoop);
+	// Apply audio animation to the parameter
+	oneParameter = ApplyAudioAnimation(frameIndex, oneParameter, parameterName, params);
+	// Return the interpolated parameter
+	return oneParameter;
+}
+
 cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameIndex,
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
@@ -92,40 +189,8 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameInde
 		QString fullParameterName =
 			listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName;
 
-		// Prepare the interpolator
-		if (morph.size() <= i)
-		{
-			morph.append(
-				new cMorph()); // Append a new morph object if the size of morph is less than or equal to i
-		}
-		// Loop over the frames for interpolation
-		for (int k = keyframe - 2; k <= keyframe + 3; k++)
-		{
-			int kClamped;
-			if (looped)
-			{
-
-				kClamped = ((k % frames.size()) + frames.size()) % frames.size();
-			}
-			else
-			{
-				kClamped = qBound(0, k, frames.size() - 1);
-			}
-
-			// If the keyframe is not found in the morph, add it
-			if (morph[i]->findInMorph(k) == -1)
-			{
-				morph[i]->AddData(k, frames.at(kClamped).numberOfSubFrames,
-					frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
-			}
-		}
-		// Interpolate each parameter
-		cOneParameter oneParameter =
-			morph[i]->Interpolate(keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
-
-		// Apply audio animation to the parameter
-		oneParameter =
-			ApplyAudioAnimation(frameIndex, oneParameter, listOfParameters[i].parameterName, params);
+		cOneParameter oneParameter = InterpolateSingleParameter(i, keyframe,
+			listOfParameters[i].parameterName, fullParameterName, subIndex, frameIndex, params);
 		// Add the interpolated parameter to the interpolated frame
 		interpolated.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 	}

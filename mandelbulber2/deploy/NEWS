@@ -7,26 +7,30 @@ v2.33 (?? 2024)
 	 transfDIFSOctahedronV2
 
 - modified fractal formulas
-   mengerPrismShape & mengerPrismShape2, added aux.color
+   amazingSurfM3d, iter controls inv cyl
+	 mandelboxMenger, fix ass cpix multiplier
+	 mandelbulbAbsPower2, catch
+	 mengerPrismShape & mengerPrismShape2, added aux.color
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
 	 transfDIFSCylinder & CylinderV2, added aux.color
 	 transfDIFSHexprism & HexprismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
+	 transfInvCylindrical, add z.z option
 
 v2.32 (August 2024)
 
 - Added new fractal formulas
    transfDIFSSupershape
-   transfBoxFold4dInfy
-   transfJuliabox
+	 transfBoxFold4dInfy
+	 transfJuliabox
 	 transfJuliaboxV2
 	 transfSphericalInvV4
 
 - modified fractal formulas
    aboxModKali, added aux.color
 	 aboxMod1, add R power iter controls
-   aboxMod13, add missing xyz plane checkbox
+	 aboxMod13, add missing xyz plane checkbox
 	 amazingSurfMulti, fix enable aux.color
 	 benesiPineTree, rework code
 	 benesiT1PineTree, remove post offset iter controls (no code)

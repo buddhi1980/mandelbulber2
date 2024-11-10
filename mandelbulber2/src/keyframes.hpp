@@ -74,16 +74,21 @@ public:
 	void UpdateFramesIndexesTable();
 	int GetTotalNumberOfFrames() const;
 	int GetKeyframeIndex(int frameIndex) const;
+	std::vector<int> GetKeyframesIndexesTable() const { return keyframesIndexesTable; }
 	int GetFrameIndexForKeyframe(int keyframeIndex) const;
 	int GetSubIndex(int frameIndex) const;
 	const std::vector<int> &getFramesIndexesTable() const { return framesIndexesTable; }
 	void SetLooped(bool _looped) { this->looped = _looped; }
+	cOneParameter InterpolateSingleParameter(int i, int keyframe, const QString &parameterName,
+		const QString &fullParameterName, int subIndex, int frameIndex,
+		const std::shared_ptr<cParameterContainer> &params);
 
 private:
 	QList<cMorph *> morph;
 	std::vector<int> keyframesIndexesTable;
 	std::vector<int> framesIndexesTable;
 	bool looped = false;
+	int frameIndexOffsetForLoop = 0;
 };
 
 extern std::shared_ptr<cKeyframes> gKeyframes;

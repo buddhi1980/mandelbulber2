@@ -88,15 +88,21 @@ cMorph &cMorph::operator=(const cMorph &source)
 
 void cMorph::AddData(const int keyFrame, const int noOfSubFrames, const cOneParameter &val)
 {
+	for (int i = 0; i < noOfSubFrames; i++)
+	{
+		frameIndices.append(QPair<int, double>(keyFrame, double(i) / noOfSubFrames));
+	}
+
 	int key = findInMorph(keyFrame);
 	if (key != -1) return;
 	sMorphParameter mVal(keyFrame, noOfSubFrames, val);
 	dataSets.append(mVal);
 
-	if (dataSets.size() > listSize)
-	{
-		dataSets.removeFirst();
-	}
+	// FIXME this code will be removed. The cache will contain all keyframes
+	//	if (dataSets.size() > listSize)
+	//	{
+	//		dataSets.removeFirst();
+	//	}
 }
 
 int cMorph::findInMorph(const int keyframe)
@@ -111,8 +117,11 @@ int cMorph::findInMorph(const int keyframe)
 	return -1;
 }
 
-cOneParameter cMorph::Interpolate(const int keyframe, double factor)
+cOneParameter cMorph::Interpolate(int frameIndex)
 {
+	int keyframe = frameIndices[frameIndex].first;
+	double factor = frameIndices[frameIndex].second;
+
 	int key = findInMorph(keyframe);
 	if (key == -1) return dataSets[0].parameter;
 	if (dataSets[key].parameter.GetValueType() == typeBool)
