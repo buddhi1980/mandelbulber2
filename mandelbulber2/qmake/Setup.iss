@@ -12,7 +12,7 @@
 ;#endif
 
 #define MyAppName "Mandelbulber2"
-#define MyAppInstallerVersion "2.32"
+#define MyAppInstallerVersion "2.32.900"
 #define MyAppPublisher "Mandelbulber Team"
 #define MyAppPublisherURL "http://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
