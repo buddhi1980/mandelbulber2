@@ -7,12 +7,16 @@ v2.33 (?? 2024)
 	 transfDIFSOctahedronV2
 
 - modified fractal formulas
-   mengerPrismShape & mengerPrismShape2, added aux.color
+   amazingSurfM3d, iter controls inv cyl
+	 mandelboxMenger, fix ass cpix multiplier
+	 mandelbulbAbsPower2, catch
+	 mengerPrismShape & mengerPrismShape2, added aux.color
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
 	 transfDIFSCylinder & CylinderV2, added aux.color
 	 transfDIFSHexprism & HexprismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
+	 transfInvCylindrical, add z.z option
 
 v2.32 (August 2024)
 
@@ -33,7 +37,6 @@ v2.32 (August 2024)
 	 josKleinian, added more aux.color
 	 mandelboxMenger, z.z scale now works with rotation of separate planes
 	 mandelboxVaryScale4d, add missing parab checkbox
-	 mandelbulbAbsPower2, catch
 	 menger4d, added aux.color
 	 menger4dMod1, added aux.color
 	 menger4dMod2, added aux.color
