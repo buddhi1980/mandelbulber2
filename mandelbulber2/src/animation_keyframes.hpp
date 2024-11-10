@@ -165,6 +165,7 @@ private:
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPathCameraAndLights() const;
 	void UpdateAnimationPathSingleParameter(int parameterIndex, int vectorComponentIndex) const;
+	void UpdateAnimationPathSingleParameter() const;
 	void UpdateCameraDistanceInformation() const;
 	std::shared_ptr<cRenderJob> PrepareRenderJob(bool *stopRequest);
 	bool InitFrameRanges(sFrameRanges *frameRanges);

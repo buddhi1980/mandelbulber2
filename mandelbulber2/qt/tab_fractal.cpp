@@ -233,12 +233,17 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			};
 
 			fractal::enumCPixelAddition cPixelAddition = newFractalList[index]->getCpixelAddition();
-			bool booleanState = parentDockFractal->AreBooleanFractalsEnabled();
 
 			if (cPixelAddition == fractal::cpixelAlreadyHas)
 				CConstantAdditionSetVisible(false);
 			else
-				CConstantAdditionSetVisible(booleanState);
+			{
+				if (parentDockFractal)
+				{
+					bool booleanState = parentDockFractal->AreBooleanFractalsEnabled();
+					CConstantAdditionSetVisible(booleanState);
+				}
+			}
 
 			if (newFractalList[index]->getInternalId() == fractal::kaleidoscopicIfs)
 			{
@@ -276,8 +281,11 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		fractalWidget.reset();
 	}
 
-	parentDockFractal->SetTabText(
-		tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
+	if (parentDockFractal)
+	{
+		parentDockFractal->SetTabText(
+			tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
+	}
 }
 
 void cTabFractal::FormulaTransformSetVisible(bool visible) const

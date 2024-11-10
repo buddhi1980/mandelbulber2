@@ -272,6 +272,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		UpdateLimitsForFrameRange();
 
 		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{
@@ -294,6 +295,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 		keyframes->UpdateFramesIndexesTable();
 		UpdateLimitsForFrameRange();
 		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 }
 
@@ -337,6 +339,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 			}
 
 			UpdateAnimationPathCameraAndLights();
+			UpdateAnimationPathSingleParameter();
 		}
 		else
 		{
@@ -1243,6 +1246,7 @@ void cKeyframeAnimation::RefreshTable()
 	UpdateLimitsForFrameRange();
 
 	UpdateAnimationPathCameraAndLights();
+	UpdateAnimationPathSingleParameter();
 
 	mainInterface->progressBarAnimation->hide();
 }
@@ -1409,6 +1413,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 			}
 		}
 		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{
@@ -1791,11 +1796,17 @@ void cKeyframeAnimation::slotCellClicked(int row, int column) const
 	if (row >= reservedRows)
 	{
 		const int parameterIndex = rowParameter.at(row);
-		cAnimationFrames::sParameterDescription parameterDescr =
-			keyframes->GetListOfParameters().at(parameterIndex);
-		QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
 		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
+		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+	}
+}
 
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
+{
+	if (table->currentRow() >= reservedRows)
+	{
+		const int parameterIndex = rowParameter.at(table->currentRow());
+		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
 		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
 	}
 }
@@ -2131,6 +2142,7 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 		RefreshTable();
 
 		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
 	}
 	else
 	{
