@@ -30,6 +30,13 @@ public:
 	void SetAnimationPath(const cAnimationPath &path);
 	void resetZoom();
 
+private:
+	struct sKeyframeButton
+	{
+		int keyIndex;
+		QRect rect;
+	};
+
 public slots:
 	void slotZoomIn();
 	void slotZoomOut();
@@ -37,6 +44,11 @@ public slots:
 
 private:
 	void paintEvent(QPaintEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+
+	int FindButtonAtPosition(int x, int y);
 
 	cAnimationPath animationPath;
 	float zoom = 1.0;
@@ -45,6 +57,13 @@ private:
 	double max = 1.0;
 
 	const float margin = 0.1;
+
+	QList<sKeyframeButton> keyButtons;
+
+	int dragStartX = -1;
+	int dragStartY = -1;
+	int pressedKeyIndex = -1;
+	bool mouseDragStarted = false;
 };
 
 #endif /* MANDELBULBER2_QT_ANIMATION_VALUE_CHART_WIDGET_H_ */

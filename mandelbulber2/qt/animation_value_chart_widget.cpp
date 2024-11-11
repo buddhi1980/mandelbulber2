@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <QApplication>
 #include <QDebug>
+#include <QMouseEvent>
 
 #include "../src/system_data.hpp"
 
@@ -117,12 +118,16 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	pen.setColor(Qt::red);
 	pen.setWidth(2);
 	painter.setPen(pen);
+
+	float circleSize = 0.3f * fontPixelSize;
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
-		QPointF center = polyline[animationPath.keyframeIndices[i]];
 		if (!animationPath.emptyKeyframes[i])
 		{
-			painter.drawEllipse(center, 3, 3);
+			QPointF center = polyline[animationPath.keyframeIndices[i]];
+			painter.drawEllipse(center, circleSize, circleSize);
+			keyButtons.append({i, QRect(center.x() - circleSize, center.y() - circleSize,
+															circleSize * 2.0f, circleSize * 2.0f)});
 		}
 	}
 
@@ -170,4 +175,62 @@ void cAnimationValueChartWidget::slotSetCurrentFrame(int frame)
 {
 	currentFrame = frame;
 	update();
+}
+
+void cAnimationValueChartWidget::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		int mouseX = event->x();
+		int mouseY = event->y();
+
+		int index = FindButtonAtPosition(mouseX, mouseY);
+
+		dragStartX = mouseX;
+		dragStartY = mouseY;
+
+		pressedKeyIndex = index;
+	}
+}
+
+void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
+{
+	if (pressedKeyIndex >= 0)
+	{
+		if (event->x() != dragStartX)
+		{
+			mouseDragStarted = true;
+		}
+
+		if (mouseDragStarted)
+		{
+			qDebug() << pressedKeyIndex << event->x() << event->y();
+			emit update();
+		}
+	}
+}
+
+void cAnimationValueChartWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		if (pressedKeyIndex >= 0 && !mouseDragStarted)
+		{
+			emit update();
+		}
+		pressedKeyIndex = -1;
+		mouseDragStarted = false;
+	}
+}
+
+int cAnimationValueChartWidget::FindButtonAtPosition(int x, int y)
+{
+	for (int i = 0; i < keyButtons.size(); i++)
+	{
+		if (keyButtons[i].rect.contains(x, y))
+		{
+			return keyButtons[i].keyIndex;
+		}
+	}
+	return -1; //-1 means nothing found
 }
