@@ -313,6 +313,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSHexprism());
 	fractalList->append(new cFractalTransfDIFSHexprismV2());
 	fractalList->append(new cFractalTransfDIFSOctahedron());
+	fractalList->append(new cFractalTransfDIFSOctahedronV2());
 	fractalList->append(new cFractalTransfDIFSPiriform());
 	fractalList->append(new cFractalTransfDIFSPolyhedra());
 	fractalList->append(new cFractalTransfDIFSPolyhedraV2());
@@ -581,7 +582,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 
-	fractalList->append(new cFractalTransfDIFSOctahedronV2());
+
 
 
 	fractalList->append(new cFractalTransfDIFSSupershapeV2());

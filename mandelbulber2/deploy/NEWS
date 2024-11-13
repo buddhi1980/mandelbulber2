@@ -8,6 +8,7 @@ v2.33 (?? 2024)
 
 - modified fractal formulas
    amazingSurfM3d, iter controls inv cyl
+	 foldBoxMod1, UI add missing iter controls box fold 2
 	 mandelboxMenger, fix ass cpix multiplier
 	 mandelbulbAbsPower2, catch
 	 mengerPrismShape & mengerPrismShape2, added aux.color

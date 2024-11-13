@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>4179</height>
+    <height>4207</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2609,14 +2609,14 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_289">
           <property name="text">
-           <string>fold2 col:</string>
+           <string>menger col2:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_179">
           <property name="text">
-           <string>fold1 col:</string>
+           <string>menger col1:</string>
           </property>
          </widget>
         </item>
@@ -2885,14 +2885,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
