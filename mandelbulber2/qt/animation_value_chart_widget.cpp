@@ -143,6 +143,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(pen);
 	painter.drawText(width() / 2, fontPixelSize, "Parameter: " + animationPath.parameterName);
 }
+
 void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path)
 {
 	animationPath = path;
@@ -204,8 +205,14 @@ void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
 
 		if (mouseDragStarted)
 		{
-			qDebug() << pressedKeyIndex << event->x() << event->y();
 			emit update();
+
+			// calculate keyframe number and value when x and y coordinates in the widget are known
+
+			double value =
+				max - (event->y() - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
+
+			emit signalUpdateKey(pressedKeyIndex, value);
 		}
 	}
 }

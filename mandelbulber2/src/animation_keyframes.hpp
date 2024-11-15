@@ -151,6 +151,7 @@ private slots:
 	void slotSliderMovedActualFrame(int);
 	void slotClickedNextFrame();
 	void slotClickedPrevFrame();
+	void slotUpdateKeyByChart(int key, double value);
 
 private:
 	void PrepareTable();

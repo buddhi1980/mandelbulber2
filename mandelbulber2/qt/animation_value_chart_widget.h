@@ -42,6 +42,9 @@ public slots:
 	void slotZoomOut();
 	void slotSetCurrentFrame(int frame);
 
+signals:
+	void signalUpdateKey(int key, double value);
+
 private:
 	void paintEvent(QPaintEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;

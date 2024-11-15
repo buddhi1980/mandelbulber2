@@ -178,6 +178,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 		connect(ui->toolButton_chartZoomOut, &QToolButton::clicked, ui->widgetValueChart,
 			&cAnimationValueChartWidget::slotZoomOut);
 
+		connect(ui->widgetValueChart, &cAnimationValueChartWidget::signalUpdateKey, this,
+			&cKeyframeAnimation::slotUpdateKeyByChart);
+
 		table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
@@ -2431,6 +2434,23 @@ void cKeyframeAnimation::slotClickedPrevFrame()
 	{
 		ui->horizontalSlider_actualFrame->setValue(actualFrameIndex - 1);
 		slotSliderMovedActualFrame(actualFrameIndex - 1);
+	}
+}
+
+void cKeyframeAnimation::slotUpdateKeyByChart(int key, double value)
+{
+	if (table->currentRow() >= reservedRows)
+	{
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
+		cOneParameter parameter =
+			frame.parameters.GetAsOneParameter(GetParameterName(table->currentRow()));
+		parameter.Set(value, valueActual);
+		frame.parameters.SetFromOneParameter(GetParameterName(table->currentRow()), parameter);
+		keyframes->ModifyFrame(key, frame);
+
+		const int parameterIndex = rowParameter.at(table->currentRow());
+		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
+		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
 	}
 }
 
