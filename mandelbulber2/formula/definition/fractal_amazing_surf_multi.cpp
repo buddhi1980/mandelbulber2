@@ -120,7 +120,9 @@ void cFractalAmazingSurfMulti::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		double rr;
 		rr = z.Dot(z);
-		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO) // force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight;
 
 		if (fractal->transformCommon.functionEnabledAz
@@ -177,7 +179,9 @@ void cFractalAmazingSurfMulti::FormulaCode(CVector4 &z, const sFractal *fractal,
 			aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 		}
 	}
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
 	{
 		CVector4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate

@@ -109,7 +109,9 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		REAL rr;
 		rr = dot(z, z);
-		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsO
+				&& aux->i < fractal->transformCommon.stopIterationsO) // force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight;
 
 		if (fractal->transformCommon.functionEnabledAz
@@ -166,7 +168,9 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 		}
 	}
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
 	{
 		REAL4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
