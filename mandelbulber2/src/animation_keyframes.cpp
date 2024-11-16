@@ -1800,7 +1800,7 @@ void cKeyframeAnimation::slotCellClicked(int row, int column) const
 	{
 		const int parameterIndex = rowParameter.at(row);
 		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
-		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
 }
 
@@ -1810,7 +1810,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
 	{
 		const int parameterIndex = rowParameter.at(table->currentRow());
 		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
-		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
 }
 
@@ -1937,9 +1937,11 @@ void cKeyframeAnimation::UpdateAnimationPathCameraAndLights() const
 	imageWidget->update();
 }
 
-void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
-	int parameterIndex, int vectorComponentIndex) const
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter(int tableRow) const
 {
+	const int parameterIndex = rowParameter.at(tableRow);
+	const int vectorComponentIndex = tableRow - parameterRows.at(parameterIndex);
+
 	keyframes->ClearMorphCache();
 	cAnimationValueChartWidget::cAnimationPath path;
 
@@ -1974,7 +1976,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 			keyframes->GetFrame(k).parameters.GetAsOneParameter(fullParameterName).IsEmpty());
 	}
 
-	ui->widgetValueChart->SetAnimationPath(path, parameterIndex, vectorComponentIndex);
+	ui->widgetValueChart->SetAnimationPath(path, tableRow);
 }
 
 void cKeyframeAnimation::slotUpdateAnimationPathSelection()
@@ -2437,9 +2439,10 @@ void cKeyframeAnimation::slotClickedPrevFrame()
 	}
 }
 
-void cKeyframeAnimation::slotUpdateKeyByChart(
-	int key, double value, int parameterIndex, int vectorComponentIndex)
+void cKeyframeAnimation::slotUpdateKeyByChart(int key, double value, int tableRow)
 {
+	const int parameterIndex = rowParameter.at(tableRow);
+	const int vectorComponentIndex = tableRow - parameterRows.at(parameterIndex);
 	cAnimationFrames::sParameterDescription parameterDescr =
 		keyframes->GetListOfParameters().at(parameterIndex);
 
@@ -2447,11 +2450,34 @@ void cKeyframeAnimation::slotUpdateKeyByChart(
 
 	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
 	cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
-	parameter.Set(value, valueActual);
+
+	parameterContainer::enumVarType varType = parameterDescr.varType;
+
+	if (varType == parameterContainer::typeVector3 || varType == parameterContainer::typeVector4)
+	{
+		CVector4 vect4Value = parameter.Get<CVector4>(valueActual);
+		switch (vectorComponentIndex)
+		{
+			case 0: vect4Value.x = value; break;
+			case 1: vect4Value.y = value; break;
+			case 2: vect4Value.z = value; break;
+			case 3: vect4Value.w = value; break;
+			default: break;
+		}
+		parameter.Set(vect4Value, valueActual);
+	}
+	else
+	{
+		parameter.Set(value, valueActual);
+	}
+
 	frame.parameters.SetFromOneParameter(fullParameterName, parameter);
 	keyframes->ModifyFrame(key, frame);
 
-	UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+	int cellCollumn = key + reservedColumns;
+	table->item(tableRow, cellCollumn)->setText(QString("%L1").arg(value, 0, 'g', 15));
+
+	UpdateAnimationPathSingleParameter(tableRow);
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()

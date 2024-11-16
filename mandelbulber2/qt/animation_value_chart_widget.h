@@ -27,7 +27,7 @@ public:
 		QString parameterName;
 	};
 
-	void SetAnimationPath(const cAnimationPath &path, int _parameterIndex, int _vectorComponentIndex);
+	void SetAnimationPath(const cAnimationPath &path, int _tableRow);
 	void resetZoom();
 
 private:
@@ -43,7 +43,7 @@ public slots:
 	void slotSetCurrentFrame(int frame);
 
 signals:
-	void signalUpdateKey(int key, double value, int _parameterIndex, int _vectorComponentIndex);
+	void signalUpdateKey(int key, double value, int _tableRow);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
@@ -54,8 +54,7 @@ private:
 	int FindButtonAtPosition(int x, int y);
 
 	cAnimationPath animationPath;
-	int parameterIndex = -1;
-	int vectorComponentIndex = -1;
+	int tableRow = -1;
 	float zoom = 1.0;
 	int currentFrame = 0;
 	double min = 0.0;

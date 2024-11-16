@@ -151,7 +151,7 @@ private slots:
 	void slotSliderMovedActualFrame(int);
 	void slotClickedNextFrame();
 	void slotClickedPrevFrame();
-	void slotUpdateKeyByChart(int key, double value, int _parameterIndex, int _vectorComponentIndex);
+	void slotUpdateKeyByChart(int key, double value, int _tableRow);
 
 private:
 	void PrepareTable();
@@ -165,7 +165,7 @@ private:
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPathCameraAndLights() const;
-	void UpdateAnimationPathSingleParameter(int parameterIndex, int vectorComponentIndex) const;
+	void UpdateAnimationPathSingleParameter(int tableRow) const;
 	void UpdateAnimationPathSingleParameter() const;
 	void UpdateCameraDistanceInformation() const;
 	std::shared_ptr<cRenderJob> PrepareRenderJob(bool *stopRequest);

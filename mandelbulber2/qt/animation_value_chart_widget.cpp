@@ -145,12 +145,10 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.drawText(width() / 2, fontPixelSize, "Parameter: " + animationPath.parameterName);
 }
 
-void cAnimationValueChartWidget::SetAnimationPath(
-	const cAnimationPath &path, int _parameterIndex, int _vectorComponentIndex)
+void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path, int _tableRow)
 {
 	animationPath = path;
-	parameterIndex = _parameterIndex;
-	vectorComponentIndex = _vectorComponentIndex;
+	tableRow = _tableRow;
 	update();
 }
 
@@ -213,7 +211,7 @@ void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
 			double value =
 				max - (event->y() - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
 
-			emit signalUpdateKey(pressedKeyIndex, value, parameterIndex, vectorComponentIndex);
+			emit signalUpdateKey(pressedKeyIndex, value, tableRow);
 		}
 	}
 }
