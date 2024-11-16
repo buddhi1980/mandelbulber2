@@ -119,6 +119,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	pen.setWidth(2);
 	painter.setPen(pen);
 
+	keyButtons.clear();
 	float circleSize = 0.3f * fontPixelSize;
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
@@ -144,9 +145,12 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.drawText(width() / 2, fontPixelSize, "Parameter: " + animationPath.parameterName);
 }
 
-void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path)
+void cAnimationValueChartWidget::SetAnimationPath(
+	const cAnimationPath &path, int _parameterIndex, int _vectorComponentIndex)
 {
 	animationPath = path;
+	parameterIndex = _parameterIndex;
+	vectorComponentIndex = _vectorComponentIndex;
 	update();
 }
 
@@ -206,13 +210,10 @@ void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
 		if (mouseDragStarted)
 		{
 			emit update();
-
-			// calculate keyframe number and value when x and y coordinates in the widget are known
-
 			double value =
 				max - (event->y() - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
 
-			emit signalUpdateKey(pressedKeyIndex, value);
+			emit signalUpdateKey(pressedKeyIndex, value, parameterIndex, vectorComponentIndex);
 		}
 	}
 }

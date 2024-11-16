@@ -1974,7 +1974,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 			keyframes->GetFrame(k).parameters.GetAsOneParameter(fullParameterName).IsEmpty());
 	}
 
-	ui->widgetValueChart->SetAnimationPath(path);
+	ui->widgetValueChart->SetAnimationPath(path, parameterIndex, vectorComponentIndex);
 }
 
 void cKeyframeAnimation::slotUpdateAnimationPathSelection()
@@ -2437,21 +2437,21 @@ void cKeyframeAnimation::slotClickedPrevFrame()
 	}
 }
 
-void cKeyframeAnimation::slotUpdateKeyByChart(int key, double value)
+void cKeyframeAnimation::slotUpdateKeyByChart(
+	int key, double value, int parameterIndex, int vectorComponentIndex)
 {
-	if (table->currentRow() >= reservedRows)
-	{
-		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
-		cOneParameter parameter =
-			frame.parameters.GetAsOneParameter(GetParameterName(table->currentRow()));
-		parameter.Set(value, valueActual);
-		frame.parameters.SetFromOneParameter(GetParameterName(table->currentRow()), parameter);
-		keyframes->ModifyFrame(key, frame);
+	cAnimationFrames::sParameterDescription parameterDescr =
+		keyframes->GetListOfParameters().at(parameterIndex);
 
-		const int parameterIndex = rowParameter.at(table->currentRow());
-		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
-		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
-	}
+	QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
+	cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
+	parameter.Set(value, valueActual);
+	frame.parameters.SetFromOneParameter(fullParameterName, parameter);
+	keyframes->ModifyFrame(key, frame);
+
+	UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
