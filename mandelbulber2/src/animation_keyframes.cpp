@@ -2466,6 +2466,20 @@ void cKeyframeAnimation::slotUpdateKeyByChart(int key, double value, int tableRo
 		}
 		parameter.Set(vect4Value, valueActual);
 	}
+	else if (varType == parameterContainer::typeRgb)
+	{
+		sRGB rgbValue = parameter.Get<sRGB>(valueActual);
+		int intValue = clamp(int(value), 0, 65535);
+		switch (vectorComponentIndex)
+		{
+			case 0: rgbValue.R = intValue; break;
+			case 1: rgbValue.G = intValue; break;
+			case 2: rgbValue.B = intValue; break;
+			default: break;
+		}
+		parameter.Set(rgbValue, valueActual);
+		value = intValue;
+	}
 	else
 	{
 		parameter.Set(value, valueActual);
