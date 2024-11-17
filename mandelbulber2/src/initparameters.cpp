@@ -535,6 +535,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	// scripts
 	par->addParam("script_last_used_parameters", QString("frame_no"), morphNone, paramApp);
 
+	// temporary render scale
+	par->addParam("temporary_scale", 0, morphNone, paramNoSave);
+
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", QString("Fusion"), morphNone, paramApp);

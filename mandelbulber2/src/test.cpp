@@ -227,7 +227,7 @@ void Test::renderExamples() const
 				testPar->Get<CVector3>("camera"), testPar, testParFractal);
 
 			std::unique_ptr<cRenderJob> renderJob(
-				new cRenderJob(testPar, testParFractal, image, &stopRequest));
+				new cRenderJob(testPar, testParFractal, image, 1, &stopRequest));
 			renderJob->Init(cRenderJob::still, config);
 
 			if (IsBenchmarking())
@@ -453,7 +453,7 @@ void Test::renderSimple() const
 	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
 	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(testPar, testParFractal, image, &stopRequest));
+		new cRenderJob(testPar, testParFractal, image, 1, &stopRequest));
 	renderJob->Init(cRenderJob::still, config);
 
 	if (IsBenchmarking())
@@ -518,7 +518,7 @@ void Test::renderImageSave() const
 	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
 
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(testPar, testParFractal, image, &stopRequest));
+		new cRenderJob(testPar, testParFractal, image, 1, &stopRequest));
 	renderJob->Init(cRenderJob::still, config);
 
 	if (IsBenchmarking())

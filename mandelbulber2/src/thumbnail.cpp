@@ -84,7 +84,7 @@ QPixmap cThumbnail::Render()
 	{
 		bool stopRequest = false;
 		std::unique_ptr<cRenderJob> renderJob(
-			new cRenderJob(params, fractal, image, &stopRequest, qWidget));
+			new cRenderJob(params, fractal, image, 1, &stopRequest, qWidget));
 		renderJob->UseSizeFromImage(true);
 
 		cRenderingConfiguration config;

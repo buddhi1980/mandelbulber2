@@ -324,7 +324,7 @@ void cThumbnailWidget::slotRender()
 		stopRequest = false;
 
 		cRenderJob *renderJob =
-			new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
+			new cRenderJob(params, fractal, image, 1, &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));

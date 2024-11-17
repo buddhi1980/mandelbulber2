@@ -689,7 +689,7 @@ std::shared_ptr<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopReque
 {
 	// preparing Render Job
 	std::shared_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
+		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));

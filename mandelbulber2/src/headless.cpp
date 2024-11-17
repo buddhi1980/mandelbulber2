@@ -66,7 +66,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	std::shared_ptr<cImage> image(
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest));
+		new cRenderJob(gPar, gParFractal, image, 1, &gMainInterface->stopRequest));
 
 	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
@@ -259,7 +259,7 @@ void cHeadless::slotNetRender()
 	std::shared_ptr<cImage> image(
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest));
+		new cRenderJob(gPar, gParFractal, image, 1, &gMainInterface->stopRequest));
 	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));

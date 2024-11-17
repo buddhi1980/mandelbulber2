@@ -655,10 +655,12 @@ void cInterface::StartRender(bool noUndo)
 
 	DisableJuliaPointMode();
 
+	int temporaryScale = int(pow(int(2), gPar->Get<int>("temporary_scale")));
+
 	timerForAbortWarnings.start();
 
-	cRenderJob *renderJob = new cRenderJob(
-		gPar, gParFractal, mainImage, &stopRequest, renderedImage); // deleted by deleteLater()
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
+		renderedImage); // deleted by deleteLater()
 
 	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
@@ -1516,7 +1518,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	double step = 1.0;
 
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(tempParam, tempFractal, mainImage, &stopRequest, renderedImage));
+		new cRenderJob(tempParam, tempFractal, mainImage, 1, &stopRequest, renderedImage));
 	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 	connect(renderJob.get(), SIGNAL(updateImage()), renderedImage, SLOT(update()));
@@ -2089,7 +2091,7 @@ void cInterface::RefreshMainImage()
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage));
+		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
 	renderJob->RefreshPostEffects();
 }
 
@@ -2097,7 +2099,7 @@ void cInterface::RefreshImageAdjustments()
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage));
+		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
 	renderJob->RefreshImageAdjustments();
 }
 
