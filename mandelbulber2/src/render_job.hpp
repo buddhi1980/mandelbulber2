@@ -66,7 +66,7 @@ class cRenderJob : public QObject
 public:
 	cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 		const std::shared_ptr<cFractalContainer> _fractal, std::shared_ptr<cImage> _image,
-		bool *_stopRequest, QWidget *_qWidget = nullptr);
+		int resolutionReduceFactor, bool *_stopRequest, QWidget *_qWidget = nullptr);
 	~cRenderJob() override;
 	// QWidget *parent is needed to connect signals for refreshing progress and status bar.
 	// If _parent is not nullptr then parent has to have slot slotUpdateProgressAndStatus()

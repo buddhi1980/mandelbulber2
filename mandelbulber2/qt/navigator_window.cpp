@@ -437,7 +437,7 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("ambient_occlusion_fast_tune", 1.0);
 	}
 
-	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
+	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, 1, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
 
 	connect(renderJob, SIGNAL(updateImage()), ui->widgetRenderedImage, SLOT(update()));
@@ -712,7 +712,7 @@ void cNavigatorWindow::slotRefreshMainImage()
 {
 	SynchronizeInterface(qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, &stopRequest, ui->widgetRenderedImage));
+		new cRenderJob(params, fractalParams, image, 1, &stopRequest, ui->widgetRenderedImage));
 	renderJob->RefreshPostEffects();
 }
 

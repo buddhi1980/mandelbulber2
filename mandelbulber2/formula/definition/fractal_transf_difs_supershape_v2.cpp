@@ -73,10 +73,11 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 		r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 	if (!fractal->transformCommon.functionEnabledFFalse) r1 = 1.0f / r1;
+
 	CVector4 zc = z;
-		double rb = sqrt(z.x * z.x + z.y * z.y);
-		zc.x = r1 * cos(phi);
-		zc.y = r1 * sin(phi);
+	double rb = sqrt(z.x * z.x + z.y * z.y);
+	zc.x = r1 * cos(phi);
+	zc.y = r1 * sin(phi);
 
 	double xyR = rb - sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetR0;
 
@@ -88,6 +89,14 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 	}
 
 	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		cylR = cylR + (zc.z * zc.z * fractal->transformCommon.scaleB0);
+
+		//	cylR = cylR + (fabs(zc.z) * fractal->transformCommon.offsetB0);
+	}
+
 	cylR = max(cylR, 0.0);
 	cylH = max(cylH, 0.0);
 	double cylD = sqrt(cylR * cylR + cylH * cylH);

@@ -178,6 +178,11 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 		connect(ui->toolButton_chartZoomOut, &QToolButton::clicked, ui->widgetValueChart,
 			&cAnimationValueChartWidget::slotZoomOut);
 
+		connect(ui->widgetValueChart, &cAnimationValueChartWidget::signalUpdateKey, this,
+			&cKeyframeAnimation::slotUpdateKeyByChart);
+		connect(ui->widgetValueChart, &cAnimationValueChartWidget::signalClearKey, this,
+			&cKeyframeAnimation::slotClearKeyframe);
+
 		table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
@@ -189,6 +194,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 				"camera_top", params->GetAsOneParameter("camera_top"), params);
 			if (mainInterface->mainWindow) PrepareTable();
 		}
+
+		ui->widgetValueChart->setVisible(false);
 	}
 	else
 	{
@@ -686,7 +693,7 @@ std::shared_ptr<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopReque
 {
 	// preparing Render Job
 	std::shared_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
+		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -1797,8 +1804,10 @@ void cKeyframeAnimation::slotCellClicked(int row, int column) const
 	{
 		const int parameterIndex = rowParameter.at(row);
 		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
-		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
+
+	ui->widgetValueChart->setVisible(row > cameraSpeedRow);
 }
 
 void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
@@ -1807,7 +1816,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
 	{
 		const int parameterIndex = rowParameter.at(table->currentRow());
 		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
-		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
 }
 
@@ -1934,9 +1943,11 @@ void cKeyframeAnimation::UpdateAnimationPathCameraAndLights() const
 	imageWidget->update();
 }
 
-void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
-	int parameterIndex, int vectorComponentIndex) const
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter(int tableRow) const
 {
+	const int parameterIndex = rowParameter.at(tableRow);
+	const int vectorComponentIndex = tableRow - parameterRows.at(parameterIndex);
+
 	keyframes->ClearMorphCache();
 	cAnimationValueChartWidget::cAnimationPath path;
 
@@ -1971,7 +1982,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 			keyframes->GetFrame(k).parameters.GetAsOneParameter(fullParameterName).IsEmpty());
 	}
 
-	ui->widgetValueChart->SetAnimationPath(path);
+	ui->widgetValueChart->SetAnimationPath(path, tableRow);
 }
 
 void cKeyframeAnimation::slotUpdateAnimationPathSelection()
@@ -2432,6 +2443,101 @@ void cKeyframeAnimation::slotClickedPrevFrame()
 		ui->horizontalSlider_actualFrame->setValue(actualFrameIndex - 1);
 		slotSliderMovedActualFrame(actualFrameIndex - 1);
 	}
+}
+
+void cKeyframeAnimation::slotUpdateKeyByChart(int key, double value, int tableRow)
+{
+	const int parameterIndex = rowParameter.at(tableRow);
+	const int vectorComponentIndex = tableRow - parameterRows.at(parameterIndex);
+	cAnimationFrames::sParameterDescription parameterDescr =
+		keyframes->GetListOfParameters().at(parameterIndex);
+
+	QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
+	cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
+
+	parameterContainer::enumVarType varType = parameterDescr.varType;
+
+	if (varType == parameterContainer::typeVector3 || varType == parameterContainer::typeVector4)
+	{
+		CVector4 vect4Value = parameter.Get<CVector4>(valueActual);
+		switch (vectorComponentIndex)
+		{
+			case 0: vect4Value.x = value; break;
+			case 1: vect4Value.y = value; break;
+			case 2: vect4Value.z = value; break;
+			case 3: vect4Value.w = value; break;
+			default: break;
+		}
+		parameter.Set(vect4Value, valueActual);
+	}
+	else if (varType == parameterContainer::typeRgb)
+	{
+		sRGB rgbValue = parameter.Get<sRGB>(valueActual);
+		int intValue = clamp(int(value), 0, 65535);
+		switch (vectorComponentIndex)
+		{
+			case 0: rgbValue.R = intValue; break;
+			case 1: rgbValue.G = intValue; break;
+			case 2: rgbValue.B = intValue; break;
+			default: break;
+		}
+		parameter.Set(rgbValue, valueActual);
+		value = intValue;
+	}
+	else
+	{
+		parameter.Set(value, valueActual);
+	}
+
+	frame.parameters.SetFromOneParameter(fullParameterName, parameter);
+	keyframes->ModifyFrame(key, frame);
+
+	int cellCollumn = key + reservedColumns;
+	table->item(tableRow, cellCollumn)->setText(QString("%L1").arg(value, 0, 'g', 15));
+
+	UpdateAnimationPathSingleParameter(tableRow);
+}
+
+void cKeyframeAnimation::slotClearKeyframe(int key, int _tableRow)
+{
+	const int parameterIndex = rowParameter.at(_tableRow);
+	cAnimationFrames::sParameterDescription parameterDescr =
+		keyframes->GetListOfParameters().at(parameterIndex);
+	QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key);
+	cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
+
+	parameter.SetEmpty();
+
+	parameterContainer::enumVarType varType = parameterDescr.varType;
+
+	int parameterFirstRow = parameterRows.at(parameterIndex);
+
+	int cellCollumn = key + reservedColumns;
+
+	if (varType == parameterContainer::typeVector3 || varType == parameterContainer::typeVector4
+			|| varType == parameterContainer::typeRgb)
+	{
+		table->item(parameterFirstRow, cellCollumn)->setText("");
+		table->item(parameterFirstRow + 1, cellCollumn)->setText("");
+		table->item(parameterFirstRow + 2, cellCollumn)->setText("");
+		if (varType == parameterContainer::typeVector4)
+		{
+			table->item(parameterFirstRow + 3, cellCollumn)->setText("");
+		}
+	}
+	else
+	{
+		table->item(parameterFirstRow, cellCollumn)->setText("");
+	}
+
+	frame.parameters.SetFromOneParameter(fullParameterName, parameter);
+	keyframes->ModifyFrame(key, frame);
+
+	UpdateAnimationPathSingleParameter(_tableRow);
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()

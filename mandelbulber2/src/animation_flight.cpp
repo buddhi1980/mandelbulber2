@@ -343,7 +343,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	// setup of rendering engine
 	std::unique_ptr<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
-		mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage));
+		mainInterface->mainImage, 1, &mainInterface->stopRequest, mainInterface->renderedImage));
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -756,7 +756,7 @@ int cFlightAnimation::AddColumn(
 std::shared_ptr<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest)
 {
 	std::shared_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
+		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>271</width>
+    <width>294</width>
     <height>1001</height>
    </rect>
   </property>
@@ -37,6 +37,41 @@
      <property name="spacing">
       <number>2</number>
      </property>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_redo">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last revoked change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>REDO</string>
+       </property>
+       <property name="icon">
+        <iconset theme="edit-redo" resource="icons.qrc">
+         <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton_undo">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Discard last change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>UNDO</string>
+       </property>
+       <property name="icon">
+        <iconset theme="edit-undo" resource="icons.qrc">
+         <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QPushButton" name="pushButton_openNavigator">
+       <property name="text">
+        <string>Open new navigator</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="pushButton_stop">
        <property name="toolTip">
@@ -65,40 +100,80 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_undo">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Discard last change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>UNDO</string>
-       </property>
-       <property name="icon">
-        <iconset theme="edit-undo" resource="icons.qrc">
-         <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
+        <string>Temporary scale:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_redo">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last revoked change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <item>
+      <widget class="QComboBox" name="comboBox_temporary_scale">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>3</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-       <property name="text">
-        <string>REDO</string>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
        </property>
-       <property name="icon">
-        <iconset theme="edit-redo" resource="icons.qrc">
-         <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
+       <property name="minimumContentsLength">
+        <number>3</number>
        </property>
+       <item>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/16</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/32</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1/64</string>
+        </property>
+       </item>
       </widget>
      </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="QPushButton" name="pushButton_openNavigator">
-       <property name="text">
-        <string>Open new navigator</string>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -222,8 +297,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>263</width>
-        <height>830</height>
+        <width>268</width>
+        <height>806</height>
        </rect>
       </property>
       <property name="sizePolicy">

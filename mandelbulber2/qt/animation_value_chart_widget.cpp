@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <QApplication>
 #include <QDebug>
+#include <QMouseEvent>
+#include <QMenu>
 
 #include "../src/system_data.hpp"
 
@@ -52,6 +54,19 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 			{
 				max = animationPath.values[i];
 			}
+		}
+
+		if (min == max)
+		{
+			double temp = min;
+			min = temp * 0.99;
+			max = temp * 1.01;
+		}
+
+		if (min == 0.0 && max == 0.0)
+		{
+			min = -1.0;
+			max = 1.0;
 		}
 	}
 
@@ -116,13 +131,28 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	// draw small circles at keyframes using polygon coordinates
 	pen.setColor(Qt::red);
 	pen.setWidth(2);
-	painter.setPen(pen);
+
+	keyButtons.clear();
+	float circleSize = 0.4f * fontPixelSize;
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
-		QPointF center = polyline[animationPath.keyframeIndices[i]];
 		if (!animationPath.emptyKeyframes[i])
 		{
-			painter.drawEllipse(center, 3, 3);
+			if (i == pressedKeyIndex)
+			{
+				pen.setColor(Qt::green);
+				painter.setPen(pen);
+			}
+			else
+			{
+				pen.setColor(Qt::red);
+				painter.setPen(pen);
+			}
+
+			QPointF center = polyline[animationPath.keyframeIndices[i]];
+			painter.drawEllipse(center, circleSize, circleSize);
+			keyButtons.append({i, QRect(center.x() - circleSize, center.y() - circleSize,
+															circleSize * 2.0f, circleSize * 2.0f)});
 		}
 	}
 
@@ -138,9 +168,11 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(pen);
 	painter.drawText(width() / 2, fontPixelSize, "Parameter: " + animationPath.parameterName);
 }
-void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path)
+
+void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path, int _tableRow)
 {
 	animationPath = path;
+	tableRow = _tableRow;
 	update();
 }
 
@@ -170,4 +202,89 @@ void cAnimationValueChartWidget::slotSetCurrentFrame(int frame)
 {
 	currentFrame = frame;
 	update();
+}
+
+void cAnimationValueChartWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+	int mouseX = event->x();
+	int mouseY = event->y();
+
+	int index = FindButtonAtPosition(mouseX, mouseY);
+
+	if (index >= 0)
+	{
+		QMenu *menu = new QMenu(); // menu is deleted in contextMenuEvent()
+		QAction *actionDeleteKeyframe = menu->addAction(tr("Clear keyframe"));
+
+		const QAction *selectedItem = menu->exec(event->globalPos());
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionDeleteKeyframe)
+			{
+				emit signalClearKey(index, tableRow);
+			}
+		}
+	}
+}
+
+void cAnimationValueChartWidget::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		int mouseX = event->x();
+		int mouseY = event->y();
+
+		int index = FindButtonAtPosition(mouseX, mouseY);
+
+		dragStartX = mouseX;
+		dragStartY = mouseY;
+
+		pressedKeyIndex = index;
+	}
+}
+
+void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
+{
+	if (pressedKeyIndex >= 0)
+	{
+		if (event->x() != dragStartX)
+		{
+			mouseDragStarted = true;
+		}
+
+		if (mouseDragStarted)
+		{
+			emit update();
+			double value =
+				max - (event->y() - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
+
+			emit signalUpdateKey(pressedKeyIndex, value, tableRow);
+		}
+	}
+}
+
+void cAnimationValueChartWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		if (pressedKeyIndex >= 0 && mouseDragStarted)
+		{
+			emit update();
+		}
+		pressedKeyIndex = -1;
+		mouseDragStarted = false;
+	}
+}
+
+int cAnimationValueChartWidget::FindButtonAtPosition(int x, int y)
+{
+	for (int i = 0; i < keyButtons.size(); i++)
+	{
+		if (keyButtons[i].rect.contains(x, y))
+		{
+			return keyButtons[i].keyIndex;
+		}
+	}
+	return -1; //-1 means nothing found
 }

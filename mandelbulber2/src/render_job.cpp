@@ -65,7 +65,7 @@
 
 cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 	const std::shared_ptr<cFractalContainer> _fractal, std::shared_ptr<cImage> _image,
-	bool *_stopRequest, QWidget *_qWidget)
+	int resolutionReduceFactor, bool *_stopRequest, QWidget *_qWidget)
 		: QObject()
 {
 	WriteLog("cRenderJob::cRenderJob", 2);
@@ -77,6 +77,13 @@ cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 	fractalContainer.reset(new cFractalContainer());
 	*fractalContainer = *_fractal;
 	canUseNetRender = false;
+
+	paramsContainer->Set(
+		"image_width", paramsContainer->Get<int>("image_width") / resolutionReduceFactor);
+	paramsContainer->Set(
+		"image_height", paramsContainer->Get<int>("image_height") / resolutionReduceFactor);
+	paramsContainer->Set(
+		"detail_level", paramsContainer->Get<double>("detail_level") * resolutionReduceFactor);
 
 	width = 0;
 	height = 0;

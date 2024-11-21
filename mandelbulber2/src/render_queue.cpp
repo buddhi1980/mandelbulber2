@@ -222,7 +222,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 
 	// setup of rendering engine
 	std::unique_ptr<cRenderJob> renderJob(
-		new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget));
+		new cRenderJob(queuePar, queueParFractal, image, 1, &gQueue->stopRequest, imageWidget));
 
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,

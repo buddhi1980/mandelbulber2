@@ -73,6 +73,14 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	}
 
 	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		cylR = cylR + (zc.z * zc.z * fractal->transformCommon.scaleB0);
+
+		//	cylR = cylR + (fabs(zc.z) * fractal->transformCommon.offsetB0);
+	}
+
 	cylR = max(cylR, 0.0f);
 	cylH = max(cylH, 0.0f);
 	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
