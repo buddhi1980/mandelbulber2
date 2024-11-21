@@ -12,6 +12,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QMouseEvent>
+#include <QMenu>
 
 #include "../src/system_data.hpp"
 
@@ -53,6 +54,19 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 			{
 				max = animationPath.values[i];
 			}
+		}
+
+		if (min == max)
+		{
+			double temp = min;
+			min = temp * 0.99;
+			max = temp * 1.01;
+		}
+
+		if (min == 0.0 && max == 0.0)
+		{
+			min = -1.0;
+			max = 1.0;
 		}
 	}
 
@@ -117,14 +131,24 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	// draw small circles at keyframes using polygon coordinates
 	pen.setColor(Qt::red);
 	pen.setWidth(2);
-	painter.setPen(pen);
 
 	keyButtons.clear();
-	float circleSize = 0.3f * fontPixelSize;
+	float circleSize = 0.4f * fontPixelSize;
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
 		if (!animationPath.emptyKeyframes[i])
 		{
+			if (i == pressedKeyIndex)
+			{
+				pen.setColor(Qt::green);
+				painter.setPen(pen);
+			}
+			else
+			{
+				pen.setColor(Qt::red);
+				painter.setPen(pen);
+			}
+
 			QPointF center = polyline[animationPath.keyframeIndices[i]];
 			painter.drawEllipse(center, circleSize, circleSize);
 			keyButtons.append({i, QRect(center.x() - circleSize, center.y() - circleSize,
@@ -180,6 +204,30 @@ void cAnimationValueChartWidget::slotSetCurrentFrame(int frame)
 	update();
 }
 
+void cAnimationValueChartWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+	int mouseX = event->x();
+	int mouseY = event->y();
+
+	int index = FindButtonAtPosition(mouseX, mouseY);
+
+	if (index >= 0)
+	{
+		QMenu *menu = new QMenu(); // menu is deleted in contextMenuEvent()
+		QAction *actionDeleteKeyframe = menu->addAction(tr("Clear keyframe"));
+
+		const QAction *selectedItem = menu->exec(event->globalPos());
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionDeleteKeyframe)
+			{
+				emit signalClearKey(index, tableRow);
+			}
+		}
+	}
+}
+
 void cAnimationValueChartWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
@@ -220,7 +268,7 @@ void cAnimationValueChartWidget::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
-		if (pressedKeyIndex >= 0 && !mouseDragStarted)
+		if (pressedKeyIndex >= 0 && mouseDragStarted)
 		{
 			emit update();
 		}

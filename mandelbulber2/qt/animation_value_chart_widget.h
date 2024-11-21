@@ -44,12 +44,14 @@ public slots:
 
 signals:
 	void signalUpdateKey(int key, double value, int _tableRow);
+	void signalClearKey(int key, int _tableRow);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
 
 	int FindButtonAtPosition(int x, int y);
 

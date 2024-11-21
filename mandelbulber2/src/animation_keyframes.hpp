@@ -152,6 +152,7 @@ private slots:
 	void slotClickedNextFrame();
 	void slotClickedPrevFrame();
 	void slotUpdateKeyByChart(int key, double value, int _tableRow);
+	void slotClearKeyframe(int key, int _tableRow);
 
 private:
 	void PrepareTable();
