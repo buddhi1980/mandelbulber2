@@ -5,6 +5,7 @@ v2.33 (?? 2024)
 - Added new fractal formulas
    transfDIFSOctahedron
 	 transfDIFSOctahedronV2
+	 transfDIFSSupershapeV2
 
 - modified fractal formulas
    amazingSurfM3d, iter controls inv cyl
@@ -14,6 +15,7 @@ v2.33 (?? 2024)
 	 mandelboxMenger, fix ass cpix multiplier
 	 mandelbulbAbsPower2, catch
 	 mengerPrismShape & mengerPrismShape2, added aux.color
+	 transfDELinearCube, fix UI from crashing
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
 	 transfDIFSCylinder & CylinderV2, added aux.color
 	 transfDIFSHexprism & HexprismV2, added aux.color
