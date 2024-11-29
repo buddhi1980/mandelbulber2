@@ -67,8 +67,10 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			t = max(t, fabs(zc.z)) - fractal->transformCommon.offset02;
 		else
 		{
-			REAL zz = (zc.z) - fractal->transformCommon.offsetC0;
-			t = max(fabs(t) * SQRT_3_4_F + zz * 0.5f, -zc.z) - fractal->transformCommon.offset02;
+			REAL zz = (zc.z);
+			if (fractal->transformCommon.functionEnabledFFalse) zz = fabs(zz);
+			zz = (zz) - fractal->transformCommon.offsetC0;
+			t = max(fabs(t) * SQRT_3_4_F + zz * 0.5f, -zz) - fractal->transformCommon.offset02;
 
 		}
 

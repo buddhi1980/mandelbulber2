@@ -78,8 +78,10 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			t = max(t, fabs(zc.z)) - fractal->transformCommon.offset02;
 		else
 		{
-			double zz = (zc.z) - fractal->transformCommon.offsetC0;
-			t = max(fabs(t) * SQRT_3_4 + zz * 0.5, -zc.z) - fractal->transformCommon.offset02;
+			double zz = (zc.z);
+			if (fractal->transformCommon.functionEnabledFFalse) zz = fabs(zz);
+			zz = (zz) - fractal->transformCommon.offsetC0;
+			t = max(fabs(t) * SQRT_3_4 + zz * 0.5, -zz) - fractal->transformCommon.offset02;
 
 		}
 	}
@@ -106,8 +108,9 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
-				aux.color += fractal->foldColor.difs0000.y;
+			if (e == f.x) aux.color += fractal->foldColor.difs0000.y;
+			if (e == f.y) aux.color += fractal->foldColor.difs0000.z;
+			if (e == t) aux.color += fractal->foldColor.difs0000.w;
 			//if (xyR <= -fractal->transformCommon.offsetp01)
 			//	aux.color += fractal->foldColor.difs0000.z;
 		//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
