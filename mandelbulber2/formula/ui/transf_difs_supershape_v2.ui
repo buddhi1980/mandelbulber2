@@ -781,6 +781,20 @@
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_287">
+     <property name="text">
+      <string>circle deform supershape</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
@@ -794,6 +808,9 @@
      </item>
      <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_0">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -851,7 +868,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_16">
        <property name="text">
-        <string notr="true">radius:</string>
+        <string notr="true">circle radius:</string>
        </property>
       </widget>
      </item>
@@ -1384,12 +1401,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>488</y>
+     <x>54</x>
+     <y>667</y>
     </hint>
     <hint type="destinationlabel">
-     <x>59</x>
-     <y>512</y>
+     <x>62</x>
+     <y>694</y>
     </hint>
    </hints>
   </connection>
@@ -1400,12 +1417,28 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>513</y>
+     <x>32</x>
+     <y>694</y>
     </hint>
     <hint type="destinationlabel">
-     <x>322</x>
-     <y>496</y>
+     <x>414</x>
+     <y>669</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledM_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_scaleA_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>34</x>
+     <y>649</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>271</x>
+     <y>656</y>
     </hint>
    </hints>
   </connection>

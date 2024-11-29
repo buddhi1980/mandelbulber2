@@ -40,8 +40,8 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 
-	z *= fractal->transformCommon.scale1;
-	aux->DE *= fractal->transformCommon.scale1;
+	z *= fractal->transformCommon.scale2;
+	aux->DE *= fractal->transformCommon.scale2;
 	z += fractal->transformCommon.offsetA000;
 
 	// z = fabs(z);
@@ -78,14 +78,19 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	else
 		t = sqrt(t * t + zc.z * zc.z) - fractal->transformCommon.offset02;
 
-	REAL e = fractal->transformCommon.offset2;
-	REAL d = fractal->transformCommon.offsetA2;
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		REAL xyR = t;
+		xyR = fabs(xyR) - fractal->transformCommon.offsetp01;
+		t = max(t, xyR);
+	}
 
-	REAL4 f = fabs(aux->const_c) - (REAL4){e, d, 0.0f, 0.0f};
-
-	e = max(f.x, f.y); // sq
-	t = max(e, t);
-
+	if (fractal->transformCommon.functionEnabledSFalse) // clip
+	{
+		REAL4 f = fabs(aux->const_c) - fractal->transformCommon.offset333;
+		REAL e = max(max(f.x, f.y), f.z);
+		t = max(e, t);
+	}
 
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, t / (aux->DE + fractal->analyticDE.offset1));
