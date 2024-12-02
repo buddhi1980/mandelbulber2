@@ -19,7 +19,7 @@
 
 REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
+
 
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -46,15 +46,29 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	// z = fabs(z);
 	REAL4 zc = z;
-	if (!fractal->transformCommon.functionEnabledMFalse)
+	if (!fractal->transformCommon.functionEnabledMFalse
+			&& aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
 		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05 + fractal->transformCommon.offset0;
-	else
-		zc.y = zc.y + sign(zc.x) + fractal->transformCommon.offset0;
 
-	if (!fractal->transformCommon.functionEnabledOFalse)
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux->i >= fractal->transformCommon.startIterationsN
+			&& aux->i < fractal->transformCommon.stopIterationsN)
+		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05 + fractal->transformCommon.offsetF0;
+
+
+
+	if (!fractal->transformCommon.functionEnabledFalse)
 		zc.x = max(fabs(zc.x) + fractal->transformCommon.offset05,
 			fabs(zc.y) + fractal->transformCommon.offsetA05);
 	else
+		zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
+			fabs(zc.y) + fractal->transformCommon.offsetA05);
+
+
+
+
+	if (fractal->transformCommon.functionEnabledCFalse)
 		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // circ
 
 	REAL t = zc.x - round(zc.x);
@@ -64,19 +78,20 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
-			t = max(t, fabs(zc.z)) - fractal->transformCommon.offset02;
+			t = max(t, fabs(zc.z));
 		else
 		{
 			REAL zz = (zc.z);
 			if (fractal->transformCommon.functionEnabledFFalse) zz = fabs(zz);
 			zz = (zz) - fractal->transformCommon.offsetC0;
-			t = max(fabs(t) * SQRT_3_4_F + zz * 0.5f, -zz) - fractal->transformCommon.offset02;
-
+			t = max(fabs(t) * SQRT_3_4_F + zz * 0.5f, -zz);
 		}
-
 	}
 	else
-		t = sqrt(t * t + zc.z * zc.z) - fractal->transformCommon.offset02;
+		t = sqrt(t * t + zc.z * zc.z);
+
+	t -= fractal->transformCommon.offset02;
+
 
 	if (fractal->transformCommon.functionEnabledGFalse)
 	{
@@ -98,16 +113,22 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL colorAdd = 0.0f;
+		if (colDist != aux->dist) colorAdd += fractal->foldColor.difs0000.x;
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
-				aux->color += fractal->foldColor.difs0000.y;
-			//if (xyR <= -fractal->transformCommon.offsetp01) aux->color += fractal->foldColor.difs0000.z;
+				colorAdd += fractal->foldColor.difs0000.y;
+			//if (xyR <= -fractal->transformCommon.offsetp01) colorAdd += fractal->foldColor.difs0000.z;
 			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
-			//	aux->color += fractal->foldColor.difs0000.w;
+			//	colorAdd += fractal->foldColor.difs0000.w;
 		}
+		if (fractal->foldColor.auxColorEnabled)
+			aux->color = colorAdd;
+		else
+			aux->color += colorAdd;
+
 	}
 	return z;
 }
