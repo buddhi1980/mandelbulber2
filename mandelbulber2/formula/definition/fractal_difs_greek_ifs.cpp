@@ -55,6 +55,9 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	// z = fabs(z);
 	CVector4 zc = z;
+
+		if (zc.x > 0.0 ) zc.y += fractal->transformCommon.offsetA0;
+
 	if (!fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
@@ -67,15 +70,20 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05 + fractal->transformCommon.offsetF0;
 
 	if (!fractal->transformCommon.functionEnabledOFalse)
-		zc.x = max(fabs(zc.x) + fractal->transformCommon.offset05,
-			fabs(zc.y) + fractal->transformCommon.offsetA05);
-	else
-		zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
-			fabs(zc.y) + fractal->transformCommon.offsetA05);
+	{
+		if (!fractal->transformCommon.functionEnabledFalse)
+			zc.x = max(fabs(zc.x) + fractal->transformCommon.offset05,
+				fabs(zc.y) + fractal->transformCommon.offsetA05);
+		else
+			zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
+				fabs(zc.y) + fractal->transformCommon.offsetA05);
+	}
 
 
 
-	if (fractal->transformCommon.functionEnabledCFalse)
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
 		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // circ
 
 	double t = zc.x - round(zc.x);
@@ -138,9 +146,9 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			//	colorAdd += fractal->foldColor.difs0000.w;
 		}
 		if (fractal->foldColor.auxColorEnabled)
-			aux.color = colorAdd;
-		else
 			aux.color += colorAdd;
+		else
+			aux.color = colorAdd;
 
 
 

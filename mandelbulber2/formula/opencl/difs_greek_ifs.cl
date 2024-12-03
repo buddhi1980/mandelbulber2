@@ -46,6 +46,9 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	// z = fabs(z);
 	REAL4 zc = z;
+
+	if (zc.x > 0.0f ) zc.y += fractal->transformCommon.offsetA0;
+
 	if (!fractal->transformCommon.functionEnabledMFalse
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
@@ -54,21 +57,27 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
 			&& aux->i < fractal->transformCommon.stopIterationsN)
-		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05 + fractal->transformCommon.offsetF0;
+		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05
+				+ fractal->transformCommon.offsetF0;
 
 
 
-	if (!fractal->transformCommon.functionEnabledFalse)
-		zc.x = max(fabs(zc.x) + fractal->transformCommon.offset05,
-			fabs(zc.y) + fractal->transformCommon.offsetA05);
-	else
-		zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
-			fabs(zc.y) + fractal->transformCommon.offsetA05);
+	if (!fractal->transformCommon.functionEnabledOFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledFalse)
+			zc.x = max(fabs(zc.x) + fractal->transformCommon.offset05,
+				fabs(zc.y) + fractal->transformCommon.offsetA05);
+		else
+			zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
+				fabs(zc.y) + fractal->transformCommon.offsetA05);
+	}
 
 
 
 
-	if (fractal->transformCommon.functionEnabledCFalse)
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
 		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // circ
 
 	REAL t = zc.x - round(zc.x);
@@ -125,9 +134,9 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			//	colorAdd += fractal->foldColor.difs0000.w;
 		}
 		if (fractal->foldColor.auxColorEnabled)
-			aux->color = colorAdd;
-		else
 			aux->color += colorAdd;
+		else
+			aux->color = colorAdd;
 
 	}
 	return z;
