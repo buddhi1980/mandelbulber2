@@ -61,13 +61,15 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (!fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
-		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05 + fractal->transformCommon.offset0;
+		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05
+				+ fractal->transformCommon.offset0;
 
 
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux.i >= fractal->transformCommon.startIterationsN
 				&& aux.i < fractal->transformCommon.stopIterationsN)
-		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05 + fractal->transformCommon.offsetF0;
+		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05
+				+ fractal->transformCommon.offsetF0;
 
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -90,22 +92,26 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	t = fabs(t) - fractal->transformCommon.offsetB0;
 
-	if (!fractal->transformCommon.functionEnabledDFalse)
+
+	if (fractal->transformCommon.functionEnabledCx)
+		t = max(t, fabs(zc.z));
+	if (fractal->transformCommon.functionEnabledDFalse)
+		t = sqrt(t * t + zc.z * zc.z);
+	if (fractal->transformCommon.functionEnabledEFalse)
+		t = max(fabs(t) * SQRT_3_4 + zc.z * 0.5, -zc.z);
+	if (fractal->transformCommon.functionEnabledFFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			t = max(t, fabs(zc.z)); // sq
-		else
-		{
-			double zz = (zc.z);
-			if (fractal->transformCommon.functionEnabledFFalse) zz = fabs(zz);
-			zz = (zz) - fractal->transformCommon.offsetC0;
-			t = max(fabs(t) * SQRT_3_4 + zz * 0.5, -zz);
-
-		}
+		double zA = zc.z;
+		if (!fractal->transformCommon.functionEnabledAyFalse)
+			zA = fabs(zA);
+		if (fractal->transformCommon.functionEnabledCyFalse)
+			zA = -(zA);
+		double zB = zc.z;
+		zB = fabs(zB) - fractal->transformCommon.offsetC0;
+		if (fractal->transformCommon.functionEnabledCzFalse)
+			zB = -zB;
+		t = max(fabs(t) * SQRT_3_4 + zA * 0.5, zB);
 	}
-	else
-		t = sqrt(t * t + zc.z * zc.z); // circ
-
 
 	t -= fractal->transformCommon.offset02;
 
@@ -137,7 +143,7 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-	//		if (t == f.x) colorAdd += fractal->foldColor.difs0000.y;
+			if (zc.z < fabs(zc.z)) colorAdd += fractal->foldColor.difs0000.y;
 	//		if (t == f.y) colorAdd += fractal->foldColor.difs0000.z;
 	//		if (t == t) aux.color += fractal->foldColor.difs0000.w;
 			//if (xyR <= -fractal->transformCommon.offsetp01)

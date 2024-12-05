@@ -84,23 +84,27 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	t = fabs(t) - fractal->transformCommon.offsetB0;
 
-	if (!fractal->transformCommon.functionEnabledDFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			t = max(t, fabs(zc.z));
-		else
-		{
-			REAL zz = (zc.z);
-			if (fractal->transformCommon.functionEnabledFFalse) zz = fabs(zz);
-			zz = (zz) - fractal->transformCommon.offsetC0;
-			t = max(fabs(t) * SQRT_3_4_F + zz * 0.5f, -zz);
-		}
-	}
-	else
+	if (fractal->transformCommon.functionEnabledCx)
+		t = max(t, fabs(zc.z));
+	if (fractal->transformCommon.functionEnabledDFalse)
 		t = sqrt(t * t + zc.z * zc.z);
+	if (fractal->transformCommon.functionEnabledEFalse)
+		t = max(fabs(t) * SQRT_3_4_F + zc.z * 0.5f, -zc.z);
+	if (fractal->transformCommon.functionEnabledFFalse)
+	{
+		REAL zA = zc.z;
+		if (!fractal->transformCommon.functionEnabledAyFalse)
+			zA = fabs(zA);
+		if (fractal->transformCommon.functionEnabledCyFalse)
+			zA = -(zA);
+		REAL zB = zc.z;
+		zB = fabs(zB) - fractal->transformCommon.offsetC0;
+		if (fractal->transformCommon.functionEnabledCzFalse)
+			zB = -zB;
+		t = max(fabs(t) * SQRT_3_4_F + zA * 0.5f, zB);
+	}
 
 	t -= fractal->transformCommon.offset02;
-
 
 	if (fractal->transformCommon.functionEnabledGFalse)
 	{
@@ -127,8 +131,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
-				colorAdd += fractal->foldColor.difs0000.y;
+			if (zc.z < fabs(zc.z)) colorAdd += fractal->foldColor.difs0000.y;
 			//if (xyR <= -fractal->transformCommon.offsetp01) colorAdd += fractal->foldColor.difs0000.z;
 			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			//	colorAdd += fractal->foldColor.difs0000.w;
