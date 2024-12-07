@@ -19,26 +19,14 @@
 
 REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
-		{
-			z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
-		}
-		if (fractal->transformCommon.functionEnabledByFalse)
-		{
-			z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
-		}
-		if (fractal->transformCommon.functionEnabledBzFalse)
-		{
-			z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
-		}
+		z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
+		z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
+		z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
 	}
-
 
 	z *= fractal->transformCommon.scale2;
 	aux->DE *= fractal->transformCommon.scale2;
@@ -52,15 +40,14 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (!fractal->transformCommon.functionEnabledMFalse
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
-		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05 + fractal->transformCommon.offset0;
+		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05
+				+ fractal->transformCommon.offset0;
 
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
 			&& aux->i < fractal->transformCommon.stopIterationsN)
 		zc.x = zc.x + sign(zc.y) * fractal->transformCommon.offsetB05
 				+ fractal->transformCommon.offsetF0;
-
-
 
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -72,9 +59,6 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				fabs(zc.y) + fractal->transformCommon.offsetA05);
 	}
 
-
-
-
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
@@ -82,7 +66,12 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL t = zc.x - round(zc.x);
 
-	t = fabs(t) - fractal->transformCommon.offsetB0;
+
+//t = fabs(t) - fractal->transformCommon.offsetB0;
+	if (fractal->transformCommon.functionEnabledBx)
+		t = fabs(t) - fractal->transformCommon.offsetF000.x;
+	if (fractal->transformCommon.functionEnabledByFalse)
+		zc.z = fabs(zc.z) - fractal->transformCommon.offsetF000.y;
 
 	if (fractal->transformCommon.functionEnabledCx)
 		t = max(t, fabs(zc.z));
@@ -95,21 +84,25 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		REAL zA = zc.z;
 		if (!fractal->transformCommon.functionEnabledAyFalse)
 			zA = fabs(zA);
+
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			zA = -(zA);
+			zA = -zA;
+
 		REAL zB = zc.z;
 		zB = fabs(zB) - fractal->transformCommon.offsetC0;
+
 		if (fractal->transformCommon.functionEnabledCzFalse)
 			zB = -zB;
+
 		t = max(fabs(t) * SQRT_3_4_F + zA * 0.5f, zB);
 	}
 
 	t -= fractal->transformCommon.offset02;
 
+	REAL xyR = t;
 	if (fractal->transformCommon.functionEnabledGFalse)
 	{
-		REAL xyR = t;
-		xyR = fabs(xyR) - fractal->transformCommon.offsetp01;
+		t = fabs(t) - fractal->transformCommon.offsetp01;
 		t = max(t, xyR);
 	}
 
@@ -132,9 +125,11 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (zc.z < fabs(zc.z)) colorAdd += fractal->foldColor.difs0000.y;
+			colorAdd += fabs(z.z) * fractal->foldColor.difs0000.z;
+			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 			//if (xyR <= -fractal->transformCommon.offsetp01) colorAdd += fractal->foldColor.difs0000.z;
 			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
-			//	colorAdd += fractal->foldColor.difs0000.w;
+			if (xyR < t) colorAdd += fractal->foldColor.difs0;
 		}
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
