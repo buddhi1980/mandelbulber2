@@ -82,6 +82,8 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 		&cPrimitivesManager::slotButtonAddPrimitive);
 	connect(ui->pushButton_add_primitive_prism, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_ellipsoid, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
 
 	connect(ui->pushButton_deletePrimitive, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonDeletePrimitive);
@@ -534,4 +536,5 @@ void cPrimitivesManager::SetIconSizes()
 	ui->pushButton_add_primitive_sphere->setIconSize(iconSize);
 	ui->pushButton_add_primitive_torus->setIconSize(iconSize);
 	ui->pushButton_add_primitive_water->setIconSize(iconSize);
+	ui->pushButton_add_primitive_ellipsoid->setIconSize(iconSize);
 }

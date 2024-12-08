@@ -268,6 +268,26 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="pushButton_add_primitive_ellipsoid">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset resource="icons.qrc">
+         <normaloff>:/primitives/icons/ellipsoid.png</normaloff>:/primitives/icons/ellipsoid.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

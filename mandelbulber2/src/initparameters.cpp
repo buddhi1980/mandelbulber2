@@ -1397,6 +1397,16 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			break;
+		case fractal::objEllipsoid:
+			par->addParam(
+				QString(primitiveName) + "_size", CVector3(1.0, 0.5, 0.5), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(1.4, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-1.4, -0.7, -0.7), morphAkima,
+				paramStandard);
+			break;
 
 		default: break;
 	}
@@ -1999,6 +2009,13 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_prism_angle");
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			break;
+		case fractal::objEllipsoid:
+			par->DeleteParameter(QString(primitiveName) + "_size");
+			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 
 		default: break;

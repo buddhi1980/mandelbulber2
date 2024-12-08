@@ -117,29 +117,6 @@ struct sPrimitiveSphere : sPrimitiveBasic
 	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
-struct sPrimitiveWater : sPrimitiveBasic
-{
-	sPrimitiveWater(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool waveFromObjectsEnable;
-	bool limitsEnable;
-	double relativeAmplitude;
-	double animSpeed;
-	double animProgressionSpeed;
-	double length;
-	double waveFromObjectsRelativeAmplitude;
-	int iterations;
-	int animFrame;
-	double PrimitiveDistance(CVector3 _point) const override;
-	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
-	CVector3 limitsMax;
-	CVector3 limitsMin;
-
-	static tWireframeShape wireFrameShape;
-	static void InitPrimitiveWireframeShape();
-	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
-};
-
 struct sPrimitiveCone : sPrimitiveBasic
 {
 	sPrimitiveCone(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
@@ -228,6 +205,44 @@ struct sPrimitivePrism : sPrimitiveBasic
 	double prismAngle;
 	CVector3 normals;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
+};
+
+struct sPrimitiveEllipsoid : sPrimitiveBasic
+{
+	sPrimitiveEllipsoid(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	bool empty;
+	bool limitsEnable;
+	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
+	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
+};
+
+struct sPrimitiveWater : sPrimitiveBasic
+{
+	sPrimitiveWater(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	bool empty;
+	bool waveFromObjectsEnable;
+	bool limitsEnable;
+	double relativeAmplitude;
+	double animSpeed;
+	double animProgressionSpeed;
+	double length;
+	double waveFromObjectsRelativeAmplitude;
+	int iterations;
+	int animFrame;
+	double PrimitiveDistance(CVector3 _point) const override;
+	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 
 	static tWireframeShape wireFrameShape;
 	static void InitPrimitiveWireframeShape();

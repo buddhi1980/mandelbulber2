@@ -50,7 +50,8 @@ enum enumObjectType
 	objCone = 7,
 	objCylinder = 8,
 	objTorus = 9,
-	objPrism = 10
+	objPrism = 10,
+	objEllipsoid = 11
 };
 }
 

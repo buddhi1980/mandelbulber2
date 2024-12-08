@@ -416,6 +416,50 @@ void sPrimitivePrism::InitPrimitiveWireframeShape()
 	};
 }
 
+sPrimitiveEllipsoid::sPrimitiveEllipsoid(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = par->Get<CVector3>(fullName + "_size");
+	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
+	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
+	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+}
+
+sPrimitiveBasic::tWireframeShape sPrimitiveEllipsoid::wireFrameShape = {};
+
+void sPrimitiveEllipsoid::InitPrimitiveWireframeShape()
+{
+	// TDDO - making ellipsoid instead of sphere
+
+	double r = 0.5;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
+	for (double alpha = -M_PI * 0.5; alpha < M_PI * 0.5; alpha += angleStep)
+	{
+		for (double beta = 0.0; beta < 2.0 * M_PI; beta += angleStep)
+		{
+			double z1 = sin(alpha) * r;
+			double r1 = cos(alpha) * r;
+			double x1 = r1 * cos(beta);
+			double y1 = r1 * sin(beta);
+			double x2 = r1 * cos(beta + angleStep);
+			double y2 = r1 * sin(beta + angleStep);
+			wireFrameShape.push_back({{x1, y1, z1}, {x2, y2, z1}});
+			double z3 = sin(alpha + angleStep) * r;
+			double r3 = cos(alpha + angleStep) * r;
+			double x3 = r3 * cos(beta);
+			double y3 = r3 * sin(beta);
+			wireFrameShape.push_back({{x1, y1, z1}, {x3, y3, z3}});
+		}
+	}
+
+	wireFrameShape.push_back({{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
+}
+
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
@@ -641,4 +685,24 @@ double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
 		max(q.x * normals.y + point.y * normals.z, -point.y + triangleHeight) - triangleHeight);
 
 	return empty ? fabs(dist) : dist;
+}
+
+double sPrimitiveEllipsoid::PrimitiveDistance(CVector3 _point) const
+{
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.repeatMod(repeat);
+
+	float k0 = (point / size).Length();
+	float k1 = (point / (size * size)).Length();
+	double dist = k0 * (k0 - 1.0) / k1;
+
+	dist = empty ? fabs(dist) : dist;
+	if (limitsEnable)
+	{
+		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
+		double limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
