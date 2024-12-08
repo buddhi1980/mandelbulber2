@@ -151,6 +151,15 @@ typedef struct
 
 typedef struct
 {
+	cl_int empty;
+	cl_int limitsEnable;
+	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
+} sPrimitiveEllipsoidCl;
+
+typedef struct
+{
 	cl_float3 allPrimitivesPosition;
 	cl_float3 allPrimitivesRotation;
 	matrix33 mRotAllPrimitivesRotation;
@@ -173,6 +182,7 @@ typedef union
 	sPrimitiveCircleCl circle;
 	sPrimitiveRectangleCl rectangle;
 	sPrimitivePrismCl prism;
+	sPrimitiveEllipsoidCl ellipsoid;
 } uPrimitiveCl;
 
 // full definition of primitive

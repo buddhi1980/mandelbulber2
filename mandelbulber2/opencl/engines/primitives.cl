@@ -286,6 +286,30 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 }
 #endif
 
+#ifdef USE_PRIMITIVE_ELLIPSOID
+float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
+{
+	float3 point = _point - primitive->object.position;
+	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	point = modRepeat(point, primitive->data.ellipsoid.repeat);
+
+	float k0 = length(point / primitive->object.size);
+	float k1 = length(point / (primitive->object.size * primitive->object.size));
+	float dist = k0 * (k0 - 1.0f) / k1;
+
+	dist = primitive->data.ellipsoid.empty ? fabs(dist) : dist;
+
+	if (primitive->data.ellipsoid.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.ellipsoid.limitsMax, primitive->data.ellipsoid.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
+}
+#endif
+
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
 	int *closestObjectId, int objectIdForVolumetrics)
@@ -385,6 +409,15 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 					break;
 				}
 #endif
+
+#ifdef USE_PRIMITIVE_ELLIPSOID
+				case objEllipsoid:
+				{
+					distTemp = PrimitiveEllipsoid(primitive, point2);
+					break;
+				}
+#endif
+
 				default: break;
 			}
 

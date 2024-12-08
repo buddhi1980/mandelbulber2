@@ -71,7 +71,8 @@ typedef enum
 	objCone = 7,
 	objCylinder = 8,
 	objTorus = 9,
-	objPrism = 10
+	objPrism = 10,
+	objEllipsoid = 11
 } enumObjectTypeCl;
 
 #endif /* MANDELBULBER2_OPENCL_OBJECT_TYPES_CL_HPP_ */
