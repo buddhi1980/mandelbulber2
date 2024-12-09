@@ -404,16 +404,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -1457,12 +1447,60 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>34</x>
-     <y>649</y>
+     <x>37</x>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>271</x>
      <y>656</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledBx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>108</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledBy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>102</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>118</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledBz_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>107</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>

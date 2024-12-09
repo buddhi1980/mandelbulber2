@@ -52,7 +52,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	aux->DE *= fractal->transformCommon.scale2;
 	z += fractal->transformCommon.offsetA000;
 
-	// z = fabs(z);
+	//
 	REAL4 zc = z;
 
 	if (zc.x > 0.0f ) zc.y += fractal->transformCommon.offsetA0;
@@ -86,7 +86,6 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL t = zc.x - round(zc.x);
 
-
 //t = fabs(t) - fractal->transformCommon.offsetB0;
 	if (fractal->transformCommon.functionEnabledBx)
 		t = fabs(t) - fractal->transformCommon.offsetF000.x;
@@ -103,16 +102,17 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	{
 		REAL zA = zc.z;
 		if (!fractal->transformCommon.functionEnabledCxFalse)
-			zA = fabs(zA);
+			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			zA = -zA;
+			zA = -zA - fractal->transformCommon.offsetB0;
 
 		REAL zB = zc.z;
-		zB = fabs(zB) - fractal->transformCommon.offsetC0;
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			zB = -zB;
+			zB = -zB - fractal->transformCommon.offsetC0;
 
 		t = max(fabs(t) * SQRT_3_4_F + zA * 0.5f, zB);
 	}

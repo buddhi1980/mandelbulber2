@@ -61,17 +61,16 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	aux.DE *= fractal->transformCommon.scale2;
 	z += fractal->transformCommon.offsetA000;
 
-	// z = fabs(z);
+	//
 	CVector4 zc = z;
 
-		if (zc.x > 0.0 ) zc.y += fractal->transformCommon.offsetA0;
+	if (zc.x > 0.0 ) zc.y += fractal->transformCommon.offsetA0;
 
 	if (!fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 		zc.y = zc.y + sign(zc.x) * fractal->transformCommon.scale05
 				+ fractal->transformCommon.offset0;
-
 
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux.i >= fractal->transformCommon.startIterationsN
@@ -88,8 +87,6 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			zc.y = max(fabs(zc.x) + fractal->transformCommon.offset05,
 				fabs(zc.y) + fractal->transformCommon.offsetA05);
 	}
-
-
 
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
@@ -113,16 +110,17 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	{
 		double zA = zc.z;
 		if (!fractal->transformCommon.functionEnabledCxFalse)
-			zA = fabs(zA);
+			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			zA = -zA;
+			zA = -zA - fractal->transformCommon.offsetB0;
 
 		double zB = zc.z;
-		zB = fabs(zB) - fractal->transformCommon.offsetC0;
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			zB = -zB;
+			zB = -zB - fractal->transformCommon.offsetC0;
 
 		t = max(fabs(t) * SQRT_3_4 + zA * 0.5, zB);
 	}
