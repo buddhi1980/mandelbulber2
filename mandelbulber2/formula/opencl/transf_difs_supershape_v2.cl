@@ -21,17 +21,30 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
-			z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
-		}
-		if (fractal->transformCommon.functionEnabledByFalse)
-		{
-			z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
-		}
-		if (fractal->transformCommon.functionEnabledBzFalse)
-		{
-			z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
+			if (fractal->transformCommon.functionEnabledAxFalse)
+			{
+				if (!fractal->transformCommon.functionEnabledBxFalse)
+					z.x = fractal->transformCommon.offset000.x - fabs(z.x);
+				else
+					z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
+			}
+
+			if (fractal->transformCommon.functionEnabledAyFalse)
+			{
+				if (!fractal->transformCommon.functionEnabledByFalse)
+					z.y = fractal->transformCommon.offset000.y - fabs(z.y);
+				else
+					z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
+			}
+
+			if (fractal->transformCommon.functionEnabledAzFalse)
+			{
+				if (!fractal->transformCommon.functionEnabledBzFalse)
+					z.z = fractal->transformCommon.offset000.z - fabs(z.z);
+				else
+					z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
+			}
 		}
 		z *= fractal->transformCommon.scale1;
 		aux->DE *= fractal->transformCommon.scale1;
