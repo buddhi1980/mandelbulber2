@@ -155,7 +155,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
 		else
-			aux.color = max(colorAdd, aux.color);
+			aux->color = max(colorAdd, aux->color);
 
 	}
 	return z;
