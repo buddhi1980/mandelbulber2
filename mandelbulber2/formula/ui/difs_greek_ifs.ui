@@ -1152,14 +1152,14 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy">
           <property name="text">
            <string notr="true">abs(zA)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
           <property name="text">
            <string notr="true">abs(zB)</string>
           </property>

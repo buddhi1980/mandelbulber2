@@ -109,14 +109,14 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		double zA = zc.z;
-		if (fractal->transformCommon.functionEnabledCxFalse)
+		if (fractal->transformCommon.functionEnabledCy)
 			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 			zA = -zA - fractal->transformCommon.offsetB0;
 
 		double zB = zc.z;
-		if (fractal->transformCommon.functionEnabledIFalse)
+		if (fractal->transformCommon.functionEnabledCz)
 			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
@@ -169,7 +169,7 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->foldColor.auxColorEnabled)
 			aux.color += colorAdd;
 		else
-			aux.color = colorAdd;
+			aux.color = max(colorAdd, aux.color); // hmmmm test when para neg
 
 
 

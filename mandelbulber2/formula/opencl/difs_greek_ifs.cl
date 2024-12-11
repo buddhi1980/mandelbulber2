@@ -101,14 +101,14 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		REAL zA = zc.z;
-		if (fractal->transformCommon.functionEnabledCxFalse)
+		if (fractal->transformCommon.functionEnabledCy)
 			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 			zA = -zA - fractal->transformCommon.offsetB0;
 
 		REAL zB = zc.z;
-		if (fractal->transformCommon.functionEnabledIFalse)
+		if (fractal->transformCommon.functionEnabledCz)
 			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
@@ -155,7 +155,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
 		else
-			aux->color = colorAdd;
+			aux.color = max(colorAdd, aux.color);
 
 	}
 	return z;
