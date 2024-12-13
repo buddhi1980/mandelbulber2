@@ -1063,7 +1063,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>thickness:</string>
+        <string>size:</string>
        </property>
       </widget>
      </item>
@@ -1126,11 +1126,18 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="2">
+        <item row="0" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
+          <property name="text">
+           <string notr="true">neg</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetC_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1158,21 +1165,14 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy">
           <property name="text">
-           <string notr="true">abs(zA)</string>
+           <string notr="true">abs()</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
-          <property name="text">
-           <string notr="true">abs(zB)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
+        <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetB_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1204,16 +1204,30 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
           <property name="text">
-           <string notr="true">neg zB</string>
+           <string notr="true">abs()</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
+        <item row="1" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
           <property name="text">
-           <string notr="true">neg zA</string>
+           <string notr="true">neg</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>zA</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>zB</string>
           </property>
          </widget>
         </item>
@@ -1611,14 +1625,14 @@
            <item row="3" column="0">
             <widget class="QLabel" name="label_182">
              <property name="text">
-              <string>w</string>
+              <string>z.z:</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_181">
              <property name="text">
-              <string>z</string>
+              <string>abs(z.z):</string>
              </property>
             </widget>
            </item>
@@ -1632,7 +1646,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_290">
              <property name="text">
-              <string>two col</string>
+              <string>top color:</string>
              </property>
             </widget>
            </item>
@@ -1723,7 +1737,7 @@
            <item row="1" column="0">
             <widget class="QLabel" name="label_291">
              <property name="text">
-              <string>two col</string>
+              <string>top offset:</string>
              </property>
             </widget>
            </item>

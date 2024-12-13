@@ -94,7 +94,6 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // spiral
 
 	double t = zc.x - round(zc.x);
-	//			t = fabs(t) - fractal->transformCommon.offsetB0;
 	if (fractal->transformCommon.functionEnabledBx)
 		t = fabs(t) - fractal->transformCommon.offsetF000.x;
 	if (fractal->transformCommon.functionEnabledKFalse)
@@ -113,14 +112,14 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			zA = -zA - fractal->transformCommon.offsetB0;
+			zA = -zA + fractal->transformCommon.offsetB0;
 
 		double zB = zc.z;
 		if (fractal->transformCommon.functionEnabledCz)
 			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			zB = -zB - fractal->transformCommon.offsetC0;
+			zB = -zB + fractal->transformCommon.offsetC0;
 
 		t = max(fabs(t) * SQRT_3_4 + zA * 0.5, zB);
 	}
@@ -157,7 +156,7 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		{
 			if (zc.z > fractal->transformCommon.offsetF000.z)
 				colorAdd += fractal->foldColor.difs0000.y;
-			colorAdd += fabs(z.z) * fractal->foldColor.difs0000.z;
+			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 	//		if (t == f.y) colorAdd += fractal->foldColor.difs0000.z;
 	//		if (t == t) aux.color += fractal->foldColor.difs0000.w;

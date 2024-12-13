@@ -86,7 +86,6 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL t = zc.x - round(zc.x);
 
-//t = fabs(t) - fractal->transformCommon.offsetB0;
 	if (fractal->transformCommon.functionEnabledBx)
 		t = fabs(t) - fractal->transformCommon.offsetF000.x;
 	if (fractal->transformCommon.functionEnabledKFalse)
@@ -105,14 +104,14 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			zA = fabs(zA) - fractal->transformCommon.offsetB0;
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			zA = -zA - fractal->transformCommon.offsetB0;
+			zA = -zA + fractal->transformCommon.offsetB0;
 
 		REAL zB = zc.z;
 		if (fractal->transformCommon.functionEnabledCz)
 			zB = fabs(zB) - fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			zB = -zB - fractal->transformCommon.offsetC0;
+			zB = -zB + fractal->transformCommon.offsetC0;
 
 		t = max(fabs(t) * SQRT_3_4_F + zA * 0.5f, zB);
 	}
@@ -146,7 +145,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			if (zc.z > fractal->transformCommon.offsetF000.z)
 				colorAdd += fractal->foldColor.difs0000.y;
-			colorAdd += fabs(z.z) * fractal->foldColor.difs0000.z;
+			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 			//if (xyR <= -fractal->transformCommon.offsetp01) colorAdd += fractal->foldColor.difs0000.z;
 			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
