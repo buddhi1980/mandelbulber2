@@ -145,7 +145,9 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	aux.dist = min(d, aux.dist);
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double addColor = 0.0;
 		if (aux.dist == d)

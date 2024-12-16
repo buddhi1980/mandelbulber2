@@ -61,7 +61,6 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	aux.DE *= fractal->transformCommon.scale2;
 	z += fractal->transformCommon.offsetA000;
 
-	//
 	CVector4 zc = z;
 
 	if (zc.x > 0.0 ) zc.y += fractal->transformCommon.offsetA0;
@@ -88,10 +87,10 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 				fabs(zc.y) + fractal->transformCommon.offsetA05);
 	}
 
-	if (fractal->transformCommon.functionEnabledCFalse
+	if (fractal->transformCommon.functionEnabledCFalse // spiral
 			&& aux.i >= fractal->transformCommon.startIterationsC
 				&& aux.i < fractal->transformCommon.stopIterationsC)
-		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // spiral
+		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
 	double t = zc.x - round(zc.x);
 	if (fractal->transformCommon.functionEnabledBx)
@@ -126,9 +125,8 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	t -= fractal->transformCommon.offset02;
 
-
 	double xyR = t;
-	if (fractal->transformCommon.functionEnabledGFalse)
+	if (fractal->transformCommon.functionEnabledGFalse) // hollow
 	{
 		t = fabs(t) - fractal->transformCommon.offsetp01;
 		t = max(t, xyR);
@@ -140,7 +138,6 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		double e = max(max(f.x, f.y), f.z);
 		t = max(e, t);
 	}
-
 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, t / (aux.DE + fractal->analyticDE.offset1));
@@ -158,11 +155,6 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 				colorAdd += fractal->foldColor.difs0000.y;
 			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
-	//		if (t == f.y) colorAdd += fractal->foldColor.difs0000.z;
-	//		if (t == t) aux.color += fractal->foldColor.difs0000.w;
-			//if (xyR <= -fractal->transformCommon.offsetp01)
-			//	colorAdd += fractal->foldColor.difs0000.z;
-		//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			if (xyR < t) colorAdd += fractal->foldColor.difs0;
 		}
 		if (fractal->foldColor.auxColorEnabled)

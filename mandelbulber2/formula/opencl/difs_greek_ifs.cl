@@ -52,7 +52,6 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	aux->DE *= fractal->transformCommon.scale2;
 	z += fractal->transformCommon.offsetA000;
 
-	//
 	REAL4 zc = z;
 
 	if (zc.x > 0.0f ) zc.y += fractal->transformCommon.offsetA0;
@@ -79,10 +78,10 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				fabs(zc.y) + fractal->transformCommon.offsetA05);
 	}
 
-	if (fractal->transformCommon.functionEnabledCFalse
+	if (fractal->transformCommon.functionEnabledCFalse // spiral
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
-		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y)); // spiral
+		zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
 	REAL t = zc.x - round(zc.x);
 
@@ -119,7 +118,7 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	t -= fractal->transformCommon.offset02;
 
 	REAL xyR = t;
-	if (fractal->transformCommon.functionEnabledGFalse)
+	if (fractal->transformCommon.functionEnabledGFalse) // hollow
 	{
 		t = fabs(t) - fractal->transformCommon.offsetp01;
 		t = max(t, xyR);
@@ -135,7 +134,8 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, t / (aux->DE + fractal->analyticDE.offset1));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
@@ -147,15 +147,12 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				colorAdd += fractal->foldColor.difs0000.y;
 			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
-			//if (xyR <= -fractal->transformCommon.offsetp01) colorAdd += fractal->foldColor.difs0000.z;
-			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			if (xyR < t) colorAdd += fractal->foldColor.difs0;
 		}
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
 		else
 			aux->color = max(colorAdd, aux->color);
-
 	}
 	return z;
 }

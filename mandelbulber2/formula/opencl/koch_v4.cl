@@ -153,7 +153,9 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	aux->dist = min(d, aux->dist);
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL addColor = 0.0f;
 		if (aux->dist == d)

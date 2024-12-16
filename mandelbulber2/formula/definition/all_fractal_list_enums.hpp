@@ -579,7 +579,7 @@ enum enumFractalFormula
 	transfDIFSOctahedron = 1642,
 	transfDIFSOctahedronV2 = 1643,
 	transfDIFSSupershapeV2 = 1644,
-
+	transfDIFSTube = 1645,
 
 
 

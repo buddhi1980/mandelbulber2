@@ -352,6 +352,8 @@ FRACTAL_CLASS(cFractalTransfDIFSSpring)
 FRACTAL_CLASS(cFractalTransfDIFSSupershape)
 FRACTAL_CLASS(cFractalTransfDIFSSupershapeV2)
 FRACTAL_CLASS(cFractalTransfDIFSTorus)
+
+FRACTAL_CLASS(cFractalTransfDIFSTube)
 FRACTAL_CLASS(cFractalTransfDIFSTorusGrid)
 FRACTAL_CLASS(cFractalTransfDIFSTorusMenger)
 FRACTAL_CLASS(cFractalTransfDIFSTorusTwist)

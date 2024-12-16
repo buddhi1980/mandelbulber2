@@ -585,7 +585,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalDIFSGreekIfs());
 
-
+	fractalList->append(new cFractalTransfDIFSTube());
 
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
