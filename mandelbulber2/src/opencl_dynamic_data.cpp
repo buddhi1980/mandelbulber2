@@ -641,6 +641,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 		primitiveCl.object.usedForVolumetric = primitive->usedForVolumetric;
+		primitiveCl.object.wallThickness = primitive->wallThickness;
 
 		try
 		{
