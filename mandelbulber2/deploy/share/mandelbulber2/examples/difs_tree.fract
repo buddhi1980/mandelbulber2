@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_color ff00 e700 b500;
@@ -7,7 +7,7 @@ basic_fog_color c700 c500 bd00;
 basic_fog_visibility 40;
 camera -17,5610634583584 -7,5308465024191 1,08439866734172;
 camera_distance_to_target 19,2285015808534;
-camera_rotation -50,7448534075768 7,39165614056549 -2,61339734530836;
+camera_rotation -50,7448534075769 7,39165614056549 -2,61339734530836;
 camera_top -0,1283679721373004 -0,04601550718619636 0,9906584864764216;
 DOF_max_noise 2;
 DOF_MC_global_illumination true;
@@ -43,6 +43,10 @@ mat1_surface_color_gradient 0 7e6555 3333 593322 6666 61e837;
 mat1_surface_roughness 0,08;
 mat1_texture_fractalize true;
 mat2_is_defined true;
+mat2_perlin_noise_displacement_enable true;
+mat2_perlin_noise_displacement_intensity 2;
+mat2_perlin_noise_enable true;
+mat2_perlin_noise_period 0,0625 0,0625 2;
 mat2_surface_color 7100 b500 4c00;
 mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat2_surface_gradient_enable false;

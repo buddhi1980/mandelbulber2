@@ -1,18 +1,19 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.33
 # only modified parameters
 [main_parameters]
+antialiasing_enabled true;
 background_3_colors_enable false;
 background_color_1 0000 0000 0000;
 camera 0,259423264564731 0,0982136027960323 0,175588616567961;
 camera_distance_to_target 0,287274609954137;
-camera_rotation -24,2868887528056 -52,6834327033963 -14,525858148021;
+camera_rotation -24,2868887528057 -52,6834327033963 -14,5258581480211;
 camera_top 0,0880355475273166 0,804902575654965 0,586840341213493;
 DE_factor 0,125;
 detail_level 4;
 flight_last_to_render 0;
-glow_color_1 0500 3300 fd00;
-glow_color_2 8700 2700 0700;
+glow_color_1 0600 3800 ff00;
+glow_color_2 9400 2800 0800;
 glow_intensity 2,5239873886054;
 hdr true;
 image_height 1080;
@@ -30,7 +31,7 @@ mat1_specular_plastic_enable false;
 mat1_surface_color 3500 3500 3500;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-N 31;
+N 23;
 raytraced_reflections true;
 target 0,331052640971462 0,256951928140046 -0,0528803704452932;
 view_distance_max 13,9772706586567;

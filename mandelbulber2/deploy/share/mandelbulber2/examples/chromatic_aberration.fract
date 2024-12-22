@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_brightness 3;
@@ -8,7 +8,7 @@ background_color_2 ff00 d900 aa00;
 boolean_operators true;
 camera -0,666660186814969 -1,00832830894399 0;
 camera_distance_to_target 5,08864059225265;
-camera_rotation 6,75572720443223e-05 0 0;
+camera_rotation 6,75572720443223E-05 0 0;
 camera_top 0 0 1;
 constant_DE_threshold true;
 DE_thresh 0,001004780986499;
@@ -25,16 +25,26 @@ flight_last_to_render 0;
 formula_1 7;
 formula_2 10;
 formula_material_id_2 2;
+formula_maxiter_1 25;
+formula_maxiter_2 25;
+formula_maxiter_3 25;
+formula_maxiter_4 25;
+formula_maxiter_5 25;
+formula_maxiter_6 25;
+formula_maxiter_7 25;
+formula_maxiter_8 25;
+formula_maxiter_9 25;
 formula_position_2 -0,66 -0,66 0;
 formula_rotation_2 9,46 -15,42 -29,74;
 formula_scale_2 0,0625;
 fov 53,130102354156;
+gamma 1,4;
 hdr true;
 image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
-light1_intensity 3,0528625477166;
+light1_intensity 6,1057250954332;
 light1_is_defined true;
 light1_rotation -79,29 12,99 0;
 light1_soft_shadow_cone 2;
@@ -58,6 +68,7 @@ MC_soft_shadows_enable true;
 N 25;
 raytraced_reflections true;
 reflections_max 4;
+saturation 1,4;
 target -0,666666186814969 4,08031228330512 0;
 view_distance_max 13,7754934542987;
 [fractal_2]

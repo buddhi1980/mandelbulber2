@@ -1,12 +1,13 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-brightness 1,6;
-camera 1,344614394034239 -1,649955541384339 1,337101246967557;
-camera_distance_to_target 5,999999999999998;
-camera_rotation 9,79024095691917 -14,78933746130749 -2,203844054272068;
-camera_top -0,08126854688016884 0,2448233760004033 0,9661557523773022;
+brightness 2;
+camera 1,29073768892913 -1,48536580595052 1,2904087045186;
+camera_distance_to_target 0,0104904528707205;
+camera_rotation 18,9382577102105 -17,0642302854228 0,0994399222257369;
+camera_top -0,0935950873247294 0,278121986642027 0,955974957922522;
+detail_level 2;
 flight_last_to_render 0;
 fog_color_2 ff00 0000 0000;
 fog_color_3 5500 0000 0000;
@@ -15,19 +16,26 @@ hdr true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_intensity 4;
+light1_is_defined true;
+mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
-mat1_reflectance 0,48;
+mat1_reflectance 1;
 mat1_specular 1;
 mat1_specular_width 1;
+mat1_surface_color 0b00 2400 4c00;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_transparency_index_of_refraction 6;
+mat1_use_colors_from_palette false;
 raytraced_reflections true;
-reflections_max 2;
-target 0,3581644181430911 4,066785946655577 -0,1944937399619144;
-volumetric_fog_colour_1_distance 0,002311972067626513;
-volumetric_fog_colour_2_distance 0,004623944135253026;
-volumetric_fog_density 0,0331131;
-volumetric_fog_distance_factor 0,004623944135253026;
+reflections_max 3;
+target 1,28748290791087 -1,47588004151933 1,28733034860806;
+volumetric_fog_colour_1_distance 0,00192060288419113;
+volumetric_fog_colour_2_distance 0,00384120576838226;
+volumetric_fog_density 0,125;
+volumetric_fog_distance_factor 0,00384120576838226;
+volumetric_fog_distance_from_surface 7,8125E-18;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale -1,73;

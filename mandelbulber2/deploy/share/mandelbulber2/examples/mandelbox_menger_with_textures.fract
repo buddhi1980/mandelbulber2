@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [description]
 This settings file uses textures from folowing sources:
@@ -11,17 +11,10 @@ Textures will be automatically downloaded from Internet.
 [main_parameters]
 ambient_occlusion_enabled true;
 antialiasing_enabled true;
-aux_light_colour_1 e800 b200 4500;
-aux_light_enabled_1 true;
-aux_light_intensity_1 0,00218776;
-aux_light_position_1 0,726501505511673 -3,763421377941115 -0,4677548954912502;
-aux_light_visibility 40;
-aux_light_visibility_size 0,0457088;
-camera 0,6493862306065962 -3,636500576730637 -0,4846859057990472;
-camera_distance_to_target 0,1952546663195931;
-camera_rotation -159,6341510483104 10,51424468291302 0;
+camera 0,649386230606596 -3,63650057673064 -0,484685905799047;
+camera_distance_to_target 0,19525466631959;
+camera_rotation -159,63415104831 10,5142446829131 -1,01777749806833E-13;
 camera_top -0,06350546139404986 0,1710730751848166 0,9832095703968401;
-detail_level 0,5;
 flight_last_to_render 0;
 formula_1 91;
 formula_material_id 3;
@@ -30,11 +23,18 @@ image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_is_defined true;
+light2_color e800 b200 4500;
+light2_enabled true;
+light2_intensity 0,00054694;
+light2_is_defined true;
+light2_position 0,726501505511673 -3,76342137794111 -0,46775489549125;
+light2_size 0,0914176;
+light2_visibility 40;
 mat1_is_defined true;
 mat1_specular 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat3_file_color_texture https://opengameart.org/sites/default/files/oga-textures/39985/shiny_red_glazed_pxr128.png;
-mat3_file_diffusion_texture ;
 mat3_file_normal_map_texture https://opengameart.org/sites/default/files/oga-textures/39985/shiny_red_glazed_pxr128_normal.png;
 mat3_is_defined true;
 mat3_metallic false;
@@ -45,7 +45,7 @@ mat3_specular_width 1;
 mat3_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat3_texture_mapping_type 1;
 mat3_texture_rotation 0 0 -23;
-mat3_texture_scale 0,01268804392794648 0,01268804392794648 0,01268804392794648;
+mat3_texture_scale 0,0126880439279465 0,0126880439279465 0,0126880439279465;
 mat3_use_color_texture true;
 mat3_use_colors_from_palette false;
 mat3_use_normal_map_texture true;
@@ -67,15 +67,14 @@ mat4_use_diffusion_texture true;
 mat4_use_normal_map_texture true;
 primitive_plane_1_enabled true;
 primitive_plane_1_material_id 4;
-primitive_plane_1_position 0,6602802511054613 -3,733171136982562 -0,5142867982518117;
+primitive_plane_1_position 0,660280251105461 -3,73317113698256 -0,514286798251812;
 reflections_max 2;
-smoothness 1,41254;
 SSAO_random_mode true;
-target 0,7161965250542389 -3,81647631856868 -0,4490558394892439;
-volumetric_fog_colour_1_distance 0,002184139800408215;
-volumetric_fog_colour_2_distance 0,004368279600816431;
+target 0,716196525054239 -3,81647631856868 -0,449055839489244;
+volumetric_fog_colour_1_distance 0,00218413980040821;
+volumetric_fog_colour_2_distance 0,00436827960081643;
 volumetric_fog_density 0,0281838;
-volumetric_fog_distance_factor 0,004368279600816431;
+volumetric_fog_distance_factor 0,00436827960081643;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale -0,791506;

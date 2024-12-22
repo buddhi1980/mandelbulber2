@@ -1,27 +1,32 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 background_color_1 0000 0000 5100;
 background_color_2 0000 0000 0000;
 background_color_3 2500 0f00 3900;
-camera -0,07970913902076304 -0,2286741401575292 0,7858908219811179;
-camera_distance_to_target 0,1036482753438502;
-camera_rotation 30,94982193945203 47,78339067095781 1,017777498068325e-13;
+camera -0,079709139020763 -0,228674140157529 0,785890821981118;
+camera_distance_to_target 0,10364827534385;
+camera_rotation 30,9498219394522 47,7833906709577 -1,01777749806833E-13;
 camera_top 0,3808861574177532 -0,6351603520541667 0,6719353110724021;
 DE_factor 0,239883;
 flight_last_to_render 0;
+fog_color_1 0500 2300 7500;
+fog_color_2 ff00 3900 0800;
+fog_color_3 ff00 1400 6e00;
 formula_1 50;
 glow_color_1 ff00 0f00 d300;
 glow_color_2 f300 e600 2700;
 glow_intensity 6,0256;
+hdr true;
 image_height 1200;
 image_width 1200;
 iteration_threshold_mode true;
-julia_c -0,4402413843149814 -0,4201318238913642 1,239910038107747;
+julia_c -0,440241384314981 -0,420131823891364 1,23991003810775;
 julia_mode true;
 keyframe_last_to_render 0;
+light1_is_defined true;
 mat1_fractal_coloring_algorithm 2;
 mat1_is_defined true;
 mat1_metallic false;
@@ -29,6 +34,12 @@ mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 404040 999 adadad 1999 e3e3e3 2999 424242 3999 aaaaaa 5000 5d5d5d 5999 dbdbdb 7000 dedede 7999 cdcdcd 9000 707070;
 N 13;
-target -0,115526637806085 -0,1689453873658308 0,8626537547837815;
+target -0,115526637806085 -0,168945387365831 0,862653754783781;
 use_default_bailout false;
-view_distance_max 11,36226504302695;
+view_distance_max 11,3622650430269;
+volumetric_fog_colour_1_distance 4,4226087720411E-06;
+volumetric_fog_colour_2_distance 8,8452175440822E-06;
+volumetric_fog_density 2;
+volumetric_fog_distance_factor 8,8452175440822E-06;
+volumetric_fog_distance_from_surface 0,001099511627776;
+volumetric_fog_enabled true;
