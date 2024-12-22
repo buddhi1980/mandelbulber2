@@ -222,6 +222,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="checkBox_navigator_monte_carlo">
+              <property name="toolTip">
+               <string>Enable volumetric effects calculation in the preview</string>
+              </property>
+              <property name="text">
+               <string>Monte Carlo</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="checkBox_navigator_dark_glow">
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable shadows, reflections and volumetric effects, and enable fast dark glow effect which improves perception of depth.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

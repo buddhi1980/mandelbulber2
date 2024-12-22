@@ -428,6 +428,11 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("basic_fog_enabled", false);
 	}
 
+	if (!ui->checkBox_navigator_monte_carlo->isChecked())
+	{
+		tempParams->Set("DOF_monte_carlo", false);
+	}
+
 	if (ui->checkBox_navigator_dark_glow->isChecked())
 	{
 		tempParams->Set("glow_enabled", true);
@@ -436,6 +441,8 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("glow_color_2", sRGB(0, 0, 0));
 		tempParams->Set("ambient_occlusion_fast_tune", 1.0);
 	}
+
+	tempParams->Set("antialiasing_enabled", false);
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, 1, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
