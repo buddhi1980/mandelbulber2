@@ -28,6 +28,14 @@ cFractalTransfDIFSTube::cFractalTransfDIFSTube() : cAbstractFractal()
 
 void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fractal->transformCommon.scale1;
+	z += fractal->transformCommon.offsetA000;
+
+
+
+
 	CVector4 zc = z;
 
 	// swap axis
@@ -82,9 +90,7 @@ void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		}
 	}
 
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fractal->transformCommon.scale1;
-	z += fractal->transformCommon.offsetA000;
+
 
 //	CVector4 zc = z;
 

@@ -132,6 +132,18 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		t = max(t, xyR);
 	}
 
+	// plane
+//		double colorAdd = 0.0;
+//	double g = 0.0;
+	if (fractal->transformCommon.functionEnabledRFalse)
+	{
+		double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetE0;
+		t = min(g, t);
+		//			if (t == g) colorAdd = 2.0;
+	}
+
+
+
 	if (fractal->transformCommon.functionEnabledSFalse) // clip
 	{
 		CVector4 f = fabs(aux.const_c) - fractal->transformCommon.offset333;
@@ -156,6 +168,8 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 			if (xyR < t) colorAdd += fractal->foldColor.difs0;
+
+
 		}
 		if (fractal->foldColor.auxColorEnabled)
 			aux.color += colorAdd;

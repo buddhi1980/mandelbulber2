@@ -124,6 +124,18 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		t = max(t, xyR);
 	}
 
+	// plane
+	if (fractal->transformCommon.functionEnabledRFalse)
+	{
+		REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetE0;
+		t = min(g, t);
+	}
+
+
+
+
+
+
 	if (fractal->transformCommon.functionEnabledSFalse) // clip
 	{
 		REAL4 f = fabs(aux->const_c) - fractal->transformCommon.offset333;

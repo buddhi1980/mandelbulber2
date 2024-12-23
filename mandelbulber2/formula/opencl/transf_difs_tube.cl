@@ -19,6 +19,12 @@
 
 REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	z *= fractal->transformCommon.scale1;
+	aux->DE *= fractal->transformCommon.scale1;
+	z += fractal->transformCommon.offsetA000;
+
+
+
 	REAL4 zc = z;
 
 	// swap axis
@@ -70,9 +76,7 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 	}
 
-	z *= fractal->transformCommon.scale1;
-	aux->DE *= fractal->transformCommon.scale1;
-	z += fractal->transformCommon.offsetA000;
+
 
 //	REAL4 zc = z;
 
