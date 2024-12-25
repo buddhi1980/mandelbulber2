@@ -1,15 +1,18 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_3_colors_enable false;
 background_color_1 0000 0000 0000;
-camera 0,3876785354773813 -2,841607854210818 0,6225278984055104;
-camera_distance_to_target 2,888553890691604;
-camera_rotation 7,353039711144986 -14,7227729360766 -26,46491811752545;
+camera 0,387678535477381 -2,84160785421082 0,62252789840551;
+camera_distance_to_target 2,88855389069161;
+camera_rotation 7,35303971114499 -14,7227729360765 -26,4649181175255;
 camera_top -0,4711022941572545 0,1686036914798666 0,8658148899500018;
-DE_factor 0,0625;
 fake_lights_color 3400 5200 ff00;
+fake_lights_color_2 3900 1100 0100;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 3400 0200 0e00;
+fake_lights_color_3_enabled true;
 fake_lights_enabled true;
 fake_lights_intensity 0,5;
 fake_lights_max_iter 1;
@@ -24,9 +27,10 @@ image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
-main_light_intensity 0,25;
+light1_intensity 0,25;
+light1_is_defined true;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-target 0,03013135183268675 -0,07086878727312854 -0,1115760546165469;
+target 0,0301313518326868 -0,0708687872731285 -0,111576054616547;
 view_distance_max 13,8172554087745;
-volumetric_light_DE_Factor 0,25;
+volumetric_light_DE_Factor 0,03125;

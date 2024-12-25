@@ -1,20 +1,28 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-camera -0,09016063118622938 -0,7040403969915736 -0,01101545936842085;
-camera_distance_to_target 0,0006761760247907505;
-camera_rotation -36,66251242139207 34,63517667218488 4,681776491114296e-12;
-camera_top -0,3393614343408063 -0,4559105224059231 0,8227875864654917;
+abs_min_marching_step 1E-07;
+advanced_quality true;
+camera -0,0901606311862294 -0,704040396991574 -0,0110154593684208;
+camera_distance_to_target 0,000676661770541439;
+camera_rotation -51,1122107814392 39,6920417263593 8,19620269942677;
+camera_top -0,402540372039414 -0,507822132271156 0,761628472980066;
+detail_level 4;
+DOF_enabled true;
+DOF_focus 0,000670221284963191;
+DOF_radius 5;
 flight_last_to_render 0;
 formula_1 70;
-glow_intensity 1,65959;
-image_height 1200;
-image_width 1600;
+glow_intensity 0,829795;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 julia_c -0,9 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
-main_light_intensity 0,72;
+light1_intensity 0,72;
+light1_is_defined true;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1;
@@ -25,5 +33,5 @@ mat1_surface_color_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40
 mat1_transparency_index_of_refraction 6;
 raytraced_reflections true;
 reflections_max 2;
-target -0,08982843481501171 -0,7035941122761717 -0,01063115539986171;
+target -0,0897553433044659 -0,703713513483787 -0,0105833019237958;
 view_distance_max 11,3046568828281;
