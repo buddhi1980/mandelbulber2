@@ -589,6 +589,10 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 		case RenderedImage::clickMoveCamera:
 		{
 			Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
+			if (ui->toolButton_preciseRotation->isChecked())
+			{
+				delta /= 10.0;
+			}
 			mode.append(QVariant(delta));
 			manipulations->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;
