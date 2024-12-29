@@ -1,39 +1,36 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 6;
-camera -1,623229464147014 -0,01610011179931158 -0,01622249418216069;
-camera_distance_to_target 0,0005864542276141589;
-camera_rotation -96,56323418350881 -11,54692608967979 -64,93159163974022;
-camera_top 0,1877893481531241 0,8901721990832591 0,4151248206256756;
-coloring_palette_size 4;
-coloring_random_seed 460273;
+camera -1,61960410077013 -0,017723975026464 -0,0172350961243417;
+camera_distance_to_target 0,00146744966041218;
+camera_rotation 25,9023864243177 25,5838033673699 -114,401661822347;
+camera_top -0,897118492184002 -0,237336917917946 -0,372625278765024;
 DE_factor 0,354813;
 DOF_enabled true;
-DOF_focus 0,0006353699718602002;
+DOF_focus 0,00128834019415081;
 DOF_radius 3,5;
 formula_1 48;
+fov 53,130102354156;
 image_height 1200;
 image_width 1600;
 julia_c -0,8 0 0;
 keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_coloring_speed 2,5;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 cf1118 2500 fec181 5000 1e95ac 7500 421f0f;
 SSAO_random_mode true;
-surface_color_palette cf1118 fec181 1e95ac 421f0f;
-target -1,622658644762942 -0,01616578669336654 -0,01633988498309896;
-view_distance_max 11,44479029428809;
-volumetric_fog_colour_1_distance 0,001844179915672683;
-volumetric_fog_colour_2_distance 0,003688359831345365;
-volumetric_fog_distance_factor 0,003688359831345365;
+target -1,62018228942352 -0,0165333686997024 -0,0166014061673358;
+view_distance_max 11,4447902942881;
+volumetric_fog_colour_1_distance 0,00184417991567268;
+volumetric_fog_colour_2_distance 0,00368835983134536;
+volumetric_fog_distance_factor 0,00368835983134536;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale -2;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

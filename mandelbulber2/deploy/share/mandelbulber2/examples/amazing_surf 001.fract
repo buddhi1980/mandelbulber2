@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
@@ -8,30 +8,45 @@ ambient_occlusion_mode 0;
 bailout 80;
 basic_fog_color ad00 a000 9500;
 basic_fog_enabled true;
-basic_fog_visibility 14,69004154205322;
+basic_fog_visibility 14,6900415420532;
 brightness 1,12;
-camera 3,397727659621828 -1,287491675661408 8,531807252313039;
-camera_distance_to_target 3,391589357645513;
-camera_rotation 76,26110841725941 -19,95530286485783 -0,02124563012061399;
+camera 3,39772765962183 -1,28749167566141 8,53180725231304;
+camera_distance_to_target 3,39158935764552;
+camera_rotation 76,2611084172594 -19,9553028648578 -0,021245630120614;
 camera_top -0,331610159199178 0,08069462310064687 0,93995908427896;
 constant_DE_threshold true;
 DE_factor 0,281838;
 flight_last_to_render 0;
 formula_1 73;
 gamma 0,64;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
+light1_color ff00 bf00 4000;
+light1_contour_sharpness 4;
+light1_intensity 2;
+light1_is_defined true;
+light1_rotation -163,68 21,47 0;
+light1_size 0,25;
+light1_soft_shadow_cone 0;
+light1_visibility 4;
 mat1_coloring_speed 2,5;
+mat1_fresnel_reflectance true;
 mat1_is_defined true;
+mat1_reflectance 1;
 mat1_surface_color_gradient 0 ffffff 2500 797979 5000 717171 7500 ffffff;
+mat1_transparency_index_of_refraction 3;
 N 255;
-shadows_cone_angle 0;
+perspective_type fish_eye;
+raytraced_reflections true;
+reflections_max 3;
 slow_shading true;
-target 0,3009855684851013 -0,5303600181168344 7,374301984497706;
+target 0,300985568485101 -0,530360018116834 7,37430198449771;
 use_default_bailout false;
-volumetric_fog_colour_1_distance 0,03730503311330658;
-volumetric_fog_colour_2_distance 0,07461006622661316;
+volumetric_fog_colour_1_distance 0,0373050331133066;
+volumetric_fog_colour_2_distance 0,0746100662266132;
 volumetric_fog_density 0,0331131;
-volumetric_fog_distance_factor 0,07461006622661316;
+volumetric_fog_distance_factor 0,0746100662266132;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_addition_constant_111 1,781609 1,637931 1;

@@ -1,26 +1,34 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 2;
+antialiasing_enabled true;
 basic_fog_enabled true;
-basic_fog_visibility 2.5;
-camera -0.910601542175007 0.572908545851573 -0.484346927283811;
-camera_distance_to_target 0.00170281459577384;
-camera_rotation 20.0131432774226 -7.08253783665381 -22.5000000000025;
-camera_top -0.398560014235431 -0.0239332365094568 0.916829927109077;
+basic_fog_visibility 0,15625;
+brightness 1,7;
+camera -0,911305087035517 0,575211120199716 -0,485990553021562;
+camera_distance_to_target 0,00499110287916043;
+camera_rotation 90,7675038471038 -21,8402788712888 -14,3370829219173;
+camera_top -0,357084832191594 -0,252431949902286 0,899315591595759;
 constant_DE_threshold true;
-DE_thresh 3.0517578125e-07;
+DE_thresh 3,0517578125E-07;
+DOF_enabled true;
+DOF_focus 0,00281678419560194;
+DOF_radius 0,5;
 flight_last_to_render 0;
 fog_color_3 0000 0000 0000;
 formula_1 110;
+gamma 0,7;
+hdr true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-light1_intensity 0.88;
+light1_color 5000 ff00 9f00;
+light1_intensity 0,88;
 light1_is_defined true;
 mat1_is_defined true;
 mat1_metallic false;
@@ -30,14 +38,14 @@ mat1_surface_color c300 c300 c300;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
 raytraced_reflections true;
-target -0.911179859365373 0.574496325907456 -0.484556882681569;
-view_distance_max 13.7973889131148;
-volumetric_fog_colour_1_distance 2.83738494599696e-10;
-volumetric_fog_colour_2_distance 5.67476989199393e-10;
-volumetric_fog_density 0.074131;
-volumetric_fog_distance_factor 5.67476989199393e-10;
+target -0,915937535490054 0,575149062667454 -0,487847345451833;
+view_distance_max 13,7973889131148;
+volumetric_fog_colour_1_distance 0,000118393098517782;
+volumetric_fog_colour_2_distance 0,000236786197035564;
+volumetric_fog_distance_factor 0,000236786197035564;
+volumetric_fog_distance_from_surface 1,6E-14;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_function_enabled_false true;
 transf_function_enabledR_false true;
-transf_rotation 2.86 -10.3 4.33;
+transf_rotation 2,86 -10,3 4,33;
