@@ -19,6 +19,7 @@
 
 REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -125,16 +126,14 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	// plane
+	REAL g = 0.0f;
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
-		REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetE0;
+		g = fabs(aux->const_c.z - fractal->transformCommon.offsetR0)
+				- fractal->transformCommon.offsetE0;
 		t = min(g, t);
+		if (t == g) g = 1.0f;
 	}
-
-
-
-
-
 
 	if (fractal->transformCommon.functionEnabledSFalse) // clip
 	{
@@ -160,7 +159,10 @@ REAL4 DIFSGreekIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 			if (xyR < t) colorAdd += fractal->foldColor.difs0;
+			if (fractal->transformCommon.functionEnabledRFalse)
+				colorAdd += g * fractal->foldColor.difs1;
 		}
+
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
 		else

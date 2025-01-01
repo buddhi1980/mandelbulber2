@@ -28,6 +28,7 @@ cFractalDIFSGreekIfs::cFractalDIFSGreekIfs() : cAbstractFractal()
 
 void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -133,16 +134,14 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 
 	// plane
-//		double colorAdd = 0.0;
-//	double g = 0.0;
+	double g = 0.0;
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
-		double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetE0;
+		g = fabs(aux.const_c.z - fractal->transformCommon.offsetR0)
+				- fractal->transformCommon.offsetE0;
 		t = min(g, t);
-		//			if (t == g) colorAdd = 2.0;
+		if (t == g) g = 1.0;
 	}
-
-
 
 	if (fractal->transformCommon.functionEnabledSFalse) // clip
 	{
@@ -168,17 +167,13 @@ void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
 			colorAdd += zc.z * fractal->foldColor.difs0000.w;
 			if (xyR < t) colorAdd += fractal->foldColor.difs0;
-
-
+			if (fractal->transformCommon.functionEnabledRFalse)
+				colorAdd += g * fractal->foldColor.difs1;
 		}
+
 		if (fractal->foldColor.auxColorEnabled)
 			aux.color += colorAdd;
 		else
-			aux.color = max(colorAdd, aux.color); // hmmmm test when para neg
-
-
-
-
+			aux.color = max(colorAdd, aux.color); // when colorAdd < 1 aux.color default = 1
 	}
-
 }
