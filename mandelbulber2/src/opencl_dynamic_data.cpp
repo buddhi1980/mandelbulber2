@@ -454,8 +454,6 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 		sVectorsAroundCl vector;
 		vector.v = toClFloat3(AOVectors[i].v);
 		vector.color = toClFloat3(AOVectors[i].color);
-		vector.alpha = AOVectors[i].alpha;
-		vector.beta = AOVectors[i].beta;
 
 		data.append(reinterpret_cast<char *>(&vector), sizeof(vector));
 		totalDataOffset += sizeof(vector);

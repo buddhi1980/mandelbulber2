@@ -543,8 +543,7 @@ void cRenderWorker::PrepareAOVectors()
 			d.x = cos(a + b) * cos(b);
 			d.y = sin(a + b) * cos(b);
 			d.z = sin(b);
-			AOVectorsAround[counter].alpha = a;
-			AOVectorsAround[counter].beta = b;
+			d = params->mRotAmbientOcclusionLightMapRotation.RotateVector(d);
 			AOVectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
@@ -563,8 +562,6 @@ void cRenderWorker::PrepareAOVectors()
 	if (counter == 0)
 	{
 		counter = 1;
-		AOVectorsAround[0].alpha = 0;
-		AOVectorsAround[0].beta = 0;
 		AOVectorsAround[0].v.x = 0;
 		AOVectorsAround[0].v.y = 0;
 		AOVectorsAround[0].v.z = 0;
