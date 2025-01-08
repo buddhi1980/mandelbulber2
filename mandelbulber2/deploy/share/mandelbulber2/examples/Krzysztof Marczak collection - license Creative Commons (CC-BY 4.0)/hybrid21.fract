@@ -1,15 +1,17 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
-aux_light_visibility 4;
+antialiasing_enabled true;
+background_3_colors_enable false;
+background_color_1 2c00 0700 4a00;
 brightness 0,7;
-camera -0,2296732246819947 -1,862799114867097 -0,3114334709506668;
-camera_distance_to_target 0,02483669109642532;
-camera_rotation -20,18087513360894 -0,3527223420474897 0;
-camera_top 0,002123771084445003 0,005778191765261913 0,9999810508686175;
+camera -0,229673224681995 -1,8627991148671 -0,311433470950667;
+camera_distance_to_target 0,0248366910964312;
+camera_rotation -20,1808751336059 -0,352722342046268 -180;
+camera_top -0,00212377108443746 -0,00577819176524198 -0,999981050868618;
 detail_level 0,5;
 flight_last_to_render 0;
 formula_1 7;
@@ -23,22 +25,25 @@ hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0,4;
+light1_intensity 0,4;
+light1_is_defined true;
+light1_rotation 44,01 35,83 0;
+light2_is_defined true;
+light2_visibility 4;
 mat1_is_defined true;
 mat1_reflectance 0,7;
-mat1_specular 4;
-mat1_specular_width 1;
+mat1_specular 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-random_lights_distribution_center -0,2211051031920365 -1,839487633983093 -0,3115863687834963;
+random_lights_distribution_center -0,221105103192036 -1,83948763398309 -0,311586368783496;
 random_lights_distribution_radius 0,01;
 random_lights_group true;
-random_lights_intensity 0,331131;
+random_lights_intensity 2,35470933333332;
 random_lights_max_distance_from_fractal 0,004;
 random_lights_random_seed 12346;
+random_lights_size 0,139754248593737;
+random_lights_visibility 4;
 raytraced_reflections true;
-reflections_max 3;
-target -0,2211051031920365 -1,839487633983093 -0,3115863687834963;
-view_distance_max 11,21866106476801;
+reflections_max 2;
+target -0,221105103192036 -1,83948763398309 -0,311586368783496;
+view_distance_max 1;

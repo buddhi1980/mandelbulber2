@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -7,11 +7,11 @@ ambient_occlusion_fast_tune 0,5;
 ambient_occlusion_mode 0;
 basic_fog_color ffff ffff ffff;
 basic_fog_enabled true;
-basic_fog_visibility 1,698243652461746;
-camera 2,419570036139925 -1,358436201999109 -2,738259301536516;
-camera_distance_to_target 8,355636139899126e-14;
-camera_rotation 45,13674384421805 38,06260653204975 0;
-camera_top 0,436986201264165 -0,4349053145914789 0,7873375560995433;
+basic_fog_visibility 1,69824365246175;
+camera 2,41957003613993 -1,35843620199911 -2,73825930153652;
+camera_distance_to_target 9,26625950579742E-14;
+camera_rotation 44,7453537677272 40,3152630459042 -179,842486118091;
+camera_top -0,43708477085847 0,437084770858469 -0,786074936737712;
 constant_DE_threshold true;
 DE_thresh 0,00015;
 delta_DE_method 2;
@@ -31,9 +31,9 @@ hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0,6;
+light1_intensity 0,6;
+light1_is_defined true;
+light1_rotation 40,94 35,83 0;
 mat1_coloring_speed 0,0039;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
@@ -46,7 +46,7 @@ mat1_transparency_index_of_refraction 6,03;
 raytraced_reflections true;
 reflections_max 2;
 smoothness 0,1;
-target 2,419570036139878 -1,358436201999063 -2,738259301536464;
+target 2,41957003613988 -1,35843620199906 -2,73825930153646;
 volumetric_fog_density 0;
 [fractal_1]
 boxfold_bulbpow2_folding_factor 5;

@@ -1,34 +1,24 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_fast_tune 0,5;
 ambient_occlusion_quality 7;
 analityc_DE_mode false;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
 background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
 background_color_3 0000 0000 0000;
 bailout 1000;
 basic_fog_color ffff ffff ffff;
-basic_fog_visibility 0,0001905460717963252;
-camera 3,997702617625994 7,696204113396548 -15,77373746533235;
-camera_distance_to_target 5,71558396720981e-11;
-camera_rotation 60,00048060017759 4,99944143436087 0;
-camera_top 0,07547104220221318 -0,04357238246183778 0,9961955477091389;
-coloring_palette_offset 63,36;
-coloring_palette_size 5;
-coloring_random_seed 589397;
-coloring_speed 0,5;
+basic_fog_visibility 0,000190546071796325;
+camera 3,99770261762599 7,69620411339655 -15,7737374653323;
+camera_distance_to_target 5,71496616494894E-11;
+camera_rotation 59,9989325907561 4,91775413918842 -180;
+camera_top -0,0742397962217698 0,0428642104503693 -0,996318780370729;
 DE_factor 0,3;
 DE_thresh 1;
-DOF_focus 0,0001957148672124998;
+DOF_focus 0,0001957148672125;
 DOF_radius 2;
 flight_last_to_render 0;
 fog_color_1 28a8 12da 0000;
@@ -38,7 +28,7 @@ formula_1 8;
 formula_2 7;
 formula_iterations_1 32;
 formula_iterations_2 2;
-fov 0,8;
+fov 43,6028189727036;
 gamma 0,6;
 glow_color_1 0000 4edc ffff;
 glow_color_2 ffff d696 5f98;
@@ -54,49 +44,57 @@ iteration_fog_color_3 d452 c927 b784;
 julia_c 0 0 -10;
 julia_mode true;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
+light1_color ffff c531 6af5;
+light1_is_defined true;
+light1_rotation 41,29 29,34 0;
+light1_volumetric_visibility 100;
+light2_is_defined true;
+light2_position 3 -3 -3;
+light2_volumetric_visibility 100;
+light3_is_defined true;
+light3_volumetric_visibility 100;
+light4_is_defined true;
+light4_volumetric_visibility 100;
+light5_is_defined true;
+light5_position 0 -1 3;
+light5_volumetric_visibility 100;
 limit_max 20 20 20;
 limit_min -20 0 -20;
-main_light_alpha -60;
-main_light_beta -30;
-main_light_colour ffff c531 6af5;
-main_light_volumetric_intensity 100;
+mat1_coloring_palette_offset 12,672;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 0,5;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 aa7f8b 1999 db8776 3999 cf08a8 5999 94008f 7999 22768d;
 N 500;
 raytraced_reflections true;
-reflect 0,5;
 reflections_max 2;
-stereo_eye_distance 0,1;
-surface_color_palette aa7f8b db8776 cf08a8 94008f 22768d;
-target 3,997702617576684 7,696204113425017 -15,77373746532737;
-view_distance_max 133,5705587035978;
-volumetric_fog_colour_1_distance 0,3068296668809934;
-volumetric_fog_colour_2_distance 0,6136593337619868;
+target 3,99770261757668 7,69620411342502 -15,7737374653274;
+view_distance_max 133,570558703598;
+volumetric_fog_colour_1_distance 0,306829666880993;
+volumetric_fog_colour_2_distance 0,613659333761987;
 volumetric_fog_density 0,354813;
-volumetric_fog_distance_factor 0,6136593337619868;
+volumetric_fog_distance_factor 0,613659333761987;
 volumetric_fog_enabled true;
 [fractal_1]
 IFS_offset 0 0 0;
 IFS_scale 1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_scale 1;
 [fractal_2]
 IFS_offset 0 0 0;
 IFS_scale 1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_3]
 IFS_offset 0 0 0;
 IFS_scale 1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_4]
 IFS_offset 0 0 0;
 IFS_scale 1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
+mandelbox_generalized_fold_type fold_cube;

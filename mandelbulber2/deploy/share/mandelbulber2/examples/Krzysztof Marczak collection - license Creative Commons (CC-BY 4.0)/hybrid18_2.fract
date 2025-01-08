@@ -1,17 +1,19 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-ambient_occlusion 1,5;
+ambient_occlusion 2;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 3;
-camera 0,06396390457183737 -1,868475524723543 0,002045893075306425;
-camera_distance_to_target 2,894886804853996e-05;
-camera_rotation 54,85899517195225 12,92151429179309 33,56558623947938;
-camera_top 0,4706072034722965 0,344870942329479 0,8121532448847089;
+antialiasing_enabled true;
+camera 0,0640090485012544 -1,86837603512754 0,00185741914922167;
+camera_distance_to_target 2,91084619263937E-05;
+camera_rotation 54,0011791347291 -0,224465600515296 -148,105779605693;
+camera_top -0,3078581433321 -0,429407726894738 -0,849018473101267;
+constant_DE_threshold true;
 DE_factor 0,765625;
-detail_level 0,5;
+DE_thresh 1E-06;
 flight_last_to_render 0;
 formula_1 8;
 formula_2 10;
@@ -24,17 +26,16 @@ hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_alpha 70;
-main_light_beta 0;
-main_light_intensity 0,5;
+light1_intensity 0,5;
+light1_is_defined true;
+light1_rotation -69,15 22,51 0;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-target 0,06394083143650928 -1,868459283970911 0,002052366508812685;
+target 0,0639854990894909 -1,86835892621884 0,00185730511234621;
 [fractal_1]
 mandelbox_folding_min_radius 0,1;
 mandelbox_scale -1;
@@ -42,9 +43,9 @@ mandelbox_scale -1;
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_0 0,8100000000000001 0,31 -0,5;
-IFS_direction_1 -0,5 0,8100000000000001 0,31;
-IFS_direction_2 0,31 -0,5 0,8100000000000001;
+IFS_direction_0 0,81 0,31 -0,5;
+IFS_direction_1 -0,5 0,81 0,31;
+IFS_direction_2 0,31 -0,5 0,81;
 IFS_enabled_0 true;
 IFS_enabled_1 true;
 IFS_enabled_2 true;
