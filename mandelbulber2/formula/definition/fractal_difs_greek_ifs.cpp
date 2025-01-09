@@ -28,7 +28,6 @@ cFractalDIFSGreekIfs::cFractalDIFSGreekIfs() : cAbstractFractal()
 
 void cFractalDIFSGreekIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP1)

@@ -3,7 +3,8 @@ Version history
 v2.33 (?? 2024)
 
 - Added new fractal formulas
-   transfDIFSOctahedron
+   dIFSGreekIfs
+	 transfDIFSOctahedron
 	 transfDIFSOctahedronV2
 	 transfDIFSSupershapeV2
 
