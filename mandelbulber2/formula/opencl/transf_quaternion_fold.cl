@@ -67,7 +67,7 @@ REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	// tweaking DE
-	aux->r = length(z);
+	// aux->r = length(z);
 	aux->DE = aux->DE * aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->analyticDE.enabledFalse) aux->dist = 0.5f * log(aux->r) * aux->r / aux->DE;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -22,8 +22,6 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fractal->transformCommon.scale1;
 	z += fractal->transformCommon.offsetA000;
-
-
 
 	REAL4 zc = z;
 
@@ -76,10 +74,6 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 	}
 
-
-
-//	REAL4 zc = z;
-
 	REAL t = zc.x;
 	if (fractal->transformCommon.functionEnabledBx)
 		t = fabs(t) - fractal->transformCommon.offsetF000.x;
@@ -119,7 +113,7 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 	t -= fractal->transformCommon.offset02;
-//	REAL xyR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+
 	REAL cylR = t;
 	if (!fractal->transformCommon.functionEnabledGFalse)
 	{
@@ -146,11 +140,14 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (zc.z > fractal->transformCommon.offsetF000.z)
+			if (fractal->transformCommon.offsetA1 < fabs(zc.y))
 				colorAdd += fractal->foldColor.difs0000.y;
-			colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
-			colorAdd += zc.z * fractal->foldColor.difs0000.w;
-			if (cylD < t) colorAdd += fractal->foldColor.difs0;
+			if (cylD > t) colorAdd += fractal->foldColor.difs0000.z;
+
+
+		//	colorAdd += fabs(zc.z) * fractal->foldColor.difs0000.z;
+		//	colorAdd += zc.z * fractal->foldColor.difs0000.w;
+		//	if (cylD > t) colorAdd += fractal->foldColor.difs0;
 		}
 		if (fractal->foldColor.auxColorEnabled)
 			aux->color += colorAdd;
