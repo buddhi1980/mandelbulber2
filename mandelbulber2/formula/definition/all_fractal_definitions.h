@@ -258,6 +258,8 @@ FRACTAL_CLASS(cFractalTransfAbsAddConstant4d)
 FRACTAL_CLASS(cFractalTransfAbsAddConstantV2)
 FRACTAL_CLASS(cFractalTransfAbsAddMulti)
 FRACTAL_CLASS(cFractalTransfAbsAddMulti4d)
+FRACTAL_CLASS(cFractalTransfAbsSym3)
+
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold)
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold4d)
 FRACTAL_CLASS(cFractalTransfAbsRecFoldXY)

@@ -585,7 +585,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform2());
 
 
-
+	fractalList->append(new cFractalTransfAbsSym3());
 	fractalList->append(new cFractalTransfDIFSTube());
 
 

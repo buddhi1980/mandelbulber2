@@ -138,12 +138,15 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (zCol.z > 0.0)
 				colorAdd += fractal->foldColor.difs0000.z * zCol.z;
 		}
+		if (aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			if (rrCol < fractal->transformCommon.maxR2d1)
+				colorAdd +=
+					fractal->foldColor.difs0000.w * (fractal->transformCommon.maxR2d1 - rrCol);
 
-		if (rrCol < fractal->transformCommon.maxR2d1)
-			colorAdd +=
-				fractal->foldColor.difs0000.w * (fractal->transformCommon.maxR2d1 - rrCol);
-
-		colorAdd += fractal->mandelbox.color.factorSp1 * m;
+			colorAdd += fractal->mandelbox.color.factorSp1 * m;
+		}
 
 		aux.color += colorAdd;
 	}

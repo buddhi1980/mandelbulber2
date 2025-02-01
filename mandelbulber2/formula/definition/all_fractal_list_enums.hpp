@@ -512,15 +512,16 @@ enum enumFractalFormula
 	// 2.30
 	transfDotFold = 1151,
 	transfAbsAddConstantV2 = 1152,
-
 	// 2.31
 	transfSphericalInvV3 = 1153,
-
 	// 2.32
 	transfJuliabox = 1154,
 	transfSphericalInvV4 = 1155,
 	transfJuliaboxV2 = 1156,
 	transfBoxFold4dInfy = 1157,
+
+	// 2.33
+	transfAbsSym3 = 1158,
 
 	// mandelbulber transfdIFS
 	// 2.20
