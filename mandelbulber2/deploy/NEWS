@@ -1,6 +1,6 @@
 Version history
 
-v2.33 (?? 2024)
+v2.33 (?? 2025)
 
 - Added new fractal formulas
    dIFSGreekIfs
@@ -13,6 +13,7 @@ v2.33 (?? 2024)
 	 amazingSurfMulti, move sphere fold offsets on UI
 	 amazingSurfMulti, add iter controls cyl fold & cpix
 	 foldBoxMod1, UI add missing iter controls box fold 2
+	 koch, added aux.color
 	 mandelboxMenger, fix ass cpix multiplier
 	 mandelbulbAbsPower2, catch
 	 mengerPrismShape & mengerPrismShape2, added aux.color
@@ -23,6 +24,9 @@ v2.33 (?? 2024)
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
 	 transfInvCylindrical, add z.z option
+
+
+
 
 v2.32 (August 2024)
 

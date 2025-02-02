@@ -27,6 +27,19 @@ cFractalTransfAbsSym3::cFractalTransfAbsSym3() : cAbstractFractal()
 void cFractalTransfAbsSym3::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+		z += fractal->transformCommon.offset000;
+	}
+
+
+
 	if (aux.i >= fractal->transformCommon.startIterationsK
 			&& aux.i < fractal->transformCommon.stopIterationsK)
 	{
@@ -61,4 +74,12 @@ void cFractalTransfAbsSym3::FormulaCode(
 
 		z += fractal->transformCommon.offsetA000;
 	}
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+
 }

@@ -28,19 +28,39 @@ cFractalKoch::cFractalKoch() : cAbstractFractal()
 
 void cFractalKoch::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double col = 0.0;
+	double temp = 0.0;
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);
-	if (z.y > z.x) swap(z.x, z.y);
+	if (z.y > z.x)
+	{
+		temp = z.x;
+		z.x = z.y;
+		z.y = temp;
+		col += fractal->foldColor.difs0000.x;
+	}
 
 	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
 
 	z.x += FRAC_1_3;
-	if (z.z > z.x) swap(z.x, z.z);
+	if (z.z > z.x)
+	{
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
+		col += fractal->foldColor.difs0000.y;
+	}
 	z.x -= FRAC_1_3;
 
 	z.x -= FRAC_1_3;
-	if (z.z > z.x) swap(z.x, z.z);
+	if (z.z > z.x)
+	{
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
+		col += fractal->foldColor.difs0000.z;
+	}
 	z.x += FRAC_1_3;
 
 	CVector4 Offset = fractal->transformCommon.offset100;
@@ -56,4 +76,12 @@ void cFractalKoch::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 	aux.dist = fabs(z.Length() - Offset.Length());
 	aux.dist = aux.dist / aux.DE;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+					&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += col;
+	}
+
 }
