@@ -138,8 +138,6 @@ public:
 	PlayerWidget *imageSequencePlayer;
 	MyProgressBar *progressBar;
 	MyProgressBar *progressBarAnimation;
-	MyProgressBar *progressBarQueueImage;
-	MyProgressBar *progressBarQueueAnimation;
 	QFrame *progressBarFrame;
 	QVBoxLayout *progressBarLayout;
 	std::shared_ptr<cImage> mainImage;

@@ -824,17 +824,9 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 	switch (progressType)
 	{
-		case cProgressText::progress_IMAGE:
-			if (isQueue)
-				progressBar = gMainInterface->progressBarQueueImage;
-			else
-				progressBar = gMainInterface->progressBar;
-			break;
+		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
 		case cProgressText::progress_ANIMATION:
-			if (isQueue)
-				progressBar = gMainInterface->progressBarQueueAnimation;
-			else
-				progressBar = gMainInterface->progressBarAnimation;
+			progressBar = gMainInterface->progressBarAnimation;
 			break;
 		case cProgressText::progress_QUEUE:
 			// nothing to be done, no progress bar for queue in GUI

@@ -44,6 +44,7 @@
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "cimage.hpp"
 #include "keyframes.hpp"
 #include "parameters.hpp"
 #include "progress_text.hpp"
@@ -53,6 +54,7 @@
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
 #include "system_data.hpp"
+#include "wait.hpp"
 #include "write_log.hpp"
 
 cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget) : QObject()
@@ -112,6 +114,13 @@ cRenderQueue::~cRenderQueue()
 
 void cRenderQueue::slotRenderQueue()
 {
+	while (image->IsUsed())
+	{
+		Wait(10);
+		gMainInterface->stopRequest = true;
+	}
+	image->BlockImage();
+
 	int queueFinished = 0;
 
 	WriteLog("cRenderQueue::slotRenderQueue()", 2);
@@ -165,6 +174,8 @@ void cRenderQueue::slotRenderQueue()
 
 	emit updateProgressAndStatus(
 		QObject::tr("Queue Render"), QObject::tr("Queue Done"), 1.0, cProgressText::progress_QUEUE);
+
+	image->ReleaseImage();
 
 	emit finished();
 }
@@ -230,6 +241,8 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	connect(renderJob.get(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+	connect(renderJob.get(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), imageWidget,
+		SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 
 	cRenderingConfiguration config;
 	if (systemData.noGui)

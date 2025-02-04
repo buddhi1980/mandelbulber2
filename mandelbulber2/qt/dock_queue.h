@@ -55,18 +55,12 @@ class cDockQueue : public QWidget
 public:
 	explicit cDockQueue(QWidget *parent = nullptr);
 	~cDockQueue() override;
-	MyProgressBar *GetProgressBarImage() const;
-	MyProgressBar *GetProgressBarAnimation() const;
 	Ui::cDockQueue *GetUi() const;
-
-	RenderedImage *GetRenderedImageWidget() const { return renderedImageWidget; }
 
 private:
 	Ui::cDockQueue *ui;
 
 	cAutomatedWidgets *automatedWidgets;
-
-	RenderedImage *renderedImageWidget;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_QUEUE_H_ */

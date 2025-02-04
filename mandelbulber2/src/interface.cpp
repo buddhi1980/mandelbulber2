@@ -110,8 +110,6 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	mainImage = nullptr;
 	progressBar = nullptr;
 	progressBarAnimation = nullptr;
-	progressBarQueueImage = nullptr;
-	progressBarQueueAnimation = nullptr;
 	progressBarFrame = nullptr;
 	progressBarLayout = nullptr;
 	autoRefreshTimer = nullptr;
@@ -219,9 +217,6 @@ void cInterface::ShowUi()
 	progressBarLayout->setSpacing(0);
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
 	progressBarFrame = new QFrame(mainWindow->ui->statusbar);
-
-	progressBarQueueImage = mainWindow->ui->widgetDockQueue->GetProgressBarImage();
-	progressBarQueueAnimation = mainWindow->ui->widgetDockQueue->GetProgressBarAnimation();
 
 	progressBarAnimation = new MyProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);

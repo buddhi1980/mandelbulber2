@@ -43,31 +43,11 @@ cDockQueue::cDockQueue(QWidget *parent) : QWidget(parent), ui(new Ui::cDockQueue
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
-
-	ui->queueProgressBarImage->setAlignment(Qt::AlignCenter);
-	ui->queueProgressBarImage->hide();
-
-	ui->queueProgressBarAnimation->setAlignment(Qt::AlignCenter);
-	ui->queueProgressBarAnimation->hide();
-
-	renderedImageWidget = new RenderedImage(this);
-	renderedImageWidget->SetCursorVisibility(false);
-	ui->verticalLayout_queue_preview->addWidget(renderedImageWidget);
 }
 
 cDockQueue::~cDockQueue()
 {
 	delete ui;
-}
-
-MyProgressBar *cDockQueue::GetProgressBarImage() const
-{
-	return ui->queueProgressBarImage;
-}
-
-MyProgressBar *cDockQueue::GetProgressBarAnimation() const
-{
-	return ui->queueProgressBarAnimation;
 }
 
 Ui::cDockQueue *cDockQueue::GetUi() const
