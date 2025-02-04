@@ -15,8 +15,6 @@
 
 REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
-
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -26,9 +24,6 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 		z += fractal->transformCommon.offset000;
 	}
-
-
-
 
 	if (aux->i >= fractal->transformCommon.startIterationsK
 			&& aux->i < fractal->transformCommon.stopIterationsK)
@@ -45,7 +40,6 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.x = z.x - t;
 			z.z = z.z + t;
 		}
-
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			t = z.x - z.y;
@@ -53,7 +47,6 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.x = z.x - t;
 			z.y = z.y + t;
 		}
-
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			t = z.y - z.z;
@@ -61,16 +54,24 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.y = z.y - t;
 			z.z = z.z + t;
 		}
-
 		z += fractal->transformCommon.offsetA000;
 	}
+
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		if (fractal->transformCommon.functionEnabledCx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCz) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetF000;
+	}
+
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-
-
 	return z;
 }

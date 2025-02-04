@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * abs add conditional.
+ * abs sym3 based on code by msltoe
  */
 
 #include "all_fractal_definitions.h"
@@ -27,7 +27,6 @@ cFractalTransfAbsSym3::cFractalTransfAbsSym3() : cAbstractFractal()
 void cFractalTransfAbsSym3::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -37,8 +36,6 @@ void cFractalTransfAbsSym3::FormulaCode(
 		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 		z += fractal->transformCommon.offset000;
 	}
-
-
 
 	if (aux.i >= fractal->transformCommon.startIterationsK
 			&& aux.i < fractal->transformCommon.stopIterationsK)
@@ -55,7 +52,6 @@ void cFractalTransfAbsSym3::FormulaCode(
 			z.x = z.x - t;
 			z.z = z.z + t;
 		}
-
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			t = z.x - z.y;
@@ -63,7 +59,6 @@ void cFractalTransfAbsSym3::FormulaCode(
 			z.x = z.x - t;
 			z.y = z.y + t;
 		}
-
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			t = z.y - z.z;
@@ -71,15 +66,23 @@ void cFractalTransfAbsSym3::FormulaCode(
 			z.y = z.y - t;
 			z.z = z.z + t;
 		}
-
 		z += fractal->transformCommon.offsetA000;
 	}
+
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		if (fractal->transformCommon.functionEnabledCx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCx) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetF000;
+	}
+
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
-
 }

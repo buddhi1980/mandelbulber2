@@ -17,11 +17,11 @@
 REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
-
+	REAL temp = 0.0f;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSFalse)
 	{
-		REAL temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.y;
 		zc.y = temp;
 	}
@@ -29,20 +29,25 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		REAL temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
 	}
 
-	REAL xyR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	REAL xyR = native_sqrt(zc.x * zc.x + zc.y * zc.y)
+			- fractal->transformCommon.radius1
+			+ fractal->transformCommon.offsetB0;
 	REAL cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		cylR = fabs(cylR) - fractal->transformCommon.offset0;
-		if (fractal->transformCommon.functionEnabledAFalse) cylR = max(cylR, xyR);
+		if (fractal->transformCommon.functionEnabledAFalse)
+			cylR = max(cylR, xyR);
 	}
 
-	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+	REAL cylH = fabs(zc.z)
+			- fractal->transformCommon.offsetA1
+			+ fractal->transformCommon.offsetB0;
 
 	cylR = max(cylR, 0.0f);
 	cylH = max(cylH, 0.0f);
@@ -50,19 +55,21 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
 
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
+	aux->dist = min(aux->dist,
+		cylD / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
+			if (fractal->transformCommon.offsetA1 - fractal->transformCommon.offsetB0 < fabs(zc.z))
 				aux->color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offset0) aux->color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
+			if (xyR < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0) aux->color += fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0 - fractal->foldColor.difs0 < fabs(zc.z))
 				aux->color += fractal->foldColor.difs0000.w;
 		}
 	}
