@@ -4,6 +4,7 @@
 [main_parameters]
 ambient_occlusion_color ff00 ff00 ff00;
 ambient_occlusion_enabled true;
+antialiasing_enabled true;
 camera -1,21017349555955 -0,971940990750855 0,0937346220446921;
 camera_distance_to_target 0,225556852817535;
 camera_rotation -6,00289502500873 -20,8672419684018 -4,41308748946151;
