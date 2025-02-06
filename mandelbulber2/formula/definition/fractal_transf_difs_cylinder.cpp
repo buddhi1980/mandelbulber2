@@ -68,24 +68,25 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist,
-			cylD/ (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0);
+			cylD / (aux.DE + fractal->analyticDE.offset0)
+				- fractal->transformCommon.offsetB0);
 
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-
+		double colAdd = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 - fractal->transformCommon.offsetB0
-					< fabs(zc.z))
-				aux.color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0)
-				aux.color += fractal->foldColor.difs0000.z;
+			if (xyR < -fractal->transformCommon.offset0
+					- fractal->transformCommon.offsetB0)
+				colAdd = fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1
-				+ fractal->transformCommon.offsetB0 - fractal->foldColor.difs0 < fabs(zc.z))
-				aux.color += fractal->foldColor.difs0000.w;
+					+ fractal->transformCommon.offsetB0
+					- fractal->foldColor.difs0 < fabs(zc.z))
+				colAdd = fractal->foldColor.difs0000.w;
 		}
+		if (colDist != aux.dist)
+			aux.color = colAdd + fractal->foldColor.difs0000.x;
 	}
 }

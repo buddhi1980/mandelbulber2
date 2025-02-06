@@ -112,7 +112,9 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 	aux.dist = min(aux.dist, d) / aux.DE;
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		colVec.x *= fractal->foldColor.difs0000.x;
 		colVec.y *= fractal->foldColor.difs0000.y;

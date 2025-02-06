@@ -144,24 +144,20 @@ void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = 0.0;
-		if (colDist != aux.dist) colorAdd += fractal->foldColor.difs0000.x;
-
+		double colAdd = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < fabs(zc.y))
-				colorAdd += fractal->foldColor.difs0000.y;
-			if (cylD < t) colorAdd += fractal->foldColor.difs0000.z;
-
-
-		//	colorAdd += fabs(zc.y) * fractal->foldColor.difs0000.z;
-		//	colorAdd += zc.y * fractal->foldColor.difs0000.w;
-		//	if (t < cylD) colorAdd += fractal->foldColor.difs0;
+			if (cylD > t) colAdd = fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1
+					- fractal->foldColor.difs0 < fabs(zc.y))
+				colAdd = fractal->foldColor.difs0000.w;
 		}
-		if (fractal->foldColor.auxColorEnabled)
-			aux.color += colorAdd;
-		else
-			aux.color = max(colorAdd, aux.color); // hmmmm test when para neg
+		if (colDist != aux.dist)
+			colAdd = colAdd + fractal->foldColor.difs0000.x;
 
+		if (fractal->foldColor.auxColorEnabled)
+			aux.color += colAdd;
+		else
+			aux.color = max(colAdd, aux.color); // hmmmm test when para neg
 	}
 }

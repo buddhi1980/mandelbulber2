@@ -4,6 +4,7 @@ v2.33 (?? 2025)
 
 - Added new fractal formulas
    dIFSGreekIfs
+	 transfAbsSym3
 	 transfDIFSOctahedron
 	 transfDIFSOctahedronV2
 	 transfDIFSSupershapeV2
@@ -19,7 +20,7 @@ v2.33 (?? 2025)
 	 mengerPrismShape & mengerPrismShape2, added aux.color
 	 transfDELinearCube, fix UI from crashing
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
-	 transfDIFSCylinder & CylinderV2, added aux.color
+	 transfDIFSCylinder & CylinderV2, added aux.color and round
 	 transfDIFSHexprism & HexprismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
