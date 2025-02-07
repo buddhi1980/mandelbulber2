@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -61,8 +61,8 @@ void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *frac
 	zc.x -= tp * k.x;
 	zc.y -= tp * k.y;
 
-	double dx = zc.x - clamp(zc.x, -k.z * lenX, k.z * lenX);
-	double dy = zc.y - lenX;
+	double dx = zc.x - clamp(zc.x, -k.z * lenX, k.z * lenX) + fractal->transformCommon.offsetB0;
+	double dy = zc.y - lenX + fractal->transformCommon.offsetB0;
 
 	tp = sqrt(dx * dx + dy * dy);
 	dx = tp * sign(dy);
@@ -113,21 +113,29 @@ void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *frac
 	tp = sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, aux.DE0 /  (aux.DE + fractal->analyticDE.offset0)
+				- fractal->transformCommon.offsetB0);
+
 
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-
+		double colAdd = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < zc.z) aux.color += fractal->foldColor.difs0000.y;
-			if (colIn < maxdx)aux.color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx)
-				aux.color += fractal->foldColor.difs0000.w;
+	//		if (fractal->transformCommon.offsetA1 < zc.z) colAdd += fractal->foldColor.difs0000.y;
+			if (colIn < maxdx) colAdd = fractal->foldColor.difs0000.z;
+
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && dx + fractal->transformCommon.offset0 > maxdx)
+				colAdd = fractal->foldColor.difs0000.w;
+
+
+			//if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx)
+			//	colAdd = fractal->foldColor.difs0000.w;
 		}
+		if (colDist != aux.dist)
+			aux.color = colAdd + fractal->foldColor.difs0000.x;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse
