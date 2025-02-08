@@ -121,7 +121,10 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				colAdd = fractal->foldColor.difs0000.w;
 		}
 		if (colDist != aux->dist)
-			aux->color = colAdd + fractal->foldColor.difs0000.x;
+			aux->color = colAdd;
+
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux->color += fractal->foldColor.difs0000.x;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

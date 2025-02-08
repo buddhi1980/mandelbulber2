@@ -38,18 +38,25 @@ REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL priD = max(fabs(zc.x) - fractal->transformCommon.offset1, priX);
 
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, priD / (aux->DE + 1.0f));
+	aux->dist = min(aux->dist, priD / (aux->DE + fractal->analyticDE.offset0));
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
-
+		REAL colAdd = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (priX == tp) aux->color += fractal->foldColor.difs0000.y;
-			if (tp > fractal->transformCommon.offsetp01) aux->color += fractal->foldColor.difs0000.z;
+		//	if (priX == tp) aux->color += fractal->foldColor.difs0000.y;
+			if (tp > fractal->transformCommon.offsetp01) colAdd = fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offset1
+					- fractal->foldColor.difs0 < fabs(zc.x))
+				colAdd = fractal->foldColor.difs0000.w;
 		}
+		if (colDist != aux->dist)
+			aux->color = colAdd;
+
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux->color += fractal->foldColor.difs0000.x;
 	}
 	return z;
 }

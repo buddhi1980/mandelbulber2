@@ -153,11 +153,9 @@ void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, s
 				colAdd = fractal->foldColor.difs0000.w;
 		}
 		if (colDist != aux.dist)
-			colAdd = colAdd + fractal->foldColor.difs0000.x;
+			aux.color = colAdd;
 
-		if (fractal->foldColor.auxColorEnabled)
-			aux.color += colAdd;
-		else
-			aux.color = max(colAdd, aux.color); // hmmmm test when para neg
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux.color += fractal->foldColor.difs0000.x;
 	}
 }

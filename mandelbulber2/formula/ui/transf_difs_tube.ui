@@ -1096,13 +1096,6 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled">
-        <property name="text">
-         <string notr="true">cumulative</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_23" stretch="0,1,0,1">
         <item>
          <widget class="QLabel" name="label_103">
@@ -1331,11 +1324,18 @@
        </widget>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledB_false">
+        <property name="text">
+         <string notr="true">iteration color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="0,1">
         <item>
          <widget class="QLabel" name="label_288">
           <property name="text">
-           <string>iterations:</string>
+           <string>iter add color:</string>
           </property>
          </widget>
         </item>
@@ -1504,14 +1504,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

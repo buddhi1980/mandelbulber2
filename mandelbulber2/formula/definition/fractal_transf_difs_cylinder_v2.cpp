@@ -134,7 +134,10 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 				colAdd = fractal->foldColor.difs0000.w;
 		}
 		if (colDist != aux.dist)
-			aux.color = colAdd + fractal->foldColor.difs0000.x;
+			aux.color = colAdd;
+
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux.color += fractal->foldColor.difs0000.x;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

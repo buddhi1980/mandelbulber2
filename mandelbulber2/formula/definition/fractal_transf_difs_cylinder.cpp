@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -87,6 +87,9 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 				colAdd = fractal->foldColor.difs0000.w;
 		}
 		if (colDist != aux.dist)
-			aux.color = colAdd + fractal->foldColor.difs0000.x;
+			aux.color = colAdd;
+
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux.color += fractal->foldColor.difs0000.x;
 	}
 }

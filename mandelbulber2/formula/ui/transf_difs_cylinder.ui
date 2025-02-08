@@ -488,11 +488,18 @@
        </widget>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledB_false">
+        <property name="text">
+         <string notr="true">iteration color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="0,1">
         <item>
          <widget class="QLabel" name="label_285">
           <property name="text">
-           <string>iter color:</string>
+           <string>iter add color:</string>
           </property>
          </widget>
         </item>
@@ -678,14 +685,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

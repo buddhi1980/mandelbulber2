@@ -44,19 +44,26 @@ void cFractalTransfDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double priD = max(fabs(zc.x) - fractal->transformCommon.offset1, priX);
 
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, priD / (aux.DE + fractal->analyticDE.offset0));
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-
+		double colAdd = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (priX == tp)
-				aux.color += fractal->foldColor.difs0000.y;
+		//	if (priX == tp)
+		//		aux.color += fractal->foldColor.difs0000.y;
 			if (tp > fractal->transformCommon.offsetp01)
-				aux.color += fractal->foldColor.difs0000.z;
+				colAdd = fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offset1
+					- fractal->foldColor.difs0 < fabs(zc.x))
+				colAdd = fractal->foldColor.difs0000.w;
 		}
+		if (colDist != aux.dist)
+			aux.color = colAdd;
+
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux.color += fractal->foldColor.difs0000.x;
 	}
 }
