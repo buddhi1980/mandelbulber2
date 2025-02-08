@@ -1,33 +1,32 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,2;
 ambient_occlusion_enabled true;
-camera -1,64269289587477 1,956197202971496 -1,926494433919057;
-camera_distance_to_target 1,017261262156092e-11;
-camera_rotation -29,9995964941843 19,99987105930182 0;
-camera_top -0,1710069283334166 -0,2961975056471443 0,9396933904792455;
+camera -1,64269289587477 1,9561972029715 -1,92649443391906;
+camera_distance_to_target 1,01885891703249E-11;
+camera_rotation -29,5680425279044 18,779863853806 170,206970687053;
+camera_top 0,304600809143724 0,19220147809917 -0,932886348321961;
 DOF_enabled true;
-DOF_focus 0,008067084476351726;
+DOF_focus 0,00806708447635173;
 flight_last_to_render 0;
 formula_1 8;
 fov 61,93;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_alpha 90;
-main_light_beta -30;
-main_light_intensity 0,9;
+light1_intensity 0,9;
+light1_is_defined true;
+light1_rotation -90 30 0;
 mat1_coloring_palette_offset 0,906;
 mat1_coloring_speed 4;
 mat1_is_defined true;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 f1ffca 1999 ff0000 3999 a1d22c 5999 4544cb 7999 bc3ad9;
-target -1,64269289586999 1,956197202979775 -1,926494433915578;
-view_distance_max 11,21254952952336;
+target -1,64269289587001 1,95619720297989 -1,92649443391578;
+view_distance_max 11,2125495295234;
 [fractal_1]
 mandelbox_folding_min_radius 0,2;
 mandelbox_rotation_neg_2 0 0 5;
