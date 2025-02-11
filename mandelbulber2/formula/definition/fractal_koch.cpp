@@ -74,6 +74,8 @@ void cFractalKoch::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAu
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+	double colDist = aux.dist;
 	aux.dist = fabs(z.Length() - Offset.Length());
 	aux.dist = aux.dist / aux.DE;
 
@@ -81,7 +83,9 @@ void cFractalKoch::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i >= fractal->foldColor.startIterationsA
 					&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += col;
+		if (colDist != aux.dist)
+			aux.color += col;
+	//	aux.color += col;
 	}
 
 }

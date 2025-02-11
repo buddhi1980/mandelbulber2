@@ -15,8 +15,10 @@ v2.33 (?? 2025)
 	 amazingSurfMulti, add iter controls cyl fold & cpix
 	 foldBoxMod1, UI add missing iter controls box fold 2
 	 koch, added aux.color
-	 mandelboxMenger, fix ass cpix multiplier
+	 mandelboxMenger, fix add cpix multiplier
 	 mandelbulbAbsPower2, catch
+	 mengerCrossKIFS added aux.color
+	 mengerMiddleMod, added aux.color
 	 mengerPrismShape & mengerPrismShape2, added aux.color
 	 transfDELinearCube, fix UI from crashing
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
@@ -25,8 +27,6 @@ v2.33 (?? 2025)
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
 	 transfInvCylindrical, add z.z option
-
-
 
 
 v2.32 (August 2024)

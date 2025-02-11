@@ -177,7 +177,9 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double d = min(plD, tD / (aux.DE + fractal->analyticDE.offset0));
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double addColor = 0.0;
 		if (d == plD)
@@ -187,10 +189,13 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
 												+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 		}
+		double oldCol = aux.color;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			aux.color = addColor;
 		else
 			aux.color = max(aux.color, addColor);
+		if (fractal->foldColor.auxColorEnabledFalse)
+			aux.color += oldCol;
 	}
 
 	// clip plane
@@ -211,6 +216,7 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
+
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = d;
 	else
