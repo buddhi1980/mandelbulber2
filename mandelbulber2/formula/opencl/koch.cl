@@ -65,13 +65,16 @@ REAL4 KochIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+
+	REAL colDist = aux->dist;
 	aux->dist = fabs(length(z) - length(Offset));
 	aux->dist = aux->dist / aux->DE;
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += col;
+		if (colDist != aux->dist)
+			aux->color += col;
 	}
 
 

@@ -30,6 +30,7 @@ cFractalMengerCrossMod1::cFractalMengerCrossMod1() : cAbstractFractal()
 void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
+	double t = 0.0;
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 
 	if (fractal->transformCommon.functionEnabledx && aux.i >= fractal->transformCommon.startIterations
@@ -39,21 +40,25 @@ void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
-		double t = max(0.0, dot1);
+		t = max(0.0, dot1);
 		z.x -= t * -SQRT_3 - (0.5 * SQRT_3_4);
 
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
 		{
-			swap(z.y, z.z);
+			t = z.y;
+			z.y = z.z;
+			z.z = t;
 		}
 		z.y -= 1.5;
 		z -= gap * CVector4(SQRT_3_4, -1.5, 1.5, 0.0);
 
 		if (z.z > z.x)
 		{
-			swap(z.z, z.x);
+			t = z.z;
+			z.z = z.x;
+			z.x = t;
 			Col.x = 1.0;
 		}
 		if (fractal->transformCommon.functionEnabledyFalse)

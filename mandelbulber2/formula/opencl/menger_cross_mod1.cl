@@ -19,6 +19,7 @@
 REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL t = 0.0f;
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 
 	if (fractal->transformCommon.functionEnabledx
@@ -29,25 +30,25 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
-		REAL t = max(0.0f, dot1);
+		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F - (0.5f * SQRT_3_4_F);
 
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 		z.y -= 1.5f;
 		z -= gap * (REAL4){SQRT_3_4_F, -1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
 			Col.x = 1.0f;
 		}
 		if (fractal->transformCommon.functionEnabledyFalse)
@@ -132,6 +133,5 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		Col.w *= fractal->foldColor.difs0000.w;
 		aux->color += Col.x + Col.y + Col.z + Col.w;
 	}
-
 	return z;
 }
