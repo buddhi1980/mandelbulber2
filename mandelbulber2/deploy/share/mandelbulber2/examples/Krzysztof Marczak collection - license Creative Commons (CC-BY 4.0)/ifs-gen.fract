@@ -1,0 +1,53 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+brightness 1,9;
+camera 2,49316380823662 -1,75124499547479 3,29221280879379;
+camera_distance_to_target 0,273587767482168;
+camera_rotation 9,52326133457864 -37,4094255091439 -5,52493095291868;
+camera_top -0,194995813808361 0,580421689057726 0,790624623616411;
+delta_DE_method 2;
+detail_level 4;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+flight_last_to_render 99999;
+formula_1 228;
+glow_color_1 0000 0000 0000;
+glow_color_2 0000 0000 0000;
+glow_intensity 6,4;
+hdr true;
+image_height 2048;
+image_proportion 1;
+image_width 2048;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light2_color e800 b000 5000;
+light2_enabled true;
+light2_intensity 1,3;
+light2_is_defined true;
+light2_relative_position true;
+light2_rotation 67,6 -9,65 0;
+light2_type directional;
+light3_color 4300 c000 f500;
+light3_enabled true;
+light3_intensity 0,0921107913705034;
+light3_is_defined true;
+light3_position 2,45734298143949 -1,15469150426228 2,86540473646797;
+light3_visibility 4;
+mat1_is_defined true;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 b1a393 23 c111ad 380 ea21a8 839 fe6a29 1735 09884c 1881 3d3553 2408 cca7a3 5184 72d29b 6168 d83d42 8118 7a4328 9799 89103b;
+raytraced_reflections true;
+saturation 1,5;
+target 2,45720950949638 -1,53692513285933 3,12600645691016;
+view_distance_max 42,7887559164388;
+[fractal_1]
+transf_function_enabledAx false;
+transf_function_enabledS_false true;
+transf_minR2_p25 0;
+transf_offset_000 1,1 0,45 0;
+transf_rotation 10,437475 -24,145542 0;
+transf_scale_2 1,2;

@@ -1,0 +1,71 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+camera -2,45132091092972 7,94615158925979 -2,77277560165734;
+camera_distance_to_target 0,376555206946952;
+camera_rotation 72,2026775519392 21,5111218936593 2,04573277111733E-11;
+camera_top 0,349133782827812 -0,112076597169233 0,930346407557587;
+DE_factor 0,277100132752172;
+DOF_max_noise 2;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_samples 200;
+flight_last_to_render 99999;
+fog_color_1 df00 d700 ad00;
+fog_color_2 eb00 ce00 bd00;
+fog_color_3 de00 f400 ff00;
+formula_1 103;
+formula_2 608;
+formula_iterations_1 2;
+formula_iterations_2 2;
+fov 71,3680396990524;
+fractal_constant_factor 2 2 2;
+hybrid_fractal_enable true;
+image_height 1600;
+image_width 1200;
+keyframe_last_to_render 0;
+light1_enabled false;
+light1_is_defined true;
+light2_color a600 e800 8800;
+light2_intensity 0,0062039202321105;
+light2_is_defined true;
+light2_position -2,79698139378659 8,12650532115234 -2,62331522424969;
+light2_visibility 2;
+light2_volumetric true;
+light2_volumetric_visibility 5,03713762118587;
+mat1_is_defined true;
+mat1_reflectance_gradient 0 c6c678 2377 bc74a4;
+mat1_reflections_color ff00 ee00 9800;
+mat1_surface_color ff00 ff00 ff00;
+mat1_surface_color_gradient 0 c6c678 2377 bc74a4;
+mat1_use_colors_from_palette false;
+MC_denoiser_enable true;
+MC_global_illumination_volumetric true;
+raytraced_reflections true;
+reflections_max 2;
+target -2,78488234339779 8,05322925443228 -2,63469965056549;
+view_distance_max 13,3995170424341;
+volumetric_fog_colour_1_distance 0,054243105215008;
+volumetric_fog_colour_2_distance 0,108486210430016;
+volumetric_fog_density 0,125;
+volumetric_fog_distance_factor 0,108486210430016;
+volumetric_fog_enabled true;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 2,618 1 -1,618;
+IFS_direction_1 -1,618 2,618 1;
+IFS_direction_2 1 -1,618 2,618;
+IFS_enabled_0 true;
+IFS_enabled_1 true;
+IFS_enabled_2 true;
+IFS_offset 1 1 1;
+IFS_scale 2,618034;
+transf_minimum_radius_05 0,6;
+[fractal_2]
+transf_function_enabledJ_false true;
+transf_offset_001 0 0 0;
+transf_scale_1 0,5;
+transf_scale_2 1,2;

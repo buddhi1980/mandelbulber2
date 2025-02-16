@@ -1,0 +1,76 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+background_brightness 4;
+background_color_2 ff00 e800 dd00;
+background_gamma 2,5;
+background_rotation -20,35 0 0;
+camera 0,150893285067602 0,116394670139814 0,613397018824662;
+camera_distance_to_target 0,0613208047702007;
+camera_rotation 135,697859006701 20,1081373199871 1,01777749806833E-13;
+camera_top 0,240119525095435 0,246041225426912 0,939045435034092;
+constant_DE_threshold true;
+DE_factor 4;
+DE_thresh 1,97407020119798E-05;
+DOF_max_noise 2;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+flight_last_to_render 0;
+formula_1 10;
+formula_2 1063;
+fov 53,130102354156;
+glow_enabled false;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_color ff00 d500 b000;
+light1_intensity 1,80437958199739;
+light1_is_defined true;
+light1_penetrating false;
+light1_rotation -58,52 33,41 0;
+light1_soft_shadow_cone 0,25;
+mat1_coloring_palette_offset 0,821;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_metallic 0,5;
+mat1_specular_plastic_enable false;
+mat1_specular_width 0,063;
+mat1_surface_color c300 b200 9400;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_texture_mapping_type 1;
+mat1_texture_scale 0,00390625 0,00390625 0,00390625;
+mat1_use_colors_from_palette false;
+mat2_displacement_texture_height 9,765625E-05;
+mat2_is_defined true;
+mat2_surface_color c300 b800 a600;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_texture_scale 0,0078125 0,0078125 0,0078125;
+mat2_use_colors_from_palette false;
+mat2_use_displacement_texture true;
+MC_denoiser_enable true;
+primitive_plane_1_enabled true;
+primitive_plane_1_material_id 2;
+primitive_plane_1_position 0,136521489889365 0,0885442900999507 0,612189560694464;
+raytraced_reflections true;
+target 0,11067488251956 0,0751844226861757 0,634478686191325;
+view_distance_max 10,1457332832412;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_5 1 -1 0;
+IFS_direction_6 1 0 -1;
+IFS_direction_7 0 1 -1,8;
+IFS_enabled_5 true;
+IFS_enabled_6 true;
+IFS_enabled_7 true;
+IFS_menger_sponge_mode true;
+IFS_rotation_enabled true;
+[fractal_2]
+transf_function_enabledx false;
+transf_function_enabledz false;
+transf_offset_111 0,354813 0,651855 0,422182;

@@ -1,0 +1,64 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+background_color_1 ff00 ed00 c000;
+camera -2,32694578578583 -1,20751588191329 1,7803562966897;
+camera_distance_to_target 2,56306082113566;
+camera_rotation -56,6821987482473 -34,6734544877521 -6,41332232157913;
+camera_top 0,411062668890762 0,403871081766359 0,817261054717081;
+detail_level 0,5;
+DOF_enabled true;
+DOF_focus 2,00290298461914;
+DOF_MC_CA_camera_dispersion 2;
+DOF_MC_CA_enable true;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_samples 200;
+formula_1 240;
+formula_2 131;
+formula_iterations_1 2;
+formula_weight_1 0,75;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+julia_c -0,398403238596628 0,122657796449994 -0,336896142209825;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation -45,97 22,79 0;
+mat1_iridescence_enabled true;
+mat1_iridescence_intensity 2;
+mat1_is_defined true;
+mat1_specular_metallic 4;
+mat1_specular_metallic_roughness 0,8;
+mat1_specular_metallic_width 4;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 333030 168 33312c 2678 181010 4819 2a2c2a 5618 1e2626 6020 181010 6491 282424 9562 1e2426 9655 353b39;
+mat1_transparency_index_of_refraction 1,05;
+mat2_displacement_texture_height 0,2;
+mat2_file_displacement_texture /home/krzysztof/dane/3D/Tekstury/FreeStockTextures/photos_2015_09_18_fst_733v0jvtcy3.jpg;
+mat2_is_defined true;
+mat2_rough_surface true;
+mat2_specular 1,25;
+mat2_specular_metallic 0,5;
+mat2_surface_color 6100 5600 5100;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_surface_roughness 0,16;
+mat2_texture_scale 4 4 4;
+mat2_use_colors_from_palette false;
+mat2_use_displacement_texture true;
+MC_denoiser_enable true;
+MC_denoiser_strength 2;
+MC_soft_shadows_enable true;
+N 15;
+primitive_water_1_enabled true;
+primitive_water_1_length 0,8;
+primitive_water_1_material_id 2;
+primitive_water_1_position 0 0 0,433047690663093;
+primitive_water_1_relative_amplitude 0,4;
+raytraced_reflections true;
+target -0,56552299805075 -0,0496938216868278 0,322234692521816;
+[fractal_2]
+power 2;

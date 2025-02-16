@@ -1,0 +1,43 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+camera -0,257374244326148 -0,0790778690065497 0,629799425302766;
+camera_distance_to_target 0,326165266335011;
+camera_rotation -72,6472201027813 -36,7476411516888 -1,49233099104675;
+camera_top 0,563100070745413 0,203240324914809 0,801006667047805;
+detail_level 2;
+DOF_enabled true;
+DOF_focus 0,280239637093722;
+DOF_monte_carlo true;
+DOF_samples 200;
+fake_lights_color 4400 3700 ff00;
+fake_lights_enabled true;
+fake_lights_intensity 0,015625;
+fake_lights_max_iter 9;
+fake_lights_min_iter 5;
+fake_lights_orbit_trap 0 0 2,63592819933032;
+fake_lights_orbit_trap_shape line;
+fake_lights_orbit_trap_size 0;
+fake_lights_visibility 128;
+fake_lights_visibility_size 3,4;
+flight_last_to_render 99999;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_intensity 0,25;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_specular_metallic 8;
+mat1_surface_color_gradient 0 28180f 1454 395925 3599 26136c 6929 680400 7858 004245;
+MC_denoiser_enable true;
+MC_denoiser_preserve_geometry false;
+raytraced_reflections true;
+target -0,00791997468753424 -0,00112935827956737 0,43465748209757;
+view_distance_max 11,544275124533;
+volumetric_light_DE_Factor 0,125;
+[fractal_1]
+alpha_angle_offset 43,531199;
+beta_angle_offset 73,300756;
+power 3;
