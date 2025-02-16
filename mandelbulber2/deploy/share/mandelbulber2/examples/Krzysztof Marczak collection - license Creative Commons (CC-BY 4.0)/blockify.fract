@@ -1,0 +1,60 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+basic_fog_visibility 0,625;
+camera -0,187930338401476 0,364494031733401 -0,52083556475034;
+camera_distance_to_target 0,0525354659182146;
+camera_rotation -72,6789262503058 14,3643395570015 2,34088824555715E-12;
+camera_top -0,236836592057398 -0,0738619555190766 0,968737756149483;
+constant_DE_threshold true;
+DE_thresh 3,90625E-05;
+delta_DE_function 1;
+DOF_monte_carlo true;
+flight_last_to_render 99999;
+fog_color_3 ff00 e800 9400;
+formula_1 113;
+formula_2 1125;
+formula_iterations_1 2;
+gamma 0,8;
+glow_color_1 e500 4300 1200;
+glow_color_2 f300 c900 4a00;
+glow_intensity 0,8;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_color 1800 4a00 ff00;
+light1_intensity 0,5;
+light1_is_defined true;
+light1_penetrating false;
+light1_position 0,193507098054798 0,365047716701545 -0,501746144722015;
+light1_relative_position false;
+light1_size 0,293925925925927;
+light1_type point;
+light1_visibility 8;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_rough_surface true;
+mat1_specular_plastic_enable false;
+mat1_surface_color c300 ba00 ad00;
+mat1_surface_color_gradient 0 a3dd03 6836 50dd30 9518 281b40;
+mat1_transparency_index_of_refraction 9,1;
+MC_denoiser_enable true;
+raytraced_reflections true;
+reflections_max 2;
+target -0,139345181490937 0,379646228728964 -0,507802198591521;
+view_distance_max 13,5938770413146;
+volumetric_fog_colour_1_distance 0,00346748153501288;
+volumetric_fog_colour_2_distance 0,00693496307002576;
+volumetric_fog_density 0,125;
+volumetric_fog_distance_factor 0,00693496307002576;
+[fractal_1]
+mandelbox_scale 1,2;
+transf_addition_constant_111 1,4 1,4 1;
+transf_rotation 8,027238 -8,259438 7,666804;
+[fractal_2]
+transf_scale 0,5;

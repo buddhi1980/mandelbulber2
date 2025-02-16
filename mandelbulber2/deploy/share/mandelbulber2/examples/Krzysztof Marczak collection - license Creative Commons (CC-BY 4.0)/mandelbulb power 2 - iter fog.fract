@@ -1,15 +1,15 @@
 # Mandelbulber settings file
-# version 2.28
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 1;
 background_color_1 0224 0000 4955;
 background_color_2 0000 0000 0000;
-camera -1,46546265309038 -2,36020639867626 -1,58660254037844;
-camera_distance_to_target 3;
-camera_rotation -20 30 0;
-camera_top -0,171010071662834 -0,4698463103929538 0,8660254037844389;
+camera -2,09441438541057 -2,27712425870826 1,50167017194131;
+camera_distance_to_target 2,99999999999999;
+camera_rotation -32,2910611578165 -27,1067393825075 3,43220066494924;
+camera_top 0,293589347922535 0,352507943893937 0,888562571954328;
 DE_factor 0,5;
 flight_last_to_render 0;
 formula_1 3;
@@ -27,17 +27,14 @@ iteration_fog_opacity 400;
 iteration_fog_opacity_trim 6;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
 light1_intensity 0,7;
 light1_is_defined true;
 light1_penetrating false;
-light1_rotation -45 -45 0;
 light2_color ace7 45f6 2baf;
 light2_enabled true;
 light2_intensity 10,4;
 light2_is_defined true;
 light2_penetrating false;
-light2_position 3 -3 -3;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
@@ -45,7 +42,7 @@ mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5
 mat1_use_colors_from_palette false;
 N 70;
 slow_shading true;
-target -0,576868254912307 0,0811866453718623 -0,0866025403784439;
+target -0,66779055781759 -0,0196488300500478 0,134721327416277;
 view_distance_max 5,54705326181403;
 [fractal_2]
 mandelbox_generalized_fold_type fold_cube;

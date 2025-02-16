@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.28
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
@@ -7,14 +7,17 @@ ambient_occlusion_quality 1;
 background_color_1 0224 0000 4955;
 background_color_2 0000 0000 0000;
 brightness 0,6;
-camera -1,83738459952709 -0,0746286482620087 -0,0519614467701583;
-camera_distance_to_target 0,0117055326931871;
-camera_rotation -66,9448928357246 14,618459139129 19,2525017594978;
-camera_top -0,09010755291471204 -0,3967048133247311 0,9135129555691657;
+camera -1,83409118994585 -0,0901311255851754 0,0427303069610377;
+camera_distance_to_target 0,0117055326931797;
+camera_rotation -59,6533946370467 -13,8873032100117 -1,18218840713759;
+camera_top 0,196659729372951 0,139040633450077 0,970563059822884;
 DE_factor 0,4;
 flight_last_to_render 0;
 formula_1 3;
 gamma 1,3;
+glow_color_1 3b00 1400 0400;
+glow_color_2 f300 1800 8900;
+glow_intensity 3,2;
 image_height 1080;
 image_width 1920;
 iteration_fog_color_1 9dcc e457 ffff;
@@ -23,20 +26,19 @@ iteration_fog_color_2 ffff ff50 0000;
 iteration_fog_color_2_maxiter 23;
 iteration_fog_color_3 5dc0 ffff 0000;
 iteration_fog_enable true;
-iteration_fog_opacity 200;
-iteration_fog_opacity_trim 8;
+iteration_fog_opacity 3200;
+iteration_fog_opacity_trim 11;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
 light1_is_defined true;
 light1_penetrating false;
-light1_rotation -45 -45 0;
+light1_rotation -65,46 53,22 0;
 light2_color ace7 45f6 2baf;
 light2_enabled true;
 light2_intensity 10;
 light2_is_defined true;
 light2_penetrating false;
-light2_position -3,5 2 -0,5;
+light2_position -3,5 2 2;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
@@ -44,5 +46,5 @@ mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5
 mat1_use_colors_from_palette false;
 N 35;
 slow_shading true;
-target -1,82696267054873 -0,0701929671308498 -0,0490071913810666;
+target -1,82428476802251 -0,084390009696291 0,0399208278201767;
 view_distance_max 5,54705326181403;

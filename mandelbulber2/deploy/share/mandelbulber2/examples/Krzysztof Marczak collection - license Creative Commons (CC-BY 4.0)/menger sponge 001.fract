@@ -1,16 +1,18 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 1,4;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 3;
-camera -0,4778774219012675 0,3975609446973455 1,353218627829861;
-camera_distance_to_target 6,510416374932822e-10;
-camera_rotation -19,99999753501076 14,99999126961666 0;
-camera_top -0,08852126609876203 -0,2432102123043065 0,9659258657263332;
+antialiasing_enabled true;
+camera -0,477877421901267 0,397560944697345 1,35321862782986;
+camera_distance_to_target 6,53112588309531E-10;
+camera_rotation -23,2451615092781 -1,84433261350601 0,876998634213935;
+camera_top 0,0267659709843733 0,0235320721130304 0,999364710393223;
 DE_factor 0,81298828125;
+detail_level 4;
 flight_last_to_render 0;
 formula_1 10;
 fov 61,93;
@@ -19,20 +21,20 @@ hdr true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_alpha -120;
-main_light_beta -30;
-main_light_intensity 0,7;
-main_light_volumetric_enabled true;
-main_light_volumetric_intensity 2,63027;
+light1_intensity 1,4;
+light1_is_defined true;
+light1_rotation -120 30 0;
+light1_volumetric true;
+light1_volumetric_visibility 1,315135;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-target -0,4778774216861854 0,3975609452882787 1,353218627998363;
-view_distance_max 9,462117004033193;
+MC_denoiser_enable true;
+target -0,477877421643639 0,39756094529713 1,35321862780884;
+view_distance_max 9,46211700403319;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

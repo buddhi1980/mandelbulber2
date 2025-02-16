@@ -1,22 +1,17 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,22;
-ambient_occlusion_enabled true;
 ambient_occlusion_mode 0;
-aux_light_colour_1 ffff 502c 2755;
-aux_light_enabled_1 true;
-aux_light_intensity_1 5,042619381771646e-08;
-aux_light_position_1 0,6896014327929882 -0,5098823455521211 0,115944664264888;
-aux_light_visibility 5;
+antialiasing_enabled true;
 background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
-camera 0,6843221602517791 -0,509946097057717 0,1156652881802157;
-camera_distance_to_target 1,560737661589489e-09;
-camera_rotation -59,9999987029904 20,00000018499295 0;
+camera 0,684322160251779 -0,509946097057717 0,115665288180216;
+camera_distance_to_target 1,56073764763536E-09;
+camera_rotation -59,9999992840755 19,9999721791457 1,98742836936299E-07;
 camera_top -0,2961981314823915 -0,1710100798849073 0,9396926196816157;
-DOF_focus 1,479108388168207e-14;
+DOF_focus 1,47910838816821E-14;
 flight_last_to_render 0;
 fog_color_1 0000 0000 0000;
 formula_1 7;
@@ -29,30 +24,40 @@ glow_color_1 ffff 0000 2386;
 glow_intensity 0,5;
 hdr true;
 hybrid_fractal_enable true;
-image_height 1200;
-image_width 1600;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 iteration_fog_color_2_maxiter 165;
 julia_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_alpha -25;
-main_light_beta -25;
-main_light_colour ffff d221 4887;
-main_light_intensity 0;
-main_light_volumetric_intensity 100;
+light1_color ffff d221 4887;
+light1_intensity 0;
+light1_is_defined true;
+light1_rotation -25 -25 0;
+light1_volumetric_visibility 100;
+light2_color ffff 502c 2755;
+light2_enabled true;
+light2_intensity 4,03409550541732E-07;
+light2_is_defined true;
+light2_position 0,689601432792988 -0,509882345552121 0,115944664264888;
+light2_visibility 5,09839430708664;
 mat1_coloring_palette_offset 20,1;
 mat1_coloring_speed 6,6667;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
-mat1_reflectance 0,95;
+mat1_reflectance 1;
 mat1_specular 1;
 mat1_specular_width 1;
-mat1_surface_color_gradient 0 003f79 3333 2c0002 6666 2f0e6d;
+mat1_surface_color fe00 fe00 fe00;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_surface_gradient_enable false;
 mat1_transparency_index_of_refraction 7;
+mat1_use_colors_from_palette false;
 raytraced_reflections true;
 reflections_max 9;
-target 0,6843221615219037 -0,5099460963244101 0,1156652887140194;
+target 0,684322161521904 -0,50994609632441 0,115665288714019;
 [fractal_1]
 IFS_rotation_enabled true;
 [fractal_2]
