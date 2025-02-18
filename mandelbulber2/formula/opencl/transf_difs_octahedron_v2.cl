@@ -84,10 +84,21 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
 		REAL zcb = length(zc) + min(max(max(zc.x, zc.y), zc.z), 0.0f);
-		if (zcb < zcd)
+		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
-			zcd = zcb;
-			addCol = fractal->transformCommon.offset4;
+			if (zcb < zcd)
+			{
+				zcd = zcb;
+				addCol = fractal->transformCommon.offset4;
+			}
+		}
+		else
+		{
+			if (zcb > zcd)
+			{
+				zcd = zcb;
+				addCol = fractal->transformCommon.offset4;
+			}
 		}
 	}
 
