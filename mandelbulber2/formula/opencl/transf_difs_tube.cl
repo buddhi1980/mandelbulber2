@@ -90,7 +90,7 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledCx)
 		t = max(fabs(t), fabs(zc.z));
 	if (fractal->transformCommon.functionEnabledDFalse)
-		t = sqrt(t * t + zc.z * zc.z);
+		t = native_sqrt(t * t + zc.z * zc.z);
 	if (fractal->transformCommon.functionEnabledEFalse)
 		t = max(fabs(t) * SQRT_3_4_F + zc.z * 0.5f, -zc.z);
 	if (fractal->transformCommon.functionEnabledFFalse)
@@ -118,7 +118,7 @@ REAL4 TransfDIFSTubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (!fractal->transformCommon.functionEnabledGFalse)
 	{
 		cylR = fabs(cylR) - fractal->transformCommon.offsetp01;
-		 cylR = max(cylR, t);
+		cylR = max(cylR, t);
 	}
 
 	REAL cylH = fabs(zc.y) - fractal->transformCommon.offsetA1;
