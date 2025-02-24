@@ -411,7 +411,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 							lightIntensity = light->intensity / light->Decay(distanceLight) * 4.0;
 
 						sRGBFloat textureColor(0.0, 0.0, 0.0);
-						lightIntensity *= light->CalculateCone(lightVectorTemp, textureColor);
+						lightIntensity *= light->CalculateCone(point, lightVectorTemp, textureColor);
 
 						sRGBAFloat lightShadow(0.0, 0.0, 0.0, 0.0);
 						if (shadowNeeded)
@@ -612,7 +612,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 						CVector3 lightDirection = lightDistVect;
 						lightDirection.Normalize();
 						sRGBFloat textureColor;
-						bellFunction *= light->CalculateCone((-1.0) * lightDirection, textureColor);
+						bellFunction *= light->CalculateCone(point, (-1.0) * lightDirection, textureColor);
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 

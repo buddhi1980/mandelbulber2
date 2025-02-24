@@ -1049,7 +1049,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 															/ LightDecay(distanceLight, light->decayFunction) / 6.0f;
 
 								float3 textureColor;
-								intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
+								intensity *= CalculateLightCone(light, renderData, input2.point, lightVectorTemp, &textureColor);
 
 								float3 lightShadow = 1.0f;
 #ifdef SHADOWS

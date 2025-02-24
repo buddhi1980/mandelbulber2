@@ -1434,7 +1434,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 									intensity = 100 * light->intensity / light->Decay(distanceLight) / 6.0;
 
 								sRGBFloat textureColor;
-								intensity *= light->CalculateCone(lightVectorTemp, textureColor);
+								intensity *= light->CalculateCone(input2.point, lightVectorTemp, textureColor);
 
 								sRGBAFloat lightShadow(1.0, 1.0, 1.0, 1.0);
 								if (intensity > 1e-3)
