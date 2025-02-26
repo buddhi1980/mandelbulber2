@@ -44,25 +44,31 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-
+	temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+		torD = sqrt(T1 * T1 + zc.z * zc.z) + temp;
 	else
-		torD = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offset05;
-	double colDist = aux.dist;
-	aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
+		torD = max(fabs(T1), fabs(zc.z)) + temp;
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		torD = max(fabs(torD) - fractal->transformCommon.offset0005, 0.0);
+	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		aux.dist = max(aux.dist, -zc.x);
+		torD = max(torD, -zc.x);
 	}
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		aux.dist = max(aux.dist, -zc.y);
+		torD = max(torD, -zc.y);
 	}
 
+	double colDist = aux.dist;
+	aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
 	}
