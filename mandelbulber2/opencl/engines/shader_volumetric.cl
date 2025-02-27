@@ -396,6 +396,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					float lightIntensity = 0.0f;
 					if (light->type == lightDirectional)
 						lightIntensity = light->intensity;
+					else if (light->type == lightConical)
+						lightIntensity = light->intensity * 10.0;
 					else
 						lightIntensity =
 							light->intensity / LightDecay(distanceLight, light->decayFunction) * 4.0f;
@@ -573,7 +575,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						float bellFunction;
 						if (light->type == lightConical)
 						{
-							bellFunction = 1.0f / (0.01f + pown(r2, ((int)light->decayFunction + 1) * 2));
+							bellFunction = 1.0f;
 						}
 						else
 						{

@@ -109,6 +109,8 @@ float CalculateLightCone(__global sLightCl *light, sRenderData *renderData, floa
 			{
 				intensity = 0.0f;
 			}
+
+			intensity = intensity * (tipSize * tipSize) / ((tipSize + cone1) * (tipSize + cone1));
 		}
 #endif // LIGHT_CONICAL
 	}
@@ -176,6 +178,10 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	if (light->type == lightDirectional)
 	{
 		intensity = light->intensity;
+	}
+	else if (light->type == lightConical)
+	{
+		intensity = 10.0f * light->intensity;
 	}
 	else
 	{
