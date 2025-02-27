@@ -111,7 +111,7 @@ void cRenderWorker::doWork()
 
 	// main loop for y
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id);
-			 ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
+		ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
 		// skip if line is out of region
 		if (ys < 0) break;
@@ -478,7 +478,7 @@ void cRenderWorker::doWork()
 			data->statistics.numberOfRenderedPixels++;
 
 		} // next xs
-	}		// next ys
+	} // next ys
 
 	// emit signal to main thread when finished
 	emit finished();
@@ -1430,6 +1430,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								float intensity;
 								if (light->type == cLight::lightDirectional)
 									intensity = light->intensity;
+								else if (light->type == cLight::lightConical)
+									intensity = 10.0 * light->intensity;
 								else
 									intensity = 100 * light->intensity / light->Decay(distanceLight) / 6.0;
 

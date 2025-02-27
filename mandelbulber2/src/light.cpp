@@ -241,6 +241,8 @@ float cLight::CalculateCone(CVector3 point, const CVector3 &lightVector, sRGBFlo
 			{
 				intens = 0.0;
 			}
+
+			intens = intens * (tipSize * tipSize) / ((tipSize + cone1) * (tipSize + cone1));
 		}
 	}
 	else if (type == lightProjection)

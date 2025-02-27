@@ -55,6 +55,10 @@ sRGBAFloat cRenderWorker::LightShading(sShaderInputData &input, sRGBAFloat surfa
 	{
 		intensity = light->intensity;
 	}
+	else if (light->type == cLight::lightConical)
+	{
+		intensity = light->intensity * 10.0;
+	}
 	else
 	{
 		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0f;
