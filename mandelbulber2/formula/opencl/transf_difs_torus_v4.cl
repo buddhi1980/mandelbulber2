@@ -13,13 +13,37 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSTorusV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 zc = z;
-	REAL temp = 0.0f;
-	REAL torD;
+	REAL temp;
+	if (aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
+		z = z - fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
+	if (fractal->transformCommon.angleDegA != 0.0f)
+	{
+		REAL s = fractal->transformCommon.sinA;
+		REAL c = fractal->transformCommon.cosA;
+		temp = z.x;
+		z.x = z.x * c + z.y * -s;
+		z.y = temp * s + z.y * c;
+
+		z.x = fabs(z.x);
+		temp = z.x;
+		z.x = z.x * c + z.y * -s;
+		z.y = temp * s + z.y * c;
+	}
+
+
 	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
+/*	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		temp = zc.x;
 		zc.x = zc.z;
@@ -30,33 +54,27 @@ REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		temp = zc.y;
 		zc.y = zc.z;
 		zc.z = temp;
-	}
+	}*/
 
-	REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+	REAL torD;
+	REAL T1 = native_sqrt(z.y * z.y + z.x * z.x) - fractal->transformCommon.radius1;
 
-	if (!fractal->transformCommon.functionEnabledCFalse)
-		temp = -fractal->transformCommon.offset05;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+		temp = -fractal->transformCommon.offset02;
 	else
-		temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
+		temp = fractal->transformCommon.offsetp05 - fractal->transformCommon.offset02;
 
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = native_sqrt(T1 * T1 + zc.z * zc.z) + temp;
+		torD = native_sqrt(T1 * T1 + z.z * z.z) + temp;
 	else
-		torD = max(fabs(T1), fabs(zc.z)) + temp;
-
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		torD = max(fabs(torD) - fractal->transformCommon.offset0005, 0.0f);
-	}
+		torD = max(fabs(T1), fabs(z.z)) + temp;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		torD = max(torD, -zc.x);
+		torD = max(fabs(torD) - fractal->transformCommon.offsetp05, 0.0f);
 	}
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		torD = max(torD, -zc.y);
-	}
+	torD = max(torD, -z.y);
+
 
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset0));

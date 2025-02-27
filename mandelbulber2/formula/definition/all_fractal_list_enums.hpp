@@ -581,6 +581,7 @@ enum enumFractalFormula
 	transfDIFSOctahedronV2 = 1643,
 	transfDIFSSupershapeV2 = 1644,
 	transfDIFSTube = 1645,
+	transfDIFSTorusV4 = 1646,
 
 
 

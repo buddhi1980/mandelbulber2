@@ -44,7 +44,12 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-	temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
+
+	if (!fractal->transformCommon.functionEnabledCFalse)
+		temp = -fractal->transformCommon.offset05;
+	else
+		temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
+
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		torD = sqrt(T1 * T1 + zc.z * zc.z) + temp;
 	else
