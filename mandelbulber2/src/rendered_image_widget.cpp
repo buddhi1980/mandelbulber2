@@ -1453,10 +1453,10 @@ void RenderedImage::DisplayAllLights()
 								sRGBFloat opacity =
 									((s == 0) ? sRGBFloat(0.7, 0.7, 0.7) : sRGBFloat(0.2, 0.2, 0.2));
 
-								for (int i = 0; i < 8; i++)
+								for (int i = 0; i < 9; i++)
 								{
-									double r1 = (i + 1) * light.size * coneRatio * sizeFactor;
-									double r2 = i * light.size * coneRatio * sizeFactor;
+									double r1 = (i + 1) * light.size * coneRatio * sizeFactor + light.size * 0.5;
+									double r2 = i * light.size * coneRatio * sizeFactor + light.size * 0.5;
 
 									CVector3 previousPoint;
 
@@ -1464,19 +1464,19 @@ void RenderedImage::DisplayAllLights()
 									{
 										double angle = j / 16.0 * 2.0 * M_PI;
 
-										CVector3 dx1 = r1 * cos(angle) * light.lightRightVector;
-										CVector3 dy1 = r1 * sin(angle) * light.lightTopVector;
-										CVector3 dz1 =
-											(-1.0) * (light.size * (i + 1) * sizeFactor) * light.lightDirection;
+										CVector3 dx1 = r2 * cos(angle) * light.lightRightVector;
+										CVector3 dy1 = r2 * sin(angle) * light.lightTopVector;
+										CVector3 dz1 = (-1.0) * (light.size * i * sizeFactor) * light.lightDirection;
 
 										CVector3 point1 = light.position + dx1 + dy1 + dz1;
 
 										// draw lines
-										if (j % 4 == 0)
+										if (j % 4 == 0 && i < 8)
 										{
-											CVector3 dx2 = r2 * cos(angle) * light.lightRightVector;
-											CVector3 dy2 = r2 * sin(angle) * light.lightTopVector;
-											CVector3 dz2 = (-1.0) * (light.size * i * sizeFactor) * light.lightDirection;
+											CVector3 dx2 = r1 * cos(angle) * light.lightRightVector;
+											CVector3 dy2 = r1 * sin(angle) * light.lightTopVector;
+											CVector3 dz2 =
+												(-1.0) * (light.size * (i + 1) * sizeFactor) * light.lightDirection;
 
 											CVector3 point2 = light.position + dx2 + dy2 + dz2;
 
@@ -1493,9 +1493,9 @@ void RenderedImage::DisplayAllLights()
 
 										previousPoint = point1;
 									} // for j
-								}		// for i
-							}			// for s
-						}				// if conical
+								} // for i
+							} // for s
+						} // if conical
 
 						if (light.type == cLight::lightProjection)
 						{
@@ -1537,12 +1537,12 @@ void RenderedImage::DisplayAllLights()
 								}
 
 							} // for i
-						}		// if projection
-					}			// if not directional
-				}				// if enabled
-			}					// if is defined
-		}						// if parameter is light
-	}							// for parameterName
+						} // if projection
+					} // if not directional
+				} // if enabled
+			} // if is defined
+		} // if parameter is light
+	} // for parameterName
 }
 
 void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &torus,
