@@ -49,6 +49,7 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	double xyR = sqrt(zc.x * zc.x + zc.y * zc.y)
 			- fractal->transformCommon.radius1
 			+ fractal->transformCommon.offsetB0;
+
 	double cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{

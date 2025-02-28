@@ -27,9 +27,25 @@ cFractalTransfDIFSTorusV4::cFractalTransfDIFSTorusV4() : cAbstractFractal()
 void cFractalTransfDIFSTorusV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp;
+
+	z *= fractal->transformCommon.scale1;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1);
+
+
+
+
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		if (fractal->transformCommon.functionEnabledGFalse)
+		{
+			if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+		}
+
 		z = z - fractal->transformCommon.offset000;
+	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
@@ -55,42 +71,49 @@ void cFractalTransfDIFSTorusV4::FormulaCode(CVector4 &z, const sFractal *fractal
 	// swap axis
 /*	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
 	}
 	if (fractal->transformCommon.functionEnabledSFalse)
 	{
-		temp = zc.y;
-		zc.y = zc.z;
-		zc.z = temp;
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
 	}*/
 
-	double torD;
+
 	double T1 = sqrt(z.y * z.y + z.x * z.x) - fractal->transformCommon.radius1;
 
-	if (!fractal->transformCommon.functionEnabledAFalse)
+	if (!fractal->transformCommon.functionEnabledCFalse)
 		temp = -fractal->transformCommon.offset02;
 	else
-		temp = fractal->transformCommon.offsetp05 - fractal->transformCommon.offset02;
+		temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset02;
 
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = sqrt(T1 * T1 + z.z * z.z) + temp;
+		T1 = sqrt(T1 * T1 + z.z * z.z) + temp;
 	else
-		torD = max(fabs(T1), fabs(z.z)) + temp;
+		T1 = max(fabs(T1), fabs(z.z)) + temp;
+	temp = T1;
 
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		torD = max(fabs(torD) - fractal->transformCommon.offsetp05, 0.0);
+		T1 = max(fabs(T1) - fractal->transformCommon.offset0005, 0.0);
 	}
-	torD = max(torD, -z.y);
+	double torD = max(T1, -z.y);
 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		double addCol = fractal->foldColor.difs0000.x;
+		if (T1 >= temp + fractal->transformCommon.offset0005)
+			addCol = fractal->foldColor.difs0000.z;
+		if (torD == -z.y) addCol = fractal->foldColor.difs0000.y;
+
+		aux.color = addCol;
 	}
 }
