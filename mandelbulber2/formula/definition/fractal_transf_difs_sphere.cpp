@@ -37,6 +37,24 @@ void cFractalTransfDIFSSphere::FormulaCode(CVector4 &z, const sFractal *fractal,
 		vecLen = zc.Length();
 
 	double spD = vecLen - fractal->transformCommon.offsetR1;
-	aux.dist = min(aux.dist, spD / (aux.DE + 1.0));
+
+	double colDist = aux.dist;
+	aux.dist = min(aux.dist, spD / (aux.DE + fractal->analyticDE.offset0));
 	aux.DE0 = spD; // temp testing
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colAdd = fractal->foldColor.difs0000.y;
+		//if (fractal->foldColor.auxColorEnabledAFalse)
+		/*{
+			// for hollow
+		}*/
+		if (colDist != aux.dist) aux.color = colAdd;
+		if (fractal->foldColor.auxColorEnabledBFalse)
+			aux.color += fractal->foldColor.difs0000.x; // aux.color default 1
+	}
+
+
 }

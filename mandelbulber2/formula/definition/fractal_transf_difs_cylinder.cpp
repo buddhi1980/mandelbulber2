@@ -87,8 +87,7 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 					- fractal->foldColor.difs0 < fabs(zc.z))
 				colAdd = fractal->foldColor.difs0000.w;
 		}
-		if (colDist != aux.dist)
-			aux.color = colAdd;
+		if (colDist != aux.dist) aux.color = colAdd;
 
 		if (fractal->foldColor.auxColorEnabledBFalse)
 			aux.color += fractal->foldColor.difs0000.x;
