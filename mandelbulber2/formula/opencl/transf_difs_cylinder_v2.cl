@@ -105,26 +105,28 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset0)
 					- fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colAdd = fractal->foldColor.difs0000.y;
+		REAL addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (t <= -fractal->transformCommon.offset0
 					- fractal->transformCommon.offsetB0)
-				colAdd = fractal->foldColor.difs0000.z;
+				addCol = fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1
 					+ fractal->transformCommon.offsetB0
 					- fractal->foldColor.difs0 < (zc.z))
-				colAdd = fractal->foldColor.difs0000.w;
+				addCol = fractal->foldColor.difs0000.w;
 		}
-		if (colDist != aux->dist)
-			aux->color = colAdd;
-
-		if (fractal->foldColor.auxColorEnabledBFalse)
-			aux->color += fractal->foldColor.difs0000.x;
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux->color = addCol;
+		else
+		{
+			aux->colorHybrid += addCol + fractal->foldColor.difs0000.x;
+			aux->color = aux->colorHybrid;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

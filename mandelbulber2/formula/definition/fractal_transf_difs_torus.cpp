@@ -82,9 +82,12 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				&& T1 >= temp + fractal->transformCommon.offset0005)
 			addCol = fractal->foldColor.difs0000.z;
 
-		if (colDist != aux.dist) aux.color = addCol;
-
-		if (fractal->foldColor.auxColorEnabledBFalse)
-			aux.color += fractal->foldColor.difs0000.x; // aux.color default 1
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux.color = addCol;
+		else
+		{
+			aux.colorHybrid += addCol + fractal->foldColor.difs0000.x;
+			aux.color = aux.colorHybrid; // aux.color default 1
+		}
 	}
 }

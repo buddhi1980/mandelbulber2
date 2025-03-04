@@ -37,18 +37,26 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(M_PI_F / 6.0f));
 	REAL gridMin = min(gridMax - size * 0.5f, yFloor);
 
-	REAL colDist = aux->dist;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = native_sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, (hexD - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL addCol = fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux->color = addCol;
+		else
+		{
+			aux->colorHybrid += addCol + fractal->foldColor.difs0000.x;
+			aux->color = aux->colorHybrid;
+		}
 	}
 	return z;
 }

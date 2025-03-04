@@ -49,17 +49,26 @@ void cFractalTransfDIFSHextgrid2::FormulaCode(
 	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 	double gridMin = min(gridMax - size * 0.5, yFloor);
 
-	double colDist = aux.dist;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
+	double colDist = aux.dist;
+	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005)
+				/ (aux.DE + fractal->analyticDE.offset0));
 
-	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		double addCol = fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux.color = addCol;
+		else
+		{
+			aux.colorHybrid += addCol + fractal->foldColor.difs0000.x;
+			aux.color = aux.colorHybrid; // aux.color default 1
+		}
 	}
 }
