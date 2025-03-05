@@ -101,8 +101,7 @@ REAL4 TransfDIFSTorusV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->color = addCol;
 		else
 		{
-			aux->colorHybrid += addCol + fractal->foldColor.difs0000.x;
-			aux->color = aux->colorHybrid;
+			aux->color += addCol + fractal->foldColor.difs0000.x;
 		}
 	}
 	return z;

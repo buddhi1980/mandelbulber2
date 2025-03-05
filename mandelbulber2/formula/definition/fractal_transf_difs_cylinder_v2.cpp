@@ -118,7 +118,7 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 	aux.dist = min(aux.dist, cylD /(aux.DE + fractal->analyticDE.offset0)
 				- fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+	if (fractal->foldColor.auxColorEnabledFalse  && colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
@@ -134,11 +134,12 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 				addCol = fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
 			aux.color = addCol;
+		}
 		else
 		{
-			aux.colorHybrid += addCol + fractal->foldColor.difs0000.x;
-			aux.color = aux.colorHybrid; // aux.color default 1
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
 		}
 	}
 

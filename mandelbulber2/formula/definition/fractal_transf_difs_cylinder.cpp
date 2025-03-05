@@ -88,11 +88,12 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 				addCol = fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
 			aux.color = addCol;
+		}
 		else
 		{
-			aux.colorHybrid += addCol + fractal->foldColor.difs0000.x;
-			aux.color = aux.colorHybrid; // aux.color default 1
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
 		}
 	}
 }

@@ -54,8 +54,7 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			aux->color = addCol;
 		else
 		{
-			aux->colorHybrid += addCol + fractal->foldColor.difs0000.x;
-			aux->color = aux->colorHybrid;
+			aux->color += addCol + fractal->foldColor.difs0000.x;
 		}
 	}
 	return z;

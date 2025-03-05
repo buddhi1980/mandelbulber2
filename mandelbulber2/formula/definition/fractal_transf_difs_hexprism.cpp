@@ -86,20 +86,24 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + fractal->analyticDE.offset0)
 				- fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colAdd = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (colIn < maxdx) colAdd = fractal->foldColor.difs0000.z;
+			if (colIn < maxdx) addCol = fractal->foldColor.difs0000.z;
 			if (lenY - fractal->foldColor.difs0 < zc.z)
-				colAdd = fractal->foldColor.difs0000.w;
+				addCol = fractal->foldColor.difs0000.w;
 		}
-		if (colDist != aux.dist)
-			aux.color = colAdd;
-
-		if (fractal->foldColor.auxColorEnabledBFalse)
-			aux.color += fractal->foldColor.difs0000.x;
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
+		}
 	}
 }

@@ -96,17 +96,19 @@ void cFractalTransfDIFSAmazingIfs::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 
 	// DE
-	double colorDist = aux.dist; // for color
+	double colDist = aux.dist; // for color
 	aux.DE0 = z.Length() / aux.DE;
 	if (!fractal->analyticDE.enabledFalse) aux.DE0 = min(aux.dist, aux.DE0);
 	aux.dist = aux.DE0;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double colorAdd = 0.0;
 		if (fractal->foldColor.auxColorEnabledA)
-			if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs1;
+			if (colDist != aux.dist) colorAdd += fractal->foldColor.difs1;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
