@@ -107,6 +107,7 @@ void cFractalTransfDIFSTorusV4::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double addCol = fractal->foldColor.difs0000.y;
+
 		if (T1 >= temp + fractal->transformCommon.offset0005)
 			addCol = fractal->foldColor.difs0000.z;
 		if (torD == -z.y) addCol = fractal->foldColor.difs0000.w;

@@ -34,12 +34,11 @@ void cFractalTransfDIFSPrismV2::FormulaCode(CVector4 &z, const sFractal *fractal
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
 	CVector4 zc = z;
-	double tp = 0.0;
+
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
-
+	double tp = 0.0;
 	double absZ = fabs(zc.z);
-	//double tp;
 	double len = fractal->transformCommon.offset1;
 	double face = fractal->transformCommon.offset05;
 
@@ -91,6 +90,7 @@ void cFractalTransfDIFSPrismV2::FormulaCode(CVector4 &z, const sFractal *fractal
 					- fractal->foldColor.difs0 < fabs(zc.x))
 				addCol = fractal->foldColor.difs0000.w;
 		}
+
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
 			aux.color = addCol;

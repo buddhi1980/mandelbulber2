@@ -19,6 +19,18 @@
 
 REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleA1);
+
+		z += fractal->transformCommon.offset000;
+
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+	}
+
 	REAL4 zc = z;
 
 	REAL size = fractal->transformCommon.scale1;

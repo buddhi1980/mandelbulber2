@@ -102,7 +102,7 @@ void cFractalTransfDIFSAmazingIfs::FormulaCode(CVector4 &z, const sFractal *frac
 	aux.dist = aux.DE0;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled && colDist != aux.dist
+	if (fractal->foldColor.auxColorEnabled
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{

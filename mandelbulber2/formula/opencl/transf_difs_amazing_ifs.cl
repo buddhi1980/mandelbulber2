@@ -91,7 +91,7 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	aux->dist = aux->DE0;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+	if (fractal->foldColor.auxColorEnabled
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{

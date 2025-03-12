@@ -74,14 +74,14 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colAdd = fractal->foldColor.difs0000.y;
+		REAL addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (priX == tp) colAdd = fractal->foldColor.difs0000.z;
-		//	if (tp > fractal->transformCommon.offsetp01) colAdd = fractal->foldColor.difs0000.z;
+			if (priX == tp) addCol = fractal->foldColor.difs0000.z;
+		//	if (tp > fractal->transformCommon.offsetp01) addCol = fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offset1
 					- fractal->foldColor.difs0 < fabs(zc.x))
-				colAdd = fractal->foldColor.difs0000.w;
+				addCol = fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 			aux->color = addCol;
