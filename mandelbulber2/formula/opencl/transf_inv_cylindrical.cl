@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,27 +24,24 @@ REAL4 TransfInvCylindricalIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		if (fractal->transformCommon.functionEnabledFalse) newZx = z.x * native_cos(z.y);
+		if (fractal->transformCommon.functionEnabledFalse) newZx = newZx * native_cos(z.y);
 		if (fractal->transformCommon.functionEnabledxFalse) newZy = z.x * native_sin(z.y);
 
 		z = (REAL4){z.x * native_cos(newZy * fractal->transformCommon.scale1),
 					newZx * native_sin(z.y * fractal->transformCommon.scale1),
-					z.z * fractal->transformCommon.scaleC1,
-					z.w}
-					* fractal->transformCommon.scaleA1;
+					z.z * fractal->transformCommon.scaleC1, z.w}
+				* fractal->transformCommon.scaleA1;
 	}
 	else
 	{
-		if (fractal->transformCommon.functionEnabledFalse) newZx = z.x * native_cos(z.z);
+		if (fractal->transformCommon.functionEnabledFalse) newZx = newZx * native_cos(z.z);
 		if (fractal->transformCommon.functionEnabledxFalse) newZz = z.x * native_sin(z.z);
 
 		z = (REAL4){z.x * native_cos(newZz * fractal->transformCommon.scale1),
 					z.y * fractal->transformCommon.scaleC1,
-					newZx * native_sin(z.z * fractal->transformCommon.scale1),
-					z.w}
-					* fractal->transformCommon.scaleA1;
+					newZx * native_sin(z.z * fractal->transformCommon.scale1), z.w}
+				* fractal->transformCommon.scaleA1;
 	}
-
 	aux->DE = aux->DE * fabs(fractal->transformCommon.scaleA1) * fractal->transformCommon.scaleB1
 						+ fractal->transformCommon.offset1;
 	return z;

@@ -246,6 +246,7 @@ typedef struct
 
 	sImageAdjustmentsCl imageAdjustments;
 
+	cl_float3 ambientOcclusionLightMapRotation;
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;
 	cl_float3 cloudsRotation;
@@ -264,6 +265,7 @@ typedef struct
 	matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	matrix33 mRotBackgroundRotation;
 	matrix33 mRotCloudsRotation;
+	matrix33 mRotAmbientOcclusionLightMapRotation;
 
 	sCommonParamsCl common;
 } sParamRenderCl;
@@ -451,6 +453,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogDistanceFromSurface = source.volFogDistanceFromSurface;
 	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
 	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
+	target.ambientOcclusionLightMapRotation = toClFloat3(source.ambientOcclusionLightMapRotation);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);
@@ -480,6 +483,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	}
 	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
 	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
+	target.mRotAmbientOcclusionLightMapRotation =
+		toClMatrix33(source.mRotAmbientOcclusionLightMapRotation);
 	target.common = clCopySCommonParamsCl(source.common);
 	return target;
 }

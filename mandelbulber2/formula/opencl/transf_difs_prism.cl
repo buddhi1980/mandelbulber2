@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -47,17 +47,19 @@ REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-		//	if (priX == tp) aux->color += fractal->foldColor.difs0000.y;
+			//	if (priX == tp)
+			//		aux->color += fractal->foldColor.difs0000.y;
 			if (tp > fractal->transformCommon.offsetp01) addCol = fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offset1
-					- fractal->foldColor.difs0 < fabs(zc.x))
+			if (fractal->transformCommon.offset1 - fractal->foldColor.difs0 < fabs(zc.x))
 				addCol = fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
 			aux->color = addCol;
+		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x;
+			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
 		}
 	}
 	return z;

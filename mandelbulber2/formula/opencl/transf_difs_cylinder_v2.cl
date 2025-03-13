@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -47,8 +47,7 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL lengthCyl = zc.z;
 	cylR = native_sqrt(cylR + zc.y * zc.y);
 
-	REAL cylH = absH - fractal->transformCommon.offsetA1
-			+ fractal->transformCommon.offsetB0;
+	REAL cylH = absH - fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0;
 
 	// no absz
 	if (fractal->transformCommon.functionEnabledMFalse
@@ -66,8 +65,7 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		absH *= absH;
 	}
 
-	REAL t = cylR - fractal->transformCommon.radius1
-			+ fractal->transformCommon.offsetB0;
+	REAL t = cylR - fractal->transformCommon.radius1 + fractal->transformCommon.offsetB0;
 	REAL cylRm = t;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -102,8 +100,8 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset0)
-					- fractal->transformCommon.offsetB0);
+	aux->dist = min(
+		aux->dist, cylD / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0);
 
 	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA
@@ -112,19 +110,20 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		REAL addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (t <= -fractal->transformCommon.offset0
-					- fractal->transformCommon.offsetB0)
+			if (t < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0)
 				addCol = fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1
-					+ fractal->transformCommon.offsetB0
-					- fractal->foldColor.difs0 < (zc.z))
+			if (fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0
+						- fractal->foldColor.difs0
+					< fabs(zc.z))
 				addCol = fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
 			aux->color = addCol;
+		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x;
+			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
 		}
 	}
 
