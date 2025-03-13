@@ -1,0 +1,49 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+antialiasing_enabled true;
+antialiasing_ocl_depth 2;
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+basic_fog_color 0000 0000 0000;
+basic_fog_enabled true;
+basic_fog_visibility 2,5;
+camera 1,68621895394976 -2,91146805492025 1,96416101644893;
+camera_distance_to_target 2,20761162543316;
+camera_rotation 32,1850140025533 -34,4098859936826 0,652713810351009;
+camera_top -0,291347541414746 0,484307269732975 0,824962471022394;
+detail_level 2;
+fake_lights_color 1100 8400 ff00;
+fake_lights_color_2 ff00 f700 0800;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 ff00 0800 6b00;
+fake_lights_color_3_enabled true;
+fake_lights_enabled true;
+fake_lights_orbit_trap 0 0 0;
+fake_lights_orbit_trap_shape cube;
+fake_lights_orbit_trap_size 2;
+fake_lights_visibility 128;
+fake_lights_visibility_size 4,9;
+flight_last_to_render 0;
+formula_1 7;
+fov 53,130102354156;
+gamma 0,7;
+hdr true;
+image_height 1200;
+image_proportion 1;
+image_width 1200;
+interior_mode true;
+iteration_threshold_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_coloring_palette_offset 0,821;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 15;
+raytraced_reflections true;
+saturation 1,6;
+target 0,716086577649205 -1,37003001767922 0,716619017738017;
+volumetric_light_DE_Factor 0,25;

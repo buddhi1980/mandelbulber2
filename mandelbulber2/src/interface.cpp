@@ -110,8 +110,6 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	mainImage = nullptr;
 	progressBar = nullptr;
 	progressBarAnimation = nullptr;
-	progressBarQueueImage = nullptr;
-	progressBarQueueAnimation = nullptr;
 	progressBarFrame = nullptr;
 	progressBarLayout = nullptr;
 	autoRefreshTimer = nullptr;
@@ -219,9 +217,6 @@ void cInterface::ShowUi()
 	progressBarLayout->setSpacing(0);
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
 	progressBarFrame = new QFrame(mainWindow->ui->statusbar);
-
-	progressBarQueueImage = mainWindow->ui->widgetDockQueue->GetProgressBarImage();
-	progressBarQueueAnimation = mainWindow->ui->widgetDockQueue->GetProgressBarAnimation();
 
 	progressBarAnimation = new MyProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);
@@ -2152,7 +2147,8 @@ bool cInterface::CheckForMissingTextures()
 	{
 		QString textureFile = gPar->Get<QString>(parameterName);
 		QFileInfo fi(textureFile);
-		if (!textureFile.contains("%") && (!fi.exists(textureFile) || fi.isDir()))
+		if (!textureFile.contains("%") && !textureFile.contains("https://")
+				&& !textureFile.contains("http://") && (!fi.exists(textureFile) || fi.isDir()))
 		{
 			QMessageBox msgBox;
 			msgBox.setText(tr("Missing texture"));
@@ -2161,99 +2157,93 @@ bool cInterface::CheckForMissingTextures()
 				tr("Parameter %1\nuses texture file\n%2\nwhich is missing.\n\nWhat you would like to do?")
 					.arg(parameterName)
 					.arg(textureFile));
-			msgBox.addButton(tr("Use default"), QMessageBox::ActionRole);
-			msgBox.addButton(tr("Select file..."), QMessageBox::ActionRole);
-			msgBox.addButton(tr("Search..."), QMessageBox::ActionRole);
-			msgBox.addButton(tr("Ignore"), QMessageBox::DestructiveRole);
+			QPushButton *buttonDefault = msgBox.addButton(tr("Use default"), QMessageBox::ActionRole);
+			QPushButton *buttonSelect = msgBox.addButton(tr("Select file..."), QMessageBox::ActionRole);
+			QPushButton *buttonSearch = msgBox.addButton(tr("Search..."), QMessageBox::ActionRole);
+			QPushButton *buttonIgnore = msgBox.addButton(tr("Ignore"), QMessageBox::DestructiveRole);
 			int ret = msgBox.exec();
-			switch (ret)
+
+			msgBox.exec();
+
+			if (msgBox.clickedButton() == buttonDefault) // use default
 			{
-				case 0: // use default
+				gPar->Set(parameterName, gPar->GetDefault<QString>(parameterName));
+				correctionApplied = true;
+			}
+			else if (msgBox.clickedButton() == buttonSelect) // select file
+			{
+				QFileInfo fileInfo(textureFile);
+				QString dirName = fileInfo.absolutePath();
+				if (!fileInfo.exists())
 				{
-					gPar->Set(parameterName, gPar->GetDefault<QString>(parameterName));
+					dirName = gPar->Get<QString>("default_user_textures_path");
+				}
+
+				PreviewFileDialog dialog(mainWindow);
+				dialog.setFileMode(QFileDialog::ExistingFile);
+				dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp *.hdr)"));
+				dialog.setDirectory(QDir::toNativeSeparators(dirName));
+				dialog.selectFile(QDir::toNativeSeparators(textureFile));
+				dialog.setAcceptMode(QFileDialog::AcceptOpen);
+				dialog.setWindowTitle(tr("Select file for %1").arg(parameterName));
+				QStringList filenames;
+				if (dialog.exec())
+				{
+					filenames = dialog.selectedFiles();
+					QString fileName = QDir::toNativeSeparators(filenames.first());
+					gPar->Set(parameterName, fileName);
 					correctionApplied = true;
-					break;
 				}
-				case 1: // select file
+			}
+			else if (msgBox.clickedButton() == buttonSearch) // searching
+			{
+				QStringList foundFiles;
+
+				QFileInfo fileInfo(textureFile);
+				QString onlyFileName(fileInfo.fileName());
+
+				QStringList searchFolders;
+				searchFolders.append(gPar->Get<QString>("default_user_textures_path"));
+				searchFolders.append(gPar->Get<QString>("default_textures_path"));
+				searchFolders.append(QDir(systemData.lastSettingsFile).dirName());
+
+				for (const QString &searchFolder : searchFolders)
 				{
-					QDir dir(textureFile);
-					QString dirName = dir.dirName();
-					if (!QDir(dirName).exists())
+					if (QDir(searchFolder).exists())
 					{
-						dirName = gPar->Get<QString>("default_user_textures_path");
-					}
+						QDirIterator it(
+							searchFolder, QStringList() << "*.jpg", QDir::Files, QDirIterator::Subdirectories);
 
-					PreviewFileDialog dialog(mainWindow);
-					dialog.setFileMode(QFileDialog::ExistingFile);
-					dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp *.hdr)"));
-					dialog.setDirectory(QDir::toNativeSeparators(dirName));
-					dialog.selectFile(QDir::toNativeSeparators(textureFile));
-					dialog.setAcceptMode(QFileDialog::AcceptOpen);
-					dialog.setWindowTitle(tr("Select file for %1").arg(parameterName));
-					QStringList filenames;
-					if (dialog.exec())
-					{
-						filenames = dialog.selectedFiles();
-						QString fileName = QDir::toNativeSeparators(filenames.first());
-						gPar->Set(parameterName, fileName);
-						correctionApplied = true;
-					}
-					break;
-				}
-				case 2: // searching
-				{
-					QStringList foundFiles;
-
-					QFileInfo fileInfo(textureFile);
-					QString onlyFileName(fileInfo.fileName());
-
-					QStringList searchFolders;
-					searchFolders.append(gPar->Get<QString>("default_user_textures_path"));
-					searchFolders.append(gPar->Get<QString>("default_textures_path"));
-					searchFolders.append(QDir(systemData.lastSettingsFile).dirName());
-
-					for (const QString &searchFolder : searchFolders)
-					{
-						if (QDir(searchFolder).exists())
+						while (it.hasNext())
 						{
-							QDirIterator it(
-								searchFolder, QStringList() << "*.jpg", QDir::Files, QDirIterator::Subdirectories);
-
-							while (it.hasNext())
+							QString fileSearch = it.next();
+							QFileInfo fileInfoSearch(fileSearch);
+							QString onlyFileNameSearch(fileInfoSearch.fileName());
+							if (onlyFileNameSearch == onlyFileName)
 							{
-								QString fileSearch = it.next();
-								QFileInfo fileInfoSearch(fileSearch);
-								QString onlyFileNameSearch(fileInfoSearch.fileName());
-								if (onlyFileNameSearch == onlyFileName)
-								{
-									foundFiles.append(fileSearch);
-								}
+								foundFiles.append(fileSearch);
 							}
 						}
 					}
-
-					if (foundFiles.size() > 0)
-					{
-						bool ok;
-						QString substitution =
-							QInputDialog::getItem(mainWindow, tr("Some files of the same were found:"),
-								tr("Select one from proposed files"), foundFiles, 0, false, &ok);
-						if (ok)
-						{
-							qDebug() << "substitution" << substitution;
-							gPar->Set(parameterName, substitution);
-							correctionApplied = true;
-						}
-					}
-
-					break;
 				}
-				case 3: // ignore
+
+				if (foundFiles.size() > 0)
 				{
-					break; // do nothing
+					bool ok;
+					QString substitution =
+						QInputDialog::getItem(mainWindow, tr("Some files of the same were found:"),
+							tr("Select one from proposed files"), foundFiles, 0, false, &ok);
+					if (ok)
+					{
+						qDebug() << "substitution" << substitution;
+						gPar->Set(parameterName, substitution);
+						correctionApplied = true;
+					}
 				}
-
-				default: break;
+			}
+			else if (msgBox.clickedButton() == buttonIgnore) // ignore
+			{
+				// do nothing
 			}
 		}
 	}

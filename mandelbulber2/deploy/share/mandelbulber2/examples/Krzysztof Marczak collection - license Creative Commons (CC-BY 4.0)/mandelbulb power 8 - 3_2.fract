@@ -1,41 +1,47 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
-ambient_occlusion 2;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 3;
-aux_light_position_1 3 -3 -3;
 basic_fog_color ffff ebda 9897;
 basic_fog_enabled true;
-basic_fog_visibility 0,3630780547701017;
-camera -0,4171369207578404 -0,5284289663529528 -0,3155056853963703;
-camera_distance_to_target 0,002604166666666655;
-camera_rotation -29,99999999999986 29,99999999999966 0;
+basic_fog_visibility 0,363078054770102;
+camera -0,41713692075784 -0,528428966352953 -0,31550568539637;
+camera_distance_to_target 0,00260416666666649;
+camera_rotation -29,9999999999999 29,9999999999933 0;
 camera_top -0,2499999999999964 -0,4330127018922154 0,8660254037844416;
 DE_factor 0,5;
-detail_level 2;
+detail_level 4;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
 flight_last_to_render 0;
 fov 61,93;
 glow_color_1 ffff 0305 0000;
-glow_intensity 1;
-image_height 1200;
-image_width 1600;
+glow_intensity 0,25;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_alpha -20;
-main_light_beta -100;
-main_light_intensity 0,7;
-main_light_volumetric_intensity 100;
+light1_intensity 0,7;
+light1_is_defined true;
+light1_penetrating false;
+light1_rotation -25,12 34,04 0;
+light1_volumetric_visibility 100;
+light2_is_defined true;
+light2_position 3 -3 -3;
 mat1_coloring_speed 0,0391;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
+mat1_specular_plastic_enable false;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-target -0,4160092835133294 -0,5264758413529528 -0,314203602063037;
+MC_denoiser_enable true;
+MC_soft_shadows_enable true;
+target -0,416009283513329 -0,526475841352953 -0,314203602063037;
 [fractal_1]
 alpha_angle_offset 22,5;
 beta_angle_offset 22,5;

@@ -111,7 +111,7 @@ void cRenderWorker::doWork()
 
 	// main loop for y
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id);
-			 ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
+		ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
 		// skip if line is out of region
 		if (ys < 0) break;
@@ -478,7 +478,7 @@ void cRenderWorker::doWork()
 			data->statistics.numberOfRenderedPixels++;
 
 		} // next xs
-	}		// next ys
+	} // next ys
 
 	// emit signal to main thread when finished
 	emit finished();
@@ -543,8 +543,7 @@ void cRenderWorker::PrepareAOVectors()
 			d.x = cos(a + b) * cos(b);
 			d.y = sin(a + b) * cos(b);
 			d.z = sin(b);
-			AOVectorsAround[counter].alpha = a;
-			AOVectorsAround[counter].beta = b;
+			d = params->mRotAmbientOcclusionLightMapRotation.RotateVector(d);
 			AOVectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
@@ -563,8 +562,6 @@ void cRenderWorker::PrepareAOVectors()
 	if (counter == 0)
 	{
 		counter = 1;
-		AOVectorsAround[0].alpha = 0;
-		AOVectorsAround[0].beta = 0;
 		AOVectorsAround[0].v.x = 0;
 		AOVectorsAround[0].v.y = 0;
 		AOVectorsAround[0].v.z = 0;
@@ -1433,11 +1430,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								float intensity;
 								if (light->type == cLight::lightDirectional)
 									intensity = light->intensity;
+								else if (light->type == cLight::lightConical)
+									intensity = 10.0 * light->intensity;
 								else
 									intensity = 100 * light->intensity / light->Decay(distanceLight) / 6.0;
 
 								sRGBFloat textureColor;
-								intensity *= light->CalculateCone(lightVectorTemp, textureColor);
+								intensity *= light->CalculateCone(input2.point, lightVectorTemp, textureColor);
 
 								sRGBAFloat lightShadow(1.0, 1.0, 1.0, 1.0);
 								if (intensity > 1e-3)

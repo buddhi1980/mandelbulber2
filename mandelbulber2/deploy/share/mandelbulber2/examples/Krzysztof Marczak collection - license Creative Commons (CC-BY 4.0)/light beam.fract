@@ -1,0 +1,60 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+background_color_2 0000 0000 0000;
+background_color_3 f100 0a00 3c00;
+camera 1,12579142178856 -3,29120258107542 1,17141150424956;
+camera_distance_to_target 3,10506412415837;
+camera_rotation 16,2613599365476 -17,2609687871651 -2,1397266583933;
+camera_top -0,118873562123453 0,274200164050156 0,954297304964731;
+detail_level 2;
+DOF_max_noise 2;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_samples 400;
+formula_1 244;
+hdr true;
+image_height 1280;
+image_proportion 1;
+image_width 1280;
+keyframe_last_to_render 0;
+light1_color 8300 ff00 0f00;
+light1_decayFunction 1/r3;
+light1_intensity 0,422040102880658;
+light1_is_defined true;
+light1_position 2 0 0;
+light1_relative_position false;
+light1_size 0,125;
+light1_target -2 0 0;
+light1_type beam;
+light1_visibility 128;
+light2_color ff00 4a00 0e00;
+light2_decayFunction 1/r3;
+light2_enabled true;
+light2_intensity 0,422040102880658;
+light2_is_defined true;
+light2_position 0 0 2;
+light2_rotation -45 45 0;
+light2_size 0,125;
+light2_target 0 0 -2;
+light2_type beam;
+light2_visibility 128;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+MC_denoiser_enable true;
+MC_denoiser_strength 2;
+MC_soft_shadows_enable true;
+primitive_plane_1_enabled true;
+primitive_plane_1_position 0 1,41833876861422 0;
+primitive_plane_1_rotation -90 0 0;
+raytraced_reflections true;
+target 0,295471912527061 -0,444606357868142 0,250063215220286;
+[fractal_1]
+transf_function_enabledAy false;
+transf_function_enabledB_false true;
+transf_int_1 6;
+transf_scale 1,038282;
+transf_scale_1 0,908561;
+transf_scaleB_1 0,8;

@@ -1,11 +1,11 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.33
 # only modified parameters
 [main_parameters]
 camera -0,59375813934338 -0,816495110131289 -0,123093942640199;
-camera_distance_to_target 0,0503762662410736;
-camera_rotation 73,8016994864626 67,3053482317329 -138,525504943049;
-camera_top -0,848551573479426 -0,44316520647057 -0,289075815175687;
+camera_distance_to_target 0,197285164986841;
+camera_rotation -60,9537838149113 -41,3136935824979 -162,774330597148;
+camera_top -0,695040014173103 -0,0472603281352802 -0,717416085742993;
 clouds_color f000 f000 f000;
 clouds_density 0,197;
 clouds_enable true;
@@ -34,7 +34,7 @@ mat1_specular 4;
 mat1_specular_width 0,063;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 raytraced_reflections true;
-target -0,612422728969697 -0,811073145920981 -0,076618103771225;
+target -0,464213105513507 -0,744550463226944 -0,253337899566082;
 view_distance_max 0,05;
 [fractal_1]
 IFS_abs_x true;

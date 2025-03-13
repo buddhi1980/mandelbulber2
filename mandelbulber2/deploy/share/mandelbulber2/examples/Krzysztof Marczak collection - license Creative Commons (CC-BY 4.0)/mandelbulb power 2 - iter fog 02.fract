@@ -1,45 +1,47 @@
 # Mandelbulber settings file
-# version 2.28
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 1;
+antialiasing_enabled true;
 background_color_1 0224 0000 4955;
 background_color_2 0000 0000 0000;
-camera -1,20319943986069 -0,81353973984305 -0,586291189019328;
-camera_distance_to_target 0,105349794238683;
-camera_rotation -8,78891391311268 36,7661218486677 -12,4411388730077;
-camera_top -0,302214527990756 -0,54471408607941 0,7822742124715589;
+camera -1,83526659579138 0,315893395255317 0,36431884837447;
+camera_distance_to_target 1,03848486973096;
+camera_rotation -114,837010406614 -28,4763725386599 0;
+camera_top 0,432695680681865 -0,200272750571389 0,879013807228207;
 DE_factor 0,2;
 flight_last_to_render 0;
 formula_1 3;
 glow_color_1 ffff 0000 0000;
 glow_color_2 ffff c884 1a51;
 glow_intensity 0,3;
+hdr true;
 image_height 1200;
 image_width 1600;
-iteration_fog_brightness_boost 100;
+iteration_fog_brightness_boost 10;
 iteration_fog_color_1 9dcc e457 ffff;
 iteration_fog_color_1_maxiter 23;
 iteration_fog_color_2 ffff ff50 0000;
 iteration_fog_color_2_maxiter 46;
 iteration_fog_color_3 5dc0 ffff 0000;
 iteration_fog_enable true;
-iteration_fog_opacity 400;
-iteration_fog_opacity_trim 12;
+iteration_fog_opacity 1600;
+iteration_fog_opacity_trim 11;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-light1_intensity 0,006;
+light1_intensity 0,096;
 light1_is_defined true;
 light1_penetrating false;
-light1_rotation -45 -45 0;
+light1_rotation -45,03 -57,3 0;
+light1_soft_shadow_cone 0;
 light2_color ace7 45f6 2baf;
 light2_enabled true;
-light2_intensity 0,125;
+light2_intensity 1,42494278751613;
 light2_is_defined true;
 light2_penetrating false;
-light2_position -3,5 2 -0,5;
+light2_position -3,14870464638189 -2 0,423713102757594;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
@@ -47,7 +49,7 @@ mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5
 mat1_use_colors_from_palette false;
 N 70;
 slow_shading true;
-target -1,19030446228309 -0,730136514729761 -0,523234066185281;
+target -1,00685620173184 -0,0675355032231355 -0,130826911463822;
 view_distance_max 5,54705326181403;
 volumetric_fog_density 0;
 [fractal_1]

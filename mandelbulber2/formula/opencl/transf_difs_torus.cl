@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,33 +16,70 @@
 REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
+	REAL temp = 0.0f;
 	REAL torD;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		REAL temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
 	}
 	if (fractal->transformCommon.functionEnabledSFalse)
 	{
-		REAL temp = zc.y;
+		temp = zc.y;
 		zc.y = zc.z;
 		zc.z = temp;
 	}
 
 	REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+	if (!fractal->transformCommon.functionEnabledCFalse)
+		temp = -fractal->transformCommon.offset05;
 	else
-		torD = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offset05;
-	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, torD / (aux->DE + 1.0f));
+		temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		torD = native_sqrt(T1 * T1 + zc.z * zc.z) + temp;
+	else
+		torD = max(fabs(T1), fabs(zc.z)) + temp;
+	temp = torD;
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		torD = max(fabs(torD) - fractal->transformCommon.offset0005, 0.0f);
+		T1 = torD;
+	}
+
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		torD = max(torD, -zc.x);
+	}
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		torD = max(torD, -zc.y);
+	}
+
+	REAL colDist = aux->dist;
+
+	aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset0));
+
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		REAL addCol = fractal->foldColor.difs0000.y;
+		if (fractal->transformCommon.functionEnabledCFalse
+				&& T1 >= temp + fractal->transformCommon.offset0005)
+			addCol = fractal->foldColor.difs0000.z;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol + fractal->foldColor.difs0000.x;
+		}
 	}
 	return z;
 }

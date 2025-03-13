@@ -79,7 +79,7 @@ void cFractalTransfQuaternionFold::FormulaCode(
 	}
 
 	// tweaking DE
-	aux.r = z.Length();
+	// aux.r = z.Length();
 	aux.DE = aux.DE * aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->analyticDE.enabledFalse) aux.dist = 0.5 * log(aux.r) * aux.r / aux.DE;

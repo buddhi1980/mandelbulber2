@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [description]
 This settings file uses Monte Carlo Depth Of Field effect.
@@ -8,8 +8,8 @@ Rendering using CPU can be enormously long.
 [main_parameters]
 ambient_occlusion_mode 0;
 camera 2,65768574168043 -4,32403030015353 1,40794637301253;
-camera_distance_to_target 0,0365776142673498;
-camera_rotation -14,4246950501337 0,93924464140766 2,15631929812778;
+camera_distance_to_target 0,0365776142673519;
+camera_rotation -14,4246950501293 0,939244641411731 2,15631929812768;
 camera_top 0,03235934177243675 -0,02523709634061225 0,9991576261873543;
 DOF_enabled true;
 DOF_focus 0,0438544005155563;
@@ -22,10 +22,12 @@ formula_1 103;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_color ff00 ff00 ff00;
 light1_is_defined true;
 light2_is_defined true;
 light2_size 0,1954474;
 light2_visibility 15,4882;
+light3_color f500 9a00 3200;
 light3_enabled true;
 light3_intensity 0,0101845;
 light3_is_defined true;
@@ -33,7 +35,7 @@ light3_position 2,70413257277496 -4,14680821953928 1,4304235301124;
 light3_size 0,1954474;
 light3_visibility 15,4882;
 light4_enabled true;
-light4_intensity 1,14285034614352e-05;
+light4_intensity 1,14285034614352E-05;
 light4_is_defined true;
 light4_position 2,65895597434221 -4,2858064420884 1,41724579136504;
 light4_size 0,1954474;

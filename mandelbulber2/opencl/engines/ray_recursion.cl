@@ -1044,12 +1044,15 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 								float intensity = 0.0f;
 								if (light->type == lightDirectional)
 									intensity = light->intensity;
+								else if (light->type == lightConical)
+									intensity = 10.0f * light->intensity;
 								else
 									intensity = 100.0f * light->intensity
 															/ LightDecay(distanceLight, light->decayFunction) / 6.0f;
 
 								float3 textureColor;
-								intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
+								intensity *= CalculateLightCone(
+									light, renderData, input2.point, lightVectorTemp, &textureColor);
 
 								float3 lightShadow = 1.0f;
 #ifdef SHADOWS

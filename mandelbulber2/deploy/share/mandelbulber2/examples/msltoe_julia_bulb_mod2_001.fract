@@ -1,30 +1,36 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 background_color_1 ff00 0000 0000;
-camera -0,4117073138140395 0,1905329803063495 0,004888902102417581;
-camera_distance_to_target 0,004188666765715708;
-camera_rotation 132,1658503729092 2,550805107323005 89,30947920793407;
-camera_top -0,6708326318226429 0,7415110433644049 0,01203962833886923;
+camera -0,41170731381404 0,190532980306349 0,00488890210241758;
+camera_distance_to_target 0,00419310006964692;
+camera_rotation 117,960391665503 -0,614906862015529 89,6408662187533;
+camera_top -0,46891127824224 0,883223034976793 0,00626766492487315;
 DE_factor 0,457088;
+detail_level 4;
+DOF_enabled true;
+DOF_focus 0,0314137116074562;
+DOF_radius 2,5;
 flight_last_to_render 0;
 formula_1 80;
+fov 78,7453803953509;
 gamma 0,62;
 glow_color_1 ff00 0000 0000;
 glow_color_2 ff00 ed00 2300;
-glow_intensity 4,46684;
+glow_intensity 1,11671;
 hdr true;
-image_height 1200;
-image_width 1600;
+image_height 1600;
+image_width 1200;
 julia_c -0,9 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
+light1_is_defined true;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-target -0,4148088975849425 0,1877240025824469 0,005075319732758028;
-view_distance_max 10,69355462885853;
+target -0,415410748097569 0,188567112128787 0,00484390199014885;
+view_distance_max 10,6935546288585;
 [fractal_1]
 transf_addCpixel_enabled_false true;
 transf_constant_multiplier_000 0,1 0,1 0,1;

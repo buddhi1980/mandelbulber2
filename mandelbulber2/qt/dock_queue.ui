@@ -161,32 +161,6 @@
     </layout>
    </item>
    <item>
-    <widget class="MyProgressBar" name="queueProgressBarImage">
-     <property name="minimum">
-      <number>0</number>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyProgressBar" name="queueProgressBarAnimation">
-     <property name="minimum">
-      <number>0</number>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyCheckBox" name="checkBox_show_queue_thumbnails">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of queue previews in the queue table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -218,42 +192,6 @@
      </attribute>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_queue_preview">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>Preview</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_queue_preview">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-     </layout>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -266,12 +204,6 @@
    <class>MyComboBox</class>
    <extends>QComboBox</extends>
    <header>my_combo_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyProgressBar</class>
-   <extends>QProgressBar</extends>
-   <header>my_progress_bar.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

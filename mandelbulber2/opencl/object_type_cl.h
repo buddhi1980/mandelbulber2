@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-23 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -71,7 +71,8 @@ typedef enum
 	objCone = 7,
 	objCylinder = 8,
 	objTorus = 9,
-	objPrism = 10
+	objPrism = 10,
+	objEllipsoid = 11
 } enumObjectTypeCl;
 
 #endif /* MANDELBULBER2_OPENCL_OBJECT_TYPES_CL_HPP_ */

@@ -1,0 +1,59 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+all_lights_intensity 1,4149052635957;
+ambient_occlusion 0,5;
+ambient_occlusion_mode 0;
+basic_fog_color b500 ff00 4700;
+basic_fog_enabled true;
+basic_fog_visibility 0,078125;
+camera 2,09454656217631 -5,36493181514345 1,88331699467083;
+camera_distance_to_target 0,0325943529605954;
+camera_rotation 22,903396740102 1,95874356222214 -25,791650150218;
+camera_top -0,388820682099099 -0,197680266576036 0,899856093705221;
+DE_factor 0,25;
+detail_level 2;
+DOF_enabled true;
+DOF_focus 0,0213056467473507;
+DOF_monte_carlo true;
+DOF_radius 5;
+DOF_samples 200;
+formula_1 237;
+formula_2 1613;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_color 7700 b200 ff00;
+light1_is_defined true;
+light1_rotation -40,17 35,34 0;
+light2_color e800 0f00 5b00;
+light2_enabled true;
+light2_intensity 1,3;
+light2_is_defined true;
+light2_relative_position true;
+light2_rotation 49,59 33,2 0;
+light2_type directional;
+light3_color f500 ce00 4200;
+light3_enabled true;
+light3_intensity 1;
+light3_is_defined true;
+light3_relative_position true;
+light3_rotation 8,74 65,34 0;
+light3_type directional;
+mat1_is_defined true;
+mat1_specular_metallic 4;
+mat1_specular_metallic_roughness 0,4;
+mat1_specular_metallic_width 2;
+mat1_specular_width 0,025;
+mat1_surface_color 5100 5100 5100;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_surface_gradient_enable false;
+MC_denoiser_enable true;
+raytraced_reflections true;
+target 2,08186895067354 -5,33492466835824 1,88443106527701;
+[fractal_2]
+transf_rotation 133,451842 44,464541 36,869898;
+transf_rotation_enabled true;

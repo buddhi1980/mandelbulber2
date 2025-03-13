@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
@@ -73,6 +73,7 @@ FRACTAL_CLASS(cFractalDIFSBoxDiagonalV3)
 FRACTAL_CLASS(cFractalDIFSBoxV1)
 FRACTAL_CLASS(cFractalDIFSCylinder)
 FRACTAL_CLASS(cFractalDIFSEllipsoid)
+FRACTAL_CLASS(cFractalDIFSGreekIfs)
 FRACTAL_CLASS(cFractalDIFSHextgrid2)
 FRACTAL_CLASS(cFractalDIFSMenger)
 FRACTAL_CLASS(cFractalDIFSMsltoeDonut)
@@ -260,6 +261,7 @@ FRACTAL_CLASS(cFractalTransfAbsAddMulti4d)
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold)
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold4d)
 FRACTAL_CLASS(cFractalTransfAbsRecFoldXY)
+FRACTAL_CLASS(cFractalTransfAbsSym3)
 FRACTAL_CLASS(cFractalTransfAddConstant)
 FRACTAL_CLASS(cFractalTransfAddConstant4d)
 FRACTAL_CLASS(cFractalTransfAddConstantMod1)
@@ -356,7 +358,9 @@ FRACTAL_CLASS(cFractalTransfDIFSTorusMenger)
 FRACTAL_CLASS(cFractalTransfDIFSTorusTwist)
 FRACTAL_CLASS(cFractalTransfDIFSTorusV2)
 FRACTAL_CLASS(cFractalTransfDIFSTorusV3)
+FRACTAL_CLASS(cFractalTransfDIFSTorusV4)
 FRACTAL_CLASS(cFractalTransfDIFSTriGrid)
+FRACTAL_CLASS(cFractalTransfDIFSTube)
 FRACTAL_CLASS(cFractalTransfDotFold)
 FRACTAL_CLASS(cFractalTransfFoldingTetra3d)
 FRACTAL_CLASS(cFractalTransfGnarl)

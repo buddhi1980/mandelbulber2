@@ -1,17 +1,12 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 ffff 502c 2755;
-aux_light_enabled_1 true;
-aux_light_intensity_1 5,042619381771646e-06;
-aux_light_position_1 0,6896014327929882 -0,5098823455521211 0,115944664264888;
-aux_light_visibility 44,6684;
-aux_light_visibility_size 0,158489;
-camera 0,6843221602517791 -0,509946097057717 0,1156652881802157;
-camera_distance_to_target 1,560737661589489e-09;
-camera_rotation -59,9999987029904 20,00000018499295 0;
-camera_top -0,2961981314823915 -0,1710100798849073 0,9396926196816157;
+antialiasing_enabled true;
+camera 0,685692506299966 -0,511453312958979 0,114498907199996;
+camera_distance_to_target 0,00408918270841375;
+camera_rotation -51,0547557537141 32,4738918065957 -3,69178933417182;
+camera_top -0,457191346881031 -0,286713856299073 0,841885524844811;
 DE_factor 0,562341;
 flight_last_to_render 0;
 fog_color_1 0000 0000 0000;
@@ -23,19 +18,27 @@ fov 61,93;
 gamma 0,7;
 hdr true;
 hybrid_fractal_enable true;
-image_height 1200;
-image_width 1600;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 julia_mode true;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
+light1_is_defined true;
+light2_color ffff 502c 2755;
+light2_enabled true;
+light2_intensity 1,26065484544291E-06;
+light2_is_defined true;
+light2_position 0,689601432792988 -0,509882345552121 0,115944664264888;
+light2_size 0,316978;
+light2_visibility 44,6684;
 mat1_is_defined true;
 mat1_reflectance 0,95;
 mat1_specular 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 raytraced_reflections true;
 reflections_max 9;
-target 0,6843221615219037 -0,5099460963244101 0,1156652887140194;
-volumetric_fog_colour_1_distance 0,0004984747308540829;
-volumetric_fog_colour_2_distance 0,0009969494617081659;
-volumetric_fog_distance_factor 0,0009969494617081659;
+target 0,688375564407579 -0,509284857592599 0,116694451719695;
+volumetric_fog_colour_1_distance 0,000498474730854083;
+volumetric_fog_colour_2_distance 0,000996949461708166;
+volumetric_fog_distance_factor 0,000996949461708166;
 volumetric_fog_enabled true;

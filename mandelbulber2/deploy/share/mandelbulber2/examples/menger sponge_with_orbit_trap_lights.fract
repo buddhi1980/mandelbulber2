@@ -1,29 +1,37 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
 background_color_3 0000 0000 0000;
-camera 1,536385357964839 -2,661097500000001 1,774064999999999;
-camera_distance_to_target 3,46737;
-camera_rotation 29,99999999999996 -30 0;
+camera 1,53638535796484 -2,6610975 1,774065;
+camera_distance_to_target 3,54813;
+camera_rotation 30 -30 0;
 camera_top -0,2499999999999994 0,433012701892219 0,8660254037844389;
 DE_factor 0,0977237;
+fake_lights_color 1400 9100 ff00;
+fake_lights_color_2 ff00 1100 b400;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 ff00 f700 0a00;
+fake_lights_color_3_enabled true;
 fake_lights_enabled true;
-fake_lights_intensity 0,776247;
+fake_lights_intensity 0,3881235;
 fake_lights_max_iter 3;
 fake_lights_min_iter 0;
 fake_lights_orbit_trap 2,5 0 0;
-fake_lights_visibility 2,95121;
-fake_lights_visibility_size 7,5;
+fake_lights_visibility 47,21936;
+fake_lights_visibility_size 4,55;
 flight_last_to_render 0;
 formula_1 7;
+hdr true;
 keyframe_last_to_render 0;
+light1_intensity 0,5;
+light1_is_defined true;
 mat1_coloring_palette_offset 0,821;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-view_distance_max 6,633346777152619;
+view_distance_max 6,63334677715262;

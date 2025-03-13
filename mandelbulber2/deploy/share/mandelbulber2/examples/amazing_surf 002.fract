@@ -1,33 +1,35 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,64;
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 6;
-aux_light_colour_1 a200 e800 8d00;
-aux_light_enabled_1 true;
-aux_light_intensity_1 6,45654e-10;
-aux_light_position_1 0,1628536359789992 -0,2518680590941453 -0,4270924723668907;
-aux_light_visibility 10,4713;
-aux_light_visibility_size 0,120226;
-camera 0,1629036224823613 -0,251887738813627 -0,427082024488222;
-camera_distance_to_target 6,416524941781901e-05;
-camera_rotation 53,90056638121136 -10,12730381346719 1,353644072430873e-11;
-camera_top -0,1420746224307386 0,1036004453784605 0,9844194986785602;
+camera -0,0875672427868764 -0,0745478093693984 -0,392109503738185;
+camera_distance_to_target 0,165987537027984;
+camera_rotation 54,00235504277 2,30639943696561 -2,09668928206429;
+camera_top 0,0110332901235718 -0,0532368503811503 0,998520958353176;
 DE_factor 0,74131;
 DOF_enabled true;
-DOF_focus 5,204795525060035e-05;
-DOF_radius 5,07;
+DOF_focus 0,165816783905029;
+DOF_radius 1,27;
 flight_last_to_render 0;
 formula_1 77;
 hdr true;
 image_height 1080;
 image_width 1920;
-julia_c 0,162685974081038 -0,2517140088088706 -0,4270112222962116;
+julia_c 0,162685974081038 -0,251714008808871 -0,427011222296212;
 julia_mode true;
 keyframe_last_to_render 0;
-main_light_intensity 0,75;
+light1_intensity 0,75;
+light1_is_defined true;
+light2_color a200 e800 8d00;
+light2_enabled true;
+light2_intensity 1,614135E-10;
+light2_is_defined true;
+light2_position 0,162853635978999 -0,251868059094145 -0,427092472366891;
+light2_size 0,240452;
+light2_visibility 10,4713;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
@@ -43,17 +45,19 @@ mat2_transparency_index_of_refraction 5,92;
 mat2_use_colors_from_palette false;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 6;
-primitive_water_1_length 1,90546e-06;
+primitive_water_1_length 0,00780476416;
 primitive_water_1_material_id 2;
-primitive_water_1_position 0,1628730499515882 -0,2518698604092797 -0,4270988950681599;
-primitive_water_1_relative_amplitude 0,01862085795555929;
+primitive_water_1_position -0,0989804537644006 -0,0808765047133254 -0,413984064799659;
+primitive_water_1_relative_amplitude 0,0186208579555593;
 raytraced_reflections true;
 reflections_max 2;
 SSAO_random_mode true;
-target 0,1628525850111426 -0,2518505224222775 -0,4270933070402105;
-volumetric_fog_colour_1_distance 8,435289968938831e-06;
-volumetric_fog_colour_2_distance 1,687057993787766e-05;
-volumetric_fog_distance_factor 1,687057993787766e-05;
+target -0,221749203162432 0,0229326649351634 -0,385429601961452;
+volumetric_fog_colour_1_distance 0,00620682112958673;
+volumetric_fog_colour_2_distance 0,0124136422591735;
+volumetric_fog_density 0,25;
+volumetric_fog_distance_factor 0,0124136422591735;
+volumetric_fog_distance_from_surface 8E-15;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale 1,1;

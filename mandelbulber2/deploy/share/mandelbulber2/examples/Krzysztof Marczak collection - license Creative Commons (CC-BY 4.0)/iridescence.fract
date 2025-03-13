@@ -1,0 +1,40 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+camera 1,72783318059665 -3,25530445970792 2,12082424405756;
+camera_distance_to_target 0,0259364676476677;
+camera_rotation 18,6676465313503 7,52543898318448 4,0711099922733E-13;
+camera_top 0,0419194650394101 -0,124076387003149 0,991386810805477;
+constant_DE_threshold true;
+DE_thresh 6,48612978058555E-06;
+DOF_monte_carlo true;
+flight_last_to_render 0;
+formula_1 221;
+formula_2 601;
+formula_iterations_1 2;
+fov 53,130102354156;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_intensity 1,53153070597645;
+light1_is_defined true;
+mat1_coloring_palette_offset 0,821;
+mat1_fresnel_reflectance true;
+mat1_iridescence_enabled true;
+mat1_iridescence_intensity 2;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_rough_surface true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_surface_gradient_enable false;
+mat1_transparency_index_of_refraction 10;
+MC_denoiser_enable true;
+raytraced_reflections true;
+reflections_max 3;
+target 1,71960299005298 -3,23094412242675 2,12422104920373;

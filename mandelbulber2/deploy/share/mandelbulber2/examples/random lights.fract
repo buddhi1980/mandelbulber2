@@ -1,26 +1,30 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-aux_light_visibility 2;
-aux_light_visibility_size 0,102329;
-camera 0,001168511750293903 -0,4006692463252082 -0,3747555955432756;
-camera_distance_to_target 0,01283415321573616;
-camera_rotation 4,801379866775946 -38,34479722175934 -11,88887419530122;
-camera_top -0,2561053188634523 0,5877102738978994 0,7674677189333148;
+camera 0,00068894487202503 -0,396749262008654 -0,378438510714793;
+camera_distance_to_target 0,00793626660481075;
+camera_rotation 8,33212842401975 -41,1494564827551 -9,55841699330571;
+camera_top -0,258331691197505 0,617977801567553 0,742541698554884;
 flight_last_to_render 0;
 formula_1 7;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-main_light_intensity 0;
+light1_intensity 0;
+light1_is_defined true;
+light2_is_defined true;
+light2_size 0,204658;
+light2_visibility 2;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-random_lights_distribution_center 0,00132985117223969 -0,3854850047360689 -0,384397506101312;
-random_lights_distribution_radius 0,015;
+random_lights_distribution_center 0,00132985117223969 -0,385485004736069 -0,384397506101312;
+random_lights_distribution_radius 0,00883615771604938;
 random_lights_group true;
-random_lights_intensity 20,893;
+random_lights_intensity 0,0404903100775195;
 random_lights_max_distance_from_fractal 0,000933254;
-random_lights_number 500;
-target 0,0003259926178686869 -0,3906388505724696 -0,3827178070024075;
+random_lights_number 2000;
+random_lights_penetrating false;
+random_lights_size 1,14407300034788;
+target -0,000177039872459596 -0,390836365829545 -0,383660776202111;
 view_distance_max 7,47628355861833;

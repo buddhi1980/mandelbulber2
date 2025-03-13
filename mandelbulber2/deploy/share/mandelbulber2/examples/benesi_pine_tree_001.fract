@@ -1,15 +1,16 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_color_2 0000 0000 0000;
-camera -1,716503760422096 -0,0153382310312616 0,01119053055212718;
-camera_distance_to_target 0,0216392485264689;
-camera_rotation 67,42810878425983 -7,020066353007044 13,73993013089997;
+camera -1,7165037604221 -0,0153382310312616 0,0111905305521272;
+camera_distance_to_target 0,0216392485264671;
+camera_rotation 67,4281087842578 -7,02006635300766 13,7399301308998;
 camera_top -0,0184571034795973 0,2648907861677817 0,9641017616074342;
 DE_factor 0,301995;
+detail_level 2;
 DOF_enabled true;
-DOF_focus 0,02373302727937698;
+DOF_focus 0,023733027279377;
 flight_last_to_render 0;
 formula_1 66;
 glow_color_1 ff00 0000 0000;
@@ -18,9 +19,10 @@ glow_intensity 6,0256;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_is_defined true;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-target -1,736335618760868 -0,007094437986578333 0,008545847611281906;
-view_distance_max 13,81473177672692;
+target -1,73633561876087 -0,00709443798657833 0,00854584761128191;
+view_distance_max 13,8147317767269;
 [fractal_1]
 transf_constant_multiplier_100 1 0,526316 0,745614;

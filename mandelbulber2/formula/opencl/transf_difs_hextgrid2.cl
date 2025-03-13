@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,6 +19,17 @@
 
 REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleA1);
+
+		z += fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+	}
+
 	REAL4 zc = z;
 
 	REAL size = fractal->transformCommon.scale1;
@@ -37,18 +48,28 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(M_PI_F / 6.0f));
 	REAL gridMin = min(gridMax - size * 0.5f, yFloor);
 
-	REAL colDist = aux->dist;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = native_sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
+	REAL colDist = aux->dist;
+	aux->dist = min(aux->dist,
+		(hexD - fractal->transformCommon.offset0005) / (aux->DE + fractal->analyticDE.offset0));
 
-	aux->dist = min(aux->dist, (hexD - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL addCol = fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
+		}
 	}
 	return z;
 }

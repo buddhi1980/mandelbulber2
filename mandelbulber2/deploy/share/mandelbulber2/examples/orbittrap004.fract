@@ -1,33 +1,42 @@
 # Mandelbulber settings file
-# version 2.18
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_3_colors_enable false;
 background_color_1 0000 0000 0000;
-camera -1,654721640428247 -0,3180315583278531 0,131410813019422;
-camera_distance_to_target 0,3277034075280079;
-camera_rotation 3,793205561089279 -19,0376215099297 6,125392410805505;
+camera -1,65472164042825 -0,318031558327853 0,131410813019422;
+camera_distance_to_target 0,327703407528008;
+camera_rotation 3,79320556108908 -19,0376215099297 6,1253924108054;
 camera_top 0,08501496163327846 0,3306752537157348 0,9399076193320951;
-DE_factor 0,125;
+DE_factor 0,5;
 fake_lights_color 8600 ff00 2a00;
+fake_lights_color_2 d800 ff00 1300;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 ff00 cb00 0f00;
+fake_lights_color_3_enabled true;
 fake_lights_enabled true;
-fake_lights_intensity 0,125;
+fake_lights_intensity 0,5;
 fake_lights_max_iter 7;
+fake_lights_min_iter 2;
 fake_lights_orbit_trap 0 0 0;
 fake_lights_orbit_trap_shape sphere;
-fake_lights_orbit_trap_size 2,037053327192401;
+fake_lights_orbit_trap_size 2,0370533271924;
 fake_lights_thickness 0,5;
 fake_lights_visibility 16;
 fake_lights_visibility_size 4;
 flight_last_to_render 0;
 formula_1 3;
+fov 53,130102354156;
 hdr true;
 image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
-main_light_enable false;
+light1_enabled false;
+light1_is_defined true;
 mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 raytraced_reflections true;
-target -1,675215283969568 -0,008930648299742723 0,02451758919460282;
-view_distance_max 13,88608701935128;
+target -1,67521528396957 -0,00893064829974272 0,0245175891946028;
+view_distance_max 13,8860870193513;
+volumetric_light_DE_Factor 0,125;

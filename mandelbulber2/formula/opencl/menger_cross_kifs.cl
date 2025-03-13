@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,6 +18,7 @@
 
 REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
@@ -36,18 +37,19 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 		z.y -= 0.75f;
 		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
+			Col.x = 1.0f;
 		}
 
 		z *= fractal->transformCommon.constantMultiplier111; // post scale
@@ -79,22 +81,26 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			z.x -= SQRT_3_4_F * (2.0f * lengthL);
 			z.y -= -lengthL;
+			Col.y = 1.0f;
 		}
 		lengthL = z.y;
 		if (lengthL < 0.0f)
 		{
 			z.y -= 2.0f * lengthL;
+			//		Col.y = 1.0f;
 		}
 		lengthL = (-z.y + z.z) * SQRT_1_2_F;
 		if (lengthL < 0.0f)
 		{
 			z.y -= -SQRT_1_2_F * (2.0f * lengthL);
 			z.z -= SQRT_1_2_F * (2.0f * lengthL);
+			Col.z = 1.0f;
 		}
 		lengthL = z.y;
 		if (lengthL < 0.5f)
 		{
 			z.y -= 2.0f * (lengthL - 0.5f);
+			Col.w = 1.0f;
 		}
 		REAL4 edge = fractal->transformCommon.offset222;
 		if (fractal->transformCommon.functionEnabledxFalse)
@@ -119,6 +125,15 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 		}
+	}
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux->color += Col.x + Col.y + Col.z + Col.w;
 	}
 	return z;
 }

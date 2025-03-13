@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -15,6 +15,8 @@
 
 REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL t = 0.0f;
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -35,21 +37,24 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
 	if (z.x < z.y)
 	{
-		REAL temp = z.y;
+		t = z.y;
 		z.y = z.x;
-		z.x = temp;
+		z.x = t;
+		Col.x = 1.0f;
 	}
 	if (z.x < z.z)
 	{
-		REAL temp = z.z;
+		t = z.z;
 		z.z = z.x;
-		z.x = temp;
+		z.x = t;
+		Col.y = 1.0f;
 	}
 	if (z.y < z.z)
 	{
-		REAL temp = z.z;
+		t = z.z;
 		z.z = z.y;
-		z.y = temp;
+		z.y = t;
+		Col.z = 1.0f;
 	}
 
 	if (fractal->mandelbox.mainRotationEnabled && aux->i >= fractal->transformCommon.startIterationsC
@@ -145,7 +150,11 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z.y -= 2.0f * fractal->transformCommon.constantMultiplier111.y;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		if (z.z > 1.0f) z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
+		if (z.z > 1.0f)
+		{
+			z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
+			Col.w = 1.0f;
+		}
 	}
 	else
 	{
@@ -165,6 +174,15 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			case multi_OrderOfXYZCl_zyx: aux->c = (REAL4){aux->c.z, aux->c.y, aux->c.x, aux->c.w}; break;
 		}
 		z += aux->c * fractal->transformCommon.constantMultiplierC111;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux->color += Col.x + Col.y + Col.z + Col.w;
 	}
 	return z;
 }

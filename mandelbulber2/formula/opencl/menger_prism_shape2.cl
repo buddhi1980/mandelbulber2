@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -107,9 +107,9 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.y > z.z)
 		{
-			t = z.y;
+			REAL temp = z.y;
 			z.y = z.z;
-			z.z = t;
+			z.z = temp;
 		}
 		z.y -= fractal->transformCommon.offsetB0;
 
@@ -117,9 +117,11 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.z > z.x)
 		{
-			t = z.z;
-			z.z = z.x;
-			z.x = t;
+			{
+				REAL temp = z.z;
+				z.z = z.x;
+				z.x = temp;
+			}
 			Col.x = 1.0f;
 		}
 
@@ -224,9 +226,9 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.y > z.z)
 		{
-			t = z.y;
+			REAL temp = z.y;
 			z.y = z.z;
-			z.z = t;
+			z.z = temp;
 		}
 
 		z.y = fabs(z.y - 0.5f) + 0.5f;
@@ -324,28 +326,27 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
 	// menger
 	if (fractal->transformCommon.functionEnabledM
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		if (z.x - z.y < 0.0f)
+		if (z.x < z.y)
 		{
 			t = z.y;
 			z.y = z.x;
 			z.x = t;
 			Col.y = 1.0f;
 		}
-		if (z.x - z.z < 0.0f)
+		if (z.x < z.z)
 		{
 			t = z.z;
 			z.z = z.x;
 			z.x = t;
 			Col.z = 1.0f;
 		}
-		if (z.y - z.z < 0.0f)
+		if (z.y < z.z)
 		{
 			t = z.z;
 			z.z = z.y;
@@ -366,8 +367,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		Col.x *= fractal->foldColor.difs0000.x;

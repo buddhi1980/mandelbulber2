@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -27,24 +27,70 @@ cFractalTransfDIFSTorus::cFractalTransfDIFSTorus() : cAbstractFractal()
 void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
+	double temp = 0.0;
 	double torD;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
-		swap(zc.x, zc.z);
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
 	if (fractal->transformCommon.functionEnabledSFalse)
-		swap(zc.y, zc.z);
+	{
+		temp = zc.y;
+		zc.y = zc.z;
+		zc.z = temp;
+	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+	if (!fractal->transformCommon.functionEnabledCFalse)
+		temp = -fractal->transformCommon.offset05;
 	else
-		torD = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offset05;
-	double colDist = aux.dist;
-	aux.dist = min(aux.dist, torD / (aux.DE + 1.0));
+		temp = fractal->transformCommon.offset0005 - fractal->transformCommon.offset05;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		torD = sqrt(T1 * T1 + zc.z * zc.z) + temp;
+	else
+		torD = max(fabs(T1), fabs(zc.z)) + temp;
+	temp = torD;
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		torD = max(fabs(torD) - fractal->transformCommon.offset0005, 0.0);
+		T1 = torD;
+	}
+
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		torD = max(torD, -zc.x);
+	}
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		torD = max(torD, -zc.y);
+	}
+
+	double colDist = aux.dist;
+
+
+	aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
+
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double addCol = fractal->foldColor.difs0000.y;
+		if (fractal->transformCommon.functionEnabledCFalse
+				&& T1 >= temp + fractal->transformCommon.offset0005)
+			addCol = fractal->foldColor.difs0000.z;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x;
+		}
 	}
 }

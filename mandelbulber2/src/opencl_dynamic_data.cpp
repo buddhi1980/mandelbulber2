@@ -454,8 +454,6 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 		sVectorsAroundCl vector;
 		vector.v = toClFloat3(AOVectors[i].v);
 		vector.color = toClFloat3(AOVectors[i].color);
-		vector.alpha = AOVectors[i].alpha;
-		vector.beta = AOVectors[i].beta;
 
 		data.append(reinterpret_cast<char *>(&vector), sizeof(vector));
 		totalDataOffset += sizeof(vector);
@@ -615,6 +613,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	bool usePrimitiveWater = false;
 	bool usePrimitiveTorus = false;
 	bool usePrimitivePrism = false;
+	bool usePrimitiveEllipsoid = false;
 
 	// copy primitives data aligned to 16
 	for (int i = 0; i < numberOfPrimitives; i++)
@@ -640,6 +639,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 		primitiveCl.object.usedForVolumetric = primitive->usedForVolumetric;
+		primitiveCl.object.wallThickness = primitive->wallThickness;
 
 		try
 		{
@@ -829,6 +829,24 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					break;
 				}
 
+				case fractal::objEllipsoid:
+				{
+					const sPrimitiveEllipsoid *ellipsoid =
+						dynamic_cast<const sPrimitiveEllipsoid *>(primitive.get());
+					if (ellipsoid)
+					{
+						primitiveCl.data.ellipsoid.empty = ellipsoid->empty;
+						primitiveCl.data.ellipsoid.repeat = toClFloat3(ellipsoid->repeat);
+						primitiveCl.data.ellipsoid.limitsEnable = ellipsoid->limitsEnable;
+						primitiveCl.data.ellipsoid.limitsMax = toClFloat3(ellipsoid->limitsMax);
+						primitiveCl.data.ellipsoid.limitsMin = toClFloat3(ellipsoid->limitsMin);
+						usePrimitiveEllipsoid = true;
+					}
+					else
+						throw QString("sPrimitiveEllipsoid");
+					break;
+				}
+
 				default:
 				{
 					qCritical() << "cOpenClDynamicData::BuildPrimitivesData - invalid object type";
@@ -863,6 +881,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	if (usePrimitiveSphere) definesCollector += " -DUSE_PRIMITIVE_SPHERE";
 	if (usePrimitiveTorus) definesCollector += " -DUSE_PRIMITIVE_TORUS";
 	if (usePrimitiveWater) definesCollector += " -DUSE_PRIMITIVE_WATER";
+	if (usePrimitiveEllipsoid) definesCollector += " -DUSE_PRIMITIVE_ELLIPSOID";
 
 	if (primitivesContainer->primitiveIndexForBasicFog >= 0)
 		definesCollector += " -DBASIC_FOG_SHAPE_FROM_PRIMITIVE";

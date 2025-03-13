@@ -194,8 +194,8 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	decayFunction = enumLightDecayFunction(lightParam->Get<int>(Name("decayFunction", id)));
 
-	coneRatio = cos(coneAngle);
-	coneSoftRatio = cos(coneSoftAngle + coneAngle);
+	coneRatio = sin(coneAngle);
+	coneSoftRatio = sin(coneSoftAngle + coneAngle);
 	projectionHorizontalRatio =
 		tan(lightParam->Get<double>(Name("projection_horizonal_angle", id)) / 360.0 * M_PI) * 2.0;
 	projectionVerticalRatio =
@@ -211,26 +211,38 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	}
 }
 
-float cLight::CalculateCone(const CVector3 &lightVector, sRGBFloat &outColor) const
+float cLight::CalculateCone(CVector3 point, const CVector3 &lightVector, sRGBFloat &outColor) const
 {
 	outColor = {1.0, 1.0, 1.0};
 	float intens = 1.0;
 
 	if (type == lightConical)
 	{
-		double axiality = lightVector.Dot(lightDirection);
-
-		if (axiality > coneRatio)
+		if ((point - position).Dot(lightDirection) > 0.0)
 		{
-			intens = 1.0;
-		}
-		else if (axiality > coneSoftRatio)
-		{
-			intens = (axiality - coneSoftRatio) / (coneRatio - coneSoftRatio);
+			intens = 0.0;
 		}
 		else
 		{
-			intens = 0.0;
+			double tipSize = size * 0.5;
+			double distanceToAxis = fabs((point - position).Cross(lightDirection)).Length();
+			double cone = (point - position).Length();
+			double cone1 = cone * coneRatio;
+			double cone2 = cone * coneSoftRatio;
+			if (distanceToAxis < tipSize + cone1)
+			{
+				intens = 1.0;
+			}
+			else if (distanceToAxis < tipSize + cone2)
+			{
+				intens = (tipSize + cone2 - distanceToAxis) / (cone2 - cone1);
+			}
+			else
+			{
+				intens = 0.0;
+			}
+
+			intens = intens * (tipSize * tipSize) / ((tipSize + cone1) * (tipSize + cone1));
 		}
 	}
 	else if (type == lightProjection)

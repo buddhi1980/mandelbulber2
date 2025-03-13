@@ -1,0 +1,67 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+all_lights_intensity 4;
+ambient_occlusion 8;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+camera 3,1950769944316E-05 0,725718690729249 0,0676145057252907;
+camera_distance_to_target 0,0148863186535294;
+camera_rotation 7,45636449548728 -87,1816238198712 -0,361501278959056;
+camera_top -0,135867531878509 0,989506144692193 0,0491691305356911;
+DE_factor 0,5;
+detail_level 0,5;
+DOF_enabled true;
+DOF_focus 0,0144556956365705;
+fake_lights_color e100 ff00 4a00;
+fake_lights_enabled true;
+fake_lights_intensity 0;
+fake_lights_orbit_trap_shape sphere;
+fake_lights_thickness 0,496020927395975;
+fake_lights_visibility 25,3213076721441;
+fake_lights_visibility_size 4,69;
+flight_last_to_render 99999;
+fog_color_1 7500 1f00 0900;
+fog_color_2 ff00 ef00 3a00;
+fog_color_3 ff00 f300 9700;
+formula_1 229;
+gamma 0,8;
+glow_color_1 1400 0300 0200;
+glow_color_2 1000 0500 0200;
+glow_intensity 12,8;
+image_height 2400;
+image_proportion 1;
+image_width 2400;
+keyframe_last_to_render 0;
+light1_intensity 0,5;
+light1_is_defined true;
+light1_rotation 61,23 5,4 0;
+light2_color 1200 6400 e800;
+light2_enabled true;
+light2_intensity 4,05853322785205E-08;
+light2_is_defined true;
+light2_position -0,00226879720637706 0,727420996085156 0,051566436028585;
+light2_size 1;
+light2_visibility 32;
+light3_color 1200 6400 e800;
+light3_enabled true;
+light3_intensity 4,05853322785205E-08;
+light3_is_defined true;
+light3_position 0,00221404587101053 0,727441933384722 0,0515521048622227;
+light3_size 1;
+light3_visibility 32;
+mat1_coloring_speed 4;
+mat1_fractal_coloring_algorithm 3;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 ff6b35 1999 f7c59f 3999 efefd0 5999 004e89 7999 1a659e;
+raytraced_reflections true;
+target -6,30367230498887E-05 0,726444463159085 0,0527461932853841;
+volumetric_fog_colour_1_distance 0,00101998984398329;
+volumetric_fog_colour_2_distance 0,00203997968796659;
+volumetric_fog_density 0,125;
+volumetric_fog_distance_factor 0,00203997968796659;
+volumetric_fog_enabled true;
+[fractal_1]
+power 3;
+transf_offsetF_000 0 0 0,8;

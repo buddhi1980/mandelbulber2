@@ -66,6 +66,7 @@ void sPrimitiveBasic::InitPrimitiveWireframeShapes()
 	sPrimitiveCircle::InitPrimitiveWireframeShape();
 	sPrimitiveRectangle::InitPrimitiveWireframeShape();
 	sPrimitivePrism::InitPrimitiveWireframeShape();
+	sPrimitiveEllipsoid::InitPrimitiveWireframeShape();
 }
 
 sPrimitivePlane::sPrimitivePlane(
@@ -73,6 +74,7 @@ sPrimitivePlane::sPrimitivePlane(
 		: sPrimitiveBasic(fullName, par)
 {
 	empty = par->Get<bool>(fullName + "_empty");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 	size = CVector3(1.0, 1.0, 1.0);
 }
 sPrimitiveBasic::tWireframeShape sPrimitivePlane::wireFrameShape = {};
@@ -102,6 +104,7 @@ sPrimitiveBox::sPrimitiveBox(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 sPrimitiveBasic::tWireframeShape sPrimitiveBox::wireFrameShape = {};
 
@@ -140,6 +143,7 @@ sPrimitiveSphere::sPrimitiveSphere(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 
 sPrimitiveBasic::tWireframeShape sPrimitiveSphere::wireFrameShape = {};
@@ -190,6 +194,7 @@ sPrimitiveWater::sPrimitiveWater(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 
 sPrimitiveBasic::tWireframeShape sPrimitiveWater::wireFrameShape = {};
@@ -236,6 +241,7 @@ sPrimitiveCone::sPrimitiveCone(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 
 sPrimitiveBasic::tWireframeShape sPrimitiveCone::wireFrameShape = {};
@@ -272,6 +278,7 @@ sPrimitiveCylinder::sPrimitiveCylinder(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 
 sPrimitiveBasic::tWireframeShape sPrimitiveCylinder::wireFrameShape = {};
@@ -315,6 +322,7 @@ sPrimitiveTorus::sPrimitiveTorus(
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
 	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 }
 
 sPrimitiveBasic::tWireframeShape sPrimitiveTorus::wireFrameShape = {};
@@ -388,6 +396,7 @@ sPrimitivePrism::sPrimitivePrism(
 	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
 	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
 	repeat = par->Get<CVector3>(fullName + "_repeat");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
 	size =
 		CVector3(tan(prismAngle / 2.0) * triangleHeight * 4.0 / normals.x, triangleHeight / normals.x,
@@ -416,12 +425,57 @@ void sPrimitivePrism::InitPrimitiveWireframeShape()
 	};
 }
 
+sPrimitiveEllipsoid::sPrimitiveEllipsoid(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = par->Get<CVector3>(fullName + "_size");
+	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
+	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
+	limitsMin = par->Get<CVector3>(fullName + "_limits_min");
+	wallThickness = par->Get<double>(fullName + "_wall_thickness");
+}
+
+sPrimitiveBasic::tWireframeShape sPrimitiveEllipsoid::wireFrameShape = {};
+
+void sPrimitiveEllipsoid::InitPrimitiveWireframeShape()
+{
+	double r = 1.0;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
+	for (double alpha = -M_PI * 0.5; alpha < M_PI * 0.5; alpha += angleStep)
+	{
+		for (double beta = 0.0; beta < 2.0 * M_PI; beta += angleStep)
+		{
+			double z1 = sin(alpha) * r;
+			double r1 = cos(alpha) * r;
+			double x1 = r1 * cos(beta);
+			double y1 = r1 * sin(beta);
+			double x2 = r1 * cos(beta + angleStep);
+			double y2 = r1 * sin(beta + angleStep);
+			wireFrameShape.push_back({{x1, y1, z1}, {x2, y2, z1}});
+			double z3 = sin(alpha + angleStep) * r;
+			double r3 = cos(alpha + angleStep) * r;
+			double x3 = r3 * cos(beta);
+			double y3 = r3 * sin(beta);
+			wireFrameShape.push_back({{x1, y1, z1}, {x3, y3, z3}});
+		}
+	}
+
+	wireFrameShape.push_back({{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
+}
+
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
 	double dist = point.z;
-	return empty ? fabs(dist) : dist;
+	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
+	return dist;
 }
 
 double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
@@ -448,12 +502,15 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 		boxDist = boxTemp.Length() - rounding;
 	}
 
+	boxDist = max(boxDist - wallThickness, 0.0);
+
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
 		double limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
 		boxDist = max(boxDist, limitBoxDist);
 	}
+
 	return boxDist;
 }
 
@@ -464,6 +521,7 @@ double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
 	point = point.repeatMod(repeat);
 	double dist = point.Length() - radius;
 	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
@@ -495,6 +553,7 @@ double sPrimitiveCylinder::PrimitiveDistance(CVector3 _point) const
 	if (!caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - height * 0.5, dist);
 	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
@@ -527,6 +586,7 @@ double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
 	if (!caps) dist = fabs(dist);
 	dist = max(-point.z - height, dist);
 	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
@@ -601,6 +661,9 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 	}
 
 	planeDistance = empty ? fabs(planeDistance) : planeDistance;
+
+	planeDistance = max(planeDistance - wallThickness, 0.0);
+
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
@@ -620,6 +683,8 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tubeRadiusLPow)) - tubeRadius;
 
 	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
+
 	if (limitsEnable)
 	{
 		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
@@ -640,5 +705,30 @@ double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
 	double dist = max(q.z - height,
 		max(q.x * normals.y + point.y * normals.z, -point.y + triangleHeight) - triangleHeight);
 
-	return empty ? fabs(dist) : dist;
+	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
+
+	return dist;
+}
+
+double sPrimitiveEllipsoid::PrimitiveDistance(CVector3 _point) const
+{
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.repeatMod(repeat);
+
+	float k0 = (point / size).Length();
+	float k1 = (point / (size * size)).Length();
+	double dist = k0 * (k0 - 1.0) / k1;
+
+	dist = empty ? fabs(dist) : dist;
+	dist = max(dist - wallThickness, 0.0);
+
+	if (limitsEnable)
+	{
+		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
+		double limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }

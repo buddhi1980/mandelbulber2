@@ -97,10 +97,22 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
 		double zcb = zc.Length() + min(max(max(zc.x, zc.y), zc.z), 0.0);
-		if (zcb < zcd)
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
-			zcd = zcb;
-			addCol = fractal->transformCommon.offset4; // box color
+			if (zcb < zcd)
+			{
+				zcd = zcb;
+				addCol = fractal->transformCommon.offset4;
+			}
+		}
+		else
+		{
+			if (zcb > zcd)
+			{
+				zcd = zcb;
+				addCol = fractal->transformCommon.offset4; // box color
+			}
 		}
 	}
 

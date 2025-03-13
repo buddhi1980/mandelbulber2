@@ -1,11 +1,12 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.33
 # only modified parameters
 [main_parameters]
 camera 2,31391456027628 -5,55073063649045 6,01804076466665;
 camera_distance_to_target 8,00031036251772;
 camera_rotation 16,9295502458911 -44,9218636453811 -1,67449055680952;
 camera_top -0,233492472230372 0,666742554940627 0,707768062887125;
+DOF_monte_carlo true;
 flight_last_to_render 0;
 fractal_enable_1 false;
 hdr true;
@@ -33,19 +34,31 @@ light3_enabled true;
 light3_intensity 2;
 light3_is_defined true;
 light3_penetrating false;
-light3_position -3 0 4;
+light3_position -1,57535840769381 0 3,25290962321021;
 light3_rotation 0 -87,7 0;
+light3_size 0,25;
+light3_target -5,72471820593911 -0,206541741412865 1,13911634290991;
 light3_type spot;
+light3_use_target_point true;
 light3_volumetric true;
 light4_color ff00 5200 1900;
 light4_enabled true;
 light4_is_defined true;
 light4_position 3,97303542460902 0 3,12134517395476;
+light5_color ed00 3100 f400;
+light5_enabled true;
+light5_intensity 0,25;
+light5_is_defined true;
+light5_position 6 0 0,9;
+light5_size 0,25;
+light5_target 3 0 0,9;
+light5_type beam;
+light5_visibility 32;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
 primitive_box_1_enabled true;
-primitive_box_1_position 0 0 0,911102513630398;
+primitive_box_1_position 0 0 0,9;
 primitive_box_1_repeat 3 0 0;
 primitive_box_1_size 0,5 0,5 0,5;
 primitive_plane_1_enabled true;

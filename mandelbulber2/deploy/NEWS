@@ -1,25 +1,38 @@
 Version history
 
-v2.33 (?? 2024)
+v2.33 (?? 2025)
 
 - Added new fractal formulas
-   transfDIFSOctahedron
+   dIFSGreekIfs
+	 transfAbsSym3
+	 transfDIFSOctahedron
 	 transfDIFSOctahedronV2
+	 transfDIFSSupershapeV2
+	 transfDIFSTorusV4
 
 - modified fractal formulas
    amazingSurfM3d, iter controls inv cyl
-	 amazingSurfMulti, move sphere fold offsets on UI
+	 amazingSurf2, move rotation on UI
+	 amazingSurf3, move rotation on UI
+	 amazingSurfMulti, move sphere fold offsets and rotation on UI
 	 amazingSurfMulti, add iter controls cyl fold & cpix
 	 foldBoxMod1, UI add missing iter controls box fold 2
-	 mandelboxMenger, fix ass cpix multiplier
+	 koch, added aux.color
+	 mandelboxMenger, fix add cpix multiplier
 	 mandelbulbAbsPower2, catch
+	 mengerCrossKIFS added aux.color
+	 mengerMiddleMod, added aux.color
 	 mengerPrismShape & mengerPrismShape2, added aux.color
+	 transfDELinearCube, fix UI from crashing
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
-	 transfDIFSCylinder & CylinderV2, added aux.color
+	 transfDIFSCylinder & CylinderV2, added aux.color and round
 	 transfDIFSHexprism & HexprismV2, added aux.color
+	 transfDIFSHextgrid2, update aux.color, add pretranform
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
+	 transfDIFSSphere, added aux.color
 	 transfInvCylindrical, add z.z option
+
 
 v2.32 (August 2024)
 

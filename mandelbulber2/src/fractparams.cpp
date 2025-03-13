@@ -55,6 +55,9 @@ sParamRender::sParamRender(
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
+	ambientOcclusionLightMapRotation =
+		container->Get<CVector3>("ao_light_map_rotation") / 180.0 * M_PI;
+	mRotAmbientOcclusionLightMapRotation.SetRotation(ambientOcclusionLightMapRotation);
 	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");
 	background_color1 = toRGBFloat(container->Get<sRGB>("background_color", 1));
 	background_color2 = toRGBFloat(container->Get<sRGB>("background_color", 2));

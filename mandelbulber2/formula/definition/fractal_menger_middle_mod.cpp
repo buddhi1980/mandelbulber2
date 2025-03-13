@@ -26,6 +26,8 @@ cFractalMengerMiddleMod::cFractalMengerMiddleMod() : cAbstractFractal()
 
 void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
+	double t = 0.0;
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -44,9 +46,27 @@ void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	// fabs() and menger fold
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
-	if (z.x < z.y) swap(z.y, z.x);
-	if (z.x < z.z) swap(z.z, z.x);
-	if (z.y < z.z) swap(z.z, z.y);
+	if (z.x < z.y)
+	{
+		t = z.y;
+		z.y = z.x;
+		z.x = t;
+		Col.x = 1.0;
+	}
+	if (z.x < z.z)
+	{
+		t = z.z;
+		z.z = z.x;
+		z.x = t;
+		Col.y = 1.0;
+	}
+	if (z.y < z.z)
+	{
+		t = z.z;
+		z.z = z.y;
+		z.y = t;
+		Col.z = 1.0;
+	}
 
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC) // rotation
@@ -141,7 +161,11 @@ void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+		if (z.z > 1.0)
+		{
+			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+			Col.w = 1.0;
+		}
 	}
 	else
 	{
@@ -161,5 +185,15 @@ void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			case multi_OrderOfXYZ_zyx: aux.c = CVector4(aux.c.z, aux.c.y, aux.c.x, aux.c.w); break;
 		}
 		z += aux.c * fractal->transformCommon.constantMultiplierC111;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux.color += Col.x + Col.y + Col.z + Col.w;
 	}
 }

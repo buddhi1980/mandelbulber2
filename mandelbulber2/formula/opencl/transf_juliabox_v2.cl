@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -124,11 +124,14 @@ REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			if (zCol.y > 0.0f) colorAdd += fractal->foldColor.difs0000.y * zCol.y;
 			if (zCol.z > 0.0f) colorAdd += fractal->foldColor.difs0000.z * zCol.z;
 		}
+		if (aux->i >= fractal->transformCommon.startIterationsK
+				&& aux->i < fractal->transformCommon.stopIterationsK)
+		{
+			if (rrCol < fractal->transformCommon.maxR2d1)
+				colorAdd += fractal->foldColor.difs0000.w * (fractal->transformCommon.maxR2d1 - rrCol);
 
-		if (rrCol < fractal->transformCommon.maxR2d1)
-			colorAdd += fractal->foldColor.difs0000.w * (fractal->transformCommon.maxR2d1 - rrCol);
-
-		colorAdd += fractal->mandelbox.color.factorSp1 * m;
+			colorAdd += fractal->mandelbox.color.factorSp1 * m;
+		}
 
 		aux->color += colorAdd;
 	}

@@ -1,41 +1,45 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
-ambient_occlusion_enabled true;
+advanced_quality true;
 ambient_occlusion_quality 7;
-aux_light_colour_1 ffff f9a8 5b1d;
-aux_light_enabled_1 true;
-aux_light_intensity_1 4,004134199266106e-09;
-aux_light_position_1 -0,6675776370551525 -1,966172627685563 0,2308783408265483;
-aux_light_visibility 0,002;
-aux_light_volumetric_enabled_1 true;
-aux_light_volumetric_intensity_1 2e-05;
 basic_fog_enabled true;
-basic_fog_visibility 0,007585775750291883;
+basic_fog_visibility 0,00758577575029188;
 brightness 0,8;
-camera -0,6674489912675684 -1,966407712313987 0,2306734552994127;
-camera_distance_to_target 2,034495437630473e-11;
-camera_rotation 30,00004180405552 30,00017006491973 0;
-camera_top 0,2500016011996756 -0,43301474562925 0,8660239196842281;
+camera -0,6674942770483 -1,96643018789762 0,231143060321952;
+camera_distance_to_target 2,03543888717636E-11;
+camera_rotation 19,2133315288659 -41,7930115175239 0,456040563225434;
+camera_top -0,211795584356441 0,6319248517917 0,745529082018369;
 DE_factor 0,5;
+detail_level 2;
+detail_size_min 1E-07;
 flight_last_to_render 0;
 formula_1 10;
 fov 61,93;
 gamma 0,8;
+hdr true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_intensity 0;
+light1_intensity 0;
+light1_is_defined true;
+light2_color ffff f9a8 5b1d;
+light2_enabled true;
+light2_intensity 1,00103354981653E-09;
+light2_is_defined true;
+light2_position -0,667577637055152 -1,96617262768556 0,230878340826548;
+light2_visibility 0,002;
+light2_volumetric true;
+light2_volumetric_visibility 19979,3503461155;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 fcc060 1179 934e97 1235 cf0056 1663 8be218 4234 ffaa00 4448 bf6845 5552 5cb9da 9140 4ed0f0;
 reflections_max 2;
-target -0,667448991276378 -1,966407712298728 0,2306734553095852;
-view_distance_max 10,65854108933634;
+target -0,667494277053294 -1,96643018788329 0,231143060308387;
+view_distance_max 10,6585410893363;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

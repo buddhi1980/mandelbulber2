@@ -123,6 +123,10 @@ public:
 	{
 		return CVector3(x / scalar, y / scalar, z / scalar);
 	}
+	inline CVector3 operator/(const CVector3 &vector) const
+	{
+		return CVector3(x / vector.x, y / vector.y, z / vector.z);
+	}
 	inline CVector3 &operator=(const CVector3 &vector) = default;
 	inline CVector3 &operator+=(const CVector3 &vector)
 	{

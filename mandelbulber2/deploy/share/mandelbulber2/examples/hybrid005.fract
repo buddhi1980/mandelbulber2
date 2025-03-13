@@ -1,16 +1,19 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 brightness 1,32;
-camera -1,761966414164439 -0,1835807371025109 0,0238661454337756;
-camera_distance_to_target 0,08741791850932167;
-camera_rotation 110,9056342675112 5,663840637836346 0;
+camera -1,76196641416444 -0,183580737102511 0,0238661454337756;
+camera_distance_to_target 0,0874179185093213;
+camera_rotation 110,905634267511 5,66384063783645 0;
 camera_top 0,09219481231645821 0,03521616391370504 0,9951180524847976;
+constant_DE_threshold true;
+DE_thresh 2,58728970626512E-05;
 DOF_enabled true;
 DOF_focus 0,074131;
 DOF_radius 3,89;
 flight_last_to_render 0;
+fog_color_1 9700 eb00 1800;
 formula_1 8;
 formula_2 16;
 formula_iterations_1 4;
@@ -25,20 +28,24 @@ hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-main_light_alpha -86,73;
-main_light_beta 10,83;
-main_light_intensity 2;
+light1_intensity 2;
+light1_is_defined true;
+light1_rotation -86,73 10,83 0;
+light1_soft_shadow_cone 3;
 mat1_coloring_speed 0,2455;
 mat1_is_defined true;
-mat1_reflectance 0,9399999999999999;
+mat1_reflectance 0,94;
 mat1_reflectance_gradient 0 ffa776 2500 ff0000 5000 000000 7500 d67749;
 mat1_reflectance_gradient_enable true;
 mat1_surface_color_gradient 0 ffa776 2500 ff0000 5000 000000 7500 d67749;
 raytraced_reflections true;
 reflections_max 2;
-shadows_cone_angle 3;
-target -1,84323088254285 -0,2146217769058244 0,03249357283746126;
-volumetric_fog_distance_factor 0,04825585711921885;
+target -1,84323088254285 -0,214621776905824 0,0324935728374613;
+volumetric_fog_colour_1_distance 0,25;
+volumetric_fog_colour_2_distance 0,5;
+volumetric_fog_density 0,25;
+volumetric_fog_distance_factor 0,0120639642798047;
+volumetric_fog_distance_from_surface 2,5E-16;
 volumetric_fog_enabled true;
 [fractal_2]
 boxfold_bulbpow2_z_factor 10,74;

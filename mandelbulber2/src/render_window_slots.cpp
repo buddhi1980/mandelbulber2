@@ -351,6 +351,10 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 			case RenderedImage::clickMoveCamera:
 			{
 				Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
+				if (ui->toolButton_preciseRotation->isChecked())
+				{
+					delta /= 10.0;
+				}
 				mode.append(QVariant(delta));
 				manipulations->SetByMouse(CVector2<double>(x, y), button, mode);
 				break;
@@ -820,17 +824,9 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 	switch (progressType)
 	{
-		case cProgressText::progress_IMAGE:
-			if (isQueue)
-				progressBar = gMainInterface->progressBarQueueImage;
-			else
-				progressBar = gMainInterface->progressBar;
-			break;
+		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
 		case cProgressText::progress_ANIMATION:
-			if (isQueue)
-				progressBar = gMainInterface->progressBarQueueAnimation;
-			else
-				progressBar = gMainInterface->progressBarAnimation;
+			progressBar = gMainInterface->progressBarAnimation;
 			break;
 		case cProgressText::progress_QUEUE:
 			// nothing to be done, no progress bar for queue in GUI

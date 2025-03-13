@@ -181,9 +181,6 @@ private:
 
 	cInterface *mainInterface;
 	Ui::cDockQueue *ui;
-	RenderedImage *renderedImageWidget;
-
-	std::shared_ptr<cImage> image;
 
 	QFileSystemWatcher *queueFileWatcher;
 	QFileSystemWatcher *queueFolderWatcher;

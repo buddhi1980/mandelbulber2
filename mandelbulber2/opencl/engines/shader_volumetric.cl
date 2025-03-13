@@ -396,12 +396,15 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					float lightIntensity = 0.0f;
 					if (light->type == lightDirectional)
 						lightIntensity = light->intensity;
+					else if (light->type == lightConical)
+						lightIntensity = light->intensity * 10.0;
 					else
 						lightIntensity =
 							light->intensity / LightDecay(distanceLight, light->decayFunction) * 4.0f;
 
 					float3 textureColor;
-					lightIntensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
+					lightIntensity *=
+						CalculateLightCone(light, renderData, point, lightVectorTemp, &textureColor);
 
 					float3 lightShadow = 1.0f;
 
@@ -440,7 +443,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						out4.s3 += lightShadow.s0 * step * lightIntensity * light->volumetricVisibility;
 					}
 				} // if light needed
-			}		// if light enabled
+			} // if light enabled
 		}
 
 #endif // VOLUMETRIC_LIGHTS
@@ -461,9 +464,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef ITER_FOG
 		if (iterFogOpacity > 0.0f) aoNeeded = true;
 #endif
-			// #ifdef VOLUMETRIC_FOG
-			//		if (distFogOpacity > 0.0f) aoNeeded = true;
-			// #endif
+		// #ifdef VOLUMETRIC_FOG
+		//		if (distFogOpacity > 0.0f) aoNeeded = true;
+		// #endif
 
 #ifdef AO_MODE_MULTIPLE_RAYS
 		if (aoNeeded)
@@ -572,7 +575,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						float bellFunction;
 						if (light->type == lightConical)
 						{
-							bellFunction = 1.0f / (0.01f + pown(r2, ((int)light->decayFunction + 1) * 2));
+							bellFunction = 1.0f;
 						}
 						else
 						{
@@ -583,7 +586,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 						float3 textureColor;
 						bellFunction *=
-							CalculateLightCone(light, renderData, (-1.0f) * lightDirection, &textureColor);
+							CalculateLightCone(light, renderData, point, (-1.0f) * lightDirection, &textureColor);
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 

@@ -2207,7 +2207,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;DIFSBoxV1Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;DIFS = direct distance iterated function (primitives) system&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS BoxV1 asurf.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS BoxV1 flower.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transfMengerFoldV2 difsBox.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS BoxV1 asurf.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS BoxV1 flower.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transfMengerFoldV2 difsBox.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iridescence.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

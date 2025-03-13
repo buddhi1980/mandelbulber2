@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [main_parameters]
 antialiasing_enabled true;
@@ -10,12 +10,16 @@ basic_fog_color 0000 0000 0000;
 basic_fog_enabled true;
 basic_fog_visibility 5;
 camera 1,76283331411573 -1,62092494748781 0,896774223141059;
-camera_distance_to_target 1,23498058319092;
-camera_rotation 22,8518252519818 -25,8182788099464 100,1940722571;
-camera_top 0,936898885239043 0,311189242527863 -0,15931645920235;
+camera_distance_to_target 1,23498808080964;
+camera_rotation 26,3995598515392 -25,7344091060956 101,751708500254;
+camera_top 0,916260687009118 0,356096986689726 -0,183470132479586;
 DE_factor 0,5;
 detail_level 0,0625;
 fake_lights_color 1e00 b800 ff00;
+fake_lights_color_2 2a00 5100 ff00;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 e400 1800 ff00;
+fake_lights_color_3_enabled true;
 fake_lights_enabled true;
 fake_lights_max_iter 4;
 fake_lights_orbit_trap 2,43403309967437 0 0;
@@ -70,7 +74,7 @@ primitive_water_1_relative_amplitude 0,05;
 primitive_water_1_rotation 41,186 -90 -90;
 raytraced_reflections true;
 reflections_max 2;
-target 1,33110361489199 -0,596475468177403 0,358917576805449;
+target 1,26818542315356 -0,624444011869725 0,360542213038839;
 view_distance_max 25;
 volumetric_light_DE_Factor 0,25;
 [fractal_1]

@@ -29,6 +29,7 @@ cFractalMengerCrossKIFS::cFractalMengerCrossKIFS() : cAbstractFractal()
 
 void cFractalMengerCrossKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double dot1;
@@ -45,11 +46,22 @@ void cFractalMengerCrossKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		z.x -= (t * -SQRT_3) - 0.5;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z) swap(z.y, z.z);
+		if (z.y > z.z)
+		{
+			t = z.y;
+			z.y = z.z;
+			z.z = t;
+		}
 		z.y -= 0.75;
 		z -= gap * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
 
-		if (z.z > z.x) swap(z.z, z.x);
+		if (z.z > z.x)
+		{
+			t = z.z;
+			z.z = z.x;
+			z.x = t;
+			Col.x = 1.0f;
+		}
 
 		z *= fractal->transformCommon.constantMultiplier111; // post scale
 
@@ -79,22 +91,26 @@ void cFractalMengerCrossKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			z.x -= SQRT_3_4 * (2.0 * lengthL);
 			z.y -= -lengthL;
+			Col.y = 1.0;
 		}
 		lengthL = z.y;
 		if (lengthL < 0.0)
 		{
 			z.y -= 2.0 * lengthL;
+	//		Col.y = 1.0;
 		}
 		lengthL = (-z.y + z.z) * SQRT_1_2;
 		if (lengthL < 0.0)
 		{
 			z.y -= -SQRT_1_2 * (2.0 * lengthL);
 			z.z -= SQRT_1_2 * (2.0 * lengthL);
+			Col.z = 1.0;
 		}
 		lengthL = z.y;
 		if (lengthL < 0.5)
 		{
 			z.y -= 2.0 * (lengthL - 0.5);
+			Col.w = 1.0;
 		}
 		CVector4 edge = fractal->transformCommon.offset222;
 		if (fractal->transformCommon.functionEnabledxFalse)
@@ -119,5 +135,15 @@ void cFractalMengerCrossKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
+	}
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux.color += Col.x + Col.y + Col.z + Col.w;
 	}
 }

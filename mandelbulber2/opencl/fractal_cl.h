@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-25 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -122,6 +122,7 @@ typedef struct
 	cl_int auxColorEnabledA;
 	cl_int auxColorEnabledFalse;
 	cl_int auxColorEnabledAFalse;
+	cl_int auxColorEnabledBFalse;
 	cl_int startIterationsA;
 	cl_int stopIterationsA;
 } sFoldColorCl;
@@ -920,6 +921,7 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.auxColorEnabledA = source.auxColorEnabledA;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	target.auxColorEnabledAFalse = source.auxColorEnabledAFalse;
+	target.auxColorEnabledBFalse = source.auxColorEnabledBFalse;
 	target.startIterationsA = source.startIterationsA;
 	target.stopIterationsA = source.stopIterationsA;
 	return target;

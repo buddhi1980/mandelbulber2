@@ -317,7 +317,7 @@ enum enumFractalFormula
 	sphereClusterV3 = 275,
 
 	// 2.32
-	pseudoKleinianMod7 = 276,
+	pseudoKleinianMod7 = 276, // todo
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -333,6 +333,7 @@ enum enumFractalFormula
 	dIFSMsltoeDonut = 610,
 	dIFSMultiV1 = 611,
 	dIFSAmazingIfs = 612,
+	dIFSGreekIfs = 613,
 
 	mandelbulbEye = 800,
 
@@ -511,15 +512,16 @@ enum enumFractalFormula
 	// 2.30
 	transfDotFold = 1151,
 	transfAbsAddConstantV2 = 1152,
-
 	// 2.31
 	transfSphericalInvV3 = 1153,
-
 	// 2.32
 	transfJuliabox = 1154,
 	transfSphericalInvV4 = 1155,
 	transfJuliaboxV2 = 1156,
 	transfBoxFold4dInfy = 1157,
+
+	// 2.33
+	transfAbsSym3 = 1158,
 
 	// mandelbulber transfdIFS
 	// 2.20
@@ -578,7 +580,8 @@ enum enumFractalFormula
 	transfDIFSOctahedron = 1642,
 	transfDIFSOctahedronV2 = 1643,
 	transfDIFSSupershapeV2 = 1644,
-
+	transfDIFSTube = 1645,
+	transfDIFSTorusV4 = 1646,
 
 
 

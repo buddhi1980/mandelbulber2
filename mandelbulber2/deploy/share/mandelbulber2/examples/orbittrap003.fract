@@ -1,16 +1,20 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-camera 0,08151961480691418 0,5529891482320251 1,758716257868623;
-camera_distance_to_target 0,7082686424255372;
-camera_rotation -159,6711967860367 -39,34901604702745 -137,8478003520158;
-camera_top 0,4660012262880817 0,6739248034863881 -0,5732959238855945;
-DE_factor 0,8430765432098766;
-fake_lights_color 8d00 3000 ff00;
+camera 0,119516879179572 0,47450322859689 1,6743693144495;
+camera_distance_to_target 0,590562454462053;
+camera_rotation -154,565195677938 -43,7738063080035 -137,847800352016;
+camera_top 0,385779278008837 0,751401746944428 -0,535322111768084;
+DE_factor 0,843076543209877;
+fake_lights_color ff00 1100 8400;
+fake_lights_color_2 1300 6d00 ff00;
+fake_lights_color_2_enabled true;
+fake_lights_color_3 c100 7500 ff00;
+fake_lights_color_3_enabled true;
 fake_lights_enabled true;
-fake_lights_intensity 0,1149279122565745;
-fake_lights_max_iter 7;
+fake_lights_intensity 0,4597116490263;
+fake_lights_max_iter 3;
 fake_lights_orbit_trap 0,5 0 0;
 fake_lights_orbit_trap_shape circle;
 fake_lights_orbit_trap_size 0,25;
@@ -20,20 +24,20 @@ fake_lights_visibility_size 3,24;
 flight_last_to_render 0;
 formula_1 10;
 hdr true;
-image_height 1200;
-image_proportion 2;
-image_width 1600;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_alpha -30;
-main_light_beta 30;
-main_light_intensity 0,25;
+light1_intensity 0,25;
+light1_is_defined true;
+light1_rotation -30 30 0;
 mat1_is_defined true;
 mat1_specular 1;
 mat1_specular_metallic 1;
 mat1_surface_color_gradient 0 a79ea2 999 3c3f3e 1999 bfa6c1 2999 b1a59c 3999 b69a97 5000 c3cecd 5999 99abb1 7000 9ea08d 7999 68756a 9000 32373e;
-target 0,271795445536278 0,03940036252437507 1,309643727781438;
-volumetric_light_DE_Factor 0,1350591286345919;
+target 0,302662214796913 0,0894039517361284 1,26581045011882;
+volumetric_light_DE_Factor 0,135059128634592;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

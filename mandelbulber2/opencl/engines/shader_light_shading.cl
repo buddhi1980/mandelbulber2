@@ -77,8 +77,8 @@ float LightDecay(float dist, enumLightDecayFunctionCl decayFunction)
 	return pown(dist, (int)decayFunction + 1);
 }
 
-float CalculateLightCone(
-	__global sLightCl *light, sRenderData *renderData, float3 lightVector, float3 *outColor)
+float CalculateLightCone(__global sLightCl *light, sRenderData *renderData, float3 point,
+	float3 lightVector, float3 *outColor)
 {
 	float3 color = 1.0f;
 	float intensity = 1.0f;
@@ -86,19 +86,31 @@ float CalculateLightCone(
 	if (light->type == lightConical)
 	{
 #ifdef LIGHT_CONICAL
-		float axiality = dot(lightVector, light->lightDirection);
-
-		if (axiality > light->coneRatio)
+		if (dot(point - light->position, light->lightDirection) > 0.0f)
 		{
-			intensity = 1.0f;
-		}
-		else if (axiality > light->coneSoftRatio)
-		{
-			intensity = (axiality - light->coneSoftRatio) / (light->coneRatio - light->coneSoftRatio);
+			intensity = 0.0f;
 		}
 		else
 		{
-			intensity = 0.0f;
+			float tipSize = light->size * 0.5f;
+			float distanceToAxis = length(cross(point - light->position, light->lightDirection));
+			float cone = length(point - light->position);
+			float cone1 = cone * light->coneRatio;
+			float cone2 = cone * light->coneSoftRatio;
+			if (distanceToAxis < tipSize + cone1)
+			{
+				intensity = 1.0f;
+			}
+			else if (distanceToAxis < tipSize + cone2)
+			{
+				intensity = (tipSize + cone2 - distanceToAxis) / (cone2 - cone1);
+			}
+			else
+			{
+				intensity = 0.0f;
+			}
+
+			intensity = intensity * (tipSize * tipSize) / ((tipSize + cone1) * (tipSize + cone1));
 		}
 #endif // LIGHT_CONICAL
 	}
@@ -167,13 +179,17 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	{
 		intensity = light->intensity;
 	}
+	else if (light->type == lightConical)
+	{
+		intensity = 10.0f * light->intensity;
+	}
 	else
 	{
 		intensity = 100.0f * light->intensity / LightDecay(dist, light->decayFunction) / 6.0f;
 	}
 
 	float3 textureColor;
-	intensity *= CalculateLightCone(light, renderData, lightVector, &textureColor);
+	intensity *= CalculateLightCone(light, renderData, input->point, lightVector, &textureColor);
 
 	float shade = dot(input->normal, lightVector);
 	if (shade < 0.0f) shade = 0.0f;

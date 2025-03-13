@@ -1,28 +1,20 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
+[description]
+Because the camera is so close to the fractal object, it cannot be rendered properly with OpenCL. Set OpenCL mode to "no OpenCL" to render it with correct quality.
 [main_parameters]
-aux_light_colour_1 5400 cd00 e800;
-aux_light_colour_2 7e00 f500 de00;
-aux_light_enabled_1 true;
-aux_light_enabled_2 true;
-aux_light_intensity_1 5,857060589754003e-13;
-aux_light_intensity_2 5,213255929283629e-13;
-aux_light_position_1 -0,1368273314455738 -1,57555678409331 -0,01512645542408554;
-aux_light_position_2 -0,136805642714508 -1,57554432163126 -0,01512294157572258;
-aux_light_visibility 4,46684;
-aux_light_visibility_size 2,51189;
 basic_fog_color a433 af60 ca39;
 basic_fog_enabled true;
-basic_fog_visibility 8,128305161640995e-05;
+basic_fog_visibility 8,12830516164099E-05;
 brightness 3,2;
-camera -0,1368068687717645 -1,575570613865156 -0,01513075735551634;
-camera_distance_to_target 5,643546749118672e-13;
-camera_rotation 35,01311731267285 10,00327803918329 -0,001400510620537053;
+camera -0,136806868771765 -1,57557061386516 -0,0151307573555163;
+camera_distance_to_target 5,6761890048181E-13;
+camera_rotation 34,6643916171333 9,94196537671518 0,0591611201870159;
 camera_top 0,09962350272495347 -0,1422504047049628 0,9848045390157812;
 DE_factor 0,8;
 DOF_enabled true;
-DOF_focus 2,326655521756038e-05;
+DOF_focus 2,32665552175604E-05;
 DOF_radius 19,72;
 flight_last_to_render 0;
 formula_1 10;
@@ -33,14 +25,29 @@ image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0,21;
+light1_intensity 0,21;
+light1_is_defined true;
+light1_rotation -45 -45 0;
+light2_color 5400 cd00 e800;
+light2_enabled true;
+light2_intensity 1,4642651474385E-13;
+light2_is_defined true;
+light2_position -0,136827331445574 -1,57555678409331 -0,0151264554240855;
+light2_size 5,02378;
+light2_visibility 4,46684;
+light3_color 7e00 f500 de00;
+light3_enabled true;
+light3_intensity 1,30331398232091E-13;
+light3_is_defined true;
+light3_position -0,136805642714508 -1,57554432163126 -0,0151229415757226;
+light3_size 5,02378;
+light3_visibility 4,46684;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-target -0,1368068687720834 -1,575570613864701 -0,01513075735541831;
+target -0,136806868772083 -1,5755706138647 -0,0151307573554183;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

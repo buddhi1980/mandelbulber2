@@ -31,6 +31,17 @@ cFractalTransfDIFSHextgrid2::cFractalTransfDIFSHextgrid2() : cAbstractFractal()
 void cFractalTransfDIFSHextgrid2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA1);
+
+		z += fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+	}
+
 	CVector4 zc = z;
 
 	double size = fractal->transformCommon.scale1;
@@ -49,17 +60,27 @@ void cFractalTransfDIFSHextgrid2::FormulaCode(
 	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 	double gridMin = min(gridMax - size * 0.5, yFloor);
 
-	double colDist = aux.dist;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
+	double colDist = aux.dist;
+	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005)
+				/ (aux.DE + fractal->analyticDE.offset0));
 
-	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		double addCol = fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
+		}
 	}
 }

@@ -55,13 +55,17 @@ sRGBAFloat cRenderWorker::LightShading(sShaderInputData &input, sRGBAFloat surfa
 	{
 		intensity = light->intensity;
 	}
+	else if (light->type == cLight::lightConical)
+	{
+		intensity = light->intensity * 10.0;
+	}
 	else
 	{
 		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0f;
 	}
 
 	sRGBFloat textureColor;
-	intensity *= light->CalculateCone(lightVector, textureColor);
+	intensity *= light->CalculateCone(input.point, lightVector, textureColor);
 
 	float shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;

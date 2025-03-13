@@ -40,7 +40,9 @@ float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 	float3 point = _point - primitive->object.position;
 	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
 	float dist = point.z;
-	return primitive->data.plane.empty ? fabs(dist) : dist;
+	dist = primitive->data.plane.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
+	return dist;
 }
 #endif
 
@@ -68,6 +70,8 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 		boxDist = length(boxTemp) - primitive->data.box.rounding;
 	}
 
+	boxDist = max(boxDist - primitive->object.wallThickness, 0.0f);
+
 	if (primitive->data.box.limitsEnable)
 	{
 		float3 distanceAxial =
@@ -87,6 +91,7 @@ float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 	point = modRepeat(point, primitive->data.sphere.repeat);
 	float dist = length(point) - primitive->data.sphere.radius;
 	dist = primitive->data.sphere.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
 
 	if (primitive->data.sphere.limitsEnable)
 	{
@@ -123,6 +128,7 @@ float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 	if (!primitive->data.cylinder.caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - primitive->data.cylinder.height * 0.5f, dist);
 	dist = primitive->data.cylinder.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
 
 	if (primitive->data.cylinder.limitsEnable)
 	{
@@ -160,6 +166,7 @@ float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 	if (!primitive->data.cone.caps) dist = fabs(dist);
 	dist = max(-point.z - primitive->data.cone.height, dist);
 	dist = primitive->data.cone.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
 
 	if (primitive->data.cone.limitsEnable)
 	{
@@ -229,6 +236,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 		planeDistance += (waveX + waveY) * amplitude;
 	}
 	planeDistance = primitive->data.water.empty ? fabs(planeDistance) : planeDistance;
+	planeDistance = max(planeDistance - primitive->object.wallThickness, 0.0f);
 
 	if (primitive->data.water.limitsEnable)
 	{
@@ -256,6 +264,7 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 	float dist = LengthPow(pointDZ, pow(2.0f, primitive->data.torus.tubeRadiusLPow))
 							 - primitive->data.torus.tubeRadius;
 	dist = primitive->data.torus.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
 
 	if (primitive->data.torus.limitsEnable)
 	{
@@ -282,7 +291,35 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 			-point.y + primitive->data.prism.triangleHeight)
 			- primitive->data.prism.triangleHeight);
 
-	return primitive->data.prism.empty ? fabs(prismDistance) : prismDistance;
+	prismDistance = primitive->data.prism.empty ? fabs(prismDistance) : prismDistance;
+	prismDistance = max(prismDistance - primitive->object.wallThickness, 0.0f);
+
+	return prismDistance;
+}
+#endif
+
+#ifdef USE_PRIMITIVE_ELLIPSOID
+float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
+{
+	float3 point = _point - primitive->object.position;
+	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	point = modRepeat(point, primitive->data.ellipsoid.repeat);
+
+	float k0 = length(point / primitive->object.size);
+	float k1 = length(point / (primitive->object.size * primitive->object.size));
+	float dist = k0 * (k0 - 1.0f) / k1;
+
+	dist = primitive->data.ellipsoid.empty ? fabs(dist) : dist;
+	dist = max(dist - primitive->object.wallThickness, 0.0f);
+
+	if (primitive->data.ellipsoid.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.ellipsoid.limitsMax, primitive->data.ellipsoid.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
 #endif
 
@@ -385,6 +422,15 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 					break;
 				}
 #endif
+
+#ifdef USE_PRIMITIVE_ELLIPSOID
+				case objEllipsoid:
+				{
+					distTemp = PrimitiveEllipsoid(primitive, point2);
+					break;
+				}
+#endif
+
 				default: break;
 			}
 

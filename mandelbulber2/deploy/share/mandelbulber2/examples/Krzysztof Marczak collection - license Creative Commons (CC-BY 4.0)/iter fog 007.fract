@@ -1,11 +1,13 @@
 # Mandelbulber settings file
-# version 2.28
+# version 2.33
 # only modified parameters
+[description]
+This fractal has to be rendered with disabled OpenCL. The camera is too close to the fractal.
 [main_parameters]
 brightness 2;
 camera -1,05357497859413 -1,06312553977604 -1,08332394882038;
-camera_distance_to_target 2,25805758473146e-12;
-camera_rotation -24,9996176143236 -25,0014373924936 0;
+camera_distance_to_target 2,25413629760959E-12;
+camera_rotation -25,1872113555984 -24,9233932774868 -0,0792847630776751;
 camera_top 0,1786132476784081 0,3830440199891504 0,9062971844292153;
 DE_factor 0,4;
 flight_last_to_render 0;
@@ -32,7 +34,7 @@ light1_is_defined true;
 light1_rotation 80 -10 0;
 light2_color 3b7a 70ee e33c;
 light2_enabled true;
-light2_intensity 2,50229111790555e-18;
+light2_intensity 2,50229111790555E-18;
 light2_is_defined true;
 light2_position -1,05357496066342 -1,06312548418854 -1,08332398490502;
 mat1_coloring_speed 0,0195;

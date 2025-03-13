@@ -21,18 +21,33 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
+		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
-			z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
+			if (!fractal->transformCommon.functionEnabledBxFalse)
+				z.x = fractal->transformCommon.offset000.x - fabs(z.x);
+			else
+				z.x = sign(z.x) * (fractal->transformCommon.offset000.x - fabs(z.x));
 		}
-		if (fractal->transformCommon.functionEnabledByFalse)
+
+		if (fractal->transformCommon.functionEnabledAyFalse)
 		{
-			z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
+			if (!fractal->transformCommon.functionEnabledByFalse)
+				z.y = fractal->transformCommon.offset000.y - fabs(z.y);
+			else
+				z.y = sign(z.y) * (fractal->transformCommon.offset000.y - fabs(z.y));
 		}
-		if (fractal->transformCommon.functionEnabledBzFalse)
+
+		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
+			if (!fractal->transformCommon.functionEnabledBzFalse)
+				z.z = fractal->transformCommon.offset000.z - fabs(z.z);
+			else
+				z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
 		}
+
+		z *= fractal->transformCommon.scale1;
+		aux->DE *= fractal->transformCommon.scale1;
+		z += fractal->transformCommon.offsetA000;
 	}
 
 	REAL r1;
@@ -53,17 +68,36 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
-		r1 = (t1 + t2);
+		r1 = t1 + t2;
 	else
 		r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
-	if (!fractal->transformCommon.functionEnabledFFalse) r1 = 1.0f / r1;
+	if (!fractal->transformCommon.functionEnabledFFalse) r1 = 1.0f / r1; // invert
+
 	REAL4 zc = z;
 	REAL rb = native_sqrt(z.x * z.x + z.y * z.y);
 	zc.x = r1 * native_cos(phi);
 	zc.y = r1 * native_sin(phi);
 
-	REAL xyR = rb - native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetR0;
+	REAL xyR = native_sqrt(zc.x * zc.x + zc.y * zc.y);
+
+	if (!fractal->transformCommon.functionEnabledMFalse)
+		xyR = rb - xyR - fractal->transformCommon.offsetR0;
+	else
+	{
+		if (!fractal->transformCommon.functionEnabledNFalse)
+		{
+			rb = rb * (1.0f - fractal->transformCommon.scaleA0)
+					 + fractal->transformCommon.offsetR0 * fractal->transformCommon.scaleA0;
+			xyR = rb - xyR;
+		}
+		else
+		{
+			xyR = rb - xyR;
+			rb = rb - fractal->transformCommon.offsetR0;
+			xyR = min(rb, xyR);
+		}
+	}
 
 	REAL cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -77,8 +111,6 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->transformCommon.functionEnabledzFalse)
 	{
 		cylR = cylR + (zc.z * zc.z * fractal->transformCommon.scaleB0);
-
-		//	cylR = cylR + (fabs(zc.z) * fractal->transformCommon.offsetB0);
 	}
 
 	cylR = max(cylR, 0.0f);
@@ -87,7 +119,7 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
 
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset0));
+	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset1));
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
@@ -99,8 +131,8 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux->color += fractal->foldColor.difs0000.y;
 			if (xyR <= -fractal->transformCommon.offsetp01) aux->color += fractal->foldColor.difs0000.z;
-			//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
-			//	aux->color += fractal->foldColor.difs0000.w;
+
+			aux->color += fractal->foldColor.difs0000.w * rb;
 		}
 	}
 	return z;

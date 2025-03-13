@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>925</width>
-    <height>1678</height>
+    <height>1709</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -225,7 +225,7 @@
          <item>
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
            <property name="text">
-            <string notr="true">fabs(fn(z))</string>
+            <string notr="true">abs(fn(z))</string>
            </property>
           </widget>
          </item>
@@ -549,7 +549,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
         <property name="text">
-         <string notr="true">fabs(z)</string>
+         <string notr="true">abs(z)</string>
         </property>
        </widget>
       </item>

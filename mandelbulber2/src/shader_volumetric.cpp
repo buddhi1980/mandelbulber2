@@ -407,11 +407,13 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 						float lightIntensity;
 						if (light->type == cLight::lightDirectional)
 							lightIntensity = light->intensity;
+						else if (light->type == cLight::lightConical)
+							lightIntensity = light->intensity * 10.0;
 						else
 							lightIntensity = light->intensity / light->Decay(distanceLight) * 4.0;
 
 						sRGBFloat textureColor(0.0, 0.0, 0.0);
-						lightIntensity *= light->CalculateCone(lightVectorTemp, textureColor);
+						lightIntensity *= light->CalculateCone(point, lightVectorTemp, textureColor);
 
 						sRGBAFloat lightShadow(0.0, 0.0, 0.0, 0.0);
 						if (shadowNeeded)
@@ -460,9 +462,9 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 								lightShadow.A * float(step) * lightIntensity * light->volumetricVisibility;
 						}
 					} // if light needed
-				}		// if light enabled
-			}			// if any light enabled
-		}				// next light
+				} // if light enabled
+			} // if any light enabled
+		} // next light
 
 		if (params->DOFMonteCarloGlobalIllumination && params->monteCarloGIOfVolumetric)
 		{
@@ -602,7 +604,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 						double bellFunction;
 						if (light->type == cLight::lightConical)
 						{
-							bellFunction = 1.0 / (0.01 + pow(r2, double((light->decayFunction + 1) * 2)));
+							bellFunction = 1.0;
 						}
 						else
 						{
@@ -612,7 +614,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 						CVector3 lightDirection = lightDistVect;
 						lightDirection.Normalize();
 						sRGBFloat textureColor;
-						bellFunction *= light->CalculateCone((-1.0) * lightDirection, textureColor);
+						bellFunction *= light->CalculateCone(point, (-1.0) * lightDirection, textureColor);
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 

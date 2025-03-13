@@ -1,30 +1,34 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.33
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 ffff afc5 4be2;
-aux_light_enabled_1 true;
-aux_light_intensity_1 0,0003066529397355547;
-aux_light_position_1 -3,927285956322817 -0,6901224905027888 -5,958555173688161;
-aux_light_visibility 2;
-aux_light_visibility_size 0,3;
-camera -4,03247071956652 -0,7009290429588075 -5,952291813854384;
-camera_distance_to_target 6,666638862408728e-11;
-camera_rotation -69,99993726014733 0 0;
-camera_top 0 0 1;
+antialiasing_enabled true;
+camera -4,01944037030726 -0,696647159291625 -5,95234798195899;
+camera_distance_to_target 0,127978281468153;
+camera_rotation -75,0576834757916 -0,407268776228783 179,989044745911;
+camera_top -0,00681846483432639 -0,00201754362818451 -0,999974718707934;
 constant_DE_threshold true;
 DE_thresh 0,0001;
+detail_level 2;
 flight_last_to_render 0;
 formula_1 8;
 fov 61,93;
 glow_intensity 0,5;
-image_height 1200;
-image_width 1600;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
 keyframe_last_to_render 0;
-legacy_coordinate_system true;
-main_light_beta -45;
-main_light_colour f2f8 4ed3 28b2;
-main_light_intensity 0,3;
+light1_color f2f8 4ed3 28b2;
+light1_intensity 0,3;
+light1_is_defined true;
+light1_rotation -45 -45 0;
+light2_color ffff afc5 4be2;
+light2_enabled true;
+light2_intensity 7,66632349338887E-05;
+light2_is_defined true;
+light2_position -3,92728595632282 -0,690122490502789 -5,95855517368816;
+light2_size 0,6;
+light2_visibility 2;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
@@ -36,6 +40,6 @@ mat1_transparency_index_of_refraction 6;
 mat1_use_colors_from_palette false;
 raytraced_reflections true;
 reflections_max 4;
-target -4,032470719503874 -0,7009290429360062 -5,952291813854384;
+target -3,89579268213143 -0,663649247096123 -5,95325766709817;
 textured_background true;
-view_distance_max 32,79159937526111;
+view_distance_max 32,7915993752611;

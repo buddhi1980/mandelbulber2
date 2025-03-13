@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -38,11 +38,9 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 zCol = z;
 	// no z fold
 	z += fractal->transformCommon.offset000;
-/*	REAL rr;
-	if (!fractal->transformCommon.functionEnabledFalse)
-		rr = dot(z, z);
-	else
-		rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
+	/*	REAL rr;
+		if (!fractal->transformCommon.functionEnabledFalse) rr = dot(z, z);
+		else rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
 	*/
 	REAL rr = dot(z, z);
 	if (fractal->transformCommon.functionEnabledFalse

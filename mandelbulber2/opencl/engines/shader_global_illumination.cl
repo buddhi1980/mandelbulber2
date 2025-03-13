@@ -44,6 +44,11 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 	bool finished = false;
 	int maxDepth = (volumetricMode) ? 2 : consts->params.reflectionsMax;
+
+	float lastReflectance = 0.0f;
+	float3 lastReflectanceColor = 0.0f;
+	float3 lastDirection = 0.0f;
+
 	for (int rayDepth = 0; rayDepth < maxDepth; rayDepth++)
 	{
 		float3 reflectedDirection = inputCopy.normal;
@@ -59,7 +64,24 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		}
 		else
 		{
-			randomizedDirection = normalize(reflectedDirection + randomVector);
+#if defined(USE_REFLECTANCE)
+			if (lastReflectance > 0.0f)
+			{
+				if (Random(1000, &calcParam->randomSeed) / 1000.0f < lastReflectance)
+				{
+					randomizedDirection =
+						lastDirection - 2.0f * dot(lastDirection, inputCopy.normal) * inputCopy.normal;
+				}
+				else
+				{
+					randomizedDirection = normalize(reflectedDirection + randomVector);
+				}
+			}
+			else
+#endif
+			{
+				randomizedDirection = normalize(reflectedDirection + randomVector);
+			}
 		}
 		inputCopy.viewVector = randomizedDirection;
 
@@ -71,7 +93,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		float3 newColor = objectColor;
 
 		for (float scan = inputCopy.distThresh; scan < consts->params.viewDistanceMax;
-				 scan += dist * consts->params.DEFactor)
+			scan += dist * consts->params.DEFactor)
 		{
 			float3 point = inputCopy.point + scan * randomizedDirection;
 
@@ -182,6 +204,12 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 			newColor = objectColor;
 			resultShader.xyz = objectShader + outLuminosityEmissive;
+
+#if defined(USE_REFLECTANCE)
+			lastReflectance = inputCopy.material->reflectance;
+			lastReflectanceColor = inputCopy.material->reflectionsColor;
+			lastDirection = randomizedDirection;
+#endif
 		}
 		else
 		{
@@ -202,7 +230,8 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 		float influence = clamp(1.0f - totalOpacity, 0.0f, 1.0f);
 		resultShader = clamp(resultShader, 0.0f, consts->params.monteCarloGIRadianceLimit);
-		out += resultShader.xyz * objectColorTemp * influence;
+		out +=
+			resultShader.xyz * (objectColorTemp + lastReflectance * lastReflectanceColor) * influence;
 
 		totalOpacity += opacityOut;
 		objectColorTemp = newColor;

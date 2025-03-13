@@ -1,28 +1,52 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-camera -0,1516674433137686 0,1523548175794434 -0,000182321813950907;
-camera_distance_to_target 0,00705078200136959;
-camera_rotation 70,20031509632862 0,07237475193311847 3,596825678173462e-10;
+ambient_occlusion_mode 1;
+camera -0,151667443313769 0,152354817579443 -0,000182321813950907;
+camera_distance_to_target 0,00705078200136956;
+camera_rotation 70,2003150963232 0,0723747519331185 3,59682567817346E-10;
 camera_top 0,001188501660459873 -0,0004278795367855065 0,9999992021911341;
+detail_level 2;
 flight_last_to_render 0;
 formula_1 8;
 formula_2 7;
 formula_3 3;
 formula_iterations_1 2;
 formula_iterations_2 3;
+hdr true;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_cone_angle 20;
+light1_cone_soft_angle 4;
+light1_intensity 1E-06;
+light1_is_defined true;
+light1_position -0,00065 0 0;
+light1_rotation -10 0 0;
+light1_type spot;
+light1_visibility 0,0625;
+light2_color ffff ffff ffff;
+light2_cone_angle 20;
+light2_cone_soft_angle 4;
+light2_enabled true;
+light2_intensity 1E-06;
+light2_is_defined true;
+light2_position 0,00065 0 0;
+light2_relative_position true;
+light2_rotation 10 0 0;
+light2_target 0 0 0;
+light2_type spot;
+light2_visibility 0,0625;
 mat1_coloring_speed 6,6;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 005500 1999 94ce5e 3999 b05e23 5999 c0ca51 7999 15c100;
-target -0,1583013963469649 0,1547431464220508 -0,0001734154256110786;
+mat1_use_colors_from_palette false;
+target -0,158301396346965 0,154743146422051 -0,000173415425611079;
 [fractal_1]
 mandelbox_scale -0,4;

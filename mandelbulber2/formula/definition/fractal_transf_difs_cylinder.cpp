@@ -29,19 +29,27 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
-
+	double temp = 0.0;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSFalse)
 	{
-		double temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.y;
 		zc.y = temp;
 	}
 
 	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
 
-	double xyR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	double xyR = sqrt(zc.x * zc.x + zc.y * zc.y)
+			- fractal->transformCommon.radius1
+			+ fractal->transformCommon.offsetB0;
+
 	double cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -50,7 +58,9 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 			cylR = max(cylR, xyR);
 	}
 
-	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+	double cylH = fabs(zc.z)
+			- fractal->transformCommon.offsetA1
+			+ fractal->transformCommon.offsetB0;
 
 	cylR = max(cylR, 0.0);
 	cylH = max(cylH, 0.0);
@@ -58,22 +68,32 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	cylD = min(max(cylR, cylH), 0.0) + cylD;
 
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
+	aux.dist = min(aux.dist,
+			cylD / (aux.DE + fractal->analyticDE.offset0)
+				- fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-
+		double addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
-				aux.color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offset0)
-				aux.color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
-				aux.color += fractal->foldColor.difs0000.w;
+			if (xyR < -fractal->transformCommon.offset0
+					- fractal->transformCommon.offsetB0)
+				addCol = fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1
+					+ fractal->transformCommon.offsetB0
+					- fractal->foldColor.difs0 < fabs(zc.z))
+				addCol = fractal->foldColor.difs0000.w;
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
 		}
 	}
 }

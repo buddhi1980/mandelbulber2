@@ -1,15 +1,10 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 9800 e800 5500;
-aux_light_enabled_1 true;
-aux_light_intensity_1 1,12202;
-aux_light_position_1 -1,982172674515478 0,2795817972967305 5,617462816448834;
-aux_light_visibility 9,54993;
-camera 0,7414736935158109 0,2979915249241403 5,499267385887102;
+camera 0,741473693515811 0,29799152492414 5,4992673858871;
 camera_distance_to_target 5,15154027938843;
-camera_rotation 90,40465680690373 1,752135094012273 -0,07656305338087011;
+camera_rotation 90,4046568069037 1,75213509401227 -0,0765630533808701;
 camera_top 0,03058440787352932 -0,001120301461297695 0,9995315597416928;
 DE_factor 0,457088;
 detail_level 0,269153;
@@ -23,7 +18,14 @@ hdr true;
 image_height 1200;
 image_width 1200;
 keyframe_last_to_render 0;
-main_light_enable false;
+light1_enabled false;
+light1_is_defined true;
+light2_color 9800 e800 5500;
+light2_enabled true;
+light2_intensity 2,24404;
+light2_is_defined true;
+light2_position -1,98217267451548 0,27958179729673 5,61746281644883;
+light2_visibility 9,54993;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
@@ -33,4 +35,4 @@ mat1_specular_width 1;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_transparency_index_of_refraction 3;
 raytraced_reflections true;
-target -4,407529574854142 0,2616256026371969 5,656779646277126;
+target -4,40752957485414 0,261625602637197 5,65677964627713;

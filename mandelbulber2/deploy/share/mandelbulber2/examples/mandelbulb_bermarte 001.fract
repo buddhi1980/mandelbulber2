@@ -1,36 +1,40 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
-ambient_occlusion_enabled true;
-aux_light_visibility 9,54993;
-aux_light_visibility_size 0,0346737;
-camera 0,9114886311786261 -0,5668578415162826 -0,2330479561654706;
-camera_distance_to_target 0,02245958894491193;
-camera_rotation 22,58587564393018 -30,51756154794946 49,53955301616425;
+antialiasing_enabled true;
+camera 0,911488631178626 -0,566857841516283 -0,233047956165471;
+camera_distance_to_target 0,0224595889449116;
+camera_rotation 22,5858756439293 -30,5175615479484 49,5395530161638;
 camera_top 0,5759405675387448 0,5964712509284448 0,5590299718968607;
 DE_factor 0,177828;
+detail_level 2;
 flight_last_to_render 0;
-fog_color_3 ff00 db00 5500;
+fog_color_3 ff00 bc00 5000;
 formula_1 94;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-main_light_alpha -80,54000000000001;
+light1_is_defined true;
+light1_rotation -80,54 45 0;
+light2_is_defined true;
+light2_size 0,0693474;
+light2_visibility 9,54993;
 mat1_coloring_speed 2;
 mat1_is_defined true;
 mat1_specular_plastic_enable false;
 mat1_surface_color_gradient 0 b79839 1999 006c40 3999 b4c581 5999 1e150d 7999 4e8133;
-random_lights_distribution_center 0,8937183464932488 -0,5357990642539026 -0,2456067733219439;
-random_lights_distribution_radius 0,01896150410175323;
+random_lights_distribution_center 0,893718346493249 -0,535799064253903 -0,245606773321944;
+random_lights_distribution_radius 0,0189615041017532;
 random_lights_group true;
-random_lights_intensity 25,704;
-random_lights_max_distance_from_fractal 0,003792300820350647;
+random_lights_intensity 1,836;
+random_lights_max_distance_from_fractal 0,00379230082035065;
 random_lights_number 40;
-target 0,9040575575129057 -0,5489934221144576 -0,2444529901060051;
-volumetric_fog_colour_1_distance 3,767046083138249e-05;
-volumetric_fog_colour_2_distance 7,534092166276498e-05;
-volumetric_fog_distance_factor 7,534092166276498e-05;
+random_lights_size 0,10964786690538;
+target 0,904057557512906 -0,548993422114458 -0,244452990106005;
+volumetric_fog_colour_1_distance 3,76704608313825E-05;
+volumetric_fog_colour_2_distance 7,5340921662765E-05;
+volumetric_fog_distance_factor 7,5340921662765E-05;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_pwr_8 5;

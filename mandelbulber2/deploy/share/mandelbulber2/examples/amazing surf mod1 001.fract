@@ -1,27 +1,51 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-basic_fog_color ad00 a300 7300;
+basic_fog_color 9b00 a500 ad00;
 basic_fog_enabled true;
 basic_fog_visibility 1,54882;
-camera -0,5659152136870376 -0,8300591765404083 0,1317091506222637;
-camera_distance_to_target 0,2024357071841651;
-camera_rotation -173,0413846495803 -15,96935558787713 -6,758686169217959;
-camera_top 0,149921247113244 -0,256940582508162 0,9547277919513898;
+camera -0,646959236837428 -0,819259370015388 0,0480482793925719;
+camera_distance_to_target 0,202498262983081;
+camera_rotation -157,017418458861 -3,56634193803645 -8,82043469911217;
+camera_top 0,165167325375792 0,0032816996082789 0,986260100113498;
 flight_last_to_render 0;
 formula_1 77;
+glow_intensity 0,8;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation -63,42 34,77 0;
+light1_soft_shadow_cone 0,13;
+mat1_coloring_palette_offset 0,53;
+mat1_coloring_speed 2;
 mat1_is_defined true;
-mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-target -0,5423361092468411 -1,023249071127851 0,07601439318277013;
-volumetric_fog_colour_1_distance 0,01210988549915522;
-volumetric_fog_colour_2_distance 0,02421977099831045;
+mat1_surface_color_gradient 0 81c8cf 2762 499c81 3902 ffffe7 3967 6d6099;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_metallic false;
+mat2_name water;
+mat2_reflectance 1;
+mat2_specular 1;
+mat2_specular_width 0,161;
+mat2_surface_color 2300 4800 6800;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_use_colors_from_palette false;
+primitive_water_1_enabled true;
+primitive_water_1_iterations 9;
+primitive_water_1_length 0,05;
+primitive_water_1_material_id 2;
+primitive_water_1_position -0,697537895429569 -1,03946204652247 0,0396418925005216;
+primitive_water_1_relative_amplitude 0,1;
+primitive_water_1_rotation 0 -8,622 176,698;
+raytraced_reflections true;
+target -0,568046648546132 -1,00532302706445 0,0354520320997209;
+volumetric_fog_colour_1_distance 0,0121098854991552;
+volumetric_fog_colour_2_distance 0,0242197709983104;
 volumetric_fog_density 0,1;
-volumetric_fog_distance_factor 0,02421977099831045;
+volumetric_fog_distance_factor 0,0242197709983104;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale 1,067961;

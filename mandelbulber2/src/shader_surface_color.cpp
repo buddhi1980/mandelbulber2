@@ -143,6 +143,7 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 		case fractal::objTorus:
 		case fractal::objCylinder:
 		case fractal::objPrism:
+		case fractal::objEllipsoid:
 		{
 			out.R = input.material->color.R;
 			out.G = input.material->color.G;

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.26
+# version 2.33
 # only modified parameters
 [main_parameters]
 background_3_colors_enable false;
@@ -9,8 +9,8 @@ basic_fog_enabled true;
 basic_fog_visibility 1,25;
 camera 0,176770089356357 -0,33498410834148 0,693464572668651;
 camera_distance_to_target 1,23439004946401;
-camera_rotation -1,66297975863058 2,56276487858969 91,0042387710651;
-camera_top 0,999448027976481 -0,0282325994256667 -0,0175088464380899;
+camera_rotation -1,66297975863058 2,56276487858969 90,0393264903634;
+camera_top 0,999579474769026 -0,0289897128207448 -0,000685690199097325;
 DOF_max_noise 3;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;

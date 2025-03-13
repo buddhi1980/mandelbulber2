@@ -1,20 +1,26 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-camera 1,183333533527499 -2,382969111543107 3,274684863960664;
-camera_distance_to_target 1,481517553329468;
-camera_rotation 25,99611160392772 -32,73355648044346 90;
-camera_top 0,8988237944249177 0,4383101488393732 5,150829133792441e-17;
+background_color_1 de00 0900 4900;
+background_color_2 0000 0000 0000;
+background_color_3 1700 0500 7100;
+camera 0,357390409169512 -0,671833460191039 3,71398050392254;
+camera_distance_to_target 1,81841268539429;
+camera_rotation 28,1468530123275 -73,2260140708164 91,9045735689313;
+camera_top 0,89626524112442 0,443414727348805 -0,00959151303869597;
+constant_DE_threshold true;
 DE_factor 0,5;
+DE_thresh 0,00829734135077527;
 flight_last_to_render 0;
 formula_1 800;
 formula_material_id 4;
 keyframe_last_to_render 0;
+light1_is_defined true;
 mat4_is_defined true;
 mat4_surface_color 0400 7000 aa00;
 mat4_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat4_use_colors_from_palette false;
 N 50;
-target 0,6370921297938634 -1,262815328939758 2,473579319734531;
+target 0,109830244703798 -0,209105574871439 1,97294013577474;

@@ -262,6 +262,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		"ambient_occlusion_mode", int(params::AOModeScreenSpace), morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("ao_light_map_rotation", 0.0, -180.0, 180.0, morphLinear, paramStandard);
 	par->addParam("SSAO_random_mode", false, morphLinear, paramStandard);
 	par->addParam("glow_enabled", true, morphLinear, paramStandard);
 	par->addParam("glow_intensity", 0.2, 0.0, 1e15, morphLinear, paramStandard);
@@ -643,6 +644,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("navigator_shadows", true, morphNone, paramApp);
 	par->addParam("navigator_reflections", true, morphNone, paramApp);
 	par->addParam("navigator_volumetrics", true, morphNone, paramApp);
+	par->addParam("navigator_monte_carlo", true, morphNone, paramApp);
 	par->addParam("navigator_dark_glow", false, morphNone, paramApp);
 
 	par->addParam("settings_browser_use_opencl", 1, morphNone, paramApp);
@@ -885,6 +887,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fold_color_aux_color_enabledA", true, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabledA_false", false, morphLinear, paramStandard);
+	par->addParam("fold_color_aux_color_enabledB_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_difs0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_difs1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_difs_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
@@ -1312,6 +1315,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objCircle:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
@@ -1326,6 +1330,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objCone:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
@@ -1337,9 +1342,11 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objPlane:
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objRectangle:
 			par->addParam(QString(primitiveName) + "_width", 1.0, morphAkima, paramStandard);
@@ -1358,6 +1365,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objWater:
 			par->addParam(QString(primitiveName) + "_relative_amplitude", 0.2, morphAkima, paramStandard);
@@ -1376,6 +1384,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 
 			break;
 		case fractal::objTorus:
@@ -1389,6 +1398,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
 				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 		case fractal::objPrism:
 			par->addParam(QString(primitiveName) + "_trangle_height", 1.0, morphAkima, paramStandard);
@@ -1396,6 +1406,18 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_prism_angle", 60.0, 0.0, 180.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
+			break;
+		case fractal::objEllipsoid:
+			par->addParam(
+				QString(primitiveName) + "_size", CVector3(1.0, 0.5, 0.5), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(1.4, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-1.4, -0.7, -0.7), morphAkima,
+				paramStandard);
+			par->addParam(QString(primitiveName) + "_wall_thickness", 0.0, morphAkima, paramStandard);
 			break;
 
 		default: break;
@@ -1939,6 +1961,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 		case fractal::objCircle: par->DeleteParameter(QString(primitiveName) + "_radius"); break;
 		case fractal::objCylinder:
@@ -1949,6 +1972,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 		case fractal::objCone:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
@@ -1958,8 +1982,12 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
-		case fractal::objPlane: par->DeleteParameter(QString(primitiveName) + "_empty"); break;
+		case fractal::objPlane:
+			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
+			break;
 		case fractal::objRectangle:
 			par->DeleteParameter(QString(primitiveName) + "_width");
 			par->DeleteParameter(QString(primitiveName) + "_height");
@@ -1970,6 +1998,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 		case fractal::objTorus:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
@@ -1980,6 +2009,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 		case fractal::objWater:
 			par->DeleteParameter(QString(primitiveName) + "_relative_amplitude");
@@ -1993,12 +2023,22 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
 			par->DeleteParameter(QString(primitiveName) + "_limits_max");
 			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 		case fractal::objPrism:
 			par->DeleteParameter(QString(primitiveName) + "_trangle_height");
 			par->DeleteParameter(QString(primitiveName) + "_prism_angle");
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
+			break;
+		case fractal::objEllipsoid:
+			par->DeleteParameter(QString(primitiveName) + "_size");
+			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
+			par->DeleteParameter(QString(primitiveName) + "_wall_thickness");
 			break;
 
 		default: break;

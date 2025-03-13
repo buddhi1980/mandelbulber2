@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,6 +19,7 @@
 REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL t = 0.0f;
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 
 	if (fractal->transformCommon.functionEnabledx
@@ -29,25 +30,25 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
-		REAL t = max(0.0f, dot1);
+		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F - (0.5f * SQRT_3_4_F);
 
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 		z.y -= 1.5f;
 		z -= gap * (REAL4){SQRT_3_4_F, -1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
 			Col.x = 1.0f;
 		}
 		if (fractal->transformCommon.functionEnabledyFalse)
@@ -84,7 +85,7 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		// Choose nearest corner/edge to get translation symmetry (all y & z code)
 		REAL dy = 0.0f;
 		REAL dz = 0.0f;
-		if (z.y > 0.5f && z.z > 0.5f) // if both y & z > 0.5f  then =1.5
+		if (z.y > 0.5f && z.z > 0.5f) // if both y & z > 0.5f then =1.5
 		{
 			dy = 1.5f;
 			dz = 1.5f;
@@ -122,14 +123,15 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 	}
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		Col.x *= fractal->foldColor.difs0000.x;
 		Col.y *= fractal->foldColor.difs0000.y;
 		Col.z *= fractal->foldColor.difs0000.z;
 		Col.w *= fractal->foldColor.difs0000.w;
+
+		// && aux->i % 2 == 0
 		aux->color += Col.x + Col.y + Col.z + Col.w;
 	}
 

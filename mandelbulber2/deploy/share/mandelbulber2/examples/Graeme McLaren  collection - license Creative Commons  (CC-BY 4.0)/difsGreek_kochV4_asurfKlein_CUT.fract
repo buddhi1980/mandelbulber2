@@ -1,0 +1,51 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+ambient_occlusion 1.5;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+camera 0 -2.79077833750744 0.574041287936537;
+camera_distance_to_target 2.79077833750744;
+camera_rotation 0 0 0;
+camera_top 0 0 1;
+constant_DE_threshold true;
+DE_factor 0.872148148148149;
+DE_thresh 0.0003125;
+detail_level 0.64;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+formula_1 613;
+formula_2 227;
+formula_3 221;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_intensity 0.271613518567899;
+light1_is_defined true;
+light1_rotation 0 1.9 0;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 7;
+smoothness 0.5;
+target 0 0 0.574041287936537;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 1 0 0 0;
+fold_color_start_iterations_A 5;
+transf_function_enabledCx false;
+transf_function_enabledD_false true;
+transf_function_enabledG_false true;
+transf_function_enabledS_false true;
+transf_offset_0 -0.29;
+transf_offset_02 0.14;
+transf_offset_05 0;
+transf_offset_333 1.5 1.5 3;
+transf_offsetA_000 0 0.7 -0.0125;
+transf_offsetA_05 0.2;
+transf_scale_2 0.884448;

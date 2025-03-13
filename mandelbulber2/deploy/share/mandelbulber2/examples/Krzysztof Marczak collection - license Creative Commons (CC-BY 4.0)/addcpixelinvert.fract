@@ -1,0 +1,56 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+basic_fog_color ff00 ff00 ff00;
+basic_fog_enabled true;
+basic_fog_visibility 40;
+camera 0,324047220873816 -1,81720627673222 0,0864144146410792;
+camera_distance_to_target 1,29541011265621;
+camera_rotation -76,0629528347511 6,95364891375361 -0,0613904595682147;
+camera_top -0,117760276957734 -0,0281195765848937 0,992643846796787;
+DE_factor 0,80519727644388;
+detail_level 2;
+DOF_max_noise 3;
+DOF_min_samples 5;
+DOF_monte_carlo true;
+fog_color_1 c800 e300 ac00;
+fog_color_2 ff00 f900 ab00;
+fog_color_3 ff00 6000 2f00;
+formula_1 222;
+formula_2 1135;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_color b500 e800 ff00;
+light1_is_defined true;
+light1_rotation 63,15 33,42 0;
+light2_color e800 8300 2a00;
+light2_enabled true;
+light2_is_defined true;
+light2_rotation -125,6 24 0;
+light2_type directional;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_reflectance_gradient 0 1c5e10 429 0d1c1e 734 1c2509 758 aa0000 1620 df1e4b 1670 2a310b 2227 000c04 2303 ff8f45 3215 ffe063 3265 081405 6696 646618 7848 262448 8229 4e2036;
+mat1_reflectance_gradient_enable true;
+mat1_rough_surface true;
+mat1_surface_color_gradient 0 66885f 568 434645 2374 0a110d 2814 191f17 6696 c5c59e 7848 717083 8229 917985;
+MC_denoiser_enable true;
+MC_denoiser_strength 2;
+raytraced_reflections true;
+reflections_max 2;
+target 1,57207370118807 -1,50749442099269 0,243244994633563;
+volumetric_fog_colour_1_distance 0,255273722122318;
+volumetric_fog_colour_2_distance 0,510547444244635;
+volumetric_fog_distance_factor 0,510547444244635;
+volumetric_fog_distance_from_surface 8E-15;
+volumetric_fog_enabled true;
+[fractal_2]
+transf_function_enabledA_false true;
+transf_function_enabledAy_false true;
+transf_function_enabledAz_false true;
+transf_function_enabledB_false true;
+transf_scale_1 0,3;

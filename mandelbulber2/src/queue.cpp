@@ -102,8 +102,6 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
 
-	image.reset(new cImage(200, 200));
-
 	if (mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockQueue()->GetUi();
@@ -127,11 +125,6 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		QApplication::connect(this, &cQueue::queueChangedRow, this, &cQueue::slotQueueListUpdateRow);
 		QApplication::connect(this, &cQueue::queueChangedCell, this, &cQueue::slotQueueListUpdateCell);
 
-		renderedImageWidget = mainInterface->mainWindow->GetWidgetDockQueue()->GetRenderedImageWidget();
-		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
-		renderedImageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
-		renderedImageWidget->AssignImage(image);
-
 		//		connect(ui->tableWidget_queue_list, SIGNAL(cellChanged(int, int)), this,
 		//			SLOT(slotQueueListUpdate(int, int)));
 
@@ -139,7 +132,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	}
 	else
 	{
-		renderedImageWidget = nullptr;
+		// noting
 	}
 
 	stopRequest = false;
@@ -540,7 +533,8 @@ void cQueue::UpdateListFromFileSystem()
 void cQueue::RenderQueue() const
 {
 	QThread *thread = new QThread; // deleted by deleteLater()
-	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
+	cRenderQueue *renderQueue =
+		new cRenderQueue(mainInterface->mainImage, mainInterface->renderedImage);
 	renderQueue->moveToThread(thread);
 	renderQueue->setObjectName("Queue");
 	connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
@@ -553,15 +547,15 @@ void cQueue::RenderQueue() const
 			SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
 		connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		connect(renderQueue, SIGNAL(updateImage()), renderedImageWidget, SLOT(update()));
+		connect(renderQueue, SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 	}
-	if (gMainInterface->headless)
+	if (mainInterface->headless)
 	{
 		connect(renderQueue,
 			SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->headless,
 			SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
-		connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless,
+		connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless,
 			SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	QObject::connect(renderQueue, SIGNAL(finished()), thread, SLOT(quit()));
@@ -713,89 +707,94 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 		table->setItem(i, j, cell);
 	}
 	QList<cQueue::structQueueItem> queueList = GetListFromQueueFile();
-	switch (j)
-	{
-		case 0: cell->setText(queueList.at(i).filename); break;
-		case 1:
-		{
-			if (ui->checkBox_show_queue_thumbnails->isChecked())
-			{
-				std::shared_ptr<cParameterContainer> tempPar(new cParameterContainer());
-				std::shared_ptr<cFractalContainer> tempFract(new cFractalContainer());
-				InitParams(tempPar);
-				for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
-					InitFractalParams(tempFract->at(f));
-				InitMaterialParams(1, tempPar);
 
-				cSettings parSettings(cSettings::formatFullText);
-				parSettings.BeQuiet(true);
-				if (parSettings.LoadFromFile(queueList.at(i).filename)
-						&& parSettings.Decode(tempPar, tempFract))
+	if (i < queueList.size())
+	{
+		switch (j)
+		{
+			case 0: cell->setText(queueList.at(i).filename); break;
+			case 1:
+			{
+				if (ui->checkBox_show_queue_thumbnails->isChecked())
 				{
-					cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(i, j));
-					if (!thumbWidget)
+					std::shared_ptr<cParameterContainer> tempPar(new cParameterContainer());
+					std::shared_ptr<cFractalContainer> tempFract(new cFractalContainer());
+					InitParams(tempPar);
+					for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+						InitFractalParams(tempFract->at(f));
+					InitMaterialParams(1, tempPar);
+
+					cSettings parSettings(cSettings::formatFullText);
+					parSettings.BeQuiet(true);
+					if (parSettings.LoadFromFile(queueList.at(i).filename)
+							&& parSettings.Decode(tempPar, tempFract))
 					{
-						thumbWidget = new cThumbnailWidget(100, 70, 1, table);
-						thumbWidget->UseOneCPUCore(true);
-						thumbWidget->AssignParameters(tempPar, tempFract);
-						table->setCellWidget(i, j, thumbWidget);
-					}
-					else
-					{
-						thumbWidget->AssignParameters(tempPar, tempFract);
-						thumbWidget->update();
+						cThumbnailWidget *thumbWidget =
+							static_cast<cThumbnailWidget *>(table->cellWidget(i, j));
+						if (!thumbWidget)
+						{
+							thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+							thumbWidget->UseOneCPUCore(true);
+							thumbWidget->AssignParameters(tempPar, tempFract);
+							table->setCellWidget(i, j, thumbWidget);
+						}
+						else
+						{
+							thumbWidget->AssignParameters(tempPar, tempFract);
+							thumbWidget->update();
+						}
 					}
 				}
+				break;
 			}
-			break;
+			case 2:
+			{
+				QComboBox *typeComboBox = new QComboBox;
+				typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_STILL));
+				typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_FLIGHT));
+				typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_KEYFRAME));
+				typeComboBox->setCurrentIndex(queueList.at(i).renderType);
+
+				typeComboBox->setObjectName(QString::number(i));
+				QObject::connect(
+					typeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQueueTypeChanged(int)));
+				table->setCellWidget(i, j, typeComboBox);
+				// cell->setTextColor(color);
+				break;
+			}
+			case 3:
+			{
+				QFrame *frame = new QFrame;
+				QGridLayout *gridLayout = new QGridLayout;
+				QToolButton *actionDelete = new QToolButton;
+				QToolButton *actionMoveUp = new QToolButton;
+				QToolButton *actionMoveDown = new QToolButton;
+
+				actionDelete->setIcon(actionDelete->style()->standardIcon(QStyle::SP_TrashIcon));
+				actionMoveUp->setIcon(actionMoveUp->style()->standardIcon(QStyle::SP_ArrowUp));
+				actionMoveDown->setIcon(actionMoveDown->style()->standardIcon(QStyle::SP_ArrowDown));
+
+				actionDelete->setObjectName(QString::number(i));
+				actionMoveUp->setObjectName(QString::number(i));
+				actionMoveDown->setObjectName(QString::number(i));
+
+				QObject::connect(actionDelete, SIGNAL(clicked()), this, SLOT(slotQueueRemoveItem()));
+				QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
+				QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
+
+				gridLayout->addWidget(actionMoveUp, 0, 0);
+				gridLayout->addWidget(actionMoveDown, 1, 0);
+				gridLayout->addWidget(actionDelete, 0, 1);
+				gridLayout->setSpacing(0);
+
+				if (i == 0) actionMoveUp->setEnabled(false);
+				if (i == queueList.size() - 1) actionMoveDown->setEnabled(false);
+				frame->setLayout(gridLayout);
+				table->setCellWidget(i, j, frame);
+				break;
+			}
+			default: break;
 		}
-		case 2:
-		{
-			QComboBox *typeComboBox = new QComboBox;
-			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_STILL));
-			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_FLIGHT));
-			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_KEYFRAME));
-			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
-
-			typeComboBox->setObjectName(QString::number(i));
-			QObject::connect(
-				typeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQueueTypeChanged(int)));
-			table->setCellWidget(i, j, typeComboBox);
-			// cell->setTextColor(color);
-			break;
-		}
-		case 3:
-		{
-			QFrame *frame = new QFrame;
-			QGridLayout *gridLayout = new QGridLayout;
-			QToolButton *actionDelete = new QToolButton;
-			QToolButton *actionMoveUp = new QToolButton;
-			QToolButton *actionMoveDown = new QToolButton;
-
-			actionDelete->setIcon(actionDelete->style()->standardIcon(QStyle::SP_TrashIcon));
-			actionMoveUp->setIcon(actionMoveUp->style()->standardIcon(QStyle::SP_ArrowUp));
-			actionMoveDown->setIcon(actionMoveDown->style()->standardIcon(QStyle::SP_ArrowDown));
-
-			actionDelete->setObjectName(QString::number(i));
-			actionMoveUp->setObjectName(QString::number(i));
-			actionMoveDown->setObjectName(QString::number(i));
-
-			QObject::connect(actionDelete, SIGNAL(clicked()), this, SLOT(slotQueueRemoveItem()));
-			QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
-			QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
-
-			gridLayout->addWidget(actionMoveUp, 0, 0);
-			gridLayout->addWidget(actionMoveDown, 1, 0);
-			gridLayout->addWidget(actionDelete, 0, 1);
-			gridLayout->setSpacing(0);
-
-			if (i == 0) actionMoveUp->setEnabled(false);
-			if (i == queueList.size() - 1) actionMoveDown->setEnabled(false);
-			frame->setLayout(gridLayout);
-			table->setCellWidget(i, j, frame);
-			break;
-		}
-		default: break;
 	}
 	table->blockSignals(false);
 }

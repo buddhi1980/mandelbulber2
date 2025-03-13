@@ -1,0 +1,58 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+antialiasing_enabled true;
+background_brightness 2;
+background_gamma 2,5;
+background_rotation 0 90 0;
+brightness 1,8;
+camera 0 0 4,26507966362445;
+camera_distance_to_target 4,26507966362445;
+camera_rotation -90 -90 -90;
+camera_top 0 1 3,74939945665464e-33;
+detail_level 4;
+formula_1 606;
+formula_2 1142;
+formula_iterations_1 2;
+formula_iterations_2 3;
+hdr true;
+hybrid_fractal_enable true;
+image_height 2048;
+image_proportion 1;
+image_width 2048;
+keyframe_last_to_render 0;
+light1_color 6700 a100 ff00;
+light1_intensity 2;
+light1_is_defined true;
+light1_rotation -68,18 32,45 0;
+light2_color ff00 8300 4a00;
+light2_enabled true;
+light2_intensity 2;
+light2_is_defined true;
+light2_position 0 0 0;
+light2_relative_position true;
+light2_rotation 69,91 28,59 0;
+light2_target 0 0 0;
+light2_type directional;
+light3_color 9c00 f500 2800;
+light3_enabled true;
+light3_intensity 0,0257534572930252;
+light3_is_defined true;
+light3_position 0 0 0,456244936811743;
+light3_size 0,25;
+light3_visibility 64;
+mat1_is_defined true;
+mat1_reflectance 0,5;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 3b2840 223 32a029 709 52803c 1393 3c656a 1630 834080 2491 7a7f10 2694 495772 3091 203369 3529 9f9a34 4017 202071 4801 445b38 7597 072504 8401 6aa05b 8642 425c47 9449 72830b 9533 980051 9967 6f0598;
+raytraced_reflections true;
+reflections_max 1;
+saturation 1,3;
+textured_background true;
+[fractal_1]
+IFS_abs_x true;
+transf_offset_001 0 0 1,5;
+transf_offset_05 0,2;
+[fractal_2]
+transf_offset_000 0 0 -1,4;

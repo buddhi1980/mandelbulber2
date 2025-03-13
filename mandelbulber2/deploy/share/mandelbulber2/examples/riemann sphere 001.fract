@@ -1,23 +1,57 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.33
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,5;
-ambient_occlusion_enabled true;
-camera 0 -3,107026575172591 -0,3642928226216319;
-camera_distance_to_target 3,581300928379912;
-camera_rotation 0 0 0;
-camera_top 0 0 1;
+antialiasing_enabled true;
+background_3_colors_enable false;
+background_color_1 1e00 0200 0c00;
+camera 0 -3,10702657517259 -0,364292822621632;
+camera_distance_to_target 3,58131325079858;
+camera_rotation 0,146487578785248 1,51335130631764 0;
+camera_top 6,75218480821991E-05 -0,026409805681867 0,999651197970895;
 DE_factor 0,162181;
+detail_level 2;
+fake_lights_color ff00 b900 1500;
+fake_lights_color_2 2700 4400 ff00;
+fake_lights_color_2_enabled true;
+fake_lights_enabled true;
+fake_lights_intensity 0,03125;
+fake_lights_max_iter 1;
+fake_lights_min_iter 0;
+fake_lights_orbit_rotation 0 90 0;
+fake_lights_orbit_trap_shape line;
+fake_lights_visibility 32;
 flight_last_to_render 0;
 formula_1 72;
-image_height 1024;
-image_width 1024;
+image_height 2048;
+image_width 2048;
 keyframe_last_to_render 0;
+light1_color ff00 5400 1100;
+light1_is_defined true;
+light1_rotation -61,37 45 0;
+light2_color 5800 2e00 ff00;
+light2_enabled true;
+light2_intensity 1;
+light2_is_defined true;
+light2_position 0 0 0;
+light2_relative_position true;
+light2_rotation 78,8 22,49 0;
+light2_target 0 0 0;
+light2_type directional;
+light3_color ff00 f900 4900;
+light3_enabled true;
+light3_intensity 0,5;
+light3_is_defined true;
+light3_position 0 0 0;
+light3_relative_position true;
+light3_rotation 64,48 -45,04 0;
+light3_target 0 0 0;
+light3_type directional;
 mat1_is_defined true;
 mat1_shading 0,39;
 mat1_specular 1;
-mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
-target 0 0,474274353207321 -0,3642928226216319;
+mat1_surface_color_gradient 0 8d7971 999 4f5241 1999 dbdacf 2999 a49c88 3999 434e54 5000 99908f 5999 67545e 7000 87949f 7999 dbe1db 9000 848376;
+target -0,00915310608049681 0,473025805460911 -0,269710726456498;
 [fractal_1]
 transf_addition_constant 0 0 1;

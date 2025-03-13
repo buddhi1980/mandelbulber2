@@ -59,8 +59,6 @@ class cScheduler;
 // ambient occlusion data
 struct sVectorsAround
 {
-	double alpha;
-	double beta;
 	CVector3 v;
 	sRGBFloat color;
 };

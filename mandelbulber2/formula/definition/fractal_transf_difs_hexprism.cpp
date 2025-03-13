@@ -63,8 +63,8 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	double dy = zc.y - lenX;
 
 	tp = sqrt(dx * dx + dy * dy);
-	dx = tp * sign(zc.y - lenX);
-	dy = zc.z - lenY;
+	dx = tp * sign(zc.y - lenX) + fractal->transformCommon.offsetB0;
+	dy = zc.z - lenY + fractal->transformCommon.offsetB0;
 	tp = dx;
 	double colIn = 0.0;
 	if (fractal->transformCommon.functionEnabledDFalse)
@@ -83,21 +83,27 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;
 
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + fractal->analyticDE.offset0)
+				- fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-
+		double addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (lenY < zc.z) aux.color += fractal->foldColor.difs0000.y;
-			if (colIn < maxdx) aux.color += fractal->foldColor.difs0000.z;
-
-			if (lenY - fractal->foldColor.difs0 < zc.z && dx + fractal->transformCommon.offset0 > maxdx)
-				aux.color += fractal->foldColor.difs0000.w;
+			if (colIn < maxdx) addCol = fractal->foldColor.difs0000.z;
+			if (lenY - fractal->foldColor.difs0 < zc.z)
+				addCol = fractal->foldColor.difs0000.w;
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
 		}
 	}
 }

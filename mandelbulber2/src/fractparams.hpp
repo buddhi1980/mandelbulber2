@@ -240,6 +240,7 @@ struct sParamRender
 
 	sImageAdjustments imageAdjustments;
 
+	CVector3 ambientOcclusionLightMapRotation;
 	CVector3 backgroundRotation;
 	CVector3 cloudsCenter;
 	CVector3 cloudsRotation;
@@ -258,6 +259,7 @@ struct sParamRender
 	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
+	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
 
 	cPrimitives primitives;
 

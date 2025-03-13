@@ -1365,7 +1365,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;TransfDifsGearV1Iteration based on example by Inigo Quilez,&lt;br&gt;https://www.iquilezles.org/&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/polyfold sierpinski gear.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/polyfold sierpinski gear.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/t difs grid v2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
