@@ -35,7 +35,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>transf</string>
+      <string>pre-transforms</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -413,7 +413,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -429,13 +429,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item>
-       <widget class="QLabel" name="label_39">
-        <property name="text">
-         <string notr="true">beta</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,1">
         <property name="spacing">
@@ -540,12 +533,9 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+         <widget class="QLabel" name="label_39">
+          <property name="text">
+           <string notr="true">beta</string>
           </property>
          </widget>
         </item>
