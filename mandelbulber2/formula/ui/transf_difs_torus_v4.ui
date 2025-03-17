@@ -82,6 +82,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_122">
+     <property name="text">
+      <string>abs() offset</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1,0,1">
      <item>
       <widget class="QLabel" name="label_94">
@@ -194,7 +201,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>offset1:</string>
+        <string>offset:</string>
        </property>
       </widget>
      </item>
@@ -331,6 +338,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">

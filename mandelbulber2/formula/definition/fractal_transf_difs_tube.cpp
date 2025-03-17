@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -6,9 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * greek ifs based on Mandelbulber3D.
+ * T>DIFS Tube
  * @reference
- * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
 #include "all_fractal_definitions.h"
@@ -28,12 +28,27 @@ cFractalTransfDIFSTube::cFractalTransfDIFSTube() : cAbstractFractal()
 
 void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fractal->transformCommon.scale1;
-	z += fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		z *= fractal->transformCommon.scale1;
+		aux.DE *= fractal->transformCommon.scale1;
+
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAFalse) z.z = fabs(z.z);
+		z = z - fractal->transformCommon.offsetA000;
+
+		if (fractal->transformCommon.functionEnabledRFalse
+				&& aux.i >= fractal->transformCommon.startIterationsR
+				&& aux.i < fractal->transformCommon.stopIterationsR)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
+	}
 
 	CVector4 zc = z;
-
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& aux.i >= fractal->transformCommon.startIterationsS
@@ -140,22 +155,25 @@ void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, cylD / (aux.DE + fractal->analyticDE.offset1));
 
-	if (fractal->foldColor.auxColorEnabledFalse
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colAdd = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.y;
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (cylD > t) colAdd = fractal->foldColor.difs0000.z;
+			if (cylD > t) addCol = fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1
 					- fractal->foldColor.difs0 < fabs(zc.y))
-				colAdd = fractal->foldColor.difs0000.w;
+				addCol = fractal->foldColor.difs0000.w;
 		}
-		if (colDist != aux.dist)
-			aux.color = colAdd;
-
-		if (fractal->foldColor.auxColorEnabledBFalse)
-			aux.color += fractal->foldColor.difs0000.x;
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol + fractal->foldColor.difs0000.x;
+		}
 	}
 }
