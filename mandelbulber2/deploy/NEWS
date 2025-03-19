@@ -28,7 +28,7 @@ v2.33 (?? 2025)
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
 	 transfDIFSCylinder & CylinderV2, added aux.color and round
 	 transfDIFSHexprism & HexprismV2, added aux.color
-	 transfDIFSHextgrid2, update aux.color, add pretranform
+	 transfDIFSHextgrid2, update aux.color, add pretransform
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
 	 transfDIFSSphere, added aux.color
