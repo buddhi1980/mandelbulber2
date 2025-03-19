@@ -121,18 +121,28 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset1));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL addCol = fractal->foldColor.difs0000.x;
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
-				aux->color += fractal->foldColor.difs0000.y;
-			if (xyR <= -fractal->transformCommon.offsetp01) aux->color += fractal->foldColor.difs0000.z;
+				addCol = fractal->foldColor.difs0000.y;
+			if (xyR <= -fractal->transformCommon.offsetp01)
+				addCol = fractal->foldColor.difs0000.z;
 
-			aux->color += fractal->foldColor.difs0000.w * rb;
+			addCol += fractal->foldColor.difs0000.w * rb;
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
 		}
 	}
 	return z;
