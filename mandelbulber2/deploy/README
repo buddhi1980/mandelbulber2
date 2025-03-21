@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.32
+                              MANDELBULBER 2.33
 
 1. What is Mandelbulber
 -----------------------
@@ -158,9 +158,9 @@ make install
 - Ubuntu 24
 
 - gcc 14.2
-- clang 16.0.6
+- clang 19.1.7
 - msvc19
-- Qt 5.15.13, Qt 6.7
+- Qt 6.8.2
 
 7. USAGE
 --------
