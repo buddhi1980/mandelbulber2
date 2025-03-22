@@ -14,8 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDELinearCubeIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux) // x×(1−a)+y×a .
+REAL4 TransfDELinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL R;
 	if (!fractal->transformCommon.functionEnabledAFalse)
