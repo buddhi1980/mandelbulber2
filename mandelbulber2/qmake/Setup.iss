@@ -12,26 +12,26 @@
 ;#endif
 
 #define MyAppName "Mandelbulber2"
-#define MyAppInstallerVersion "2.32.900"
+#define MyAppInstallerVersion "2.33"
 #define MyAppPublisher "Mandelbulber Team"
 #define MyAppPublisherURL "http://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
 #define MyAppIcoName "mandelbulber2.ico"
-#define MyBinDir "build\Desktop_Qt_6_7_2_MSVC2019_64bit-Release\bin"
-#define MyQtBinDir "C:\Qt\6.7.2\msvc2019_64\bin\"
+#define MyBinDir "build\Desktop_Qt_6_8_2_MSVC2022_64bit-Release\bin"
+#define MyQtBinDir "C:\Qt\6.8.2\msvc2022_64\bin\"
 
 [Setup]
 AppId={{82DA50F1-72DF-47FE-9FE8-023FFC5695B1}
 AppName={#MyAppName}
 ;AppVersion={#MyAppInstallerVersion}
-AppVersion="2.32"
+AppVersion="2.33"
 VersionInfoVersion={#MyAppInstallerVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppPublisherURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright (C) 2024 {#MyAppPublisher}
+AppCopyright=Copyright (C) 2025 {#MyAppPublisher}
 BackColor=clWhite
 BackSolid=yes
 DefaultDirName={pf}\{#MyAppName}
