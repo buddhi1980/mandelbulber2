@@ -16,30 +16,33 @@
 REAL4 TransfDIFSTorusV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp;
-
-	z *= fractal->transformCommon.scale1;
-	aux->DE = aux->DE * fabs(fractal->transformCommon.scale1);
-
-	if (aux->i >= fractal->transformCommon.startIterationsM
-			&& aux->i < fractal->transformCommon.stopIterationsM)
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
-		if (fractal->transformCommon.functionEnabledGFalse)
+		z *= fractal->transformCommon.scale1;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1);
+
+		if (aux->i >= fractal->transformCommon.startIterationsM
+				&& aux->i < fractal->transformCommon.stopIterationsM)
 		{
-			if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+			if (fractal->transformCommon.functionEnabledGFalse)
+			{
+				if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+				if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+				if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+			}
+
+			z = z - fractal->transformCommon.offset000;
 		}
 
-		z = z - fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledRFalse
+				&& aux->i >= fractal->transformCommon.startIterationsR
+				&& aux->i < fractal->transformCommon.stopIterationsR)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
 	}
-
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}
-
 	if (fractal->transformCommon.angleDegA != 0.0f)
 	{
 		REAL s = fractal->transformCommon.sinA;

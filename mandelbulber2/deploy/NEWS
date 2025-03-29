@@ -1,14 +1,15 @@
 Version history
 
-v2.33 (?? 2025)
+v2.33 (March 2025)
 
 - Added new fractal formulas
-   dIFSGreekIfs
+   DIFSGreekIfs
 	 transfAbsSym3
 	 transfDIFSOctahedron
 	 transfDIFSOctahedronV2
 	 transfDIFSSupershapeV2
 	 transfDIFSTorusV4
+	 transfDIFSTube
 
 - modified fractal formulas
    amazingSurfM3d, iter controls inv cyl
@@ -27,11 +28,27 @@ v2.33 (?? 2025)
 	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
 	 transfDIFSCylinder & CylinderV2, added aux.color and round
 	 transfDIFSHexprism & HexprismV2, added aux.color
-	 transfDIFSHextgrid2, update aux.color, add pretranform
+	 transfDIFSHextgrid2, update aux.color, add pretransform
 	 transfDIFSPrism & PrismV2, added aux.color
 	 transfDIFSPrism & PrismV2, added hollow
 	 transfDIFSSphere, added aux.color
+	 transfDIFSTorus, update
 	 transfInvCylindrical, add z.z option
+
+- Animation: Added a simple spline editor for the animation parameters.
+- Added an option to clear keyframes from the animation chart. The keyframe without a value (empty cell) will be interpolated.
+- Examples: Updated most examples to be more attractive and to use new features. Added new examples.
+- Shaders: Global illumination uses material reflectance information.
+- Shaders: The size parameter defines the diameter of the tip of the conical light.
+- UI: Added an option to disable Monte Carlo effects in the Navigator.
+- UI: Added a temporary image scale (just below RENDER button)
+- Navigator: Added the possibility to use the Navigator from the Objects dock.
+- Primitives: Added a wall thickness parameter to all primitives.
+- Primitives: Added an ellipsoid primitive.
+- Scripts: Corrected the saving of scripts. They were not saved if the output value was default.
+- Fixed an error in transf_de_linear_cube.ui. It caused the application to crash when the UI formula was selected.
+- Fixed an error in normal vector calculation.
+- Fixed a bug: when fractalize texture was used, there was an error in OpenCL fast mode.
 
 
 v2.32 (August 2024)
