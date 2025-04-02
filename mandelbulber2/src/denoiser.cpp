@@ -100,7 +100,7 @@ void cDenoiser::AllocMem()
 
 void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat &color, float z, float noise)
 {
-	float filterRadius = min(sqrt(noise * noiseMultiplier) + minBlurRadius, maxBlurRadius);
+	float filterRadius = min(sqrtf(noise * noiseMultiplier) + minBlurRadius, maxBlurRadius);
 
 	blurRadiusBuffer[x + y * width] = filterRadius;
 	blurBuffer[x + y * width] = color;
