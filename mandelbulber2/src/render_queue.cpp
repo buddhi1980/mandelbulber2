@@ -114,6 +114,11 @@ cRenderQueue::~cRenderQueue()
 
 void cRenderQueue::slotRenderQueue()
 {
+	if (!image)
+	{
+		image.reset(new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
+	}
+
 	while (image->IsUsed())
 	{
 		Wait(10);
