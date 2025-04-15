@@ -119,10 +119,6 @@ macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
-# test hardcoded lib path for gsl in travis container 
-#QMAKE_CXXFLAGS += -I/usr/include/gsl
-
-QMAKE_CXXFLAGS += -I/usr/include/gsl
 m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 
 # library linking
