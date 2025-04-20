@@ -55,6 +55,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	zc.x += fractal->transformCommon.offset000.x;
 	zc.y += fractal->transformCommon.offset000.y;
+	zc.z += fractal->transformCommon.offset000.z;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
