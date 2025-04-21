@@ -204,7 +204,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, 0.0f};
 	}
 
-	REAL k;
+	REAL k = 1.0f;
 	// Pseudo kleinian
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -296,8 +296,11 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// aux->pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 
 	// color updated v2.13 & mode2 v2.14
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += k * fractal->foldColor.difs0000.x;
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
 			if (zCol.x != oldZ.x)

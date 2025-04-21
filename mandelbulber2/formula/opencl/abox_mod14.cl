@@ -138,7 +138,9 @@ REAL4 AboxMod14Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		colorAdd += fractal->mandelbox.color.factorSp2 * m;
 		aux->color += colorAdd;

@@ -35,6 +35,20 @@ REAL4 TransfSphericalInvPnormIteration(REAL4 z, __constant sFractalCl *fractal, 
 	z *= pNorm;
 	aux->DE *= fabs(pNorm);
 
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = pNorm * fractal->foldColor.difs0000.x;
+		}
+		else
+		{
+			aux->color += pNorm * fractal->foldColor.difs0000.x;
+		}
+	}
+
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;

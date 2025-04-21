@@ -145,7 +145,9 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		colorAdd += fractal->mandelbox.color.factorSp2 * m;
 		aux.color += colorAdd;

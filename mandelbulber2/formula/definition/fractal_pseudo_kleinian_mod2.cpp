@@ -206,7 +206,7 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, 0.0);
 	}
 
-	double k;
+	double k = 1.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -298,8 +298,11 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 	// aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 
 	// color updated v2.13 & mode2 v2.14
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += k * fractal->foldColor.difs0000.x;
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
 			if (zCol.x != oldZ.x)

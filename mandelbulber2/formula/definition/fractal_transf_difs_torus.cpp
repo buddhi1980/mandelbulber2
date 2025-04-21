@@ -72,7 +72,6 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	double colDist = aux.dist;
 
-
 	aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
 
 	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
