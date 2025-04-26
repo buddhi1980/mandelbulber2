@@ -116,6 +116,9 @@ void cDockEffects::ConnectSignals() const
 		&cLightSourcesManager::signalChangeLightPlacementDistance, this,
 		&cDockEffects::slotSetAuxLightManualPlacementDistance);
 
+	connect(ui->groupCheck_env_mapping_enable, &QGroupBox::toggled, this,
+		&cDockEffects::slotEnvMappingToggled);
+
 	connect(
 		ui->pushButton_local_navi, &QPushButton::clicked, this, &cDockEffects::slotPressedButtonNavi);
 }
@@ -362,4 +365,12 @@ void cDockEffects::slotUpdatePrimitivesCombos()
 	cPrimitives::PrepareComboBox(ui->comboBox_distance_fog_primitive, params);
 	cPrimitives::PrepareComboBox(ui->comboBox_iteration_fog_primitive, params);
 	cPrimitives::PrepareComboBox(ui->comboBox_clouds_primitive, params);
+}
+
+void cDockEffects::slotEnvMappingToggled(bool state)
+{
+	if (state)
+	{
+		ui->groupCheck_raytraced_reflections->setChecked(false);
+	}
 }

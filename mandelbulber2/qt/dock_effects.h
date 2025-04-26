@@ -95,6 +95,7 @@ private slots:
 	void slotPressedButtonCloudsRandomize();
 	void slotNewParametersFromNavi();
 	void slotRandomLightColoringTypeChanged(int index);
+	void slotEnvMappingToggled(bool state);
 
 private:
 	void ConnectSignals() const;
