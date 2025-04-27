@@ -558,6 +558,8 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
 
+	definesCollector += " -DMAX_RAYMARCHING=" + QString::number(paramRender->maxRaymarchingSteps);
+
 	if (paramRender->ambientOcclusionEnabled)
 	{
 		if (paramRender->ambientOcclusionMode == params::AOModeFast)
@@ -1529,7 +1531,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				}
 			}
 		} // next y
-	}		// next x
+	} // next x
 
 	if (data.in->useAntiAliasing && output.monteCarloLoop == 1 && data.in->pixelLevelOptimization)
 	{

@@ -169,6 +169,7 @@ sParamRender::sParamRender(
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
 	limitsEnabled = container->Get<bool>("limits_enabled");
+	maxRaymarchingSteps = container->Get<int>("max_raymarching_steps");
 	minN = container->Get<int>("minN");
 	monteCarloSoftShadows = container->Get<bool>("MC_soft_shadows_enable");
 	monteCarloGIRadianceLimit = container->Get<float>("MC_GI_radiance_limit");

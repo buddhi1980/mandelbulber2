@@ -87,6 +87,7 @@ struct sParamRender
 	int DOFSamples;
 	int DOFMinSamples;
 	int monteCarloDenoiserStrength;
+	int maxRaymarchingSteps;
 
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;

@@ -104,7 +104,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 
 	if (!qFuzzyCompare(params->volumetricLightDEFactor, 1.0) || params->cloudsEnable)
 	{
-		numberOfSteps = MAX_RAYMARCHING;
+		numberOfSteps = params->maxRaymarchingSteps;
 		recalcStepsMode = true;
 		scan = CalcDistThresh(input.point);
 	}

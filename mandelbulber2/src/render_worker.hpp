@@ -54,8 +54,6 @@ struct sParamRender;
 class cNineFractals;
 class cScheduler;
 
-#define MAX_RAYMARCHING 10000
-
 // ambient occlusion data
 struct sVectorsAround
 {

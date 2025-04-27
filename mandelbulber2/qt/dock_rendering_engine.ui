@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>2017</height>
+    <height>2241</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -496,10 +496,20 @@ with image resolution</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="5" column="1">
-         <widget class="MyLineEdit" name="logedit_detail_size_min">
+        <item row="2" column="1">
+         <widget class="MyLineEdit" name="logedit_rel_max_marching_step">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value can produce less detail in areas close to the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Lower value can improve calculation accuracy far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_122">
+          <property name="text">
+           <string>Minimum detail size:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -513,13 +523,6 @@ with image resolution</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="MyLineEdit" name="logedit_rel_max_marching_step">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Lower value can improve calculation accuracy far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_120">
           <property name="text">
@@ -530,10 +533,34 @@ with image resolution</string>
           </property>
          </widget>
         </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_116">
+          <property name="text">
+           <string>Relative minimum step:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="MyLineEdit" name="logedit_detail_size_min">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value can produce less detail in areas close to the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1">
          <widget class="MyLineEdit" name="logedit_rel_min_marching_step">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Higher value can speed up calculation of raymarching in areas close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="MyLineEdit" name="logedit_deltade_relative_delta">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls delta used in DeltaDE distance algorithm. Tuning of this parameter can improve quality when there is noise caused by inaccurate distance estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -551,33 +578,6 @@ with image resolution</string>
          <widget class="MyLineEdit" name="logedit_abs_max_marching_step">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum step for raymarching. Lower value can improve calculation accuracy in areas far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_122">
-          <property name="text">
-           <string>Minimum detail size:</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_116">
-          <property name="text">
-           <string>Relative minimum step:</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyLineEdit" name="logedit_abs_min_marching_step">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum step for raymarching. Higher value can speed up rendering. It will reduce the number of raymarching steps close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -608,10 +608,43 @@ with image resolution</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="MyLineEdit" name="logedit_deltade_relative_delta">
+        <item row="1" column="1">
+         <widget class="MyLineEdit" name="logedit_abs_min_marching_step">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls delta used in DeltaDE distance algorithm. Tuning of this parameter can improve quality when there is noise caused by inaccurate distance estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum step for raymarching. Higher value can speed up rendering. It will reduce the number of raymarching steps close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_125">
+          <property name="text">
+           <string>maximum number
+of raymarching steps</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="MySpinBox" name="spinboxInt_max_raymarching_steps">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>10000000</number>
+          </property>
+          <property name="stepType">
+           <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+          </property>
+          <property name="value">
+           <number>10000</number>
           </property>
          </widget>
         </item>

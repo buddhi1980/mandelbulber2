@@ -210,6 +210,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("detail_size_max", 1.0, morphLinear, paramStandard);
 	par->addParam("detail_size_min", 1e-12, morphLinear, paramStandard);
 	par->addParam("deltade_relative_delta", 0.01, 1e-15, 1e6, morphLinear, paramStandard);
+	par->addParam("max_raymarching_steps", 10000, 1, 100000000, morphLinear, paramStandard);
 
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
