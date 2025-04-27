@@ -1199,6 +1199,9 @@ void cKeyframeAnimation::RefreshTable()
 {
 	keyframes->RemoveMissingParameters(params, fractalParams);
 
+	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
+															 // after loading of settings
+
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 
 	keyframes->SetLooped(params->Get<bool>("keyframe_animation_loop"));
