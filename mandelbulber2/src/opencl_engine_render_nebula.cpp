@@ -71,7 +71,10 @@ QString cOpenClEngineRenderNebula::GetKernelName()
 	return QString("RenderNebula");
 }
 
-size_t cOpenClEngineRenderNebula::CalcNeededMemory() {}
+size_t cOpenClEngineRenderNebula::CalcNeededMemory()
+{
+	return 0;
+}
 
 void cOpenClEngineRenderNebula::CreateListOfHeaderFiles(QStringList &clHeaderFiles)
 {

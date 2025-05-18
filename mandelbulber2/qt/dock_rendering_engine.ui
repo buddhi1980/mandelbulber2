@@ -650,9 +650,6 @@ of raymarching steps</string>
           <property name="maximum">
            <number>10000000</number>
           </property>
-          <property name="stepType">
-           <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-          </property>
           <property name="value">
            <number>10000</number>
           </property>
