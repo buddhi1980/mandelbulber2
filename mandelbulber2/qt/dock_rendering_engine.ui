@@ -468,6 +468,16 @@ with image resolution</string>
     </widget>
    </item>
    <item>
+    <widget class="MyGroupBox" name="groupCheck_flame_mode">
+     <property name="title">
+      <string>Flame fractals</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_advanced_quality">
      <property name="title">
       <string>Advanced &amp;quality settings</string>

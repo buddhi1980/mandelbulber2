@@ -651,51 +651,64 @@ void cInterface::StartRender(bool noUndo)
 	DisableJuliaPointMode();
 
 	int temporaryScale = int(pow(int(2), gPar->Get<int>("temporary_scale")));
-
 	timerForAbortWarnings.start();
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
-		renderedImage); // deleted by deleteLater()
-
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
-		SLOT(slotUpdateStatistics(cStatistics)));
-	connect(renderJob, &cRenderJob::fullyRendered, systemTray, &cSystemTray::showMessage);
-	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
-	connect(renderJob, SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), renderedImage,
-		SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
-	connect(renderJob, &cRenderJob::fullyRenderedTime, this, &cInterface::slotAutoSaveImage);
-	connect(renderJob, &cRenderJob::signalSmallPartRendered, mainWindow->manipulations,
-		&cManipulations::slotSmallPartRendered);
-
-	cRenderingConfiguration config;
-	config.EnableNetRender();
-
-	if (!renderJob->Init(cRenderJob::still, config))
+	if (gPar->Get<bool>("flame_mode"))
 	{
-		mainImage->ReleaseImage();
-		cErrorMessage::showMessage(
-			QObject::tr("Cannot init renderJob, see log output for more information."),
-			cErrorMessage::errorMessage);
-		return;
+		// remder flame
+	}
+	else
+	{
+		cRenderJob *renderJob =
+			new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
+				renderedImage); // deleted by deleteLater()
+
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+			mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
+			SLOT(slotUpdateStatistics(cStatistics)));
+		connect(renderJob, &cRenderJob::fullyRendered, systemTray, &cSystemTray::showMessage);
+		connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
+		connect(renderJob, SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), renderedImage,
+			SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
+		connect(renderJob, &cRenderJob::fullyRenderedTime, this, &cInterface::slotAutoSaveImage);
+		connect(renderJob, &cRenderJob::signalSmallPartRendered, mainWindow->manipulations,
+			&cManipulations::slotSmallPartRendered);
+
+		cRenderingConfiguration config;
+		config.EnableNetRender();
+
+		if (!renderJob->Init(cRenderJob::still, config))
+		{
+			mainImage->ReleaseImage();
+			cErrorMessage::showMessage(
+				QObject::tr("Cannot init renderJob, see log output for more information."),
+				cErrorMessage::errorMessage);
+			return;
+		}
+
+		// show distance in statistics table
+		double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+		mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
+		gKeyframeAnimation->UpdateActualCameraPosition(gPar->Get<CVector3>("camera"));
+
+		QThread *thread = new QThread; // deleted by deleteLater()
+		renderJob->moveToThread(thread);
+		QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
+		QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
+		QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
+		QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+		thread->setObjectName("RenderJob");
+		thread->start();
 	}
 
-	// show distance in statistics table
-	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-	mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
-	gKeyframeAnimation->UpdateActualCameraPosition(gPar->Get<CVector3>("camera"));
-
-	QThread *thread = new QThread; // deleted by deleteLater()
-	renderJob->moveToThread(thread);
-	QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
-	QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
-	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
-	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-	thread->setObjectName("RenderJob");
-	thread->start();
 	mainWindow->manipulations->DecreaseNumberOfStartedRenders();
+}
+
+void cInterface::RenderFlame()
+{
+	// TODO:	render flame code
 }
 
 bool cInterface::StopRender()

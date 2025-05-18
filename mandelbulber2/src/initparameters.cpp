@@ -446,6 +446,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
+	par->addParam("flame_mode", false, morphNone, paramStandard);
+
 	// files
 	par->addParam("file_destination",
 		QDir::toNativeSeparators(systemDirectories.GetImagesFolder() + QDir::separator() + "image"),
