@@ -468,7 +468,7 @@ with image resolution</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_flame_mode">
+    <widget class="MyGroupBox" name="groupCheck_nebula_mode">
      <property name="title">
       <string>Flame fractals</string>
      </property>

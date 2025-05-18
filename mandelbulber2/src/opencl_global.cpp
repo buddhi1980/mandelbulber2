@@ -40,6 +40,7 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
+#include "opencl_engine_render_nebula.h"
 #include "opencl_hardware.h"
 
 cGlobalOpenCl *gOpenCl = nullptr;
@@ -53,6 +54,7 @@ cGlobalOpenCl::cGlobalOpenCl(QObject *parent) : QObject(parent)
 	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
 	openclEngineRenderDOF = new cOpenClEngineRenderDOF(openClHardware);
 	openclEngineRenderPostFilter = new cOpenClEngineRenderPostFilter(openClHardware);
+	openclEngineRenderNebula = new cOpenClEngineRenderNebula(openClHardware);
 #endif
 }
 
@@ -68,6 +70,7 @@ void cGlobalOpenCl::Reset()
 	openClEngineRenderSSAO->Reset();
 	openclEngineRenderDOF->Reset();
 	openclEngineRenderPostFilter->Reset();
+	openclEngineRenderNebula->Reset();
 }
 
 void cGlobalOpenCl::InitPlatfromAndDevices()

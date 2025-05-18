@@ -48,6 +48,7 @@ public:
 	void EnableIgnoreErrors() { enableIgnoreErrors = true; }
 	void SetMaxRenderTime(double _maxRenderTime) { maxRenderTime = _maxRenderTime; }
 	void ForceFastPreview() { forceFastPreview = true; }
+	void SetNebulaMode() { nebulaMode = true; }
 
 	bool UseNetRender() const;
 	bool UseImageRefresh() const;
@@ -59,6 +60,7 @@ public:
 	int GetNumberOfThreads() const;
 	double GetMaxRenderTime() const { return maxRenderTime; }
 	int GetRefreshRate() const;
+	bool IsNebulaMode() const;
 
 private:
 	bool enableImageRefresh;
@@ -67,6 +69,7 @@ private:
 	bool enableMultiThread;
 	bool enableIgnoreErrors;
 	bool forceFastPreview;
+	bool nebulaMode;
 	double maxRenderTime;
 	int refreshRate;
 };

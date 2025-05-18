@@ -37,7 +37,7 @@ void cOpenClEngineRenderNebula::SetParameters(const sParamRender *paramRender) {
 bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 	std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput)
 {
-
+	return true;
 }
 
 void cOpenClEngineRenderNebula::RegisterInputOutputBuffers(
@@ -48,11 +48,18 @@ void cOpenClEngineRenderNebula::RegisterInputOutputBuffers(
 bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	uint argIterator, int deviceIndex)
 {
+	return true;
 }
 
-bool cOpenClEngineRenderNebula::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex) {}
+bool cOpenClEngineRenderNebula::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex)
+{
+	return true;
+}
 
-bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stopRequest) {}
+bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stopRequest)
+{
+	return true;
+}
 
 void cOpenClEngineRenderNebula::ReleaseMemory()
 {
