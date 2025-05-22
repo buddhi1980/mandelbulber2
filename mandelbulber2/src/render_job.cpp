@@ -603,7 +603,7 @@ bool cRenderJob::Execute()
 
 #ifdef USE_OPENCL
 void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
-	const cRegion<int> &region, cProgressText *progressText, bool *result)
+	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result)
 {
 	if (!*renderData->stopRequest && *result == true)
 	{
@@ -614,7 +614,8 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 
 		busyOpenCl = true;
 		gOpenCl->openclEngineRenderNebula->Lock();
-		gOpenCl->openclEngineRenderNebula->SetParameters(params.get());
+		gOpenCl->openclEngineRenderNebula->SetParameters(
+			paramsContainer, fractalContainer, params, fractals);
 		if (gOpenCl->openclEngineRenderNebula->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);

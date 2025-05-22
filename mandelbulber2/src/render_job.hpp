@@ -118,8 +118,8 @@ private:
 	void RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool *result);
 	void RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
 		cProgressText *progressText, bool *result);
-	void RenderNebulaFractal(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
-		cProgressText *progressText, bool *result);
+	void RenderNebulaFractal(std::shared_ptr<sParamRender> params,
+		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result);
 #endif
 
 	void LoadTextures(int frameNo, const cRenderingConfiguration &config);

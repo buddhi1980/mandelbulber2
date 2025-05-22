@@ -10,8 +10,14 @@
 
 #include "opencl_engine.h"
 
+#ifdef USE_OPENCL
+#include "opencl/input_data_structures.h"
+#endif // USE_OPENCL
+
 class cImage;
 struct sParamRender;
+class cFractalContainer;
+class cNineFractals;
 
 class cOpenClEngineRenderNebula : public cOpenClEngine
 {
@@ -22,7 +28,9 @@ public:
 	~cOpenClEngineRenderNebula() override;
 
 #ifdef USE_OPENCL
-	void SetParameters(const sParamRender *paramRender);
+	void SetParameters(std::shared_ptr<const cParameterContainer> paramContainer,
+		std::shared_ptr<const cFractalContainer> fractalContainer,
+		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals);
 	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
@@ -32,6 +40,7 @@ public:
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
 	QString GetKernelName() override;
+
 #endif
 
 private:
@@ -40,11 +49,15 @@ private:
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
 		QByteArray &programEngine);
+	static QString toCamelCase(const QString &s);
 #endif
 
 private:
 	QStringList customFormulaCodes;
 	QStringList listOfUsedFormulas;
+
+	std::unique_ptr<sClInConstants> constantInBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_NEBULA_H_ */
