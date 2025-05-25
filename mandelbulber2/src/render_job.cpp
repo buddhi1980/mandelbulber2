@@ -544,10 +544,11 @@ bool cRenderJob::Execute()
 	{
 		cProgressText progressText;
 		progressText.ResetTimer();
+		renderData->rendererID = id;
+		renderData->stopRequest = stopRequest;
 
 		// move parameters from containers to structures
-		std::shared_ptr<sParamRender> params(
-			new sParamRender(paramsContainer, &renderData->objectData));
+		std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
 		std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
 
 		*renderData->stopRequest = false;
@@ -559,6 +560,8 @@ bool cRenderJob::Execute()
 		{
 			image->SetFastPreview(false);
 		}
+
+		RenderNebulaFractal(params, fractals, &progressText, &result);
 
 		gApplication->processEvents();
 		emit updateProgressAndStatus(
@@ -605,7 +608,7 @@ bool cRenderJob::Execute()
 void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result)
 {
-	if (!*renderData->stopRequest && *result == true)
+	if (!*renderData->stopRequest)
 	{
 		connect(gOpenCl->openclEngineRenderNebula, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 		connect(gOpenCl->openclEngineRenderNebula,

@@ -157,7 +157,7 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		CreateListOfIncludes(clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine);
 
 		// main engine
-		QString mainEngineFileName = "nebula_engine.cl";
+		QString mainEngineFileName = "nebula.cl";
 		QString engineFullFileName = openclEnginePath + mainEngineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
@@ -232,7 +232,7 @@ void cOpenClEngineRenderNebula::ReleaseMemory()
 
 QString cOpenClEngineRenderNebula::GetKernelName()
 {
-	return QString("RenderNebula");
+	return QString("Nebula");
 }
 
 size_t cOpenClEngineRenderNebula::CalcNeededMemory()
