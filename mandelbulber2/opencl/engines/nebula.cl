@@ -33,16 +33,11 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void Nebula(__global float4 *inImage, _global float4 *outImage,
-	__constant sClInConstants *consts, int initRandomSeed)
+kernel void Nebula(
+	__global float4 *inOutImage, __constant sClInConstants *consts, int initRandomSeed)
 {
 	const int index = get_global_id(0);
-	int sortBufferSize = params.width * params.height;
-
-	int ii = sortedZBuffer[sortBufferSize - index - 1].i;
-	int x = ii % params.width;
-	int y = ii / params.width;
-	int2 scr = (int2){x, y};
+	int imageSize = consts->params.imageWidth * consts->params.imageHeight;
 
 	int randomSeed = initRandomSeed;
 
@@ -57,6 +52,8 @@ kernel void Nebula(__global float4 *inImage, _global float4 *outImage,
 	float4 z = point;
 	float4 c = z;
 	int i;
+
+	int fractalIndex = 0;
 
 	// formula init
 	sExtendedAuxCl aux;
@@ -76,7 +73,6 @@ kernel void Nebula(__global float4 *inImage, _global float4 *outImage,
 	aux.colorHybrid = 0.0f;
 	aux.temp1000 = 1000.0f;
 
-	int fractalIndex = 0;
 	int sequence = 0;
 	__constant sFractalCl *fractal;
 	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
@@ -123,14 +119,7 @@ kernel void Nebula(__global float4 *inImage, _global float4 *outImage,
 
 		if (aux.r < 0.0f) // if was run DummyIteration
 		{
-			float high = consts->sequence.bailout[sequence] * 10.0f;
-			z = high;
-			aux.r = length(z);
-			out.distance = 10.0f;
-			out.iters = 1;
-			out.z = z;
-			out.colorIndex = 0.0f;
-			return out;
+			break;
 		}
 
 		if (consts->sequence.addCConstant[sequence])
@@ -184,31 +173,39 @@ kernel void Nebula(__global float4 *inImage, _global float4 *outImage,
 #endif
 
 		// calculate r
+		int width = consts->params.imageWidth;
+		int height = consts->params.imageHeight;
 
-		float2 screenPoint =
-			(float2){z.x * 0.2f + params.width * 0.5f, z.y * 0.2f + params.height * 0.5f};
-		screenPoint = clamp(screenPoint, 0.0f, (float2){params.width - 1, params.height - 1});
-		int screenIndex = (int)(screenPoint.x + screenPoint.y * params.width);
+		float2 screenPoint = (float2){z.x * 0.2f + width * 0.5f, z.y * 0.2f + height * 0.5f};
 
-		float4 old = out[screenIndex];
+		int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
 
-		float4 outPixel;
-		outPixel.s0 = old.s0 + fabs(point.z);
-		outPixel.s1 = old.s1 + fabs(point.y);
-		outPixel.s2 = old.s2 + fabs(point.z);
-		outPixel.s3 = old.s3 + 1.0f;
-	};
-
-	aux.r = length(z);
-
-	// escape conditions
-	if (consts->sequence.checkForBailout[sequence])
-	{
-		if (aux.r > consts->sequence.bailout[sequence])
+		if (screenPointInt.x >= 0 && screenPointInt.x < width && screenPointInt.y >= 0
+				&& screenPointInt.y < height)
 		{
-			out.maxiter = false;
-			break;
+			// write to output image
+			int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
+
+			float4 old = inOutImage[screenIndex];
+
+			float4 outPixel;
+			outPixel.s0 = old.s0 + fabs(point.z);
+			outPixel.s1 = old.s1 + fabs(point.y);
+			outPixel.s2 = old.s2 + fabs(point.z);
+			outPixel.s3 = old.s3 + 1.0f;
+
+			inOutImage[screenIndex] = outPixel;
 		}
-	}
-}
+
+		aux.r = length(z);
+
+		// escape conditions
+		if (consts->sequence.checkForBailout[sequence])
+		{
+			if (aux.r > consts->sequence.bailout[sequence])
+			{
+				break;
+			}
+		}
+	} // next i;
 }

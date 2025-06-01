@@ -283,9 +283,6 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 			}
 		}
 	}
-
-	// compute fractal
-	AddInclude(programEngine, openclEnginePath + "compute_fractal.cl");
 }
 
 QString cOpenClEngineRenderNebula::toCamelCase(const QString &s)
