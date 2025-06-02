@@ -34,6 +34,7 @@ public:
 	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
+	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
 	bool Render(std::shared_ptr<cImage> image, bool *stopRequest);
@@ -55,6 +56,7 @@ private:
 private:
 	QStringList customFormulaCodes;
 	QStringList listOfUsedFormulas;
+	quint64 numberOfPixels = 0;
 
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;

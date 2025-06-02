@@ -623,11 +623,12 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		{
 			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);
 			qint64 neededMem = gOpenCl->openclEngineRenderNebula->CalcNeededMemory();
-			WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
+			WriteLogDouble("OpenCl render nebula - needed mem:", neededMem / 1048576.0, 2);
 			if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
 			{
 				gOpenCl->openclEngineRenderNebula->PreAllocateBuffers(paramsContainer);
 				gOpenCl->openclEngineRenderNebula->CreateCommandQueue();
+				qDebug() << "ready";
 				*result = gOpenCl->openclEngineRenderNebula->Render(image, renderData->stopRequest);
 			}
 			else

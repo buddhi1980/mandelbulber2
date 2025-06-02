@@ -17,6 +17,8 @@
 #include "fractparams.hpp"
 #include "fractal_container.hpp"
 #include "nine_fractals.hpp"
+#include "opencl_hardware.h"
+#include "opencl_input_output_buffer.h"
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "write_log.hpp"
@@ -124,6 +126,8 @@ void cOpenClEngineRenderNebula::SetParameters(
 	}
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
+
+	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
 }
 
 bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
@@ -207,11 +211,61 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 void cOpenClEngineRenderNebula::RegisterInputOutputBuffers(
 	std::shared_ptr<const cParameterContainer> params)
 {
+	Q_UNUSED(params);
+	inputAndOutputBuffers[0] << sClInputOutputBuffer(
+		sizeof(cl_float4), numberOfPixels, "image-buffer");
+}
+
+bool cOpenClEngineRenderNebula::PreAllocateBuffers(
+	std::shared_ptr<const cParameterContainer> params)
+{
+	cOpenClEngine::PreAllocateBuffers(params);
+
+	cl_int err;
+
+	if (hardware->ContextCreated())
+	{
+		WriteLog(QString("Allocating OpenCL buffer for constants"), 2);
+
+		inCLConstBuffer.append(std::shared_ptr<cl::Buffer>(
+			new cl::Buffer(*hardware->getContext(0), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+				sizeof(sClInConstants), constantInBuffer.get(), &err)));
+		if (!checkErr(err,
+					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
+					"sizeof(sClInConstants), constantInBuffer, &err)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	return true;
 }
 
 bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	uint argIterator, int deviceIndex)
 {
+	int err =
+		clKernels.at(deviceIndex)
+			->setArg(argIterator++,
+				*inCLConstBuffer[deviceIndex]); // input inOut in constant memory (faster than global)
+	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = clKernels.at(deviceIndex)->setArg(argIterator++, std::rand()); // random seed
+	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
 	return true;
 }
 
