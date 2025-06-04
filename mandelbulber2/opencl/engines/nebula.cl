@@ -33,18 +33,22 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void Nebula(
-	__global float4 *inOutImage, __constant sClInConstants *consts, int initRandomSeed)
+kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *consts, int randomInt)
 {
 	const int index = get_global_id(0);
 	int imageSize = consts->params.imageWidth * consts->params.imageHeight;
 
-	int randomSeed = initRandomSeed;
+	int randomSeed = index + randomInt;
+
+	for (int i = 0; i < 10; i++)
+	{
+		int dummy = Random(1000000, &randomSeed);
+	}
 
 	float4 point;
-	point.x = (Random(10000, &randomSeed) / 5000.0f - 1.0f) * 2.0f;
-	point.y = (Random(10000, &randomSeed) / 5000.0f - 1.0f) * 2.0f;
-	point.z = (Random(10000, &randomSeed) / 5000.0f - 1.0f) * 2.0f;
+	point.x = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
+	point.y = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
+	point.z = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
 
 	point.w = consts->sequence.initialWAxis[0];
 	int maxN = consts->sequence.formulaMaxiter[0];
@@ -77,6 +81,8 @@ kernel void Nebula(
 	__constant sFractalCl *fractal;
 	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
 
+	float4 zHistory[256];
+
 	// loop
 	for (i = 0; i < maxN; i++)
 	{
@@ -90,6 +96,8 @@ kernel void Nebula(
 		fractal = &consts->fractal[sequence];
 
 		aux.i = i;
+
+		zHistory[i] = z;
 
 #ifdef ITERATION_WEIGHT
 		if (consts->sequence.formulaWeight[sequence] > 0)
@@ -173,29 +181,6 @@ kernel void Nebula(
 #endif
 
 		// calculate r
-		int width = consts->params.imageWidth;
-		int height = consts->params.imageHeight;
-
-		float2 screenPoint = (float2){z.x * 0.2f + width * 0.5f, z.y * 0.2f + height * 0.5f};
-
-		int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
-
-		if (screenPointInt.x >= 0 && screenPointInt.x < width && screenPointInt.y >= 0
-				&& screenPointInt.y < height)
-		{
-			// write to output image
-			int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
-
-			float4 old = inOutImage[screenIndex];
-
-			float4 outPixel;
-			outPixel.s0 = old.s0 + fabs(point.z);
-			outPixel.s1 = old.s1 + fabs(point.y);
-			outPixel.s2 = old.s2 + fabs(point.z);
-			outPixel.s3 = old.s3 + 1.0f;
-
-			inOutImage[screenIndex] = outPixel;
-		}
 
 		aux.r = length(z);
 
@@ -208,4 +193,38 @@ kernel void Nebula(
 			}
 		}
 	} // next i;
+
+	if (aux.i < maxN - 1)
+	{
+		for (int i = 1; i < aux.i; i++)
+		{
+			int width = consts->params.imageWidth;
+			int height = consts->params.imageHeight;
+
+			z = zHistory[i];
+
+			// printf("i: %d, z.x: %f z.y: %f\n", i, z.x, z.y);
+
+			float2 screenPoint = (float2){z.x * 500.0f + width * 0.5f, z.y * 500.0f + height * 0.5f};
+
+			int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
+
+			if (screenPointInt.x >= 0 && screenPointInt.x < width && screenPointInt.y >= 0
+					&& screenPointInt.y < height)
+			{
+				// write to output image
+				int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
+
+				float4 old = inOutImage[screenIndex];
+
+				float4 outPixel;
+				outPixel.s0 = old.s0 + fabs(point.x) * 0.1;
+				outPixel.s1 = old.s1 + fabs(point.y) * 0.1;
+				outPixel.s2 = old.s2 + fabs(point.z) * 0.1;
+				outPixel.s3 = old.s3 + 1.0f;
+
+				inOutImage[screenIndex] = outPixel;
+			}
+		}
+	}
 }

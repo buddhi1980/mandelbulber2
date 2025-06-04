@@ -11,6 +11,7 @@
 #include <map>
 
 #include "camera_target.hpp"
+#include "cimage.hpp"
 #include "parameters.hpp"
 #include "files.h"
 #include "fractal.h"
@@ -19,6 +20,7 @@
 #include "nine_fractals.hpp"
 #include "opencl_hardware.h"
 #include "opencl_input_output_buffer.h"
+#include "progress_text.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "write_log.hpp"
@@ -214,6 +216,8 @@ void cOpenClEngineRenderNebula::RegisterInputOutputBuffers(
 	Q_UNUSED(params);
 	inputAndOutputBuffers[0] << sClInputOutputBuffer(
 		sizeof(cl_float4), numberOfPixels, "image-buffer");
+
+	// inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_int), jobSize, "random-numbers");
 }
 
 bool cOpenClEngineRenderNebula::PreAllocateBuffers(
@@ -250,6 +254,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		clKernels.at(deviceIndex)
 			->setArg(argIterator++,
 				*inCLConstBuffer[deviceIndex]); // input inOut in constant memory (faster than global)
+
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -266,16 +271,113 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
+
 	return true;
 }
 
-bool cOpenClEngineRenderNebula::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex)
+bool cOpenClEngineRenderNebula::ProcessQueue()
 {
+	optimalJob.stepSize = jobSize;
+
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
+		*clKernels.at(0), cl::NDRange(0), cl::NDRange(optimalJob.stepSize), cl::NullRange);
+	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = clQueues.at(0)->finish();
+	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot finish rendering nebula"), cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
 	return true;
 }
 
 bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stopRequest)
 {
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+
+	cProgressText progressText;
+	progressText.ResetTimer();
+
+	emit updateProgressAndStatus(
+		tr("OpenCl - rendering nebula fractal"), progressText.getText(0.0), 0.0);
+
+	for (quint64 y = 0; y < height; y++)
+	{
+		for (quint64 x = 0; x < width; x++)
+		{
+			quint64 i = x + y * width;
+			cl_float4 black = {0.0f, 0.0f, 0.0f, 0.0f};
+
+			reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[i] =
+				black;
+		}
+	}
+
+	// writing data to queue
+	if (!WriteBuffersToQueue()) return false;
+
+	for (int repeat = 1; repeat < 1000; repeat++)
+	{
+		//		for (int i = 0; i < jobSize; i++)
+		//		{
+		//			reinterpret_cast<cl_int *>(inputBuffers[0][inRandomBufferIndex].ptr.get())[i] =
+		// std::rand();
+		//		}
+
+		// assign parameters to kernel
+		if (!AssignParametersToKernel(0)) return false;
+
+		// processing queue
+		if (!ProcessQueue()) return false;
+
+		double percentDone = double(repeat) / (1000);
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering nebula"), progressText.getText(percentDone), percentDone);
+
+		if (*stopRequest || systemData.globalStopRequest)
+		{
+			return false;
+		}
+
+		if (!ReadBuffersFromQueue(0)) return false;
+
+		for (quint64 y = 0; y < height; y++)
+		{
+			for (quint64 x = 0; x < width; x++)
+			{
+				cl_float4 colorCl = reinterpret_cast<cl_float4 *>(
+					inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[x + y * width];
+
+				sRGBFloat color(colorCl.s0 / repeat, colorCl.s1 / repeat, colorCl.s2 / repeat);
+				int alpha = int(colorCl.s3 * 65535);
+
+				image->PutPixelPostImage(x, y, color);
+				image->PutPixelAlpha(x, y, 65535);
+			}
+		}
+
+		image->CompileImage();
+
+		if (image->IsPreview())
+		{
+			WriteLog("image->ConvertTo8bit()", 2);
+			image->ConvertTo8bitChar();
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
+			emit updateImage();
+		}
+	}
+
 	return true;
 }
 

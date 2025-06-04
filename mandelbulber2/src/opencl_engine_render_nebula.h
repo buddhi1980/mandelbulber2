@@ -36,7 +36,7 @@ public:
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
-	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
+	bool ProcessQueue();
 	bool Render(std::shared_ptr<cImage> image, bool *stopRequest);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
@@ -58,8 +58,17 @@ private:
 	QStringList listOfUsedFormulas;
 	quint64 numberOfPixels = 0;
 
+	int jobSize = 1024 * 1004 * 16;
+
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;
+
+	const int inOutImageBufferIndex = 0;
+	const int inRandomBufferIndex = 0;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateImage();
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_NEBULA_H_ */

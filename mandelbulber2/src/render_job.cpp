@@ -637,8 +637,8 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 				*result = false;
 			}
 		}
-		gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
-		gOpenCl->openClEngineRenderSSAO->Unlock();
+		gOpenCl->openclEngineRenderNebula->ReleaseMemory();
+		gOpenCl->openclEngineRenderNebula->Unlock();
 		busyOpenCl = false;
 
 		emit updateProgressAndStatus(
