@@ -16,9 +16,6 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle">
-   <string>Frame</string>
-  </property>
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>
