@@ -50,6 +50,17 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	point.y = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
 	point.z = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
 
+	if (consts->params.limitsEnabled)
+	{
+		float3 limitMax = consts->params.limitMax;
+		float3 limitMin = consts->params.limitMin;
+
+		// scale point to limits
+		point.x = (point.x * 0.5f * (limitMax.x - limitMin.x) + limitMin.x);
+		point.y = (point.y * 0.5f * (limitMax.y - limitMin.y) + limitMin.y);
+		point.z = (point.z * 0.5f * (limitMax.z - limitMin.z) + limitMin.z);
+	}
+
 	point.w = consts->sequence.initialWAxis[0];
 	int maxN = consts->sequence.formulaMaxiter[0];
 
@@ -196,6 +207,24 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	if (aux.i < maxN - 1)
 	{
+		float3 camera = consts->params.camera;
+		float3 target = consts->params.target;
+		float3 top = consts->params.topVector;
+
+		float3 forward = normalize(target - camera);
+		float3 right = normalize(cross(forward, top));
+
+		matrix33 rotationMatrix;
+		rotationMatrix.m1.x = right.x;
+		rotationMatrix.m1.y = right.y;
+		rotationMatrix.m1.z = right.z;
+		rotationMatrix.m2.x = top.x;
+		rotationMatrix.m2.y = top.y;
+		rotationMatrix.m2.z = top.z;
+		rotationMatrix.m3.x = forward.x;
+		rotationMatrix.m3.y = forward.y;
+		rotationMatrix.m3.z = forward.z;
+
 		for (int i = 1; i < aux.i; i++)
 		{
 			int width = consts->params.imageWidth;
@@ -203,9 +232,12 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 			z = zHistory[i];
 
+			float3 zRot = Matrix33MulFloat3(rotationMatrix, z.xyz);
+
 			// printf("i: %d, z.x: %f z.y: %f\n", i, z.x, z.y);
 
-			float2 screenPoint = (float2){z.x * 500.0f + width * 0.5f, z.y * 500.0f + height * 0.5f};
+			float2 screenPoint =
+				(float2){zRot.x * 500.0f + width * 0.5f, zRot.y * 500.0f + height * 0.5f};
 
 			int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
 

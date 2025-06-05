@@ -383,6 +383,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 void cOpenClEngineRenderNebula::ReleaseMemory()
 {
+	constantInBuffer.reset();
+	inCLConstBuffer.clear();
 	cOpenClEngine::ReleaseMemory();
 }
 
