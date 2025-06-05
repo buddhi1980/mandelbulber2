@@ -17,6 +17,8 @@
 
 REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	Q_UNUSED(z);
+
 	REAL4 p0 = aux->const_c;
 	REAL4 p = p0;
 
@@ -25,12 +27,12 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL r = sqrt(p.z * p.z + p.x * p.x);
 
 	REAL4 tp = p0;
-	tp.y = max(fabs(p.y) - fractal->transformCommon.scale05, 0.0);
-	tp.z = max(r - fractal->transformCommon.offset2, 0.0);
-	tp.x = max(-p.z + fractal->transformCommon.offset105, 0.0);
+	tp.y = max(fabs(p.y) - fractal->transformCommon.scale05, 0.0f);
+	tp.z = max(r - fractal->transformCommon.offset2, 0.0f);
+	tp.x = max(-p.z + fractal->transformCommon.offset105, 0.0f);
 	REAL d = length(tp) - fractal->transformCommon.offset01; // round
 	d = max(d, p.x - fractal->transformCommon.scale1p1); // boot
-	if (fractal->transformCommon.functionEnabledDFalse) d = 100.0;
+	if (fractal->transformCommon.functionEnabledDFalse) d = 100.0f;
 
 
 	p.z = p0.z - fractal->transformCommon.offsetD0; // locate z
@@ -38,20 +40,28 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	p.y = fabs(fabs(p.y) - fractal->transformCommon.minR06); // locate y
 	p.x = fabs(p.x) - fractal->transformCommon.offsetR1; //wheels and gurads dist apart
 	r = sqrt(p.z * p.z + p.x * p.x);
-	tp.x = max(r - fractal->transformCommon.scale025, 0.0); // guard rad
-	tp.y = max(p.y - fractal->transformCommon.offsetBp01 - 0.05, 0.0);
-	tp.z = max(-p.z - 0.08, 0.0); // mmmmmmmmmmmmmmmmmmmmm
+	tp.x = max(r - fractal->transformCommon.scale025, 0.0f); // guard rad
+	tp.y = max(p.y - fractal->transformCommon.offsetBp01 - 0.05f, 0.0f);
+	tp.z = max(-p.z - 0.08f, 0.0f); // mmmmmmmmmmmmmmmmmmmmm
 
-	//	d = smin(d, length(tp) - 0.04, 8.0);
+	// IQ's smooth minium function.
+	if (!fractal->transformCommon.functionEnabledEFalse)
+	{
+		d = -log(exp(-fractal->transformCommon.scale8 * d)
+				 + exp(-fractal->transformCommon.scale8 * (length(tp) - 0.04f)))
+				/ fractal->transformCommon.scale8;
+	}
+	else
+	{
 
-	// smooth min from IQ
-	d = -log(exp(-fractal->transformCommon.scale8 * d)
-			 + exp(-fractal->transformCommon.scale8 * (length(tp) - 0.04)))
-			/ fractal->transformCommon.scale8; // smin from iq
+		REAL b = length(tp) - 0.04f;
+		REAL h = clamp( 0.5f + 0.5f * (b - d) / 0.2f, 0.0f, 1.0f);
+		d = mix(b, d, h) - h * (1.0f - h) * 0.2f;
+	}
 
-	d = max(d, -max(p.y - 0.165, r - 0.24)); // guard and car
+	d = max(d, -max(p.y - 0.165f, r - 0.24f)); // guard and car
 
-	if (fractal->transformCommon.functionEnabledEFalse)  d = 100.0;
+//	if (fractal->transformCommon.functionEnabledEFalse)  d = 100.0;
 
 	//wheels
 	REAL4 zc = p;
@@ -64,15 +74,15 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
 
-	REAL d2 = cylD - 0.02; // round tyre
-	if (fractal->transformCommon.functionEnabledCFalse)  d2 = 100.;
+	REAL d2 = cylD - 0.02f; // round tyre
+	if (fractal->transformCommon.functionEnabledCFalse)  d2 = 100.0f;
 //	REAL d2 = sqrt(tp.y * tp.y + tp.z * tp.z) - .02;
 
 	d = min(d, d2);
 	aux->dist = d;
 
-	if (aux->dist == d2) aux->color = 3.0;
-	else aux->color = 5.0;
+	if (aux->dist == d2) aux->color = 3.0f;
+	else aux->color = 5.0f;
 
 	return z;
 }

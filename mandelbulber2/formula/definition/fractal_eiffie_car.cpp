@@ -26,142 +26,70 @@ cFractalEiffieCar::cFractalEiffieCar() : cAbstractFractal()
 
 void cFractalEiffieCar::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 zc = z;
+	Q_UNUSED(&z);
 
-	if (fractal->transformCommon.functionEnabledAx) zc.x = fabs(zc.x);
-	if (fractal->transformCommon.functionEnabledAy) zc.y = fabs(zc.y);
-	if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
-	if (fractal->transformCommon.functionEnabledCx)
-		if (zc.y > zc.x) swap(zc.x, zc.y);
+	CVector4 p0 = aux.const_c;
+	CVector4 p = p0;
 
-	// folds
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		// diagonal2
-		if (fractal->transformCommon.functionEnabledCxFalse)
-			if (zc.x > zc.y) swap(zc.x, zc.y);
-		// polyfold
-		if (fractal->transformCommon.functionEnabledPFalse)
-		{
-			zc.x = fabs(zc.x);
-			double psi = M_PI / fractal->transformCommon.int6;
-			psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
-			double len = sqrt(zc.x * zc.x + zc.y * zc.y);
-			zc.x = cos(psi) * len;
-			zc.y = sin(psi) * len;
-		}
-		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse)
-		{
-			double xOffset = fractal->transformCommon.offsetC0;
-			if (zc.x < xOffset) zc.x = fabs(zc.x - xOffset) + xOffset;
-		}
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			double yOffset = fractal->transformCommon.offsetD0;
-			if (zc.y < yOffset) zc.y = fabs(zc.y - yOffset) + yOffset;
-		}
-	}
+	p.z = p0.z + fractal->transformCommon.scale015;
 
-	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
-	zc.y = YOff - fabs(zc.y - YOff);
+	double r = sqrt(p.z * p.z + p.x * p.x);
 
-	zc.x += FRAC_1_3;
-	if (zc.z > zc.x) swap(zc.x, zc.z);
-	zc.x -= FRAC_1_3;
+	CVector4 tp = p0;
+	tp.y = max(fabs(p.y) - fractal->transformCommon.scale05, 0.0);
+	tp.z = max(r - fractal->transformCommon.offset2, 0.0);
+	tp.x = max(-p.z + fractal->transformCommon.offset105, 0.0);
+	double d = tp.Length() - fractal->transformCommon.offset01; // round
+	d = max(d, p.x - fractal->transformCommon.scale1p1); // boot
+	if (fractal->transformCommon.functionEnabledDFalse) d = 100.0;
 
-	zc.x -= FRAC_1_3;
-	if (zc.z > zc.x) swap(zc.x, zc.z);
-	zc.x += FRAC_1_3;
 
-	CVector4 Offset = fractal->transformCommon.offset100;
-	double useScale = 1.0;
-	useScale = (aux.actualScaleA + fractal->transformCommon.scale3);
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		// update actualScaleA for next iteration
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-		aux.actualScaleA = -vary;
-	}
-	zc = useScale * (zc - Offset) + Offset;
-	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
+	p.z = p0.z - fractal->transformCommon.offsetD0; // locate z
+	p.x = p0.x + fractal->transformCommon.minR2p25; //wheels and gurads locate x
+	p.y = fabs(fabs(p.y) - fractal->transformCommon.minR06); // locate y
+	p.x = fabs(p.x) - fractal->transformCommon.offsetR1; //wheels and gurads dist apart
+	r = sqrt(p.z * p.z + p.x * p.x);
+	tp.x = max(r - fractal->transformCommon.scale025, 0.0); // guard rad
+	tp.y = max(p.y - fractal->transformCommon.offsetBp01 - 0.05, 0.0);
+	tp.z = max(-p.z - 0.08, 0.0); // mmmmmmmmmmmmmmmmmmmmm
 
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
-	}
-	zc += fractal->transformCommon.offset000;
-
-	//aux.dist
-	CVector4 c = aux.const_c;
-	double d;
-
-	double a = fractal->transformCommon.offsetA0;
-	if (!fractal->transformCommon.functionEnabledFFalse)
-	{
-		CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
-		d = max(b.x, max(b.y, b.z));
-	}
-	else
-	{
-		d = fabs(zc.Length() - a);
-	}
-
-	if (fractal->transformCommon.functionEnabledBFalse)
-		d -= Offset.Length();
-
-	// plane
-	double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
-
-	g = min(g, d);
-
-	// clip
-	double e = fractal->transformCommon.offset2;
+	// IQ's smooth minium function.
 	if (!fractal->transformCommon.functionEnabledEFalse)
 	{
-		CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			e = max(f.x, f.y); // sq
-		else
-			e = max(f.x, max(f.y, f.z)); // box
+		d = -log(exp(-fractal->transformCommon.scale8 * d)
+				 + exp(-fractal->transformCommon.scale8 * (tp.Length() - 0.04)))
+				/ fractal->transformCommon.scale8;
 	}
 	else
 	{
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			e = clamp(sqrt(c.x * c.x + c.y * c.y) - e, 0.0, 100.0); // circle
-		else
-			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
+
+	//	double b = tp.Length() - 0.04;
+	//	double h = clamp( 0.5 + 0.5 * (b - d) / 0.2, 0. , 1.0);
+	//	d = mix(b, d, h) - h * (1.0 - h) * 0.2;
 	}
 
-	d = max(g, e) / aux.DE;
+	d = max(d, -max(p.y - 0.165, r - 0.24)); // guard and car
 
-	//aux.dist = d;
-	aux.dist = min(d, aux.dist);
+//	if (fractal->transformCommon.functionEnabledEFalse)  d = 100.0;
 
-	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
-	{
-		double addColor = 0.0;
-		if (aux.dist == d)
-			aux.color = fractal->foldColor.difs0000.x;
+	//wheels
+	CVector4 zc = p;
+	double cylR = sqrt(zc.x * zc.x + zc.z * zc.z) - fractal->transformCommon.offset02; // tyre OD is offseto2
+	cylR = max(fabs(cylR) - fractal->transformCommon.offsetp05, cylR); // tyre
+	double cylH = fabs(zc.y) - fractal->transformCommon.offsetp1; //tyre width
 
-		else
-		{
-			addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
-					+ fractal->foldColor.difs0000.z * fabs(zc.z)
-					+ fractal->foldColor.difs0000.w * g;
+	cylR = max(cylR, 0.0);
+	cylH = max(cylH, 0.0);
+	double cylD = sqrt(cylR * cylR + cylH * cylH);
+	cylD = min(max(cylR, cylH), 0.0) + cylD;
 
-			if (!fractal->transformCommon.functionEnabledJFalse)
-				aux.color = addColor;
-			else
-				aux.color += addColor;
-		}
-	}
-	z = zc;
+	double d2 = cylD - 0.02; // round tyre
+	if (fractal->transformCommon.functionEnabledCFalse)  d2 = 100.;
+//	REAL d2 = sqrt(tp.y * tp.y + tp.z * tp.z) - .02;
+
+	d = min(d, d2);
+	aux.dist = d;
+
+	if (aux.dist == d2) aux.color = 3.0;
+	else aux.color = 5.0;
 }
