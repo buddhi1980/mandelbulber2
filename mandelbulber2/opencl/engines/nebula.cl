@@ -46,19 +46,26 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	}
 
 	float4 point;
-	point.x = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
-	point.y = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
-	point.z = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
 
 	if (consts->params.limitsEnabled)
 	{
+		point.x = Random(1000000, &randomSeed) / 1000000.0f;
+		point.y = Random(1000000, &randomSeed) / 1000000.0f;
+		point.z = Random(1000000, &randomSeed) / 1000000.0f;
+
 		float3 limitMax = consts->params.limitMax;
 		float3 limitMin = consts->params.limitMin;
 
 		// scale point to limits
-		point.x = (point.x * 0.5f * (limitMax.x - limitMin.x) + limitMin.x);
-		point.y = (point.y * 0.5f * (limitMax.y - limitMin.y) + limitMin.y);
-		point.z = (point.z * 0.5f * (limitMax.z - limitMin.z) + limitMin.z);
+		point.x = point.x * (limitMax.x - limitMin.x) + limitMin.x;
+		point.y = point.y * (limitMax.y - limitMin.y) + limitMin.y;
+		point.z = point.z * (limitMax.z - limitMin.z) + limitMin.z;
+	}
+	else
+	{
+		point.x = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
+		point.y = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
+		point.z = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
 	}
 
 	point.w = consts->sequence.initialWAxis[0];
@@ -210,6 +217,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		float3 camera = consts->params.camera;
 		float3 target = consts->params.target;
 		float3 top = consts->params.topVector;
+		float fov = consts->params.fov;
 
 		float3 forward = normalize(target - camera);
 		float3 right = normalize(cross(forward, top));
@@ -225,37 +233,59 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		rotationMatrix.m3.y = forward.y;
 		rotationMatrix.m3.z = forward.z;
 
+		//		rotationMatrix.m1.x = right.x;
+		//		rotationMatrix.m1.y = top.x;
+		//		rotationMatrix.m1.z = forward.x;
+		//		rotationMatrix.m2.x = right.y;
+		//		rotationMatrix.m2.y = top.y;
+		//		rotationMatrix.m2.z = forward.y;
+		//		rotationMatrix.m3.x = right.z;
+		//		rotationMatrix.m3.y = top.z;
+		//		rotationMatrix.m3.z = forward.z;
+
+		int width = consts->params.imageWidth;
+		int height = consts->params.imageHeight;
+		float aspectRatio = (float)width / height;
+
 		for (int i = 1; i < aux.i; i++)
 		{
-			int width = consts->params.imageWidth;
-			int height = consts->params.imageHeight;
-
 			z = zHistory[i];
 
-			float3 zRot = Matrix33MulFloat3(rotationMatrix, z.xyz);
+			float distFromClipPlane1 = dot(z.xyz - camera, forward);
 
-			// printf("i: %d, z.x: %f z.y: %f\n", i, z.x, z.y);
-
-			float2 screenPoint =
-				(float2){zRot.x * 500.0f + width * 0.5f, zRot.y * 500.0f + height * 0.5f};
-
-			int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
-
-			if (screenPointInt.x >= 0 && screenPointInt.x < width && screenPointInt.y >= 0
-					&& screenPointInt.y < height)
+			if (distFromClipPlane1 > 0.0f)
 			{
-				// write to output image
-				int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
+				float3 viewVector = z.xyz - camera;
+				viewVector = Matrix33MulFloat3(rotationMatrix, viewVector);
 
-				float4 old = inOutImage[screenIndex];
+				viewVector.x /= viewVector.z;
+				viewVector.y /= viewVector.z;
 
-				float4 outPixel;
-				outPixel.s0 = old.s0 + fabs(point.x) * 0.1;
-				outPixel.s1 = old.s1 + fabs(point.y) * 0.1;
-				outPixel.s2 = old.s2 + fabs(point.z) * 0.1;
-				outPixel.s3 = old.s3 + 1.0f;
+				float2 pointPersp;
+				pointPersp.x = viewVector.x / fov;
+				pointPersp.y = viewVector.y / fov;
 
-				inOutImage[screenIndex] = outPixel;
+				float2 screenPoint =
+					(float2){(pointPersp.x / aspectRatio + 0.5f) * width, (-pointPersp.y + 0.5f) * height};
+
+				int2 screenPointInt = (int2){(int)screenPoint.x, (int)screenPoint.y};
+
+				if (screenPointInt.x >= 0 && screenPointInt.x < width && screenPointInt.y >= 0
+						&& screenPointInt.y < height)
+				{
+					// write to output image
+					int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
+
+					float4 old = inOutImage[screenIndex];
+
+					float4 outPixel;
+					outPixel.s0 = old.s0 + fabs(point.x) * 0.1;
+					outPixel.s1 = old.s1 + fabs(point.y) * 0.1;
+					outPixel.s2 = old.s2 + fabs(point.z) * 0.1;
+					outPixel.s3 = old.s3 + 1.0f;
+
+					inOutImage[screenIndex] = outPixel;
+				}
 			}
 		}
 	}
