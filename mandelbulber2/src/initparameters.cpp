@@ -280,7 +280,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("background_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
-	par->addParam("reflections_max", 5, 0, 10, morphLinear, paramStandard);
+	par->addParam("reflections_max", 5, 0, 1000, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), morphLinear, paramStandard);
