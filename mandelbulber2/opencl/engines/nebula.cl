@@ -69,7 +69,6 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	}
 
 	point.w = consts->sequence.initialWAxis[0];
-	int maxN = consts->sequence.formulaMaxiter[0];
 
 	float4 z = point;
 	float4 c = z;
@@ -99,10 +98,10 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	__constant sFractalCl *fractal;
 	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
 
-	float4 zHistory[256];
+	float4 zHistory[MAX_ITERATIONS];
 
 	// loop
-	for (i = 0; i < maxN; i++)
+	for (i = 0; i < MAX_ITERATIONS; i++)
 	{
 
 #if defined(IS_HYBRID)
@@ -212,7 +211,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		}
 	} // next i;
 
-	if (aux.i < maxN - 1)
+	if (aux.i < MAX_ITERATIONS - 1)
 	{
 		float3 camera = consts->params.camera;
 		float3 target = consts->params.target;
@@ -232,16 +231,6 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		rotationMatrix.m3.x = forward.x;
 		rotationMatrix.m3.y = forward.y;
 		rotationMatrix.m3.z = forward.z;
-
-		//		rotationMatrix.m1.x = right.x;
-		//		rotationMatrix.m1.y = top.x;
-		//		rotationMatrix.m1.z = forward.x;
-		//		rotationMatrix.m2.x = right.y;
-		//		rotationMatrix.m2.y = top.y;
-		//		rotationMatrix.m2.z = forward.y;
-		//		rotationMatrix.m3.x = right.z;
-		//		rotationMatrix.m3.y = top.z;
-		//		rotationMatrix.m3.z = forward.z;
 
 		int width = consts->params.imageWidth;
 		int height = consts->params.imageHeight;
@@ -279,9 +268,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					float4 old = inOutImage[screenIndex];
 
 					float4 outPixel;
-					outPixel.s0 = old.s0 + fabs(point.x) * 0.1;
-					outPixel.s1 = old.s1 + fabs(point.y) * 0.1;
-					outPixel.s2 = old.s2 + fabs(point.z) * 0.1;
+					outPixel.s0 = old.s0 + fabs(point.x);
+					outPixel.s1 = old.s1 + fabs(point.y);
+					outPixel.s2 = old.s2 + fabs(point.z);
 					outPixel.s3 = old.s3 + 1.0f;
 
 					inOutImage[screenIndex] = outPixel;

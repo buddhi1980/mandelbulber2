@@ -102,6 +102,8 @@ void cOpenClEngineRenderNebula::SetParameters(
 		}
 	}
 
+	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
+
 	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
@@ -325,13 +327,14 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
 
+	QElapsedTimer timer;
+	jobSize = optimalJob.workGroupSize * optimalJob.jobSizeMultiplier;
+
+	qint64 totalSamplesCounter = 0;
+
 	for (int repeat = 1; repeat < 1000; repeat++)
 	{
-		//		for (int i = 0; i < jobSize; i++)
-		//		{
-		//			reinterpret_cast<cl_int *>(inputBuffers[0][inRandomBufferIndex].ptr.get())[i] =
-		// std::rand();
-		//		}
+		timer.restart();
 
 		// assign parameters to kernel
 		if (!AssignParametersToKernel(0)) return false;
@@ -350,6 +353,12 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 		if (!ReadBuffersFromQueue(0)) return false;
 
+		double processingTime = timer.nsecsElapsed() / 1.0e9;
+
+		totalSamplesCounter += jobSize;
+
+		float brightness = 1e7 / totalSamplesCounter / sqrt(constantInBuffer->params.N);
+
 		for (quint64 y = 0; y < height; y++)
 		{
 			for (quint64 x = 0; x < width; x++)
@@ -357,7 +366,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 				cl_float4 colorCl = reinterpret_cast<cl_float4 *>(
 					inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[x + y * width];
 
-				sRGBFloat color(colorCl.s0 / repeat, colorCl.s1 / repeat, colorCl.s2 / repeat);
+				sRGBFloat color(colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
 				int alpha = int(colorCl.s3 * 65535);
 
 				image->PutPixelPostImage(x, y, color);
@@ -366,6 +375,11 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		}
 
 		image->CompileImage();
+
+		jobSize = 1.0 / processingTime * jobSize;
+		jobSize /= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
+		if (jobSize < 1) jobSize = 1;
+		jobSize *= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
 
 		if (image->IsPreview())
 		{
