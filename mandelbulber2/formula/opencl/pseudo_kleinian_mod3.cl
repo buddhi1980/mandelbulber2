@@ -115,7 +115,9 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->dist = aux->DE0;
 
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);

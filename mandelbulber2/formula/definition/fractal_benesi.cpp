@@ -27,7 +27,7 @@ cFractalBenesi::cFractalBenesi() : cAbstractFractal()
 
 void cFractalBenesi::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.DE = aux.DE * 2.0 * aux.r;
+	aux.DE = aux.DE * 2.0 * aux.r + 1.0;
 	CVector4 zz = z * z;
 	double r1 = zz.y + zz.z;
 	CVector4 t = z;
@@ -37,12 +37,14 @@ void cFractalBenesi::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	else
 		mul = 0.1;
 
-	if (mul < 0.0 || z.x < sqrt(r1))
+	double tp = sqrt(r1);
+
+	if (mul < 0.0 || z.x < tp)
 		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
 		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;
-	r1 = -pow(r1, -0.5) * 2.0 * fabs(z.x);
+	r1 = -1.0 / tp * 2.0 * fabs(z.x);
 	t.y = r1 * (zz.y - zz.z) + fractal->transformCommon.offset000.y;
-	t.z = r1 * 2.0 * z.y * z.z + fractal->transformCommon.offset000.z + 1e-016;
+	t.z = r1 * 2.0 * z.y * z.z + fractal->transformCommon.offset000.z;
 	z = t;
 }
