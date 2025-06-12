@@ -65,10 +65,8 @@ REAL4 TransfDIFSTorusV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		torD = max(fabs(torD), fabs(zc.z));
 
 	REAL colDist = aux->dist;
-
-
 	aux->dist = min(aux->dist, (torD - fractal->transformCommon.offset05) / (aux->DE + 1.0f));
-	if (fractal->transformCommon.functionEnabledOFalse) colDist = aux->dist;
+
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& colDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA

@@ -57,12 +57,20 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 
 	double k = 0.0;
 	// Pseudo kleinian
+	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		z = fabs(z + fractal->transformCommon.additionConstant0777)
-				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
+		CVector4 tempZ = z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+
+		z = tempZ * 2.0f - z;
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k;

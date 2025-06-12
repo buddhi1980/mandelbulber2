@@ -45,12 +45,20 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL k = 0.0f;
 	// Pseudo kleinian
+	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		z = fabs(z + fractal->transformCommon.additionConstant0777)
-				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
+		REAL4 tempZ = z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+
+		z = tempZ * 2.0f - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k;
