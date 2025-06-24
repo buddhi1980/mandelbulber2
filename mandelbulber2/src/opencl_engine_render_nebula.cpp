@@ -306,6 +306,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
+	float brighnessMultiplier = constantInBuffer->params.nebulaBrighness * width * height;
+
 	cProgressText progressText;
 	progressText.ResetTimer();
 
@@ -327,14 +329,19 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
 
-	QElapsedTimer timer;
+	QElapsedTimer timerForOptimalJobSize;
 	jobSize = optimalJob.workGroupSize * optimalJob.jobSizeMultiplier;
 
-	qint64 totalSamplesCounter = 0;
+	qint64 maxSamples =
+		qint64(constantInBuffer->params.nebulaNumberOfSamplesPerPixel) * width * height;
 
-	for (int repeat = 1; repeat < 1000; repeat++)
+	QElapsedTimer timerForImageRefresh;
+	int nextRefreshCounter = 1;
+
+	for (qint64 totalSamplesCounter = 0; totalSamplesCounter < maxSamples;
+		totalSamplesCounter += jobSize)
 	{
-		timer.restart();
+		timerForOptimalJobSize.restart();
 
 		// assign parameters to kernel
 		if (!AssignParametersToKernel(0)) return false;
@@ -342,7 +349,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		// processing queue
 		if (!ProcessQueue()) return false;
 
-		double percentDone = double(repeat) / (1000);
+		double percentDone = double(totalSamplesCounter) / maxSamples;
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering nebula"), progressText.getText(percentDone), percentDone);
 
@@ -351,30 +358,38 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			return false;
 		}
 
-		if (!ReadBuffersFromQueue(0)) return false;
+		double processingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
 
-		double processingTime = timer.nsecsElapsed() / 1.0e9;
+		float brightness = brighnessMultiplier / totalSamplesCounter / sqrt(constantInBuffer->params.N);
 
-		totalSamplesCounter += jobSize;
+		nextRefreshCounter--;
 
-		float brightness = 1e7 / totalSamplesCounter / sqrt(constantInBuffer->params.N);
-
-		for (quint64 y = 0; y < height; y++)
+		if (nextRefreshCounter == 0)
 		{
-			for (quint64 x = 0; x < width; x++)
+			if (!ReadBuffersFromQueue(0)) return false;
+
+			timerForImageRefresh.restart();
+			for (quint64 y = 0; y < height; y++)
 			{
-				cl_float4 colorCl = reinterpret_cast<cl_float4 *>(
-					inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[x + y * width];
+				for (quint64 x = 0; x < width; x++)
+				{
+					cl_float4 colorCl = reinterpret_cast<cl_float4 *>(
+						inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[x + y * width];
 
-				sRGBFloat color(colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
-				int alpha = int(colorCl.s3 * 65535);
+					sRGBFloat color(
+						colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
+					int alpha = int(colorCl.s3 * 65535);
 
-				image->PutPixelPostImage(x, y, color);
-				image->PutPixelAlpha(x, y, 65535);
+					image->PutPixelPostImage(x, y, color);
+					image->PutPixelAlpha(x, y, 65535);
+				}
 			}
-		}
 
-		image->CompileImage();
+			image->CompileImage();
+
+			double imageRefreshTime = timerForImageRefresh.nsecsElapsed() / 1.0e9;
+			nextRefreshCounter = int(10.0 * imageRefreshTime) + 1;
+		}
 
 		jobSize = 1.0 / processingTime * jobSize;
 		jobSize /= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);

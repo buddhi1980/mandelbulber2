@@ -180,6 +180,8 @@ sParamRender::sParamRender(
 	monteCarloDenoiserPreserveGeometry = container->Get<bool>("MC_denoiser_preserve_geometry");
 	monteCarloPixelLevelOptimization = container->Get<bool>("MC_pixel_level_optimization");
 	N = container->Get<int>("N");
+	nebulaBrighness = container->Get<float>("nebula_brightness");
+	nebulaNumberOfSamplesPerPixel = container->Get<int>("nebula_samples_per_pixel");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");

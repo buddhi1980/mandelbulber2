@@ -133,6 +133,13 @@ void cDockRenderingEngine::ConnectSignals() const
 
 	connect(ui->pushButton_calculate_dist_thresh, SIGNAL(clicked()), this,
 		SLOT(slotCalculateDistanceThreshold()));
+
+	connect(ui->pushButton_nebula_auto_brightness_dark, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessDark);
+	connect(ui->pushButton_nebula_auto_brightness_medium, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium);
+	connect(ui->pushButton_nebula_auto_brightness_bright, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessBright);
 }
 
 void cDockRenderingEngine::slotNetRenderServerStart() const
@@ -439,3 +446,7 @@ void cDockRenderingEngine::slotCalculateDistanceThreshold()
 	gPar->Set("DE_thresh", distThresh);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessDark() {}
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium() {}
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessBright() {}

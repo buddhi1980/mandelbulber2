@@ -87,6 +87,7 @@ typedef struct
 	cl_int formulaMaterialId[NUMBER_OF_FRACTALS];
 	cl_int minN; // minimum number of iterations
 	cl_int N;
+	cl_int nebulaNumberOfSamplesPerPixel;
 	cl_int reflectionsMax;
 	cl_int repeatFrom;
 	cl_int DOFNumberOfPasses;
@@ -222,6 +223,7 @@ typedef struct
 	cl_float iterFogOpacityTrimHigh;
 	cl_float iterFogBrightnessBoost;
 	cl_float monteCarloGIRadianceLimit;
+	cl_float nebulaBrighness;
 	cl_float postChromaticAberrationIntensity;
 	cl_float postChromaticAberrationRadius;
 	cl_float rayleighScatteringBlue;
@@ -294,6 +296,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;
 	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
+	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
@@ -428,6 +431,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogOpacityTrimHigh = source.iterFogOpacityTrimHigh;
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
+	target.nebulaBrighness = source.nebulaBrighness;
 	target.postChromaticAberrationIntensity = source.postChromaticAberrationIntensity;
 	target.postChromaticAberrationRadius = source.postChromaticAberrationRadius;
 	target.rayleighScatteringBlue = source.rayleighScatteringBlue;

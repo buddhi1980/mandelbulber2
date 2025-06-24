@@ -447,6 +447,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	par->addParam("nebula_mode", false, morphNone, paramStandard);
+	par->addParam("nebula_brightness", 10.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("nebula_samples_per_pixel", 1000, 1, 100000000, morphLinear, paramStandard);
 
 	// files
 	par->addParam("file_destination",

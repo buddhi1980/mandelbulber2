@@ -81,6 +81,7 @@ struct sParamRender
 	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN; // minimum number of iterations
 	int N;
+	int nebulaNumberOfSamplesPerPixel;
 	int reflectionsMax;
 	int repeatFrom;
 	int DOFNumberOfPasses;
@@ -217,6 +218,7 @@ struct sParamRender
 	float iterFogOpacityTrimHigh;
 	float iterFogBrightnessBoost;
 	float monteCarloGIRadianceLimit;
+	float nebulaBrighness;
 	float postChromaticAberrationIntensity;
 	float postChromaticAberrationRadius;
 	float rayleighScatteringBlue;
