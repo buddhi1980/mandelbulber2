@@ -31,11 +31,11 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledAx
 		&& aux.i >= fractal->transformCommon.startIterationsCx
 		&& aux.i < fractal->transformCommon.stopIterationsCx)
-		 z.x = fabs(z.x);
+			z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy
 		&& aux.i >= fractal->transformCommon.startIterationsCy
 		&& aux.i < fractal->transformCommon.stopIterationsCy)
-		 z.y = fabs(z.y);
+			z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 
 
@@ -117,8 +117,8 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 		z = z - fractal->transformCommon.offset000;
 
-	CVector4 Offset = fractal->transformCommon.offset100;
-	z = fractal->transformCommon.scale2 * (z + Offset);
+	CVector4 Offset = fractal->transformCommon.additionConstantNeg100;
+	z = fractal->transformCommon.scale2 * (z - Offset);
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2);
 
 	// rotation
@@ -128,7 +128,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	z -= Offset;
+	z += Offset;
 
 	double d;
 	if (!fractal->transformCommon.functionEnabledFFalse)

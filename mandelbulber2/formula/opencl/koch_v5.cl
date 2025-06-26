@@ -23,11 +23,11 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	if (fractal->transformCommon.functionEnabledAx
 		&& aux->i >= fractal->transformCommon.startIterationsCx
 		&& aux->i < fractal->transformCommon.stopIterationsCx)
-		 z.x = fabs(z.x);
+			z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy
 		&& aux->i >= fractal->transformCommon.startIterationsCy
 		&& aux->i < fractal->transformCommon.stopIterationsCy)
-		 z.y = fabs(z.y);
+			z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 
 	if (fractal->transformCommon.functionEnabledCx)
@@ -127,8 +127,8 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 	z = z - fractal->transformCommon.offset000;
 
-	REAL4 Offset = fractal->transformCommon.offset100;
-	z = fractal->transformCommon.scale2 * (z + Offset);
+	REAL4 Offset = fractal->transformCommon.additionConstantNeg100;
+	z = fractal->transformCommon.scale2 * (z - Offset);
 	aux->DE = aux->DE * fabs(fractal->transformCommon.scale2);
 
 	// rotation
@@ -138,7 +138,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-	z -= Offset;
+	z += Offset;
 
 	REAL d;
 	if (!fractal->transformCommon.functionEnabledFFalse)

@@ -847,7 +847,7 @@ offsAAAet:</string>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -875,7 +875,7 @@ offsAAAet:</string>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -903,7 +903,7 @@ offsAAAet:</string>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -967,7 +967,7 @@ offset:</string>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_neg100_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -995,7 +995,7 @@ offset:</string>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_neg100_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1023,7 +1023,7 @@ offset:</string>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_neg100_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
