@@ -321,6 +321,7 @@ enum enumFractalFormula
 
 	// 2.34
 	eiffieCar = 277,
+	kochV5 = 278,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

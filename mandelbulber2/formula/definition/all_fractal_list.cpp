@@ -214,6 +214,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalIfsXY());
 	fractalList->append(new cFractalKaleidoscopicIfs());
 	fractalList->append(new cFractalKalisets1());
+
+
 	fractalList->append(new cFractalMandalayBoxV1());
 	fractalList->append(new cFractalMandalayBoxV2());
 	fractalList->append(new cFractalMandalayKIFS());
@@ -589,7 +591,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalEiffieCar());
 
-
+	fractalList->append(new cFractalKochV5());
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
 	fractalList->append(new cFractalTinkerTowers());

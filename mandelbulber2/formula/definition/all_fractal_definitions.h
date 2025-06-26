@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -105,6 +105,7 @@ FRACTAL_CLASS(cFractalKoch)
 FRACTAL_CLASS(cFractalKochV2)
 FRACTAL_CLASS(cFractalKochV3)
 FRACTAL_CLASS(cFractalKochV4)
+FRACTAL_CLASS(cFractalKochV5)
 FRACTAL_CLASS(cFractalLkmitch)
 FRACTAL_CLASS(cFractalMakin3d2)
 FRACTAL_CLASS(cFractalMandalayBoxV1)
