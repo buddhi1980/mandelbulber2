@@ -29,10 +29,13 @@ cFractalKochV5::cFractalKochV5() : cAbstractFractal()
 void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp = 0.0;
+	double colAdd = 0.0;
+
 	if (fractal->transformCommon.functionEnabledAx
 		&& aux.i >= fractal->transformCommon.startIterationsCx
 		&& aux.i < fractal->transformCommon.stopIterationsCx)
 			z.x = fabs(z.x);
+
 	if (fractal->transformCommon.functionEnabledAy
 		&& aux.i >= fractal->transformCommon.startIterationsCy
 		&& aux.i < fractal->transformCommon.stopIterationsCy)
@@ -46,11 +49,20 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			temp = z.x;
 			z.x = z.y;
 			z.y = temp;
+			colAdd += fractal->foldColor.difs0000.x;
 		}
+	}
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		z = z - fractal->transformCommon.offsetA000;
 	}
 
 	// folds
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		// diagonal2
 		if (fractal->transformCommon.functionEnabledCxFalse)
@@ -97,12 +109,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			z -= fractal->mandelbox.offset;
 		}
 	}
-	if (fractal->transformCommon.functionEnabledCFalse
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{
-		z = z - fractal->transformCommon.offsetA000;
-	}
+
 
 	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
@@ -117,6 +124,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			temp = z.x;
 			z.x = z.z;
 			z.z = temp;
+			colAdd += fractal->foldColor.difs0000.y;
 		}
 		z.x -= FRAC_1_3;
 	}
@@ -130,6 +138,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			temp = z.x;
 			z.x = z.z;
 			z.z = temp;
+			colAdd += fractal->foldColor.difs0000.z;
 		}
 		z.x += FRAC_1_3;
 	}
@@ -173,4 +182,12 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		d = max(d, e);
 	}
 	aux.dist = d / aux.DE;
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += colAdd;
+	}
+
 }
