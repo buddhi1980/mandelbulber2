@@ -62,7 +62,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			z.y = native_sin(psi) * len;
 		}
 		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse)
+		if (fractal->transformCommon.functionEnabledMFalse)
 		{
 			REAL xOffset = fractal->transformCommon.offsetC0;
 			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
@@ -93,7 +93,12 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			z -= fractal->mandelbox.offset;
 		}
 	}
-	z = z - fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z = z - fractal->transformCommon.offsetA000;
+	}
 
 	REAL YOff = FRAC_1_3_F * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
@@ -125,7 +130,9 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 		z.x += FRAC_1_3_F;
 	}
-	z = z - fractal->transformCommon.offset000;
+
+
+	z = z - fractal->transformCommon.offset100;
 
 	REAL4 Offset = fractal->transformCommon.additionConstantNeg100;
 	z = fractal->transformCommon.scale2 * (z - Offset);
