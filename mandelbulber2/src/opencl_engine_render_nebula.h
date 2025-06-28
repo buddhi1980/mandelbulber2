@@ -58,7 +58,7 @@ private:
 	QStringList listOfUsedFormulas;
 	quint64 numberOfPixels = 0;
 
-	int jobSize = 1024;
+	qint64 jobSize = 1024;
 
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;

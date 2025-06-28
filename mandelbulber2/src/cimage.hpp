@@ -374,6 +374,7 @@ public:
 	QMap<QString, QString> &getMeta() { return meta; }
 	int progressiveFactor;
 	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);
+	double GetAverageBrightness() const;
 
 private:
 	sRGB8 Interpolation(float x, float y) const;

@@ -350,8 +350,10 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		if (!ProcessQueue()) return false;
 
 		double percentDone = double(totalSamplesCounter) / maxSamples;
-		emit updateProgressAndStatus(
-			tr("OpenCl - rendering nebula"), progressText.getText(percentDone), percentDone);
+		emit updateProgressAndStatus(tr("OpenCl - rendering nebula"),
+			progressText.getText(percentDone)
+				+ QString(" (%1 mln samples)").arg(totalSamplesCounter / 1000000),
+			percentDone);
 
 		if (*stopRequest || systemData.globalStopRequest)
 		{

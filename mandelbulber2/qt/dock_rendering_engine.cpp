@@ -41,6 +41,7 @@
 #include "dock_navigation.h"
 
 #include "src/automated_widgets.hpp"
+#include "src/cimage.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/netrender.hpp"
@@ -447,6 +448,33 @@ void cDockRenderingEngine::slotCalculateDistanceThreshold()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cDockRenderingEngine::slotPressedButtonAutoBrighnessDark() {}
-void cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium() {}
-void cDockRenderingEngine::slotPressedButtonAutoBrighnessBright() {}
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessDark()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	qDebug() << "Average brightness:" << averageBrightness;
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.05 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.15 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessBright()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.5 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
