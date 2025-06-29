@@ -226,6 +226,10 @@ sParamRender::sParamRender(
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 	mRotCloudsRotation.SetRotation2(cloudsRotation * M_PI / 180.0);
 
+	nebulaXAxisColors.SetColorsFromString(container->Get<QString>("nebula_x_axis_colors"));
+	nebulaYAxisColors.SetColorsFromString(container->Get<QString>("nebula_y_axis_colors"));
+	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
+
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
 		booleanOperator[i] =

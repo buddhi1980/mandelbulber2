@@ -32,8 +32,69 @@
  * Nebula dractal renderig kernel
  */
 
+int GetInteger(int byte, __global char *array)
+{
+	__global int *intPointer = (__global int *)&array[byte];
+	return *intPointer;
+}
+
+float3 GradientInterpolate(
+	int paletteIndex, float pos, bool smooth, int gradientSize, __global float4 *palette)
+{
+	float3 color = 0.0f;
+	// if last element then just copy color value (no interpolation)
+	if (paletteIndex == gradientSize - 1)
+	{
+		color = palette[paletteIndex - 1].xyz;
+	}
+	else
+	{
+		// interpolation
+		float3 color1 = palette[paletteIndex].xyz;
+		float pos1 = palette[paletteIndex].w;
+		float3 color2 = palette[paletteIndex + 1].xyz;
+		float pos2 = palette[paletteIndex + 1].w;
+
+		// relative delta
+		if (pos2 - pos1 > 0.0f)
+		{
+			float delta = (pos - pos1) / (pos2 - pos1);
+
+			if (smooth) delta = 0.5f * (1.0f - cos(delta * M_PI_F));
+
+			float nDelta = 1.0f - delta;
+			color.s0 = color1.s0 * nDelta + color2.s0 * delta;
+			color.s1 = color1.s1 * nDelta + color2.s1 * delta;
+			color.s2 = color1.s2 * nDelta + color2.s2 * delta;
+		}
+		else
+		{
+			color = color1;
+		}
+	}
+	return color;
+}
+
+int GradientIterator(
+	int paletteIndex, float colorPosition, int gradientSize, __global float4 *palette)
+{
+	int newIndex = paletteIndex;
+	while (newIndex < gradientSize - 1 && colorPosition > palette[newIndex + 1].s3)
+	{
+		newIndex++;
+	}
+	return newIndex;
+}
+
+float3 GetColorFromGradient(float position, bool smooth, int gradientSize, __global float4 *palette)
+{
+	int paletteIndex = GradientIterator(0, position, gradientSize, palette);
+	return GradientInterpolate(paletteIndex, position, smooth, gradientSize, palette);
+}
+
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *consts, int randomInt)
+kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *consts,
+	__global char *inBuff, int randomInt)
 {
 	const int index = get_global_id(0);
 	int imageSize = consts->params.imageWidth * consts->params.imageHeight;
@@ -45,7 +106,25 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		int dummy = Random(1000000, &randomSeed);
 	}
 
+	//-------- decode main data file ----------------
+	int gradientsOffset = GetInteger(0, inBuff);
+	int paletteItemsOffset = GetInteger(gradientsOffset + sizeof(int) * 0, inBuff);
+
+	int paletteOffsetXAxis = GetInteger(gradientsOffset + sizeof(int) * 1, inBuff);
+	int paletteLengthXAxis = GetInteger(gradientsOffset + sizeof(int) * 2, inBuff);
+
+	int paletteOffsetYAxis = GetInteger(gradientsOffset + sizeof(int) * 3, inBuff);
+	int paletteLengthYAxis = GetInteger(gradientsOffset + sizeof(int) * 4, inBuff);
+
+	int paletteOffsetZAxis = GetInteger(gradientsOffset + sizeof(int) * 5, inBuff);
+	int paletteLengthZAxis = GetInteger(gradientsOffset + sizeof(int) * 6, inBuff);
+
+	__global float4 *gradients = (__global float4 *)&inBuff[paletteItemsOffset];
+
 	float4 point;
+
+	float3 limitMax = 2.0f;
+	float3 limitMin = -2.0f;
 
 	if (consts->params.limitsEnabled)
 	{
@@ -53,13 +132,11 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		point.y = Random(1000000, &randomSeed) / 1000000.0f;
 		point.z = Random(1000000, &randomSeed) / 1000000.0f;
 
-		float3 limitMax = consts->params.limitMax;
-		float3 limitMin = consts->params.limitMin;
+		limitMax = consts->params.limitMax;
+		limitMin = consts->params.limitMin;
 
 		// scale point to limits
-		point.x = point.x * (limitMax.x - limitMin.x) + limitMin.x;
-		point.y = point.y * (limitMax.y - limitMin.y) + limitMin.y;
-		point.z = point.z * (limitMax.z - limitMin.z) + limitMin.z;
+		point.xyz = point.xyz * (limitMax - limitMin) + limitMin;
 	}
 	else
 	{
@@ -267,10 +344,32 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 					float4 old = inOutImage[screenIndex];
 
+					float colorPosX =
+						(limitMax.x != limitMin.x)
+							? clamp((point.x - limitMin.x) / (limitMax.x - limitMin.x), 0.0f, 1.0f)
+							: 0.0f;
+					float colorPosY =
+						(limitMax.y != limitMin.y)
+							? clamp((point.y - limitMin.y) / (limitMax.y - limitMin.y), 0.0f, 1.0f)
+							: 0.0f;
+					float colorPosZ =
+						(limitMax.z != limitMin.z)
+							? clamp((point.z - limitMin.z) / (limitMax.z - limitMin.z), 0.0f, 1.0f)
+							: 0.0f;
+
+					float3 gradientColorX = GetColorFromGradient(
+						colorPosX, false, paletteLengthXAxis, gradients + paletteOffsetXAxis);
+					float3 gradientColorY = GetColorFromGradient(
+						colorPosY, false, paletteLengthYAxis, gradients + paletteOffsetYAxis);
+					float3 gradientColorZ = GetColorFromGradient(
+						colorPosZ, false, paletteLengthZAxis, gradients + paletteOffsetZAxis);
+
+					float3 color = gradientColorX + gradientColorY + gradientColorZ;
+
 					float4 outPixel;
-					outPixel.s0 = old.s0 + fabs(point.x);
-					outPixel.s1 = old.s1 + fabs(point.y);
-					outPixel.s2 = old.s2 + fabs(point.z);
+					outPixel.s0 = old.s0 + color.s0;
+					outPixel.s1 = old.s1 + color.s1;
+					outPixel.s2 = old.s2 + color.s2;
 					outPixel.s3 = old.s3 + 1.0f;
 
 					inOutImage[screenIndex] = outPixel;

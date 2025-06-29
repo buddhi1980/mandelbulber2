@@ -45,12 +45,13 @@ struct sVectorsAround;
 class cLights;
 class cPrimitives;
 class cObjectData;
+class sParamRender;
 
 #ifdef USE_OPENCL
 class cOpenClDynamicData : public cOpenClAbstractDynamicData
 {
 public:
-	cOpenClDynamicData();
+	cOpenClDynamicData(int numberOfItems);
 	~cOpenClDynamicData();
 
 	int BuildMaterialsData(const std::map<int, cMaterial> &materials,
@@ -59,6 +60,7 @@ public:
 	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
 	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
 	void BuildObjectsData(const QVector<cObjectData> *objectData);
+	void BuildNebulaGradientsData(const sParamRender *params);
 
 private:
 	const int materialsItemIndex = 0;
@@ -66,6 +68,8 @@ private:
 	const int lightsItemIndex = 2;
 	const int primitivesItemIndex = 3;
 	const int objectsItemIndex = 4;
+
+	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
 };
 
 #endif // USE_OPENCL

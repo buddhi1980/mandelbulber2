@@ -132,6 +132,13 @@ void cOpenClEngineRenderNebula::SetParameters(
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 
 	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
+
+	dynamicData.reset(new cOpenClDynamicData(1));
+	dynamicData->ReserveHeader();
+	dynamicData->BuildNebulaGradientsData(paramRender.get());
+	dynamicData->FillHeader();
+
+	inBuffer = dynamicData->GetData();
 }
 
 bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
@@ -245,7 +252,40 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
+
+		WriteLog(QString("Allocating OpenCL buffer for dynamic data"), 2);
+
+		inCLBuffer.append(std::shared_ptr<cl::Buffer>(new cl::Buffer(*hardware->getContext(0),
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err)));
+		if (!checkErr(err,
+					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+					"sizeof(sClInBuff), inBuffer, &err)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
+	return true;
+}
+
+bool cOpenClEngineRenderNebula::WriteBuffersToQueue()
+{
+	cOpenClEngine::WriteBuffersToQueue();
+	cl_int err = 0;
+
+	WriteLog(QString("Writing OpenCL input buffer"), 2);
+	err = clQueues.at(0)->enqueueWriteBuffer(
+		*inCLBuffer[0], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
 	return true;
 }
 
@@ -261,6 +301,16 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = clKernels.at(deviceIndex)
+					->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
+	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -417,6 +467,9 @@ void cOpenClEngineRenderNebula::ReleaseMemory()
 	constantInBuffer.reset();
 	inCLConstBuffer.clear();
 	cOpenClEngine::ReleaseMemory();
+	dynamicData.reset();
+	inBuffer.clear();
+	inCLBuffer.clear();
 }
 
 QString cOpenClEngineRenderNebula::GetKernelName()

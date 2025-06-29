@@ -8,6 +8,7 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_NEBULA_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_NEBULA_H_
 
+#include "opencl_dynamic_data.hpp"
 #include "opencl_engine.h"
 
 #ifdef USE_OPENCL
@@ -35,6 +36,7 @@ public:
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
+	bool WriteBuffersToQueue();
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue();
 	bool Render(std::shared_ptr<cImage> image, bool *stopRequest);
@@ -62,6 +64,11 @@ private:
 
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;
+
+	QByteArray inBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLBuffer;
+
+	std::unique_ptr<cOpenClDynamicData> dynamicData;
 
 	const int inOutImageBufferIndex = 0;
 	const int inRandomBufferIndex = 0;

@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
 #include "ao_modes.h"
+#include "color_gradient.h"
 #include "common_params.hpp"
 #include "fractal_enums.h"
 #include "image_adjustments.h"
@@ -263,6 +264,10 @@ struct sParamRender
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
 	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
+
+	cColorGradient nebulaXAxisColors;
+	cColorGradient nebulaYAxisColors;
+	cColorGradient nebulaZAxisColors;
 
 	cPrimitives primitives;
 

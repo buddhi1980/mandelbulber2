@@ -549,6 +549,99 @@ bright</string>
         </item>
        </layout>
       </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_x_axis_colors">
+        <property name="title">
+         <string>X axis colors</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_x_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_y_axis_colors">
+        <property name="title">
+         <string>Y axis colors</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_y_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_z_axis_colors">
+        <property name="title">
+         <string>Z axis colors</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_z_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -1849,16 +1942,6 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>cButtonLoadSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_load_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonSaveSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_save_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
@@ -1867,6 +1950,22 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <class>MyComboBox</class>
    <extends>QComboBox</extends>
    <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cGradientEditWidget</class>
+   <extends>QWidget</extends>
+   <header>gradient_edit_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cButtonLoadSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_load_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonSaveSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_save_settings_from_widget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

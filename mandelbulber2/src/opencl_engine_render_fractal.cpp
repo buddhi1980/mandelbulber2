@@ -967,7 +967,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData);
+	dynamicData.reset(new cOpenClDynamicData(5));
 	dynamicData->ReserveHeader();
 
 	// ------------ enabling shaders ----------
