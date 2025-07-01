@@ -449,6 +449,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("nebula_mode", false, morphNone, paramStandard);
 	par->addParam("nebula_brightness", 10.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("nebula_samples_per_pixel", 1000, 1, 100000000, morphLinear, paramStandard);
+	par->addParam("nebula_min_iteration", 1, 0, 99999, morphLinear, paramStandard);
 	par->addParam("nebula_x_axis_colors", QString("0 ff0000 5000 000000 9999 ff00ff"), morphLinear,
 		paramStandard);
 	par->addParam("nebula_y_axis_colors", QString("0 00ff00 5000 000000 9999 ffff00"), morphLinear,

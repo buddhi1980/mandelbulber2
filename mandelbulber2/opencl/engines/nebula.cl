@@ -313,7 +313,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		int height = consts->params.imageHeight;
 		float aspectRatio = (float)width / height;
 
-		for (int i = 1; i < aux.i; i++)
+		for (int i = consts->params.nebulaMinIteration; i < aux.i; i++)
 		{
 			z = zHistory[i];
 

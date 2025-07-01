@@ -83,6 +83,7 @@ struct sParamRender
 	int minN; // minimum number of iterations
 	int N;
 	int nebulaNumberOfSamplesPerPixel;
+	int nebulaMinIteration;
 	int reflectionsMax;
 	int repeatFrom;
 	int DOFNumberOfPasses;

@@ -88,6 +88,7 @@ typedef struct
 	cl_int minN; // minimum number of iterations
 	cl_int N;
 	cl_int nebulaNumberOfSamplesPerPixel;
+	cl_int nebulaMinIteration;
 	cl_int reflectionsMax;
 	cl_int repeatFrom;
 	cl_int DOFNumberOfPasses;
@@ -297,6 +298,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFMinSamples = source.DOFMinSamples;
 	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
 	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
+	target.nebulaMinIteration = source.nebulaMinIteration;
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
