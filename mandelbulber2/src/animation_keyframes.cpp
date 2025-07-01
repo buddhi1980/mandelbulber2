@@ -978,6 +978,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 	config.EnableNetRender();
 	config.DisableProgressiveRender();
+	if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 

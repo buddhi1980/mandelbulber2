@@ -338,6 +338,7 @@ void cThumbnailWidget::slotRender()
 		if (useOneCPUCore) config.DisableMultiThread();
 		config.EnableIgnoreErrors();
 		config.DisableNetRender();
+		if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
 		renderJob->Init(cRenderJob::still, config);
 
