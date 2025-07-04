@@ -133,6 +133,8 @@ void cOpenClEngineRenderNebula::SetParameters(
 
 	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
 
+	zBufferDefault = (paramRender->camera - paramRender->target).Length();
+
 	dynamicData.reset(new cOpenClDynamicData(1));
 	dynamicData->ReserveHeader();
 	dynamicData->BuildNebulaGradientsData(paramRender.get());
@@ -373,6 +375,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 			reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[i] =
 				black;
+
+			image->PutPixelZBuffer(x, y, zBufferDefault);
 		}
 	}
 
@@ -386,8 +390,10 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		qint64(constantInBuffer->params.nebulaNumberOfSamplesPerPixel) * width * height;
 
 	QElapsedTimer timerForImageRefresh;
-	int nextRefreshCounter = 1;
+	int nextRefreshCounter = 2;
+	int refreshCounter = 0;
 
+	bool lastPass = false;
 	for (qint64 totalSamplesCounter = 0; totalSamplesCounter < maxSamples;
 		totalSamplesCounter += jobSize)
 	{
@@ -416,7 +422,22 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 		nextRefreshCounter--;
 
-		if (nextRefreshCounter == 0)
+		// calculate next job size
+		refreshCounter++;
+		double optimalTime = min(refreshCounter * 0.1, 1.0);
+
+		jobSize = optimalTime / processingTime * jobSize;
+		jobSize /= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
+		if (jobSize < 1) jobSize = 1;
+		jobSize *= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
+		if (jobSize > maxSamples - totalSamplesCounter)
+		{
+			lastPass = true;
+			jobSize = maxSamples - totalSamplesCounter - 1;
+		}
+		if (jobSize < 1) jobSize = 1;
+
+		if (nextRefreshCounter == 0 || lastPass)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 
@@ -439,23 +460,20 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 			image->CompileImage();
 
+			signalSmallPartRendered(processingTime);
+
+			if (image->IsPreview() && (nextRefreshCounter == 0 || lastPass))
+			{
+				WriteLog("image->ConvertTo8bit()", 2);
+				image->ConvertTo8bitChar();
+				WriteLog("image->UpdatePreview()", 2);
+				image->UpdatePreview();
+				WriteLog("image->GetImageWidget()->update()", 2);
+				emit updateImage();
+			}
+
 			double imageRefreshTime = timerForImageRefresh.nsecsElapsed() / 1.0e9;
 			nextRefreshCounter = int(10.0 * imageRefreshTime) + 1;
-		}
-
-		jobSize = 1.0 / processingTime * jobSize;
-		jobSize /= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
-		if (jobSize < 1) jobSize = 1;
-		jobSize *= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
-
-		if (image->IsPreview())
-		{
-			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bitChar();
-			WriteLog("image->UpdatePreview()", 2);
-			image->UpdatePreview();
-			WriteLog("image->GetImageWidget()->update()", 2);
-			emit updateImage();
 		}
 	}
 

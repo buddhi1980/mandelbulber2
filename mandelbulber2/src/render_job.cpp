@@ -614,6 +614,8 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		connect(gOpenCl->openclEngineRenderNebula,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		connect(gOpenCl->openclEngineRenderNebula, &cOpenClEngineRenderNebula::signalSmallPartRendered,
+			this, &cRenderJob::signalSmallPartRendered, Qt::UniqueConnection);
 
 		busyOpenCl = true;
 		gOpenCl->openclEngineRenderNebula->Lock();

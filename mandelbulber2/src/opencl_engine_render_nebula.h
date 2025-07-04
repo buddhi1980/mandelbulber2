@@ -73,9 +73,12 @@ private:
 	const int inOutImageBufferIndex = 0;
 	const int inRandomBufferIndex = 0;
 
+	double zBufferDefault = 0.0;
+
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateImage();
+	void signalSmallPartRendered(double time);
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_NEBULA_H_ */
