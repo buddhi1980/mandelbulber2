@@ -152,28 +152,63 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 	z += Offset;
 
-	REAL d;
-	if (!fractal->transformCommon.functionEnabledFFalse)
+	// aux->dist
+	if (fractal->transformCommon.functionEnabled)
 	{
-		d = fabs(length(z) - length(Offset));
-	}
-	else
-	{
-		REAL e = fractal->transformCommon.offset1;
+		REAL4 zc = z;
 		REAL4 c = aux->const_c;
-		if (!fractal->transformCommon.functionEnabledEFalse)
+		REAL d;
+		// shape
+		REAL a = fractal->transformCommon.offsetA0; // cubes or spheres size
+		if (!fractal->transformCommon.functionEnabledFFalse
+				&& aux->i >= fractal->transformCommon.startIterationsO
+				&& aux->i < fractal->transformCommon.stopIterationsO)
 		{
-			REAL4 f = fabs(c) - (REAL4){e, e, e, 0.0f};
-			e = max(f.x, max(f.y, f.z));
+			REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
+			d = max(b.x, max(b.y, b.z));
 		}
 		else
 		{
-			e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
+			d = fabs(length(zc) - a);
 		}
-		d = fabs(z.z - Offset.z);
-		d = max(d, e);
+
+		// offset
+		if (fractal->transformCommon.functionEnabledBFalse) d -= length(Offset);
+
+		// plane
+		if (fractal->transformCommon.functionEnabledSFalse)
+		{
+			REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+			d = min(g, d);
+		}
+
+		// clip
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			REAL e = fractal->transformCommon.offset2;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+				REAL4 f = fabs(c) - (REAL4){e, e, e, 0.0f};
+				if (!fractal->transformCommon.functionEnabledIFalse)
+					e = max(f.x, f.y); // sq
+				else
+					e = max(f.x, max(f.y, f.z)); // box
+			}
+			else
+			{
+				if (!fractal->transformCommon.functionEnabledIFalse)
+					e = clamp(native_sqrt(c.x * c.x + c.y * c.y) - e, 0.0f, 100.0f); // circle
+				else
+					e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
+			}
+			d = max(d, e);
+		}
+
+		d = d / aux->DE;
+
+		// aux->dist = d;
+		aux->dist = min(d, aux->dist);
 	}
-	aux->dist = d / aux->DE;
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA

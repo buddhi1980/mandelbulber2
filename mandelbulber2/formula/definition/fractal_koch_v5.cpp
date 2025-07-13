@@ -110,7 +110,6 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 	}
 
-
 	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
 
@@ -143,7 +142,6 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		z.x += FRAC_1_3;
 	}
 
-
 	z = z - fractal->transformCommon.offset100;
 
 
@@ -160,28 +158,64 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	}
 	z += Offset;
 
-	double d;
-	if (!fractal->transformCommon.functionEnabledFFalse)
+	//aux.dist
+	if (fractal->transformCommon.functionEnabled)
 	{
-		d = fabs(z.Length() - Offset.Length());
-	}
-	else
-	{
-		double e = fractal->transformCommon.offset1;
+		CVector4 zc = z;
 		CVector4 c = aux.const_c;
-		if (!fractal->transformCommon.functionEnabledEFalse)
+		double d;
+
+		double a = fractal->transformCommon.offsetA0;
+		if (!fractal->transformCommon.functionEnabledFFalse
+				&& aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
 		{
-			CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
-			e = max(f.x, max(f.y, f.z));
+			CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
+			d = max(b.x, max(b.y, b.z));
 		}
 		else
 		{
-			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
+			d = fabs(zc.Length() - a);
 		}
-		d = fabs(z.z - Offset.z);
-		d = max(d, e);
+
+		// offset
+		if (fractal->transformCommon.functionEnabledBFalse)
+			d -= Offset.Length();
+
+		// plane
+		if (fractal->transformCommon.functionEnabledSFalse)
+		{
+			double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+			d = min(g, d);
+		}
+
+		// clip
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			double e = fractal->transformCommon.offset2;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+				CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
+				if (!fractal->transformCommon.functionEnabledIFalse)
+					e = max(f.x, f.y); // sq
+				else
+					e = max(f.x, max(f.y, f.z)); // box
+			}
+			else
+			{
+				if (!fractal->transformCommon.functionEnabledIFalse)
+					e = clamp(sqrt(c.x * c.x + c.y * c.y) - e, 0.0, 100.0); // circle
+				else
+					e = clamp(c.Length() - e, 0.0, 100.0); // sphere
+			}
+			d = max(d, e);
+		}
+
+		d = d / aux.DE;
+
+		//aux.dist = d;
+		aux.dist = min(d, aux.dist);
 	}
-	aux.dist = d / aux.DE;
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
