@@ -80,28 +80,29 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			REAL yOffset = fractal->transformCommon.offsetD0;
 			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 		}
-
-		if (fractal->transformCommon.functionEnabledGFalse)
-		{
-			z += fractal->mandelbox.offset;
-			REAL rr = dot(z, z);
-
-			if (rr < fractal->transformCommon.minR0)
-			{
-				// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-				z *= fractal->transformCommon.maxMinR0factor;
-				aux->DE *= fractal->transformCommon.maxMinR0factor;
-			}
-			else if (rr < fractal->transformCommon.maxR2d1)
-			{
-				REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-				z *= tglad_factor2;
-				aux->DE *= tglad_factor2;
-			}
-			z -= fractal->mandelbox.offset;
-		}
 	}
 
+	if (fractal->transformCommon.functionEnabledGFalse
+			&& aux->i >= fractal->transformCommon.startIterationsG
+			&& aux->i < fractal->transformCommon.stopIterationsG)
+	{
+		z += fractal->mandelbox.offset;
+		REAL rr = dot(z, z);
+
+		if (rr < fractal->transformCommon.minR0)
+		{
+			// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+			z *= fractal->transformCommon.maxMinR0factor;
+			aux->DE *= fractal->transformCommon.maxMinR0factor;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+			z *= tglad_factor2;
+			aux->DE *= tglad_factor2;
+		}
+		z -= fractal->mandelbox.offset;
+	}
 
 	REAL YOff = FRAC_1_3_F * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
@@ -136,8 +137,9 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		z.x += FRAC_1_3_F;
 	}
 
-
-	z = z - fractal->transformCommon.offset100;
+	if (aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+			z = z - fractal->transformCommon.offset100;
 
 	REAL4 Offset = fractal->transformCommon.additionConstantNeg100;
 	z = fractal->transformCommon.scale2 * (z - Offset);
@@ -173,7 +175,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 
 		// offset
-		if (fractal->transformCommon.functionEnabledBFalse) d -= length(Offset);
+		if (fractal->transformCommon.functionEnabledOFalse) d -= length(Offset);
 
 		// plane
 		if (fractal->transformCommon.functionEnabledSFalse)

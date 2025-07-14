@@ -88,26 +88,28 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			double yOffset = fractal->transformCommon.offsetD0;
 			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 		}
+	}
 
-		if (fractal->transformCommon.functionEnabledGFalse)
+	if (fractal->transformCommon.functionEnabledGFalse
+			&& aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		z += fractal->mandelbox.offset;
+		double rr = z.Dot(z);
+
+		if (rr < fractal->transformCommon.minR0)
 		{
-			z += fractal->mandelbox.offset;
-			double rr = z.Dot(z);
-
-			if (rr < fractal->transformCommon.minR0)
-			{
-				// double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-				z *= fractal->transformCommon.maxMinR0factor;
-				aux.DE *= fractal->transformCommon.maxMinR0factor;
-			}
-			else if (rr < fractal->transformCommon.maxR2d1)
-			{
-				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-				z *= tglad_factor2;
-				aux.DE *= tglad_factor2;
-			}
-			z -= fractal->mandelbox.offset;
+			// double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+			z *= fractal->transformCommon.maxMinR0factor;
+			aux.DE *= fractal->transformCommon.maxMinR0factor;
 		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+			z *= tglad_factor2;
+			aux.DE *= tglad_factor2;
+		}
+		z -= fractal->mandelbox.offset;
 	}
 
 	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
@@ -127,6 +129,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 		z.x -= FRAC_1_3;
 	}
+
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
@@ -142,8 +145,9 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		z.x += FRAC_1_3;
 	}
 
-	z = z - fractal->transformCommon.offset100;
-
+	if (aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
+		z = z - fractal->transformCommon.offset100;
 
 	CVector4 Offset = fractal->transformCommon.additionConstantNeg100;
 	z = fractal->transformCommon.scale2 * (z - Offset);
@@ -179,13 +183,14 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// offset
-		if (fractal->transformCommon.functionEnabledBFalse)
+		if (fractal->transformCommon.functionEnabledOFalse)
 			d -= Offset.Length();
 
 		// plane
 		if (fractal->transformCommon.functionEnabledSFalse)
 		{
-			double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+			double g = fabs(zc.z - fractal->transformCommon.offsetR0)
+					- fractal->transformCommon.offsetF0;
 			d = min(g, d);
 		}
 
