@@ -621,6 +621,8 @@ typedef struct
 	cl_int stopIterationsCx;
 	cl_int startIterationsCy;
 	cl_int stopIterationsCy;
+	cl_int startIterationsCz;
+	cl_int stopIterationsCz;
 	cl_int startIterationsD;
 	cl_int stopIterationsD;
 	cl_int stopIterationsD1;
@@ -821,6 +823,7 @@ typedef struct
 	cl_int functionEnabledEFalse;
 	cl_int functionEnabledFFalse;
 	cl_int functionEnabledGFalse;
+	cl_int functionEnabledHFalse;
 	cl_int functionEnabledIFalse;
 	cl_int functionEnabledJFalse;
 	cl_int functionEnabledKFalse;
@@ -1406,6 +1409,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsCx = source.stopIterationsCx;
 	target.startIterationsCy = source.startIterationsCy;
 	target.stopIterationsCy = source.stopIterationsCy;
+	target.startIterationsCy = source.startIterationsCz;
+	target.stopIterationsCy = source.stopIterationsCz;
 	target.startIterationsD = source.startIterationsD;
 	target.stopIterationsD = source.stopIterationsD;
 	target.stopIterationsD1 = source.stopIterationsD1;
@@ -1598,6 +1603,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledEFalse = source.functionEnabledEFalse;
 	target.functionEnabledFFalse = source.functionEnabledFFalse;
 	target.functionEnabledGFalse = source.functionEnabledGFalse;
+	target.functionEnabledHFalse = source.functionEnabledHFalse;
+
 	target.functionEnabledIFalse = source.functionEnabledIFalse;
 	target.functionEnabledJFalse = source.functionEnabledJFalse;
 	target.functionEnabledKFalse = source.functionEnabledKFalse;

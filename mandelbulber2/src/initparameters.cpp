@@ -1037,6 +1037,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("transf_start_iterations_Cy", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_Cy", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_Cz", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Cz", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_D", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D1", 1, morphLinear, paramStandard);
@@ -1243,6 +1245,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledG_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledH_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledI_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledJ_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
@@ -1254,7 +1257,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledS_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledSw_false", false, morphLinear, paramStandard);
-
 	par->addParam("transf_function_enabledT_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledY_false", false, morphLinear, paramStandard);

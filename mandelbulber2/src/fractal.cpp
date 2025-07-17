@@ -386,11 +386,14 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.stopIterationsB = container->Get<int>("transf_stop_iterations_B");
 	transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_C");
 	transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
+	transformCommon.stopIterationsC1 = container->Get<int>("transf_stop_iterations_C1");
 	transformCommon.stopIterationsCx = container->Get<int>("transf_stop_iterations_Cx");
 	transformCommon.startIterationsCx = container->Get<int>("transf_start_iterations_Cx");
 	transformCommon.stopIterationsCy = container->Get<int>("transf_stop_iterations_Cy");
 	transformCommon.startIterationsCy = container->Get<int>("transf_start_iterations_Cy");
-	transformCommon.stopIterationsC1 = container->Get<int>("transf_stop_iterations_C1");
+	transformCommon.stopIterationsCz = container->Get<int>("transf_stop_iterations_Cz");
+	transformCommon.startIterationsCz = container->Get<int>("transf_start_iterations_Cz");
+
 	transformCommon.startIterationsD = container->Get<int>("transf_start_iterations_D");
 	transformCommon.stopIterationsD = container->Get<int>("transf_stop_iterations_D");
 	transformCommon.stopIterationsD1 = container->Get<int>("transf_stop_iterations_D1");
@@ -600,6 +603,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.functionEnabledEFalse = container->Get<bool>("transf_function_enabledE_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
 	transformCommon.functionEnabledGFalse = container->Get<bool>("transf_function_enabledG_false");
+	transformCommon.functionEnabledHFalse = container->Get<bool>("transf_function_enabledH_false");
 	transformCommon.functionEnabledIFalse = container->Get<bool>("transf_function_enabledI_false");
 	transformCommon.functionEnabledJFalse = container->Get<bool>("transf_function_enabledJ_false");
 	transformCommon.functionEnabledKFalse = container->Get<bool>("transf_function_enabledK_false");

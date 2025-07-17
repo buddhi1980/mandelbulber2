@@ -40,9 +40,15 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		&& aux.i >= fractal->transformCommon.startIterationsCy
 		&& aux.i < fractal->transformCommon.stopIterationsCy)
 			z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 
-	if (fractal->transformCommon.functionEnabledCx)
+	if (fractal->transformCommon.functionEnabledAzFalse
+		&& aux.i >= fractal->transformCommon.startIterationsCz
+		&& aux.i < fractal->transformCommon.stopIterationsCz)
+			z.z = fabs(z.z);
+
+	if (fractal->transformCommon.functionEnabledCx
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
 		if (z.y > z.x)
 		{
@@ -52,6 +58,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			colAdd += fractal->foldColor.difs0000.x;
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -99,7 +106,6 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 		if (rr < fractal->transformCommon.minR0)
 		{
-			// double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 			z *= fractal->transformCommon.maxMinR0factor;
 			aux.DE *= fractal->transformCommon.maxMinR0factor;
 		}
@@ -115,11 +121,15 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
 
+	double third = FRAC_1_3;
+	if (fractal->transformCommon.functionEnabledNFalse)
+		third = -FRAC_1_3;
+
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z.x += FRAC_1_3;
+		z.x += third;
 		if (z.z > z.x)
 		{
 			temp = z.x;
@@ -127,14 +137,14 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			z.z = temp;
 			colAdd += fractal->foldColor.difs0000.y;
 		}
-		z.x -= FRAC_1_3;
+		z.x -= third;
 	}
 
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		z.x -= FRAC_1_3;
+		z.x -= third;
 		if (z.z > z.x)
 		{
 			temp = z.x;
@@ -142,7 +152,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			z.z = temp;
 			colAdd += fractal->foldColor.difs0000.z;
 		}
-		z.x += FRAC_1_3;
+		z.x += third;
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsP
@@ -150,8 +160,24 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		z = z - fractal->transformCommon.offset100;
 
 	CVector4 Offset = fractal->transformCommon.additionConstantNeg100;
-	z = fractal->transformCommon.scale2 * (z - Offset);
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2);
+	z -= Offset;
+
+	double useScale = fractal->transformCommon.scale2;
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		useScale += aux.actualScaleA;
+		// update actualScale for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA = -vary;
+	}
+	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
+	z *= useScale;
+
+	if (fractal->transformCommon.functionEnabledHFalse
+			&& aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+		z.z = -z.z;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -169,17 +195,33 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		CVector4 c = aux.const_c;
 		double d;
 
-		double a = fractal->transformCommon.offsetA0;
-		if (!fractal->transformCommon.functionEnabledFFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
+		if (aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
 		{
+			double a;
+			if (!fractal->transformCommon.functionEnabledFFalse)
+			{
+				a = fractal->transformCommon.offsetA0;
+			}
+			else
+			{
+				a = fractal->transformCommon.offsetA0
+						/ (aux.i + 1) * fractal->transformCommon.scaleA1;
+			}
 			CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
 			d = max(b.x, max(b.y, b.z));
 		}
 		else
 		{
-			d = fabs(zc.Length() - a);
+			if (!fractal->transformCommon.functionEnabledFFalse)
+			{
+				d = fabs(zc.Length() - fractal->transformCommon.offset0);
+			}
+			else
+			{
+				d = fabs(zc.Length() - fractal->transformCommon.offset0
+						 / (aux.i + 1) * fractal->transformCommon.scaleA1);
+			}
 		}
 
 		// offset
@@ -195,11 +237,14 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// clip
-		if (fractal->transformCommon.functionEnabledTFalse)
+		if (fractal->transformCommon.functionEnabledTFalse
+				&& aux.i >= fractal->transformCommon.startIterationsJ
+				&& aux.i < fractal->transformCommon.stopIterationsJ)
 		{
 			double e = fractal->transformCommon.offset2;
 			if (!fractal->transformCommon.functionEnabledEFalse)
 			{
+				c.z += fractal->transformCommon.offset0;
 				CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
 				if (!fractal->transformCommon.functionEnabledIFalse)
 					e = max(f.x, f.y); // sq

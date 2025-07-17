@@ -611,6 +611,8 @@ struct sFractalTransformCommon
 	int stopIterationsCx;
 	int startIterationsCy;
 	int stopIterationsCy;
+	int startIterationsCz;
+	int stopIterationsCz;
 	int startIterationsD;
 	int stopIterationsD;
 	int stopIterationsD1;
@@ -811,6 +813,7 @@ struct sFractalTransformCommon
 	bool functionEnabledEFalse;
 	bool functionEnabledFFalse;
 	bool functionEnabledGFalse;
+	bool functionEnabledHFalse;
 	bool functionEnabledIFalse;
 	bool functionEnabledJFalse;
 	bool functionEnabledKFalse;
