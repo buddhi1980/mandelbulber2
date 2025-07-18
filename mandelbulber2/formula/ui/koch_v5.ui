@@ -1880,7 +1880,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_17">
         <property name="text">
-         <string>cubes or spheres detail</string>
+         <string>cubes or spheres detail  deta</string>
         </property>
        </widget>
       </item>
@@ -2063,16 +2063,6 @@ offset:</string>
        </widget>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string notr="true">offset</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="MyGroupBox" name="groupCheck_transf_function_enabledS_false">
         <property name="toolTip">
          <string/>
@@ -2191,7 +2181,7 @@ offset:</string>
          <bool>true</bool>
         </property>
         <property name="text">
-         <string notr="true">clip</string>
+         <string notr="true">iter clip</string>
         </property>
        </widget>
       </item>
@@ -2243,17 +2233,20 @@ offset:</string>
        </layout>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string notr="true">enable circle clip (disable square clip)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>ss</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_2">
           <property name="enabled">
@@ -2285,17 +2278,52 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_20">
           <property name="text">
-           <string notr="true">enable circle clip (disable square clip)</string>
+           <string>size:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_23">
+          <property name="text">
+           <string>c.z offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetB_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
           <property name="enabled">
            <bool>true</bool>
@@ -2512,24 +2540,17 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_57">
-          <property name="text">
-           <string>g</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-          <property name="text">
-           <string>iteration add</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_53">
           <property name="text">
            <string>diagFold:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_57">
+          <property name="text">
+           <string>iteration</string>
           </property>
          </widget>
         </item>
@@ -2798,12 +2819,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>66</x>
-     <y>149</y>
+     <x>74</x>
+     <y>461</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>150</y>
+     <x>427</x>
+     <y>463</y>
     </hint>
    </hints>
   </connection>
@@ -2814,12 +2835,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>174</y>
+     <x>73</x>
+     <y>489</y>
     </hint>
     <hint type="destinationlabel">
-     <x>305</x>
-     <y>181</y>
+     <x>472</x>
+     <y>491</y>
     </hint>
    </hints>
   </connection>
@@ -2830,12 +2851,28 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>47</x>
-     <y>192</y>
+     <x>55</x>
+     <y>517</y>
     </hint>
     <hint type="destinationlabel">
-     <x>282</x>
-     <y>207</y>
+     <x>449</x>
+     <y>519</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledI_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offsetB_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>1860</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>332</x>
+     <y>1894</y>
     </hint>
    </hints>
   </connection>

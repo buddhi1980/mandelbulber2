@@ -244,7 +244,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			double e = fractal->transformCommon.offset2;
 			if (!fractal->transformCommon.functionEnabledEFalse)
 			{
-				c.z += fractal->transformCommon.offset0;
+				c.z -= fractal->transformCommon.offsetB0;
 				CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
 				if (!fractal->transformCommon.functionEnabledIFalse)
 					e = max(f.x, f.y); // sq
@@ -253,6 +253,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			}
 			else
 			{
+				c.z -= fractal->transformCommon.offsetB0;
 				if (!fractal->transformCommon.functionEnabledIFalse)
 					e = clamp(sqrt(c.x * c.x + c.y * c.y) - e, 0.0, 100.0); // circle
 				else
@@ -271,7 +272,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += colAdd;
+		aux.color += colAdd + fractal->foldColor.difs0000.w;
 	}
 
 }

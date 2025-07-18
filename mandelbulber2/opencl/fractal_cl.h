@@ -1409,8 +1409,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsCx = source.stopIterationsCx;
 	target.startIterationsCy = source.startIterationsCy;
 	target.stopIterationsCy = source.stopIterationsCy;
-	target.startIterationsCy = source.startIterationsCz;
-	target.stopIterationsCy = source.stopIterationsCz;
+	target.startIterationsCz = source.startIterationsCz;
+	target.stopIterationsCz = source.stopIterationsCz;
 	target.startIterationsD = source.startIterationsD;
 	target.stopIterationsD = source.stopIterationsD;
 	target.stopIterationsD1 = source.stopIterationsD1;
