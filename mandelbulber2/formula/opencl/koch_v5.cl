@@ -183,7 +183,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	{
 		REAL4 zc = z;
 		REAL4 c = aux->const_c;
-		REAL d = fabs(length(zc);
+		REAL d = fabs(length(zc));
 
 		if (fractal->transformCommon.functionEnabledM)
 		{
