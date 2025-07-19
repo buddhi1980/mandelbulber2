@@ -183,36 +183,40 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	{
 		REAL4 zc = z;
 		REAL4 c = aux->const_c;
-		REAL d;
-		// shape
-		if (!fractal->transformCommon.functionEnabledFFalse
-				&& aux->i >= fractal->transformCommon.startIterationsO
-				&& aux->i < fractal->transformCommon.stopIterationsO)
-		{
-			REAL a = fractal->transformCommon.offsetA0; // cubes
-			if (!fractal->transformCommon.functionEnabledFFalse)
-			{
-				a = fractal->transformCommon.offsetA0;
-			}
-			else
-			{
-				a = fractal->transformCommon.offsetA0
-						/ (aux->i + 1) * fractal->transformCommon.scaleA1;
-			}
+		REAL d = fabs(length(zc);
 
-			REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
-			d = max(b.x, max(b.y, b.z));
-		}
-		else
+		if (fractal->transformCommon.functionEnabledM)
 		{
-			if (!fractal->transformCommon.functionEnabledFFalse)
+			// shape
+			if (!fractal->transformCommon.functionEnabledFFalse
+					&& aux->i >= fractal->transformCommon.startIterationsO
+					&& aux->i < fractal->transformCommon.stopIterationsO)
 			{
-				d = fabs(length(zc) - fractal->transformCommon.offset0);
+				REAL a; // cubes
+				if (!fractal->transformCommon.functionEnabledFFalse)
+				{
+					a = fractal->transformCommon.offsetA0;
+				}
+				else
+				{
+					a = fractal->transformCommon.offsetA0
+							/ (aux->i + 1) * fractal->transformCommon.scaleA1;
+				}
+
+				REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
+				d = max(b.x, max(b.y, b.z));
 			}
 			else
 			{
-				d = fabs(length(zc) - fractal->transformCommon.offset0
-						 / (aux->i + 1) * fractal->transformCommon.scaleA1);
+				if (!fractal->transformCommon.functionEnabledFFalse)
+				{
+					d = fabs(length(zc) - fractal->transformCommon.offset0);
+				}
+				else
+				{
+					d = fabs(length(zc) - fractal->transformCommon.offset0
+							 / (aux->i + 1) * fractal->transformCommon.scaleA1);
+				}
 			}
 		}
 
@@ -220,9 +224,16 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		if (fractal->transformCommon.functionEnabledOFalse) d -= length(Offset);
 
 		// plane
-		if (fractal->transformCommon.functionEnabledSFalse)
+		if (fractal->transformCommon.functionEnabledSFalse
+				&& aux->i >= fractal->transformCommon.startIterationsS
+				&& aux->i < fractal->transformCommon.stopIterationsS)
 		{
-			REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+			REAL g;
+			if (!fractal->transformCommon.functionEnabledAwFalse)
+				g = zc.z;
+			else
+				g = c.z;
+			g = fabs(g - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
 			d = min(g, d);
 		}
 

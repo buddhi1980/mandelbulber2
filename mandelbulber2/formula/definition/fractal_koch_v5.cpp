@@ -193,34 +193,39 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		CVector4 zc = z;
 		CVector4 c = aux.const_c;
-		double d;
+		double d = fabs(zc.Length());
+		{
+			if (fractal->transformCommon.functionEnabledM)
+			{
+				if (aux.i >= fractal->transformCommon.startIterationsO
+					&& aux.i < fractal->transformCommon.stopIterationsO)
 
-		if (aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-		{
-			double a;
-			if (!fractal->transformCommon.functionEnabledFFalse)
-			{
-				a = fractal->transformCommon.offsetA0;
-			}
-			else
-			{
-				a = fractal->transformCommon.offsetA0
-						/ (aux.i + 1) * fractal->transformCommon.scaleA1;
-			}
-			CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
-			d = max(b.x, max(b.y, b.z));
-		}
-		else
-		{
-			if (!fractal->transformCommon.functionEnabledFFalse)
-			{
-				d = fabs(zc.Length() - fractal->transformCommon.offset0);
-			}
-			else
-			{
-				d = fabs(zc.Length() - fractal->transformCommon.offset0
-						 / (aux.i + 1) * fractal->transformCommon.scaleA1);
+				{
+					double a;
+					if (!fractal->transformCommon.functionEnabledFFalse)
+					{
+						a = fractal->transformCommon.offsetA0;
+					}
+					else
+					{
+						a = fractal->transformCommon.offsetA0
+								/ (aux.i + 1) * fractal->transformCommon.scaleA1;
+					}
+					CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
+					d = max(b.x, max(b.y, b.z));
+				}
+				else
+				{
+					if (!fractal->transformCommon.functionEnabledFFalse)
+					{
+						d = fabs(zc.Length() - fractal->transformCommon.offset0);
+					}
+					else
+					{
+						d = fabs(zc.Length() - fractal->transformCommon.offset0
+								 / (aux.i + 1) * fractal->transformCommon.scaleA1);
+					}
+				}
 			}
 		}
 
@@ -229,9 +234,17 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			d -= Offset.Length();
 
 		// plane
-		if (fractal->transformCommon.functionEnabledSFalse)
+		if (fractal->transformCommon.functionEnabledSFalse
+				&& aux.i >= fractal->transformCommon.startIterationsS
+				&& aux.i < fractal->transformCommon.stopIterationsS)
 		{
-			double g = fabs(zc.z - fractal->transformCommon.offsetR0)
+			double g;
+			if (!fractal->transformCommon.functionEnabledAwFalse)
+				g = zc.z;
+			else
+				g = c.z;
+
+			g = fabs(g - fractal->transformCommon.offsetR0)
 					- fractal->transformCommon.offsetF0;
 			d = min(g, d);
 		}
