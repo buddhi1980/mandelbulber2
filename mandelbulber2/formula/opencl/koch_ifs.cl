@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 KochIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp = 0.0f;
 	REAL colAdd = 0.0f;
@@ -176,98 +176,12 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 	z += Offset;
 
-REAL d = (length(z));
-	// aux->dist
-	if (fractal->transformCommon.functionEnabled)
-	{
-		REAL4 zc = z;
-		REAL4 c = aux->const_c;
-		//REAL d = fabs(length(zc));
+	REAL d = (length(z));
+	d = d / aux->DE;
 
-		if (fractal->transformCommon.functionEnabledM)
-		{
-			// shape
-			if (!fractal->transformCommon.functionEnabledFFalse
-					&& aux->i >= fractal->transformCommon.startIterationsO
-					&& aux->i < fractal->transformCommon.stopIterationsO)
-			{
-				REAL a; // cubes
-				if (!fractal->transformCommon.functionEnabledFFalse)
-				{
-					a = fractal->transformCommon.offsetA0;
-				}
-				else
-				{
-					a = fractal->transformCommon.offsetA0
-							/ (aux->i + 1) * fractal->transformCommon.scaleA1;
-				}
+	// aux->dist = d;
+	aux->dist = min(d, aux->dist);
 
-				REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
-				d = max(b.x, max(b.y, b.z));
-			}
-			else
-			{
-				if (!fractal->transformCommon.functionEnabledFFalse)
-				{
-					d = fabs(d - fractal->transformCommon.offset0);
-				}
-				else
-				{
-					d = fabs(d - fractal->transformCommon.offset0
-							 / (aux->i + 1) * fractal->transformCommon.scaleA1);
-				}
-			}
-		}
-
-		// offset
-		if (fractal->transformCommon.functionEnabledOFalse) d -= length(Offset);
-
-		// plane
-		if (fractal->transformCommon.functionEnabledSFalse
-				&& aux->i >= fractal->transformCommon.startIterationsS
-				&& aux->i < fractal->transformCommon.stopIterationsS)
-		{
-			REAL g;
-			if (!fractal->transformCommon.functionEnabledAwFalse)
-				g = zc.z;
-			else
-				g = c.z;
-			g = fabs(g - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
-			d = min(g, d);
-		}
-
-		// clip
-		if (fractal->transformCommon.functionEnabledTFalse
-				&& aux->i >= fractal->transformCommon.startIterationsJ
-				&& aux->i < fractal->transformCommon.stopIterationsJ)
-		{
-			REAL e = fractal->transformCommon.offset2;
-
-			if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				c.z -= fractal->transformCommon.offsetB0;
-				REAL4 f = fabs(c) - (REAL4){e, e, e, 0.0f};
-				if (!fractal->transformCommon.functionEnabledIFalse)
-					e = max(f.x, f.y); // sq
-				else
-					e = max(f.x, max(f.y, f.z)); // box
-			}
-			else
-			{
-				c.z -= fractal->transformCommon.offsetB0;
-				if (!fractal->transformCommon.functionEnabledIFalse)
-					e = clamp(native_sqrt(c.x * c.x + c.y * c.y) - e, 0.0f, 100.0f); // circle
-				else
-					e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
-			}
-			d = max(d, e);
-		}
-
-		d = d / aux->DE;
-
-		// aux->dist = d;
-		aux->dist = min(d, aux->dist);
-	}
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA

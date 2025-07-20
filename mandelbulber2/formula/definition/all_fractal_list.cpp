@@ -214,7 +214,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalIfsXY());
 	fractalList->append(new cFractalKaleidoscopicIfs());
 	fractalList->append(new cFractalKalisets1());
-
+	fractalList->append(new cFractalKochIfs());
 
 	fractalList->append(new cFractalMandalayBoxV1());
 	fractalList->append(new cFractalMandalayBoxV2());

@@ -6,27 +6,27 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * KochV2Iteration
+ * KochIfs
  * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
  * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalKochV5::cFractalKochV5() : cAbstractFractal()
+cFractalKochIfs::cFractalKochIfs() : cAbstractFractal()
 {
-	nameInComboBox = "Koch V5";
-	internalName = "koch_v5";
-	internalID = fractal::kochV5;
+	nameInComboBox = "Koch IFS";
+	internalName = "koch_ifs";
+	internalID = fractal::kochIfs;
 	DEType = analyticDEType;
-	DEFunctionType = customDEFunction;
+	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionCustomDE;
+	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalKochIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp = 0.0;
 	double colAdd = 0.0;
@@ -188,97 +188,9 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	//aux.dist
 	double d = z.Length();
-	if (fractal->transformCommon.functionEnabled)
-	{
-		CVector4 zc = z;
-		CVector4 c = aux.const_c;
-		// double d = fabs(zc.Length());
-		{
-			if (fractal->transformCommon.functionEnabledM)
-			{
-				if (aux.i >= fractal->transformCommon.startIterationsO
-					&& aux.i < fractal->transformCommon.stopIterationsO)
+	d = d / aux.DE;
+	aux.dist = min(d, aux.dist);
 
-				{
-					double a;
-					if (!fractal->transformCommon.functionEnabledFFalse)
-					{
-						a = fractal->transformCommon.offsetA0;
-					}
-					else
-					{
-						a = fractal->transformCommon.offsetA0
-								/ (aux.i + 1) * fractal->transformCommon.scaleA1;
-					}
-					CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
-					d = max(b.x, max(b.y, b.z));
-				}
-				else
-				{
-					if (!fractal->transformCommon.functionEnabledFFalse)
-					{
-						d = fabs(d - fractal->transformCommon.offset0);
-					}
-					else
-					{
-						d = fabs(d - fractal->transformCommon.offset0
-								 / (aux.i + 1) * fractal->transformCommon.scaleA1);
-					}
-				}
-			}
-		}
-
-		// offset
-		if (fractal->transformCommon.functionEnabledOFalse)
-			d -= Offset.Length();
-
-		// plane
-		if (fractal->transformCommon.functionEnabledSFalse
-				&& aux.i >= fractal->transformCommon.startIterationsS
-				&& aux.i < fractal->transformCommon.stopIterationsS)
-		{
-			double g;
-			if (!fractal->transformCommon.functionEnabledAwFalse)
-				g = zc.z;
-			else
-				g = c.z;
-
-			g = fabs(g - fractal->transformCommon.offsetR0)
-					- fractal->transformCommon.offsetF0;
-			d = min(g, d);
-		}
-
-		// clip
-		if (fractal->transformCommon.functionEnabledTFalse
-				&& aux.i >= fractal->transformCommon.startIterationsJ
-				&& aux.i < fractal->transformCommon.stopIterationsJ)
-		{
-			double e = fractal->transformCommon.offset2;
-			if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				c.z -= fractal->transformCommon.offsetB0;
-				CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
-				if (!fractal->transformCommon.functionEnabledIFalse)
-					e = max(f.x, f.y); // sq
-				else
-					e = max(f.x, max(f.y, f.z)); // box
-			}
-			else
-			{
-				c.z -= fractal->transformCommon.offsetB0;
-				if (!fractal->transformCommon.functionEnabledIFalse)
-					e = clamp(sqrt(c.x * c.x + c.y * c.y) - e, 0.0, 100.0); // circle
-				else
-					e = clamp(c.Length() - e, 0.0, 100.0); // sphere
-			}
-			d = max(d, e);
-		}
-
-		d = d / aux.DE;
-
-		//aux.dist = d;
-		aux.dist = min(d, aux.dist);
-	}
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
