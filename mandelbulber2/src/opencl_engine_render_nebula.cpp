@@ -49,6 +49,8 @@ void cOpenClEngineRenderNebula::SetParameters(
 	std::shared_ptr<const cFractalContainer> fractalContainer,
 	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals)
 {
+	Q_UNUSED(paramContainer);
+
 	constantInBuffer.reset(new sClInConstants);
 
 	definesCollector.clear();
@@ -355,8 +357,8 @@ bool cOpenClEngineRenderNebula::ProcessQueue()
 
 bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stopRequest)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	quint64 width = image->GetWidth();
+	quint64 height = image->GetHeight();
 
 	float brighnessMultiplier = constantInBuffer->params.nebulaBrighness * width * height;
 
@@ -451,7 +453,6 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 					sRGBFloat color(
 						colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
-					int alpha = int(colorCl.s3 * 65535);
 
 					image->PutPixelPostImage(x, y, color);
 					image->PutPixelAlpha(x, y, 65535);
@@ -497,6 +498,7 @@ QString cOpenClEngineRenderNebula::GetKernelName()
 
 size_t cOpenClEngineRenderNebula::CalcNeededMemory()
 {
+
 	return 0;
 }
 

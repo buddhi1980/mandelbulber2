@@ -447,6 +447,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	par->addParam("nebula_mode", false, morphNone, paramStandard);
+	par->addParam("nebula_inner_enabled", false, morphNone, paramStandard);
+	par->addParam("nebula_outer_enabled", true, morphNone, paramStandard);
 	par->addParam("nebula_brightness", 10.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("nebula_samples_per_pixel", 1000, 1, 100000000, morphLinear, paramStandard);
 	par->addParam("nebula_min_iteration", 1, 0, 99999, morphLinear, paramStandard);
@@ -456,9 +458,12 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		paramStandard);
 	par->addParam("nebula_z_axis_colors", QString("0 0000ff 5000 000000 9999 00ffff"), morphLinear,
 		paramStandard);
+	par->addParam("nebula_iterations_colors",
+		QString("0 000000 100 0000ff 1000 ff0000 5000 ffff00 9999 ffffff"), morphLinear, paramStandard);
 	par->SetAsGradient("nebula_x_axis_colors");
 	par->SetAsGradient("nebula_y_axis_colors");
 	par->SetAsGradient("nebula_z_axis_colors");
+	par->SetAsGradient("nebula_iterations_colors");
 
 	// files
 	par->addParam("file_destination",

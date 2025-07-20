@@ -119,6 +119,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	int paletteOffsetZAxis = GetInteger(gradientsOffset + sizeof(int) * 5, inBuff);
 	int paletteLengthZAxis = GetInteger(gradientsOffset + sizeof(int) * 6, inBuff);
 
+	int paletteOffsetIterations = GetInteger(gradientsOffset + sizeof(int) * 7, inBuff);
+	int paletteLengthIterations = GetInteger(gradientsOffset + sizeof(int) * 8, inBuff);
+
 	__global float4 *gradients = (__global float4 *)&inBuff[paletteItemsOffset];
 
 	float4 point;
@@ -128,9 +131,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	if (consts->params.limitsEnabled)
 	{
-		point.x = Random(1000000, &randomSeed) / 1000000.0f;
-		point.y = Random(1000000, &randomSeed) / 1000000.0f;
-		point.z = Random(1000000, &randomSeed) / 1000000.0f;
+		point.x = Random(2147483647, &randomSeed) / 2147483647.0f;
+		point.y = Random(2147483647, &randomSeed) / 2147483647.0f;
+		point.z = Random(2147483647, &randomSeed) / 2147483647.0f;
 
 		limitMax = consts->params.limitMax;
 		limitMin = consts->params.limitMin;
@@ -140,9 +143,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	}
 	else
 	{
-		point.x = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
-		point.y = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
-		point.z = (Random(1000000, &randomSeed) / 500000.0f - 1.0f) * 2.0f;
+		point.x = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+		point.y = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+		point.z = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
 	}
 
 	point.w = consts->sequence.initialWAxis[0];
@@ -288,7 +291,8 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		}
 	} // next i;
 
-	if (aux.i < MAX_ITERATIONS - 1)
+	if ((aux.i < MAX_ITERATIONS - 1 && consts->params.nebulaOuterEnabled)
+			|| (aux.i == MAX_ITERATIONS - 1 && consts->params.nebulaInnerEnabled))
 	{
 		float3 camera = consts->params.camera;
 		float3 target = consts->params.target;
@@ -357,14 +361,19 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 							? clamp((point.z - limitMin.z) / (limitMax.z - limitMin.z), 0.0f, 1.0f)
 							: 0.0f;
 
+					float colorIterations = (float)(i - consts->params.nebulaMinIteration)
+																	/ (float)(MAX_ITERATIONS - consts->params.nebulaMinIteration);
+
 					float3 gradientColorX = GetColorFromGradient(
 						colorPosX, false, paletteLengthXAxis, gradients + paletteOffsetXAxis);
 					float3 gradientColorY = GetColorFromGradient(
 						colorPosY, false, paletteLengthYAxis, gradients + paletteOffsetYAxis);
 					float3 gradientColorZ = GetColorFromGradient(
 						colorPosZ, false, paletteLengthZAxis, gradients + paletteOffsetZAxis);
+					float3 gradientColorIterations = GetColorFromGradient(
+						colorIterations, false, paletteLengthIterations, gradients + paletteOffsetIterations);
 
-					float3 color = gradientColorX + gradientColorY + gradientColorZ;
+					float3 color = gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations;
 
 					float4 outPixel;
 					outPixel.s0 = old.s0 + color.s0;

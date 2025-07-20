@@ -630,7 +630,6 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 			{
 				gOpenCl->openclEngineRenderNebula->PreAllocateBuffers(paramsContainer);
 				gOpenCl->openclEngineRenderNebula->CreateCommandQueue();
-				qDebug() << "ready";
 				*result = gOpenCl->openclEngineRenderNebula->Render(image, renderData->stopRequest);
 			}
 			else

@@ -137,6 +137,8 @@ struct sParamRender
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
 	bool monteCarloPixelLevelOptimization;
+	bool nebulaInnerEnabled;
+	bool nebulaOuterEnabled;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
@@ -269,6 +271,7 @@ struct sParamRender
 	cColorGradient nebulaXAxisColors;
 	cColorGradient nebulaYAxisColors;
 	cColorGradient nebulaZAxisColors;
+	cColorGradient nebulaIterationsColors;
 
 	cPrimitives primitives;
 

@@ -963,6 +963,8 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	 * cl_int paletteSizeYAxis
 	 * cl_int paletteOffsetZAxis
 	 * cl_int paletteSizeZAxis
+	 * cl_int paletteOffsetIterations
+	 * cl_int paletteSizeIterations
 	 *
 	 * array (aligned to 16):
 	 * 	cl_float4 gradientXAxis1
@@ -989,6 +991,8 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	QList<cColorGradient::sColor> gradientXAxis = params->nebulaXAxisColors.GetListOfSortedColors();
 	QList<cColorGradient::sColor> gradientYAxis = params->nebulaYAxisColors.GetListOfSortedColors();
 	QList<cColorGradient::sColor> gradientZAxis = params->nebulaZAxisColors.GetListOfSortedColors();
+	QList<cColorGradient::sColor> gradientIterations =
+		params->nebulaIterationsColors.GetListOfSortedColors();
 
 	int paletteOffsetXAxis = 0;
 	int paletteSizeXAxis = gradientXAxis.size();
@@ -999,7 +1003,11 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	int paletteOffsetZAxis = paletteOffsetYAxis + paletteSizeYAxis;
 	int paletteSizeZAxis = gradientZAxis.size();
 
-	int totalSizeOfGradients = paletteSizeXAxis + paletteSizeYAxis + paletteSizeZAxis;
+	int paletteOffsetIterations = paletteOffsetZAxis + paletteSizeZAxis;
+	int paletteSizeIterations = gradientIterations.size();
+
+	int totalSizeOfGradients =
+		paletteSizeXAxis + paletteSizeYAxis + paletteSizeZAxis + paletteSizeIterations;
 
 	paletteCl.resize(totalSizeOfGradients);
 
@@ -1022,6 +1030,13 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 		paletteCl[i + paletteOffsetZAxis] =
 			toClFloat4(CVector4(gradientZAxis[i].color.R / 256.0, gradientZAxis[i].color.G / 256.0,
 				gradientZAxis[i].color.B / 256.0, gradientZAxis[i].position));
+	}
+
+	for (int i = 0; i < paletteSizeIterations; i++)
+	{
+		paletteCl[i + paletteOffsetIterations] = toClFloat4(
+			CVector4(gradientIterations[i].color.R / 256.0, gradientIterations[i].color.G / 256.0,
+				gradientIterations[i].color.B / 256.0, gradientIterations[i].position));
 	}
 
 	cl_int paletteItemsOffset = 0;
@@ -1050,6 +1065,13 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	// cl_int paletteSizeZAxis
 	data.append(reinterpret_cast<char *>(&paletteSizeZAxis), sizeof(paletteSizeZAxis));
 	totalDataOffset += sizeof(paletteSizeZAxis);
+
+	// cl_int paletteOffsetIterations
+	data.append(reinterpret_cast<char *>(&paletteOffsetIterations), sizeof(paletteOffsetIterations));
+	totalDataOffset += sizeof(paletteOffsetIterations);
+	// cl_int paletteSizeIterations
+	data.append(reinterpret_cast<char *>(&paletteSizeIterations), sizeof(paletteSizeIterations));
+	totalDataOffset += sizeof(paletteSizeIterations);
 
 	// add dummy bytes for alignment to 16
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);

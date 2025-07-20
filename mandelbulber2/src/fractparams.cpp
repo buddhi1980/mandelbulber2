@@ -183,6 +183,8 @@ sParamRender::sParamRender(
 	nebulaBrighness = container->Get<float>("nebula_brightness");
 	nebulaNumberOfSamplesPerPixel = container->Get<int>("nebula_samples_per_pixel");
 	nebulaMinIteration = container->Get<int>("nebula_min_iteration");
+	nebulaInnerEnabled = container->Get<bool>("nebula_inner_enabled");
+	nebulaOuterEnabled = container->Get<bool>("nebula_outer_enabled");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
@@ -230,6 +232,7 @@ sParamRender::sParamRender(
 	nebulaXAxisColors.SetColorsFromString(container->Get<QString>("nebula_x_axis_colors"));
 	nebulaYAxisColors.SetColorsFromString(container->Get<QString>("nebula_y_axis_colors"));
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
+	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{

@@ -1306,7 +1306,5 @@ double cImage::GetAverageBrightness() const
 		sRGBFloat pixel = postImageFloat[i];
 		totalBrightness += (pixel.R + pixel.G + pixel.B);
 	}
-	qDebug() << "Total brightness:" << totalBrightness << "Pixel count:" << pixelCount;
 	return totalBrightness / 3.0 / pixelCount;
 }
-

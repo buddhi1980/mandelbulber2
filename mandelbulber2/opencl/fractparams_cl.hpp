@@ -141,6 +141,8 @@ typedef struct
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
 	cl_int monteCarloPixelLevelOptimization;
+	cl_int nebulaInnerEnabled;
+	cl_int nebulaOuterEnabled;
 	cl_int postChromaticAberrationEnabled;
 	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
@@ -346,6 +348,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
 	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
+	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
+	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
 	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
