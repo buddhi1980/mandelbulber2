@@ -187,9 +187,12 @@ void cFractalKochIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	z += Offset;
 
 	//aux.dist
-	double d = z.Length();
-	d = d / aux.DE;
-	aux.dist = min(d, aux.dist);
+	if (fractal->analyticDE.enabledFalse)
+	{
+		double d = z.Length();
+		d = d / aux.DE;
+		aux.dist = min(d, aux.dist);
+	}
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse

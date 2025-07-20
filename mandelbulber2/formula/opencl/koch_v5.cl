@@ -176,7 +176,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 	z += Offset;
 
-REAL d = (length(z));
+	REAL d = (length(z));
 	// aux->dist
 	if (fractal->transformCommon.functionEnabled)
 	{
@@ -187,8 +187,7 @@ REAL d = (length(z));
 		if (fractal->transformCommon.functionEnabledM)
 		{
 			// shape
-			if (!fractal->transformCommon.functionEnabledFFalse
-					&& aux->i >= fractal->transformCommon.startIterationsO
+			if (aux->i >= fractal->transformCommon.startIterationsO
 					&& aux->i < fractal->transformCommon.stopIterationsO)
 			{
 				REAL a; // cubes
@@ -220,7 +219,7 @@ REAL d = (length(z));
 		}
 
 		// offset
-		if (fractal->transformCommon.functionEnabledOFalse) d -= length(Offset);
+	//	if (fractal->transformCommon.functionEnabledOFalse) d -= length(Offset);
 
 		// plane
 		if (fractal->transformCommon.functionEnabledSFalse

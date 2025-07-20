@@ -176,12 +176,13 @@ REAL4 KochIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	}
 	z += Offset;
 
-	REAL d = (length(z));
-	d = d / aux->DE;
-
-	// aux->dist = d;
-	aux->dist = min(d, aux->dist);
-
+	//aux.dist
+	if (fractal->analyticDE.enabledFalse)
+	{
+		REAL d = (length(z));
+		d = d / aux->DE;
+		aux->dist = min(d, aux->dist);
+	}
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA

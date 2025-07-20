@@ -196,9 +196,9 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		{
 			if (fractal->transformCommon.functionEnabledM)
 			{
+
 				if (aux.i >= fractal->transformCommon.startIterationsO
 					&& aux.i < fractal->transformCommon.stopIterationsO)
-
 				{
 					double a;
 					if (!fractal->transformCommon.functionEnabledFFalse)
@@ -229,8 +229,8 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// offset
-		if (fractal->transformCommon.functionEnabledOFalse)
-			d -= Offset.Length();
+	//	if (fractal->transformCommon.functionEnabledOFalse)
+	//		d -= Offset.Length();
 
 		// plane
 		if (fractal->transformCommon.functionEnabledSFalse
