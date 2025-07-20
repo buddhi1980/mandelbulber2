@@ -263,8 +263,6 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 
 		d = d / aux->DE;
-
-		// aux->dist = d;
 		aux->dist = min(d, aux->dist);
 	}
 
