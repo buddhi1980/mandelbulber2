@@ -272,8 +272,16 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			d = max(d, e);
 		}
 
-		d = d / aux.DE;
-		aux.dist = min(d, aux.dist);
+		d = d / aux.DE - fractal->transformCommon.scaleA0;
+		if (aux.i >= fractal->transformCommon.startIterationsZ
+				&& aux.i < fractal->transformCommon.stopIterationsZ)
+		{
+			aux.dist = min(d, aux.dist);
+		}
+		else
+		{
+			aux.dist = d;
+		}
 	}
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse

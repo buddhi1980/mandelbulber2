@@ -180,7 +180,7 @@ REAL4 KochIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->analyticDE.enabledFalse)
 	{
 		REAL d = (length(z));
-		d = d / aux->DE;
+		d = d / aux->DE - fractal->transformCommon.scaleA0;
 		aux->dist = min(d, aux->dist);
 	}
 

@@ -190,7 +190,7 @@ void cFractalKochIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->analyticDE.enabledFalse)
 	{
 		double d = z.Length();
-		d = d / aux.DE;
+		d = d / aux.DE - fractal->transformCommon.scaleA0;
 		aux.dist = min(d, aux.dist);
 	}
 
@@ -201,5 +201,4 @@ void cFractalKochIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		aux.color += colAdd + fractal->foldColor.difs0000.w;
 	}
-
 }

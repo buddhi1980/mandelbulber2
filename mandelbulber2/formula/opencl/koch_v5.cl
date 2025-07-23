@@ -262,8 +262,17 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			d = max(d, e);
 		}
 
-		d = d / aux->DE;
-		aux->dist = min(d, aux->dist);
+		d = d / aux->DE - fractal->transformCommon.scaleA0;
+
+		if (aux->i >= fractal->transformCommon.startIterationsJ
+			&& aux->i < fractal->transformCommon.stopIterationsJ)
+		{
+			aux->dist = min(d, aux->dist);
+		}
+		else
+		{
+			aux->dist = d;
+		}
 	}
 
 	// aux->color

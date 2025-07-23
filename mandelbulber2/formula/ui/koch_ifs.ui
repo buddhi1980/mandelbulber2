@@ -1849,9 +1849,108 @@ offset:</string>
       <bool>true</bool>
      </property>
      <property name="text">
-      <string notr="true">custom DE</string>
+      <string notr="true">custom DE (select Custom DE on Rendering Engine tab)</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_58">
+     <property name="text">
+      <string>if iter is between start and stop then aux,dist = min(aux.dist, d)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,1,0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_252">
+       <property name="text">
+        <string>start iteration=</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_Z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_253">
+       <property name="text">
+        <string>stop iteration=</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_Z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_254">
+       <property name="text">
+        <string>aux.dist offset</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_0">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
@@ -1879,7 +1978,7 @@ offset:</string>
         <item>
          <widget class="QLabel" name="label_103">
           <property name="text">
-           <string>start at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
@@ -1905,7 +2004,7 @@ offset:</string>
         <item>
          <widget class="QLabel" name="label_75">
           <property name="text">
-           <string>stop at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -2009,7 +2108,7 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_55">
           <property name="text">
-           <string>positive diag fold</string>
+           <string>positive diag fold:</string>
           </property>
          </widget>
         </item>
