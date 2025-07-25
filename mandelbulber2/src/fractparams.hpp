@@ -84,6 +84,7 @@ struct sParamRender
 	int N;
 	int nebulaNumberOfSamplesPerPixel;
 	int nebulaMinIteration;
+	int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
 	int reflectionsMax;
 	int repeatFrom;
 	int DOFNumberOfPasses;

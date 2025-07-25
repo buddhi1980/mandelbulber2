@@ -89,6 +89,7 @@ typedef struct
 	cl_int N;
 	cl_int nebulaNumberOfSamplesPerPixel;
 	cl_int nebulaMinIteration;
+	cl_int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
 	cl_int reflectionsMax;
 	cl_int repeatFrom;
 	cl_int DOFNumberOfPasses;
@@ -301,6 +302,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
 	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
 	target.nebulaMinIteration = source.nebulaMinIteration;
+	target.nebulaColorMixing = source.nebulaColorMixing;
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;

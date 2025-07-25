@@ -148,9 +148,14 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		point.z = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
 	}
 
+	// repeat, move and rotate
+	float3 pointTransformed = point.xyz - consts->params.common.fractalPosition;
+	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
+	pointTransformed = modRepeat(pointTransformed, consts->params.common.repeat);
+
 	point.w = consts->sequence.initialWAxis[0];
 
-	float4 z = point;
+	float4 z = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, point.w};
 	float4 c = z;
 	int i;
 
@@ -346,20 +351,18 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					// write to output image
 					int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
 
-					float4 old = inOutImage[screenIndex];
-
 					float colorPosX =
 						(limitMax.x != limitMin.x)
 							? clamp((point.x - limitMin.x) / (limitMax.x - limitMin.x), 0.0f, 1.0f)
-							: 0.0f;
+							: 0.5f;
 					float colorPosY =
 						(limitMax.y != limitMin.y)
 							? clamp((point.y - limitMin.y) / (limitMax.y - limitMin.y), 0.0f, 1.0f)
-							: 0.0f;
+							: 0.5f;
 					float colorPosZ =
 						(limitMax.z != limitMin.z)
 							? clamp((point.z - limitMin.z) / (limitMax.z - limitMin.z), 0.0f, 1.0f)
-							: 0.0f;
+							: 0.5f;
 
 					float colorIterations = (float)(i - consts->params.nebulaMinIteration)
 																	/ (float)(MAX_ITERATIONS - consts->params.nebulaMinIteration);
@@ -373,14 +376,37 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					float3 gradientColorIterations = GetColorFromGradient(
 						colorIterations, false, paletteLengthIterations, gradients + paletteOffsetIterations);
 
-					float3 color = gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations;
+					float3 color = 0.0f;
+					switch (consts->params.nebulaColorMixing)
+					{
+						case 0: // lighten
+							color = gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations;
+							break;
+						case 1: // darken
+							color = gradientColorX * gradientColorY * gradientColorZ * gradientColorIterations;
+							break;
+						case 2: // darken by brighness
+						{
+							float luminanceX = gradientColorX.s0 + gradientColorX.s1 + gradientColorX.s2;
+							float luminanceY = gradientColorY.s0 + gradientColorY.s1 + gradientColorY.s2;
+							float luminanceZ = gradientColorZ.s0 + gradientColorZ.s1 + gradientColorZ.s2;
+							float luminanceIterations = gradientColorIterations.s0 + gradientColorIterations.s1
+																					+ gradientColorIterations.s2;
+							float luminance = luminanceX * luminanceY * luminanceZ * luminanceIterations;
+							color =
+								0.3333f * luminance
+								* (gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations);
 
+							break;
+						}
+					}
+
+					float4 old = inOutImage[screenIndex];
 					float4 outPixel;
 					outPixel.s0 = old.s0 + color.s0;
 					outPixel.s1 = old.s1 + color.s1;
 					outPixel.s2 = old.s2 + color.s2;
 					outPixel.s3 = old.s3 + 1.0f;
-
 					inOutImage[screenIndex] = outPixel;
 				}
 			}

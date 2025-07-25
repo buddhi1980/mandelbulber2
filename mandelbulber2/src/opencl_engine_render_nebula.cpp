@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <map>
+#include <QApplication>
 
 #include "camera_target.hpp"
 #include "cimage.hpp"
@@ -17,6 +18,7 @@
 #include "fractal.h"
 #include "fractparams.hpp"
 #include "fractal_container.hpp"
+#include "global_data.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_hardware.h"
 #include "opencl_input_output_buffer.h"
@@ -462,6 +464,9 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			image->CompileImage();
 
 			signalSmallPartRendered(processingTime);
+
+			// processing application events
+			gApplication->processEvents();
 
 			if (image->IsPreview() && (nextRefreshCounter == 0 || lastPass))
 			{

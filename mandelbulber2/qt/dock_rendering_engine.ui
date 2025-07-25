@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>2269</height>
+    <height>2366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -527,15 +527,19 @@ bright</string>
         <property name="topMargin">
          <number>5</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Brightness</string>
+           <string>Min. iteration to draw:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="MyLineEdit" name="logedit_nebula_brightness"/>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Brightness:</string>
+          </property>
+         </widget>
         </item>
         <item row="2" column="1">
          <widget class="MySpinBox" name="spinboxInt_nebula_min_iteration">
@@ -553,20 +557,16 @@ bright</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Min. iteration to draw</string>
+        <item row="0" column="1">
+         <widget class="MyLineEdit" name="logedit_nebula_brightness"/>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_nebula_inner_enabled">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Number of samples per pixel</string>
+           <string>Inner fractal iterations</string>
           </property>
          </widget>
         </item>
@@ -580,14 +580,49 @@ bright</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_nebula_inner_enabled">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
+        <item row="1" column="1">
+         <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Inner fractal iterations</string>
+           <string>Number of samples per pixel:</string>
           </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Color mining:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="MyComboBox" name="comboBox_nebula_color_mixing">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <item>
+           <property name="text">
+            <string>Lighten</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Darken</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Darken by brighness</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

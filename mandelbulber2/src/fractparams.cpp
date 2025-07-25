@@ -181,6 +181,7 @@ sParamRender::sParamRender(
 	monteCarloPixelLevelOptimization = container->Get<bool>("MC_pixel_level_optimization");
 	N = container->Get<int>("N");
 	nebulaBrighness = container->Get<float>("nebula_brightness");
+	nebulaColorMixing = container->Get<int>("nebula_color_mixing");
 	nebulaNumberOfSamplesPerPixel = container->Get<int>("nebula_samples_per_pixel");
 	nebulaMinIteration = container->Get<int>("nebula_min_iteration");
 	nebulaInnerEnabled = container->Get<bool>("nebula_inner_enabled");
