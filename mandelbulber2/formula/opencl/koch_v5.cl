@@ -264,8 +264,8 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 		d = d / aux->DE - fractal->transformCommon.scaleA0;
 
-		if (aux->i >= fractal->transformCommon.startIterationsJ
-			&& aux->i < fractal->transformCommon.stopIterationsJ)
+		if (aux->i >= fractal->transformCommon.startIterationsZ
+			&& aux->i < fractal->transformCommon.stopIterationsZ)
 		{
 			aux->dist = min(d, aux->dist);
 		}
