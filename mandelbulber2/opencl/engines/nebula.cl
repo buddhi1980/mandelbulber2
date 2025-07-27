@@ -126,27 +126,60 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	float4 point;
 
+#ifdef LIMITS_ENABLED
+	point.x = Random(2147483647, &randomSeed) / 2147483647.0f;
+	point.y = Random(2147483647, &randomSeed) / 2147483647.0f;
+	point.z = Random(2147483647, &randomSeed) / 2147483647.0f;
+
+	float3 limitMax = consts->params.limitMax;
+	float3 limitMin = consts->params.limitMin;
+
+	// scale point to limits
+	point.xyz = point.xyz * (limitMax - limitMin) + limitMin;
+#else
+	point.x = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+	point.y = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+	point.z = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+
 	float3 limitMax = 2.0f;
 	float3 limitMin = -2.0f;
+#endif
 
-	if (consts->params.limitsEnabled)
+#ifdef NEBULA_GRID_DOMAIN_ENABLED
+	int axisSelection = Random(3, &randomSeed);
+
+	switch (axisSelection)
 	{
-		point.x = Random(2147483647, &randomSeed) / 2147483647.0f;
-		point.y = Random(2147483647, &randomSeed) / 2147483647.0f;
-		point.z = Random(2147483647, &randomSeed) / 2147483647.0f;
+		case 0:
+		{
+			ulong pointX = point.x / consts->params.nebulaXGridSize;
+			point.x = (float)pointX * consts->params.nebulaXGridSize;
 
-		limitMax = consts->params.limitMax;
-		limitMin = consts->params.limitMin;
+			ulong pointY = point.y / consts->params.nebulaYGridSize;
+			point.y = (float)pointY * consts->params.nebulaYGridSize;
+			break;
+		}
+		case 1:
+		{
+			ulong pointX = point.x / consts->params.nebulaXGridSize;
+			point.x = (float)pointX * consts->params.nebulaXGridSize;
 
-		// scale point to limits
-		point.xyz = point.xyz * (limitMax - limitMin) + limitMin;
+			ulong pointZ = point.z / consts->params.nebulaZGridSize;
+			point.z = (float)pointZ * consts->params.nebulaZGridSize;
+			break;
+		}
+		case 2:
+		{
+			ulong pointY = point.y / consts->params.nebulaYGridSize;
+			point.y = (float)pointY * consts->params.nebulaYGridSize;
+
+			ulong pointZ = point.z / consts->params.nebulaZGridSize;
+			point.z = (float)pointZ * consts->params.nebulaZGridSize;
+			break;
+		}
 	}
-	else
-	{
-		point.x = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
-		point.y = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
-		point.z = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
-	}
+
+#endif
 
 	// repeat, move and rotate
 	float3 pointTransformed = point.xyz - consts->params.common.fractalPosition;
@@ -351,55 +384,88 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					// write to output image
 					int screenIndex = (int)(screenPointInt.x + screenPointInt.y * width);
 
+#ifdef NEBULA_X_AXIS_COLORS
 					float colorPosX =
 						(limitMax.x != limitMin.x)
 							? clamp((point.x - limitMin.x) / (limitMax.x - limitMin.x), 0.0f, 1.0f)
 							: 0.5f;
+					float3 gradientColorX = GetColorFromGradient(
+						colorPosX, false, paletteLengthXAxis, gradients + paletteOffsetXAxis);
+#else
+#ifdef NEBULA_COLOR_MIXING_LIGHTEN
+					float3 gradientColorX = (float3){0.0f, 0.0f, 0.0f};
+#else
+					float3 gradientColorX = (float3){1.0f, 1.0f, 1.0f};
+#endif
+#endif // NEBULA_X_AXIS_COLORS
+
+#ifdef NEBULA_Y_AXIS_COLORS
 					float colorPosY =
 						(limitMax.y != limitMin.y)
 							? clamp((point.y - limitMin.y) / (limitMax.y - limitMin.y), 0.0f, 1.0f)
 							: 0.5f;
+					float3 gradientColorY = GetColorFromGradient(
+						colorPosY, false, paletteLengthYAxis, gradients + paletteOffsetYAxis);
+#else
+#ifdef NEBULA_COLOR_MIXING_LIGHTEN
+					float3 gradientColorY = (float3){0.0f, 0.0f, 0.0f};
+#else
+					float3 gradientColorY = (float3){1.0f, 1.0f, 1.0f};
+#endif
+#endif // NEBULA_Y_AXIS_COLORS
+
+#ifdef NEBULA_Z_AXIS_COLORS
 					float colorPosZ =
 						(limitMax.z != limitMin.z)
 							? clamp((point.z - limitMin.z) / (limitMax.z - limitMin.z), 0.0f, 1.0f)
 							: 0.5f;
-
-					float colorIterations = (float)(i - consts->params.nebulaMinIteration)
-																	/ (float)(MAX_ITERATIONS - consts->params.nebulaMinIteration);
-
-					float3 gradientColorX = GetColorFromGradient(
-						colorPosX, false, paletteLengthXAxis, gradients + paletteOffsetXAxis);
-					float3 gradientColorY = GetColorFromGradient(
-						colorPosY, false, paletteLengthYAxis, gradients + paletteOffsetYAxis);
 					float3 gradientColorZ = GetColorFromGradient(
 						colorPosZ, false, paletteLengthZAxis, gradients + paletteOffsetZAxis);
+#else
+#ifdef NEBULA_COLOR_MIXING_LIGHTEN
+					float3 gradientColorZ = (float3){0.0f, 0.0f, 0.0f};
+#else
+					float3 gradientColorZ = (float3){1.0f, 1.0f, 1.0f};
+#endif
+#endif // NEBULA_Z_AXIS_COLORS
+
+#ifdef NEBULA_ITERATIONS_COLORS
+					float colorIterations = (float)(i - consts->params.nebulaMinIteration)
+																	/ (float)(MAX_ITERATIONS - consts->params.nebulaMinIteration);
 					float3 gradientColorIterations = GetColorFromGradient(
 						colorIterations, false, paletteLengthIterations, gradients + paletteOffsetIterations);
+#else
+#ifdef NEBULA_COLOR_MIXING_LIGHTEN
+					float3 gradientColorIterations = (float3){0.0f, 0.0f, 0.0f};
+#else
+					float3 gradientColorIterations = (float3){1.0f, 1.0f, 1.0f};
+#endif
+#endif // NEBULA_ITERATIONS_COLORS
 
 					float3 color = 0.0f;
-					switch (consts->params.nebulaColorMixing)
-					{
-						case 0: // lighten
-							color = gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations;
-							break;
-						case 1: // darken
-							color = gradientColorX * gradientColorY * gradientColorZ * gradientColorIterations;
-							break;
-						case 2: // darken by brighness
-						{
-							float luminanceX = gradientColorX.s0 + gradientColorX.s1 + gradientColorX.s2;
-							float luminanceY = gradientColorY.s0 + gradientColorY.s1 + gradientColorY.s2;
-							float luminanceZ = gradientColorZ.s0 + gradientColorZ.s1 + gradientColorZ.s2;
-							float luminanceIterations = gradientColorIterations.s0 + gradientColorIterations.s1
-																					+ gradientColorIterations.s2;
-							float luminance = luminanceX * luminanceY * luminanceZ * luminanceIterations;
-							color =
-								0.3333f * luminance
-								* (gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations);
 
-							break;
-						}
+#ifdef NEBULA_COLOR_MIXING_LIGHTEN
+					color = gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations;
+#endif
+#ifdef NEBULA_COLOR_MIXING_DARKEN
+					color = gradientColorX * gradientColorY * gradientColorZ * gradientColorIterations;
+#endif
+#ifdef NEBULA_COLOR_MIXING_DARKEN_BY_BRIGHTNESS
+					{
+						float luminanceX =
+							0.3333f * (gradientColorX.s0 + gradientColorX.s1 + gradientColorX.s2);
+						float luminanceY =
+							0.3333f * (gradientColorY.s0 + gradientColorY.s1 + gradientColorY.s2);
+						float luminanceZ =
+							0.3333f * (gradientColorZ.s0 + gradientColorZ.s1 + gradientColorZ.s2);
+						float luminanceIterations = 0.3333f
+																				* (gradientColorIterations.s0 + gradientColorIterations.s1
+																					 + gradientColorIterations.s2);
+						float luminance = luminanceX * luminanceY * luminanceZ * luminanceIterations;
+						color = luminance
+										* (gradientColorX + gradientColorY + gradientColorZ + gradientColorIterations);
 					}
+#endif
 
 					float4 old = inOutImage[screenIndex];
 					float4 outPixel;

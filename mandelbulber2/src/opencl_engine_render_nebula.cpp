@@ -123,6 +123,33 @@ void cOpenClEngineRenderNebula::SetParameters(
 	}
 	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
+	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
+
+	switch (paramRender->nebulaColorMixing)
+	{
+		case 0: // lighten
+			definesCollector += " -DNEBULA_COLOR_MIXING_LIGHTEN";
+			break;
+		case 1: // darken
+			definesCollector += " -DNEBULA_COLOR_MIXING_DARKEN";
+			break;
+		case 2: // darken by brighness
+			definesCollector += " -DNEBULA_COLOR_MIXING_DARKEN_BY_BRIGHTNESS";
+			break;
+		default: break;
+	}
+
+	if (paramRender->nebulaXAxisColorsEnabled)
+		definesCollector += " -DNEBULA_X_AXIS_COLORS";
+	if (paramRender->nebulaYAxisColorsEnabled)
+		definesCollector += " -DNEBULA_Y_AXIS_COLORS";
+	if (paramRender->nebulaZAxisColorsEnabled)
+		definesCollector += " -DNEBULA_Z_AXIS_COLORS";
+	if(paramRender->nebulaIterationsColorsEnabled)
+		definesCollector += " -DNEBULA_ITERATIONS_COLORS";
+	if (paramRender->nebulaGridDomainEnabled)
+		definesCollector += " -DNEBULA_GRID_DOMAIN_ENABLED";
+
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
 

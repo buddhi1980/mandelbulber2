@@ -186,6 +186,14 @@ sParamRender::sParamRender(
 	nebulaMinIteration = container->Get<int>("nebula_min_iteration");
 	nebulaInnerEnabled = container->Get<bool>("nebula_inner_enabled");
 	nebulaOuterEnabled = container->Get<bool>("nebula_outer_enabled");
+	nebulaXAxisColorsEnabled = container->Get<bool>("nebula_x_axis_colors_enabled");
+	nebulaYAxisColorsEnabled = container->Get<bool>("nebula_y_axis_colors_enabled");
+	nebulaZAxisColorsEnabled = container->Get<bool>("nebula_z_axis_colors_enabled");
+	nebulaIterationsColorsEnabled = container->Get<bool>("nebula_iterations_colors_enabled");
+	nebulaGridDomainEnabled = container->Get<bool>("nebula_grid_domain_enabled");
+	nebulaXGridSize = container->Get<float>("nebula_x_grid_size");
+	nebulaYGridSize = container->Get<float>("nebula_y_grid_size");
+	nebulaZGridSize = container->Get<float>("nebula_z_grid_size");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");

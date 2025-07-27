@@ -144,6 +144,11 @@ typedef struct
 	cl_int monteCarloPixelLevelOptimization;
 	cl_int nebulaInnerEnabled;
 	cl_int nebulaOuterEnabled;
+	cl_int nebulaXAxisColorsEnabled;
+	cl_int nebulaYAxisColorsEnabled;
+	cl_int nebulaZAxisColorsEnabled;
+	cl_int nebulaIterationsColorsEnabled;
+	cl_int nebulaGridDomainEnabled;
 	cl_int postChromaticAberrationEnabled;
 	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
@@ -228,6 +233,9 @@ typedef struct
 	cl_float iterFogBrightnessBoost;
 	cl_float monteCarloGIRadianceLimit;
 	cl_float nebulaBrighness;
+	cl_float nebulaXGridSize;
+	cl_float nebulaYGridSize;
+	cl_float nebulaZGridSize;
 	cl_float postChromaticAberrationIntensity;
 	cl_float postChromaticAberrationRadius;
 	cl_float rayleighScatteringBlue;
@@ -352,6 +360,11 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
 	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
 	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
+	target.nebulaXAxisColorsEnabled = source.nebulaXAxisColorsEnabled;
+	target.nebulaYAxisColorsEnabled = source.nebulaYAxisColorsEnabled;
+	target.nebulaZAxisColorsEnabled = source.nebulaZAxisColorsEnabled;
+	target.nebulaIterationsColorsEnabled = source.nebulaIterationsColorsEnabled;
+	target.nebulaGridDomainEnabled = source.nebulaGridDomainEnabled;
 	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
@@ -440,6 +453,9 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
 	target.nebulaBrighness = source.nebulaBrighness;
+	target.nebulaXGridSize = source.nebulaXGridSize;
+	target.nebulaYGridSize = source.nebulaYGridSize;
+	target.nebulaZGridSize = source.nebulaZGridSize;
 	target.postChromaticAberrationIntensity = source.postChromaticAberrationIntensity;
 	target.postChromaticAberrationRadius = source.postChromaticAberrationRadius;
 	target.rayleighScatteringBlue = source.rayleighScatteringBlue;

@@ -140,6 +140,11 @@ struct sParamRender
 	bool monteCarloPixelLevelOptimization;
 	bool nebulaInnerEnabled;
 	bool nebulaOuterEnabled;
+	bool nebulaXAxisColorsEnabled;
+	bool nebulaYAxisColorsEnabled;
+	bool nebulaZAxisColorsEnabled;
+	bool nebulaIterationsColorsEnabled;
+	bool nebulaGridDomainEnabled;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
@@ -224,6 +229,9 @@ struct sParamRender
 	float iterFogBrightnessBoost;
 	float monteCarloGIRadianceLimit;
 	float nebulaBrighness;
+	float nebulaXGridSize;
+	float nebulaYGridSize;
+	float nebulaZGridSize;
 	float postChromaticAberrationIntensity;
 	float postChromaticAberrationRadius;
 	float rayleighScatteringBlue;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>2366</height>
+    <height>2643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -628,9 +628,12 @@ bright</string>
        </layout>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_x_axis_colors">
+       <widget class="MyGroupBox" name="groupCheck_nebula_x_axis_colors_enabled">
         <property name="title">
          <string>X axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <property name="spacing">
@@ -659,9 +662,12 @@ bright</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_y_axis_colors">
+       <widget class="MyGroupBox" name="groupCheck_nebula_y_axis_colors_enabled">
         <property name="title">
          <string>Y axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <property name="spacing">
@@ -690,9 +696,12 @@ bright</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_z_axis_colors">
+       <widget class="MyGroupBox" name="groupCheck_nebula_z_axis_colors_enabled">
         <property name="title">
          <string>Z axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <property name="spacing">
@@ -721,9 +730,12 @@ bright</string>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_iterations_colors">
+       <widget class="MyGroupBox" name="groupCheck_nebula_iterations_colors_enabled">
         <property name="title">
          <string>Colors of iterations</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <property name="spacing">
@@ -747,6 +759,63 @@ bright</string>
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_grid_domain_enabled">
+        <property name="title">
+         <string>Domain as grid</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Grid spacing z:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Grid spacing y:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Grid spacing x:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_x_grid_size"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_y_grid_size"/>
+         </item>
+         <item row="2" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_z_grid_size"/>
          </item>
         </layout>
        </widget>
