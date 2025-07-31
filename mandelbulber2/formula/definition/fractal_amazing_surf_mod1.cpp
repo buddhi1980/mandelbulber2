@@ -123,5 +123,10 @@ void cFractalAmazingSurfMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	aux.color += colorAdd;
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += colorAdd;
+	}
 }

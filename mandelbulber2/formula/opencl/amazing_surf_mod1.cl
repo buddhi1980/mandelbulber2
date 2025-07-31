@@ -112,6 +112,11 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
-	aux->color += colorAdd;
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += colorAdd;
+	}
 	return z;
 }

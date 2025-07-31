@@ -113,7 +113,9 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		aux->color += colorAdd;
 	}
