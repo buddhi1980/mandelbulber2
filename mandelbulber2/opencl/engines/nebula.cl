@@ -94,16 +94,27 @@ float3 GetColorFromGradient(float position, bool smooth, int gradientSize, __glo
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *consts,
-	__global char *inBuff, int randomInt)
+	__global char *inBuff, int4 randomInt4)
 {
-	const int index = get_global_id(0);
+	const ulong index = get_global_id(0);
 	int imageSize = consts->params.imageWidth * consts->params.imageHeight;
 
-	int randomSeed = index + randomInt;
+	ulong randomSeedX = randomInt4.x + index;
+	ulong randomSeedY = randomInt4.y + index;
+	ulong randomSeedZ = randomInt4.z + index;
+	ulong randomSeedW = randomInt4.w + index;
 
 	for (int i = 0; i < 10; i++)
 	{
-		int dummy = Random(1000000, &randomSeed);
+		uint dummyx = RandomL(1298117, &randomSeedX);
+		uint dummyy = RandomL(855229, &randomSeedY);
+		uint dummyz = RandomL(473167, &randomSeedZ);
+		uint dummyw = RandomL(672131, &randomSeedW);
+
+		randomSeedX += dummyx;
+		randomSeedY += dummyy;
+		randomSeedZ += dummyz;
+		randomSeedW += dummyw;
 	}
 
 	//-------- decode main data file ----------------
@@ -127,9 +138,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	float4 point;
 
 #ifdef LIMITS_ENABLED
-	point.x = Random(2147483647, &randomSeed) / 2147483647.0f;
-	point.y = Random(2147483647, &randomSeed) / 2147483647.0f;
-	point.z = Random(2147483647, &randomSeed) / 2147483647.0f;
+	point.x = RandomL(2147483647, &randomSeedX) / 2147483647.0f;
+	point.y = RandomL(2147483647, &randomSeedY) / 2147483647.0f;
+	point.z = RandomL(2147483647, &randomSeedZ) / 2147483647.0f;
 
 	float3 limitMax = consts->params.limitMax;
 	float3 limitMin = consts->params.limitMin;
@@ -137,16 +148,16 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	// scale point to limits
 	point.xyz = point.xyz * (limitMax - limitMin) + limitMin;
 #else
-	point.x = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
-	point.y = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
-	point.z = (Random(2147483647, &randomSeed) / 1073741823.0f - 1.0f) * 2.0f;
+	point.x = (RandomL(2147483647, &randomSeedX) / 1073741823.0f - 1.0f) * 2.0f;
+	point.y = (RandomL(2147483647, &randomSeedY) / 1073741823.0f - 1.0f) * 2.0f;
+	point.z = (RandomL(2147483647, &randomSeedZ) / 1073741823.0f - 1.0f) * 2.0f;
 
 	float3 limitMax = 2.0f;
 	float3 limitMin = -2.0f;
 #endif
 
 #ifdef NEBULA_GRID_DOMAIN_ENABLED
-	int axisSelection = Random(3, &randomSeed);
+	int axisSelection = RandomL(3, &randomSeedW);
 
 	switch (axisSelection)
 	{

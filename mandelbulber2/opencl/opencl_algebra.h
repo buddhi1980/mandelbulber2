@@ -226,7 +226,6 @@ inline float opSmoothUnion(float d1, float d2, float k)
 int RandomInt(int *randomSeed)
 {
 	int s = *randomSeed;
-	int i = 0;
 	//	int const a = 15484817;
 	//	int const m = 6571759;
 	//	s = ((long)(s * a)) % m;
@@ -235,9 +234,22 @@ int RandomInt(int *randomSeed)
 	return *randomSeed = s;
 }
 
+uint RandomLong(ulong *randomSeed)
+{
+	ulong s = *randomSeed;
+	s = (s * 0x5DEECE66DL + 0xBL) & ((1L << 48) - 1);
+	*randomSeed = s;
+	return s >> 16;
+}
+
 int Random(int max, int *randomSeed)
 {
 	return RandomInt(randomSeed) % (max + 1);
+}
+
+uint RandomL(uint max, ulong *randomSeed)
+{
+	return RandomLong(randomSeed) % (max + 1);
 }
 
 inline float3 vectorMod(float3 vector1, float3 vector2)

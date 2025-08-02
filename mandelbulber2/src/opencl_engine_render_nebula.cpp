@@ -139,16 +139,11 @@ void cOpenClEngineRenderNebula::SetParameters(
 		default: break;
 	}
 
-	if (paramRender->nebulaXAxisColorsEnabled)
-		definesCollector += " -DNEBULA_X_AXIS_COLORS";
-	if (paramRender->nebulaYAxisColorsEnabled)
-		definesCollector += " -DNEBULA_Y_AXIS_COLORS";
-	if (paramRender->nebulaZAxisColorsEnabled)
-		definesCollector += " -DNEBULA_Z_AXIS_COLORS";
-	if(paramRender->nebulaIterationsColorsEnabled)
-		definesCollector += " -DNEBULA_ITERATIONS_COLORS";
-	if (paramRender->nebulaGridDomainEnabled)
-		definesCollector += " -DNEBULA_GRID_DOMAIN_ENABLED";
+	if (paramRender->nebulaXAxisColorsEnabled) definesCollector += " -DNEBULA_X_AXIS_COLORS";
+	if (paramRender->nebulaYAxisColorsEnabled) definesCollector += " -DNEBULA_Y_AXIS_COLORS";
+	if (paramRender->nebulaZAxisColorsEnabled) definesCollector += " -DNEBULA_Z_AXIS_COLORS";
+	if (paramRender->nebulaIterationsColorsEnabled) definesCollector += " -DNEBULA_ITERATIONS_COLORS";
+	if (paramRender->nebulaGridDomainEnabled) definesCollector += " -DNEBULA_GRID_DOMAIN_ENABLED";
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -348,7 +343,8 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	err = clKernels.at(deviceIndex)->setArg(argIterator++, std::rand()); // random seed
+	cl_int4 randomSeed4 = {std::rand(), std::rand(), std::rand(), std::rand()};
+	err = clKernels.at(deviceIndex)->setArg(argIterator++, randomSeed4); // random seed
 	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 	{
 		emit showErrorMessage(
@@ -450,6 +446,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		double processingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
 
 		float brightness = brighnessMultiplier / totalSamplesCounter / sqrt(constantInBuffer->params.N);
+		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
 
 		nextRefreshCounter--;
 
@@ -487,7 +484,6 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 					image->PutPixelAlpha(x, y, 65535);
 				}
 			}
-
 			image->CompileImage();
 
 			signalSmallPartRendered(processingTime);
