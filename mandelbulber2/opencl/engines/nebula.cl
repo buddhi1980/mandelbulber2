@@ -97,13 +97,35 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	__global char *inBuff, int4 randomInt4)
 {
 	const ulong index = get_global_id(0);
+	const ulong groupId = get_group_id(0);
+	const ulong workGroupSize = get_local_size(0);
+	const ulong offset = get_global_offset(0);
+	ulong gripIdGlobal = groupId + offset / workGroupSize;
+
+	// calculation is done by blocks of 16x16x16 to reduce variety of calculations within one
+	// workgroup
+	const blockGridSize = 16;
+	const numberOfBlocks = blockGridSize * blockGridSize * blockGridSize;
+
+	uint blockId = (uint)(gripIdGlobal % numberOfBlocks);
+	uint blockX = (blockId % blockGridSize);
+	uint blockY = (uint)(blockId / blockGridSize) % blockGridSize;
+	uint blockZ = (uint)(blockId / (blockGridSize * blockGridSize)) % blockGridSize;
+
+	float blockSize = 1.0f / blockGridSize;
+	float blockOffsetX = (float)blockX * blockSize;
+	float blockOffsetY = (float)blockY * blockSize;
+	float blockOffsetZ = (float)blockZ * blockSize;
+
 	int imageSize = consts->params.imageWidth * consts->params.imageHeight;
 
+	// preparation of random seeds
 	ulong randomSeedX = randomInt4.x + index;
 	ulong randomSeedY = randomInt4.y + index;
 	ulong randomSeedZ = randomInt4.z + index;
 	ulong randomSeedW = randomInt4.w + index;
 
+	//-------- random seed randomization ----------------
 	for (int i = 0; i < 10; i++)
 	{
 		uint dummyx = RandomL(1298117, &randomSeedX);
@@ -138,9 +160,9 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	float4 point;
 
 #ifdef LIMITS_ENABLED
-	point.x = RandomL(2147483647, &randomSeedX) / 2147483647.0f;
-	point.y = RandomL(2147483647, &randomSeedY) / 2147483647.0f;
-	point.z = RandomL(2147483647, &randomSeedZ) / 2147483647.0f;
+	point.x = RandomL(2147483647, &randomSeedX) / 2147483647.0f * blockSize + blockOffsetX;
+	point.y = RandomL(2147483647, &randomSeedY) / 2147483647.0f * blockSize + blockOffsetY;
+	point.z = RandomL(2147483647, &randomSeedZ) / 2147483647.0f * blockSize + blockOffsetZ;
 
 	float3 limitMax = consts->params.limitMax;
 	float3 limitMin = consts->params.limitMin;
@@ -148,9 +170,12 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	// scale point to limits
 	point.xyz = point.xyz * (limitMax - limitMin) + limitMin;
 #else
-	point.x = (RandomL(2147483647, &randomSeedX) / 1073741823.0f - 1.0f) * 2.0f;
-	point.y = (RandomL(2147483647, &randomSeedY) / 1073741823.0f - 1.0f) * 2.0f;
-	point.z = (RandomL(2147483647, &randomSeedZ) / 1073741823.0f - 1.0f) * 2.0f;
+	point.x =
+		(RandomL(2147483647, &randomSeedX) / 2147483647.0f * blockSize + blockOffsetX - 0.5f) * 4.0f;
+	point.y =
+		(RandomL(2147483647, &randomSeedY) / 2147483647.0f * blockSize + blockOffsetY - 0.5f) * 4.0f;
+	point.z =
+		(RandomL(2147483647, &randomSeedZ) / 2147483647.0f * blockSize + blockOffsetZ - 0.5f) * 4.0f;
 
 	float3 limitMax = 2.0f;
 	float3 limitMin = -2.0f;

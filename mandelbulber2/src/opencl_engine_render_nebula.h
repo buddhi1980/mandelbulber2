@@ -38,7 +38,7 @@ public:
 	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool WriteBuffersToQueue();
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
-	bool ProcessQueue();
+	bool ProcessQueue(qint64 offset);
 	bool Render(std::shared_ptr<cImage> image, bool *stopRequest);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;

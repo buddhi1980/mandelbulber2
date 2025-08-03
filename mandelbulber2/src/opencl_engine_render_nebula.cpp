@@ -356,12 +356,12 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	return true;
 }
 
-bool cOpenClEngineRenderNebula::ProcessQueue()
+bool cOpenClEngineRenderNebula::ProcessQueue(qint64 offset)
 {
 	optimalJob.stepSize = jobSize;
 
 	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
-		*clKernels.at(0), cl::NDRange(0), cl::NDRange(optimalJob.stepSize), cl::NullRange);
+		*clKernels.at(0), cl::NDRange(offset), cl::NDRange(optimalJob.stepSize), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
@@ -430,7 +430,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		if (!AssignParametersToKernel(0)) return false;
 
 		// processing queue
-		if (!ProcessQueue()) return false;
+		if (!ProcessQueue(totalSamplesCounter)) return false;
 
 		double percentDone = double(totalSamplesCounter) / maxSamples;
 		emit updateProgressAndStatus(tr("OpenCl - rendering nebula"),
