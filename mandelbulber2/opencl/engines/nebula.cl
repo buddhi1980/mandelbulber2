@@ -104,8 +104,8 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	// calculation is done by blocks of 16x16x16 to reduce variety of calculations within one
 	// workgroup
-	const blockGridSize = 16;
-	const numberOfBlocks = blockGridSize * blockGridSize * blockGridSize;
+	const uint blockGridSize = max(consts->params.imageHeight / 64, 1);
+	const uint numberOfBlocks = blockGridSize * blockGridSize * blockGridSize;
 
 	uint blockId = (uint)(gripIdGlobal % numberOfBlocks);
 	uint blockX = (blockId % blockGridSize);
