@@ -30,7 +30,6 @@ cFractalTransfJuliaboxV2::cFractalTransfJuliaboxV2() : cAbstractFractal()
 
 void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	double colorAdd = 0.0;
 
 	CVector4 oldZ = z;
@@ -138,6 +137,7 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (zCol.z > 0.0)
 				colorAdd += fractal->foldColor.difs0000.z * zCol.z;
 		}
+
 		if (aux.i >= fractal->transformCommon.startIterationsK
 				&& aux.i < fractal->transformCommon.stopIterationsK)
 		{
@@ -148,6 +148,15 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			colorAdd += fractal->mandelbox.color.factorSp1 * m;
 		}
 
-		aux.color += colorAdd;
+		if (!fractal->foldColor.auxColorEnabledAFalse)
+		{
+			aux.color += colorAdd + fractal->foldColor.difs0;
+		}
+		else
+		{
+			if (aux.i % fractal->transformCommon.int2 == 0)
+				aux.color += colorAdd + fractal->foldColor.difs0;
+		}
+		//aux.color += colorAdd;
 	}
 }

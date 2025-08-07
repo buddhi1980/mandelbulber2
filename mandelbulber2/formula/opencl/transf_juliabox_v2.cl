@@ -133,7 +133,16 @@ REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			colorAdd += fractal->mandelbox.color.factorSp1 * m;
 		}
 
-		aux->color += colorAdd;
+		if (!fractal->foldColor.auxColorEnabledAFalse)
+		{
+			aux->color += colorAdd + fractal->foldColor.difs0;
+		}
+		else
+		{
+			if (aux->i % fractal->transformCommon.int2 == 0) aux->color += colorAdd + fractal->foldColor.difs0;
+		}
+
+		//aux->color += colorAdd;
 	}
 	return z;
 }

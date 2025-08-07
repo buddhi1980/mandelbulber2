@@ -85,4 +85,14 @@ void cFractalTransfAbsSym3::FormulaCode(
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	// scale
+	if (aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+			z *= fractal->transformCommon.scale1;
+			aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + fractal->analyticDE.offset0;
+	}
+
+	// todo cpixel constant
+
 }
