@@ -106,9 +106,11 @@ void cOpenClEngineRenderNebula::SetParameters(
 		}
 	}
 
-	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
-
 	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
+
+	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
+
+	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
