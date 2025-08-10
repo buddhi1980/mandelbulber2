@@ -9425,7 +9425,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="2602" />
         <location filename="../qt/ui_dock_effects.h" line="3735" />
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;X-axis drift speed of the clouds. Controls how fast the noise field moves along +X over time (animation). &lt;/p&gt;&lt;p&gt;Positive = moves toward +X, negative = toward −X; 0 = no motion. &lt;/p&gt;&lt;p&gt;Effective speed scales with Clouds Period. &lt;/p&gt;&lt;p&gt;Use small values (e.g., ±0.001 to ±0.05). &lt;/p&gt;&lt;p&gt;Combine with Y/Z for wind direction.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished" />
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prędkość dryfu chmur wzdłuż osi X. Kontroluje jak szybko pole szumu przesuwa się wzdłuż +X w czasie (animacja). &lt;/p&gt;&lt;p&gt;Dodatnie = przesuwa w stronę +X, ujemne = w stronę −X; 0 = brak ruchu. &lt;/p&gt;&lt;p&gt;Efektywna prędkość skaluje się z Okresem Chmur. &lt;/p&gt;&lt;p&gt;Użyj małych wartości (np. ±0.001 do ±0.05). &lt;/p&gt;&lt;p&gt;Kombinuj z Y/Z dla kierunku wiatru.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2622" />
@@ -9461,7 +9461,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="2884" />
         <location filename="../qt/ui_dock_effects.h" line="3774" />
         <source>Height above the fractal base at which the main cloud layer appears.</source>
-        <translation type="unfinished" />
+        <translation>Wysokość nad podstawą fraktala na której pojawia się główna warstwa chmur.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2896" />
@@ -9509,7 +9509,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="3317" />
         <location filename="../qt/ui_dock_effects.h" line="3834" />
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma correction for the background (colors or texture), applied after Background brightness. &lt;/p&gt;&lt;p&gt;1.0 = no change; &amp;gt;1 brightens midtones; &amp;lt;1 darkens. &lt;/p&gt;&lt;p&gt;Affects only the background, not scene lighting or objects. &lt;/p&gt;&lt;p&gt;Typical range: ~0.8–2.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished" />
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Korekcja gamma dla tła (kolory lub tekstura), zastosowana po Jasności Tła. &lt;/p&gt;&lt;p&gt;1.0 = bez zmian; &amp;gt;1 rozjaśnia półtony; &amp;lt;1 przyciemnia. &lt;/p&gt;&lt;p&gt;Wpływa tylko na tło, nie na oświetlenie sceny lub obiekty. &lt;/p&gt;&lt;p&gt;Typowy zakres: ~0.8–2.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3895" />
@@ -9527,7 +9527,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="3945" />
         <location filename="../qt/ui_dock_effects.h" line="3896" />
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strength of blue Rayleigh scattering for volumetric effects (atmosphere). &lt;/p&gt;&lt;p&gt;Higher values add a blue, angle‑dependent tint around lights (∝ 1 + cos²θ). Set to 0 to disable. &lt;/p&gt;&lt;p&gt;Use with Rayleigh scattering red to balance the effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished" />
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Siła niebieskiego rozpraszania Rayleigh dla efektów objętościowych (atmosfera). &lt;/p&gt;&lt;p&gt;Wyższe wartości dodają niebieski, zależny od kąta odcień wokół świateł (∝ 1 + cos²θ). Ustaw na 0 aby wyłączyć. &lt;/p&gt;&lt;p&gt;Użyj z czerwonym rozpraszaniem Rayleigh aby zbalansować efekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3958" />
@@ -9551,7 +9551,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="3999" />
         <location filename="../qt/ui_dock_effects.h" line="3906" />
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strength of red Mie scattering for volumetric effects (atmosphere). Increases warm, forward‑scattering glow when looking toward the light direction (stronger near beams/god‑rays). &lt;/p&gt;&lt;p&gt;1.0 = noticeable effect; 0 = off. &lt;/p&gt;&lt;p&gt;Use together with Rayleigh scattering blue to balance overall color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished" />
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Siła czerwonego rozpraszania Mie dla efektów objętościowych (atmosfera). Zwiększa ciepłą, rozpraszającą się do przodu poświatę gdy patrzysz w kierunku światła (silniejsza blisko wiązek/promieni bożych). &lt;/p&gt;&lt;p&gt;1.0 = zauważalny efekt; 0 = wyłączone. &lt;/p&gt;&lt;p&gt;Użyj razem z niebieskim rozpraszaniem Rayleigh aby zbalansować ogólny kolor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4050" />
