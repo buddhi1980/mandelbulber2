@@ -166,7 +166,7 @@
     <message>
         <location filename="../qt/file_select_widget.cpp" line="124"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp *.hdr)</source>
-        <translation>Obrazy (*.jpg *.jpeg *.png *.bmp *hdr)</translation>
+        <translation>Obrazy (*.jpg *.jpeg *.png *.bmp *.hdr)</translation>
     </message>
     <message>
         <location filename="../qt/file_select_widget.cpp" line="128"/>
@@ -319,7 +319,7 @@
     <message>
         <location filename="../qt/my_line_edit.cpp" line="244"/>
         <source>Reset vector to default</source>
-        <translation>Zresetuj wektor</translation>
+        <translation>Zresetuj wektor do wartości domyślnych</translation>
     </message>
     <message>
         <source>Reset to default</source>
@@ -380,7 +380,7 @@
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="158"/>
         <source>Refresh all thumbnails</source>
-        <translation>Odśwież wszystkie podglądy</translation>
+        <translation>Odśwież wszystkie miniatury</translation>
     </message>
 </context>
 <context>
@@ -408,12 +408,12 @@
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="95"/>
         <source>Interpolate next keyframes</source>
-        <translation>Interpoluj następne klatki</translation>
+        <translation>Interpoluj następne klatki kluczowe</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="100"/>
         <source>Copy value to all keyframes</source>
-        <translation>Skopiuj wartość do wszystkich klatek</translation>
+        <translation>Skopiuj wartość do wszystkich klatek kluczowych</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="150"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="294"/>
         <source>Refresh all thumbnails</source>
-        <translation>Odśwież wszystkie podglądy</translation>
+        <translation>Odśwież wszystkie miniatury</translation>
     </message>
 </context>
 <context>
@@ -521,7 +521,7 @@
     <message>
         <location filename="../qt/preview_file_dialog.cpp" line="84"/>
         <source>Add to presets</source>
-        <translation>Dodaj do paska narzędzi</translation>
+        <translation>Dodaj do ustawień wstępnych</translation>
     </message>
     <message>
         <location filename="../qt/preview_file_dialog.cpp" line="87"/>
@@ -657,7 +657,7 @@ Note: </source>
     <message>
         <location filename="../qt/primitives_manager.cpp" line="184"/>
         <source>Can&apos;t open file </source>
-        <translation>Nie można otworzyć pliku</translation>
+        <translation>Nie można otworzyć pliku </translation>
     </message>
     <message>
         <source> Fractal ui files can&apos;t be loaded</source>
@@ -673,7 +673,7 @@ Note: </source>
         <location filename="../src/render_job.cpp" line="1202"/>
         <location filename="../src/render_job.cpp" line="1229"/>
         <source>You cannot apply changes during rendering. You will do this after rendering.</source>
-        <translation>Nie możesz nanosić zmian podczas rendowania. Zrobisz to później po renderowaniu.</translation>
+        <translation>Nie możesz nanosić zmian podczas renderowania. Zrobisz to później po renderowaniu.</translation>
     </message>
     <message>
         <source>Reseting view</source>
@@ -755,7 +755,7 @@ Note: </source>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="118"/>
         <source>Custom DE - dIFS Transforms</source>
-        <translation>Własne DE - transfirmacje dIFS</translation>
+        <translation>Własne DE - transformacje dIFS</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="120"/>
@@ -840,7 +840,7 @@ Note: </source>
     <message>
         <location filename="../src/interface.cpp" line="1168"/>
         <source>Negative Z Limit</source>
-        <translation>Ograniczenie dla ujemnych X</translation>
+        <translation>Ograniczenie dla ujemnych Z</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1177"/>
@@ -911,7 +911,7 @@ wskaźnikiem myszy</translation>
     <message>
         <location filename="../src/interface.cpp" line="1247"/>
         <source>Get Julia constant</source>
-        <translation>Pobierz stałą Julia</translation>
+        <translation>Pobierz stałą Julii</translation>
     </message>
     <message>
         <source>Place light #1</source>
@@ -957,7 +957,7 @@ wskaźnikiem myszy</translation>
     <message>
         <location filename="../src/interface.cpp" line="1269"/>
         <source>Wrap Limits around object</source>
-        <translation>Dopasowanie granic do obiektu</translation>
+        <translation>Dopasuj granice do obiektu</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1280"/>
