@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1193</width>
-            <height>799</height>
+            <width>1215</width>
+            <height>817</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -230,7 +230,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on the image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will appear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the action performed when clicking on the image.&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;No action&lt;/span&gt; – disables mouse click actions.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Move the camera&lt;/span&gt; – moves the camera or target (depends on movement/rotation mode).&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Set fog visibility&lt;/span&gt; – sets the visibility distance for the basic fog effect.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Set DOF focus&lt;/span&gt; – sets the focal distance/object for depth of field.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Get Julia constant&lt;/span&gt; – samples the Julia constant from the clicked point.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Place light #n&lt;/span&gt; – places the selected light at the clicked point. &lt;br/&gt;Ctrl + Mouse wheel: move light forward/backward &lt;br/&gt;Alt + Mouse wheel: adjust placement depth&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Place primitive&lt;/span&gt; – places the selected primitive at the clicked point.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Place center of random light&lt;/span&gt; – sets the distribution center for random lights.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Get coordinates&lt;/span&gt; – shows 3D coordinates and distance at the clicked point.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wrap limits around object&lt;/span&gt; – adjusts render limits to the clicked object.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Flight speed control&lt;/span&gt; – LMB: speed up, RMB: slow down, arrows: strafe, Z/X: roll, Space: pause, Shift: orthogonal move.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <item>
               <property name="text">
@@ -437,7 +437,7 @@
      <x>0</x>
      <y>0</y>
      <width>1422</width>
-     <height>19</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -609,8 +609,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>136</height>
+          <width>73</width>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -724,8 +724,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>137</height>
+          <width>73</width>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -791,8 +791,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>135</height>
+          <width>73</width>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -858,8 +858,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>137</height>
+          <width>73</width>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1027,8 +1027,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>316</width>
-          <height>84</height>
+          <width>370</width>
+          <height>73</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -1094,8 +1094,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>322</height>
+          <width>89</width>
+          <height>319</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1155,8 +1155,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>136</height>
+          <width>73</width>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1234,8 +1234,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>338</height>
+          <width>73</width>
+          <height>359</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">

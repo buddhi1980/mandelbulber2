@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>337</width>
+    <width>338</width>
     <height>1257</height>
    </rect>
   </property>
@@ -225,6 +225,9 @@
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_antialiasing_enabled">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Enable anti-aliasing (supersampling) to reduce jagged edges and shimmering.&lt;/p&gt; &lt;p&gt;How it works: - Renders multiple subpixel samples per pixel and averages them. - “Number of samples (n × n)” sets the subpixel grid; total samples per pixel = n² (e.g., 2 × 2 = 4 samples).&lt;/p&gt; &lt;p&gt;Notes: - Improves edge smoothness and animation stability (less flicker). - Increases render time approximately proportional to n². - Uncheck to disable anti-aliasing entirely.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="title">
          <string>Anti-aliasin&amp;g</string>
         </property>
@@ -267,6 +270,9 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Set the anti-aliasing sample grid size (n).&lt;/p&gt; &lt;p&gt;Each pixel is sampled on an n × n subpixel grid and averaged; total samples per pixel = n².&lt;/p&gt; &lt;p&gt;Notes: - 1 = no supersampling (fastest). - Higher n reduces jagged edges and shimmering but increases render time roughly by n². - Takes effect only when Anti-aliasing is enabled.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="minimum">
               <number>1</number>
              </property>
@@ -285,6 +291,9 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Select the total number of OpenCL anti-aliasing samples per pixel.&lt;/p&gt; &lt;p&gt;Use in OpenCL anti-aliasing mode only. Higher values reduce jaggies and shimmering but increase render time roughly proportionally.&lt;/p&gt; &lt;p&gt;Options (samples/pixel): 5, 9, 45, 81, 405, 729.&lt;/p&gt; &lt;p&gt;Notes: - Effective only when OpenCL AA is enabled; the regular “n × n” grid is ignored in this mode. - With “Adaptive (faster)” enabled, fewer samples may be used in low-detail areas.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <item>
               <property name="text">
@@ -333,6 +342,9 @@
            </item>
            <item row="2" column="0" colspan="2">
             <widget class="MyCheckBox" name="checkBox_antialiasing_adaptive">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adaptive anti-aliasing (OpenCL): vary samples per pixel based on image detail to speed up rendering.&lt;/p&gt;&lt;p&gt;Behavior: - Uses fewer samples in flat/low-contrast areas; uses up to the selected maximum near edges and fine detail. - Usually faster with minimal quality loss, but may increase noise or flicker in animations.&lt;/p&gt;&lt;p&gt;Notes: - Effective only in OpenCL anti-aliasing mode; ignored in regular n × n CPU AA. - “Number of samples (OpenCL mode)” sets the maximum samples per pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Adaptive (faster)</string>
              </property>
@@ -932,7 +944,7 @@ no ambient occlusion)</string>
       <item>
        <widget class="MyCheckBox" name="checkBox_hdr">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range effect. Reduces brightness of the brightest pixels to prevent oversaturation.&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Enable High Dynamic Range (HDR) tone mapping to preserve highlight and shadow detail.&lt;/p&gt; &lt;p&gt;What it does: - Compresses very bright pixels to prevent clipping/oversaturation. - Improves perceived contrast while retaining details.&lt;/p&gt; &lt;p&gt;Notes: - Post-effect on the rendered image; it doesn’t change scene lighting. - Works together with Brightness/Contrast/Gamma and Saturation controls.&lt;/p&gt; &lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;Apply changes&lt;/span&gt; to update the image.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>High Dynamic Range (HDR)</string>

@@ -67,6 +67,9 @@
      </item>
      <item row="2" column="0" colspan="2">
       <widget class="QPushButton" name="pushButton_openNavigator">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Open a new Navigator window initialized with the current scene and camera for interactive navigation and view selection.&lt;/p&gt; &lt;p&gt;Notes: - You can open multiple Navigator windows. - Close the Navigator when finished to free resources.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Open new navigator</string>
        </property>
@@ -118,6 +121,9 @@
          <horstretch>3</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Temporarily downscale rendering resolution for faster previews.&lt;/p&gt; &lt;p&gt;Options: - 1 = full resolution (no downscale). - 1/2, 1/4, … 1/64 = render with width and height divided by 2, 4, … 64 (roughly N² speedup).&lt;/p&gt; &lt;p&gt;Notes: - Affects only temporary/preview renders; image_width/height and saved outputs are unchanged. - Useful during navigation and Auto refresh; set back to 1 for final quality renders.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="sizeAdjustPolicy">
         <enum>QComboBox::AdjustToMinimumContentsLength</enum>
@@ -226,6 +232,9 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically re-render the image when any setting changes.&lt;/p&gt;&lt;p&gt;Behavior: - Checks for changes at a fixed interval and starts a new render only if parameters changed. &lt;/p&gt;&lt;p&gt;Tips: - The interval is set in Preferences → Image auto-refresh period. - For faster previews, combine with Temporary scale (e.g., 1/4, 1/8); set back to 1 for final renders. - May increase CPU/GPU usage; turn off for manual control.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>Auto-refresh</string>
      </property>
@@ -297,8 +306,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>268</width>
-        <height>806</height>
+        <width>273</width>
+        <height>838</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -355,7 +364,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_cameraPosition">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Camera world coordinates (position of the viewpoint).&lt;/p&gt; &lt;p&gt;Set X, Y, Z to move the camera. You can also use the navigation buttons or mouse controls to update these values interactively.&lt;/p&gt; &lt;p&gt;Notes: - Works together with Target and Rotation to define the view. - With Auto refresh enabled the image re-renders after changes; otherwise click Render.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="title">
                <string>Camera</string>
@@ -473,7 +482,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_targetPosition">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of target&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;World coordinates of the target (the point the camera looks at).&lt;/p&gt; &lt;p&gt;Set X, Y, Z to aim the camera without moving its position. Adjusting the target changes the view direction; the camera–target distance updates accordingly.&lt;/p&gt; &lt;p&gt;Tips: - Combine with Camera and Rotation for precise framing. - Use navigation buttons in “Move target” mode to shift the target interactively. - With Auto refresh enabled the image re-renders after changes; otherwise click Render.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="title">
                <string>Target</string>

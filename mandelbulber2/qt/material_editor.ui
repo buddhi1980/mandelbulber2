@@ -33,6 +33,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+       <property name="toolTip">
+        <string>Restores all material parameters in the editor to their default values. </string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -40,6 +43,9 @@
      </item>
      <item>
       <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_7">
+       <property name="toolTip">
+        <string>Randomizes material parameters to generate a new, unique material appearance. Useful for exploring creative variations quickly.</string>
+       </property>
        <property name="text">
         <string>Randomize</string>
        </property>
@@ -128,9 +134,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-4137</y>
-        <width>472</width>
-        <height>5252</height>
+        <y>-4350</y>
+        <width>471</width>
+        <height>5463</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -663,7 +669,7 @@ sphere radius:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift along the color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Offset applied to the fractal coloring palette. Shifts the color mapping along the palette, allowing fine-tuning of color distribution on the fractal surface. Used in combination with coloring speed and gradients.</string>
               </property>
               <property name="accelerated">
                <bool>false</bool>
@@ -791,6 +797,7 @@ direction vector:</string>
                 <widget class="QLabel" name="label_88">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -831,6 +838,7 @@ direction vector:</string>
                 <widget class="QLabel" name="label_89">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -899,6 +907,7 @@ direction vector:</string>
                 <widget class="QLabel" name="label_90">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -948,6 +957,7 @@ direction vector:</string>
                 <widget class="QLabel" name="label_64">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1242,6 +1252,7 @@ direction vector:</string>
                     <widget class="QLabel" name="label_78">
                      <property name="font">
                       <font>
+                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1254,6 +1265,7 @@ direction vector:</string>
                     <widget class="QLabel" name="label_81">
                      <property name="font">
                       <font>
+                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1271,6 +1283,7 @@ direction vector:</string>
                       <widget class="QLabel" name="label_62">
                        <property name="font">
                         <font>
+                         <weight>75</weight>
                          <bold>true</bold>
                         </font>
                        </property>
@@ -1349,6 +1362,7 @@ direction vector:</string>
                     <widget class="QLabel" name="label_83">
                      <property name="font">
                       <font>
+                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1366,6 +1380,7 @@ direction vector:</string>
                       <widget class="QLabel" name="label_58">
                        <property name="font">
                         <font>
+                         <weight>50</weight>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -1409,6 +1424,7 @@ direction vector:</string>
                       <widget class="QLabel" name="label_59">
                        <property name="font">
                         <font>
+                         <weight>50</weight>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -1570,6 +1586,7 @@ direction vector:</string>
                     <widget class="QLabel" name="label_84">
                      <property name="font">
                       <font>
+                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -2730,7 +2747,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>Adjusts the influence of the loaded color texture on the material's surface color. A value of 0 uses only the base color; a value of 1 uses only the texture. Intermediate values blend between the two.</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -3668,7 +3685,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of luminosity texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>Controls how much the luminosity texture affects the material's self-illumination. Higher values increase the contribution of the texture to the final luminosity.</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -5555,7 +5572,11 @@ offset:</string>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_x"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_x">
+              <property name="toolTip">
+               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+              </property>
+             </widget>
             </item>
             <item row="11" column="0" colspan="3">
              <widget class="MyCheckBox" name="checkBox_perlin_noise_abs">
@@ -5565,13 +5586,20 @@ offset:</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>f enabled, uses the absolute value of the Perlin noise, resulting in a mirrored, always-positive pattern for certain effects.</string>
+              </property>
               <property name="text">
                <string>abs() function</string>
               </property>
              </widget>
             </item>
             <item row="5" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_y"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_y">
+              <property name="toolTip">
+               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+              </property>
+             </widget>
             </item>
             <item row="1" column="0" rowspan="3">
              <widget class="QLabel" name="label_115">
@@ -5596,7 +5624,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5627,7 +5655,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of diffusion texture. Higher value will simulate more polished surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Adds a constant offset to the Perlin noise value before applying it, useful for biasing the effect or controlling thresholds.</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5686,7 +5714,11 @@ offset:</string>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_y"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_y">
+              <property name="toolTip">
+               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+              </property>
+             </widget>
             </item>
             <item row="10" column="0">
              <widget class="QLabel" name="label_7">
@@ -5719,6 +5751,9 @@ offset:</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>Sets the number of octaves (layers) for Perlin noise, increasing the complexity and detail of the noise pattern.</string>
+              </property>
               <property name="minimum">
                <number>1</number>
               </property>
@@ -5744,7 +5779,11 @@ offset:</string>
              </widget>
             </item>
             <item row="6" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_z"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_z">
+              <property name="toolTip">
+               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+              </property>
+             </widget>
             </item>
             <item row="8" column="2">
              <widget class="MyDoubleSpinBox" name="spinboxd3_perlin_noise_rotation_y">
@@ -5755,7 +5794,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5778,7 +5817,11 @@ offset:</string>
              </widget>
             </item>
             <item row="3" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_z"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_z">
+              <property name="toolTip">
+               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+              </property>
+             </widget>
             </item>
             <item row="1" column="1">
              <widget class="QLabel" name="label_135">
@@ -5791,7 +5834,11 @@ offset:</string>
              </widget>
             </item>
             <item row="4" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_x"/>
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_x">
+              <property name="toolTip">
+               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+              </property>
+             </widget>
             </item>
             <item row="9" column="2">
              <widget class="MyDoubleSpinBox" name="spinboxd3_perlin_noise_rotation_z">
@@ -5802,7 +5849,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
               </property>
               <property name="prefix">
                <string/>

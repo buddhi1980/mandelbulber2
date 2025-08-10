@@ -469,6 +469,9 @@ with image resolution</string>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_nebula_mode">
+     <property name="toolTip">
+      <string>Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.</string>
+     </property>
      <property name="title">
       <string>Nebula fractals</string>
      </property>
@@ -549,6 +552,9 @@ bright</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.</string>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -558,13 +564,14 @@ bright</string>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MyLineEdit" name="logedit_nebula_brightness"/>
+         <widget class="MyLineEdit" name="logedit_nebula_brightness">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Sets the brightness of the nebula effect. Use the auto buttons to adjust based on current image brightness.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
         </item>
         <item row="4" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_nebula_inner_enabled">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
           <property name="text">
            <string>Inner fractal iterations</string>
           </property>
@@ -572,16 +579,17 @@ bright</string>
         </item>
         <item row="3" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_nebula_outer_enabled">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
           <property name="text">
            <string>Outer fractal iterations</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel"/>
+         <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel">
+          <property name="toolTip">
+           <string>Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
@@ -629,6 +637,9 @@ bright</string>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_nebula_x_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the X axis position.</string>
+        </property>
         <property name="title">
          <string>X axis colors</string>
         </property>
@@ -663,6 +674,9 @@ bright</string>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_nebula_y_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the Y axis position.</string>
+        </property>
         <property name="title">
          <string>Y axis colors</string>
         </property>
@@ -697,6 +711,9 @@ bright</string>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_nebula_z_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the Z axis position.</string>
+        </property>
         <property name="title">
          <string>Z axis colors</string>
         </property>
@@ -731,6 +748,9 @@ bright</string>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_nebula_iterations_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the number of fractal iterations.</string>
+        </property>
         <property name="title">
          <string>Colors of iterations</string>
         </property>
@@ -765,6 +785,9 @@ bright</string>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_nebula_grid_domain_enabled">
+        <property name="toolTip">
+         <string>Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.</string>
+        </property>
         <property name="title">
          <string>Domain as grid</string>
         </property>
@@ -809,13 +832,25 @@ bright</string>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="MyLineEdit" name="logedit_nebula_x_grid_size"/>
+          <widget class="MyLineEdit" name="logedit_nebula_x_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the X axis for nebula domain calculation.</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
-          <widget class="MyLineEdit" name="logedit_nebula_y_grid_size"/>
+          <widget class="MyLineEdit" name="logedit_nebula_y_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the Y axis for nebula domain calculation.</string>
+           </property>
+          </widget>
          </item>
          <item row="2" column="1">
-          <widget class="MyLineEdit" name="logedit_nebula_z_grid_size"/>
+          <widget class="MyLineEdit" name="logedit_nebula_z_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the Z axis for nebula domain calculation.</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -825,6 +860,9 @@ bright</string>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_advanced_quality">
+     <property name="toolTip">
+      <string>Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.</string>
+     </property>
      <property name="title">
       <string>Advanced &amp;quality settings</string>
      </property>
@@ -989,6 +1027,9 @@ of raymarching steps</string>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.</string>
           </property>
           <property name="minimum">
            <number>1</number>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>419</width>
+    <width>473</width>
     <height>896</height>
    </rect>
   </property>
@@ -169,8 +169,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>424</width>
+                <height>801</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1" stretch="1,0">
@@ -238,8 +238,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -297,8 +297,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -356,8 +356,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -415,8 +415,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -474,8 +474,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -533,8 +533,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -592,8 +592,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -651,8 +651,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -758,9 +758,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>276</width>
-            <height>857</height>
+            <y>-61</y>
+            <width>417</width>
+            <height>915</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -813,6 +813,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Assign a material to the current fractal/formula.&lt;/p&gt; &lt;p&gt;The material defines the surface appearance during rendering (color, shading, reflectance, roughness, transparency, textures, emission, etc.).&lt;/p&gt; &lt;p&gt;How to use: - Click the material thumbnail/name to open the Material manager. - Choose an existing material or edit it; the label shows the material name and ID [matN].&lt;/p&gt; &lt;p&gt;Scope: - Applies to this fractal only; in hybrid/boolean setups each fractal can have its own material and the final look depends on how they are combined.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -947,7 +950,7 @@
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Julia constant can be grabbed from image.&lt;/p&gt;&lt;p&gt;When Julia mode is disabled, select part of fractal which has interesting features. After enabling Julia mode, entire fractal will have shapes similar to previously selected place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pick Julia constant (C) from the rendered image.&lt;/p&gt;&lt;p&gt;When Julia mode is disabled, select point of fractal which has interesting features. It assigns its coordinates to the Julia constant fields (C.x, C.y, C.z).&lt;/p&gt;&lt;p&gt;After enabling Julia mode, entire fractal will have shapes similar to previously selected place.&lt;/p&gt;&lt;p&gt;Notes: - Works with formulas that support Julia mode; enable Julia mode to see the effect immediately. - The mouse function switches to “Get Julia constant”; change the mouse function to exit picking.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Get Julia constant by mouse pointer</string>
@@ -2295,8 +2298,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>257</width>
-            <height>227</height>
+            <width>432</width>
+            <height>854</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
