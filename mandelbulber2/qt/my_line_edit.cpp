@@ -532,3 +532,56 @@ void MyLineEdit::UpdateScriptAppearance(bool hasScript)
 	else
 		setStyleSheet(qobject_cast<QWidget *>(this->parent())->styleSheet());
 }
+
+// Add this method to MyLineEdit
+
+void MyLineEdit::keyPressEvent(QKeyEvent *event)
+{
+	if (slider) // Only for numeric fields
+	{
+		double change = 1.0;
+		switch (precision)
+		{
+			case enumSliderPrecision::precisionSuperFine: change = 0.00001; break; // 0.1%
+			case enumSliderPrecision::precisionVeryFine: change = 0.0001; break;	 // 0.5%
+			case enumSliderPrecision::precisionFine: change = 0.001; break;				 // 1%
+			case enumSliderPrecision::precisionNormal: change = 0.01; break;			 // 10%
+			case enumSliderPrecision::precisionCoarse: change = 0.1; break;				 // 50%
+			default: change = 0.1; break;
+		}
+
+		double value = systemData.locale.toDouble(text());
+		if (event->key() == Qt::Key_Up)
+		{
+			// if shift pressed
+			if (event->modifiers() & Qt::ShiftModifier)
+			{
+				value += change;
+			}
+			else
+			{
+				value *= (1.0 + change);
+			}
+			setText(QString("%L1").arg(value, 0, 'g', 15));
+			emit returnPressed();
+			event->accept();
+			return;
+		}
+		else if (event->key() == Qt::Key_Down)
+		{
+			if (event->modifiers() & Qt::ShiftModifier)
+			{
+				value -= change;
+			}
+			else
+			{
+				value *= (1.0 - change);
+			}
+			setText(QString("%L1").arg(value, 0, 'g', 15));
+			emit returnPressed();
+			event->accept();
+			return;
+		}
+	}
+	QLineEdit::keyPressEvent(event);
+}
