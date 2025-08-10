@@ -9461,7 +9461,7 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="2884" />
         <location filename="../qt/ui_dock_effects.h" line="3774" />
         <source>Height above the fractal base at which the main cloud layer appears.</source>
-        <translation>Wysokość nad podstawą fraktala na której pojawia się główna warstwa chmur.</translation>
+        <translation type="unfinished" />
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2896" />
