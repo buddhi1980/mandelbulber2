@@ -154,7 +154,7 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}
 		else
 		{
-			if (aux.i % fractal->transformCommon.int2 == 0)
+			if ((fractal->foldColor.int0 + aux.i) % fractal->foldColor.int2 == 0)
 				aux.color += colorAdd + fractal->foldColor.difs0;
 		}
 		//aux.color += colorAdd;

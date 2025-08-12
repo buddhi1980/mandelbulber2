@@ -75,7 +75,7 @@ void cFractalTransfAbsSym3::FormulaCode(
 	{
 		if (fractal->transformCommon.functionEnabledCx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledCx) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledCz) z.z = fabs(z.z);
 		z += fractal->transformCommon.offsetF000;
 	}
 

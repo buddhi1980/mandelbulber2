@@ -63,7 +63,7 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		if (fractal->transformCommon.functionEnabledCx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledCx) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledCz) z.z = fabs(z.z);
 		z += fractal->transformCommon.offsetF000;
 	}
 

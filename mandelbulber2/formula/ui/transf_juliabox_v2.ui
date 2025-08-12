@@ -1985,6 +1985,36 @@ offset:</string>
        </widget>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_23" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label_103">
+          <property name="text">
+           <string>iteradd iter </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MySpinBox" name="spinboxInt_fold_color_int_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="0,1">
         <item>
          <widget class="QLabel" name="label_102">
@@ -1994,7 +2024,7 @@ offset:</string>
          </widget>
         </item>
         <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_int_2">
+         <widget class="MySpinBox" name="spinboxInt_fold_color_int_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
