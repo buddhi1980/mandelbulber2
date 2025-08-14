@@ -19,22 +19,23 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (!fractal->transformCommon.functionEnabledDFalse
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
+		REAL temp;
 		REAL4 zc = fabs(z);
 		if (zc.y > zc.x)
 		{
-			REAL temp = zc.x;
+			temp = zc.x;
 			zc.x = zc.y;
 			zc.y = temp;
 		}
 		if (zc.z > zc.x)
 		{
-			REAL temp = zc.x;
+			temp = zc.x;
 			zc.x = zc.z;
 			zc.z = temp;
 		}
 		if (zc.y > zc.x)
 		{
-			REAL temp = zc.x;
+			temp = zc.x;
 			zc.x = zc.y;
 			zc.y = temp;
 		}

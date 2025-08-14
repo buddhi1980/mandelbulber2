@@ -18,8 +18,72 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	REAL colorAdd = 0.0f;
 	REAL4 oldZ = z;
-	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 
+	// DE (create first sphere at origin)
+	REAL colorDist = aux->dist;
+	REAL4 zc = z;
+
+	// sphere
+	if (aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations)
+	{
+		REAL vecLen;
+		if (!fractal->transformCommon.functionEnabled4dFalse)
+		{
+			REAL3 vec3 = (REAL3){zc.x, zc.y, zc.z};
+			vecLen = length(vec3);
+		}
+		else
+			vecLen = length(zc);
+
+		REAL spD = vecLen - fractal->transformCommon.offsetR1;
+		aux->dist = min(aux->dist, spD / aux->DE);
+	}
+	// torus
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT)
+	{
+		REAL torD;
+
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
+		}
+
+		REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+
+		aux->dist = min(aux->dist, torD / aux->DE);
+	}
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
+		}
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux->dist) aux->color = colorAdd + (aux->i * fractal->foldColor.difs1);
+		}
+		else
+		{
+			aux->color += colorAdd;
+		}
+	}
+
+	// trandforms create newz and new DE for next iteration (hmm aux.r wrong in main)
+	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -150,62 +214,6 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	// DE
-	REAL colorDist = aux->dist;
-	REAL4 zc = oldZ;
 
-	// sphere
-	if (aux->i >= fractal->transformCommon.startIterations
-			&& aux->i < fractal->transformCommon.stopIterations)
-	{
-		REAL vecLen;
-		if (!fractal->transformCommon.functionEnabled4dFalse)
-		{
-			REAL3 vec3 = (REAL3){zc.x, zc.y, zc.z};
-			vecLen = length(vec3);
-		}
-		else
-			vecLen = length(zc);
-
-		REAL spD = vecLen - fractal->transformCommon.offsetR1;
-		aux->dist = min(aux->dist, spD / aux->DE);
-	}
-	// torus
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT)
-	{
-		REAL torD;
-
-		// swap axis
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
-
-		REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-		torD = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
-
-		aux->dist = min(aux->dist, torD / aux->DE);
-	}
-
-	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux->dist) aux->color += colorAdd;
-		}
-		else
-			aux->color += colorAdd;
-	}
 	return z;
 }
