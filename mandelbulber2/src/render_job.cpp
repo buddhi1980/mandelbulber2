@@ -643,7 +643,7 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		busyOpenCl = false;
 
 		emit updateProgressAndStatus(
-			tr("OpenCl - rendering SSAO finished"), progressText->getText(1.0), 1.0);
+			tr("OpenCl - rendering nebula finished"), progressText->getText(1.0), 1.0);
 	}
 }
 #endif

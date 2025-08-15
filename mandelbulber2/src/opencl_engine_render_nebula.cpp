@@ -495,6 +495,9 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 					image->PutPixelPostImage(x, y, color);
 					image->PutPixelAlpha(x, y, 65535);
+
+					float zDepth = colorCl.s3;
+					image->PutPixelZBuffer(x, y, zDepth);
 				}
 			}
 

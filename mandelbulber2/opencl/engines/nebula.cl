@@ -445,6 +445,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 			{
 				float3 viewVector = z.xyz - camera;
 				viewVector = Matrix33MulFloat3(rotationMatrix, viewVector);
+				float zDepth = length(viewVector);
 
 				viewVector.x /= viewVector.z;
 				viewVector.y /= viewVector.z;
@@ -552,7 +553,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					outPixel.s0 = old.s0 + color.s0;
 					outPixel.s1 = old.s1 + color.s1;
 					outPixel.s2 = old.s2 + color.s2;
-					outPixel.s3 = old.s3 + 1.0f;
+					outPixel.s3 = old.s3 + (zDepth - old.s3) * 0.01f; // depth averaging;
 					inOutImage[screenIndex] = outPixel;
 				}
 			}
