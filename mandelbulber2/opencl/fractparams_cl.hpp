@@ -142,6 +142,7 @@ typedef struct
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
 	cl_int monteCarloPixelLevelOptimization;
+	cl_int nebulaConstantBrighness;
 	cl_int nebulaInnerEnabled;
 	cl_int nebulaOuterEnabled;
 	cl_int nebulaXAxisColorsEnabled;
@@ -358,6 +359,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
 	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
+	target.nebulaConstantBrighness = source.nebulaConstantBrighness;
 	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
 	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
 	target.nebulaXAxisColorsEnabled = source.nebulaXAxisColorsEnabled;

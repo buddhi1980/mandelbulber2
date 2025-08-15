@@ -387,7 +387,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 	quint64 width = image->GetWidth();
 	quint64 height = image->GetHeight();
 
-	float brighnessMultiplier = constantInBuffer->params.nebulaBrighness * width * height;
+	float brighnessMultiplierInit = constantInBuffer->params.nebulaBrighness;
 
 	cProgressText progressText;
 	progressText.ResetTimer();
@@ -411,6 +411,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
+
+	double brightnessMultiplier = brighnessMultiplierInit;
 
 	QElapsedTimer timerForOptimalJobSize;
 	jobSize = optimalJob.workGroupSize * optimalJob.jobSizeMultiplier;
@@ -447,7 +449,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 		double processingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
 
-		float brightness = brighnessMultiplier / totalSamplesCounter / sqrt(constantInBuffer->params.N);
+		float brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
+											 / sqrt(constantInBuffer->params.N);
 		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
 
 		nextRefreshCounter--;
@@ -472,6 +475,9 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			if (!ReadBuffersFromQueue(0)) return false;
 
 			timerForImageRefresh.restart();
+
+			double totalBrigtnessSum = 0.0;
+
 			for (quint64 y = 0; y < height; y++)
 			{
 				for (quint64 x = 0; x < width; x++)
@@ -482,10 +488,23 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 					sRGBFloat color(
 						colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
 
+					if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
+					{
+						totalBrigtnessSum += color.R + color.G + color.B;
+					}
+
 					image->PutPixelPostImage(x, y, color);
 					image->PutPixelAlpha(x, y, 65535);
 				}
 			}
+
+			if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
+			{
+				double averageBrighness = totalBrigtnessSum / (width * height * 3.0);
+				double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
+				brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
+			}
+
 			image->CompileImage();
 
 			signalSmallPartRendered(processingTime);

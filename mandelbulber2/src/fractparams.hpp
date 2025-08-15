@@ -138,6 +138,7 @@ struct sParamRender
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
 	bool monteCarloPixelLevelOptimization;
+	bool nebulaConstantBrighness;
 	bool nebulaInnerEnabled;
 	bool nebulaOuterEnabled;
 	bool nebulaXAxisColorsEnabled;
