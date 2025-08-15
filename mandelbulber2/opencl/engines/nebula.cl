@@ -308,6 +308,13 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		zHistory[i] = z;
 
 #ifdef ITERATION_WEIGHT
+		// temporary copies for iteration weighting (mirrors compute_fractal.cl)
+		float4 tempZ = z;
+		float tempAuxDE = aux.DE;
+		float tempAuxColor = aux.color;
+#endif
+
+#ifdef ITERATION_WEIGHT
 		if (consts->sequence.formulaWeight[sequence] > 0)
 		{
 #endif
