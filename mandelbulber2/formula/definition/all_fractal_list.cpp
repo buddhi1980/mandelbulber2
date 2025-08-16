@@ -590,7 +590,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform2());
 
 	fractalList->append(new cFractalEiffieCar());
-
+	fractalList->append(new cFractalMsltoeToroidalV3());
 	fractalList->append(new cFractalKochV5());
 	fractalList->append(new cFractalKochIfs());
 	fractalList->append(new cFractalPseudoKleinianMod7());
