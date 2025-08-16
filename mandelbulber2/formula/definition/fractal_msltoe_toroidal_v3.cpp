@@ -19,7 +19,7 @@ cFractalMsltoeToroidalV3::cFractalMsltoeToroidalV3() : cAbstractFractal()
 	internalID = fractal::msltoeToroidalV3;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 10.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
@@ -66,7 +66,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
 
 	double rp = pow(r, fractal->bulb.power - 1.0) / fractal->transformCommon.scaleB1;
-	aux.DE = rp * aux.DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
+	aux.DE = rp * aux.DE * (fractal->bulb.power + fractal->analyticDE.offset1) + 1.0;
 	rp *= r;
 
 	phi *= fractal->transformCommon.pwr8;
@@ -90,7 +90,26 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	aux.DE *= fractal->analyticDE.scale1;
 
-	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
+	if (fractal->transformCommon.functionEnabledM
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		CVector4 tempFAB = aux.const_c;
+		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
+
+		tempFAB *= fractal->transformCommon.constantMultiplier111;
+
+		z.x -= sign(z.x) * tempFAB.x;
+		z.y -= sign(z.y) * tempFAB.y;
+		z.z -= sign(z.z) * tempFAB.z;
+	}
+
+
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS) // spherical offset
 	{
 		// double lengthTempZ = -z.Length();
 		//  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
@@ -108,9 +127,16 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
 		else
 			aux.DE0 = 0.0;
-		if (!fractal->transformCommon.functionEnabledCFalse)
+
+		if (!fractal->transformCommon.functionEnabledCFalse
+				&& aux.i >= fractal->analyticDE.startIterationsA
+				&& aux.i < fractal->analyticDE.stopIterationsA)
+		{
 			aux.dist = aux.DE0;
+		}
 		else
+		{
 			aux.dist = min(aux.dist, aux.DE0);
+		}
 	}
 }

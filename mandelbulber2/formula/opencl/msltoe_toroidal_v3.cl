@@ -55,7 +55,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	r = r + (aux->r - r) * fractal->transformCommon.offsetR0;
 
 	REAL rp = pow(r, fractal->bulb.power - 1.0f) / fractal->transformCommon.scaleB1;
-	aux->DE = rp * aux->DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0f;
+	aux->DE = rp * aux->DE * (fractal->bulb.power + fractal->analyticDE.offset1) + 1.0f;
 	rp *= r;
 
 	phi *= fractal->transformCommon.pwr8;
@@ -79,7 +79,30 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	aux->DE *= fractal->analyticDE.scale1;
 
-	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
+
+
+	if (fractal->transformCommon.functionEnabledM
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		REAL4 tempFAB = aux->const_c;
+		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
+
+		tempFAB *= fractal->transformCommon.constantMultiplier111;
+
+		z.x -= sign(z.x) * tempFAB.x;
+		z.y -= sign(z.y) * tempFAB.y;
+		z.z -= sign(z.z) * tempFAB.z;
+	}
+
+
+
+
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS) // spherical offset
 	{
 		// REAL lengthTempZ = -length(z);
 		//  if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
@@ -97,10 +120,16 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
 		else
 			aux->DE0 = 0.0f;
-		if (!fractal->transformCommon.functionEnabledCFalse)
+		if (!fractal->transformCommon.functionEnabledCFalse
+				&& aux->i >= fractal->analyticDE.startIterationsA
+				&& aux->i < fractal->analyticDE.stopIterationsA)
+		{
 			aux->dist = aux->DE0;
+		}
 		else
+		{
 			aux->dist = min(aux->dist, aux->DE0);
+		}
 	}
 	return z;
 }

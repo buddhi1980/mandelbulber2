@@ -500,6 +500,8 @@ typedef struct
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
+	cl_int startIterationsA;
+	cl_int stopIterationsA;
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
@@ -1291,6 +1293,8 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE 
 	target.offset0 = source.offset0;
 	target.offset1 = source.offset1;
 	target.offset2 = source.offset2;
+	target.startIterationsA = source.startIterationsA;
+	target.stopIterationsA = source.stopIterationsA;
 	return target;
 }
 

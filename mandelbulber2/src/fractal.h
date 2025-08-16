@@ -490,6 +490,8 @@ struct sFractalAnalyticDE
 	double offset0;
 	double offset1;
 	double offset2;
+	int startIterationsA;
+	int stopIterationsA;
 };
 
 // common parameters for transforming formulas

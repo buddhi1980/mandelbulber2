@@ -255,6 +255,8 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
+	analyticDE.startIterationsA = container->Get<int>("analyticDE_start_iterations_A");
+	analyticDE.stopIterationsA = container->Get<int>("analyticDE_stop_iterations_A");
 
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledA = container->Get<bool>("fold_color_aux_color_enabledA");

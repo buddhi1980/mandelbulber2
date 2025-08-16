@@ -913,6 +913,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
+	par->addParam("analyticDE_start_iterations_A", 0, morphLinear, paramStandard);
+	par->addParam("analyticDE_stop_iterations_A", 250, morphLinear, paramStandard);
 
 	// color controls
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
