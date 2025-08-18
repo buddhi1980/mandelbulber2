@@ -106,7 +106,6 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.z -= sign(z.z) * tempFAB.z;
 	}
 
-
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS) // spherical offset
@@ -118,7 +117,6 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
-	// then add Cpixel constant vector
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -128,7 +126,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		else
 			aux.DE0 = 0.0;
 
-		if (!fractal->transformCommon.functionEnabledCFalse
+		if (fractal->transformCommon.functionEnabledCFalse
 				&& aux.i >= fractal->analyticDE.startIterationsA
 				&& aux.i < fractal->analyticDE.stopIterationsA)
 		{

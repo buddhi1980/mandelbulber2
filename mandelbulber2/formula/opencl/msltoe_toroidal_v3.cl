@@ -79,8 +79,6 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	aux->DE *= fractal->analyticDE.scale1;
 
-
-
 	if (fractal->transformCommon.functionEnabledM
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
@@ -97,9 +95,6 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.z -= sign(z.z) * tempFAB.z;
 	}
 
-
-
-
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS) // spherical offset
@@ -111,7 +106,6 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z *= fractal->transformCommon.scale;
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale);
 	}
-	// then add Cpixel constant vector
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -120,7 +114,8 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
 		else
 			aux->DE0 = 0.0f;
-		if (!fractal->transformCommon.functionEnabledCFalse
+
+		if (fractal->transformCommon.functionEnabledCFalse
 				&& aux->i >= fractal->analyticDE.startIterationsA
 				&& aux->i < fractal->analyticDE.stopIterationsA)
 		{

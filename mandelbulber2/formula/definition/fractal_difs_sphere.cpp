@@ -76,7 +76,7 @@ void cFractalDIFSSphere::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
 			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 		}
-	//	colorAdd += fractal->foldColor.difs1;
+
 		if (fractal->foldColor.auxColorEnabledA)
 		{
 			if (colorDist != aux.dist)
