@@ -247,7 +247,7 @@ void cFractalDIFSMultiV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
+/*	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -263,5 +263,31 @@ void cFractalDIFSMultiV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		}
 		else
 			aux.color += colorAdd;
+	}*/
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
+			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
+		//	colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
+		}
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist)
+				aux.color = colorAdd + (aux.i * fractal->foldColor.difs1);
+		}
+		else
+		{
+			aux.color += colorAdd;
+		}
 	}
+
 }

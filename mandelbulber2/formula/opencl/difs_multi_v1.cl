@@ -262,7 +262,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		aux->dist = aux->dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	/*if (fractal->foldColor.auxColorEnabled)
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -278,6 +278,30 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		}
 		else
 			aux->color += colorAdd;
+	}*/
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
+			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
+		}
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux->dist) aux->color = colorAdd + (aux->i * fractal->foldColor.difs1);
+		}
+		else
+		{
+			aux->color += colorAdd;
+		}
 	}
+
 	return z;
 }
