@@ -21,6 +21,9 @@ v2.34 (??? 2025)
 	 dIFSMultiV1, fix aux.color
 
   transfDIFSBoxFrame, fix aux.color
+	transfDIFSPrism, fix aux.color
+	transfDIFSPrismV2, fix aux.color
+	transfDIFSSphere, fix aux.color
 
 
 	 transfAbsSym3, fix wrong parameter code and add scale

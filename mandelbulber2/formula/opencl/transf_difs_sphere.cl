@@ -46,7 +46,7 @@ REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		}
 		else
 		{
-			aux->color = addCol + (aux->i * fractal->foldColor.difs0000.x);
+			aux->color = addCol + (aux->i * fractal->foldColor.difs0000.x + fractal->foldColor.difs0);
 		}
 	}
 

@@ -55,11 +55,11 @@ REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
-			aux->color = addCol;
+			aux->color += addCol;
 		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
+			aux->color = addCol + aux->i * fractal->foldColor.difs0000.x + fractal->transformCommon.offset0;
 		}
 	}
 	return z;
