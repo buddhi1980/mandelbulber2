@@ -18,7 +18,10 @@ v2.34 (??? 2025)
 	 dIFSBoxV1, fix aux.color
 	 dIFSHextgrid2, fix aux.color
 	 dIFSMenger, fix aux.color
-	 dIFSMultiV1 fix aux.color
+	 dIFSMultiV1, fix aux.color
+
+  transfDIFSBoxFrame, fix aux.color
+
 
 	 transfAbsSym3, fix wrong parameter code and add scale
 	 transfJuliaboxV2, update color

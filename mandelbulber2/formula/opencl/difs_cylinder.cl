@@ -243,7 +243,7 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled
+	if (fractal->foldColor.auxColorEnabled && colorDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
@@ -256,7 +256,7 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			if (colorDist != aux->dist) aux->color = colorAdd + (aux->i * fractal->foldColor.difs1);
+			aux->color = colorAdd + (aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
 		}
 		else
 		{

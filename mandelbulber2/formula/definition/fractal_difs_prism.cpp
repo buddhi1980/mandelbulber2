@@ -198,7 +198,7 @@ void cFractalDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled
+	if (fractal->foldColor.auxColorEnabled && colorDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
@@ -211,8 +211,7 @@ void cFractalDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			if (colorDist != aux.dist)
-				aux.color = colorAdd + (aux.i * fractal->foldColor.difs1);
+			aux.color = colorAdd + (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
 		}
 		else
 		{

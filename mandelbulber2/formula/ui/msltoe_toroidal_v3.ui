@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>2398</height>
+    <height>2604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1284,12 +1284,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>592</y>
+     <x>86</x>
+     <y>779</y>
     </hint>
     <hint type="destinationlabel">
-     <x>498</x>
-     <y>590</y>
+     <x>894</x>
+     <y>779</y>
     </hint>
    </hints>
   </connection>
@@ -1306,6 +1306,38 @@
     <hint type="destinationlabel">
      <x>492</x>
      <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledC_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_analyticDE_start_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>579</x>
+     <y>769</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>804</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledC_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_analyticDE_stop_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>625</x>
+     <y>766</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>803</y>
     </hint>
    </hints>
   </connection>

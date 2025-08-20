@@ -89,7 +89,7 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
+			aux->color = addCol + fractal->foldColor.difs0000.x * aux->i;
 		}
 	}
 	return z;

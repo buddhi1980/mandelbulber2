@@ -93,11 +93,11 @@ void cFractalTransfDIFSPrismV2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
-			aux.color = addCol;
+			aux.color += addCol;
 		}
 		else
 		{
-			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
+			aux.color = addCol + fractal->foldColor.difs0000.x * aux.i;
 		}
 	}
 }
