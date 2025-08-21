@@ -8,6 +8,8 @@ v2.34 (??? 2025)
    aboxModKaliEiffie updated aux.color
 	 amazingSurfMod1 updated aux.color
 	 mandalayBoxV2, add aux.dist
+
+
 	 dIFSSphere, fix aux.color
 	 dIFSCylinder, fix aux.color
 	 dIFSEllipsoid, fix aux.color
@@ -20,10 +22,19 @@ v2.34 (??? 2025)
 	 dIFSMenger, fix aux.color
 	 dIFSMultiV1, fix aux.color
 
-  transfDIFSBoxFrame, fix aux.color
-	transfDIFSPrism, fix aux.color
-	transfDIFSPrismV2, fix aux.color
-	transfDIFSSphere, fix aux.color
+   transfDIFSBoxFrame, fix aux.color
+	 transfDIFSPrism, fix aux.color
+	 transfDIFSPrismV2, fix aux.color
+	 transfDIFSSphere, fix aux.color
+	 transfDIFSTorus, fix aux.color
+	 transfDIFSTorusV2, fix aux.color
+	 transfDIFSTorusV4, fix aux.color
+	 transfDIFSTube, fix aux.color
+
+
+   transfDIFSTorusV3, add aux.color
+
+
 
 
 	 transfAbsSym3, fix wrong parameter code and add scale

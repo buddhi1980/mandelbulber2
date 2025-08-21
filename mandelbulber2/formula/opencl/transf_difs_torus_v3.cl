@@ -61,6 +61,25 @@ REAL4 TransfDIFSTorusV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	else
 		streD = max(fabs(streD), fabs(zc.z));
 
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, (streD - fractal->transformCommon.offsetA05) / (aux->DE + 1.0f));
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		REAL addCol = fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color += addCol;
+		}
+		else
+		{
+			aux->color = addCol + fractal->foldColor.difs1 * aux->i + fractal->foldColor.difs0;
+		}
+	}
+
 	return z;
 }
