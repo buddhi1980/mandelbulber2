@@ -27,7 +27,6 @@ cFractalDIFSTorus::cFractalDIFSTorus() : cAbstractFractal()
 
 void cFractalDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
 	CVector4 oldZ = z;
 	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
@@ -200,6 +199,9 @@ void cFractalDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		double colorAdd = fractal->foldColor.difs0000.w
+					+ aux.i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
@@ -207,9 +209,9 @@ void cFractalDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 		}
 
-		if (fractal->foldColor.auxColorEnabledA)
+		if (!fractal->foldColor.auxColorEnabledA)
 		{
-			aux.color = colorAdd + aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs1;
+			aux.color = colorAdd;
 		}
 		else
 		{

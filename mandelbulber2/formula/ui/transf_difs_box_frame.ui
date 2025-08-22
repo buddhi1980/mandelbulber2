@@ -1691,7 +1691,7 @@
          </widget>
         </item>
         <item>
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
+         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1730,7 +1730,7 @@
          </widget>
         </item>
         <item>
-         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

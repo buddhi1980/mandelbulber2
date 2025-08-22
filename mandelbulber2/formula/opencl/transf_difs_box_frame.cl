@@ -126,7 +126,7 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color = fractal->foldColor.difs0000.x * aux->i + fractal->foldColor.difs0;
+		aux->color = fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0;
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{

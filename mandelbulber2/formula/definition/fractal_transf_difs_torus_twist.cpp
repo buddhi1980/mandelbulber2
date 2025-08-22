@@ -132,11 +132,18 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 
 	// aux.color
 	if (aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+			&& aux.i < fractal->foldColor.stopIterationsA
+			&& aux.dist != colDist)
 	{
-		double addColor = 0.0;
-		if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		if (aux.dist != colDist) addColor += fractal->foldColor.difs0000.y;
-		aux.color += addColor;
+		double addCol = fractal->foldColor.difs0000.x + aux.i * fractal->foldColor.difs0;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol;
+		}
 	}
 }

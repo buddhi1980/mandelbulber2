@@ -159,22 +159,23 @@ void cFractalTransfDIFSTube::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.x
+				+ aux.i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (cylD > t) addCol = fractal->foldColor.difs0000.z;
+			if (cylD > t) addCol += fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1
-					- fractal->foldColor.difs0 < fabs(zc.y))
-				addCol = fractal->foldColor.difs0000.w;
+					- fractal->foldColor.difs0000.y < fabs(zc.y))
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
-			aux.color += addCol;
+			aux.color = addCol;
 		}
 		else
 		{
-			aux.color = addCol + fractal->foldColor.difs0000.x
-					+ aux.i * fractal->foldColor.difs1;
+			aux.color += addCol;
 		}
 	}
 }

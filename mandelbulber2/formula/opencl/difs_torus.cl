@@ -16,7 +16,6 @@
 
 REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
 	REAL4 oldZ = z;
 	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 
@@ -205,6 +204,9 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		REAL colorAdd  = fractal->foldColor.difs0000.w
+				+ aux->i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
@@ -212,9 +214,9 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 		}
 
-		if (fractal->foldColor.auxColorEnabledA)
+		if (!fractal->foldColor.auxColorEnabledA)
 		{
-			aux->color = colorAdd + aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0;
+			aux->color = colorAdd;
 		}
 		else
 		{
