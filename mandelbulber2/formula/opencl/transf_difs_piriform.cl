@@ -98,11 +98,14 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->dist = t;
 
 	// aux->color
-	if (aux->i >= fractal->foldColor.startIterationsA && aux->i < fractal->foldColor.stopIterationsA)
+	if (aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA
+			&& aux->dist != colDist)
 	{
-		REAL addColor = 0.0f;
+		REAL addColor = fractal->foldColor.difs0000.y
+				+ aux->i * fractal->foldColor.difs0;
+
 		addColor += fractal->foldColor.difs0000.x * zc.x;
-		if (t != colDist) addColor += fractal->foldColor.difs0000.y;
 
 		if (!fractal->foldColor.auxColorEnabledAFalse)
 			aux->color = addColor;

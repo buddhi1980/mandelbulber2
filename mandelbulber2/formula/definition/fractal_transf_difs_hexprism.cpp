@@ -90,12 +90,14 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.y
+				+ aux.i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (colIn < maxdx) addCol = fractal->foldColor.difs0000.z;
-			if (lenY - fractal->foldColor.difs0 < zc.z)
-				addCol = fractal->foldColor.difs0000.w;
+			if (colIn < maxdx) addCol += fractal->foldColor.difs0000.z;
+			if (lenY - fractal->foldColor.difs0000.x < zc.z)
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -103,7 +105,7 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 		}
 		else
 		{
-			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
+			aux.color += addCol;
 		}
 	}
 }

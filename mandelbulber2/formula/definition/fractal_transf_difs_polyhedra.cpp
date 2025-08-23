@@ -109,29 +109,35 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		d = min(d, dv);
 	}
 
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, d) / aux.DE;
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
 	if (fractal->foldColor.auxColorEnabled
 			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+			&& aux.i < fractal->foldColor.stopIterationsA
+			&& colDist != aux.dist)
 	{
 		colVec.x *= fractal->foldColor.difs0000.x;
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
+
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
-			double colorAdd = 0.0;
+			double colorAdd = fractal->foldColor.difs0000.w
+					+ aux.i * fractal->foldColor.difs0;
 			colorAdd += colVec.x;
 			colorAdd += colVec.y;
 			colorAdd += colVec.z;
-			// colorAdd += colVec.w;
+
 			aux.color = colorAdd * 256.0;
 		}
 		else
 		{
 			aux.color = min(min(colVec.x, colVec.y), colVec.z)
-				* fractal->foldColor.difs1 * 1024.0;
+				* fractal->foldColor.difs1 * 1024.0
+					+ fractal->foldColor.difs0000.w
+										+ aux.i * fractal->foldColor.difs0;
 		}
 	}
 }

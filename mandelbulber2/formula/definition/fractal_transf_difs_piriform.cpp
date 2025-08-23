@@ -108,11 +108,13 @@ void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fracta
 
 	// aux.color
 	if (aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+			&& aux.i < fractal->foldColor.stopIterationsA
+			&& colDist != aux.dist)
 	{
-		double addColor = 0.0;
+		double addColor = fractal->foldColor.difs0000.y
+				+ aux.i * fractal->foldColor.difs0;
+
 		addColor += fractal->foldColor.difs0000.x * zc.x;
-		if (t != colDist) addColor += fractal->foldColor.difs0000.y;
 
 		if (!fractal->foldColor.auxColorEnabledAFalse) aux.color = addColor;
 		else aux.color += addColor;

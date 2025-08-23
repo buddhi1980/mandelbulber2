@@ -30,17 +30,18 @@ v2.34 (??? 2025)
 	 transfDIFSTorusV2, fix aux.color
 	 transfDIFSTorusV4, fix aux.color
 	 transfDIFSTube, fix aux.color
-
   .transfDIFSTorusTwist, fix aux.color
-
    transfDIFSTorusGrid, fix aux.color
    transfDIFSTriGrid, fix aux.color
 
+   transfDIFSHexprism
+	 transfDIFSHexprismV2
+   transfDIFSHextgrid2 fix aux.color
+	 transfDIFSOctahedron, fix aux.color
+	 transfDIFSOctahedronV2, fix aux.color
+	 transfDIFSPiriform, fix aux.color
 
    transfDIFSTorusV3, add aux.color
-
-
-
 
 	 transfAbsSym3, fix wrong parameter code and add scale
 	 transfJuliaboxV2, update color
