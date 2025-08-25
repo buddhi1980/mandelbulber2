@@ -268,6 +268,8 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	foldColor.difs0000 = container->Get<CVector4>("fold_color_difs_0000");
 	foldColor.startIterationsA = container->Get<int>("fold_color_start_iterations_A");
 	foldColor.stopIterationsA = container->Get<int>("fold_color_stop_iterations_A");
+	foldColor.startIterationsB = container->Get<int>("fold_color_start_iterations_B");
+	foldColor.stopIterationsB = container->Get<int>("fold_color_stop_iterations_B");
 	foldColor.int0 = container->Get<int>("fold_color_int_0");
 	foldColor.int2 = container->Get<int>("fold_color_int_2");
 

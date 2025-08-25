@@ -1269,7 +1269,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_136">
           <property name="text">
-           <string notr="true">base color:</string>
+           <string notr="true">palette offset</string>
           </property>
          </widget>
         </item>
@@ -1513,15 +1513,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

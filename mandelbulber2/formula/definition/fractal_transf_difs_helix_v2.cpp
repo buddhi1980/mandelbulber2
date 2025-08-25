@@ -157,7 +157,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			fabs(aux.const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
 			rDE);
 	}
-
+	double colDist = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = min(aux.dist, rDE);
 	else
@@ -168,19 +168,26 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		double addCol = fractal->foldColor.difs0000.y
+				+ aux.i * fractal->foldColor.difs0;
+
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z)))
 					* 4.0 * M_PI_2x_INV;
-			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
-			else aux.color += fractal->foldColor.difs0000.w;
+			if (fmod(ang, 2.0) < 1.0) addCol += fractal->foldColor.difs0000.z;
+			else addCol += fractal->foldColor.difs0000.w;
 		}
 		else
 		{
-			aux.color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+			addCol += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			addCol += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 		}
+		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = addCol;
+		else  aux.color += addCol;
 	}
 }

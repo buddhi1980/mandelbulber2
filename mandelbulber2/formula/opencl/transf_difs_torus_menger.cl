@@ -18,7 +18,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 {
 	REAL temp;
 	REAL4 zc = z;
-
+	REAL addCol = 0.0f;
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		if (fractal->transformCommon.functionEnabledBx) zc.x = fabs(zc.x);
@@ -124,7 +124,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		if (n >= fractal->foldColor.startIterationsA && n < fractal->foldColor.stopIterationsA)
 		{
-			aux->color += col;
+			addCol += col;
 		}
 
 		temp = fractal->transformCommon.scale3 - 1.0f;
@@ -165,7 +165,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux->DE + fractal->analyticDE.offset0);
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, rDE);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
@@ -173,21 +173,32 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist)
 	{
+		addCol += fractal->transformCommon.offsetC0
+				+ aux->i * fractal->foldColor.difs0;
+
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			REAL ang =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
 			if (fmod(ang, 2.0f) < 1.0f)
-				aux->color += fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.z;
 			else
-				aux->color += fractal->foldColor.difs0000.w;
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		else
 		{
-			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+			addCol += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			addCol += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
 		}
 	}
 	return z;

@@ -115,6 +115,8 @@ struct sFoldColor
 	bool auxColorEnabledBFalse;
 	int startIterationsA;
 	int stopIterationsA;
+	int startIterationsB;
+	int stopIterationsB;
 	int int0;
 	int int2;
 };

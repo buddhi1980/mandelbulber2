@@ -36,10 +36,22 @@ v2.34 (??? 2025)
 
    transfDIFSHexprism
 	 transfDIFSHexprismV2
-   transfDIFSHextgrid2 fix aux.color
-	 transfDIFSOctahedron, fix aux.color
-	 transfDIFSOctahedronV2, fix aux.color
-	 transfDIFSPiriform, fix aux.color
+	 transfDIFSHextgrid2
+	 transfDIFSOctahedron
+	 transfDIFSOctahedronV2
+	 transfDIFSPiriform
+
+   transfDIFSHelix
+	 transfDIFSHelixV2
+	 transfDIFSHelixMenger
+	 transfDIFSSphereGrid
+	 transfDIFSSphereGridV2
+	 transfDIFSSphereGridV3
+	 transfDIFSSpring
+	 transfDIFSTorusMenger
+
+
+
 
    transfDIFSTorusV3, add aux.color
 
