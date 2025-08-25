@@ -933,8 +933,8 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.auxColorEnabledBFalse = source.auxColorEnabledBFalse;
 	target.startIterationsA = source.startIterationsA;
 	target.stopIterationsA = source.stopIterationsA;
-	target.startIterationsA = source.startIterationsB;
-	target.stopIterationsA = source.stopIterationsB;
+	target.startIterationsB = source.startIterationsB;
+	target.stopIterationsB = source.stopIterationsB;
 	target.int0 = source.int0;
 	target.int2 = source.int2;
 	return target;

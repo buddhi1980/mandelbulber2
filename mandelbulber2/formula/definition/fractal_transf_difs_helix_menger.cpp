@@ -202,9 +202,6 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	{
 		addCol += aux.i * fractal->foldColor.difs0;
 
-		// fractal->foldColor.difs0000.y
-
-
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0 * M_PI_2x_INV;

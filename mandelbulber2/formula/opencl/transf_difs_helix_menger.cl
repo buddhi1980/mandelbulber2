@@ -19,7 +19,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 {
 	REAL temp;
 	REAL4 zc = z;
-	REAL colAdd = 0.0f;
+	REAL addCol = 0.0f;
 	zc *= fractal->transformCommon.scale2;
 	aux->DE *= fractal->transformCommon.scale2;
 	// torus
@@ -123,7 +123,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		if (n >= fractal->foldColor.startIterationsA && n < fractal->foldColor.stopIterationsA)
 		{
-			colAdd += col;
+			addCol += col;
 		}
 
 		temp = fractal->transformCommon.scale3 - 1.0f;
@@ -183,33 +183,26 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			&& aux->i >= fractal->foldColor.startIterationsB
 			&& aux->i < fractal->foldColor.stopIterationsB)
 	{
-		colAdd += aux->i * fractal->foldColor.difs0;
-
-
-			//	fractal->foldColor.difs0000.y
-
-
+		addCol += aux->i * fractal->foldColor.difs0;
 
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			ang =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
 			if (fmod(ang, 2.0f) < 1.0f)
-				colAdd += fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.z;
 			else
-				colAdd += fractal->foldColor.difs0000.w;
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		else
 		{
-			colAdd += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			colAdd += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+			addCol += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			addCol += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 		}
 		if (!fractal->foldColor.auxColorEnabledFalse)
-			aux->color = colAdd;
+			aux->color = addCol;
 		else
-			aux->color += colAdd;
-
-
+			aux->color += addCol;
 	}
 	return z;
 }
