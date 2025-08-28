@@ -113,15 +113,23 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+	double colDist = aux.dist;
+	aux.dist = min(aux.dist, d / (aux.DE + 1.0));
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (zcd > sdTor) aux.color = fractal->foldColor.difs0000.y;
-		else aux.color = fractal->foldColor.difs0000.x;
-	}
+		double addCol = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
 
-	aux.dist = min(aux.dist, d / (aux.DE + 1.0));
+		if (zcd > sdTor) addCol += fractal->foldColor.difs0000.y;
+		else addCol += fractal->foldColor.difs0000.x;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = addCol;
+		else  aux.color += addCol;
+	}
 
 	if (fractal->transformCommon.functionEnabledEFalse)
 		z = zc;

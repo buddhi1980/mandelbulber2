@@ -185,7 +185,8 @@ REAL4 BoxFold4dBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{

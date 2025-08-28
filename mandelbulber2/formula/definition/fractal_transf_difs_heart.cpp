@@ -75,20 +75,25 @@ void cFractalTransfDIFSHeart::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	aux.DE0 = (sqrt(fractal->transformCommon.scale4 * zc.y * zc.y + zc.x * zc.x + p * p)
 			- fractal->transformCommon.offset1) / (aux.DE + fractal->analyticDE.offset1);
 
-	double col = aux.dist;
+	double colDist = aux.dist;
 
 	if (!fractal->analyticDE.enabledFalse) aux.dist = min(aux.dist, aux.DE0);
 	else aux.dist = aux.DE0;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && aux.dist != colDist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = 0.0;
-		if (aux.dist == col) colorAdd += fractal->foldColor.difs0000.x;
-		colorAdd += fractal->foldColor.difs0000.y * zc.z;
-		colorAdd += fractal->foldColor.difs0000.z * fabs(zc.x);
-		colorAdd += fractal->foldColor.difs0000.w * fabs(zc.y);
-		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = colorAdd;
-		else  aux.color += colorAdd;
+		double addCol = fractal->foldColor.difs0000.x
+				+ aux.i * fractal->foldColor.difs0;
+
+		addCol += fractal->foldColor.difs0000.y * zc.z;
+		addCol += fractal->foldColor.difs0000.z * fabs(zc.x);
+		addCol += fractal->foldColor.difs0000.w * fabs(zc.y);
+
+		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = addCol;
+		else  aux.color += addCol;
 	}
+
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
 }

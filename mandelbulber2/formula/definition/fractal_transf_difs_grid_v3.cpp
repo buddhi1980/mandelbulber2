@@ -190,10 +190,12 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 												+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 		}
 		double oldCol = aux.color;
+
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			aux.color = addColor;
 		else
 			aux.color = max(aux.color, addColor);
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 			aux.color += oldCol;
 	}

@@ -9,30 +9,30 @@ v2.34 (??? 2025)
 	 amazingSurfMod1 updated aux.color
 	 mandalayBoxV2, add aux.dist
 
+   fix aux.color with the following:
+	 dIFSSphere,
+	 dIFSCylinder,
+	 dIFSEllipsoid,
+	 dIFSPrism,
+	 dIFSTorus,
+	 dIFSBoxDiagonalV1,
+	 dIFSBoxDiagonalV3,
+	 dIFSBoxV1,
+	 dIFSHextgrid2,
+	 dIFSMenger,
+	 dIFSMultiV1,
 
-	 dIFSSphere, fix aux.color
-	 dIFSCylinder, fix aux.color
-	 dIFSEllipsoid, fix aux.color
-	 dIFSPrism, fix aux.color
-	 dIFSTorus, fix aux.color
-	 dIFSBoxDiagonalV1, fix aux.color
-	 dIFSBoxDiagonalV3, fix aux.color
-	 dIFSBoxV1, fix aux.color
-	 dIFSHextgrid2, fix aux.color
-	 dIFSMenger, fix aux.color
-	 dIFSMultiV1, fix aux.color
-
-   transfDIFSBoxFrame, fix aux.color
-	 transfDIFSPrism, fix aux.color
-	 transfDIFSPrismV2, fix aux.color
-	 transfDIFSSphere, fix aux.color
-	 transfDIFSTorus, fix aux.color
-	 transfDIFSTorusV2, fix aux.color
-	 transfDIFSTorusV4, fix aux.color
-	 transfDIFSTube, fix aux.color
-  .transfDIFSTorusTwist, fix aux.color
-   transfDIFSTorusGrid, fix aux.color
-   transfDIFSTriGrid, fix aux.color
+   transfDIFSBoxFrame,
+	 transfDIFSPrism,
+	 transfDIFSPrismV2,
+	 transfDIFSSphere,
+	 transfDIFSTorus,
+	 transfDIFSTorusV2,
+	 transfDIFSTorusV4,
+	 transfDIFSTube,
+	.transfDIFSTorusTwist,
+	 transfDIFSTorusGrid,
+	 transfDIFSTriGrid,
 
    transfDIFSHexprism
 	 transfDIFSHexprismV2
@@ -49,6 +49,9 @@ v2.34 (??? 2025)
 	 transfDIFSSphereGridV3
 	 transfDIFSSpring
 	 transfDIFSTorusMenger
+
+   transfDIFSGearV1
+	 transfDIFSHeart
 
 
 
