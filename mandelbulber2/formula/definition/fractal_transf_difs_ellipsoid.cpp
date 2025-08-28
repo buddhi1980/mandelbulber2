@@ -41,5 +41,24 @@ void cFractalTransfDIFSEllipsoid::FormulaCode(
 	double rd = rV.Length();
 	double rrd = rrV.Length();
 	double ellD = rd * (rd - 1.0) / rrd;
+
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, ellD / (aux.DE + 1.0));
+
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double addCol = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol;
+		}
+	}
 }

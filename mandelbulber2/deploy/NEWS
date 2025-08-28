@@ -50,12 +50,14 @@ v2.34 (??? 2025)
 	 transfDIFSSpring
 	 transfDIFSTorusMenger
 
+   transfDIFSDiamond
    transfDIFSGearV1
 	 transfDIFSHeart
 
 
 
 
+   transfDIFSEllipsoid, add aux.color
    transfDIFSTorusV3, add aux.color
 
 	 transfAbsSym3, fix wrong parameter code and add scale

@@ -99,7 +99,7 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	double bottomB = q.Dot(normalBottomB) - fractal->transformCommon.offsetF2 + 0.1;
 
 	aux.DE0 = max(topCut, max(topA, max(topB, max(topC, max(bottomA, bottomB)))));
-
+	double colDist = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0 / aux.DE;
 	else
@@ -107,12 +107,26 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = q;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		double addCol = fractal->transformCommon.offsetA0
+				+ aux.i * fractal->foldColor.difs0;
+
 		CVector4 col = fabs(q);
-		aux.color += fractal->foldColor.difs0000.x * col.x * col.y;
-		aux.color += fractal->foldColor.difs0000.y * col.x * col.z;
-		aux.color += fractal->foldColor.difs0000.z * q.z;
-		aux.color += fractal->foldColor.difs0000.w * max(col.x, col.y);
+		addCol += fractal->foldColor.difs0000.x * col.x * col.y;
+		addCol += fractal->foldColor.difs0000.y * col.x * col.z;
+		addCol += fractal->foldColor.difs0000.z * q.z;
+		addCol += fractal->foldColor.difs0000.w * max(col.x, col.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol;
+		}
 	}
 }
