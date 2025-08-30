@@ -54,6 +54,10 @@ v2.34 (??? 2025)
    transfDIFSGearV1
 	 transfDIFSHeart
 
+   transfDIFSBox
+	 transfDIFSCylinder
+	 transfDIFSCylinderV2
+
 
 
 

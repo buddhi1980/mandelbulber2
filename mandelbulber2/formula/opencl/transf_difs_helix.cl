@@ -127,6 +127,21 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL colAdd = fractal->foldColor.difs0000.w
 				+ aux->i * fractal->foldColor.difs0;
 
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			REAL ang =
+				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
+			if (fmod(ang, 2.0f) < 1.0f)
+				colAdd += fractal->foldColor.difs0000.z;
+			else
+				colAdd += fractal->foldColor.difs0000.y;
+		}
+		else
+		{
+			colAdd += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			colAdd += fractal->foldColor.difs0000.y * (zc.y * zc.y);
+		}
+
 		if (!fractal->foldColor.auxColorEnabledFalse)
 			aux->color = colAdd;
 		else
