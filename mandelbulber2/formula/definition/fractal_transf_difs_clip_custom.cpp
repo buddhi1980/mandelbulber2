@@ -132,6 +132,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		double addColor = 0.0;
 		if (dst > aux.dist) addColor += fractal->foldColor.difs0000.x;
 		if (dst1 > aux.dist) addColor += fractal->foldColor.difs0000.y;
+
 		if (!fractal->transformCommon.functionEnabledyFalse)
 			aux.color = addColor;
 		else

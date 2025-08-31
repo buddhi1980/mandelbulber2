@@ -79,7 +79,6 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 		double addCol = fractal->foldColor.difs0000.y
 				+ aux.i * fractal->foldColor.difs0;
 
-
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (xyR < -fractal->transformCommon.offset0

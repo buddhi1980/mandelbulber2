@@ -170,20 +170,31 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addColor = 0.0f;
+		REAL addCol = fractal->foldColor.difs0000.y
+				+ aux->i * fractal->foldColor.difs0;
+
 		if (d == plD)
-			addColor = fractal->foldColor.difs0000.x;
+			addCol += fractal->foldColor.difs0000.x;
 		else
 		{
-			addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
+			addCol += fractal->foldColor.difs0000.z * zc.z
 								 + fractal->foldColor.difs0000.w * zc.z * zc.z;
 		}
 		REAL oldCol = aux->color;
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			aux->color = addColor;
-		else
-			aux->color = max(aux->color, addColor);
+	//	if (!fractal->transformCommon.functionEnabledJFalse)
+	//		aux->color += addCol;
+	//	else
+	//		aux->color += max(aux->color, addColor);
 		if (fractal->foldColor.auxColorEnabledFalse) aux->color += oldCol;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
+		}
 	}
 
 	// clip plane

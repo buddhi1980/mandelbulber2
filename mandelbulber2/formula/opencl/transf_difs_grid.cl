@@ -40,9 +40,21 @@ REAL4 TransfDIFSGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL addCol = fractal->foldColor.difs0000.x
+				+ aux->i * fractal->foldColor.difs0;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
+		}
 	}
 	return z;
 }
