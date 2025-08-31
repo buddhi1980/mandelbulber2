@@ -129,11 +129,11 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 		{
 			if (t < -fractal->transformCommon.offset0
 					- fractal->transformCommon.offsetB0)
-				addCol = fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1
 					+ fractal->transformCommon.offsetB0
 					- fractal->foldColor.difs0000.x < fabs(zc.z))
-				addCol = fractal->foldColor.difs0000.w;
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

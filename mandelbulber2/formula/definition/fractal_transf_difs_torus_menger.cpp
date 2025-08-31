@@ -190,8 +190,8 @@ void cFractalTransfDIFSTorusMenger::FormulaCode(
 		z = zc;
 
 	if (fractal->foldColor.auxColorEnabled && colDist != aux.dist
-			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+			&& aux.i >= fractal->foldColor.startIterationsB
+			&& aux.i < fractal->foldColor.stopIterationsB)
 	{
 		addCol += fractal->transformCommon.offsetC0
 				+ aux.i * fractal->foldColor.difs0;

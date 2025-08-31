@@ -37,7 +37,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5f
-	double theta = atan2(z.y, z.x);
+	double theta = atan2(z.y, z.x); // + fractal->bulb.alphaAngleOffset;
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
 	double rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
@@ -47,7 +47,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double phi = 0.0;
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		phi = asin(z.z / temp);
+		phi = asin(z.z / temp) + fractal->bulb.betaAngleOffset;
 	}
 	else
 	{
@@ -60,7 +60,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			else
 				temp = sqrt(rr);
 		}
-		phi = atan2(z.z, temp);
+		phi = atan2(z.z, temp) + fractal->bulb.betaAngleOffset;
 	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
@@ -70,7 +70,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	rp *= r;
 
 	phi *= fractal->transformCommon.pwr8;
-	theta *= fractal->bulb.power;
+	theta = theta * fractal->bulb.power;
 
 	// convert back to cartesian coordinates
 	if (!fractal->transformCommon.functionEnabledSwFalse)
@@ -126,6 +126,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		else
 			aux.DE0 = 0.0;
 
+
 		if (fractal->transformCommon.functionEnabledCFalse
 				&& aux.i >= fractal->analyticDE.startIterationsA
 				&& aux.i < fractal->analyticDE.stopIterationsA)
@@ -136,5 +137,8 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			aux.dist = min(aux.dist, aux.DE0);
 		}
+
+		//	aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0) - min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
+
 	}
 }

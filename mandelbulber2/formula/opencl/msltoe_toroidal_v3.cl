@@ -26,7 +26,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	// Toroidal bulb
 	REAL r1 = fractal->transformCommon.minR05; // default 0.5f
-	REAL theta = atan2(z.y, z.x);
+	REAL theta = atan2(z.y, z.x); //  + fractal->bulb.alphaAngleOffset;
 	REAL x1 = r1 * native_cos(theta);
 	REAL y1 = r1 * native_sin(theta);
 	REAL rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
@@ -36,7 +36,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL phi = 0.0f;
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		phi = asin(z.z / temp);
+		phi = asin(z.z / temp) + fractal->bulb.betaAngleOffset;
 	}
 	else
 	{
@@ -49,7 +49,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			else
 				temp = native_sqrt(rr);
 		}
-		phi = atan2(z.z, temp);
+		phi = atan2(z.z, temp) + fractal->bulb.betaAngleOffset;
 	}
 
 	r = r + (aux->r - r) * fractal->transformCommon.offsetR0;
@@ -125,6 +125,11 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			aux->dist = min(aux->dist, aux->DE0);
 		}
+
+		//	aux->dist = aux->DE0 * (1.0f - fractal->transformCommon.offset0) - min(aux->dist, aux->DE0) * fractal->transformCommon.offset0;
+
+
+
 	}
 	return z;
 }

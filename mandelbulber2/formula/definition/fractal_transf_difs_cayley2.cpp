@@ -107,7 +107,7 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 
 	zcd -= fractal->transformCommon.offsetA0;
 
-	double colorDist = aux.dist;
+	double colDist = aux.dist;
 
 	aux.dist = min(aux.dist, zcd / (aux.DE + fractal->analyticDE.offset1));
 
@@ -139,22 +139,26 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 		z = zc;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabledAFalse
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
-					&& aux.i < fractal->foldColor.stopIterationsA)
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = 0.0;
-		if (fractal->foldColor.auxColorEnabledFalse)
+		double addCol = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			addCol += fractal->foldColor.difs0000.y * max(z.x, z.y);
 		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
+			aux.color = addCol;
 		}
 		else
-			aux.color += colorAdd;
+		{
+			aux.color += addCol; // aux.color default 1
+		}
 	}
 }

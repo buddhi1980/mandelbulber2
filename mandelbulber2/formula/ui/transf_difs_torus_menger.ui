@@ -1676,7 +1676,7 @@
          </widget>
         </item>
         <item>
-         <widget class="MySpinBox" name="spinboxInt_fold_color_start_iterations_A_2">
+         <widget class="MySpinBox" name="spinboxInt_fold_color_start_iterations_B">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1702,7 +1702,7 @@
          </widget>
         </item>
         <item>
-         <widget class="MySpinBox" name="spinboxInt_fold_color_stop_iterations_A_2">
+         <widget class="MySpinBox" name="spinboxInt_fold_color_stop_iterations_B">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
