@@ -47,6 +47,8 @@ REAL4 TransfDIFSGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL addCol = fractal->foldColor.difs0000.x
 				+ aux->i * fractal->foldColor.difs0;
 
+		if(gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
+
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
 			aux->color = addCol;

@@ -43,7 +43,8 @@ void cFractalTransfDIFSGrid::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
 	double gridXY = min(xFloor, yFloor);
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
+// if(gridXY != xFloor)  circle square x-sect
+		if (!fractal->transformCommon.functionEnabledJFalse)
 		grid = sqrt(gridXY * gridXY + zc.z * zc.z);
 	else
 		grid = max(fabs(gridXY), fabs(zc.z));
@@ -57,6 +58,8 @@ void cFractalTransfDIFSGrid::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	{
 		double addCol = fractal->foldColor.difs0000.x
 				+ aux.i * fractal->foldColor.difs0;
+
+		if(gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

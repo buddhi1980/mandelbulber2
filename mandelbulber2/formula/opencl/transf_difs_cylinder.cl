@@ -64,11 +64,15 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (xyR < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0)
-				addCol += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0
-						- fractal->foldColor.difs0000.x
-					< fabs(zc.z))
+			temp = fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0;
+			if (fractal->foldColor.difs0000.x != 0.0f)
+				temp = temp - fractal->foldColor.difs0000.x;
+
+			if (xyR < (fractal->transformCommon.offset0 + fractal->transformCommon.offsetB0)
+				&&  fabs(zc.z) < temp)
+					addCol += fractal->foldColor.difs0000.z;
+
+			if (temp < fabs(zc.z))
 				addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)

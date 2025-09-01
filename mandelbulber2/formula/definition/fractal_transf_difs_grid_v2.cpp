@@ -96,6 +96,8 @@ void cFractalTransfDIFSGridV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		double addCol = fractal->foldColor.difs0000.x
 				+ aux.i * fractal->foldColor.difs0;
 
+		if(gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
+
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
 			aux.color = addCol;
