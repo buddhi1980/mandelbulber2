@@ -43,12 +43,11 @@ void cFractalTransfDIFSGrid::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
 	double gridXY = min(xFloor, yFloor);
 
-// if(gridXY != xFloor)  circle square x-sect
+// if(gridXY != xFloor)  circle square x-sect.
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		grid = sqrt(gridXY * gridXY + zc.z * zc.z);
 	else
-		grid = max(fabs(gridXY), fabs(zc.z));
-
+		grid = max(fabs(gridXY), fabs(zc.z)); //  circle square x-sect add size
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, (grid - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
 

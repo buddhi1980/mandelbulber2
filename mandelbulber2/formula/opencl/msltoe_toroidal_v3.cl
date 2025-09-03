@@ -127,9 +127,6 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		}
 
 		//	aux->dist = aux->DE0 * (1.0f - fractal->transformCommon.offset0) - min(aux->dist, aux->DE0) * fractal->transformCommon.offset0;
-
-
-
 	}
 	return z;
 }

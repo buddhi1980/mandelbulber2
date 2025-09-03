@@ -64,6 +64,7 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 		dd = max(fabs(T), fabs(zc.z));
 
 	dd = max(L, dd);
+	double colDist = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = (dd - fractal->transformCommon.offset0005) / (aux.DE + 1.0);
 	else
@@ -73,11 +74,23 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		double addCol = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
 		if (P == fractal->transformCommon.offset01)
-			aux.color = fractal->foldColor.difs0000.x;
+			addCol += fractal->foldColor.difs0000.x;
 		else
-			aux.color = fractal->foldColor.difs0000.y;
+			addCol += fractal->foldColor.difs0000.y;
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol; // aux.color default 1
+		}
 	}
 }

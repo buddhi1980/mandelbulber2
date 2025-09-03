@@ -45,9 +45,15 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double temp = r;
 
 	double phi = 0.0;
+
+
+
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		phi = asin(z.z / temp) + fractal->bulb.betaAngleOffset;
+		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / r);
+		else phi = acos(z.z / r);
+
+		phi = phi + fractal->bulb.betaAngleOffset;
 	}
 	else
 	{
@@ -60,7 +66,12 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			else
 				temp = sqrt(rr);
 		}
-		phi = atan2(z.z, temp) + fractal->bulb.betaAngleOffset;
+		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / temp);
+		else phi = acos(z.z / temp);
+
+
+		// atan2(z.z, temp)
+		phi = phi + fractal->bulb.betaAngleOffset;
 	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
