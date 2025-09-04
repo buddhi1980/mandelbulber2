@@ -157,8 +157,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			aux.color += addColor;
 	}
 
-
-
 	aux.DE0 = (max(plD, aux.DE0) - fractal->transformCommon.offset0005)
 			/ (aux.DE * fractal->analyticDE.scale1);
 

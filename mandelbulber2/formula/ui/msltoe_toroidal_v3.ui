@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>2725</height>
+    <height>2764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -609,7 +609,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSW_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="text">
       <string notr="true">swap</string>
      </property>

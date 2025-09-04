@@ -1532,7 +1532,7 @@
      <item>
       <widget class="QLabel" name="label_44">
        <property name="text">
-        <string notr="true">Hybrid controls</string>
+        <string notr="true">hybrid controls</string>
        </property>
       </widget>
      </item>
@@ -1606,6 +1606,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">

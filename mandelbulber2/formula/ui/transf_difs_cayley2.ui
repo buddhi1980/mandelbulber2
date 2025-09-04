@@ -1873,7 +1873,7 @@ offset:</string>
       <item>
        <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA_false">
         <property name="text">
-         <string>additional</string>
+         <string>xy options</string>
         </property>
        </widget>
       </item>
@@ -1884,6 +1884,9 @@ offset:</string>
         </property>
         <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1912,6 +1915,9 @@ offset:</string>
         </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1941,14 +1947,14 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string>max(z.x, z.y)</string>
+           <string>max(z.x, z.y):</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_62">
           <property name="text">
-           <string>abs(x*y)</string>
+           <string>abs(z.x*z.y):</string>
           </property>
          </widget>
         </item>
@@ -2177,6 +2183,11 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -2192,11 +2203,6 @@ offset:</string>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
   </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>groupCheck_info</tabstop>
@@ -2210,12 +2216,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>1087</y>
+     <x>67</x>
+     <y>1138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>310</x>
-     <y>1128</y>
+     <x>441</x>
+     <y>1166</y>
     </hint>
    </hints>
   </connection>
@@ -2226,12 +2232,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>89</x>
-     <y>1090</y>
+     <x>97</x>
+     <y>1138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>233</x>
-     <y>1151</y>
+     <x>364</x>
+     <y>1194</y>
     </hint>
    </hints>
   </connection>
@@ -2242,12 +2248,12 @@ offset:</string>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>47</x>
-     <y>1092</y>
+     <x>55</x>
+     <y>1138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>280</x>
-     <y>1063</y>
+     <x>411</x>
+     <y>1113</y>
     </hint>
    </hints>
   </connection>
@@ -2258,12 +2264,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>889</y>
+     <x>44</x>
+     <y>937</y>
     </hint>
     <hint type="destinationlabel">
-     <x>206</x>
-     <y>893</y>
+     <x>321</x>
+     <y>939</y>
     </hint>
    </hints>
   </connection>
@@ -2274,12 +2280,44 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>924</y>
+     <x>34</x>
+     <y>965</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>922</y>
+     <x>294</x>
+     <y>967</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledA_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_fold_color_difs_0000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>1505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>1538</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledA_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_fold_color_difs_0000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>1507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>1568</y>
     </hint>
    </hints>
   </connection>
