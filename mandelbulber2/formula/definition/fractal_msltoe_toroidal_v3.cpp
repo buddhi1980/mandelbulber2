@@ -43,22 +43,18 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
 	double r = sqrt(rr + z.z * z.z);
 	double temp = r;
-
 	double phi = 0.0;
-
-
 
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / r);
-		else phi = acos(z.z / r);
+		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / temp);
+		else phi = acos(z.z / temp);
 
 		phi = phi + fractal->bulb.betaAngleOffset;
 	}
 	else
 	{
-		if (fractal->transformCommon.functionEnabledXFalse
-				&& aux.i >= fractal->transformCommon.startIterationsB
+		if (aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 		{
 			if (!fractal->transformCommon.functionEnabledBFalse)
@@ -66,12 +62,16 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			else
 				temp = sqrt(rr);
 		}
-		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / temp);
-		else phi = acos(z.z / temp);
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			phi = asin(z.z / temp);
+		else
+			phi = acos(z.z / temp);
 
+		if (fractal->transformCommon.functionEnabledXFalse)
+			phi = atan2(z.z, temp);
 
-		// atan2(z.z, temp)
 		phi = phi + fractal->bulb.betaAngleOffset;
+
 	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
@@ -137,16 +137,15 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		else
 			aux.DE0 = 0.0;
 
-
 		if (fractal->transformCommon.functionEnabledCFalse
 				&& aux.i >= fractal->analyticDE.startIterationsA
 				&& aux.i < fractal->analyticDE.stopIterationsA)
 		{
-			aux.dist = aux.DE0;
+			aux.dist = min(aux.dist, aux.DE0);
 		}
 		else
 		{
-			aux.dist = min(aux.dist, aux.DE0);
+			aux.dist = aux.DE0;
 		}
 
 		//	aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0) - min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;

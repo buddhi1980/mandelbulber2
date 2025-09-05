@@ -105,17 +105,17 @@ void cFractalTransfDIFSBoxV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (zc.x > max(zc.y, zc.z))
-				aux.color += fractal->foldColor.difs0000.y;
+				addCol += fractal->foldColor.difs0000.y;
 			if (zc.y > max(zc.x, zc.z))
-				aux.color += fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.z;
 			if (zc.z > max(zc.y, zc.x))
-				aux.color += fractal->foldColor.difs0000.w;
+				addCol += fractal->foldColor.difs0000.w;
 
 			if (fractal->transformCommon.offset0 != 0.0)
 			{
 				double t = z.x * z.y;
 				if ((t > 0.0 && z.z > 0.0) || (t < 0.0 && z.z < 0.0))
-					aux.color += fractal->transformCommon.offset0;
+					addCol += fractal->transformCommon.offset0;
 			}
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)

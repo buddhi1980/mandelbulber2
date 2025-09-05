@@ -36,20 +36,32 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL phi = 0.0f;
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		phi = asin(z.z / temp) + fractal->bulb.betaAngleOffset;
+		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / r);
+		else phi = acos(z.z / r);
+
+		phi = phi + fractal->bulb.betaAngleOffset;
+	//	phi = asin(z.z / temp) + fractal->bulb.betaAngleOffset;
 	}
 	else
 	{
-		if (fractal->transformCommon.functionEnabledXFalse
-				&& aux->i >= fractal->transformCommon.startIterationsB
+		if (aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
 		{
+
 			if (!fractal->transformCommon.functionEnabledBFalse)
 				temp = rr;
 			else
 				temp = native_sqrt(rr);
 		}
-		phi = atan2(z.z, temp) + fractal->bulb.betaAngleOffset;
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			phi = asin(z.z / temp);
+		else
+			phi = acos(z.z / temp);
+
+		if (fractal->transformCommon.functionEnabledXFalse)
+			phi = atan2(z.z, temp);
+
+		phi = phi + fractal->bulb.betaAngleOffset;
 	}
 
 	r = r + (aux->r - r) * fractal->transformCommon.offsetR0;
@@ -119,11 +131,11 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				&& aux->i >= fractal->analyticDE.startIterationsA
 				&& aux->i < fractal->analyticDE.stopIterationsA)
 		{
-			aux->dist = aux->DE0;
-		}
-		else
-		{
 			aux->dist = min(aux->dist, aux->DE0);
+		}
+		else	aux->dist = aux->DE0;
+		{
+
 		}
 
 		//	aux->dist = aux->DE0 * (1.0f - fractal->transformCommon.offset0) - min(aux->dist, aux->DE0) * fractal->transformCommon.offset0;

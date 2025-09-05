@@ -92,14 +92,14 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = fractal->foldColor.difs0000.w
+		double colAdd = fractal->foldColor.difs0000.w
 				+ aux.i * fractal->foldColor.difs0;
-		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
-		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
-		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
+		if (T1 == torD) colAdd += fractal->foldColor.difs0000.x;
+		if (T2 == torD) colAdd += fractal->foldColor.difs0000.y;
+		if (T3 == torD) colAdd += fractal->foldColor.difs0000.z;
 
-		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = colorAdd;
-		else  aux.color += colorAdd;
+		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = colAdd;
+		else  aux.color += colAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

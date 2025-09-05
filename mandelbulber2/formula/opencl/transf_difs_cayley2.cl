@@ -137,7 +137,7 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			addCol += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
 		}
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
