@@ -139,26 +139,29 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 		z = zc;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.w
-				+ aux.i * fractal->foldColor.difs0;
+		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+		{
+			double addCol = fractal->foldColor.difs0000.w
+					+ aux.i * fractal->foldColor.difs0;
 
-		if (fractal->foldColor.auxColorEnabledAFalse)
-		{
-			addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
-		}
+			if (fractal->foldColor.auxColorEnabledAFalse)
+			{
+				addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+				addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+			}
 
-		if (!fractal->foldColor.auxColorEnabledBFalse)
-		{
-			aux.color = addCol;
-		}
-		else
-		{
-			aux.color += addCol; // aux.color default 1
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+			{
+				aux.color = addCol;
+			}
+			else
+			{
+				aux.color += addCol; // aux.color default 1
+			}
 		}
 	}
 }

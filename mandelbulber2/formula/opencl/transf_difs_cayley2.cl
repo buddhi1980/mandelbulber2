@@ -127,26 +127,29 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = zc;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.w
-				+ aux->i * fractal->foldColor.difs0;
+		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
+		{
+			REAL addCol = fractal->foldColor.difs0000.w
+					+ aux->i * fractal->foldColor.difs0;
 
-		if (fractal->foldColor.auxColorEnabledAFalse)
-		{
-			addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
-		}
+			if (fractal->foldColor.auxColorEnabledAFalse)
+			{
+				addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+				addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+			}
 
-		if (!fractal->foldColor.auxColorEnabledBFalse)
-		{
-			aux->color = addCol;
-		}
-		else
-		{
-			aux->color += addCol; // aux->color default 1
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+			{
+				aux->color = addCol;
+			}
+			else
+			{
+				aux->color += addCol; // aux->color default 1
+			}
 		}
 	}
 	return z;

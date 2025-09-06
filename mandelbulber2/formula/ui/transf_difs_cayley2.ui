@@ -1868,6 +1868,13 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA">
+          <property name="text">
+           <string notr="true">(colDist != aux.dist) condition enabled</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
