@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * KochV2Iteration
+ * KochV5 Iteration
  * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
  * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
  */
@@ -187,12 +187,12 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	z += Offset;
 
 	//aux.dist
+	double colDist = aux.dist;
 	double d = z.Length();
 	if (fractal->transformCommon.functionEnabled)
 	{
-		CVector4 zc = z;
 		CVector4 c = aux.const_c;
-		// double d = fabs(zc.Length());
+
 		if (fractal->transformCommon.functionEnabledM)
 		{
 		// shape
@@ -209,7 +209,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 					a = fractal->transformCommon.offsetA0
 							/ (aux.i + 1) * fractal->transformCommon.scaleA1;
 				}
-				CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
+				CVector4 b = fabs(z) - CVector4(a, a, a, 0.0);
 				d = max(b.x, max(b.y, b.z));
 			}
 			else
@@ -237,7 +237,7 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		{
 			double g;
 			if (!fractal->transformCommon.functionEnabledAwFalse)
-				g = zc.z;
+				g = z.z;
 			else
 				g = c.z;
 
@@ -273,6 +273,8 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		d = d / aux.DE - fractal->transformCommon.scaleA0;
+		colDist = aux.dist;
+
 		if (aux.i >= fractal->transformCommon.startIterationsZ
 				&& aux.i < fractal->transformCommon.stopIterationsZ)
 		{
@@ -288,7 +290,13 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += colAdd + fractal->foldColor.difs0000.w;
+		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+		{
+			colAdd = fractal->foldColor.difs0000.w
+					+ aux.i * fractal->foldColor.difs0;
+			colAdd += fractal->transformCommon.offsetE0 * fabs(z.x * z.y);
+			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+			else aux.color += colAdd;
+		}
 	}
-
 }

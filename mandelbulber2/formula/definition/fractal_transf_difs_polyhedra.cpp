@@ -110,7 +110,7 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 	}
 
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, d) / aux.DE;
+	aux.dist = min(aux.dist, d / aux.DE);
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
 	if (fractal->foldColor.auxColorEnabled
@@ -122,22 +122,23 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
 
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
-			double colorAdd = fractal->foldColor.difs0000.w
-					+ aux.i * fractal->foldColor.difs0;
-			colorAdd += colVec.x;
-			colorAdd += colVec.y;
-			colorAdd += colVec.z;
+			colAdd += colVec.x;
+			colAdd += colVec.y;
+			colAdd += colVec.z;
 
-			aux.color = colorAdd * 256.0;
+			colAdd += colAdd * 256.0;
 		}
 		else
 		{
-			aux.color = min(min(colVec.x, colVec.y), colVec.z)
-				* fractal->foldColor.difs1 * 1024.0
-					+ fractal->foldColor.difs0000.w
-										+ aux.i * fractal->foldColor.difs0;
+			colAdd += min(min(colVec.x, colVec.y), colVec.z)
+				* fractal->foldColor.difs1 * 1024.0;
 		}
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
 	}
 }

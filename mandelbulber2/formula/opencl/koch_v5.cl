@@ -178,9 +178,9 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	REAL d = (length(z));
 	// aux->dist
+	REAL colDist = aux->dist;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		REAL4 zc = z;
 		REAL4 c = aux->const_c;
 		//REAL d = fabs(length(zc));
 
@@ -201,7 +201,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 							/ (aux->i + 1) * fractal->transformCommon.scaleA1;
 				}
 
-				REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
+				REAL4 b = fabs(z) - (REAL4){a, a, a, 0.0f};
 				d = max(b.x, max(b.y, b.z));
 			}
 			else
@@ -228,7 +228,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		{
 			REAL g;
 			if (!fractal->transformCommon.functionEnabledAwFalse)
-				g = zc.z;
+				g = z.z;
 			else
 				g = c.z;
 			g = fabs(g - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
@@ -263,6 +263,7 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 
 		d = d / aux->DE - fractal->transformCommon.scaleA0;
+		colDist = aux->dist;
 
 		if (aux->i >= fractal->transformCommon.startIterationsZ
 			&& aux->i < fractal->transformCommon.stopIterationsZ)
@@ -276,12 +277,21 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse
+	if (fractal->foldColor.auxColorEnabled
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += colAdd + fractal->foldColor.difs0000.w;
-	}
+		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
+		{
+			colAdd += fractal->foldColor.difs0000.w
+					+ aux->i * fractal->foldColor.difs0;
+			colAdd += fractal->transformCommon.offsetE0 * fabs(z.x * z.y);
 
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+				aux->color = colAdd;
+			else
+				aux->color += colAdd;
+		}
+	}
 	return z;
 }
