@@ -290,9 +290,9 @@ void cFractalKochV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+		if (fractal->foldColor.auxColorEnabledA || colDist != aux.dist)
 		{
-			colAdd = fractal->foldColor.difs0000.w
+			colAdd += fractal->foldColor.difs0000.w
 					+ aux.i * fractal->foldColor.difs0;
 			colAdd += fractal->transformCommon.offsetE0 * fabs(z.x * z.y);
 			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;

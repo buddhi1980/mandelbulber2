@@ -164,12 +164,18 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = 0.0;
-		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.x;
-		zc = fabs(zc);
-		addCol += zc.x * zc.y * fractal->foldColor.difs0000.y;
-		addCol += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
-		aux.color += addCol;
+		if (fractal->foldColor.auxColorEnabledA || colDist != aux.dist)
+		{
+			double colAdd = fractal->foldColor.difs0000.x
+					+ aux.i * fractal->foldColor.difs0;
+
+			zc = fabs(zc);
+			colAdd += zc.x * zc.y * fractal->foldColor.difs0000.y;
+			colAdd += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
+
+			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+			else aux.color += colAdd;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse) z = zc;

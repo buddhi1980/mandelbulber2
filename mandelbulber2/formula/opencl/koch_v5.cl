@@ -277,11 +277,11 @@ REAL4 KochV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled
+	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
+		if (fractal->foldColor.auxColorEnabledA || colDist != aux->dist)
 		{
 			colAdd += fractal->foldColor.difs0000.w
 					+ aux->i * fractal->foldColor.difs0;

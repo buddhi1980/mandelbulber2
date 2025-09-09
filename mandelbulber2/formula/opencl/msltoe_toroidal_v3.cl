@@ -119,6 +119,8 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale);
 	}
 
+	REAL colDist = aux->dist;
+
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		aux->DE0 = length(z);
@@ -133,12 +135,47 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			aux->dist = min(aux->dist, aux->DE0);
 		}
-		else	aux->dist = aux->DE0;
+		else
 		{
-
+			aux->dist = aux->DE0;
 		}
 
 		//	aux->dist = aux->DE0 * (1.0f - fractal->transformCommon.offset0) - min(aux->dist, aux->DE0) * fractal->transformCommon.offset0;
+	}
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
+		{
+			REAL colAdd = fractal->foldColor.difs0000.w
+					+ aux->i * fractal->foldColor.difs0;
+
+			// last two z lengths
+			if (fractal->transformCommon.functionEnabledPFalse)
+			{
+				REAL lastVec = 0.0f;
+				REAL4 oldPt = aux->old_z;
+				REAL lastZ = length(oldPt); // aux.old_r;
+				REAL newZ = length(z);
+				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+				lastVec *= fractal->foldColor.difs1;
+				colAdd += lastVec;
+
+				aux->old_z = z;
+			}
+
+			colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+				aux->color = colAdd;
+			else
+				aux->color += colAdd;
+		}
 	}
 	return z;
 }

@@ -148,15 +148,24 @@ REAL4 TransfDIFSSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	T1 = T1 / (aux->DE + fractal->transformCommon.offset1);
 	aux->dist = min(T1, aux->dist);
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = 0.0f;
-		if (colDist != aux->dist) addCol += fractal->foldColor.difs0000.x;
-		zc = fabs(zc);
-		addCol += zc.x * zc.y * fractal->foldColor.difs0000.y;
-		addCol += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
-		aux->color += addCol;
+		if (fractal->foldColor.auxColorEnabledA || colDist != aux->dist)
+		{
+			REAL colAdd = fractal->foldColor.difs0000.x
+					+ aux->i * fractal->foldColor.difs0;
+
+			zc = fabs(zc);
+			colAdd += zc.x * zc.y * fractal->foldColor.difs0000.y;
+			colAdd += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
+
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+				aux->color = colAdd;
+			else
+				aux->color += colAdd;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse) z = zc;

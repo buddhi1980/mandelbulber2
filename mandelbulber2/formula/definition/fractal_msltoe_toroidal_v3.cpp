@@ -27,6 +27,7 @@ cFractalMsltoeToroidalV3::cFractalMsltoeToroidalV3() : cAbstractFractal()
 
 void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
@@ -129,6 +130,8 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
 
+	double colDist = aux.dist;
+
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		aux.DE0 = z.Length();
@@ -150,5 +153,37 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 		//	aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0) - min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
 
+	}
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+		{
+			double colAdd = fractal->foldColor.difs0000.w
+					+ aux.i * fractal->foldColor.difs0;
+
+			// last two z lengths
+			if (fractal->transformCommon.functionEnabledPFalse)
+			{
+				double lastVec = 0.0;
+				CVector4 oldPt = aux.old_z;
+				double lastZ = oldPt.Length(); // aux.old_r;
+				double newZ = z.Length();
+				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+				lastVec *= fractal->foldColor.difs1;
+				colAdd += lastVec;
+
+				aux.old_z = z; // update for next iter
+			}
+
+			colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+			else aux.color += colAdd;
+		}
 	}
 }

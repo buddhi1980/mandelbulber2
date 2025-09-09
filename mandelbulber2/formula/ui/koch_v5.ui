@@ -2424,14 +2424,14 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_55">
         <property name="text">
-         <string>de tessting</string>
+         <string>min aux.dist controls</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_28">
         <property name="text">
-         <string>if iter is between start and stop then aux,dist = min(aux.dist, d)</string>
+         <string>if iter is between start and stop then aux,dist = min(aux.dist, d). else aux.dist = d</string>
         </property>
        </widget>
       </item>
