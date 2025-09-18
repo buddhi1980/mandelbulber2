@@ -121,7 +121,8 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z = zc;
 
 	// aux->color
-	if (colDist != aux->dist && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colAdd = fractal->foldColor.difs0000.w

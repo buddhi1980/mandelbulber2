@@ -120,26 +120,25 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
 
-		REAL addCol = fractal->foldColor.difs0000.w
-				+ aux->i * fractal->foldColor.difs0;
+		REAL colAdd = fractal->foldColor.difs0000.w
+				+ (REAL)(aux->i) * fractal->foldColor.difs0;
 
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
+			colAdd += colVec.x;
+			colAdd += colVec.y;
+			colAdd += colVec.z;
 
-			addCol += colVec.x;
-			addCol += colVec.y;
-			addCol += colVec.z;
-			// colorAdd += colVec.w;
-			addCol += addCol * 256.0f;
+			colAdd = colAdd * 256.0f;
 		}
 		else
 		{
-			addCol += min(min(colVec.x, colVec.y), colVec.z) * fractal->foldColor.difs1 * 1024.0f;
+			colAdd += min(min(colVec.x, colVec.y), colVec.z) * fractal->foldColor.difs1 * 1024.0f;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
-			aux->color = addCol;
+			aux->color = colAdd;
 		else
-			aux->color += addCol;
+			aux->color += colAdd;
 	}
 	return z;
 }

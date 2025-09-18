@@ -135,25 +135,32 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		aux.DE0 = z.Length();
-		if (aux.DE0 > 1.0)
+		if (aux.DE0 > fractal->transformCommon.offsetA1)
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
 		else
 			aux.DE0 = 0.0;
 
-		if (fractal->transformCommon.functionEnabledCFalse
-				&& aux.i >= fractal->analyticDE.startIterationsA
-				&& aux.i < fractal->analyticDE.stopIterationsA)
+		if (!fractal->analyticDE.enabledFalse)
 		{
-			aux.dist = min(aux.dist, aux.DE0);
+			if (fractal->transformCommon.functionEnabledCFalse
+					&& aux.i >= fractal->analyticDE.startIterationsA
+					&& aux.i < fractal->analyticDE.stopIterationsA)
+			{
+				aux.dist = min(aux.dist, aux.DE0);
+			}
+			else
+			{
+				aux.dist = aux.DE0;
+			}
 		}
 		else
 		{
-			aux.dist = aux.DE0;
+			aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0)
+					- min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
 		}
 
-		//	aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0) - min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
-
 	}
+
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA

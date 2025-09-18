@@ -121,19 +121,19 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, d / aux.DE);
+
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
-	if (fractal->foldColor.auxColorEnabled
+	if (fractal->foldColor.auxColorEnabled&& colDist != aux.dist
 			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA
-			&& colDist != aux.dist)
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		colVec.x *= fractal->foldColor.difs0000.x;
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
 
 		double colAdd = fractal->foldColor.difs0000.w
-				+ aux.i * fractal->foldColor.difs0;
+				+ (double)(aux.i) * fractal->foldColor.difs0;
 
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -141,7 +141,7 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 			colAdd += colVec.y;
 			colAdd += colVec.z;
 
-			colAdd += colAdd * 256.0;
+			colAdd = colAdd * 256.0;
 		}
 		else
 		{

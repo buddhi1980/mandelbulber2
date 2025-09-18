@@ -106,6 +106,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += (aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
@@ -115,7 +116,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux->color = colorAdd + (aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+			aux->color = colorAdd;
 		}
 		else
 		{

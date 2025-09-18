@@ -2138,15 +2138,8 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>iter add scale:</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
+         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2174,13 +2167,20 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_57">
+         <widget class="QLabel" name="label_19">
           <property name="text">
-           <string>max(z.x, z.y)</string>
+           <string>iter add scale:</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA">
+          <property name="text">
+           <string>cumulative</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2208,21 +2208,49 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_58">
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_21">
           <property name="text">
-           <string>abs(z.x*z.y)</string>
+           <string>iter add scale:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA">
-          <property name="text">
-           <string>iter color</string>
+        <item row="6" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="5" column="0">
+         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+          <property name="text">
+           <string>abs  and  max</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2250,45 +2278,31 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_60">
           <property name="text">
-           <string>abs  and  max</string>
+           <string>max(z.x, z.y)</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_20">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_22">
           <property name="text">
            <string>palette offset:</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_58">
+          <property name="text">
+           <string>abs(z.x*z.y)</string>
           </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -2572,15 +2586,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -2597,5 +2611,38 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_fold_color_difs_0000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>1705</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>225</x>
+     <y>1737</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_fold_color_difs_0000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>1709</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>1762</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

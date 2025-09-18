@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>2792</height>
+    <height>3125</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1133,6 +1133,45 @@
        <number>2</number>
       </property>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label_133">
+          <property name="text">
+           <string>DE0 cond:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
         <property name="enabled">
          <bool>true</bool>
@@ -1153,6 +1192,9 @@
         </item>
         <item>
          <widget class="MySpinBox" name="spinboxInt_analyticDE_start_iterations_A">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1179,6 +1221,9 @@
         </item>
         <item>
          <widget class="MySpinBox" name="spinboxInt_analyticDE_stop_iterations_A">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1193,39 +1238,52 @@
        </layout>
       </item>
       <item>
-       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QGridLayout" name="gridLayout_31" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
         </property>
-        <property name="prefix">
-         <string/>
-        </property>
-        <property name="suffix">
-         <string/>
-        </property>
-        <property name="decimals">
-         <number>6</number>
-        </property>
-        <property name="minimum">
-         <double>-99.998999999999995</double>
-        </property>
-        <property name="maximum">
-         <double>99.998999999999995</double>
-        </property>
-        <property name="singleStep">
-         <double>0.100000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-        <property name="text">
-         <string notr="true">DE thing false</string>
-        </property>
-       </widget>
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">DE mix thing:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -1738,11 +1796,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1758,6 +1811,11 @@
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>groupCheck_transf_function_enabled_false</tabstop>
@@ -1769,38 +1827,5 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>checkBox_transf_function_enabledC_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinboxInt_analyticDE_start_iterations_A</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>586</x>
-     <y>910</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>446</x>
-     <y>939</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledC_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinboxInt_analyticDE_stop_iterations_A</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>632</x>
-     <y>910</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>889</x>
-     <y>939</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

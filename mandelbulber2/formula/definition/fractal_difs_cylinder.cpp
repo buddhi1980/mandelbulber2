@@ -238,6 +238,8 @@ void cFractalDIFSCylinder::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
@@ -247,7 +249,7 @@ void cFractalDIFSCylinder::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux.color = colorAdd + (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+			aux.color = colorAdd;
 		}
 		else
 		{

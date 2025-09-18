@@ -131,7 +131,8 @@ void cFractalTransfDIFSHelix::FormulaCode(
 				z = zc;
 
 	// aux.color
-	if (aux.dist != colDist && aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && aux.dist != colDist
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double colAdd = fractal->foldColor.difs0000.w

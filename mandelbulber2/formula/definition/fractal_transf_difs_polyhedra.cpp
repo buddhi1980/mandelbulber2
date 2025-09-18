@@ -131,7 +131,7 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 			colAdd += colVec.y;
 			colAdd += colVec.z;
 
-			colAdd += colAdd * 256.0;
+			colAdd = colAdd * 256.0;
 		}
 		else
 		{

@@ -119,7 +119,7 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			addCol += colVec.y;
 			addCol += colVec.z;
 			// colorAdd += colVec.w;
-			addCol += addCol * 256.0f;
+			addCol = addCol * 256.0f;
 		}
 		else
 		{
