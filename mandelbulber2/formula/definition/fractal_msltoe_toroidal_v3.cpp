@@ -27,7 +27,6 @@ cFractalMsltoeToroidalV3::cFractalMsltoeToroidalV3() : cAbstractFractal()
 
 void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
@@ -72,7 +71,6 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			phi = atan2(z.z, temp);
 
 		phi = phi + fractal->bulb.betaAngleOffset;
-
 	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
@@ -136,9 +134,13 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		aux.DE0 = z.Length();
 		if (aux.DE0 > fractal->transformCommon.offsetA1)
+		{
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
+		}
 		else
+		{
 			aux.DE0 = 0.0;
+		}
 
 		if (!fractal->analyticDE.enabledFalse)
 		{
@@ -158,7 +160,8 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0)
 					- min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
 		}
-
+		if (fractal->analyticDE.enabled)
+			aux.dist = fabs(aux.dist);
 	}
 
 	// aux->color

@@ -125,9 +125,13 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		aux->DE0 = length(z);
 		if (aux->DE0 > fractal->transformCommon.offsetA1)
+		{
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+		}
 		else
+		{
 			aux->DE0 = 0.0f;
+		}
 
 		if (!fractal->analyticDE.enabledFalse)
 		{
@@ -147,6 +151,8 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			aux->dist = aux->DE0 * (1.0f - fractal->transformCommon.offset0)
 					- min(aux->dist, aux->DE0) * fractal->transformCommon.offset0;
 		}
+		if (fractal->analyticDE.enabled)
+			aux->dist = fabs(aux->dist);
 	}
 
 	// aux->color

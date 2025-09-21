@@ -173,5 +173,4 @@ void cFractalMandalayBoxV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.DE0 = max(p.x, max(p.y, p.z));
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
-
 }
