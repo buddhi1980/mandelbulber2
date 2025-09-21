@@ -201,6 +201,8 @@ REAL4 DIFSBoxDiagonalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += (aux->i * fractal->foldColor.difs0 + fractal->foldColor.difs0000.w);
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
@@ -210,7 +212,7 @@ REAL4 DIFSBoxDiagonalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux->color = colorAdd + (aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+			aux->color = colorAdd;
 		}
 		else
 		{

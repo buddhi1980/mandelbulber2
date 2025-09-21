@@ -9,70 +9,8 @@ v2.34 (??? 2025)
 	 amazingSurfMod1 updated aux.color
 	 mandalayBoxV2, add aux.dist
 
-   fix aux.color with the following:
-	 dIFSSphere,
-	 dIFSCylinder,
-	 dIFSEllipsoid,
-	 dIFSPrism,
-	 dIFSTorus,
-	 dIFSBoxDiagonalV1,
-	 dIFSBoxDiagonalV3,
-	 dIFSBoxV1,
-	 dIFSHextgrid2,
-	 dIFSMenger,
-	 dIFSMultiV1,
-
-   transfDIFSBoxFrame,
-	 transfDIFSPrism,
-	 transfDIFSPrismV2,
-	 transfDIFSSphere,
-	 transfDIFSTorus,
-	 transfDIFSTorusV2,
-	 transfDIFSTorusV4,
-	 transfDIFSTube,
-	.transfDIFSTorusTwist,
-	 transfDIFSTorusGrid,
-	 transfDIFSTriGrid,
-
-   transfDIFSHexprism
-	 transfDIFSHexprismV2
-	 transfDIFSHextgrid2
-	 transfDIFSOctahedron
-	 transfDIFSOctahedronV2
-	 transfDIFSPiriform
-
-   transfDIFSHelix
-	 transfDIFSHelixV2
-	 transfDIFSHelixMenger
-	 transfDIFSSphereGrid
-	 transfDIFSSphereGridV2
-	 transfDIFSSphereGridV3
-	 transfDIFSSpring
-	 transfDIFSTorusMenger
-
-   transfDIFSDiamond
-   transfDIFSGearV1
-	 transfDIFSHeart
-
-   transfDIFSBox
-	 transfDIFSCylinder
-	 transfDIFSCylinderV2
-
-   transfDIFSCayley2
-	 transfDIFSBoxV2
-	 transfDIFSBoxV3
-
-   transfDIFSGrid
-	 transfDIFSGridV2
-
-   transfDIFSGridV3
-
-   transfDIFSPolyhedra
-	 transfDIFSPolyhedraV2
-
-   transfDIFSSupershape
-	 transfDIFSSupershapeV2
-
+   fixed and updated aux.color custom DE - dIFS formulas
+	 fixed and updated aux.color custom DE - dIFS transforms
 
 
 

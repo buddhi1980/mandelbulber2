@@ -204,6 +204,8 @@ void cFractalDIFSBoxDiagonalV3::FormulaCode(CVector4 &z, const sFractal *fractal
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
+			colorAdd += aux.i * fractal->foldColor.difs0 + fractal->foldColor.difs0000.w;
+
 			zc = fabs(zc);
 			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
 			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
@@ -211,7 +213,7 @@ void cFractalDIFSBoxDiagonalV3::FormulaCode(CVector4 &z, const sFractal *fractal
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux.color = colorAdd + (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+			aux.color = colorAdd;
 		}
 		else
 		{
