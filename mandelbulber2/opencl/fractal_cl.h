@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2017-25 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -1616,7 +1616,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledFFalse = source.functionEnabledFFalse;
 	target.functionEnabledGFalse = source.functionEnabledGFalse;
 	target.functionEnabledHFalse = source.functionEnabledHFalse;
-
 	target.functionEnabledIFalse = source.functionEnabledIFalse;
 	target.functionEnabledJFalse = source.functionEnabledJFalse;
 	target.functionEnabledKFalse = source.functionEnabledKFalse;
