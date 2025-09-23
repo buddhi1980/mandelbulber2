@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -262,46 +262,48 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		aux->dist = aux->dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux->color
-	/*if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
+	/*	if (fractal->foldColor.auxColorEnabled)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
-			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
-			colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux->dist) aux->color += colorAdd;
-		}
-		else
-			aux->color += colorAdd;
-	}*/
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
+				colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
+				colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
+				colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
+			}
+			colorAdd += fractal->foldColor.difs1;
+			if (fractal->foldColor.auxColorEnabledA)
+			{
+				if (colorDist != aux->dist) aux->color += colorAdd;
+			}
+			else
+				aux->color += colorAdd;
+		}*/
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled && colorDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);
 			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
 			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
+			//	colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
 		}
 
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux->color = colorAdd + aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0;
+			aux->color = colorAdd;
 		}
 		else
 		{
 			aux->color += colorAdd;
 		}
 	}
-
 	return z;
 }

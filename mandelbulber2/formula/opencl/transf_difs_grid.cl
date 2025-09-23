@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,11 +32,11 @@ REAL4 TransfDIFSGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
 	REAL gridXY = min(xFloor, yFloor);
 
+	// if(gridXY != xFloor)  circle square x-sect.
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		grid = native_sqrt(gridXY * gridXY + zc.z * zc.z);
 	else
-		grid = max(fabs(gridXY), fabs(zc.z));
-
+		grid = max(fabs(gridXY), fabs(zc.z)); //  circle square x-sect add size
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 
@@ -44,10 +44,9 @@ REAL4 TransfDIFSGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.x
-				+ aux->i * fractal->foldColor.difs0;
+		REAL addCol = fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0;
 
-		if(gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
+		if (gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

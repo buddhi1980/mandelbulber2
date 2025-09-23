@@ -67,8 +67,7 @@ REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.x
-				+ fractal->foldColor.difs0 * aux->i;
+		REAL addCol = fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0;
 
 		if (fractal->transformCommon.functionEnabledCFalse
 				&& T1 >= temp + fractal->transformCommon.offset0005)

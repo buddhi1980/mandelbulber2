@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -107,6 +107,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		colorAdd += (aux->i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			zc = fabs(zc);

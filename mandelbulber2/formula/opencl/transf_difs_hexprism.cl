@@ -78,14 +78,12 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.y
-				+ aux->i * fractal->foldColor.difs0;
+		REAL addCol = fractal->foldColor.difs0000.y + aux->i * fractal->foldColor.difs0;
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (colIn < maxdx) addCol += fractal->foldColor.difs0000.z;
-			if (lenY - fractal->foldColor.difs0000.x < zc.z)
-				addCol += fractal->foldColor.difs0000.w;
+			if (lenY - fractal->foldColor.difs0000.x < zc.z) addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,12 +17,10 @@
 REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
-	REAL4 oldZ = z;
 
-	// DE (create first sphere at origin)
+	// DE (create first sphere at origin
 	REAL colorDist = aux->dist;
 	REAL4 zc = z;
-
 	// sphere
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
@@ -39,6 +37,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL spD = vecLen - fractal->transformCommon.offsetR1;
 		aux->dist = min(aux->dist, spD / aux->DE);
 	}
+
 	// torus
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
@@ -84,7 +83,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 	}
 
-	// trandforms create newz and new DE for next iteration (hmm aux.r wrong in main)
+	// trandforms create newz and new DE for next iteration
 	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx
@@ -215,7 +214,5 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-
-
 	return z;
 }

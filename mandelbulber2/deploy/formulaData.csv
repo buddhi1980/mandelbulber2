@@ -67,6 +67,7 @@ dIFSMultiV1,"DIFS Multi V1",analyticDEType,customDEFunction,cpixelDisabledByDefa
 dIFSPrism,"DIFS Prism",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 dIFSSphere,"DIFS Sphere",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 dIFSTorus,"DIFS Torus",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+eiffieCar,"Eiffie Car",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 eiffieMsltoe,"Msltoe - Julia Bulb Eiffie",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 foldBoxMod1,"Fold Box - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 foldCutCube,"Fold Cut Cube",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
@@ -87,9 +88,11 @@ kalisets1,"Kalisets1 Mod",analyticDEType,linearDEFunction,cpixelEnabledByDefault
 knotV1,"Knot V1",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 knotV2,"Knot V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 koch,Koch,analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+kochIfs,"Koch IFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 kochV2,"Koch V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV3,"Koch V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV4,"Koch V4",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+kochV5,"Koch V5",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 lkmitch,Lkmitch,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 makin3d2,Makin3D-2,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandalayBoxV1,"Mandalay Box V1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
@@ -187,6 +190,7 @@ msltoeSym4Mod1,"Msltoe - Sym4 Mod1",analyticDEType,logarithmicDEFunction,cpixelD
 msltoeToroidal,"Msltoe - Toroidal Bulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeToroidalMulti,"Msltoe - Toroidal Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeToroidalV2,"Msltoe - Toroidal Bulb V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeToroidalV3,"Msltoe - Toroidal Bulb V3",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 newtonPow3,"Newton Pow3",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 octahedron,Octahedron,analyticDEType,customDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionCustomDE,coloringFunctionDefault
 pseudoKleinian,"Pseudo Kleinian",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault

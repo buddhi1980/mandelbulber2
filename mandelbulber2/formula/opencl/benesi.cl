@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,7 +32,6 @@ REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
 		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;
-
 	r1 = -1.0f / tp * 2.0f * fabs(z.x);
 	t.y = r1 * (zz.y - zz.z) + fractal->transformCommon.offset000.y;
 	t.z = r1 * 2.0f * z.y * z.z + fractal->transformCommon.offset000.z;

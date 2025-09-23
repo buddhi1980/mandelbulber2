@@ -109,10 +109,11 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, d) / aux->DE;
+	aux->dist = min(aux->dist, d / aux->DE);
+
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
-	if (fractal->foldColor.auxColorEnabled && aux->dist != colDist
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
@@ -120,8 +121,7 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
 
-		REAL colAdd = fractal->foldColor.difs0000.w
-				+ (REAL)(aux->i) * fractal->foldColor.difs0;
+		REAL colAdd = fractal->foldColor.difs0000.w + (REAL)(aux->i) * fractal->foldColor.difs0;
 
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
