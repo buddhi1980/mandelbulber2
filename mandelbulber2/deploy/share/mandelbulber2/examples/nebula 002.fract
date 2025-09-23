@@ -1,0 +1,34 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -0,569758945360399 -1,12694915818772 0,938450108072359;
+camera_distance_to_target 1,10939817905435;
+camera_rotation -27,4342789594415 -29,3040171651509 0;
+camera_top 0,225501770407954 0,434400717062564 0,872034958335048;
+detail_level 2;
+formula_1 182;
+image_height 2160;
+image_proportion 1;
+image_width 2160;
+julia_c -0,867096862464462 -0,453241854915916 0,329389571177431;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 60;
+nebula_brightness 9,09704309953205;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+nebula_mode true;
+nebula_x_axis_colors 0 072cff 5000 ffa310 9999 0a0eff;
+nebula_x_grid_size 1E-06;
+nebula_y_axis_colors_enabled false;
+nebula_y_grid_size 1E-06;
+nebula_z_axis_colors_enabled false;
+raytraced_reflections true;
+target -0,124032243884051 -0,268312889457003 0,395462276440456;
+[fractal_1]
+power 4;
+transf_offsetA_0 6,249938;
+transf_scaleA_1 8;

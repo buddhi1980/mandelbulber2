@@ -1,0 +1,38 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -0,42657467334544 0 1,87341557603143;
+camera_distance_to_target 2,34398925459495;
+camera_rotation 0 -90 0;
+camera_top 0 1 6,12323399573677E-17;
+detail_level 2;
+dont_add_c_constant_1 true;
+formula_1 10000;
+gamma 1,5;
+hdr true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_is_defined true;
+limit_max 0,8 1,5 0;
+limit_min -2 -1,5 0;
+limits_enabled true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 2000;
+nebula_brightness 6,79301805679651;
+nebula_color_mixing darkenByBrighness;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 13ff07;
+nebula_mode true;
+nebula_samples_per_pixel 200;
+nebula_x_axis_colors 0 000000 1963 efd514 5000 ff0000 7571 ffdc15 9999 000000;
+nebula_y_axis_colors 0 000000 2043 00ff88 5000 0084ff 7694 02ff17 9999 000000;
+nebula_z_axis_colors 0 000000 5000 ffffff 9999 000000;
+raytraced_reflections true;
+saturation 4;
+target -0,42657467334544 1,43527946893775E-16 -0,470573678563525;
+[fractal_1]
+formula_code AAAAvHjaRYxBCoMwFETX5hSzbMWKlO7EhYiFQldeQIJGKGhSkh+IKb17k7TQzfDmz58Z+vZ+QWcNqe1GQnN6KHkY0tUXGMdJSUNcEsxV84n42q3Ily8WML0jIWcxt9bFgFt3ZC+WxQGQ2J4ODXzpkCc9Bd0T7zXLIjc4l9Xyi/9BrKV6cj64KrwFowVZLeFr9mYfMU84dA==;
