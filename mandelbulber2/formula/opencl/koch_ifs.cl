@@ -178,7 +178,7 @@ REAL4 KochIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 	z += Offset;
-
+	REAL colorDist = aux->dist;
 	// aux->dist
 	if (fractal->analyticDE.enabledFalse)
 	{
@@ -187,11 +187,21 @@ REAL4 KochIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		aux->dist = min(d, aux->dist);
 	}
 
-	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	// aux->color // && colorDist != aux->dist
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += colAdd + fractal->foldColor.difs0000.w;
+		colAdd += aux->i * fractal->foldColor.difs0 + fractal->foldColor.difs0000.w;
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			aux->color += colAdd;
+		}
+		else
+		{
+			aux->color = colAdd;
+		}
 	}
 	return z;
 }

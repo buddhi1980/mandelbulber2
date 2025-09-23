@@ -194,11 +194,20 @@ void cFractalKochIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 		aux.dist = min(d, aux.dist);
 	}
 
-	// aux->color
+	// aux->color, uses fold colors obtained above
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += colAdd + fractal->foldColor.difs0000.w;
+		colAdd += aux.i * fractal->foldColor.difs0 + fractal->foldColor.difs0000.w;
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			aux.color += colAdd;
+		}
+		else
+		{
+			aux.color = colAdd;
+		}
 	}
 }
