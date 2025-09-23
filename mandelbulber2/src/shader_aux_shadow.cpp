@@ -283,7 +283,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		step = std::max(step, 1e-15);
 
 		count++;
-		if (count > MAX_RAYMARCHING) break;
+		if (count > params->maxRaymarchingSteps) break;
 	}
 
 	if (!bSoft)

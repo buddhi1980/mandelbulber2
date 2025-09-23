@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -37,7 +37,7 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			REAL temp = zc.x;
 			zc.x = zc.y;
 			zc.y = temp;
-		}
+		} // hmmmm unnecessary or mistake?
 		aux->dist = 1.0f - zc.x;
 	}
 

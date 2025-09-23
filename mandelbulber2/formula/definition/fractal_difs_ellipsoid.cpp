@@ -205,20 +205,28 @@ void cFractalDIFSEllipsoid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		double spD = zc.Length() - fractal->transformCommon.offsetR1;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
+
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colorDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		colorAdd += (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 		}
-		colorAdd += fractal->foldColor.difs1;
+
 		if (fractal->foldColor.auxColorEnabledA)
 		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
+			aux.color = colorAdd;
 		}
 		else
+		{
 			aux.color += colorAdd;
+		}
 	}
 }

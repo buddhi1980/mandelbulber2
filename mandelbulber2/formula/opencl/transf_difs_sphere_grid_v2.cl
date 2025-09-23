@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -77,19 +77,19 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	else
 		aux->dist = aux->DE0;
 
-	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0f;
-		if (colDist != aux->dist) colorAdd += fractal->foldColor.difs0000.w;
-		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
-		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
-		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
+		REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
+		if (T1 == torD) colAdd += fractal->foldColor.difs0000.x;
+		if (T2 == torD) colAdd += fractal->foldColor.difs0000.y;
+		if (T3 == torD) colAdd += fractal->foldColor.difs0000.z;
 
 		if (!fractal->foldColor.auxColorEnabledFalse)
-			aux->color = colorAdd;
+			aux->color = colAdd;
 		else
-			aux->color += colorAdd;
+			aux->color += colAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

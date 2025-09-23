@@ -169,6 +169,7 @@ sParamRender::sParamRender(
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
 	limitsEnabled = container->Get<bool>("limits_enabled");
+	maxRaymarchingSteps = container->Get<int>("max_raymarching_steps");
 	minN = container->Get<int>("minN");
 	monteCarloSoftShadows = container->Get<bool>("MC_soft_shadows_enable");
 	monteCarloGIRadianceLimit = container->Get<float>("MC_GI_radiance_limit");
@@ -179,6 +180,21 @@ sParamRender::sParamRender(
 	monteCarloDenoiserPreserveGeometry = container->Get<bool>("MC_denoiser_preserve_geometry");
 	monteCarloPixelLevelOptimization = container->Get<bool>("MC_pixel_level_optimization");
 	N = container->Get<int>("N");
+	nebulaBrighness = container->Get<float>("nebula_brightness");
+	nebulaConstantBrighness = container->Get<bool>("nebula_constant_brightness");
+	nebulaColorMixing = container->Get<int>("nebula_color_mixing");
+	nebulaNumberOfSamplesPerPixel = container->Get<int>("nebula_samples_per_pixel");
+	nebulaMinIteration = container->Get<int>("nebula_min_iteration");
+	nebulaInnerEnabled = container->Get<bool>("nebula_inner_enabled");
+	nebulaOuterEnabled = container->Get<bool>("nebula_outer_enabled");
+	nebulaXAxisColorsEnabled = container->Get<bool>("nebula_x_axis_colors_enabled");
+	nebulaYAxisColorsEnabled = container->Get<bool>("nebula_y_axis_colors_enabled");
+	nebulaZAxisColorsEnabled = container->Get<bool>("nebula_z_axis_colors_enabled");
+	nebulaIterationsColorsEnabled = container->Get<bool>("nebula_iterations_colors_enabled");
+	nebulaGridDomainEnabled = container->Get<bool>("nebula_grid_domain_enabled");
+	nebulaXGridSize = container->Get<float>("nebula_x_grid_size");
+	nebulaYGridSize = container->Get<float>("nebula_y_grid_size");
+	nebulaZGridSize = container->Get<float>("nebula_z_grid_size");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
@@ -222,6 +238,11 @@ sParamRender::sParamRender(
 
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 	mRotCloudsRotation.SetRotation2(cloudsRotation * M_PI / 180.0);
+
+	nebulaXAxisColors.SetColorsFromString(container->Get<QString>("nebula_x_axis_colors"));
+	nebulaYAxisColors.SetColorsFromString(container->Get<QString>("nebula_y_axis_colors"));
+	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
+	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{

@@ -41,6 +41,7 @@
 #include "dock_navigation.h"
 
 #include "src/automated_widgets.hpp"
+#include "src/cimage.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/netrender.hpp"
@@ -133,6 +134,13 @@ void cDockRenderingEngine::ConnectSignals() const
 
 	connect(ui->pushButton_calculate_dist_thresh, SIGNAL(clicked()), this,
 		SLOT(slotCalculateDistanceThreshold()));
+
+	connect(ui->pushButton_nebula_auto_brightness_dark, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessDark);
+	connect(ui->pushButton_nebula_auto_brightness_medium, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium);
+	connect(ui->pushButton_nebula_auto_brightness_bright, &QPushButton::clicked, this,
+		&cDockRenderingEngine::slotPressedButtonAutoBrighnessBright);
 }
 
 void cDockRenderingEngine::slotNetRenderServerStart() const
@@ -437,5 +445,36 @@ void cDockRenderingEngine::slotCalculateDistanceThreshold()
 	double fov = CalcFOV(gPar->Get<int>("fov"), perspectiveType);
 	double distThresh = fov / detailLevel / imageWidth * distance * 10.0;
 	gPar->Set("DE_thresh", distThresh);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessDark()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	qDebug() << "Average brightness:" << averageBrightness;
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.05 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessMedium()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.15 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cDockRenderingEngine::slotPressedButtonAutoBrighnessBright()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
+	double oldBrighness = gPar->Get<double>("nebula_brightness");
+	double newBrighness = oldBrighness * 0.5 / averageBrightness;
+	gPar->Set("nebula_brightness", newBrighness);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }

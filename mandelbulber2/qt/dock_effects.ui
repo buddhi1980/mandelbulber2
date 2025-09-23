@@ -92,6 +92,9 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip the direction of Chromatic Aberration (RGB channel offset).&lt;/p&gt;&lt;p&gt;When enabled, the color fringing shifts in the opposite radial direction: - Off: channels shift outward from the image center. - On: channels shift inward toward the center. This also swaps the apparent order of the colored fringes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
      </property>
@@ -179,8 +182,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>432</width>
-            <height>1164</height>
+            <width>433</width>
+            <height>1237</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -243,7 +246,7 @@
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for a given pixel.&lt;/p&gt;&lt;p&gt;This value affects reflections, refraction and MC Global Illumination &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
-                   <number>9</number>
+                   <number>1000</number>
                   </property>
                  </widget>
                 </item>
@@ -646,6 +649,9 @@ per pixel:</string>
               </item>
               <item>
                <widget class="MyGroupBox" name="groupCheck_MC_denoiser_enable">
+                <property name="toolTip">
+                 <string>Enable the Monte Carlo denoiser to reduce noise in rendered images. This post-processing step smooths out grainy patterns caused by limited sampling, resulting in cleaner and more visually appealing results, especially at lower sample counts.</string>
+                </property>
                 <property name="title">
                  <string>Denoiser</string>
                 </property>
@@ -672,6 +678,9 @@ per pixel:</string>
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the strength of the Monte Carlo denoiser for noise reduction in rendered images:&lt;/p&gt;&lt;p&gt;Light: Minimal denoising with the smallest blur radius. Preserves the most detail but leaves some noise.&lt;/p&gt;&lt;p&gt;Medium: Balanced setting with moderate blur. Reduces noise while retaining most image details.&lt;/p&gt;&lt;p&gt;Strong: Aggressive denoising with a larger blur radius. Produces smoother images but may blur fine details.&lt;/p&gt;&lt;p&gt;Extreme: Maximum denoising with the largest blur. Greatly reduces noise but can noticeably smooth out textures and edges.&lt;/p&gt;&lt;p&gt;Choose a strength based on your preference for image smoothness versus detail preservation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <item>
                     <property name="text">
@@ -711,7 +720,7 @@ per pixel:</string>
                     </sizepolicy>
                    </property>
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keeps sharp edges and object details.&lt;/p&gt;&lt;p&gt;This option can give wrong appearance when strong DOF is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preserve geometry and edges during denoising. &lt;/p&gt;&lt;p&gt;When enabled, the denoiser uses depth and surface normal information to keep object boundaries and fine details sharp, reducing unwanted blurring of shapes. &lt;/p&gt;&lt;p&gt;Note: In scenes with strong depth of field (DOF), enabling this option may lead to unnatural appearance near blurred edges.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="text">
                     <string>Preserve geometry</string>
@@ -770,7 +779,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable global illumination for volumetric effects such as fog and clouds. &lt;/p&gt;&lt;p&gt;When checked, indirect lighting will account for light scattering inside volumes, resulting in more realistic illumination for scenes with participating media. &lt;/p&gt;&lt;p&gt;This may increase rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Global illumination by volumetric effects</string>
@@ -789,7 +798,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow code angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by C&lt;span style=&quot; font-style:italic;&quot;&gt;ustom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable global illumination for volumetric fog. &lt;/p&gt;&lt;p&gt;When checked, indirect lighting (from global illumination) will contribute to the brightness and realism of fog and other volumetric effects, allowing light to scatter and bounce inside fog. &lt;/p&gt;&lt;p&gt;This results in more realistic lighting but may increase render time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Illumination of fog</string>
@@ -1455,8 +1464,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>432</width>
-            <height>1698</height>
+            <width>433</width>
+            <height>1814</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1541,6 +1550,9 @@ for volumetric effects:</string>
                 </item>
                 <item row="3" column="1">
                  <widget class="MyComboBox" name="comboBox_basic_fog_primitive">
+                  <property name="toolTip">
+                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>None</string>
@@ -1581,6 +1593,9 @@ for volumetric effects:</string>
                 </item>
                 <item row="2" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_basic_fog_cast_shadows">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables full shadow interaction for basic fog. &lt;/p&gt;&lt;p&gt;When activated, basic fog volumes will both cast shadows onto scene geometry and receive shadows from other objects and light sources. &lt;/p&gt;&lt;p&gt;This affects how light propagates through the fog, allowing occlusion effects and shadowed regions within and behind fog areas. &lt;/p&gt;&lt;p&gt;The result is a more physically accurate and visually integrated rendering of fog, though enabling this may increase computational complexity and rendering time due to additional light and shadow sampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Cast / receive shadows</string>
                   </property>
@@ -1831,6 +1846,9 @@ for volumetric effects:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables full shadow interaction for basic fog. &lt;/p&gt;&lt;p&gt;When activated, basic fog volumes will both cast shadows onto scene geometry and receive shadows from other objects and light sources. &lt;/p&gt;&lt;p&gt;This affects how light propagates through the fog, allowing occlusion effects and shadowed regions within and behind fog areas. &lt;/p&gt;&lt;p&gt;The result is a more physically accurate and visually integrated rendering of fog, though enabling this may increase computational complexity and rendering time due to additional light and shadow sampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
                   </property>
@@ -1897,6 +1915,9 @@ for volumetric effects:</string>
                 </item>
                 <item row="7" column="1">
                  <widget class="MyComboBox" name="comboBox_distance_fog_primitive">
+                  <property name="toolTip">
+                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>None</string>
@@ -2116,6 +2137,9 @@ for volumetric effects:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables full shadow interaction for basic fog. &lt;/p&gt;&lt;p&gt;When activated, basic fog volumes will both cast shadows onto scene geometry and receive shadows from other objects and light sources. &lt;/p&gt;&lt;p&gt;This affects how light propagates through the fog, allowing occlusion effects and shadowed regions within and behind fog areas. &lt;/p&gt;&lt;p&gt;The result is a more physically accurate and visually integrated rendering of fog, though enabling this may increase computational complexity and rendering time due to additional light and shadow sampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
                   </property>
@@ -2217,6 +2241,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="9" column="1">
                  <widget class="MyComboBox" name="comboBox_iteration_fog_primitive">
+                  <property name="toolTip">
+                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>None</string>
@@ -2231,6 +2258,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            </item>
            <item>
             <widget class="MyGroupBox" name="groupCheck_clouds_enable">
+             <property name="toolTip">
+              <string>Enable procedural volumetric clouds. When checked, the renderer integrates noise-based cloud volumes along view rays, with per-light illumination and optional shadow casting/receiving (if enabled in Clouds settings). Configure color, density, scale (period), noise iterations, height/plane shape, distance mode, and motion below. Increases render time due to volumetric sampling and shadow queries.</string>
+             </property>
              <property name="title">
               <string>Clouds</string>
              </property>
@@ -2276,6 +2306,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of noise octaves used to generate cloud density. &lt;/p&gt;&lt;p&gt;Higher values add finer, more turbulent detail and richer structure, but increase computation time due to additional noise sampling. Typical useful range: 5–12. Adjust together with Cloud Period and Detail Accuracy; higher iterations with a small period produce very high-frequency features. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -2298,6 +2331,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Base density/coverage of the volumetric cloud field (0–1). Higher values produce thicker, more continuous clouds; lower values yield sparse, broken clouds. &lt;/p&gt;&lt;p&gt;Tune together with Cloud Opacity (overall strength), Period (scale), and Noise Iterations (detail). Typical range: 0.15–0.60; 0 = clear, 1 = near-solid overcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -2324,7 +2360,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="6" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_period"/>
+                 <widget class="MyLineEdit" name="logedit_clouds_period">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Spatial scale of the procedural cloud noise (period, in scene units). Larger values yield bigger, smoother cloud structures; smaller values create finer, more turbulent detail. &lt;/p&gt;&lt;p&gt;Interacts with Noise Iterations and Detail Accuracy; very small periods may increase render time and require higher Detail Accuracy to avoid aliasing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_113">
@@ -2341,6 +2381,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for the procedural noise field driving clouds. Changing it generates a different (statistically equivalent) cloud layout/phase without altering density, scale (period), or octave structure. Keep constant for deterministic, reproducible renders and animations; vary to explore alternative compositions. Integer value, typically 0–1,000,000.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="maximum">
                    <number>100000</number>
                   </property>
@@ -2353,6 +2396,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ambient light contribution for clouds (0–1). &lt;/p&gt;&lt;p&gt;Blends uniform ambient illumination into cloud lighting: &lt;/p&gt;&lt;p&gt;0 = only direct lights with full shadow contrast; &lt;/p&gt;&lt;p&gt;1 = fully ambient, very soft/flat shadows. &lt;/p&gt;&lt;p&gt;Increase to brighten interiors and soften shadows; decrease for crisper shading. &lt;/p&gt;&lt;p&gt;Does not affect opacity. &lt;/p&gt;&lt;p&gt;Typical range: 0.05–0.30.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -2382,7 +2428,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="8" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_lights_boost"/>
+                 <widget class="MyLineEdit" name="logedit_clouds_lights_boost">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Boosts intensity of visible light beams and orbit‑trap “fake lights” inside clouds. Scales their contribution with cloud density/opacity: higher values make light shafts brighter and more pronounced, especially in dense regions. &lt;/p&gt;&lt;p&gt;Does not affect direct/ambient light or cloud opacity. &lt;/p&gt;&lt;p&gt;0 = no boost. Typical range 0–2; use higher for strong god‑ray effects (may increase noise).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_clouds_color" native="true">
@@ -2393,6 +2443,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="3" column="0" colspan="2">
                  <widget class="QPushButton" name="pushButton_clouds_randomize">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generates a new random seed for the procedural cloud noise, changing the cloud pattern without altering density, period, or noise iterations. &lt;/p&gt;&lt;p&gt;Click repeatedly to explore variations; keep the chosen seed fixed for reproducible renders and animations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Randomize</string>
                   </property>
@@ -2413,7 +2466,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_opacity"/>
+                 <widget class="MyLineEdit" name="logedit_clouds_opacity">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Global multiplier for volumetric cloud opacity (thickness). Higher values make clouds denser and more opaque; lower values make them more transparent (0 = invisible). Works together with Cloud Density, Noise Iterations, and Sharp Edges. Accepts positive real values; typical range 10–1000 depending on scene. Has minimal impact on render time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="7" column="0">
                  <widget class="QLabel" name="label_143">
@@ -2430,6 +2487,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable cloud shadowing. When checked, clouds receive and cast shadows from scene lights, giving more realistic occlusion and higher contrast; this is slower. When unchecked, faster shading without shadows. Tip: raise Clouds Ambient Light to soften shadows; use Lights Boost to emphasize light shafts.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Receive shadows</string>
                   </property>
@@ -2439,6 +2499,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
               </item>
               <item>
                <widget class="MyGroupBox" name="groupCheck_clouds_sharp_edges">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable hard‑edged clouds by sharpening the density threshold. When on, use Sharpness to control edge steepness: higher values produce crisper, thinner transitions; lower values keep edges softer. &lt;/p&gt;&lt;p&gt;Great for dramatic silhouettes and pronounced shadows. &lt;/p&gt;&lt;p&gt;May increase noise/aliasing—raise Clouds Noise Iterations or Detail Accuracy if needed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="title">
                  <string>Sharp edges</string>
                 </property>
@@ -2478,6 +2541,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Edge steepness for Sharp edges clouds. Higher values sharpen the density threshold (crisper, thinner cloud contours); lower values keep transitions soft. &lt;/p&gt;&lt;p&gt;Very high values may introduce aliasing/noise—consider increasing Clouds Noise Iterations or Clouds Detail Accuracy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="prefix">
                     <string/>
@@ -2531,7 +2597,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="0" column="3">
-                 <widget class="MyLineEdit" name="vect3_clouds_speed_x"/>
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_x">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;X-axis drift speed of the clouds. Controls how fast the noise field moves along +X over time (animation). &lt;/p&gt;&lt;p&gt;Positive = moves toward +X, negative = toward −X; 0 = no motion. &lt;/p&gt;&lt;p&gt;Effective speed scales with Clouds Period. &lt;/p&gt;&lt;p&gt;Use small values (e.g., ±0.001 to ±0.05). &lt;/p&gt;&lt;p&gt;Combine with Y/Z for wind direction.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_135">
@@ -2569,6 +2639,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_clouds_primitive">
+                  <property name="toolTip">
+                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>None</string>
@@ -2580,6 +2653,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
               </item>
               <item>
                <widget class="MyGroupBox" name="groupCheck_clouds_plane_shape">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable planar cloud layer. Constrains clouds to a band around a rotated plane with a soft vertical falloff. &lt;/p&gt;&lt;p&gt;Use Height to set layer thickness, and Center/Rotation to position and tilt the layer. &lt;/p&gt;&lt;p&gt;Useful for horizon-like cloud sheets and can speed up rendering by limiting the cloud volume.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="title">
                  <string>Plane shape</string>
                 </property>
@@ -2656,7 +2732,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="3" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_z"/>
+                    <widget class="MyLineEdit" name="vect3_clouds_center_z">
+                     <property name="toolTip">
+                      <string>Vertical position (Z axis) of the center of the clouds volume relative to the fractal.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="4" column="0" rowspan="3">
                     <widget class="QLabel" name="label_120">
@@ -2703,7 +2783,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="1" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_x"/>
+                    <widget class="MyLineEdit" name="vect3_clouds_center_x">
+                     <property name="toolTip">
+                      <string>Vertical position (X axis) of the center of the clouds volume relative to the fractal.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="5" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_y">
@@ -2788,10 +2872,18 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="2" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_y"/>
+                    <widget class="MyLineEdit" name="vect3_clouds_center_y">
+                     <property name="toolTip">
+                      <string>Vertical position (Y axis) of the center of the clouds volume relative to the fractal.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="0" column="2">
-                    <widget class="MyLineEdit" name="logedit_clouds_height"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_height">
+                     <property name="toolTip">
+                      <string>Height above the fractal base at which the main cloud layer appears.</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -2800,6 +2892,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
               </item>
               <item>
                <widget class="MyGroupBox" name="groupCheck_clouds_distance_mode">
+                <property name="toolTip">
+                 <string>Generate clouds which are within specified distance from the fractal.</string>
+                </property>
                 <property name="title">
                  <string>Clouds at distance from fractal</string>
                 </property>
@@ -2832,7 +2927,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="MyLineEdit" name="logedit_clouds_distance"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_distance">
+                     <property name="toolTip">
+                      <string>Distance from the fractal surface to the start of the clouds volume.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_126">
@@ -2842,7 +2941,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="MyLineEdit" name="logedit_clouds_distance_layer"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_distance_layer">
+                     <property name="toolTip">
+                      <string>Vertical thickness of the clouds layer, controlling how deep clouds extend from their base.</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -2873,7 +2976,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <number>2</number>
                    </property>
                    <item row="1" column="1">
-                    <widget class="MyLineEdit" name="logedit_clouds_DE_approaching"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_DE_approaching">
+                     <property name="toolTip">
+                      <string>Step size for distance estimation when approaching the clouds; lower values increase accuracy but reduce performance.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_128">
@@ -2883,7 +2990,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="MyLineEdit" name="logedit_clouds_detail_accuracy"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_detail_accuracy">
+                     <property name="toolTip">
+                      <string>Controls the rendering accuracy for fine details in the clouds; higher values improve detail but increase render time.</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_129">
@@ -2900,7 +3011,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="MyLineEdit" name="logedit_clouds_DE_multiplier"/>
+                    <widget class="MyLineEdit" name="logedit_clouds_DE_multiplier">
+                     <property name="toolTip">
+                      <string>Multiplier for the distance estimation step size in clouds rendering. Increasing this value can speed up rendering but may reduce accuracy and detail in cloud boundaries. Lower values provide more precise results at the cost of performance.</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -3004,8 +3119,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>450</width>
-            <height>1078</height>
+            <width>448</width>
+            <height>1082</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3199,7 +3314,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of background&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma correction for the background (colors or texture), applied after Background brightness. &lt;/p&gt;&lt;p&gt;1.0 = no change; &amp;gt;1 brightens midtones; &amp;lt;1 darkens. &lt;/p&gt;&lt;p&gt;Affects only the background, not scene lighting or objects. &lt;/p&gt;&lt;p&gt;Typical range: ~0.8–2.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -3721,9 +3836,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>432</width>
-            <height>1274</height>
+            <y>-280</y>
+            <width>433</width>
+            <height>1362</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3777,7 +3892,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Global intensity multiplier for all lights (Light #1…#N). Multiplies each light’s Intensity value: 1.0 = no change, 0 = lights off, &amp;gt;1 brightens, &amp;lt;1 dims. &lt;/p&gt;&lt;p&gt;Useful for balancing overall lighting without editing each light.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -3790,7 +3905,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Global size multiplier for all lights’ visible glow/halo. Multiplies each light’s Size value: 1.0 = no change; &amp;gt;1 enlarges halos, &amp;lt;1 shrinks them. &lt;/p&gt;&lt;p&gt;Also scales the apparent angular size for directional lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -3826,6 +3941,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strength of blue Rayleigh scattering for volumetric effects (atmosphere). &lt;/p&gt;&lt;p&gt;Higher values add a blue, angle‑dependent tint around lights (∝ 1 + cos²θ). Set to 0 to disable. &lt;/p&gt;&lt;p&gt;Use with Rayleigh scattering red to balance the effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
@@ -3837,7 +3955,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Global multiplier for all lights’ Visibility (the visible glow/illuminated fog around lights). &lt;/p&gt;&lt;p&gt;Multiplies each light’s Visibility value: 1.0 = no change, 0 = hide visible lights, &amp;gt;1 increases glow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -3876,6 +3994,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strength of red Mie scattering for volumetric effects (atmosphere). Increases warm, forward‑scattering glow when looking toward the light direction (stronger near beams/god‑rays). &lt;/p&gt;&lt;p&gt;1.0 = noticeable effect; 0 = off. &lt;/p&gt;&lt;p&gt;Use together with Rayleigh scattering blue to balance overall color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -3924,6 +4045,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;When placing a light with the mouse, position it &lt;b&gt;behind&lt;/b&gt; the clicked surface (traced through the fractal). When disabled, the light is placed &lt;b&gt;in front&lt;/b&gt; of the surface at the manual placement distance.&lt;/p&gt; &lt;p&gt;Use to hide the emitter behind geometry while keeping its illumination/visible glow. Applies to the “Place light” mouse action.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Place light behind the object</string>
@@ -3993,10 +4117,18 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="8" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_intensity"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_intensity">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Per‑light brightness for auto‑generated random lights.&lt;/p&gt;&lt;p&gt;Does not depend on “Number of random lights” — adding more lights does not auto‑scale intensity. Increase for brighter illumination; very high values can cause overexposure. Adjust together with Visibility and Size for desired look.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from the fractal surface used when placing auto-generated random lights. Only positions within this distance from the surface are accepted.&lt;/p&gt;&lt;p&gt;Lower values keep lights close to the surface; higher values allow them to float farther out. Very small values may slow placement or yield few/no lights. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="8" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity">
@@ -4027,6 +4159,9 @@ from fractal:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Center point (X/Y/Z) for placing auto-generated random lights. Lights are distributed around this point within the Distribution radius.&lt;/p&gt;&lt;p&gt;Use “Place random light center” to pick it with the mouse. Works together with “Maximum distance from fractal” to keep lights near the surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -4060,6 +4195,9 @@ from fractal:</string>
                 </item>
                 <item row="14" column="2">
                  <widget class="MyComboBox" name="comboBox_random_lights_coloring_type">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose how auto‑generated random lights are colored.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Random colors&lt;/span&gt; — each light gets a random color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Single color&lt;/span&gt; — all lights use the First color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Two colors&lt;/span&gt; — each light randomly uses the First or Second color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Two colors based on distance&lt;/span&gt; — color blends between First and Second color based on the light’s distance to the fractal surface (closer → First, farther → Second).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>Random colors</string>
@@ -4090,6 +4228,9 @@ from fractal:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of auto-generated random lights. &lt;/p&gt;&lt;p&gt;Lights are placed around the Center of distribution within the Distribution radius, constrained by Maximum distance from fractal, and initialized using the Random seed. &lt;/p&gt;&lt;p&gt;Higher values may slow rendering and clutter the scene.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="maximum">
                    <number>999999</number>
                   </property>
@@ -4102,6 +4243,9 @@ from fractal:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for generating auto-created lights. With the same seed and settings, the random lights’ positions/colors are reproducible; change it to get a different arrangement.&lt;/p&gt;&lt;p&gt;Integer 0–999999. Does not change the number of lights, only their randomized outcome.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
                    <number>999999</number>
@@ -4128,6 +4272,9 @@ from fractal:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable shadow casting for auto‑generated random lights.&lt;/p&gt;&lt;p&gt;When on, these lights occlude geometry and produce shadows. Turn off to use them as non‑shadowing fill lights and speed up rendering. For soft, blurry shadows, also enable “Calculate MC soft shadows” and adjust “Soft shadow cone”. Otherwise shadows are hard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Cast shadows</string>
@@ -4163,6 +4310,9 @@ lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pick the center for auto-generated random lights by clicking in the image.&lt;/p&gt;&lt;p&gt;Sets the mouse mode to “Place random light center”. On click, it also auto-sets Distribution radius to 50% and Maximum distance from fractal to 10% of the distance from the chosen center to the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Place random light center by mouse</string>
                   </property>
@@ -4176,7 +4326,11 @@ lights:</string>
                  </widget>
                 </item>
                 <item row="3" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of the area around the Center of distribution where auto-generated random lights are placed (±radius along X/Y/Z).&lt;/p&gt;&lt;p&gt;Increase to spread lights wider; decrease to cluster them near the center. Works with “Maximum distance from fractal” to keep lights near the surface. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="4" column="2">
                  <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_x">
@@ -4185,6 +4339,9 @@ lights:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Center point (X/Y/Z) for placing auto-generated random lights. Lights are distributed around this point within the Distribution radius.&lt;/p&gt;&lt;p&gt;Use “Place random light center” to pick it with the mouse. Works together with “Maximum distance from fractal” to keep lights near the surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -4204,6 +4361,9 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Center point (X/Y/Z) for placing auto-generated random lights. Lights are distributed around this point within the Distribution radius.&lt;/p&gt;&lt;p&gt;Use “Place random light center” to pick it with the mouse. Works together with “Maximum distance from fractal” to keep lights near the surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                  </widget>
                 </item>
                 <item row="4" column="1">
@@ -4220,7 +4380,11 @@ of lights:</string>
                  </widget>
                 </item>
                 <item row="11" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Soft shadow cone angle for auto‑generated random lights (degrees).&lt;/p&gt;&lt;p&gt;Sets the angular radius used by Monte Carlo soft‑shadow sampling. 0 = hard, crisp shadows; higher values produce softer, blurrier shadows.&lt;/p&gt;&lt;p&gt;Effective when “Cast shadows” is on, and “Calculate MC soft shadows” is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="13" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_random_lights_penetrating">
@@ -4230,16 +4394,27 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allow auto‑generated random lights to penetrate geometry.&lt;/p&gt;&lt;p&gt;When enabled, these lights are partally blocked by objects and can illuminate through walls or inside cavities—useful as fill lights. For realistic, blocked lighting and shadows, turn this off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Penetrating</string>
                   </property>
                  </widget>
                 </item>
                 <item row="9" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_size"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_size">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Emitter size (radius) of each auto‑generated random light.&lt;/p&gt;&lt;p&gt;Larger values behave more like area lights, producing softer shadows and broader highlights; smaller values approach point lights with sharper shadows. Very large sizes can flatten contrast.&lt;/p&gt;&lt;p&gt;Effective when “Random lights group” is enabled. Default: 0.1.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="10" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_visibility"/>
+                 <widget class="MyLineEdit" name="logedit_random_lights_visibility">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of the visible light source (glow/halo) for each auto‑generated random light.&lt;/p&gt;&lt;p&gt;Affects only how strongly the emitter itself is drawn on screen; it does not change scene illumination (use “Intensity” for that). Works together with “Size” to define the halo’s radius. Not used for directional lights.&lt;/p&gt;&lt;p&gt;Higher values make brighter, more noticeable bulbs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="16" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color_2" native="true">
@@ -4300,6 +4475,9 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Interpret the Orbit trap center relative to the fractal’s origin.&lt;/p&gt;&lt;p&gt;When enabled, the orbit‑trap distance is computed using coordinates relative to the fractal start/constant (z − C), effectively anchoring the trap to the fractal’s local origin. When disabled, the distance uses absolute coordinates (z), so the trap center is in world space.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Orbit trap center relative to the origin</string>
                   </property>
@@ -4313,7 +4491,11 @@ of lights:</string>
                  </widget>
                 </item>
                 <item row="11" column="2">
-                 <widget class="MyLineEdit" name="logedit_fake_lights_orbit_trap_size"/>
+                 <widget class="MyLineEdit" name="logedit_fake_lights_orbit_trap_size">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of the Orbit trap shape used by Fake lights.&lt;/p&gt;&lt;p&gt;Meaning depends on Shape: - Circle: ring radius - Square: half edge length - Sphere: shell radius - Cube: half edge length - Point/Line: this value is not used&lt;/p&gt;&lt;p&gt;Applied in the trap’s local space around the Orbit trap center. Use “Thickness” to control the shell’s falloff width.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_91">
@@ -4384,6 +4566,9 @@ of lights:</string>
                 </item>
                 <item row="6" column="2">
                  <widget class="MyComboBox" name="comboBox_fake_lights_orbit_trap_shape">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Select the orbit‑trap shape used by Fake lights (lighting is driven by the distance to this shape).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Point&lt;/i&gt; — a single point source near the trap center (default).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Line&lt;/i&gt; — an infinite line through the center; use Orbit rotation to set its direction.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Circle&lt;/i&gt; — a circular ring around a central axis; Size = ring radius; Rotation sets the axis.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Square&lt;/i&gt; — a square ring; Size = half edge; Rotation sets orientation.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Sphere&lt;/i&gt; — a spherical shell; Size = radius.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Cube&lt;/i&gt; — a cubic shell; Size = half edge length.&lt;/p&gt; &lt;p&gt;Tip: Use Thickness to control falloff width, Visibility/Visibility size for reach, and set center/Relative center and Orbit rotation as needed. Effective when “Fake lights” is enabled.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>Point</string>
@@ -4506,6 +4691,9 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotate the Orbit trap shape around the selected axis (degrees).&lt;/p&gt;&lt;p&gt;Effects by shape: - Line: sets the line direction. - Circle: sets the ring’s axis. - Square: sets the plane/orientation. - Cube: sets the cube orientation. - Sphere: usually no visible effect. - Point: no effect.&lt;/p&gt;&lt;p&gt;Notes: - Angles are in degrees; internal order is Z → Y → X. - Rotation is applied around the Orbit trap center (see “Relative center”).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="prefix">
                    <string/>
                   </property>
@@ -4533,6 +4721,9 @@ of lights:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotate the Orbit trap shape around the selected axis (degrees).&lt;/p&gt;&lt;p&gt;Effects by shape: - Line: sets the line direction. - Circle: sets the ring’s axis. - Square: sets the plane/orientation. - Cube: sets the cube orientation. - Sphere: usually no visible effect. - Point: no effect.&lt;/p&gt;&lt;p&gt;Notes: - Angles are in degrees; internal order is Z → Y → X. - Rotation is applied around the Orbit trap center (see “Relative center”).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4621,6 +4812,9 @@ of lights:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotate the Orbit trap shape around the selected axis (degrees).&lt;/p&gt;&lt;p&gt;Effects by shape: - Line: sets the line direction. - Circle: sets the ring’s axis. - Square: sets the plane/orientation. - Cube: sets the cube orientation. - Sphere: usually no visible effect. - Point: no effect.&lt;/p&gt;&lt;p&gt;Notes: - Angles are in degrees; internal order is Z → Y → X. - Rotation is applied around the Orbit trap center (see “Relative center”).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4898,7 +5092,7 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>450</width>
+            <width>448</width>
             <height>1070</height>
            </rect>
           </property>
@@ -4933,6 +5127,9 @@ of lights:</string>
            </item>
            <item>
             <widget class="MyGroupBox" name="groupCheck_hdr_blur_enabled">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable the HDR Blur post effect (bloom-like glow on bright areas).&lt;/p&gt;&lt;p&gt;This applies a weighted blur in HDR space after rendering. Controls below: - Radius: overall spread of the blur (image-size relative). - Intensity: strength/threshold of the blur contribution.&lt;/p&gt;&lt;p&gt;Notes: - Operates on HDR image data; does not change lighting or exposure. - Uses OpenCL if available, otherwise CPU. - Larger Radius increases render time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="title">
               <string>HDR Bl&amp;ur</string>
              </property>
@@ -4967,6 +5164,9 @@ of lights:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the radius (spread) of the HDR Blur bloom.&lt;/p&gt;&lt;p&gt;The blur size is relative to image dimensions. Approximate pixel radius = radius × (image width + image height) × 0.001.&lt;/p&gt;&lt;p&gt;Larger values give a wider, softer glow; smaller values keep highlights tight. Bigger radius increases processing time. Works with Intensity to control strength.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -5013,6 +5213,9 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copilot said: &lt;/p&gt;&lt;p&gt;Controls the strength/threshold of the HDR Blur &lt;/p&gt;&lt;p&gt;Controls the strength/threshold of the HDR Blur contribution.&lt;/p&gt;&lt;p&gt;Lower values produce a stronger, brighter bloom; higher values dampen the effect. Works together with Radius (spread) but does not change blur size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="prefix">
                    <string/>
                   </property>
@@ -5043,6 +5246,9 @@ of lights:</string>
            </item>
            <item>
             <widget class="MyGroupBox" name="groupCheck_post_chromatic_aberration_enabled">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable the Chromatic Aberration post effect (RGB channel separation).&lt;/p&gt;&lt;p&gt;This simulates lens dispersion by shifting color channels radially from the image center.&lt;/p&gt;&lt;p&gt;Controls inside: - Radius: overall spread of the separation (relative to image size). - Aberration intensity: strength of the channel offset. - Reverse: flip direction (outward vs inward shift).&lt;/p&gt;&lt;p&gt;Notes: - Post-processing only; does not affect lighting or geometry. - Uses OpenCL if available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="title">
               <string>Chromatic aberration</string>
              </property>
@@ -5085,6 +5291,9 @@ of lights:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls the strength of RGB channel separation (color fringing) in Chromatic Aberration.&lt;/p&gt;&lt;p&gt;Higher values increase the offset between color channels and widen the visible fringes, especially toward the image edges. Lower values keep the effect subtle. Works together with Radius (spread) and does not change direction (use Reverse to flip).&lt;/p&gt;&lt;p&gt;Notes: - Stronger intensity can increase processing time. - Post-processing only; does not affect lighting or geometry.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="prefix">
                    <string/>
                   </property>
@@ -5115,6 +5324,9 @@ of lights:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the base radius (spread) of Chromatic Aberration.&lt;/p&gt;&lt;p&gt;The effective spread is relative to image size and grows with distance from the image center, producing wider color fringing toward the edges. Increase for more pronounced, wider separation; decrease to keep fringes tight.&lt;/p&gt;&lt;p&gt;Notes: - Works with Aberration intensity (strength); does not change direction (see Reverse). - Larger values increase processing time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>

@@ -340,25 +340,33 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 
 				QString listOfEffects;
 				bool isMC = false;
-				if (par->Get<bool>("DOF_monte_carlo"))
+
+				if (par->Get<bool>("nebula_mode"))
 				{
-					listOfEffects += "MC ";
-					isMC = true;
+					listOfEffects += "nebula ";
 				}
-				if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
-				if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
-				if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
-				if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
-				if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
-				if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
-				if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
-				if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
-				if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
-				if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
-				if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
-				if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
-				if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
-				if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
+				else
+				{
+					if (par->Get<bool>("DOF_monte_carlo"))
+					{
+						listOfEffects += "MC ";
+						isMC = true;
+					}
+					if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
+					if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
+					if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
+					if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
+					if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
+					if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
+					if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
+					if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
+					if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
+					if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
+					if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
+					if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
+					if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
+					if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
+				}
 
 				ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
 

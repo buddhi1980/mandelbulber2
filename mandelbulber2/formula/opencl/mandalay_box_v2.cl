@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -175,10 +175,12 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->color += colorAdd;
 	}
 
-	// temp code
-	p = fabs(z);
-	aux->dist = max(p.x, max(p.y, p.z));
-	aux->dist = aux->dist / aux->DE;
-
+	// aux->dist
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		p = fabs(z);
+		aux->DE0 = max(p.x, max(p.y, p.z));
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
+	}
 	return z;
 }

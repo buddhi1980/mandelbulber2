@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -142,7 +142,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			fabs(aux->const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
 			rDE);
 	}
-
+	REAL colDist = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = min(aux->dist, rDE);
 	else
@@ -153,22 +153,30 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		REAL colAdd = fractal->foldColor.difs0000.y + aux->i * fractal->foldColor.difs0;
+
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			ang =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
 			if (fmod(ang, 2.0f) < 1.0f)
-				aux->color += fractal->foldColor.difs0000.z;
+				colAdd += fractal->foldColor.difs0000.z;
 			else
-				aux->color += fractal->foldColor.difs0000.w;
+				colAdd += fractal->foldColor.difs0000.w;
 		}
 		else
 		{
-			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+			colAdd += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			colAdd += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 		}
+		if (!fractal->foldColor.auxColorEnabledFalse)
+			aux->color = colAdd;
+		else
+			aux->color += colAdd;
 	}
 	return z;
 }

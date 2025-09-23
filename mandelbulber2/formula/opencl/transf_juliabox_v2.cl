@@ -19,7 +19,6 @@
 
 REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL colorAdd = 0.0f;
 
 	REAL4 oldZ = z;
@@ -124,6 +123,7 @@ REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			if (zCol.y > 0.0f) colorAdd += fractal->foldColor.difs0000.y * zCol.y;
 			if (zCol.z > 0.0f) colorAdd += fractal->foldColor.difs0000.z * zCol.z;
 		}
+
 		if (aux->i >= fractal->transformCommon.startIterationsK
 				&& aux->i < fractal->transformCommon.stopIterationsK)
 		{
@@ -133,7 +133,16 @@ REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			colorAdd += fractal->mandelbox.color.factorSp1 * m;
 		}
 
-		aux->color += colorAdd;
+		if (!fractal->foldColor.auxColorEnabledAFalse)
+		{
+			aux->color += colorAdd + fractal->foldColor.difs0;
+		}
+		else
+		{
+			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0)
+				aux->color += colorAdd + fractal->foldColor.difs0;
+		}
+		// aux->color += colorAdd;
 	}
 	return z;
 }

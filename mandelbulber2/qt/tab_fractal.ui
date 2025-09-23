@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>1015</height>
+    <height>1045</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -407,6 +407,9 @@
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_smooth_de_combine_enable">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Enable smooth combination of distance fields when this element is combined with others (Boolean operations).&lt;/p&gt; &lt;p&gt;Effect: - Softens/rounds edges at unions, intersections, and subtractions instead of sharp seams. - “Smooth distance” sets the blend radius (scene units): smaller values keep crisper edges; larger values produce wider, more rounded transitions.&lt;/p&gt; &lt;p&gt;Notes: - Visible mainly where this object/formula meets another one. - The appropriate value depends on scale; start small (e.g., 0.05–0.2) and adjust. - Very large values may overly blur details or introduce artifacts.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="title">
          <string>Smooth DE combine</string>
         </property>

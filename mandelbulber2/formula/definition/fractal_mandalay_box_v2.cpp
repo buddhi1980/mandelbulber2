@@ -166,9 +166,11 @@ void cFractalMandalayBoxV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.color += colorAdd;
 	}
 
-	 // temp code
-	p = fabs(z);
-	aux.dist = max(p.x, max(p.y, p.z));
-	aux.dist = aux.dist / aux.DE;
-
+	//aux.dist
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		p = fabs(z);
+		aux.DE0 = max(p.x, max(p.y, p.z));
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
+	}
 }

@@ -18,9 +18,9 @@ SHARED = $$ROOT/deploy/share/mandelbulber2
 
 
 
-QMAKE_FULL_VERSION = 2.33-dev
+QMAKE_FULL_VERSION = 2.34-dev
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
-VERSION = 2.33
+VERSION = 2.34
 
 #m1:DEFINES += NO_AUDIO_OUTPUT
 #m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO
@@ -119,10 +119,6 @@ macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
-# test hardcoded lib path for gsl in travis container 
-#QMAKE_CXXFLAGS += -I/usr/include/gsl
-
-QMAKE_CXXFLAGS += -I/usr/include/gsl
 m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 
 # library linking

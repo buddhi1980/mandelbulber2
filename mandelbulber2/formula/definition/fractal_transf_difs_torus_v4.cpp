@@ -109,11 +109,11 @@ void cFractalTransfDIFSTorusV4::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.x + fractal->foldColor.difs0 * aux.i;
 
 		if (T1 >= temp + fractal->transformCommon.offset0005)
-			addCol = fractal->foldColor.difs0000.z;
-		if (torD == -z.y) addCol = fractal->foldColor.difs0000.w;
+			addCol += fractal->foldColor.difs0000.z;
+		if (torD == -z.y) addCol += fractal->foldColor.difs0000.w;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -121,7 +121,7 @@ void cFractalTransfDIFSTorusV4::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 		else
 		{
-			aux.color += addCol + fractal->foldColor.difs0000.x;
+			aux.color += addCol;
 		}
 	}
 }

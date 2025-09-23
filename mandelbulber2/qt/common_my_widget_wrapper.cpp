@@ -157,7 +157,19 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			else if (selectedItem == actionCopyParameterName)
 			{
 				QClipboard *clipboard = QApplication::clipboard();
-				clipboard->setText(parameterContainer->GetContainerName() + "_" + parameterName);
+				QString parName = parameterName;
+				QString type = GetType(widget->objectName());
+				QString extension;
+				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
+				{
+					parName = parameterName.left(parameterName.length() - 2);
+					extension = "." + parameterName.right(1);
+				}
+
+				clipboard->setText(QString("'%1_%2%3'")
+						.arg(parameterContainer->GetContainerName())
+						.arg(parName)
+						.arg(extension));
 			}
 		}
 	}

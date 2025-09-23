@@ -46,13 +46,14 @@ cRenderingConfiguration::cRenderingConfiguration()
 	enableMultiThread = true;
 	enableIgnoreErrors = false;
 	forceFastPreview = false;
+	nebulaMode = false;
 	refreshRate = 1000;
 	maxRenderTime = 1e50;
 }
 
 bool cRenderingConfiguration::UseNetRender() const
 {
-	return (gNetRender->IsClient() || gNetRender->IsServer()) && enableNetRender;
+	return (gNetRender->IsClient() || gNetRender->IsServer()) && enableNetRender && !nebulaMode;
 }
 
 bool cRenderingConfiguration::UseImageRefresh() const
@@ -62,7 +63,7 @@ bool cRenderingConfiguration::UseImageRefresh() const
 
 bool cRenderingConfiguration::UseProgressive() const
 {
-	return enableProgressiveRender && !UseNetRender();
+	return enableProgressiveRender && !UseNetRender() && !nebulaMode;
 }
 
 int cRenderingConfiguration::GetNumberOfThreads() const
@@ -99,4 +100,9 @@ bool cRenderingConfiguration::UseIgnoreErrors() const
 bool cRenderingConfiguration::UseForcedFastPreview() const
 {
 	return forceFastPreview;
+}
+
+bool cRenderingConfiguration::IsNebulaMode() const
+{
+	return nebulaMode;
 }

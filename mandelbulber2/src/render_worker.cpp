@@ -629,7 +629,7 @@ void cRenderWorker::RayMarching(
 	CVector3 lastPoint;
 	bool deadComputationFound = false;
 
-	for (int i = 0; i < MAX_RAYMARCHING; i++)
+	for (int i = 0; i < params->maxRaymarchingSteps; i++)
 	{
 		lastPoint = point;
 

@@ -115,6 +115,10 @@ struct sFoldColor
 	bool auxColorEnabledBFalse;
 	int startIterationsA;
 	int stopIterationsA;
+	int startIterationsB;
+	int stopIterationsB;
+	int int0;
+	int int2;
 };
 
 struct sFractalGeneralizedFoldBox
@@ -488,6 +492,8 @@ struct sFractalAnalyticDE
 	double offset0;
 	double offset1;
 	double offset2;
+	int startIterationsA;
+	int stopIterationsA;
 };
 
 // common parameters for transforming formulas
@@ -611,6 +617,8 @@ struct sFractalTransformCommon
 	int stopIterationsCx;
 	int startIterationsCy;
 	int stopIterationsCy;
+	int startIterationsCz;
+	int stopIterationsCz;
 	int startIterationsD;
 	int stopIterationsD;
 	int stopIterationsD1;
@@ -811,6 +819,7 @@ struct sFractalTransformCommon
 	bool functionEnabledEFalse;
 	bool functionEnabledFFalse;
 	bool functionEnabledGFalse;
+	bool functionEnabledHFalse;
 	bool functionEnabledIFalse;
 	bool functionEnabledJFalse;
 	bool functionEnabledKFalse;

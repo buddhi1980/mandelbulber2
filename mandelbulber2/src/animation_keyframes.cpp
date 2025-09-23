@@ -978,6 +978,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 	config.EnableNetRender();
 	config.DisableProgressiveRender();
+	if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 
@@ -1199,12 +1200,18 @@ void cKeyframeAnimation::RefreshTable()
 {
 	keyframes->RemoveMissingParameters(params, fractalParams);
 
-	keyframes->UpdateFramesIndexesTable();
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
+
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 
 	keyframes->SetLooped(params->Get<bool>("keyframe_animation_loop"));
+
+	if (keyframes->GetNumberOfFrames() < 3) keyframes->SetLooped(false);
+
+	keyframes->UpdateFramesIndexesTable();
+	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
+															 // after loading of settings
 
 	keyframes->UpdateFramesIndexesTable();
 

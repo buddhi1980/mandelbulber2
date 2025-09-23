@@ -111,7 +111,8 @@ function autogenOpenCLFile($copyFile, &$status)
 		array('find' => '/(\s)CVector3/', 'replace' => '$1cl_float3'),
 		array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
 		array('find' => '/(\s)[a-zA-Z0-9_]+::[a-zA-Z0-9_]+(\s)/', 'replace' => '$1cl_int$2'), // enums with outer scope (::) get cast to int
-
+		array('find' => '/cColorGradient[\s\S]*?;/', 'replace' => ""), // remove cColorGradient parameters
+		
 		array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
 		array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
 		array('find' => '/const cl_int\s([a-zA-Z0-9_]+)\s=\s([a-zA-Z0-9_]+);/', 'replace' => "#define $1 $2"),

@@ -195,7 +195,8 @@ void cFractalBoxFold4dBulbPow2::FormulaCode(CVector4 &z, const sFractal *fractal
 	}
 
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{

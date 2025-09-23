@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,6 +19,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 {
 	REAL temp;
 	REAL4 zc = z;
+	REAL addCol = 0.0f;
 
 	zc *= fractal->transformCommon.scale2;
 	aux->DE *= fractal->transformCommon.scale2;
@@ -123,7 +124,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		if (n >= fractal->foldColor.startIterationsA && n < fractal->foldColor.stopIterationsA)
 		{
-			aux->color += col;
+			addCol += col;
 		}
 
 		temp = fractal->transformCommon.scale3 - 1.0f;
@@ -170,6 +171,8 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			fabs(aux->const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
 			rDE);
 	}
+
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, rDE);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
@@ -177,22 +180,30 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsB
+			&& aux->i < fractal->foldColor.stopIterationsB)
 	{
+		addCol += aux->i * fractal->foldColor.difs0;
+
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			ang =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
 			if (fmod(ang, 2.0f) < 1.0f)
-				aux->color += fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.z;
 			else
-				aux->color += fractal->foldColor.difs0000.w;
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		else
 		{
-			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+			addCol += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			addCol += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 		}
+		if (!fractal->foldColor.auxColorEnabledFalse)
+			aux->color = addCol;
+		else
+			aux->color += addCol;
 	}
 	return z;
 }

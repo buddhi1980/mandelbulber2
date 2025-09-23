@@ -125,11 +125,15 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, zcd / aux->DE);
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		addCol += fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
@@ -142,7 +146,14 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 				if (dot(p, p) > 0.0f) addCol += fractal->foldColor.difs0000.w;
 			}
 		}
-		aux->color += addCol;
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
+		}
 	}
 	return z;
 }

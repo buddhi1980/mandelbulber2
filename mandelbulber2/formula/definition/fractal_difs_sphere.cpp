@@ -28,9 +28,70 @@ cFractalDIFSSphere::cFractalDIFSSphere() : cAbstractFractal()
 void cFractalDIFSSphere::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	CVector4 oldZ = z;
-	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
+	// DE (create first sphere at origin
+	double colorDist = aux.dist;
+	CVector4 zc = z;
+	// sphere
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		double vecLen;
+		if (!fractal->transformCommon.functionEnabled4dFalse)
+		{
+			CVector3 vec3 = CVector3(zc.x, zc.y, zc.z);
+			vecLen = vec3.Length();
+		}
+		else
+			vecLen = zc.Length();
+
+		double spD = vecLen - fractal->transformCommon.offsetR1;
+		aux.dist = min(aux.dist, spD / aux.DE);
+	}
+
+	// torus
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		double torD;
+
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
+
+		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+
+		aux.dist = min(aux.dist, torD / aux.DE);
+	}
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled && colorDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		colorAdd += (aux.i * fractal->foldColor.difs1 + fractal->foldColor.difs0);
+
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
+		}
+
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			aux.color = colorAdd;
+		}
+		else
+		{
+			aux.color += colorAdd;
+		}
+	}
+
+	// trandforms create newz and new DE for next iteration
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -149,58 +210,5 @@ void cFractalDIFSSphere::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
-	// DE
-	double colorDist = aux.dist;
-	CVector4 zc = oldZ;
-
-	// sphere
-	if (aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
-	{
-		double vecLen;
-		if (!fractal->transformCommon.functionEnabled4dFalse)
-		{
-			CVector3 vec3 = CVector3(zc.x, zc.y, zc.z);
-			vecLen = vec3.Length();
-		}
-		else
-			vecLen = zc.Length();
-
-		double spD = vecLen - fractal->transformCommon.offsetR1;
-		aux.dist = min(aux.dist, spD / aux.DE);
-	}
-	// torus
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT)
-	{
-		double torD;
-
-		// swap axis
-		if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
-
-		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
-
-		aux.dist = min(aux.dist, torD / aux.DE);
-	}
-
-	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
-		}
-		else
-			aux.color += colorAdd;
 	}
 }

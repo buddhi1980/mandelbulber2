@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
 #include "ao_modes.h"
+#include "color_gradient.h"
 #include "common_params.hpp"
 #include "fractal_enums.h"
 #include "image_adjustments.h"
@@ -81,12 +82,16 @@ struct sParamRender
 	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN; // minimum number of iterations
 	int N;
+	int nebulaNumberOfSamplesPerPixel;
+	int nebulaMinIteration;
+	int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
 	int reflectionsMax;
 	int repeatFrom;
 	int DOFNumberOfPasses;
 	int DOFSamples;
 	int DOFMinSamples;
 	int monteCarloDenoiserStrength;
+	int maxRaymarchingSteps;
 
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
@@ -133,6 +138,14 @@ struct sParamRender
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
 	bool monteCarloPixelLevelOptimization;
+	bool nebulaConstantBrighness;
+	bool nebulaInnerEnabled;
+	bool nebulaOuterEnabled;
+	bool nebulaXAxisColorsEnabled;
+	bool nebulaYAxisColorsEnabled;
+	bool nebulaZAxisColorsEnabled;
+	bool nebulaIterationsColorsEnabled;
+	bool nebulaGridDomainEnabled;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
@@ -216,6 +229,10 @@ struct sParamRender
 	float iterFogOpacityTrimHigh;
 	float iterFogBrightnessBoost;
 	float monteCarloGIRadianceLimit;
+	float nebulaBrighness;
+	float nebulaXGridSize;
+	float nebulaYGridSize;
+	float nebulaZGridSize;
 	float postChromaticAberrationIntensity;
 	float postChromaticAberrationRadius;
 	float rayleighScatteringBlue;
@@ -260,6 +277,11 @@ struct sParamRender
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
 	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
+
+	cColorGradient nebulaXAxisColors;
+	cColorGradient nebulaYAxisColors;
+	cColorGradient nebulaZAxisColors;
+	cColorGradient nebulaIterationsColors;
 
 	cPrimitives primitives;
 

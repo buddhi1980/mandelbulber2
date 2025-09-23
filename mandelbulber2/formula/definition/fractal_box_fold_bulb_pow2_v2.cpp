@@ -116,7 +116,9 @@ void cFractalBoxFoldBulbPow2V2::FormulaCode(CVector4 &z, const sFractal *fractal
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (zCol.x != oldZ.x)
 			colorAdd += fractal->mandelbox.color.factor.x

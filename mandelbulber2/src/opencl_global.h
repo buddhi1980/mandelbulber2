@@ -42,6 +42,7 @@ class cOpenClEngineRenderFractal;
 class cOpenClEngineRenderSSAO;
 class cOpenClEngineRenderDOF;
 class cOpenClEngineRenderPostFilter;
+class cOpenClEngineRenderNebula;
 
 class cGlobalOpenCl : public QObject
 {
@@ -60,6 +61,7 @@ public:
 	cOpenClEngineRenderSSAO *openClEngineRenderSSAO;
 	cOpenClEngineRenderDOF *openclEngineRenderDOF;
 	cOpenClEngineRenderPostFilter *openclEngineRenderPostFilter;
+	cOpenClEngineRenderNebula *openclEngineRenderNebula;
 	cOpenClHardware *openClHardware;
 };
 

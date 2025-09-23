@@ -33,7 +33,7 @@ void cFractalFoldCutCube::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		CVector4 zc = fabs(z);
 		if (zc.y > zc.x) swap(zc.x, zc.y);
 		if (zc.z > zc.x) swap(zc.x, zc.z);
-		if (zc.y > zc.x) swap(zc.x, zc.y);
+		if (zc.y > zc.x) swap(zc.x, zc.y); // hmmmm unnecessary or mistake?
 		aux.dist = 1.0 - zc.x;
 	}
 

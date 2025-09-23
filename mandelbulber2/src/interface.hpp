@@ -71,6 +71,7 @@ public:
 	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
+	void RenderFlame();
 	bool StopRender();
 	void RefreshMainImage();
 	void RefreshImageAdjustments();

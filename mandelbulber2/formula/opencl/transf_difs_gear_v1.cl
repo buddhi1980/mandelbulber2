@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -102,17 +102,26 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+	REAL colDist = aux->dist;
+	aux->dist = min(aux->dist, d / (aux->DE + 1.0f));
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (zcd > sdTor)
-			aux->color = fractal->foldColor.difs0000.y;
-		else
-			aux->color = fractal->foldColor.difs0000.x;
-	}
+		REAL addCol = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
 
-	aux->dist = min(aux->dist, d / (aux->DE + 1.0f));
+		if (zcd > sdTor)
+			addCol += fractal->foldColor.difs0000.y;
+		else
+			addCol += fractal->foldColor.difs0000.x;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux->color = addCol;
+		else
+			aux->color += addCol;
+	}
 
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	return z;

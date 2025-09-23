@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -95,7 +95,7 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	zcd -= fractal->transformCommon.offsetA0;
 
-	REAL colorDist = aux->dist;
+	REAL colDist = aux->dist;
 
 	aux->dist = min(aux->dist, zcd / (aux->DE + fractal->analyticDE.offset1));
 
@@ -127,22 +127,28 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = zc;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledAFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0f;
-		if (fractal->foldColor.auxColorEnabledFalse)
+		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			REAL addCol = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
+
+			if (fractal->foldColor.auxColorEnabledAFalse)
+			{
+				addCol += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+				addCol += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+			}
+
+			if (!fractal->foldColor.auxColorEnabledBFalse)
+			{
+				aux->color = addCol;
+			}
+			else
+			{
+				aux->color += addCol; // aux->color default 1
+			}
 		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux->dist) aux->color += colorAdd;
-		}
-		else
-			aux->color += colorAdd;
 	}
 	return z;
 }

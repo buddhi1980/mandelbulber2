@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -121,12 +121,31 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z = zc;
 
 	// aux->color
-	if (aux->i >= fractal->foldColor.startIterationsA && aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabled && aux->dist != colDist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addColor = 0.0f;
-		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
-		aux->color += addColor;
+		REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
+
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			REAL ang =
+				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
+			if (fmod(ang, 2.0f) < 1.0f)
+				colAdd += fractal->foldColor.difs0000.z;
+			else
+				colAdd += fractal->foldColor.difs0000.y;
+		}
+		else
+		{
+			colAdd += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			colAdd += fractal->foldColor.difs0000.y * (zc.y * zc.y);
+		}
+
+		if (!fractal->foldColor.auxColorEnabledFalse)
+			aux->color = colAdd;
+		else
+			aux->color += colAdd;
 	}
 	return z;
 }

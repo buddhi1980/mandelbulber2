@@ -59,15 +59,18 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.y;
+		REAL addCol = fractal->foldColor.difs0000.y + aux->i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (xyR < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0)
-				addCol = fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0
-						- fractal->foldColor.difs0
-					< fabs(zc.z))
-				addCol = fractal->foldColor.difs0000.w;
+			temp = fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0;
+			if (fractal->foldColor.difs0000.x != 0.0f) temp = temp - fractal->foldColor.difs0000.x;
+
+			if (xyR < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetB0
+					&& temp > fabs(zc.z))
+				addCol += fractal->foldColor.difs0000.z;
+
+			if (temp < fabs(zc.z)) addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -75,7 +78,7 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
+			aux->color += addCol; // aux->color default 1
 		}
 	}
 	return z;

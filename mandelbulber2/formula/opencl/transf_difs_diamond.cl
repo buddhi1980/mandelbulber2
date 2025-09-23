@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -88,7 +88,7 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL bottomB = dot(q, normalBottomB) - fractal->transformCommon.offsetF2 + 0.1f;
 
 	aux->DE0 = max(topCut, max(topA, max(topB, max(topC, max(bottomA, bottomB)))));
-
+	REAL colDist = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0 / aux->DE;
 	else
@@ -96,13 +96,26 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = q;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		REAL addCol = fractal->transformCommon.offsetA0 + aux->i * fractal->foldColor.difs0;
+
 		REAL4 col = fabs(q);
-		aux->color += fractal->foldColor.difs0000.x * col.x * col.y;
-		aux->color += fractal->foldColor.difs0000.y * col.x * col.z;
-		aux->color += fractal->foldColor.difs0000.z * q.z;
-		aux->color += fractal->foldColor.difs0000.w * max(col.x, col.y);
+		addCol += fractal->foldColor.difs0000.x * col.x * col.y;
+		addCol += fractal->foldColor.difs0000.y * col.x * col.z;
+		addCol += fractal->foldColor.difs0000.z * q.z;
+		addCol += fractal->foldColor.difs0000.w * max(col.x, col.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
+		}
 	}
 	return z;
 }

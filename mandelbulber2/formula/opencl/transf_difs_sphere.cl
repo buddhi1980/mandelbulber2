@@ -35,7 +35,7 @@ REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.y;
+		REAL addCol = fractal->foldColor.difs0000.y + aux->i * fractal->foldColor.difs0;
 		// if (fractal->foldColor.auxColorEnabledAFalse)
 		/*{
 			// for hollow
@@ -46,7 +46,7 @@ REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x; // aux->color default 1
+			aux->color += addCol;
 		}
 	}
 

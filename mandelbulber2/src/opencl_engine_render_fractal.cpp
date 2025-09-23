@@ -558,6 +558,8 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
 
+	definesCollector += " -DMAX_RAYMARCHING=" + QString::number(paramRender->maxRaymarchingSteps);
+
 	if (paramRender->ambientOcclusionEnabled)
 	{
 		if (paramRender->ambientOcclusionMode == params::AOModeFast)
@@ -965,7 +967,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData);
+	dynamicData.reset(new cOpenClDynamicData(5));
 	dynamicData->ReserveHeader();
 
 	// ------------ enabling shaders ----------
@@ -1529,7 +1531,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				}
 			}
 		} // next y
-	}		// next x
+	} // next x
 
 	if (data.in->useAntiAliasing && output.monteCarloLoop == 1 && data.in->pixelLevelOptimization)
 	{

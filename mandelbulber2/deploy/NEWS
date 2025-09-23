@@ -1,5 +1,27 @@
 Version history
 
+v2.34 (??? 2025)
+
+- Added new fractal formulas
+
+- modified fractal formulas
+   aboxModKaliEiffie updated aux.color
+	 amazingSurfMod1 updated aux.color
+	 mandalayBoxV2, add aux.dist
+
+   fixed and updated aux.color custom DE - dIFS formulas
+	 fixed and updated aux.color custom DE - dIFS transforms
+
+
+
+   transfDIFSEllipsoid, add aux.color
+   transfDIFSTorusV3, add aux.color
+
+	 transfAbsSym3, fix wrong parameter code and add scale
+	 transfJuliaboxV2, update color
+
+
+
 v2.33 (March 2025)
 
 - Added new fractal formulas

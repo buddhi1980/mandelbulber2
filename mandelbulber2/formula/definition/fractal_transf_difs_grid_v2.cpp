@@ -86,5 +86,25 @@ void cFractalTransfDIFSGridV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	else
 		grid = max(fabs(gridXY), fabs(zc.z));
 
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, (grid - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
+
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double addCol = fractal->foldColor.difs0000.x
+				+ aux.i * fractal->foldColor.difs0;
+
+		if(gridXY != xFloor) addCol += fractal->foldColor.difs0000.y;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
+		}
+		else
+		{
+			aux.color += addCol;
+		}
+	}
 }

@@ -108,28 +108,37 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		zc *= Scale;
 	}
 
-	aux->dist = min(aux->dist, d) / aux->DE;
+	REAL colDist = aux->dist;
+	aux->dist = min(aux->dist, d / aux->DE);
+
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
-	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		colVec.x *= fractal->foldColor.difs0000.x;
 		colVec.y *= fractal->foldColor.difs0000.y;
 		colVec.z *= fractal->foldColor.difs0000.z;
+
+		REAL colAdd = fractal->foldColor.difs0000.w + (REAL)(aux->i) * fractal->foldColor.difs0;
+
 		if (!fractal->foldColor.auxColorEnabledFalse)
 		{
-			REAL colorAdd = 0.0f;
-			colorAdd += colVec.x;
-			colorAdd += colVec.y;
-			colorAdd += colVec.z;
-			// colorAdd += colVec.w;
-			aux->color = colorAdd * 256.0f;
+			colAdd += colVec.x;
+			colAdd += colVec.y;
+			colAdd += colVec.z;
+
+			colAdd = colAdd * 256.0f;
 		}
 		else
 		{
-			aux->color = min(min(colVec.x, colVec.y), colVec.z) * fractal->foldColor.difs1 * 1024.0f;
+			colAdd += min(min(colVec.x, colVec.y), colVec.z) * fractal->foldColor.difs1 * 1024.0f;
 		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux->color = colAdd;
+		else
+			aux->color += colAdd;
 	}
 	return z;
 }

@@ -76,16 +76,21 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.y;
+		double addCol = fractal->foldColor.difs0000.y
+				+ aux.i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
+			temp = fractal->transformCommon.offsetA1 + fractal->transformCommon.offsetB0;
+			if (fractal->foldColor.difs0000.x != 0.0)
+				temp = temp - fractal->foldColor.difs0000.x;
+
 			if (xyR < -fractal->transformCommon.offset0
-					- fractal->transformCommon.offsetB0)
-				addCol = fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1
-					+ fractal->transformCommon.offsetB0
-					- fractal->foldColor.difs0 < fabs(zc.z))
-				addCol = fractal->foldColor.difs0000.w;
+					- fractal->transformCommon.offsetB0 && temp > fabs(zc.z))
+				addCol += fractal->foldColor.difs0000.z;
+
+			if (temp < fabs(zc.z))
+				addCol += fractal->foldColor.difs0000.w;
 		}
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -93,7 +98,7 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 		}
 		else
 		{
-			aux.color += addCol + fractal->foldColor.difs0000.x; // aux.color default 1
+			aux.color += addCol; // aux.color default 1
 		}
 	}
 }

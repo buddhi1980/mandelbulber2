@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -45,12 +45,20 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL k = 0.0f;
 	// Pseudo kleinian
+	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		z = fabs(z + fractal->transformCommon.additionConstant0777)
-				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
+		REAL4 tempZ = z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+
+		z = tempZ * 2.0f - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k;
@@ -115,7 +123,8 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->dist = aux->DE0;
 
 	// color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);

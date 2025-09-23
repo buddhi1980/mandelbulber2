@@ -1,0 +1,38 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+brightness 1,3;
+camera -0,867229661167764 -2,22450612405654 -1,27416653637284;
+camera_distance_to_target 2,5646917378544;
+camera_rotation -15,7790617126878 27,6710527980054 14,9079716342494;
+camera_top 0,125541186487461 -0,501811043952367 0,855818372473247;
+detail_level 2;
+formula_1 15;
+formula_2 228;
+gamma 0,7;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 14;
+nebula_brightness 20;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+nebula_min_iteration 3;
+nebula_mode true;
+nebula_samples_per_pixel 32000;
+nebula_x_grid_size 0,0125;
+nebula_y_grid_size 0,0125;
+nebula_z_grid_size 0,0125;
+raytraced_reflections true;
+target -0,249580912168768 -0,0387331998434721 -0,0831373776803955;
+[fractal_1]
+mandelbox_generalized_fold_type fold_icosa;
+[fractal_2]
+mandelbox_generalized_fold_type fold_icosa;

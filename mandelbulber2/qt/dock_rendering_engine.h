@@ -84,6 +84,10 @@ private slots:
 	static void slotPressedButtonBoundingBoxMoveZNeg();
 	static void slotPressedButtonBoundingBoxMoveZPos();
 
+	static void slotPressedButtonAutoBrighnessDark();
+	static void slotPressedButtonAutoBrighnessMedium();
+	static void slotPressedButtonAutoBrighnessBright();
+
 	void slotCalculateDistanceThreshold();
 
 	// NetRender

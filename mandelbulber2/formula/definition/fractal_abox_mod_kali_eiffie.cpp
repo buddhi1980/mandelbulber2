@@ -125,7 +125,9 @@ void cFractalAboxModKaliEiffie::FormulaCode(CVector4 &z, const sFractal *fractal
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		aux.color += colorAdd;
 	}

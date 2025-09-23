@@ -59,27 +59,36 @@ void cFractalTransfDIFSBoxV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux.dist
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (!fractal->foldColor.auxColorEnabledAFalse)
+		double addCol = fractal->foldColor.difs0000.x
+				+ aux.i * fractal->foldColor.difs0;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+			if (fractal->foldColor.difs0000.y != 0.0f && zc.x == fabs(q.x))
+				addCol += fractal->foldColor.difs0000.y;
+			if (fractal->foldColor.difs0000.z != 0.0f && zc.y == fabs(q.y))
+				addCol += fractal->foldColor.difs0000.z;
+			if (fractal->foldColor.difs0000.w != 0.0f && zc.z == fabs(q.z))
+				addCol += fractal->foldColor.difs0000.w;
+
+			if (fractal->transformCommon.offset0 != 0.0)
+			{
+				double t = z.x * z.y;
+				if ((t > 0.0 && z.z > 0.0) || (t < 0.0 && z.z < 0.0))
+					addCol += fractal->transformCommon.offset0;
+			}
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color = addCol;
 		}
 		else
 		{
-			if (fractal->foldColor.difs0000.y != 0.0f && zc.x == fabs(q.x))
-				aux.color += fractal->foldColor.difs0000.y;
-			if (fractal->foldColor.difs0000.z != 0.0f && zc.y == fabs(q.y))
-				aux.color += fractal->foldColor.difs0000.z;
-			if (fractal->foldColor.difs0000.w != 0.0f && zc.z == fabs(q.z))
-				aux.color += fractal->foldColor.difs0000.w;
-
-			if (fractal->foldColor.difs0 != 0.0)
-			{
-				double t = z.x * z.y;
-				if ((t > 0.0 && z.z > 0.0) || (t < 0.0 && z.z < 0.0)) aux.color += fractal->foldColor.difs0;
-			}
+			aux.color += addCol; // aux.color default 1
 		}
 	}
 }

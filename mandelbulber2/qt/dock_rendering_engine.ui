@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>2017</height>
+    <height>2643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -468,7 +468,414 @@ with image resolution</string>
     </widget>
    </item>
    <item>
+    <widget class="MyGroupBox" name="groupCheck_nebula_mode">
+     <property name="toolTip">
+      <string>Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.</string>
+     </property>
+     <property name="title">
+      <string>Nebula fractals</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton_nebula_auto_brightness_dark">
+          <property name="text">
+           <string>Auto
+dark</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_nebula_auto_brightness_medium">
+          <property name="text">
+           <string>Auto
+medium</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_nebula_auto_brightness_bright">
+          <property name="text">
+           <string>Auto
+bright</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Min. iteration to draw:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_nebula_inner_enabled">
+          <property name="text">
+           <string>Inner fractal iterations</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel">
+          <property name="toolTip">
+           <string>Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Brightness:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_nebula_outer_enabled">
+          <property name="text">
+           <string>Outer fractal iterations</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="MyComboBox" name="comboBox_nebula_color_mixing">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <item>
+           <property name="text">
+            <string>Lighten</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Darken</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Darken by brighness</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Color mining:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Number of samples per pixel:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MyLineEdit" name="logedit_nebula_brightness">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Sets the brightness of the nebula effect. Use the auto buttons to adjust based on current image brightness.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="MySpinBox" name="spinboxInt_nebula_min_iteration">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.</string>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>9999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_nebula_constant_brightness">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It tries to keep image brighness constant.&lt;/p&gt;&lt;p&gt;It is not recommended for animations because can cause unintended flickering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Constant brightness mode</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_x_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the X axis position.</string>
+        </property>
+        <property name="title">
+         <string>X axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_x_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_y_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the Y axis position.</string>
+        </property>
+        <property name="title">
+         <string>Y axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_y_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_z_axis_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the Z axis position.</string>
+        </property>
+        <property name="title">
+         <string>Z axis colors</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_z_axis_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_iterations_colors_enabled">
+        <property name="toolTip">
+         <string>Enable and configure a color gradient for the nebula based on the number of fractal iterations.</string>
+        </property>
+        <property name="title">
+         <string>Colors of iterations</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cGradientEditWidget" name="colorpalette_nebula_iterations_colors" native="true">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_nebula_grid_domain_enabled">
+        <property name="toolTip">
+         <string>Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.</string>
+        </property>
+        <property name="title">
+         <string>Domain as grid</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Grid spacing z:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Grid spacing y:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Grid spacing x:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_x_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the X axis for nebula domain calculation.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_y_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the Y axis for nebula domain calculation.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="MyLineEdit" name="logedit_nebula_z_grid_size">
+           <property name="toolTip">
+            <string>Size of the grid along the Z axis for nebula domain calculation.</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_advanced_quality">
+     <property name="toolTip">
+      <string>Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.</string>
+     </property>
      <property name="title">
       <string>Advanced &amp;quality settings</string>
      </property>
@@ -496,10 +903,20 @@ with image resolution</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="5" column="1">
-         <widget class="MyLineEdit" name="logedit_detail_size_min">
+        <item row="2" column="1">
+         <widget class="MyLineEdit" name="logedit_rel_max_marching_step">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value can produce less detail in areas close to the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Lower value can improve calculation accuracy far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_122">
+          <property name="text">
+           <string>Minimum detail size:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -513,13 +930,6 @@ with image resolution</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="MyLineEdit" name="logedit_rel_max_marching_step">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Lower value can improve calculation accuracy far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_120">
           <property name="text">
@@ -530,10 +940,34 @@ with image resolution</string>
           </property>
          </widget>
         </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_116">
+          <property name="text">
+           <string>Relative minimum step:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="MyLineEdit" name="logedit_detail_size_min">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value can produce less detail in areas close to the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1">
          <widget class="MyLineEdit" name="logedit_rel_min_marching_step">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum relative step for raymarching. It is related to local detail size. Close to the camera, the limit is lower (visible details are smaller).&lt;/p&gt;&lt;p&gt;Higher value can speed up calculation of raymarching in areas close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="MyLineEdit" name="logedit_deltade_relative_delta">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls delta used in DeltaDE distance algorithm. Tuning of this parameter can improve quality when there is noise caused by inaccurate distance estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -551,33 +985,6 @@ with image resolution</string>
          <widget class="MyLineEdit" name="logedit_abs_max_marching_step">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum step for raymarching. Lower value can improve calculation accuracy in areas far from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_122">
-          <property name="text">
-           <string>Minimum detail size:</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_116">
-          <property name="text">
-           <string>Relative minimum step:</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyLineEdit" name="logedit_abs_min_marching_step">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum step for raymarching. Higher value can speed up rendering. It will reduce the number of raymarching steps close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -608,10 +1015,43 @@ with image resolution</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="MyLineEdit" name="logedit_deltade_relative_delta">
+        <item row="1" column="1">
+         <widget class="MyLineEdit" name="logedit_abs_min_marching_step">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls delta used in DeltaDE distance algorithm. Tuning of this parameter can improve quality when there is noise caused by inaccurate distance estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum step for raymarching. Higher value can speed up rendering. It will reduce the number of raymarching steps close to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_125">
+          <property name="text">
+           <string>maximum number
+of raymarching steps</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="MySpinBox" name="spinboxInt_max_raymarching_steps">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>10000000</number>
+          </property>
+          <property name="value">
+           <number>10000</number>
           </property>
          </widget>
         </item>
@@ -1734,16 +2174,6 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>cButtonLoadSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_load_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonSaveSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_save_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
@@ -1752,6 +2182,22 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <class>MyComboBox</class>
    <extends>QComboBox</extends>
    <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cGradientEditWidget</class>
+   <extends>QWidget</extends>
+   <header>gradient_edit_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cButtonLoadSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_load_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonSaveSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_save_settings_from_widget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

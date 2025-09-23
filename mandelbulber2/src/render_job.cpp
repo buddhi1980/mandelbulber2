@@ -51,6 +51,7 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
+#include "opencl_engine_render_nebula.h"
 #include "opencl_global.h"
 #include "perlin_noise_octaves.h"
 #include "post_effect_hdr_blur.h"
@@ -158,17 +159,20 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	}
 
 	sImageOptional imageOptional;
-	imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
-	imageOptional.optionalNormalWorld = paramsContainer->Get<bool>("normalWorld_enabled");
-	imageOptional.optionalSpecular = paramsContainer->Get<bool>("specular_enabled");
-	imageOptional.optionalWorld = paramsContainer->Get<bool>("world_enabled");
-	imageOptional.optionalDiffuse = paramsContainer->Get<bool>("diffuse_enabled");
-	imageOptional.optionalShadows = paramsContainer->Get<bool>("shadow_channel_enabled");
-	imageOptional.optionalGlobalIlluination = paramsContainer->Get<bool>("gi_channel_enabled");
-	imageOptional.optionalNotDenoised = paramsContainer->Get<bool>("not_denoised_channel_enabled");
+	if (!config.IsNebulaMode())
+	{
+		imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
+		imageOptional.optionalNormalWorld = paramsContainer->Get<bool>("normalWorld_enabled");
+		imageOptional.optionalSpecular = paramsContainer->Get<bool>("specular_enabled");
+		imageOptional.optionalWorld = paramsContainer->Get<bool>("world_enabled");
+		imageOptional.optionalDiffuse = paramsContainer->Get<bool>("diffuse_enabled");
+		imageOptional.optionalShadows = paramsContainer->Get<bool>("shadow_channel_enabled");
+		imageOptional.optionalGlobalIlluination = paramsContainer->Get<bool>("gi_channel_enabled");
+		imageOptional.optionalNotDenoised = paramsContainer->Get<bool>("not_denoised_channel_enabled");
 
-	// FIXME: option for optionalNormal (denoiser)
-	imageOptional.optionalNormalWorld = true;
+		// FIXME: option for optionalNormal (denoiser)
+		imageOptional.optionalNormalWorld = true;
+	}
 
 	emit updateProgressAndStatus(
 		QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
@@ -366,165 +370,198 @@ bool cRenderJob::Execute()
 	QElapsedTimer totalTime;
 	totalTime.start();
 
-	PrepareData();
-
-	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl
-			|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
-					 paramsContainer->Get<int>("opencl_mode"))
-					 == cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+	if (!renderData->configuration.IsNebulaMode())
 	{
-		for (int repeat = 0; repeat < noOfRepeats; repeat++)
+		PrepareData();
+
+		if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl
+				|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 == cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 		{
-			emit updateProgressAndStatus(
-				QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
-
-			SetupStereoEyes(repeat, twoPassStereo);
-
-			// send settings to all NetRender clients
-			if (renderData->configuration.UseNetRender())
+			for (int repeat = 0; repeat < noOfRepeats; repeat++)
 			{
-				InitNetRender();
+				emit updateProgressAndStatus(
+					QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
+
+				SetupStereoEyes(repeat, twoPassStereo);
+
+				// send settings to all NetRender clients
+				if (renderData->configuration.UseNetRender())
+				{
+					InitNetRender();
+				}
+
+				// qDebug() << "runningJobs" << runningJobs;
+
+				inProgress = true;
+				*renderData->stopRequest = false;
+
+				WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
+
+				// move parameters from containers to structures
+				std::shared_ptr<sParamRender> params(
+					new sParamRender(paramsContainer, &renderData->objectData));
+				std::shared_ptr<cNineFractals> fractals(
+					new cNineFractals(fractalContainer, paramsContainer));
+
+				renderData->ValidateObjects();
+
+				// recalculation of some parameters;
+				params->resolution = 1.0 / image->GetHeight();
+				ReduceDetail();
+
+				InitStatistics(fractals.get());
+
+				// initialize histograms
+				renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
+				renderData->statistics.histogramStepCount.Resize(1000);
+				renderData->statistics.Reset();
+				renderData->statistics.usedDEType = fractals->GetDETypeString();
+
+				// create and execute renderer
+				std::unique_ptr<cRenderer> renderer(new cRenderer(params, fractals, renderData, image));
+
+				ConnectUpdateSinalsSlots(renderer.get());
+
+				if (renderData->configuration.UseNetRender())
+				{
+					ConnectNetRenderSignalsSlots(renderer.get());
+				}
+
+				result = renderer->RenderImage();
+
+				if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
 			}
-
-			// qDebug() << "runningJobs" << runningJobs;
-
-			inProgress = true;
-			*renderData->stopRequest = false;
-
-			WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
-
-			// move parameters from containers to structures
-			std::shared_ptr<sParamRender> params(
-				new sParamRender(paramsContainer, &renderData->objectData));
-			std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
-
-			renderData->ValidateObjects();
-
-			// recalculation of some parameters;
-			params->resolution = 1.0 / image->GetHeight();
-			ReduceDetail();
-
-			InitStatistics(fractals.get());
-
-			// initialize histograms
-			renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
-			renderData->statistics.histogramStepCount.Resize(1000);
-			renderData->statistics.Reset();
-			renderData->statistics.usedDEType = fractals->GetDETypeString();
-
-			// create and execute renderer
-			std::unique_ptr<cRenderer> renderer(new cRenderer(params, fractals, renderData, image));
-
-			ConnectUpdateSinalsSlots(renderer.get());
-
-			if (renderData->configuration.UseNetRender())
-			{
-				ConnectNetRenderSignalsSlots(renderer.get());
-			}
-
-			result = renderer->RenderImage();
-
-			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
 		}
-	}
 
 #ifdef USE_OPENCL
-	if (paramsContainer->Get<bool>("opencl_enabled")
-			&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
-					 paramsContainer->Get<int>("opencl_mode"))
-					 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+		if (paramsContainer->Get<bool>("opencl_enabled")
+				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+		{
+			cProgressText progressText;
+			progressText.ResetTimer();
+
+			*renderData->stopRequest = false;
+
+			for (int repeat = 0; repeat < noOfRepeats; repeat++)
+			{
+				SetupStereoEyes(repeat, twoPassStereo);
+
+				// move parameters from containers to structures
+				std::shared_ptr<sParamRender> params(
+					new sParamRender(paramsContainer, &renderData->objectData));
+				std::shared_ptr<cNineFractals> fractals(
+					new cNineFractals(fractalContainer, paramsContainer));
+
+				renderData->ValidateObjects();
+
+				image->SetImageParameters(params->imageAdjustments);
+
+				InitStatistics(fractals.get());
+				emit updateStatistics(renderData->statistics);
+
+				image->SetFastPreview(true);
+
+				// render all with OpenCL
+				result = RenderFractalWithOpenCl(params, fractals, &progressText);
+
+				if (renderData->stereo.isEnabled()
+						&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+								|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+				{
+					// stereoscopic rendering of SSAO (separate for each half of image)
+					cRegion<int> region;
+					region = renderData->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					RenderSSAOWithOpenCl(params, region, &progressText, &result);
+
+					region = renderData->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					RenderSSAOWithOpenCl(params, region, &progressText, &result);
+				}
+				else
+				{
+					RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+				}
+
+				RenderDOFWithOpenCl(params, &result);
+
+				if (renderData->stereo.isEnabled()
+						&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+								|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+				{
+					// stereoscopic rendering of SSAO (separate for each half of image)
+					cRegion<int> region;
+					region = renderData->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
+
+					region = renderData->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
+				}
+				else
+				{
+					RenderPostFiltersWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+				}
+
+				if (!*renderData->stopRequest)
+				{
+					if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
+								paramsContainer->Get<int>("opencl_mode"))
+								== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+							|| mode == flightAnimRecord || renderData->configuration.UseForcedFastPreview())
+						image->SetFastPreview(true);
+					else
+						image->SetFastPreview(false);
+
+					if (image->IsPreview())
+					{
+						image->UpdatePreview();
+						WriteLog("image->GetImageWidget()->update()", 2);
+						emit updateImage();
+					}
+				}
+
+				if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
+			} // next repeat
+
+			if (!renderData->configuration.UseForcedFastPreview())
+			{
+				image->SetFastPreview(false);
+			}
+
+			gApplication->processEvents();
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
+			emit signalTotalRenderTime(progressText.getTime());
+		}
+	}
+	else // nebula mode
 	{
 		cProgressText progressText;
 		progressText.ResetTimer();
+		renderData->rendererID = id;
+		renderData->stopRequest = stopRequest;
+
+		// move parameters from containers to structures
+		std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
+		std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
 
 		*renderData->stopRequest = false;
 
-		for (int repeat = 0; repeat < noOfRepeats; repeat++)
-		{
-			SetupStereoEyes(repeat, twoPassStereo);
-
-			// move parameters from containers to structures
-			std::shared_ptr<sParamRender> params(
-				new sParamRender(paramsContainer, &renderData->objectData));
-			std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
-
-			renderData->ValidateObjects();
-
-			image->SetImageParameters(params->imageAdjustments);
-
-			InitStatistics(fractals.get());
-			emit updateStatistics(renderData->statistics);
-
-			image->SetFastPreview(true);
-
-			// render all with OpenCL
-			result = RenderFractalWithOpenCl(params, fractals, &progressText);
-
-			if (renderData->stereo.isEnabled()
-					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
-			{
-				// stereoscopic rendering of SSAO (separate for each half of image)
-				cRegion<int> region;
-				region = renderData->stereo.GetRegion(
-					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
-				RenderSSAOWithOpenCl(params, region, &progressText, &result);
-
-				region = renderData->stereo.GetRegion(
-					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
-				RenderSSAOWithOpenCl(params, region, &progressText, &result);
-			}
-			else
-			{
-				RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
-			}
-
-			RenderDOFWithOpenCl(params, &result);
-
-			if (renderData->stereo.isEnabled()
-					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
-			{
-				// stereoscopic rendering of SSAO (separate for each half of image)
-				cRegion<int> region;
-				region = renderData->stereo.GetRegion(
-					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
-				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
-
-				region = renderData->stereo.GetRegion(
-					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
-				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
-			}
-			else
-			{
-				RenderPostFiltersWithOpenCl(params, renderData->screenRegion, &progressText, &result);
-			}
-
-			if (!*renderData->stopRequest)
-			{
-				if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
-							paramsContainer->Get<int>("opencl_mode"))
-							== cOpenClEngineRenderFractal::clRenderEngineTypeFast
-						|| mode == flightAnimRecord || renderData->configuration.UseForcedFastPreview())
-					image->SetFastPreview(true);
-				else
-					image->SetFastPreview(false);
-
-				if (image->IsPreview())
-				{
-					image->UpdatePreview();
-					WriteLog("image->GetImageWidget()->update()", 2);
-					emit updateImage();
-				}
-			}
-
-			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
-		} // next repeat
+		image->SetImageParameters(params->imageAdjustments);
+		image->SetFastPreview(true);
 
 		if (!renderData->configuration.UseForcedFastPreview())
 		{
 			image->SetFastPreview(false);
 		}
+
+		RenderNebulaFractal(params, fractals, &progressText, &result);
 
 		gApplication->processEvents();
 		emit updateProgressAndStatus(
@@ -566,6 +603,50 @@ bool cRenderJob::Execute()
 
 	return result;
 }
+
+#ifdef USE_OPENCL
+void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
+	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result)
+{
+	if (!*renderData->stopRequest)
+	{
+		connect(gOpenCl->openclEngineRenderNebula, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+		connect(gOpenCl->openclEngineRenderNebula,
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		connect(gOpenCl->openclEngineRenderNebula, &cOpenClEngineRenderNebula::signalSmallPartRendered,
+			this, &cRenderJob::signalSmallPartRendered, Qt::UniqueConnection);
+
+		busyOpenCl = true;
+		gOpenCl->openclEngineRenderNebula->Lock();
+		gOpenCl->openclEngineRenderNebula->SetParameters(
+			paramsContainer, fractalContainer, params, fractals);
+		if (gOpenCl->openclEngineRenderNebula->LoadSourcesAndCompile(paramsContainer))
+		{
+			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);
+			qint64 neededMem = gOpenCl->openclEngineRenderNebula->CalcNeededMemory();
+			WriteLogDouble("OpenCl render nebula - needed mem:", neededMem / 1048576.0, 2);
+			if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+			{
+				gOpenCl->openclEngineRenderNebula->PreAllocateBuffers(paramsContainer);
+				gOpenCl->openclEngineRenderNebula->CreateCommandQueue();
+				*result = gOpenCl->openclEngineRenderNebula->Render(image, renderData->stopRequest);
+			}
+			else
+			{
+				qCritical() << "Not enough GPU mem!";
+				*result = false;
+			}
+		}
+		gOpenCl->openclEngineRenderNebula->ReleaseMemory();
+		gOpenCl->openclEngineRenderNebula->Unlock();
+		busyOpenCl = false;
+
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering nebula finished"), progressText->getText(1.0), 1.0);
+	}
+}
+#endif
 
 int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
 {
@@ -810,7 +891,7 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				&cRenderJob::updateProgressAndStatus);
 
 			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
-					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
+				i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
 			{
 
 				bool skip = false;
@@ -1127,7 +1208,7 @@ void cRenderJob::RefreshPostEffects()
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
-					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
+				i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
 			{
 
 				bool skip = false;

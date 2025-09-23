@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -66,21 +66,32 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, zcd / aux->DE);
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+
+	if (fractal->foldColor.auxColorEnabledFalse && colDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		REAL addCol = fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
 			if ((t > 0.0f && oldZ.z > 0.0f) || (t < 0.0f && oldZ.z < 0.0f))
-				aux->color += fractal->foldColor.difs0000.y;
-			if (t > 0.0f) aux->color += fractal->foldColor.difs0000.z;
+				addCol += fractal->foldColor.difs0000.y;
+			if (t > 0.0f) addCol += fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs0000.w != 0.0f)
 			{
 				p -= o;
-				if (dot(p, p) > 0.0f) aux->color += fractal->foldColor.difs0000.w;
+				if (dot(p, p) > 0.0f) addCol += fractal->foldColor.difs0000.w;
 			}
+		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color = addCol;
+		}
+		else
+		{
+			aux->color += addCol;
 		}
 	}
 	return z;

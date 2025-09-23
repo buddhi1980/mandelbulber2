@@ -210,6 +210,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("detail_size_max", 1.0, morphLinear, paramStandard);
 	par->addParam("detail_size_min", 1e-12, morphLinear, paramStandard);
 	par->addParam("deltade_relative_delta", 0.01, 1e-15, 1e6, morphLinear, paramStandard);
+	par->addParam("max_raymarching_steps", 10000, 1, 100000000, morphLinear, paramStandard);
 
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
@@ -279,7 +280,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("background_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
-	par->addParam("reflections_max", 5, 0, 10, morphLinear, paramStandard);
+	par->addParam("reflections_max", 5, 0, 1000, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), morphLinear, paramStandard);
@@ -444,6 +445,37 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+
+	par->addParam("nebula_mode", false, morphNone, paramStandard);
+	par->addParam("nebula_inner_enabled", false, morphNone, paramStandard);
+	par->addParam("nebula_outer_enabled", true, morphNone, paramStandard);
+	par->addParam("nebula_brightness", 10.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("nebula_constant_brightness", true, morphNone, paramStandard);
+	par->addParam("nebula_samples_per_pixel", 1000, 1, 100000000, morphLinear, paramStandard);
+	par->addParam("nebula_min_iteration", 1, 0, 99999, morphLinear, paramStandard);
+	par->addParam("nebula_x_axis_colors_enabled", true, morphNone, paramStandard);
+	par->addParam("nebula_y_axis_colors_enabled", true, morphNone, paramStandard);
+	par->addParam("nebula_z_axis_colors_enabled", true, morphNone, paramStandard);
+	par->addParam("nebula_iterations_colors_enabled", true, morphNone, paramStandard);
+	par->addParam("nebula_grid_domain_enabled", false, morphNone, paramStandard);
+	par->addParam("nebula_x_grid_size", 0.1, morphNone, paramStandard);
+	par->addParam("nebula_y_grid_size", 0.1, morphNone, paramStandard);
+	par->addParam("nebula_z_grid_size", 0.1, morphNone, paramStandard);
+
+	par->addParam("nebula_color_mixing", 0, morphNone, paramStandard,
+		QStringList({"lighten", "darken", "darkenByBrighness"}));
+	par->addParam("nebula_x_axis_colors", QString("0 ff0000 5000 000000 9999 ff00ff"), morphLinear,
+		paramStandard);
+	par->addParam("nebula_y_axis_colors", QString("0 00ff00 5000 000000 9999 ffff00"), morphLinear,
+		paramStandard);
+	par->addParam("nebula_z_axis_colors", QString("0 0000ff 5000 000000 9999 00ffff"), morphLinear,
+		paramStandard);
+	par->addParam("nebula_iterations_colors",
+		QString("0 000000 100 0000ff 1000 ff0000 5000 ffff00 9999 ffffff"), morphLinear, paramStandard);
+	par->SetAsGradient("nebula_x_axis_colors");
+	par->SetAsGradient("nebula_y_axis_colors");
+	par->SetAsGradient("nebula_z_axis_colors");
+	par->SetAsGradient("nebula_iterations_colors");
 
 	// files
 	par->addParam("file_destination",
@@ -881,6 +913,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
+	par->addParam("analyticDE_start_iterations_A", 0, morphLinear, paramStandard);
+	par->addParam("analyticDE_stop_iterations_A", 250, morphLinear, paramStandard);
 
 	// color controls
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
@@ -893,6 +927,10 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fold_color_difs_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("fold_color_start_iterations_A", 0, morphLinear, paramStandard);
 	par->addParam("fold_color_stop_iterations_A", 250, morphLinear, paramStandard);
+	par->addParam("fold_color_start_iterations_B", 0, morphLinear, paramStandard);
+	par->addParam("fold_color_stop_iterations_B", 250, morphLinear, paramStandard);
+	par->addParam("fold_color_int_0", 0, morphLinear, paramStandard);
+	par->addParam("fold_color_int_2", 2, morphLinear, paramStandard);
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
@@ -1022,6 +1060,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("transf_start_iterations_Cy", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_Cy", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_Cz", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Cz", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_D", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D1", 1, morphLinear, paramStandard);
@@ -1228,6 +1268,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledG_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledH_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledI_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledJ_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
@@ -1239,7 +1280,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledS_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledSw_false", false, morphLinear, paramStandard);
-
 	par->addParam("transf_function_enabledT_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledY_false", false, morphLinear, paramStandard);

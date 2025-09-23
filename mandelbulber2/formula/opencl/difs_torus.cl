@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,7 +16,6 @@
 
 REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
 	REAL4 oldZ = z;
 	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 
@@ -201,20 +200,27 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && colorDist != aux->dist
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		REAL colorAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			zc = fabs(zc);
+			colorAdd += fractal->foldColor.difs0000.x * zc.x * zc.y;
+			colorAdd += fractal->foldColor.difs0000.y * max(zc.x, zc.y);
 		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
+
+		if (!fractal->foldColor.auxColorEnabledA)
 		{
-			if (colorDist != aux->dist) aux->color += colorAdd;
+			aux->color = colorAdd;
 		}
 		else
+		{
 			aux->color += colorAdd;
+		}
 	}
 	return z;
 }

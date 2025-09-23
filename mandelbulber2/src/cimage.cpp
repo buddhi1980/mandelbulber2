@@ -653,7 +653,7 @@ void cImage::UpdatePreview(QList<int> *list)
 									B += oldPixel.B;
 								}
 							} // next i
-						}		// next j
+						} // next j
 						sRGB8 newPixel;
 						newPixel.R = quint8(R / factor);
 						newPixel.G = quint8(G / factor);
@@ -661,7 +661,7 @@ void cImage::UpdatePreview(QList<int> *list)
 						preview[x + y * w] = newPixel;
 					}
 				} // next x
-			}		// next y
+			} // next y
 		}
 		preview2 = preview;
 		previewMutex.unlock();
@@ -741,7 +741,7 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 										B += oldPixel.B;
 									}
 								} // next i
-							}		// next j
+							} // next j
 							sRGB8 newPixel;
 							newPixel.R = quint8(R / factor);
 							newPixel.G = quint8(G / factor);
@@ -749,7 +749,7 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 							preview[x + y * w] = newPixel;
 						}
 					} // next x
-				}		// next y
+				} // next y
 			}
 		}
 
@@ -1294,4 +1294,17 @@ void cImage::FastResize(quint64 w, quint64 h)
 		}
 	}
 	previewMutex.unlock();
+}
+
+double cImage::GetAverageBrightness() const
+{
+	double totalBrightness = 0.0;
+	quint64 pixelCount = width * height;
+
+	for (quint64 i = 0; i < pixelCount; i++)
+	{
+		sRGBFloat pixel = postImageFloat[i];
+		totalBrightness += (pixel.R + pixel.G + pixel.B);
+	}
+	return totalBrightness / 3.0 / pixelCount;
 }

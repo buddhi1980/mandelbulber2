@@ -651,7 +651,6 @@ void cInterface::StartRender(bool noUndo)
 	DisableJuliaPointMode();
 
 	int temporaryScale = int(pow(int(2), gPar->Get<int>("temporary_scale")));
-
 	timerForAbortWarnings.start();
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
@@ -671,6 +670,7 @@ void cInterface::StartRender(bool noUndo)
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
+	if (gPar->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
@@ -695,7 +695,13 @@ void cInterface::StartRender(bool noUndo)
 
 	thread->setObjectName("RenderJob");
 	thread->start();
+
 	mainWindow->manipulations->DecreaseNumberOfStartedRenders();
+}
+
+void cInterface::RenderFlame()
+{
+	// TODO:	render flame code
 }
 
 bool cInterface::StopRender()

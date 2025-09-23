@@ -87,12 +87,16 @@ typedef struct
 	cl_int formulaMaterialId[NUMBER_OF_FRACTALS];
 	cl_int minN; // minimum number of iterations
 	cl_int N;
+	cl_int nebulaNumberOfSamplesPerPixel;
+	cl_int nebulaMinIteration;
+	cl_int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
 	cl_int reflectionsMax;
 	cl_int repeatFrom;
 	cl_int DOFNumberOfPasses;
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
 	cl_int monteCarloDenoiserStrength;
+	cl_int maxRaymarchingSteps;
 
 	cl_int perspectiveType;
 	cl_int ambientOcclusionMode;
@@ -139,6 +143,14 @@ typedef struct
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
 	cl_int monteCarloPixelLevelOptimization;
+	cl_int nebulaConstantBrighness;
+	cl_int nebulaInnerEnabled;
+	cl_int nebulaOuterEnabled;
+	cl_int nebulaXAxisColorsEnabled;
+	cl_int nebulaYAxisColorsEnabled;
+	cl_int nebulaZAxisColorsEnabled;
+	cl_int nebulaIterationsColorsEnabled;
+	cl_int nebulaGridDomainEnabled;
 	cl_int postChromaticAberrationEnabled;
 	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
@@ -222,6 +234,10 @@ typedef struct
 	cl_float iterFogOpacityTrimHigh;
 	cl_float iterFogBrightnessBoost;
 	cl_float monteCarloGIRadianceLimit;
+	cl_float nebulaBrighness;
+	cl_float nebulaXGridSize;
+	cl_float nebulaYGridSize;
+	cl_float nebulaZGridSize;
 	cl_float postChromaticAberrationIntensity;
 	cl_float postChromaticAberrationRadius;
 	cl_float rayleighScatteringBlue;
@@ -288,12 +304,16 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	}
 	target.minN = source.minN;
 	target.N = source.N;
+	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
+	target.nebulaMinIteration = source.nebulaMinIteration;
+	target.nebulaColorMixing = source.nebulaColorMixing;
 	target.reflectionsMax = source.reflectionsMax;
 	target.repeatFrom = source.repeatFrom;
 	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;
 	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
+	target.maxRaymarchingSteps = source.maxRaymarchingSteps;
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
@@ -341,6 +361,14 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
 	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
+	target.nebulaConstantBrighness = source.nebulaConstantBrighness;
+	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
+	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
+	target.nebulaXAxisColorsEnabled = source.nebulaXAxisColorsEnabled;
+	target.nebulaYAxisColorsEnabled = source.nebulaYAxisColorsEnabled;
+	target.nebulaZAxisColorsEnabled = source.nebulaZAxisColorsEnabled;
+	target.nebulaIterationsColorsEnabled = source.nebulaIterationsColorsEnabled;
+	target.nebulaGridDomainEnabled = source.nebulaGridDomainEnabled;
 	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
@@ -428,6 +456,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogOpacityTrimHigh = source.iterFogOpacityTrimHigh;
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
+	target.nebulaBrighness = source.nebulaBrighness;
+	target.nebulaXGridSize = source.nebulaXGridSize;
+	target.nebulaYGridSize = source.nebulaYGridSize;
+	target.nebulaZGridSize = source.nebulaZGridSize;
 	target.postChromaticAberrationIntensity = source.postChromaticAberrationIntensity;
 	target.postChromaticAberrationRadius = source.postChromaticAberrationRadius;
 	target.rayleighScatteringBlue = source.rayleighScatteringBlue;

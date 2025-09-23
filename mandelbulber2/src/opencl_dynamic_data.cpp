@@ -38,6 +38,7 @@
 #include <vector>
 
 #include "color_gradient.h"
+#include "fractparams.hpp"
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
@@ -54,9 +55,9 @@
 #endif
 
 #ifdef USE_OPENCL
-cOpenClDynamicData::cOpenClDynamicData()
-		: cOpenClAbstractDynamicData(5) // this container has 5
-																		// items
+cOpenClDynamicData::cOpenClDynamicData(int numberOfItems)
+		: cOpenClAbstractDynamicData(numberOfItems) // this container has 5
+																								// items
 {
 }
 
@@ -948,6 +949,142 @@ void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData
 	// replace arrayOffset:
 	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
 		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int paletteItemsOffset
+	 * cl_int paletteOffsetXAxis
+	 * cl_int paletteSizeXAxis
+	 * cl_int paletteOffsetYAxis
+	 * cl_int paletteSizeYAxis
+	 * cl_int paletteOffsetZAxis
+	 * cl_int paletteSizeZAxis
+	 * cl_int paletteOffsetIterations
+	 * cl_int paletteSizeIterations
+	 *
+	 * array (aligned to 16):
+	 * 	cl_float4 gradientXAxis1
+	 * 	cl_float4 gradientXAxis2
+	 *  ...
+	 * 	cl_float4 gradientXAxisN
+	 *
+	 * 	cl_float4 gradientYAxis1
+	 * 	cl_float4 gradientYAxis2
+	 *  ...
+	 * 	cl_float4 gradientYAxisN
+	 *
+	 * 	cl_float4 gradientZAxis1
+	 * 	cl_float4 gradientZAxis2
+	 *  ...
+	 * 	cl_float4 gradientZAxisN
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[nebulaGradientsItemIndex].itemOffset = totalDataOffset;
+
+	std::vector<cl_float4> paletteCl;
+
+	QList<cColorGradient::sColor> gradientXAxis = params->nebulaXAxisColors.GetListOfSortedColors();
+	QList<cColorGradient::sColor> gradientYAxis = params->nebulaYAxisColors.GetListOfSortedColors();
+	QList<cColorGradient::sColor> gradientZAxis = params->nebulaZAxisColors.GetListOfSortedColors();
+	QList<cColorGradient::sColor> gradientIterations =
+		params->nebulaIterationsColors.GetListOfSortedColors();
+
+	int paletteOffsetXAxis = 0;
+	int paletteSizeXAxis = gradientXAxis.size();
+
+	int paletteOffsetYAxis = paletteOffsetXAxis + paletteSizeXAxis;
+	int paletteSizeYAxis = gradientYAxis.size();
+
+	int paletteOffsetZAxis = paletteOffsetYAxis + paletteSizeYAxis;
+	int paletteSizeZAxis = gradientZAxis.size();
+
+	int paletteOffsetIterations = paletteOffsetZAxis + paletteSizeZAxis;
+	int paletteSizeIterations = gradientIterations.size();
+
+	int totalSizeOfGradients =
+		paletteSizeXAxis + paletteSizeYAxis + paletteSizeZAxis + paletteSizeIterations;
+
+	paletteCl.resize(totalSizeOfGradients);
+
+	for (int i = 0; i < paletteSizeXAxis; i++)
+	{
+		paletteCl[i + paletteOffsetXAxis] =
+			toClFloat4(CVector4(gradientXAxis[i].color.R / 256.0, gradientXAxis[i].color.G / 256.0,
+				gradientXAxis[i].color.B / 256.0, gradientXAxis[i].position));
+	}
+
+	for (int i = 0; i < paletteSizeYAxis; i++)
+	{
+		paletteCl[i + paletteOffsetYAxis] =
+			toClFloat4(CVector4(gradientYAxis[i].color.R / 256.0, gradientYAxis[i].color.G / 256.0,
+				gradientYAxis[i].color.B / 256.0, gradientYAxis[i].position));
+	}
+
+	for (int i = 0; i < paletteSizeZAxis; i++)
+	{
+		paletteCl[i + paletteOffsetZAxis] =
+			toClFloat4(CVector4(gradientZAxis[i].color.R / 256.0, gradientZAxis[i].color.G / 256.0,
+				gradientZAxis[i].color.B / 256.0, gradientZAxis[i].position));
+	}
+
+	for (int i = 0; i < paletteSizeIterations; i++)
+	{
+		paletteCl[i + paletteOffsetIterations] = toClFloat4(
+			CVector4(gradientIterations[i].color.R / 256.0, gradientIterations[i].color.G / 256.0,
+				gradientIterations[i].color.B / 256.0, gradientIterations[i].position));
+	}
+
+	cl_int paletteItemsOffset = 0;
+	// reserve bytes cl_int paletteItemsOffset
+	int paletteItemsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
+	totalDataOffset += sizeof(paletteItemsOffset);
+
+	// cl_int paletteOffsetXAxis
+	data.append(reinterpret_cast<char *>(&paletteOffsetXAxis), sizeof(paletteOffsetXAxis));
+	totalDataOffset += sizeof(paletteOffsetXAxis);
+	// cl_int paletteSizeXAxis
+	data.append(reinterpret_cast<char *>(&paletteSizeXAxis), sizeof(paletteSizeXAxis));
+	totalDataOffset += sizeof(paletteSizeXAxis);
+
+	// cl_int paletteOffsetYAxis
+	data.append(reinterpret_cast<char *>(&paletteOffsetYAxis), sizeof(paletteOffsetYAxis));
+	totalDataOffset += sizeof(paletteOffsetYAxis);
+	// cl_int paletteSizeYAxis
+	data.append(reinterpret_cast<char *>(&paletteSizeYAxis), sizeof(paletteSizeYAxis));
+	totalDataOffset += sizeof(paletteSizeYAxis);
+
+	// cl_int paletteOffsetZAxis
+	data.append(reinterpret_cast<char *>(&paletteOffsetZAxis), sizeof(paletteOffsetZAxis));
+	totalDataOffset += sizeof(paletteOffsetZAxis);
+	// cl_int paletteSizeZAxis
+	data.append(reinterpret_cast<char *>(&paletteSizeZAxis), sizeof(paletteSizeZAxis));
+	totalDataOffset += sizeof(paletteSizeZAxis);
+
+	// cl_int paletteOffsetIterations
+	data.append(reinterpret_cast<char *>(&paletteOffsetIterations), sizeof(paletteOffsetIterations));
+	totalDataOffset += sizeof(paletteOffsetIterations);
+	// cl_int paletteSizeIterations
+	data.append(reinterpret_cast<char *>(&paletteSizeIterations), sizeof(paletteSizeIterations));
+	totalDataOffset += sizeof(paletteSizeIterations);
+
+	// add dummy bytes for alignment to 16
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+
+	// palette data
+	paletteItemsOffset = totalDataOffset;
+	int paletteSizeBytes = totalSizeOfGradients * sizeof(cl_float4);
+	data.append(reinterpret_cast<char *>(paletteCl.data()), paletteSizeBytes);
+	totalDataOffset += paletteSizeBytes;
+
+	// fill paletteItemsOffset value
+	data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
+		reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
 }
 
 #endif // USE_OPENCL

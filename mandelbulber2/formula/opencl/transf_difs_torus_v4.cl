@@ -97,10 +97,10 @@ REAL4 TransfDIFSTorusV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.y;
+		REAL addCol = fractal->foldColor.difs0000.x + fractal->foldColor.difs0 * aux->i;
 
-		if (T1 >= temp + fractal->transformCommon.offset0005) addCol = fractal->foldColor.difs0000.z;
-		if (torD == -z.y) addCol = fractal->foldColor.difs0000.w;
+		if (T1 >= temp + fractal->transformCommon.offset0005) addCol += fractal->foldColor.difs0000.z;
+		if (torD == -z.y) addCol += fractal->foldColor.difs0000.w;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -108,7 +108,7 @@ REAL4 TransfDIFSTorusV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 		else
 		{
-			aux->color += addCol + fractal->foldColor.difs0000.x;
+			aux->color += addCol;
 		}
 	}
 	return z;

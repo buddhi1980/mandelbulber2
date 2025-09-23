@@ -63,7 +63,7 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		if (fractal->transformCommon.functionEnabledCx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledCx) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledCz) z.z = fabs(z.z);
 		z += fractal->transformCommon.offsetF000;
 	}
 
@@ -73,5 +73,15 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+	// scale
+	if (aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		z *= fractal->transformCommon.scale1;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + fractal->analyticDE.offset0;
+	}
+
+	// todo cpixel constant
+
 	return z;
 }

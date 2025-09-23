@@ -125,6 +125,10 @@ typedef struct
 	cl_int auxColorEnabledBFalse;
 	cl_int startIterationsA;
 	cl_int stopIterationsA;
+	cl_int startIterationsB;
+	cl_int stopIterationsB;
+	cl_int int0;
+	cl_int int2;
 } sFoldColorCl;
 
 typedef struct
@@ -498,6 +502,8 @@ typedef struct
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
+	cl_int startIterationsA;
+	cl_int stopIterationsA;
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
@@ -621,6 +627,8 @@ typedef struct
 	cl_int stopIterationsCx;
 	cl_int startIterationsCy;
 	cl_int stopIterationsCy;
+	cl_int startIterationsCz;
+	cl_int stopIterationsCz;
 	cl_int startIterationsD;
 	cl_int stopIterationsD;
 	cl_int stopIterationsD1;
@@ -821,6 +829,7 @@ typedef struct
 	cl_int functionEnabledEFalse;
 	cl_int functionEnabledFFalse;
 	cl_int functionEnabledGFalse;
+	cl_int functionEnabledHFalse;
 	cl_int functionEnabledIFalse;
 	cl_int functionEnabledJFalse;
 	cl_int functionEnabledKFalse;
@@ -924,6 +933,10 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.auxColorEnabledBFalse = source.auxColorEnabledBFalse;
 	target.startIterationsA = source.startIterationsA;
 	target.stopIterationsA = source.stopIterationsA;
+	target.startIterationsB = source.startIterationsB;
+	target.stopIterationsB = source.stopIterationsB;
+	target.int0 = source.int0;
+	target.int2 = source.int2;
 	return target;
 }
 
@@ -1284,6 +1297,8 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE 
 	target.offset0 = source.offset0;
 	target.offset1 = source.offset1;
 	target.offset2 = source.offset2;
+	target.startIterationsA = source.startIterationsA;
+	target.stopIterationsA = source.stopIterationsA;
 	return target;
 }
 
@@ -1406,6 +1421,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsCx = source.stopIterationsCx;
 	target.startIterationsCy = source.startIterationsCy;
 	target.stopIterationsCy = source.stopIterationsCy;
+	target.startIterationsCz = source.startIterationsCz;
+	target.stopIterationsCz = source.stopIterationsCz;
 	target.startIterationsD = source.startIterationsD;
 	target.stopIterationsD = source.stopIterationsD;
 	target.stopIterationsD1 = source.stopIterationsD1;
@@ -1598,6 +1615,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledEFalse = source.functionEnabledEFalse;
 	target.functionEnabledFFalse = source.functionEnabledFFalse;
 	target.functionEnabledGFalse = source.functionEnabledGFalse;
+	target.functionEnabledHFalse = source.functionEnabledHFalse;
 	target.functionEnabledIFalse = source.functionEnabledIFalse;
 	target.functionEnabledJFalse = source.functionEnabledJFalse;
 	target.functionEnabledKFalse = source.functionEnabledKFalse;

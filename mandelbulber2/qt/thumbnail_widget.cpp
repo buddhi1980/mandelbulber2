@@ -279,7 +279,7 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 					// render thumbnail after random time. It forces rendering of widgets when they are not
 					// visible. It makes rendering of widgets when they are idle.
 
-					timer->start(Random(3600000) + 30000); // one hour for all thumbnails
+					timer->start(Random(360000) + 3000);
 				}
 			}
 		}
@@ -312,7 +312,7 @@ void cThumbnailWidget::slotRender()
 			// try again after some random time
 			if (visibleRegion().isEmpty())
 			{
-				timer->start(Random(600000) + 1);
+				timer->start(Random(60000) + 1);
 			}
 			else
 			{
@@ -338,6 +338,7 @@ void cThumbnailWidget::slotRender()
 		if (useOneCPUCore) config.DisableMultiThread();
 		config.EnableIgnoreErrors();
 		config.DisableNetRender();
+		if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
 		renderJob->Init(cRenderJob::still, config);
 
