@@ -64,7 +64,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		}
 		else
 		{
-#if defined(USE_REFLECTANCE)
+#if defined(USE_REFLECTANCE) && defined(MC_GI_USE_REFLECTANCE)
 			if (lastReflectance > 0.0f)
 			{
 				if (Random(1000, &calcParam->randomSeed) / 1000.0f < lastReflectance)
@@ -205,7 +205,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			newColor = objectColor;
 			resultShader.xyz = objectShader + outLuminosityEmissive;
 
-#if defined(USE_REFLECTANCE)
+#if defined(USE_REFLECTANCE) && defined(MC_GI_USE_REFLECTANCE)
 			lastReflectance = inputCopy.material->reflectance;
 			lastReflectanceColor = inputCopy.material->reflectionsColor;
 			lastDirection = randomizedDirection;

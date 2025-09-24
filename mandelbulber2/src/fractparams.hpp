@@ -134,6 +134,7 @@ struct sParamRender
 	bool limitsEnabled; // enable limits (intersections)
 	bool monteCarloSoftShadows;
 	bool monteCarloGIVolumetric;
+	bool monteCarloGIUseReflectance;
 	bool monteCarloGIOfVolumetric;
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
