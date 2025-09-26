@@ -18,7 +18,7 @@ SHARED = $$ROOT/deploy/share/mandelbulber2
 
 
 
-QMAKE_FULL_VERSION = 2.34-dev
+QMAKE_FULL_VERSION = 2.34
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
 VERSION = 2.34
 
