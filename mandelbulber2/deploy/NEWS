@@ -1,6 +1,6 @@
 Version history
 
-v2.34 (??? 2025)
+v2.34 (September 2025)
 
 - Added new fractal formulas
    kochIfs
@@ -10,19 +10,27 @@ v2.34 (??? 2025)
    aboxModKaliEiffie updated aux.color
 	 amazingSurfMod1 updated aux.color
 	 mandalayBoxV2, add aux.dist
-
    fixed and updated aux.color custom DE - dIFS formulas
 	 fixed and updated aux.color custom DE - dIFS transforms
-
-
-
    transfDIFSEllipsoid, add aux.color
    transfDIFSTorusV3, add aux.color
-
 	 transfAbsSym3, fix wrong parameter code and add scale
 	 transfJuliaboxV2, update color
 
-
+- Nebula: Added rendering of fractals in Nebula mode (only OpenCL)
+	* added OpenCL rendering engine for nebulas
+	* implemented color gradiends
+	* implemented automatic brightness adjustment
+	* implemented automatic calculation of OpenCL job sizes
+	* implemented calculation by blocks to optimize OpenCL calculation performance
+	* implemented navigation by mouse
+- Rendering: Added parameter Max Raymarching Steps in Advanced quality controls
+- Queue: Fixed bug causing crashes of rendering queue in noGui mode
+- Animation: Fixed bug causing crash when loop option enabled and number of keyframes is smaller than 3
+- Fractals: increased maximum limit for Maximum number of iterations to 10000
+- UI: Fixed problem with crashes caused by slider popup window
+- UI: Improved option "Copy parameter name" for scripts
+- Shaders: Fixed problem of wrong appearance of some examples. The problem was caused by calculation of reflectance in MC GI
 
 v2.33 (March 2025)
 
