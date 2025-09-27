@@ -1810,7 +1810,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;TransfDifsHelixIteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;M3D difs code by darkbeam&lt;br&gt;and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Torus twist asa2.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Helix 001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Helix 002.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Helix 001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Helix 002.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Helix 003.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

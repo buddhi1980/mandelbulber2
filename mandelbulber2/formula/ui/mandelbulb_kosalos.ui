@@ -486,7 +486,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;based on formula by kosalos&lt;br&gt;https://fractalforums.org/fractal-mathematics-and-new-theories/28&lt;br&gt;/julia-sets-and-altering-the-iterate-afterwards/2871/msg16342#msg16342&lt;br&gt;This formula contains aux.const_c, and uses aux.c for oldZ&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;nebula 002.fract&lt;br&gt;nebula 003.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
