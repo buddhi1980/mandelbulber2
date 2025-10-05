@@ -181,9 +181,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>433</width>
-            <height>1237</height>
+            <y>-36</y>
+            <width>437</width>
+            <height>1144</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -751,13 +751,6 @@ per pixel:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_361">
-                  <property name="text">
-                   <string>Radiance limit for GI</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="MyLineEdit" name="logedit_MC_GI_radiance_limit">
                   <property name="toolTip">
@@ -765,7 +758,27 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_361">
+                  <property name="text">
+                   <string>Radiance limit for GI</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
+              </item>
+              <item>
+               <widget class="MyCheckBox" name="checkBox_MC_GI_use_reflectance">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Use reflectance for GI</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="MyCheckBox" name="checkBox_MC_global_illumination_volumetric">
@@ -1464,8 +1477,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>433</width>
-            <height>1814</height>
+            <width>437</width>
+            <height>1670</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -3119,8 +3132,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>448</width>
-            <height>1082</height>
+            <width>451</width>
+            <height>1086</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3836,9 +3849,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-280</y>
-            <width>433</width>
-            <height>1362</height>
+            <y>0</y>
+            <width>437</width>
+            <height>1254</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -5092,8 +5105,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>448</width>
-            <height>1070</height>
+            <width>451</width>
+            <height>1075</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

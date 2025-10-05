@@ -693,6 +693,10 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		{
 			definesCollector += " -DMC_GI_FOG_ILLUMINATION";
 		}
+		if (paramRender->monteCarloGIUseReflectance)
+		{
+			definesCollector += " -DMC_GI_USE_REFLECTANCE";
+		}
 	}
 	if (paramRender->texturedBackground)
 	{

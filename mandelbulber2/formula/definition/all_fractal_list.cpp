@@ -214,7 +214,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalIfsXY());
 	fractalList->append(new cFractalKaleidoscopicIfs());
 	fractalList->append(new cFractalKalisets1());
-
+	fractalList->append(new cFractalKochIfs());
 
 	fractalList->append(new cFractalMandalayBoxV1());
 	fractalList->append(new cFractalMandalayBoxV2());
@@ -349,6 +349,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKochV2());
 	fractalList->append(new cFractalKochV3());
 	fractalList->append(new cFractalKochV4());
+	fractalList->append(new cFractalKochV5());
 	fractalList->append(new cFractalKnotV1());
 	fractalList->append(new cFractalKnotV2());
 	fractalList->append(new cFractalMengerV2());
@@ -574,7 +575,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSurfBoxFold());
 	fractalList->append(new cFractalTransfSurfBoxFoldV2());
 	fractalList->append(new cFractalTransfSurfBoxFoldV24d());
-	fractalList->append(new cFractalTransfSurfFoldMulti());
+	fractalList->append(new cFractalTransfSurfFoldMulti());	fractalList->append(new cFractalKochIfs());
 	fractalList->append(new cFractalTransfZvectorAxisSwap());
 
 
@@ -591,8 +592,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalEiffieCar());
 	fractalList->append(new cFractalMsltoeToroidalV3());
-	fractalList->append(new cFractalKochV5());
-	fractalList->append(new cFractalKochIfs());
+
+
 	fractalList->append(new cFractalPseudoKleinianMod7());
 	fractalList->append(new cFractalTinkerTowers());
 

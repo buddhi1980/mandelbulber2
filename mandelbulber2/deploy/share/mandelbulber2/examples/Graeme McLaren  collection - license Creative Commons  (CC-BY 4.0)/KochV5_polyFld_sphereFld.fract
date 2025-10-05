@@ -1,0 +1,63 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 9800 9800 9800;
+camera 2.27381416807639 0.204942802164704 0.271086244319255;
+camera_distance_to_target 1.75270184160936;
+camera_rotation 94.5651816527868 -7.73731666966767 -174.738717929887;
+camera_top 0.140937547877436 -0.0807361746847948 -0.986720972562944;
+constant_DE_threshold true;
+DE_factor 0.5;
+DE_thresh 9.765625E-06;
+detail_level 0.375;
+flight_last_to_render 0;
+formula_1 278;
+formula_2 1100;
+formula_3 1124;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation 0 0 0;
+light1_soft_shadow_cone 4;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_is_defined true;
+mat1_specular_metallic 1;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 fd6029 999 698403 1373 550000 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_is_defined true;
+mat2_use_colors_from_palette false;
+N 62;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+target 0.54257934971168 0.066709777290258 0.0351172207237451;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+fold_color_aux_color_enabledA false;
+fold_color_difs_0000 0 0.2 0 0;
+fold_color_start_iterations_A 53;
+fold_color_stop_iterations_A 62;
+transf_addition_constant_neg100 0 0 -0.8;
+transf_function_enabled_false true;
+transf_function_enabledAz_false true;
+transf_function_enabledCx_false true;
+transf_function_enabledF_false true;
+transf_function_enabledR_false true;
+transf_offset_0 0.62;
+transf_offset_100 0.7 -0.025 0.9;
+transf_rotation 0 143.130102 0;
+transf_scale_1 0.5;
+transf_scale_2 2.282156;
+transf_start_iterations_O 6;
+[fractal_2]
+transf_function_enabledCx false;
+transf_function_enabledCz_false true;
+[fractal_3]
+transf_offset_0000 -1.5 0 0 0;
