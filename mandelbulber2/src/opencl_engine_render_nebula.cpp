@@ -30,11 +30,13 @@
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
+#ifdef USE_OPENCL
 	customFormulaCodes.reserve(NUMBER_OF_FRACTALS);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		customFormulaCodes.append(QString());
 	}
+#endif
 }
 
 cOpenClEngineRenderNebula::~cOpenClEngineRenderNebula()
