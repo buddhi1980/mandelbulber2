@@ -30,7 +30,14 @@ void cFractalTransfQuaternionFold::FormulaCode(
 {
 	CVector4 c = aux.const_c;
 	// quat fold
-	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
+	}
+	else
+	{
+		z = CVector4(z.z * z.x, z.z * z.y, z.z * z.z - z.x * z.x - z.y * z.y, z.w);
+	}
 
 	// quat scale and DE fudge
 
@@ -79,8 +86,11 @@ void cFractalTransfQuaternionFold::FormulaCode(
 	}
 
 	// tweaking DE
-	// aux.r = z.Length();
 	aux.DE = aux.DE * aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	if (fractal->analyticDE.enabledFalse) aux.dist = 0.5 * log(aux.r) * aux.r / aux.DE;
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.r = z.Length();
+		aux.dist = 0.5 * log(aux.r) * aux.r / aux.DE;
+	}
 }

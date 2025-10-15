@@ -57,8 +57,22 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	d = max(d, -max(p.y - 0.165f, r - 0.24f)); // guard and car
+REAL zcd = 0.0f;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		REAL4 q = fabs(p0) - fractal->transformCommon.additionConstant111;
+		REAL4 zc = q;
 
-	//	if (fractal->transformCommon.functionEnabledEFalse)  d = 100.0f;
+		zc.x = max(zc.x, 0.0);
+
+		zc.y -=  fractal->transformCommon.minR06 + 2.0f * (fractal->transformCommon.offsetBp01 - 0.05f);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		zcd = length(zc);
+
+		zcd -= fractal->transformCommon.offsetB0;
+		d = min(zcd, d);
+	}
 
 	// wheels
 	REAL4 zc = p;
@@ -79,9 +93,18 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	d = min(d, d2);
 	aux->dist = d;
 
-	if (aux->dist == d2)
-		aux->color = 3.0f;
-	else
-		aux->color = 5.0f;
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (aux->dist == d2)
+			aux->color = 3.0f + fractal->foldColor.difs0000.y;
+		else
+			aux->color = 5.0f + fractal->foldColor.difs0000.x;
+
+		if (aux->dist == zcd)
+			aux->color = 4.0f + fractal->foldColor.difs0000.z;
+
+
+	}
 	return z;
 }

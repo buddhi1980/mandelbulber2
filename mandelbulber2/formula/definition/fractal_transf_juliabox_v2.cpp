@@ -148,15 +148,15 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			colorAdd += fractal->mandelbox.color.factorSp1 * m;
 		}
 
+		colorAdd += fractal->foldColor.difs0;
 		if (!fractal->foldColor.auxColorEnabledAFalse)
 		{
-			aux.color += colorAdd + fractal->foldColor.difs0;
+			aux.color += colorAdd;
 		}
 		else
 		{
 			if ((fractal->foldColor.int0 + aux.i) % fractal->foldColor.int2 == 0)
-				aux.color += colorAdd + fractal->foldColor.difs0;
+				aux.color += colorAdd;
 		}
-		//aux.color += colorAdd;
 	}
 }

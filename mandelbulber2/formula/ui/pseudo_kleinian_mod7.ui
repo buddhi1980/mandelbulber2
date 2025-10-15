@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod7</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>929</width>
+    <width>952</width>
     <height>5894</height>
    </rect>
   </property>
@@ -2900,13 +2900,6 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_159">
-                <property name="text">
-                 <string>size:</string>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_160">
                 <property name="text">
@@ -3007,6 +3000,13 @@
                 </property>
                </widget>
               </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_159">
+                <property name="text">
+                 <string>size:</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
@@ -3070,6 +3070,92 @@
         </layout>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="label_162">
+        <property name="text">
+         <string>output color modulus option</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_109">
+          <property name="text">
+           <string>modulus:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MySpinBox" name="spinboxInt_fold_color_int_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_111">
+          <property name="text">
+           <string>iter. offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_fold_color_int_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledB_false">
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string> output color modulus option.
+controls on which iters the color is added</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
@@ -3103,7 +3189,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Pseudo Kleinian Mod7, Knighty - Theli-at&#039;s Pseudo Kleinian (Scale 1 JuliaBox + Something&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Pseudo Kleinian Mod7, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://github.com/Syntopia/Fragmentarium/blob/master/&quot;&gt;https://github.com/Syntopia/Fragmentarium/blob/master/&lt;br&gt;
 &lt;a href=&quot;Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag&quot;&gt;Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
@@ -3128,7 +3214,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;PseudoKleinianMod7Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;PseudoKleinianMod7Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
   CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; oldZz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -3369,14 +3455,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -3423,11 +3509,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>948</y>
+     <y>929</y>
     </hint>
     <hint type="destinationlabel">
-     <x>887</x>
-     <y>954</y>
+     <x>943</x>
+     <y>935</y>
     </hint>
    </hints>
   </connection>
@@ -3439,11 +3525,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>980</y>
+     <y>961</y>
     </hint>
     <hint type="destinationlabel">
-     <x>880</x>
-     <y>982</y>
+     <x>943</x>
+     <y>963</y>
     </hint>
    </hints>
   </connection>
@@ -3455,11 +3541,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>1004</y>
+     <y>985</y>
     </hint>
     <hint type="destinationlabel">
-     <x>897</x>
-     <y>1010</y>
+     <x>943</x>
+     <y>991</y>
     </hint>
    </hints>
   </connection>
@@ -3471,11 +3557,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>1037</y>
+     <y>1018</y>
     </hint>
     <hint type="destinationlabel">
-     <x>866</x>
-     <y>1043</y>
+     <x>943</x>
+     <y>1024</y>
     </hint>
    </hints>
   </connection>
@@ -3487,11 +3573,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>1069</y>
+     <y>1050</y>
     </hint>
     <hint type="destinationlabel">
-     <x>901</x>
-     <y>1071</y>
+     <x>943</x>
+     <y>1052</y>
     </hint>
    </hints>
   </connection>
@@ -3503,11 +3589,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>98</x>
-     <y>1093</y>
+     <y>1074</y>
     </hint>
     <hint type="destinationlabel">
-     <x>920</x>
-     <y>1099</y>
+     <x>943</x>
+     <y>1080</y>
     </hint>
    </hints>
   </connection>
@@ -3522,8 +3608,40 @@
      <y>2117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>361</x>
-     <y>2088</y>
+     <x>448</x>
+     <y>1706</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledB_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_fold_color_int_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>2183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>2220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledB_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_fold_color_int_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>2186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>208</x>
+     <y>2236</y>
     </hint>
    </hints>
   </connection>
