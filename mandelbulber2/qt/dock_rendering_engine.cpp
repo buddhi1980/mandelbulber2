@@ -58,6 +58,10 @@ cDockRenderingEngine::cDockRenderingEngine(QWidget *parent)
 	ConnectSignals();
 
 	ui->groupBox_netrender_client_config->setVisible(false);
+
+#ifndef USE_OPENCL
+	ui->groupCheck_nebula_mode->setVisible(false);
+#endif
 }
 
 cDockRenderingEngine::~cDockRenderingEngine()

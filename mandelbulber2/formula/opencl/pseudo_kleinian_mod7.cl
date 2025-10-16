@@ -208,7 +208,16 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}
-		aux->color += colorAdd;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux->color += colorAdd;
+		}
+		else
+		{
+			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0)
+				aux->color += colorAdd;
+		}
 	}
 	return z;
 }

@@ -30,11 +30,13 @@
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
+#ifdef USE_OPENCL
 	customFormulaCodes.reserve(NUMBER_OF_FRACTALS);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		customFormulaCodes.append(QString());
 	}
+#endif
 }
 
 cOpenClEngineRenderNebula::~cOpenClEngineRenderNebula()
@@ -409,6 +411,8 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		}
 	}
 
+	image->SetFastPreview(true);
+
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
 
@@ -423,35 +427,17 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 	QElapsedTimer timerForImageRefresh;
 	int nextRefreshCounter = 2;
 	int refreshCounter = 0;
+	double lastProcessingTime = 0.1; // initial guess
 
-	bool lastPass = false;
 	for (qint64 totalSamplesCounter = 0; totalSamplesCounter < maxSamples;
 		totalSamplesCounter += jobSize)
 	{
 		timerForOptimalJobSize.restart();
 
+		bool lastPass = false;
+
 		// assign parameters to kernel
 		if (!AssignParametersToKernel(0)) return false;
-
-		// processing queue
-		if (!ProcessQueue(totalSamplesCounter)) return false;
-
-		double percentDone = double(totalSamplesCounter) / maxSamples;
-		emit updateProgressAndStatus(tr("OpenCl - rendering nebula"),
-			progressText.getText(percentDone)
-				+ QString(" (%1 mln samples)").arg(totalSamplesCounter / 1000000),
-			percentDone);
-
-		if (*stopRequest || systemData.globalStopRequest)
-		{
-			return false;
-		}
-
-		double processingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
-
-		float brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
-											 / sqrt(constantInBuffer->params.N);
-		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
 
 		nextRefreshCounter--;
 
@@ -459,7 +445,9 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		refreshCounter++;
 		double optimalTime = min(refreshCounter * 0.1, 1.0);
 
-		jobSize = optimalTime / processingTime * jobSize;
+		jobSize = optimalTime / lastProcessingTime * jobSize;
+		if (jobSize > 0.1 * maxSamples) jobSize = 0.1 * maxSamples; // limit to 20% of total samples)
+
 		jobSize /= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
 		if (jobSize < 1) jobSize = 1;
 		jobSize *= (optimalJob.workGroupSize * optimalJob.jobSizeMultiplier);
@@ -470,7 +458,27 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		}
 		if (jobSize < 1) jobSize = 1;
 
-		if (nextRefreshCounter == 0 || lastPass)
+		// processing queue
+		if (!ProcessQueue(totalSamplesCounter)) return false;
+
+		double percentDone = double(totalSamplesCounter) / maxSamples;
+		emit updateProgressAndStatus(tr("OpenCl - rendering nebula"),
+			progressText.getText(percentDone)
+				+ QString(" (%1 mln samples)").arg(totalSamplesCounter / 1000000),
+			percentDone);
+
+		if ((*stopRequest || systemData.globalStopRequest) && refreshCounter > 5)
+		{
+			return false;
+		}
+
+		lastProcessingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
+
+		float brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
+											 / sqrt(constantInBuffer->params.N);
+		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
+
+		if (nextRefreshCounter == 0 || lastPass || refreshCounter < 10)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 
@@ -504,19 +512,24 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
 			{
 				double averageBrighness = totalBrigtnessSum / (width * height * 3.0);
-				double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
-				brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
+				if (averageBrighness > 0)
+				{
+					double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
+					brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
+				}
 			}
 
 			image->CompileImage();
 
-			signalSmallPartRendered(processingTime);
+			signalSmallPartRendered(lastProcessingTime);
 
 			// processing application events
 			gApplication->processEvents();
 
-			if (image->IsPreview() && (nextRefreshCounter == 0 || lastPass))
+			if (image->IsPreview() && (refreshCounter >= 5 || lastPass))
 			{
+				if (lastPass) image->SetFastPreview(false);
+
 				WriteLog("image->ConvertTo8bit()", 2);
 				image->ConvertTo8bitChar();
 				WriteLog("image->UpdatePreview()", 2);
@@ -528,6 +541,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			double imageRefreshTime = timerForImageRefresh.nsecsElapsed() / 1.0e9;
 			nextRefreshCounter = int(10.0 * imageRefreshTime) + 1;
 		}
+		if (lastPass) break;
 	}
 
 	return true;

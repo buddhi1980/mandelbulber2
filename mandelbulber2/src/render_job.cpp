@@ -539,9 +539,11 @@ bool cRenderJob::Execute()
 				tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
 			emit signalTotalRenderTime(progressText.getTime());
 		}
+#endif
 	}
 	else // nebula mode
 	{
+#ifdef USE_OPENCL
 		cProgressText progressText;
 		progressText.ResetTimer();
 		renderData->rendererID = id;
@@ -567,9 +569,8 @@ bool cRenderJob::Execute()
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
 		emit signalTotalRenderTime(progressText.getTime());
-	}
-
 #endif
+	}
 
 	if (twoPassStereo)
 	{

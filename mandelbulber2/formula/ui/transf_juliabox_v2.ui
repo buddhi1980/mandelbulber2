@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_juliabox_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1933,11 +1933,18 @@ offset:</string>
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="label_51">
+        <property name="text">
+         <string>iteration color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_21" stretch="0,1">
         <item>
          <widget class="QLabel" name="label_74">
           <property name="text">
-           <string>iteration step:</string>
+           <string>palette offset:</string>
           </property>
          </widget>
         </item>
@@ -1972,6 +1979,13 @@ offset:</string>
        </layout>
       </item>
       <item>
+       <widget class="Line" name="line_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
@@ -1979,12 +1993,15 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_102">
           <property name="text">
-           <string>iter thing test interval</string>
+           <string>modulus:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="MySpinBox" name="spinboxInt_fold_color_int_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2005,12 +2022,15 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_103">
           <property name="text">
-           <string>iteradd iter</string>
+           <string>iter. offset:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="MySpinBox" name="spinboxInt_fold_color_int_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2028,7 +2048,7 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA_false">
           <property name="font">
            <font>
@@ -2037,7 +2057,8 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Iter thing test</string>
+           <string> output color modulus option.
+controls on which iters the color is added</string>
           </property>
          </widget>
         </item>
@@ -2100,7 +2121,7 @@ offset:</string>
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfJuliaboxV2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfJuliaboxV2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; colorAdd &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
@@ -2307,6 +2328,38 @@ offset:</string>
     <hint type="destinationlabel">
      <x>283</x>
      <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledA_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_fold_color_int_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>1549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>1569</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabledA_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_fold_color_int_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>1549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>229</x>
+     <y>1606</y>
     </hint>
    </hints>
   </connection>

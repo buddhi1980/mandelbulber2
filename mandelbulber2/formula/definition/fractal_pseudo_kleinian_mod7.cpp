@@ -194,7 +194,6 @@ void cFractalPseudoKleinianMod7::FormulaCode(
 			double ee = ((aux.const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.y;
 
-
 			if (!fractal->transformCommon.functionEnabledOFalse)
 			{
 				bb = bb + cc;
@@ -219,6 +218,15 @@ void cFractalPseudoKleinianMod7::FormulaCode(
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}
-		aux.color += colorAdd;
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+		{
+			aux.color += colorAdd;
+		}
+		else
+		{
+			if ((fractal->foldColor.int0 + aux.i) % fractal->foldColor.int2 == 0)
+				aux.color += colorAdd;
+		}
 	}
 }

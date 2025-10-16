@@ -45,9 +45,9 @@ void cFractalEiffieCar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 
 	p.z = p0.z - fractal->transformCommon.offsetD0; // locate z
-	p.x = p0.x + fractal->transformCommon.minR2p25; //wheels and gurads locate x
+	p.x = p0.x + fractal->transformCommon.minR2p25; //wheels and guards locate x
 	p.y = fabs(fabs(p.y) - fractal->transformCommon.minR06); // locate y
-	p.x = fabs(p.x) - fractal->transformCommon.offsetR1; //wheels and gurads dist apart
+	p.x = fabs(p.x) - fractal->transformCommon.offsetR1; //wheels and guards dist apart
 	r = sqrt(p.z * p.z + p.x * p.x);
 	tp.x = max(r - fractal->transformCommon.scale025, 0.0); // guard rad
 	tp.y = max(p.y - fractal->transformCommon.offsetBp01 - 0.05, 0.0);
@@ -69,8 +69,22 @@ void cFractalEiffieCar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	d = max(d, -max(p.y - 0.165, r - 0.24)); // guard and car
+double zcd = 0.0;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		CVector4 q = fabs(p0) - fractal->transformCommon.additionConstant111;
+		CVector4 zc = q;
 
-//	if (fractal->transformCommon.functionEnabledEFalse)  d = 100.0;
+		zc.x = max(zc.x, 0.0);
+
+		zc.y -=  fractal->transformCommon.minR06 + 2.0f * (fractal->transformCommon.offsetBp01 - 0.05f);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		zcd = zc.Length();
+
+		zcd -= fractal->transformCommon.offsetB0;
+		d = min(zcd, d);
+	}
 
 	//wheels
 	CVector4 zc = p;
@@ -90,6 +104,15 @@ void cFractalEiffieCar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	d = min(d, d2);
 	aux.dist = d;
 
-	if (aux.dist == d2) aux.color = 3.0;
-	else aux.color = 5.0;
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (aux.dist == d2) aux.color = 3.0 + fractal->foldColor.difs0000.y;
+		else aux.color = 5.0 + fractal->foldColor.difs0000.x;
+
+		if (aux.dist == zcd)
+			aux.color = 4.0 + fractal->foldColor.difs0000.z;
+
+	}
+
 }

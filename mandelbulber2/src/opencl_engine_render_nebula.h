@@ -44,16 +44,12 @@ public:
 	size_t CalcNeededMemory() override;
 	QString GetKernelName() override;
 
-#endif
-
 private:
-#ifdef USE_OPENCL
 	void CreateListOfHeaderFiles(QStringList &clHeaderFiles);
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
 		QByteArray &programEngine);
 	static QString toCamelCase(const QString &s);
-#endif
 
 private:
 	QStringList customFormulaCodes;
@@ -74,6 +70,8 @@ private:
 	const int inRandomBufferIndex = 0;
 
 	double zBufferDefault = 0.0;
+
+#endif
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
