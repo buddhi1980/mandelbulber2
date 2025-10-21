@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>1674</height>
+    <height>1699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -315,7 +315,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
      <property name="text">
-      <string>orientation swap x -z</string>
+      <string>orientation swap x -z (use scale 2,2,1 default)</string>
      </property>
     </widget>
    </item>

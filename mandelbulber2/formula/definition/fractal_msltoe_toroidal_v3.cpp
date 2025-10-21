@@ -169,8 +169,8 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
-		{
+//		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+//		{
 			double colAdd = fractal->foldColor.difs0000.w
 					+ aux.i * fractal->foldColor.difs0;
 
@@ -194,6 +194,6 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
 			else aux.color += colAdd;
-		}
+//		}
 	}
 }

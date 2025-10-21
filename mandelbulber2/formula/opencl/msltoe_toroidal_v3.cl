@@ -157,7 +157,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
+//		if (colDist != aux->dist || fractal->foldColor.auxColorEnabledA)
 		{
 			REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
 

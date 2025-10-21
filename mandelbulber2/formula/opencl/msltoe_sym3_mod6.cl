@@ -121,5 +121,39 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	// aux->color //
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+
+		REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
+
+		// last two z lengths
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			REAL lastVec = 0.0f;
+			REAL4 oldPt = aux->old_z;
+			REAL lastZ = length(oldPt); // aux->old_r;
+			REAL newZ = length(z);
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
+
+			aux->old_z = z; // update for next iter
+		}
+
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux->color = colAdd;
+		else
+			aux->color += colAdd;
+
+	}
+
+
 	return z;
 }
