@@ -112,6 +112,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 
 	if (gPar->Get<bool>("ui_colorize"))
 		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed"));
+	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
 
 	initFinished = true;
 }

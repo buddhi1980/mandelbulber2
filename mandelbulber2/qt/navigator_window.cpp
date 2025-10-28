@@ -141,6 +141,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	cInterface::ColorizeGroupBoxes(
 		ui->widgetNavigationButtons, gPar->Get<int>("ui_colorize_random_seed"));
 
+	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
+
 	restoreGeometry(gMainInterface->settings.value("navigatorWindowGeometry").toByteArray());
 
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
@@ -159,6 +161,7 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 		for (auto widget : childWidgets)
 		{
 			cInterface::ColorizeGroupBoxes(widget, gPar->Get<int>("ui_colorize_random_seed"));
+			cInterface::AdjustLayoutSpacing(widget, gPar->Get<int>("ui_layout_spacing"));
 		}
 
 		cDockEffects *dockEffects = dynamic_cast<cDockEffects *>(leftWidget);

@@ -132,6 +132,9 @@ void cLightSourcesManager::AddLight(bool init, int indexInParameters)
 		cInterface::ColorizeGroupBoxes(ui->tabWidget_lightSources->widget(newTabIndex - 1),
 			params->Get<int>("ui_colorize_random_seed") + newTabIndex);
 
+	cInterface::AdjustLayoutSpacing(
+		ui->tabWidget_lightSources->widget(newTabIndex - 1), params->Get<int>("ui_layout_spacing"));
+
 	if (init)
 	{
 		params->Set(cLight::Name("is_defined", indexInParameters), true);

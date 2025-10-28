@@ -577,6 +577,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("ui_style_type", QString("Fusion"), morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
+	par->addParam("ui_layout_spacing", systemData.GetPreferredFontPointSize() / 2 + 1, 1, 50,
+		morphNone, paramApp);
 	par->addParam(
 		"custom_formula_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
 	par->addParam(

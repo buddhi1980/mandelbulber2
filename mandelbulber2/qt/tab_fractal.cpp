@@ -197,6 +197,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			if (params->Get<bool>("ui_colorize"))
 				cInterface::ColorizeGroupBoxes(
 					fractalWidget.get(), params->Get<int>("ui_colorize_random_seed"));
+			cInterface::AdjustLayoutSpacing(fractalWidget.get(), gPar->Get<int>("ui_layout_spacing"));
 
 			fractalWidget->show();
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget.get());

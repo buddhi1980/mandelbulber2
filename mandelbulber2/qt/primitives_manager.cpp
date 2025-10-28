@@ -162,6 +162,8 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 		if (params->Get<bool>("ui_colorize"))
 			cInterface::ColorizeGroupBoxes(ui->tabWidget_primitives->widget(newTabIndex - 1),
 				params->Get<int>("ui_colorize_random_seed") + newTabIndex);
+		cInterface::AdjustLayoutSpacing(
+			ui->tabWidget_primitives->widget(newTabIndex - 1), gPar->Get<int>("ui_layout_spacing"));
 
 		if (init)
 		{

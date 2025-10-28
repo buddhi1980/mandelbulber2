@@ -113,6 +113,8 @@ public:
 	void DetachMainImageWidget();
 	void AttachMainImageWidget();
 	static void ColorizeGroupBoxes(QWidget *window, int randomSeed);
+	static void AdjustLayoutSpacing(QWidget *window, int spacing);
+
 	void SaveLocalSettings(const QWidget *widget);
 	void LoadLocalSettings(const QWidget *widget);
 	void ResetLocalSettings(const QWidget *widget);

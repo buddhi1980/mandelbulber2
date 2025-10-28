@@ -275,6 +275,8 @@ void cInterface::ShowUi()
 	if (gPar->Get<bool>("ui_colorize"))
 		ColorizeGroupBoxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
 
+	AdjustLayoutSpacing(mainWindow, gPar->Get<int>("ui_layout_spacing"));
+
 	renderedImage->show();
 
 	mainWindow->setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
@@ -1841,26 +1843,28 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 	cRandom random;
 	random.Initialize(randomSeed);
 
+	int colorIntensity = 40;
+
 	foreach (QGroupBox *groupbox, widgets)
 	{
 		QColor buttonColor;
-		if (brightness > 20)
+		if (brightness > colorIntensity)
 		{
-			int r = random.Random(40) + rBase - 20;
+			int r = random.Random(colorIntensity) + rBase - colorIntensity / 2;
 			r = clamp(r, 0, 255);
-			int g = random.Random(40) + gBase - 20;
+			int g = random.Random(colorIntensity) + gBase - colorIntensity / 2;
 			g = clamp(g, 0, 255);
-			int b = random.Random(40) + bBase - 20;
+			int b = random.Random(colorIntensity) + bBase - colorIntensity / 2;
 			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
 		else
 		{
-			int r = random.Random(40) + rBase;
+			int r = random.Random(colorIntensity) + rBase;
 			r = clamp(r, 0, 255);
-			int g = random.Random(40) + gBase;
+			int g = random.Random(colorIntensity) + gBase;
 			g = clamp(g, 0, 255);
-			int b = random.Random(40) + bBase;
+			int b = random.Random(colorIntensity) + bBase;
 			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
@@ -1868,6 +1872,43 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 		QPalette newPalette(buttonColor);
 		groupbox->setPalette(newPalette);
 		groupbox->setAutoFillBackground(true);
+	}
+}
+
+void cInterface::AdjustLayoutSpacing(QWidget *window, int spacing)
+{
+	QList<QLayout *> layouts;
+	layouts = window->findChildren<QLayout *>();
+
+	foreach (QLayout *layout, layouts)
+	{
+		layout->setSpacing(int(spacing * 0.6));
+
+		QMargins actualMargins = layout->contentsMargins();
+		if (actualMargins.left() == 0 && actualMargins.right() == 0 && actualMargins.top() == 0
+				&& actualMargins.bottom() == 0)
+		{
+			continue; // do not change margins if they are zero (for special layouts)
+		}
+
+		if (layout->parentWidget()->objectName().startsWith("scroll"))
+		{
+			continue;
+		}
+
+		if (layout->parentWidget()->objectName().startsWith("dock"))
+		{
+			continue;
+		}
+
+		if (layout->parentWidget()->objectName() == "toolBar")
+		{
+			layout->setContentsMargins(1, 1, 1, 1);
+			layout->setSpacing(1);
+			continue;
+		}
+
+		layout->setContentsMargins(int(spacing), int(spacing), int(spacing), int(spacing));
 	}
 }
 
