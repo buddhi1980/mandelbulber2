@@ -140,33 +140,28 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-//		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
-//		{
-			double colAdd = fractal->foldColor.difs0000.w
-					+ aux.i * fractal->foldColor.difs0;
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
 
-			// last two z lengths
-			if (fractal->transformCommon.functionEnabledPFalse)
-			{
-				double lastVec = 0.0;
-				CVector4 oldPt = aux.old_z;
-				double lastZ = oldPt.Length(); // aux.old_r;
-				double newZ = z.Length();
-				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
-				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
-				lastVec *= fractal->foldColor.difs1;
-				colAdd += lastVec;
+		// last two z lengths
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
 
-				aux.old_z = z; // update for next iter
-			}
+			aux.old_z = z; // update for next iter
+		}
 
-			colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
-			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
-			else aux.color += colAdd;
-	//	}
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
 	}
-
-
 }

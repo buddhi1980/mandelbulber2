@@ -151,9 +151,6 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			aux->color = colAdd;
 		else
 			aux->color += colAdd;
-
 	}
-
-
 	return z;
 }

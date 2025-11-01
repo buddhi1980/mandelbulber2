@@ -575,7 +575,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSurfBoxFold());
 	fractalList->append(new cFractalTransfSurfBoxFoldV2());
 	fractalList->append(new cFractalTransfSurfBoxFoldV24d());
-	fractalList->append(new cFractalTransfSurfFoldMulti());	fractalList->append(new cFractalKochIfs());
+	fractalList->append(new cFractalTransfSurfFoldMulti());
 	fractalList->append(new cFractalTransfZvectorAxisSwap());
 
 
