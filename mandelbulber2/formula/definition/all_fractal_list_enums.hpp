@@ -305,7 +305,6 @@ enum enumFractalFormula
 	xenodreambuieV3 = 265,
 	mandelbulbPupuku = 266,
 	sphereCluster = 267,
-
 	// 2.31
 	sphereClusterV2 = 268,
 	aboxDonut4dV2 = 269,
@@ -315,15 +314,16 @@ enum enumFractalFormula
 	tinkerTowers = 273,
 	spheretreeV4 = 274,
 	sphereClusterV3 = 275,
-
 	// 2.32
 	pseudoKleinianMod7 = 276, // todo
-
 	// 2.34
 	eiffieCar = 277,
 	kochV5 = 278,
 	kochIfs = 279,
 	msltoeToroidalV3 = 280,
+
+	// 2.35
+	mandelbulbPow2V4 = 281,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

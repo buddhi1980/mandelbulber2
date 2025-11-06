@@ -592,7 +592,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalEiffieCar());
 	fractalList->append(new cFractalMsltoeToroidalV3());
-
+	fractalList->append(new cFractalMandelbulbPow2V4());
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
 	fractalList->append(new cFractalTinkerTowers());
