@@ -72,7 +72,7 @@ void cFractalMandelbulbPow2V3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double rn_sin_theta_pow = rr * sin(theta_pow);
 	z.x = rn_sin_theta_pow * cos(phi_pow);
 	z.y = rn_sin_theta_pow * sin(phi_pow);
-	z.z = rr * cos(theta_pow) * fractal->transformCommon.scale1; // ,
+	z.z = rr * cos(theta_pow) * fractal->transformCommon.scale1;
 
 	z += fractal->transformCommon.offset000;
 

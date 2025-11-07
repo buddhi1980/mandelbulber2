@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -6,8 +6,12 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Non-trig mandelbulber pow2 version based on pow2 code from Davis Makin
- * ref: https://www.facebook.com/david.makin.7
+ * Non-trig mandelbulber pow2 versions
+ * with modifier vectors from Bridge 2025 Conference Proceedings paper
+ * Reformulating Multiplication for Mandelbrot-like Sets in 3D
+ * Eric Zimmermann and Stefan Bruckner
+ * Institute for Visual & Analytic Computing, University of Rostock, Germany
+ *
  */
 
 #include "all_fractal_definitions.h"
@@ -27,50 +31,64 @@ cFractalMandelbulbPow2V4::cFractalMandelbulbPow2V4() : cAbstractFractal()
 
 void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-	CVector4 p = aux.const_c;
+	double t = 0.0; // temp
+//	CVector4 p = aux.const_c;
 	double r = z.Length();
 	double cosPhi;
 	double sinPhi;
 	double cosTheta1;
-	double cosTheta2;
+//	double cosTheta2;
 	double cosTheta;
 	double sinTheta;
 
+	if (z.x * z.x + z.y * z.y == 0.0)
+
+	  {
+		z.y = -z.z * z.z;
+		z.z = 0.0;
+	  }
+
+
+
 	// Undefined case in which x=y=0 (or x=y=z=0)
-	if (z.x == 0. && z.y == 0.)
+	if (z.x == 0.0 && z.y == 0.0)
 	{
 		// Assign evaluated phi values
-		cosPhi = 1.;
-		sinPhi = 0.;
+		cosPhi = 1.0;
+		sinPhi = 0.0;
 
 		// Assign evaluated theta values if z=0
-		if (p.z == 0.)
+		if (z.z == 0.0)
 		{
-			cosTheta = 1.;
-			sinTheta = 0.;
+			cosTheta = 1.0;
+			sinTheta = 0.0;
 		}
 		// Assign evaluated theta values if z!=0
 		else
 		{
-			cosTheta = -1.;
-			sinTheta = 0.;
+			cosTheta = -1.0;
+			sinTheta = 0.0;
 		}
 	}
 	// Remaining defined cases
 	else
 	{
 		CVector4 v = z / r;
-		CVector4 w = CVector4(z.x, z.y, 0.0, 0.0);
-		double t = w.Length();
 
+
+		CVector4 w = CVector4(z.x, z.y, 0.0, 0.0);
+
+
+		t = w.Length();
 		w = w / t;
 		cosPhi = w.x * w.x - w.y * w.y;
-		sinPhi = w.y * w.x + w.y * w.x;
+		t = w.y * w.x;
+		sinPhi = t + t;
 		cosTheta1 = v.x * w.x + v.y * w.y;
-		cosTheta2 = v.x * w.x + v.y * w.y;
-		cosTheta = cosTheta1 * cosTheta2 - v.z * v.z;
-		sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
+	//	cosTheta2 = v.x * w.x + v.y * w.y;
+		cosTheta = cosTheta1 * cosTheta1 - v.z * v.z;
+		t = v.z * cosTheta1;
+		sinTheta = t + t;
 	}
 
 	CVector4 f = z;
@@ -97,7 +115,31 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	//	f = r * r * CVector4(-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0);
 	//	g = CVector4(sinTheta / (cosPhi * cosTheta), 0, 1, 0.0);
 
-		z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0);
+	//	z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0);
+
+
+
+		double rr = z.x * z.x + z.y * z.y;
+		double theta = atan2(z.z, sqrt(rr));
+		rr += z.z * z.z;
+		double phi = atan2(z.y, z.x);
+	//	double thetatemp = theta;
+
+		double phi_pow = 2.0 * phi + M_PI;
+		double theta_pow = theta + M_PI + M_PI_2;
+
+		//if (fractal->transformCommon.functionEnabledBFalse) theta_pow = theta + thetatemp + M_PI_4;
+
+		//if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI_2;
+
+		//if (fractal->transformCommon.functionEnabledDFalse) theta_pow = theta + thetatemp + M_PI;
+
+		double rn_sin_theta_pow = rr * sin(theta_pow);
+		z.x = rn_sin_theta_pow * cos(phi_pow);
+		z.y = rn_sin_theta_pow * sin(phi_pow);
+		z.z = rr * cos(theta_pow);
+
+
 	}
 
 	// 3. f_B, g_B - aka space filling tunnels
@@ -140,10 +182,10 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
-		f = r * r * CVector4(-sinPhi, cosPhi, 0, 0.0);
-		g = CVector4(0, 0, 1, 0.0);
+		f = r * r * CVector4(-sinPhi, cosPhi, 0.0, 0.0);
+		g = CVector4(0.0, 0.0, 1.0, 0.0);
 
-		z = r * r * CVector4(cosPhi, sinPhi, 0, 0.0);
+		z = r * r * CVector4(cosPhi, sinPhi, 0.0, 0.0);
 	}
 
 	// 6. f_E, g_E - aka other forms
@@ -152,7 +194,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
 		f = CVector4(z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0);
-		g = CVector4(1, cos(z.z), 1, 0.0);
+		g = CVector4(1.0, cos(z.z), 1.0, 0.0);
 
 
 		//z = cross(f, g);
@@ -169,8 +211,8 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		f = r * r * CVector4(-sinPhi, cosPhi, 0, 0.0);
-		g = CVector4(-sinTheta / cosPhi, 0, cosTheta, 0.0);
+		f = r * r * CVector4(-sinPhi, cosPhi, 0.0, 0.0);
+		g = CVector4(-sinTheta / cosPhi, 0.0, cosTheta, 0.0);
 
 		//z = cross(f, g);
 		z.x = f.y * g.z - f.z * g.y;
@@ -181,18 +223,31 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >=fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
-		z = r * r *CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0);
+		if (fractal->transformCommon.functionEnabledOFalse
+				&& aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
+		{
+			z = r * r *CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0);
+		}
+		else
+		{
+			z = r * r *CVector4(cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
+		}
 	}
 	// Apply scheme
 
-	//  scheme 1 = +origPt, scheme 3 = + juliaC
+	//  scheme 1 = +origPt, scheme 2 = + juliaC
 	//	z = cross(f, g);
 	//	z = r * r *CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0);
 	z.z *= fractal->transformCommon.scale1;
 	z *= fractal->transformCommon.scaleA1;
 	aux.DE *= fabs(fractal->transformCommon.scaleA1);
 
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
 	z += fractal->transformCommon.offset000; // plus  julia
+
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)

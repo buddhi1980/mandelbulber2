@@ -27,23 +27,23 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL sinTheta;
 
 	// Undefined case in which x=y=0 (or x=y=z=0)
-	if (z.x == 0. && z.y == 0.)
+	if (z.x == 0.0f && z.y == 0.0f)
 	{
 		// Assign evaluated phi values
-		cosPhi = 1.;
-		sinPhi = 0.;
+		cosPhi = 1.0f;
+		sinPhi = 0.0f;
 
 		// Assign evaluated theta values if z=0
 		if (p.z == 0.)
 		{
-			cosTheta = 1.;
-			sinTheta = 0.;
+			cosTheta = 1.0f;
+			sinTheta = 0.0f;
 		}
 		// Assign evaluated theta values if z!=0
 		else
 		{
-			cosTheta = -1.;
-			sinTheta = 0.;
+			cosTheta = -1.0f;
+			sinTheta = 0.0f;
 		}
 	}
 	// Remaining defined cases
@@ -73,7 +73,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		//f = r * r * (REAL4){-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0};
 		//g = (REAL4){-sinTheta / (cosPhi * cosTheta), 0, 1, 0.0};
 
-		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0};
+		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0f};
 	}
 
 	// 2. f_A, g_A - aka sphercical representation 3D (inverted 3rd coordinate in g_A)
@@ -84,7 +84,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	//	f = r * r * (REAL4){-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0};
 	//	g = (REAL4){sinTheta / (cosPhi * cosTheta), 0, 1, 0.0};
 
-		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0};
+		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0f};
 	}
 
 	// 3. f_B, g_B - aka space filling tunnels
@@ -97,7 +97,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	//	g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0};
 
 	//	z = cross(f, g);
-		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0};
+		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
 			z.x = g.z - g.y;
 			z.y = g.x - g.z;
 			z.z = g.y - g.x ;
@@ -110,21 +110,21 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD)
 	{
-		f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0};
-		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0};
+		f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
+		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
 
 		z = cross(f, g);
 	}
 
-	// 5. f_D, g_D - aka force Mandelbrot
-	if (fractal->transformCommon.functionEnabledEFalse
+	// 5. f_D, g_D - aka force
+	if (fractal->transformCommonMandelbrot.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		f = r * r * (REAL4){-sinPhi, cosPhi, 0, 0.0};
-		g = (REAL4){0, 0, 1, 0.0};
+		f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
+		g = (REAL4){0.0f, 0.0f, 1.0f, 0.0f};
 
-		z = r * r * (REAL4){cosPhi, sinPhi, 0, 0.0};
+		z = r * r * (REAL4){cosPhi, sinPhi, 0.0f, 0.0f};
 	}
 
 	// 6. f_E, g_E - aka other forms
@@ -132,7 +132,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
-		f = (REAL4){z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0};
+		f = (REAL4){z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0f};
 		g = (REAL4){1, cos(z.z), 1, 0.0};
 
 
@@ -147,8 +147,8 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		f = r * r * (REAL4){-sinPhi, cosPhi, 0, 0.0};
-		g = (REAL4){-sinTheta / cosPhi, 0, cosTheta, 0.0};
+		f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
+		g = (REAL4){-sinTheta / cosPhi, 0.0f, cosTheta, 0.0f};
 
 		z = cross(f, g);
 	}
@@ -167,7 +167,10 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	z *= fractal->transformCommon.scaleA1;
 	aux->DE *= fabs(fractal->transformCommon.scaleA1);
 
-	z += fractal->transformCommon.offset000; // plus  julia
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >=fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+		z += fractal->transformCommon.offset000; // plus  julia
 
 
 	if (fractal->transformCommon.functionEnabledXFalse
