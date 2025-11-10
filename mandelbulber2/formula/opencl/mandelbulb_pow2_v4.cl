@@ -117,7 +117,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	// 5. f_D, g_D - aka force
-	if (fractal->transformCommonMandelbrot.functionEnabledEFalse
+	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
