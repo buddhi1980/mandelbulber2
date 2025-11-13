@@ -220,7 +220,7 @@
      <item row="2" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
        <property name="text">
-        <string notr="true">b new tan2 but trig</string>
+        <string notr="true">b</string>
        </property>
       </widget>
      </item>
@@ -517,9 +517,16 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="label_256">
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
      <property name="text">
-      <string>offset</string>
+      <string notr="true">offset</string>
      </property>
     </widget>
    </item>

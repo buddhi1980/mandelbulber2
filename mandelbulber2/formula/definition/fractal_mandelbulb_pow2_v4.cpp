@@ -217,7 +217,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		//z = cross(f, g);
 		z.x = f.y * g.z - f.z * g.y;
 		z.y = f.z * g.x - f.x * g.z;
-		z.z = f.x * g.y - f.y * g.x;;
+		z.z = f.x * g.y - f.y * g.x;
 	}
 	if (fractal->transformCommon.functionEnabledHFalse
 			&& aux.i >=fractal->transformCommon.startIterationsH
@@ -227,11 +227,11 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 				&& aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
 		{
-			z = r * r *CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0);
+			z = r * r * CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0);
 		}
 		else
 		{
-			z = r * r *CVector4(cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
+			z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
 		}
 	}
 	// Apply scheme

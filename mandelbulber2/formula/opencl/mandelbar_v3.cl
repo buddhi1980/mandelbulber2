@@ -32,19 +32,72 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	else
 	{
-		REAL temp = m2 - z.z * z.z;
+		/*REAL temp = m2 - z.z * z.z;
 		z.z = 2.0f * native_sqrt(m2) * z.z;
 		m2 = temp / m2;
 		temp = 2.0f * z.x * z.y * m2;
 
 		z.y = (z.y * z.y - z.x * z.x) * m2;
-		z.x = -temp;
+		z.x = -temp;*/
+
+
+		REAL temp = m2 - z.z * z.z;
+		z.z = 2.0f * native_sqrt(m2) * z.z;
+	//	z.z *= fractal->transformCommon.scale2;
+
+		m2 = temp / m2;
+		temp = 2.0f * z.x * z.y * m2;
+
+		z.y = (z.y * z.y - z.x * z.x) * m2;
+		// z.y = (z.x * z.x - z.y * z.y) * m2;
+
+		if (fractal->transformCommon.functionEnabledM
+				&& aux->i >= fractal->transformCommon.startIterationsA
+				&& aux->i < fractal->transformCommon.stopIterationsA)
+			z.x = -temp;
+
+		if (fractal->transformCommon.functionEnabledBFalse
+				&& aux->i >= fractal->transformCommon.startIterationsB
+				&& aux->i < fractal->transformCommon.stopIterationsB)
+		{
+			z.x = -temp;
+			z.z = -z.z;
+		}
+
+		if (fractal->transformCommon.functionEnabledCFalse
+				&& aux->i >= fractal->transformCommon.startIterationsC
+				&& aux->i < fractal->transformCommon.stopIterationsC)
+			z.x = temp;
+
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD)
+		{
+			z.x = temp;
+			z.z = -z.z;
+		}
 	}
-	z.z *= fractal->transformCommon.scale1;
-	z *= fractal->transformCommon.scaleA1;
-	aux->DE *= fabs(fractal->transformCommon.scaleA1);
+
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+	{
+		z.z *= fractal->transformCommon.scale1;
+	}
+
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= fabs(fractal->transformCommon.scaleA1);
+	}
+
 	// offset (Julia)
-	z += fractal->transformCommon.additionConstant000;
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux->i >= fractal->transformCommon.startIterationsJ
+			&& aux->i < fractal->transformCommon.stopIterationsJ)
+		z += fractal->transformCommon.additionConstant000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	if (fractal->transformCommon.functionEnabledXFalse
