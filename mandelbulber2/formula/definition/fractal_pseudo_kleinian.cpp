@@ -132,6 +132,8 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
+		if (fractal->transformCommon.functionEnabledwFalse) z.w = -z.w; // 4D
+
 		aux.DE *= k + fractal->analyticDE.tweak005;
 		aux.pseudoKleinianDE = fractal->analyticDE.scale1;
 	}

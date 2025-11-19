@@ -99,14 +99,50 @@ void cFractalMandelbarV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 			&& aux.i >= fractal->transformCommon.startIterationsJ
 			&& aux.i < fractal->transformCommon.stopIterationsJ)
 		z += fractal->transformCommon.additionConstant000;
-	z += fractal->transformCommon.additionConstant000;
 
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
-		z += aux.const_c;
+		z += aux.const_c * fractal->transformCommon.constantMultiplier111;
+
+	// aux->color test
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
+		// last two z lengths
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
+
+			aux.old_z = z; // update for next iter
+		}
+
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
+
+	}
+
+
+
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)

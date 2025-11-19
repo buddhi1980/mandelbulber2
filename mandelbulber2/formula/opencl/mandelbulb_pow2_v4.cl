@@ -17,7 +17,7 @@
 REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
-	REAL4 p = aux->const_c;
+	// REAL4 p = aux->const_c;
 	REAL r = length(z);
 	REAL cosPhi;
 	REAL sinPhi;
@@ -113,10 +113,12 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
 		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
 
-		z = cross(f, g);
+		z.x = f.y * g.z - f.z * g.y;
+		z.y = f.z * g.x - f.x * g.z;
+		z.z = f.x * g.y - f.y * g.x ;
 	}
 
-	// 5. f_D, g_D - aka force
+	// 5. f_D, g_D - aka force? deformed pwr2
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
@@ -135,8 +137,17 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		f = (REAL4){z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0f};
 		g = (REAL4){1, cos(z.z), 1, 0.0};
 
+		//z = cross(f, g);
+		//z.x = f.y * g.z - f.z * g.y;
+	//	z.y = f.z * g.x - f.x * g.z;
+		//z.z = f.x * g.y - f.y * g.x;
+		//z = cross(f, g);
+		z.x = f.y - f.z * g.y;
+		z.y = f.z - f.x;
+		z.z = f.x * g.y - f.y
 
-		z = cross(f, g);
+
+
 	}
 
 	// 7. User defined (here without exception handling as this becomes changed by the user)
@@ -151,6 +162,15 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		g = (REAL4){-sinTheta / cosPhi, 0.0f, cosTheta, 0.0f};
 
 		z = cross(f, g);
+
+		//z.x = f.y * g.z - f.z * g.y;
+	//	z.y = f.z * g.x - f.x * g.z;
+		//z.z = f.x * g.y - f.y * g.x;
+		z.x = f.y * g.z - 0.0f;
+		z.y = 0.0f - f.x * g.z;
+		z.z = 0.0f - f.y * g.x;
+
+
 	}
 	if (fractal->transformCommon.functionEnabledHFalse
 			&& aux->i >=fractal->transformCommon.startIterationsH

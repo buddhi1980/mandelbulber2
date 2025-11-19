@@ -37,17 +37,15 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double cosPhi;
 	double sinPhi;
 	double cosTheta1;
-//	double cosTheta2;
+	double cosTheta2;
 	double cosTheta;
 	double sinTheta;
 
 	if (z.x * z.x + z.y * z.y == 0.0)
-
-	  {
+	{
 		z.y = -z.z * z.z;
 		z.z = 0.0;
-	  }
-
+	}
 
 
 	// Undefined case in which x=y=0 (or x=y=z=0)
@@ -85,10 +83,9 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		t = w.y * w.x;
 		sinPhi = t + t;
 		cosTheta1 = v.x * w.x + v.y * w.y;
-	//	cosTheta2 = v.x * w.x + v.y * w.y;
-		cosTheta = cosTheta1 * cosTheta1 - v.z * v.z;
-		t = v.z * cosTheta1;
-		sinTheta = t + t;
+		cosTheta2 = v.x * w.x + v.y * w.y;
+		cosTheta = cosTheta1 * cosTheta2 - v.z * v.z;
+		sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
 	}
 
 	CVector4 f = z;
@@ -115,11 +112,11 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	//	f = r * r * CVector4(-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0);
 	//	g = CVector4(sinTheta / (cosPhi * cosTheta), 0, 1, 0.0);
 
-	//	z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0);
+		z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0);
 
 
 
-		double rr = z.x * z.x + z.y * z.y;
+/*		double rr = z.x * z.x + z.y * z.y;
 		double theta = atan2(z.z, sqrt(rr));
 		rr += z.z * z.z;
 		double phi = atan2(z.y, z.x);
@@ -137,7 +134,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		double rn_sin_theta_pow = rr * sin(theta_pow);
 		z.x = rn_sin_theta_pow * cos(phi_pow);
 		z.y = rn_sin_theta_pow * sin(phi_pow);
-		z.z = rr * cos(theta_pow);
+		z.z = rr * cos(theta_pow);*/
 
 
 	}
@@ -196,11 +193,14 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		f = CVector4(z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0);
 		g = CVector4(1.0, cos(z.z), 1.0, 0.0);
 
-
 		//z = cross(f, g);
-		z.x = f.y * g.z - f.z * g.y;
-		z.y = f.z * g.x - f.x * g.z;
-		z.z = f.x * g.y - f.y * g.x;
+		//z.x = f.y * g.z - f.z * g.y;
+	//	z.y = f.z * g.x - f.x * g.z;
+		//z.z = f.x * g.y - f.y * g.x;
+		//z = cross(f, g);
+		z.x = f.y - f.z * g.y;
+		z.y = f.z - f.x;
+		z.z = f.x * g.y - f.y;
 	}
 
 	// 7. User defined (here without exception handling as this becomes changed by the user)
@@ -219,20 +219,12 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.y = f.z * g.x - f.x * g.z;
 		z.z = f.x * g.y - f.y * g.x;
 	}
+
 	if (fractal->transformCommon.functionEnabledHFalse
 			&& aux.i >=fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
-		if (fractal->transformCommon.functionEnabledOFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-		{
-			z = r * r * CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0);
-		}
-		else
-		{
-			z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
-		}
+		z = r * r * CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0f);
 	}
 	// Apply scheme
 
