@@ -33,7 +33,7 @@ void cFractalMandelbarV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
+	double temp = 0.0;
 	double m2 = z.x * z.x + z.y * z.y;
 	aux.DE = aux.DE * 2.0 * sqrt(m2 + z.z * z.z) + 1.0;
 	if (m2 == 0.0)
@@ -43,7 +43,7 @@ void cFractalMandelbarV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 	}
 	else
 	{
-		double temp = m2 - z.z * z.z;
+		temp = m2 - z.z * z.z;
 		z.z = 2.0 * sqrt(m2) * z.z;
 	//	z.z *= fractal->transformCommon.scale2;
 
@@ -133,7 +133,8 @@ void cFractalMandelbarV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 
 			aux.old_z = z; // update for next iter
 		}
-
+		colAdd += fractal->foldColor.difs0000.x * temp;
+		colAdd += fractal->foldColor.difs0000.y * m2;
 		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
@@ -147,4 +148,15 @@ void cFractalMandelbarV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+	if (fractal->transformCommon.functionEnabledAwFalse)
+	{
+		double r = z.Length();
+		double rLn = r / aux.DE;
+		double rLg = 0.5 * log(r) * r / aux.DE;
+		aux.dist =
+			rLn * (1.0 - fractal->transformCommon.scaleB1) + rLg * fractal->transformCommon.scaleB1;
+
+	}
+
 }

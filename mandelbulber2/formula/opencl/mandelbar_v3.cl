@@ -22,7 +22,7 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
+	REAL temp = 0.0f;
 	REAL m2 = z.x * z.x + z.y * z.y;
 	aux->DE = aux->DE * 2.0f * native_sqrt(m2 + z.z * z.z) + 1.0f;
 	if (m2 == 0.0f)
@@ -32,7 +32,7 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	else
 	{
-		/*REAL temp = m2 - z.z * z.z;
+		/* temp = m2 - z.z * z.z;
 		z.z = 2.0f * native_sqrt(m2) * z.z;
 		m2 = temp / m2;
 		temp = 2.0f * z.x * z.y * m2;
@@ -41,7 +41,7 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.x = -temp;*/
 
 
-		REAL temp = m2 - z.z * z.z;
+		temp = m2 - z.z * z.z;
 		z.z = 2.0f * native_sqrt(m2) * z.z;
 	//	z.z *= fractal->transformCommon.scale2;
 
@@ -133,6 +133,8 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			aux->old_z = z; // update for next iter
 		}
 
+		colAdd += fractal->foldColor.difs0000.x * temp;
+		colAdd += fractal->foldColor.difs0000.y * m2;
 		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
@@ -145,5 +147,16 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+	if (fractal->transformCommon.functionEnabledAwFalse)
+	{
+		REAL r = length(z);
+		REAL rLn = r / aux->DE;
+		REAL rLg = 0.5f * log(r) * r / aux->DE;
+		aux->dist =
+			rLn * (1.0f - fractal->transformCommon.scaleB1) + rLg * fractal->transformCommon.scaleB1;
+
+	}
+
 	return z;
 }

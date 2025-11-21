@@ -34,7 +34,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		sinPhi = 0.0f;
 
 		// Assign evaluated theta values if z=0
-		if (p.z == 0.)
+		if (z.z == 0.0f)
 		{
 			cosTheta = 1.0f;
 			sinTheta = 0.0f;
@@ -115,7 +115,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		z.x = f.y * g.z - f.z * g.y;
 		z.y = f.z * g.x - f.x * g.z;
-		z.z = f.x * g.y - f.y * g.x ;
+		z.z = f.x * g.y - f.y * g.x;
 	}
 
 	// 5. f_D, g_D - aka force? deformed pwr2
@@ -144,10 +144,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		//z = cross(f, g);
 		z.x = f.y - f.z * g.y;
 		z.y = f.z - f.x;
-		z.z = f.x * g.y - f.y
-
-
-
+		z.z = f.x * g.y - f.y;
 	}
 
 	// 7. User defined (here without exception handling as this becomes changed by the user)
