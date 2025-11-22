@@ -45,6 +45,7 @@
 #include "system_directories.hpp"
 #include "texture_enums.hpp"
 #include "write_log.hpp"
+#include "object_node_type.h"
 
 #include "formula/definition/all_fractal_list.hpp"
 
@@ -496,6 +497,31 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		morphNone, paramStandard);
 
 	par->addParam("description", QString(""), morphNone, paramStandard);
+
+	// OBJECT TREE TEST PARAMETERS
+
+	// Each "nodeXXXX" parameter is a QString with comma-separated values representing:
+	// name, id, type, parent_id, object_id
+	// Example: "hybrid group 1,1,0,0,-1"
+	// - name: Node display name (QString)
+	// - id: Node unique integer ID
+	// - type: Node type (int, from enumNodeType)
+	// - parent_id: Parent node ID (int)
+	// - object_id: Associated object ID (int, or -1 if not applicable)
+
+	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)),
+		morphNone, paramStandard);
+	par->addParam("node0002", QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)),
+		morphNone, paramStandard);
+	par->addParam("node0003", QString("fractal 2,3,%1,1,2").arg(int(enumNodeType::fractal)),
+		morphNone, paramStandard);
+	par->addParam("node0004",
+		QString("primitives group 1,4,%1,0,-1").arg(int(enumNodeType::booleanAdd)), morphNone,
+		paramStandard);
+	par->addParam("node0005", QString("sphere 1,5,%1,4,10").arg(int(enumNodeType::primitive)),
+		morphNone, paramStandard);
+	par->addParam("node0006", QString("box 1,6,%1,4,11").arg(int(enumNodeType::primitive)), morphNone,
+		paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);

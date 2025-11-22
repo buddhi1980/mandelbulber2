@@ -306,8 +306,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>273</width>
-        <height>838</height>
+        <width>288</width>
+        <height>817</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -369,10 +369,7 @@
               <property name="title">
                <string>Camera</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
-               <property name="spacing">
-                <number>2</number>
-               </property>
+              <layout class="QFormLayout" name="formLayout">
                <property name="leftMargin">
                 <number>2</number>
                </property>
@@ -385,95 +382,55 @@
                <property name="bottomMargin">
                 <number>2</number>
                </property>
-               <item>
-                <widget class="QFrame" name="vect3_camera">
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_18">
+                 <property name="text">
+                  <string>x:</string>
                  </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="MyLineEdit" name="vect3_camera_x">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_14">
-                  <property name="spacing">
-                   <number>2</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>2</number>
-                  </property>
-                  <item>
-                   <layout class="QFormLayout" name="formLayout_coordinates_4">
-                    <property name="fieldGrowthPolicy">
-                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                    </property>
-                    <property name="horizontalSpacing">
-                     <number>2</number>
-                    </property>
-                    <property name="verticalSpacing">
-                     <number>1</number>
-                    </property>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_18">
-                      <property name="text">
-                       <string>x:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="MyLineEdit" name="vect3_camera_x">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_19">
-                      <property name="text">
-                       <string>y:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="MyLineEdit" name="vect3_camera_y">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_20">
-                      <property name="text">
-                       <string>z:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="MyLineEdit" name="vect3_camera_z">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_19">
+                 <property name="text">
+                  <string>y:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="MyLineEdit" name="vect3_camera_y">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_20">
+                 <property name="text">
+                  <string>z:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="MyLineEdit" name="vect3_camera_z">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -487,10 +444,7 @@
               <property name="title">
                <string>Target</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_54">
-               <property name="spacing">
-                <number>2</number>
-               </property>
+              <layout class="QFormLayout" name="formLayout_2">
                <property name="leftMargin">
                 <number>2</number>
                </property>
@@ -503,95 +457,55 @@
                <property name="bottomMargin">
                 <number>2</number>
                </property>
-               <item>
-                <widget class="QFrame" name="vect3_target">
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_121">
+                 <property name="text">
+                  <string>x:</string>
                  </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="MyLineEdit" name="vect3_target_x">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_55">
-                  <property name="spacing">
-                   <number>2</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>2</number>
-                  </property>
-                  <item>
-                   <layout class="QFormLayout" name="formLayout_coordinates_9">
-                    <property name="fieldGrowthPolicy">
-                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                    </property>
-                    <property name="horizontalSpacing">
-                     <number>2</number>
-                    </property>
-                    <property name="verticalSpacing">
-                     <number>1</number>
-                    </property>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_121">
-                      <property name="text">
-                       <string>x:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="MyLineEdit" name="vect3_target_x">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_122">
-                      <property name="text">
-                       <string>y:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="MyLineEdit" name="vect3_target_y">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_123">
-                      <property name="text">
-                       <string>z:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="MyLineEdit" name="vect3_target_z">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_122">
+                 <property name="text">
+                  <string>y:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="MyLineEdit" name="vect3_target_y">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_123">
+                 <property name="text">
+                  <string>z:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="MyLineEdit" name="vect3_target_z">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -1546,12 +1460,6 @@ to target:</string>
   <tabstop>pushButton_redo</tabstop>
   <tabstop>checkBox_auto_refresh</tabstop>
   <tabstop>scrollArea_navi</tabstop>
-  <tabstop>vect3_camera_x</tabstop>
-  <tabstop>vect3_camera_y</tabstop>
-  <tabstop>vect3_camera_z</tabstop>
-  <tabstop>vect3_target_x</tabstop>
-  <tabstop>vect3_target_y</tabstop>
-  <tabstop>vect3_target_z</tabstop>
   <tabstop>pushButton_reset_view</tabstop>
   <tabstop>comboBox_camera_movement_mode</tabstop>
   <tabstop>logedit_camera_distance_to_target</tabstop>

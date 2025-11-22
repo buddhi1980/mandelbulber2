@@ -1964,6 +1964,8 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
+		ResetLocalSettings(widget);
+
 		for (int i = 0; i < 2; i++) // repeat twice to refresh comboboxes and get new list of widgets
 		{
 			QStringList listOfParameters = CreateListOfParametersInWidget(widget);
