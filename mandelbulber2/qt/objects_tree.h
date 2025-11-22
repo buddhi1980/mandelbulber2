@@ -9,6 +9,8 @@
 #define MANDELBULBER2_QT_OBJECTS_TREE_H_
 
 #include <QWidget>
+class cParameterContainer;
+class cFractalContainer;
 
 namespace Ui
 {
@@ -23,7 +25,12 @@ public:
 	explicit cObjectsTree(QWidget *parent = nullptr);
 	~cObjectsTree() override;
 
+	void UpdateTree(
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+
 private:
+	void pressedRefreshButton();
+
 	Ui::cObjectsTree *ui;
 };
 
