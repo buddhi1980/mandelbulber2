@@ -9,6 +9,8 @@
 #define MANDELBULBER2_QT_OBJECTS_TREE_H_
 
 #include <QWidget>
+#include <memory>
+
 class cParameterContainer;
 class cFractalContainer;
 
