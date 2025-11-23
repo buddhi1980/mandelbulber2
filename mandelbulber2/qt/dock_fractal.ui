@@ -759,7 +759,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>276</width>
+            <width>428</width>
             <height>986</height>
            </rect>
           </property>
@@ -2308,8 +2308,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>227</width>
-            <height>265</height>
+            <width>449</width>
+            <height>844</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -2718,7 +2718,7 @@ with visible shadows of fractal objects</string>
   <customwidget>
    <class>cObjectsTreeWidget</class>
    <extends>QWidget</extends>
-   <header>objects_tree.h</header>
+   <header>objects_tree_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
