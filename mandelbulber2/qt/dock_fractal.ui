@@ -238,8 +238,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -297,8 +297,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -356,8 +356,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -415,8 +415,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -474,8 +474,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -533,8 +533,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -592,8 +592,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -651,8 +651,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>100</width>
+                <height>30</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -759,7 +759,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>428</width>
+            <width>276</width>
             <height>986</height>
            </rect>
           </property>
@@ -2230,7 +2230,7 @@ distance estimation)</string>
         </widget>
        </item>
        <item>
-        <widget class="cObjectsTree" name="widget_objectsTree" native="true">
+        <widget class="cObjectsTreeWidget" name="widget_objectsTree" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -2308,8 +2308,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>449</width>
-            <height>844</height>
+            <width>227</width>
+            <height>265</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -2716,7 +2716,7 @@ with visible shadows of fractal objects</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>cObjectsTree</class>
+   <class>cObjectsTreeWidget</class>
    <extends>QWidget</extends>
    <header>objects_tree.h</header>
    <container>1</container>

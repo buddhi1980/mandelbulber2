@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_QT_OBJECTS_TREE_H_
-#define MANDELBULBER2_QT_OBJECTS_TREE_H_
+#ifndef MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_
+#define MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_
 
 #include <QWidget>
 #include <memory>
@@ -16,16 +16,16 @@ class cFractalContainer;
 
 namespace Ui
 {
-class cObjectsTree;
+class cObjectsTreeWidget;
 }
 
-class cObjectsTree : public QWidget
+class cObjectsTreeWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit cObjectsTree(QWidget *parent = nullptr);
-	~cObjectsTree() override;
+	explicit cObjectsTreeWidget(QWidget *parent = nullptr);
+	~cObjectsTreeWidget() override;
 
 	void UpdateTree(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
@@ -33,7 +33,7 @@ public:
 private:
 	void pressedRefreshButton();
 
-	Ui::cObjectsTree *ui;
+	Ui::cObjectsTreeWidget *ui;
 };
 
-#endif /* MANDELBULBER2_QT_OBJECTS_TREE_H_ */
+#endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */

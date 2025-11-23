@@ -5,24 +5,27 @@
  *      Author: krzysztof
  */
 
-#include "objects_tree.h"
+#include "objects_tree_widget.h"
+
 #include "ui_objects_tree_widget.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 
-cObjectsTree::cObjectsTree(QWidget *parent) : QWidget(parent), ui(new Ui::cObjectsTree)
+cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
+		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
 {
 	ui->setupUi(this);
 
-	connect(ui->pushButton_refresh, &QPushButton::clicked, this, &cObjectsTree::pressedRefreshButton);
+	connect(
+		ui->pushButton_refresh, &QPushButton::clicked, this, &cObjectsTreeWidget::pressedRefreshButton);
 }
 
-cObjectsTree::~cObjectsTree()
+cObjectsTreeWidget::~cObjectsTreeWidget()
 {
 	delete ui;
 }
 
-void cObjectsTree::UpdateTree(
+void cObjectsTreeWidget::UpdateTree(
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
 {
 	ui->treeWidget_objects->clear();
@@ -92,7 +95,7 @@ void cObjectsTree::UpdateTree(
 	ui->treeWidget_objects->expandAll();
 }
 
-void cObjectsTree::pressedRefreshButton()
+void cObjectsTreeWidget::pressedRefreshButton()
 {
 	UpdateTree(gPar, gParFractal);
 }
