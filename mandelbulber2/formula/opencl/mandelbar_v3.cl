@@ -40,16 +40,11 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.y = (z.y * z.y - z.x * z.x) * m2;
 		z.x = -temp;*/
 
-
 		temp = m2 - z.z * z.z;
 		z.z = 2.0f * native_sqrt(m2) * z.z;
-	//	z.z *= fractal->transformCommon.scale2;
-
 		m2 = temp / m2;
 		temp = 2.0f * z.x * z.y * m2;
-
 		z.y = (z.y * z.y - z.x * z.x) * m2;
-		// z.y = (z.x * z.x - z.y * z.y) * m2;
 
 		if (fractal->transformCommon.functionEnabledM
 				&& aux->i >= fractal->transformCommon.startIterationsA
@@ -133,7 +128,7 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			aux->old_z = z; // update for next iter
 		}
 
-		colAdd += fractal->foldColor.difs0000.x * temp;
+	//	colAdd += fractal->foldColor.difs0000.x * temp;
 		colAdd += fractal->foldColor.difs0000.y * m2;
 		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
@@ -141,7 +136,6 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			aux->color = colAdd;
 		else
 			aux->color += colAdd;
-
 	}
 
 	// DE tweak
@@ -152,10 +146,14 @@ REAL4 MandelbarV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	{
 		REAL r = length(z);
 		REAL rLn = r / aux->DE;
-		REAL rLg = 0.5f * log(r) * r / aux->DE;
+	//	REAL rLg = 0.5f * log(r) * r / aux->DE;
+
+		REAL rLg = 0.0f;
+		if (r > 1.0f) rLg = 0.5f * r * log(r) / aux->DE;
+
+
 		aux->dist =
 			rLn * (1.0f - fractal->transformCommon.scaleB1) + rLg * fractal->transformCommon.scaleB1;
-
 	}
 
 	return z;
