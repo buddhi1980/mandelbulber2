@@ -189,6 +189,8 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::read);
 
 	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
 
 	AddLight(true, -1);
@@ -266,10 +268,12 @@ void cLightSourcesManager::slorChangedWireframeVisibikity(int enabled)
 
 void cLightSourcesManager::slotButtonPlaceLight()
 {
+	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	QList<QVariant> item;
 	item.append(int(RenderedImage::clickPlaceLight));
 
-	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
 	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
 	item.append(currentLightIndex); // light number
 

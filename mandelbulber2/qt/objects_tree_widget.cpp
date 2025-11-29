@@ -10,6 +10,7 @@
 #include "ui_objects_tree_widget.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
+#include "src/objects_tree.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
@@ -52,28 +53,21 @@ void cObjectsTreeWidget::UpdateTree(
 	};
 
 	QMap<int, QTreeWidgetItem *> nodeItems;
-	QMap<int, NodeData> nodeDataMap;
 
-	QStringList allParams = params->GetListOfParameters();
-	for (const QString &paramName : allParams)
+	cObjectsTree objectsTree = cObjectsTree();
+	objectsTree.CreateNodeDataFromParameters(params, fractalParams);
+	cObjectsTree::nodeData_t nodeDataMap = objectsTree.GetNodeDataMap();
+
+	for (auto it = nodeDataMap.begin(); it != nodeDataMap.end(); ++it)
 	{
-		if (paramName.startsWith("node"))
-		{
-			QString paramValue = params->Get<QString>(paramName);
-			QStringList values = paramValue.split(',');
-			if (values.size() == 5)
-			{
-				NodeData data = {
-					values[0], values[1].toInt(), values[2].toInt(), values[3].toInt(), values[4].toInt()};
-				nodeDataMap[data.id] = data;
-				QTreeWidgetItem *item = new QTreeWidgetItem();
-				item->setText(0, data.name);
-				item->setData(0, Qt::UserRole, data.id);
-				item->setData(1, Qt::UserRole, data.type);
-				item->setData(2, Qt::UserRole, data.objectId);
-				nodeItems[data.id] = item;
-			}
-		}
+		int nodeId = it.key();
+		const cObjectsTree::NodeData &nodeData = it.value();
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, nodeData.name);
+		item->setData(0, Qt::UserRole, nodeId);
+		item->setData(1, Qt::UserRole, nodeData.type);
+		item->setData(2, Qt::UserRole, nodeData.objectId);
+		nodeItems[nodeId] = item;
 	}
 
 	// Second pass: build the tree structure

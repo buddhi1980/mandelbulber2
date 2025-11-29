@@ -269,6 +269,8 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
 
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
 	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(params);
 	int newIndex = cPrimitives::NewPrimitiveIndex(currentPrimitive.typeName, actualList);
@@ -360,6 +362,8 @@ void cPrimitivesManager::slorChangedWireframeVisibikity(int enabled)
 void cPrimitivesManager::slotButtonPlacePrimitive()
 {
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
 
 	QList<QVariant> item;

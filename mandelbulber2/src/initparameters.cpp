@@ -515,13 +515,21 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		morphNone, paramStandard);
 	par->addParam("node0003", QString("fractal 2,3,%1,1,2").arg(int(enumNodeType::fractal)),
 		morphNone, paramStandard);
-	par->addParam("node0004",
-		QString("primitives group 1,4,%1,0,-1").arg(int(enumNodeType::booleanAdd)), morphNone,
+	par->addParam("node0050",
+		QString("primitives group 1,50,%1,0,-1").arg(int(enumNodeType::booleanAdd)), morphNone,
 		paramStandard);
-	par->addParam("node0005", QString("sphere 1,5,%1,4,10").arg(int(enumNodeType::primitive)),
+	par->addParam("node0005", QString("sphere 1,5,%1,50,10").arg(int(enumNodeType::primitive)),
 		morphNone, paramStandard);
-	par->addParam("node0006", QString("box 1,6,%1,4,11").arg(int(enumNodeType::primitive)), morphNone,
-		paramStandard);
+	par->addParam("node0006", QString("box 1,6,%1,50,11").arg(int(enumNodeType::primitive)),
+		morphNone, paramStandard);
+	par->addParam("node0007", QString("gropp 2,7,%1,50,-1").arg(int(enumNodeType::booleanAdd)),
+		morphNone, paramStandard);
+	par->addParam("node0008", QString("sphere 2,8,%1,7,12").arg(int(enumNodeType::primitive)),
+		morphNone, paramStandard);
+	par->addParam("node0009", QString("sphere 3,9,%1,7,12").arg(int(enumNodeType::primitive)),
+		morphNone, paramStandard);
+	par->addParam("node0010", QString("fractal 3,10,%1,50,13").arg(int(enumNodeType::fractal)),
+		morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
