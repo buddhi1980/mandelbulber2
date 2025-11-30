@@ -70,11 +70,14 @@ void cObjectsTreeWidget::UpdateTree(
 		nodeItems[nodeId] = item;
 	}
 
+	// get sorted list of nodes (for testing)
+	QList<cObjectsTree::NodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
+
 	// Second pass: build the tree structure
-	for (auto it = nodeDataMap.begin(); it != nodeDataMap.end(); ++it)
+	for (cObjectsTree::NodeData node : sortedNodeDataList)
 	{
-		int nodeId = it.key();
-		int parentId = it.value().parentId;
+		int nodeId = node.id;
+		int parentId = node.parentId;
 		QTreeWidgetItem *item = nodeItems[nodeId];
 		if (parentId == 0 || !nodeItems.contains(parentId))
 		{

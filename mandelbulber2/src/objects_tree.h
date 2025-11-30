@@ -36,6 +36,8 @@ public:
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
 	QMap<int, NodeData> &GetNodeDataMap() { return nodeDataMap; }
 
+	QList<cObjectsTree::NodeData> GetSortedNodeDataList() const;
+
 private:
 	nodeData_t nodeDataMap;
 };
