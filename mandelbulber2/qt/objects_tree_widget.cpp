@@ -58,20 +58,18 @@ void cObjectsTreeWidget::UpdateTree(
 	objectsTree.CreateNodeDataFromParameters(params, fractalParams);
 	cObjectsTree::nodeData_t nodeDataMap = objectsTree.GetNodeDataMap();
 
-	for (auto it = nodeDataMap.begin(); it != nodeDataMap.end(); ++it)
-	{
-		int nodeId = it.key();
-		const cObjectsTree::NodeData &nodeData = it.value();
-		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setText(0, nodeData.name);
-		item->setData(0, Qt::UserRole, nodeId);
-		item->setData(1, Qt::UserRole, nodeData.type);
-		item->setData(2, Qt::UserRole, nodeData.objectId);
-		nodeItems[nodeId] = item;
-	}
-
 	// get sorted list of nodes (for testing)
 	QList<cObjectsTree::NodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
+
+	for (cObjectsTree::NodeData nodeData : sortedNodeDataList)
+	{
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, nodeData.name);
+		item->setData(0, Qt::UserRole, nodeData.id);
+		item->setData(1, Qt::UserRole, nodeData.type);
+		item->setData(2, Qt::UserRole, nodeData.objectId);
+		nodeItems[nodeData.id] = item;
+	}
 
 	// Second pass: build the tree structure
 	for (cObjectsTree::NodeData node : sortedNodeDataList)

@@ -9,7 +9,7 @@
 #define MANDELBULBER2_SRC_OBJECTS_TREE_H_
 
 #include <QString>
-#include <QMap>
+#include <QHash>
 #include <memory>
 
 class cParameterContainer;
@@ -25,16 +25,17 @@ public:
 		int type;
 		int parentId;
 		int objectId;
+		int level;
 	};
 
-	typedef QMap<int, NodeData> nodeData_t;
+	typedef QHash<int, NodeData> nodeData_t;
 
 public:
 	cObjectsTree();
 
 	void CreateNodeDataFromParameters(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
-	QMap<int, NodeData> &GetNodeDataMap() { return nodeDataMap; }
+	nodeData_t &GetNodeDataMap() { return nodeDataMap; }
 
 	QList<cObjectsTree::NodeData> GetSortedNodeDataList() const;
 

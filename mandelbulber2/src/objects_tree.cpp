@@ -45,6 +45,7 @@ void cObjectsTree::CreateNodeDataFromParameters(
 				nodeData.type = parts[2].toInt();
 				nodeData.parentId = parts[3].toInt();
 				nodeData.objectId = parts[4].toInt();
+				nodeData.level = -1;
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -54,6 +55,9 @@ void cObjectsTree::CreateNodeDataFromParameters(
 
 QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 {
+	// Local copy to update levels
+	nodeData_t localNodeDataMap = nodeDataMap;
+
 	// Build adjacency list (childrenMap) and in-degree map (inDegree)
 	QHash<int, QList<int>> childrenMap; // Maps parent ID to list of child IDs
 	QHash<int, int> inDegree;						// Maps node ID to its in-degree (number of parents)
@@ -86,17 +90,20 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 
 	QList<NodeData> sortedList; // Result list
 
-	QStack<int> stack;
+	QStack<QPair<int, int>> stack; // (nodeId, level)
 
 	// Push all root nodes onto the stack
 	for (int id : zeroInDegree)
-		stack.push(id);
+		stack.push(qMakePair(id, 0));
 
 	// Process nodes in FILO (stack) order
 	while (!stack.isEmpty())
 	{
-		int id = stack.pop();
-		sortedList.append(nodeDataMap[id]);
+		auto pair = stack.pop();
+		int id = pair.first;
+		int level = pair.second;
+		localNodeDataMap[id].level = level;
+		sortedList.append(localNodeDataMap[id]);
 
 		QList<int> children = childrenMap.value(id);
 		std::sort(children.begin(), children.end(), std::greater<int>());
@@ -105,7 +112,7 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 		for (int childId : children)
 		{
 			inDegree[childId]--;
-			if (inDegree[childId] == 0) stack.push(childId);
+			if (inDegree[childId] == 0) stack.push(qMakePair(childId, level + 1));
 		}
 	}
 	return sortedList; // Return sorted list of nodes
