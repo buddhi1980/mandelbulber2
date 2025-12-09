@@ -231,21 +231,64 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	//  scheme 1 = +origPt, scheme 2 = + juliaC
 	//	z = cross(f, g);
 	//	z = r * r *CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0);
-	z.z *= fractal->transformCommon.scale1;
-	z *= fractal->transformCommon.scaleA1;
-	aux.DE *= fabs(fractal->transformCommon.scaleA1);
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
+	{
+		z.z *= fractal->transformCommon.scale1;
+	}
+
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= fabs(fractal->transformCommon.scaleA1);
+	}
+
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
 	z += fractal->transformCommon.offset000; // plus  julia
+
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
-		z += aux.const_c;
+		z += aux.const_c * fractal->transformCommon.constantMultiplier111;
 
-	f = z; // ??????
+	// aux->color test
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
 
+		// last two z lengths
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
 
+			aux.old_z = z; // update for next iter, could be aux.lastZ
+		}
+		// colAdd += fractal->foldColor.difs0000.x * temp;
+		colAdd += fractal->foldColor.difs0000.y * sinPhi;
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
+	}
 }

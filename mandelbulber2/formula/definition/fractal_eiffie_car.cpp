@@ -72,7 +72,7 @@ void cFractalEiffieCar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 double zcd = 0.0;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		CVector4 q = fabs(p0) - fractal->transformCommon.additionConstant111;
+		CVector4 q = fabs(p0) - fractal->transformCommon.offset100;
 		CVector4 zc = q;
 
 		zc.x = max(zc.x, 0.0);

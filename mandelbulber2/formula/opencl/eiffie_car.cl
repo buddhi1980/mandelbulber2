@@ -60,7 +60,7 @@ REAL4 EiffieCarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 REAL zcd = 0.0f;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		REAL4 q = fabs(p0) - fractal->transformCommon.additionConstant111;
+		REAL4 q = fabs(p0) - fractal->transformCommon.offset100;
 		REAL4 zc = q;
 
 		zc.x = max(zc.x, 0.0);
