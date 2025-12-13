@@ -26,53 +26,50 @@ cObjectsTreeWidget::~cObjectsTreeWidget()
 	delete ui;
 }
 
+QString cObjectsTreeWidget::nodeTypeToString(enumNodeType type)
+{
+	switch (type)
+	{
+		case enumNodeType::fractal: return "fractal";
+		case enumNodeType::primitive: return "primitive";
+		case enumNodeType::hybrid: return "hybrid";
+		case enumNodeType::booleanAdd: return "boolean Add";
+		case enumNodeType::booleanMul: return "boolean Mul";
+		case enumNodeType::booleanSub: return "boolean Sub";
+		default: return "unknown";
+	}
+}
+
 void cObjectsTreeWidget::UpdateTree(
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
 {
 	ui->treeWidget_objects->clear();
 
-	// OBJECT TREE TEST PARAMETERS
-
-	// Each "nodeXXXX" parameter is a QString with comma-separated values representing:
-	// name, id, type, parent_id, object_id
-	// Example: "hybrid group 1,1,0,0,-1"
-	// - name: Node display name (QString)
-	// - id: Node unique integer ID
-	// - type: Node type (int, from enumNodeType)
-	// - parent_id: Parent node ID (int)
-	// - object_id: Associated object ID (int, or -1 if not applicable)
-
-	// First pass: create all items and store their data
-	struct NodeData
-	{
-		QString name;
-		int id;
-		int type;
-		int parentId;
-		int objectId;
-	};
+	// Set up columns: Name, Type, Object ID
+	ui->treeWidget_objects->setColumnCount(3);
+	QStringList headers;
+	headers << "Name" << "Type" << "Object ID";
+	ui->treeWidget_objects->setHeaderLabels(headers);
 
 	QMap<int, QTreeWidgetItem *> nodeItems;
 
 	cObjectsTree objectsTree = cObjectsTree();
 	objectsTree.CreateNodeDataFromParameters(params, fractalParams);
-	cObjectsTree::nodeData_t nodeDataMap = objectsTree.GetNodeDataMap();
-
-	// get sorted list of nodes (for testing)
 	QList<cObjectsTree::NodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
 
-	for (cObjectsTree::NodeData nodeData : sortedNodeDataList)
+	for (const cObjectsTree::NodeData &nodeData : sortedNodeDataList)
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, nodeData.name);
+		item->setText(1, nodeTypeToString(static_cast<enumNodeType>(nodeData.type)));
+		item->setText(2, QString::number(nodeData.objectId));
 		item->setData(0, Qt::UserRole, nodeData.id);
 		item->setData(1, Qt::UserRole, nodeData.type);
 		item->setData(2, Qt::UserRole, nodeData.objectId);
 		nodeItems[nodeData.id] = item;
 	}
 
-	// Second pass: build the tree structure
-	for (cObjectsTree::NodeData node : sortedNodeDataList)
+	for (const cObjectsTree::NodeData &node : sortedNodeDataList)
 	{
 		int nodeId = node.id;
 		int parentId = node.parentId;

@@ -11,6 +11,8 @@
 #include <QWidget>
 #include <memory>
 
+#include "src/object_node_type.h"
+
 class cParameterContainer;
 class cFractalContainer;
 
@@ -29,6 +31,7 @@ public:
 
 	void UpdateTree(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+	static QString nodeTypeToString(enumNodeType type);
 
 private:
 	void pressedRefreshButton();

@@ -526,9 +526,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		morphNone, paramStandard);
 	par->addParam("node0008", QString("sphere 2,8,%1,7,12").arg(int(enumNodeType::primitive)),
 		morphNone, paramStandard);
-	par->addParam("node0009", QString("sphere 3,9,%1,7,12").arg(int(enumNodeType::primitive)),
+	par->addParam("node0009", QString("sphere 3,9,%1,7,13").arg(int(enumNodeType::primitive)),
 		morphNone, paramStandard);
-	par->addParam("node0010", QString("fractal 3,10,%1,50,13").arg(int(enumNodeType::fractal)),
+	par->addParam("node0010", QString("fractal 3,10,%1,50,3").arg(int(enumNodeType::fractal)),
 		morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
@@ -1356,6 +1356,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 {
 	QString primitiveName = primitive.fullName;
 
+	par->addParam(QString(primitiveName) + "_object_id", 1234, morphNone, paramStandard);
 	par->addParam(
 		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(

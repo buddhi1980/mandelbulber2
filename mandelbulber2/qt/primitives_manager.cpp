@@ -150,6 +150,7 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 		{
 			InitPrimitiveParams(primitive, params);
 		}
+		// params->Set(primitive.Name("object_id"), 10);
 
 		// QString name = QString("%1 #%2").arg(primitiveType).arg(newId);
 		QString name = params->Get<QString>(primitive.Name("name"));

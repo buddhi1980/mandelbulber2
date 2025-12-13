@@ -55,12 +55,13 @@ void cObjectsTree::CreateNodeDataFromParameters(
 
 QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 {
-	// Local copy to update levels
+	// Make a local copy of the node data map to update levels without modifying the original
 	nodeData_t localNodeDataMap = nodeDataMap;
 
-	// Build adjacency list (childrenMap) and in-degree map (inDegree)
-	QHash<int, QList<int>> childrenMap; // Maps parent ID to list of child IDs
-	QHash<int, int> inDegree;						// Maps node ID to its in-degree (number of parents)
+	// Build adjacency list: maps parent ID to a list of child IDs
+	QHash<int, QList<int>> childrenMap;
+	// Map to track the in-degree (number of incoming edges) for each node
+	QHash<int, int> inDegree;
 
 	// Initialize in-degree for all nodes to 0
 	for (const NodeData &node : nodeDataMap)
@@ -68,14 +69,14 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 		inDegree[node.id] = 0;
 	}
 
-	// Populate childrenMap and update in-degree for each child
+	// Populate childrenMap and update in-degree for each child node
 	for (const NodeData &node : nodeDataMap)
 	{
-		// If node has a parent and the parent exists in the map
+		// If the node has a parent and the parent exists in the map
 		if (node.parentId != 0 && nodeDataMap.contains(node.parentId))
 		{
 			childrenMap[node.parentId].append(node.id); // Add child to parent's list
-			inDegree[node.id]++;												// Increment in-degree for child
+			inDegree[node.id]++;												// Increment in-degree for the child
 		}
 	}
 
@@ -85,35 +86,41 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 	{
 		if (it.value() == 0) zeroInDegree.append(it.key());
 	}
-	// Sort root nodes by ID for deterministic order
+	// Sort root nodes in descending order for deterministic processing with stack
 	std::sort(zeroInDegree.begin(), zeroInDegree.end(), std::greater<int>());
 
-	QList<NodeData> sortedList; // Result list
+	QList<NodeData> sortedList; // Result list to store sorted nodes
 
-	QStack<QPair<int, int>> stack; // (nodeId, level)
+	// Stack for FILO traversal; stores pairs of (nodeId, level)
+	QStack<QPair<int, int>> stack;
 
-	// Push all root nodes onto the stack
+	// Push all root nodes onto the stack with level 0
 	for (int id : zeroInDegree)
 		stack.push(qMakePair(id, 0));
 
-	// Process nodes in FILO (stack) order
+	// Process nodes in FILO order using the stack
 	while (!stack.isEmpty())
 	{
 		auto pair = stack.pop();
 		int id = pair.first;
 		int level = pair.second;
+		// Set the level for the current node
 		localNodeDataMap[id].level = level;
+		// Add the node to the sorted result list
 		sortedList.append(localNodeDataMap[id]);
 
+		// Get the list of children for the current node
 		QList<int> children = childrenMap.value(id);
+		// Sort children in descending order for deterministic stack processing
 		std::sort(children.begin(), children.end(), std::greater<int>());
 
-		// Push children onto the stack
+		// For each child, decrement its in-degree and push to stack if it becomes 0
 		for (int childId : children)
 		{
 			inDegree[childId]--;
 			if (inDegree[childId] == 0) stack.push(qMakePair(childId, level + 1));
 		}
 	}
-	return sortedList; // Return sorted list of nodes
+	// Return the sorted list of nodes with level information set
+	return sortedList;
 }
