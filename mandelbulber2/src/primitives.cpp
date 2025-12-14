@@ -40,6 +40,7 @@
 
 #include "common_math.h"
 #include "displacement_map.hpp"
+#include "objects_tree.h"
 #include "parameters.hpp"
 #include "shader_perlin_noise_for_shaders.hpp"
 #include "write_log.hpp"
@@ -97,8 +98,9 @@ enumObjectType cPrimitives::PrimitiveNameToEnum(const QString &primitiveType)
 	return type;
 }
 
-cPrimitives::cPrimitives(
-	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
+cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
 {
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) started", 3);
 	isAnyPrimitive = false;
@@ -108,8 +110,9 @@ cPrimitives::cPrimitives(
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
 }
 
-void cPrimitives::Set(
-	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
+void cPrimitives::Set(const std::shared_ptr<cParameterContainer> par,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
 {
 	allPrimitives.clear();
 	namesOfPrimitives.clear();
@@ -232,8 +235,14 @@ void cPrimitives::Set(
 
 		if (objectData)
 		{
-			objectData->append(*primitive.get());
+			objectData->push_back(*primitive.get());
 			primitive->objectId = objectData->size() - 1;
+		}
+
+		if (objectTreeNodes)
+		{
+			cObjectsTree::WriteInternalNodeID(
+				primitive->userObjectId, primitive->objectId, objectTreeNodes);
 		}
 
 		if (item.fullName == basicFogShapeName)

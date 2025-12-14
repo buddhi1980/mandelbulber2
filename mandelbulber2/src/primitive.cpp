@@ -43,6 +43,8 @@ using std::max;
 sPrimitiveBasic::sPrimitiveBasic(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
 {
+	userObjectId = par->Get<int>(fullName + "_object_id");
+	objectId = -1;
 	position = par->Get<CVector3>(fullName + "_position");
 	materialId = par->Get<int>(fullName + "_material_id");
 	SetRotation(par->Get<CVector3>(fullName + "_rotation"));

@@ -49,6 +49,7 @@
 #include "statistics.h"
 #include "stereo.h"
 #include "texture.hpp"
+#include "objects_tree.h"
 
 struct sTextures
 {
@@ -83,8 +84,9 @@ struct sRenderData
 
 	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise;
 	std::map<int, cMaterial> materials; // 'int' is an ID
-	QVector<cObjectData> objectData;
+	std::vector<cObjectData> objectData;
 	cStereo stereo;
+	std::vector<cObjectsTree::sNodeDataForRendering> nodesDataForRendering;
 
 	void ValidateObjects()
 	{

@@ -35,11 +35,13 @@
 #include "fractparams.hpp"
 
 #include "object_data.hpp"
+#include "objects_tree.h"
 #include "parameters.hpp"
 
-sParamRender::sParamRender(
-	const std::shared_ptr<cParameterContainer> container, QVector<cObjectData> *objectData)
-		: primitives(container, objectData)
+sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
+		: primitives(container, objectData, objectTreeNodes)
 {
 	advancedQuality = container->Get<bool>("advanced_quality");
 	absMaxMarchingStep = container->Get<double>("abs_max_marching_step");
@@ -273,6 +275,11 @@ sParamRender::sParamRender(
 			oneObjectData.objectType = fractal::objFractal;
 			(*objectData)[i] = oneObjectData;
 		}
+
+		if (objectTreeNodes)
+		{
+			cObjectsTree::WriteInternalNodeID(i, i, objectTreeNodes);
+		}
 	}
 
 	if (!booleanOperatorsEnabled && objectData)
@@ -284,6 +291,11 @@ sParamRender::sParamRender(
 		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
 		(*objectData)[0].SetRotation(container->Get<CVector3>("fractal_rotation"));
 		(*objectData)[0].objectType = fractal::objFractal;
+
+		if (objectTreeNodes)
+		{
+			cObjectsTree::WriteInternalNodeID(0, 0, objectTreeNodes);
+		}
 	}
 
 	common.fakeLightsColor2Enabled = container->Get<bool>("fake_lights_color_2_enabled");

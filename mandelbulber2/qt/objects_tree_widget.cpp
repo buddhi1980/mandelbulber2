@@ -55,21 +55,21 @@ void cObjectsTreeWidget::UpdateTree(
 
 	cObjectsTree objectsTree = cObjectsTree();
 	objectsTree.CreateNodeDataFromParameters(params, fractalParams);
-	QList<cObjectsTree::NodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
+	std::vector<cObjectsTree::sNodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
 
-	for (const cObjectsTree::NodeData &nodeData : sortedNodeDataList)
+	for (const cObjectsTree::sNodeData &nodeData : sortedNodeDataList)
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, nodeData.name);
-		item->setText(1, nodeTypeToString(static_cast<enumNodeType>(nodeData.type)));
+		item->setText(1, nodeTypeToString(nodeData.type));
 		item->setText(2, QString::number(nodeData.objectId));
 		item->setData(0, Qt::UserRole, nodeData.id);
-		item->setData(1, Qt::UserRole, nodeData.type);
+		item->setData(1, Qt::UserRole, int(nodeData.type));
 		item->setData(2, Qt::UserRole, nodeData.objectId);
 		nodeItems[nodeData.id] = item;
 	}
 
-	for (const cObjectsTree::NodeData &node : sortedNodeDataList)
+	for (const cObjectsTree::sNodeData &node : sortedNodeDataList)
 	{
 		int nodeId = node.id;
 		int parentId = node.parentId;

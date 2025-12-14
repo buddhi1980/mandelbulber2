@@ -59,7 +59,7 @@ public:
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
 	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
-	void BuildObjectsData(const QVector<cObjectData> *objectData);
+	void BuildObjectsData(const std::vector<cObjectData> *objectData);
 	void BuildNebulaGradientsData(const sParamRender *params);
 
 private:

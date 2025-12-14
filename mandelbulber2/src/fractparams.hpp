@@ -35,17 +35,21 @@
 #ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
+#include <vector>
+
 #include "ao_modes.h"
 #include "color_gradient.h"
 #include "common_params.hpp"
 #include "fractal_enums.h"
 #include "image_adjustments.h"
+#include "objects_tree.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
 
 // forward declarations
 class cObjectData;
 class cParameterContainer;
+struct cObjectsTree::sNodeDataForRendering;
 
 namespace params
 {
@@ -68,8 +72,9 @@ enum enumBooleanOperator
 struct sParamRender
 {
 	// constructor with init
-	sParamRender(
-		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+	sParamRender(const std::shared_ptr<cParameterContainer> par,
+		std::vector<cObjectData> *objectData = nullptr,
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr);
 
 	int antialiasingSize;
 	int antialiasingOclDepth;

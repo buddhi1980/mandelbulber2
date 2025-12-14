@@ -47,6 +47,7 @@
 #include "image_scale.hpp"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
+#include "objects_tree.h"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
@@ -398,6 +399,10 @@ bool cRenderJob::Execute()
 				*renderData->stopRequest = false;
 
 				WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
+
+				cObjectsTree objectsTree;
+				objectsTree.CreateNodeDataFromParameters(paramsContainer, fractalContainer);
+				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(

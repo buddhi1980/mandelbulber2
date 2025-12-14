@@ -56,6 +56,7 @@ struct sPrimitiveBasic : cObjectData
 	sPrimitiveBasic(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool enable = false;
 	int objectId = 0;
+	int userObjectId = 0;
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
 	virtual ~sPrimitiveBasic() = default;
 	virtual double PrimitiveDistance(CVector3 _point) const = 0;

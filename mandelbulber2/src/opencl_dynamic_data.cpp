@@ -896,7 +896,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	return definesCollector;
 }
 
-void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData)
+void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *objectData)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
 	 *

@@ -11,6 +11,8 @@
 #include <QString>
 #include <QHash>
 #include <memory>
+#include <vector>
+#include "object_node_type.h"
 
 class cParameterContainer;
 class cFractalContainer;
@@ -18,17 +20,27 @@ class cFractalContainer;
 class cObjectsTree
 {
 public:
-	struct NodeData
+	struct sNodeData
 	{
 		QString name;
 		int id;
-		int type;
+		enumNodeType type;
 		int parentId;
 		int objectId;
 		int level;
 	};
 
-	typedef QHash<int, NodeData> nodeData_t;
+	struct sNodeDataForRendering
+	{
+		int id;
+		enumNodeType type;
+		int parentId;
+		int userObjectId;
+		int internalObjectId;
+		int level;
+	};
+
+	typedef QHash<int, sNodeData> nodeData_t;
 
 public:
 	cObjectsTree();
@@ -36,8 +48,12 @@ public:
 	void CreateNodeDataFromParameters(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
 	nodeData_t &GetNodeDataMap() { return nodeDataMap; }
+	std::vector<cObjectsTree::sNodeData> GetSortedNodeDataList() const;
 
-	QList<cObjectsTree::NodeData> GetSortedNodeDataList() const;
+	std::vector<cObjectsTree::sNodeDataForRendering> GetNodeDataListForRendering();
+
+	static void WriteInternalNodeID(int userObjectID, int internalObjectID,
+		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
 
 private:
 	nodeData_t nodeDataMap;

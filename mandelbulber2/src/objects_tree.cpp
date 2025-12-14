@@ -39,10 +39,10 @@ void cObjectsTree::CreateNodeDataFromParameters(
 
 			if (parts.size() == 5)
 			{
-				NodeData nodeData;
+				sNodeData nodeData;
 				nodeData.name = parts[0];
 				nodeData.id = parts[1].toInt();
-				nodeData.type = parts[2].toInt();
+				nodeData.type = enumNodeType(parts[2].toInt());
 				nodeData.parentId = parts[3].toInt();
 				nodeData.objectId = parts[4].toInt();
 				nodeData.level = -1;
@@ -53,7 +53,7 @@ void cObjectsTree::CreateNodeDataFromParameters(
 	}
 }
 
-QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
+std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 {
 	// Make a local copy of the node data map to update levels without modifying the original
 	nodeData_t localNodeDataMap = nodeDataMap;
@@ -64,13 +64,13 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 	QHash<int, int> inDegree;
 
 	// Initialize in-degree for all nodes to 0
-	for (const NodeData &node : nodeDataMap)
+	for (const sNodeData &node : nodeDataMap)
 	{
 		inDegree[node.id] = 0;
 	}
 
 	// Populate childrenMap and update in-degree for each child node
-	for (const NodeData &node : nodeDataMap)
+	for (const sNodeData &node : nodeDataMap)
 	{
 		// If the node has a parent and the parent exists in the map
 		if (node.parentId != 0 && nodeDataMap.contains(node.parentId))
@@ -89,7 +89,7 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 	// Sort root nodes in descending order for deterministic processing with stack
 	std::sort(zeroInDegree.begin(), zeroInDegree.end(), std::greater<int>());
 
-	QList<NodeData> sortedList; // Result list to store sorted nodes
+	std::vector<sNodeData> sortedList; // Result list to store sorted nodes
 
 	// Stack for FILO traversal; stores pairs of (nodeId, level)
 	QStack<QPair<int, int>> stack;
@@ -107,7 +107,7 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 		// Set the level for the current node
 		localNodeDataMap[id].level = level;
 		// Add the node to the sorted result list
-		sortedList.append(localNodeDataMap[id]);
+		sortedList.push_back(localNodeDataMap[id]);
 
 		// Get the list of children for the current node
 		QList<int> children = childrenMap.value(id);
@@ -123,4 +123,35 @@ QList<cObjectsTree::NodeData> cObjectsTree::GetSortedNodeDataList() const
 	}
 	// Return the sorted list of nodes with level information set
 	return sortedList;
+}
+
+std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListForRendering()
+{
+	std::vector<cObjectsTree::sNodeData> nodeList = GetSortedNodeDataList();
+
+	std::vector<sNodeDataForRendering> nodeDataList;
+	for (const sNodeData &nodeData : nodeList)
+	{
+		sNodeDataForRendering nodeDataForRendering;
+		nodeDataForRendering.id = nodeData.id;
+		nodeDataForRendering.type = nodeData.type;
+		nodeDataForRendering.parentId = nodeData.parentId;
+		nodeDataForRendering.userObjectId = nodeData.objectId;
+		nodeDataForRendering.level = nodeData.level;
+		nodeDataList.push_back(nodeDataForRendering);
+	}
+	return nodeDataList;
+}
+
+void cObjectsTree::WriteInternalNodeID(
+	int userObjectID, int internalObjectID, std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
+{
+	for (sNodeDataForRendering &node : *nodes)
+	{
+		if (node.userObjectId == userObjectID)
+		{
+			node.internalObjectId = internalObjectID;
+			return;
+		}
+	}
 }
