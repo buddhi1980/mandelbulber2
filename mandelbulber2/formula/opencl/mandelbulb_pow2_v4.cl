@@ -66,7 +66,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	aux->DE = aux->DE * fractal->transformCommon.scale2 * aux->r + fractal->analyticDE.offset1;
 	// function pairs
 	//  1. f_A, g_A - aka spherical representation 3D
-	if (fractal->transformCommon.functionEnabledAFalse
+	if (fractal->transformCommon.functionEnabledM
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
@@ -110,8 +110,8 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD)
 	{
-		f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
-		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
+	//	f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
+	//	g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
 
 		z.x = f.y * g.z - f.z * g.y;
 		z.y = f.z * g.x - f.x * g.z;
@@ -123,8 +123,8 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
-		g = (REAL4){0.0f, 0.0f, 1.0f, 0.0f};
+	//	f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
+	//	g = (REAL4){0.0f, 0.0f, 1.0f, 0.0f};
 
 		z = r * r * (REAL4){cosPhi, sinPhi, 0.0f, 0.0f};
 	}
@@ -135,7 +135,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
 		f = (REAL4){z.x * z.x * z.y, z.y * z.y, z.z * z.z, 0.0f};
-		g = (REAL4){1, cos(z.z), 1, 0.0};
+		g = (REAL4){1.0f, cos(z.z), 1.0f, 0.0f};
 
 		//z = cross(f, g);
 		//z.x = f.y * g.z - f.z * g.y;
@@ -158,7 +158,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
 		g = (REAL4){-sinTheta / cosPhi, 0.0f, cosTheta, 0.0f};
 
-		z = cross(f, g);
+	//	z = cross(f, g);
 
 		//z.x = f.y * g.z - f.z * g.y;
 	//	z.y = f.z * g.x - f.x * g.z;
@@ -166,20 +166,24 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.x = f.y * g.z - 0.0f;
 		z.y = 0.0f - f.x * g.z;
 		z.z = 0.0f - f.y * g.x;
-
-
 	}
+
+
 	if (fractal->transformCommon.functionEnabledHFalse
 			&& aux->i >=fractal->transformCommon.startIterationsH
 			&& aux->i < fractal->transformCommon.stopIterationsH)
 	{
-		z = r * r *(REAL4){sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0f};
+		z = r * r *(REAL4){sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0f};
 	}
 	// Apply scheme
 
 	// scheme 0 = no const, scheme 1 = +origPt, scheme 3 = + juliaC
 	//	z = cross(f, g);
 	//	z = r * r *(REAL4){sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0f};
+
+
+
+	// z.z scale
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP)

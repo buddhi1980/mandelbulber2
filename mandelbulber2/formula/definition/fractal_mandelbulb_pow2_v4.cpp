@@ -23,7 +23,7 @@ cFractalMandelbulbPow2V4::cFractalMandelbulbPow2V4() : cAbstractFractal()
 	internalID = fractal::mandelbulbPow2V4;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
-	cpixelAddition = cpixelDisabledByDefault;
+	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 10.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
@@ -94,7 +94,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	aux.DE = aux.DE * fractal->transformCommon.scale2 * aux.r + fractal->analyticDE.offset1;
 	// function pairs
 	//  1. f_A, g_A - aka spherical representation 3D
-	if (fractal->transformCommon.functionEnabledAFalse
+	if (fractal->transformCommon.functionEnabledM
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
@@ -231,6 +231,9 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	//  scheme 1 = +origPt, scheme 2 = + juliaC
 	//	z = cross(f, g);
 	//	z = r * r *CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0);
+
+
+	// z.z scale
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
