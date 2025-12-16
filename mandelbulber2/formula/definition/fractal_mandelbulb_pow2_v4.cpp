@@ -32,7 +32,6 @@ cFractalMandelbulbPow2V4::cFractalMandelbulbPow2V4() : cAbstractFractal()
 void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t = 0.0; // temp
-//	CVector4 p = aux.const_c;
 	double r = z.Length();
 	double cosPhi;
 	double sinPhi;
@@ -72,11 +71,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	else
 	{
 		CVector4 v = z / r;
-
-
 		CVector4 w = CVector4(z.x, z.y, 0.0, 0.0);
-
-
 		t = w.Length();
 		w = w / t;
 		cosPhi = w.x * w.x - w.y * w.y;
@@ -92,6 +87,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 g = z;
 
 	aux.DE = aux.DE * fractal->transformCommon.scale2 * aux.r + fractal->analyticDE.offset1;
+
 	// function pairs
 	//  1. f_A, g_A - aka spherical representation 3D
 	if (fractal->transformCommon.functionEnabledM
@@ -100,7 +96,6 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		//f = r * r * CVector4(-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0);
 		//g = CVector4(-sinTheta / (cosPhi * cosTheta), 0, 1, 0.0);
-
 		z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
 	}
 
@@ -111,9 +106,8 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 	//	f = r * r * CVector4(-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0);
 	//	g = CVector4(sinTheta / (cosPhi * cosTheta), 0, 1, 0.0);
-
 		z = r * r * CVector4(cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0);
-
+	}
 
 
 /*		double rr = z.x * z.x + z.y * z.y;
@@ -137,24 +131,19 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.z = rr * cos(theta_pow);*/
 
 
-	}
 
 	// 3. f_B, g_B - aka space filling tunnels
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-
 	//	f = CVector4(1, 1, 1, 0.0);
 	//	g = CVector4(cos(z.x), cos(z.y), cos(z.z), 0.0);
-
 	//	z = cross(f, g);
 		g = CVector4(cos(z.x), cos(z.y), cos(z.z), 0.0);
-			z.x = g.z - g.y;
-			z.y = g.x - g.z;
-			z.z = g.y - g.x ;
-
-
+		z.x = g.z - g.y;
+		z.y = g.x - g.z;
+		z.z = g.y - g.x ;
 	}
 
 	// 4. f_C, g_C - aka swirl
@@ -166,12 +155,9 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		g = CVector4(cos(z.x), cos(z.y), cos(z.z), 0.0);
 
 		//z = cross(f, g);
-
 		z.x = f.y * g.z - f.z * g.y;
 		z.y = f.z * g.x - f.x * g.z;
-		z.z = f.x * g.y - f.y * g.x ;
-
-
+		z.z = f.x * g.y - f.y * g.x;
 	}
 
 	// 5. f_D, g_D - aka force Mandelbrot
@@ -179,9 +165,6 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
-		f = r * r * CVector4(-sinPhi, cosPhi, 0.0, 0.0);
-		g = CVector4(0.0, 0.0, 1.0, 0.0);
-
 		z = r * r * CVector4(cosPhi, sinPhi, 0.0, 0.0);
 	}
 
@@ -224,7 +207,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >=fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
-		z = r * r * CVector4(sinPhi*cosTheta, cosPhi*cosTheta, sinTheta, 0.0f);
+		z = r * r * CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0f);
 	}
 	// Apply scheme
 
@@ -252,7 +235,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledJFalse
 			&& aux.i >= fractal->transformCommon.startIterationsJ
 			&& aux.i < fractal->transformCommon.stopIterationsJ)
-	z += fractal->transformCommon.offset000; // plus  julia
+		z += fractal->transformCommon.offset000; // plus  julia
 
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR

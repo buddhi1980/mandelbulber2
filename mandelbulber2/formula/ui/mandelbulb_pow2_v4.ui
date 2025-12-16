@@ -44,7 +44,7 @@
      <item row="6" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
        <property name="text">
-        <string notr="true">F z^2, cos(z.y)</string>
+        <string notr="true">F modifier</string>
        </property>
       </widget>
      </item>

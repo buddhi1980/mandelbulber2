@@ -72,7 +72,6 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		//f = r * r * (REAL4){-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0};
 		//g = (REAL4){-sinTheta / (cosPhi * cosTheta), 0, 1, 0.0};
-
 		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0f};
 	}
 
@@ -83,7 +82,6 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 	//	f = r * r * (REAL4){-sinPhi * cosTheta, cosPhi * cosTheta, 0, 0.0};
 	//	g = (REAL4){sinTheta / (cosPhi * cosTheta), 0, 1, 0.0};
-
 		z = r * r * (REAL4){cosPhi * cosTheta, sinPhi * cosTheta, -sinTheta, 0.0f};
 	}
 
@@ -92,17 +90,10 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-
-	//	f = (REAL4){1, 1, 1, 0.0};
-	//	g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0};
-
-	//	z = cross(f, g);
 		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
-			z.x = g.z - g.y;
-			z.y = g.x - g.z;
-			z.z = g.y - g.x ;
-
-
+		z.x = g.z - g.y;
+		z.y = g.x - g.z;
+		z.z = g.y - g.x ;
 	}
 
 	// 4. f_C, g_C - aka swirl
@@ -110,22 +101,20 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD)
 	{
-	//	f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
-	//	g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
-
+		f = (REAL4){z.x * z.x, z.y * z.y, z.z * z.z, 0.0f};
+		g = (REAL4){cos(z.x), cos(z.y), cos(z.z), 0.0f};
 		z.x = f.y * g.z - f.z * g.y;
 		z.y = f.z * g.x - f.x * g.z;
 		z.z = f.x * g.y - f.y * g.x;
 	}
 
-	// 5. f_D, g_D - aka force? deformed pwr2
+	// 5. f_D, g_D - aka force? deformed pwr2, NO Z
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
 	//	f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
 	//	g = (REAL4){0.0f, 0.0f, 1.0f, 0.0f};
-
 		z = r * r * (REAL4){cosPhi, sinPhi, 0.0f, 0.0f};
 	}
 
