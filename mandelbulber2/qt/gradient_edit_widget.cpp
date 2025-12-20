@@ -116,8 +116,6 @@ cGradientEditWidget::~cGradientEditWidget()
 
 void cGradientEditWidget::SetGrayscale()
 {
-	buttonSaturationInc->disconnect();
-	buttonSaturationDec->disconnect();
 	delete buttonSaturationInc;
 	delete buttonSaturationDec;
 	grayscale = true;

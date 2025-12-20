@@ -49,7 +49,6 @@
 // forward declarations
 class cObjectData;
 class cParameterContainer;
-struct cObjectsTree::sNodeDataForRendering;
 
 namespace params
 {

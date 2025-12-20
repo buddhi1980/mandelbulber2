@@ -206,7 +206,6 @@ void MyDoubleSpinBox::focusOutEvent(QFocusEvent *event)
 
 	if (slider)
 	{
-		slider->disconnect();
 		slider->hide();
 		slider->deleteLater();
 		slider = nullptr;
