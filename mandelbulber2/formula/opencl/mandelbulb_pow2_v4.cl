@@ -16,17 +16,23 @@
 
 REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
-	// REAL4 p = aux->const_c;
-	REAL r = length(z);
+	REAL t = 0.0; // temp
+	REAL r = aux->r;
 	REAL cosPhi;
 	REAL sinPhi;
 	REAL cosTheta1;
-	REAL cosTheta2;
+//	REAL cosTheta2;
 	REAL cosTheta;
 	REAL sinTheta;
 
-	// Undefined case in which x=y=0 (or x=y=z=0)
+
+	if (z.x * z.x + z.y * z.y == 0.0f)
+	{
+		z.y = -z.z * z.z;
+		z.z = 0.0f;
+	}
+
+/*	// Undefined case in which x=y=0 (or x=y=z=0)
 	if (z.x == 0.0f && z.y == 0.0f)
 	{
 		// Assign evaluated phi values
@@ -46,18 +52,23 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			sinTheta = 0.0f;
 		}
 	}
+
 	// Remaining defined cases
-	else
+	else*/
 	{
 		REAL4 v = z / r;
 		REAL4 w = (REAL4){z.x, z.y, 0.0f, 0.0f};
 		w = normalize(w);
 		cosPhi = w.x * w.x - w.y * w.y;
-		sinPhi = w.y * w.x + w.y * w.x;
+		t = w.y * w.x;
+		sinPhi = t + t;
+		//sinPhi = w.y * w.x + w.y * w.x;
 		cosTheta1 = v.x * w.x + v.y * w.y;
-		cosTheta2 = v.x * w.x + v.y * w.y;
-		cosTheta = cosTheta1 * cosTheta2 - v.z * v.z;
-		sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
+		//cosTheta2 = v.x * w.x + v.y * w.y;
+		cosTheta = cosTheta1 * cosTheta1 - v.z * v.z;
+		t =v.z * cosTheta1;
+		sinTheta = t + t;
+		//sinTheta = v.z * cosTheta1 + v.z * cosTheta1;
 	}
 
 	REAL4 f = z;
@@ -144,17 +155,21 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
-		g = (REAL4){-sinTheta / cosPhi, 0.0f, cosTheta, 0.0f};
+	//	f = r * r * (REAL4){-sinPhi, cosPhi, 0.0f, 0.0f};
+	//	g = (REAL4){-sinTheta / cosPhi, 0.0f, cosTheta, 0.0f};
 
 	//	z = cross(f, g);
 
 		//z.x = f.y * g.z - f.z * g.y;
 	//	z.y = f.z * g.x - f.x * g.z;
 		//z.z = f.x * g.y - f.y * g.x;
-		z.x = f.y * g.z - 0.0f;
-		z.y = 0.0f - f.x * g.z;
-		z.z = 0.0f - f.y * g.x;
+	//	z.x = f.y * g.z - 0.0f;
+	//	z.y = 0.0f - f.x * g.z;
+	//	z.z = 0.0f - f.y * g.x;
+
+
+		z = r * r * (REAL4){-cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0f};
+
 	}
 
 
@@ -162,7 +177,7 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >=fractal->transformCommon.startIterationsH
 			&& aux->i < fractal->transformCommon.stopIterationsH)
 	{
-		z = r * r *(REAL4){sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0f};
+		z = r * r * (REAL4){sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0f};
 	}
 	// Apply scheme
 
@@ -207,8 +222,6 @@ REAL4 MandelbulbPow2V4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-
-
 		REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
 
 		// last two z lengths

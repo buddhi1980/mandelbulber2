@@ -32,11 +32,11 @@ cFractalMandelbulbPow2V4::cFractalMandelbulbPow2V4() : cAbstractFractal()
 void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t = 0.0; // temp
-	double r = z.Length();
+	double r = aux.r;
 	double cosPhi;
 	double sinPhi;
 	double cosTheta1;
-	double cosTheta2;
+//	double cosTheta2;
 	double cosTheta;
 	double sinTheta;
 
@@ -78,9 +78,11 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		t = w.y * w.x;
 		sinPhi = t + t;
 		cosTheta1 = v.x * w.x + v.y * w.y;
-		cosTheta2 = v.x * w.x + v.y * w.y;
-		cosTheta = cosTheta1 * cosTheta2 - v.z * v.z;
-		sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
+	//	cosTheta2 = v.x * w.x + v.y * w.y;
+		cosTheta = cosTheta1 * cosTheta1 - v.z * v.z;
+		t =v.z * cosTheta1;
+		sinTheta = t + t;
+	//	sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
 	}
 
 	CVector4 f = z;
@@ -194,20 +196,22 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		f = r * r * CVector4(-sinPhi, cosPhi, 0.0, 0.0);
-		g = CVector4(-sinTheta / cosPhi, 0.0, cosTheta, 0.0);
+	//	f = r * r * CVector4(-sinPhi, cosPhi, 0.0, 0.0);
+	//	g = CVector4(-sinTheta / cosPhi, 0.0, cosTheta, 0.0);
 
 		//z = cross(f, g);
-		z.x = f.y * g.z - f.z * g.y;
-		z.y = f.z * g.x - f.x * g.z;
-		z.z = f.x * g.y - f.y * g.x;
+	//	z.x = f.y * g.z - f.z * g.y;
+	//	z.y = f.z * g.x - f.x * g.z;
+	//	z.z = f.x * g.y - f.y * g.x;
+		z = r * r * CVector4(-cosPhi * cosTheta, sinPhi * cosTheta, sinTheta, 0.0);
+
 	}
 
 	if (fractal->transformCommon.functionEnabledHFalse
 			&& aux.i >=fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
-		z = r * r * CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0f);
+		z = r * r * CVector4(sinPhi * cosTheta, cosPhi * cosTheta, sinTheta, 0.0);
 	}
 	// Apply scheme
 
