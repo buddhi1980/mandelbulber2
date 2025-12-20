@@ -405,8 +405,8 @@ bool cRenderJob::Execute()
 				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 				// move parameters from containers to structures
-				std::shared_ptr<sParamRender> params(
-					new sParamRender(paramsContainer, &renderData->objectData));
+				std::shared_ptr<sParamRender> params(new sParamRender(
+					paramsContainer, &renderData->objectData, &renderData->nodesDataForRendering));
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
 

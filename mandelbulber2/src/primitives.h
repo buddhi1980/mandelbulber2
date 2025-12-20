@@ -95,8 +95,10 @@ public:
 	int primitiveIndexForIterFog = -1;
 	int primitiveIndexForClouds = -1;
 
-private:
+public:
 	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;
+
+private:
 	QStringList namesOfPrimitives;
 
 	static double Plane(CVector3 point, CVector3 position, CVector3 normal)

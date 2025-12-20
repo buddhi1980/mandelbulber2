@@ -105,7 +105,7 @@ cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par,
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) started", 3);
 	isAnyPrimitive = false;
 
-	Set(par, objectData);
+	Set(par, objectData, objectTreeNodes);
 
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
 }

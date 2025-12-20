@@ -151,6 +151,7 @@ struct sParamRender
 	bool nebulaZAxisColorsEnabled;
 	bool nebulaIterationsColorsEnabled;
 	bool nebulaGridDomainEnabled;
+	bool objectsTreeEnable;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;

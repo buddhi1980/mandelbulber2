@@ -47,6 +47,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "nine_fractals.hpp"
+#include "object_node_type.h"
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
 #include "shader_perlin_noise_for_shaders.hpp"
@@ -58,6 +59,11 @@ using namespace std;
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
+	if (params.objectsTreeEnable)
+	{
+		return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
+	}
+
 	double distance;
 	out->objectId = 0;
 	out->totalIters = 0;
@@ -239,6 +245,102 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	out->distance = distance;
 
 	return distance;
+}
+
+// In mandelbulber2/src/calculate_distance.cpp
+
+double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineFractals &fractals,
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
+{
+	struct StackFrame
+	{
+		int nodeIdx;
+		int level;
+		double cumulativeDistance;
+		enumNodeType nodeType;
+	};
+
+	// limit to 10 levels of tree
+	StackFrame stack[10];
+
+	out->objectId = 0;
+	out->totalIters = 0;
+	out->maxiter = false;
+
+	if (data)
+	{
+		const auto &nodes = data->nodesDataForRendering;
+		const auto &primitives = params.primitives.allPrimitives;
+		const int nodeCount = nodes.size();
+
+		stack[0].cumulativeDistance = 1e20;
+		stack[0].nodeIdx = -1;
+		stack[0].level = 0;
+		stack[0].nodeType = enumNodeType::booleanAdd;
+
+		int stackLevel = 0;
+
+		for (int i = 0; i < nodeCount; ++i)
+		{
+			const auto &node = nodes[i];
+			double distance = 1e20;
+
+			if (node.level < stackLevel)
+			{
+				// pop stack levels
+				while (stackLevel > node.level)
+				{
+					// combine distances
+					const double combinedDistance = stack[stackLevel].cumulativeDistance;
+					stackLevel--;
+
+					// update cumulative distance of the previous level
+					if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
+					{
+						stack[stackLevel].cumulativeDistance =
+							min(stack[stackLevel].cumulativeDistance, combinedDistance);
+					}
+				}
+			}
+
+			switch (node.type)
+			{
+				case enumNodeType::fractal:
+				{
+					sDistanceOut nodeOut;
+					distance = CalculateDistanceSimple(params, fractals, in, &nodeOut, node.internalObjectId);
+					break;
+				}
+				case enumNodeType::primitive:
+				{
+					int primIdx = node.internalObjectId;
+					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
+						distance = primitives[primIdx]->PrimitiveDistance(in.point);
+					break;
+				}
+				case enumNodeType::booleanAdd:
+				{
+					stackLevel++;
+					stack[stackLevel].cumulativeDistance = 1e20;
+					stack[stackLevel].nodeIdx = i;
+					stack[stackLevel].level = stackLevel;
+					stack[stackLevel].nodeType = enumNodeType::booleanAdd;
+					continue;
+				}
+
+				default: break;
+			}
+
+			if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
+			{
+				stack[0].cumulativeDistance = min(stack[0].cumulativeDistance, distance);
+			}
+		}
+
+		out->distance = stack[0].cumulativeDistance;
+		return out->distance;
+	}
+	return 0;
 }
 
 double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,

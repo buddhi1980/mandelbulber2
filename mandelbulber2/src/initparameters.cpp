@@ -500,6 +500,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	// OBJECT TREE TEST PARAMETERS
 
+	par->addParam("objects_tree_enable", false, morphNone, paramStandard);
+
 	// Each "nodeXXXX" parameter is a QString with comma-separated values representing:
 	// name, id, type, parent_id, object_id
 	// Example: "hybrid group 1,1,0,0,-1"
@@ -509,7 +511,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	// - parent_id: Parent node ID (int)
 	// - object_id: Associated object ID (int, or -1 if not applicable)
 
-	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)),
+	//	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)),
+	//		morphNone, paramStandard);
+	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::booleanAdd)),
 		morphNone, paramStandard);
 	par->addParam("node0002", QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)),
 		morphNone, paramStandard);

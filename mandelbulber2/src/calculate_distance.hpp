@@ -77,4 +77,7 @@ double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 	std::shared_ptr<const cNineFractals> fractals, const CVector3 point, const CVector3 direction,
 	const CVector3 orthDirection, bool *stopRequest);
 
+double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineFractals &fractals,
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data);
+
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */

@@ -198,6 +198,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	nebulaXGridSize = container->Get<float>("nebula_x_grid_size");
 	nebulaYGridSize = container->Get<float>("nebula_y_grid_size");
 	nebulaZGridSize = container->Get<float>("nebula_z_grid_size");
+	objectsTreeEnable = container->Get<bool>("objects_tree_enable");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
