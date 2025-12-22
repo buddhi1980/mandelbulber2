@@ -37,6 +37,7 @@ public:
 		int parentId;
 		int userObjectId;
 		int internalObjectId;
+		int primitiveIdx;
 		int level;
 	};
 
@@ -52,7 +53,7 @@ public:
 
 	std::vector<cObjectsTree::sNodeDataForRendering> GetNodeDataListForRendering();
 
-	static void WriteInternalNodeID(int userObjectID, int internalObjectID,
+	static void WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
 		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
 
 private:

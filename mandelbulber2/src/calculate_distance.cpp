@@ -256,6 +256,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 	{
 		int nodeIdx;
 		int level;
+		int closestObjectId;
 		double cumulativeDistance;
 		enumNodeType nodeType;
 	};
@@ -276,6 +277,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		stack[0].cumulativeDistance = 1e20;
 		stack[0].nodeIdx = -1;
 		stack[0].level = 0;
+		stack[0].closestObjectId = -1;
 		stack[0].nodeType = enumNodeType::booleanAdd;
 
 		int stackLevel = 0;
@@ -291,14 +293,19 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				while (stackLevel > node.level)
 				{
 					// combine distances
-					const double combinedDistance = stack[stackLevel].cumulativeDistance;
+					double childDistance = stack[stackLevel].cumulativeDistance;
+					int closestObjectIdOfChild = stack[stackLevel].closestObjectId;
+
 					stackLevel--;
 
 					// update cumulative distance of the previous level
 					if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
 					{
-						stack[stackLevel].cumulativeDistance =
-							min(stack[stackLevel].cumulativeDistance, combinedDistance);
+						if (childDistance < stack[stackLevel].cumulativeDistance)
+						{
+							stack[stackLevel].cumulativeDistance = childDistance;
+							stack[stackLevel].closestObjectId = closestObjectIdOfChild;
+						}
 					}
 				}
 			}
@@ -313,7 +320,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				}
 				case enumNodeType::primitive:
 				{
-					int primIdx = node.internalObjectId;
+					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 						distance = primitives[primIdx]->PrimitiveDistance(in.point);
 					break;
@@ -333,11 +340,40 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 
 			if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
 			{
-				stack[0].cumulativeDistance = min(stack[0].cumulativeDistance, distance);
+				if (distance < stack[stackLevel].cumulativeDistance)
+				{
+					stack[stackLevel].cumulativeDistance = distance;
+					stack[stackLevel].closestObjectId = node.internalObjectId;
+				}
+			}
+		}
+
+		// final node sumatiuon
+		if (stackLevel > 0)
+		{
+			// pop stack levels
+			while (stackLevel > 0)
+			{
+				// combine distances
+				double childDistance = stack[stackLevel].cumulativeDistance;
+				int closestObjectIdOfChild = stack[stackLevel].closestObjectId;
+
+				stackLevel--;
+
+				// update cumulative distance of the previous level
+				if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
+				{
+					if (childDistance < stack[stackLevel].cumulativeDistance)
+					{
+						stack[stackLevel].cumulativeDistance = childDistance;
+						stack[stackLevel].closestObjectId = closestObjectIdOfChild;
+					}
+				}
 			}
 		}
 
 		out->distance = stack[0].cumulativeDistance;
+		out->objectId = stack[0].closestObjectId;
 		return out->distance;
 	}
 	return 0;

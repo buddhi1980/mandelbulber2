@@ -279,7 +279,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(i, i, objectTreeNodes);
+			cObjectsTree::WriteInternalNodeID(i, i, -1, objectTreeNodes);
 		}
 	}
 
@@ -295,7 +295,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(0, 0, objectTreeNodes);
+			cObjectsTree::WriteInternalNodeID(0, 0, -1, objectTreeNodes);
 		}
 	}
 

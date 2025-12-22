@@ -138,19 +138,22 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.parentId = nodeData.parentId;
 		nodeDataForRendering.userObjectId = nodeData.objectId;
 		nodeDataForRendering.level = nodeData.level;
+		nodeDataForRendering.internalObjectId = -1; // to be filled later
+		nodeDataForRendering.primitiveIdx = -1;			// to be filled later
 		nodeDataList.push_back(nodeDataForRendering);
 	}
 	return nodeDataList;
 }
 
-void cObjectsTree::WriteInternalNodeID(
-	int userObjectID, int internalObjectID, std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
+void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
+	std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
 {
 	for (sNodeDataForRendering &node : *nodes)
 	{
 		if (node.userObjectId == userObjectID)
 		{
 			node.internalObjectId = internalObjectID;
+			node.primitiveIdx = primitiveIdx;
 			return;
 		}
 	}

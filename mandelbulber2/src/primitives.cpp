@@ -242,7 +242,7 @@ void cPrimitives::Set(const std::shared_ptr<cParameterContainer> par,
 		if (objectTreeNodes)
 		{
 			cObjectsTree::WriteInternalNodeID(
-				primitive->userObjectId, primitive->objectId, objectTreeNodes);
+				primitive->userObjectId, primitive->objectId, allPrimitives.size(), objectTreeNodes);
 		}
 
 		if (item.fullName == basicFogShapeName)

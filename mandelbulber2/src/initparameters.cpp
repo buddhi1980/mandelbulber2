@@ -530,7 +530,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		morphNone, paramStandard);
 	par->addParam("node0009", QString("sphere 3,9,%1,7,13").arg(int(enumNodeType::primitive)),
 		morphNone, paramStandard);
-	par->addParam("node0010", QString("hybrid group 2,10,%1,7,-1").arg(int(enumNodeType::hybrid)),
+	par->addParam("node0010", QString("hybrid group 2,10,%1,7,-1").arg(int(enumNodeType::booleanAdd)),
 		morphNone, paramStandard);
 	par->addParam("node0011", QString("fractal 3,11,%1,10,3").arg(int(enumNodeType::fractal)),
 		morphNone, paramStandard);
