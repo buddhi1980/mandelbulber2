@@ -93,6 +93,42 @@ void cFractalTransfAbsSym3::FormulaCode(
 			aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + fractal->analyticDE.offset0;
 	}
 
-	// todo cpixel constant
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
+	{
+		aux.const_c = z * fractal->transformCommon.constantMultiplier111;
+	}
+
+	// aux->color test
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
+		// last two z lengths
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
+
+			aux.old_z = z; // update for next iter, could be aux.lastZ
+		}
+		// colAdd += fractal->foldColor.difs0000.x * temp;
+		// colAdd += fractal->foldColor.difs0000.y * sinPhi;
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
+	}
 
 }
