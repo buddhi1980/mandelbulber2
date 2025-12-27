@@ -401,7 +401,7 @@ bool cRenderJob::Execute()
 				WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
 
 				cObjectsTree objectsTree;
-				objectsTree.CreateNodeDataFromParameters(paramsContainer, fractalContainer);
+				objectsTree.CreateNodeDataFromParameters(paramsContainer);
 				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 				// move parameters from containers to structures

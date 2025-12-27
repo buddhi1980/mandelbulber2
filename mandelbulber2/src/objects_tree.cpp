@@ -17,8 +17,7 @@ cObjectsTree::cObjectsTree()
 	// TODO Auto-generated constructor stub
 }
 
-void cObjectsTree::CreateNodeDataFromParameters(
-	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
+void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameterContainer> params)
 {
 	// Each "nodeXXXX" parameter is a QString with comma-separated values representing:
 	// name, id, type, parent_id, object_id

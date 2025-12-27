@@ -348,7 +348,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			}
 		}
 
-		// final node sumatiuon
+		// final node summation
 		if (stackLevel > 0)
 		{
 			// pop stack levels

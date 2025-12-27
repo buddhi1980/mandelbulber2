@@ -106,7 +106,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
-		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		cObjectData &objectData = data->objectData[distanceOut.objectId];

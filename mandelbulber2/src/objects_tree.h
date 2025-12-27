@@ -46,8 +46,7 @@ public:
 public:
 	cObjectsTree();
 
-	void CreateNodeDataFromParameters(
-		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+	void CreateNodeDataFromParameters(std::shared_ptr<const cParameterContainer> params);
 	nodeData_t &GetNodeDataMap() { return nodeDataMap; }
 	std::vector<cObjectsTree::sNodeData> GetSortedNodeDataList() const;
 

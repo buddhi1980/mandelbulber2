@@ -54,7 +54,7 @@ void cObjectsTreeWidget::UpdateTree(
 	QMap<int, QTreeWidgetItem *> nodeItems;
 
 	cObjectsTree objectsTree = cObjectsTree();
-	objectsTree.CreateNodeDataFromParameters(params, fractalParams);
+	objectsTree.CreateNodeDataFromParameters(params);
 	std::vector<cObjectsTree::sNodeData> sortedNodeDataList = objectsTree.GetSortedNodeDataList();
 
 	for (const cObjectsTree::sNodeData &nodeData : sortedNodeDataList)

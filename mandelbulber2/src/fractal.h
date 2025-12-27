@@ -847,6 +847,7 @@ struct sFractalTransformCommon
 
 struct sFractal
 {
+	sFractal() {};
 	sFractal(const std::shared_ptr<cParameterContainer> par);
 	void RecalculateFractalParams();
 
