@@ -140,6 +140,7 @@ QString cOpenClEngineRenderFractal::GetKernelName()
 	return QString("fractal3D");
 }
 
+// create list of header files to be included in opencl program
 void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFiles)
 {
 	clHeaderFiles.append("defines_cl.h");
@@ -166,6 +167,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
 	const QString &openclEnginePath, QByteArray &programEngine)
 {
+	// common includes
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		AddInclude(programEngine, openclPathSlash + clHeaderFiles.at(i));
@@ -306,6 +308,8 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 			case clRenderEngineTypeNone: break;
 		}
 	}
+
+	// load main engine source
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
@@ -328,12 +332,15 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 
 	emit updateProgressAndStatus(tr("OpenCl - initializing"), tr("Compiling OpenCL programs"), 0.0);
 
+	// prepare OpenCl program source code
 	QByteArray programEngine;
 	try
 	{
+		// prepare paths for includes
 		QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 		QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
+		// create list of header files
 		QStringList clHeaderFiles;
 		CreateListOfHeaderFiles(clHeaderFiles);
 
@@ -365,6 +372,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 		return false;
 	}
 
+	// setting build options
 	SetUseBuildCache(!params->Get<bool>("opencl_disable_build_cache"));
 	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
@@ -372,6 +380,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 	QString errorString;
 	bool quiet = (compilerErrorOutput) ? true : false;
 
+	// measure build time and log it
 	QElapsedTimer timer;
 	timer.start();
 	if (Build(programEngine, &errorString, quiet))
@@ -384,6 +393,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 		WriteLog(errorString, 0);
 	}
 
+	// return compiler error output if needed
 	if (compilerErrorOutput) *compilerErrorOutput = errorString;
 
 	WriteLogDouble(
@@ -392,6 +402,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 	return programsLoaded;
 }
 
+// set parameters defining distance estimation method
 void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	cNineFractals *fractals, sParamRender *paramRender)
 {
@@ -486,6 +497,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	if (useMaxAxisDEFunction) definesCollector += " -DDELTA_MAXAXIS_DE";
 }
 
+// create list of used fractal formulas
 void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 	cNineFractals *fractals, std::shared_ptr<const cFractalContainer> fractalContainer)
 {
@@ -496,11 +508,14 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
 		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
 		QString formulaName = newFractalList.at(listIndex)->getInternalName();
+
+		// handling custom formulas
 		if (formulaName == "custom")
 		{
 			formulaName += QString::number(i);
 			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
 
+			// save custom formula code to temporary file
 			if (formulaCode.contains("CustomIteration("))
 			{
 				formulaCode = formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(i));
@@ -891,6 +906,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	}
 }
 
+// create dynamic data for AO colored vectors
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
 	std::shared_ptr<const sParamRender> paramRender, std::shared_ptr<const cNineFractals> fractals,
 	std::shared_ptr<sRenderData> renderData)
@@ -1074,6 +1090,7 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(
 	}
 	else
 	{
+		// output buffers for rendering
 		outputBuffers.clear();
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
@@ -1084,6 +1101,7 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(
 	}
 }
 
+// pre-allocate all needed OpenCL buffers
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 	std::shared_ptr<const cParameterContainer> params)
 {
@@ -1093,6 +1111,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 
 	cl_int err;
 
+	// allocating input buffers for each device
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
 		if (hardware->ContextCreated())
@@ -1193,6 +1212,17 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 	return true;
 }
 
+// create threads for OpenCL workers
+
+// each thread will run one OpenCL worker
+// each worker will use its own OpenCL command queue and kernel
+// each worker will process its own part of image
+// all workers will use shared input and output buffers
+// output buffer will be read by output queue
+// all workers will use shared pixel mask
+// stopRequest is used to stop all workers when needed
+// all workers will use shared scheduler to get jobs
+
 void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
 	const std::shared_ptr<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
 	const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
@@ -1240,6 +1270,7 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 	}
 }
 
+// mix new pixel color with old pixel color based on monte carlo loop count
 sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 	const cOpenCLWorkerOutputQueue::sClSingleOutput &output, const sRGBFloat &pixel,
 	const sRGBFloat &oldPixel)
@@ -1259,6 +1290,7 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 	return newPixel;
 }
 
+// put pixel data to image
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
 	unsigned short newAlpha, const sRGB8 &color, float zDepth, unsigned short opacity, cImage *image)
 {
@@ -1269,6 +1301,7 @@ void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRG
 	image->PutPixelOpacity(xx, yy, opacity);
 }
 
+// put optional pixel data for optional image channels
 void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy,
 	const sRGBFloat &color, const sRGBFloat &normal, const sRGBFloat &specular,
 	const sRGBFloat &world, const sRGBFloat &shadows, const sRGBFloat &gi,
@@ -1290,6 +1323,7 @@ void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy,
 		image->PutPixelNotDenoised(xx, yy, sRGBFloat(notDenoised.R, notDenoised.G, notDenoised.B));
 }
 
+// periodic refresh of tiles during rendering
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
 	QElapsedTimer &timerImageRefresh, std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
 	QList<sRenderedTileData> &listOfRenderedTilesData)
@@ -1332,16 +1366,19 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	const cOpenCLWorkerOutputQueue::sClSingleOutput &output = data.tile;
 	std::shared_ptr<cImage> image = data.image;
 
+	// updating rendered tiles counter
 	data.inOut->tilesRenderedCounter++;
 
-	// information about tile coordinates
+	// getting job dimensions
 	quint64 jobWidth = output.jobWidth;
 	quint64 jobHeight = output.jobHeight;
 	quint64 jobX = output.jobX;
 	quint64 jobY = output.jobY;
 
+	// updating rendered pixels counter
 	data.inOut->pixelsRendered += jobWidth * jobHeight;
 
+	// variables for noise estimation
 	float monteCarloNoiseSum = 0.0;
 	float maxNoise = 0.0;
 	float maxBrightness = 0.0;
@@ -1351,6 +1388,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 	int pixelsToDoCounter = 0;
 
+	// check if anti-aliasing depth is finished
 	bool anitiAliasingDepthFinished = true;
 	if (data.in->useAntiAliasing)
 	{
@@ -1366,6 +1404,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	std::vector<bool> returnedMask;
 
 	// update pixel mask based on output data
+	// for pixel-level optimization with monte carlo
 	if (data.in->monteCarlo && data.in->pixelLevelOptimization)
 	{
 		returnedMask.resize(data.in->optimalJob->stepSizeX * data.in->optimalJob->stepSizeY);
@@ -1379,6 +1418,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		}
 	}
 
+	// buffer for individual noise levels for visualization
 	std::vector<float> individualNoiseLevels(jobWidth * jobHeight, -1000.0f);
 
 	// processing pixels of tile
@@ -1404,16 +1444,21 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 						&& !returnedMask[x + y * jobWidth]) // skip masked pixels
 				// painting pixels with reduced opacity (averaging of MC samples)
 				{
+					// paint pixel with zero contribution
 					if (data.in->useDenoiser)
 					{
 						data.denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
 							image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
 					}
+
+					// mark pixel as done
 					if (!data.inOut->donePixelsMask[xx + yy * data.in->width])
 						data.inOut->maskedPixelsCounter++;
 					data.inOut->donePixelsMask[xx + yy * data.in->width] = true;
 					continue;
 				}
+
+				// painting pixel with contribution
 				sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 				pixel.R = min(pixel.R, data.params->monteCarloGIRadianceLimit * 2.0f);
 				pixel.G = min(pixel.G, data.params->monteCarloGIRadianceLimit * 2.0f);
@@ -1421,6 +1466,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 				sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
 
+				// depth buffer mix
 				float zDepthOld = image->GetPixelZBuffer(xx, yy);
 				float zDepth = zDepthOld;
 
@@ -1431,12 +1477,15 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 									 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
 											+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
 
+				// optional channels mix
 				MixChannels(output, pixelCl, image, xx, yy, pixel, data.in->useOptionalImageChannels);
 
+				// alpha mix
 				unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 				unsigned short newAlpha = ushort(float(oldAlpha) * (1.0f - 1.0f / output.monteCarloLoop)
 																				 + alpha * (1.0f / output.monteCarloLoop));
 
+				// put pixel to image
 				PutMultiPixel(xx, yy, newPixel, newAlpha, color, zDepth, opacity, image.get());
 
 				// noise estimation
@@ -1452,6 +1501,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				maxBrightness = max(sumBrightness, maxBrightness);
 				minBrightness = min(sumBrightness, minBrightness);
 
+				// handle infinite brightness (can happen with GI)
 				if (qIsInf(sumBrightness))
 				{
 					sumBrightness = 0.0;
@@ -1459,59 +1509,66 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 					image->PutPixelImage(xx, yy, sRGBFloat());
 				}
 
+				// adjust noise for very bright pixels
 				if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
 
+				// update denoiser
 				if (data.in->useDenoiser)
 				{
 					data.denoiser->UpdatePixel(xx, yy, newPixel, zDepth, noise);
 				}
 
+				// accumulate noise statistics
 				monteCarloNoiseSum += noise;
 				if (noise > maxNoise) maxNoise = noise;
 
 				float previousPixelNoise = data.inOut->pixelNoiseBuffer[xx + yy * data.in->width];
 				float newPixelNoise;
 
-				if (data.in->useAntiAliasing)
+				// calculation of noise level per pixel
+				if (data.in->useAntiAliasing) // with anti-aliasing
 				{
 					newPixelNoise =
 						data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 				}
-				else
+				else // without anti-aliasing
 				{
-					if (output.monteCarloLoop == 2)
+					if (output.monteCarloLoop == 2) // first noise estimation
 					{
 						newPixelNoise = noise;
 					}
-					else if (output.monteCarloLoop < data.in->minNumberOfSamples)
+					else if (output.monteCarloLoop < data.in->minNumberOfSamples) // accumulating noise
 					{
 						newPixelNoise = previousPixelNoise + noise;
 					}
-					else if (output.monteCarloLoop == data.in->minNumberOfSamples)
+					else if (output.monteCarloLoop == data.in->minNumberOfSamples) // averaging noise
 					{
 						newPixelNoise = (previousPixelNoise + noise)
 														/ data.in->minNumberOfSamples; // average noise from last n runs
 					}
-					else
+					else // smoothing noise
 					{
 						newPixelNoise =
 							data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 					}
 				}
 
+				// square root of noise because variance is squared value
 				float newPixelNoiseSqrt = sqrtf(newPixelNoise);
 
+				// save pixel noise
 				data.inOut->pixelNoiseBuffer[xx + yy * data.in->width] = newPixelNoise;
 				individualNoiseLevels[x + y * jobWidth] =
 					newPixelNoiseSqrt / (data.in->noiseTarget / 100.0);
 
+				// update pixel mask
 				if (data.in->pixelLevelOptimization
 						&& ((data.in->useAntiAliasing
 									&& (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
 								|| (!data.in->useAntiAliasing
 										&& output.monteCarloLoop > data.in->minNumberOfSamples)))
 				{
-					if (newPixelNoiseSqrt < data.in->noiseTarget / 100.0f)
+					if (newPixelNoiseSqrt < data.in->noiseTarget / 100.0f) // mask pixel when done
 					{
 						data.pixelMask->at(xx + yy * data.in->width) = false;
 					}
@@ -1528,7 +1585,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 			// if not MC then just paint pixels
 			else
 			{
-
+				// painting pixel
 				PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer, opacity, image.get());
 				if (image->GetImageOptional()->optionalNormalWorld)
 					image->PutPixelNormalWorld(xx, yy, clFloat3TosRGBFloat(pixelCl.normalWorld));
@@ -1544,6 +1601,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		} // next y
 	} // next x
 
+	// update pixel mask based on edge detection - initialization for AA
 	if (data.in->useAntiAliasing && output.monteCarloLoop == 1 && data.in->pixelLevelOptimization)
 	{
 		pixelsToDoCounter = 0;
@@ -1558,6 +1616,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				float minG = 1e10;
 				float minB = 1e10;
 
+				// check 3x3 neighborhood
 				for (int yy = std::max(y - 1, 0); yy <= min(y + 1, int(jobHeight) - 1); yy++)
 				{
 					for (int xx = std::max(x - 1, 0); xx <= min(x + 1, int(jobWidth) - 1); xx++)
@@ -1576,6 +1635,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 					}
 				}
 
+				// calculate edge value as max difference between channels
 				float edge = max(max(maxR - minR, maxG - minG), maxB - minB);
 
 				int xxx = x + jobX;
@@ -1583,6 +1643,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 				maxEdge = max(maxEdge, edge);
 
+				// save edge value as initial pixel noise
 				data.inOut->pixelNoiseBuffer[xxx + yyy * data.in->width] = edge;
 				if (edge < data.in->noiseTarget / 100.0f)
 				{
@@ -1597,13 +1658,14 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		}
 	}
 
+	// update statistics about masked pixels
 	data.renderData->statistics.maskedPixels =
 		double(data.inOut->maskedPixelsCounter) / (data.in->width * data.in->height);
 
 	//					qDebug() << output.monteCarloLoop
 	//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
 
-	// denoiser
+	// denoiser update after each tile
 	if (data.in->monteCarlo && data.in->useDenoiser)
 	{
 		if (output.monteCarloLoop > 2)
@@ -1621,19 +1683,20 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		float weight = 0.3f;
 
 		float totalNoiseRect;
-		if (output.monteCarloLoop == 1)
+		if (output.monteCarloLoop == 1) // first run: use max edge or brightness range
 		{
 			if (data.in->useAntiAliasing)
 				totalNoiseRect = weight * maxEdge;
 			else
 				totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
 		}
-		else
+		else // subsequent runs: combine previous noise and current noise
 		{
 			totalNoiseRect =
 				sqrtf((1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
 		}
 
+		// smoothing noise level for tile
 		float previousNoiseLevel =
 			data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)];
 		float smothedNoiseLevel =
@@ -1641,9 +1704,12 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				? totalNoiseRect
 				: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * data.in->noiseFilterFactor;
 		// smothedNoiseLevel = totalNoiseRect;
+
+		// save smothed noise level for tile
 		data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)] =
 			smothedNoiseLevel;
 
+		// disable tile when done
 		if ((data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)]
 						< data.in->noiseTarget / 100.0f
 					&& output.monteCarloLoop > data.in->minNumberOfSamples && anitiAliasingDepthFinished)
@@ -1655,19 +1721,22 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 			data.renderData->statistics.tilesDone +=
 				(double)jobWidth * jobHeight / (data.in->width * data.in->height);
 		}
+
+		// save last monte carlo loop
 		data.inOut->lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
 
 		if (data.inOut->lastMonteCarloLoop == 1)
 			data.renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
 		data.renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
 
+		// save rendered tile data for visualization
 		data.inOut->mutex.lock();
 		data.inOut->listOfRenderedTilesData.append(
 			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel, individualNoiseLevels));
 		data.inOut->mutex.unlock();
 
 	} // endif montecarlo
-	else
+	else // not montecarlo
 	{
 		data.inOut->mutex.lock();
 		data.inOut->listOfRenderedTilesData.append(
@@ -1675,6 +1744,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		data.inOut->mutex.unlock();
 	}
 
+	// save rendered rectangle for image update
 	data.inOut->mutex.lock();
 	data.inOut->lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
 	data.inOut->mutex.unlock();
@@ -1683,12 +1753,14 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	//	if (!*data.stopRequest && data.inOut->tilesRenderedCounter > data.in->sequenceSize / 10)
 	//		emit signalSmallPartRendered(data.pureRenderingTime->elapsed() / 1000.0);
 
+	// process events for server to avoid freezing
 	if (gNetRender->IsServer())
 	{
 		gApplication->processEvents();
 	}
 }
 
+// mix optional channels
 void cOpenClEngineRenderFractal::MixChannels(
 	const cOpenCLWorkerOutputQueue::sClSingleOutput &output, const sClPixel &pixelCl,
 	std::shared_ptr<cImage> image, quint64 xx, quint64 yy, const sRGBFloat &pixel,
@@ -1702,7 +1774,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 	sRGBFloat specularOut;
 	sRGBFloat shadowsOut;
 
-	if (output.monteCarloLoop == 1)
+	if (output.monteCarloLoop == 1) // first sample: just write values
 	{
 		normalWorld = sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
 
@@ -1718,11 +1790,12 @@ void cOpenClEngineRenderFractal::MixChannels(
 		if (image->GetImageOptional()->optionalShadows)
 			shadowsOut = clFloat3TosRGBFloat(pixelCl.shadows);
 	}
-	else
+	else // subsequent samples: mix with old values
 	{
 		float k1 = (1.0f - 1.0f / output.monteCarloLoop);
 		float k2 = 1.0f / output.monteCarloLoop;
 
+		// mixing optional channels: world normal
 		if (image->GetImageOptional()->optionalNormalWorld)
 		{
 			sRGBFloat normalNew =
@@ -1735,6 +1808,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 			normalWorld.B = nornalOld.B * k1 + normalNew.B * k2;
 		}
 
+		// mixing optional channels: global illumination
 		if (image->GetImageOptional()->optionalGlobalIlluination)
 		{
 			sRGBFloat globalIlluminationOutOld = image->GetPixelGlobalIllumination(xx, yy);
@@ -1747,6 +1821,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 				globalIlluminationOutOld.B * k1 + pixelCl.globalIllumination.s2 * k2;
 		}
 
+		// mixing optional channels: not denoised
 		if (image->GetImageOptional()->optionalNotDenoised)
 		{
 			sRGBFloat notDenoisedOutOld = image->GetPixelNotDenoised(xx, yy);
@@ -1755,6 +1830,8 @@ void cOpenClEngineRenderFractal::MixChannels(
 			notDenoisedOut.G = notDenoisedOutOld.G * k1 + pixel.G * k2;
 			notDenoisedOut.B = notDenoisedOutOld.B * k1 + pixel.B * k2;
 		}
+
+		// mixing optional channels: diffuse, normal, specular, shadows
 
 		if (image->GetImageOptional()->optionalDiffuse)
 		{
@@ -1796,6 +1873,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 	if (image->GetImageOptional()->optionalNormalWorld)
 		image->PutPixelNormalWorld(xx, yy, normalWorld);
 
+	// put optional channels to image
 	if (useOptionalChannels)
 	{
 		PutMultiPixelOptional(xx, yy, colorOut, normalOut, specularOut, normalWorld, shadowsOut,
@@ -1819,7 +1897,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		quint64 width = image->GetWidth();
 		quint64 height = image->GetHeight();
 
-		// progress bat text
+		// reset progress data
 		cProgressText progressText;
 		progressText.ResetTimer();
 
@@ -1845,7 +1923,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		WriteLog(QString("Setting grid size to %1 x %2").arg(gridWidth).arg(gridHeight), 2);
 
-		sConcurentTileProcessSharedData tileSharedData;
+		sConcurentTileProcessSharedData tileSharedData; // shared data between threads
 
 		// preparation of table for noise statistics used in MC method
 		const quint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
@@ -1872,6 +1950,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		bool useDenoiser = monteCarlo && constantInBuffer->params.monteCarloDenoiserEnable
 											 && !useAntiAliasing && renderEngineMode == clRenderEngineTypeFull;
 
+		// anti-aliasing sample number table
 		QVector<int> aaSampleNumberTable;
 		if (useAntiAliasing)
 		{
@@ -1923,9 +2002,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// create output FIFO buffer
 		std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
+		// create denoiser
 		std::shared_ptr<cDenoiser> denoiser(new cDenoiser(
 			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
 
+		// pixel mask for pixel-level optimization with monte carlo
 		if (monteCarlo)
 		{
 			tileSharedData.pixelNoiseBuffer.resize(width * height);
@@ -1952,6 +2033,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		tileSharedData.firstBlurcalculated = false;
 		bool autoRefreshBlurResetDone = false;
 
+		// allocate denoiser memory
 		if (useDenoiser)
 		{
 			denoiser->AllocMem();
@@ -1972,8 +2054,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		tileSharedData.maskedPixelsCounter = 0;
 
+		// noise filter factor for MC calculated as function of number of samples
 		double noiseFilterFactor = min(1.0 / sqrt(numberOfSamples), 0.5);
 
+		// preparing input data for tile processing
 		sConcurentTileProcessInputData tileInputData;
 		tileInputData.useAntiAliasing = useAntiAliasing;
 		tileInputData.pixelLevelOptimization = pixelLevelOptimization;
@@ -2003,8 +2087,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			// repeat loop until there is something in output queue
 			int queueCounter = 0;
 
+			// collect all outputs from queue
 			QList<sConcurentTileProcess> collectedOuputs;
 
+			// limit queue size to 100 because CPU could be too slow to process all tiles
 			while (!outputQueue->isEmpty() && queueCounter < 100)
 			{
 				queueCounter++;
@@ -2028,6 +2114,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				}
 			}
 
+			// processing collected tiles in parallel
 			if (collectedOuputs.size() > 0)
 			{
 				int numberOfTilesToProcess = collectedOuputs.size();
@@ -2141,10 +2228,11 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	return tiles;
 }
 
+// sorting function for tile sequence - from center to border
 bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight)
 {
-	// choose the tile with the lower distance to the center
+	// calculate corrected center distance
 	QPoint center;
 	center.setX((gridWidth - 1) / 2);
 	center.setY((gridHeight - 1) / 2);
@@ -2152,10 +2240,11 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	cV1.setX(cV1.x() * gridHeight / gridWidth);
 	QPoint cV2 = center - v2;
 	cV2.setX(cV2.x() * gridHeight / gridWidth);
+	// calculate squared distances
 	float dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
 	float dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
+	// compare distances
 	if (!qFuzzyCompare(dist2V1, dist2V2)) return dist2V1 < dist2V2;
-
 	// order tiles with same distsance clockwise
 	int quartV1 = cV1.x() > 0.0f ? (cV1.y() > 0.0f ? 1 : 0) : (cV1.y() > 0.0f ? 2 : 3);
 	int quartV2 = cV2.x() > 0.0f ? (cV2.y() > 0.0f ? 1 : 0) : (cV2.y() > 0.0f ? 2 : 3);
@@ -2163,8 +2252,10 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	return quartV1 < 2 ? v1.y() > v2.y() : v1.y() < v2.y();
 }
 
+// convert string with underscores to camel case
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
+	// known names with upper case letters
 	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs", "Difs"});
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
@@ -2184,6 +2275,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 	return parts.join("");
 }
 
+// assign additional kernel parameters specific for fractal rendering
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	uint argIterator, int deviceIndex)
 {
@@ -2295,6 +2387,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	return true;
 }
 
+// write all buffers to OpenCL queue
 bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cOpenClEngine::WriteBuffersToQueue();
@@ -2439,6 +2532,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 	return true;
 }
 
+// read all buffers from OpenCL queue
 bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 {
 	WriteLog(QString("Reading OpenCL buffers"), 3);
@@ -2450,6 +2544,7 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 	return true;
 }
 
+// calculate needed memory for rendering
 size_t cOpenClEngineRenderFractal::CalcNeededMemory()
 {
 	if (!meshExportMode)
@@ -2465,6 +2560,7 @@ size_t cOpenClEngineRenderFractal::CalcNeededMemory()
 	}
 }
 
+// prepare buffer for background image
 bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderData)
 {
 	// buffer for background image
@@ -2489,6 +2585,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		}
 	}
 
+	// create OpenCL image2D for background for each device
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
 		cl_int err;
