@@ -1379,6 +1379,8 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		}
 	}
 
+	std::vector<float> individualNoiseLevels(jobWidth * jobHeight, -1000.0f);
+
 	// processing pixels of tile
 	for (quint64 y = 0; y < jobHeight; y++)
 	{
@@ -1496,7 +1498,12 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 							data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 					}
 				}
+
+				float newPixelNoiseSqrt = sqrtf(newPixelNoise);
+
 				data.inOut->pixelNoiseBuffer[xx + yy * data.in->width] = newPixelNoise;
+				individualNoiseLevels[x + y * jobWidth] =
+					newPixelNoiseSqrt / (data.in->noiseTarget / 100.0);
 
 				if (data.in->pixelLevelOptimization
 						&& ((data.in->useAntiAliasing
@@ -1504,7 +1511,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 								|| (!data.in->useAntiAliasing
 										&& output.monteCarloLoop > data.in->minNumberOfSamples)))
 				{
-					if (sqrtf(newPixelNoise) < data.in->noiseTarget / 100.0f)
+					if (newPixelNoiseSqrt < data.in->noiseTarget / 100.0f)
 					{
 						data.pixelMask->at(xx + yy * data.in->width) = false;
 					}
@@ -1576,7 +1583,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 				maxEdge = max(maxEdge, edge);
 
-				data.inOut->pixelNoiseBuffer[xxx + yyy * data.in->width] = maxEdge;
+				data.inOut->pixelNoiseBuffer[xxx + yyy * data.in->width] = edge;
 				if (edge < data.in->noiseTarget / 100.0f)
 				{
 					data.pixelMask->at(xxx + yyy * data.in->width) = false;
@@ -1630,7 +1637,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		float previousNoiseLevel =
 			data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)];
 		float smothedNoiseLevel =
-			(data.in->useAntiAliasing || output.monteCarloLoop == 1)
+			(output.monteCarloLoop == 1)
 				? totalNoiseRect
 				: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * data.in->noiseFilterFactor;
 		// smothedNoiseLevel = totalNoiseRect;
@@ -1656,7 +1663,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 		data.inOut->mutex.lock();
 		data.inOut->listOfRenderedTilesData.append(
-			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
+			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel, individualNoiseLevels));
 		data.inOut->mutex.unlock();
 
 	} // endif montecarlo
@@ -1664,7 +1671,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	{
 		data.inOut->mutex.lock();
 		data.inOut->listOfRenderedTilesData.append(
-			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
+			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0, std::vector<float>()));
 		data.inOut->mutex.unlock();
 	}
 
@@ -1879,7 +1886,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			if (constantInBuffer->params.antialiasingAdaptive)
 			{
 				minNumberOfSamples = 0;
-				noiseTarget = 100.0 / numberOfSamples;
+				noiseTarget = 100.0 / sqrt(numberOfSamples);
 			}
 			else
 			{

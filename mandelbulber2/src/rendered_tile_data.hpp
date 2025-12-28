@@ -35,10 +35,18 @@
 #ifndef MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 #define MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 
+#include <vector>
+
 struct sRenderedTileData
 {
-	sRenderedTileData(quint64 _x, quint64 _y, quint64 _width, quint64 _height, float _noiseLevel)
-			: x(_x), y(_y), width(_width), height(_height), noiseLevel(_noiseLevel)
+	sRenderedTileData(quint64 _x, quint64 _y, quint64 _width, quint64 _height, float _noiseLevel,
+		std::vector<float> _individualNoiseLevels)
+			: x(_x),
+				y(_y),
+				width(_width),
+				height(_height),
+				noiseLevel(_noiseLevel),
+				individualNoiseLevels(_individualNoiseLevels)
 	{
 	}
 	quint64 x;
@@ -46,6 +54,7 @@ struct sRenderedTileData
 	quint64 width;
 	quint64 height;
 	float noiseLevel;
+	std::vector<float> individualNoiseLevels;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_ */

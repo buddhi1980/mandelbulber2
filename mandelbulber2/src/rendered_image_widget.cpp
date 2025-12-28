@@ -1327,11 +1327,35 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	double dpiScale = image->GetDpiScale();
 
+	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 3), 1);
+
 	for (sRenderedTileData &tile : listOfRenderedTilesData)
 	{
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{
 			listOfPaintedTiles.append(QPair<int, int>(tile.x, tile.y));
+
+			if (tile.individualNoiseLevels.size() > 0)
+			{
+				painter.setOpacity(0.7);
+
+				for (int y = 0; y < tile.height; y += drawingStep)
+				{
+					for (int x = 0; x < tile.width; x += drawingStep)
+					{
+						float noise = tile.individualNoiseLevels[y * tile.width + x];
+						if (noise > -100.0)
+						{
+							int r = clamp(int(noise * 1000.0), 0, 255);
+							int g = clamp(int(1000.0 - noise * 1000.0), 0, 255);
+							int b = 0;
+							painter.setPen(QPen(QColor(r, g, b), 1.0, Qt::SolidLine));
+							painter.drawPoint((tile.x + x) * image->GetPreviewScale() / dpiScale,
+								(tile.y + y) * image->GetPreviewScale() / dpiScale);
+						}
+					}
+				}
+			}
 
 			QRect r(tile.x * image->GetPreviewScale() / dpiScale,
 				tile.y * image->GetPreviewScale() / dpiScale,
