@@ -1311,7 +1311,21 @@ void RenderedImage::DrawAnimationPath()
 
 void RenderedImage::showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles)
 {
-	listOfRenderedTilesData.append(listOfRenderedTiles);
+	if (listOfRenderedTiles.size() > 0)
+	{
+		listOfRenderedTilesData.append(listOfRenderedTiles);
+	}
+	else
+	{
+		listOfRenderedTilesData.clear();
+		tileArea = 0;
+	}
+}
+
+void RenderedImage::slotSetMCNoiseVisibility(bool visible)
+{
+	mcNoiseVisible = visible;
+	update();
 }
 
 void RenderedImage::PaintLastRenderedTilesInfo()
@@ -1329,29 +1343,45 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 3), 1);
 
-	for (sRenderedTileData &tile : listOfRenderedTilesData)
+	int nPainted = 100;
+	if (tileArea > 0)
 	{
+		nPainted = int(image->GetWidth() * image->GetHeight() / tileArea) / 2;
+		if (nPainted < 5) nPainted = 5;
+	}
+
+	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
+	{
+		float opacity = min(
+			float(i + nPainted - min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted, 1.0f);
+		painter.setOpacity(opacity);
+
+		sRenderedTileData &tile = listOfRenderedTilesData[i];
+
+		tileArea = max(int(tile.width * tile.height), tileArea);
+
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{
 			listOfPaintedTiles.append(QPair<int, int>(tile.x, tile.y));
 
-			if (tile.individualNoiseLevels.size() > 0)
+			if (mcNoiseVisible)
 			{
-				painter.setOpacity(0.7);
-
-				for (int y = 0; y < tile.height; y += drawingStep)
+				if (tile.individualNoiseLevels.size() > 0)
 				{
-					for (int x = 0; x < tile.width; x += drawingStep)
+					for (int y = 0; y < tile.height; y += drawingStep)
 					{
-						float noise = tile.individualNoiseLevels[y * tile.width + x];
-						if (noise > -100.0)
+						for (int x = 0; x < tile.width; x += drawingStep)
 						{
-							int r = clamp(int(noise * 1000.0), 0, 255);
-							int g = clamp(int(1000.0 - noise * 1000.0), 0, 255);
-							int b = 0;
-							painter.setPen(QPen(QColor(r, g, b), 1.0, Qt::SolidLine));
-							painter.drawPoint((tile.x + x) * image->GetPreviewScale() / dpiScale,
-								(tile.y + y) * image->GetPreviewScale() / dpiScale);
+							float noise = tile.individualNoiseLevels[y * tile.width + x];
+							if (noise > -100.0)
+							{
+								int r = clamp(int(noise * 1000.0), 0, 255);
+								int g = clamp(int(1000.0 - noise * 1000.0), 0, 255);
+								int b = 0;
+								painter.setPen(QPen(QColor(r, g, b), 1.0, Qt::SolidLine));
+								painter.drawPoint((tile.x + x) * image->GetPreviewScale() / dpiScale,
+									(tile.y + y) * image->GetPreviewScale() / dpiScale);
+							}
 						}
 					}
 				}
@@ -1362,7 +1392,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 				tile.width * image->GetPreviewScale() / dpiScale,
 				tile.height * image->GetPreviewScale() / dpiScale);
 
-			painter.setOpacity(0.5);
+			if (!mcNoiseVisible) painter.setOpacity(opacity * 0.5);
 			painter.setPen(penRed);
 
 			painter.drawLine(r.x(), r.y(), r.x() + r.width() / 4, r.y());
@@ -1379,7 +1409,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 			QPoint center = r.center();
 
-			painter.setOpacity(1.0);
+			if (!mcNoiseVisible) painter.setOpacity(opacity);
 			if (tile.noiseLevel > 0)
 			{
 				QStaticText text(QString("%1").arg(tile.noiseLevel * 100.0, 0, 'f', 1));
@@ -1389,7 +1419,21 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 			}
 		}
 	}
-	listOfRenderedTilesData.clear();
+	if (listOfRenderedTilesData.size() > nPainted)
+	{
+		int numberToRemove = listOfRenderedTilesData.size() - nPainted;
+		for (int i = 0; i < numberToRemove; i++)
+		{
+			listOfRenderedTilesData.removeAt(0);
+		}
+	}
+	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
+	{
+		if (listOfRenderedTilesData[i].noiseLevel <= 0.0)
+		{
+			listOfRenderedTilesData.removeAt(i);
+		}
+	}
 }
 
 void RenderedImage::DisplayAllLights()

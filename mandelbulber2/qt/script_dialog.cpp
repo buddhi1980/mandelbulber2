@@ -176,7 +176,7 @@ void cScriptDialog::slotInsertParameter()
 		parameter = parameter.mid(5);
 	}
 
-	qDebug() << parameter << lastCursorPosition;
+	//qDebug() << parameter << lastCursorPosition;
 
 	QString script = ui->lineEdit_script->text();
 	script.insert(lastCursorPosition, QString("'%1'").arg(parameter));

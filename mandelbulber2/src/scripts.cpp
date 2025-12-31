@@ -286,7 +286,7 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 
 	if (error.length() > 0)
 	{
-		qDebug().noquote() << error;
+		qInfo().noquote() << error;
 	}
 	return error;
 }

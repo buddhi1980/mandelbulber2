@@ -304,7 +304,7 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 	}
 
 	double dDiff = iDiff / 500.0;
-	qDebug() << dDiff;
+	//qDebug() << dDiff;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
 
 	if (valueBeforeSliderDrag == 0.0 && !hasDial)

@@ -521,6 +521,8 @@ void cInterface::ConnectSignals() const
 		renderedImage, &RenderedImage::mouseDragFinish, mainWindow, &RenderWindow::slotMouseDragFinish);
 	connect(
 		renderedImage, &RenderedImage::mouseDragDelta, mainWindow, &RenderWindow::slotMouseDragDelta);
+	connect(mainWindow->ui->widgetEffects, &cDockEffects::changedMCNoiseVisibility, renderedImage,
+		&RenderedImage::slotSetMCNoiseVisibility);
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
@@ -2284,7 +2286,7 @@ bool cInterface::CheckForMissingTextures()
 							tr("Select one from proposed files"), foundFiles, 0, false, &ok);
 					if (ok)
 					{
-						qDebug() << "substitution" << substitution;
+						//qDebug() << "substitution" << substitution;
 						gPar->Set(parameterName, substitution);
 						correctionApplied = true;
 					}

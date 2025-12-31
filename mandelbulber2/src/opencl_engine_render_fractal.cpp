@@ -1335,7 +1335,7 @@ int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
 	{
 		image->ConvertTo8bitCharFromList(&lastRenderedRects);
 		image->UpdatePreview(&lastRenderedRects);
-		sendRenderedTilesList(listOfRenderedTilesData);
+		emit sendRenderedTilesList(listOfRenderedTilesData);
 		updateImage();
 	}
 	lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
@@ -1494,7 +1494,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 											+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 				noise *= 0.3333f;
 
-				//								qDebug() << noise << 0.01f * sqrtf(noise);
+				qDebug() << noise << 0.01f * sqrtf(noise);
 				//								noise = 0.01f * sqrtf(noise);
 
 				float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.333f;
@@ -2206,6 +2206,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 	else
 	{
 		finallResult = false;
+	}
+
+	if (image->IsPreview())
+	{
+		emit sendRenderedTilesList(QList<sRenderedTileData>());
+		updateImage();
 	}
 
 	gApplication->processEvents(); // needed to process events to quit threads

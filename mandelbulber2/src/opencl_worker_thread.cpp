@@ -110,7 +110,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 		scheduler->ReserveTile(startTile, monteCarloLoop);
 
 		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
-				 tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
+			tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
 		{
 			if (tile < 0) break;
 			if (!scheduler->IsTileEnabled(tile)) continue;
@@ -447,8 +447,8 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	{
 		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
-		qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
-						 << sequenceSize;
+		// qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
+		//<< sequenceSize;
 		return 0;
 	}
 
