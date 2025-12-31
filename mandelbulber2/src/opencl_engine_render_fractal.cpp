@@ -1494,7 +1494,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 											+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 				noise *= 0.3333f;
 
-				qDebug() << noise << 0.01f * sqrtf(noise);
+				// qDebug() << noise << 0.01f * sqrtf(noise);
 				//								noise = 0.01f * sqrtf(noise);
 
 				float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.333f;
@@ -1558,8 +1558,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 				// save pixel noise
 				data.inOut->pixelNoiseBuffer[xx + yy * data.in->width] = newPixelNoise;
-				individualNoiseLevels[x + y * jobWidth] =
-					newPixelNoiseSqrt / (data.in->noiseTarget / 100.0);
+				individualNoiseLevels[x + y * jobWidth] = newPixelNoiseSqrt / (data.in->noiseTarget);
 
 				// update pixel mask
 				if (data.in->pixelLevelOptimization

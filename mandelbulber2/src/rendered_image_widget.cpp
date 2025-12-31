@@ -1341,7 +1341,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	double dpiScale = image->GetDpiScale();
 
-	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 3), 1);
+	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
 
 	int nPainted = 100;
 	if (tileArea > 0)
@@ -1375,12 +1375,46 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 							float noise = tile.individualNoiseLevels[y * tile.width + x];
 							if (noise > -100.0)
 							{
-								int r = clamp(int(noise * 1000.0), 0, 255);
-								int g = clamp(int(1000.0 - noise * 1000.0), 0, 255);
-								int b = 0;
-								painter.setPen(QPen(QColor(r, g, b), 1.0, Qt::SolidLine));
-								painter.drawPoint((tile.x + x) * image->GetPreviewScale() / dpiScale,
-									(tile.y + y) * image->GetPreviewScale() / dpiScale);
+								float noise2 = noise * 100.0;
+								float t = clamp(1.0f - noise2, 0.0f, 1.0f);
+								int r, g, b;
+
+								if (t < 0.25f)
+								{
+									// Red (1,0,0) to Orange (1,0.5,0)
+									float f = t / 0.25f;
+									r = 255;
+									g = int(128 * f);
+									b = 0;
+								}
+								else if (t < 0.5f)
+								{
+									// Orange (1,0.5,0) to Yellow (1,1,0)
+									float f = (t - 0.25f) / 0.25f;
+									r = 255;
+									g = 128 + int(127 * f);
+									b = 0;
+								}
+								else if (t < 0.75f)
+								{
+									// Yellow (1,1,0) to Green (0,1,0)
+									float f = (t - 0.5f) / 0.25f;
+									r = 255 - int(255 * f);
+									g = 255;
+									b = 0;
+								}
+								else
+								{
+									// Green (0,1,0) to Blue (0,0,1)
+									float f = (t - 0.75f) / 0.25f;
+									r = 0;
+									g = 255 - int(255 * f);
+									b = int(255 * f);
+								}
+
+								painter.setPen(QPen(QColor(r, g, b), 2.0, Qt::SolidLine));
+								painter.drawPoint(QPointF((tile.x + x) * image->GetPreviewScale() / dpiScale,
+									(tile.y + y) * image->GetPreviewScale() / dpiScale));
 							}
 						}
 					}
