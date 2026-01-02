@@ -9,6 +9,7 @@
 
 #include <QSet>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "fractal.h"
 #include "fractal_container.hpp"
 #include "object_node_type.h"
@@ -59,11 +60,13 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		if (endOfHybridNode || singleFractal)
 		{
 			// creating sequence for collected formula indices
-			sSequence sequence = CreateSequence(generalPar, formulaIndices);
+			sSequence sequence;
 			sequence.DEFunctionType = undefinedDEFunction;					 // FIXME: later
 			sequence.DEType = undefinedDEType;											 // FIXME: later
 			sequence.DEAnalyticFunction = analyticFunctionUndefined; // FIXME: later
 			sequence.coloringFunction = coloringFunctionUndefined;	 // FIXME: later
+			CreateSequence(sequence, generalPar, formulaIndices);
+
 			sequences.push_back(sequence);
 
 			hybridNodeEntered = false;
@@ -102,58 +105,101 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 	}
 }
 
-cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(
+cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequence seq,
 	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices)
 {
-	sSequence sequence;
-
 	int maxN = 250; // FIXME separate for each sequence
 
-	sequence.length = maxN * 5;
-	sequence.sequence.resize(sequence.length);
+	seq.length = maxN * 5;
+	seq.seqence.resize(seq.length);
+	seq.fractData.resize(formulaIndices.size());
 
 	int numberOfFormulas = formulaIndices.size();
 
 	int repeatFrom = generalPar->Get<int>("repeat_from");
 
-	int fractalNo = 0;
+	int fractalNoInSeqnece = 0;
 	int counter = 0;
 
-	std::vector<int> counts(numberOfFormulas);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	// collecting data for fractals within the sequence
+	for (int i = 0; i < formulaIndices.size(); i++)
 	{
-		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
+		int objectId = formulaIndices[i];
+
+		seq.fractData[i].fractalFormulaObject =
+			newFractalList[GetIndexOnFractalList(fractalsMap[objectId].formula)];
+
+		seq.fractData[i].formulaIterations =
+			generalPar->Get<int>("formula_iterations", objectId + 1); //+1 because objectId is 0-based
+																																// in UI fractals starts from 1
+		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId + 1);
+		seq.fractData[i].formulaStartIteration =
+			generalPar->Get<int>("formula_start_iteration", objectId + 1);
+		seq.fractData[i].formulaStopIteration =
+			generalPar->Get<int>("formula_stop_iteration", objectId + 1);
+		seq.fractData[i].addCConstant = generalPar->Get<bool>("dont_add_c_constant", objectId + 1);
+		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId + 1);
+
+		seq.fractData[i].bailout = seq.fractData[i].fractalFormulaObject->getDefaultBailout();
 	}
 
-	//	for (int i = 0; i < sequence.length; i++)
-	//	{
-	//		counter++;
-	//
-	//		int repeatCount = 0;
-	//		while ((fractals[fractalNo]->formula == fractal::none || i <
-	// formulaStartIteration[fractalNo]
-	//						 || i > formulaStopIteration[fractalNo])
-	//					 && repeatCount < NUMBER_OF_FRACTALS)
-	//		{
-	//			fractalNo++;
-	//			if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
-	//			repeatCount++;
-	//		}
-	//		hybridSequence[i] = fractalNo;
-	//		if (fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex)
-	//			maxFractalIndex = fractalNo;
-	//
-	//		if (counter >= counts[fractalNo])
-	//		{
-	//			counter = 0;
-	//			fractalNo++;
-	//			if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
-	//		}
-	//	}
-	//	else
-	//	{
-	//		hybridSequence[i] = 0;
-	//	}
+	bool rapidEndOfSequence = false;
+	int lastSequenceIndex = 0;
 
-	return sequence;
+	for (int i = 0; i < seq.length; i++)
+	{
+		counter++;
+
+		int objectId = formulaIndices[fractalNoInSeqnece];
+
+		sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
+
+		int searchRepeatCount = 0;
+		// skipping 'none' formulas and formulas out of iteration range
+		while ((fractalsMap[objectId].formula == fractal::none || i < seqData.formulaStartIteration
+						 || i > seqData.formulaStopIteration)
+					 && searchRepeatCount < seq.fractData.size())
+		{
+			fractalNoInSeqnece++;
+
+			// wrapping fractal number in sequence
+			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+			searchRepeatCount++;
+		}
+
+		// checking if all formulas are 'none' or out of range
+		if (searchRepeatCount >= seq.fractData.size())
+		{
+			rapidEndOfSequence = true;
+			break;
+		}
+
+		seq.seqence[i] = fractalNoInSeqnece;
+		lastSequenceIndex = i;
+
+		// advancing to next fractal in sequence if needed
+		if (counter >= seqData.formulaIterations)
+		{
+			counter = 0;
+			fractalNoInSeqnece++;
+			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+		}
+	}
+
+	if (rapidEndOfSequence)
+	{
+		seq.length = lastSequenceIndex + 1;
+	}
+}
+
+int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula formula)
+{
+	for (int i = 0; i < newFractalList.size(); i++)
+	{
+		if (newFractalList[i]->getInternalId() == formula)
+		{
+			return i;
+		}
+	}
+	return 0;
 }

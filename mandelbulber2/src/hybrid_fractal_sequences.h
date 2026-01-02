@@ -14,10 +14,13 @@
 
 #include "fractal_enums.h"
 #include "objects_tree.h"
+#include "algebra.hpp"
+#include "formula/definition/all_fractal_list.hpp"
 
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
+class cAbstractFractal;
 struct sFractal;
 
 class cHybridFractalSequences
@@ -25,15 +28,35 @@ class cHybridFractalSequences
 public:
 	cHybridFractalSequences();
 
+	struct sFractalData
+	{
+		double formulaWeight;
+		int formulaIterations;
+		int formulaStartIteration;
+		int formulaStopIteration;
+		bool addCConstant;
+		bool checkForBailout;
+		double bailout;
+		cAbstractFractal *fractalFormulaObject;
+	};
+
 	struct sSequence
 	{
-		std::vector<int> sequence;
-		int length;
+		std::vector<int> seqence;						 // hybrud fractal sequence - indexes to fractData
+		std::vector<sFractalData> fractData; // data for each fractal used in the sequence
+		int length;													 // length of the seqence
 
 		fractal::enumDEFunctionType DEFunctionType;
 		fractal::enumDEType DEType;
 		fractal::enumDEAnalyticFunction DEAnalyticFunction;
 		fractal::enumColoringFunction coloringFunction;
+
+		bool juliaEnabled;
+		CVector3 juliaConstant;
+		CVector3 constantMultiplier;
+		double initialWAxis;
+		bool useAdditionalBailoutCond;
+		int formulaMaxiter;
 	};
 
 	void CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
@@ -42,8 +65,9 @@ public:
 private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,
 		std::shared_ptr<const cFractalContainer> parr);
-	sSequence CreateSequence(
-		std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices);
+	sSequence CreateSequence(sSequence seq, std::shared_ptr<const cParameterContainer> generalPar,
+		std::vector<int> formulaIndices);
+	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
 	cObjectsTree objectsTree;
 	std::vector<cObjectsTree::sNodeDataForRendering> objectsNodes;
