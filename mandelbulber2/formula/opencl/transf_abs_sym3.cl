@@ -110,8 +110,6 @@ REAL4 TransfAbsSym3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			aux->old_z = z; // update for next iter
 		}
 
-	//	colAdd += fractal->foldColor.difs0000.x * temp;
-	//	colAdd += fractal->foldColor.difs0000.y * sinPhi;
 		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)

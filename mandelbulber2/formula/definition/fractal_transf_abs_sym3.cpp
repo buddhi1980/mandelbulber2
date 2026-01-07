@@ -123,8 +123,7 @@ void cFractalTransfAbsSym3::FormulaCode(
 
 			aux.old_z = z; // update for next iter, could be aux.lastZ
 		}
-		// colAdd += fractal->foldColor.difs0000.x * temp;
-		// colAdd += fractal->foldColor.difs0000.y * sinPhi;
+
 		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;

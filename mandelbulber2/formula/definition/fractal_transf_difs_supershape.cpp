@@ -84,7 +84,7 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	else r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 	if (!fractal->transformCommon.functionEnabledFFalse)
-		r1 = 1.0f / r1;
+		r1 = 1.0 / r1;
 
 	r1 = r1 * fractal->transformCommon.radius1;
 	z.z *= fractal->transformCommon.scaleB1;
