@@ -1529,7 +1529,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				if (data.in->useAntiAliasing) // with anti-aliasing
 				{
 					newPixelNoise =
-						data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+						0.5 * data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 				}
 				else // without anti-aliasing
 				{
@@ -1549,7 +1549,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 					else // smoothing noise
 					{
 						newPixelNoise =
-							data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+							0.5 * data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 					}
 				}
 
@@ -1567,7 +1567,28 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 								|| (!data.in->useAntiAliasing
 										&& output.monteCarloLoop > data.in->minNumberOfSamples)))
 				{
-					if (newPixelNoiseSqrt < data.in->noiseTarget / 100.0f) // mask pixel when done
+					// check if actual pixel and neighbors have enough low nose levels
+					// it is needed to isolate single high-noise pixels
+					bool allNeiighborsLowNoise = true;
+					for (int yyOffset = -1; yyOffset <= 1; yyOffset++)
+					{
+						for (int xxOffset = -1; xxOffset <= 1; xxOffset++)
+						{
+							int neighborX = int(x) + xxOffset;
+							int neighborY = int(y) + yyOffset;
+							if (neighborX >= 0 && neighborX < int(jobWidth) && neighborY >= 0
+									&& neighborY < int(jobHeight))
+							{
+								float neighborNoiseLevel = individualNoiseLevels[neighborX + neighborY * jobWidth];
+								if (neighborNoiseLevel > data.in->noiseTarget / 100.0f)
+								{
+									allNeiighborsLowNoise = false;
+								}
+							}
+						}
+					}
+
+					if (allNeiighborsLowNoise)
 					{
 						data.pixelMask->at(xx + yy * data.in->width) = false;
 					}
@@ -1615,10 +1636,10 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				float minG = 1e10;
 				float minB = 1e10;
 
-				// check 3x3 neighborhood
-				for (int yy = std::max(y - 1, 0); yy <= min(y + 1, int(jobHeight) - 1); yy++)
+				// check 5x5 neighborhood
+				for (int yy = std::max(y - 2, 0); yy <= min(y + 2, int(jobHeight) - 1); yy++)
 				{
-					for (int xx = std::max(x - 1, 0); xx <= min(x + 1, int(jobWidth) - 1); xx++)
+					for (int xx = std::max(x - 2, 0); xx <= min(x + 2, int(jobWidth) - 1); xx++)
 					{
 						int xxx = xx + jobX;
 						int yyy = yy + jobY;
@@ -1964,7 +1985,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			if (constantInBuffer->params.antialiasingAdaptive)
 			{
 				minNumberOfSamples = 0;
-				noiseTarget = 100.0 / sqrt(numberOfSamples);
+				noiseTarget = min(4.0 * 100.0 / numberOfSamples, 50.0);
 			}
 			else
 			{

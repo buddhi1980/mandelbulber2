@@ -1375,42 +1375,53 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 							float noise = tile.individualNoiseLevels[y * tile.width + x];
 							if (noise > -100.0)
 							{
-								float noise2 = noise * 100.0;
-								float t = clamp(1.0f - noise2, 0.0f, 1.0f);
-								int r, g, b;
+								// Map t to blue → green → yellow → orange → red with custom ranges
+								float t = noise * 100.0; // use your actual value here
+								int r = 0, g = 0, b = 0;
 
-								if (t < 0.25f)
+								if (t <= 0.25f)
 								{
-									// Red (1,0,0) to Orange (1,0.5,0)
+									// Blue (0,0,255) to Green (0,255,0)
 									float f = t / 0.25f;
-									r = 255;
-									g = int(128 * f);
-									b = 0;
+									r = 0;
+									g = int(255 * f);
+									b = 255 - int(255 * f);
 								}
-								else if (t < 0.5f)
+								else if (t <= 0.5f)
 								{
-									// Orange (1,0.5,0) to Yellow (1,1,0)
+									// Green (0,255,0) to Yellow (255,255,0)
 									float f = (t - 0.25f) / 0.25f;
-									r = 255;
-									g = 128 + int(127 * f);
+									r = int(255 * f);
+									g = 255;
 									b = 0;
 								}
-								else if (t < 0.75f)
+								else if (t < 1.0f)
 								{
-									// Yellow (1,1,0) to Green (0,1,0)
-									float f = (t - 0.5f) / 0.25f;
-									r = 255 - int(255 * f);
-									g = 255;
+									// Yellow (255,255,0) to Orange (255,128,0)
+									float f = (t - 0.5f) / 0.5f;
+									r = 255;
+									g = 255 - int(127 * f);
+									b = 0;
+								}
+								else if (t < 5.0f)
+								{
+									// Orange (255,128,0) to Red (255,0,0)
+									float f = (t - 1.0f) / 4.0f;
+									r = 255;
+									g = 128 - int(128 * f);
 									b = 0;
 								}
 								else
 								{
-									// Green (0,1,0) to Blue (0,0,1)
-									float f = (t - 0.75f) / 0.25f;
-									r = 0;
-									g = 255 - int(255 * f);
-									b = int(255 * f);
+									// Red (255,0,0)
+									r = 255;
+									g = 0;
+									b = 0;
 								}
+
+								r = clamp(r, 0, 255);
+								g = clamp(g, 0, 255);
+								b = clamp(b, 0, 255);
 
 								painter.setPen(QPen(QColor(r, g, b), 2.0, Qt::SolidLine));
 								painter.drawPoint(QPointF((tile.x + x) * image->GetPreviewScale() / dpiScale,

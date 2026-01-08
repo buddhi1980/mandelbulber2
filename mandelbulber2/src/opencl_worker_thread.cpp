@@ -379,39 +379,75 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 
 	if (pixelMask->size() > 0)
 	{
-		quint64 sequenceIndex = 0;
-		for (quint64 y = 0; y < jobHeight; y += subTileSize)
+		// check number of pixels left to render
+		quint64 pixelsToRender = 0;
+		for (quint64 y = 0; y < jobHeight; y++)
 		{
-			for (quint64 x = 0; x < jobWidth; x += subTileSize)
+			for (quint64 x = 0; x < jobWidth; x++)
 			{
-				bool havePixel = false;
-				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+				if (pixelMask->at((x + jobX) + (y + jobY) * imageWidth))
 				{
-					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
-					{
-						if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
-						{
-							havePixel = true;
-							break;
-						}
-					}
-					if (havePixel) break;
+					pixelsToRender++;
 				}
+			}
+		}
 
-				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+		if (pixelsToRender > maxWorkgroupSize * 32)
+		{
+			// creating the sequence
+			quint64 sequenceIndex = 0;
+			for (quint64 y = 0; y < jobHeight; y += subTileSize)
+			{
+				for (quint64 x = 0; x < jobWidth; x += subTileSize)
 				{
-					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+					// checking if at least one pixel in sub-tile is enabled
+					bool havePixel = false;
+					for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
 					{
-						if (havePixel)
+						for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
 						{
-							inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
-							sequenceIndex++;
+							if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
+							{
+								havePixel = true;
+								break;
+							}
+						}
+						if (havePixel) break;
+					}
+
+					// adding pixels from sub-tile to sequence
+					for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+					{
+						for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+						{
+							if (havePixel)
+							{
+								inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
+								sequenceIndex++;
+							}
 						}
 					}
 				}
 			}
+			sequenceSize = sequenceIndex;
 		}
-		sequenceSize = sequenceIndex;
+		else
+		{
+			// creating the sequence
+			quint64 sequenceIndex = 0;
+			for (quint64 y = 0; y < jobHeight; y++)
+			{
+				for (quint64 x = 0; x < jobWidth; x++)
+				{
+					if (pixelMask->at((x + jobX) + (y + jobY) * imageWidth))
+					{
+						inPixelSequenceBuffer[sequenceIndex] = x + y * jobWidth;
+						sequenceIndex++;
+					}
+				}
+			}
+			sequenceSize = sequenceIndex;
+		}
 	}
 	else
 	{
