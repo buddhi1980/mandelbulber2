@@ -83,6 +83,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// Mandelbulb formulas
 	fractalList->append(new cFractalMandelbar());
 	fractalList->append(new cFractalMandelbarV2());
+	fractalList->append(new cFractalMandelbarV3());
+
 	fractalList->append(new cFractalMandelbulb());
 	fractalList->append(new cFractalMandelbulb2());
 	fractalList->append(new cFractalMandelbulb3());
@@ -590,7 +592,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 
-	fractalList->append(new cFractalMandelbarV3());
+
 	fractalList->append(new cFractalEiffieCar());
 	fractalList->append(new cFractalMsltoeToroidalV3());
 	fractalList->append(new cFractalMandelbulbPow2V4());
