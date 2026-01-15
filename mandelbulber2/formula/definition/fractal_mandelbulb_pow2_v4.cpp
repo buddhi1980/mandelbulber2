@@ -36,7 +36,7 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double cosPhi;
 	double sinPhi;
 	double cosTheta1;
-//	double cosTheta2;
+	double cosTheta2;
 	double cosTheta;
 	double sinTheta;
 
@@ -75,14 +75,25 @@ void cFractalMandelbulbPow2V4::FormulaCode(CVector4 &z, const sFractal *fractal,
 		t = w.Length();
 		w = w / t;
 		cosPhi = w.x * w.x - w.y * w.y;
+
+		if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+				 cosPhi = -cosPhi;
 		t = w.y * w.x;
 		sinPhi = t + t;
 		cosTheta1 = v.x * w.x + v.y * w.y;
-	//	cosTheta2 = v.x * w.x + v.y * w.y;
-		cosTheta = cosTheta1 * cosTheta1 - v.z * v.z;
-		t =v.z * cosTheta1;
-		sinTheta = t + t;
-	//	sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
+		cosTheta2 = cosTheta1;
+
+		if (fractal->transformCommon.functionEnabledNFalse
+				&& aux.i >= fractal->transformCommon.startIterationsN
+				&& aux.i < fractal->transformCommon.stopIterationsN)
+			cosTheta1 = -cosTheta1;
+
+		cosTheta = cosTheta1 * cosTheta2 - v.z * v.z;
+	//	t =v.z * cosTheta1;
+	//	sinTheta = t + t;
+		sinTheta = v.z * cosTheta2 + v.z * cosTheta1;
 	}
 
 	CVector4 f = z;
