@@ -44,6 +44,7 @@
 #include "error_message.hpp"
 #include "fractparams.hpp"
 #include "global_data.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "image_scale.hpp"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
@@ -409,6 +410,9 @@ bool cRenderJob::Execute()
 					paramsContainer, &renderData->objectData, &renderData->nodesDataForRendering));
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
+
+				//cHybridFractalSequences hybridSequences;
+				//hybridSequences.CreateSequences(paramsContainer, fractalContainer);
 
 				renderData->ValidateObjects();
 

@@ -34,8 +34,10 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	std::vector<int> formulaIndices;
 	int levelOfHybrid = -1;
 
-	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
+	for (int nodeIndex = 0; nodeIndex < objectsNodes.size(); nodeIndex++)
 	{
+		const cObjectsTree::sNodeDataForRendering &node = objectsNodes[nodeIndex];
+
 		if (node.type == enumNodeType::hybrid)
 		{
 			hybridNodeEntered = true;
@@ -48,8 +50,21 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			formulaIndices.push_back(node.userObjectId);
 		}
 
-		bool endOfHybridNode =
-			node.type != enumNodeType::fractal && node.level <= levelOfHybrid && hybridNodeEntered;
+		bool endOfHybridNode = false;
+		if (hybridNodeEntered)
+		{
+			if (nodeIndex + 1 < objectsNodes.size())
+			{
+				const cObjectsTree::sNodeDataForRendering &nextNode = objectsNodes[nodeIndex + 1];
+				endOfHybridNode = nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
+			}
+			else
+			{
+				// Last node: end hybrid if still inside
+				endOfHybridNode = true;
+			}
+		}
+
 		bool singleFractal = node.type == enumNodeType::fractal && !hybridNodeEntered;
 
 		if (singleFractal)
@@ -190,6 +205,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	{
 		seq.length = lastSequenceIndex + 1;
 	}
+
+	return seq;
 }
 
 int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula formula)
