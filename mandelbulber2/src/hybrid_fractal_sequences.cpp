@@ -76,10 +76,10 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		{
 			// creating sequence for collected formula indices
 			sSequence sequence;
-			sequence.DEFunctionType = undefinedDEFunction;					 // FIXME: later
-			sequence.DEType = undefinedDEType;											 // FIXME: later
-			sequence.DEAnalyticFunction = analyticFunctionUndefined; // FIXME: later
-			sequence.coloringFunction = coloringFunctionUndefined;	 // FIXME: later
+			sequence.DEFunctionType = logarithmicDEFunction;					 // FIXME: later
+			sequence.DEType = analyticDEType;													 // FIXME: later
+			sequence.DEAnalyticFunction = analyticFunctionLogarithmic; // FIXME: later
+			sequence.coloringFunction = coloringFunctionDefault;			 // FIXME: later
 			CreateSequence(sequence, generalPar, formulaIndices);
 
 			sequences.push_back(sequence);

@@ -40,6 +40,7 @@
 
 #include <QDebug>
 
+#include "hybrid_fractal_sequences.h"
 #include "lights.hpp"
 #include "material.h"
 #include "object_data.hpp"
@@ -87,6 +88,7 @@ struct sRenderData
 	std::vector<cObjectData> objectData;
 	cStereo stereo;
 	std::vector<cObjectsTree::sNodeDataForRendering> nodesDataForRendering;
+	cHybridFractalSequences hybridFractalSequences;
 
 	void ValidateObjects()
 	{

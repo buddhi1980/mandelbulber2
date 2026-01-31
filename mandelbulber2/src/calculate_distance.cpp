@@ -100,7 +100,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		point *= params.formulaScale[0];
 		inTemp.point = point;
 
-		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
+		distance =
+			CalculateDistanceSimple(params, fractals, inTemp, out, 0, nullptr) / params.formulaScale[0];
 
 		CVector3 pointFractalized = inTemp.point;
 		double reduceDisplacement = 1.0;
@@ -121,8 +122,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 
-				double distTemp = CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1)
-													/ params.formulaScale[i + 1];
+				double distTemp =
+					CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1, nullptr)
+					/ params.formulaScale[i + 1];
 
 				CVector3 pointFractalized = inTemp.point;
 				double reduceDisplacement = 1.0;
@@ -202,7 +204,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	}
 	else
 	{
-		distance = CalculateDistanceSimple(params, fractals, in, out, -1);
+		distance = CalculateDistanceSimple(params, fractals, in, out, -1, nullptr);
 
 		CVector3 pointFractalized = in.point;
 		double reduceDisplacement = 1.0;
@@ -315,7 +317,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				case enumNodeType::fractal:
 				{
 					sDistanceOut nodeOut;
-					distance = CalculateDistanceSimple(params, fractals, in, &nodeOut, node.internalObjectId);
+					distance =
+						CalculateDistanceSimple(params, fractals, in, &nodeOut, node.internalObjectId, nullptr);
 					break;
 				}
 				case enumNodeType::primitive:
@@ -323,6 +326,15 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 						distance = primitives[primIdx]->PrimitiveDistance(in.point);
+					break;
+				}
+				case enumNodeType::hybrid:
+				{
+					// hybrid fractal sequence
+					int seqIndex = node.hybridSequenceIndex;
+					sDistanceOut nodeOut;
+					distance = CalculateDistanceSimple(
+						params, fractals, in, &nodeOut, -1, data->hybridFractalSequences.GetSequence(seqIndex));
 					break;
 				}
 				case enumNodeType::booleanAdd:
@@ -380,7 +392,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 }
 
 double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
+	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex,
+	const cHybridFractalSequences::sSequence *sequence)
 {
 	double distance = 0;
 
@@ -393,7 +406,7 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 
 	if (fractals.GetDEType(forcedFormulaIndex) == fractal::analyticDEType)
 	{
-		Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
+		Compute<fractal::calcModeNormal>(fractals, sequence, fractIn, &fractOut);
 		distance = fractOut.distance;
 		// qDebug() << "computed distance" << distance;
 		out->maxiter = fractOut.maxiter;
@@ -451,7 +464,7 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 			deltaDE = max(fractIn.point.Length() * 1e-14, 1e-5 * in.detailSize);
 		}
 
-		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		Compute<fractal::calcModeDeltaDE1>(fractals, sequence, fractIn, &fractOut);
 		const double r = fractOut.z.Length();
 		CVector3 zFromIters = fractOut.z;
 		out->maxiter = fractOut.maxiter;
@@ -475,19 +488,19 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 			fractOut.iters; // for other directions must be the same number of iterations
 
 		fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
-		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		Compute<fractal::calcModeDeltaDE1>(fractals, sequence, fractIn, &fractOut);
 		double r2 = fractOut.z.Length();
 		const double dr1 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
 		fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
-		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		Compute<fractal::calcModeDeltaDE1>(fractals, sequence, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
 		const double dr2 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
 		fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
-		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		Compute<fractal::calcModeDeltaDE1>(fractals, sequence, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
 		const double dr3 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;

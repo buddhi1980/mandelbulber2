@@ -39,6 +39,7 @@ public:
 		int internalObjectId;
 		int primitiveIdx;
 		int level;
+		int hybridSequenceIndex;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

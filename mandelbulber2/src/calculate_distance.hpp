@@ -42,6 +42,7 @@
 #include <memory>
 
 #include "common_math.h"
+#include "hybrid_fractal_sequences.h"
 
 // forward declarations
 class cNineFractals;
@@ -72,7 +73,8 @@ struct sDistanceOut
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
 double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
+	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex,
+	const cHybridFractalSequences::sSequence *sequence);
 double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 	std::shared_ptr<const cNineFractals> fractals, const CVector3 point, const CVector3 direction,
 	const CVector3 orthDirection, bool *stopRequest);

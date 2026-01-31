@@ -51,7 +51,7 @@ sRGBAFloat cRenderWorker::FakeLights(
 
 		sFractalIn fractIn(input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 		sFractalOut fractOut;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
 		double rr = fractOut.orbitTrapR;
 		double r = 1.0 / (rr + 1e-30);
 
@@ -62,15 +62,15 @@ sRGBAFloat cRenderWorker::FakeLights(
 		CVector3 deltaZ(0.0, 0.0, delta);
 
 		fractIn.point = input.point + deltaX;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
 		double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 		fractIn.point = input.point + deltaY;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
 		double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 		fractIn.point = input.point + deltaZ;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
 		double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 		CVector3 fakeLightNormal;

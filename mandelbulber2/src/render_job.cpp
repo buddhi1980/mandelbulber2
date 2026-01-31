@@ -411,8 +411,12 @@ bool cRenderJob::Execute()
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
 
-				//cHybridFractalSequences hybridSequences;
-				//hybridSequences.CreateSequences(paramsContainer, fractalContainer);
+				if (params->objectsTreeEnable)
+				{
+					cHybridFractalSequences hybridSequences;
+					hybridSequences.CreateSequences(paramsContainer, fractalContainer);
+					renderData->hybridFractalSequences = hybridSequences;
+				}
 
 				renderData->ValidateObjects();
 

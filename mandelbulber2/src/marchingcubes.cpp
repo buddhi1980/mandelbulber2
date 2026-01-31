@@ -451,7 +451,7 @@ __declspec(target(mic))
 	sFractalIn fractIn(point, params->minN, -1, 1, 0, &params->common, -1, false, material);
 	sFractalOut fractOut;
 
-	Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
+	Compute<fractal::calcModeColouring>(*fractals, nullptr, fractIn, &fractOut);
 
 	*colorIndex = fractOut.colorIndex;
 

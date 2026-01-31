@@ -45,7 +45,8 @@
 using namespace fractal;
 
 template <fractal::enumCalculationMode Mode>
-void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out)
+void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequence *seq,
+	const sFractalIn &in, sFractalOut *out)
 {
 	cAbstractFractal *fractalFormulaFunction;
 
@@ -551,15 +552,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	out->z = z.GetXYZ();
 }
 
-template void Compute<calcModeNormal>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeDeltaDE1>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeDeltaDE2>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeColouring>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeOrbitTrap>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeCubeOrbitTrap>(
-	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeNormal>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeDeltaDE1>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeDeltaDE2>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeColouring>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeOrbitTrap>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeCubeOrbitTrap>(const cNineFractals &fractals,
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);

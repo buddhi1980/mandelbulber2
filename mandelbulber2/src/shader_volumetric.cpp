@@ -648,7 +648,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			{
 				sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 				sFractalOut fractOut;
-				Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+				Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
 				float r = fractOut.orbitTrapR;
 				r = sqrtf(1.0f / (r + 1.0e-20f));
 				float fakeLight = 1.0f

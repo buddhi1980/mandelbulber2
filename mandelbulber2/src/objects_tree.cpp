@@ -128,6 +128,8 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 {
 	std::vector<cObjectsTree::sNodeData> nodeList = GetSortedNodeDataList();
 
+	int hybridSequenceIndex = 0;
+
 	std::vector<sNodeDataForRendering> nodeDataList;
 	for (const sNodeData &nodeData : nodeList)
 	{
@@ -139,6 +141,15 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.level = nodeData.level;
 		nodeDataForRendering.internalObjectId = -1; // to be filled later
 		nodeDataForRendering.primitiveIdx = -1;			// to be filled later
+
+		if (nodeDataForRendering.type == enumNodeType::hybrid)
+		{
+			nodeDataForRendering.hybridSequenceIndex = hybridSequenceIndex;
+			hybridSequenceIndex++;
+		}
+		else
+			nodeDataForRendering.hybridSequenceIndex = -1; // it is not hybrid
+
 		nodeDataList.push_back(nodeDataForRendering);
 	}
 	return nodeDataList;
