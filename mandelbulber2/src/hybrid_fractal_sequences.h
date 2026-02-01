@@ -45,6 +45,7 @@ public:
 		std::vector<int> seqence;						 // hybrud fractal sequence - indexes to fractData
 		std::vector<sFractalData> fractData; // data for each fractal used in the sequence
 		int length;													 // length of the seqence
+		int numberOfFractalsInTheSequence;	 // number of different fractals used in the sequence
 
 		fractal::enumDEFunctionType DEFunctionType;
 		fractal::enumDEType DEType;
@@ -57,6 +58,14 @@ public:
 		double initialWAxis;
 		bool useAdditionalBailoutCond;
 		int formulaMaxiter;
+
+		inline int GetSequence(const int i) const
+		{
+			if (i < length)
+				return seqence[i];
+			else
+				return seqence[0];
+		}
 	};
 
 	void CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,

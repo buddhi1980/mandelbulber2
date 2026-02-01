@@ -50,12 +50,15 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			formulaIndices.push_back(node.userObjectId);
 		}
 
+		// checking if it is the last node of hybrid sequence
 		bool endOfHybridNode = false;
 		if (hybridNodeEntered)
 		{
+			// checking next node
 			if (nodeIndex + 1 < objectsNodes.size())
 			{
 				const cObjectsTree::sNodeDataForRendering &nextNode = objectsNodes[nodeIndex + 1];
+				// end hybrid if next node is not fractal or level is less or equal to hybrid node level
 				endOfHybridNode = nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
 			}
 			else
@@ -80,7 +83,8 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			sequence.DEType = analyticDEType;													 // FIXME: later
 			sequence.DEAnalyticFunction = analyticFunctionLogarithmic; // FIXME: later
 			sequence.coloringFunction = coloringFunctionDefault;			 // FIXME: later
-			CreateSequence(sequence, generalPar, formulaIndices);
+
+			sequence = CreateSequence(sequence, generalPar, formulaIndices);
 
 			sequences.push_back(sequence);
 
@@ -116,7 +120,7 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 
 		// getting selected formula
 		fractalsMap[objectId].formula =
-			fractal::enumFractalFormula(generalPar->Get<int>("formula", objectId + 1));
+			fractal::enumFractalFormula(generalPar->Get<int>("formula", objectId));
 	}
 }
 
@@ -130,6 +134,7 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	seq.fractData.resize(formulaIndices.size());
 
 	int numberOfFormulas = formulaIndices.size();
+	seq.numberOfFractalsInTheSequence = numberOfFormulas;
 
 	int repeatFrom = generalPar->Get<int>("repeat_from");
 
@@ -189,7 +194,10 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			break;
 		}
 
-		seq.seqence[i] = fractalNoInSeqnece;
+		// seq.seqence[i] = fractalNoInSeqnece;
+		seq.seqence[i] =
+			objectId - 1; // FIXME: temporaru solution for CalculateFractal to use NineFrcatas data
+
 		lastSequenceIndex = i;
 
 		// advancing to next fractal in sequence if needed

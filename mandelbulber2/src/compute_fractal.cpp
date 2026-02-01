@@ -159,7 +159,16 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		}
 		else
 		{
-			sequence = fractals.GetSequence(i);
+			if (seq)
+			{
+				// FIXME it should return sequence instead instead of objectID
+				// it is temporary solution
+				sequence = seq->GetSequence(i);
+			}
+			else
+			{
+				sequence = fractals.GetSequence(i);
+			}
 		}
 
 		// foldings
