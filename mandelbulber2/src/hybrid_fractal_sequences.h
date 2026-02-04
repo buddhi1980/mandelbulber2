@@ -76,7 +76,7 @@ private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,
 		std::shared_ptr<const cFractalContainer> parr);
 	sSequence CreateSequence(sSequence seq, std::shared_ptr<const cParameterContainer> generalPar,
-		std::vector<int> formulaIndices);
+		std::vector<int> formulaIndices, bool singleFractal);
 	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
 	cObjectsTree objectsTree;

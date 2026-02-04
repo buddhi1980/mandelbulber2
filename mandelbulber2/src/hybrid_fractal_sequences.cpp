@@ -84,7 +84,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			sequence.DEAnalyticFunction = analyticFunctionLogarithmic; // FIXME: later
 			sequence.coloringFunction = coloringFunctionDefault;			 // FIXME: later
 
-			sequence = CreateSequence(sequence, generalPar, formulaIndices);
+			sequence = CreateSequence(sequence, generalPar, formulaIndices, singleFractal);
 
 			sequences.push_back(sequence);
 
@@ -125,8 +125,11 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 }
 
 cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequence seq,
-	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices)
+	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices,
+	bool singleFractal)
 {
+	bool isHybrid = !singleFractal;
+
 	int maxN = 250; // FIXME separate for each sequence
 
 	seq.length = maxN * 5;
@@ -141,26 +144,92 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	int fractalNoInSeqnece = 0;
 	int counter = 0;
 
+	double maxBailout = 0.0;
+	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
+	double commonBailout = generalPar->Get<double>("bailout");
+
 	// collecting data for fractals within the sequence
 	for (int i = 0; i < formulaIndices.size(); i++)
 	{
 		int objectId = formulaIndices[i];
 
-		seq.fractData[i].fractalFormulaObject =
-			newFractalList[GetIndexOnFractalList(fractalsMap[objectId].formula)];
+		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
+		int indexOnFractalList = GetIndexOnFractalList(formula);
+		cAbstractFractal *fractalObject = newFractalList[indexOnFractalList];
 
-		seq.fractData[i].formulaIterations =
-			generalPar->Get<int>("formula_iterations", objectId + 1); //+1 because objectId is 0-based
-																																// in UI fractals starts from 1
-		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId + 1);
+		seq.fractData[i].fractalFormulaObject = fractalObject;
+		seq.fractData[i].formulaIterations = generalPar->Get<int>("formula_iterations", objectId);
+		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId);
 		seq.fractData[i].formulaStartIteration =
-			generalPar->Get<int>("formula_start_iteration", objectId + 1);
+			generalPar->Get<int>("formula_start_iteration", objectId);
 		seq.fractData[i].formulaStopIteration =
-			generalPar->Get<int>("formula_stop_iteration", objectId + 1);
-		seq.fractData[i].addCConstant = generalPar->Get<bool>("dont_add_c_constant", objectId + 1);
-		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId + 1);
+			generalPar->Get<int>("formula_stop_iteration", objectId);
+		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId);
 
-		seq.fractData[i].bailout = seq.fractData[i].fractalFormulaObject->getDefaultBailout();
+		if (singleFractal) seq.fractData[i].checkForBailout = true;
+
+		// decide if use addition of C constant
+		bool addc = false;
+		if (fractalObject->getCpixelAddition() == fractal::cpixelAlreadyHas)
+		{
+			addc = false;
+		}
+		else
+		{
+			addc = !generalPar->Get<bool>("dont_add_c_constant", objectId);
+			if (fractalObject->getCpixelAddition() == fractal::cpixelDisabledByDefault) addc = !addc;
+		}
+		seq.fractData[i].addCConstant = addc;
+
+		// default bailout or global one
+		if (useDefaultBailout)
+		{
+			if (isHybrid)
+				maxBailout = qMax(maxBailout, fractalObject->getDefaultBailout());
+			else
+				seq.fractData[i].bailout = fractalObject->getDefaultBailout();
+		}
+		else
+		{
+			seq.fractData[i].bailout = commonBailout;
+		}
+
+		// Julia parameters - local or global
+		if (singleFractal)
+		{
+			seq.juliaEnabled = generalPar->Get<bool>("julia_mode", i + 1);
+			seq.juliaConstant = generalPar->Get<CVector3>("julia_c", i + 1);
+			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
+			seq.initialWAxis = generalPar->Get<double>("initial_waxis", i + 1);
+			seq.formulaMaxiter = generalPar->Get<double>("formula_maxiter", i + 1);
+		}
+		else
+		{
+			seq.juliaEnabled = generalPar->Get<bool>("julia_mode");
+			seq.juliaConstant = generalPar->Get<CVector3>("julia_c");
+			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor");
+			seq.initialWAxis = generalPar->Get<double>("initial_waxis");
+			seq.formulaMaxiter = generalPar->Get<double>("N");
+		}
+
+		seq.useAdditionalBailoutCond = false;
+		if (singleFractal)
+		{
+			if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
+					|| fractalObject->getDeFunctionType() == fractal::josKleinianDEFunction)
+			{
+				seq.useAdditionalBailoutCond = true;
+			}
+		}
+	}
+
+	// common bailout for all hybrid components
+	if (isHybrid && useDefaultBailout)
+	{
+		for (int i = 0; i < formulaIndices.size(); i++)
+		{
+			seq.fractData[i].bailout = maxBailout;
+		}
 	}
 
 	bool rapidEndOfSequence = false;
