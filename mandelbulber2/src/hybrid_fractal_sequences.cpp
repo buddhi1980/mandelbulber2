@@ -124,6 +124,89 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 	}
 }
 
+void cHybridFractalSequences::CollectSequenceData(
+	const std::shared_ptr<const cParameterContainer> &generalPar,
+	const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, sSequence &seq)
+{
+	double maxBailout = 0.0;
+	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
+	double commonBailout = generalPar->Get<double>("bailout");
+	// collecting data for fractals within the sequence
+	for (int i = 0; i < formulaIndices.size(); i++)
+	{
+		int objectId = formulaIndices[i];
+		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
+		int indexOnFractalList = GetIndexOnFractalList(formula);
+		cAbstractFractal *fractalObject = newFractalList[indexOnFractalList];
+		seq.fractData[i].fractalFormulaObject = fractalObject;
+		seq.fractData[i].formulaIterations = generalPar->Get<int>("formula_iterations", objectId);
+		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId);
+		seq.fractData[i].formulaStartIteration =
+			generalPar->Get<int>("formula_start_iteration", objectId);
+		seq.fractData[i].formulaStopIteration =
+			generalPar->Get<int>("formula_stop_iteration", objectId);
+		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId);
+		if (singleFractal) seq.fractData[i].checkForBailout = true;
+
+		// decide if use addition of C constant
+		bool addc = false;
+		if (fractalObject->getCpixelAddition() == fractal::cpixelAlreadyHas)
+		{
+			addc = false;
+		}
+		else
+		{
+			addc = !generalPar->Get<bool>("dont_add_c_constant", objectId);
+			if (fractalObject->getCpixelAddition() == fractal::cpixelDisabledByDefault) addc = !addc;
+		}
+		seq.fractData[i].addCConstant = addc;
+		// default bailout or global one
+		if (useDefaultBailout)
+		{
+			if (isHybrid)
+				maxBailout = qMax(maxBailout, fractalObject->getDefaultBailout());
+			else
+				seq.fractData[i].bailout = fractalObject->getDefaultBailout();
+		}
+		else
+		{
+			seq.fractData[i].bailout = commonBailout;
+		}
+		// Julia parameters - local or global
+		if (singleFractal)
+		{
+			seq.juliaEnabled = generalPar->Get<bool>("julia_mode", objectId);
+			seq.juliaConstant = generalPar->Get<CVector3>("julia_c", objectId);
+			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor", objectId);
+			seq.initialWAxis = generalPar->Get<double>("initial_waxis", objectId);
+			seq.formulaMaxiter = generalPar->Get<double>("formula_maxiter", objectId);
+		}
+
+		if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
+				|| fractalObject->getDeFunctionType() == fractal::josKleinianDEFunction)
+		{
+			seq.fractData[i].useAdditionalBailoutCond = true;
+		}
+	}
+	// common bailout for all hybrid components
+	if (isHybrid && useDefaultBailout)
+	{
+		for (int i = 0; i < formulaIndices.size(); i++)
+		{
+			seq.fractData[i].bailout = maxBailout;
+		}
+	}
+
+	if (isHybrid)
+	{
+		seq.juliaEnabled = generalPar->Get<bool>("julia_mode");
+		seq.juliaConstant = generalPar->Get<CVector3>("julia_c");
+		seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor");
+		seq.initialWAxis = generalPar->Get<double>("initial_waxis");
+		seq.formulaMaxiter = generalPar->Get<double>("N");
+	}
+}
+
 cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequence seq,
 	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices,
 	bool singleFractal)
@@ -144,94 +227,9 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	int fractalNoInSeqnece = 0;
 	int counter = 0;
 
-	double maxBailout = 0.0;
-	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
-	double commonBailout = generalPar->Get<double>("bailout");
+	CollectSequenceData(generalPar, formulaIndices, singleFractal, isHybrid, seq);
 
-	// collecting data for fractals within the sequence
-	for (int i = 0; i < formulaIndices.size(); i++)
-	{
-		int objectId = formulaIndices[i];
-
-		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
-		int indexOnFractalList = GetIndexOnFractalList(formula);
-		cAbstractFractal *fractalObject = newFractalList[indexOnFractalList];
-
-		seq.fractData[i].fractalFormulaObject = fractalObject;
-		seq.fractData[i].formulaIterations = generalPar->Get<int>("formula_iterations", objectId);
-		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId);
-		seq.fractData[i].formulaStartIteration =
-			generalPar->Get<int>("formula_start_iteration", objectId);
-		seq.fractData[i].formulaStopIteration =
-			generalPar->Get<int>("formula_stop_iteration", objectId);
-		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId);
-
-		if (singleFractal) seq.fractData[i].checkForBailout = true;
-
-		// decide if use addition of C constant
-		bool addc = false;
-		if (fractalObject->getCpixelAddition() == fractal::cpixelAlreadyHas)
-		{
-			addc = false;
-		}
-		else
-		{
-			addc = !generalPar->Get<bool>("dont_add_c_constant", objectId);
-			if (fractalObject->getCpixelAddition() == fractal::cpixelDisabledByDefault) addc = !addc;
-		}
-		seq.fractData[i].addCConstant = addc;
-
-		// default bailout or global one
-		if (useDefaultBailout)
-		{
-			if (isHybrid)
-				maxBailout = qMax(maxBailout, fractalObject->getDefaultBailout());
-			else
-				seq.fractData[i].bailout = fractalObject->getDefaultBailout();
-		}
-		else
-		{
-			seq.fractData[i].bailout = commonBailout;
-		}
-
-		// Julia parameters - local or global
-		if (singleFractal)
-		{
-			seq.juliaEnabled = generalPar->Get<bool>("julia_mode", i + 1);
-			seq.juliaConstant = generalPar->Get<CVector3>("julia_c", i + 1);
-			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
-			seq.initialWAxis = generalPar->Get<double>("initial_waxis", i + 1);
-			seq.formulaMaxiter = generalPar->Get<double>("formula_maxiter", i + 1);
-		}
-		else
-		{
-			seq.juliaEnabled = generalPar->Get<bool>("julia_mode");
-			seq.juliaConstant = generalPar->Get<CVector3>("julia_c");
-			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor");
-			seq.initialWAxis = generalPar->Get<double>("initial_waxis");
-			seq.formulaMaxiter = generalPar->Get<double>("N");
-		}
-
-		seq.useAdditionalBailoutCond = false;
-		if (singleFractal)
-		{
-			if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
-					|| fractalObject->getDeFunctionType() == fractal::josKleinianDEFunction)
-			{
-				seq.useAdditionalBailoutCond = true;
-			}
-		}
-	}
-
-	// common bailout for all hybrid components
-	if (isHybrid && useDefaultBailout)
-	{
-		for (int i = 0; i < formulaIndices.size(); i++)
-		{
-			seq.fractData[i].bailout = maxBailout;
-		}
-	}
-
+	// generating the sequence
 	bool rapidEndOfSequence = false;
 	int lastSequenceIndex = 0;
 
@@ -283,6 +281,136 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		seq.length = lastSequenceIndex + 1;
 	}
 
+	bool forceDeltaDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceDeltaDEMethod;
+
+	bool forceAnalyticDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceAnalyticDE;
+
+	fractal::enumDEFunctionType optimizedDEType = fractal::withoutDEFunction;
+
+	if (isHybrid)
+	{
+		seq.DEType = fractal::analyticDEType;
+
+		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
+				== fractal::preferredDEFunction)
+		{
+			// finding preferred delta DE function
+
+			// table to check the which DE type is the most popular
+			int DEFunctionCount[fractal::numberOfDEFunctions + 1];
+			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				DEFunctionCount[i] = 0;
+
+			for (int f = 0; f < numberOfFormulas; f++)
+			{
+				fractal::enumFractalFormula formula = fractalsMap[formulaIndices[f]].formula;
+				int index = GetIndexOnFractalList(formula);
+
+				// looking for the best DE function for DeltaDE mode
+
+				// count usage of DE functions
+				fractal::enumDEFunctionType DEFunction = newFractalList[index]->getDeFunctionType();
+				if (DEFunction != fractal::withoutDEFunction)
+				{
+					DEFunctionCount[DEFunction] += seq.fractData[f].formulaIterations;
+				}
+
+				// looking if it's possible to use analyticDEType
+				if (!forceDeltaDE && newFractalList[index]->getInternalId() != fractal::none)
+				{
+					if (optimizedDEType == fractal::withoutDEFunction)
+					{
+						optimizedDEType = DEFunction;
+					}
+
+					if (!forceAnalyticDE && newFractalList[index]->getDeType() == fractal::deltaDEType)
+					{
+						seq.DEType = fractal::deltaDEType;
+						forceDeltaDE = true;
+					}
+				}
+			} // next f
+
+			// checking if used dIFS formula
+			if (DEFunctionCount[fractal::customDEFunction] > 0)
+			{
+				seq.DEFunctionType = fractal::customDEFunction;
+			}
+			else // use method which used in the highest iteration count
+			{
+				int maxCount = -1;
+				for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				{
+					if (DEFunctionCount[i] > maxCount)
+					{
+						maxCount = DEFunctionCount[i];
+						seq.DEFunctionType = fractal::enumDEFunctionType(i);
+					}
+				}
+			}
+		} // endif preferredDEFunction
+		else
+		{
+			seq.DEFunctionType = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
+
+			// if any fractal is delta DE type, then whole sequence is delta DE
+			for (int f = 0; f < numberOfFormulas; f++)
+			{
+				fractal::enumFractalFormula formula = fractalsMap[formulaIndices[f]].formula;
+				int index = GetIndexOnFractalList(formula);
+				if (newFractalList[index]->getDeType() == fractal::deltaDEType)
+				{
+					seq.DEType = fractal::deltaDEType;
+					break;
+				}
+			}
+		}
+
+		if (forceDeltaDE) seq.DEType = fractal::deltaDEType;
+		if (forceAnalyticDE) seq.DEType = fractal::analyticDEType;
+	}
+	else // not hybrid
+	{
+		fractal::enumFractalFormula formula = fractalsMap[formulaIndices[0]].formula;
+		int index = GetIndexOnFractalList(formula);
+		seq.DEType = newFractalList[index]->getDeType();
+		seq.DEFunctionType = newFractalList[index]->getDeFunctionType();
+		seq.DEAnalyticFunction = newFractalList[index]->getDeAnalyticFunction();
+
+		if (forceDeltaDE) seq.DEType = fractal::deltaDEType;
+		if (forceAnalyticDE) seq.DEType = fractal::analyticDEType;
+
+		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
+				!= fractal::preferredDEFunction)
+		{
+			seq.DEFunctionType = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
+
+			switch (seq.DEFunctionType)
+			{
+				case fractal::logarithmicDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionLogarithmic;
+					break;
+				case fractal::linearDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionLinear;
+					break;
+				case fractal::pseudoKleinianDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionPseudoKleinian;
+					break;
+				case fractal::josKleinianDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionJosKleinian;
+					break;
+				case fractal::customDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionCustomDE;
+					break;
+				case fractal::maxAxisDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionMaxAxis;
+					break;
+				default: seq.DEAnalyticFunction = fractal::analyticFunctionLinear; break;
+			}
+		}
+	}
 	return seq;
 }
 

@@ -69,7 +69,7 @@ public:
 	inline int GetMaxFractalIndex() const { return maxFractalIndex; }
 	inline bool IsAddCConstant(int formulaIndex) const { return addCConstant[formulaIndex]; }
 	inline bool IsCheckForBailout(int formulaIndex) const { return checkForBailout[formulaIndex]; }
-	inline bool UseOptimizedDE() const { return useOptimizedDE; }
+	// inline bool UseOptimizedDE() const { return useOptimizedDE; }
 	QString GetDETypeString() const;
 	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; }
 	inline bool IsJuliaEnabled(int formulaIndex) const { return juliaEnabled[formulaIndex]; }
@@ -110,7 +110,7 @@ private:
 	bool isHybrid;
 	bool isBoolean;
 	fractal::enumDEFunctionType optimizedDEType;
-	bool useOptimizedDE;
+	// bool useOptimizedDE;
 	int maxFractalIndex;
 	int maxN;
 	std::vector<int> hybridSequence;

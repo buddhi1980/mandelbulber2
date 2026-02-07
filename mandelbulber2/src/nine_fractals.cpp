@@ -168,7 +168,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceAnalyticDE;
 
 	optimizedDEType = fractal::withoutDEFunction;
-	useOptimizedDE = false;
+	// useOptimizedDE = false;
 
 	maxN = generalPar->Get<int>("N");
 	maxFractalIndex = 0;
@@ -177,7 +177,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	if (isHybrid)
 	{
 		DEType[0] = fractal::analyticDEType;
-		useOptimizedDE = true;
+		// useOptimizedDE = true;
 
 		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
 				== fractal::preferredDEFunction)
@@ -214,7 +214,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 					if (!forceAnalyticDE && newFractalList[index]->getDeType() == fractal::deltaDEType)
 					{
 						DEType[0] = fractal::deltaDEType;
-						useOptimizedDE = false;
+						// useOptimizedDE = false;
 						forceDeltaDE = true;
 					}
 				}

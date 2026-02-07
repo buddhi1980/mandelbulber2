@@ -37,6 +37,7 @@ public:
 		bool addCConstant;
 		bool checkForBailout;
 		double bailout;
+		bool useAdditionalBailoutCond;
 		cAbstractFractal *fractalFormulaObject;
 	};
 
@@ -56,7 +57,6 @@ public:
 		CVector3 juliaConstant;
 		CVector3 constantMultiplier;
 		double initialWAxis;
-		bool useAdditionalBailoutCond;
 		int formulaMaxiter;
 
 		inline int GetSequence(const int i) const
@@ -78,6 +78,8 @@ private:
 	sSequence CreateSequence(sSequence seq, std::shared_ptr<const cParameterContainer> generalPar,
 		std::vector<int> formulaIndices, bool singleFractal);
 	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
+	void CollectSequenceData(const std::shared_ptr<const cParameterContainer> &generalPar,
+		const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, sSequence &seq);
 
 	cObjectsTree objectsTree;
 	std::vector<cObjectsTree::sNodeDataForRendering> objectsNodes;
