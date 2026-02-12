@@ -41,6 +41,7 @@
 #include "orbit_trap_shape.hpp"
 
 #include "formula/definition/legacy_fractal_transforms.hpp"
+#include "hybrid_fractal_sequences.h"
 
 using namespace fractal;
 
@@ -59,14 +60,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 	double colorMin = 1000.0;
 
-	if (in.forcedFormulaIndex >= 0)
-	{
-		z.w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
-	}
-	else
-	{
-		z.w = fractals.GetInitialWAxis(0);
-	}
+	z.w = seq->initialWAxis;
 
 	// double r = z.Length();
 
@@ -79,10 +73,8 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 	out->maxiter = true;
 
-	int fractalIndex = 0;
-	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
-
-	const sFractal *defaultFractal = fractals.GetFractal(fractalIndex);
+	int fractalIndex = seq->seqence[0];
+	const sFractal *defaultFractal = &seq->fractData[fractalIndex].fractalParameters;
 
 	sExtendedAux aux;
 
@@ -96,8 +88,8 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 	aux.dist = 1000.0;					// used in difs formulas
 	aux.pseudoKleinianDE = 1.0; // used to calculate DE for pseudo kleinian
 
-	aux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale; // used for vary scale
-	aux.actualScaleA = 0.0;																								// used for vary scale
+	aux.actualScale = defaultFractal->mandelbox.scale; // used for vary scale
+	aux.actualScaleA = 0.0;														 // used for vary scale
 	aux.color = 1.0;			 // used to calculate color from most of formulas
 	aux.colorHybrid = 0.0; // used for hybrid color
 	aux.temp1000 = 1000.0; // used for hybrid color 2 (initial value 1000)
@@ -132,16 +124,8 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		}
 	}
 
-	int maxN;
+	int maxN = seq->formulaMaxiter * in.maxiterMultiplier;
 
-	if (in.forcedFormulaIndex >= 0)
-	{
-		maxN = fractals.GetFormulaMaxiter(in.forcedFormulaIndex) * in.maxiterMultiplier;
-	}
-	else
-	{
-		maxN = fractals.GetFormulaMaxiter(0) * in.maxiterMultiplier;
-	}
 	if (in.forcedMaxiter >= 0) maxN = in.forcedMaxiter;
 
 	// main iteration loop
@@ -152,24 +136,9 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 		lastZ = z;
 
-		// hybrid fractal sequence
-		if (in.forcedFormulaIndex >= 0)
-		{
-			sequence = in.forcedFormulaIndex;
-		}
-		else
-		{
-			if (seq)
-			{
-				// FIXME it should return sequence instead instead of objectID
-				// it is temporary solution
-				sequence = seq->GetSequence(i);
-			}
-			else
-			{
-				sequence = fractals.GetSequence(i);
-			}
-		}
+		sequence = seq->GetSequence(i);
+
+		cHybridFractalSequences::sFractalData &fractData = seq->fractData[sequence];
 
 		// foldings
 		if (in.common->foldings.boxEnable)
@@ -184,7 +153,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 			aux.r = z.Length();
 		}
 
-		const sFractal *fractal = fractals.GetFractal(sequence);
+		const sFractal *fractal = &fractData.fractalParameters;
 		formula = fractal->formula;
 
 		// temporary vector for weight function
@@ -194,9 +163,9 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 		aux.i = i;
 
-		fractalFormulaFunction = fractals.GetFractalFormulaFunction(sequence);
+		fractalFormulaFunction = fractData.fractalFormulaObject;
 
-		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
+		if (fractData.formulaWeight > 0.0)
 		{
 			// -------------- call for fractal formulas by function pointers ---------------
 			if (fractalFormulaFunction && formula != none)
@@ -205,7 +174,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 			}
 			else
 			{
-				double high = fractals.GetBailout(sequence) * 10.0;
+				double high = fractData.bailout * 10.0;
 				z = CVector4(high, high, high, high);
 				out->distance = 10.0;
 				out->iters = 1;
@@ -216,7 +185,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		}
 
 		// addition of constant
-		if (fractals.IsAddCConstant(sequence))
+		if (fractData.addCConstant)
 		{
 			switch (formula)
 			{
@@ -224,39 +193,37 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 				case amazingSurf:
 					// case amazingSurfMod1:
 					{
-						if (fractals.IsJuliaEnabled(sequence))
+						if (seq->juliaEnabled)
 						{
-							CVector3 juliaC =
-								fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);
+							CVector3 juliaC = seq->juliaConstant * seq->constantMultiplier;
 							z += CVector4(juliaC.y, juliaC.x, juliaC.z, 0.0);
 						}
 						else
 						{
 							z += CVector4(aux.const_c.y, aux.const_c.x, aux.const_c.z, 0.0)
-									 * fractals.GetConstantMultiplier(sequence);
+									 * seq->constantMultiplier;
 						}
 						break;
 					}
 
 				default:
 				{
-					if (fractals.IsJuliaEnabled(sequence))
+					if (seq->juliaEnabled)
 					{
-						z += CVector4(
-							fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence), 0.0);
+						z += CVector4(seq->juliaConstant * seq->constantMultiplier, 0.0);
 					}
 					else
 					{
-						z += aux.const_c * fractals.GetConstantMultiplier(sequence);
+						z += aux.const_c * seq->constantMultiplier;
 					}
 					break;
 				}
 			}
 		}
 
-		if (fractals.IsHybrid())
+		if (seq->isHybrid)
 		{
-			double k = fractals.GetWeight(sequence);
+			double k = fractData.formulaWeight;
 			if (k < 1.0)
 			{
 				z = SmoothCVector(tempZ, z, k);
@@ -265,9 +232,6 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 				aux.color = aux.color * k + tempAuxColor * kn;
 			}
 		}
-
-		// r calculation
-		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		aux.r = z.Length();
 
@@ -280,24 +244,24 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		}
 
 		// escape conditions
-		if (fractals.IsCheckForBailout(sequence))
+		if (fractData.checkForBailout)
 		{
 			if (Mode == calcModeNormal || Mode == calcModeDeltaDE1)
 			{
-				if (aux.r > fractals.GetBailout(sequence))
+				if (aux.r > fractData.bailout)
 				{
 					out->maxiter = false;
 					break;
 				}
 
-				if (fractals.UseAdditionalBailoutCond(sequence))
+				if (fractData.useAdditionalBailoutCond)
 				{
 					out->maxiter = false; // maxiter flag has to be always disabled for pseudo klienian
-					if ((z - lastZ).Length() / aux.r < 0.1 / fractals.GetBailout(sequence))
+					if ((z - lastZ).Length() / aux.r < 0.1 / fractData.bailout)
 					{
 						break;
 					}
-					if ((z - lastLastZ).Length() / aux.r < 0.1 / fractals.GetBailout(sequence))
+					if ((z - lastLastZ).Length() / aux.r < 0.1 / fractData.bailout)
 					{
 						break;
 					}
@@ -354,10 +318,9 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 					if (fractal->formula != mandelbox)
 					{
 						if (len < colorMin) colorMin = len;
-						if (aux.r > fractals.GetBailout(sequence)) break;
+						if (aux.r > fractData.bailout) break;
 
-						if (fractals.UseAdditionalBailoutCond(sequence) && (z - lastZ).Length() / aux.r < 1e-15)
-							break;
+						if (fractData.useAdditionalBailoutCond && (z - lastZ).Length() / aux.r < 1e-15) break;
 					}
 					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
 					{
@@ -368,8 +331,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 						else
 						{
 							if (len < colorMin) colorMin = len;
-							if (aux.r > fractals.GetBailout(sequence) || (z - lastZ).Length() / aux.r < 1e-15)
-								break;
+							if (aux.r > fractData.bailout || (z - lastZ).Length() / aux.r < 1e-15) break;
 						}
 					}
 				}
@@ -397,7 +359,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 				if (i >= fakeLightsMinIter && i <= fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
-				if (distance > fractals.GetBailout(sequence))
+				if (distance > fractData.bailout)
 				{
 					out->orbitTrapR = orbitTrapTotal;
 					break;
@@ -440,13 +402,13 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 	{
 		if (aux.DE > 0.0)
 		{
-			if (fractals.IsHybrid())
+			if (seq->isHybrid)
 			{
-				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
+				if (seq->DEFunctionType == fractal::linearDEFunction)
 				{
 					out->distance = (aux.r - in.common->linearDEOffset) / aux.DE;
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
+				else if (seq->DEFunctionType == fractal::logarithmicDEFunction)
 				{
 					// out->distance = 0.5 * r * log(r) / aux.DE;
 					if (aux.r > 1.0)
@@ -454,25 +416,28 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 					else
 						out->distance = 0.0;
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
+				else if (seq->DEFunctionType == fractal::pseudoKleinianDEFunction)
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
 
 					out->distance = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / aux.DE;
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
+				else if (seq->DEFunctionType == fractal::josKleinianDEFunction)
 				{
+					// FIXME: it should not refer to fractal with 0 index but to the current sequence, but it
+					// is needed for some formulas to work in deltaDE mode. It needs to be fixed in a better
+					// way.
 					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
 					out->distance = min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 													/ max(aux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::customDEFunction)
+				else if (seq->DEFunctionType == fractal::customDEFunction)
 				{
 					out->distance = aux.dist;
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::maxAxisDEFunction)
+				else if (seq->DEFunctionType == fractal::maxAxisDEFunction)
 				{
 					CVector4 absZ = fabs(z);
 					double rd = max(absZ.x, max(absZ.y, absZ.z));
@@ -481,7 +446,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 			}
 			else
 			{
-				switch (fractals.GetDEAnalyticFunction(sequence))
+				switch (seq->DEAnalyticFunction)
 				{
 					case analyticFunctionLogarithmic:
 					{
@@ -541,8 +506,8 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 	// color calculation
 	else if (Mode == calcModeColouring)
 	{
-		enumColoringFunction coloringFunction = fractals.GetColoringFunction(sequence);
-		out->colorIndex = CalculateColorIndex(fractals.IsHybrid(), aux.r, z, colorMin, aux,
+		enumColoringFunction coloringFunction = seq->coloringFunction;
+		out->colorIndex = CalculateColorIndex(seq->isHybrid, aux.r, z, colorMin, aux,
 			in.material->fractalColoring, coloringFunction, defaultFractal);
 	}
 	else
@@ -550,6 +515,9 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		out->distance = 0.0;
 
 		// needed for JosKleinian fractal to calculate spheres in deltaDE mode
+		// FIXME: it should not refer to fractal with 0 index but to the current sequence, but it
+		// is needed for some formulas to work in deltaDE mode. It needs to be fixed in a better
+		// way.
 		if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 		{
 			if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)

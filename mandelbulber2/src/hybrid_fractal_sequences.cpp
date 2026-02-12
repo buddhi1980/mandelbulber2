@@ -147,6 +147,7 @@ void cHybridFractalSequences::CollectSequenceData(
 			generalPar->Get<int>("formula_stop_iteration", objectId);
 		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId);
 		if (singleFractal) seq.fractData[i].checkForBailout = true;
+		seq.fractData[i].fractalParameters = fractalsMap[objectId];
 
 		// decide if use addition of C constant
 		bool addc = false;
@@ -212,6 +213,7 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	bool singleFractal)
 {
 	bool isHybrid = !singleFractal;
+	seq.isHybrid = isHybrid;
 
 	int maxN = 250; // FIXME separate for each sequence
 
@@ -261,9 +263,7 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			break;
 		}
 
-		// seq.seqence[i] = fractalNoInSeqnece;
-		seq.seqence[i] =
-			objectId - 1; // FIXME: temporaru solution for CalculateFractal to use NineFrcatas data
+		seq.seqence[i] = fractalNoInSeqnece;
 
 		lastSequenceIndex = i;
 

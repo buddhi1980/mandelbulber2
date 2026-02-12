@@ -16,6 +16,7 @@
 #include "objects_tree.h"
 #include "algebra.hpp"
 #include "formula/definition/all_fractal_list.hpp"
+#include "fractal.h"
 
 // forward declarations
 class cParameterContainer;
@@ -39,6 +40,7 @@ public:
 		double bailout;
 		bool useAdditionalBailoutCond;
 		cAbstractFractal *fractalFormulaObject;
+		sFractal fractalParameters; // data from fractal container for the fractal used in the sequence
 	};
 
 	struct sSequence
@@ -53,6 +55,7 @@ public:
 		fractal::enumDEAnalyticFunction DEAnalyticFunction;
 		fractal::enumColoringFunction coloringFunction;
 
+		bool isHybrid;
 		bool juliaEnabled;
 		CVector3 juliaConstant;
 		CVector3 constantMultiplier;
