@@ -36,6 +36,7 @@
 
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
 
@@ -63,7 +64,7 @@ double DisplacementMap(
 }
 
 CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sParamRender &params,
-	const cNineFractals &fractals, int objectId, double *reduceDisplacement)
+	int objectId, int seqIndex, double *reduceDisplacement)
 {
 	int forcedFormulaIndex = objectId;
 	if (objectId < 0) objectId = 0;
@@ -76,7 +77,8 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 		{
 			sFractalIn fractIn(point, 0, -1, 1, 0, &params.common, forcedFormulaIndex, false, mat);
 			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(fractals, nullptr, fractIn, &fractOut);
+			Compute<fractal::calcModeCubeOrbitTrap>(
+				data->hybridFractalSequences.GetSequence(seqIndex), fractIn, &fractOut);
 			pointFractalized = fractOut.z;
 			*reduceDisplacement = pow(2.0, fractOut.iters);
 		}

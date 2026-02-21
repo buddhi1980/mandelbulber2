@@ -98,7 +98,8 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 					sFractalOut fractOut;
 					fractOut.colorIndex = 0;
 
-					Compute<fractal::calcModeNormal>(*fractal, nullptr, fractIn, &fractOut);
+					Compute<fractal::calcModeNormal>(
+						data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
 					double pseudoDistance = 1 + params->N - fractOut.iters;
 					data->statistics.totalNumberOfIterations += fractOut.iters;
 					normal += point2 * pseudoDistance;

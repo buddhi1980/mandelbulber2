@@ -127,6 +127,7 @@ private:
 		double depth = 0.0;
 		double distThresh = 0.0;
 		int objectId = 0;
+		int seqIndex = 0;
 		bool found = false;
 		;
 	};
@@ -178,6 +179,7 @@ private:
 		sStep *stepBuff;
 		int stepCount;
 		int objectId;
+		int seqIndex;
 		bool invertMode;
 		cMaterial *material;
 		sRGBFloat texDiffuse;

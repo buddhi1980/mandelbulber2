@@ -660,6 +660,7 @@ void cRenderWorker::RayMarching(
 			if (dist < 0.0) dist = 0.0;
 		}
 		out->objectId = distanceOut.objectId;
+		out->seqIndex = distanceOut.seqIndex;
 
 		//-------------------- 4.18us for Calculate distance --------------
 
@@ -760,6 +761,7 @@ void cRenderWorker::RayMarching(
 			}
 
 			out->objectId = distanceOut.objectId;
+			out->seqIndex = distanceOut.seqIndex;
 
 			data->statistics.histogramIterations.Add(distanceOut.iters);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
@@ -827,6 +829,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.stepBuff = inOut.rayMarchingInOut.stepBuff;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
 			shaderInputData.material = &data->materials[objectData.materialId];
 
@@ -1058,6 +1061,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.stepBuff = inOut.rayMarchingInOut.stepBuff;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
 			shaderInputData.material = &data->materials[objectData.materialId];
 

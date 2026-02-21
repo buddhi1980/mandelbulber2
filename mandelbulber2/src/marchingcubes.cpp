@@ -237,7 +237,7 @@ void MarchingCubes::calculateVoxelPlane(int i)
 
 #pragma omp parallel for schedule(dynamic, 1)
 			for (long long kk = 0; kk < numzb;
-					 ++kk) // long long is used because size_t doesn't work with msvc and OpenMP
+				++kk) // long long is used because size_t doesn't work with msvc and OpenMP
 			{
 				long long ptr = ii * numyzb + jj * numzb + kk;
 
@@ -432,7 +432,7 @@ void MarchingCubes::calculateEdges(int i)
 #ifdef USE_OFFLOAD
 __declspec(target(mic))
 #endif // USE_OFFLOAD
-	double MarchingCubes::getDistance(double x, double y, double z, double *colorIndex) const
+double MarchingCubes::getDistance(double x, double y, double z, double *colorIndex) const
 {
 	CVector3 point;
 	point.x = x;
@@ -451,7 +451,8 @@ __declspec(target(mic))
 	sFractalIn fractIn(point, params->minN, -1, 1, 0, &params->common, -1, false, material);
 	sFractalOut fractOut;
 
-	Compute<fractal::calcModeColouring>(*fractals, nullptr, fractIn, &fractOut);
+	Compute<fractal::calcModeColouring>(
+		renderData->hybridFractalSequences.GetSequence(distanceOut.seqIndex), fractIn, &fractOut);
 
 	*colorIndex = fractOut.colorIndex;
 

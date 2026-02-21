@@ -68,6 +68,7 @@ struct sDistanceOut
 	int totalIters;
 	int objectId;
 	bool maxiter;
+	int seqIndex;
 };
 
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,

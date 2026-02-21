@@ -46,8 +46,7 @@
 using namespace fractal;
 
 template <fractal::enumCalculationMode Mode>
-void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequence *seq,
-	const sFractalIn &in, sFractalOut *out)
+void Compute(const cHybridFractalSequences::sSequence *seq, const sFractalIn &in, sFractalOut *out)
 {
 	cAbstractFractal *fractalFormulaFunction;
 
@@ -138,7 +137,7 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 
 		sequence = seq->GetSequence(i);
 
-		cHybridFractalSequences::sFractalData &fractData = seq->fractData[sequence];
+		const cHybridFractalSequences::sFractalData &fractData = seq->fractData[sequence];
 
 		// foldings
 		if (in.common->foldings.boxEnable)
@@ -427,11 +426,11 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 					// FIXME: it should not refer to fractal with 0 index but to the current sequence, but it
 					// is needed for some formulas to work in deltaDE mode. It needs to be fixed in a better
 					// way.
-					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
-						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
+					if (seq->fractData[0].fractalParameters.transformCommon.spheresEnabled)
+						z.y = min(z.y, seq->fractData[0].fractalParameters.transformCommon.foldingValue - z.y);
 
-					out->distance = min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
-													/ max(aux.DE, fractals.GetFractal(0)->analyticDE.offset1);
+					out->distance = min(z.y, seq->fractData[0].fractalParameters.analyticDE.tweak005)
+													/ max(aux.DE, seq->fractData[0].fractalParameters.analyticDE.offset1);
 				}
 				else if (seq->DEFunctionType == fractal::customDEFunction)
 				{
@@ -474,11 +473,13 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 					}
 					case analyticFunctionJosKleinian:
 					{
-						if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
-							z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
+						if (seq->fractData[sequence].fractalParameters.transformCommon.spheresEnabled)
+							z.y = min(
+								z.y, seq->fractData[sequence].fractalParameters.transformCommon.foldingValue - z.y);
 
-						out->distance = min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
-														/ max(aux.DE, fractals.GetFractal(sequence)->analyticDE.offset1);
+						out->distance =
+							min(z.y, seq->fractData[sequence].fractalParameters.analyticDE.tweak005)
+							/ max(aux.DE, seq->fractData[sequence].fractalParameters.analyticDE.offset1);
 						break;
 					}
 					case analyticFunctionCustomDE:
@@ -518,10 +519,11 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 		// FIXME: it should not refer to fractal with 0 index but to the current sequence, but it
 		// is needed for some formulas to work in deltaDE mode. It needs to be fixed in a better
 		// way.
-		if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
+		if (seq->DEFunctionType == fractal::josKleinianDEFunction)
 		{
-			if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
-				z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
+			if (seq->fractData[sequence].fractalParameters.transformCommon.spheresEnabled)
+				z.y =
+					min(z.y, seq->fractData[sequence].fractalParameters.transformCommon.foldingValue - z.y);
 		}
 	}
 
@@ -529,15 +531,15 @@ void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequ
 	out->z = z.GetXYZ();
 }
 
-template void Compute<calcModeNormal>(const cNineFractals &fractals,
+template void Compute<calcModeNormal>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeDeltaDE1>(const cNineFractals &fractals,
+template void Compute<calcModeDeltaDE1>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeDeltaDE2>(const cNineFractals &fractals,
+template void Compute<calcModeDeltaDE2>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeColouring>(const cNineFractals &fractals,
+template void Compute<calcModeColouring>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeOrbitTrap>(const cNineFractals &fractals,
+template void Compute<calcModeOrbitTrap>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
-template void Compute<calcModeCubeOrbitTrap>(const cNineFractals &fractals,
+template void Compute<calcModeCubeOrbitTrap>(
 	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
