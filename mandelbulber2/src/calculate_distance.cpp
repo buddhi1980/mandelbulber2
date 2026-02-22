@@ -64,6 +64,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
 	}
 
+	/*
 	double distance;
 	out->objectId = 0;
 	out->totalIters = 0;
@@ -247,6 +248,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	out->distance = distance;
 
 	return distance;
+	*/
+	return 0.0;
 }
 
 // In mandelbulber2/src/calculate_distance.cpp
@@ -292,6 +295,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		{
 			const auto &node = nodes[i];
 			double distance = 1e20;
+			int objectId = -1;
+			int sequenceIndex = -1;
 
 			if (node.level < stackLevel)
 			{
@@ -324,9 +329,12 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					if (numberOfFractalsToSkip == 0)
 					{
+						int seqIndex = node.hybridSequenceIndex;
 						sDistanceOut nodeOut;
-						distance = CalculateDistanceSimple(
-							params, fractals, in, &nodeOut, node.internalObjectId, nullptr);
+						distance = CalculateDistanceSimple(params, fractals, in, &nodeOut,
+							node.internalObjectId, data->hybridFractalSequences.GetSequence(seqIndex));
+						objectId = node.internalObjectId;
+						sequenceIndex = seqIndex;
 					}
 					else
 					{
@@ -339,7 +347,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
+					{
 						distance = primitives[primIdx]->PrimitiveDistance(in.point);
+						objectId = node.internalObjectId;
+					}
 					break;
 				}
 				case enumNodeType::hybrid:
@@ -352,8 +363,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					// skip next fractals because they are part of this hybrid sequence
 					numberOfFractalsToSkip =
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
-					stack[stackLevel].closestObjectSequence = seqIndex;
-					stack[stackLevel].closestObjectId = node.userObjectId;
+					stack[stackLevel].closestObjectSequence = sequenceIndex = seqIndex;
+					stack[stackLevel].closestObjectId = objectId = nodeOut.objectId;
 					break;
 				}
 				case enumNodeType::booleanAdd:
@@ -363,6 +374,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					stack[stackLevel].nodeIdx = i;
 					stack[stackLevel].level = stackLevel;
 					stack[stackLevel].nodeType = enumNodeType::booleanAdd;
+					stack[stackLevel].closestObjectId = -1;
+					stack[stackLevel].closestObjectSequence = -1;
 					continue;
 				}
 
@@ -374,7 +387,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				if (distance < stack[stackLevel].cumulativeDistance)
 				{
 					stack[stackLevel].cumulativeDistance = distance;
-					stack[stackLevel].closestObjectId = node.internalObjectId;
+					stack[stackLevel].closestObjectId = objectId;
+					stack[stackLevel].closestObjectSequence = sequenceIndex;
 				}
 			}
 		}
