@@ -331,8 +331,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					{
 						int seqIndex = node.hybridSequenceIndex;
 						sDistanceOut nodeOut;
-						distance = CalculateDistanceSimple(params, fractals, in, &nodeOut,
-							node.internalObjectId, data->hybridFractalSequences.GetSequence(seqIndex));
+						distance = CalculateDistanceSimple(params, in, &nodeOut, node.internalObjectId,
+							data->hybridFractalSequences.GetSequence(seqIndex));
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
 					}
@@ -340,6 +340,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					{
 						// skipping fractal because it is part of hybrid sequence
 						numberOfFractalsToSkip--;
+						continue;
 					}
 					break;
 				}
@@ -359,12 +360,13 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					int seqIndex = node.hybridSequenceIndex;
 					sDistanceOut nodeOut;
 					distance = CalculateDistanceSimple(
-						params, fractals, in, &nodeOut, -1, data->hybridFractalSequences.GetSequence(seqIndex));
+						params, in, &nodeOut, -1, data->hybridFractalSequences.GetSequence(seqIndex));
 					// skip next fractals because they are part of this hybrid sequence
 					numberOfFractalsToSkip =
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
 					stack[stackLevel].closestObjectSequence = sequenceIndex = seqIndex;
-					stack[stackLevel].closestObjectId = objectId = nodeOut.objectId;
+					stack[stackLevel].closestObjectId = objectId =
+						data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
 					break;
 				}
 				case enumNodeType::booleanAdd:
@@ -427,9 +429,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 	return 0;
 }
 
-double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex,
-	const cHybridFractalSequences::sSequence *sequence)
+double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in, sDistanceOut *out,
+	int forcedFormulaIndex, const cHybridFractalSequences::sSequence *sequence)
 {
 	double distance = 0;
 
@@ -440,7 +441,7 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 
-	if (fractals.GetDEType(forcedFormulaIndex) == fractal::analyticDEType)
+	if (sequence->DEType == fractal::analyticDEType)
 	{
 		Compute<fractal::calcModeNormal>(sequence, fractIn, &fractOut);
 		distance = fractOut.distance;
@@ -546,28 +547,28 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 		if (dr > 0)
 		{
 			// DE functions for deltaDE
-			if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
+			if (sequence->DEFunctionType == fractal::linearDEFunction)
 				distance = 0.5 * r / dr;
-			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::logarithmicDEFunction)
+			else if (sequence->DEFunctionType == fractal::logarithmicDEFunction)
 				distance = 0.5 * r * log(r) / dr;
-			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::pseudoKleinianDEFunction)
+			else if (sequence->DEFunctionType == fractal::pseudoKleinianDEFunction)
 			{
 				const CVector3 z = fractOut.z;
 				const double rxy = sqrt(z.x * z.x + z.y * z.y);
 				distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (dr);
 			}
-			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::josKleinianDEFunction)
+			else if (sequence->DEFunctionType == fractal::josKleinianDEFunction)
 			{
 				const CVector3 z = fractOut.z;
 				const double rxy = sqrt(z.x * z.x + z.z * z.z);
 				distance = (fabs(rxy * z.y) / r) / (dr);
 				maxiter = false;
 			}
-			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::customDEFunction)
+			else if (sequence->DEFunctionType == fractal::customDEFunction)
 			{
 				distance = r; // FIXME: Can we calculate dIFS in deltaDE mode ???
 			}
-			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::maxAxisDEFunction)
+			else if (sequence->DEFunctionType == fractal::maxAxisDEFunction)
 			{
 				CVector3 absZ = fabs(zFromIters);
 				double maxZ = dMax(absZ.x, absZ.y, absZ.z);

@@ -33,6 +33,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	bool hybridNodeEntered = false;
 	std::vector<int> formulaIndices;
 	int levelOfHybrid = -1;
+	int hybridObjectId = -1;
 
 	for (int nodeIndex = 0; nodeIndex < objectsNodes.size(); nodeIndex++)
 	{
@@ -43,6 +44,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			hybridNodeEntered = true;
 			formulaIndices.clear();
 			levelOfHybrid = node.level;
+			hybridObjectId = node.userObjectId;
 		}
 
 		if (node.type == enumNodeType::fractal && hybridNodeEntered)
@@ -79,12 +81,16 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		{
 			// creating sequence for collected formula indices
 			sSequence sequence;
-			sequence.DEFunctionType = logarithmicDEFunction;					 // FIXME: later
-			sequence.DEType = analyticDEType;													 // FIXME: later
-			sequence.DEAnalyticFunction = analyticFunctionLogarithmic; // FIXME: later
-			sequence.coloringFunction = coloringFunctionDefault;			 // FIXME: later
-
 			sequence = CreateSequence(sequence, generalPar, formulaIndices, singleFractal);
+
+			if (singleFractal)
+			{
+				sequence.internalObjectId = node.userObjectId;
+			}
+			else
+			{
+				sequence.internalObjectId = hybridObjectId;
+			}
 
 			sequences.push_back(sequence);
 

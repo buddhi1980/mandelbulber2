@@ -49,6 +49,7 @@ public:
 		std::vector<sFractalData> fractData; // data for each fractal used in the sequence
 		int length;													 // length of the seqence
 		int numberOfFractalsInTheSequence;	 // number of different fractals used in the sequence
+		int internalObjectId;
 
 		fractal::enumDEFunctionType DEFunctionType;
 		fractal::enumDEType DEType;
