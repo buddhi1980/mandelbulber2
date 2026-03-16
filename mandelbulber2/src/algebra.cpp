@@ -325,17 +325,39 @@ void CRotationMatrix::Null()
 
 double CRotationMatrix::GetAlfa() const
 {
-	return atan2(matrix.m12, matrix.m22);
+	return -atan2(matrix.m12, matrix.m22);
 }
 
 double CRotationMatrix::GetBeta() const
 {
-	return asin(-matrix.m32);
+	double a = atan2(-matrix.m12, matrix.m22);
+	double c = atan2(-matrix.m31, matrix.m33);
+	if (fabs(matrix.m32) < 0.70710678118654752440084436210485)
+		return asin(matrix.m32);
+	else if (fabs(matrix.m12) > fabs(matrix.m22))
+		return atan2(matrix.m32, -matrix.m12 / sin(a));
+	else
+		return atan2(matrix.m32, matrix.m22 / cos(a));
 }
 
 double CRotationMatrix::GetGamma() const
 {
-	return atan2(matrix.m31, matrix.m33);
+	return atan2(-matrix.m31, matrix.m33);
+}
+
+// inverting CRotationMatrix::SetRotation2(const CVector3 &rotation)
+CVector3 CRotationMatrix::GetRotation2() const
+{
+	double a, b, c;
+	a = atan2(matrix.m21, matrix.m11);
+	c = atan2(matrix.m32, matrix.m33);
+	if (fabs(matrix.m31) < 0.70710678118654752440084436210485)
+		b = -asin(matrix.m31);
+	else if (fabs(matrix.m21) > fabs(matrix.m11))
+		b = -atan2(matrix.m31, matrix.m21 / sin(a));
+	else
+		b = -atan2(matrix.m31, matrix.m11 / cos(a));
+	return CVector3(c, b, a);
 }
 
 CRotationMatrix CRotationMatrix::Transpose() const

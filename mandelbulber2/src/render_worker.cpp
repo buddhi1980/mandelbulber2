@@ -612,7 +612,8 @@ double cRenderWorker::CalcDelta(CVector3 point) const
 void cRenderWorker::RayMarching(
 	sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const
 {
-	CVector3 point;
+	CVector3 point(1e30, 1e30, 1e30); // 1e30 is needed for detection of dead calculation
+																		// and camera at (0,0,0)
 	bool found = false;
 	double scan = in.minScan;
 	double dist = 0;

@@ -490,8 +490,8 @@ template <typename T>
 class CVector2
 {
 public:
-	inline CVector2() : x(), y(){};
-	inline CVector2(T x_init, T y_init) : x(x_init), y(y_init){};
+	inline CVector2() : x(), y() {};
+	inline CVector2(T x_init, T y_init) : x(x_init), y(y_init) {};
 	inline CVector2(const CVector2<T> &vector)
 	{
 		x = vector.x;
@@ -634,6 +634,7 @@ public:
 	double GetAlfa() const;
 	double GetBeta() const;
 	double GetGamma() const;
+	CVector3 GetRotation2() const;
 	void SetRotation(double angles[3]);
 	void SetRotation(double alpha, double beta, double gamma);
 	void SetRotation(const CVector3 &rotation);
