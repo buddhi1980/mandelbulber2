@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 #include "object_node_type.h"
+#include "algebra.hpp"
 
 class cParameterContainer;
 class cFractalContainer;
@@ -28,6 +29,7 @@ public:
 		int parentId;
 		int objectId;
 		int level;
+		CVector3 position;
 	};
 
 	struct sNodeDataForRendering
@@ -40,6 +42,7 @@ public:
 		int primitiveIdx;
 		int level;
 		int hybridSequenceIndex;
+		CVector3 position;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

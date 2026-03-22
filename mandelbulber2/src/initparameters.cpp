@@ -513,31 +513,41 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	//	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)),
 	//		morphNone, paramStandard);
-	par->addParam("node0001", QString("hybrid group 1,1,%1,0,1").arg(int(enumNodeType::hybrid)),
-		morphNone, paramStandard);
-	par->addParam("node0002", QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)),
-		morphNone, paramStandard);
-	par->addParam("node0003", QString("fractal 2,3,%1,1,2").arg(int(enumNodeType::fractal)),
-		morphNone, paramStandard);
-	par->addParam("node0050",
+
+	par->addParam("node_definition_0001",
+		QString("hybrid group 1,1,%1,0,1").arg(int(enumNodeType::hybrid)), morphNone, paramStandard);
+	par->addParam("node_definition_0002",
+		QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+	par->addParam("node_definition_0003",
+		QString("fractal 2,3,%1,1,2").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+	par->addParam("node_definition_0050",
 		QString("primitives group 1,50,%1,0,-1").arg(int(enumNodeType::booleanAdd)), morphNone,
 		paramStandard);
-	par->addParam("node0005", QString("sphere 1,5,%1,50,10").arg(int(enumNodeType::primitive)),
-		morphNone, paramStandard);
-	par->addParam("node0007", QString("group 2,7,%1,50,-1").arg(int(enumNodeType::booleanAdd)),
-		morphNone, paramStandard);
-	par->addParam("node0008", QString("sphere 2,8,%1,7,12").arg(int(enumNodeType::primitive)),
-		morphNone, paramStandard);
-	par->addParam("node0009", QString("sphere 3,9,%1,7,13").arg(int(enumNodeType::primitive)),
-		morphNone, paramStandard);
-	par->addParam("node0010", QString("hybrid group 2,10,%1,7,3").arg(int(enumNodeType::hybrid)),
-		morphNone, paramStandard);
-	par->addParam("node0011", QString("fractal 3,11,%1,10,3").arg(int(enumNodeType::fractal)),
-		morphNone, paramStandard);
-	par->addParam("node0012", QString("fractal 4,12,%1,10,4").arg(int(enumNodeType::fractal)),
-		morphNone, paramStandard);
-	par->addParam("node0051", QString("box 1,51,%1,50,11").arg(int(enumNodeType::primitive)),
-		morphNone, paramStandard);
+	par->addParam("node_definition_0005",
+		QString("sphere 1,5,%1,50,10").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
+	par->addParam("node_definition_0007",
+		QString("group 2,7,%1,50,-1").arg(int(enumNodeType::booleanAdd)), morphNone, paramStandard);
+	par->addParam("node_definition_0008",
+		QString("sphere 2,8,%1,7,12").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
+	par->addParam("node_definition_0009",
+		QString("sphere 3,9,%1,7,13").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
+	par->addParam("node_definition_0010",
+		QString("hybrid group 2,10,%1,7,3").arg(int(enumNodeType::hybrid)), morphNone, paramStandard);
+	par->addParam("node_definition_0011",
+		QString("fractal 3,11,%1,10,3").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+	par->addParam("node_definition_0012",
+		QString("fractal 4,12,%1,10,4").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+	par->addParam("node_definition_0051",
+		QString("box 1,51,%1,50,11").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
+
+	par->addParam("node_position_0001", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_position_0050", CVector3(0.0, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_position_0005", CVector3(1.5, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_position_0007", CVector3(-6.5, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_position_0008", CVector3(-2.5, 2.0, 1.0), morphNone, paramStandard);
+	par->addParam("node_position_0009", CVector3(-2.5, 2.0, -1.0), morphNone, paramStandard);
+	par->addParam("node_position_0010", CVector3(-1.5, 4.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_position_0051", CVector3(2.5, 2.0, 0.0), morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);

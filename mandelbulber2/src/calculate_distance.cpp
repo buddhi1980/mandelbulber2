@@ -291,12 +291,17 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
 
+		CVector3 originalPoimt = in.point;
+
 		for (int i = 0; i < nodeCount; ++i)
 		{
 			const auto &node = nodes[i];
 			double distance = 1e20;
 			int objectId = -1;
 			int sequenceIndex = -1;
+
+			CVector3 pointTransformed =
+				originalPoimt - node.position; // transform point to node's local space
 
 			if (node.level < stackLevel)
 			{
@@ -331,8 +336,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					{
 						int seqIndex = node.hybridSequenceIndex;
 						sDistanceOut nodeOut;
-						distance = CalculateDistanceSimple(params, in, &nodeOut, node.internalObjectId,
-							data->hybridFractalSequences.GetSequence(seqIndex));
+						distance = CalculateDistanceSimple(params, in, pointTransformed, &nodeOut,
+							node.internalObjectId, data->hybridFractalSequences.GetSequence(seqIndex));
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
 					}
@@ -349,7 +354,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 					{
-						distance = primitives[primIdx]->PrimitiveDistance(in.point);
+						distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
 						objectId = node.internalObjectId;
 					}
 					break;
@@ -359,8 +364,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					// hybrid fractal sequence
 					int seqIndex = node.hybridSequenceIndex;
 					sDistanceOut nodeOut;
-					distance = CalculateDistanceSimple(
-						params, in, &nodeOut, -1, data->hybridFractalSequences.GetSequence(seqIndex));
+					distance = CalculateDistanceSimple(params, in, pointTransformed, &nodeOut, -1,
+						data->hybridFractalSequences.GetSequence(seqIndex));
 					// skip next fractals because they are part of this hybrid sequence
 					numberOfFractalsToSkip =
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
@@ -429,14 +434,15 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 	return 0;
 }
 
-double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in, sDistanceOut *out,
-	int forcedFormulaIndex, const cHybridFractalSequences::sSequence *sequence)
+double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in,
+	const CVector3 &point, sDistanceOut *out, int forcedFormulaIndex,
+	const cHybridFractalSequences::sSequence *sequence)
 {
 	double distance = 0;
 
 	const int maxiterMultiplier = (in.normalCalculationMode && params.common.iterThreshMode) ? 5 : 1;
 
-	sFractalIn fractIn(in.point, params.minN, -1, maxiterMultiplier, 0, &params.common,
+	sFractalIn fractIn(point, params.minN, -1, maxiterMultiplier, 0, &params.common,
 		forcedFormulaIndex, in.normalCalculationMode);
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
@@ -524,19 +530,19 @@ double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in
 		fractIn.forcedMaxiter =
 			fractOut.iters; // for other directions must be the same number of iterations
 
-		fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
+		fractIn.point = point + CVector3(deltaDE, 0.0, 0.0);
 		Compute<fractal::calcModeDeltaDE1>(sequence, fractIn, &fractOut);
 		double r2 = fractOut.z.Length();
 		const double dr1 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
-		fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
+		fractIn.point = point + CVector3(0.0, deltaDE, 0.0);
 		Compute<fractal::calcModeDeltaDE1>(sequence, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
 		const double dr2 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
-		fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
+		fractIn.point = point + CVector3(0.0, 0.0, deltaDE);
 		Compute<fractal::calcModeDeltaDE1>(sequence, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
 		const double dr3 = fabs(r2 - r) / deltaDE;

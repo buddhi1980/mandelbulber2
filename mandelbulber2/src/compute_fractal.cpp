@@ -51,11 +51,13 @@ void Compute(const cHybridFractalSequences::sSequence *seq, const sFractalIn &in
 	cAbstractFractal *fractalFormulaFunction;
 
 	// repeat, move and rotate
-	CVector3 pointTransformed = in.point - in.common->fractalPosition;
-	pointTransformed = in.common->mRotFractalRotation.RotateVector(pointTransformed);
-	pointTransformed = pointTransformed.repeatMod(in.common->repeat);
+	//	CVector3 pointTransformed = in.point - in.common->fractalPosition;
+	//	pointTransformed = in.common->mRotFractalRotation.RotateVector(pointTransformed);
+	//	pointTransformed = pointTransformed.repeatMod(in.common->repeat);
+	//
+	//	CVector4 z = CVector4(pointTransformed, 0.0);
 
-	CVector4 z = CVector4(pointTransformed, 0.0);
+	CVector4 z = CVector4(in.point, 0.0);
 
 	double colorMin = 1000.0;
 
@@ -284,12 +286,12 @@ void Compute(const cHybridFractalSequences::sSequence *seq, const sFractalIn &in
 					}
 					case fractalColoring_ZDotPoint:
 					{
-						len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
+						len = fabs(colorZ.Dot(CVector4(in.point, initialWAxisColor)));
 						break;
 					}
 					case fractalColoring_Sphere:
 					{
-						len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
+						len = fabs((colorZ - CVector4(in.point, initialWAxisColor)).Length()
 											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
@@ -369,7 +371,7 @@ void Compute(const cHybridFractalSequences::sSequence *seq, const sFractalIn &in
 				if (i >= in.material->textureFractalizeStartIteration)
 				{
 					double size = in.material->textureFractalizeCubeSize;
-					CVector3 zz = z.GetXYZ() - pointTransformed;
+					CVector3 zz = z.GetXYZ() - in.point;
 					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
 							&& zz.z < size)
 					{

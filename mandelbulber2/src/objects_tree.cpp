@@ -31,7 +31,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 	QStringList allParams = params->GetListOfParameters();
 	for (const QString &paramName : allParams)
 	{
-		if (paramName.startsWith("node"))
+		if (paramName.startsWith("node_definition"))
 		{
 			QString paramValue = params->Get<QString>(paramName);
 			QStringList parts = paramValue.split(',');
@@ -45,6 +45,15 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.parentId = parts[3].toInt();
 				nodeData.objectId = parts[4].toInt();
 				nodeData.level = -1;
+
+
+				QString suffix = paramName.mid(QString("node_definition").length()); // e.g. "_0001"
+				QString positionParamName = "node_position" + suffix;
+				if (params->IfExists(positionParamName))
+				{
+				    nodeData.position = params->Get<CVector3>(positionParamName);
+				}
+
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -130,6 +139,9 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 	int hybridSequenceIndex = 0;
 
+	// Map from node ID to accumulated (cumulative) position for position inheritance
+	QHash<int, CVector3> accumulatedPositions;
+
 	std::vector<sNodeDataForRendering> nodeDataList;
 	for (const sNodeData &nodeData : nodeList)
 	{
@@ -139,8 +151,18 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.parentId = nodeData.parentId;
 		nodeDataForRendering.userObjectId = nodeData.objectId;
 		nodeDataForRendering.level = nodeData.level;
-		nodeDataForRendering.internalObjectId = -1; // to be filled later
-		nodeDataForRendering.primitiveIdx = -1;			// to be filled later
+		nodeDataForRendering.internalObjectId = -1;				 // to be filled later
+		nodeDataForRendering.primitiveIdx = -1;						 // to be filled later
+
+		// Calculate cumulative position: own position + parent's accumulated position
+		CVector3 parentAccumulatedPosition(0, 0, 0);
+		if (nodeData.parentId != 0 && accumulatedPositions.contains(nodeData.parentId))
+		{
+			parentAccumulatedPosition = accumulatedPositions[nodeData.parentId];
+		}
+		CVector3 cumulativePosition = nodeData.position + parentAccumulatedPosition;
+		accumulatedPositions[nodeData.id] = cumulativePosition;
+		nodeDataForRendering.position = cumulativePosition;
 
 		if (nodeDataForRendering.type == enumNodeType::hybrid)
 		{
