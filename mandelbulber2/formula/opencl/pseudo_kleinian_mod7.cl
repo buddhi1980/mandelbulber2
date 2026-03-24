@@ -19,156 +19,107 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 {
 	REAL oldZz = z.z;
 
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP1)
-	{
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
-		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
-		REAL t = max(0.0f, dot1);
-		z.x -= t * -SQRT_3_F;
-		z.y = fabs(z.y - t);
+	z =
+		fabs(z + fractal->transformCommon.offset111) - fabs(z - fractal->transformCommon.offset111) - z;
 
-		if (z.y > z.z)
-		{
-			t = z.y;
-			z.y = z.z;
-			z.z = t;
-		}
-		z -= fractal->transformCommon.constantMultiplier000 * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
-		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x)
-		{
-			t = z.z;
-			z.z = z.x;
-			z.x = t;
-		}
-		if (z.x > 0.0f)
-		{
-			z.y = max(0.0f, z.y);
-			z.z = max(0.0f, z.z);
-		}
-	}
+	REAL4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	signs.w = sign(z.w);
+
+	z = fabs(z);
+	REAL4 tt = z - fractal->mandelbox.offset;
+
+	REAL trr = dot(tt, tt);
+	REAL tp = min(max(1.0f / trr, 1.0f), 1.0f / fractal->transformCommon.offsetR0);
+
+	z += fractal->transformCommon.offsetA000;
+
+	z *= tp;
+	aux->DE *= tp;
+	z *= signs;
+
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+		z.z = -z.z;
 
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
-	if (fractal->transformCommon.benesiT1EnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterations
-			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	aux->pseudoKleinianDE = fractal->transformCommon.offsetA1; // for pkDE function
+
+	//	aux->dist = min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) )  / aux->DE-
+	//.001;
+
+	if (fractal->analyticDE.enabled && aux->i >= fractal->analyticDE.startIterationsA
+			&& aux->i < fractal->analyticDE.stopIterationsA) // customDE
 	{
-		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
-		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
-			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
+		REAL rxy =
+				length(z.xy - fractal->transformCommon.offsetD0) - fractal->transformCommon.offsetC0;
 
-		REAL4 tempZ = z;
-		REAL tempL = length(tempZ);
-		z = fabs(z) * fractal->transformCommon.scale3D222;
-		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = length(z) / tempL;
-		aux->DE = aux->DE * avgScale + 1.0f;
-
-		tempXZ = (z.y + z.x) * SQRT_1_2_F;
-
-		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
-			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
-		z = z - fractal->transformCommon.offset200;
+		if (fractal->transformCommon.functionEnabledBFalse && aux->i >= fractal->transformCommon.startIterationsB
+				&& aux->i < fractal->transformCommon.stopIterationsB)
+		{
+			aux->DE0 = min(rxy, fabs(z.z - fractal->transformCommon.offsetA0)) / aux->DE
+								 - fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, aux->DE0);
+		}
+		else // pk
+		{
+			REAL tp2 = 0.0;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+				tp = (rxy * z.z - fractal->transformCommon.offsetA0);
+				tp2 = fabs(tp);
+			}
+			else
+			{
+				tp2 = (rxy * z.z - fractal->transformCommon.offsetA0);
+				tp = fabs(tp2);
+			}
+			if (fractal->transformCommon.functionEnabledDFalse)
+			{
+				if (aux->i >= fractal->transformCommon.startIterationsD
+						&& aux->i < fractal->transformCommon.stopIterationsD)
+					tp2 = tp;
+			}
+			aux->DE0 = max(rxy - fractal->transformCommon.offsetA1, tp2 / length(z)) / aux->DE
+								 - fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, aux->DE0);
+		}
 	}
 
-	if (fractal->transformCommon.functionEnabledxFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsTM1)
-	{
-		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
-		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
-			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
-		REAL4 temp = z;
-		REAL tempL = length(temp);
-		z = fabs(z) * fractal->transformCommon.scale3D333;
-		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = length(z) / tempL;
-		aux->DE = aux->DE * avgScale + 1.0f;
 
-		z = (fabs(z + fractal->transformCommon.additionConstant111)
-				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
 
-		tempXZ = (z.y + z.x) * SQRT_1_2_F;
+	//	aux->dist = min(aux->dist, min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) )
+	// / aux->DE);
+	//    REAL rxy = sqrt(q.x + q.y);
+	//    aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
 
-		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
-			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
-	}
 
-	if (fractal->transformCommon.functionEnabledFFalse
-			&& aux->i >= fractal->transformCommon.startIterationsF
-			&& aux->i < fractal->transformCommon.stopIterationsF)
-	{
-		REAL4 tempA = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-		REAL4 tempB = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 
-		if (fractal->transformCommon.functionEnabledAx)
-			tempA.x = fabs(z.x + fractal->transformCommon.offsetF000.x);
 
-		if (fractal->transformCommon.functionEnabledx)
-			tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
 
-		z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
-
-		if (fractal->transformCommon.functionEnabledAy)
-			tempA.y = fabs(z.y + fractal->transformCommon.offsetF000.y);
-
-		if (fractal->transformCommon.functionEnabledy)
-			tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
-
-		z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
-
-		if (fractal->transformCommon.functionEnabledAz)
-			tempA.z = fabs(z.z + fractal->transformCommon.offsetF000.z);
-
-		if (fractal->transformCommon.functionEnabledz)
-			tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
-
-		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
-
-		//	z += fractal->transformCommon.offsetA000;
-	}
-
-	// Pseudo kleinian
-	REAL k = 1.0f;
-	REAL4 cSize = fractal->transformCommon.additionConstant0777;
-	if (aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC)
-	{
-		REAL4 tempZ = z;
-		if (z.x > cSize.x) tempZ.x = cSize.x;
-		if (z.x < -cSize.x) tempZ.x = -cSize.x;
-		if (z.y > cSize.y) tempZ.y = cSize.y;
-		if (z.y < -cSize.y) tempZ.y = -cSize.y;
-		if (z.z > cSize.z) tempZ.z = cSize.z;
-		if (z.z < -cSize.z) tempZ.z = -cSize.z;
-		z = tempZ * 2.0f - z;
-		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-		z *= -k * fractal->transformCommon.scaleB1;
-		z.z = -z.z;
-		aux->DE *= (k + fractal->analyticDE.tweak005) * fabs(fractal->transformCommon.scaleB1);
-		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
-	}
-
-	z += fractal->transformCommon.additionConstant000;
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-		colorAdd += fractal->foldColor.difs0000.x * k;
+//		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 
-		if (fractal->foldColor.auxColorEnabledAFalse)
+/*		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			REAL Size = 2.0f * cSize.x * fractal->transformCommon.constantMultiplier111.x;
 			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
@@ -208,7 +159,7 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}
-
+*/
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
 			aux->color += colorAdd;
