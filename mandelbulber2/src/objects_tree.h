@@ -59,6 +59,8 @@ public:
 	static void WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
 		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
 
+
+
 private:
 	nodeData_t nodeDataMap;
 };

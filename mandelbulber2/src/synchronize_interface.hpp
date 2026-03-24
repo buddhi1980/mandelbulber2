@@ -58,6 +58,7 @@ class QPlainTextEdit;
 class cGradientEditWidget;
 class QTextEdit;
 class cLightWidget;
+class cObjectsTreeWidget;
 
 namespace qInterface
 {
@@ -109,6 +110,8 @@ void SynchronizeInterfaceQTextEdit(QList<QTextEdit *> widgets,
 void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQKeySequenceEdit(QList<QKeySequenceEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceObjectsTreeWidget(QList<cObjectsTreeWidget *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // utility functions

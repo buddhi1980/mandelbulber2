@@ -9,6 +9,7 @@
 #define MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_
 
 #include <QWidget>
+#include <QTreeWidgetItem>
 #include <memory>
 
 #include "src/object_node_type.h"
@@ -31,11 +32,18 @@ public:
 
 	void UpdateTree(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+	void StoreTreeToParams(
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+
 	static QString nodeTypeToString(enumNodeType type);
 
 private:
 	void pressedRefreshButton();
 
+private slots:
+	void onItemChanged(QTreeWidgetItem *item, int column);
+
+private:
 	Ui::cObjectsTreeWidget *ui;
 };
 
