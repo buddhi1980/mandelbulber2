@@ -9,9 +9,11 @@
 #define MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_
 
 #include <QWidget>
+#include <QComboBox>
 #include <QTreeWidgetItem>
 #include <memory>
 
+#include "../src/algebra.hpp"
 #include "src/object_node_type.h"
 
 class cParameterContainer;
@@ -39,6 +41,17 @@ public:
 
 private:
 	void pressedRefreshButton();
+
+	QList<QTreeWidgetItem *> collectAllTreeItems() const;
+	int getNodeType(QTreeWidgetItem *item) const;
+	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
+	static CVector3 parsePosition(const QString &text);
+	static QString formatPosition(const CVector3 &pos);
+	QComboBox *buildTypeComboBox(int currentType);
+	void addOrSetParam(
+		std::shared_ptr<cParameterContainer> params, const QString &name, const QString &value);
+	void addOrSetParam(
+		std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value);
 
 private slots:
 	void onItemChanged(QTreeWidgetItem *item, int column);
