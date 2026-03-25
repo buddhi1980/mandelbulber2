@@ -516,6 +516,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("node_definition_0001",
 		QString("hybrid group 1,1,%1,0,1").arg(int(enumNodeType::hybrid)), morphNone, paramStandard);
+	//	par->addParam("node_definition_0001",
+	//		QString("boolean group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)), morphNone,
+	//paramStandard);
 	par->addParam("node_definition_0002",
 		QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
 	par->addParam("node_definition_0003",

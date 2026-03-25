@@ -133,49 +133,69 @@ std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 	return sortedList;
 }
 
+
 std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListForRendering()
 {
-	std::vector<cObjectsTree::sNodeData> nodeList = GetSortedNodeDataList();
+    std::vector<cObjectsTree::sNodeData> nodeList = GetSortedNodeDataList();
 
-	int hybridSequenceIndex = 0;
+    int sequenceIndex = 0;
 
-	// Map from node ID to accumulated (cumulative) position for position inheritance
-	QHash<int, CVector3> accumulatedPositions;
+    // Map from node ID to accumulated (cumulative) position for position inheritance
+    QHash<int, CVector3> accumulatedPositions;
 
-	std::vector<sNodeDataForRendering> nodeDataList;
-	for (const sNodeData &nodeData : nodeList)
-	{
-		sNodeDataForRendering nodeDataForRendering;
-		nodeDataForRendering.id = nodeData.id;
-		nodeDataForRendering.type = nodeData.type;
-		nodeDataForRendering.parentId = nodeData.parentId;
-		nodeDataForRendering.userObjectId = nodeData.objectId;
-		nodeDataForRendering.level = nodeData.level;
-		nodeDataForRendering.internalObjectId = -1;				 // to be filled later
-		nodeDataForRendering.primitiveIdx = -1;						 // to be filled later
+    // Track which nodes are children of a hybrid node
+    QHash<int, bool> isInsideHybrid;
 
-		// Calculate cumulative position: own position + parent's accumulated position
-		CVector3 parentAccumulatedPosition(0, 0, 0);
-		if (nodeData.parentId != 0 && accumulatedPositions.contains(nodeData.parentId))
-		{
-			parentAccumulatedPosition = accumulatedPositions[nodeData.parentId];
-		}
-		CVector3 cumulativePosition = nodeData.position + parentAccumulatedPosition;
-		accumulatedPositions[nodeData.id] = cumulativePosition;
-		nodeDataForRendering.position = cumulativePosition;
+    std::vector<sNodeDataForRendering> nodeDataList;
+    for (const sNodeData &nodeData : nodeList)
+    {
+        sNodeDataForRendering nodeDataForRendering;
+        nodeDataForRendering.id = nodeData.id;
+        nodeDataForRendering.type = nodeData.type;
+        nodeDataForRendering.parentId = nodeData.parentId;
+        nodeDataForRendering.userObjectId = nodeData.objectId;
+        nodeDataForRendering.level = nodeData.level;
+        nodeDataForRendering.internalObjectId = -1;
+        nodeDataForRendering.primitiveIdx = -1;
 
-		if (nodeDataForRendering.type == enumNodeType::hybrid)
-		{
-			nodeDataForRendering.hybridSequenceIndex = hybridSequenceIndex;
-			hybridSequenceIndex++;
-		}
-		else
-			nodeDataForRendering.hybridSequenceIndex = -1; // it is not hybrid
+        // Calculate cumulative position: own position + parent's accumulated position
+        CVector3 parentAccumulatedPosition(0, 0, 0);
+        if (nodeData.parentId != 0 && accumulatedPositions.contains(nodeData.parentId))
+        {
+            parentAccumulatedPosition = accumulatedPositions[nodeData.parentId];
+        }
+        CVector3 cumulativePosition = nodeData.position + parentAccumulatedPosition;
+        accumulatedPositions[nodeData.id] = cumulativePosition;
+        nodeDataForRendering.position = cumulativePosition;
 
-		nodeDataList.push_back(nodeDataForRendering);
-	}
-	return nodeDataList;
+        // Determine if this node is inside a hybrid node
+        bool parentIsHybrid = isInsideHybrid.value(nodeData.parentId, false);
+        isInsideHybrid[nodeData.id] = parentIsHybrid || (nodeData.type == enumNodeType::hybrid);
+
+        bool isSingleFractal = (nodeDataForRendering.type == enumNodeType::fractal) && !parentIsHybrid;
+
+        if (nodeDataForRendering.type == enumNodeType::hybrid)
+        {
+            // hybrid node gets a sequence index (sequence will be created for it in CreateSequences)
+            nodeDataForRendering.hybridSequenceIndex = sequenceIndex;
+            sequenceIndex++;
+        }
+        else if (isSingleFractal)
+        {
+            // single fractal node also gets a sequence index
+            nodeDataForRendering.hybridSequenceIndex = sequenceIndex;
+            sequenceIndex++;
+        }
+        else
+        {
+            nodeDataForRendering.hybridSequenceIndex = -1;
+        }
+
+        nodeDataList.push_back(nodeDataForRendering);
+    }
+    return nodeDataList;
 }
+
 
 void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
 	std::vector<cObjectsTree::sNodeDataForRendering> *nodes)

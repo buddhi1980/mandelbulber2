@@ -24,8 +24,10 @@ cHybridFractalSequences::cHybridFractalSequences()
 }
 
 void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
-	std::shared_ptr<const cFractalContainer> fractPar)
+	std::shared_ptr<const cFractalContainer> fractPar,
+	const std::vector<cObjectsTree::sNodeDataForRendering> &_objectsNodes)
 {
+	objectsNodes = _objectsNodes;
 	PrepareData(generalPar, fractPar);
 
 	// create sequences based on objects tree
@@ -104,10 +106,6 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
 	std::shared_ptr<const cFractalContainer> fractPar)
 {
-	// preparing objects tree to get used fractal objects
-	objectsTree.CreateNodeDataFromParameters(generalPar);
-	objectsNodes = objectsTree.GetNodeDataListForRendering();
-
 	// getting used fractal object indices
 	QSet<int> usedFractalObjectIndices;
 	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)

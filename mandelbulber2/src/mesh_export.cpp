@@ -98,7 +98,7 @@ void cMeshExport::ProcessVolume()
 	if (params->objectsTreeEnable)
 	{
 		cHybridFractalSequences hybridSequences;
-		hybridSequences.CreateSequences(gPar, gParFractal);
+		hybridSequences.CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
 		renderData->hybridFractalSequences = hybridSequences;
 	}
 

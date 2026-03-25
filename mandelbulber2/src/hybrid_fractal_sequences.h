@@ -73,7 +73,8 @@ public:
 	};
 
 	void CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
-		std::shared_ptr<const cFractalContainer> par);
+		std::shared_ptr<const cFractalContainer> par,
+		const std::vector<cObjectsTree::sNodeDataForRendering> &_objectsNodes);
 	sSequence *GetSequence(int seqIndex) { return &sequences[seqIndex]; };
 
 private:

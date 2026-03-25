@@ -414,7 +414,8 @@ bool cRenderJob::Execute()
 				if (params->objectsTreeEnable)
 				{
 					cHybridFractalSequences hybridSequences;
-					hybridSequences.CreateSequences(paramsContainer, fractalContainer);
+					hybridSequences.CreateSequences(
+						paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 					renderData->hybridFractalSequences = hybridSequences;
 				}
 
