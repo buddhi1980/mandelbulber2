@@ -32,12 +32,12 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL4 tt = z - fractal->mandelbox.offset;
 
 	REAL trr = dot(tt, tt);
-	REAL tp = min(max(1.0f / trr, 1.0f), 1.0f / fractal->transformCommon.offsetR0);
+	REAL k = min(max(1.0f / trr, 1.0f), 1.0f / fractal->transformCommon.offsetR0);
 
 	z += fractal->transformCommon.offsetA000;
 
-	z *= tp;
-	aux->DE *= tp;
+	z *= k;
+	aux->DE *= k;
 	z *= signs;
 
 	if (fractal->transformCommon.functionEnabledCFalse
@@ -56,14 +56,19 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	aux->pseudoKleinianDE = fractal->transformCommon.offsetA1; // for pkDE function
 
-	//	aux->dist = min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) )  / aux->DE-
+	//	aux->dist = min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) ) / aux->DE-
 	//.001;
 
 	if (fractal->analyticDE.enabled && aux->i >= fractal->analyticDE.startIterationsA
 			&& aux->i < fractal->analyticDE.stopIterationsA) // customDE
 	{
-		REAL rxy =
-				length(z.xy - fractal->transformCommon.offsetD0) - fractal->transformCommon.offsetC0;
+	//	REAL rxy =
+	//			length(z.xy - fractal->transformCommon.offsetD0) - fractal->transformCommon.offsetC0;
+
+		REAL tx = z.x - fractal->transformCommon.offsetD0;
+		REAL ty = z.y - fractal->transformCommon.offsetD0;
+		REAL rxy = sqrt(tx * tx + ty * ty)
+				- fractal->transformCommon.offsetC0;
 
 		if (fractal->transformCommon.functionEnabledBFalse && aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -74,7 +79,8 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		else // pk
 		{
-			REAL tp2 = 0.0;
+			REAL tp = 0.0f;
+			REAL tp2 = 0.0f;
 			if (!fractal->transformCommon.functionEnabledEFalse)
 			{
 				tp = (rxy * z.z - fractal->transformCommon.offsetA0);
@@ -115,51 +121,11 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-//		colorAdd += fractal->foldColor.difs0000.x * k;
+		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 
-/*		if (fractal->foldColor.auxColorEnabledAFalse)
-		{
-			REAL Size = 2.0f * cSize.x * fractal->transformCommon.constantMultiplier111.x;
-			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
-			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
-			REAL dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
-			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
-			Size = 2.0f * cSize.y * fractal->transformCommon.constantMultiplier111.y;
-			REAL cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
-			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
-			REAL ee = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
-			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.y;
-
-			if (!fractal->transformCommon.functionEnabledOFalse)
-			{
-				bb = bb + cc;
-				dd = dd + ee;
-			}
-			else
-			{
-				bb = bb * bb + cc * cc;
-				dd = dd * dd + ee * ee;
-			}
-
-			if (fractal->transformCommon.functionEnabledAFalse)
-			{
-				Size = 2.0f * cSize.z * fractal->transformCommon.constantMultiplier111.z;
-				REAL aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
-				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
-				bb = bb + aa;
-				REAL ff =
-					((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
-				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.z;
-				dd = dd + ff;
-			}
-			bb = dd * (1.0f - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
-
-			colorAdd += fractal->foldColor.difs0000.w * bb;
-		}
-*/
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
 			aux->color += colorAdd;
