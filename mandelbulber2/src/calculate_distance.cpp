@@ -369,9 +369,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					// skip next fractals because they are part of this hybrid sequence
 					numberOfFractalsToSkip =
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
-					stack[stackLevel].closestObjectSequence = sequenceIndex = seqIndex;
-					stack[stackLevel].closestObjectId = objectId =
-						data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
+					sequenceIndex = seqIndex;
+					objectId = data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
 					break;
 				}
 				case enumNodeType::booleanAdd:
