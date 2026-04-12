@@ -43,20 +43,21 @@
 
 struct sPrimitiveItem
 {
-	sPrimitiveItem(
-		fractal::enumObjectType _type, int _id, const QString &_name, const QString &_typeName)
-			: type(_type), id(_id), fullName(std::move(_name)), typeName(std::move(_typeName))
-	{
-	}
-
-	sPrimitiveItem() : type(fractal::objNone), id(0), fullName(QString()), typeName(QString()) {}
-
 	fractal::enumObjectType type;
 	int id;
+	int objectID;
 	QString fullName;
 	QString typeName;
 
-	QString Name(const QString &subParameterName) const { return fullName + "_" + subParameterName; }
+	sPrimitiveItem() : type(fractal::objNone), id(0), objectID(0) {}
+
+	sPrimitiveItem(
+		fractal::enumObjectType _type, int _id, QString _fullName, QString _typeName, int _objectID = 0)
+			: type(_type), id(_id), objectID(_objectID), fullName(_fullName), typeName(_typeName)
+	{
+	}
+
+	QString Name(const QString &paramName) const { return fullName + "_" + paramName; }
 };
 
 #endif /* MANDELBULBER2_SRC_PRIMITIVE_ITEM_H_ */

@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QTreeWidgetItem>
+#include <QVBoxLayout>
 #include <memory>
 
 #include "../src/algebra.hpp"
@@ -55,9 +56,15 @@ private:
 
 private slots:
 	void onItemChanged(QTreeWidgetItem *item, int column);
+	void slotAddObject();
+	void slotDeleteObject();
+	void slotItemSelectionChanged();
 
 private:
 	Ui::cObjectsTreeWidget *ui;
+
+	QWidget *currentEditorWidget = nullptr;
+	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors
 };
 
 #endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */

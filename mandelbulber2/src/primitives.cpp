@@ -427,40 +427,43 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	return distance;
 }
 
-QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(
-	const std::shared_ptr<cParameterContainer> par)
+QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(std::shared_ptr<cParameterContainer> params)
 {
-	QList<sPrimitiveItem> listOfPrimitives;
+	QList<sPrimitiveItem> list;
+	QList<QString> paramList = params->GetListOfParameters();
 
-	QList<QString> listOfParameters = par->GetListOfParameters();
-	for (auto &parameterName : listOfParameters)
+	for (const QString &paramName : paramList)
 	{
-		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		if (paramName.startsWith("primitive_") && paramName.endsWith("_enabled"))
 		{
-			QStringList split = parameterName.split('_');
-			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			QString objectTypeString = split.at(1);
-			int index = split.at(2).toInt();
+			// extract fullName: e.g. "primitive_sphere_1" from "primitive_sphere_1_enabled"
+			QString fullName = paramName.left(paramName.length() - QString("_enabled").length());
 
-			bool found = false;
-			for (const auto &listOfPrimitive : listOfPrimitives)
+			// parse typeName and id from fullName: "primitive_<type>_<id>"
+			QStringList parts = fullName.split('_');
+			// parts[0] = "primitive", parts[1] = type, parts[2] = id
+			if (parts.size() >= 3)
 			{
-				if (listOfPrimitive.fullName == primitiveName)
+				QString typeName = parts[1];
+				int id = parts[2].toInt();
+
+				fractal::enumObjectType objectType = PrimitiveNameToEnum(typeName);
+
+				// read objectID from parameter
+				int objectID = 0;
+				QString objectIDParamName = fullName + "_object_id";
+				if (params->IfExists(objectIDParamName))
 				{
-					found = true;
-					break;
+					objectID = params->Get<int>(objectIDParamName);
 				}
-			}
 
-			if (!found)
-			{
-				fractal::enumObjectType objectType = PrimitiveNameToEnum(objectTypeString);
-				sPrimitiveItem newItem(objectType, index, primitiveName, objectTypeString);
-				listOfPrimitives.append(newItem);
+				sPrimitiveItem item(objectType, id, fullName, typeName, objectID);
+				list.append(item);
 			}
 		}
 	}
-	return listOfPrimitives;
+
+	return list;
 }
 
 QList<QString> cPrimitives::GetListOfPrimitiveParams(

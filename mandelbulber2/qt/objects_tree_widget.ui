@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>757</width>
-    <height>665</height>
+    <height>641</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_add">
+      <widget class="QPushButton" name="pushButton_add_object">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_delete">
+      <widget class="QPushButton" name="pushButton_delete_object">
        <property name="text">
         <string>Delete</string>
        </property>
@@ -46,6 +46,16 @@
        <string notr="true">1</string>
       </property>
      </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_editor_area" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
     </widget>
    </item>
   </layout>

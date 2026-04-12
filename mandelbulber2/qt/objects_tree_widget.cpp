@@ -8,13 +8,24 @@
 
 #include "objects_tree_widget.h"
 
+#include <memory>
 #include <QStack>
 #include <QComboBox>
+#include <QInputDialog>
+#include <QGroupBox>
+#include <QDoubleSpinBox>
+#include <QList>
 
+#include "../src/interface.hpp"
+#include "../src/primitives.h"
+#include "src/my_ui_loader.h"
+#include "src/system_directories.hpp"
 #include "ui_objects_tree_widget.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/objects_tree.h"
+#include "tab_fractal.h"
+#include "formula/definition/all_fractal_list.hpp"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
@@ -24,6 +35,18 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		ui->pushButton_refresh, &QPushButton::clicked, this, &cObjectsTreeWidget::pressedRefreshButton);
 	connect(
 		ui->treeWidget_objects, &QTreeWidget::itemChanged, this, &cObjectsTreeWidget::onItemChanged);
+
+	// In constructor, connect new signals:
+	connect(
+		ui->pushButton_add_object, &QPushButton::clicked, this, &cObjectsTreeWidget::slotAddObject);
+	connect(ui->pushButton_delete_object, &QPushButton::clicked, this,
+		&cObjectsTreeWidget::slotDeleteObject);
+	connect(ui->treeWidget_objects, &QTreeWidget::itemSelectionChanged, this,
+		&cObjectsTreeWidget::slotItemSelectionChanged);
+
+	// Initialize editor area below tree
+	editorLayout = new QVBoxLayout();
+	ui->widget_editor_area->setLayout(editorLayout);
 }
 
 cObjectsTreeWidget::~cObjectsTreeWidget()
@@ -146,6 +169,9 @@ void cObjectsTreeWidget::UpdateTree(
 
 	QMap<int, QTreeWidgetItem *> nodeItems;
 
+	// Get all primitives from params
+	QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
+
 	// Create items
 	for (const auto &nodeData : sortedList)
 	{
@@ -162,6 +188,20 @@ void cObjectsTreeWidget::UpdateTree(
 		item->setData(1, Qt::UserRole, int(nodeData.type));
 		item->setData(2, Qt::UserRole, nodeData.objectId);
 		item->setFlags(item->flags() | Qt::ItemIsEditable);
+
+		// When building tree items for primitives:
+		if (nodeData.type == enumNodeType::primitive)
+		{
+			// Find matching primitive by objectId
+			for (const sPrimitiveItem &primitive : primitiveList)
+			{
+				if (primitive.objectID == nodeData.objectId)
+				{
+					item->setData(3, Qt::UserRole, primitive.typeName);
+					break;
+				}
+			}
+		}
 
 		nodeItems[nodeData.id] = item;
 	}
@@ -256,4 +296,248 @@ void cObjectsTreeWidget::StoreTreeToParams(
 void cObjectsTreeWidget::pressedRefreshButton()
 {
 	UpdateTree(gPar, gParFractal);
+}
+
+void cObjectsTreeWidget::slotAddObject()
+{
+	// Show dialog to pick object type
+	QStringList types = {
+		"fractal", "primitive", "hybrid", "boolean Add", "boolean Mul", "boolean Sub"};
+	bool ok = false;
+	QString typeName =
+		QInputDialog::getItem(this, tr("Add Object"), tr("Select object type:"), types, 0, false, &ok);
+	if (!ok) return;
+
+	QString name = QInputDialog::getText(
+		this, tr("Add Object"), tr("Enter object name:"), QLineEdit::Normal, typeName, &ok);
+	if (!ok || name.isEmpty()) return;
+
+	// Find max existing node ID
+	int newId = 1;
+	const auto allItems = collectAllTreeItems();
+	for (QTreeWidgetItem *item : allItems)
+		newId = qMax(newId, item->data(0, Qt::UserRole).toInt() + 1);
+
+	QTreeWidgetItem *newItem = new QTreeWidgetItem();
+	newItem->setText(0, name);
+	newItem->setText(2, QString::number(newId)); // objectId = nodeId for new objects
+
+	enumNodeType type = enumNodeType::fractal;
+	if (typeName == "primitive")
+		type = enumNodeType::primitive;
+	else if (typeName == "hybrid")
+		type = enumNodeType::hybrid;
+	else if (typeName == "boolean Add")
+		type = enumNodeType::booleanAdd;
+	else if (typeName == "boolean Mul")
+		type = enumNodeType::booleanMul;
+	else if (typeName == "boolean Sub")
+		type = enumNodeType::booleanSub;
+
+	newItem->setData(0, Qt::UserRole, newId);
+	newItem->setData(1, Qt::UserRole, int(type));
+	newItem->setData(2, Qt::UserRole, newId);
+	newItem->setFlags(newItem->flags() | Qt::ItemIsEditable);
+	newItem->setText(3, formatPosition({0.0, 0.0, 0.0}));
+
+	// Add as child of selected item or top-level
+	QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
+	if (!selected.isEmpty())
+		selected.first()->addChild(newItem);
+	else
+		ui->treeWidget_objects->addTopLevelItem(newItem);
+
+	ui->treeWidget_objects->setItemWidget(newItem, 1, buildTypeComboBox(int(type)));
+	ui->treeWidget_objects->expandAll();
+	ui->treeWidget_objects->setCurrentItem(newItem);
+}
+
+void cObjectsTreeWidget::slotDeleteObject()
+{
+	QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
+	if (selected.isEmpty()) return;
+
+	QTreeWidgetItem *item = selected.first();
+
+	// Clear editor area before deleting
+	if (currentEditorWidget)
+	{
+		editorLayout->removeWidget(currentEditorWidget);
+		delete currentEditorWidget;
+		currentEditorWidget = nullptr;
+	}
+
+	// Re-parent children to deleted item's parent
+	QTreeWidgetItem *parent = item->parent();
+	while (item->childCount() > 0)
+	{
+		QTreeWidgetItem *child = item->takeChild(0);
+		if (parent)
+			parent->addChild(child);
+		else
+			ui->treeWidget_objects->addTopLevelItem(child);
+	}
+
+	if (parent)
+		parent->removeChild(item);
+	else
+		delete ui->treeWidget_objects->takeTopLevelItem(
+			ui->treeWidget_objects->indexOfTopLevelItem(item));
+}
+
+void cObjectsTreeWidget::slotItemSelectionChanged()
+{
+	// Remove any previously loaded editor widget to avoid stacking multiple editors
+	if (currentEditorWidget)
+	{
+		editorLayout->removeWidget(currentEditorWidget);
+		delete currentEditorWidget;
+		currentEditorWidget = nullptr;
+	}
+
+	QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
+	if (selected.isEmpty()) return;
+
+	QTreeWidgetItem *item = selected.first();
+	// Cast stored integer back to enum for type-safe branching
+	enumNodeType type = enumNodeType(item->data(1, Qt::UserRole).toInt());
+	// objectId links this tree node to a fractal slot or primitive definition in gPar
+	int objectId = item->data(2, Qt::UserRole).toInt();
+
+	// Wrapper widget so the whole editor area can be removed/replaced as a single unit
+	QWidget *editorContainer = new QWidget();
+	QVBoxLayout *containerLayout = new QVBoxLayout(editorContainer);
+
+	// Position group is irrelevant for fractals inside a hybrid node because
+	// their position is controlled by the hybrid parent, not individually
+	if (!isFractalInHybridGroup(item))
+	{
+		QGroupBox *posGroup = new QGroupBox(tr("Position"));
+		QHBoxLayout *posLayout = new QHBoxLayout(posGroup);
+
+		// Parse the position stored as "x y z" text in column 3 of the tree item
+		CVector3 pos = parsePosition(item->text(3));
+
+		QDoubleSpinBox *spinX = new QDoubleSpinBox();
+		QDoubleSpinBox *spinY = new QDoubleSpinBox();
+		QDoubleSpinBox *spinZ = new QDoubleSpinBox();
+
+		for (QDoubleSpinBox *spin : {spinX, spinY, spinZ})
+		{
+			spin->setRange(-1e9, 1e9);
+			spin->setDecimals(6);
+			spin->setSingleStep(0.1);
+		}
+		spinX->setValue(pos.x);
+		spinY->setValue(pos.y);
+		spinZ->setValue(pos.z);
+
+		posLayout->addWidget(new QLabel("X:"));
+		posLayout->addWidget(spinX);
+		posLayout->addWidget(new QLabel("Y:"));
+		posLayout->addWidget(spinY);
+		posLayout->addWidget(new QLabel("Z:"));
+		posLayout->addWidget(spinZ);
+
+		// Lambda captures spinboxes and item by value; any spin change
+		// writes back the formatted position string into the tree item's column 3,
+		// which is later read by StoreTreeToParams()
+		auto updatePos = [=]()
+		{ item->setText(3, formatPosition({spinX->value(), spinY->value(), spinZ->value()})); };
+
+		// 5-argument connect: signal, context object, functor — keeps lambda lifetime-safe
+		connect(spinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinX, updatePos);
+		connect(spinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinY, updatePos);
+		connect(spinZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinZ, updatePos);
+
+		containerLayout->addWidget(posGroup);
+	}
+
+	if (type == enumNodeType::fractal)
+	{
+		// objectId is 1-based; convert to 0-based index for the fractal container array
+		int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
+
+		cTabFractal *fractalTab = new cTabFractal();
+
+		// Must assign containers before Init() so the tab can read current parameter values
+		fractalTab->AssignParameterContainers(gPar, gParFractal);
+
+		// firstTab=true enables the iteration count / weight controls on the first fractal slot
+		fractalTab->Init(true, fractalIndex);
+
+		// No parent dock fractal in this context (embedded standalone, not inside cDockFractal)
+		fractalTab->AssignParentDockFractal(nullptr);
+
+		// Push current parameter values into the UI controls (write = params → UI)
+		fractalTab->SynchronizeInterface(gPar, qInterface::write);
+		fractalTab->SynchronizeFractal(gParFractal->at(fractalIndex), qInterface::write);
+
+		containerLayout->addWidget(fractalTab);
+	}
+	else if (type == enumNodeType::primitive)
+	{
+		// typeName (e.g. "box", "sphere") was stored in UserRole on column 3 during UpdateTree()
+		QString primTypeName = item->data(3, Qt::UserRole).toString();
+		if (primTypeName.isEmpty()) primTypeName = item->text(0);
+
+		// Each primitive type has its own .ui file under formula/ui/primitive_<type>.ui
+		QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
+												 + QDir::separator() + "primitive_" + primTypeName + ".ui";
+		QFile uiFile(uiFileName);
+		if (!uiFile.exists()) return;
+
+		uiFile.open(QFile::ReadOnly);
+		MyUiLoader loader;
+		QWidget *primWidget = loader.load(&uiFile);
+		uiFile.close();
+
+		if (primWidget)
+		{
+			// Resolve the full primitive name (e.g. "primitiveBox_0001") from the live
+			// parameter list so widget names can be prefixed for SynchronizeInterfaceWindow()
+			QString primFullName;
+			const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+			for (const sPrimitiveItem &prim : primitiveList)
+			{
+				if (prim.objectID == objectId)
+				{
+					primFullName = prim.fullName;
+					break;
+				}
+			}
+
+			if (gPar->Get<bool>("ui_colorize"))
+				cInterface::ColorizeGroupBoxes(
+					primWidget, gPar->Get<int>("ui_colorize_random_seed") + objectId);
+			cInterface::AdjustLayoutSpacing(primWidget, gPar->Get<int>("ui_layout_spacing"));
+
+			// Widget names in the .ui file are generic (e.g. "spinbox_size").
+			// SynchronizeInterfaceWindow() matches widget names to parameter names, so each
+			// widget must be renamed to include the primitive's full name as a prefix segment,
+			// e.g. "spinbox_size" → "spinbox_primitiveBox_0001_size"
+			if (!primFullName.isEmpty())
+			{
+				for (QWidget *widget : primWidget->findChildren<QWidget *>())
+				{
+					QString widgetName = widget->objectName();
+					int firstUnderscore = widgetName.indexOf('_');
+					if (firstUnderscore >= 0)
+					{
+						widgetName.insert(firstUnderscore + 1, primFullName + "_");
+						widget->setObjectName(widgetName);
+					}
+				}
+			}
+
+			// Populate the renamed widgets with current parameter values from gPar
+			SynchronizeInterfaceWindow(primWidget, gPar, qInterface::write);
+			containerLayout->addWidget(primWidget);
+		}
+	}
+
+	// Stretch pushes content to the top of the editor area
+	containerLayout->addStretch();
+	currentEditorWidget = editorContainer;
+	editorLayout->addWidget(currentEditorWidget);
 }
