@@ -10,6 +10,8 @@
 
 #include <QWidget>
 #include <QComboBox>
+#include <QLabel>
+#include <QGroupBox>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
 #include <memory>
@@ -53,6 +55,11 @@ private:
 		std::shared_ptr<cParameterContainer> params, const QString &name, const QString &value);
 	void addOrSetParam(
 		std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value);
+
+	QLabel *buildInfoLabel(QTreeWidgetItem *item, enumNodeType type);
+	QGroupBox *buildPositionGroup(QTreeWidgetItem *item);
+	QWidget *buildFractalEditor(int objectId);
+	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 
 private slots:
 	void onItemChanged(QTreeWidgetItem *item, int column);
