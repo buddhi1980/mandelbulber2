@@ -35,8 +35,8 @@
  * and reads the corresponding ui from formula/ui/fractal_<FORMULA_NAME>.ui
  */
 
-#ifndef MANDELBULBER2_QT_TAB_FRACTAL_H_
-#define MANDELBULBER2_QT_TAB_FRACTAL_H_
+#ifndef MANDELBULBER2_QT_FRACTAL_OBJECT_H_
+#define MANDELBULBER2_QT_FRACTAL_OBJECT_H_
 
 #include <memory>
 
@@ -54,15 +54,15 @@ class cDockFractal;
 
 namespace Ui
 {
-class cTabFractal;
+class cFractalObject;
 }
 
-class cTabFractal : public QWidget, public cMyWidgetWithParams
+class cFractalObject : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 public:
-	explicit cTabFractal(QWidget *parent = nullptr);
-	~cTabFractal() override;
+	explicit cFractalObject(QWidget *parent = nullptr);
+	~cFractalObject() override;
 
 	void AssignParentDockFractal(const cDockFractal *dockFractal)
 	{
@@ -70,10 +70,6 @@ public:
 	};
 	void InitWidgetNames() const;
 	void Init(bool firstTab, int _tabIndex);
-	void FormulaTransformSetVisible(bool visible) const;
-	void CConstantAdditionSetVisible(bool visible) const;
-	void CalculationParametersSetVisible(bool visible) const;
-	void MaterialSetVisible(bool visible) const;
 	void FrameIterationFormulaSetEnabled(bool enabled) const;
 	void FrameIterationFormulaSetWidgetsVisibility(bool visible) const;
 	int GetCurrentFractalIndexOnList() const;
@@ -98,7 +94,7 @@ private slots:
 private:
 	void ConnectSignals();
 
-	Ui::cTabFractal *ui;
+	Ui::cFractalObject *ui;
 
 	int tabIndex;
 	std::unique_ptr<QWidget> fractalWidget;
@@ -108,4 +104,4 @@ private:
 	const cDockFractal *parentDockFractal = nullptr;
 };
 
-#endif /* MANDELBULBER2_QT_TAB_FRACTAL_H_ */
+#endif /* MANDELBULBER2_QT_FRACTAL_OBJECT_H_ */

@@ -38,8 +38,7 @@
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
 
-#include "tab_fractal.h"
-
+#include "fractal_object.h"
 #include "src/fractal_container.hpp"
 #include "src/parameters.hpp"
 #include "src/synchronize_interface.hpp"
@@ -103,7 +102,7 @@ private:
 	Ui::cDockFractal *ui;
 
 	cAutomatedWidgets *automatedWidgets;
-	std::vector<cTabFractal *> fractalTabs;
+	std::vector<cFractalObject *> fractalTabs;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_FRACTAL_H_ */

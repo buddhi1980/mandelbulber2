@@ -24,8 +24,8 @@
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/objects_tree.h"
-#include "tab_fractal.h"
 #include "formula/definition/all_fractal_list.hpp"
+#include "fractal_object.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
@@ -505,7 +505,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
 	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
 
-	cTabFractal *fractalTab = new cTabFractal();
+	cFractalObject *fractalTab = new cFractalObject();
 	fractalTab->AssignParameterContainers(gPar, gParFractal);
 	fractalTab->Init(true, fractalIndex);
 	fractalTab->AssignParentDockFractal(nullptr);

@@ -61,8 +61,8 @@ cDockFractal::cDockFractal(QWidget *parent)
 	fractalTabs.resize(NUMBER_OF_FRACTALS);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fractalTabs[i] =
-			ui->tabWidget_fractals->findChild<cTabFractal *>(QString("widgetTabFractal_%1").arg(i + 1));
+		fractalTabs[i] = ui->tabWidget_fractals->findChild<cFractalObject *>(
+			QString("widgetTabFractal_%1").arg(i + 1));
 	}
 
 	automatedWidgets = new cAutomatedWidgets(this);
@@ -283,19 +283,6 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
 				->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i + 1))
 				->setEnabled(state);
 		}
-
-		fractalTabs[i]->FormulaTransformSetVisible(state);
-
-		const fractal::enumCPixelAddition cPixelAddition =
-			newFractalList[fractalTabs[i]->GetCurrentFractalIndexOnList()]->getCpixelAddition();
-
-		if (cPixelAddition == fractal::cpixelAlreadyHas)
-			fractalTabs[i]->CConstantAdditionSetVisible(false);
-		else
-			fractalTabs[i]->CConstantAdditionSetVisible(state);
-
-		fractalTabs[i]->MaterialSetVisible(state);
-		fractalTabs[i]->CalculationParametersSetVisible(state);
 	}
 
 	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(

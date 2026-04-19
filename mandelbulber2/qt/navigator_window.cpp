@@ -40,8 +40,7 @@
 
 #include "dock_effects.h"
 #include "dock_fractal.h"
-#include "tab_fractal.h"
-
+#include "fractal_object.h"
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
@@ -270,7 +269,7 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 
 	if (leftWidget)
 	{
-		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
+		if (cFractalObject *fractalWidget = qobject_cast<cFractalObject *>(leftWidget))
 		{
 			int tabIndex = fractalWidget->GetTabIndex();
 			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), mode);

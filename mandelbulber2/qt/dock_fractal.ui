@@ -35,7 +35,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -190,7 +190,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_1" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_1" native="true"/>
                </item>
                <item>
                 <widget class="QLabel" name="label_fractals_remark_hybrid">
@@ -238,8 +238,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -259,7 +259,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_2" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_2" native="true"/>
                </item>
               </layout>
              </widget>
@@ -297,8 +297,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -318,7 +318,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_3" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_3" native="true"/>
                </item>
               </layout>
              </widget>
@@ -356,8 +356,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -377,7 +377,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_4" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_4" native="true"/>
                </item>
               </layout>
              </widget>
@@ -415,8 +415,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -436,7 +436,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_5" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_5" native="true"/>
                </item>
               </layout>
              </widget>
@@ -474,8 +474,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -495,7 +495,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_6" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_6" native="true"/>
                </item>
               </layout>
              </widget>
@@ -533,8 +533,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -554,7 +554,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_7" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_7" native="true"/>
                </item>
               </layout>
              </widget>
@@ -592,8 +592,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -613,7 +613,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_8" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_8" native="true"/>
                </item>
               </layout>
              </widget>
@@ -651,8 +651,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>453</width>
+                <height>785</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -672,7 +672,7 @@
                 <number>2</number>
                </property>
                <item>
-                <widget class="cTabFractal" name="widgetTabFractal_9" native="true"/>
+                <widget class="cFractalObject" name="widgetTabFractal_9" native="true"/>
                </item>
               </layout>
              </widget>
@@ -2716,9 +2716,9 @@ with visible shadows of fractal objects</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>cTabFractal</class>
+   <class>cFractalObject</class>
    <extends>QWidget</extends>
-   <header>tab_fractal.h</header>
+   <header>fractal_object.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
