@@ -371,19 +371,27 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
 
+	// In headless (--nogui) mode mainInterface->mainWindow is null. The
+	// original code unconditionally dereferenced it inside the error
+	// branches below, crashing the whole CLI render. Guard the parent
+	// widget so headless runs report errors to stderr instead.
+	QWidget *errParent = mainInterface->mainWindow
+		? mainInterface->mainWindow->GetCentralWidget()
+		: nullptr;
+
 	if (keyframes)
 	{
 		if (keyframes->GetNumberOfFrames() == 0)
 		{
 			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
-				mainInterface->mainWindow->GetCentralWidget());
+				errParent);
 		}
 		else if (!QDir(params->Get<QString>("anim_keyframe_dir")).exists())
 		{
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
 					.arg(params->Get<QString>("anim_keyframe_dir")),
-				cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
+				cErrorMessage::errorMessage, errParent);
 		}
 		else
 		{
