@@ -13,3 +13,8 @@ cFractalCalculationParameters::cFractalCalculationParameters(QWidget *parent)
 {
 	ui->setupUi(this);
 }
+
+cFractalCalculationParameters::~cFractalCalculationParameters()
+{
+	delete ui;
+}

@@ -13,3 +13,8 @@ cGeneralObjectParameters::cGeneralObjectParameters(QWidget *parent)
 {
 	ui->setupUi(this);
 }
+
+cGeneralObjectParameters::~cGeneralObjectParameters()
+{
+	delete ui;
+}

@@ -9,12 +9,12 @@
 #include "objects_tree_widget.h"
 
 #include <memory>
+#include <QSet>
 #include <QStack>
 #include <QComboBox>
 #include <QInputDialog>
-#include <QGroupBox>
-#include <QDoubleSpinBox>
 #include <QList>
+#include <QVBoxLayout>
 
 #include "src/interface.hpp"
 #include "src/primitives.h"
@@ -26,6 +26,8 @@
 #include "src/objects_tree.h"
 #include "formula/definition/all_fractal_list.hpp"
 #include "fractal_object.h"
+#include "general_object_parameters.h"
+#include "fractal_calculation_parameters.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
@@ -59,6 +61,15 @@ cObjectsTreeWidget::~cObjectsTreeWidget()
 {
 	delete ui;
 }
+
+// Widget names from cGeneralObjectParameters that represent the common object parameters
+// (position, rotation, scale, repeat, material).  These are the canonical sources of truth
+// when cGeneralObjectParameters is embedded in an editor; the same-named widgets found in
+// primitive .ui files are neutralised so they do not conflict with the sync engine.
+static const QSet<QString> s_commonGeneralObjectWidgetNames = {"vect3_position_x",
+	"vect3_position_y", "vect3_position_z", "spinboxd3_rotation_x", "spinboxd3_rotation_y",
+	"spinboxd3_rotation_z", "vect3_repeat_x", "vect3_repeat_y", "vect3_repeat_z",
+	"materialselector_material_id", "logedit_scale"};
 
 // --- Private helpers ---
 
@@ -154,6 +165,23 @@ void cObjectsTreeWidget::addOrSetParam(
 		params->Set(name, value);
 	else
 		params->addParam(name, value, morphNone, paramStandard);
+}
+
+// Inserts 'prefix' into every child widget name of 'parent' immediately after the first '_',
+// so SynchronizeInterfaceWindow can map each widget to its namespaced parameter.
+// Example: prefix "formula_" transforms "vect3_position_x" → "vect3_formula_position_x".
+void cObjectsTreeWidget::renameWidgetsWithPrefix(QWidget *parent, const QString &prefix)
+{
+	for (QWidget *widget : parent->findChildren<QWidget *>())
+	{
+		QString widgetName = widget->objectName();
+		int firstUnderscore = widgetName.indexOf('_');
+		if (firstUnderscore >= 0)
+		{
+			widgetName.insert(firstUnderscore + 1, prefix);
+			widget->setObjectName(widgetName);
+		}
+	}
 }
 
 // --- Public methods ---
@@ -455,56 +483,34 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 	return infoLabel;
 }
 
-// Builds a group box containing X/Y/Z spin boxes pre-filled with the item's current position.
-// Each spin box is connected so that any change is immediately written back into column 3
-// of the tree item, keeping the tree and the editor in sync without requiring an explicit Apply.
-QGroupBox *cObjectsTreeWidget::buildPositionGroup(QTreeWidgetItem *item)
-{
-	QGroupBox *posGroup = new QGroupBox(tr("Position"));
-	QHBoxLayout *posLayout = new QHBoxLayout(posGroup);
-
-	CVector3 pos = parsePosition(item->text(3));
-
-	QDoubleSpinBox *spinX = new QDoubleSpinBox();
-	QDoubleSpinBox *spinY = new QDoubleSpinBox();
-	QDoubleSpinBox *spinZ = new QDoubleSpinBox();
-
-	for (QDoubleSpinBox *spin : {spinX, spinY, spinZ})
-	{
-		spin->setRange(-1e9, 1e9);
-		spin->setDecimals(6);
-		spin->setSingleStep(0.1);
-	}
-	spinX->setValue(pos.x);
-	spinY->setValue(pos.y);
-	spinZ->setValue(pos.z);
-
-	posLayout->addWidget(new QLabel("X:"));
-	posLayout->addWidget(spinX);
-	posLayout->addWidget(new QLabel("Y:"));
-	posLayout->addWidget(spinY);
-	posLayout->addWidget(new QLabel("Z:"));
-	posLayout->addWidget(spinZ);
-
-	// Lambda captures the spin boxes by value; any change to X, Y, or Z immediately
-	// reformats and stores the full position string back into the tree item
-	auto updatePos = [=]()
-	{ item->setText(3, formatPosition({spinX->value(), spinY->value(), spinZ->value()})); };
-
-	connect(spinX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinX, updatePos);
-	connect(spinY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinY, updatePos);
-	connect(spinZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), spinZ, updatePos);
-
-	return posGroup;
-}
-
-// Creates and initialises a cTabFractal editor for the fractal identified by 'objectId'.
+// Creates and initialises a cFractalObject editor for the fractal identified by 'objectId',
+// and adds cGeneralObjectParameters and cFractalCalculationParameters widgets to expose all
+// common fractal parameters defined in InitFractalParams.
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
 QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 {
 	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
 	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
 
+	QWidget *container = new QWidget();
+	QVBoxLayout *layout = new QVBoxLayout(container);
+	layout->setContentsMargins(0, 0, 0, 0);
+
+	// General object parameters (position, rotation, scale, repeat, material).
+	// Widget names are prefixed with "formula_" so they match the fractal container params
+	// e.g. vect3_position_x  →  vect3_formula_position_x  →  param formula_position.x
+	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+	renameWidgetsWithPrefix(generalParams, "formula_");
+	SynchronizeInterfaceWindow(generalParams, gParFractal->at(fractalIndex), qInterface::write);
+	layout->addWidget(generalParams);
+
+	// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
+	// Widget names already include the parameter name prefix so no renaming is needed.
+	cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+	SynchronizeInterfaceWindow(calcParams, gParFractal->at(fractalIndex), qInterface::write);
+	layout->addWidget(calcParams);
+
+	// Formula-specific parameter editor (formula selector + formula tab)
 	cFractalObject *fractalTab = new cFractalObject();
 	fractalTab->AssignParameterContainers(gPar, gParFractal);
 	fractalTab->Init(true, fractalIndex);
@@ -513,8 +519,9 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 	// Populate the tab with the current parameter values from gPar and gParFractal
 	fractalTab->SynchronizeInterface(gPar, qInterface::write);
 	fractalTab->SynchronizeFractal(gParFractal->at(fractalIndex), qInterface::write);
+	layout->addWidget(fractalTab);
 
-	return fractalTab;
+	return container;
 }
 
 // Loads the .ui file for the given primitive type, renames all child widgets so that
@@ -554,12 +561,18 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 
 	if (!primFullName.isEmpty())
 	{
-		// Insert the full primitive name into each child widget's object name immediately
-		// after the first underscore so that SynchronizeInterfaceWindow can match widget
-		// names to parameter keys (e.g. "spinbox_x" becomes "spinbox_primitive_box_001_x")
+		// Rename child widgets: common ones are prefixed with "_" so the sync engine skips them;
+		// primitive-specific ones get the full primitive name inserted after the first underscore
+		// (e.g. "spinbox_x" → "spinbox_primitive_box_001_x") so they bind to the correct gPar key.
 		for (QWidget *widget : primWidget->findChildren<QWidget *>())
 		{
 			QString widgetName = widget->objectName();
+			if (s_commonGeneralObjectWidgetNames.contains(widgetName))
+			{
+				// Neutralise: typeName becomes "" so no sync branch matches this widget
+				widget->setObjectName("_" + widgetName);
+				continue;
+			}
 			int firstUnderscore = widgetName.indexOf('_');
 			if (firstUnderscore >= 0)
 			{
@@ -569,22 +582,42 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 		}
 	}
 
-	// Populate the primitive editor widgets with values from gPar
+	// Populate the primitive-specific editor widgets with values from gPar
 	SynchronizeInterfaceWindow(primWidget, gPar, qInterface::write);
-	return primWidget;
+
+	// General object parameters (position, rotation, repeat, material) for this primitive.
+	// Widget names are prefixed with the full primitive name so they bind to the correct gPar keys
+	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param primitive_box_001_position.x).
+	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+	if (!primFullName.isEmpty())
+		renameWidgetsWithPrefix(generalParams, primFullName + "_");
+	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
+
+	QWidget *container = new QWidget();
+	QVBoxLayout *layout = new QVBoxLayout(container);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->addWidget(generalParams);
+	layout->addWidget(primWidget);
+
+	return container;
 }
 
 // Responds to the user selecting a different item in the object tree.
 // Before tearing down the old editor, the current widget values are read back
-// into gPar so that any changes the user made are not silently discarded.
+// into gPar (and into gParFractal for fractal nodes) so that any changes the
+// user made are not silently discarded.
 // A fresh editor container is then built for the newly selected item.
 void cObjectsTreeWidget::slotItemSelectionChanged()
 {
 	// Save any user-modified parameter values from the current editor back to gPar
-	// before tearing it down, so changes are not lost when switching selection
+	// (and to gParFractal if the previous selection was a fractal node) before tearing
+	// it down, so changes are not lost when switching selection
 	if (currentEditorWidget)
 	{
 		SynchronizeInterfaceWindow(currentEditorWidget, gPar, qInterface::read);
+		if (currentFractalIndex >= 0)
+			SynchronizeInterfaceWindow(
+				currentEditorWidget, gParFractal->at(currentFractalIndex), qInterface::read);
 		editorLayout->removeWidget(currentEditorWidget);
 		delete currentEditorWidget;
 		currentEditorWidget = nullptr;
@@ -604,22 +637,26 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	// Header label: tells the user which object and type they are currently editing
 	containerLayout->addWidget(buildInfoLabel(item, type));
 
-	// Position group is shown for all nodes except fractals nested inside a hybrid group
-	if (!isFractalInHybridGroup(item)) containerLayout->addWidget(buildPositionGroup(item));
-
 	// Build the type-specific parameter editor
 	if (type == enumNodeType::fractal)
 	{
+		// Track the fractal index so we can save to gParFractal on the next selection change
+		currentFractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
 		QWidget *fractalEditor = buildFractalEditor(objectId);
 		if (fractalEditor) containerLayout->addWidget(fractalEditor);
 	}
 	else if (type == enumNodeType::primitive)
 	{
+		currentFractalIndex = -1;
 		QWidget *primEditor = buildPrimitiveEditor(item, objectId);
 		if (primEditor)
 			containerLayout->addWidget(primEditor);
 		else
 			return; // No matching .ui file – leave the editor area empty
+	}
+	else
+	{
+		currentFractalIndex = -1;
 	}
 
 	containerLayout->addStretch();
