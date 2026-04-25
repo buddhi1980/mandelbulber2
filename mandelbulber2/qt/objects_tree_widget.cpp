@@ -487,7 +487,7 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 // and adds cGeneralObjectParameters and cFractalCalculationParameters widgets to expose all
 // common fractal parameters defined in InitFractalParams.
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
-QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
+QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid)
 {
 	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
 	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
@@ -495,20 +495,6 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
 	layout->setContentsMargins(0, 0, 0, 0);
-
-	// General object parameters (position, rotation, scale, repeat, material).
-	// Widget names are prefixed with "formula_" so they match the fractal container params
-	// e.g. vect3_position_x  →  vect3_formula_position_x  →  param formula_position.x
-	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-	renameWidgetsWithPrefix(generalParams, "formula_");
-	SynchronizeInterfaceWindow(generalParams, gParFractal->at(fractalIndex), qInterface::write);
-	layout->addWidget(generalParams);
-
-	// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
-	// Widget names already include the parameter name prefix so no renaming is needed.
-	cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
-	SynchronizeInterfaceWindow(calcParams, gParFractal->at(fractalIndex), qInterface::write);
-	layout->addWidget(calcParams);
 
 	// Formula-specific parameter editor (formula selector + formula tab)
 	cFractalObject *fractalTab = new cFractalObject();
@@ -521,6 +507,23 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 	fractalTab->SynchronizeFractal(gParFractal->at(fractalIndex), qInterface::write);
 	layout->addWidget(fractalTab);
 
+	if (!isHybrid)
+	{
+		// General object parameters (position, rotation, scale, repeat, material).
+		// Widget names are prefixed with "formula_" so they match the fractal container params
+		// e.g. vect3_position_x  →  vect3_formula_position_x  →  param formula_position.x
+		cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+		renameWidgetsWithPrefix(generalParams, "formula_");
+		SynchronizeInterfaceWindow(generalParams, gParFractal->at(fractalIndex), qInterface::write);
+		layout->addWidget(generalParams);
+
+		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
+		// Widget names already include the parameter name prefix so no renaming is needed.
+		cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+		SynchronizeInterfaceWindow(calcParams, gParFractal->at(fractalIndex), qInterface::write);
+		layout->addWidget(calcParams);
+	}
+
 	return container;
 }
 
@@ -532,7 +535,6 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 {
 	// Retrieve the primitive type name stored by UpdateTree() (e.g. "box", "sphere")
 	QString primTypeName = item->data(3, Qt::UserRole).toString();
-	if (primTypeName.isEmpty()) primTypeName = item->text(0);
 
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + "primitive_" + primTypeName + ".ui";
@@ -587,17 +589,17 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 
 	// General object parameters (position, rotation, repeat, material) for this primitive.
 	// Widget names are prefixed with the full primitive name so they bind to the correct gPar keys
-	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param primitive_box_001_position.x).
+	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param
+	// primitive_box_001_position.x).
 	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-	if (!primFullName.isEmpty())
-		renameWidgetsWithPrefix(generalParams, primFullName + "_");
+	if (!primFullName.isEmpty()) renameWidgetsWithPrefix(generalParams, primFullName + "_");
 	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
 
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
 	layout->setContentsMargins(0, 0, 0, 0);
-	layout->addWidget(generalParams);
 	layout->addWidget(primWidget);
+	layout->addWidget(generalParams);
 
 	return container;
 }
@@ -642,7 +644,9 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	{
 		// Track the fractal index so we can save to gParFractal on the next selection change
 		currentFractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
-		QWidget *fractalEditor = buildFractalEditor(objectId);
+
+		bool isHybrid = isFractalInHybridGroup(item);
+		QWidget *fractalEditor = buildFractalEditor(objectId, isHybrid);
 		if (fractalEditor) containerLayout->addWidget(fractalEditor);
 	}
 	else if (type == enumNodeType::primitive)
@@ -653,6 +657,13 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 			containerLayout->addWidget(primEditor);
 		else
 			return; // No matching .ui file – leave the editor area empty
+	}
+	else if (type == enumNodeType::hybrid || type == enumNodeType::booleanAdd
+					 || type == enumNodeType::booleanMul || type == enumNodeType::booleanSub)
+	{
+		cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+		SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
+		containerLayout->addWidget(generalParams);
 	}
 	else
 	{

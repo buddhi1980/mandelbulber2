@@ -76,6 +76,7 @@ public:
 		std::shared_ptr<const cFractalContainer> par,
 		const std::vector<cObjectsTree::sNodeDataForRendering> &_objectsNodes);
 	sSequence *GetSequence(int seqIndex) { return &sequences[seqIndex]; };
+	int GetNumberOfSequences() const { return sequences.size(); };
 
 private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,

@@ -419,6 +419,15 @@ bool cRenderJob::Execute()
 					renderData->hybridFractalSequences = hybridSequences;
 				}
 
+				if (renderData->hybridFractalSequences.GetNumberOfSequences() == 0)
+				{
+					WriteLog(
+						"cRenderJob: objectsTree is enabled but no fractal sequences were created. "
+						"Rendering will be skipped. Please check the object-tree structure in the settings.",
+						1);
+					continue;
+				}
+
 				renderData->ValidateObjects();
 
 				// recalculation of some parameters;

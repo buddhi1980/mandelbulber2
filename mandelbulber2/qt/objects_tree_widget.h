@@ -57,7 +57,7 @@ private:
 		std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value);
 
 	QLabel *buildInfoLabel(QTreeWidgetItem *item, enumNodeType type);
-	QWidget *buildFractalEditor(int objectId);
+	QWidget *buildFractalEditor(int objectId, bool isHybrid);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 
 	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
@@ -77,7 +77,8 @@ private:
 
 	QWidget *currentEditorWidget = nullptr;
 	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors
-	int currentFractalIndex = -1; // index into gParFractal for the currently edited fractal (-1 if none)
+	int currentFractalIndex =
+		-1; // index into gParFractal for the currently edited fractal (-1 if none)
 };
 
 #endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */
