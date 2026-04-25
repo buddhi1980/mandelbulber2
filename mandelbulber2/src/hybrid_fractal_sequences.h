@@ -71,6 +71,7 @@ public:
 	void CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
 		std::shared_ptr<const cFractalContainer> par);
 	sSequence *GetSequence(int seqIndex) { return &sequences[seqIndex]; };
+	int GetNumberOfSequences() const { return sequences.size(); };
 
 private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,
