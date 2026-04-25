@@ -60,6 +60,12 @@ private:
 	QWidget *buildFractalEditor(int objectId);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 
+	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
+	// immediately after the first '_', so that SynchronizeInterfaceWindow can map the
+	// widget to the correctly namespaced parameter (e.g. "vect3_position_x" with prefix
+	// "formula_" becomes "vect3_formula_position_x").
+	static void renameWidgetsWithPrefix(QWidget *parent, const QString &prefix);
+
 private slots:
 	void onItemChanged(QTreeWidgetItem *item, int column);
 	void slotAddObject();

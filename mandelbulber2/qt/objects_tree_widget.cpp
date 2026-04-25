@@ -62,6 +62,15 @@ cObjectsTreeWidget::~cObjectsTreeWidget()
 	delete ui;
 }
 
+// Widget names from cGeneralObjectParameters that represent the common object parameters
+// (position, rotation, scale, repeat, material).  These are the canonical sources of truth
+// when cGeneralObjectParameters is embedded in an editor; the same-named widgets found in
+// primitive .ui files are neutralised so they do not conflict with the sync engine.
+static const QSet<QString> s_commonGeneralObjectWidgetNames = {"vect3_position_x",
+	"vect3_position_y", "vect3_position_z", "spinboxd3_rotation_x", "spinboxd3_rotation_y",
+	"spinboxd3_rotation_z", "vect3_repeat_x", "vect3_repeat_y", "vect3_repeat_z",
+	"materialselector_material_id", "logedit_scale"};
+
 // --- Private helpers ---
 
 // Returns a flat list of every item in the tree, regardless of nesting depth.
@@ -156,6 +165,23 @@ void cObjectsTreeWidget::addOrSetParam(
 		params->Set(name, value);
 	else
 		params->addParam(name, value, morphNone, paramStandard);
+}
+
+// Inserts 'prefix' into every child widget name of 'parent' immediately after the first '_',
+// so SynchronizeInterfaceWindow can map each widget to its namespaced parameter.
+// Example: prefix "formula_" transforms "vect3_position_x" → "vect3_formula_position_x".
+void cObjectsTreeWidget::renameWidgetsWithPrefix(QWidget *parent, const QString &prefix)
+{
+	for (QWidget *widget : parent->findChildren<QWidget *>())
+	{
+		QString widgetName = widget->objectName();
+		int firstUnderscore = widgetName.indexOf('_');
+		if (firstUnderscore >= 0)
+		{
+			widgetName.insert(firstUnderscore + 1, prefix);
+			widget->setObjectName(widgetName);
+		}
+	}
 }
 
 // --- Public methods ---
@@ -474,16 +500,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId)
 	// Widget names are prefixed with "formula_" so they match the fractal container params
 	// e.g. vect3_position_x  →  vect3_formula_position_x  →  param formula_position.x
 	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-	for (QWidget *widget : generalParams->findChildren<QWidget *>())
-	{
-		QString widgetName = widget->objectName();
-		int firstUnderscore = widgetName.indexOf('_');
-		if (firstUnderscore >= 0)
-		{
-			widgetName.insert(firstUnderscore + 1, "formula_");
-			widget->setObjectName(widgetName);
-		}
-	}
+	renameWidgetsWithPrefix(generalParams, "formula_");
 	SynchronizeInterfaceWindow(generalParams, gParFractal->at(fractalIndex), qInterface::write);
 	layout->addWidget(generalParams);
 
@@ -542,14 +559,6 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 		}
 	}
 
-	// Widget names that are handled by cGeneralObjectParameters below.
-	// These are neutralised in the primitive .ui (prefixed with "_") so they are silently
-	// ignored by SynchronizeInterfaceWindow and do not conflict with the canonical controls.
-	static const QSet<QString> commonWidgetNames = {"vect3_position_x", "vect3_position_y",
-		"vect3_position_z", "spinboxd3_rotation_x", "spinboxd3_rotation_y", "spinboxd3_rotation_z",
-		"vect3_repeat_x", "vect3_repeat_y", "vect3_repeat_z", "materialselector_material_id",
-		"logedit_scale"};
-
 	if (!primFullName.isEmpty())
 	{
 		// Rename child widgets: common ones are prefixed with "_" so the sync engine skips them;
@@ -558,7 +567,7 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 		for (QWidget *widget : primWidget->findChildren<QWidget *>())
 		{
 			QString widgetName = widget->objectName();
-			if (commonWidgetNames.contains(widgetName))
+			if (s_commonGeneralObjectWidgetNames.contains(widgetName))
 			{
 				// Neutralise: typeName becomes "" so no sync branch matches this widget
 				widget->setObjectName("_" + widgetName);
@@ -581,18 +590,7 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param primitive_box_001_position.x).
 	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
 	if (!primFullName.isEmpty())
-	{
-		for (QWidget *widget : generalParams->findChildren<QWidget *>())
-		{
-			QString widgetName = widget->objectName();
-			int firstUnderscore = widgetName.indexOf('_');
-			if (firstUnderscore >= 0)
-			{
-				widgetName.insert(firstUnderscore + 1, primFullName + "_");
-				widget->setObjectName(widgetName);
-			}
-		}
-	}
+		renameWidgetsWithPrefix(generalParams, primFullName + "_");
 	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
 
 	QWidget *container = new QWidget();
