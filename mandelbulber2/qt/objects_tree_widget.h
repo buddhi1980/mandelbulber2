@@ -57,7 +57,6 @@ private:
 		std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value);
 
 	QLabel *buildInfoLabel(QTreeWidgetItem *item, enumNodeType type);
-	QGroupBox *buildPositionGroup(QTreeWidgetItem *item);
 	QWidget *buildFractalEditor(int objectId);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 
@@ -72,6 +71,7 @@ private:
 
 	QWidget *currentEditorWidget = nullptr;
 	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors
+	int currentFractalIndex = -1; // index into gParFractal for the currently edited fractal (-1 if none)
 };
 
 #endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */
