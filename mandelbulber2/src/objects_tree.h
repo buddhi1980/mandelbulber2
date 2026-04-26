@@ -30,6 +30,10 @@ public:
 		int objectId;
 		int level;
 		CVector3 position;
+		CVector3 rotation;
+		CVector3 repeat;
+		double scale;
+
 	};
 
 	struct sNodeDataForRendering
@@ -43,6 +47,9 @@ public:
 		int level;
 		int hybridSequenceIndex;
 		CVector3 position;
+		CVector3 rotation;
+		CVector3 repeat;
+		double scale;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

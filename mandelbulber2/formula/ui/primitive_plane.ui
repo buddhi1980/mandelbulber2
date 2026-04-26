@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>258</width>
+    <width>280</width>
     <height>470</height>
    </rect>
   </property>
@@ -34,92 +34,10 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>Z-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="MyComboBox" name="comboBox_boolean_operator">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <item>
-        <property name="text">
-         <string>AND (Intersection)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OR (Union)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SUB (Complement)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>rev SUB (B-A)</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Y-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="MyLineEdit" name="vect3_position_z">
+     <item row="3" column="2">
+      <widget class="MyLineEdit" name="logedit_wall_thickness">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1" colspan="2">
-      <widget class="cMaterialSelector" name="materialselector_material_id" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -133,26 +51,6 @@
        </property>
        <property name="wordWrap">
         <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_22">
-       <property name="text">
-        <string>Calculation order:</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="MyLineEdit" name="vect3_position_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
        </property>
       </widget>
      </item>
@@ -222,144 +120,57 @@
        </layout>
       </widget>
      </item>
-     <item row="10" column="0" colspan="3">
-      <widget class="MyCheckBox" name="checkBox_empty">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_22">
        <property name="text">
-        <string>Empty inside</string>
+        <string>Calculation order:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="8" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+     <item row="0" column="1" colspan="2">
+      <widget class="MyComboBox" name="comboBox_boolean_operator">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>z:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="MyLineEdit" name="vect3_position_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>y:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="label_20">
-       <property name="text">
-        <string>Material:</string>
-       </property>
+       <item>
+        <property name="text">
+         <string>AND (Intersection)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>OR (Union)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SUB (Complement)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rev SUB (B-A)</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Position:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>X-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>x:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Thickness:</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="MyLineEdit" name="logedit_wall_thickness">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="4" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_empty">
+       <property name="text">
+        <string>Empty inside</string>
        </property>
       </widget>
      </item>
@@ -382,11 +193,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
@@ -395,12 +201,6 @@
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cMaterialSelector</class>
-   <extends>QWidget</extends>
-   <header>material_selector.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyComboBox</class>
@@ -420,12 +220,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>vect3_position_x</tabstop>
-  <tabstop>vect3_position_y</tabstop>
-  <tabstop>vect3_position_z</tabstop>
-  <tabstop>spinboxd3_rotation_x</tabstop>
-  <tabstop>spinboxd3_rotation_y</tabstop>
-  <tabstop>spinboxd3_rotation_z</tabstop>
   <tabstop>checkBox_empty</tabstop>
  </tabstops>
  <resources/>

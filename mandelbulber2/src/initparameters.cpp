@@ -467,43 +467,67 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	//	par->addParam("node0001", QString("hybrid group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)),
 	//		morphNone, paramStandard);
 
-	par->addParam("node_definition_0001",
+	par->addParam("node_0001_definition",
 		QString("hybrid group 1,1,%1,0,1").arg(int(enumNodeType::hybrid)), morphNone, paramStandard);
-	//	par->addParam("node_definition_0001",
-	//		QString("boolean group 1,1,%1,0,-1").arg(int(enumNodeType::hybrid)), morphNone,
-	// paramStandard);
-	par->addParam("node_definition_0002",
+	par->addParam("node_0002_definition",
 		QString("fractal 1,2,%1,1,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_definition_0003",
+	par->addParam("node_0003_definition",
 		QString("fractal 2,3,%1,1,2").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_definition_0050",
+	par->addParam("node_0050_definition",
 		QString("primitives group 1,50,%1,0,-1").arg(int(enumNodeType::booleanAdd)), morphNone,
 		paramStandard);
-	par->addParam("node_definition_0005",
+	par->addParam("node_0005_definition",
 		QString("sphere 1,5,%1,50,10").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
-	par->addParam("node_definition_0007",
+	par->addParam("node_0007_definition",
 		QString("group 2,7,%1,50,-1").arg(int(enumNodeType::booleanAdd)), morphNone, paramStandard);
-	par->addParam("node_definition_0008",
+	par->addParam("node_0008_definition",
 		QString("sphere 2,8,%1,7,12").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
-	par->addParam("node_definition_0009",
+	par->addParam("node_0009_definition",
 		QString("sphere 3,9,%1,7,13").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
-	par->addParam("node_definition_0010",
+	par->addParam("node_0010_definition",
 		QString("hybrid group 2,10,%1,7,3").arg(int(enumNodeType::hybrid)), morphNone, paramStandard);
-	par->addParam("node_definition_0011",
+	par->addParam("node_0011_definition",
 		QString("fractal 3,11,%1,10,3").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_definition_0012",
+	par->addParam("node_0012_definition",
 		QString("fractal 4,12,%1,10,4").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_definition_0051",
+	par->addParam("node_0051_definition",
 		QString("box 1,51,%1,50,11").arg(int(enumNodeType::primitive)), morphNone, paramStandard);
 
-	par->addParam("node_position_0001", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_position_0050", CVector3(0.0, 2.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_position_0005", CVector3(1.5, 2.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_position_0007", CVector3(-6.5, 2.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_position_0008", CVector3(-2.5, 2.0, 1.0), morphNone, paramStandard);
-	par->addParam("node_position_0009", CVector3(-2.5, 2.0, -1.0), morphNone, paramStandard);
-	par->addParam("node_position_0010", CVector3(-1.5, 4.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_position_0051", CVector3(2.5, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0001_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0050_position", CVector3(0.0, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0005_position", CVector3(1.5, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0007_position", CVector3(-6.5, 2.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0008_position", CVector3(-2.5, 2.0, 1.0), morphNone, paramStandard);
+	par->addParam("node_0009_position", CVector3(-2.5, 2.0, -1.0), morphNone, paramStandard);
+	par->addParam("node_0010_position", CVector3(-1.5, 4.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0051_position", CVector3(2.5, 2.0, 0.0), morphNone, paramStandard);
+
+	par->addParam("node_0001_rotation", CVector3(10.0, 5.0, 3.0), morphNone, paramStandard);
+	par->addParam("node_0050_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0005_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0007_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0008_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0009_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0010_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0051_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+
+	par->addParam("node_0001_scale", 1.1, morphNone, paramStandard);
+	par->addParam("node_0050_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0005_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0007_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0008_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0009_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0010_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0051_scale", 1.0, morphNone, paramStandard);
+
+	par->addParam("node_0001_repeat", CVector3(1.0, 1.0, 1.0), morphNone, paramStandard);
+	par->addParam("node_0050_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0005_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0007_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0008_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0009_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0010_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0051_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);

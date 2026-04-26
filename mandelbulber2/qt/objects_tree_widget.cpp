@@ -127,7 +127,7 @@ CVector3 cObjectsTreeWidget::parsePosition(const QString &text)
 // matching the format expected by parsePosition().
 QString cObjectsTreeWidget::formatPosition(const CVector3 &pos)
 {
-	return QString("%1 %2 %3").arg(pos.x, 0, 'f', 6).arg(pos.y, 0, 'f', 6).arg(pos.z, 0, 'f', 6);
+	return QString("%1 %2 %3").arg(pos.x, 0, 'f', 15).arg(pos.y, 0, 'f', 15).arg(pos.z, 0, 'f', 15);
 }
 
 // Creates a combo box pre-populated with all supported node types and
@@ -160,6 +160,16 @@ void cObjectsTreeWidget::addOrSetParam(
 // Overload for CVector3 values – same add-or-update semantics as the string variant.
 void cObjectsTreeWidget::addOrSetParam(
 	std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value)
+{
+	if (params->IfExists(name))
+		params->Set(name, value);
+	else
+		params->addParam(name, value, morphNone, paramStandard);
+}
+
+// Overload for double values – same add-or-update semantics as the string variant.
+void cObjectsTreeWidget::addOrSetParam(
+	std::shared_ptr<cParameterContainer> params, const QString &name, double value)
 {
 	if (params->IfExists(name))
 		params->Set(name, value);
@@ -208,7 +218,8 @@ void cObjectsTreeWidget::UpdateTree(
 {
 	ui->treeWidget_objects->clear();
 	ui->treeWidget_objects->setColumnCount(4);
-	ui->treeWidget_objects->setHeaderLabels({"Name", "Type", "Object ID", "Position"});
+	ui->treeWidget_objects->setHeaderLabels(
+		{"Name", "Type", "Object ID", "Position", "Rotation", "Repeat", "Scale"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
@@ -236,12 +247,18 @@ void cObjectsTreeWidget::UpdateTree(
 		// Fractal nodes inside a hybrid group inherit the group's position; skip the column
 		bool inHybrid = nodeData.type == enumNodeType::fractal
 										&& nodeTypeMap.value(nodeData.parentId) == enumNodeType::hybrid;
-		if (!inHybrid) item->setText(3, formatPosition(nodeData.position));
+		if (!inHybrid)
+		{
+			item->setText(3, formatPosition(nodeData.position));
+			item->setText(4, formatPosition(nodeData.rotation));
+			item->setText(5, formatPosition(nodeData.repeat));
+			item->setText(6, QString::number(nodeData.scale, 'f', 15));
+		}
 
 		item->setData(0, Qt::UserRole, nodeData.id);
 		item->setData(1, Qt::UserRole, int(nodeData.type));
 		item->setData(2, Qt::UserRole, nodeData.objectId);
-		item->setFlags(item->flags() | Qt::ItemIsEditable);
+		// item->setFlags(item->flags() | Qt::ItemIsEditable);
 
 		// Store the primitive type name (e.g. "box", "sphere") so the editor can later
 		// load the matching .ui file without having to search through gPar again
@@ -308,6 +325,7 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 // Writes the current tree structure back into 'params', removing any node parameters
 // that no longer have a corresponding tree item and storing updated definitions for
 // all items that do exist.
+
 void cObjectsTreeWidget::StoreTreeToParams(
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
 {
@@ -318,17 +336,18 @@ void cObjectsTreeWidget::StoreTreeToParams(
 	for (QTreeWidgetItem *item : allItems)
 		treeNodeIds.insert(item->data(0, Qt::UserRole).toInt());
 
-	// Remove parameters that belong to nodes that have been deleted from the tree
-	for (const QString &paramName : params->GetListOfParameters())
+	// Remove stale node_ parameters
+	QList<QString> list = params->GetListOfParameters();
+	for (auto &parameterName : list)
 	{
-		if (!paramName.startsWith("node_definition_")) continue;
-		QString suffix = paramName.mid(QString("node_definition").length()); // e.g. "_0001"
-		int nodeId = suffix.mid(1).toInt();
-		if (!treeNodeIds.contains(nodeId))
+		if (parameterName.left(5) == "node_")
 		{
-			params->DeleteParameter(paramName);
-			QString posParam = "node_position" + suffix;
-			if (params->IfExists(posParam)) params->DeleteParameter(posParam);
+			bool ok = false;
+			int nodeId = parameterName.section('_', 1, 1).toInt(&ok);
+			if (ok && !treeNodeIds.contains(nodeId))
+			{
+				params->DeleteParameter(parameterName);
+			}
 		}
 	}
 
@@ -341,16 +360,11 @@ void cObjectsTreeWidget::StoreTreeToParams(
 		QString name = item->text(0);
 		int parentId = item->parent() ? item->parent()->data(0, Qt::UserRole).toInt() : 0;
 
-		QString suffix = QString("_%1").arg(nodeId, 4, 10, QChar('0'));
-		QString defParam = "node_definition" + suffix;
-		QString posParam = "node_position" + suffix;
+		QString prefix = QString("node_%1").arg(nodeId, 4, 10, QChar('0'));
+		QString defParam = prefix + "_definition";
 
 		addOrSetParam(params, defParam,
 			QString("%1,%2,%3,%4,%5").arg(name).arg(nodeId).arg(nodeType).arg(parentId).arg(objectId));
-
-		// Hybrid-child fractals share the parent position; do not store a separate position for them
-		if (!isFractalInHybridGroup(item))
-			addOrSetParam(params, posParam, parsePosition(item->text(3)));
 	}
 }
 
@@ -487,7 +501,7 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 // and adds cGeneralObjectParameters and cFractalCalculationParameters widgets to expose all
 // common fractal parameters defined in InitFractalParams.
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
-QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid)
+QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTreeWidgetItem *item)
 {
 	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
 	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
@@ -509,12 +523,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid)
 
 	if (!isHybrid)
 	{
-		// General object parameters (position, rotation, scale, repeat, material).
-		// Widget names are prefixed with "formula_" so they match the fractal container params
-		// e.g. vect3_position_x  →  vect3_formula_position_x  →  param formula_position.x
-		cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-		renameWidgetsWithPrefix(generalParams, "formula_");
-		SynchronizeInterfaceWindow(generalParams, gParFractal->at(fractalIndex), qInterface::write);
+		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		layout->addWidget(generalParams);
 
 		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
@@ -591,9 +600,7 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	// Widget names are prefixed with the full primitive name so they bind to the correct gPar keys
 	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param
 	// primitive_box_001_position.x).
-	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-	if (!primFullName.isEmpty()) renameWidgetsWithPrefix(generalParams, primFullName + "_");
-	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
+	QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
@@ -602,6 +609,30 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	layout->addWidget(generalParams);
 
 	return container;
+}
+
+QWidget *cObjectsTreeWidget::buildGeneralObjectParametersEditor(QTreeWidgetItem *item)
+{
+	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+	// renaming edit fields to have node_ prefix so they bind to the correct gPar keys (e.g.
+	// vect3_position_x → vect3_node_001_position_x)
+
+	QString nodePrefix =
+		QString("node_%1").arg(item->data(0, Qt::UserRole).toInt(), 4, 10, QChar('0'));
+	for (QWidget *widget : generalParams->findChildren<QWidget *>())
+	{
+		QString widgetName = widget->objectName();
+		int firstUnderscore = widgetName.indexOf('_');
+		if (firstUnderscore >= 0)
+		{
+			widgetName.insert(firstUnderscore + 1, nodePrefix + "_");
+			widget->setObjectName(widgetName);
+		}
+	}
+
+	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
+
+	return generalParams;
 }
 
 // Responds to the user selecting a different item in the object tree.
@@ -631,6 +662,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	QTreeWidgetItem *item = selected.first();
 	enumNodeType type = enumNodeType(item->data(1, Qt::UserRole).toInt());
 	int objectId = item->data(2, Qt::UserRole).toInt();
+	int nodeId = item->data(0, Qt::UserRole).toInt();
 
 	// Wrapper widget so the whole editor area can be removed/replaced as a single unit
 	QWidget *editorContainer = new QWidget();
@@ -646,7 +678,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 		currentFractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
 
 		bool isHybrid = isFractalInHybridGroup(item);
-		QWidget *fractalEditor = buildFractalEditor(objectId, isHybrid);
+		QWidget *fractalEditor = buildFractalEditor(objectId, isHybrid, item);
 		if (fractalEditor) containerLayout->addWidget(fractalEditor);
 	}
 	else if (type == enumNodeType::primitive)
@@ -661,8 +693,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	else if (type == enumNodeType::hybrid || type == enumNodeType::booleanAdd
 					 || type == enumNodeType::booleanMul || type == enumNodeType::booleanSub)
 	{
-		cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
-		SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
+		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		containerLayout->addWidget(generalParams);
 	}
 	else
@@ -676,6 +707,12 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 
 	// Apply the global UI style settings (colour coding, layout spacing) to the new editor
 	if (gPar->Get<bool>("ui_colorize"))
-		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed") + objectId);
+		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed") + nodeId);
 	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
+}
+
+void UpdateGeneralObjectParameters(
+	cGeneralObjectParameters *editorWidget, QTreeWidgetItem *item, int objectId)
+{
+	// get position, rotation, repeat and scale from
 }

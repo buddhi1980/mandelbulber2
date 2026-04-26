@@ -55,10 +55,13 @@ private:
 		std::shared_ptr<cParameterContainer> params, const QString &name, const QString &value);
 	void addOrSetParam(
 		std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value);
+	void addOrSetParam(
+		std::shared_ptr<cParameterContainer> params, const QString &name, double value);
 
 	QLabel *buildInfoLabel(QTreeWidgetItem *item, enumNodeType type);
-	QWidget *buildFractalEditor(int objectId, bool isHybrid);
+	QWidget *buildFractalEditor(int objectId, bool isHybrid, QTreeWidgetItem *item);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
+	QWidget *buildGeneralObjectParametersEditor(QTreeWidgetItem *item);
 
 	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
 	// immediately after the first '_', so that SynchronizeInterfaceWindow can map the
