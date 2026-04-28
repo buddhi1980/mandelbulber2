@@ -95,8 +95,10 @@ QList<QTreeWidgetItem *> cObjectsTreeWidget::collectAllTreeItems() const
 // has been attached to the tree widget, otherwise falling back to the stored UserRole data.
 int cObjectsTreeWidget::getNodeType(QTreeWidgetItem *item) const
 {
-	QComboBox *combo = qobject_cast<QComboBox *>(ui->treeWidget_objects->itemWidget(item, 1));
-	return combo ? combo->currentData().toInt() : item->data(1, Qt::UserRole).toInt();
+	QComboBox *combo =
+		qobject_cast<QComboBox *>(ui->treeWidget_objects->itemWidget(item, treeCol::type));
+	return combo ? combo->currentData().toInt()
+							 : item->data(treeData::nodeType, Qt::UserRole).toInt();
 }
 
 // Returns true when 'item' is a fractal node that sits directly inside a hybrid group.
@@ -240,24 +242,24 @@ void cObjectsTreeWidget::UpdateTree(
 	for (const auto &nodeData : sortedList)
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setText(0, nodeData.name);
-		item->setText(1, nodeTypeToString(nodeData.type));
-		item->setText(2, QString::number(nodeData.objectId));
+		item->setText(treeCol::name, nodeData.name);
+		item->setText(treeCol::type, nodeTypeToString(nodeData.type));
+		item->setText(treeCol::objectId, QString::number(nodeData.objectId));
 
 		// Fractal nodes inside a hybrid group inherit the group's position; skip the column
 		bool inHybrid = nodeData.type == enumNodeType::fractal
 										&& nodeTypeMap.value(nodeData.parentId) == enumNodeType::hybrid;
 		if (!inHybrid)
 		{
-			item->setText(3, formatPosition(nodeData.position));
-			item->setText(4, formatPosition(nodeData.rotation));
-			item->setText(5, formatPosition(nodeData.repeat));
-			item->setText(6, QString::number(nodeData.scale, 'f', 15));
+			item->setText(treeCol::position, formatPosition(nodeData.position));
+			item->setText(treeCol::rotation, formatPosition(nodeData.rotation));
+			item->setText(treeCol::repeat, formatPosition(nodeData.repeat));
+			item->setText(treeCol::scale, QString::number(nodeData.scale, 'f', 15));
 		}
 
-		item->setData(0, Qt::UserRole, nodeData.id);
-		item->setData(1, Qt::UserRole, int(nodeData.type));
-		item->setData(2, Qt::UserRole, nodeData.objectId);
+		item->setData(treeData::nodeId, Qt::UserRole, nodeData.id);
+		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
+		item->setData(treeData::objectId, Qt::UserRole, nodeData.objectId);
 		// item->setFlags(item->flags() | Qt::ItemIsEditable);
 
 		// Store the primitive type name (e.g. "box", "sphere") so the editor can later
@@ -268,7 +270,7 @@ void cObjectsTreeWidget::UpdateTree(
 			{
 				if (primitive.objectID == nodeData.objectId)
 				{
-					item->setData(3, Qt::UserRole, primitive.typeName);
+					item->setData(treeData::primTypeName, Qt::UserRole, primitive.typeName);
 					break;
 				}
 			}
@@ -293,7 +295,7 @@ void cObjectsTreeWidget::UpdateTree(
 	// setItemWidget() can find the correct persistent index for each item
 	for (QTreeWidgetItem *item : nodeItems)
 	{
-		int currentType = item->data(1, Qt::UserRole).toInt();
+		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
 		ui->treeWidget_objects->setItemWidget(item, 1, buildTypeComboBox(currentType));
 	}
 }
@@ -303,9 +305,9 @@ void cObjectsTreeWidget::UpdateTree(
 void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 {
 	QSignalBlocker blocker(ui->treeWidget_objects);
-	if (column != 3) return;
+	if (column != treeCol::position) return;
 
-	QString text = item->text(3);
+	QString text = item->text(treeCol::position);
 	QStringList parts = text.split(' ', Qt::SkipEmptyParts);
 	if (parts.size() == 3)
 	{
@@ -313,12 +315,12 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 		double x = parts[0].toDouble(&okX);
 		double y = parts[1].toDouble(&okY);
 		double z = parts[2].toDouble(&okZ);
-		item->setText(
-			3, (okX && okY && okZ) ? formatPosition({x, y, z}) : "0.000000 0.000000 0.000000");
+		item->setText(treeCol::position,
+			(okX && okY && okZ) ? formatPosition({x, y, z}) : "0.000000 0.000000 0.000000");
 	}
 	else
 	{
-		item->setText(3, "0.000000 0.000000 0.000000");
+		item->setText(treeCol::position, "0.000000 0.000000 0.000000");
 	}
 }
 
@@ -334,7 +336,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 	// Build the set of node IDs currently visible in the tree
 	QSet<int> treeNodeIds;
 	for (QTreeWidgetItem *item : allItems)
-		treeNodeIds.insert(item->data(0, Qt::UserRole).toInt());
+		treeNodeIds.insert(item->data(treeData::nodeId, Qt::UserRole).toInt());
 
 	// Remove stale node_ parameters
 	QList<QString> list = params->GetListOfParameters();
@@ -354,11 +356,12 @@ void cObjectsTreeWidget::StoreTreeToParams(
 	// Write the current state of each tree item back into params
 	for (QTreeWidgetItem *item : allItems)
 	{
-		int nodeId = item->data(0, Qt::UserRole).toInt();
+		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int nodeType = getNodeType(item);
-		int objectId = item->data(2, Qt::UserRole).toInt();
-		QString name = item->text(0);
-		int parentId = item->parent() ? item->parent()->data(0, Qt::UserRole).toInt() : 0;
+		int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
+		QString name = item->text(treeCol::name);
+		int parentId =
+			item->parent() ? item->parent()->data(treeData::nodeId, Qt::UserRole).toInt() : 0;
 
 		QString prefix = QString("node_%1").arg(nodeId, 4, 10, QChar('0'));
 		QString defParam = prefix + "_definition";
@@ -398,8 +401,8 @@ void cObjectsTreeWidget::slotAddObject()
 		newId = qMax(newId, item->data(0, Qt::UserRole).toInt() + 1);
 
 	QTreeWidgetItem *newItem = new QTreeWidgetItem();
-	newItem->setText(0, name);
-	newItem->setText(2, QString::number(newId)); // objectId = nodeId for new objects
+	newItem->setText(treeCol::name, name);
+	newItem->setText(treeCol::objectId, QString::number(newId)); // objectId = nodeId for new objects
 
 	// Map the selected type string back to the enum value
 	enumNodeType type = enumNodeType::fractal;
@@ -414,11 +417,11 @@ void cObjectsTreeWidget::slotAddObject()
 	else if (typeName == "boolean Sub")
 		type = enumNodeType::booleanSub;
 
-	newItem->setData(0, Qt::UserRole, newId);
-	newItem->setData(1, Qt::UserRole, int(type));
-	newItem->setData(2, Qt::UserRole, newId);
+	newItem->setData(treeData::nodeId, Qt::UserRole, newId);
+	newItem->setData(treeData::nodeType, Qt::UserRole, int(type));
+	newItem->setData(treeData::objectId, Qt::UserRole, newId);
 	newItem->setFlags(newItem->flags() | Qt::ItemIsEditable);
-	newItem->setText(3, formatPosition({0.0, 0.0, 0.0}));
+	newItem->setText(treeCol::position, formatPosition({0.0, 0.0, 0.0}));
 
 	// Add as child of selected item, or at top level if nothing is selected
 	QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
@@ -427,7 +430,7 @@ void cObjectsTreeWidget::slotAddObject()
 	else
 		ui->treeWidget_objects->addTopLevelItem(newItem);
 
-	ui->treeWidget_objects->setItemWidget(newItem, 1, buildTypeComboBox(int(type)));
+	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(type)));
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 }
@@ -474,7 +477,7 @@ void cObjectsTreeWidget::slotDeleteObject()
 // appended in parentheses so the user has full context without looking at the tree.
 QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType type)
 {
-	QString objectName = item->text(0);
+	QString objectName = item->text(treeCol::name);
 	QString objectTypeName = nodeTypeToString(type);
 	QString objectTypeDisplay = objectTypeName;
 
@@ -482,8 +485,8 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 	{
 		// Append the primitive subtype stored by UpdateTree() so the label reads e.g.
 		// "Type: primitive (box)" instead of just "Type: primitive"
-		QString primTypeName = item->data(3, Qt::UserRole).toString();
-		if (primTypeName.isEmpty()) primTypeName = item->text(0);
+		QString primTypeName = item->data(treeData::primTypeName, Qt::UserRole).toString();
+		if (primTypeName.isEmpty()) primTypeName = item->text(treeCol::name);
 		if (!primTypeName.isEmpty())
 			objectTypeDisplay = tr("%1 (%2)").arg(objectTypeName).arg(primTypeName);
 	}
@@ -543,7 +546,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTr
 QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int objectId)
 {
 	// Retrieve the primitive type name stored by UpdateTree() (e.g. "box", "sphere")
-	QString primTypeName = item->data(3, Qt::UserRole).toString();
+	QString primTypeName = item->data(treeData::primTypeName, Qt::UserRole).toString();
 
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + "primitive_" + primTypeName + ".ui";
@@ -618,7 +621,7 @@ QWidget *cObjectsTreeWidget::buildGeneralObjectParametersEditor(QTreeWidgetItem 
 	// vect3_position_x → vect3_node_001_position_x)
 
 	QString nodePrefix =
-		QString("node_%1").arg(item->data(0, Qt::UserRole).toInt(), 4, 10, QChar('0'));
+		QString("node_%1").arg(item->data(treeData::nodeId, Qt::UserRole).toInt(), 4, 10, QChar('0'));
 	for (QWidget *widget : generalParams->findChildren<QWidget *>())
 	{
 		QString widgetName = widget->objectName();
@@ -660,9 +663,9 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	if (selected.isEmpty()) return;
 
 	QTreeWidgetItem *item = selected.first();
-	enumNodeType type = enumNodeType(item->data(1, Qt::UserRole).toInt());
-	int objectId = item->data(2, Qt::UserRole).toInt();
-	int nodeId = item->data(0, Qt::UserRole).toInt();
+	enumNodeType type = enumNodeType(item->data(treeData::nodeType, Qt::UserRole).toInt());
+	int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
+	int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 
 	// Wrapper widget so the whole editor area can be removed/replaced as a single unit
 	QWidget *editorContainer = new QWidget();

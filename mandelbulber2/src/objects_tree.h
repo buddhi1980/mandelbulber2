@@ -33,7 +33,7 @@ public:
 		CVector3 rotation;
 		CVector3 repeat;
 		double scale;
-
+		int material;
 	};
 
 	struct sNodeDataForRendering
@@ -50,6 +50,7 @@ public:
 		CVector3 rotation;
 		CVector3 repeat;
 		double scale;
+		int material;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

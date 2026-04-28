@@ -43,6 +43,27 @@ public:
 	static QString nodeTypeToString(enumNodeType type);
 
 private:
+	// Column indices for setText() / text() / itemWidget()
+	struct treeCol
+	{
+		static constexpr int name = 0;		 // display name string
+		static constexpr int type = 1;		 // type string + combo box
+		static constexpr int objectId = 2; // object ID string
+		static constexpr int position = 3;
+		static constexpr int rotation = 4;
+		static constexpr int repeat = 5;
+		static constexpr int scale = 6;
+	};
+
+	// Column indices for setData() / data(col, Qt::UserRole)
+	struct treeData
+	{
+		static constexpr int nodeId = 0;			 // int: node ID
+		static constexpr int nodeType = 1;		 // int: enumNodeType
+		static constexpr int objectId = 2;		 // int: object ID
+		static constexpr int primTypeName = 3; // QString: e.g. "box", "sphere"
+	};
+
 	void pressedRefreshButton();
 
 	QList<QTreeWidgetItem *> collectAllTreeItems() const;

@@ -54,6 +54,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.rotation = params->Get<CVector3>("node" + suffix + "_rotation");
 				nodeData.repeat = params->Get<CVector3>("node" + suffix + "_repeat");
 				nodeData.scale = params->Get<double>("node" + suffix + "_scale");
+				nodeData.material = params->Get<int>("node" + suffix + "_material");
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -139,11 +140,19 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 	int sequenceIndex = 0;
 
-	// Map from node ID to accumulated (cumulative) position for position inheritance
-	QHash<int, CVector3> accumulatedPositions;
+	// Accumulated world-space transforms keyed by node ID
+	struct AccumulatedTransform
+	{
+		CVector3 position{0, 0, 0};
+		CVector3 rotation{0, 0, 0};
+		CVector3 repeat{0, 0, 0};
+		double scale = 1.0;
+		int material = -1;
+	};
+	QHash<int, AccumulatedTransform> accumulatedTransforms;
 
-	// Track which nodes are children of a hybrid node
-	QHash<int, bool> isInsideHybrid;
+	// Track whether a node is a hybrid or descends from one
+	QHash<int, bool> isHybridOrInsideHybrid;
 
 	std::vector<sNodeDataForRendering> nodeDataList;
 	for (const sNodeData &nodeData : nodeList)
@@ -157,31 +166,64 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.internalObjectId = -1;
 		nodeDataForRendering.primitiveIdx = -1;
 
-		// Calculate cumulative position: own position + parent's accumulated position
-		CVector3 parentAccumulatedPosition(0, 0, 0);
-		if (nodeData.parentId != 0 && accumulatedPositions.contains(nodeData.parentId))
+		// Get parent's accumulated transform (identity if no parent)
+		AccumulatedTransform parentTransform;
+		if (nodeData.parentId != 0 && accumulatedTransforms.contains(nodeData.parentId))
 		{
-			parentAccumulatedPosition = accumulatedPositions[nodeData.parentId];
+			parentTransform = accumulatedTransforms[nodeData.parentId];
 		}
-		CVector3 cumulativePosition = nodeData.position + parentAccumulatedPosition;
-		accumulatedPositions[nodeData.id] = cumulativePosition;
-		nodeDataForRendering.position = cumulativePosition;
 
-		// Determine if this node is inside a hybrid node
-		bool parentIsHybrid = isInsideHybrid.value(nodeData.parentId, false);
-		isInsideHybrid[nodeData.id] = parentIsHybrid || (nodeData.type == enumNodeType::hybrid);
+		// Build parent rotation matrix to rotate child's local position into parent space
+		CRotationMatrix parentRotMatrix;
+		parentRotMatrix.SetRotation(parentTransform.rotation);
 
-		bool isSingleFractal = (nodeDataForRendering.type == enumNodeType::fractal) && !parentIsHybrid;
+		// World position = parent_position + parent_rotation * (parent_scale * child_local_position)
+		CVector3 scaledLocalPosition = nodeData.position * parentTransform.scale;
+		CVector3 worldPosition =
+			parentTransform.position + parentRotMatrix.RotateVector(scaledLocalPosition);
 
-		if (nodeDataForRendering.type == enumNodeType::hybrid)
+		// Rotations accumulate additively (Euler angles)
+		CVector3 worldRotation = parentTransform.rotation + nodeData.rotation;
+
+		// Scales multiply
+		double worldScale = parentTransform.scale * nodeData.scale;
+
+		// Material: use own material if valid, otherwise inherit from parent
+		int worldMaterial = (nodeData.material >= 0) ? nodeData.material : parentTransform.material;
+
+		// Repeat: inherit parent repeat if own repeat is zero vector, otherwise use own
+		CVector3 worldRepeat =
+			(nodeData.repeat.Length() > 0.0) ? nodeData.repeat : parentTransform.repeat;
+
+		// Store accumulated transform for children to inherit
+		AccumulatedTransform myTransform;
+		myTransform.position = worldPosition;
+		myTransform.rotation = worldRotation;
+		myTransform.scale = worldScale;
+		myTransform.material = worldMaterial;
+		myTransform.repeat = worldRepeat;
+		accumulatedTransforms[nodeData.id] = myTransform;
+
+		nodeDataForRendering.position = worldPosition;
+		nodeDataForRendering.rotation = worldRotation;
+		nodeDataForRendering.scale = worldScale;
+		nodeDataForRendering.material = worldMaterial;
+		nodeDataForRendering.repeat = worldRepeat;
+
+		// Determine if this node is a hybrid or descends from one
+		bool parentIsHybridOrInside = isHybridOrInsideHybrid.value(nodeData.parentId, false);
+		bool isHybrid = (nodeData.type == enumNodeType::hybrid);
+		isHybridOrInsideHybrid[nodeData.id] = parentIsHybridOrInside || isHybrid;
+
+		bool isSingleFractal = (nodeData.type == enumNodeType::fractal) && !parentIsHybridOrInside;
+
+		if (isHybrid)
 		{
-			// hybrid node gets a sequence index (sequence will be created for it in CreateSequences)
 			nodeDataForRendering.hybridSequenceIndex = sequenceIndex;
 			sequenceIndex++;
 		}
 		else if (isSingleFractal)
 		{
-			// single fractal node also gets a sequence index
 			nodeDataForRendering.hybridSequenceIndex = sequenceIndex;
 			sequenceIndex++;
 		}
