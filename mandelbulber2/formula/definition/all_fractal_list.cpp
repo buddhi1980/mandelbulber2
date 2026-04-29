@@ -598,6 +598,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbPow2V4());
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
+
+	fractalList->append(new cFractalPseudoKleinianTrig());
 	fractalList->append(new cFractalTinkerTowers());
 
 	fractalList->append(new cFractalTransfSupershape());
