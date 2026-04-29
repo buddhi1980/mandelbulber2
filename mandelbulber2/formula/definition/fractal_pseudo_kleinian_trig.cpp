@@ -59,7 +59,7 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 	double sxchz = sx * chz;
 	double sychz = sy * chz;
 	double cxcy_shz = (cx * cy) * shz;
-	CVector4 z_new = (CVector4){sxchz, sychz, cxcy_shz, 0.0};
+	CVector4 z_new = CVector4(sxchz, sychz, cxcy_shz, 0.0);
 
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
