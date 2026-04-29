@@ -100,7 +100,7 @@ void cFractalObject::Init(bool firstTab, int _tabIndex)
 {
 	tabIndex = _tabIndex;
 
-	InitWidgetNames();
+	// InitWidgetNames();
 
 	// set headings and separator of formulas and transforms
 	QFont fontHeading;

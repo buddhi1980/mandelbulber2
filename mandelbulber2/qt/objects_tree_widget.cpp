@@ -520,9 +520,10 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTr
 	fractalTab->AssignParentDockFractal(nullptr);
 
 	// Populate the tab with the current parameter values from gPar and gParFractal
-	fractalTab->SynchronizeInterface(gPar, qInterface::write);
-	fractalTab->SynchronizeFractal(gParFractal->at(fractalIndex), qInterface::write);
 	layout->addWidget(fractalTab);
+
+	editorSyncTargets.clear();
+	editorSyncTargets.append({fractalTab, gParFractal->at(fractalIndex)});
 
 	if (!isHybrid)
 	{
@@ -532,7 +533,10 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTr
 		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
 		// Widget names already include the parameter name prefix so no renaming is needed.
 		cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
-		SynchronizeInterfaceWindow(calcParams, gParFractal->at(fractalIndex), qInterface::write);
+
+		editorSyncTargets.append({generalParams, gPar});
+		editorSyncTargets.append({calcParams, gParFractal->at(fractalIndex)});
+
 		layout->addWidget(calcParams);
 	}
 
@@ -596,14 +600,15 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 		}
 	}
 
-	// Populate the primitive-specific editor widgets with values from gPar
-	SynchronizeInterfaceWindow(primWidget, gPar, qInterface::write);
-
 	// General object parameters (position, rotation, repeat, material) for this primitive.
 	// Widget names are prefixed with the full primitive name so they bind to the correct gPar keys
 	// (e.g. vect3_position_x → vect3_primitive_box_001_position_x → param
 	// primitive_box_001_position.x).
 	QWidget *generalParams = buildGeneralObjectParametersEditor(item);
+
+	editorSyncTargets.clear();
+	editorSyncTargets.append({primWidget, gPar});
+	editorSyncTargets.append({generalParams, gPar});
 
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
@@ -633,8 +638,6 @@ QWidget *cObjectsTreeWidget::buildGeneralObjectParametersEditor(QTreeWidgetItem 
 		}
 	}
 
-	SynchronizeInterfaceWindow(generalParams, gPar, qInterface::write);
-
 	return generalParams;
 }
 
@@ -648,12 +651,10 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	// Save any user-modified parameter values from the current editor back to gPar
 	// (and to gParFractal if the previous selection was a fractal node) before tearing
 	// it down, so changes are not lost when switching selection
+	// Save current editor state before switching selection
 	if (currentEditorWidget)
 	{
-		SynchronizeInterfaceWindow(currentEditorWidget, gPar, qInterface::read);
-		if (currentFractalIndex >= 0)
-			SynchronizeInterfaceWindow(
-				currentEditorWidget, gParFractal->at(currentFractalIndex), qInterface::read);
+		SynchronizeEditorWidget(currentEditorWidget, qInterface::read);
 		editorLayout->removeWidget(currentEditorWidget);
 		delete currentEditorWidget;
 		currentEditorWidget = nullptr;
@@ -697,6 +698,9 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 					 || type == enumNodeType::booleanMul || type == enumNodeType::booleanSub)
 	{
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
+		editorSyncTargets.clear();
+		editorSyncTargets.append({generalParams, gPar});
+
 		containerLayout->addWidget(generalParams);
 	}
 	else
@@ -706,6 +710,10 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 
 	containerLayout->addStretch();
 	currentEditorWidget = editorContainer;
+
+	// Populate the new editor — dispatches to gPar and/or gParFractal as needed
+	SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
+
 	editorLayout->addWidget(currentEditorWidget);
 
 	// Apply the global UI style settings (colour coding, layout spacing) to the new editor
@@ -714,8 +722,11 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
 }
 
-void UpdateGeneralObjectParameters(
-	cGeneralObjectParameters *editorWidget, QTreeWidgetItem *item, int objectId)
+void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)
 {
-	// get position, rotation, repeat and scale from
+	if (!widget) return;
+	for (auto &[subWidget, params] : editorSyncTargets)
+	{
+		if (subWidget) SynchronizeInterfaceWindow(subWidget, params, mode);
+	}
 }

@@ -300,8 +300,27 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			int objectId = -1;
 			int sequenceIndex = -1;
 
-			CVector3 pointTransformed =
-				originalPoimt - node.position; // transform point to node's local space
+			// Apply repeat modulation first (in world space)
+			CVector3 pointWithRepeat = (node.repeat.Length() > 0.0)
+			    ? originalPoimt.repeatMod(node.repeat)
+			    : originalPoimt;
+
+			// Translate to node's local space
+			CVector3 pointTransformed = pointWithRepeat - node.position;
+
+			// Apply inverse rotation (transpose = inverse for rotation matrices)
+			if (node.rotation.Length() > 0.0)
+			{
+			    CRotationMatrix rotMatrix;
+			    rotMatrix.SetRotation(node.rotation);
+			    pointTransformed = rotMatrix.Transpose().RotateVector(pointTransformed);
+			}
+
+			// Apply scale
+			if (node.scale != 0.0 && node.scale != 1.0)
+			{
+			    pointTransformed = pointTransformed / node.scale;
+			}
 
 			if (node.level < stackLevel)
 			{

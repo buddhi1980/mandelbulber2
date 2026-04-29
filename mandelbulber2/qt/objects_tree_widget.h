@@ -16,7 +16,8 @@
 #include <QVBoxLayout>
 #include <memory>
 
-#include "../src/algebra.hpp"
+#include "src/algebra.hpp"
+#include "src/synchronize_interface.hpp"
 #include "src/object_node_type.h"
 
 class cParameterContainer;
@@ -84,6 +85,8 @@ private:
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 	QWidget *buildGeneralObjectParametersEditor(QTreeWidgetItem *item);
 
+	void SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode);
+
 	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
 	// immediately after the first '_', so that SynchronizeInterfaceWindow can map the
 	// widget to the correctly namespaced parameter (e.g. "vect3_position_x" with prefix
@@ -103,6 +106,8 @@ private:
 	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors
 	int currentFractalIndex =
 		-1; // index into gParFractal for the currently edited fractal (-1 if none)
+
+	QList<QPair<QWidget *, std::shared_ptr<cParameterContainer>>> editorSyncTargets;
 };
 
 #endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */
