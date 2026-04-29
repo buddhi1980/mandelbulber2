@@ -111,8 +111,8 @@ void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQKeySequenceEdit(QList<QKeySequenceEdit *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceObjectsTreeWidget(QList<cObjectsTreeWidget *> widgets,
-	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+// void SynchronizeInterfaceObjectsTreeWidget(QList<cObjectsTreeWidget *> widgets,
+//	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // utility functions
 void GetNameAndType(QString name, QString *parameterName, QString *type);

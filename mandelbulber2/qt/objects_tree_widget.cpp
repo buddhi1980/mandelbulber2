@@ -730,3 +730,18 @@ void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::en
 		if (subWidget) SynchronizeInterfaceWindow(subWidget, params, mode);
 	}
 }
+
+void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
+	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
+{
+	SynchronizeEditorWidget(currentEditorWidget, mode);
+
+	if (mode == qInterface::write)
+	{
+		UpdateTree(params, fractalParams);
+	}
+	else
+	{
+		StoreTreeToParams(params, fractalParams);
+	}
+}

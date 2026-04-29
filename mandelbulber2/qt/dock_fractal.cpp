@@ -94,24 +94,25 @@ bool cDockFractal::AreHybridFractalsEnabled() const
 void cDockFractal::SynchronizeInterfaceFractals(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const
 {
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
-	SynchronizeInterfaceWindow(ui->tabWidget_fractal_common, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_hybrid", 3);
-	SynchronizeInterfaceWindow(ui->tabWidget_fractal_hybrid, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tab_primitives", 3);
-	SynchronizeInterfaceWindow(ui->tab_primitives, par, mode);
+	//	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
+	//	SynchronizeInterfaceWindow(ui->tabWidget_fractal_common, par, mode);
+	//	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_hybrid", 3);
+	//	SynchronizeInterfaceWindow(ui->tabWidget_fractal_hybrid, par, mode);
+	//	WriteLog("cInterface::SynchronizeInterface: tab_primitives", 3);
+	//	SynchronizeInterfaceWindow(ui->tab_primitives, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: tab_description", 3);
 	SynchronizeInterfaceWindow(ui->tab_description, par, mode);
 
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractals", 3);
-	SynchronizeInterfaceWindow(ui->tabWidget_fractals->tabBar(), par, mode);
+	//	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractals", 3);
+	//	SynchronizeInterfaceWindow(ui->tabWidget_fractals->tabBar(), par, mode);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		WriteLog("cInterface::SynchronizeInterface: fractalWidgets[i]", 3);
-		fractalTabs[i]->SynchronizeFractal(parFractal->at(i), mode);
-		fractalTabs[i]->SynchronizeInterface(par, mode);
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		WriteLog("cInterface::SynchronizeInterface: fractalWidgets[i]", 3);
+	//		fractalTabs[i]->SynchronizeFractal(parFractal->at(i), mode);
+	//		fractalTabs[i]->SynchronizeInterface(par, mode);
+	//	}
+	ui->widget_objectsTree->SynchronizeInterface(par, parFractal, mode);
 }
 
 void cDockFractal::slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const

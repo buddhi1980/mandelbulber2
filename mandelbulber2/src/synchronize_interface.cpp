@@ -115,8 +115,9 @@ void SynchronizeInterfaceWindow(
 	WriteLog("cInterface::SynchronizeInterface: QKeySequenceEdit", 3);
 	SynchronizeInterfaceQKeySequenceEdit(window->findChildren<QKeySequenceEdit *>(), par, mode);
 
-	WriteLog("cInterface::SynchronizeInterface: cObjectsTreeWidget", 3);
-	SynchronizeInterfaceObjectsTreeWidget(window->findChildren<cObjectsTreeWidget *>(), par, mode);
+	//	WriteLog("cInterface::SynchronizeInterface: cObjectsTreeWidget", 3);
+	//	SynchronizeInterfaceObjectsTreeWidget(window->findChildren<cObjectsTreeWidget *>(), par,
+	//mode);
 
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 
@@ -739,23 +740,23 @@ void SynchronizeInterfaceQKeySequenceEdit(QList<QKeySequenceEdit *> widgets,
 	}
 }
 
-void SynchronizeInterfaceObjectsTreeWidget(QList<cObjectsTreeWidget *> widgets,
-	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode)
-{
-	for (cObjectsTreeWidget *widget : widgets)
-	{
-		if (mode == qInterface::read)
-		{
-			// Read from widget -> store into params
-			widget->StoreTreeToParams(par, nullptr);
-		}
-		else if (mode == qInterface::write)
-		{
-			// Write from params -> update widget
-			widget->UpdateTree(par, nullptr);
-		}
-	}
-}
+// void SynchronizeInterfaceObjectsTreeWidget(QList<cObjectsTreeWidget *> widgets,
+//	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode)
+//{
+//	for (cObjectsTreeWidget *widget : widgets)
+//	{
+//		if (mode == qInterface::read)
+//		{
+//			// Read from widget -> store into params
+//			widget->StoreTreeToParams(par, nullptr);
+//		}
+//		else if (mode == qInterface::write)
+//		{
+//			// Write from params -> update widget
+//			widget->UpdateTree(par, nullptr);
+//		}
+//	}
+// }
 
 // utility functions
 
