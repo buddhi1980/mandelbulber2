@@ -32,6 +32,22 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	CVector4 oldZ = z;
 	// info amoser's complex sine formula, DE by Pupukuusikko
 
+	// sphere inversion (Pre-Trig)
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		z += fractal->mandelbox.offset;
+		z *= fractal->transformCommon.scale;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		// Combine the magnitude-based inversion
+		double invRR = 1.0 / z.Dot(z);
+		z *= invRR;
+		aux.DE *= invRR;
+
+		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+	}
+
 	// 1. Fold & Offset (Pre-Trig)
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
@@ -95,19 +111,13 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	// 6. Distance Estimation update
 	aux.DE = aux.DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
 
-	double colDist = aux.dist;
+//	double colDist = aux.dist;
 	if (aux.i >= fractal->analyticDE.startIterationsA
 			&& aux.i < fractal->analyticDE.stopIterationsA)
 	{
 		// 7. Divergent Branches DE
-		if (!fractal->transformCommon.functionEnabledPFalse)
-		{
-			aux.temp1000 = min(aux.temp1000, 1.0 /(aux.DE));
-			aux.dist = aux.temp1000 - fractal->transformCommon.offsetB0;
-		}
-		else
-		{
-			// knighty pk
+		if (!fractal->transformCommon.functionEnabledKFalse)
+		{			// knighty pk
 			double tx = z.x - fractal->transformCommon.offsetD0;
 			double ty = z.y - fractal->transformCommon.offsetD0;
 			double rxy = sqrt(tx * tx + ty * ty) - fractal->transformCommon.offsetC0;
@@ -117,8 +127,13 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 			dst = max(rxy - fractal->transformCommon.offsetR0,
 				fabs(rxy * z.z - fractal->transformCommon.offsetA0) * dst);
 
-			dst = (dst / aux.DE) - fractal->transformCommon.offsetB0;
+			dst = (dst / aux.DE);
 			aux.dist = min(aux.dist, dst);
+		}
+		else
+		{
+			aux.temp1000 = min(aux.temp1000, 1.0 /(aux.DE));
+			aux.dist = aux.temp1000;
 		}
 	}
 

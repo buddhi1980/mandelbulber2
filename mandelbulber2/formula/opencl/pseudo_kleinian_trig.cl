@@ -24,15 +24,14 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-
 		z += fractal->mandelbox.offset;
 		z *= fractal->transformCommon.scale;
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		double invRR = 1.0 / z.Dot(z);
+		REAL invRR = 1.0f / dot(z,z);
 		z *= invRR;
-		aux.DE *= invRR;
+		aux->DE *= invRR;
 
 		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	}
