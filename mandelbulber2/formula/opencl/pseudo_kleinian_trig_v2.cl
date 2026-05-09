@@ -15,27 +15,10 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-{ // info amoser's complex sine formula, DE by Pupukuusikko
+REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+{
 	REAL4 oldZ = z;
-
-	// sphere inversion (Pre-Trig)
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP1)
-	{
-
-		z += fractal->mandelbox.offset;
-		z *= fractal->transformCommon.scale;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
-
-		// Combine the magnitude-based inversion
-		double invRR = 1.0 / z.Dot(z);
-		z *= invRR;
-		aux.DE *= invRR;
-
-		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
-	}
+	// info amoser's complex sine formula, DE by Pupukuusikko
 
 	// 1. Fold & Offset (Pre-Trig)
 	if (aux->i >= fractal->transformCommon.startIterationsF
@@ -47,8 +30,10 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z -= fractal->transformCommon.offsetA000;
 	}
 
+
 	// 2. Trigonometry & Hyperbolics
 	REAL sx, cx, sy, cy;
+	// Use sincos to compute pairs in half the time
 	sx = native_sin(z.x);
 	cx = native_cos(z.x);
 	sy = native_sin(z.y);
@@ -87,22 +72,48 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z = z_new * fractal->transformCommon.scale1;
 		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
+
 	z -= fractal->transformCommon.offsetF000;
 
 	// Use Identity: sqrt(chz^2 + shz^2) = sqrt(0.5 * (ez^2 + invEz^2))
 	REAL stretch = fractal->transformCommon.scaleF1 * native_sqrt(0.5f * (ez * ez + invEz * invEz));
-	stretch = max(fractal->transformCommon.scaleA1, stretch);
+
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		stretch = max(fractal->transformCommon.scaleA1, stretch);
+	}
 
 	// 6. Distance Estimation update
 	aux->DE = aux->DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
 
-//	REAL colDist = aux->dist;
+	REAL colDist = aux->dist;
 	if (aux->i >= fractal->analyticDE.startIterationsA
 			&& aux->i < fractal->analyticDE.stopIterationsA)
 	{
-		aux->temp1000 = min(aux->temp1000, native_recip(aux->DE));
-		aux->dist = aux->temp1000;
+		// 7. Divergent Branches DE
+		if (!fractal->transformCommon.functionEnabledPFalse)
+		{
+			aux->temp1000 = min(aux->temp1000, native_recip(aux->DE));
+			aux->dist = aux->temp1000 - fractal->transformCommon.offsetB0;
+		}
+		else
+		{
+			// knighty pk
+			REAL tx = z.x - fractal->transformCommon.offsetD0;
+			REAL ty = z.y - fractal->transformCommon.offsetD0;
+			REAL rxy = sqrt(tx * tx + ty * ty) - fractal->transformCommon.offsetC0;
+
+			// Use native_recip for 1/length(z)
+			REAL dst = native_rsqrt(dot(z, z));
+			dst = max(rxy - fractal->transformCommon.offsetR0,
+				fabs(rxy * z.z - fractal->transformCommon.offsetA0) * dst);
+
+			dst = (dst / aux->DE) - fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, dst);
+		}
 	}
+
+
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
@@ -113,6 +124,9 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			+ fractal->foldColor.difs0000.y * fabs(z.z)
 			+ length(oldZ - z) * fractal->foldColor.difs0000.z
 			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
+
+
+
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
