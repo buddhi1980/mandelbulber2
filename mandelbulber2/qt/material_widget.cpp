@@ -40,12 +40,14 @@
 
 #include <QMouseEvent>
 
+#include "formula/definition/all_fractal_list_enums.hpp"
 #include "src/fractal_container.hpp"
 #include "src/fractal_enums.h"
 #include "src/fractparams.hpp"
 #include "src/global_data.hpp"
 #include "src/initparameters.hpp"
 #include "src/material.h"
+#include "src/object_node_type.h"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
 #include "src/system_data.hpp"
@@ -127,6 +129,22 @@ void cMaterialWidget::InitializeData()
 		}
 		InitMaterialParams(1, params);
 		InitLightParams(1, params);
+		params->Set("objects_tree_enable", true);
+		params->Set("node_0001_definition",
+			QString("fractal preview,1,%1,0,1").arg(int(enumNodeType::fractal)));
+		params->Set("node_0002_definition", QString(""));
+		params->Set("node_0003_definition", QString(""));
+		params->Set("node_0005_definition", QString(""));
+		params->Set("node_0007_definition", QString(""));
+		params->Set("node_0008_definition", QString(""));
+		params->Set("node_0009_definition", QString(""));
+		params->Set("node_0010_definition", QString(""));
+		params->Set("node_0011_definition", QString(""));
+		params->Set("node_0012_definition", QString(""));
+		params->Set("node_0050_definition", QString(""));
+		params->Set("node_0051_definition", QString(""));
+		params->Set("node_0001_material", 1);
+		fractal->at(0)->Set("formula", int(fractal::mandelbulb));
 
 		if (paramsCopy.IfExists(cMaterial::Name("is_defined", actualMaterialIndex)))
 		{
