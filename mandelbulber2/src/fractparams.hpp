@@ -266,7 +266,6 @@ struct sParamRender
 	CVector3 viewAngle;
 	CVector3 topVector;
 
-	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
 	CRotationMatrix mRotAmbientOcclusionLightMapRotation;

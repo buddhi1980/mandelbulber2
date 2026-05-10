@@ -52,15 +52,9 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 
 				CVector3 tempPoint = point;
 
+				// booleanOperatorsEnabled is always false; coloring always uses formulaIndex = -1
 				if (!params->booleanOperatorsEnabled)
 					formulaIndex = -1;
-				else
-				{
-					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
-					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
-					tempPoint = tempPoint.repeatMod(params->formulaRepeat[formulaIndex]);
-					tempPoint *= params->formulaScale[formulaIndex];
-				}
 
 				sFractalIn fractIn(
 					tempPoint, 0, -1, 4, 0, &params->common, formulaIndex, false, input.material);

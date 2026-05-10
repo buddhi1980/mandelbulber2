@@ -252,49 +252,54 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
 	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
-	// boolean_operator has been removed from general params together with boolean_operators.
-	// Default to OR for all slots.
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
-	{
-		booleanOperator[i] = params::booleanOperatorOR;
-	}
+	// Per-fractal transform params (position/rotation/repeat/scale/material) are read from each
+	// fractal container and written into the objectData vector. Boolean operators are now handled
+	// via the objects tree.
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
+		CVector3 pos;
+		CVector3 rot;
+		CVector3 rep;
+		double scale;
+		int matId;
+		bool smoothEnable;
+		double smoothDist;
+
 		if (fractalContainer)
 		{
 			// read per-fractal transform params from individual fractal containers
-			// (FIXME: formula_position/rotation/repeat/scale will be replaced by object parameters)
 			auto fracPar = fractalContainer->at(i);
-			formulaPosition[i] = fracPar->Get<CVector3>("formula_position");
-			formulaRotation[i] = fracPar->Get<CVector3>("formula_rotation");
-			formulaRepeat[i] = fracPar->Get<CVector3>("formula_repeat");
-			formulaScale[i] = 1.0 / fracPar->Get<double>("formula_scale");
-			formulaMaterialId[i] = fracPar->Get<int>("formula_material_id");
-			smoothDeCombineEnable[i] = fracPar->Get<bool>("smooth_de_combine_enable");
-			smoothDeCombineDistance[i] = fracPar->Get<double>("smooth_de_combine_distance");
+			pos = fracPar->Get<CVector3>("formula_position");
+			rot = fracPar->Get<CVector3>("formula_rotation");
+			rep = fracPar->Get<CVector3>("formula_repeat");
+			scale = 1.0 / fracPar->Get<double>("formula_scale");
+			matId = fracPar->Get<int>("formula_material_id");
+			smoothEnable = fracPar->Get<bool>("smooth_de_combine_enable");
+			smoothDist = fracPar->Get<double>("smooth_de_combine_distance");
 		}
 		else
 		{
 			// no fractal container provided - use identity/default values
-			formulaPosition[i] = CVector3(0.0, 0.0, 0.0);
-			formulaRotation[i] = CVector3(0.0, 0.0, 0.0);
-			formulaRepeat[i] = CVector3(0.0, 0.0, 0.0);
-			formulaScale[i] = 1.0;
-			formulaMaterialId[i] = 1;
-			smoothDeCombineEnable[i] = false;
-			smoothDeCombineDistance[i] = 0.1;
+			pos = CVector3(0.0, 0.0, 0.0);
+			rot = CVector3(0.0, 0.0, 0.0);
+			rep = CVector3(0.0, 0.0, 0.0);
+			scale = 1.0;
+			matId = 1;
+			smoothEnable = false;
+			smoothDist = 0.1;
 		}
-		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 
 		if (objectData)
 		{
 			cObjectData oneObjectData;
-			oneObjectData.position = formulaPosition[i];
-			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / formulaScale[i];
-			oneObjectData.repeat = formulaRepeat[i];
-			oneObjectData.SetRotation(formulaRotation[i]);
-			oneObjectData.materialId = formulaMaterialId[i];
+			oneObjectData.position = pos;
+			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / scale;
+			oneObjectData.repeat = rep;
+			oneObjectData.SetRotation(rot);
+			oneObjectData.materialId = matId;
+			oneObjectData.smoothDeCombineEnable = smoothEnable;
+			oneObjectData.smoothDeCombineDistance = smoothDist;
 			oneObjectData.objectType = fractal::objFractal;
 			(*objectData)[i] = oneObjectData;
 		}
@@ -307,11 +312,12 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 	if (!booleanOperatorsEnabled && objectData)
 	{
+		int matId0 = 1;
 		if (fractalContainer)
 		{
-			formulaMaterialId[0] = fractalContainer->at(0)->Get<int>("formula_material_id");
+			matId0 = fractalContainer->at(0)->Get<int>("formula_material_id");
 		}
-		(*objectData)[0].materialId = formulaMaterialId[0];
+		(*objectData)[0].materialId = matId0;
 		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
 		(*objectData)[0].repeat = container->Get<CVector3>("repeat");
 		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
