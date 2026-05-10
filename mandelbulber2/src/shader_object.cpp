@@ -34,6 +34,9 @@
 
 #include "fractparams.hpp"
 #include "material.h"
+#include "object_data.hpp"
+#include "object_types.hpp"
+#include "render_data.hpp"
 #include "render_worker.hpp"
 
 sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloat *surfaceColour,
@@ -57,7 +60,9 @@ sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloa
 
 	if (params->allPrimitivesInvisibleAlpha)
 	{
-		if (input.objectId >= NUMBER_OF_FRACTALS)
+		const int objectId = input.objectId;
+		if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size())
+				&& data->objectData[objectId].objectType != fractal::objFractal)
 		{
 			//	alpha = 1.0f - (shadow.R + shadow.G + shadow.B) / 3.0f;
 		}

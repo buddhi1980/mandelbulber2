@@ -261,7 +261,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (objectData)
 		{
-			cObjectData &obj = (*objectData)[i];
+			cObjectData obj;
 			obj.position = pos;
 			obj.SetRotation(rot);
 			obj.repeat = rep;
@@ -271,6 +271,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 			obj.smoothDeCombineEnable = sdcEnable;
 			obj.smoothDeCombineDistance = sdcDist;
 			obj.objectType = fractal::objFractal;
+			objectData->push_back(obj);
 		}
 
 		if (objectTreeNodes)
@@ -279,13 +280,16 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 			const params::enumBooleanOperator boolOp = (i > 0)
 				? params::enumBooleanOperator(container->Get<int>("boolean_operator", i))
 				: params::booleanOperatorOR;
-			cObjectsTree::WriteFractalNode(i, i, boolOp, objectTreeNodes);
+			// internalObjectId equals the objectData index (objectData->size()-1 after push_back)
+			const int objectDataIdx = objectData ? (static_cast<int>(objectData->size()) - 1) : i;
+			cObjectsTree::WriteFractalNode(i, objectDataIdx, boolOp, objectTreeNodes);
 		}
 	}
 
-	if (!booleanOperatorsEnabled && objectData)
+	// In non-boolean mode, overwrite fractal 0's objectData with the global single-fractal settings
+	if (!booleanOperatorsEnabled && objectData && !objectData->empty())
 	{
-		cObjectData &obj0 = (*objectData)[0];
+		cObjectData &obj0 = objectData->front();
 		obj0.materialId = container->Get<int>("formula_material_id");
 		obj0.position = container->Get<CVector3>("fractal_position");
 		obj0.repeat = container->Get<CVector3>("repeat");

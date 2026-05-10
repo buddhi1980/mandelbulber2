@@ -50,13 +50,32 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	std::shared_ptr<const cParameterContainer> generalPar)
 {
 	fractals.resize(NUMBER_OF_FRACTALS);
+	formulaWeight.resize(NUMBER_OF_FRACTALS);
+	DEFunctionType.resize(NUMBER_OF_FRACTALS);
+	DEType.resize(NUMBER_OF_FRACTALS);
+	DEAnalyticFunction.resize(NUMBER_OF_FRACTALS);
+	coloringFunction.resize(NUMBER_OF_FRACTALS);
+	counts.resize(NUMBER_OF_FRACTALS);
+	formulaStartIteration.resize(NUMBER_OF_FRACTALS);
+	formulaStopIteration.resize(NUMBER_OF_FRACTALS);
+	addCConstant.resize(NUMBER_OF_FRACTALS);
+	checkForBailout.resize(NUMBER_OF_FRACTALS);
+	bailout.resize(NUMBER_OF_FRACTALS);
+	juliaEnabled.resize(NUMBER_OF_FRACTALS);
+	juliaConstant.resize(NUMBER_OF_FRACTALS);
+	constantMultiplier.resize(NUMBER_OF_FRACTALS);
+	initialWAxis.resize(NUMBER_OF_FRACTALS);
+	useAdditionalBailoutCond.resize(NUMBER_OF_FRACTALS);
+	formulaMaxiter.resize(NUMBER_OF_FRACTALS);
+	fractalFormulaFunctions.resize(NUMBER_OF_FRACTALS);
+
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
 	isBoolean = generalPar->Get<bool>("boolean_operators");
 	double maxBailout = 0.0;
 
-	// getting data from all formuala slots
+	// getting data from all formula slots
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		// allocating memory for formula data

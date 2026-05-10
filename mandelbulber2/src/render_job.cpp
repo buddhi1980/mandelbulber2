@@ -356,7 +356,7 @@ void cRenderJob::PrepareData()
 	renderData->perlinNoise.reset(
 		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
 
-	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
+	renderData->objectData.clear(); // objectData is populated dynamically during rendering
 }
 
 bool cRenderJob::Execute()
