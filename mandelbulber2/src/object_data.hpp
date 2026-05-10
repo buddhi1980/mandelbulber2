@@ -38,6 +38,7 @@
 #define MANDELBULBER2_SRC_OBJECT_DATA_HPP_
 
 #include "algebra.hpp"
+#include "fractal_enums.h"
 #include "object_types.hpp"
 
 class cObjectData
@@ -48,25 +49,31 @@ public:
 		materialId = 0;
 		objectType = fractal::objNone;
 		smoothDeCombineEnable = false;
-		smoothDeCombineDistance = 0.0f;
-		wallThickness = 0.0f;
+		smoothDeCombineDistance = 0.0;
+		wallThickness = 0.0;
 		usedForVolumetric = false;
+		scale = 1.0;
+		booleanOperator = params::booleanOperatorOR;
 	}
 
 	bool smoothDeCombineEnable;
 	bool usedForVolumetric;
 	double smoothDeCombineDistance;
 	double wallThickness;
+	double scale;
 	CVector3 position;
+	CVector3 rotation; // Euler angles in degrees (set via SetRotation)
 	CVector3 size;
 	CVector3 repeat;
 	int materialId;
 	fractal::enumObjectType objectType;
+	params::enumBooleanOperator booleanOperator;
 	CRotationMatrix rotationMatrix;
-	void SetRotation(const CVector3 &rot) { rotationMatrix.SetRotation2(rot * M_PI / 180.0); }
-
-private:
-	CVector3 rotation;
+	void SetRotation(const CVector3 &rot)
+	{
+		rotation = rot;
+		rotationMatrix.SetRotation2(rot * M_PI / 180.0);
+	}
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

@@ -101,4 +101,14 @@ enum enumColoringFunction
 };
 }; // namespace fractal
 
+namespace params
+{
+enum enumBooleanOperator
+{
+	booleanOperatorAND = 0,
+	booleanOperatorOR = 1,
+	booleanOperatorSUB = 2
+};
+} // namespace params
+
 #endif /* MANDELBULBER2_SRC_FRACTAL_ENUMS_H_ */
