@@ -612,6 +612,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			listOfLoadedPrimitives.clear();
 			DeleteAllMaterialParams(par);
 			DeleteAllLightParams(par);
+			DeleteAllNodeParams(par);
 
 			if (frames)
 			{
@@ -963,6 +964,38 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 						QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
 				}
 				return false;
+			}
+		}
+	}
+
+	if (parameterName.left(5) == "node_")
+	{
+		if (!par->IfExists(parameterName))
+		{
+			QStringList split = parameterName.split('_');
+			if (split.size() >= 3)
+			{
+				bool conversionOK = false;
+				int nodeId = split.at(1).toInt(&conversionOK);
+				if (conversionOK && nodeId > 0)
+				{
+					static const QStringList validNodeParams = {
+						"definition", "position", "rotation", "scale", "repeat", "material"};
+					QString shortName = split.mid(2).join('_');
+					if (validNodeParams.contains(shortName))
+					{
+						InitNodeParams(nodeId, par);
+					}
+					else
+					{
+						if (!quiet)
+						{
+							cErrorMessage::showMessage(
+								QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+						}
+						return false;
+					}
+				}
 			}
 		}
 	}
