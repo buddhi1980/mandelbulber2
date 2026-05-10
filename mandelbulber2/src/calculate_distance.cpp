@@ -102,7 +102,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
 
-		auto combineDistances = [&](const StackFrame &child, StackFrame *parent) {
+		auto mergeChildIntoParent = [&](const StackFrame &child, StackFrame *parent) {
 			const double childDistance = child.cumulativeDistance;
 
 			switch (parent->nodeType)
@@ -151,9 +151,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 
 					if (smoothEnabled && parent->cumulativeDistance < 1e19)
 					{
+						const double parentDistanceBefore = parent->cumulativeDistance;
 						parent->cumulativeDistance =
 							opSmoothUnion(childDistance, parent->cumulativeDistance, smoothDistance);
-						if (childDistance < parent->cumulativeDistance)
+						if (childDistance < parentDistanceBefore)
 						{
 							parent->closestObjectId = child.closestObjectId;
 							parent->closestObjectSequence = child.closestObjectSequence;
@@ -210,7 +211,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					StackFrame child = stack[stackLevel];
 					stackLevel--;
-					combineDistances(child, &stack[stackLevel]);
+					mergeChildIntoParent(child, &stack[stackLevel]);
 				}
 			}
 
@@ -284,7 +285,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			leaf.cumulativeDistance = distance;
 			leaf.closestObjectId = objectId;
 			leaf.closestObjectSequence = sequenceIndex;
-			combineDistances(leaf, &stack[stackLevel]);
+			mergeChildIntoParent(leaf, &stack[stackLevel]);
 		}
 
 		// final node summation
@@ -295,7 +296,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			{
 				StackFrame child = stack[stackLevel];
 				stackLevel--;
-				combineDistances(child, &stack[stackLevel]);
+				mergeChildIntoParent(child, &stack[stackLevel]);
 			}
 		}
 

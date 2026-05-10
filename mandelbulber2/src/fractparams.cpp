@@ -278,8 +278,21 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
-			cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
+			bool mapped = false;
+			for (auto &node : *objectTreeNodes)
+			{
+				if (node.userObjectId == i + 1)
+				{
+					node.internalObjectId = internalObjectId;
+					node.primitiveIdx = -1;
+					mapped = true;
+				}
+			}
+
+			if (!mapped)
+			{
+				cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
+			}
 		}
 	}
 
