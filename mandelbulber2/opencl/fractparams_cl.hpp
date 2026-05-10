@@ -299,10 +299,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.frameNo = source.frameNo;
 	target.imageHeight = source.imageHeight;
 	target.imageWidth = source.imageWidth;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.formulaMaterialId[i] = source.formulaMaterialId[i];
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.formulaMaterialId[i] = source.formulaMaterialId[i];
+	//	}
 	target.minN = source.minN;
 	target.N = source.N;
 	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
@@ -318,10 +318,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
-	{
-		target.booleanOperator[i] = source.booleanOperator[i];
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	//	{
+	//		target.booleanOperator[i] = source.booleanOperator[i];
+	//	}
 	target.delta_DE_method = source.delta_DE_method;
 	target.delta_DE_function = source.delta_DE_function;
 	target.advancedQuality = source.advancedQuality;
@@ -375,10 +375,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
 	target.slowShading = source.slowShading;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.smoothDeCombineEnable[i] = source.smoothDeCombineEnable[i];
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.smoothDeCombineEnable[i] = source.smoothDeCombineEnable[i];
+	//	}
 	target.SSAO_random_mode = source.SSAO_random_mode;
 	target.stereoSwapEyes = source.stereoSwapEyes;
 	target.texturedBackground = source.texturedBackground;
@@ -443,10 +443,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.fakeLightsVisibility = source.fakeLightsVisibility;
 	target.fakeLightsVisibilitySize = source.fakeLightsVisibilitySize;
 	target.fogVisibility = source.fogVisibility;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.formulaScale[i] = source.formulaScale[i];
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.formulaScale[i] = source.formulaScale[i];
+	//	}
 	target.fov = source.fov;
 	target.glowIntensity = source.glowIntensity;
 	target.hdrBlurIntensity = source.hdrBlurIntensity;
@@ -469,10 +469,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.relMaxMarchingStep = source.relMaxMarchingStep;
 	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.smoothDeCombineDistance[i] = source.smoothDeCombineDistance[i];
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.smoothDeCombineDistance[i] = source.smoothDeCombineDistance[i];
+	//	}
 	target.smoothness = source.smoothness;
 	target.stereoEyeDistance = source.stereoEyeDistance;
 	target.stereoInfiniteCorrection = source.stereoInfiniteCorrection;
@@ -492,18 +492,18 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);
 	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);
-	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.formulaRotation[i] = toClFloat3(source.formulaRotation[i]);
-	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.formulaRepeat[i] = toClFloat3(source.formulaRepeat[i]);
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);
+	//	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.formulaRotation[i] = toClFloat3(source.formulaRotation[i]);
+	//	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.formulaRepeat[i] = toClFloat3(source.formulaRepeat[i]);
+	//	}
 	target.limitMin = toClFloat3(source.limitMin);
 	target.limitMax = toClFloat3(source.limitMax);
 	target.repeat = toClFloat3(source.repeat);
@@ -511,10 +511,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.camera = toClFloat3(source.camera);
 	target.viewAngle = toClFloat3(source.viewAngle);
 	target.topVector = toClFloat3(source.topVector);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		target.mRotFormulaRotation[i] = toClMatrix33(source.mRotFormulaRotation[i]);
-	}
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		target.mRotFormulaRotation[i] = toClMatrix33(source.mRotFormulaRotation[i]);
+	//	}
 	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
 	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
 	target.mRotAmbientOcclusionLightMapRotation =

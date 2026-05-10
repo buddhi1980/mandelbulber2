@@ -734,6 +734,9 @@ void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::en
 void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
 	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
 {
+	// FIXME to use local copy of parameters instead of global gPar and gParFractal
+	// to be able to use this wighet in the NAvogator window with different parameter containers
+
 	SynchronizeEditorWidget(currentEditorWidget, mode);
 
 	if (mode == qInterface::write)

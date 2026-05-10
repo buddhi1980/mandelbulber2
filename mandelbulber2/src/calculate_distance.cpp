@@ -63,23 +63,92 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
 }
 
-// In mandelbulber2/src/calculate_distance.cpp
+struct ObjectTreeStackFrame
+{
+	int nodeIdx;
+	int level;
+	int closestObjectId;
+	int closestObjectSequence;
+	double cumulativeDistance;
+	enumNodeType nodeType;
+};
+
+static void mergeChildIntoParent(
+	const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent, const sRenderData *data)
+{
+	const double childDistance = child.cumulativeDistance;
+
+	switch (parent->nodeType)
+	{
+		case enumNodeType::booleanMul:
+		{
+			if (childDistance > parent->cumulativeDistance)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child.closestObjectId;
+				parent->closestObjectSequence = child.closestObjectSequence;
+			}
+			break;
+		}
+		case enumNodeType::booleanSub:
+		{
+			if (parent->cumulativeDistance >= 1e19)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child.closestObjectId;
+				parent->closestObjectSequence = child.closestObjectSequence;
+			}
+			else
+			{
+				parent->cumulativeDistance = std::max(parent->cumulativeDistance, -childDistance);
+				if (childDistance < parent->cumulativeDistance)
+				{
+					parent->closestObjectId = child.closestObjectId;
+					parent->closestObjectSequence = child.closestObjectSequence;
+				}
+			}
+			break;
+		}
+		case enumNodeType::booleanAdd:
+		default:
+		{
+			const int childObjectId = child.closestObjectId;
+			bool smoothEnabled = false;
+			double smoothDistance = 0.0;
+			if (childObjectId >= 0 && childObjectId < int(data->objectData.size()))
+			{
+				const cObjectData &obj = data->objectData[childObjectId];
+				smoothEnabled = obj.smoothDeCombineEnable;
+				smoothDistance = obj.smoothDeCombineDistance;
+			}
+
+			if (smoothEnabled && parent->cumulativeDistance < 1e19)
+			{
+				const double parentDistanceBefore = parent->cumulativeDistance;
+				parent->cumulativeDistance =
+					opSmoothUnion(childDistance, parent->cumulativeDistance, smoothDistance);
+				if (childDistance < parentDistanceBefore)
+				{
+					parent->closestObjectId = child.closestObjectId;
+					parent->closestObjectSequence = child.closestObjectSequence;
+				}
+			}
+			else if (childDistance < parent->cumulativeDistance)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child.closestObjectId;
+				parent->closestObjectSequence = child.closestObjectSequence;
+			}
+			break;
+		}
+	}
+}
 
 double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
-	struct StackFrame
-	{
-		int nodeIdx;
-		int level;
-		int closestObjectId;
-		int closestObjectSequence;
-		double cumulativeDistance;
-		enumNodeType nodeType;
-	};
-
 	// limit to 10 levels of tree
-	StackFrame stack[10];
+	ObjectTreeStackFrame stack[10];
 
 	out->objectId = 0;
 	out->totalIters = 0;
@@ -101,75 +170,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
-
-		auto mergeChildIntoParent = [&](const StackFrame &child, StackFrame *parent) {
-			const double childDistance = child.cumulativeDistance;
-
-			switch (parent->nodeType)
-			{
-				case enumNodeType::booleanMul:
-				{
-					if (childDistance > parent->cumulativeDistance)
-					{
-						parent->cumulativeDistance = childDistance;
-						parent->closestObjectId = child.closestObjectId;
-						parent->closestObjectSequence = child.closestObjectSequence;
-					}
-					break;
-				}
-				case enumNodeType::booleanSub:
-				{
-					if (parent->cumulativeDistance >= 1e19)
-					{
-						parent->cumulativeDistance = childDistance;
-						parent->closestObjectId = child.closestObjectId;
-						parent->closestObjectSequence = child.closestObjectSequence;
-					}
-					else
-					{
-						parent->cumulativeDistance = max(parent->cumulativeDistance, -childDistance);
-						if (childDistance < parent->cumulativeDistance)
-						{
-							parent->closestObjectId = child.closestObjectId;
-							parent->closestObjectSequence = child.closestObjectSequence;
-						}
-					}
-					break;
-				}
-				case enumNodeType::booleanAdd:
-				default:
-				{
-					const int childObjectId = child.closestObjectId;
-					bool smoothEnabled = false;
-					double smoothDistance = 0.0;
-					if (childObjectId >= 0 && childObjectId < int(data->objectData.size()))
-					{
-						const cObjectData &obj = data->objectData[childObjectId];
-						smoothEnabled = obj.smoothDeCombineEnable;
-						smoothDistance = obj.smoothDeCombineDistance;
-					}
-
-					if (smoothEnabled && parent->cumulativeDistance < 1e19)
-					{
-						const double parentDistanceBefore = parent->cumulativeDistance;
-						parent->cumulativeDistance =
-							opSmoothUnion(childDistance, parent->cumulativeDistance, smoothDistance);
-						if (childDistance < parentDistanceBefore)
-						{
-							parent->closestObjectId = child.closestObjectId;
-							parent->closestObjectSequence = child.closestObjectSequence;
-						}
-					}
-					else if (childDistance < parent->cumulativeDistance)
-					{
-						parent->cumulativeDistance = childDistance;
-						parent->closestObjectId = child.closestObjectId;
-						parent->closestObjectSequence = child.closestObjectSequence;
-					}
-					break;
-				}
-			}
-		};
 
 		for (int i = 0; i < nodeCount; ++i)
 		{
@@ -209,9 +209,9 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				// pop stack levels
 				while (stackLevel > node.level)
 				{
-					StackFrame child = stack[stackLevel];
+					ObjectTreeStackFrame child = stack[stackLevel];
 					stackLevel--;
-					mergeChildIntoParent(child, &stack[stackLevel]);
+					mergeChildIntoParent(child, &stack[stackLevel], data);
 				}
 			}
 
@@ -281,11 +281,11 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				default: break;
 			}
 
-			StackFrame leaf;
+			ObjectTreeStackFrame leaf;
 			leaf.cumulativeDistance = distance;
 			leaf.closestObjectId = objectId;
 			leaf.closestObjectSequence = sequenceIndex;
-			mergeChildIntoParent(leaf, &stack[stackLevel]);
+			mergeChildIntoParent(leaf, &stack[stackLevel], data);
 		}
 
 		// final node summation
@@ -294,9 +294,9 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			// pop stack levels
 			while (stackLevel > 0)
 			{
-				StackFrame child = stack[stackLevel];
+				ObjectTreeStackFrame child = stack[stackLevel];
 				stackLevel--;
-				mergeChildIntoParent(child, &stack[stackLevel]);
+				mergeChildIntoParent(child, &stack[stackLevel], data);
 			}
 		}
 

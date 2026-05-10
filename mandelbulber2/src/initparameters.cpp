@@ -520,7 +520,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("node_0010_scale", 1.0, morphNone, paramStandard);
 	par->addParam("node_0051_scale", 1.0, morphNone, paramStandard);
 
-	par->addParam("node_0001_repeat", CVector3(1.0, 1.0, 1.0), morphNone, paramStandard);
+	par->addParam("node_0001_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("node_0050_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("node_0005_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("node_0007_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
@@ -528,6 +528,46 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("node_0009_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("node_0010_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("node_0051_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+
+	// Example for node_0001
+	par->addParam("node_0001_material", 0, morphNone, paramStandard);
+
+	// Example for node_0002
+	par->addParam("node_0002_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0002_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0002_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0002_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0002_material", 0, morphNone, paramStandard);
+
+	// Example for node_0003
+	par->addParam("node_0003_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0003_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0003_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0003_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0003_material", 0, morphNone, paramStandard);
+
+	// Repeat similarly for node_0005, node_0007, node_0008, node_0009, node_0010, node_0011,
+	// node_0012, node_0050, node_0051
+	par->addParam("node_0005_material", 0, morphNone, paramStandard);
+	par->addParam("node_0007_material", 0, morphNone, paramStandard);
+	par->addParam("node_0008_material", 0, morphNone, paramStandard);
+	par->addParam("node_0009_material", 0, morphNone, paramStandard);
+	par->addParam("node_0010_material", 0, morphNone, paramStandard);
+
+	par->addParam("node_0011_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0011_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0011_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0011_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0011_material", 0, morphNone, paramStandard);
+
+	par->addParam("node_0012_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0012_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0012_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0012_scale", 1.0, morphNone, paramStandard);
+	par->addParam("node_0012_material", 0, morphNone, paramStandard);
+
+	par->addParam("node_0050_material", 0, morphNone, paramStandard);
+	par->addParam("node_0051_material", 0, morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);

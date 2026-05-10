@@ -35,6 +35,7 @@
 #include "fractparams.hpp"
 #include "material.h"
 #include "render_worker.hpp"
+#include "render_data.hpp"
 
 sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloat *surfaceColour,
 	sRGBAFloat *specularOut, sRGBFloat *iridescenceOut, sRGBAFloat *outShadow,
