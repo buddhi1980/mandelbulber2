@@ -356,7 +356,6 @@ void cRenderJob::PrepareData()
 	renderData->perlinNoise.reset(
 		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
 
-	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
 }
 
 bool cRenderJob::Execute()
@@ -406,8 +405,8 @@ bool cRenderJob::Execute()
 				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 				// move parameters from containers to structures
-				std::shared_ptr<sParamRender> params(new sParamRender(
-					paramsContainer, &renderData->objectData, &renderData->nodesDataForRendering));
+				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
+					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
 
@@ -475,7 +474,7 @@ bool cRenderJob::Execute()
 
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(
-					new sParamRender(paramsContainer, &renderData->objectData));
+					new sParamRender(paramsContainer, &renderData->objectData, nullptr, fractalContainer));
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
 

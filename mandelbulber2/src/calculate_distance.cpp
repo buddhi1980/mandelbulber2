@@ -41,6 +41,7 @@
 #include <QVector>
 
 #include "compute_fractal.hpp"
+#include "common_math.h"
 #include "displacement_map.hpp"
 #include "fractal.h"
 #include "fractal_enums.h"
@@ -59,197 +60,7 @@ using namespace std;
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
-	if (params.objectsTreeEnable)
-	{
-		return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
-	}
-
-	/*
-	double distance;
-	out->objectId = 0;
-	out->totalIters = 0;
-
-	double limitBoxDist = 0.0;
-	if (params.limitsEnabled)
-	{
-		const double distance_a =
-			max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
-		const double distance_b =
-			max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
-		const double distance_c =
-			max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
-		limitBoxDist = max(max(distance_a, distance_b), distance_c);
-
-		if (limitBoxDist > in.detailSize)
-		{
-			out->maxiter = false;
-			out->distance = limitBoxDist;
-			out->objectId = 0;
-			out->iters = 0;
-			return limitBoxDist;
-		}
-	}
-
-	if (params.booleanOperatorsEnabled)
-	{
-		sDistanceIn inTemp = in;
-		CVector3 point = inTemp.point;
-
-		point = point - params.formulaPosition[0];
-		point = params.mRotFormulaRotation[0].RotateVector(point);
-		point = point.repeatMod(params.formulaRepeat[0]);
-		point *= params.formulaScale[0];
-		inTemp.point = point;
-
-		distance =
-			CalculateDistanceSimple(params, fractals, inTemp, out, 0, nullptr) / params.formulaScale[0];
-
-		CVector3 pointFractalized = inTemp.point;
-		double reduceDisplacement = 1.0;
-		pointFractalized = FractalizeTexture(
-			inTemp.point, data, params, out->objectId, out->seqIndex, &reduceDisplacement);
-
-		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
-
-		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
-		{
-			if (fractals.GetFractal(i + 1)->formula != fractal::none)
-			{
-				sDistanceOut outTemp = *out;
-
-				point = in.point - params.formulaPosition[i + 1];
-				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
-				point = point.repeatMod(params.formulaRepeat[i + 1]);
-				point *= params.formulaScale[i + 1];
-				inTemp.point = point;
-
-				double distTemp =
-					CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1, nullptr)
-					/ params.formulaScale[i + 1];
-
-				CVector3 pointFractalized = inTemp.point;
-				double reduceDisplacement = 1.0;
-				pointFractalized =
-					FractalizeTexture(inTemp.point, data, params, i + 1, out->seqIndex, &reduceDisplacement);
-
-				distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, data);
-				distance = PerlinNoiseDisplacement(distance, pointFractalized, data, i + 1);
-
-				const params::enumBooleanOperator boolOperator = params.booleanOperator[i];
-
-				switch (boolOperator)
-				{
-					case params::booleanOperatorOR:
-						if (distTemp < distance)
-						{
-							outTemp.objectId = 1 + i;
-							*out = outTemp;
-						}
-
-						if (params.smoothDeCombineEnable[i + 1])
-						{
-							distance = opSmoothUnion(distTemp, distance, params.smoothDeCombineDistance[i + 1]);
-						}
-						else
-						{
-							distance = min(distTemp, distance);
-						}
-
-						break;
-					case params::booleanOperatorAND:
-						if (distTemp > distance)
-						{
-							outTemp.objectId = 1 + i;
-							*out = outTemp;
-						}
-						distance = max(distTemp, distance);
-						break;
-					case params::booleanOperatorSUB:
-					{
-						const double limit = 1.5;
-						if (distance < in.detailSize) // if inside 1st
-						{
-							if (distTemp < in.detailSize * limit * 1.5)
-							{
-								outTemp.objectId = 1 + i;
-								*out = outTemp;
-							}
-
-							if (distTemp < in.detailSize * limit) // if inside 2nd
-							{
-								if (in.normalCalculationMode)
-								{
-									distance = max(in.detailSize * limit - distTemp, distance);
-								}
-								else
-								{
-									distance = in.detailSize * limit;
-								}
-							}
-							else // if outside of 2nd
-							{
-								distance = max(in.detailSize * limit - distTemp, distance);
-								if (distance < 0) distance = 0;
-							}
-						}
-						else // if outside of 1st
-						{
-							//
-						}
-						break;
-					}
-					default: break;
-				}
-			}
-		}
-	}
-	else
-	{
-		distance = CalculateDistanceSimple(params, fractals, in, out, -1, nullptr);
-
-		CVector3 pointFractalized = in.point;
-		double reduceDisplacement = 1.0;
-
-		pointFractalized = FractalizeTexture(in.point, data, params, -1, 0, &reduceDisplacement);
-
-		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
-		distance = PerlinNoiseDisplacement(distance, in.point, data, 0);
-	}
-
-	distance = params.primitives.TotalDistance(
-		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
-
-	//****************************************************
-
-	if (params.limitsEnabled)
-	{
-		if (limitBoxDist < in.detailSize)
-		{
-			distance = max(distance, limitBoxDist);
-		}
-	}
-
-	if (CheckNAN(distance)) // check if not a number
-	{
-		distance = 0.0;
-	}
-
-	const double distFromCamera = (in.point - params.camera).Length();
-	const double distanceLimitMin = params.viewDistanceMin - distFromCamera;
-	if (distanceLimitMin > in.detailSize)
-	{
-		out->maxiter = false;
-		out->objectId = 0;
-		out->iters = 0;
-	}
-
-	distance = max(distance, distanceLimitMin);
-
-	out->distance = distance;
-
-	return distance;
-	*/
-	return 0.0;
+	return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
 }
 
 // In mandelbulber2/src/calculate_distance.cpp
@@ -291,7 +102,74 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
 
-		CVector3 originalPoimt = in.point;
+		auto mergeChildIntoParent = [&](const StackFrame &child, StackFrame *parent) {
+			const double childDistance = child.cumulativeDistance;
+
+			switch (parent->nodeType)
+			{
+				case enumNodeType::booleanMul:
+				{
+					if (childDistance > parent->cumulativeDistance)
+					{
+						parent->cumulativeDistance = childDistance;
+						parent->closestObjectId = child.closestObjectId;
+						parent->closestObjectSequence = child.closestObjectSequence;
+					}
+					break;
+				}
+				case enumNodeType::booleanSub:
+				{
+					if (parent->cumulativeDistance >= 1e19)
+					{
+						parent->cumulativeDistance = childDistance;
+						parent->closestObjectId = child.closestObjectId;
+						parent->closestObjectSequence = child.closestObjectSequence;
+					}
+					else
+					{
+						parent->cumulativeDistance = max(parent->cumulativeDistance, -childDistance);
+						if (childDistance < parent->cumulativeDistance)
+						{
+							parent->closestObjectId = child.closestObjectId;
+							parent->closestObjectSequence = child.closestObjectSequence;
+						}
+					}
+					break;
+				}
+				case enumNodeType::booleanAdd:
+				default:
+				{
+					const int childObjectId = child.closestObjectId;
+					bool smoothEnabled = false;
+					double smoothDistance = 0.0;
+					if (childObjectId >= 0 && childObjectId < int(data->objectData.size()))
+					{
+						const cObjectData &obj = data->objectData[childObjectId];
+						smoothEnabled = obj.smoothDeCombineEnable;
+						smoothDistance = obj.smoothDeCombineDistance;
+					}
+
+					if (smoothEnabled && parent->cumulativeDistance < 1e19)
+					{
+						const double parentDistanceBefore = parent->cumulativeDistance;
+						parent->cumulativeDistance =
+							opSmoothUnion(childDistance, parent->cumulativeDistance, smoothDistance);
+						if (childDistance < parentDistanceBefore)
+						{
+							parent->closestObjectId = child.closestObjectId;
+							parent->closestObjectSequence = child.closestObjectSequence;
+						}
+					}
+					else if (childDistance < parent->cumulativeDistance)
+					{
+						parent->cumulativeDistance = childDistance;
+						parent->closestObjectId = child.closestObjectId;
+						parent->closestObjectSequence = child.closestObjectSequence;
+					}
+					break;
+				}
+			}
+		};
 
 		for (int i = 0; i < nodeCount; ++i)
 		{
@@ -301,9 +179,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			int sequenceIndex = -1;
 
 			// Apply repeat modulation first (in world space)
-			CVector3 pointWithRepeat = (node.repeat.Length() > 0.0)
-			    ? originalPoimt.repeatMod(node.repeat)
-			    : originalPoimt;
+			CVector3 pointWithRepeat =
+				(node.repeat.Length() > 0.0) ? in.point.repeatMod(node.repeat) : in.point;
 
 			// Translate to node's local space
 			CVector3 pointTransformed = pointWithRepeat - node.position;
@@ -311,39 +188,30 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			// Apply inverse rotation (transpose = inverse for rotation matrices)
 			if (node.rotation.Length() > 0.0)
 			{
-			    CRotationMatrix rotMatrix;
-			    rotMatrix.SetRotation(node.rotation);
-			    pointTransformed = rotMatrix.Transpose().RotateVector(pointTransformed);
+				CRotationMatrix rotMatrix;
+				rotMatrix.SetRotation2(node.rotation * (M_PI / 180.0));
+				pointTransformed = rotMatrix.Transpose().RotateVector(pointTransformed);
 			}
 
 			// Apply scale
-			if (node.scale != 0.0 && node.scale != 1.0)
+			double nodeScale = node.scale;
+			if (nodeScale == 0.0) nodeScale = 1.0;
+			if (nodeScale != 1.0)
 			{
-			    pointTransformed = pointTransformed / node.scale;
+				pointTransformed = pointTransformed / nodeScale;
 			}
+			const double absNodeScale = fabs(nodeScale);
+			sDistanceIn nodeIn = in;
+			nodeIn.detailSize = (absNodeScale > 0.0) ? in.detailSize / absNodeScale : in.detailSize;
 
 			if (node.level < stackLevel)
 			{
 				// pop stack levels
 				while (stackLevel > node.level)
 				{
-					// combine distances
-					double childDistance = stack[stackLevel].cumulativeDistance;
-					int closestObjectIdOfChild = stack[stackLevel].closestObjectId;
-					int closestObjectSequenceOfChild = stack[stackLevel].closestObjectSequence;
-
+					StackFrame child = stack[stackLevel];
 					stackLevel--;
-
-					// update cumulative distance of the previous level
-					if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
-					{
-						if (childDistance < stack[stackLevel].cumulativeDistance)
-						{
-							stack[stackLevel].cumulativeDistance = childDistance;
-							stack[stackLevel].closestObjectId = closestObjectIdOfChild;
-							stack[stackLevel].closestObjectSequence = closestObjectSequenceOfChild;
-						}
-					}
+					mergeChildIntoParent(child, &stack[stackLevel]);
 				}
 			}
 
@@ -355,8 +223,9 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					{
 						int seqIndex = node.hybridSequenceIndex;
 						sDistanceOut nodeOut;
-						distance = CalculateDistanceSimple(params, in, pointTransformed, &nodeOut,
+						distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut,
 							node.internalObjectId, data->hybridFractalSequences.GetSequence(seqIndex));
+						distance *= absNodeScale;
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
 					}
@@ -374,6 +243,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 					{
 						distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
+						distance *= absNodeScale;
 						objectId = node.internalObjectId;
 					}
 					break;
@@ -383,8 +253,9 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					// hybrid fractal sequence
 					int seqIndex = node.hybridSequenceIndex;
 					sDistanceOut nodeOut;
-					distance = CalculateDistanceSimple(params, in, pointTransformed, &nodeOut, -1,
+					distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut, -1,
 						data->hybridFractalSequences.GetSequence(seqIndex));
+					distance *= absNodeScale;
 					// skip next fractals because they are part of this hybrid sequence
 					numberOfFractalsToSkip =
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
@@ -393,12 +264,15 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					break;
 				}
 				case enumNodeType::booleanAdd:
+				case enumNodeType::booleanMul:
+				case enumNodeType::booleanSub:
 				{
 					stackLevel++;
-					stack[stackLevel].cumulativeDistance = 1e20;
+					stack[stackLevel].cumulativeDistance =
+						(node.type == enumNodeType::booleanMul) ? -1e20 : 1e20;
 					stack[stackLevel].nodeIdx = i;
 					stack[stackLevel].level = stackLevel;
-					stack[stackLevel].nodeType = enumNodeType::booleanAdd;
+					stack[stackLevel].nodeType = node.type;
 					stack[stackLevel].closestObjectId = -1;
 					stack[stackLevel].closestObjectSequence = -1;
 					continue;
@@ -407,15 +281,11 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				default: break;
 			}
 
-			if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
-			{
-				if (distance < stack[stackLevel].cumulativeDistance)
-				{
-					stack[stackLevel].cumulativeDistance = distance;
-					stack[stackLevel].closestObjectId = objectId;
-					stack[stackLevel].closestObjectSequence = sequenceIndex;
-				}
-			}
+			StackFrame leaf;
+			leaf.cumulativeDistance = distance;
+			leaf.closestObjectId = objectId;
+			leaf.closestObjectSequence = sequenceIndex;
+			mergeChildIntoParent(leaf, &stack[stackLevel]);
 		}
 
 		// final node summation
@@ -424,23 +294,9 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			// pop stack levels
 			while (stackLevel > 0)
 			{
-				// combine distances
-				double childDistance = stack[stackLevel].cumulativeDistance;
-				int closestObjectIdOfChild = stack[stackLevel].closestObjectId;
-				int closestObjectSequenceOfChild = stack[stackLevel].closestObjectSequence;
-
+				StackFrame child = stack[stackLevel];
 				stackLevel--;
-
-				// update cumulative distance of the previous level
-				if (stack[stackLevel].nodeType == enumNodeType::booleanAdd)
-				{
-					if (childDistance < stack[stackLevel].cumulativeDistance)
-					{
-						stack[stackLevel].cumulativeDistance = childDistance;
-						stack[stackLevel].closestObjectId = closestObjectIdOfChild;
-						stack[stackLevel].closestObjectSequence = closestObjectSequenceOfChild;
-					}
-				}
+				mergeChildIntoParent(child, &stack[stackLevel]);
 			}
 		}
 

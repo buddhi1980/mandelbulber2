@@ -175,7 +175,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 		// Build parent rotation matrix to rotate child's local position into parent space
 		CRotationMatrix parentRotMatrix;
-		parentRotMatrix.SetRotation(parentTransform.rotation);
+		parentRotMatrix.SetRotation2(parentTransform.rotation * (M_PI / 180.0));
 
 		// World position = parent_position + parent_rotation * (parent_scale * child_local_position)
 		CVector3 scaledLocalPosition = nodeData.position * parentTransform.scale;

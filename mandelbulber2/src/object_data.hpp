@@ -38,6 +38,7 @@
 #define MANDELBULBER2_SRC_OBJECT_DATA_HPP_
 
 #include "algebra.hpp"
+#include "boolean_operator.h"
 #include "object_types.hpp"
 
 class cObjectData
@@ -49,6 +50,8 @@ public:
 		objectType = fractal::objNone;
 		smoothDeCombineEnable = false;
 		smoothDeCombineDistance = 0.0f;
+		scale = 1.0;
+		booleanOperator = params::booleanOperatorOR;
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
 	}
@@ -58,15 +61,19 @@ public:
 	double smoothDeCombineDistance;
 	double wallThickness;
 	CVector3 position;
+	CVector3 rotation;
 	CVector3 size;
 	CVector3 repeat;
+	double scale;
 	int materialId;
+	params::enumBooleanOperator booleanOperator;
 	fractal::enumObjectType objectType;
 	CRotationMatrix rotationMatrix;
-	void SetRotation(const CVector3 &rot) { rotationMatrix.SetRotation2(rot * M_PI / 180.0); }
-
-private:
-	CVector3 rotation;
+	void SetRotation(const CVector3 &rot)
+	{
+		rotation = rot;
+		rotationMatrix.SetRotation2(rot * M_PI / 180.0);
+	}
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

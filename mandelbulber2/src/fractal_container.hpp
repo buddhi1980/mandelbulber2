@@ -52,6 +52,7 @@ public:
 	const std::shared_ptr<cParameterContainer> operator[](int index) const;
 	std::shared_ptr<cParameterContainer> at(int index);
 	const std::shared_ptr<cParameterContainer> at(int index) const;
+	int size() const;
 	bool isUsedCustomFormula();
 
 private:

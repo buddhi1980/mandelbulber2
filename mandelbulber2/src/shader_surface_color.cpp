@@ -56,10 +56,11 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 					formulaIndex = -1;
 				else
 				{
-					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
-					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
-					tempPoint = tempPoint.repeatMod(params->formulaRepeat[formulaIndex]);
-					tempPoint *= params->formulaScale[formulaIndex];
+					const cObjectData &objectData = data->objectData[formulaIndex];
+					tempPoint = tempPoint - objectData.position;
+					tempPoint = objectData.rotationMatrix.RotateVector(tempPoint);
+					tempPoint = tempPoint.repeatMod(objectData.repeat);
+					tempPoint *= objectData.scale;
 				}
 
 				sFractalIn fractIn(

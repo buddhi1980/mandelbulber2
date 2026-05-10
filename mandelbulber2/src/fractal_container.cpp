@@ -126,6 +126,11 @@ const std::shared_ptr<cParameterContainer> cFractalContainer::at(int index) cons
 	}
 }
 
+int cFractalContainer::size() const
+{
+	return fractals.size();
+}
+
 bool cFractalContainer::isUsedCustomFormula()
 {
 	bool used = false;

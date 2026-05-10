@@ -46,7 +46,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			hybridNodeEntered = true;
 			formulaIndices.clear();
 			levelOfHybrid = node.level;
-			hybridObjectId = node.userObjectId;
+			hybridObjectId = node.internalObjectId;
 		}
 
 		if (node.type == enumNodeType::fractal && hybridNodeEntered)
@@ -87,7 +87,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 
 			if (singleFractal)
 			{
-				sequence.internalObjectId = node.userObjectId;
+				sequence.internalObjectId = node.internalObjectId;
 			}
 			else
 			{
