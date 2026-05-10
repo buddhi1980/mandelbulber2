@@ -612,7 +612,9 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			listOfLoadedPrimitives.clear();
 			DeleteAllMaterialParams(par);
 			DeleteAllLightParams(par);
+
 			DeleteAllNodeParams(par);
+			InitNodeParams(1, par);
 
 			if (frames)
 			{

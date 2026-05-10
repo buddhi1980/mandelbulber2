@@ -132,13 +132,6 @@ void cMaterialWidget::InitializeData()
 		params->Set("objects_tree_enable", true);
 		params->Set("node_0001_definition",
 			QString("fractal preview,1,%1,0,1").arg(int(enumNodeType::fractal)));
-		// InitParams() creates a default complex objects-tree test scene. For material preview we keep
-		// only one root fractal node and clear all other predefined node definitions.
-		const QList<int> predefinedNodeIdsToClear = {2, 3, 5, 7, 8, 9, 10, 11, 12, 50, 51};
-		for (const int nodeId : predefinedNodeIdsToClear)
-		{
-			params->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')), QString(""));
-		}
 		params->Set("node_0001_material", 1);
 		fractal->at(0)->Set("formula", int(fractal::mandelbulb));
 

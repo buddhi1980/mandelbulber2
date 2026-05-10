@@ -453,7 +453,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	// OBJECT TREE TEST PARAMETERS
 
-	par->addParam("objects_tree_enable", false, morphNone, paramStandard);
+	par->addParam("objects_tree_enable", true, morphNone, paramStandard);
 
 	// Each "node_XXXX" parameter set represents an object tree node with the fields:
 	// name, id, type, parent_id, object_id
@@ -698,10 +698,18 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	QStringList qslCombo5({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslCombo6({"type1", "type2", "type3", "type4", "type5", "type6"});
 
-	par->addParam("formula", int(fractal::none), morphNone, paramStandard);
-	par->addParam("formula_iterations", 1, 1, 65536, morphNone, paramStandard);
+	if (par->GetContainerName() == "fractal0")
+	{
+		par->addParam("formula", int(fractal::mandelbulb), morphNone, paramStandard);
+		par->addParam("fractal_enable", true, morphLinear, paramStandard);
+	}
+	else
+	{
+		par->addParam("formula", int(fractal::none), morphNone, paramStandard);
+		par->addParam("fractal_enable", false, morphLinear, paramStandard);
+	}
 
-	par->addParam("fractal_enable", true, morphLinear, paramStandard);
+	par->addParam("formula_iterations", 1, 1, 65536, morphNone, paramStandard);
 	par->addParam("formula_weight", 1.0, 0.0, 1.0, morphAkima, paramStandard);
 	par->addParam("formula_start_iteration", 0, 0, 65536, morphAkima, paramStandard);
 	par->addParam("formula_stop_iteration", 250, 0, 65536, morphAkima, paramStandard);
@@ -2128,7 +2136,8 @@ void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par)
 void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
 {
 	QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
-	par->addParam(prefix + "definition", QString(""), morphNone, paramStandard);
+	par->addParam(prefix + "definition",
+		QString("mandelbulb 1,1,%1,0,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
 	par->addParam(prefix + "position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam(prefix + "rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam(prefix + "scale", 1.0, morphNone, paramStandard);
