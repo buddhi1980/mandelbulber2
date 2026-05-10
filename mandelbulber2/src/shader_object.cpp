@@ -61,7 +61,7 @@ sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloa
 	if (params->allPrimitivesInvisibleAlpha)
 	{
 		const int objectId = input.objectId;
-		if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size())
+		if (data && objectId >= 0 && objectId < static_cast<int>(data->objectData.size())
 				&& data->objectData[objectId].objectType != fractal::objFractal)
 		{
 			//	alpha = 1.0f - (shadow.R + shadow.G + shadow.B) / 3.0f;
