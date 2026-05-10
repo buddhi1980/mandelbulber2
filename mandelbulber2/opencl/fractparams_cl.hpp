@@ -301,7 +301,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.imageWidth = source.imageWidth;
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.formulaMaterialId[i] = source.formulaMaterialId[i];
+		target.formulaMaterialId[i] = 0; // migrated to objectData
 	}
 	target.minN = source.minN;
 	target.N = source.N;
@@ -320,7 +320,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
-		target.booleanOperator[i] = source.booleanOperator[i];
+		target.booleanOperator[i] = params::booleanOperatorOR; // migrated to nodesDataForRendering
 	}
 	target.delta_DE_method = source.delta_DE_method;
 	target.delta_DE_function = source.delta_DE_function;
@@ -377,7 +377,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.slowShading = source.slowShading;
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.smoothDeCombineEnable[i] = source.smoothDeCombineEnable[i];
+		target.smoothDeCombineEnable[i] = 0; // migrated to objectData
 	}
 	target.SSAO_random_mode = source.SSAO_random_mode;
 	target.stereoSwapEyes = source.stereoSwapEyes;
@@ -445,7 +445,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.fogVisibility = source.fogVisibility;
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.formulaScale[i] = source.formulaScale[i];
+		target.formulaScale[i] = 1.0f; // migrated to objectData
 	}
 	target.fov = source.fov;
 	target.glowIntensity = source.glowIntensity;
@@ -471,7 +471,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.resolution = source.resolution;
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.smoothDeCombineDistance[i] = source.smoothDeCombineDistance[i];
+		target.smoothDeCombineDistance[i] = 0.0f; // migrated to objectData
 	}
 	target.smoothness = source.smoothness;
 	target.stereoEyeDistance = source.stereoEyeDistance;
@@ -494,15 +494,15 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);
+		target.formulaPosition[i] = {{0.0f, 0.0f, 0.0f, 0.0f}}; // migrated to objectData
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.formulaRotation[i] = toClFloat3(source.formulaRotation[i]);
+		target.formulaRotation[i] = {{0.0f, 0.0f, 0.0f, 0.0f}}; // migrated to objectData
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.formulaRepeat[i] = toClFloat3(source.formulaRepeat[i]);
+		target.formulaRepeat[i] = {{0.0f, 0.0f, 0.0f, 0.0f}}; // migrated to objectData
 	}
 	target.limitMin = toClFloat3(source.limitMin);
 	target.limitMax = toClFloat3(source.limitMax);
@@ -513,7 +513,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.topVector = toClFloat3(source.topVector);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		target.mRotFormulaRotation[i] = toClMatrix33(source.mRotFormulaRotation[i]);
+		target.mRotFormulaRotation[i] = {}; // migrated to objectData
 	}
 	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
 	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);

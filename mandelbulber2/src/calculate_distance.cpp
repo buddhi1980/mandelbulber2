@@ -47,6 +47,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "nine_fractals.hpp"
+#include "object_data.hpp"
 #include "object_node_type.h"
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
@@ -94,14 +95,15 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		sDistanceIn inTemp = in;
 		CVector3 point = inTemp.point;
 
-		point = point - params.formulaPosition[0];
-		point = params.mRotFormulaRotation[0].RotateVector(point);
-		point = point.repeatMod(params.formulaRepeat[0]);
-		point *= params.formulaScale[0];
+		const cObjectData &obj0 = data ? data->objectData[0] : cObjectData();
+		point = point - obj0.position;
+		point = obj0.rotationMatrix.RotateVector(point);
+		point = point.repeatMod(obj0.repeat);
+		point *= obj0.scale;
 		inTemp.point = point;
 
 		distance =
-			CalculateDistanceSimple(params, fractals, inTemp, out, 0, nullptr) / params.formulaScale[0];
+			CalculateDistanceSimple(params, fractals, inTemp, out, 0, nullptr) / obj0.scale;
 
 		CVector3 pointFractalized = inTemp.point;
 		double reduceDisplacement = 1.0;
@@ -116,15 +118,16 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 			{
 				sDistanceOut outTemp = *out;
 
-				point = in.point - params.formulaPosition[i + 1];
-				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
-				point = point.repeatMod(params.formulaRepeat[i + 1]);
-				point *= params.formulaScale[i + 1];
+				const cObjectData &objI = data ? data->objectData[i + 1] : cObjectData();
+				point = in.point - objI.position;
+				point = objI.rotationMatrix.RotateVector(point);
+				point = point.repeatMod(objI.repeat);
+				point *= objI.scale;
 				inTemp.point = point;
 
 				double distTemp =
 					CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1, nullptr)
-					/ params.formulaScale[i + 1];
+					/ objI.scale;
 
 				CVector3 pointFractalized = inTemp.point;
 				double reduceDisplacement = 1.0;
@@ -134,7 +137,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, data);
 				distance = PerlinNoiseDisplacement(distance, pointFractalized, data, i + 1);
 
-				const params::enumBooleanOperator boolOperator = params.booleanOperator[i];
+				params::enumBooleanOperator boolOperator = params::booleanOperatorOR;
+				if (data && (i + 1) < static_cast<int>(data->nodesDataForRendering.size()))
+					boolOperator = data->nodesDataForRendering[i + 1].booleanOperator;
 
 				switch (boolOperator)
 				{
@@ -145,9 +150,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 							*out = outTemp;
 						}
 
-						if (params.smoothDeCombineEnable[i + 1])
+						if (objI.smoothDeCombineEnable)
 						{
-							distance = opSmoothUnion(distTemp, distance, params.smoothDeCombineDistance[i + 1]);
+							distance = opSmoothUnion(distTemp, distance, objI.smoothDeCombineDistance);
 						}
 						else
 						{

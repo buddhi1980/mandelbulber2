@@ -150,6 +150,8 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		else
 			nodeDataForRendering.hybridSequenceIndex = -1; // it is not hybrid
 
+		nodeDataForRendering.booleanOperator = params::booleanOperatorOR;
+
 		nodeDataList.push_back(nodeDataForRendering);
 	}
 	return nodeDataList;
@@ -167,4 +169,34 @@ void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, i
 			return;
 		}
 	}
+}
+
+void cObjectsTree::WriteFractalNode(int userObjectID, int internalObjectID,
+	params::enumBooleanOperator booleanOperator,
+	std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
+{
+	// Try to update an existing node first (tree mode)
+	for (sNodeDataForRendering &node : *nodes)
+	{
+		if (node.userObjectId == userObjectID)
+		{
+			node.internalObjectId = internalObjectID;
+			node.primitiveIdx = -1;
+			node.booleanOperator = booleanOperator;
+			return;
+		}
+	}
+
+	// Node not found – create a new one (non-tree mode)
+	sNodeDataForRendering node;
+	node.id = userObjectID;
+	node.type = enumNodeType::fractal;
+	node.parentId = -1;
+	node.userObjectId = userObjectID;
+	node.internalObjectId = internalObjectID;
+	node.primitiveIdx = -1;
+	node.level = 0;
+	node.hybridSequenceIndex = -1;
+	node.booleanOperator = booleanOperator;
+	nodes->push_back(node);
 }

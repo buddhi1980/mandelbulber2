@@ -33,6 +33,7 @@
  */
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "object_data.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
@@ -56,10 +57,11 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 					formulaIndex = -1;
 				else
 				{
-					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
-					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
-					tempPoint = tempPoint.repeatMod(params->formulaRepeat[formulaIndex]);
-					tempPoint *= params->formulaScale[formulaIndex];
+					const cObjectData &obj = data->objectData[formulaIndex];
+					tempPoint = tempPoint - obj.position;
+					tempPoint = obj.rotationMatrix.RotateVector(tempPoint);
+					tempPoint = tempPoint.repeatMod(obj.repeat);
+					tempPoint *= obj.scale;
 				}
 
 				sFractalIn fractIn(

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-23 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-25 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -27,48 +27,22 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Rayan Hitchman
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cObjectData class - generalized properties of any object
- *
- * This object can be a primitive or a fractal.
+ * enumBooleanOperator – shared enum for boolean fractal combination operators
  */
 
-#ifndef MANDELBULBER2_SRC_OBJECT_DATA_HPP_
-#define MANDELBULBER2_SRC_OBJECT_DATA_HPP_
+#ifndef MANDELBULBER2_SRC_BOOLEAN_OPERATOR_H_
+#define MANDELBULBER2_SRC_BOOLEAN_OPERATOR_H_
 
-#include "algebra.hpp"
-#include "object_types.hpp"
-
-class cObjectData
+namespace params
 {
-public:
-	cObjectData()
-	{
-		materialId = 0;
-		objectType = fractal::objNone;
-		smoothDeCombineEnable = false;
-		smoothDeCombineDistance = 0.0f;
-		wallThickness = 0.0f;
-		usedForVolumetric = false;
-		scale = 1.0;
-	}
-
-	bool smoothDeCombineEnable;
-	bool usedForVolumetric;
-	double scale;
-	double smoothDeCombineDistance;
-	double wallThickness;
-	CVector3 position;
-	CVector3 size;
-	CVector3 repeat;
-	int materialId;
-	fractal::enumObjectType objectType;
-	CRotationMatrix rotationMatrix;
-	void SetRotation(const CVector3 &rot) { rotationMatrix.SetRotation2(rot * M_PI / 180.0); }
-
-private:
-	CVector3 rotation;
+enum enumBooleanOperator
+{
+	booleanOperatorAND = 0,
+	booleanOperatorOR = 1,
+	booleanOperatorSUB = 2
 };
+} // namespace params
 
-#endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */
+#endif /* MANDELBULBER2_SRC_BOOLEAN_OPERATOR_H_ */

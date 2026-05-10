@@ -12,6 +12,7 @@
 #include <QHash>
 #include <memory>
 #include <vector>
+#include "boolean_operator.h"
 #include "object_node_type.h"
 
 class cParameterContainer;
@@ -40,6 +41,7 @@ public:
 		int primitiveIdx;
 		int level;
 		int hybridSequenceIndex;
+		params::enumBooleanOperator booleanOperator;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;
@@ -54,6 +56,10 @@ public:
 	std::vector<cObjectsTree::sNodeDataForRendering> GetNodeDataListForRendering();
 
 	static void WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
+		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
+
+	static void WriteFractalNode(int userObjectID, int internalObjectID,
+		params::enumBooleanOperator booleanOperator,
 		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
 
 private:

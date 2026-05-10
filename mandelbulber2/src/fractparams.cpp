@@ -248,54 +248,53 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
 	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
-	{
-		booleanOperator[i] =
-			params::enumBooleanOperator(container->Get<int>("boolean_operator", i + 1));
-	}
-
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
-		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);
-		formulaRepeat[i] = container->Get<CVector3>("formula_repeat", i + 1);
-		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
-		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
-		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
-		smoothDeCombineEnable[i] = container->Get<bool>("smooth_de_combine_enable", i + 1);
-		smoothDeCombineDistance[i] = container->Get<double>("smooth_de_combine_distance", i + 1);
+		const CVector3 pos = container->Get<CVector3>("formula_position", i + 1);
+		const CVector3 rot = container->Get<CVector3>("formula_rotation", i + 1);
+		const CVector3 rep = container->Get<CVector3>("formula_repeat", i + 1);
+		const double fscale = container->Get<double>("formula_scale", i + 1);
+		const double scaleInv = (fscale != 0.0) ? 1.0 / fscale : 1.0;
+		const int matId = container->Get<int>("formula_material_id", i + 1);
+		const bool sdcEnable = container->Get<bool>("smooth_de_combine_enable", i + 1);
+		const double sdcDist = container->Get<double>("smooth_de_combine_distance", i + 1);
 
 		if (objectData)
 		{
-			cObjectData oneObjectData;
-			oneObjectData.position = formulaPosition[i];
-			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / formulaScale[i];
-			oneObjectData.repeat = formulaRepeat[i];
-			oneObjectData.SetRotation(formulaRotation[i]);
-			oneObjectData.materialId = formulaMaterialId[i];
-			oneObjectData.objectType = fractal::objFractal;
-			(*objectData)[i] = oneObjectData;
+			cObjectData &obj = (*objectData)[i];
+			obj.position = pos;
+			obj.SetRotation(rot);
+			obj.repeat = rep;
+			obj.scale = scaleInv;
+			obj.size = CVector3(1.0, 1.0, 1.0) / scaleInv;
+			obj.materialId = matId;
+			obj.smoothDeCombineEnable = sdcEnable;
+			obj.smoothDeCombineDistance = sdcDist;
+			obj.objectType = fractal::objFractal;
 		}
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(i, i, -1, objectTreeNodes);
+			const params::enumBooleanOperator boolOp = (i > 0)
+				? params::enumBooleanOperator(container->Get<int>("boolean_operator", i))
+				: params::booleanOperatorOR;
+			cObjectsTree::WriteFractalNode(i, i, boolOp, objectTreeNodes);
 		}
 	}
 
 	if (!booleanOperatorsEnabled && objectData)
 	{
-		formulaMaterialId[0] = container->Get<int>("formula_material_id");
-		(*objectData)[0].materialId = formulaMaterialId[0];
-		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
-		(*objectData)[0].repeat = container->Get<CVector3>("repeat");
-		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
-		(*objectData)[0].SetRotation(container->Get<CVector3>("fractal_rotation"));
-		(*objectData)[0].objectType = fractal::objFractal;
+		cObjectData &obj0 = (*objectData)[0];
+		obj0.materialId = container->Get<int>("formula_material_id");
+		obj0.position = container->Get<CVector3>("fractal_position");
+		obj0.repeat = container->Get<CVector3>("repeat");
+		obj0.size = CVector3(1.0, 1.0, 1.0);
+		obj0.SetRotation(container->Get<CVector3>("fractal_rotation"));
+		obj0.objectType = fractal::objFractal;
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(0, 0, -1, objectTreeNodes);
+			cObjectsTree::WriteFractalNode(0, 0, params::booleanOperatorOR, objectTreeNodes);
 		}
 	}
 
