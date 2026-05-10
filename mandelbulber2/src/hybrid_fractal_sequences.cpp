@@ -133,7 +133,7 @@ void cHybridFractalSequences::CollectSequenceData(
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	// collecting data for fractals within the sequence
-	for (int i = 0; i < (int)formulaIndices.size(); i++)
+	for (size_t i = 0; i < formulaIndices.size(); i++)
 	{
 		int objectId = formulaIndices[i];
 		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
@@ -192,7 +192,7 @@ void cHybridFractalSequences::CollectSequenceData(
 	// common bailout for all hybrid components
 	if (isHybrid && useDefaultBailout)
 	{
-		for (int i = 0; i < formulaIndices.size(); i++)
+		for (size_t i = 0; i < formulaIndices.size(); i++)
 		{
 			seq.fractData[i].bailout = maxBailout;
 		}

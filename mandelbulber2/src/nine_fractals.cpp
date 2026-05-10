@@ -58,7 +58,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	isBoolean = false;
 	double maxBailout = 0.0;
 
-	// getting data from all formuala slots
+	// getting data from all formula slots
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		// allocating memory for formula data - new fields are read from per-fractal container
