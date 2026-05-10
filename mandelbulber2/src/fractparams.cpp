@@ -275,6 +275,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (objectTreeNodes)
 		{
+			// boolean_operator params are indexed 1..NUMBER_OF_FRACTALS-1, matching i here
 			const params::enumBooleanOperator boolOp = (i > 0)
 				? params::enumBooleanOperator(container->Get<int>("boolean_operator", i))
 				: params::booleanOperatorOR;

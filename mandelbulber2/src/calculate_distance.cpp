@@ -95,7 +95,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		sDistanceIn inTemp = in;
 		CVector3 point = inTemp.point;
 
-		const cObjectData &obj0 = data ? data->objectData[0] : cObjectData();
+		const cObjectData defaultObjData;
+		const cObjectData &obj0 =
+			(data && !data->objectData.empty()) ? data->objectData[0] : defaultObjData;
 		point = point - obj0.position;
 		point = obj0.rotationMatrix.RotateVector(point);
 		point = point.repeatMod(obj0.repeat);
@@ -118,7 +120,10 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 			{
 				sDistanceOut outTemp = *out;
 
-				const cObjectData &objI = data ? data->objectData[i + 1] : cObjectData();
+				const cObjectData &objI =
+					(data && (i + 1) < static_cast<int>(data->objectData.size()))
+						? data->objectData[i + 1]
+						: defaultObjData;
 				point = in.point - objI.position;
 				point = objI.rotationMatrix.RotateVector(point);
 				point = point.repeatMod(objI.repeat);
