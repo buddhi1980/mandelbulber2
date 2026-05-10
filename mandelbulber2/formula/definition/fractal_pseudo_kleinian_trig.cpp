@@ -73,25 +73,25 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 	double sxchz = sx * chz;
 	double sychz = sy * chz;
 	double cxcy_shz = (cx * cy) * shz;
-	CVector4 z_new = CVector4(sxchz, sychz, cxcy_shz, 0.0);
+	z = CVector4(sxchz, sychz, cxcy_shz, 0.0);
 
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
-		z_new = fractal->transformCommon.rotationMatrix.RotateVector(z_new);
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	// 4. Regulator
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
 		// native_rsqrt is 3x faster than 1.0/sqrt
-		z_new *= 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
+		z*= 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
 	}
 
 	// 5. Transform & Stretch
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		z = z_new * fractal->transformCommon.scale1;
+		z = z* fractal->transformCommon.scale1;
 		aux.DE *= fabs(fractal->transformCommon.scale1);
 	}
 	z -= fractal->transformCommon.offsetF000;
@@ -111,17 +111,15 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 		aux.dist = aux.temp1000;
 	}
 
+	aux.pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 		&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double addCol = fractal->foldColor.difs0000.x + aux.i * fractal->foldColor.difs0
-
 			+ fractal->foldColor.difs0000.y * fabs(z.z)
-
 			+ (oldZ - z).Length() * fractal->foldColor.difs0000.z
-
 			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)

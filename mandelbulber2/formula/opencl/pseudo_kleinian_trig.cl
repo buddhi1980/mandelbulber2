@@ -103,6 +103,8 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->dist = aux->temp1000;
 	}
 
+	aux->pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
+
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
