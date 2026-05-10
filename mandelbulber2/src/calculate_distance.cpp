@@ -95,9 +95,10 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	// accessed via sRenderData::objectData.
 
 	// Boolean operators and per-fractal transforms are now handled by the objects tree.
-	// See CalculateDistanceFromObjectsTree() above.
+	// See CalculateDistanceFromObjectsTree() above. When objectsTreeEnable is false
+	// (legacy/minimal path), fall back to a simple single-fractal distance.
 	*/
-	return 0.0;
+	return CalculateDistanceSimple(params, in, in.point, out, -1, nullptr);
 }
 
 // In mandelbulber2/src/calculate_distance.cpp

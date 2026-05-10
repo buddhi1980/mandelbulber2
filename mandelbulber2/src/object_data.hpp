@@ -54,6 +54,7 @@ public:
 		usedForVolumetric = false;
 		scale = 1.0;
 		booleanOperator = params::booleanOperatorOR;
+		rotation = CVector3(0.0, 0.0, 0.0);
 	}
 
 	bool smoothDeCombineEnable;
