@@ -41,7 +41,31 @@
 sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 {
 	// WriteLog("cFractal::cFractal(const std::shared_ptr<cParameterContainer> container)");
-	formula = fractal::none;
+
+	// per-fractal general parameters
+	formula = fractal::enumFractalFormula(container->Get<int>("formula"));
+	fractalEnable = container->Get<bool>("fractal_enable");
+	formulaIterations = container->Get<int>("formula_iterations");
+	formulaWeight = container->Get<double>("formula_weight");
+	formulaStartIteration = container->Get<int>("formula_start_iteration");
+	formulaStopIteration = container->Get<int>("formula_stop_iteration");
+	juliaMode = container->Get<bool>("julia_mode");
+	juliaConstant = container->Get<CVector3>("julia_c");
+	constantMultiplier = container->Get<CVector3>("fractal_constant_factor");
+	initialWAxis = container->Get<double>("initial_waxis");
+	dontAddCConstant = container->Get<bool>("dont_add_c_constant");
+	checkForBailout = container->Get<bool>("check_for_bailout");
+	formulaMaxiter = container->Get<int>("formula_maxiter");
+
+	// FIXME: to be deleted later - will be replaced by general object parameters
+	formulaPosition = container->Get<CVector3>("formula_position");
+	formulaRotation = container->Get<CVector3>("formula_rotation");
+	formulaRepeat = container->Get<CVector3>("formula_repeat");
+	formulaScale = container->Get<double>("formula_scale");
+
+	formulaMaterialId = container->Get<int>("formula_material_id");
+	smoothDeCombineEnable = container->Get<bool>("smooth_de_combine_enable");
+	smoothDeCombineDistance = container->Get<double>("smooth_de_combine_distance");
 
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");

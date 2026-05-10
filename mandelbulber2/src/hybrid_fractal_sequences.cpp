@@ -121,10 +121,7 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 	{
 		sFractal fractal(fractPar->at(objectId - 1));
 		fractalsMap.insert(objectId, fractal);
-
-		// getting selected formula
-		fractalsMap[objectId].formula =
-			fractal::enumFractalFormula(generalPar->Get<int>("formula", objectId));
+		// formula is now read from the per-fractal container in sFractal constructor
 	}
 }
 
@@ -136,20 +133,19 @@ void cHybridFractalSequences::CollectSequenceData(
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	// collecting data for fractals within the sequence
-	for (int i = 0; i < formulaIndices.size(); i++)
+	for (size_t i = 0; i < formulaIndices.size(); i++)
 	{
 		int objectId = formulaIndices[i];
 		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
 		int indexOnFractalList = GetIndexOnFractalList(formula);
 		cAbstractFractal *fractalObject = newFractalList[indexOnFractalList];
 		seq.fractData[i].fractalFormulaObject = fractalObject;
-		seq.fractData[i].formulaIterations = generalPar->Get<int>("formula_iterations", objectId);
-		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId);
-		seq.fractData[i].formulaStartIteration =
-			generalPar->Get<int>("formula_start_iteration", objectId);
-		seq.fractData[i].formulaStopIteration =
-			generalPar->Get<int>("formula_stop_iteration", objectId);
-		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId);
+		// read per-fractal settings from sFractal fields (moved from generalPar indexed params)
+		seq.fractData[i].formulaIterations = fractalsMap[objectId].formulaIterations;
+		seq.fractData[i].formulaWeight = fractalsMap[objectId].formulaWeight;
+		seq.fractData[i].formulaStartIteration = fractalsMap[objectId].formulaStartIteration;
+		seq.fractData[i].formulaStopIteration = fractalsMap[objectId].formulaStopIteration;
+		seq.fractData[i].checkForBailout = fractalsMap[objectId].checkForBailout;
 		if (singleFractal) seq.fractData[i].checkForBailout = true;
 		seq.fractData[i].fractalParameters = fractalsMap[objectId];
 
@@ -161,7 +157,7 @@ void cHybridFractalSequences::CollectSequenceData(
 		}
 		else
 		{
-			addc = !generalPar->Get<bool>("dont_add_c_constant", objectId);
+			addc = !fractalsMap[objectId].dontAddCConstant;
 			if (fractalObject->getCpixelAddition() == fractal::cpixelDisabledByDefault) addc = !addc;
 		}
 		seq.fractData[i].addCConstant = addc;
@@ -177,14 +173,14 @@ void cHybridFractalSequences::CollectSequenceData(
 		{
 			seq.fractData[i].bailout = commonBailout;
 		}
-		// Julia parameters - local or global
+		// Julia parameters - for single fractal read from per-fractal sFractal fields
 		if (singleFractal)
 		{
-			seq.juliaEnabled = generalPar->Get<bool>("julia_mode", objectId);
-			seq.juliaConstant = generalPar->Get<CVector3>("julia_c", objectId);
-			seq.constantMultiplier = generalPar->Get<CVector3>("fractal_constant_factor", objectId);
-			seq.initialWAxis = generalPar->Get<double>("initial_waxis", objectId);
-			seq.formulaMaxiter = generalPar->Get<double>("formula_maxiter", objectId);
+			seq.juliaEnabled = fractalsMap[objectId].juliaMode;
+			seq.juliaConstant = fractalsMap[objectId].juliaConstant;
+			seq.constantMultiplier = fractalsMap[objectId].constantMultiplier;
+			seq.initialWAxis = fractalsMap[objectId].initialWAxis;
+			seq.formulaMaxiter = fractalsMap[objectId].formulaMaxiter;
 		}
 
 		if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
@@ -196,7 +192,7 @@ void cHybridFractalSequences::CollectSequenceData(
 	// common bailout for all hybrid components
 	if (isHybrid && useDefaultBailout)
 	{
-		for (int i = 0; i < formulaIndices.size(); i++)
+		for (size_t i = 0; i < formulaIndices.size(); i++)
 		{
 			seq.fractData[i].bailout = maxBailout;
 		}

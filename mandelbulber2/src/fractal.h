@@ -852,6 +852,30 @@ struct sFractal
 	void RecalculateFractalParams();
 
 	fractal::enumFractalFormula formula;
+
+	// per-fractal general parameters (moved from InitParams to InitFractalParams)
+	bool fractalEnable;
+	int formulaIterations;
+	double formulaWeight;
+	int formulaStartIteration;
+	int formulaStopIteration;
+	bool juliaMode;
+	CVector3 juliaConstant;
+	CVector3 constantMultiplier;
+	double initialWAxis;
+	bool dontAddCConstant;
+	bool checkForBailout;
+	int formulaMaxiter;
+
+	// FIXME: to be deleted later - will be replaced by general object parameters
+	CVector3 formulaPosition;
+	CVector3 formulaRotation;
+	CVector3 formulaRepeat;
+	double formulaScale;
+
+	int formulaMaterialId;
+	bool smoothDeCombineEnable;
+	double smoothDeCombineDistance;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;

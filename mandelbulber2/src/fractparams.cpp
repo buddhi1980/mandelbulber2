@@ -34,13 +34,15 @@
 
 #include "fractparams.hpp"
 
+#include "fractal_container.hpp"
 #include "object_data.hpp"
 #include "objects_tree.h"
 #include "parameters.hpp"
 
 sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	std::vector<cObjectData> *objectData,
-	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes,
+	const std::shared_ptr<const cFractalContainer> fractalContainer)
 		: primitives(container, objectData, objectTreeNodes)
 {
 	advancedQuality = container->Get<bool>("advanced_quality");
@@ -72,7 +74,9 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	backgroundTextureOffsetY = container->Get<double>("background_texture_offset_y");
 	backgroundVScale = container->Get<double>("background_v_scale");
 	backgroundRotation = container->Get<CVector3>("background_rotation");
-	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
+	// boolean_operators has been removed from general params - boolean mode is now handled
+	// by the objects tree (cHybridFractalSequences). Legacy code path defaults to false.
+	booleanOperatorsEnabled = false;
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
 	cloudsAmbientLight = container->Get<double>("clouds_ambient_light");
@@ -248,22 +252,40 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
 	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
+	// boolean_operator has been removed from general params together with boolean_operators.
+	// Default to OR for all slots.
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
-		booleanOperator[i] =
-			params::enumBooleanOperator(container->Get<int>("boolean_operator", i + 1));
+		booleanOperator[i] = params::booleanOperatorOR;
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
-		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);
-		formulaRepeat[i] = container->Get<CVector3>("formula_repeat", i + 1);
-		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
+		if (fractalContainer)
+		{
+			// read per-fractal transform params from individual fractal containers
+			// (FIXME: formula_position/rotation/repeat/scale will be replaced by object parameters)
+			auto fracPar = fractalContainer->at(i);
+			formulaPosition[i] = fracPar->Get<CVector3>("formula_position");
+			formulaRotation[i] = fracPar->Get<CVector3>("formula_rotation");
+			formulaRepeat[i] = fracPar->Get<CVector3>("formula_repeat");
+			formulaScale[i] = 1.0 / fracPar->Get<double>("formula_scale");
+			formulaMaterialId[i] = fracPar->Get<int>("formula_material_id");
+			smoothDeCombineEnable[i] = fracPar->Get<bool>("smooth_de_combine_enable");
+			smoothDeCombineDistance[i] = fracPar->Get<double>("smooth_de_combine_distance");
+		}
+		else
+		{
+			// no fractal container provided - use identity/default values
+			formulaPosition[i] = CVector3(0.0, 0.0, 0.0);
+			formulaRotation[i] = CVector3(0.0, 0.0, 0.0);
+			formulaRepeat[i] = CVector3(0.0, 0.0, 0.0);
+			formulaScale[i] = 1.0;
+			formulaMaterialId[i] = 1;
+			smoothDeCombineEnable[i] = false;
+			smoothDeCombineDistance[i] = 0.1;
+		}
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
-		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
-		smoothDeCombineEnable[i] = container->Get<bool>("smooth_de_combine_enable", i + 1);
-		smoothDeCombineDistance[i] = container->Get<double>("smooth_de_combine_distance", i + 1);
 
 		if (objectData)
 		{
@@ -285,7 +307,10 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 	if (!booleanOperatorsEnabled && objectData)
 	{
-		formulaMaterialId[0] = container->Get<int>("formula_material_id");
+		if (fractalContainer)
+		{
+			formulaMaterialId[0] = fractalContainer->at(0)->Get<int>("formula_material_id");
+		}
 		(*objectData)[0].materialId = formulaMaterialId[0];
 		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
 		(*objectData)[0].repeat = container->Get<CVector3>("repeat");
