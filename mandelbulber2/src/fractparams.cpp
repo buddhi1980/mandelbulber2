@@ -252,75 +252,34 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
 	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
-	// boolean_operator has been removed from general params together with boolean_operators.
-	// Default to OR for all slots.
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	const int fractalCount = fractalContainer ? fractalContainer->size() : 0;
+	for (int i = 0; i < fractalCount; i++)
 	{
-		booleanOperator[i] = params::booleanOperatorOR;
-	}
+		auto fracPar = fractalContainer->at(i);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		if (fractalContainer)
-		{
-			// read per-fractal transform params from individual fractal containers
-			// (FIXME: formula_position/rotation/repeat/scale will be replaced by object parameters)
-			auto fracPar = fractalContainer->at(i);
-			formulaPosition[i] = fracPar->Get<CVector3>("formula_position");
-			formulaRotation[i] = fracPar->Get<CVector3>("formula_rotation");
-			formulaRepeat[i] = fracPar->Get<CVector3>("formula_repeat");
-			formulaScale[i] = 1.0 / fracPar->Get<double>("formula_scale");
-			formulaMaterialId[i] = fracPar->Get<int>("formula_material_id");
-			smoothDeCombineEnable[i] = fracPar->Get<bool>("smooth_de_combine_enable");
-			smoothDeCombineDistance[i] = fracPar->Get<double>("smooth_de_combine_distance");
-		}
-		else
-		{
-			// no fractal container provided - use identity/default values
-			formulaPosition[i] = CVector3(0.0, 0.0, 0.0);
-			formulaRotation[i] = CVector3(0.0, 0.0, 0.0);
-			formulaRepeat[i] = CVector3(0.0, 0.0, 0.0);
-			formulaScale[i] = 1.0;
-			formulaMaterialId[i] = 1;
-			smoothDeCombineEnable[i] = false;
-			smoothDeCombineDistance[i] = 0.1;
-		}
-		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
+		cObjectData oneObjectData;
+		oneObjectData.position = fracPar->Get<CVector3>("formula_position");
+		oneObjectData.repeat = fracPar->Get<CVector3>("formula_repeat");
+		oneObjectData.scale = 1.0 / fracPar->Get<double>("formula_scale");
+		oneObjectData.size = CVector3(1.0, 1.0, 1.0) / oneObjectData.scale;
+		oneObjectData.SetRotation(fracPar->Get<CVector3>("formula_rotation"));
+		oneObjectData.materialId = fracPar->Get<int>("formula_material_id");
+		oneObjectData.objectType = fractal::objFractal;
+		oneObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
+		oneObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
+		oneObjectData.booleanOperator = params::booleanOperatorOR;
 
+		int internalObjectId = i;
 		if (objectData)
 		{
-			cObjectData oneObjectData;
-			oneObjectData.position = formulaPosition[i];
-			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / formulaScale[i];
-			oneObjectData.repeat = formulaRepeat[i];
-			oneObjectData.SetRotation(formulaRotation[i]);
-			oneObjectData.materialId = formulaMaterialId[i];
-			oneObjectData.objectType = fractal::objFractal;
-			(*objectData)[i] = oneObjectData;
+			objectData->push_back(oneObjectData);
+			internalObjectId = int(objectData->size()) - 1;
 		}
 
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(i, i, -1, objectTreeNodes);
-		}
-	}
-
-	if (!booleanOperatorsEnabled && objectData)
-	{
-		if (fractalContainer)
-		{
-			formulaMaterialId[0] = fractalContainer->at(0)->Get<int>("formula_material_id");
-		}
-		(*objectData)[0].materialId = formulaMaterialId[0];
-		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
-		(*objectData)[0].repeat = container->Get<CVector3>("repeat");
-		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
-		(*objectData)[0].SetRotation(container->Get<CVector3>("fractal_rotation"));
-		(*objectData)[0].objectType = fractal::objFractal;
-
-		if (objectTreeNodes)
-		{
-			cObjectsTree::WriteInternalNodeID(0, 0, -1, objectTreeNodes);
+			cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
+			cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
 		}
 	}
 

@@ -81,12 +81,23 @@ cVoxelExport::~cVoxelExport()
 void cVoxelExport::ProcessVolume()
 {
 	std::shared_ptr<sRenderData> renderData(new sRenderData);
-	renderData->objectData.resize(NUMBER_OF_FRACTALS);
+
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(gPar);
+	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::shared_ptr<sParamRender> params(
+		new sParamRender(gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
 
 	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
+
+	if (params->objectsTreeEnable)
+	{
+		cHybridFractalSequences hybridSequences;
+		hybridSequences.CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+		renderData->hybridFractalSequences = hybridSequences;
+	}
 
 	renderData->ValidateObjects();
 

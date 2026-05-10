@@ -84,14 +84,14 @@ void cMeshExport::slotUpdateProgressAndStatus(int i, quint64 polygonsCount)
 void cMeshExport::ProcessVolume()
 {
 	std::shared_ptr<sRenderData> renderData(new sRenderData);
-	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(gPar);
 	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::shared_ptr<sParamRender> params(
+		new sParamRender(gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
 
 	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 
