@@ -49,6 +49,7 @@
 // forward declarations
 class cObjectData;
 class cParameterContainer;
+class cFractalContainer;
 
 namespace params
 {
@@ -73,7 +74,8 @@ struct sParamRender
 	// constructor with init
 	sParamRender(const std::shared_ptr<cParameterContainer> par,
 		std::vector<cObjectData> *objectData = nullptr,
-		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr);
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr,
+		const std::shared_ptr<const cFractalContainer> fractalContainer = nullptr);
 
 	int antialiasingSize;
 	int antialiasingOclDepth;

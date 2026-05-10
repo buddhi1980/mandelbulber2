@@ -53,28 +53,28 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
-	isBoolean = generalPar->Get<bool>("boolean_operators");
+	// boolean_operators has been removed from general params - boolean mode is now handled
+	// by the objects tree (cHybridFractalSequences). Legacy nine_fractals path defaults to false.
+	isBoolean = false;
 	double maxBailout = 0.0;
 
 	// getting data from all formuala slots
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		// allocating memory for formula data
+		// allocating memory for formula data - new fields are read from per-fractal container
 		fractals[i].reset(new sFractal(par->at(i)));
 
-		// getting selected formula
-		fractals[i]->formula = fractal::enumFractalFormula(generalPar->Get<int>("formula", i + 1));
-
+		// formula and fractalEnable are now read from per-fractal container in sFractal constructor
 		// setting formula to "none" if disabled
-		if (!generalPar->Get<bool>("fractal_enable", i + 1))
+		if (!fractals[i]->fractalEnable)
 		{
 			fractals[i]->formula = fractal::none;
 		}
 
-		// getting settings form formula
-		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
-		formulaStartIteration[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
-		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
+		// getting settings from per-fractal sFractal fields
+		formulaWeight[i] = fractals[i]->formulaWeight;
+		formulaStartIteration[i] = fractals[i]->formulaStartIteration;
+		formulaStopIteration[i] = fractals[i]->formulaStopIteration;
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 
@@ -85,10 +85,10 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 			newFractalList[GetIndexOnFractalList(fractals[i]->formula)]->getColoringFunction();
 
 		// decide if use check for bailout
-		if (isBoolean || (!isBoolean && !isHybrid))
+		if (!isBoolean && !isHybrid)
 			checkForBailout[i] = true;
 		else
-			checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
+			checkForBailout[i] = fractals[i]->checkForBailout;
 
 		// decide if use addition of C constant
 		bool addc;
@@ -99,7 +99,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 		}
 		else
 		{
-			addc = !generalPar->Get<bool>("dont_add_c_constant", i + 1);
+			addc = !fractals[i]->dontAddCConstant;
 			if (newFractalList[GetIndexOnFractalList(fractals[i]->formula)]->getCpixelAddition()
 					== fractal::cpixelDisabledByDefault)
 				addc = !addc;
@@ -121,35 +121,14 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 			bailout[i] = commonBailout;
 		}
 
-		// Julia parameters - local or global
-		if (isBoolean)
-		{
-			juliaEnabled[i] = generalPar->Get<bool>("julia_mode", i + 1);
-			juliaConstant[i] = generalPar->Get<CVector3>("julia_c", i + 1);
-			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
-			initialWAxis[i] = generalPar->Get<double>("initial_waxis", i + 1);
-			formulaMaxiter[i] = generalPar->Get<double>("formula_maxiter", i + 1);
-		}
-		else
-		{
-			juliaEnabled[i] = generalPar->Get<bool>("julia_mode");
-			juliaConstant[i] = generalPar->Get<CVector3>("julia_c");
-			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
-			initialWAxis[i] = generalPar->Get<double>("initial_waxis");
-			formulaMaxiter[i] = generalPar->Get<double>("N");
-		}
+		// Julia parameters - global (non-boolean mode uses global general par values)
+		juliaEnabled[i] = generalPar->Get<bool>("julia_mode");
+		juliaConstant[i] = generalPar->Get<CVector3>("julia_c");
+		constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
+		initialWAxis[i] = generalPar->Get<double>("initial_waxis");
+		formulaMaxiter[i] = generalPar->Get<int>("N");
 
 		useAdditionalBailoutCond[i] = false;
-		if (isBoolean)
-		{
-			if (newFractalList[GetIndexOnFractalList(fractals[i]->formula)]->getDeFunctionType()
-						== fractal::pseudoKleinianDEFunction
-					|| newFractalList[GetIndexOnFractalList(fractals[i]->formula)]->getDeFunctionType()
-							 == fractal::josKleinianDEFunction)
-			{
-				useAdditionalBailoutCond[i] = true;
-			}
-		}
 	}
 
 	// common bailout for all hybrid components
@@ -334,7 +313,8 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
+		// formula_iterations is now in per-fractal container, read from sFractal field
+		counts[i] = fractals[i]->formulaIterations;
 	}
 
 	for (int i = 0; i < hybridSequenceLength; i++)

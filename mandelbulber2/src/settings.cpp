@@ -1545,7 +1545,8 @@ void cSettings::Compatibility2(
 
 	if (fileVersion < 2.29)
 	{
-		if (par->Get<bool>("boolean_operators"))
+		// boolean_operators was removed from general params; guard against old settings files
+		if (par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators"))
 		{
 			int maxiter = par->Get<int>("N");
 			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
