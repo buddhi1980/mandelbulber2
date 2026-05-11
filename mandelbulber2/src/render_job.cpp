@@ -427,6 +427,26 @@ bool cRenderJob::Execute()
 					continue;
 				}
 
+				// Apply node-tree materials to objectData.
+				// nodeDataForRendering.material holds the inherited world material (computed with
+				// parent-to-child inheritance in GetNodeDataListForRendering). internalObjectId is set
+				// during sParamRender construction. This step connects the node-tree material
+				// assignments to the actual per-object material used by the renderer.
+				// node.material > 0: materials are 1-indexed (mat1_*, mat2_*, ...); 0 and -1 are
+				// not valid material IDs and mean "no assignment / inherit from parent".
+				if (params->objectsTreeEnable)
+				{
+					for (const auto &node : renderData->nodesDataForRendering)
+					{
+						if (node.material > 0 && node.internalObjectId >= 0
+								&& node.internalObjectId
+										< static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].materialId = node.material;
+						}
+					}
+				}
+
 				renderData->ValidateObjects();
 
 				// recalculation of some parameters;
