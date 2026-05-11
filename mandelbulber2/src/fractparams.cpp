@@ -258,12 +258,24 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		auto fracPar = fractalContainer->at(i);
 
 		cObjectData oneObjectData;
-		oneObjectData.position = fracPar->Get<CVector3>("formula_position");
-		oneObjectData.repeat = fracPar->Get<CVector3>("formula_repeat");
-		oneObjectData.scale = 1.0 / fracPar->Get<double>("formula_scale");
-		oneObjectData.size = CVector3(1.0, 1.0, 1.0) / oneObjectData.scale;
-		oneObjectData.SetRotation(fracPar->Get<CVector3>("formula_rotation"));
-		oneObjectData.materialId = fracPar->Get<int>("formula_material_id");
+
+		// Populate geometry fields from the pre-computed world-space node transforms
+		for (const auto &node : *objectTreeNodes)
+		{
+			if (node.userObjectId == i + 1)
+			{
+				oneObjectData.position = node.position;
+				oneObjectData.repeat = node.repeat;
+				const double nodeScale = (node.scale != 0.0) ? node.scale : 1.0;
+				oneObjectData.scale = 1.0 / nodeScale;
+				oneObjectData.size = CVector3(1.0, 1.0, 1.0) * nodeScale;
+				oneObjectData.rotation = node.rotation;
+				oneObjectData.rotationMatrix = node.rotationMatrix;
+				oneObjectData.materialId = node.material;
+				break;
+			}
+		}
+
 		oneObjectData.objectType = fractal::objFractal;
 		oneObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
 		oneObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
@@ -276,23 +288,20 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 			internalObjectId = int(objectData->size()) - 1;
 		}
 
-		if (objectTreeNodes)
+		bool mapped = false;
+		for (auto &node : *objectTreeNodes)
 		{
-			bool mapped = false;
-			for (auto &node : *objectTreeNodes)
+			if (node.userObjectId == i + 1)
 			{
-				if (node.userObjectId == i + 1)
-				{
-					node.internalObjectId = internalObjectId;
-					node.primitiveIdx = -1;
-					mapped = true;
-				}
+				node.internalObjectId = internalObjectId;
+				node.primitiveIdx = -1;
+				mapped = true;
 			}
+		}
 
-			if (!mapped)
-			{
-				cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
-			}
+		if (!mapped)
+		{
+			cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
 		}
 	}
 

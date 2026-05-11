@@ -206,6 +206,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 		nodeDataForRendering.position = worldPosition;
 		nodeDataForRendering.rotation = worldRotation;
+		nodeDataForRendering.rotationMatrix.SetRotation2(worldRotation * (M_PI / 180.0));
 		nodeDataForRendering.scale = worldScale;
 		nodeDataForRendering.material = worldMaterial;
 		nodeDataForRendering.repeat = worldRepeat;

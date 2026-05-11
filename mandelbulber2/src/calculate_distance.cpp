@@ -188,9 +188,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			// Apply inverse rotation (transpose = inverse for rotation matrices)
 			if (node.rotation.Length() > 0.0)
 			{
-				CRotationMatrix rotMatrix;
-				rotMatrix.SetRotation2(node.rotation * (M_PI / 180.0));
-				pointTransformed = rotMatrix.Transpose().RotateVector(pointTransformed);
+				pointTransformed = node.rotationMatrix.Transpose().RotateVector(pointTransformed);
 			}
 
 			// Apply scale
