@@ -69,6 +69,8 @@ struct sDistanceOut
 	int objectId;
 	bool maxiter;
 	int seqIndex;
+	CVector3 transformedPoint;
+	bool hasTransformedPoint = false;
 };
 
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,

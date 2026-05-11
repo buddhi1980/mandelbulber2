@@ -49,10 +49,15 @@ void cRenderWorker::PerlinNoiseForShaders(
 {
 	if (shaderInputData->material->perlinNoiseEnable)
 	{
+		const CVector3 shaderPoint =
+			(data->objectData[shaderInputData->objectId].objectType == fractal::objFractal)
+				? shaderInputData->GetFractalPoint()
+				: point;
 		CVector3 pointModified;
 		if (shaderInputData->material->textureFractalize)
 		{
-			sFractalIn fractIn(point, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
+			sFractalIn fractIn(
+				shaderPoint, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeCubeOrbitTrap>(
 				data->hybridFractalSequences.GetSequence(shaderInputData->seqIndex), fractIn, &fractOut);
@@ -60,7 +65,7 @@ void cRenderWorker::PerlinNoiseForShaders(
 		}
 		else
 		{
-			pointModified = point;
+			pointModified = shaderPoint;
 		}
 
 		pointModified = shaderInputData->material->rotMatrixPerlinNoise.RotateVector(pointModified);
