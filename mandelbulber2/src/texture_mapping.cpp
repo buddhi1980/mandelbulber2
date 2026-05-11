@@ -48,6 +48,10 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	CVector2<float> textureCoordinates;
 	CVector3 point = inPoint;
 	const bool fractalObject = objectData.objectType == fractal::objFractal;
+	const auto rotateNormalVector = [&](const CVector3 &vector) {
+		return fractalObject ? objectData.rotationMatrix.Transpose().RotateVector(vector)
+							 : objectData.rotationMatrix.RotateVector(vector);
+	};
 	const auto rotateTextureVector = [&](const CVector3 &vector) {
 		CVector3 rotated = fractalObject ? objectData.rotationMatrix.RotateVector(vector)
 										 : objectData.rotationMatrix.Transpose().RotateVector(vector);
@@ -65,8 +69,7 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	}
 	point = material->rotMatrixTexture.RotateVector(point);
 
-	normalVector = fractalObject ? objectData.rotationMatrix.Transpose().RotateVector(normalVector)
-								  : objectData.rotationMatrix.RotateVector(normalVector);
+	normalVector = rotateNormalVector(normalVector);
 
 	switch (material->textureMappingType)
 	{
