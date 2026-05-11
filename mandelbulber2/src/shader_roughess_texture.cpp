@@ -42,20 +42,21 @@ using std::max;
 float cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
+	CVector3 point = (objectData.objectType == fractal::objFractal) ? input.GetFractalPoint() : input.point;
 	CVector3 texX, texY;
 	float texturePixelSize;
 	CVector2<float> texPoint =
-		TextureMapping(input.point, input.normal, objectData, input.material, &texX, &texY)
+		TextureMapping(point, input.normal, objectData, input.material, &texX, &texY)
 		+ CVector2<float>(0.5, 0.5);
 
 	// mipmapping - calculation of texture pixel size
 	float delta = CalcDelta(input.point);
 	float deltaTexX =
-		(TextureMapping(input.point + texX * delta, input.normal, objectData, input.material)
+		(TextureMapping(point + texX * delta, input.normal, objectData, input.material)
 			+ CVector2<float>(0.5, 0.5) - texPoint)
 			.Length();
 	float deltaTexY =
-		(TextureMapping(input.point + texY * delta, input.normal, objectData, input.material)
+		(TextureMapping(point + texY * delta, input.normal, objectData, input.material)
 			+ CVector2<float>(0.5, 0.5) - texPoint)
 			.Length();
 	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));

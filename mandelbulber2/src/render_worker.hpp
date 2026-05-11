@@ -123,11 +123,13 @@ private:
 	struct sRayMarchingOut
 	{
 		CVector3 point;
+		CVector3 transformedPoint;
 		double lastDist = 0.0;
 		double depth = 0.0;
 		double distThresh = 0.0;
 		int objectId = 0;
 		int seqIndex = 0;
+		bool hasTransformedPoint = false;
 		bool found = false;
 		;
 	};
@@ -170,6 +172,7 @@ private:
 	struct sShaderInputData
 	{
 		CVector3 point;
+		CVector3 transformedPoint;
 		CVector3 viewVector;
 		CVector3 normal;
 		double distThresh; // distance threshold depend on 'detailLevel'
@@ -180,6 +183,7 @@ private:
 		int stepCount;
 		int objectId;
 		int seqIndex;
+		bool hasTransformedPoint = false;
 		bool invertMode;
 		cMaterial *material;
 		sRGBFloat texDiffuse;
@@ -189,6 +193,8 @@ private:
 		sRGBFloat texTransparency;
 		sRGBFloat texTransparencyAlpha;
 		float perlinNoise;
+
+		CVector3 GetFractalPoint() const { return hasTransformedPoint ? transformedPoint : point; }
 	};
 
 	struct sRayStack

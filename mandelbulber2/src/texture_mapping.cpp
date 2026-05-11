@@ -47,16 +47,26 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 {
 	CVector2<float> textureCoordinates;
 	CVector3 point = inPoint;
+	const bool fractalObject = objectData.objectType == fractal::objFractal;
+	const auto rotateTextureVector = [&](const CVector3 &vector) {
+		CVector3 rotated = fractalObject ? objectData.rotationMatrix.RotateVector(vector)
+										 : objectData.rotationMatrix.Transpose().RotateVector(vector);
+		return material->rotMatrixTexture.Transpose().RotateVector(rotated);
+	};
 	if (!material->textureFractalize)
 	{
-		point = point - objectData.position;
-		point = objectData.rotationMatrix.RotateVector(point);
-		point = point.repeatMod(objectData.repeat);
-		point /= objectData.size;
+		if (!fractalObject)
+		{
+			point = point - objectData.position;
+			point = objectData.rotationMatrix.RotateVector(point);
+			point = point.repeatMod(objectData.repeat);
+			point /= objectData.size;
+		}
 	}
 	point = material->rotMatrixTexture.RotateVector(point);
 
-	normalVector = objectData.rotationMatrix.RotateVector(normalVector);
+	normalVector = fractalObject ? objectData.rotationMatrix.Transpose().RotateVector(normalVector)
+								  : objectData.rotationMatrix.RotateVector(normalVector);
 
 	switch (material->textureMappingType)
 	{
@@ -71,14 +81,10 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			if (textureVectorX && textureVectorY)
 			{
 				CVector3 texX(1.0, 0.0, 0.0);
-				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
-				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
-				*textureVectorX = texX;
+				*textureVectorX = rotateTextureVector(texX);
 
 				CVector3 texY(0.0, -1.0, 0.0);
-				texY = objectData.rotationMatrix.Transpose().RotateVector(texY);
-				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
-				*textureVectorY = texY;
+				*textureVectorY = rotateTextureVector(texY);
 			}
 			break;
 		}
@@ -96,12 +102,8 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			{
 				CVector3 texY(0.0, 0.0, 1.0);
 				CVector3 texX = point.Cross(texY);
-				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
-				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
-				*textureVectorX = texX;
-				texY = objectData.rotationMatrix.Transpose().RotateVector(texY);
-				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
-				*textureVectorY = texY;
+				*textureVectorX = rotateTextureVector(texX);
+				*textureVectorY = rotateTextureVector(texY);
 			}
 
 			break;
@@ -124,12 +126,8 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				texX.Normalize();
 				texY = texX.Cross(point);
 
-				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
-				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
-				*textureVectorX = texX;
-				texY = objectData.rotationMatrix.Transpose().RotateVector(texY);
-				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
-				*textureVectorY = texY;
+				*textureVectorX = rotateTextureVector(texX);
+				*textureVectorY = rotateTextureVector(texY);
 			}
 
 			break;
@@ -239,12 +237,8 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 			if (textureVectorX && textureVectorY)
 			{
-				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
-				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
-				*textureVectorX = texX;
-				texY = objectData.rotationMatrix.Transpose().RotateVector(texY);
-				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
-				*textureVectorY = texY;
+				*textureVectorX = rotateTextureVector(texX);
+				*textureVectorY = rotateTextureVector(texY);
 			}
 
 			break;

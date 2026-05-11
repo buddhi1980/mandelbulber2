@@ -624,6 +624,8 @@ void cRenderWorker::RayMarching(
 	(*inOut->buffCount) = 0;
 	double distThresh = 0;
 	out->objectId = 0;
+	out->transformedPoint = in.start + in.direction * in.minScan;
+	out->hasTransformedPoint = false;
 
 	// qDebug() << "Start ************************";
 
@@ -662,6 +664,8 @@ void cRenderWorker::RayMarching(
 		}
 		out->objectId = distanceOut.objectId;
 		out->seqIndex = distanceOut.seqIndex;
+		out->transformedPoint = distanceOut.transformedPoint;
+		out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 
 		//-------------------- 4.18us for Calculate distance --------------
 
@@ -763,6 +767,8 @@ void cRenderWorker::RayMarching(
 
 			out->objectId = distanceOut.objectId;
 			out->seqIndex = distanceOut.seqIndex;
+			out->transformedPoint = distanceOut.transformedPoint;
+			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 
 			data->statistics.histogramIterations.Add(distanceOut.iters);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
@@ -775,6 +781,16 @@ void cRenderWorker::RayMarching(
 		// this fixes problem with noise when there is used "stop at maxIter" mode
 		scan -= distThresh;
 		point = in.start + in.direction * scan;
+		if (found)
+		{
+			sDistanceIn distanceIn(point, distThresh, false);
+			sDistanceOut distanceOut;
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			out->objectId = distanceOut.objectId;
+			out->seqIndex = distanceOut.seqIndex;
+			out->transformedPoint = distanceOut.transformedPoint;
+			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
+		}
 	}
 
 	//---------- 7.19605us for binary searching ---------------
@@ -823,6 +839,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.distThresh = rayMarchingOut.distThresh;
 			shaderInputData.delta = CalcDelta(point);
 			shaderInputData.point = point;
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
@@ -831,6 +848,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
 			shaderInputData.material = &data->materials[objectData.materialId];
 
@@ -1055,6 +1073,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.distThresh = rayMarchingOut.distThresh;
 			shaderInputData.delta = CalcDelta(point);
 			shaderInputData.point = point;
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
@@ -1063,6 +1082,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
 			shaderInputData.material = &data->materials[objectData.materialId];
 

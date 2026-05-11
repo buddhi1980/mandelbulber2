@@ -47,12 +47,14 @@ sRGBFloat cRenderWorker::TextureShader(
 	cObjectData objectData = data->objectData[input.objectId];
 	double texturePixelSize = 0.0;
 	CVector3 textureVectorX, textureVectorY;
+	const bool fractalObject = objectData.objectType == fractal::objFractal;
+	const CVector3 shaderPoint = fractalObject ? input.GetFractalPoint() : input.point;
 
 	CVector3 pointModified;
 
 	if (mat->textureFractalize)
 	{
-		sFractalIn fractIn(input.point, 0, -1, 1, 0, &params->common, -1, false, input.material);
+		sFractalIn fractIn(shaderPoint, 0, -1, 1, 0, &params->common, -1, false, input.material);
 		sFractalOut fractOut;
 		Compute<fractal::calcModeCubeOrbitTrap>(
 			data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
@@ -60,7 +62,7 @@ sRGBFloat cRenderWorker::TextureShader(
 	}
 	else
 	{
-		pointModified = input.point;
+		pointModified = shaderPoint;
 	}
 
 	if (objectData.objectType > fractal::objFractal)
@@ -68,7 +70,7 @@ sRGBFloat cRenderWorker::TextureShader(
 		pointModified = pointModified - params->primitives.allPrimitivesPosition;
 		pointModified = params->primitives.mRotAllPrimitivesRotation.RotateVector(pointModified);
 	}
-	else
+	else if (!input.hasTransformedPoint)
 	{
 		pointModified = pointModified - params->common.fractalPosition;
 		pointModified = params->common.mRotFractalRotation.RotateVector(pointModified);
