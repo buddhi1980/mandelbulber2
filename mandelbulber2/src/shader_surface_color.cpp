@@ -48,38 +48,32 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 			sRGBFloat colour(1.0, 1.0, 1.0);
 			if (input.material->useColorsFromPalette)
 			{
-				int formulaIndex = input.objectId;
-
 				CVector3 tempPoint = point;
 
-				if (params->objectsTreeEnable && !data->nodesDataForRendering.empty())
+				// Transform point to the fractal's local space using the same transforms as
+				// CalculateDistanceFromObjectsTree, so coloring is consistent with rendering
+				for (const auto &node : data->nodesDataForRendering)
 				{
-					// Transform point to the fractal's local space using the same transforms as
-					// CalculateDistanceFromObjectsTree, so coloring is consistent with rendering
-					for (const auto &node : data->nodesDataForRendering)
+					if (node.internalObjectId == input.objectId)
 					{
-						if (node.internalObjectId == formulaIndex)
+						CVector3 pointWithRepeat =
+							(node.repeat.Length() > 0.0) ? tempPoint.repeatMod(node.repeat) : tempPoint;
+						tempPoint = pointWithRepeat - node.position;
+						if (node.rotation.Length() > 0.0)
 						{
-							CVector3 pointWithRepeat =
-								(node.repeat.Length() > 0.0) ? tempPoint.repeatMod(node.repeat) : tempPoint;
-							tempPoint = pointWithRepeat - node.position;
-							if (node.rotation.Length() > 0.0)
-							{
-								tempPoint = node.rotationMatrix.Transpose().RotateVector(tempPoint);
-							}
-							const double nodeScale = (node.scale != 0.0) ? node.scale : 1.0;
-							if (nodeScale != 1.0)
-							{
-								tempPoint = tempPoint / nodeScale;
-							}
-							break;
+							tempPoint = node.rotationMatrix.Transpose().RotateVector(tempPoint);
 						}
+						const double nodeScale = (node.scale != 0.0) ? node.scale : 1.0;
+						if (nodeScale != 1.0)
+						{
+							tempPoint = tempPoint / nodeScale;
+						}
+						break;
 					}
 				}
-				formulaIndex = -1; // use sequence-based coloring
 
 				sFractalIn fractIn(
-					tempPoint, 0, -1, 4, 0, &params->common, formulaIndex, false, input.material);
+					tempPoint, 0, -1, 4, 0, &params->common, -1, false, input.material);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(
 					data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
