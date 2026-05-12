@@ -49,11 +49,14 @@
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
+#include "object_node_type.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
 #include "system.hpp"
 #include "system_data.hpp"
 #include "write_log.hpp"
+
+#include "formula/definition/all_fractal_list.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -1587,6 +1590,132 @@ void cSettings::Compatibility2(
 			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 			{
 				par->Set("formula_maxiter", i, maxiter);
+			}
+		}
+	}
+
+	if (fileVersion < 2.35)
+	{
+		// Convert old fractal formula slots to objects tree node parameters.
+		// In version 2.35, the objects tree replaced the old per-formula-slot rendering approach.
+		// Old files have formula/fractal_enable/formula_position etc. stored in the fractal
+		// container, but no node_XXXX_* parameters. Create nodes from the fractal container.
+
+		if (fract)
+		{
+			DeleteAllNodeParams(par);
+
+			bool hybridMode =
+				par->IfExists("hybrid_fractal_enable") && par->Get<bool>("hybrid_fractal_enable");
+
+			if (!hybridMode)
+			{
+				// Single fractal mode: only fractal slot 0 is used
+				const int nodeId = 1;
+				const int objectId = 1;
+				InitNodeParams(nodeId, par);
+
+				// Resolve the formula's internal name for a meaningful display label
+				int formulaEnum = fract->at(0)->Get<int>("formula");
+				QString formulaName = "fractal";
+				for (cAbstractFractal *f : newFractalList)
+				{
+					if (int(f->getInternalId()) == formulaEnum)
+					{
+						formulaName = f->getInternalName();
+						break;
+					}
+				}
+
+				// Definition format: "<name> <id>,<id>,<type>,<parentId>,<objectId>"
+				QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+				QString definition = QString("%1 %2,%2,%3,%4,%5")
+																 .arg(formulaName)
+																 .arg(nodeId)
+																 .arg(int(enumNodeType::fractal))
+																 .arg(0) // parentId = 0 (root)
+																 .arg(objectId);
+				par->Set(prefix + "definition", definition);
+
+				if (fract->at(0)->IfExists("formula_position"))
+					par->Set(prefix + "position", fract->at(0)->Get<CVector3>("formula_position"));
+				if (fract->at(0)->IfExists("formula_rotation"))
+					par->Set(prefix + "rotation", fract->at(0)->Get<CVector3>("formula_rotation"));
+				if (fract->at(0)->IfExists("formula_scale"))
+					par->Set(prefix + "scale", fract->at(0)->Get<double>("formula_scale"));
+				if (fract->at(0)->IfExists("formula_repeat"))
+					par->Set(prefix + "repeat", fract->at(0)->Get<CVector3>("formula_repeat"));
+				if (fract->at(0)->IfExists("formula_material_id"))
+					par->Set(prefix + "material", fract->at(0)->Get<int>("formula_material_id"));
+			}
+			else
+			{
+				// Hybrid fractal mode: create a hybrid parent node and fractal child nodes
+				// for each enabled formula slot
+
+				QList<int> enabledFractals;
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				{
+					if (fract->at(i)->IfExists("fractal_enable")
+							&& fract->at(i)->Get<bool>("fractal_enable")
+							&& fract->at(i)->IfExists("formula")
+							&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+					{
+						enabledFractals.append(i + 1); // objectId is 1-indexed
+					}
+				}
+
+				if (!enabledFractals.isEmpty())
+				{
+					// Hybrid parent node (id = 1)
+					InitNodeParams(1, par);
+					QString hybridDefinition =
+						QString("hybrid 1,1,%1,0,-1").arg(int(enumNodeType::hybrid));
+					par->Set("node_0001_definition", hybridDefinition);
+
+					// Fractal child nodes (ids start at 2)
+					for (int i = 0; i < enabledFractals.size(); i++)
+					{
+						int nodeId = i + 2;
+						int objectId = enabledFractals[i];
+						InitNodeParams(nodeId, par);
+
+						int formulaEnum = fract->at(objectId - 1)->Get<int>("formula");
+						QString formulaName = "fractal";
+						for (cAbstractFractal *f : newFractalList)
+						{
+							if (int(f->getInternalId()) == formulaEnum)
+							{
+								formulaName = f->getInternalName();
+								break;
+							}
+						}
+
+						QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+						QString definition = QString("%1 %2,%2,%3,%4,%5")
+																		 .arg(formulaName)
+																		 .arg(nodeId)
+																		 .arg(int(enumNodeType::fractal))
+																		 .arg(1) // parentId = 1 (hybrid node)
+																		 .arg(objectId);
+						par->Set(prefix + "definition", definition);
+
+						if (fract->at(objectId - 1)->IfExists("formula_position"))
+							par->Set(
+								prefix + "position", fract->at(objectId - 1)->Get<CVector3>("formula_position"));
+						if (fract->at(objectId - 1)->IfExists("formula_rotation"))
+							par->Set(
+								prefix + "rotation", fract->at(objectId - 1)->Get<CVector3>("formula_rotation"));
+						if (fract->at(objectId - 1)->IfExists("formula_scale"))
+							par->Set(prefix + "scale", fract->at(objectId - 1)->Get<double>("formula_scale"));
+						if (fract->at(objectId - 1)->IfExists("formula_repeat"))
+							par->Set(
+								prefix + "repeat", fract->at(objectId - 1)->Get<CVector3>("formula_repeat"));
+						if (fract->at(objectId - 1)->IfExists("formula_material_id"))
+							par->Set(
+								prefix + "material", fract->at(objectId - 1)->Get<int>("formula_material_id"));
+					}
+				}
 			}
 		}
 	}
