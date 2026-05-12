@@ -49,11 +49,14 @@
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
+#include "object_node_type.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
 #include "system.hpp"
 #include "system_data.hpp"
 #include "write_log.hpp"
+
+#include "formula/definition/all_fractal_list.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -592,6 +595,20 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 #endif
 
 	DecodeHeader(separatedText);
+
+	// For old settings files (before v2.35), temporarily add legacy boolean operator parameters
+	// so DecodeOneLine can store their values. Compatibility2() will use and then delete them.
+	if (fileVersion < 2.35)
+	{
+		if (!par->IfExists("boolean_operators"))
+			par->addParam("boolean_operators", false, morphNone, paramStandard);
+		for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+		{
+			QString name = QString("boolean_operator_%1").arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, 1, morphLinear, paramStandard); // default: OR (union)
+		}
+	}
 
 	int errorCount = 0;
 	int csvLine = 0;
@@ -1587,6 +1604,222 @@ void cSettings::Compatibility2(
 			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 			{
 				par->Set("formula_maxiter", i, maxiter);
+			}
+		}
+	}
+
+	if (fileVersion < 2.35)
+	{
+		// Convert old fractal formula slots to objects tree node parameters.
+		// In version 2.35, the objects tree replaced the old per-formula-slot rendering approach.
+		// Old files have formula/fractal_enable/formula_position etc. stored in the fractal
+		// container, but no node_XXXX_* parameters. Create nodes from the fractal container.
+		//
+		// Three rendering modes existed in v2.32:
+		//   1. Single fractal (hybrid_fractal_enable=false, boolean_operators=false)
+		//   2. Hybrid fractals (hybrid_fractal_enable=true)
+		//   3. Boolean operators (boolean_operators=true): fractals combined with AND/OR/SUB
+		//
+		// For boolean mode the operators are stored as:
+		//   boolean_operator_N (N=1..8), where N is the operator between formula N and N+1.
+		//   Values: 0=AND (intersection, booleanMul), 1=OR (union, booleanAdd), 2=SUB (complement,
+		//   booleanSub).
+
+		if (fract)
+		{
+			DeleteAllNodeParams(par);
+
+			// Helper lambda: look up the formula internal name from newFractalList
+			auto getFormulaName = [](int formulaEnum) -> QString {
+				for (cAbstractFractal *f : newFractalList)
+				{
+					if (int(f->getInternalId()) == formulaEnum) return f->getInternalName();
+				}
+				return "fractal";
+			};
+
+			// Helper lambda: map old enumBooleanOperator (0/1/2) to new enumNodeType
+			auto toNodeType = [](int boolOp) -> enumNodeType {
+				switch (boolOp)
+				{
+					case 0: return enumNodeType::booleanMul; // AND = intersection
+					case 2: return enumNodeType::booleanSub; // SUB = complement
+					default: return enumNodeType::booleanAdd; // OR = union (default)
+				}
+			};
+
+			// Helper lambda: write formula_position/rotation/scale/repeat/material to a node prefix
+			auto copyFormulaTransform = [&](
+																		 const QString &prefix, std::shared_ptr<cParameterContainer> fracPar) {
+				if (fracPar->IfExists("formula_position"))
+					par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
+				if (fracPar->IfExists("formula_rotation"))
+					par->Set(prefix + "rotation", fracPar->Get<CVector3>("formula_rotation"));
+				if (fracPar->IfExists("formula_scale"))
+					par->Set(prefix + "scale", fracPar->Get<double>("formula_scale"));
+				if (fracPar->IfExists("formula_repeat"))
+					par->Set(prefix + "repeat", fracPar->Get<CVector3>("formula_repeat"));
+				if (fracPar->IfExists("formula_material_id"))
+					par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
+			};
+
+			// Helper lambda: build a node definition string.
+			// Format: "<formulaName nodeId>,<nodeId>,<typeInt>,<parentId>,<objectId>"
+			auto makeDefinition = [](const QString &formulaName, int nodeId, enumNodeType type,
+														 int parentId, int objectId) -> QString {
+				return QString("%1 %2,%2,%3,%4,%5")
+					.arg(formulaName)
+					.arg(nodeId)
+					.arg(int(type))
+					.arg(parentId)
+					.arg(objectId);
+			};
+
+			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
+			bool booleanMode =
+				par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+
+			if (booleanMode)
+			{
+				// Boolean mode: collect enabled fractals in slot order
+				QList<int> enabledFractals; // 1-indexed objectIds
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				{
+					if (fract->at(i)->IfExists("fractal_enable")
+							&& fract->at(i)->Get<bool>("fractal_enable")
+							&& fract->at(i)->IfExists("formula")
+							&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+					{
+						enabledFractals.append(i + 1); // objectId is 1-indexed
+					}
+				}
+
+				const int m = enabledFractals.size();
+
+				if (m == 1)
+				{
+					// Only one fractal enabled - degenerate boolean mode, treat as single fractal
+					InitNodeParams(1, par);
+					int objectId = enabledFractals[0];
+					QString formulaName = getFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+					par->Set("node_0001_definition",
+						makeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
+					copyFormulaTransform("node_0001_", fract->at(objectId - 1));
+				}
+				else if (m >= 2)
+				{
+					// Build a left-associative binary tree for m fractals and m-1 operators.
+					//
+					// IDs are assigned as:
+					//   Boolean nodes (innermost first): ids 1 .. m-1
+					//     boolNode[k] (k=0..m-2, 0=innermost) has id=k+1
+					//     boolNode[k] parent = boolNode[k+1].id = k+2, except outermost (k=m-2)
+					//       whose parent = 0 (root).
+					//   Fractal nodes: ids m .. 2m-1
+					//     f[0] and f[1] are children of boolNode[0] (id=1), parent=1
+					//     f[i] (i>=2) is the right child of boolNode[i-1] (id=i), parent=i
+					//
+					// Example for m=4 (f0 OP0 f1 OP1 f2 OP2 f3):
+					//   boolNode[0](id=1,parent=2,type=OP0): f[0](id=4,p=1), f[1](id=5,p=1)
+					//   boolNode[1](id=2,parent=3,type=OP1): boolNode[0], f[2](id=6,p=2)
+					//   boolNode[2](id=3,parent=0,type=OP2): boolNode[1], f[3](id=7,p=3)
+
+					// Create boolean (operator) nodes
+					for (int k = 0; k < m - 1; k++)
+					{
+						int nodeId = k + 1;
+						InitNodeParams(nodeId, par);
+
+						// Operator k is between fractal k and fractal k+1.
+						// In the old system, boolean_operator_N is between formula-slot N and N+1
+						// (1-indexed). Use the slot index of the left fractal.
+						int slotIdx = enabledFractals[k]; // 1-indexed slot of left fractal
+						int boolOp = par->Get<int>(QString("boolean_operator_%1").arg(slotIdx));
+						enumNodeType nodeType = toNodeType(boolOp);
+
+						int parentId = (k == m - 2) ? 0 : (k + 2); // outermost has parent=0
+						par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
+							makeDefinition("boolean", nodeId, nodeType, parentId, -1));
+					}
+
+					// Create fractal nodes
+					for (int i = 0; i < m; i++)
+					{
+						int nodeId = m + i;
+						int objectId = enabledFractals[i];
+						InitNodeParams(nodeId, par);
+
+						QString formulaName = getFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+						// f[0] and f[1] are children of boolNode[0] (id=1);
+						// f[i] for i>=2 is the right child of boolNode[i-1] (id=i)
+						int parentId = (i <= 1) ? 1 : i;
+						par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
+							makeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
+						copyFormulaTransform(
+							QString("node_%1_").arg(nodeId, 4, 10, QChar('0')), fract->at(objectId - 1));
+					}
+				}
+			}
+			else if (!hybridMode)
+			{
+				// Single fractal mode: only fractal slot 0 is used
+				const int nodeId = 1;
+				const int objectId = 1;
+				InitNodeParams(nodeId, par);
+
+				QString formulaName = getFormulaName(fract->at(0)->Get<int>("formula"));
+				par->Set("node_0001_definition",
+					makeDefinition(formulaName, nodeId, enumNodeType::fractal, 0, objectId));
+				copyFormulaTransform("node_0001_", fract->at(0));
+			}
+			else
+			{
+				// Hybrid fractal mode: create a hybrid parent node and fractal child nodes
+				// for each enabled formula slot
+
+				QList<int> enabledFractals;
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				{
+					if (fract->at(i)->IfExists("fractal_enable")
+							&& fract->at(i)->Get<bool>("fractal_enable")
+							&& fract->at(i)->IfExists("formula")
+							&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+					{
+						enabledFractals.append(i + 1); // objectId is 1-indexed
+					}
+				}
+
+				if (!enabledFractals.isEmpty())
+				{
+					// Hybrid parent node (id = 1)
+					InitNodeParams(1, par);
+					par->Set("node_0001_definition",
+						makeDefinition("hybrid", 1, enumNodeType::hybrid, 0, -1));
+
+					// Fractal child nodes (ids start at 2)
+					for (int i = 0; i < enabledFractals.size(); i++)
+					{
+						int nodeId = i + 2;
+						int objectId = enabledFractals[i];
+						InitNodeParams(nodeId, par);
+
+						QString formulaName = getFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+						QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+						par->Set(prefix + "definition",
+							makeDefinition(formulaName, nodeId, enumNodeType::fractal, 1, objectId));
+						copyFormulaTransform(prefix, fract->at(objectId - 1));
+					}
+				}
+			}
+
+			// Delete the temporary legacy boolean parameters now that conversion is complete.
+			// They were added dynamically in Decode() and must not persist in the container.
+			if (par->IfExists("boolean_operators"))
+				par->DeleteParameter("boolean_operators");
+			for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+			{
+				QString name = QString("boolean_operator_%1").arg(i);
+				if (par->IfExists(name)) par->DeleteParameter(name);
 			}
 		}
 	}
