@@ -147,16 +147,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("interior_mode", false, morphLinear, paramStandard);
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
-
-	// Legacy boolean operator parameters (v2.32 and earlier). Kept for loading old settings files;
-	// Compatibility2() converts them to objects tree nodes and they are ignored in new files.
-	// 0 = AND (intersection), 1 = OR (union), 2 = SUB (complement)
-	par->addParam("boolean_operators", false, morphNone, paramStandard);
-	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
-	{
-		par->addParam(QString("boolean_operator_%1").arg(i), 1, morphLinear, paramStandard);
-	}
-
 	par->addParam("bailout", 1e2, 1.0, 1e15, morphLinear, paramStandard);
 	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 	par->addParam("delta_DE_function", int(fractal::preferredDEFunction), 0,

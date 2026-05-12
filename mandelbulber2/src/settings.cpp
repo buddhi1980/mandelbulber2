@@ -596,6 +596,20 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 
 	DecodeHeader(separatedText);
 
+	// For old settings files (before v2.35), temporarily add legacy boolean operator parameters
+	// so DecodeOneLine can store their values. Compatibility2() will use and then delete them.
+	if (fileVersion < 2.35)
+	{
+		if (!par->IfExists("boolean_operators"))
+			par->addParam("boolean_operators", false, morphNone, paramStandard);
+		for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+		{
+			QString name = QString("boolean_operator_%1").arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, 1, morphLinear, paramStandard); // default: OR (union)
+		}
+	}
+
 	int errorCount = 0;
 	int csvLine = 0;
 
@@ -1662,7 +1676,8 @@ void cSettings::Compatibility2(
 			};
 
 			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
-			bool booleanMode = par->Get<bool>("boolean_operators");
+			bool booleanMode =
+				par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 			if (booleanMode)
 			{
@@ -1795,6 +1810,16 @@ void cSettings::Compatibility2(
 						copyFormulaTransform(prefix, fract->at(objectId - 1));
 					}
 				}
+			}
+
+			// Delete the temporary legacy boolean parameters now that conversion is complete.
+			// They were added dynamically in Decode() and must not persist in the container.
+			if (par->IfExists("boolean_operators"))
+				par->DeleteParameter("boolean_operators");
+			for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+			{
+				QString name = QString("boolean_operator_%1").arg(i);
+				if (par->IfExists(name)) par->DeleteParameter(name);
 			}
 		}
 	}
