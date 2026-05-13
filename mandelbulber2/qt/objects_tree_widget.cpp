@@ -241,11 +241,11 @@ QTreeWidgetItem *cObjectsTreeWidget::selectedGroupTarget() const
 	return isGroupType(parentType) ? parent : nullptr;
 }
 
-enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok) const
+enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 {
 	if (ok) *ok = false;
 
-	QDialog dialog(const_cast<cObjectsTreeWidget *>(this));
+	QDialog dialog(this);
 	dialog.setWindowTitle(tr("Select group type"));
 
 	QGridLayout *layout = new QGridLayout(&dialog);
@@ -278,11 +278,11 @@ enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok) const
 	return selectedType;
 }
 
-QString cObjectsTreeWidget::showPrimitiveSelectionDialog(bool *ok) const
+QString cObjectsTreeWidget::showPrimitiveSelectionDialog(bool *ok)
 {
 	if (ok) *ok = false;
 
-	QDialog dialog(const_cast<cObjectsTreeWidget *>(this));
+	QDialog dialog(this);
 	dialog.setWindowTitle(tr("Select primitive type"));
 	QGridLayout *layout = new QGridLayout(&dialog);
 
@@ -696,7 +696,10 @@ void cObjectsTreeWidget::slotDeleteObject()
 	}
 
 	if (parent)
-		delete parent->takeChild(parent->indexOfChild(item));
+	{
+		QTreeWidgetItem *removed = parent->takeChild(parent->indexOfChild(item));
+		delete removed;
+	}
 	else
 		delete ui->treeWidget_objects->takeTopLevelItem(
 			ui->treeWidget_objects->indexOfTopLevelItem(item));
@@ -712,7 +715,7 @@ void cObjectsTreeWidget::slotDeleteObject()
 			{
 				gPar->DeleteParameter(parameterName);
 			}
-			break;
+			return;
 		}
 	}
 }

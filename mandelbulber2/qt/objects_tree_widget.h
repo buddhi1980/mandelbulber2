@@ -81,8 +81,8 @@ private:
 	int findNextAvailablePrimitiveObjectId() const;
 	QTreeWidgetItem *selectedGroupTarget() const;
 	static bool isGroupType(enumNodeType type);
-	enumNodeType showGroupSelectionDialog(bool *ok) const;
-	QString showPrimitiveSelectionDialog(bool *ok) const;
+	enumNodeType showGroupSelectionDialog(bool *ok);
+	QString showPrimitiveSelectionDialog(bool *ok);
 	QTreeWidgetItem *createNodeItem(
 		int nodeId, enumNodeType nodeType, int objectId, const QString &name, const QString &primTypeName);
 	void addNodeToSelectedGroup(QTreeWidgetItem *newItem);
