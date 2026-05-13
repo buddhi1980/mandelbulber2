@@ -83,8 +83,8 @@ private:
 	static bool isGroupType(enumNodeType type);
 	enumNodeType showGroupSelectionDialog(bool *ok);
 	QString showPrimitiveSelectionDialog(bool *ok);
-	QTreeWidgetItem *createNodeItem(
-		int nodeId, enumNodeType nodeType, int objectId, const QString &name, const QString &primTypeName);
+	QTreeWidgetItem *createNodeItem(int nodeId, enumNodeType nodeType, int objectId,
+		const QString &name, const QString &primTypeName);
 	void addNodeToSelectedGroup(QTreeWidgetItem *newItem);
 	void ensureNodeParamsExist(int nodeId);
 	void addOrSetParam(
@@ -117,6 +117,8 @@ private slots:
 
 private:
 	Ui::cObjectsTreeWidget *ui;
+
+	QTreeWidgetItem *worldItem = nullptr;
 
 	QWidget *currentEditorWidget = nullptr;
 	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors

@@ -48,8 +48,7 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		ui->treeWidget_objects, &QTreeWidget::itemChanged, this, &cObjectsTreeWidget::onItemChanged);
 
 	// Connect add/delete buttons for managing scene objects
-	connect(
-		ui->pushButton_add_group, &QPushButton::clicked, this, &cObjectsTreeWidget::slotAddGroup);
+	connect(ui->pushButton_add_group, &QPushButton::clicked, this, &cObjectsTreeWidget::slotAddGroup);
 	connect(
 		ui->pushButton_add_fractal, &QPushButton::clicked, this, &cObjectsTreeWidget::slotAddFractal);
 	connect(ui->pushButton_add_primitive, &QPushButton::clicked, this,
@@ -88,10 +87,10 @@ struct sPrimitiveSelectorItem
 
 static const QList<sPrimitiveSelectorItem> s_primitiveSelectorItems = {
 	{"rectangle", ":/primitives/icons/rectangle.png"}, {"circle", ":/primitives/icons/circle.png"},
-	{"box", ":/primitives/icons/box.png"},						 {"cylinder", ":/primitives/icons/cylinder.png"},
-	{"cone", ":/primitives/icons/cone.png"},					 {"sphere", ":/primitives/icons/sphere.png"},
-	{"torus", ":/primitives/icons/torus.png"},					 {"plane", ":/primitives/icons/plane.png"},
-	{"water", ":/primitives/icons/water.png"},					 {"prism", ":/primitives/icons/prism.png"},
+	{"box", ":/primitives/icons/box.png"}, {"cylinder", ":/primitives/icons/cylinder.png"},
+	{"cone", ":/primitives/icons/cone.png"}, {"sphere", ":/primitives/icons/sphere.png"},
+	{"torus", ":/primitives/icons/torus.png"}, {"plane", ":/primitives/icons/plane.png"},
+	{"water", ":/primitives/icons/water.png"}, {"prism", ":/primitives/icons/prism.png"},
 	{"ellipsoid", ":/primitives/icons/ellipsoid.png"}};
 
 // --- Private helpers ---
@@ -251,10 +250,8 @@ enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 	QGridLayout *layout = new QGridLayout(&dialog);
 
 	enumNodeType selectedType = enumNodeType::hybrid;
-	const QList<QPair<QString, enumNodeType>> options = {
-		{tr("Hybrid fractal"), enumNodeType::hybrid},
-		{tr("Boolean ADD"), enumNodeType::booleanAdd},
-		{tr("Boolean MUL"), enumNodeType::booleanMul},
+	const QList<QPair<QString, enumNodeType>> options = {{tr("Hybrid fractal"), enumNodeType::hybrid},
+		{tr("Boolean ADD"), enumNodeType::booleanAdd}, {tr("Boolean MUL"), enumNodeType::booleanMul},
 		{tr("Boolean SUB"), enumNodeType::booleanSub}};
 
 	for (int i = 0; i < options.size(); ++i)
@@ -264,10 +261,12 @@ enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 		button->setToolButtonStyle(Qt::ToolButtonTextOnly);
 		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 		layout->addWidget(button, i / 2, i % 2);
-		connect(button, &QToolButton::clicked, &dialog, [&dialog, &selectedType, options, i]() {
-			selectedType = options[i].second;
-			dialog.accept();
-		});
+		connect(button, &QToolButton::clicked, &dialog,
+			[&dialog, &selectedType, options, i]()
+			{
+				selectedType = options[i].second;
+				dialog.accept();
+			});
 	}
 
 	if (dialog.exec() == QDialog::Accepted)
@@ -301,10 +300,12 @@ QString cObjectsTreeWidget::showPrimitiveSelectionDialog(bool *ok)
 		button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 		layout->addWidget(button, i / columns, i % columns);
-		connect(button, &QToolButton::clicked, &dialog, [&dialog, &selectedPrimitiveType, item]() {
-			selectedPrimitiveType = item.typeName;
-			dialog.accept();
-		});
+		connect(button, &QToolButton::clicked, &dialog,
+			[&dialog, &selectedPrimitiveType, item]()
+			{
+				selectedPrimitiveType = item.typeName;
+				dialog.accept();
+			});
 	}
 
 	if (dialog.exec() == QDialog::Accepted)
@@ -341,6 +342,8 @@ void cObjectsTreeWidget::addNodeToSelectedGroup(QTreeWidgetItem *newItem)
 	QTreeWidgetItem *targetGroup = selectedGroupTarget();
 	if (targetGroup)
 		targetGroup->addChild(newItem);
+	else if (worldItem)
+		worldItem->addChild(newItem);
 	else
 		ui->treeWidget_objects->addTopLevelItem(newItem);
 }
@@ -423,9 +426,16 @@ void cObjectsTreeWidget::UpdateTree(
 {
 	QList<QTreeWidgetItem *> selectedBeforeRefresh = ui->treeWidget_objects->selectedItems();
 	if (!selectedBeforeRefresh.isEmpty())
-		lastSelectedNodeId = selectedBeforeRefresh.first()->data(treeData::nodeId, Qt::UserRole).toInt();
+		lastSelectedNodeId =
+			selectedBeforeRefresh.first()->data(treeData::nodeId, Qt::UserRole).toInt();
 
 	ui->treeWidget_objects->clear();
+
+	worldItem = new QTreeWidgetItem();
+	worldItem->setText(treeCol::name, tr("World"));
+	worldItem->setData(treeData::nodeId, Qt::UserRole, 0); // nodeId 0 = World sentinel
+	ui->treeWidget_objects->addTopLevelItem(worldItem);
+
 	ui->treeWidget_objects->setColumnCount(4);
 	ui->treeWidget_objects->setHeaderLabels(
 		{"Name", "Type", "Object ID", "Position", "Rotation", "Repeat", "Scale"});
@@ -491,7 +501,7 @@ void cObjectsTreeWidget::UpdateTree(
 	{
 		QTreeWidgetItem *item = nodeItems[node.id];
 		if (node.parentId == 0 || !nodeItems.contains(node.parentId))
-			ui->treeWidget_objects->addTopLevelItem(item);
+			worldItem->addChild(item);
 		else
 			nodeItems[node.parentId]->addChild(item);
 	}
@@ -567,6 +577,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 	for (QTreeWidgetItem *item : allItems)
 	{
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
+		if (nodeId <= 0) continue; // skip World sentinel
 		int nodeType = getNodeType(item);
 		int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
 		QString name = item->text(treeCol::name);
@@ -672,6 +683,8 @@ void cObjectsTreeWidget::slotDeleteObject()
 	if (selected.isEmpty()) return;
 
 	QTreeWidgetItem *item = selected.first();
+	if (item == worldItem) return; // World cannot be deleted
+
 	enumNodeType deletedType = enumNodeType(getNodeType(item));
 	int deletedObjectId = item->data(treeData::objectId, Qt::UserRole).toInt();
 	lastSelectedNodeId = -1;
@@ -913,6 +926,10 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	if (selected.isEmpty()) return;
 
 	QTreeWidgetItem *item = selected.first();
+
+	 // World sentinel item — allow selection but show no editor
+	 if (item == worldItem) return;
+
 	lastSelectedNodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 	enumNodeType type = enumNodeType(item->data(treeData::nodeType, Qt::UserRole).toInt());
 	int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
