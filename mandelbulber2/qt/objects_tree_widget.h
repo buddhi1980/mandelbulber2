@@ -76,6 +76,17 @@ private:
 	static CVector3 parsePosition(const QString &text);
 	static QString formatPosition(const CVector3 &pos);
 	QComboBox *buildTypeComboBox(int currentType);
+	int findNextAvailableNodeId() const;
+	int findNextAvailableFractalObjectId() const;
+	int findNextAvailablePrimitiveObjectId() const;
+	QTreeWidgetItem *selectedGroupTarget() const;
+	static bool isGroupType(enumNodeType type);
+	enumNodeType showGroupSelectionDialog(bool *ok);
+	QString showPrimitiveSelectionDialog(bool *ok);
+	QTreeWidgetItem *createNodeItem(
+		int nodeId, enumNodeType nodeType, int objectId, const QString &name, const QString &primTypeName);
+	void addNodeToSelectedGroup(QTreeWidgetItem *newItem);
+	void ensureNodeParamsExist(int nodeId);
 	void addOrSetParam(
 		std::shared_ptr<cParameterContainer> params, const QString &name, const QString &value);
 	void addOrSetParam(
@@ -98,7 +109,9 @@ private:
 
 private slots:
 	void onItemChanged(QTreeWidgetItem *item, int column);
-	void slotAddObject();
+	void slotAddGroup();
+	void slotAddFractal();
+	void slotAddPrimitive();
 	void slotDeleteObject();
 	void slotItemSelectionChanged();
 
@@ -107,6 +120,7 @@ private:
 
 	QWidget *currentEditorWidget = nullptr;
 	QVBoxLayout *editorLayout = nullptr; // layout below the tree for dynamic editors
+	int lastSelectedNodeId = -1;
 	int currentFractalIndex =
 		-1; // index into gParFractal for the currently edited fractal (-1 if none)
 
