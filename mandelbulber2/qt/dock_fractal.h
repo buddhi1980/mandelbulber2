@@ -59,50 +59,22 @@ public:
 	~cDockFractal() override;
 
 	void InitializeFractalUi() const;
-	bool AreHybridFractalsEnabled() const;
-	bool AreBooleanFractalsEnabled() const;
-
-	void SetTabText(int tabIndex, QString text) const;
 	void SynchronizeInterfaceFractals(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
-
-	QWidget *GetContainerWithPrimitives() const;
-	QVBoxLayout *GetLayoutWithPrimitives() const;
 
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams) override;
 	virtual void AssignSpecialWidgets(
 		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
-	void RegeneratePrimitives();
-	void HideSomeWidgetsForNavi();
-
-public slots:
-	void slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const;
-	void slotSynchronizeInterfacePrimitives(std::shared_ptr<cParameterContainer> par) const;
-	void slotEnableJuliaMode() const;
 
 private slots:
-	void slotChangedJuliaPoint() const;
 	static void slotPressedButtonGetJuliaConstant();
-	static void slotGroupCheckJuliaModeToggled(bool state);
-	void slotChangedCheckBoxHybridFractal(int state) const;
-	void slotChangedCheckBoxBooleanOperators(bool state) const;
-	void slotChangedCheckBoxJuliaMode(bool state) const;
-	void slotToggledFractalEnable(int fractalIndex, bool enabled) const;
-	void slotFractalSwap(int swapA, int swapB) const;
-	void slotChangedFractalTab(int index);
 	void slotPressedButtonNavi();
-	void slotNewParametersFromNavi();
-
-signals:
-	void signalUpdatePrimitivesCombos();
+	// FIXME void slotNewParametersFromNavi();
 
 private:
 	void ConnectSignals() const;
 	Ui::cDockFractal *ui;
-
-	cAutomatedWidgets *automatedWidgets;
-	std::vector<cFractalObject *> fractalTabs;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_FRACTAL_H_ */

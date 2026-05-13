@@ -373,12 +373,6 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceLights);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceRandomLights,
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceRandomLights);
-	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceJulia,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfaceJulia);
-	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfacePrimitives,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfacePrimitives);
-	connect(mainWindow->manipulations, &cManipulations::signalEnableJuliaMode,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotEnableJuliaMode);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceMeasuremets,
 		mainWindow->ui->widgetDockMeasurements, &cDockMeasurements::slotSynchronizeInterface);
 	connect(mainWindow->manipulations, &cManipulations::signalDisablePeriodicRefresh, this,
@@ -556,8 +550,9 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
 		&cInterface::slotRefreshPostEffects);
 
-	connect(mainWindow->ui->widgetDockFractal, &cDockFractal::signalUpdatePrimitivesCombos,
-		mainWindow->ui->widgetEffects, &cDockEffects::slotUpdatePrimitivesCombos);
+	// FIXME slotUpdatePrimitivesCombos need to reimpelemnted
+	//	connect(mainWindow->ui->widgetDockFractal, &cDockFractal::signalUpdatePrimitivesCombos,
+	//		mainWindow->ui->widgetEffects, &cDockEffects::slotUpdatePrimitivesCombos);
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
@@ -925,7 +920,6 @@ void cInterface::Undo()
 	{
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
-		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -946,7 +940,6 @@ void cInterface::Redo()
 	{
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
-		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -1394,7 +1387,6 @@ bool cInterface::AutoRecovery() const
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			materialListModel->Regenerate();
 			mainWindow->ui->widgetEffects->RegenerateLights();
-			mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gInterfaceReadyForSynchronization = true;
 			gFlightAnimation->RefreshTable();
@@ -2286,7 +2278,7 @@ bool cInterface::CheckForMissingTextures()
 							tr("Select one from proposed files"), foundFiles, 0, false, &ok);
 					if (ok)
 					{
-						//qDebug() << "substitution" << substitution;
+						// qDebug() << "substitution" << substitution;
 						gPar->Set(parameterName, substitution);
 						correctionApplied = true;
 					}

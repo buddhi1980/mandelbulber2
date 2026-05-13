@@ -264,12 +264,6 @@ void cFractalObject::slotChangedComboFractal(int indexInComboBox)
 	{
 		fractalWidget.reset();
 	}
-
-	if (parentDockFractal)
-	{
-		parentDockFractal->SetTabText(
-			tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
-	}
 }
 
 int cFractalObject::GetCurrentFractalIndexOnList() const

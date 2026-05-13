@@ -1615,7 +1615,7 @@ void cSettings::Compatibility2(
 		// Old files have formula/fractal_enable/formula_position etc. stored in the fractal
 		// container, but no node_XXXX_* parameters. Create nodes from the fractal container.
 		//
-		// Three rendering modes existed in v2.32:
+		// Three rendering modes existed in v2.34:
 		//   1. Single fractal (hybrid_fractal_enable=false, boolean_operators=false)
 		//   2. Hybrid fractals (hybrid_fractal_enable=true)
 		//   3. Boolean operators (boolean_operators=true): fractals combined with AND/OR/SUB
