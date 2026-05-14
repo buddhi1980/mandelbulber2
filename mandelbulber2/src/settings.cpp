@@ -675,11 +675,44 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				bool result = false;
 				if (section == QString("main_parameters"))
 				{
-					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					QString decodeLine = line.trimmed();
+					bool decodedAsLegacyFractalParam = false;
+					if (fileVersion < 2.35 && fractPar && !decodeLine.isEmpty())
+					{
+						int firstSpace = decodeLine.indexOf(' ');
+						if (firstSpace > 0)
+						{
+							QString rawName = decodeLine.left(firstSpace).trimmed();
+							if (rawName.size() >= 2
+									&& ((rawName.at(0) == '"' && rawName.at(rawName.size() - 1) == '"')
+										 || (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
+							{
+								rawName = rawName.mid(1, rawName.size() - 2).trimmed();
+							}
+
+							int lastUnderscore = rawName.lastIndexOf('_');
+							if (lastUnderscore > 0)
+							{
+								bool conversionOK = false;
+								int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
+								QString baseParam = rawName.left(lastUnderscore);
+
+								if (conversionOK && fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS
+										&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
+								{
+									decodeLine = baseParam + decodeLine.mid(firstSpace);
+									result = DecodeOneLine(fractPar->at(fractalIndex), decodeLine);
+									decodedAsLegacyFractalParam = true;
+								}
+							}
+						}
+					}
+
+					if (!decodedAsLegacyFractalParam && !listOfParametersToProcess.isEmpty()) // selective loading
 					{
 
-						int firstSpace = line.indexOf(' ');
-						QString parameterName = line.left(firstSpace);
+						int firstSpace = decodeLine.indexOf(' ');
+						QString parameterName = decodeLine.left(firstSpace);
 
 						if (forcedFractalFormulaIndex > 0)
 						{
@@ -689,7 +722,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 							if (conversionOK) // if last letter is a number, then replace index in settings line
 							{
 								QString digit = QString::number(forcedFractalFormulaIndex);
-								line[firstSpace - 1] = digit[0];
+								decodeLine[firstSpace - 1] = digit[0];
 								parameterName[firstSpace - 1] = digit[0];
 							}
 						}
@@ -697,7 +730,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						if (!listOfParametersToProcess.contains(QString("main_") + parameterName)) continue;
 					}
 
-					result = DecodeOneLine(par, line);
+					if (!decodedAsLegacyFractalParam) result = DecodeOneLine(par, decodeLine);
 				}
 				else if (section.contains("fractal"))
 				{
