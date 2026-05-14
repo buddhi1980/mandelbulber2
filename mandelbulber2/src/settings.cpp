@@ -1693,6 +1693,8 @@ void cSettings::Compatibility2(
 				{
 					case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
 					case int(primBooleanOperatorSUB): return enumNodeType::booleanSub;
+					// There is no dedicated reverse-subtraction group node in the objects tree.
+					// Map RevSUB to SUB as the closest available boolean node type.
 					case int(primBooleanOperatorRevSUB): return enumNodeType::booleanSub;
 					default: return enumNodeType::booleanAdd;
 				}
@@ -1840,22 +1842,10 @@ void cSettings::Compatibility2(
 			// Legacy primitives were also part of the old flat boolean chain.
 			// Append enabled primitives (ordered by calculation_order) to the generated root tree.
 			QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
-			for (int i = primitives.size() - 1; i > 0; --i)
-			{
-				for (int j = 0; j < primitives.size() - 1; ++j)
-				{
-					const int order1 = par->Get<int>(primitives.at(j).fullName + "_calculation_order");
-					const int order2 = par->Get<int>(primitives.at(j + 1).fullName + "_calculation_order");
-					if (order1 > order2)
-					{
-#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
-						primitives.swap(j, j + 1);
-#else
-						primitives.swapItemsAt(j, j + 1);
-#endif
-					}
-				}
-			}
+			std::sort(primitives.begin(), primitives.end(), [&](const sPrimitiveItem &a, const sPrimitiveItem &b) {
+				return par->Get<int>(a.fullName + "_calculation_order")
+							 < par->Get<int>(b.fullName + "_calculation_order");
+			});
 
 			int maxNodeId = 0;
 			int rootNodeId = -1;
