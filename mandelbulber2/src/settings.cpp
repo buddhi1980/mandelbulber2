@@ -675,11 +675,44 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				bool result = false;
 				if (section == QString("main_parameters"))
 				{
-					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					QString decodeLine = line.trimmed();
+					bool decodedAsLegacyFractalParam = false;
+					if (fileVersion < 2.35 && fractPar && !decodeLine.isEmpty())
+					{
+						int firstSpace = decodeLine.indexOf(' ');
+						if (firstSpace > 0)
+						{
+							QString rawName = decodeLine.left(firstSpace).trimmed();
+							if (rawName.size() >= 2
+									&& ((rawName.at(0) == '"' && rawName.at(rawName.size() - 1) == '"')
+										 || (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
+							{
+								rawName = rawName.mid(1, rawName.size() - 2).trimmed();
+							}
+
+							int lastUnderscore = rawName.lastIndexOf('_');
+							if (lastUnderscore > 0)
+							{
+								bool conversionOK = false;
+								int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
+								QString baseParam = rawName.left(lastUnderscore);
+
+								if (conversionOK && fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS
+										&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
+								{
+									decodeLine = baseParam + decodeLine.mid(firstSpace);
+									result = DecodeOneLine(fractPar->at(fractalIndex), decodeLine);
+									decodedAsLegacyFractalParam = true;
+								}
+							}
+						}
+					}
+
+					if (!decodedAsLegacyFractalParam && !listOfParametersToProcess.isEmpty()) // selective loading
 					{
 
-						int firstSpace = line.indexOf(' ');
-						QString parameterName = line.left(firstSpace);
+						int firstSpace = decodeLine.indexOf(' ');
+						QString parameterName = decodeLine.left(firstSpace);
 
 						if (forcedFractalFormulaIndex > 0)
 						{
@@ -689,7 +722,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 							if (conversionOK) // if last letter is a number, then replace index in settings line
 							{
 								QString digit = QString::number(forcedFractalFormulaIndex);
-								line[firstSpace - 1] = digit[0];
+								decodeLine[firstSpace - 1] = digit[0];
 								parameterName[firstSpace - 1] = digit[0];
 							}
 						}
@@ -697,7 +730,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						if (!listOfParametersToProcess.contains(QString("main_") + parameterName)) continue;
 					}
 
-					result = DecodeOneLine(par, line);
+					if (!decodedAsLegacyFractalParam) result = DecodeOneLine(par, decodeLine);
 				}
 				else if (section.contains("fractal"))
 				{
@@ -906,11 +939,31 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 
 bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString line)
 {
+	line = line.trimmed();
+	if (line.isEmpty()) return true;
+
 	int firstSpace = line.indexOf(' ');
 	int semicolon = line.indexOf(';');
-	QString parameterName = line.left(firstSpace);
-	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
+	if (firstSpace < 0 || semicolon < 0 || semicolon <= firstSpace) return false;
+
+	QString parameterName = line.left(firstSpace).trimmed();
+	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1).trimmed();
 	QString script;
+
+	auto stripEnclosingQuotes = [](const QString &text) -> QString {
+		if (text.size() >= 2)
+		{
+			const QChar first = text.at(0);
+			const QChar last = text.at(text.size() - 1);
+			if ((first == '"' && last == '"') || (first == '\'' && last == '\''))
+			{
+				return text.mid(1, text.size() - 2).trimmed();
+			}
+		}
+		return text;
+	};
+	parameterName = stripEnclosingQuotes(parameterName);
+	value = stripEnclosingQuotes(value);
 
 	// lokking for script
 	if (semicolon < line.length() - 2)
@@ -1674,6 +1727,31 @@ void cSettings::Compatibility2(
 					.arg(parentId)
 					.arg(objectId);
 			};
+			auto nodePrefix = [](int nodeId) -> QString {
+				return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+			};
+			auto nodeDefinitionParam = [&](int nodeId) -> QString {
+				return nodePrefix(nodeId) + "definition";
+			};
+			auto setNodeParent = [&](int nodeId, int parentId) {
+				const QString defParam = nodeDefinitionParam(nodeId);
+				if (!par->IfExists(defParam)) return;
+				QStringList parts = par->Get<QString>(defParam).split(',');
+				if (parts.size() != 5) return;
+				parts[3] = QString::number(parentId);
+				par->Set(defParam, parts.join(","));
+			};
+			auto primitiveOpToNodeType = [](int boolOp) -> enumNodeType {
+				switch (boolOp)
+				{
+					case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
+					case int(primBooleanOperatorSUB): return enumNodeType::booleanSub;
+					// There is no dedicated reverse-subtraction group node in the objects tree.
+					// Map RevSUB to SUB as the closest available boolean node type.
+					case int(primBooleanOperatorRevSUB): return enumNodeType::booleanSub;
+					default: return enumNodeType::booleanAdd;
+				}
+			};
 
 			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
 			bool booleanMode =
@@ -1732,8 +1810,10 @@ void cSettings::Compatibility2(
 
 						// Operator k is between fractal k and fractal k+1.
 						// In the old system, boolean_operator_N is between formula-slot N and N+1
-						// (1-indexed). Use the slot index of the left fractal.
-						int slotIdx = enabledFractals[k]; // 1-indexed slot of left fractal
+						// (1-indexed). For a compressed list of enabled slots, the operator for
+						// "previous result OP current slot S" is boolean_operator_(S-1).
+						int slotIdx = enabledFractals[k + 1] - 1;
+						if (slotIdx < 1) slotIdx = 1;
 						int boolOp = par->Get<int>(QString("boolean_operator_%1").arg(slotIdx));
 						enumNodeType nodeType = toNodeType(boolOp);
 
@@ -1810,6 +1890,65 @@ void cSettings::Compatibility2(
 						copyFormulaTransform(prefix, fract->at(objectId - 1));
 					}
 				}
+			}
+
+			// Legacy primitives were also part of the old flat boolean chain.
+			// Append enabled primitives (ordered by calculation_order) to the generated root tree.
+			QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
+			std::sort(primitives.begin(), primitives.end(), [&](const sPrimitiveItem &a, const sPrimitiveItem &b) {
+				return par->Get<int>(a.fullName + "_calculation_order")
+							 < par->Get<int>(b.fullName + "_calculation_order");
+			});
+
+			int maxNodeId = 0;
+			int rootNodeId = -1;
+			QStringList allParams = par->GetListOfParameters();
+			for (const QString &paramName : allParams)
+			{
+				if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+				const int nodeId = paramName.section('_', 1, 1).toInt();
+				if (nodeId > maxNodeId) maxNodeId = nodeId;
+				QStringList parts = par->Get<QString>(paramName).split(',');
+				if (parts.size() == 5 && parts[3].toInt() == 0) rootNodeId = nodeId;
+			}
+
+			for (const auto &primitive : primitives)
+			{
+				if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
+					continue;
+
+				const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
+				const QString primitiveName = par->IfExists(primitive.Name("name"))
+																					? par->Get<QString>(primitive.Name("name"))
+																					: primitive.typeName;
+
+				if (rootNodeId < 0)
+				{
+					const int primitiveNodeId = ++maxNodeId;
+					InitNodeParams(primitiveNodeId, par);
+					par->Set(nodeDefinitionParam(primitiveNodeId),
+						makeDefinition(
+							primitiveName, primitiveNodeId, enumNodeType::primitive, 0, primitiveObjectId));
+					rootNodeId = primitiveNodeId;
+					continue;
+				}
+
+				const int boolNodeId = ++maxNodeId;
+				const int primitiveNodeId = ++maxNodeId;
+				const int primitiveBoolOp = par->Get<int>(primitive.Name("boolean_operator"));
+
+				InitNodeParams(boolNodeId, par);
+				par->Set(nodeDefinitionParam(boolNodeId),
+					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, -1));
+
+				setNodeParent(rootNodeId, boolNodeId);
+
+				InitNodeParams(primitiveNodeId, par);
+				par->Set(nodeDefinitionParam(primitiveNodeId),
+					makeDefinition(
+						primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
+
+				rootNodeId = boolNodeId;
 			}
 
 			// Delete the temporary legacy boolean parameters now that conversion is complete.
