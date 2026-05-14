@@ -1674,6 +1674,29 @@ void cSettings::Compatibility2(
 					.arg(parentId)
 					.arg(objectId);
 			};
+			auto nodePrefix = [](int nodeId) -> QString {
+				return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+			};
+			auto nodeDefinitionParam = [&](int nodeId) -> QString {
+				return nodePrefix(nodeId) + "definition";
+			};
+			auto setNodeParent = [&](int nodeId, int parentId) {
+				const QString defParam = nodeDefinitionParam(nodeId);
+				if (!par->IfExists(defParam)) return;
+				QStringList parts = par->Get<QString>(defParam).split(',');
+				if (parts.size() != 5) return;
+				parts[3] = QString::number(parentId);
+				par->Set(defParam, parts.join(","));
+			};
+			auto primitiveOpToNodeType = [](int boolOp) -> enumNodeType {
+				switch (boolOp)
+				{
+					case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
+					case int(primBooleanOperatorSUB): return enumNodeType::booleanSub;
+					case int(primBooleanOperatorRevSUB): return enumNodeType::booleanSub;
+					default: return enumNodeType::booleanAdd;
+				}
+			};
 
 			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
 			bool booleanMode =
@@ -1732,8 +1755,10 @@ void cSettings::Compatibility2(
 
 						// Operator k is between fractal k and fractal k+1.
 						// In the old system, boolean_operator_N is between formula-slot N and N+1
-						// (1-indexed). Use the slot index of the left fractal.
-						int slotIdx = enabledFractals[k]; // 1-indexed slot of left fractal
+						// (1-indexed). For a compressed list of enabled slots, the operator for
+						// "previous result OP current slot S" is boolean_operator_(S-1).
+						int slotIdx = enabledFractals[k + 1] - 1;
+						if (slotIdx < 1) slotIdx = 1;
 						int boolOp = par->Get<int>(QString("boolean_operator_%1").arg(slotIdx));
 						enumNodeType nodeType = toNodeType(boolOp);
 
@@ -1810,6 +1835,77 @@ void cSettings::Compatibility2(
 						copyFormulaTransform(prefix, fract->at(objectId - 1));
 					}
 				}
+			}
+
+			// Legacy primitives were also part of the old flat boolean chain.
+			// Append enabled primitives (ordered by calculation_order) to the generated root tree.
+			QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
+			for (int i = primitives.size() - 1; i > 0; --i)
+			{
+				for (int j = 0; j < primitives.size() - 1; ++j)
+				{
+					const int order1 = par->Get<int>(primitives.at(j).fullName + "_calculation_order");
+					const int order2 = par->Get<int>(primitives.at(j + 1).fullName + "_calculation_order");
+					if (order1 > order2)
+					{
+#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
+						primitives.swap(j, j + 1);
+#else
+						primitives.swapItemsAt(j, j + 1);
+#endif
+					}
+				}
+			}
+
+			int maxNodeId = 0;
+			int rootNodeId = -1;
+			QStringList allParams = par->GetListOfParameters();
+			for (const QString &paramName : allParams)
+			{
+				if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+				const int nodeId = paramName.section('_', 1, 1).toInt();
+				if (nodeId > maxNodeId) maxNodeId = nodeId;
+				QStringList parts = par->Get<QString>(paramName).split(',');
+				if (parts.size() == 5 && parts[3].toInt() == 0) rootNodeId = nodeId;
+			}
+
+			for (const auto &primitive : primitives)
+			{
+				if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
+					continue;
+
+				const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
+				const QString primitiveName = par->IfExists(primitive.Name("name"))
+																					? par->Get<QString>(primitive.Name("name"))
+																					: primitive.typeName;
+
+				if (rootNodeId < 0)
+				{
+					const int primitiveNodeId = ++maxNodeId;
+					InitNodeParams(primitiveNodeId, par);
+					par->Set(nodeDefinitionParam(primitiveNodeId),
+						makeDefinition(
+							primitiveName, primitiveNodeId, enumNodeType::primitive, 0, primitiveObjectId));
+					rootNodeId = primitiveNodeId;
+					continue;
+				}
+
+				const int boolNodeId = ++maxNodeId;
+				const int primitiveNodeId = ++maxNodeId;
+				const int primitiveBoolOp = par->Get<int>(primitive.Name("boolean_operator"));
+
+				InitNodeParams(boolNodeId, par);
+				par->Set(nodeDefinitionParam(boolNodeId),
+					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, -1));
+
+				setNodeParent(rootNodeId, boolNodeId);
+
+				InitNodeParams(primitiveNodeId, par);
+				par->Set(nodeDefinitionParam(primitiveNodeId),
+					makeDefinition(
+						primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
+
+				rootNodeId = boolNodeId;
 			}
 
 			// Delete the temporary legacy boolean parameters now that conversion is complete.
