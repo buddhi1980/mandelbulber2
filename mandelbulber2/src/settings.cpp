@@ -906,11 +906,31 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 
 bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString line)
 {
+	line = line.trimmed();
+	if (line.isEmpty()) return true;
+
 	int firstSpace = line.indexOf(' ');
 	int semicolon = line.indexOf(';');
-	QString parameterName = line.left(firstSpace);
-	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
+	if (firstSpace < 0 || semicolon < 0 || semicolon <= firstSpace) return false;
+
+	QString parameterName = line.left(firstSpace).trimmed();
+	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1).trimmed();
 	QString script;
+
+	auto stripEnclosingQuotes = [](const QString &text) -> QString {
+		if (text.size() >= 2)
+		{
+			const QChar first = text.at(0);
+			const QChar last = text.at(text.size() - 1);
+			if ((first == '"' && last == '"') || (first == '\'' && last == '\''))
+			{
+				return text.mid(1, text.size() - 2).trimmed();
+			}
+		}
+		return text;
+	};
+	parameterName = stripEnclosingQuotes(parameterName);
+	value = stripEnclosingQuotes(value);
 
 	// lokking for script
 	if (semicolon < line.length() - 2)
