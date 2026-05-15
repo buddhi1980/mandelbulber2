@@ -1730,28 +1730,6 @@ void cSettings::Compatibility2(
 			auto nodePrefix = [](int nodeId) -> QString {
 				return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
 			};
-			auto nodeDefinitionParam = [&](int nodeId) -> QString {
-				return nodePrefix(nodeId) + "definition";
-			};
-			auto setNodeParent = [&](int nodeId, int parentId) {
-				const QString defParam = nodeDefinitionParam(nodeId);
-				if (!par->IfExists(defParam)) return;
-				QStringList parts = par->Get<QString>(defParam).split(',');
-				if (parts.size() != 5) return;
-				parts[3] = QString::number(parentId);
-				par->Set(defParam, parts.join(","));
-			};
-			auto primitiveOpToNodeType = [](int boolOp) -> enumNodeType {
-				switch (boolOp)
-				{
-					case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
-					case int(primBooleanOperatorSUB): return enumNodeType::booleanSub;
-					// There is no dedicated reverse-subtraction group node in the objects tree.
-					// Map RevSUB to SUB as the closest available boolean node type.
-					case int(primBooleanOperatorRevSUB): return enumNodeType::booleanSub;
-					default: return enumNodeType::booleanAdd;
-				}
-			};
 
 			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
 			bool booleanMode =
@@ -1890,65 +1868,6 @@ void cSettings::Compatibility2(
 						copyFormulaTransform(prefix, fract->at(objectId - 1));
 					}
 				}
-			}
-
-			// Legacy primitives were also part of the old flat boolean chain.
-			// Append enabled primitives (ordered by calculation_order) to the generated root tree.
-			QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
-			std::sort(primitives.begin(), primitives.end(), [&](const sPrimitiveItem &a, const sPrimitiveItem &b) {
-				return par->Get<int>(a.fullName + "_calculation_order")
-							 < par->Get<int>(b.fullName + "_calculation_order");
-			});
-
-			int maxNodeId = 0;
-			int rootNodeId = -1;
-			QStringList allParams = par->GetListOfParameters();
-			for (const QString &paramName : allParams)
-			{
-				if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
-				const int nodeId = paramName.section('_', 1, 1).toInt();
-				if (nodeId > maxNodeId) maxNodeId = nodeId;
-				QStringList parts = par->Get<QString>(paramName).split(',');
-				if (parts.size() == 5 && parts[3].toInt() == 0) rootNodeId = nodeId;
-			}
-
-			for (const auto &primitive : primitives)
-			{
-				if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
-					continue;
-
-				const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
-				const QString primitiveName = par->IfExists(primitive.Name("name"))
-																					? par->Get<QString>(primitive.Name("name"))
-																					: primitive.typeName;
-
-				if (rootNodeId < 0)
-				{
-					const int primitiveNodeId = ++maxNodeId;
-					InitNodeParams(primitiveNodeId, par);
-					par->Set(nodeDefinitionParam(primitiveNodeId),
-						makeDefinition(
-							primitiveName, primitiveNodeId, enumNodeType::primitive, 0, primitiveObjectId));
-					rootNodeId = primitiveNodeId;
-					continue;
-				}
-
-				const int boolNodeId = ++maxNodeId;
-				const int primitiveNodeId = ++maxNodeId;
-				const int primitiveBoolOp = par->Get<int>(primitive.Name("boolean_operator"));
-
-				InitNodeParams(boolNodeId, par);
-				par->Set(nodeDefinitionParam(boolNodeId),
-					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, -1));
-
-				setNodeParent(rootNodeId, boolNodeId);
-
-				InitNodeParams(primitiveNodeId, par);
-				par->Set(nodeDefinitionParam(primitiveNodeId),
-					makeDefinition(
-						primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
-
-				rootNodeId = boolNodeId;
 			}
 
 			// Delete the temporary legacy boolean parameters now that conversion is complete.
