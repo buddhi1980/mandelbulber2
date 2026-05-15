@@ -50,8 +50,6 @@ public:
 		objectType = fractal::objNone;
 		smoothDeCombineEnable = false;
 		smoothDeCombineDistance = 0.0f;
-		scale = 1.0;
-		booleanOperator = params::booleanOperatorOR;
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
 	}
@@ -60,20 +58,9 @@ public:
 	bool usedForVolumetric;
 	double smoothDeCombineDistance;
 	double wallThickness;
-	CVector3 position;
-	CVector3 rotation;
-	CVector3 size;
-	CVector3 repeat;
-	double scale;
 	int materialId;
-	params::enumBooleanOperator booleanOperator;
 	fractal::enumObjectType objectType;
-	CRotationMatrix rotationMatrix;
-	void SetRotation(const CVector3 &rot)
-	{
-		rotation = rot;
-		rotationMatrix.SetRotation2(rot * M_PI / 180.0);
-	}
+	CVector3 size;
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

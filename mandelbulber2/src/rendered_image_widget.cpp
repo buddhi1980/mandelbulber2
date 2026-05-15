@@ -1683,22 +1683,23 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x2, y2, tz1);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color, 					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x3, y3, tz2);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color,
+				//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 		}
 	}
@@ -1745,19 +1746,19 @@ void RenderedImage::DisplayAllPrimitives()
 
 			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
 			{
-				sizeMultiplier = (camera - primitive->position).Length();
+				// sizeMultiplier = (camera - primitive->position).Length();
 			}
 
-			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p1 * primitive->size * sizeMultiplier);
-			point1 = point1 + primitive->position;
+			//			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p1 * primitive->size * sizeMultiplier);
+			//			point1 = point1 + primitive->position;
+			//
+			//			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p2 * primitive->size * sizeMultiplier);
+			//			point2 = point2 + primitive->position;
 
-			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p2 * primitive->size * sizeMultiplier);
-			point2 = point2 + primitive->position;
-
-			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			// line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+			//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }

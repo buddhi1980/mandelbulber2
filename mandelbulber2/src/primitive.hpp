@@ -54,7 +54,6 @@ enum enumPrimitiveBooleanOperator
 struct sPrimitiveBasic : cObjectData
 {
 	sPrimitiveBasic(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool enable = false;
 	int objectId = 0;
 	int userObjectId = 0;
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;

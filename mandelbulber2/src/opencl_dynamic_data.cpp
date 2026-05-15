@@ -627,14 +627,15 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		sPrimitiveCl primitiveCl;
 		const std::shared_ptr<sPrimitiveBasic> primitive = primitivesContainer->GetPrimitive(i);
 
-		primitiveCl.object.enable = primitive->enable;
+		// FIXME: to correct OpenCL code for objectsTree
+		// primitiveCl.object.enable = primitive->enable;
 		primitiveCl.object.materialId = primitive->materialId;
 		primitiveCl.object.objectId = primitive->objectId;
 		primitiveCl.object.objectType = static_cast<enumObjectTypeCl>(primitive->objectType);
-		primitiveCl.object.position = toClFloat3(primitive->position);
-		primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
+		// primitiveCl.object.position = toClFloat3(primitive->position);
+		// primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
 		primitiveCl.object.size = toClFloat3(primitive->size);
-		primitiveCl.object.repeat = toClFloat3(primitive->repeat);
+		// primitiveCl.object.repeat = toClFloat3(primitive->repeat);
 		primitiveCl.object.smoothDeCombineEnable = primitive->smoothDeCombineEnable;
 		primitiveCl.object.smoothDeCombineDistance = primitive->smoothDeCombineDistance;
 		primitiveCl.booleanOperator =
@@ -821,7 +822,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.prism.height = prism->height;
 						primitiveCl.data.prism.prismAngle = prism->prismAngle;
 						primitiveCl.data.prism.normals = toClFloat3(prism->normals);
-						primitiveCl.data.prism.repeat = toClFloat3(prism->repeat);
+						// primitiveCl.data.prism.repeat = toClFloat3(prism->repeat);
 
 						usePrimitivePrism = true;
 					}
@@ -933,14 +934,15 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 
 		sObjectDataCl objectCl;
 		const cObjectData *object = &objectData->at(i);
-		objectCl.enable = true; // dummy - only used for primitives data
-		objectCl.objectId = i;
-		objectCl.position = toClFloat3(object->position);
-		objectCl.size = toClFloat3(object->size);
-		objectCl.repeat = toClFloat3(object->repeat);
-		objectCl.materialId = object->materialId;
-		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
-		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+		// FIXME: correct OpenCL code for objectsTree
+		//		objectCl.enable = true; // dummy - only used for primitives data
+		//		objectCl.objectId = i;
+		//		objectCl.position = toClFloat3(object->position);
+		//		objectCl.size = toClFloat3(object->size);
+		//		objectCl.repeat = toClFloat3(object->repeat);
+		//		objectCl.materialId = object->materialId;
+		//		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
+		//		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
 		totalDataOffset += sizeof(objectCl);

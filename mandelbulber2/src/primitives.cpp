@@ -287,6 +287,10 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	bool normalCalculationMode, int *closestObjectId, sRenderData *data,
 	int objectIdForVolumetrics) const
 {
+
+	/*
+	 * obosolete code
+
 	using namespace fractal;
 	int closestObject = *closestObjectId;
 	double distance = fractalDistance;
@@ -425,6 +429,8 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	*closestObjectId = closestObject;
 
 	return distance;
+	*/
+	return 0.0;
 }
 
 QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(std::shared_ptr<cParameterContainer> params)

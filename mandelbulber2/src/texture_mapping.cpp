@@ -47,29 +47,15 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 {
 	CVector2<float> textureCoordinates;
 	CVector3 point = inPoint;
-	const bool fractalObject = objectData.objectType == fractal::objFractal;
-	const auto rotateNormalVector = [&](const CVector3 &vector) {
-		return fractalObject ? objectData.rotationMatrix.Transpose().RotateVector(vector)
-							 : objectData.rotationMatrix.RotateVector(vector);
-	};
-	const auto rotateTextureVector = [&](const CVector3 &vector) {
-		CVector3 rotated = fractalObject ? objectData.rotationMatrix.RotateVector(vector)
-										 : objectData.rotationMatrix.Transpose().RotateVector(vector);
-		return material->rotMatrixTexture.Transpose().RotateVector(rotated);
-	};
 	if (!material->textureFractalize)
 	{
-		if (!fractalObject)
-		{
-			point = point - objectData.position;
-			point = objectData.rotationMatrix.RotateVector(point);
-			point = point.repeatMod(objectData.repeat);
-			point /= objectData.size;
-		}
+		point /= objectData.size;
 	}
 	point = material->rotMatrixTexture.RotateVector(point);
 
-	normalVector = rotateNormalVector(normalVector);
+	// FIXME: to correct normal vector rotation to residual rotation form
+	// CalculateDistaceFromObjectsTree normalVector =
+	// objectData.rotationMatrix.RotateVector(normalVector);
 
 	switch (material->textureMappingType)
 	{
@@ -84,10 +70,18 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			if (textureVectorX && textureVectorY)
 			{
 				CVector3 texX(1.0, 0.0, 0.0);
-				*textureVectorX = rotateTextureVector(texX);
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texX =
+				// objectData.rotationMatrix.Transpose().RotateVector(texX);
+				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
+				*textureVectorX = texX;
 
 				CVector3 texY(0.0, -1.0, 0.0);
-				*textureVectorY = rotateTextureVector(texY);
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texY =
+				// objectData.rotationMatrix.Transpose().RotateVector(texY);
+				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
+				*textureVectorY = texY;
 			}
 			break;
 		}
@@ -105,8 +99,16 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			{
 				CVector3 texY(0.0, 0.0, 1.0);
 				CVector3 texX = point.Cross(texY);
-				*textureVectorX = rotateTextureVector(texX);
-				*textureVectorY = rotateTextureVector(texY);
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texX =
+				// objectData.rotationMatrix.Transpose().RotateVector(texX);
+				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
+				*textureVectorX = texX;
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texY =
+				// objectData.rotationMatrix.Transpose().RotateVector(texY);
+				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
+				*textureVectorY = texY;
 			}
 
 			break;
@@ -128,9 +130,16 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				CVector3 texX = texY.Cross(point);
 				texX.Normalize();
 				texY = texX.Cross(point);
-
-				*textureVectorX = rotateTextureVector(texX);
-				*textureVectorY = rotateTextureVector(texY);
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texX =
+				// objectData.rotationMatrix.Transpose().RotateVector(texX);
+				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
+				*textureVectorX = texX;
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texY =
+				// objectData.rotationMatrix.Transpose().RotateVector(texY);
+				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
+				*textureVectorY = texY;
 			}
 
 			break;
@@ -240,8 +249,16 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 			if (textureVectorX && textureVectorY)
 			{
-				*textureVectorX = rotateTextureVector(texX);
-				*textureVectorY = rotateTextureVector(texY);
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texX =
+				// objectData.rotationMatrix.Transpose().RotateVector(texX);
+				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
+				*textureVectorX = texX;
+				// FIXME: to correct normal vector rotation to residual rotation form
+				// CalculateDistaceFromObjectsTree texY =
+				// objectData.rotationMatrix.Transpose().RotateVector(texY);
+				texY = material->rotMatrixTexture.Transpose().RotateVector(texY);
+				*textureVectorY = texY;
 			}
 
 			break;

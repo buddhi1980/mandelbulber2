@@ -466,10 +466,11 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	// Default: node 0001 is a simple Mandelbulb fractal (enumFractalFormula::mandelbulb)
 	par->addParam("node_0001_definition",
 		QString("mandelbulb 1,1,%1,0,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_0001_position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_0001_rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
-	par->addParam("node_0001_scale", 1.0, morphNone, paramStandard);
-	par->addParam("node_0001_repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam("node_0001_enabled", true, morphNone, paramStandard);
+	par->addParam("node_0001_position", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+	par->addParam("node_0001_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+	par->addParam("node_0001_scale", 1.0, morphLinear, paramStandard);
+	par->addParam("node_0001_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("node_0001_material", -1, morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
@@ -1331,13 +1332,6 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 	QString primitiveName = primitive.fullName;
 
 	par->addParam(QString(primitiveName) + "_object_id", 1234, morphNone, paramStandard);
-	par->addParam(
-		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam(
-		QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-	par->addParam(
-		QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-	par->addParam(QString(primitiveName) + "_boolean_operator", 1, morphLinear, paramStandard);
 
 	// left to keep compatibility with older versions
 	par->addParam(

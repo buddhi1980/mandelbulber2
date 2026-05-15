@@ -264,13 +264,6 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		{
 			if (node.userObjectId == i + 1)
 			{
-				oneObjectData.position = node.position;
-				oneObjectData.repeat = node.repeat;
-				const double nodeScale = (node.scale != 0.0) ? node.scale : 1.0;
-				oneObjectData.scale = 1.0 / nodeScale;
-				oneObjectData.size = CVector3(1.0, 1.0, 1.0) * nodeScale;
-				oneObjectData.rotation = node.rotation;
-				oneObjectData.rotationMatrix = node.rotationMatrix;
 				oneObjectData.materialId = node.material;
 				break;
 			}
@@ -279,7 +272,6 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		oneObjectData.objectType = fractal::objFractal;
 		oneObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
 		oneObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
-		oneObjectData.booleanOperator = params::booleanOperatorOR;
 
 		int internalObjectId = i;
 		if (objectData)
