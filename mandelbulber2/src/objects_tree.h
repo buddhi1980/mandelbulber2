@@ -39,6 +39,7 @@ public:
 	struct sNodeDataForRendering
 	{
 		int id;
+		QString name;
 		enumNodeType type;
 		int parentId;
 		int userObjectId;
@@ -67,6 +68,8 @@ public:
 
 	static void WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
 		std::vector<cObjectsTree::sNodeDataForRendering> *nodes);
+
+	static void DebugPrintNodes(const std::vector<cObjectsTree::sNodeDataForRendering> &nodes);
 
 private:
 	nodeData_t nodeDataMap;
