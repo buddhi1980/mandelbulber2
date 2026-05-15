@@ -11,6 +11,7 @@
 #include "src/fractal_container.hpp"
 #include <QHash>
 #include <QStack>
+#include <QDebug>
 
 cObjectsTree::cObjectsTree()
 {
@@ -235,6 +236,42 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 		nodeDataList.push_back(nodeDataForRendering);
 	}
+
+	// generate qDebug() output with full structure of nodes
+	for (const sNodeDataForRendering &node : nodeDataList)
+	{
+		QString part1 =
+			QString("Node ID: %1, Name: %2, Type: %3, Parent ID: %4, User Object ID: %5, Level: %6")
+				.arg(node.id)
+				.arg(nodeDataMap[node.id].name)
+				.arg(static_cast<int>(node.type))
+				.arg(node.parentId)
+				.arg(node.userObjectId)
+				.arg(node.level);
+
+		QString part2 = QString(" Position: (%1, %2, %3), Rotation: (%4, %5, %6)")
+											.arg(QString::number(node.position.x, 'f', 4))
+											.arg(QString::number(node.position.y, 'f', 4))
+											.arg(QString::number(node.position.z, 'f', 4))
+											.arg(QString::number(node.rotation.x, 'f', 4))
+											.arg(QString::number(node.rotation.y, 'f', 4))
+											.arg(QString::number(node.rotation.z, 'f', 4));
+
+		QString part3 = QString(
+			" Scale: %1, Material: %2, Repeat: (%3, %4, %5), Hybrid Seq Index: %6, Internal Object ID: "
+			"%7, Primitive Idx: %8")
+											.arg(QString::number(node.scale, 'f', 4))
+											.arg(node.material)
+											.arg(QString::number(node.repeat.x, 'f', 4))
+											.arg(QString::number(node.repeat.y, 'f', 4))
+											.arg(QString::number(node.repeat.z, 'f', 4))
+											.arg(node.hybridSequenceIndex)
+											.arg(node.internalObjectId)
+											.arg(node.primitiveIdx);
+
+		qDebug().noquote() << part1 + part2 + part3;
+	}
+
 	return nodeDataList;
 }
 
