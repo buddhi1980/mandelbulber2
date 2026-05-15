@@ -293,7 +293,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		if (!mapped)
 		{
-			cObjectsTree::WriteInternalNodeID(i, internalObjectId, -1, objectTreeNodes);
+			cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
 		}
 	}
 
