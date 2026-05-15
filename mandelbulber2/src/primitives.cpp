@@ -142,25 +142,6 @@ void cPrimitives::Set(const std::shared_ptr<cParameterContainer> par,
 	if (cloudsShapeIndex > 0 && cloudsShapeIndex - 1 < listOfPrimitives.count())
 		cloudsShapeName = listOfPrimitives.at(cloudsShapeIndex - 1).fullName; //-1 because 0 is "None"
 
-	// bubble sort by calculation order
-	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
-	{
-		for (int j = 0; j < listOfPrimitives.size() - 1; j++)
-		{
-			int order1 = par->Get<int>(listOfPrimitives.at(j).fullName + "_calculation_order");
-			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).fullName + "_calculation_order");
-
-			if (order1 > order2)
-			{
-#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
-				listOfPrimitives.swap(j, j + 1);
-#else
-				listOfPrimitives.swapItemsAt(j, j + 1);
-#endif
-			}
-		}
-	}
-
 	for (auto item : listOfPrimitives)
 	{
 		using namespace fractal;

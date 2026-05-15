@@ -1340,7 +1340,6 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 
 	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
-	par->addParam(QString(primitiveName) + "_calculation_order", 1, morphNone, paramStandard);
 	par->addParam(QString(primitiveName) + "_name",
 		QString("%1 #%2").arg(primitive.typeName).arg(primitive.id), morphNone, paramStandard);
 
@@ -1993,8 +1992,6 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
-	par->DeleteParameter(QString(primitiveName) + "_boolean_operator");
-	par->DeleteParameter(QString(primitiveName) + "_calculation_order");
 	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_enable");
 	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_distance");
 
