@@ -410,6 +410,10 @@ bool cRenderJob::Execute()
 				std::shared_ptr<cNineFractals> fractals(
 					new cNineFractals(fractalContainer, paramsContainer));
 
+				// Print node data now that internalObjectId and primitiveIdx have been populated
+				// by the sParamRender constructor (fractals) and cPrimitives (primitives).
+				cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
+
 				if (params->objectsTreeEnable)
 				{
 					cHybridFractalSequences hybridSequences;

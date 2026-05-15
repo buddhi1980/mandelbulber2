@@ -160,6 +160,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 	{
 		sNodeDataForRendering nodeDataForRendering;
 		nodeDataForRendering.id = nodeData.id;
+		nodeDataForRendering.name = nodeData.name;
 		nodeDataForRendering.type = nodeData.type;
 		nodeDataForRendering.parentId = nodeData.parentId;
 		nodeDataForRendering.userObjectId = nodeData.objectId;
@@ -237,13 +238,32 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataList.push_back(nodeDataForRendering);
 	}
 
-	// generate qDebug() output with full structure of nodes
-	for (const sNodeDataForRendering &node : nodeDataList)
+	return nodeDataList;
+}
+
+void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
+	std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
+{
+	for (sNodeDataForRendering &node : *nodes)
+	{
+		if (node.userObjectId == userObjectID)
+		{
+			node.internalObjectId = internalObjectID;
+			node.primitiveIdx = primitiveIdx;
+			return;
+		}
+	}
+}
+
+void cObjectsTree::DebugPrintNodes(
+	const std::vector<cObjectsTree::sNodeDataForRendering> &nodes)
+{
+	for (const sNodeDataForRendering &node : nodes)
 	{
 		QString part1 =
 			QString("Node ID: %1, Name: %2, Type: %3, Parent ID: %4, User Object ID: %5, Level: %6")
 				.arg(node.id)
-				.arg(nodeDataMap[node.id].name)
+				.arg(node.name)
 				.arg(static_cast<int>(node.type))
 				.arg(node.parentId)
 				.arg(node.userObjectId)
@@ -270,21 +290,5 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 											.arg(node.primitiveIdx);
 
 		qDebug().noquote() << part1 + part2 + part3;
-	}
-
-	return nodeDataList;
-}
-
-void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, int primitiveIdx,
-	std::vector<cObjectsTree::sNodeDataForRendering> *nodes)
-{
-	for (sNodeDataForRendering &node : *nodes)
-	{
-		if (node.userObjectId == userObjectID)
-		{
-			node.internalObjectId = internalObjectID;
-			node.primitiveIdx = primitiveIdx;
-			return;
-		}
 	}
 }
