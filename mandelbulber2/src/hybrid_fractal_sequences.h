@@ -54,7 +54,7 @@ public:
 		fractal::enumDEFunctionType DEFunctionType;
 		fractal::enumDEType DEType;
 		fractal::enumDEAnalyticFunction DEAnalyticFunction;
-		fractal::enumColoringFunction coloringFunction;
+		fractal::enumColoringFunction coloringFunction = fractal::coloringFunctionDefault;
 
 		bool isHybrid;
 		bool juliaEnabled;
