@@ -47,8 +47,8 @@ double DisplacementMap(
 	if (data)
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
-		auto matIt = data->materials.find(data->objectData[objectId].materialId);
-		const cMaterial *mat = (matIt != data->materials.end()) ? &matIt->second : nullptr;
+		const int matId = data->objectData[objectId].materialId;
+		const cMaterial *mat = data->materials.count(matId) ? &data->materials.at(matId) : nullptr;
 		if (!mat) return distance; // no material: skip displacement
 
 		if (mat->displacementTexture.IsLoaded())
@@ -77,8 +77,9 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size()))
 			return pointFractalized;
-		auto matIt1 = data->materials.find(data->objectData[objectId].materialId);
-		const cMaterial *mat = (matIt1 != data->materials.end()) ? &matIt1->second : nullptr;
+		const int matId1 = data->objectData[objectId].materialId;
+		const cMaterial *mat =
+			data->materials.count(matId1) ? &data->materials.at(matId1) : nullptr;
 		if (!mat) return pointFractalized; // no material: skip fractal texture
 		if (mat->textureFractalize)
 		{

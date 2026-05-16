@@ -113,8 +113,8 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		if (distanceOut.objectId >= 0
 			&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
 		{
-			auto matIt = data->materials.find(objectData.materialId);
-			const cMaterial *mat = (matIt != data->materials.end()) ? &matIt->second : nullptr;
+			const int matId = objectData.materialId;
+			const cMaterial *mat = data->materials.count(matId) ? &data->materials.at(matId) : nullptr;
 			goThrough = mat ? mat->subsurfaceScattering : false;
 		}
 		else
