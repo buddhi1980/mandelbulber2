@@ -97,6 +97,16 @@ struct sRenderData
 			// check if material assigned to the object is defined
 			int materialId = object.materialId;
 
+			// For group objects (hybrid / boolean), materialId == -1 means
+			// "no material override" – leave it as-is so the override logic in
+			// CalculateDistanceFromObjectsTree keeps working correctly.
+			if (materialId == -1
+				&& (object.objectType == fractal::objHybrid
+					|| object.objectType == fractal::objNone))
+			{
+				continue;
+			}
+
 			if (materials.size() == 0)
 			{
 				qCritical() << "No materials defined! Adding empty material";

@@ -71,6 +71,10 @@ struct sDistanceOut
 	int seqIndex;
 	CVector3 transformedPoint;
 	bool hasTransformedPoint = false;
+	// When a group with material != -1 wraps this object, materialObjectId is set to
+	// the group's internalObjectId so renderers use the group's material instead.
+	// A value of -1 means "use objectId's own material".
+	int materialObjectId = -1;
 };
 
 double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,

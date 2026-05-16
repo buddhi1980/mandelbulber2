@@ -663,6 +663,7 @@ void cRenderWorker::RayMarching(
 			if (dist < 0.0) dist = 0.0;
 		}
 		out->objectId = distanceOut.objectId;
+		out->materialObjectId = distanceOut.materialObjectId;
 		out->seqIndex = distanceOut.seqIndex;
 		out->transformedPoint = distanceOut.transformedPoint;
 		out->hasTransformedPoint = distanceOut.hasTransformedPoint;
@@ -766,6 +767,7 @@ void cRenderWorker::RayMarching(
 			}
 
 			out->objectId = distanceOut.objectId;
+			out->materialObjectId = distanceOut.materialObjectId;
 			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
@@ -787,6 +789,7 @@ void cRenderWorker::RayMarching(
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			out->objectId = distanceOut.objectId;
+			out->materialObjectId = distanceOut.materialObjectId;
 			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
@@ -850,7 +853,33 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			shaderInputData.material = &data->materials[objectData.materialId];
+			// Use materialObjectId when a group overrides the child's material; fall back to objectId
+			{
+				int matLookupId = (rayMarchingOut.materialObjectId >= 0
+					&& rayMarchingOut.materialObjectId < static_cast<int>(data->objectData.size()))
+					? rayMarchingOut.materialObjectId
+					: shaderInputData.objectId;
+				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
+				{
+					int matId = data->objectData[matLookupId].materialId;
+					auto matIt = data->materials.find(matId);
+					shaderInputData.material =
+						(matIt != data->materials.end()) ? &matIt->second : nullptr;
+				}
+				else
+					shaderInputData.material = nullptr;
+			}
+
+			// If material is null (materialId == -1 or not found), render object as black
+			if (!shaderInputData.material)
+			{
+				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
+				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayIndex--;
+				continue;
+			}
 
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
@@ -1084,7 +1113,33 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			shaderInputData.material = &data->materials[objectData.materialId];
+			// Use materialObjectId when a group overrides the child's material; fall back to objectId
+			{
+				int matLookupId = (rayMarchingOut.materialObjectId >= 0
+					&& rayMarchingOut.materialObjectId < static_cast<int>(data->objectData.size()))
+					? rayMarchingOut.materialObjectId
+					: shaderInputData.objectId;
+				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
+				{
+					int matId = data->objectData[matLookupId].materialId;
+					auto matIt = data->materials.find(matId);
+					shaderInputData.material =
+						(matIt != data->materials.end()) ? &matIt->second : nullptr;
+				}
+				else
+					shaderInputData.material = nullptr;
+			}
+
+			// If material is null (materialId == -1 or not found), render object as black and skip
+			if (!shaderInputData.material)
+			{
+				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
+				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayIndex--;
+				continue;
+			}
 
 			shaderInputData.normal = recursionOut.normal;
 

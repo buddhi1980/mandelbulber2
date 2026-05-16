@@ -20,6 +20,9 @@
 #include "src/synchronize_interface.hpp"
 #include "src/object_node_type.h"
 
+// Forward declaration – full definition is only needed in the .cpp
+class cMaterialWidget;
+
 class cParameterContainer;
 class cFractalContainer;
 
@@ -53,10 +56,7 @@ private:
 		static constexpr int name = 0;		 // display name string
 		static constexpr int type = 1;		 // type string + combo box
 		static constexpr int objectId = 2; // object ID string
-		static constexpr int position = 3;
-		static constexpr int rotation = 4;
-		static constexpr int repeat = 5;
-		static constexpr int scale = 6;
+		static constexpr int material = 3; // miniature cMaterialWidget thumbnail
 	};
 
 	// Column indices for setData() / data(col, Qt::UserRole)
@@ -73,8 +73,6 @@ private:
 	QList<QTreeWidgetItem *> collectAllTreeItems() const;
 	int getNodeType(QTreeWidgetItem *item) const;
 	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
-	static CVector3 parsePosition(const QString &text);
-	static QString formatPosition(const CVector3 &pos);
 	QComboBox *buildTypeComboBox(int currentType);
 	int findNextAvailableNodeId() const;
 	int findNextAvailableFractalObjectId() const;

@@ -65,6 +65,7 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 	model = nullptr;
 
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
+	connect(ui->pushButton_noMaterial, SIGNAL(clicked()), this, SLOT(slotNoMaterial()));
 	connect(ui->pushButton_deleteMaterial, SIGNAL(clicked()), this, SLOT(slotDeleteMaterial()));
 	connect(ui->pushButton_editMaterial, SIGNAL(clicked()), this, SLOT(slotEditMaterial()));
 	connect(ui->pushButton_LoadMaterial, SIGNAL(clicked()), this, SLOT(slotLoadMaterial()));
@@ -82,6 +83,11 @@ void cMaterialManagerView::SetModel(cMaterialItemModel *_model)
 {
 	model = _model;
 	itemView->setModel(_model);
+}
+
+void cMaterialManagerView::slotNoMaterial()
+{
+	emit materialSelected(-1);
 }
 
 void cMaterialManagerView::slotAddMaterial() const

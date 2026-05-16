@@ -46,7 +46,11 @@ double DisplacementMap(
 	double distance = oldDistance;
 	if (data)
 	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
+		int dmMatId = data->objectData[objectId].materialId;
+		auto dmMatIt = data->materials.find(dmMatId);
+		if (dmMatIt == data->materials.end()) return distance; // materialId == -1: no displacement
+		const cMaterial *mat = &dmMatIt->second;
 
 		if (mat->displacementTexture.IsLoaded())
 		{
@@ -72,7 +76,12 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 	CVector3 pointFractalized = point;
 	if (data)
 	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size()))
+			return pointFractalized;
+		int ftMatId = data->objectData[objectId].materialId;
+		auto ftMatIt = data->materials.find(ftMatId);
+		if (ftMatIt == data->materials.end()) return pointFractalized; // materialId == -1
+		const cMaterial *mat = &ftMatIt->second;
 		if (mat->textureFractalize)
 		{
 			sFractalIn fractIn(point, 0, -1, 1, 0, &params.common, forcedFormulaIndex, false, mat);

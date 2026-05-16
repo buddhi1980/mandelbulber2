@@ -109,9 +109,21 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
+		int shadowMatLookupId = (distanceOut.materialObjectId >= 0
+			&& distanceOut.materialObjectId < static_cast<int>(data->objectData.size()))
+			? distanceOut.materialObjectId
+			: distanceOut.objectId;
 		cObjectData &objectData = data->objectData[distanceOut.objectId];
-		cMaterial *material = &data->materials[objectData.materialId];
-		goThrough = material->subsurfaceScattering;
+		if (shadowMatLookupId >= 0 && shadowMatLookupId < static_cast<int>(data->objectData.size()))
+		{
+			int shadowMatId = data->objectData[shadowMatLookupId].materialId;
+			auto shadowMatIt = data->materials.find(shadowMatId);
+			goThrough = (shadowMatIt != data->materials.end())
+				? shadowMatIt->second.subsurfaceScattering
+				: false;
+		}
+		else
+			goThrough = false;
 
 		bool limitsReached = false;
 		if (params->limitsEnabled)
