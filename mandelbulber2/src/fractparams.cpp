@@ -302,18 +302,23 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	// fractal node.  This prevents a crash when the renderer indexes objectData with -1.
 	if (objectTreeNodes)
 	{
+		// Build a parent-id → first-child map to avoid O(n²) search.
+		QHash<int, int> firstChildInternalId; // parentId -> first child internalObjectId
+		for (const auto &child : *objectTreeNodes)
+		{
+			if (child.internalObjectId >= 0
+					&& !firstChildInternalId.contains(child.parentId))
+			{
+				firstChildInternalId.insert(child.parentId, child.internalObjectId);
+			}
+		}
 		for (auto &node : *objectTreeNodes)
 		{
 			if (node.type == enumNodeType::hybrid && node.internalObjectId == -1)
 			{
-				for (const auto &child : *objectTreeNodes)
-				{
-					if (child.parentId == node.id && child.internalObjectId >= 0)
-					{
-						node.internalObjectId = child.internalObjectId;
-						break;
-					}
-				}
+				auto it = firstChildInternalId.find(node.id);
+				if (it != firstChildInternalId.end())
+					node.internalObjectId = it.value();
 			}
 		}
 	}
