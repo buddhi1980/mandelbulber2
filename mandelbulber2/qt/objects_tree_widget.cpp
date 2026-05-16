@@ -203,6 +203,23 @@ int cObjectsTreeWidget::findNextAvailableFractalObjectId() const
 	return -1;
 }
 
+int cObjectsTreeWidget::findNextAvailableGroupObjectId() const
+{
+	QSet<int> usedObjectIds;
+	for (QTreeWidgetItem *item : collectAllTreeItems())
+	{
+		int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
+		if (objectId > 0) usedObjectIds.insert(objectId);
+	}
+
+	// Group IDs start at 100, safely above fractal IDs (1..NUMBER_OF_FRACTALS)
+	// and below primitive IDs (1000+).
+	int newObjectId = 100;
+	while (usedObjectIds.contains(newObjectId))
+		++newObjectId;
+	return newObjectId;
+}
+
 int cObjectsTreeWidget::findNextAvailablePrimitiveObjectId() const
 {
 	QSet<int> usedObjectIds;
@@ -604,10 +621,22 @@ void cObjectsTreeWidget::slotAddGroup()
 	if (!ok) return;
 
 	int newNodeId = findNextAvailableNodeId();
+	int groupObjectId = findNextAvailableGroupObjectId();
 	ensureNodeParamsExist(newNodeId);
 
+	// Write the correct definition (with the unique objectId) to params immediately,
+	// overriding the generic placeholder created by ensureNodeParamsExist.
+	QString prefix = QString("node_%1_").arg(newNodeId, 4, 10, QChar('0'));
 	QString groupName = nodeTypeToString(groupType);
-	QTreeWidgetItem *newItem = createNodeItem(newNodeId, groupType, -1, groupName, QString());
+	gPar->Set(prefix + "definition",
+		QString("%1 %2,%2,%3,%4,%5")
+			.arg(groupName)
+			.arg(newNodeId)
+			.arg(int(groupType))
+			.arg(0) // parentId: updated via StoreTreeToParams once added to tree
+			.arg(groupObjectId));
+
+	QTreeWidgetItem *newItem = createNodeItem(newNodeId, groupType, groupObjectId, groupName, QString());
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(groupType)));

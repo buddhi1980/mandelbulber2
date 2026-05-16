@@ -297,6 +297,28 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		}
 	}
 
+	// Group nodes (hybrid, booleanAdd, booleanMul, booleanSub) are never matched by the
+	// fractal or primitive loops above because they hold no fractal slot or primitive.
+	// Give each group node its own dedicated cObjectData entry so it can independently
+	// carry material and objectType information without borrowing from a child.
+	if (objectTreeNodes && objectData)
+	{
+		for (auto &node : *objectTreeNodes)
+		{
+			if (node.internalObjectId == -1
+					&& (node.type == enumNodeType::hybrid || node.type == enumNodeType::booleanAdd
+						|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
+			{
+				cObjectData groupObjectData;
+				groupObjectData.objectType =
+					(node.type == enumNodeType::hybrid) ? fractal::objHybrid : fractal::objNone;
+				groupObjectData.materialId = (node.material > 0) ? node.material : 1;
+				objectData->push_back(groupObjectData);
+				node.internalObjectId = int(objectData->size()) - 1;
+			}
+		}
+	}
+
 	common.fakeLightsColor2Enabled = container->Get<bool>("fake_lights_color_2_enabled");
 	common.fakeLightsColor3Enabled = container->Get<bool>("fake_lights_color_3_enabled");
 	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");

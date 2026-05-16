@@ -79,6 +79,7 @@ private:
 	int findNextAvailableNodeId() const;
 	int findNextAvailableFractalObjectId() const;
 	int findNextAvailablePrimitiveObjectId() const;
+	int findNextAvailableGroupObjectId() const;
 	QTreeWidgetItem *selectedGroupTarget() const;
 	static bool isGroupType(enumNodeType type);
 	enumNodeType showGroupSelectionDialog(bool *ok);
