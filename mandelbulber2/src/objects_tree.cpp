@@ -190,8 +190,10 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		// Scales multiply
 		double worldScale = parentTransform.scale * nodeData.scale;
 
-		// Material: use own material if valid, otherwise inherit from parent
-		int worldMaterial = (nodeData.material >= 0) ? nodeData.material : parentTransform.material;
+		// Material: a parent group with material != -1 overrides all descendants (outermost group
+		// wins).  Only when no ancestor has an override does the node use its own material setting.
+		int effectiveMaterial =
+			(parentTransform.material != -1) ? parentTransform.material : nodeData.material;
 
 		// Repeat: inherit parent repeat if own repeat is zero vector, otherwise use own
 		CVector3 worldRepeat =
@@ -202,7 +204,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		myTransform.position = worldPosition;
 		myTransform.rotation = worldRotation;
 		myTransform.scale = worldScale;
-		myTransform.material = worldMaterial;
+		myTransform.material = effectiveMaterial;
 		myTransform.repeat = worldRepeat;
 		accumulatedTransforms[nodeData.id] = myTransform;
 
@@ -210,7 +212,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.rotation = worldRotation;
 		nodeDataForRendering.rotationMatrix.SetRotation2(worldRotation * (M_PI / 180.0));
 		nodeDataForRendering.scale = worldScale;
-		nodeDataForRendering.material = worldMaterial;
+		nodeDataForRendering.material = effectiveMaterial;
 		nodeDataForRendering.repeat = worldRepeat;
 
 		// Determine if this node is a hybrid or descends from one

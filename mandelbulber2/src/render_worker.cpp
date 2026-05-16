@@ -849,8 +849,23 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			shaderInputData.material = &data->materials[objectData.materialId];
+			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
+			shaderInputData.material =
+				(shaderInputData.objectId >= 0
+					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[shaderInputData.objectId].material
+				: nullptr;
+
+			// If material is null (materialId == -1 or not found), render object as black
+			if (!shaderInputData.material)
+			{
+				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
+				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayIndex--;
+				continue;
+			}
 
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
@@ -1083,8 +1098,23 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			shaderInputData.material = &data->materials[objectData.materialId];
+			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
+			shaderInputData.material =
+				(shaderInputData.objectId >= 0
+					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[shaderInputData.objectId].material
+				: nullptr;
+
+			// If material is null (materialId == -1 or not found), render object as black and skip
+			if (!shaderInputData.material)
+			{
+				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
+				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayIndex--;
+				continue;
+			}
 
 			shaderInputData.normal = recursionOut.normal;
 

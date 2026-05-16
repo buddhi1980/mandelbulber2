@@ -41,12 +41,15 @@
 #include "boolean_operator.h"
 #include "object_types.hpp"
 
+class cMaterial;
+
 class cObjectData
 {
 public:
 	cObjectData()
 	{
 		materialId = 0;
+		material = nullptr;
 		objectType = fractal::objNone;
 		smoothDeCombineEnable = false;
 		smoothDeCombineDistance = 0.0f;
@@ -59,6 +62,7 @@ public:
 	double smoothDeCombineDistance;
 	double wallThickness;
 	int materialId;
+	cMaterial *material; // non-owning pointer, resolved at setup time in ValidateObjects()
 	fractal::enumObjectType objectType;
 	CVector3 size;
 };

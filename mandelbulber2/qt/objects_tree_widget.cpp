@@ -25,6 +25,7 @@
 #include "src/primitives.h"
 #include "src/my_ui_loader.h"
 #include "src/system_directories.hpp"
+#include "src/system_data.hpp"
 #include "ui_objects_tree_widget.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
@@ -33,6 +34,7 @@
 #include "fractal_object.h"
 #include "general_object_parameters.h"
 #include "fractal_calculation_parameters.h"
+#include "material_widget.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
@@ -130,28 +132,6 @@ bool cObjectsTreeWidget::isFractalInHybridGroup(QTreeWidgetItem *item) const
 	if (enumNodeType(getNodeType(item)) != enumNodeType::fractal) return false;
 	if (!item->parent()) return false;
 	return enumNodeType(getNodeType(item->parent())) == enumNodeType::hybrid;
-}
-
-// Parses a space-separated "x y z" string into a CVector3.
-// Returns the zero vector when the string does not contain exactly three numeric tokens.
-CVector3 cObjectsTreeWidget::parsePosition(const QString &text)
-{
-	CVector3 pos(0.0, 0.0, 0.0);
-	QStringList parts = text.split(' ', Qt::SkipEmptyParts);
-	if (parts.size() == 3)
-	{
-		pos.x = parts[0].toDouble();
-		pos.y = parts[1].toDouble();
-		pos.z = parts[2].toDouble();
-	}
-	return pos;
-}
-
-// Formats a CVector3 as a space-separated string with six decimal places,
-// matching the format expected by parsePosition().
-QString cObjectsTreeWidget::formatPosition(const CVector3 &pos)
-{
-	return QString("%1 %2 %3").arg(pos.x, 0, 'f', 15).arg(pos.y, 0, 'f', 15).arg(pos.z, 0, 'f', 15);
 }
 
 // Creates a combo box pre-populated with all supported node types and
@@ -340,10 +320,6 @@ QTreeWidgetItem *cObjectsTreeWidget::createNodeItem(
 	newItem->setText(treeCol::name, name);
 	newItem->setText(treeCol::type, nodeTypeToString(nodeType));
 	newItem->setText(treeCol::objectId, QString::number(objectId));
-	newItem->setText(treeCol::position, formatPosition({0.0, 0.0, 0.0}));
-	newItem->setText(treeCol::rotation, formatPosition({0.0, 0.0, 0.0}));
-	newItem->setText(treeCol::repeat, formatPosition({0.0, 0.0, 0.0}));
-	newItem->setText(treeCol::scale, QString::number(1.0, 'f', 15));
 
 	newItem->setData(treeData::nodeId, Qt::UserRole, nodeId);
 	newItem->setData(treeData::nodeType, Qt::UserRole, int(nodeType));
@@ -454,17 +430,11 @@ void cObjectsTreeWidget::UpdateTree(
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
 	ui->treeWidget_objects->setColumnCount(4);
-	ui->treeWidget_objects->setHeaderLabels(
-		{"Name", "Type", "Object ID", "Position", "Rotation", "Repeat", "Scale"});
+	ui->treeWidget_objects->setHeaderLabels({"Name", "Type", "Object ID", "Material"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
 	const auto sortedList = objectsTree.GetSortedNodeDataList();
-
-	// Build a quick lookup so we can detect hybrid-child fractals without walking the tree
-	QMap<int, enumNodeType> nodeTypeMap;
-	for (const auto &node : sortedList)
-		nodeTypeMap[node.id] = node.type;
 
 	QMap<int, QTreeWidgetItem *> nodeItems;
 
@@ -479,17 +449,6 @@ void cObjectsTreeWidget::UpdateTree(
 		item->setText(treeCol::name, nodeData.name);
 		item->setText(treeCol::type, nodeTypeToString(nodeData.type));
 		item->setText(treeCol::objectId, QString::number(nodeData.objectId));
-
-		// Fractal nodes inside a hybrid group inherit the group's position; skip the column
-		bool inHybrid = nodeData.type == enumNodeType::fractal
-										&& nodeTypeMap.value(nodeData.parentId) == enumNodeType::hybrid;
-		if (!inHybrid)
-		{
-			item->setText(treeCol::position, formatPosition(nodeData.position));
-			item->setText(treeCol::rotation, formatPosition(nodeData.rotation));
-			item->setText(treeCol::repeat, formatPosition(nodeData.repeat));
-			item->setText(treeCol::scale, QString::number(nodeData.scale, 'f', 15));
-		}
 
 		item->setData(treeData::nodeId, Qt::UserRole, nodeData.id);
 		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
@@ -525,40 +484,27 @@ void cObjectsTreeWidget::UpdateTree(
 
 	ui->treeWidget_objects->expandAll();
 
-	// Attach the type combo boxes after the tree is fully built so that
-	// setItemWidget() can find the correct persistent index for each item
-	for (QTreeWidgetItem *item : nodeItems)
+	// Attach the type combo boxes and miniature material widgets after the tree is fully
+	// built so that setItemWidget() can find the correct persistent index for each item.
+	for (auto it = nodeItems.begin(); it != nodeItems.end(); ++it)
 	{
+		QTreeWidgetItem *item = it.value();
+		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
-		ui->treeWidget_objects->setItemWidget(item, 1, buildTypeComboBox(currentType));
+		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeComboBox(currentType));
+		attachMaterialWidget(item, nodeId, params);
 	}
 
 	if (lastSelectedNodeId > 0 && nodeItems.contains(lastSelectedNodeId))
 		ui->treeWidget_objects->setCurrentItem(nodeItems.value(lastSelectedNodeId));
 }
 
-// Validates and reformats the position cell whenever the user edits it directly.
-// Any text that does not parse to exactly three numbers is reset to the origin.
 void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 {
-	QSignalBlocker blocker(ui->treeWidget_objects);
-	if (column != treeCol::position) return;
-
-	QString text = item->text(treeCol::position);
-	QStringList parts = text.split(' ', Qt::SkipEmptyParts);
-	if (parts.size() == 3)
-	{
-		bool okX, okY, okZ;
-		double x = parts[0].toDouble(&okX);
-		double y = parts[1].toDouble(&okY);
-		double z = parts[2].toDouble(&okZ);
-		item->setText(treeCol::position,
-			(okX && okY && okZ) ? formatPosition({x, y, z}) : "0.000000 0.000000 0.000000");
-	}
-	else
-	{
-		item->setText(treeCol::position, "0.000000 0.000000 0.000000");
-	}
+	Q_UNUSED(item)
+	Q_UNUSED(column)
+	// Column edits are no longer handled here; position/rotation/scale/repeat have
+	// been replaced by the material thumbnail column which is not user-editable.
 }
 
 // Writes the current tree structure back into 'params', removing any node parameters
@@ -614,6 +560,18 @@ void cObjectsTreeWidget::pressedRefreshButton()
 	UpdateTree(gPar, gParFractal);
 }
 
+
+void cObjectsTreeWidget::attachMaterialWidget(
+	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
+{
+	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+	int materialId =
+		params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
+	matWidget->AssignMaterial(params, materialId, nullptr);
+	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
+}
+
 void cObjectsTreeWidget::slotAddGroup()
 {
 	bool ok = false;
@@ -640,6 +598,7 @@ void cObjectsTreeWidget::slotAddGroup()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(groupType)));
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -665,6 +624,7 @@ void cObjectsTreeWidget::slotAddFractal()
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::fractal)));
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -698,6 +658,7 @@ void cObjectsTreeWidget::slotAddPrimitive()
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::primitive)));
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;

@@ -124,7 +124,13 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
-			inputCopy.material = &data->materials[objectData.materialId];
+			// material pointer pre-resolved at setup time – direct access, no map lookup
+			inputCopy.material =
+				(inputCopy.objectId >= 0
+					&& inputCopy.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[inputCopy.objectId].material
+				: nullptr;
+			if (!inputCopy.material) return out; // materialId == -1: render black (skip GI)
 
 			// letting colors from textures (before normal map shader)
 			if (inputCopy.material->colorTexture.IsLoaded())

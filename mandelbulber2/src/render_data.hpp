@@ -117,6 +117,12 @@ struct sRenderData
 												 .arg(substituteMaterialId);
 				object.materialId = substituteMaterialId;
 			}
+
+			// Cache the material pointer for O(1) hot-path access (no map lookup during rendering).
+			// std::map insertions do not invalidate existing pointers, so this pointer remains
+			// valid for the lifetime of the materials map.
+			auto matIt = materials.find(object.materialId);
+			object.material = (matIt != materials.end()) ? &matIt->second : nullptr;
 		}
 	}
 };

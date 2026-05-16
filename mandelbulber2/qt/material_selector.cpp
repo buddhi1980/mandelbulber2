@@ -111,12 +111,31 @@ void cMaterialSelector::SetMaterialIndex(int materialIndex)
 	actualValue = materialIndex;
 	if (actualValue > 0)
 	{
+		// Material IDs are 1-indexed (mat1_*, mat2_*, ...); 0 is unused
 		materialWidget->AssignMaterial(
 			parameterContainer, actualValue, gMainInterface->scrollAreaMaterialEditor);
 	}
-	label->setText(QString("%1 [mat%2]")
-									 .arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex)))
-									 .arg(materialIndex));
+	else
+	{
+		// materialIndex == -1 means "no material / inherit from parent"
+		materialWidget->AssignMaterial(parameterContainer, actualValue, nullptr);
+	}
+	if (materialIndex > 0 && parameterContainer
+		&& parameterContainer->IfExists(cMaterial::Name("name", materialIndex)))
+	{
+		label->setText(
+			QString("%1 [mat%2]")
+				.arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex)))
+				.arg(materialIndex));
+	}
+	else if (materialIndex == -1)
+	{
+		label->setText(tr("No material"));
+	}
+	else
+	{
+		label->setText(QString("[mat%1]").arg(materialIndex));
+	}
 }
 
 void cMaterialSelector::slotClicked(Qt::MouseButton button)
