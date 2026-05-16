@@ -47,8 +47,8 @@ double DisplacementMap(
 	if (data)
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
-		auto matIt0 = data->materials.find(data->objectData[objectId].materialId);
-		const cMaterial *mat = (matIt0 != data->materials.end()) ? &matIt0->second : nullptr;
+		auto matIt = data->materials.find(data->objectData[objectId].materialId);
+		const cMaterial *mat = (matIt != data->materials.end()) ? &matIt->second : nullptr;
 		if (!mat) return distance; // no material: skip displacement
 
 		if (mat->displacementTexture.IsLoaded())
