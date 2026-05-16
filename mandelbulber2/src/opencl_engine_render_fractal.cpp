@@ -819,10 +819,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasPerlinTransparencyColor = false;
 	bool anyMaterialHasPerlinDisplacement = false;
 
-	for (auto const &materialPair : renderData->materials) // for each material from materials
+	for (auto const &material : renderData->materials) // for each material from materials
 	{
-		cMaterial const &material = materialPair.second;
-
 		if (material.reflectance > 0.0f) anyMaterialIsReflective = true;
 		if (material.transparencyOfSurface > 0.0f) anyMaterialIsRefractive = true;
 		if (material.fractalColoring.coloringAlgorithm != fractalColoring_Standard)

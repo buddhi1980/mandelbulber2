@@ -73,7 +73,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		int stepCount = 0;
 
 		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax;
-				 scan += dist * params->DEFactor)
+			scan += dist * params->DEFactor)
 		{
 			if (stepCount >= maxRaymarchingSteps) break;
 			sStep step;
@@ -126,10 +126,9 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			cObjectData objectData = data->objectData[inputCopy.objectId];
 			// material pointer pre-resolved at setup time – direct access, no map lookup
 			inputCopy.material =
-				(inputCopy.objectId >= 0
-					&& inputCopy.objectId < static_cast<int>(data->objectData.size()))
-				? data->objectData[inputCopy.objectId].material
-				: nullptr;
+				(inputCopy.objectId >= 0 && inputCopy.objectId < static_cast<int>(data->objectData.size()))
+					? &data->materials[data->objectData[inputCopy.objectId].materialId]
+					: nullptr;
 			if (!inputCopy.material) return out; // materialId == -1: render black (skip GI)
 
 			// letting colors from textures (before normal map shader)

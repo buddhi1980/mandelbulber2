@@ -114,9 +114,9 @@ sRGBAFloat cRenderWorker::AuxShadow(
 				&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
 		{
 			const int matId = objectData.materialId;
-			const cMaterial *mat =
-				(matId >= 0 && matId < static_cast<int>(data->materials.size())) ? &data->materials[matId]
-																																				 : nullptr;
+			const cMaterial *mat = (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+															 ? &data->materials[matId]
+															 : nullptr;
 			goThrough = mat ? mat->subsurfaceScattering : false;
 		}
 		else
@@ -231,7 +231,8 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		if (goThrough && dist < dist_thresh)
 		{
 			double opacityCollected = 1.0;
-			if (objectData.material->insideColoringEnable && objectData.material->diffuseGradientEnable)
+			cMaterial &material = data->materials[objectData.materialId];
+			if (material.insideColoringEnable && material.diffuseGradientEnable)
 			{
 				sGradientsCollection gradients;
 				input2.objectId = distanceOut.objectId;

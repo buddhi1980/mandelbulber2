@@ -849,14 +849,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-<<<<<<< HEAD
-			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
-			shaderInputData.material =
-				(shaderInputData.objectId >= 0
-					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
-					? data->objectData[shaderInputData.objectId].material
-					: nullptr;
-=======
+
 			{
 				const int objectId = shaderInputData.objectId;
 				shaderInputData.material = nullptr;
@@ -867,7 +860,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						shaderInputData.material = &data->materials[matId];
 				}
 			}
->>>>>>> refs/remotes/origin/2.35-objects-tree
 
 			// If material is null (materialId == -1 or not found), render object as black
 			if (!shaderInputData.material)

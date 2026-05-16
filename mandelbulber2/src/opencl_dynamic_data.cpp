@@ -64,7 +64,7 @@ cOpenClDynamicData::cOpenClDynamicData(int numberOfItems)
 cOpenClDynamicData::~cOpenClDynamicData() = default;
 
 int cOpenClDynamicData::BuildMaterialsData(
-	const std::map<int, cMaterial> &materials, const QMap<QString, int> &textureIndexes)
+	const std::vector<cMaterial> &materials, const QMap<QString, int> &textureIndexes)
 {
 	/* material dynamic data structure
 
@@ -99,16 +99,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[materialsItemIndex].itemOffset = totalDataOffset;
 
-	// number of materials is a maximum material index
-	// Empty material indexes will be filled with zero data
-	QList<int> keys;
-	for (auto const &element : materials)
-	{
-		keys.push_back(element.first);
-	}
-
-	std::sort(keys.begin(), keys.end());
-	cl_int numberOfMaterials = keys.last() + 1;
+	cl_int numberOfMaterials = static_cast<cl_int>(materials.size());
 
 	// numberOfMaterials
 	data.append(reinterpret_cast<char *>(&numberOfMaterials), sizeof(numberOfMaterials));
@@ -148,9 +139,9 @@ int cOpenClDynamicData::BuildMaterialsData(
 		cl_int paletteOffsetTransparency;
 		cl_int paletteSizeTransparency;
 
-		if (materials.find(materialIndex) != materials.end())
+		if (materialIndex < numberOfMaterials)
 		{
-			const cMaterial &material = materials.at(materialIndex);
+			const cMaterial &material = materials[materialIndex];
 			materialCl = clCopySMaterialCl(material);
 
 			QString textureName;

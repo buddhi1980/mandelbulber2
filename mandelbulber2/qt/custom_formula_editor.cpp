@@ -238,7 +238,7 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
 	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
-	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
+	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
 	renderData->ValidateObjects();
 
 	gOpenCl->openClEngineRenderFractal->Lock();
