@@ -1682,6 +1682,10 @@ void cSettings::Compatibility2(
 		{
 			DeleteAllNodeParams(par);
 
+			// Counter for unique group-node objectIds.  Group IDs start at 100, placing them
+			// safely above fractal IDs (1..NUMBER_OF_FRACTALS) and below primitive IDs (1000+).
+			int nextGroupObjectId = 100;
+
 			// Helper lambda: look up the formula internal name from newFractalList
 			auto getFormulaName = [](int formulaEnum) -> QString {
 				for (cAbstractFractal *f : newFractalList)
@@ -1819,7 +1823,7 @@ void cSettings::Compatibility2(
 
 						int parentId = (k == m - 2) ? 0 : (k + 2); // outermost has parent=0
 						par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
-							makeDefinition("boolean", nodeId, nodeType, parentId, -1));
+							makeDefinition("boolean", nodeId, nodeType, parentId, nextGroupObjectId++));
 					}
 
 					// Create fractal nodes
@@ -1874,7 +1878,7 @@ void cSettings::Compatibility2(
 					// Hybrid parent node (id = 1)
 					InitNodeParams(1, par);
 					par->Set("node_0001_definition",
-						makeDefinition("hybrid", 1, enumNodeType::hybrid, 0, -1));
+						makeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
 
 					// Fractal child nodes (ids start at 2)
 					for (int i = 0; i < enabledFractals.size(); i++)
@@ -1939,7 +1943,7 @@ void cSettings::Compatibility2(
 
 				InitNodeParams(boolNodeId, par);
 				par->Set(nodeDefinitionParam(boolNodeId),
-					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, -1));
+					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
 
 				setNodeParent(rootNodeId, boolNodeId);
 

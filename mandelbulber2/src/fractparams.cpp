@@ -297,28 +297,23 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		}
 	}
 
-	// Hybrid group nodes always have objectId=-1 so they are never matched above.
-	// Give each hybrid node a valid internalObjectId by inheriting from its first child
-	// fractal node.  This prevents a crash when the renderer indexes objectData with -1.
-	if (objectTreeNodes)
+	// Group nodes (hybrid, booleanAdd, booleanMul, booleanSub) are never matched by the
+	// fractal or primitive loops above because they hold no fractal slot or primitive.
+	// Give each group node its own dedicated cObjectData entry so it can independently
+	// carry material and objectType information without borrowing from a child.
+	if (objectTreeNodes && objectData)
 	{
-		// Build a parent-id → first-child map to avoid O(n²) search.
-		QHash<int, int> firstChildInternalId; // parentId -> first child internalObjectId
-		for (const auto &child : *objectTreeNodes)
-		{
-			if (child.internalObjectId >= 0
-					&& !firstChildInternalId.contains(child.parentId))
-			{
-				firstChildInternalId.insert(child.parentId, child.internalObjectId);
-			}
-		}
 		for (auto &node : *objectTreeNodes)
 		{
-			if (node.type == enumNodeType::hybrid && node.internalObjectId == -1)
+			if (node.internalObjectId == -1
+					&& (node.type == enumNodeType::hybrid || node.type == enumNodeType::booleanAdd
+						|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
 			{
-				auto it = firstChildInternalId.find(node.id);
-				if (it != firstChildInternalId.end())
-					node.internalObjectId = it.value();
+				cObjectData groupObjectData;
+				groupObjectData.objectType = fractal::objNone;
+				groupObjectData.materialId = (node.material > 0) ? node.material : 1;
+				objectData->push_back(groupObjectData);
+				node.internalObjectId = int(objectData->size()) - 1;
 			}
 		}
 	}
