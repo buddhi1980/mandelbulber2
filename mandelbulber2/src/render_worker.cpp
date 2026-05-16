@@ -849,12 +849,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
-			shaderInputData.material =
-				(shaderInputData.objectId >= 0
-					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
-				? data->objectData[shaderInputData.objectId].material
-				: nullptr;
+			{
+				const int objectId = shaderInputData.objectId;
+				shaderInputData.material = nullptr;
+				if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size()))
+				{
+					const int matId = data->objectData[objectId].materialId;
+					if (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+						shaderInputData.material = &data->materials[matId];
+				}
+			}
 
 			// If material is null (materialId == -1 or not found), render object as black
 			if (!shaderInputData.material)
@@ -1098,12 +1102,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
-			shaderInputData.material =
-				(shaderInputData.objectId >= 0
-					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
-				? data->objectData[shaderInputData.objectId].material
-				: nullptr;
+			{
+				const int objectId = shaderInputData.objectId;
+				shaderInputData.material = nullptr;
+				if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size()))
+				{
+					const int matId = data->objectData[objectId].materialId;
+					if (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+						shaderInputData.material = &data->materials[matId];
+				}
+			}
 
 			// If material is null (materialId == -1 or not found), render object as black and skip
 			if (!shaderInputData.material)

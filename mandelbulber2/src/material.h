@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_MATERIAL_H_
 
 #include <memory>
+#include <vector>
 
 #include <QMap>
 
@@ -193,7 +194,7 @@ public:
 	sFractalColoring fractalColoring;
 };
 
-void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
-	std::map<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender);
+void CreateMaterialsVector(const std::shared_ptr<cParameterContainer> params,
+	std::vector<cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender);
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

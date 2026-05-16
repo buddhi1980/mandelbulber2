@@ -709,12 +709,15 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		materialParam->Get<CVector3>(Name("perlin_noise_rotation", id)) / 180.0 * M_PI);
 }
 
-void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
-	std::map<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender)
+void CreateMaterialsVector(const std::shared_ptr<cParameterContainer> params,
+	std::vector<cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender)
 {
 	materials->clear();
+
+	// First pass: find the maximum material index
+	int maxIndex = 0;
 	QList<QString> listOfParameters = params->GetListOfParameters();
-	for (auto &parameterName : listOfParameters)
+	for (auto const &parameterName : listOfParameters)
 	{
 		if (parameterName.left(3) == "mat")
 		{
@@ -722,8 +725,25 @@ void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
 			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
 			if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
-				materials->emplace(
-					matIndex, std::move(cMaterial(matIndex, params, loadTextures, quiet, useNetRender)));
+				if (matIndex > maxIndex) maxIndex = matIndex;
+			}
+		}
+	}
+
+	// Resize to hold all indices; gaps are filled with default-constructed cMaterial
+	materials->resize(maxIndex + 1);
+
+	// Second pass: populate defined materials at their correct index
+	for (auto const &parameterName : listOfParameters)
+	{
+		if (parameterName.left(3) == "mat")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			if (parameterName.mid(positionOfDash + 1) == "is_defined")
+			{
+				(*materials)[matIndex] =
+					cMaterial(matIndex, params, loadTextures, quiet, useNetRender);
 			}
 		}
 	}
