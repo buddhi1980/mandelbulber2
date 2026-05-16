@@ -485,22 +485,14 @@ void cObjectsTreeWidget::UpdateTree(
 	ui->treeWidget_objects->expandAll();
 
 	// Attach the type combo boxes and miniature material widgets after the tree is fully
-	// built so that setItemWidget() can find the correct persistent index for each item
-	const int thumbnailSize = systemData.GetPreferredThumbnailSize();
-	const int miniSize = thumbnailSize / 4;
+	// built so that setItemWidget() can find the correct persistent index for each item.
 	for (auto it = nodeItems.begin(); it != nodeItems.end(); ++it)
 	{
 		QTreeWidgetItem *item = it.value();
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
 		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeComboBox(currentType));
-
-		// Miniature material thumbnail – 4× smaller than the normal material widget
-		int materialId = params->Get<int>(
-			QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
-		cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
-		matWidget->AssignMaterial(params, materialId, nullptr);
-		ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
+		attachMaterialWidget(item, nodeId, params);
 	}
 
 	if (lastSelectedNodeId > 0 && nodeItems.contains(lastSelectedNodeId))
@@ -568,6 +560,18 @@ void cObjectsTreeWidget::pressedRefreshButton()
 	UpdateTree(gPar, gParFractal);
 }
 
+
+void cObjectsTreeWidget::attachMaterialWidget(
+	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
+{
+	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+	int materialId =
+		params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
+	matWidget->AssignMaterial(params, materialId, nullptr);
+	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
+}
+
 void cObjectsTreeWidget::slotAddGroup()
 {
 	bool ok = false;
@@ -594,14 +598,7 @@ void cObjectsTreeWidget::slotAddGroup()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(groupType)));
-	{
-		const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
-		int materialId = gPar->Get<int>(
-			QString("node_%1_material").arg(newNodeId, 4, 10, QChar('0')));
-		cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
-		matWidget->AssignMaterial(gPar, materialId, nullptr);
-		ui->treeWidget_objects->setItemWidget(newItem, treeCol::material, matWidget);
-	}
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -627,14 +624,7 @@ void cObjectsTreeWidget::slotAddFractal()
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::fractal)));
-	{
-		const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
-		int materialId = gPar->Get<int>(
-			QString("node_%1_material").arg(newNodeId, 4, 10, QChar('0')));
-		cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
-		matWidget->AssignMaterial(gPar, materialId, nullptr);
-		ui->treeWidget_objects->setItemWidget(newItem, treeCol::material, matWidget);
-	}
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -668,14 +658,7 @@ void cObjectsTreeWidget::slotAddPrimitive()
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::primitive)));
-	{
-		const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
-		int materialId = gPar->Get<int>(
-			QString("node_%1_material").arg(newNodeId, 4, 10, QChar('0')));
-		cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
-		matWidget->AssignMaterial(gPar, materialId, nullptr);
-		ui->treeWidget_objects->setItemWidget(newItem, treeCol::material, matWidget);
-	}
+	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;

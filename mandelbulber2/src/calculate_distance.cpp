@@ -329,7 +329,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			leaf.closestObjectSequence = sequenceIndex;
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
-			leaf.materialObjectId = objectId; // default: use own material
+			// Only set materialObjectId when a real object was hit; -1 means no material
+			leaf.materialObjectId = (objectId >= 0) ? objectId : -1;
 			mergeChildIntoParent(leaf, &stack[stackLevel], data);
 		}
 

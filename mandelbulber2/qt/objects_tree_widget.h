@@ -74,6 +74,8 @@ private:
 	int getNodeType(QTreeWidgetItem *item) const;
 	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
 	QComboBox *buildTypeComboBox(int currentType);
+	void attachMaterialWidget(
+		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
 	int findNextAvailableNodeId() const;
 	int findNextAvailableFractalObjectId() const;
 	int findNextAvailablePrimitiveObjectId() const;

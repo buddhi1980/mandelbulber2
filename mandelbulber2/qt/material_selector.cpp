@@ -111,6 +111,7 @@ void cMaterialSelector::SetMaterialIndex(int materialIndex)
 	actualValue = materialIndex;
 	if (actualValue > 0)
 	{
+		// Material IDs are 1-indexed (mat1_*, mat2_*, ...); 0 is unused
 		materialWidget->AssignMaterial(
 			parameterContainer, actualValue, gMainInterface->scrollAreaMaterialEditor);
 	}
