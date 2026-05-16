@@ -988,20 +988,27 @@ void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::en
 	}
 }
 
+
 void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
-	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
+ std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
 {
-	// FIXME to use local copy of parameters instead of global gPar and gParFractal
-	// to be able to use this wighet in the NAvogator window with different parameter containers
+ SynchronizeEditorWidget(currentEditorWidget, mode);
 
-	SynchronizeEditorWidget(currentEditorWidget, mode);
+ if (mode == qInterface::write)
+ {
+  // Block itemSelectionChanged to prevent the editor from being destroyed and
+  // recreated during tree reconstruction, which causes blinking and focus loss.
+  ui->treeWidget_objects->blockSignals(true);
+  UpdateTree(params, fractalParams);
+  ui->treeWidget_objects->blockSignals(false);
 
-	if (mode == qInterface::write)
-	{
-		UpdateTree(params, fractalParams);
-	}
-	else
-	{
-		StoreTreeToParams(params, fractalParams);
-	}
+  // Re-populate the existing editor widgets with the updated parameter values
+  // instead of rebuilding the whole editor from scratch.
+  SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
+ }
+ else
+ {
+  StoreTreeToParams(params, fractalParams);
+ }
 }
+
