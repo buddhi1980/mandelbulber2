@@ -79,10 +79,10 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size()))
 			return pointFractalized;
-		const int matId1 = data->objectData[objectId].materialId;
+		const int matId = data->objectData[objectId].materialId;
 		const cMaterial *mat =
-			(matId1 >= 0 && matId1 < static_cast<int>(data->materials.size()))
-				? &data->materials[matId1]
+			(matId >= 0 && matId < static_cast<int>(data->materials.size()))
+				? &data->materials[matId]
 				: nullptr;
 		if (!mat) return pointFractalized; // no material: skip fractal texture
 		if (mat->textureFractalize)
