@@ -310,7 +310,8 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 						|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
 			{
 				cObjectData groupObjectData;
-				groupObjectData.objectType = fractal::objNone;
+				groupObjectData.objectType =
+					(node.type == enumNodeType::hybrid) ? fractal::objHybrid : fractal::objNone;
 				groupObjectData.materialId = (node.material > 0) ? node.material : 1;
 				objectData->push_back(groupObjectData);
 				node.internalObjectId = int(objectData->size()) - 1;
