@@ -112,7 +112,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		cObjectData &objectData = data->objectData[distanceOut.objectId];
 		// material pointer pre-resolved at setup time – direct access, no map lookup
 		if (distanceOut.objectId >= 0
-			&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
+				&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
 		{
 			goThrough = objectData.material ? objectData.material->subsurfaceScattering : false;
 		}
@@ -228,7 +228,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		if (goThrough && dist < dist_thresh)
 		{
 			double opacityCollected = 1.0;
-			if (material->insideColoringEnable && material->diffuseGradientEnable)
+			if (objectData.material->insideColoringEnable && objectData.material->diffuseGradientEnable)
 			{
 				sGradientsCollection gradients;
 				input2.objectId = distanceOut.objectId;

@@ -853,16 +853,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.material =
 				(shaderInputData.objectId >= 0
 					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
-				? data->objectData[shaderInputData.objectId].material
-				: nullptr;
+					? data->objectData[shaderInputData.objectId].material
+					: nullptr;
 
 			// If material is null (materialId == -1 or not found), render object as black
 			if (!shaderInputData.material)
 			{
 				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
 				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
-				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
-				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayStack[rayIndex].out.objectColour = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].rayBranch = rayBranchDone;
 				rayIndex--;
 				continue;
 			}
@@ -1102,16 +1102,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.material =
 				(shaderInputData.objectId >= 0
 					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
-				? data->objectData[shaderInputData.objectId].material
-				: nullptr;
+					? data->objectData[shaderInputData.objectId].material
+					: nullptr;
 
 			// If material is null (materialId == -1 or not found), render object as black and skip
 			if (!shaderInputData.material)
 			{
 				rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
 				rayStack[rayIndex].out.resultShader = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
-				rayStack[rayIndex].out.objectColor = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
-				rayStack[rayIndex].out.rayBranch = rayBranchDone;
+				rayStack[rayIndex].out.objectColour = sRGBAFloat(0.0f, 0.0f, 0.0f, 1.0f);
+				rayStack[rayIndex].rayBranch = rayBranchDone;
 				rayIndex--;
 				continue;
 			}

@@ -72,8 +72,8 @@ void cMaterialWidget::Init()
 	// DisableThumbnailCache();
 	DisableTimer();
 
-	previewWidth = systemData.GetPreferredThumbnailSize();
-	previewHeight = systemData.GetPreferredThumbnailSize();
+	previewWidth = width();
+	previewHeight = height();
 
 	timerPeriodicRefresh = new QTimer(this);
 	timerPeriodicRefresh->setSingleShot(true);
