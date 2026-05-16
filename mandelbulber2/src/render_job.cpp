@@ -340,7 +340,7 @@ void cRenderJob::PrepareData()
 	// assign stop handler
 	renderData->stopRequest = stopRequest;
 
-	CreateMaterialsMap(paramsContainer, &renderData->materials, loadTextures,
+	CreateMaterialsVector(paramsContainer, &renderData->materials, loadTextures,
 		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
 
 	// preparation of lights
@@ -1101,13 +1101,7 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 	QSet<QString> listOfTextures;
 	if (renderData)
 	{
-		QList<int> keys;
-		for (auto const &element : renderData->materials)
-		{
-			keys.push_back(element.first);
-		}
-
-		for (int matIndex : keys)
+		for (int matIndex = 0; matIndex < static_cast<int>(renderData->materials.size()); matIndex++)
 		{
 			if (renderData->materials[matIndex].colorTexture.IsLoaded())
 				listOfTextures.insert(renderData->materials[matIndex].colorTexture.GetFileName());

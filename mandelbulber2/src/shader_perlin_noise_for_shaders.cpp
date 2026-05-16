@@ -166,7 +166,9 @@ double PerlinNoiseDisplacement(
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
 		const int matId = data->objectData[objectId].materialId;
-		const cMaterial *mat = data->materials.count(matId) ? &data->materials.at(matId) : nullptr;
+		const cMaterial *mat =
+			(matId >= 0 && matId < static_cast<int>(data->materials.size())) ? &data->materials[matId]
+																																					 : nullptr;
 		if (!mat) return distance; // no material: skip perlin displacement
 		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{

@@ -855,8 +855,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size()))
 				{
 					const int matId = data->objectData[objectId].materialId;
-					if (data->materials.count(matId))
-						shaderInputData.material = &data->materials.at(matId);
+					if (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+						shaderInputData.material = &data->materials[matId];
 				}
 			}
 
@@ -1108,8 +1108,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (objectId >= 0 && objectId < static_cast<int>(data->objectData.size()))
 				{
 					const int matId = data->objectData[objectId].materialId;
-					if (data->materials.count(matId))
-						shaderInputData.material = &data->materials.at(matId);
+					if (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+						shaderInputData.material = &data->materials[matId];
 				}
 			}
 

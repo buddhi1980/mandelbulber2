@@ -451,8 +451,8 @@ double MarchingCubes::getDistance(double x, double y, double z, double *colorInd
 		&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
 	{
 		const int matId = renderData->objectData[distanceOut.objectId].materialId;
-		if (renderData->materials.count(matId))
-			material = &renderData->materials.at(matId);
+		if (matId >= 0 && matId < static_cast<int>(renderData->materials.size()))
+			material = &renderData->materials[matId];
 	}
 	if (!material) return dist; // no material: skip colouring
 
