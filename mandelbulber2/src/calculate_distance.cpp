@@ -72,7 +72,6 @@ struct ObjectTreeStackFrame
 	enumNodeType nodeType;
 	CVector3 transformedPoint;
 	bool hasTransformedPoint;
-
 };
 
 static void mergeChildIntoParent(

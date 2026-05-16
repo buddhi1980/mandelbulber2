@@ -124,18 +124,12 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
-			{
-				// Material is pre-propagated; objectData[objectId].materialId is already effective.
-				const int giMatLookupId = inputCopy.objectId;
-				if (giMatLookupId >= 0 && giMatLookupId < static_cast<int>(data->objectData.size()))
-				{
-					int giMatId = data->objectData[giMatLookupId].materialId;
-					auto giMatIt = data->materials.find(giMatId);
-					inputCopy.material = (giMatIt != data->materials.end()) ? &giMatIt->second : nullptr;
-				}
-				else
-					inputCopy.material = nullptr;
-			}
+			// material pointer pre-resolved at setup time – direct access, no map lookup
+			inputCopy.material =
+				(inputCopy.objectId >= 0
+					&& inputCopy.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[inputCopy.objectId].material
+				: nullptr;
 			if (!inputCopy.material) return out; // materialId == -1: render black (skip GI)
 
 			// letting colors from textures (before normal map shader)

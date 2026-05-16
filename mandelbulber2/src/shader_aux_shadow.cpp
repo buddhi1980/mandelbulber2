@@ -110,15 +110,11 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		cObjectData &objectData = data->objectData[distanceOut.objectId];
-		// Material is pre-propagated; objectData[objectId].materialId already has the effective value.
+		// material pointer pre-resolved at setup time – direct access, no map lookup
 		if (distanceOut.objectId >= 0
 			&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
 		{
-			int shadowMatId = data->objectData[distanceOut.objectId].materialId;
-			auto shadowMatIt = data->materials.find(shadowMatId);
-			goThrough = (shadowMatIt != data->materials.end())
-				? shadowMatIt->second.subsurfaceScattering
-				: false;
+			goThrough = objectData.material ? objectData.material->subsurfaceScattering : false;
 		}
 		else
 			goThrough = false;

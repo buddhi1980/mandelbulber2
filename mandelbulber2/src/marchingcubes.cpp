@@ -446,15 +446,13 @@ double MarchingCubes::getDistance(double x, double y, double z, double *colorInd
 		CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut, renderData.get());
 
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
-	// Material is pre-propagated; objectData[objectId].materialId is already effective.
-	const int mcMatId =
+	// material pointer pre-resolved at setup time – direct access, no map lookup
+	cMaterial *material =
 		(distanceOut.objectId >= 0
 			&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
-		? renderData->objectData[distanceOut.objectId].materialId
-		: -1;
-	auto mcMatIt = renderData->materials.find(mcMatId);
-	if (mcMatIt == renderData->materials.end()) return dist; // materialId == -1: skip
-	cMaterial *material = &mcMatIt->second;
+		? renderData->objectData[distanceOut.objectId].material
+		: nullptr;
+	if (!material) return dist; // no material: skip colouring
 
 	sFractalIn fractIn(point, params->minN, -1, 1, 0, &params->common, -1, false, material);
 	sFractalOut fractOut;

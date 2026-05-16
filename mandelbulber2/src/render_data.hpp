@@ -97,16 +97,6 @@ struct sRenderData
 			// check if material assigned to the object is defined
 			int materialId = object.materialId;
 
-			// For group objects (hybrid / boolean), materialId == -1 means
-			// "no material override" – leave it as-is so the override logic in
-			// CalculateDistanceFromObjectsTree keeps working correctly.
-			if (materialId == -1
-				&& (object.objectType == fractal::objHybrid
-					|| object.objectType == fractal::objNone))
-			{
-				continue;
-			}
-
 			if (materials.size() == 0)
 			{
 				qCritical() << "No materials defined! Adding empty material";
@@ -127,6 +117,12 @@ struct sRenderData
 												 .arg(substituteMaterialId);
 				object.materialId = substituteMaterialId;
 			}
+
+			// Cache the material pointer for O(1) hot-path access (no map lookup during rendering).
+			// std::map insertions do not invalidate existing pointers, so this pointer remains
+			// valid for the lifetime of the materials map.
+			auto matIt = materials.find(object.materialId);
+			object.material = (matIt != materials.end()) ? &matIt->second : nullptr;
 		}
 	}
 };

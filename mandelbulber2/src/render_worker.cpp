@@ -766,7 +766,7 @@ void cRenderWorker::RayMarching(
 			}
 
 			out->objectId = distanceOut.objectId;
-				out->seqIndex = distanceOut.seqIndex;
+			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 
@@ -787,7 +787,7 @@ void cRenderWorker::RayMarching(
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			out->objectId = distanceOut.objectId;
-		out->seqIndex = distanceOut.seqIndex;
+			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 		}
@@ -849,21 +849,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			// Material is pre-propagated in GetNodeDataListForRendering: objectData[objectId].materialId
-			// already reflects any group override; just look it up directly.
-			{
-				const int matLookupId = shaderInputData.objectId;
-				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
-				{
-					int matId = data->objectData[matLookupId].materialId;
-					auto matIt = data->materials.find(matId);
-					shaderInputData.material =
-						(matIt != data->materials.end()) ? &matIt->second : nullptr;
-				}
-				else
-					shaderInputData.material = nullptr;
-			}
+			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
+			shaderInputData.material =
+				(shaderInputData.objectId >= 0
+					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[shaderInputData.objectId].material
+				: nullptr;
 
 			// If material is null (materialId == -1 or not found), render object as black
 			if (!shaderInputData.material)
@@ -1107,21 +1098,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
-			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			// Material is pre-propagated in GetNodeDataListForRendering: objectData[objectId].materialId
-			// already reflects any group override; just look it up directly.
-			{
-				const int matLookupId = shaderInputData.objectId;
-				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
-				{
-					int matId = data->objectData[matLookupId].materialId;
-					auto matIt = data->materials.find(matId);
-					shaderInputData.material =
-						(matIt != data->materials.end()) ? &matIt->second : nullptr;
-				}
-				else
-					shaderInputData.material = nullptr;
-			}
+			// material pointer is pre-resolved in ValidateObjects() – O(1) direct access
+			shaderInputData.material =
+				(shaderInputData.objectId >= 0
+					&& shaderInputData.objectId < static_cast<int>(data->objectData.size()))
+				? data->objectData[shaderInputData.objectId].material
+				: nullptr;
 
 			// If material is null (materialId == -1 or not found), render object as black and skip
 			if (!shaderInputData.material)

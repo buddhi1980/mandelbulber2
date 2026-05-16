@@ -165,10 +165,8 @@ double PerlinNoiseDisplacement(
 	if (data)
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
-		int pnMatId = data->objectData[objectId].materialId;
-		auto pnMatIt = data->materials.find(pnMatId);
-		if (pnMatIt == data->materials.end()) return distance; // materialId == -1: no displacement
-		const cMaterial *mat = &pnMatIt->second;
+		const cMaterial *mat = data->objectData[objectId].material;
+		if (!mat) return distance; // no material: skip perlin displacement
 		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{
 			CVector3 pointModified = mat->rotMatrixPerlinNoise.RotateVector(point);
