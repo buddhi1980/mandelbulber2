@@ -90,7 +90,7 @@ void cVoxelExport::ProcessVolume()
 	std::shared_ptr<sParamRender> params(
 		new sParamRender(gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
 
-	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
+	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
 
 	if (params->objectsTreeEnable)
 	{
