@@ -1767,8 +1767,8 @@ void cSettings::Compatibility2(
 				QList<int> enabledFractals; // 1-indexed objectIds
 				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				{
-					if (fract->at(i)->IfExists("fractal_enable")
-							&& fract->at(i)->Get<bool>("fractal_enable")
+					if ((!fract->at(i)->IfExists("fractal_enable")
+								|| fract->at(i)->Get<bool>("fractal_enable"))
 							&& fract->at(i)->IfExists("formula")
 							&& fract->at(i)->Get<int>("formula") != int(fractal::none))
 					{
@@ -1864,8 +1864,8 @@ void cSettings::Compatibility2(
 				QList<int> enabledFractals;
 				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				{
-					if (fract->at(i)->IfExists("fractal_enable")
-							&& fract->at(i)->Get<bool>("fractal_enable")
+					if ((!fract->at(i)->IfExists("fractal_enable")
+								|| fract->at(i)->Get<bool>("fractal_enable"))
 							&& fract->at(i)->IfExists("formula")
 							&& fract->at(i)->Get<int>("formula") != int(fractal::none))
 					{
