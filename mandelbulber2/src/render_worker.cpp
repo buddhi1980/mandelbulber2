@@ -663,7 +663,6 @@ void cRenderWorker::RayMarching(
 			if (dist < 0.0) dist = 0.0;
 		}
 		out->objectId = distanceOut.objectId;
-		out->materialObjectId = distanceOut.materialObjectId;
 		out->seqIndex = distanceOut.seqIndex;
 		out->transformedPoint = distanceOut.transformedPoint;
 		out->hasTransformedPoint = distanceOut.hasTransformedPoint;
@@ -767,8 +766,7 @@ void cRenderWorker::RayMarching(
 			}
 
 			out->objectId = distanceOut.objectId;
-			out->materialObjectId = distanceOut.materialObjectId;
-			out->seqIndex = distanceOut.seqIndex;
+				out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 
@@ -789,7 +787,6 @@ void cRenderWorker::RayMarching(
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			out->objectId = distanceOut.objectId;
-			out->materialObjectId = distanceOut.materialObjectId;
 			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
@@ -853,12 +850,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			// Use materialObjectId when a group overrides the child's material; fall back to objectId
+			// Material is pre-propagated in GetNodeDataListForRendering: objectData[objectId].materialId
+			// already reflects any group override; just look it up directly.
 			{
-				int matLookupId = (rayMarchingOut.materialObjectId >= 0
-					&& rayMarchingOut.materialObjectId < static_cast<int>(data->objectData.size()))
-					? rayMarchingOut.materialObjectId
-					: shaderInputData.objectId;
+				const int matLookupId = shaderInputData.objectId;
 				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
 				{
 					int matId = data->objectData[matLookupId].materialId;
@@ -1113,12 +1108,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.seqIndex = rayMarchingOut.seqIndex;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
-			// Use materialObjectId when a group overrides the child's material; fall back to objectId
+			// Material is pre-propagated in GetNodeDataListForRendering: objectData[objectId].materialId
+			// already reflects any group override; just look it up directly.
 			{
-				int matLookupId = (rayMarchingOut.materialObjectId >= 0
-					&& rayMarchingOut.materialObjectId < static_cast<int>(data->objectData.size()))
-					? rayMarchingOut.materialObjectId
-					: shaderInputData.objectId;
+				const int matLookupId = shaderInputData.objectId;
 				if (matLookupId >= 0 && matLookupId < static_cast<int>(data->objectData.size()))
 				{
 					int matId = data->objectData[matLookupId].materialId;

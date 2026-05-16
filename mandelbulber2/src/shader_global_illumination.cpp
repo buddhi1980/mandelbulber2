@@ -69,7 +69,6 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		double dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
-		int materialObjectIdGI = -1; // materialObjectId from the closest surface hit
 		inputCopy.stepCount = 0;
 		int stepCount = 0;
 
@@ -107,7 +106,6 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 				CVector3 vn = CalculateNormals(inputCopy);
 				inputCopy.normal = vn;
 				inputCopy.objectId = objectId;
-				materialObjectIdGI = distanceOut.materialObjectId;
 
 				found = true;
 				break;
@@ -127,10 +125,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
 			{
-				int giMatLookupId = (materialObjectIdGI >= 0
-					&& materialObjectIdGI < static_cast<int>(data->objectData.size()))
-					? materialObjectIdGI
-					: inputCopy.objectId;
+				// Material is pre-propagated; objectData[objectId].materialId is already effective.
+				const int giMatLookupId = inputCopy.objectId;
 				if (giMatLookupId >= 0 && giMatLookupId < static_cast<int>(data->objectData.size()))
 				{
 					int giMatId = data->objectData[giMatLookupId].materialId;

@@ -445,14 +445,13 @@ double MarchingCubes::getDistance(double x, double y, double z, double *colorInd
 	double dist =
 		CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut, renderData.get());
 
-	int mcMatLookupId = (distanceOut.materialObjectId >= 0
-		&& distanceOut.materialObjectId < static_cast<int>(renderData->objectData.size()))
-		? distanceOut.materialObjectId
-		: distanceOut.objectId;
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
-	int mcMatId = (mcMatLookupId >= 0 && mcMatLookupId < static_cast<int>(renderData->objectData.size()))
-		? renderData->objectData[mcMatLookupId].materialId
-		: objectData.materialId;
+	// Material is pre-propagated; objectData[objectId].materialId is already effective.
+	const int mcMatId =
+		(distanceOut.objectId >= 0
+			&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
+		? renderData->objectData[distanceOut.objectId].materialId
+		: -1;
 	auto mcMatIt = renderData->materials.find(mcMatId);
 	if (mcMatIt == renderData->materials.end()) return dist; // materialId == -1: skip
 	cMaterial *material = &mcMatIt->second;

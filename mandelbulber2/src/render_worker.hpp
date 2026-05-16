@@ -129,10 +129,6 @@ private:
 		double distThresh = 0.0;
 		int objectId = 0;
 		int seqIndex = 0;
-		// When a group with material != -1 contains the closest object,
-		// materialObjectId holds the group's internalObjectId for material lookup.
-		// -1 means "use objectId's own material".
-		int materialObjectId = -1;
 		bool hasTransformedPoint = false;
 		bool found = false;
 		;

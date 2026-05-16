@@ -73,10 +73,7 @@ struct ObjectTreeStackFrame
 	enumNodeType nodeType;
 	CVector3 transformedPoint;
 	bool hasTransformedPoint;
-	// When a parent group has a material override (!= -1), this holds the group's
-	// internalObjectId so the renderer can look up the group's material.
-	// -1 means "use closestObjectId's own material".
-	int materialObjectId;
+
 };
 
 static void mergeChildIntoParent(
@@ -95,7 +92,6 @@ static void mergeChildIntoParent(
 				parent->closestObjectSequence = child.closestObjectSequence;
 				parent->transformedPoint = child.transformedPoint;
 				parent->hasTransformedPoint = child.hasTransformedPoint;
-				parent->materialObjectId = child.materialObjectId;
 			}
 			break;
 		}
@@ -108,7 +104,6 @@ static void mergeChildIntoParent(
 				parent->closestObjectSequence = child.closestObjectSequence;
 				parent->transformedPoint = child.transformedPoint;
 				parent->hasTransformedPoint = child.hasTransformedPoint;
-				parent->materialObjectId = child.materialObjectId;
 			}
 			else
 			{
@@ -119,7 +114,6 @@ static void mergeChildIntoParent(
 					parent->closestObjectSequence = child.closestObjectSequence;
 					parent->transformedPoint = child.transformedPoint;
 					parent->hasTransformedPoint = child.hasTransformedPoint;
-					parent->materialObjectId = child.materialObjectId;
 				}
 			}
 			break;
@@ -148,7 +142,6 @@ static void mergeChildIntoParent(
 					parent->closestObjectSequence = child.closestObjectSequence;
 					parent->transformedPoint = child.transformedPoint;
 					parent->hasTransformedPoint = child.hasTransformedPoint;
-					parent->materialObjectId = child.materialObjectId;
 				}
 			}
 			else if (childDistance < parent->cumulativeDistance)
@@ -158,7 +151,6 @@ static void mergeChildIntoParent(
 				parent->closestObjectSequence = child.closestObjectSequence;
 				parent->transformedPoint = child.transformedPoint;
 				parent->hasTransformedPoint = child.hasTransformedPoint;
-				parent->materialObjectId = child.materialObjectId;
 			}
 			break;
 		}
@@ -177,7 +169,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 	out->seqIndex = 0;
 	out->transformedPoint = in.point;
 	out->hasTransformedPoint = false;
-	out->materialObjectId = -1;
 
 	if (data)
 	{
@@ -193,7 +184,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		stack[0].nodeType = enumNodeType::booleanAdd;
 		stack[0].transformedPoint = in.point;
 		stack[0].hasTransformedPoint = false;
-		stack[0].materialObjectId = -1;
 
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
@@ -236,20 +226,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					ObjectTreeStackFrame child = stack[stackLevel];
 					stackLevel--;
-					// If the group being popped has a material override (!= -1),
-					// apply it so children inherit the group's material.
-					if (child.nodeIdx >= 0 && child.nodeIdx < nodeCount
-						&& child.closestObjectId >= 0)
-					{
-						const auto &groupNode = nodes[child.nodeIdx];
-						if (groupNode.internalObjectId >= 0
-							&& groupNode.internalObjectId < static_cast<int>(data->objectData.size()))
-						{
-							int groupMat = data->objectData[groupNode.internalObjectId].materialId;
-							if (groupMat != -1)
-								child.materialObjectId = groupNode.internalObjectId;
-						}
-					}
 					mergeChildIntoParent(child, &stack[stackLevel], data);
 				}
 			}
@@ -316,7 +292,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					stack[stackLevel].closestObjectSequence = -1;
 					stack[stackLevel].transformedPoint = in.point;
 					stack[stackLevel].hasTransformedPoint = false;
-					stack[stackLevel].materialObjectId = -1;
 					continue;
 				}
 
@@ -329,8 +304,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			leaf.closestObjectSequence = sequenceIndex;
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
-			// Only set materialObjectId when a real object was hit; -1 means no material
-			leaf.materialObjectId = (objectId >= 0) ? objectId : -1;
 			mergeChildIntoParent(leaf, &stack[stackLevel], data);
 		}
 
@@ -342,18 +315,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			{
 				ObjectTreeStackFrame child = stack[stackLevel];
 				stackLevel--;
-				// If the group being popped has a material override (!= -1),
-				// apply it so children inherit the group's material.
-				if (child.nodeIdx >= 0 && child.nodeIdx < nodeCount && child.closestObjectId >= 0)
-				{
-					const auto &groupNode = nodes[child.nodeIdx];
-					if (groupNode.internalObjectId >= 0
-						&& groupNode.internalObjectId < static_cast<int>(data->objectData.size()))
-					{
-						int groupMat = data->objectData[groupNode.internalObjectId].materialId;
-						if (groupMat != -1) child.materialObjectId = groupNode.internalObjectId;
-					}
-				}
 				mergeChildIntoParent(child, &stack[stackLevel], data);
 			}
 		}
@@ -363,7 +324,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		out->seqIndex = stack[0].closestObjectSequence;
 		out->transformedPoint = stack[0].transformedPoint;
 		out->hasTransformedPoint = stack[0].hasTransformedPoint;
-		out->materialObjectId = stack[0].materialObjectId;
 		return out->distance;
 	}
 	return 0;
