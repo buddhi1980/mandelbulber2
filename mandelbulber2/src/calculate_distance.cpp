@@ -65,7 +65,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 struct ObjectTreeStackFrame
 {
-	int nodeIdx;
 	int level;
 	int closestObjectId;
 	int closestObjectSequence;
@@ -177,7 +176,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		const int nodeCount = nodes.size();
 
 		stack[0].cumulativeDistance = 1e20;
-		stack[0].nodeIdx = -1;
 		stack[0].level = 0;
 		stack[0].closestObjectId = -1;
 		stack[0].closestObjectSequence = -1;
@@ -285,7 +283,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					stackLevel++;
 					stack[stackLevel].cumulativeDistance =
 						(node.type == enumNodeType::booleanMul) ? -1e20 : 1e20;
-					stack[stackLevel].nodeIdx = i;
 					stack[stackLevel].level = stackLevel;
 					stack[stackLevel].nodeType = node.type;
 					stack[stackLevel].closestObjectId = -1;

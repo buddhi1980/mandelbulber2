@@ -787,7 +787,7 @@ void cRenderWorker::RayMarching(
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			out->objectId = distanceOut.objectId;
-			out->seqIndex = distanceOut.seqIndex;
+		out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 		}
