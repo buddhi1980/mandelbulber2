@@ -297,6 +297,27 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		}
 	}
 
+	// Hybrid group nodes always have objectId=-1 so they are never matched above.
+	// Give each hybrid node a valid internalObjectId by inheriting from its first child
+	// fractal node.  This prevents a crash when the renderer indexes objectData with -1.
+	if (objectTreeNodes)
+	{
+		for (auto &node : *objectTreeNodes)
+		{
+			if (node.type == enumNodeType::hybrid && node.internalObjectId == -1)
+			{
+				for (const auto &child : *objectTreeNodes)
+				{
+					if (child.parentId == node.id && child.internalObjectId >= 0)
+					{
+						node.internalObjectId = child.internalObjectId;
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	common.fakeLightsColor2Enabled = container->Get<bool>("fake_lights_color_2_enabled");
 	common.fakeLightsColor3Enabled = container->Get<bool>("fake_lights_color_3_enabled");
 	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");
