@@ -250,14 +250,14 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	{
 		counter++;
 
-		int objectId = formulaIndices[fractalNoInSeqnece];
-
-		sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
-
 		int searchRepeatCount = 0;
 		// skipping 'none' formulas and formulas out of iteration range
-		while ((fractalsMap[objectId].formula == fractal::none || i < seqData.formulaStartIteration
-						 || i > seqData.formulaStopIteration)
+		// NOTE: objectId and the formula bounds must be re-evaluated after each increment of
+		// fractalNoInSeqnece, so they are read directly from the indexed containers here rather
+		// than captured into pre-loop variables that would remain frozen on the original formula.
+		while ((fractalsMap[formulaIndices[fractalNoInSeqnece]].formula == fractal::none
+						 || i < seq.fractData[fractalNoInSeqnece].formulaStartIteration
+						 || i > seq.fractData[fractalNoInSeqnece].formulaStopIteration)
 					 && searchRepeatCount < seq.fractData.size())
 		{
 			fractalNoInSeqnece++;
@@ -273,6 +273,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			rapidEndOfSequence = true;
 			break;
 		}
+
+		const sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
 
 		seq.seqence[i] = fractalNoInSeqnece;
 
