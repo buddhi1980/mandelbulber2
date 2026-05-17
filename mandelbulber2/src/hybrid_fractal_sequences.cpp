@@ -236,6 +236,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	seq.numberOfFractalsInTheSequence = numberOfFormulas;
 
 	int repeatFrom = generalPar->Get<int>("repeat_from");
+	// Convert 1-based repeatFrom to a 0-based index clamped to the valid range
+	int repeatFromIndex = qMax(0, qMin(repeatFrom - 1, static_cast<int>(formulaIndices.size()) - 1));
 
 	int fractalNoInSeqnece = 0;
 	int counter = 0;
@@ -263,7 +265,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			fractalNoInSeqnece++;
 
 			// wrapping fractal number in sequence
-			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+			if (fractalNoInSeqnece >= static_cast<int>(seq.fractData.size()))
+				fractalNoInSeqnece = repeatFromIndex;
 			searchRepeatCount++;
 		}
 
@@ -285,7 +288,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		{
 			counter = 0;
 			fractalNoInSeqnece++;
-			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+			if (fractalNoInSeqnece >= static_cast<int>(seq.fractData.size()))
+				fractalNoInSeqnece = repeatFromIndex;
 		}
 	}
 
