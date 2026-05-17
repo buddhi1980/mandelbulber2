@@ -611,7 +611,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				par->addParam(name, 1, morphLinear, paramStandard); // default: OR (union)
 
 			name = QString("dont_add_c_constant_%1").arg(i);
-			if (!par->IfExists(name)) par->addParam(name, 1, morphLinear, paramStandard);
+			if (!par->IfExists(name)) par->addParam(name, false, morphLinear, paramStandard);
 		}
 	}
 
@@ -1772,7 +1772,7 @@ void cSettings::Compatibility2(
 			bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 			// Convert dont_add_c_constant_N from main params to fractal params
-			for (int i = 1; i <= 4; i++)
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 			{
 				QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
 				if (par->IfExists(oldParamName))
@@ -1780,7 +1780,7 @@ void cSettings::Compatibility2(
 					bool value = par->Get<bool>(oldParamName);
 					if (value)
 					{
-						fract->at(i)->Set("dont_add_c_constant", value);
+						fract->at(i - 1)->Set("dont_add_c_constant", value);
 					}
 					par->DeleteParameter(oldParamName);
 				}
