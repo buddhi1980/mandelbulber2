@@ -52,7 +52,6 @@ enum enumObjectType
 	objTorus = 9,
 	objPrism = 10,
 	objEllipsoid = 11,
-	objHybrid = 12
 };
 }
 

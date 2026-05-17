@@ -86,6 +86,7 @@ private:
 	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 	void CollectSequenceData(const std::shared_ptr<const cParameterContainer> &generalPar,
 		const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, sSequence &seq);
+	void DebugOutput();
 
 	cObjectsTree objectsTree;
 	std::vector<cObjectsTree::sNodeDataForRendering> objectsNodes;

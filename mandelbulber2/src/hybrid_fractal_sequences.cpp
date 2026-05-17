@@ -101,6 +101,8 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			levelOfHybrid = -1;
 		}
 	}
+
+	DebugOutput();
 }
 
 void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
@@ -433,4 +435,26 @@ int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula f
 		}
 	}
 	return 0;
+}
+
+void cHybridFractalSequences::DebugOutput()
+{
+	for (size_t i = 0; i < sequences.size(); i++)
+	{
+		const sSequence &seq = sequences[i];
+		qDebug() << "Sequence " << i << ": length=" << seq.length << ", isHybrid=" << seq.isHybrid
+						 << ", DEType=" << seq.DEType << ", DEFunctionType=" << seq.DEFunctionType
+						 << ", coloringFunction=" << seq.coloringFunction;
+		for (size_t f = 0; f < seq.fractData.size(); f++)
+		{
+			const sFractalData &data = seq.fractData[f];
+			qDebug() << "  Fractal " << f << ": formulaIterations=" << data.formulaIterations
+							 << ", formulaWeight=" << data.formulaWeight
+							 << ", formulaStartIteration=" << data.formulaStartIteration
+							 << ", formulaStopIteration=" << data.formulaStopIteration
+							 << ", checkForBailout=" << data.checkForBailout
+							 << ", addCConstant=" << data.addCConstant << ", bailout=" << data.bailout
+							 << ", useAdditionalBailoutCond=" << data.useAdditionalBailoutCond;
+		}
+	}
 }

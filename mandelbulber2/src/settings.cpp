@@ -604,9 +604,14 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			par->addParam("boolean_operators", false, morphNone, paramStandard);
 		for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
 		{
-			QString name = QString("boolean_operator_%1").arg(i);
+			QString name;
+
+			name = QString("boolean_operator_%1").arg(i);
 			if (!par->IfExists(name))
 				par->addParam(name, 1, morphLinear, paramStandard); // default: OR (union)
+
+			name = QString("dont_add_c_constant_%1").arg(i);
+			if (!par->IfExists(name)) par->addParam(name, 1, morphLinear, paramStandard);
 		}
 	}
 
@@ -685,7 +690,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 							QString rawName = decodeLine.left(firstSpace).trimmed();
 							if (rawName.size() >= 2
 									&& ((rawName.at(0) == '"' && rawName.at(rawName.size() - 1) == '"')
-										 || (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
+											|| (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
 							{
 								rawName = rawName.mid(1, rawName.size() - 2).trimmed();
 							}
@@ -708,7 +713,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						}
 					}
 
-					if (!decodedAsLegacyFractalParam && !listOfParametersToProcess.isEmpty()) // selective loading
+					if (!decodedAsLegacyFractalParam
+							&& !listOfParametersToProcess.isEmpty()) // selective loading
 					{
 
 						int firstSpace = decodeLine.indexOf(' ');
@@ -950,7 +956,8 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1).trimmed();
 	QString script;
 
-	auto stripEnclosingQuotes = [](const QString &text) -> QString {
+	auto stripEnclosingQuotes = [](const QString &text) -> QString
+	{
 		if (text.size() >= 2)
 		{
 			const QChar first = text.at(0);
@@ -1687,7 +1694,8 @@ void cSettings::Compatibility2(
 			int nextGroupObjectId = 100;
 
 			// Helper lambda: look up the formula internal name from newFractalList
-			auto getFormulaName = [](int formulaEnum) -> QString {
+			auto getFormulaName = [](int formulaEnum) -> QString
+			{
 				for (cAbstractFractal *f : newFractalList)
 				{
 					if (int(f->getInternalId()) == formulaEnum) return f->getInternalName();
@@ -1696,18 +1704,20 @@ void cSettings::Compatibility2(
 			};
 
 			// Helper lambda: map old enumBooleanOperator (0/1/2) to new enumNodeType
-			auto toNodeType = [](int boolOp) -> enumNodeType {
+			auto toNodeType = [](int boolOp) -> enumNodeType
+			{
 				switch (boolOp)
 				{
-					case 0: return enumNodeType::booleanMul; // AND = intersection
-					case 2: return enumNodeType::booleanSub; // SUB = complement
+					case 0: return enumNodeType::booleanMul;	// AND = intersection
+					case 2: return enumNodeType::booleanSub;	// SUB = complement
 					default: return enumNodeType::booleanAdd; // OR = union (default)
 				}
 			};
 
 			// Helper lambda: write formula_position/rotation/scale/repeat/material to a node prefix
-			auto copyFormulaTransform = [&](
-																		 const QString &prefix, std::shared_ptr<cParameterContainer> fracPar) {
+			auto copyFormulaTransform =
+				[&](const QString &prefix, std::shared_ptr<cParameterContainer> fracPar)
+			{
 				if (fracPar->IfExists("formula_position"))
 					par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
 				if (fracPar->IfExists("formula_rotation"))
@@ -1723,7 +1733,8 @@ void cSettings::Compatibility2(
 			// Helper lambda: build a node definition string.
 			// Format: "<formulaName nodeId>,<nodeId>,<typeInt>,<parentId>,<objectId>"
 			auto makeDefinition = [](const QString &formulaName, int nodeId, enumNodeType type,
-														 int parentId, int objectId) -> QString {
+															int parentId, int objectId) -> QString
+			{
 				return QString("%1 %2,%2,%3,%4,%5")
 					.arg(formulaName)
 					.arg(nodeId)
@@ -1731,13 +1742,12 @@ void cSettings::Compatibility2(
 					.arg(parentId)
 					.arg(objectId);
 			};
-			auto nodePrefix = [](int nodeId) -> QString {
-				return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
-			};
-			auto nodeDefinitionParam = [&](int nodeId) -> QString {
-				return nodePrefix(nodeId) + "definition";
-			};
-			auto setNodeParent = [&](int nodeId, int parentId) {
+			auto nodePrefix = [](int nodeId) -> QString
+			{ return QString("node_%1_").arg(nodeId, 4, 10, QChar('0')); };
+			auto nodeDefinitionParam = [&](int nodeId) -> QString
+			{ return nodePrefix(nodeId) + "definition"; };
+			auto setNodeParent = [&](int nodeId, int parentId)
+			{
 				const QString defParam = nodeDefinitionParam(nodeId);
 				if (!par->IfExists(defParam)) return;
 				QStringList parts = par->Get<QString>(defParam).split(',');
@@ -1745,7 +1755,8 @@ void cSettings::Compatibility2(
 				parts[3] = QString::number(parentId);
 				par->Set(defParam, parts.join(","));
 			};
-			auto primitiveOpToNodeType = [](int boolOp) -> enumNodeType {
+			auto primitiveOpToNodeType = [](int boolOp) -> enumNodeType
+			{
 				switch (boolOp)
 				{
 					case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
@@ -1758,8 +1769,22 @@ void cSettings::Compatibility2(
 			};
 
 			bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
-			bool booleanMode =
-				par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+			bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+
+			// Convert dont_add_c_constant_N from main params to fractal params
+			for (int i = 1; i <= 4; i++)
+			{
+				QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
+				if (par->IfExists(oldParamName))
+				{
+					bool value = par->Get<bool>(oldParamName);
+					if (value)
+					{
+						fract->at(i)->Set("dont_add_c_constant", value);
+					}
+					par->DeleteParameter(oldParamName);
+				}
+			}
 
 			if (booleanMode)
 			{
@@ -1899,10 +1924,12 @@ void cSettings::Compatibility2(
 			// Legacy primitives were also part of the old flat boolean chain.
 			// Append enabled primitives (ordered by calculation_order) to the generated root tree.
 			QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
-			std::sort(primitives.begin(), primitives.end(), [&](const sPrimitiveItem &a, const sPrimitiveItem &b) {
-				return par->Get<int>(a.fullName + "_calculation_order")
-							 < par->Get<int>(b.fullName + "_calculation_order");
-			});
+			std::sort(primitives.begin(), primitives.end(),
+				[&](const sPrimitiveItem &a, const sPrimitiveItem &b)
+				{
+					return par->Get<int>(a.fullName + "_calculation_order")
+								 < par->Get<int>(b.fullName + "_calculation_order");
+				});
 
 			int maxNodeId = 0;
 			int rootNodeId = -1;
@@ -1923,16 +1950,16 @@ void cSettings::Compatibility2(
 
 				const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
 				const QString primitiveName = par->IfExists(primitive.Name("name"))
-																					? par->Get<QString>(primitive.Name("name"))
-																					: primitive.typeName;
+																				? par->Get<QString>(primitive.Name("name"))
+																				: primitive.typeName;
 
 				if (rootNodeId < 0)
 				{
 					const int primitiveNodeId = ++maxNodeId;
 					InitNodeParams(primitiveNodeId, par);
-					par->Set(nodeDefinitionParam(primitiveNodeId),
-						makeDefinition(
-							primitiveName, primitiveNodeId, enumNodeType::primitive, 0, primitiveObjectId));
+					par->Set(
+						nodeDefinitionParam(primitiveNodeId), makeDefinition(primitiveName, primitiveNodeId,
+																										enumNodeType::primitive, 0, primitiveObjectId));
 					rootNodeId = primitiveNodeId;
 					continue;
 				}
@@ -1943,22 +1970,22 @@ void cSettings::Compatibility2(
 
 				InitNodeParams(boolNodeId, par);
 				par->Set(nodeDefinitionParam(boolNodeId),
-					makeDefinition("boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
+					makeDefinition(
+						"boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
 
 				setNodeParent(rootNodeId, boolNodeId);
 
 				InitNodeParams(primitiveNodeId, par);
 				par->Set(nodeDefinitionParam(primitiveNodeId),
-					makeDefinition(
-						primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
+					makeDefinition(primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId,
+						primitiveObjectId));
 
 				rootNodeId = boolNodeId;
 			}
 
 			// Delete the temporary legacy boolean parameters now that conversion is complete.
 			// They were added dynamically in Decode() and must not persist in the container.
-			if (par->IfExists("boolean_operators"))
-				par->DeleteParameter("boolean_operators");
+			if (par->IfExists("boolean_operators")) par->DeleteParameter("boolean_operators");
 			for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
 			{
 				QString name = QString("boolean_operator_%1").arg(i);

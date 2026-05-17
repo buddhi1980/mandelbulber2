@@ -307,11 +307,11 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 		{
 			if (node.internalObjectId == -1
 					&& (node.type == enumNodeType::hybrid || node.type == enumNodeType::booleanAdd
-						|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
+							|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
 			{
 				cObjectData groupObjectData;
 				groupObjectData.objectType =
-					(node.type == enumNodeType::hybrid) ? fractal::objHybrid : fractal::objNone;
+					(node.type == enumNodeType::hybrid) ? fractal::objFractal : fractal::objNone;
 				// materialId = -1 means "no override" for groups; child objects keep their own material.
 				// A positive value overrides children's materials with the group's material.
 				groupObjectData.materialId = node.material;
