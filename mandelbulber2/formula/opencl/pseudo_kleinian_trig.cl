@@ -62,13 +62,13 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL sxchz = sx * chz;
 	REAL sychz = sy * chz;
 	REAL cxcy_shz = (cx * cy) * shz;
-	REAL4 z_new = (REAL4)(sxchz, sychz, cxcy_shz, 0.0f);
+	z = (REAL4){sxchz, sychz, cxcy_shz, 0.0f};
 
 	// 4. Regulator
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
 		// native_rsqrt is 3x faster than 1.0/sqrt
-		z_new *= native_rsqrt(1.0f + (sx * sx * sy * sy));
+		z *= native_rsqrt(1.0f + (sx * sx * sy * sy));
 	}
 
 	// rotation
@@ -76,14 +76,14 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		z_new = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z_new);
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
 	// 5. Transform & Stretch
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		z = z_new * fractal->transformCommon.scale1;
+		z *= fractal->transformCommon.scale1;
 		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
 	z -= fractal->transformCommon.offsetF000;
@@ -95,16 +95,19 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// 6. Distance Estimation update
 	aux->DE = aux->DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
 
-//	REAL colDist = aux->dist;
-	if (aux->i >= fractal->analyticDE.startIterationsA
-			&& aux->i < fractal->analyticDE.stopIterationsA)
+	if (fractal->analyticDE.enabled)
 	{
-		aux->temp1000 = min(aux->temp1000, native_recip(aux->DE));
-		aux->dist = aux->temp1000;
+		if (aux->i >= fractal->analyticDE.startIterationsA
+				&& aux->i < fractal->analyticDE.stopIterationsA)
+		{
+			aux->temp1000 = min(aux->temp1000, native_recip(aux->DE));
+			aux->dist = aux->temp1000;
+		}
 	}
-
-	aux->pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
-
+	else
+	{
+		aux->pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
+	}
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)

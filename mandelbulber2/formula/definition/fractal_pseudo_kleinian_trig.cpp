@@ -83,15 +83,15 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 	// 4. Regulator
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
-		// native_rsqrt is 3x faster than 1.0/sqrt
-		z*= 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
+		// native_rsqrt is 3x faster
+		z *= 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
 	}
 
 	// 5. Transform & Stretch
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		z = z* fractal->transformCommon.scale1;
+		z *= fractal->transformCommon.scale1;
 		aux.DE *= fabs(fractal->transformCommon.scale1);
 	}
 	z -= fractal->transformCommon.offsetF000;
@@ -103,15 +103,19 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 	// 6. Distance Estimation update
 	aux.DE = aux.DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
 
-//	double colDist = aux.dist;
-	if (aux.i >= fractal->analyticDE.startIterationsA
-			&& aux.i < fractal->analyticDE.stopIterationsA)
+	if (fractal->analyticDE.enabled)
 	{
-		aux.temp1000 = min(aux.temp1000, 1.0 /(aux.DE));
-		aux.dist = aux.temp1000;
+		if (aux.i >= fractal->analyticDE.startIterationsA
+				&& aux.i < fractal->analyticDE.stopIterationsA)
+		{
+			aux.temp1000 = min(aux.temp1000, 1.0 /(aux.DE));
+			aux.dist = aux.temp1000;
+		}
 	}
-
-	aux.pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
+	else
+	{
+		aux.pseudoKleinianDE = -fractal->transformCommon.offsetR0; // pK DE
+	}
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA

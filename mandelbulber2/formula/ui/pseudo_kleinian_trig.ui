@@ -913,7 +913,7 @@ offset:</string>
         <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
@@ -1074,7 +1074,7 @@ offset:</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_274">
        <property name="text">
-        <string>limit:</string>
+        <string>limit (1.0 - 1.3):</string>
        </property>
       </widget>
      </item>
@@ -1130,14 +1130,14 @@ offset:</string>
         <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_276">
        <property name="text">
-        <string>mult:</string>
+        <string>mult. (0.75 - 1.0):</string>
        </property>
       </widget>
      </item>
@@ -1235,45 +1235,6 @@ offset:</string>
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1">
-     <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_42">
-       <property name="text">
-        <string>DE factor:R0</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="toolTip">
       <string/>
@@ -1303,7 +1264,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_44">
         <property name="text">
-         <string>in general use, set start to (maxiter - 1)</string>
+         <string>in general single formula use, set start to (maxiter - 1)</string>
         </property>
        </widget>
       </item>
@@ -1359,6 +1320,48 @@ offset:</string>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1">
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_0">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_42">
+       <property name="text">
+        <string>pseudo kleinian DE function (render engine tab)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="Line" name="line_7">
@@ -2033,12 +2036,12 @@ controls on which iters the color is added</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>1213</y>
+     <x>28</x>
+     <y>1344</y>
     </hint>
     <hint type="destinationlabel">
-     <x>256</x>
-     <y>1241</y>
+     <x>342</x>
+     <y>1372</y>
     </hint>
    </hints>
   </connection>
@@ -2049,12 +2052,28 @@ controls on which iters the color is added</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>1213</y>
+     <x>47</x>
+     <y>1344</y>
     </hint>
     <hint type="destinationlabel">
-     <x>294</x>
-     <y>1269</y>
+     <x>380</x>
+     <y>1400</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_analyticDE_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offsetR_0</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>975</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>692</x>
+     <y>1062</y>
     </hint>
    </hints>
   </connection>
