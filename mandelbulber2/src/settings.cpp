@@ -623,6 +623,19 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			if (!par->IfExists(name))
 				par->addParam(name, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 		}
+
+		// julia_mode_N and julia_c_N were stored in gPar for single fractal and hybrid mode;
+		// add temporary slots so DecodeOneLine stores the values here (suppressing the generic
+		// _N routing) and Compatibility2() can migrate them to the fractal containers.
+		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		{
+			QString paramName = QString("julia_mode_%1").arg(i);
+			if (!par->IfExists(paramName))
+				par->addParam(paramName, false, morphLinear, paramStandard);
+			paramName = QString("julia_c_%1").arg(i);
+			if (!par->IfExists(paramName))
+				par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+		}
 	}
 
 	int errorCount = 0;
@@ -1824,6 +1837,53 @@ void cSettings::Compatibility2(
 				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				{
 					fract->at(i)->Set("fractal_constant_factor", constFactor);
+				}
+			}
+
+			// Convert julia_mode_N and julia_c_N from main params to fractal params.
+			// In single fractal and hybrid mode the old program stored per-slot julia values
+			// indexed by slot number. Migrate any non-default value to the corresponding
+			// fractal container and remove the temporary parameter from the main container.
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			{
+				QString juliaModeParamName = QString("julia_mode_%1").arg(i);
+				if (par->IfExists(juliaModeParamName))
+				{
+					bool value = par->Get<bool>(juliaModeParamName);
+					if (value)
+					{
+						fract->at(i - 1)->Set("julia_mode", value);
+					}
+					par->DeleteParameter(juliaModeParamName);
+				}
+
+				QString juliaCParamName = QString("julia_c_%1").arg(i);
+				if (par->IfExists(juliaCParamName))
+				{
+					if (!par->isDefaultValue(juliaCParamName))
+					{
+						fract->at(i - 1)->Set("julia_c", par->Get<CVector3>(juliaCParamName));
+					}
+					par->DeleteParameter(juliaCParamName);
+				}
+			}
+
+			// Propagate julia_mode and julia_c from main params to fractal containers.
+			// In boolean mode, old settings stored a single global julia_mode/julia_c in gPar.
+			// Copy the global values to all fractal containers.
+			if (booleanMode)
+			{
+				if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+				{
+					bool juliaMode = par->Get<bool>("julia_mode");
+					for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+						fract->at(i)->Set("julia_mode", juliaMode);
+				}
+				if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+				{
+					CVector3 juliaC = par->Get<CVector3>("julia_c");
+					for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+						fract->at(i)->Set("julia_c", juliaC);
 				}
 			}
 
