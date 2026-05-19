@@ -1786,6 +1786,22 @@ void cSettings::Compatibility2(
 				}
 			}
 
+			// Propagate fractal_constant_factor from main params to fractal containers.
+			// In standard and hybrid mode, old settings stored a single global
+			// fractal_constant_factor in gPar. In boolean mode, per-fractal values
+			// (fractal_constant_factor_N) were already routed to fractal containers by
+			// DecodeOneLine. Copy the global value to all fractal containers for
+			// standard/hybrid mode.
+			if (!booleanMode && par->IfExists("fractal_constant_factor")
+					&& !par->isDefaultValue("fractal_constant_factor"))
+			{
+				CVector3 constFactor = par->Get<CVector3>("fractal_constant_factor");
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				{
+					fract->at(i)->Set("fractal_constant_factor", constFactor);
+				}
+			}
+
 			if (booleanMode)
 			{
 				// Boolean mode: collect enabled fractals in slot order
