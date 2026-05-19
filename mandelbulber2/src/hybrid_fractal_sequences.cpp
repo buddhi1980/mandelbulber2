@@ -8,6 +8,7 @@
 #include "hybrid_fractal_sequences.h"
 
 #include <QSet>
+#include <QDebug>
 
 #include "formula/definition/all_fractal_list.hpp"
 #include "fractal.h"
@@ -212,8 +213,7 @@ void cHybridFractalSequences::CollectSequenceData(
 	// For single (non-hybrid) fractals, derive the coloring function from the formula object.
 	// The coloringFunction field drives the CalculateColorIndex switch for non-hybrid sequences;
 	// without this, colorIndex is always 0 and the fractal renders as a solid flat colour.
-	if (!isHybrid && !seq.fractData.empty()
-			&& seq.fractData[0].fractalFormulaObject != nullptr)
+	if (!isHybrid && !seq.fractData.empty() && seq.fractData[0].fractalFormulaObject != nullptr)
 	{
 		seq.coloringFunction = seq.fractData[0].fractalFormulaObject->getColoringFunction();
 	}

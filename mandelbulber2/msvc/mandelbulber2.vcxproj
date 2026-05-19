@@ -173,6 +173,7 @@
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -273,6 +274,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
