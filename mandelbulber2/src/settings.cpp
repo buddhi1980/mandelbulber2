@@ -613,6 +613,16 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			name = QString("dont_add_c_constant_%1").arg(i);
 			if (!par->IfExists(name)) par->addParam(name, false, morphLinear, paramStandard);
 		}
+
+		// fractal_constant_factor_N was stored in gPar in boolean mode; add temporary slots so
+		// DecodeOneLine stores the values here (suppressing the generic _N routing) and
+		// Compatibility2() can migrate them to the fractal containers.
+		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		{
+			QString name = QString("fractal_constant_factor_%1").arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+		}
 	}
 
 	int errorCount = 0;
@@ -1786,12 +1796,27 @@ void cSettings::Compatibility2(
 				}
 			}
 
+			// Convert fractal_constant_factor_N from main params to fractal params.
+			// In boolean mode the old program stored a per-fractal value for each slot.
+			// Migrate any non-default value to the corresponding fractal container and
+			// remove the temporary parameter from the main container.
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			{
+				QString oldParamName = QString("fractal_constant_factor_%1").arg(i);
+				if (par->IfExists(oldParamName))
+				{
+					if (!par->isDefaultValue(oldParamName))
+					{
+						fract->at(i - 1)->Set("fractal_constant_factor", par->Get<CVector3>(oldParamName));
+					}
+					par->DeleteParameter(oldParamName);
+				}
+			}
+
 			// Propagate fractal_constant_factor from main params to fractal containers.
 			// In standard and hybrid mode, old settings stored a single global
-			// fractal_constant_factor in gPar. In boolean mode, per-fractal values
-			// (fractal_constant_factor_N) were already routed to fractal containers by
-			// DecodeOneLine. Copy the global value to all fractal containers for
-			// standard/hybrid mode.
+			// fractal_constant_factor in gPar. Copy the global value to all fractal
+			// containers for standard/hybrid mode.
 			if (!booleanMode && par->IfExists("fractal_constant_factor")
 					&& !par->isDefaultValue("fractal_constant_factor"))
 			{
