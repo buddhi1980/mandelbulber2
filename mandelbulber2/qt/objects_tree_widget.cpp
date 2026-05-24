@@ -125,6 +125,15 @@ int cObjectsTreeWidget::getNodeType(QTreeWidgetItem *item) const
 							 : item->data(treeData::nodeType, Qt::UserRole).toInt();
 }
 
+// Returns true when 'item' is a fractal node that sits directly inside a hybrid group.
+// These nodes use the hybrid parent's shared calculation and transform parameters.
+bool cObjectsTreeWidget::isFractalInHybridGroup(QTreeWidgetItem *item) const
+{
+	if (enumNodeType(getNodeType(item)) != enumNodeType::fractal) return false;
+	if (!item->parent()) return false;
+	return enumNodeType(getNodeType(item->parent())) == enumNodeType::hybrid;
+}
+
 // Creates a combo box pre-populated with all supported node types and
 // with the entry matching 'currentType' already selected.
 QComboBox *cObjectsTreeWidget::buildTypeComboBox(int currentType)
@@ -743,9 +752,9 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 	return infoLabel;
 }
 
-// Creates and initialises a cFractalObject editor for the fractal identified by 'objectId',
-// and adds cGeneralObjectParameters and cFractalCalculationParameters widgets to expose all
-// common fractal parameters defined in InitFractalParams.
+// Creates and initialises a cFractalObject editor for the fractal identified by 'objectId'.
+// Standalone fractals also get cGeneralObjectParameters and cFractalCalculationParameters;
+// fractals inside a hybrid group rely on the parent hybrid node for those shared parameters.
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
 QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *item)
 {
@@ -768,17 +777,20 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 	editorSyncTargets.clear();
 	editorSyncTargets.append({fractalTab, gParFractal->at(fractalIndex)});
 
-	QWidget *generalParams = buildGeneralObjectParametersEditor(item);
-	layout->addWidget(generalParams);
+	if (!isFractalInHybridGroup(item))
+	{
+		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
+		layout->addWidget(generalParams);
 
-	// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
-	// Widget names already include the parameter name prefix so no renaming is needed.
-	cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
+		// Widget names already include the parameter name prefix so no renaming is needed.
+		cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
 
-	editorSyncTargets.append({generalParams, gPar});
-	editorSyncTargets.append({calcParams, gParFractal->at(fractalIndex)});
+		editorSyncTargets.append({generalParams, gPar});
+		editorSyncTargets.append({calcParams, gParFractal->at(fractalIndex)});
 
-	layout->addWidget(calcParams);
+		layout->addWidget(calcParams);
+	}
 
 	return container;
 }
@@ -946,6 +958,13 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 		editorSyncTargets.append({generalParams, gPar});
 
 		containerLayout->addWidget(generalParams);
+
+		if (type == enumNodeType::hybrid)
+		{
+			cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+			editorSyncTargets.append({calcParams, gPar});
+			containerLayout->addWidget(calcParams);
+		}
 	}
 	else
 	{
