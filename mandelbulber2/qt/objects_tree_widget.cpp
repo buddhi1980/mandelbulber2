@@ -126,7 +126,7 @@ int cObjectsTreeWidget::getNodeType(QTreeWidgetItem *item) const
 }
 
 // Returns true when 'item' is a fractal node that sits directly inside a hybrid group.
-// These nodes intentionally have no position of their own – the hybrid parent owns it.
+// These nodes use the hybrid parent's shared calculation and transform parameters.
 bool cObjectsTreeWidget::isFractalInHybridGroup(QTreeWidgetItem *item) const
 {
 	if (enumNodeType(getNodeType(item)) != enumNodeType::fractal) return false;
@@ -752,11 +752,11 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 	return infoLabel;
 }
 
-// Creates and initialises a cFractalObject editor for the fractal identified by 'objectId',
-// and adds cGeneralObjectParameters and cFractalCalculationParameters widgets to expose all
-// common fractal parameters defined in InitFractalParams.
+// Creates and initialises a cFractalObject editor for the fractal identified by 'objectId'.
+// Standalone fractals also get cGeneralObjectParameters and cFractalCalculationParameters;
+// fractals inside a hybrid group rely on the parent hybrid node for those shared parameters.
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
-QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTreeWidgetItem *item)
+QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *item)
 {
 	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
 	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
@@ -777,7 +777,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, bool isHybrid, QTr
 	editorSyncTargets.clear();
 	editorSyncTargets.append({fractalTab, gParFractal->at(fractalIndex)});
 
-	if (!isHybrid)
+	if (!isFractalInHybridGroup(item))
 	{
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		layout->addWidget(generalParams);
@@ -938,8 +938,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 		// Track the fractal index so we can save to gParFractal on the next selection change
 		currentFractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
 
-		bool isHybrid = isFractalInHybridGroup(item);
-		QWidget *fractalEditor = buildFractalEditor(objectId, isHybrid, item);
+		QWidget *fractalEditor = buildFractalEditor(objectId, item);
 		if (fractalEditor) containerLayout->addWidget(fractalEditor);
 	}
 	else if (type == enumNodeType::primitive)
@@ -959,6 +958,13 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 		editorSyncTargets.append({generalParams, gPar});
 
 		containerLayout->addWidget(generalParams);
+
+		if (type == enumNodeType::hybrid)
+		{
+			cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+			editorSyncTargets.append({calcParams, gPar});
+			containerLayout->addWidget(calcParams);
+		}
 	}
 	else
 	{
@@ -1011,4 +1017,3 @@ void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContaine
   StoreTreeToParams(params, fractalParams);
  }
 }
-
