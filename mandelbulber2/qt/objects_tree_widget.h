@@ -72,7 +72,6 @@ private:
 
 	QList<QTreeWidgetItem *> collectAllTreeItems() const;
 	int getNodeType(QTreeWidgetItem *item) const;
-	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
 	QComboBox *buildTypeComboBox(int currentType);
 	void attachMaterialWidget(
 		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
@@ -96,7 +95,7 @@ private:
 		std::shared_ptr<cParameterContainer> params, const QString &name, double value);
 
 	QLabel *buildInfoLabel(QTreeWidgetItem *item, enumNodeType type);
-	QWidget *buildFractalEditor(int objectId, bool isHybrid, QTreeWidgetItem *item);
+	QWidget *buildFractalEditor(int objectId, QTreeWidgetItem *item);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 	QWidget *buildGeneralObjectParametersEditor(QTreeWidgetItem *item);
 
