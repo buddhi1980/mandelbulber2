@@ -257,43 +257,37 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	{
 		auto fracPar = fractalContainer->at(i);
 
-		cObjectData oneObjectData;
+		cObjectData baseObjectData;
+		baseObjectData.objectType = fractal::objFractal;
+		baseObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
+		baseObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
 
-		// Populate geometry fields from the pre-computed world-space node transforms
-		for (const auto &node : *objectTreeNodes)
+		// Each node that references this fractal slot gets its own objectData entry so that
+		// per-node properties (material, rotation matrix) can differ independently.
+		bool anyNodeMapped = false;
+		if (objectData && objectTreeNodes)
 		{
-			if (node.userObjectId == i + 1)
+			for (auto &node : *objectTreeNodes)
 			{
-				oneObjectData.materialId = node.material;
-				break;
+				if (node.userObjectId == i + 1)
+				{
+					cObjectData nodeObjectData = baseObjectData;
+					nodeObjectData.materialId = node.material;
+					objectData->push_back(nodeObjectData);
+					node.internalObjectId = int(objectData->size()) - 1;
+					node.primitiveIdx = -1;
+					anyNodeMapped = true;
+				}
 			}
 		}
 
-		oneObjectData.objectType = fractal::objFractal;
-		oneObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
-		oneObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
-
-		int internalObjectId = i;
-		if (objectData)
+		if (!anyNodeMapped && objectData)
 		{
-			objectData->push_back(oneObjectData);
-			internalObjectId = int(objectData->size()) - 1;
-		}
-
-		bool mapped = false;
-		for (auto &node : *objectTreeNodes)
-		{
-			if (node.userObjectId == i + 1)
-			{
-				node.internalObjectId = internalObjectId;
-				node.primitiveIdx = -1;
-				mapped = true;
-			}
-		}
-
-		if (!mapped)
-		{
-			cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
+			// No tree node uses this fractal slot — still push a placeholder entry.
+			objectData->push_back(baseObjectData);
+			const int internalObjectId = int(objectData->size()) - 1;
+			if (objectTreeNodes)
+				cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
 		}
 	}
 
@@ -317,6 +311,21 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 				groupObjectData.materialId = node.material;
 				objectData->push_back(groupObjectData);
 				node.internalObjectId = int(objectData->size()) - 1;
+			}
+		}
+	}
+
+	// Copy each node's accumulated world-space rotation matrix into its own objectData entry.
+	// This is done after all internalObjectIds have been assigned (including group nodes above)
+	// so every entry is guaranteed to exist.
+	if (objectTreeNodes && objectData)
+	{
+		for (const auto &node : *objectTreeNodes)
+		{
+			if (node.internalObjectId >= 0
+					&& node.internalObjectId < static_cast<int>(objectData->size()))
+			{
+				(*objectData)[node.internalObjectId].rotationMatrix = node.rotationMatrix;
 			}
 		}
 	}
