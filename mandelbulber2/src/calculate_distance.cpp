@@ -196,23 +196,11 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			CVector3 pointWithRepeat =
 				(node.repeat.Length() > 0.0) ? in.point.repeatMod(node.repeat) : in.point;
 
-			// Translate to node's local space
-			CVector3 pointTransformed = pointWithRepeat - node.position;
+			// Apply combined inverse transform (translate + rotate + scale)
+			// using the pre-calculated 4×4 homogeneous matrix
+			CVector3 pointTransformed = node.inverseTransformMatrix.TransformPoint(pointWithRepeat);
 
-			// Apply inverse rotation (transpose = inverse for rotation matrices)
-			if (node.rotation.Length() > 0.0)
-			{
-				pointTransformed = node.rotationMatrix.Transpose().RotateVector(pointTransformed);
-			}
-
-			// Apply scale
-			double nodeScale = node.scale;
-			if (nodeScale == 0.0) nodeScale = 1.0;
-			if (nodeScale != 1.0)
-			{
-				pointTransformed = pointTransformed / nodeScale;
-			}
-			const double absNodeScale = fabs(nodeScale);
+			const double absNodeScale = node.absScale;
 			sDistanceIn nodeIn = in;
 			nodeIn.detailSize = (absNodeScale > 0.0) ? in.detailSize / absNodeScale : in.detailSize;
 

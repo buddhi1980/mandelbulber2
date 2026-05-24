@@ -51,8 +51,10 @@ public:
 		CVector3 rotation;
 		CVector3 repeat;
 		double scale;
+		double absScale;
 		int material;
 		CRotationMatrix rotationMatrix;
+		CMatrix44 inverseTransformMatrix;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;
