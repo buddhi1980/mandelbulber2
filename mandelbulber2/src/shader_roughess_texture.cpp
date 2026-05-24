@@ -42,7 +42,7 @@ using std::max;
 float cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
-	CVector3 point = (objectData.objectType == fractal::objFractal) ? input.GetFractalPoint() : input.point;
+	CVector3 point = input.GetFractalPoint();
 	CVector3 texX, texY;
 	float texturePixelSize;
 	CVector2<float> texPoint =

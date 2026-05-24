@@ -47,8 +47,7 @@ sRGBFloat cRenderWorker::TextureShader(
 	cObjectData objectData = data->objectData[input.objectId];
 	double texturePixelSize = 0.0;
 	CVector3 textureVectorX, textureVectorY;
-	const bool fractalObject = objectData.objectType == fractal::objFractal;
-	const CVector3 shaderPoint = fractalObject ? input.GetFractalPoint() : input.point;
+	const CVector3 shaderPoint = input.GetFractalPoint();
 
 	CVector3 pointModified;
 
@@ -65,12 +64,7 @@ sRGBFloat cRenderWorker::TextureShader(
 		pointModified = shaderPoint;
 	}
 
-	if (objectData.objectType > fractal::objFractal)
-	{
-		pointModified = pointModified - params->primitives.allPrimitivesPosition;
-		pointModified = params->primitives.mRotAllPrimitivesRotation.RotateVector(pointModified);
-	}
-	else if (!input.hasTransformedPoint)
+	if (!input.hasTransformedPoint)
 	{
 		pointModified = pointModified - params->common.fractalPosition;
 		pointModified = params->common.mRotFractalRotation.RotateVector(pointModified);

@@ -61,6 +61,7 @@ public:
 	int materialId;
 	fractal::enumObjectType objectType;
 	CVector3 size;
+	CRotationMatrix rotationMatrix;
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

@@ -214,16 +214,44 @@ void cPrimitives::Set(const std::shared_ptr<cParameterContainer> par,
 
 		primitive->objectType = item.type;
 
-		if (objectData)
-		{
-			objectData->push_back(*primitive.get());
-			primitive->objectId = objectData->size() - 1;
-		}
+		// The primitiveIdx used in the node tree is the index into allPrimitives (assigned below).
+		const int primitiveIdx = int(allPrimitives.size());
 
+		// Each tree node that references this primitive gets its own objectData entry so that
+		// per-node properties (rotation matrix) can be stored independently.
+		bool anyNodeMapped = false;
 		if (objectTreeNodes)
 		{
-			cObjectsTree::WriteInternalNodeID(
-				primitive->userObjectId, primitive->objectId, allPrimitives.size(), objectTreeNodes);
+			for (auto &node : *objectTreeNodes)
+			{
+				if (node.userObjectId == primitive->userObjectId)
+				{
+					if (objectData)
+					{
+						objectData->push_back(*primitive.get());
+						const int newObjectId = int(objectData->size()) - 1;
+						if (!anyNodeMapped)
+							primitive->objectId = newObjectId; // keep first entry as the canonical id
+						node.internalObjectId = newObjectId;
+						node.primitiveIdx = primitiveIdx;
+					}
+					anyNodeMapped = true;
+				}
+			}
+		}
+
+		if (!anyNodeMapped)
+		{
+			if (objectData)
+			{
+				objectData->push_back(*primitive.get());
+				primitive->objectId = int(objectData->size()) - 1;
+			}
+			if (objectTreeNodes)
+			{
+				cObjectsTree::WriteInternalNodeID(
+					primitive->userObjectId, primitive->objectId, primitiveIdx, objectTreeNodes);
+			}
 		}
 
 		if (item.fullName == basicFogShapeName)
