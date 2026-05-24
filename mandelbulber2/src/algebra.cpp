@@ -475,6 +475,17 @@ CVector4 CMatrix44::operator*(const CVector4 &vector) const
 	return result;
 }
 
+// Transform a 3D point using this matrix with implicit w=1 (homogeneous coordinates).
+// Only the upper 3 rows are used; the 4th row is assumed to be [0, 0, 0, 1].
+CVector3 CMatrix44::TransformPoint(const CVector3 &point) const
+{
+	CVector3 result;
+	result.x = m11 * point.x + m12 * point.y + m13 * point.z + m14;
+	result.y = m21 * point.x + m22 * point.y + m23 * point.z + m24;
+	result.z = m31 * point.x + m32 * point.y + m33 * point.z + m34;
+	return result;
+}
+
 /**************** class RotationMatrix **********************/
 CRotationMatrix44::CRotationMatrix44()
 {

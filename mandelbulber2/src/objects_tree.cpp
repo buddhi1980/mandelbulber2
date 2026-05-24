@@ -215,6 +215,41 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.material = effectiveMaterial;
 		nodeDataForRendering.repeat = worldRepeat;
 
+		// Pre-calculate the inverse transform matrix (world → local space) that combines
+		// translation, rotation and scale into a single 4×4 homogeneous matrix.
+		// Forward transform: p_world = R * (s * p_local) + t
+		// Inverse:           p_local = R^T * (p_world - t) / s
+		{
+			const double s = (worldScale != 0.0) ? worldScale : 1.0;
+			const double invS = 1.0 / s;
+			nodeDataForRendering.absScale = fabs(s);
+
+			const CMatrix33 &R = nodeDataForRendering.rotationMatrix.GetMatrix();
+
+			// Upper-left 3×3 block = (1/s) * R^T
+			CMatrix44 &M = nodeDataForRendering.inverseTransformMatrix;
+			M.m11 = invS * R.m11;
+			M.m12 = invS * R.m21;
+			M.m13 = invS * R.m31;
+			M.m21 = invS * R.m12;
+			M.m22 = invS * R.m22;
+			M.m23 = invS * R.m32;
+			M.m31 = invS * R.m13;
+			M.m32 = invS * R.m23;
+			M.m33 = invS * R.m33;
+
+			// Upper-right column = -(1/s) * R^T * position
+			M.m14 = -(M.m11 * worldPosition.x + M.m12 * worldPosition.y + M.m13 * worldPosition.z);
+			M.m24 = -(M.m21 * worldPosition.x + M.m22 * worldPosition.y + M.m23 * worldPosition.z);
+			M.m34 = -(M.m31 * worldPosition.x + M.m32 * worldPosition.y + M.m33 * worldPosition.z);
+
+			// Bottom row (not used by TransformPoint, set for completeness)
+			M.m41 = 0.0;
+			M.m42 = 0.0;
+			M.m43 = 0.0;
+			M.m44 = 1.0;
+		}
+
 		// Determine if this node is a hybrid or descends from one
 		bool parentIsHybridOrInside = isHybridOrInsideHybrid.value(nodeData.parentId, false);
 		bool isHybrid = (nodeData.type == enumNodeType::hybrid);

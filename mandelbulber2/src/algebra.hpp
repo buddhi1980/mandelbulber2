@@ -659,6 +659,7 @@ public:
 	CMatrix44(const CVector4 &v1, const CVector4 &v2, const CVector4 &v3, const CVector4 &v4);
 	CMatrix44 operator*(const CMatrix44 &matrix) const;
 	CVector4 operator*(const CVector4 &vector) const;
+	CVector3 TransformPoint(const CVector3 &point) const;
 	CMatrix44 &operator=(const CMatrix44 &);
 	double m11;
 	double m12;
