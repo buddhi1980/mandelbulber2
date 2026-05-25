@@ -450,7 +450,10 @@ void cHybridFractalSequences::DebugOutput()
 		const sSequence &seq = sequences[i];
 		qDebug() << "Sequence " << i << ": length=" << seq.length << ", isHybrid=" << seq.isHybrid
 						 << ", DEType=" << seq.DEType << ", DEFunctionType=" << seq.DEFunctionType
-						 << ", coloringFunction=" << seq.coloringFunction;
+						 << ", coloringFunction=" << seq.coloringFunction << "constantMultiplier"
+						 << seq.constantMultiplier.Debug() << "juliaConstant" << seq.juliaConstant.Debug()
+						 << "initialWAxis" << seq.initialWAxis << "formulaMaxiter" << seq.formulaMaxiter;
+
 		for (size_t f = 0; f < seq.fractData.size(); f++)
 		{
 			const sFractalData &data = seq.fractData[f];

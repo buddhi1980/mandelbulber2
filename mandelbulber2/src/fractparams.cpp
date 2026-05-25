@@ -273,6 +273,9 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 				{
 					cObjectData nodeObjectData = baseObjectData;
 					nodeObjectData.materialId = node.material;
+					nodeObjectData.size =
+						CVector3(1.0, 1.0, 1.0); // fractals are always rendered at size 1; scaling is done by
+																		 // the node's rotation matrix.
 					objectData->push_back(nodeObjectData);
 					node.internalObjectId = int(objectData->size()) - 1;
 					node.primitiveIdx = -1;
