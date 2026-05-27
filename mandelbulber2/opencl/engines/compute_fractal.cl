@@ -88,47 +88,39 @@ typedef enum
 	calcModeCubeOrbitTrap = 6
 } enumCalculationModeCl;
 
-float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+float4 DummyIteration(float4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->r = -1.0f; // signal for main loop to break;
 	return 0.0f;
 }
 
+/* Evaluate the fractal at the given (already node-transformed) point.
+ * seqIndex is the index into renderData->sequences for the node being evaluated.
+ * The point is assumed to be already in local object space (position/rotation/scale
+ * applied by the tree traversal in CalculateDistanceFromObjectsTree). */
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
-	enumCalculationModeCl mode, __global sMaterialCl *material, int forcedFormulaIndex)
+	enumCalculationModeCl mode, __global sMaterialCl *material, int forcedFormulaIndex,
+	int seqIndex, sRenderData *renderData)
 {
 	// begin
 	float dist = 0.0f;
 
-	// repeat, move and rotate
-	float3 pointTransformed = point - consts->params.common.fractalPosition;
-	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
-	pointTransformed = modRepeat(pointTransformed, consts->params.common.repeat);
+	__global sClSequenceDynamic *seqData = &renderData->sequences[seqIndex];
+	__global int *hybridSeqData = renderData->hybridSeqData;
+	__global sClFractalEntryMetaCl *fractalsMeta = renderData->fractalsMeta;
+	__global sFractalCl *fractalsData = renderData->fractalsData;
 
-	float4 point4D = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, 0.0f};
+	// point is already transformed at node level; use as-is
+	float4 point4D = (float4){point.x, point.y, point.z, 0.0f};
 
 	float4 z;
-	z.x = pointTransformed.x;
-	z.y = pointTransformed.y;
-	z.z = pointTransformed.z;
+	z.x = point.x;
+	z.y = point.y;
+	z.z = point.z;
 
 	int maxN;
-
-#ifdef BOOLEAN_OPERATORS
-	if (forcedFormulaIndex >= 0)
-	{
-		z.w = consts->sequence.initialWAxis[forcedFormulaIndex];
-		maxN = consts->sequence.formulaMaxiter[forcedFormulaIndex];
-	}
-	else
-	{
-		z.w = consts->sequence.initialWAxis[0];
-		maxN = consts->sequence.formulaMaxiter[0];
-	}
-#else
-	z.w = consts->sequence.initialWAxis[0];
-	maxN = consts->sequence.formulaMaxiter[0];
-#endif
+	z.w = seqData->initialWAxis;
+	maxN = seqData->formulaMaxiter;
 
 	if (calcParam->normalCalculationMode && calcParam->iterThreshMode) maxN *= 5;
 	if (mode == calcModeColouring) maxN *= 4;
@@ -161,16 +153,16 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.DE0 = 0.0;
 	aux.dist = 1000.0f;
 	aux.pseudoKleinianDE = 1.0f;
-	aux.actualScale = consts->fractal[fractalIndex].mandelbox.scale;
+	aux.actualScale = fractalsData[seqData->fractalDataOffset + fractalIndex].mandelbox.scale;
 	aux.actualScaleA = 0.0f;
 	aux.color = 1.0f;
 	aux.colorHybrid = 0.0f;
 	aux.temp1000 = 1000.0f;
 
-	int sequence = 0;
-	__constant sFractalCl *fractal;
+	int relSeq = 0; /* relative index within this sequence's fractData[] */
+	__global sFractalCl *fractal;
 
-	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
+	__global sFractalCl *defaultFractal = &fractalsData[seqData->fractalDataOffset + fractalIndex];
 
 	__global sFractalColoringCl *fractalColoring = (material) ? &material->fractalColoring : NULL;
 
@@ -205,16 +197,20 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < maxN; i++)
 	{
-#if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
+#if defined(IS_HYBRID)
 		if (forcedFormulaIndex >= 0)
-			sequence = forcedFormulaIndex;
+			relSeq = forcedFormulaIndex;
 		else
-			sequence = consts->sequence.hybridSequence[min(i, 249)];
+		{
+			int seqIdx = (i < seqData->sequenceLength) ? i : 0;
+			relSeq = hybridSeqData[seqData->sequenceOffset + seqIdx];
+		}
 #else
-		sequence = 0;
+		relSeq = 0;
 #endif
 
-		fractal = &consts->fractal[sequence];
+		int absIdx = seqData->fractalDataOffset + relSeq;
+		fractal = &fractalsData[absIdx];
 
 		aux.i = i;
 
@@ -237,12 +233,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		float tempAuxColor = aux.color;
 
 #ifdef ITERATION_WEIGHT
-		if (consts->sequence.formulaWeight[sequence] > 0)
+		if (fractalsMeta[absIdx].formulaWeight > 0)
 		{
 #endif
 
-#if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
-			switch (sequence)
+#if defined(IS_HYBRID)
+			switch (relSeq)
 			{
 				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
 				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
@@ -254,9 +250,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
 				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 			}
-#else	 // not HYBRID and not BOOLEAN
+#else	 // not HYBRID
 		z = FORMULA_ITER_0(z, fractal, &aux);
-#endif // defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
+#endif // defined(IS_HYBRID)
 
 #ifdef ITERATION_WEIGHT
 		}
@@ -264,7 +260,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		if (aux.r < 0.0f) // if was run DummyIteration
 		{
-			float high = consts->sequence.bailout[sequence] * 10.0f;
+			float high = fractalsMeta[absIdx].bailout * 10.0f;
 			z = high;
 			aux.r = length(z);
 			out.distance = 10.0f;
@@ -274,46 +270,52 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			return out;
 		}
 
-		if (consts->sequence.addCConstant[sequence])
+		if (fractalsMeta[absIdx].addCConstant)
 		{
 			switch (fractal->formula)
 			{
 				case 64: // aboxMod1
 				case 73: // amazingSurf
 				{
-					if (consts->sequence.juliaEnabled[sequence])
+					if (seqData->juliaEnabled)
 					{
-						float4 juliaC = consts->sequence.juliaConstant[sequence]
-														* consts->sequence.constantMultiplier[sequence];
+						float4 juliaC = (float4){seqData->juliaConstant.x, seqData->juliaConstant.y,
+							seqData->juliaConstant.z, 0.0f}
+							* (float4){seqData->constantMultiplier.x, seqData->constantMultiplier.y,
+								seqData->constantMultiplier.z, 0.0f};
 						z += (float4){juliaC.y, juliaC.x, juliaC.z, juliaC.w};
 					}
 					else
 					{
 						z += (float4){aux.const_c.y, aux.const_c.x, aux.const_c.z, aux.const_c.w}
-								 * consts->sequence.constantMultiplier[sequence];
+								 * (float4){seqData->constantMultiplier.x, seqData->constantMultiplier.y,
+									 seqData->constantMultiplier.z, 0.0f};
 					}
 					break;
 				}
 
 				default:
 				{
-					if (consts->sequence.juliaEnabled[sequence])
+					if (seqData->juliaEnabled)
 					{
-						z += consts->sequence.juliaConstant[sequence]
-								 * consts->sequence.constantMultiplier[sequence];
+						z += (float4){seqData->juliaConstant.x, seqData->juliaConstant.y,
+							seqData->juliaConstant.z, 0.0f}
+							* (float4){seqData->constantMultiplier.x, seqData->constantMultiplier.y,
+								seqData->constantMultiplier.z, 0.0f};
 					}
 					else
 					{
-						z += aux.const_c * consts->sequence.constantMultiplier[sequence];
+						z += aux.const_c * (float4){seqData->constantMultiplier.x,
+							seqData->constantMultiplier.y, seqData->constantMultiplier.z, 0.0f};
 					}
 				}
 			}
 		}
 
 #ifdef ITERATION_WEIGHT
-		if (consts->sequence.isHybrid)
+		if (seqData->isHybrid)
 		{
-			float k = consts->sequence.formulaWeight[sequence];
+			float k = fractalsMeta[absIdx].formulaWeight;
 			if (k < 1.0f)
 			{
 				z = SmoothCVector(tempZ, z, k);
@@ -329,22 +331,22 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		aux.r = length(z);
 
 		// escape conditions
-		if (consts->sequence.checkForBailout[sequence])
+		if (fractalsMeta[absIdx].checkForBailout)
 		{
 			// mode normal or deltaDE center point
 			if (mode == calcModeNormal || mode == calcModeDeltaDE1)
 			{
-				if (aux.r > consts->sequence.bailout[sequence])
+				if (aux.r > fractalsMeta[absIdx].bailout)
 				{
 					out.maxiter = false;
 					break;
 				}
 
-				if (consts->sequence.useAdditionalBailoutCond[sequence])
+				if (fractalsMeta[absIdx].useAdditionalBailoutCond)
 				{
 					out.maxiter = false;
-					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence]) break;
-					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence]) break;
+					if (length(z - lastZ) / aux.r < 0.1f / fractalsMeta[absIdx].bailout) break;
+					if (length(z - lastLastZ) / aux.r < 0.1f / fractalsMeta[absIdx].bailout) break;
 				}
 			}
 			else if (mode == calcModeDeltaDE2)
@@ -400,8 +402,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					if (fractal->formula != 8)
 					{
 						if (len < colorMin) colorMin = len;
-						if (aux.r > consts->sequence.bailout[sequence]) break;
-						if (consts->sequence.useAdditionalBailoutCond[sequence]
+						if (aux.r > fractalsMeta[absIdx].bailout) break;
+						if (fractalsMeta[absIdx].useAdditionalBailoutCond
 								&& length(z - lastZ) / aux.r < 1e-15f)
 							break;
 					}
@@ -414,7 +416,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 						else
 						{
 							if (len < colorMin) colorMin = len; // colorMin for hybrid mode ??
-							if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-15f)
+							if (aux.r > fractalsMeta[absIdx].bailout || length(z - lastZ) / aux.r < 1e-15f)
 								break;
 						}
 					}
@@ -442,7 +444,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 				if (i >= fakeLightsMinIter && i <= fakeLightsMaxIter)
 					orbitTrapTotal += (1.0f / (distance * distance));
-				if (distance > consts->sequence.bailout[sequence])
+				if (distance > fractalsMeta[absIdx].bailout)
 				{
 					out.orbitTrapR = orbitTrapTotal;
 					break;
@@ -455,7 +457,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (i >= material->textureFractalizeStartIteration)
 				{
 					float size = material->textureFractalizeCubeSize;
-					float3 zz = z.xyz - pointTransformed;
+					float3 zz = z.xyz - point;
 					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
 							&& zz.z < size)
 					{
@@ -491,10 +493,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float rxy = length(z.xy);
 	dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / fabs(aux.DE);
 #elif ANALYTIC_JOS_KLEINIAN_DE
-	if (consts->fractal[0].transformCommon.spheresEnabled)
-		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
-	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
-				 / max(fabs(aux.DE), consts->fractal[0].analyticDE.offset1);
+	if (fractalsData[seqData->fractalDataOffset].transformCommon.spheresEnabled)
+		z.y = min(z.y, fractalsData[seqData->fractalDataOffset].transformCommon.foldingValue - z.y);
+	dist = min(z.y, fractalsData[seqData->fractalDataOffset].analyticDE.tweak005)
+				 / max(fabs(aux.DE), fractalsData[seqData->fractalDataOffset].analyticDE.offset1);
 #elif ANALYTIC_CUSTOM_DE
 	dist = aux.dist;
 #elif ANALYTIC_MAXAXIS_DE
@@ -508,7 +510,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #else //  IS_NOT HYBRID
 	if (aux.DE > 0.0)
 	{
-		switch (consts->sequence.DEAnalyticFunction[sequence])
+		switch (seqData->DEAnalyticFunction)
 		{
 			case clAnalyticFunctionLogarithmic:
 			{
@@ -565,16 +567,16 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef USE_FRACTAL_COLORING
 	if (mode == calcModeColouring)
 	{
-		enumColoringFunctionCl coloringFunction = consts->sequence.coloringFunction[sequence];
-		out.colorIndex = CalculateColorIndex(consts->sequence.isHybrid, aux.r, z, colorMin, &aux,
+		enumColoringFunctionCl coloringFunction = seqData->coloringFunction;
+		out.colorIndex = CalculateColorIndex(seqData->isHybrid, aux.r, z, colorMin, &aux,
 			fractalColoring, coloringFunction, defaultFractal);
 	}
 #endif
 
 #ifdef DELTA_JOS_KLEINIAN_DE
 	// needed for JosKleinian fractal to calculate spheres in deltaDE mode
-	if (consts->fractal[sequence].transformCommon.spheresEnabled)
-		z.y = min(z.y, consts->fractal[sequence].transformCommon.foldingValue - z.y);
+	if (fractalsData[seqData->fractalDataOffset + relSeq].transformCommon.spheresEnabled)
+		z.y = min(z.y, fractalsData[seqData->fractalDataOffset + relSeq].transformCommon.foldingValue - z.y);
 #endif
 
 	// end

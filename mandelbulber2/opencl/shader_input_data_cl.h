@@ -58,6 +58,7 @@ typedef struct
 	int stepCount;
 	int randomSeed;
 	int objectId;
+	int seqIndex; /* index into renderData->sequences for the hit object */
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
