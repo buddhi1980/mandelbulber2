@@ -1449,21 +1449,21 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_17">
           <property name="text">
-           <string>palette offset:</string>
+           <string>DE stetch:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_33">
           <property name="text">
-           <string>z.z change:</string>
+           <string>dottt:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>iter add scale:</string>
+           <string>temp</string>
           </property>
          </widget>
         </item>

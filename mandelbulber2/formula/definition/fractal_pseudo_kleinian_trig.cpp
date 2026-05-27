@@ -121,7 +121,9 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 		&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.x + aux.i * fractal->foldColor.difs0
+		double addCol =  z.x * z.x + z.y * z.y;
+		addCol *= addCol * fractal->foldColor.difs0; // dot dot
+		addCol += fractal->foldColor.difs0000.x * stretch
 			+ fractal->foldColor.difs0000.y * fabs(z.z)
 			+ (oldZ - z).Length() * fractal->foldColor.difs0000.z
 			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
