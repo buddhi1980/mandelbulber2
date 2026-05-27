@@ -274,7 +274,7 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 	}
 
 	QList<QString> listOfFractalParametrs = fractal->at(0)->GetListOfParameters();
-	for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+	for (int f = 0; f < fractal->size(); f++)
 	{
 		for (const QString &parameterName : listOfFractalParametrs)
 		{

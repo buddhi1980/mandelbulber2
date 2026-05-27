@@ -1012,7 +1012,7 @@ void RenderWindow::slotResetToDefault()
 	else
 	{
 		gPar->ResetAllToDefault();
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < gParFractal->size(); i++)
 		{
 			gParFractal->at(i)->ResetAllToDefault();
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);

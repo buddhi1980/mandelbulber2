@@ -948,7 +948,7 @@ void cOldSettings::ConvertToNewContainer(
 {
 	// general parameters
 	par->ResetAllToDefault();
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < fractal->size(); i++)
 		fractal->at(i)->ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 	DeleteAllMaterialParams(par);
@@ -1349,7 +1349,7 @@ void cOldSettings::ConvertToNewContainer(
 			}
 		}
 		bool result = true;
-		if (fractalsListTemp.size() <= NUMBER_OF_FRACTALS)
+		if (fractalsListTemp.size() <= fractal->size())
 		{
 			for (int i = 0; i < fractalsListTemp.size(); i++)
 			{
@@ -1440,7 +1440,7 @@ void cOldSettings::ConvertToNewContainer(
 	if (oldData->fractal.juliaMode)
 	{
 		par->Set("fractal_constant_factor", CVector3(0.0, 0.0, 0.0));
-		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		for (int i = 1; i <= fractal->size(); i++)
 		{
 			par->Set("fractal_constant_factor", CVector3(1.0, 1.0, 1.0));
 		}

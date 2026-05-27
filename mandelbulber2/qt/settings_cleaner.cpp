@@ -179,7 +179,7 @@ void cSettingsCleaner::runCleaner()
 			listOfAllModifiedParameters.append(par);
 		}
 	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < actualFractalParams->size(); i++)
 	{
 		QList<QString> listOfFractalParameters = actualFractalParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)

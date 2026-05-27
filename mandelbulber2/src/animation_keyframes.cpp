@@ -2248,7 +2248,7 @@ void cKeyframeAnimation::slotAddAllParameters()
 		}
 	}
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < fractalParams->size(); i++)
 	{
 		QList<QString> listOfFractalParameters = fractalParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)

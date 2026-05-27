@@ -104,7 +104,7 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 	{
 		if (fractPar)
 		{
-			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			for (int f = 0; f < fractPar->size(); f++)
 			{
 				QList<QString> parameterListFractal = fractPar->at(f)->GetListOfParameters();
 				QString fractalSettingsText = "";
@@ -650,7 +650,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			par->ResetAllToDefault();
 			if (fractPar)
 			{
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < fractPar->size(); i++)
 					fractPar->at(i)->ResetAllToDefault();
 			}
 			DeleteAllPrimitiveParams(par);
@@ -725,7 +725,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 								int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
 								QString baseParam = rawName.left(lastUnderscore);
 
-								if (conversionOK && fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS
+								if (conversionOK && fractalIndex >= 0
+										&& (fractPar && fractalIndex < fractPar->size())
 										&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
 								{
 									decodeLine = baseParam + decodeLine.mid(firstSpace);
@@ -763,8 +764,10 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				}
 				else if (section.contains("fractal"))
 				{
-					int i = section.right(1).toInt() - 1;
-					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
+					// section names are "fractal_1", "fractal_2", ..., "fractal_10", ...
+					// fractalIndex is 0-based (section value minus 1)
+					int fractalIndex = section.mid(8).toInt() - 1;
+					if (forcedFractalFormulaIndex > 0) fractalIndex = forcedFractalFormulaIndex - 1;
 
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
 					{
@@ -772,11 +775,15 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						QString parameterName = line.left(firstSpace);
 						if (forcedFractalFormulaIndex == -1
 								&& !listOfParametersToProcess.contains(
-									QString("fractal%1_").arg(i) + parameterName))
+									QString("fractal%1_").arg(fractalIndex) + parameterName))
 							continue;
 					}
 
-					if (fractPar) result = DecodeOneLine(fractPar->at(i), line);
+					if (fractPar)
+					{
+						fractPar->ensureCapacity(fractalIndex);
+						result = DecodeOneLine(fractPar->at(fractalIndex), line);
+					}
 				}
 				else if (section == QString("frames"))
 				{
@@ -1586,7 +1593,7 @@ void cSettings::Compatibility2(
 	{
 		if (fract)
 		{
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < fract->size(); i++)
 			{
 				if (fract->at(i)->Get<CVector3>("IFS_edge").Length() > 0)
 				{
@@ -1684,7 +1691,7 @@ void cSettings::Compatibility2(
 		if (par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators"))
 		{
 			int maxiter = par->Get<int>("N");
-			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			for (int i = 1; i <= fract->size(); i++)
 			{
 				par->Set("formula_maxiter", i, maxiter);
 			}
@@ -1713,7 +1720,7 @@ void cSettings::Compatibility2(
 			DeleteAllNodeParams(par);
 
 			// Counter for unique group-node objectIds.  Group IDs start at 100, placing them
-			// safely above fractal IDs (1..NUMBER_OF_FRACTALS) and below primitive IDs (1000+).
+			// safely above fractal IDs (1..fractal-count) and below primitive IDs (1000+).
 			int nextGroupObjectId = 100;
 
 			// Helper lambda: look up the formula internal name from newFractalList
@@ -1795,7 +1802,7 @@ void cSettings::Compatibility2(
 			bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 			// Convert dont_add_c_constant_N from main params to fractal params
-			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			for (int i = 1; i <= fract->size(); i++)
 			{
 				QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
 				if (par->IfExists(oldParamName))
@@ -1813,7 +1820,7 @@ void cSettings::Compatibility2(
 			// In boolean mode the old program stored a per-fractal value for each slot.
 			// Migrate any non-default value to the corresponding fractal container and
 			// remove the temporary parameter from the main container.
-			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			for (int i = 1; i <= fract->size(); i++)
 			{
 				QString oldParamName = QString("fractal_constant_factor_%1").arg(i);
 				if (par->IfExists(oldParamName))
@@ -1834,7 +1841,7 @@ void cSettings::Compatibility2(
 					&& !par->isDefaultValue("fractal_constant_factor"))
 			{
 				CVector3 constFactor = par->Get<CVector3>("fractal_constant_factor");
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < fract->size(); i++)
 				{
 					fract->at(i)->Set("fractal_constant_factor", constFactor);
 				}
@@ -1844,7 +1851,7 @@ void cSettings::Compatibility2(
 			// In single fractal and hybrid mode the old program stored per-slot julia values
 			// indexed by slot number. Migrate any non-default value to the corresponding
 			// fractal container and remove the temporary parameter from the main container.
-			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			for (int i = 1; i <= fract->size(); i++)
 			{
 				QString juliaModeParamName = QString("julia_mode_%1").arg(i);
 				if (par->IfExists(juliaModeParamName))
@@ -1876,13 +1883,13 @@ void cSettings::Compatibility2(
 				if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
 				{
 					bool juliaMode = par->Get<bool>("julia_mode");
-					for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					for (int i = 0; i < fract->size(); i++)
 						fract->at(i)->Set("julia_mode", juliaMode);
 				}
 				if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
 				{
 					CVector3 juliaC = par->Get<CVector3>("julia_c");
-					for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					for (int i = 0; i < fract->size(); i++)
 						fract->at(i)->Set("julia_c", juliaC);
 				}
 			}
@@ -1891,7 +1898,7 @@ void cSettings::Compatibility2(
 			{
 				// Boolean mode: collect enabled fractals in slot order
 				QList<int> enabledFractals; // 1-indexed objectIds
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < fract->size(); i++)
 				{
 					if ((!fract->at(i)->IfExists("fractal_enable")
 								|| fract->at(i)->Get<bool>("fractal_enable"))
@@ -1988,7 +1995,7 @@ void cSettings::Compatibility2(
 				// for each enabled formula slot
 
 				QList<int> enabledFractals;
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < fract->size(); i++)
 				{
 					if ((!fract->at(i)->IfExists("fractal_enable")
 								|| fract->at(i)->Get<bool>("fractal_enable"))

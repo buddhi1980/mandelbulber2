@@ -147,7 +147,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
 			InitParams(par);
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < parFractal->size(); i++)
 				InitFractalParams(parFractal->at(i));
 
 			InitMaterialParams(1, par);

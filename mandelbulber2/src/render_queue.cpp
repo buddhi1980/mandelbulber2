@@ -73,7 +73,7 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 	InitMaterialParams(1, queuePar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < queueParFractal->size(); i++)
 	{
 		queueParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(queueParFractal->at(i));

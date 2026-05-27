@@ -122,7 +122,7 @@ void cMaterialWidget::InitializeData()
 		params->SetContainerName("material");
 		InitParams(params);
 
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < fractal->size(); i++)
 		{
 			fractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 			InitFractalParams(fractal->at(i));
