@@ -1137,7 +1137,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_276">
        <property name="text">
-        <string>mult</string>
+        <string>mult.:</string>
        </property>
       </widget>
      </item>
@@ -1476,7 +1476,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_42">
        <property name="text">
-        <string>DE factor                     pk         :R0</string>
+        <string>pseudo kleinian DE function (render engine tab)</string>
        </property>
       </widget>
      </item>
