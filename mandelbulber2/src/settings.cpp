@@ -765,8 +765,9 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				else if (section.contains("fractal"))
 				{
 					// section names are "fractal_1", "fractal_2", ..., "fractal_10", ...
-					int i = section.mid(8).toInt() - 1;
-					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
+					// fractalIndex is 0-based (section value minus 1)
+					int fractalIndex = section.mid(8).toInt() - 1;
+					if (forcedFractalFormulaIndex > 0) fractalIndex = forcedFractalFormulaIndex - 1;
 
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
 					{
@@ -774,14 +775,14 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						QString parameterName = line.left(firstSpace);
 						if (forcedFractalFormulaIndex == -1
 								&& !listOfParametersToProcess.contains(
-									QString("fractal%1_").arg(i) + parameterName))
+									QString("fractal%1_").arg(fractalIndex) + parameterName))
 							continue;
 					}
 
 					if (fractPar)
 					{
-						fractPar->ensureCapacity(i);
-						result = DecodeOneLine(fractPar->at(i), line);
+						fractPar->ensureCapacity(fractalIndex);
+						result = DecodeOneLine(fractPar->at(fractalIndex), line);
 					}
 				}
 				else if (section == QString("frames"))

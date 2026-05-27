@@ -176,11 +176,14 @@ int cObjectsTreeWidget::findNextAvailableFractalObjectId() const
 	}
 
 	// Find the smallest positive integer not yet used as a fractal object ID.
-	// There is no upper limit — fractal containers grow dynamically.
-	for (int objectId = 1; ; ++objectId)
+	// Fractal containers grow dynamically; cap at a generous safety limit.
+	const int maxFractals = 10000;
+	for (int objectId = 1; objectId <= maxFractals; ++objectId)
 	{
 		if (!usedFractalIds.contains(objectId)) return objectId;
 	}
+	qCritical() << "findNextAvailableFractalObjectId: exceeded safety limit of" << maxFractals;
+	return maxFractals + 1;
 }
 
 int cObjectsTreeWidget::findNextAvailableGroupObjectId() const
