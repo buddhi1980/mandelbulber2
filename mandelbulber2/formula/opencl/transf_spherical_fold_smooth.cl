@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfSphericalFoldSmoothIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 oldZ = z;
 	REAL m = 1.0f;

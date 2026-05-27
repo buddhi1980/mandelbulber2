@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfRotationFoldingPlaneIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zRot;
 	// cast vector to array pointer for address taking of components in opencl

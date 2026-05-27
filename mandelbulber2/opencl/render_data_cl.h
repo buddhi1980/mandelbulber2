@@ -35,6 +35,12 @@
 #ifndef MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_
 #define MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_
 
+#ifndef OPENCL_KERNEL_CODE
+#include "fractal_cl.h"
+#include "fractal_sequence_dynamic_cl.h"
+#include "objects_tree_cl.h"
+#endif
+
 typedef struct
 {
 #if !defined(MESH_EXPORT) || 1
@@ -130,6 +136,15 @@ typedef struct
 
 #if !defined(MESH_EXPORT) || 1
 	__global sObjectDataCl *objectsData;
+
+	/* Objects tree dynamic fractal data */
+	__global sClNodeDataForRendering *nodes;
+	__global sClSequenceDynamic *sequences;
+	__global int *hybridSeqData;		/* packed hybrid iteration sequences */
+	__global sClFractalEntryMetaCl *fractalsMeta; /* per-formula meta (weight, bailout…) */
+	__global sFractalCl *fractalsData;						/* per-formula fractal parameters */
+	int nodeCount;
+	int sequenceCount;
 
 	int reflectionsMax;
 	int numberOfLights;

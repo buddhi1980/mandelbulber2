@@ -16,7 +16,7 @@
  */
 
 REAL4 TransfSphericalFoldXYZBiasIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 xyzBias;
 	REAL minR2 = fractal->transformCommon.minR2p25;

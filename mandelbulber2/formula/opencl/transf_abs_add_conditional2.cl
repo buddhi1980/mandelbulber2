@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfAbsAddConditional2Iteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 Offset = fractal->transformCommon.offset111;
 	REAL4 OffsetA = fractal->transformCommon.offsetA111;

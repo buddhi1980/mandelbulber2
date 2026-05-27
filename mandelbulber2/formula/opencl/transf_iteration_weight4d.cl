@@ -13,7 +13,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfIterationWeight4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfIterationWeight4dIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zA4 = (aux->i == fractal->transformCommon.intA) ? z : (REAL4){0, 0, 0, 0};
 	REAL4 zB4 = (aux->i == fractal->transformCommon.intB) ? z : (REAL4){0, 0, 0, 0};

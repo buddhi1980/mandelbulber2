@@ -15,7 +15,7 @@
  */
 
 REAL4 TransfAddCpixelSphereFoldIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 cv = aux->const_c;
 	REAL rr = dot(cv, cv);

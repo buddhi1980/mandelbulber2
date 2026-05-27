@@ -15,7 +15,7 @@
  */
 
 REAL4 TransfSphericalOffsetVCLIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL para = fractal->Cpara.para00;
 	REAL paraAdd = 0.0f;

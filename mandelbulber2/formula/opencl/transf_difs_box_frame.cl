@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// tranform z
 	if (fractal->transformCommon.functionEnabledCxFalse

@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 RiemannSphereHoboldPow8Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 RiemannSphereHoboldPow8Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z *= fractal->transformCommon.scale08
 			 / aux->r; // normalize vector to unit length => project onto sphere

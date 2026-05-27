@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MengerSmoothIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL sc1 = fractal->transformCommon.scale3 - 1.0f; // 3 - 1 = 2f, 2/3 = 0.6667f;
 	REAL sc2 = sc1 / fractal->transformCommon.scale3;	 //  8 - 1 = 7f, 7/8 = 0.89ish;
