@@ -49,7 +49,7 @@
 cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	std::shared_ptr<const cParameterContainer> generalPar)
 {
-	fractals.resize(NUMBER_OF_FRACTALS);
+	fractals.resize(par->size());
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
@@ -58,8 +58,29 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	isBoolean = false;
 	double maxBailout = 0.0;
 
+	const int numFractals = (int)fractals.size();
+
+	formulaWeight.resize(numFractals);
+	DEFunctionType.resize(numFractals);
+	DEType.resize(numFractals);
+	DEAnalyticFunction.resize(numFractals);
+	coloringFunction.resize(numFractals);
+	counts.resize(numFractals);
+	formulaStartIteration.resize(numFractals);
+	formulaStopIteration.resize(numFractals);
+	addCConstant.resize(numFractals);
+	checkForBailout.resize(numFractals);
+	bailout.resize(numFractals);
+	juliaEnabled.resize(numFractals);
+	juliaConstant.resize(numFractals);
+	constantMultiplier.resize(numFractals);
+	initialWAxis.resize(numFractals);
+	useAdditionalBailoutCond.resize(numFractals, false);
+	formulaMaxiter.resize(numFractals);
+	fractalFormulaFunctions.resize(numFractals);
+
 	// getting data from all formula slots
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < numFractals; i++)
 	{
 		// allocating memory for formula data - new fields are read from per-fractal container
 		fractals[i].reset(new sFractal(par->at(i)));
@@ -168,7 +189,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
 				DEFunctionCount[i] = 0;
 
-			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			for (int f = 0; f < (int)fractals.size(); f++)
 			{
 				fractal::enumFractalFormula formula = fractals[f]->formula;
 				int index = GetIndexOnFractalList(formula);
@@ -219,7 +240,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 		}
 		else
 		{
-			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			for (int f = 0; f < (int)fractals.size(); f++)
 			{
 				fractal::enumFractalFormula formula = fractals[f]->formula;
 				int index = GetIndexOnFractalList(formula);
@@ -236,7 +257,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	}
 	else // not hybrid or boolean
 	{
-		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+		for (int f = 0; f < (int)fractals.size(); f++)
 		{
 			fractal::enumFractalFormula formula = fractals[f]->formula;
 			int index = GetIndexOnFractalList(formula);
@@ -280,7 +301,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	}
 
 	if (isHybrid)
-		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+		for (int f = 0; f < (int)fractals.size(); f++)
 		{
 			if (newFractalList[GetIndexOnFractalList(fractals[f]->formula)]->getDeFunctionType()
 						== fractal::pseudoKleinianDEFunction
@@ -311,7 +332,7 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 	int fractalNo = 0;
 	int counter = 0;
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		// formula_iterations is now in per-fractal container, read from sFractal field
 		counts[i] = fractals[i]->formulaIterations;
@@ -326,10 +347,10 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 			int repeatCount = 0;
 			while ((fractals[fractalNo]->formula == fractal::none || i < formulaStartIteration[fractalNo]
 							 || i > formulaStopIteration[fractalNo])
-						 && repeatCount < NUMBER_OF_FRACTALS)
+						 && repeatCount < (int)fractals.size())
 			{
 				fractalNo++;
-				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
+				if (fractalNo >= (int)fractals.size()) fractalNo = repeatFrom - 1;
 				repeatCount++;
 			}
 			hybridSequence[i] = fractalNo;
@@ -340,7 +361,7 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 			{
 				counter = 0;
 				fractalNo++;
-				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
+				if (fractalNo >= (int)fractals.size()) fractalNo = repeatFrom - 1;
 			}
 		}
 		else
@@ -455,6 +476,7 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence) const
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
+		if (i >= (int)fractals.size()) break;
 		sequence->formulaWeight[i] = formulaWeight[i];
 		sequence->DEFunctionType[i] = static_cast<enumDEFunctionTypeCl>(DEFunctionType[i]);
 		sequence->DEType[i] = static_cast<enumDETypeCl>(DEType[i]);

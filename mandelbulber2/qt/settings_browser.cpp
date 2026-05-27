@@ -311,7 +311,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
 			InitParams(par);
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < parFractal->size(); i++)
 				InitFractalParams(parFractal->at(i));
 			InitMaterialParams(1, par);
 			if (parSettings.Decode(par, parFractal))
@@ -322,7 +322,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 
 				if (par->Get<bool>("boolean_operators")) prefix += "boolean:\n";
 
-				for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
+				for (int f = 1; f <= parFractal->size(); f++)
 				{
 					fractal::enumFractalFormula eFormula =
 						fractal::enumFractalFormula(par->Get<int>("formula", f));

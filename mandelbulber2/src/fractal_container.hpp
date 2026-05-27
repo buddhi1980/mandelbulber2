@@ -53,6 +53,8 @@ public:
 	std::shared_ptr<cParameterContainer> at(int index);
 	const std::shared_ptr<cParameterContainer> at(int index) const;
 	int size() const;
+	void resize(int newSize);
+	void ensureCapacity(int minIndex);
 	bool isUsedCustomFormula();
 
 private:

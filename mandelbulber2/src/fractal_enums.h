@@ -35,6 +35,9 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_ENUMS_H_
 #define MANDELBULBER2_SRC_FRACTAL_ENUMS_H_
 
+// NUMBER_OF_FRACTALS is kept only for OpenCL compatibility (opencl/fractal_sequence_cl.h and
+// related OpenCL code use fixed-size arrays of this size). CPU-side code should use
+// cFractalContainer::size() or the size of the relevant container instead of this constant.
 #define NUMBER_OF_FRACTALS 9
 
 namespace fractal

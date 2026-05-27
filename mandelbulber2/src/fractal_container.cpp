@@ -41,7 +41,7 @@ std::shared_ptr<cFractalContainer> gParFractal;
 cFractalContainer::cFractalContainer()
 {
 	fractals.resize(NUMBER_OF_FRACTALS);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		fractals[i].reset(new cParameterContainer());
 	}
@@ -49,8 +49,8 @@ cFractalContainer::cFractalContainer()
 
 cFractalContainer::cFractalContainer(const cFractalContainer &other)
 {
-	fractals.resize(NUMBER_OF_FRACTALS);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	fractals.resize(other.fractals.size());
+	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		fractals[i].reset(new cParameterContainer());
 		*fractals[i] = *other.fractals[i];
@@ -61,8 +61,8 @@ cFractalContainer &cFractalContainer::operator=(const cFractalContainer &other)
 {
 	if (&other == this) return *this;
 
-	fractals.resize(NUMBER_OF_FRACTALS);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	fractals.resize(other.fractals.size());
+	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		fractals[i].reset(new cParameterContainer());
 		*fractals[i] = *other.fractals[i];
@@ -72,7 +72,7 @@ cFractalContainer &cFractalContainer::operator=(const cFractalContainer &other)
 
 std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index)
 {
-	if (index >= 0 && index < NUMBER_OF_FRACTALS)
+	if (index >= 0 && index < (int)fractals.size())
 	{
 		return fractals[index];
 	}
@@ -86,7 +86,7 @@ std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index)
 
 const std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index) const
 {
-	if (index >= 0 && index < NUMBER_OF_FRACTALS)
+	if (index >= 0 && index < (int)fractals.size())
 	{
 		return fractals[index];
 	}
@@ -101,7 +101,7 @@ const std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int ind
 
 std::shared_ptr<cParameterContainer> cFractalContainer::at(int index)
 {
-	if (index >= 0 && index < NUMBER_OF_FRACTALS)
+	if (index >= 0 && index < (int)fractals.size())
 	{
 		return fractals[index];
 	}
@@ -114,7 +114,7 @@ std::shared_ptr<cParameterContainer> cFractalContainer::at(int index)
 
 const std::shared_ptr<cParameterContainer> cFractalContainer::at(int index) const
 {
-	if (index >= 0 && index < NUMBER_OF_FRACTALS)
+	if (index >= 0 && index < (int)fractals.size())
 	{
 		return fractals[index];
 	}
@@ -131,10 +131,28 @@ int cFractalContainer::size() const
 	return fractals.size();
 }
 
+void cFractalContainer::resize(int newSize)
+{
+	const int oldSize = (int)fractals.size();
+	fractals.resize(newSize);
+	for (int i = oldSize; i < newSize; i++)
+	{
+		fractals[i].reset(new cParameterContainer());
+	}
+}
+
+void cFractalContainer::ensureCapacity(int minIndex)
+{
+	if (minIndex >= (int)fractals.size())
+	{
+		resize(minIndex + 1);
+	}
+}
+
 bool cFractalContainer::isUsedCustomFormula()
 {
 	bool used = false;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		if (!fractals[i]->isDefaultValue("formula_code"))
 		{

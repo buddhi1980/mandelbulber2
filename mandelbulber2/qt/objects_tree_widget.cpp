@@ -175,12 +175,12 @@ int cObjectsTreeWidget::findNextAvailableFractalObjectId() const
 		if (objectId > 0) usedFractalIds.insert(objectId);
 	}
 
-	for (int objectId = 1; objectId <= NUMBER_OF_FRACTALS; ++objectId)
+	// Find the smallest positive integer not yet used as a fractal object ID.
+	// There is no upper limit — fractal containers grow dynamically.
+	for (int objectId = 1; ; ++objectId)
 	{
 		if (!usedFractalIds.contains(objectId)) return objectId;
 	}
-
-	return -1;
 }
 
 int cObjectsTreeWidget::findNextAvailableGroupObjectId() const
@@ -192,8 +192,7 @@ int cObjectsTreeWidget::findNextAvailableGroupObjectId() const
 		if (objectId > 0) usedObjectIds.insert(objectId);
 	}
 
-	// Group IDs start at 100, safely above fractal IDs (1..NUMBER_OF_FRACTALS)
-	// and below primitive IDs (1000+).
+	// Group IDs start at 100, safely above fractal IDs and below primitive IDs (1000+).
 	int newObjectId = 100;
 	while (usedObjectIds.contains(newObjectId))
 		++newObjectId;
@@ -607,11 +606,16 @@ void cObjectsTreeWidget::slotAddGroup()
 void cObjectsTreeWidget::slotAddFractal()
 {
 	int fractalObjectId = findNextAvailableFractalObjectId();
-	if (fractalObjectId < 0)
+
+	// Grow the fractal container if this objectId needs a new slot.
+	// objectId is 1-indexed; container index is objectId-1.
+	const int fractalIndex = fractalObjectId - 1;
+	if (fractalIndex >= gParFractal->size())
 	{
-		QMessageBox::warning(this, tr("Add Fractal"),
-			tr("No free fractal slot is available. Delete an existing fractal first."));
-		return;
+		gParFractal->ensureCapacity(fractalIndex);
+		InitFractalParams(gParFractal->at(fractalIndex));
+		gParFractal->at(fractalIndex)->SetContainerName(
+			QString("fractal") + QString::number(fractalIndex));
 	}
 
 	int newNodeId = findNextAvailableNodeId();
@@ -758,8 +762,16 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
 QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *item)
 {
-	// objectId is 1-based; fractal indices stored in gParFractal are 0-based
-	int fractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
+	// objectId is 1-based; fractal indices stored in gParFractal are 0-based.
+	// Ensure the container has enough capacity for this index.
+	const int fractalIndex = qMax(0, objectId - 1);
+	if (fractalIndex >= gParFractal->size())
+	{
+		gParFractal->ensureCapacity(fractalIndex);
+		InitFractalParams(gParFractal->at(fractalIndex));
+		gParFractal->at(fractalIndex)->SetContainerName(
+			QString("fractal") + QString::number(fractalIndex));
+	}
 
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
@@ -935,8 +947,9 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	// Build the type-specific parameter editor
 	if (type == enumNodeType::fractal)
 	{
-		// Track the fractal index so we can save to gParFractal on the next selection change
-		currentFractalIndex = qBound(0, objectId - 1, NUMBER_OF_FRACTALS - 1);
+		// Track the fractal index so we can save to gParFractal on the next selection change.
+		// objectId is 1-based; fractal index is objectId-1 (no upper limit).
+		currentFractalIndex = qMax(0, objectId - 1);
 
 		QWidget *fractalEditor = buildFractalEditor(objectId, item);
 		if (fractalEditor) containerLayout->addWidget(fractalEditor);

@@ -429,7 +429,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 				std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 				std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
 				InitParams(par);
-				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
+				for (int j = 0; j < parFractal->size(); j++)
 					InitFractalParams(parFractal->at(j));
 
 				/****************** TEMPORARY CODE FOR MATERIALS *******************/
