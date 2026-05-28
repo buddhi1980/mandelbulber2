@@ -49,6 +49,14 @@ typedef struct
 	cl_float3 m3;
 } matrix33;
 
+typedef struct
+{
+	cl_float4 r1;
+	cl_float4 r2;
+	cl_float4 r3;
+	cl_float4 r4;
+} matrix44;
+
 #ifndef OPENCL_KERNEL_CODE
 inline matrix33 toClMatrix33(CRotationMatrix source)
 {
@@ -93,6 +101,20 @@ inline cl_float4 toClFloat4(sRGBAFloat v)
 {
 	cl_float4 retVal = {{cl_float(v.R), cl_float(v.G), cl_float(v.B), cl_float(v.A)}};
 	return retVal;
+}
+
+inline matrix44 toClMatrix44(const CMatrix44 &source)
+{
+	matrix44 m;
+	m.r1 = {{cl_float(source.m11), cl_float(source.m12), cl_float(source.m13),
+		cl_float(source.m14)}};
+	m.r2 = {{cl_float(source.m21), cl_float(source.m22), cl_float(source.m23),
+		cl_float(source.m24)}};
+	m.r3 = {{cl_float(source.m31), cl_float(source.m32), cl_float(source.m33),
+		cl_float(source.m34)}};
+	m.r4 = {{cl_float(source.m41), cl_float(source.m42), cl_float(source.m43),
+		cl_float(source.m44)}};
+	return m;
 }
 
 #endif

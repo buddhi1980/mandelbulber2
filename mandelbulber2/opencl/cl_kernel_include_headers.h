@@ -50,6 +50,7 @@
 #include "fractal_coloring_cl.hpp"
 #include "texture_enums_cl.h"
 #include "material_cl.h"
+#include "node_data_cl.h"
 #include "input_data_structures.h"
 
 #endif /* MANDELBULBER2_OPENCL_CL_KERNEL_INCLUDE_HEADERS_H_ */
