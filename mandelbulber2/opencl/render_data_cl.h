@@ -138,6 +138,9 @@ typedef struct
 
 	int numberOfPrimitives;
 
+	__global sNodeDataForRenderingCl *nodesData;
+	int numberOfNodes;
+
 #if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;
 	matrix33 mRotInv;

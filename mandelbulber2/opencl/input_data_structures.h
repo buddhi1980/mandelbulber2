@@ -37,6 +37,7 @@
 #include "fractal_sequence_cl.h"
 #include "hybrid_sequence_cl.h"
 #include "fractparams_cl.hpp"
+#include "node_data_cl.h"
 #endif
 
 #ifndef INPUT_DATA_STRUCTURES

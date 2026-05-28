@@ -35,12 +35,12 @@
 #define MAX_RAYMARCHING 5000
 
 float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
-	float distThresh, sClCalcParams *calcParam)
+	float distThresh, sClCalcParams *calcParam, sRenderData *renderData)
 {
 	float delta = distThresh;
-	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
-	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
-	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
+	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, renderData).distance;
+	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, renderData).distance;
+	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, renderData).distance;
 	float3 normal = (float3){s1 - mainDistance, s2 - mainDistance, s3 - mainDistance};
 	normal = normalize(normal);
 	return normal;
@@ -102,6 +102,14 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	calcParam.N = consts->params.N;
 	distThresh = 1e-6f;
 
+	sRenderData renderData;
+	renderData.nodesData = 0;
+	renderData.numberOfNodes = 0;
+	renderData.numberOfPrimitives = 0;
+	renderData.primitives = 0;
+	renderData.primitivesGlobalData = 0;
+	renderData.objectsData = 0;
+
 	formulaOut outF;
 	float step = 0.0f;
 
@@ -110,7 +118,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	{
 		point = start + viewVector * scan;
 		calcParam.distThresh = distThresh;
-		outF = CalculateDistance(consts, point, &calcParam);
+		outF = CalculateDistance(consts, point, &calcParam, &renderData);
 		distance = outF.distance;
 		distThresh = scan * resolution * consts->params.fov;
 
@@ -145,7 +153,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 					point -= viewVector * step;
 				}
 			}
-			outF = CalculateDistance(consts, point, &calcParam);
+			outF = CalculateDistance(consts, point, &calcParam, &renderData);
 			distance = outF.distance;
 			step *= 0.5f;
 		}
@@ -155,7 +163,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	float3 surfaceColour = 1.0f;
 	if (found)
 	{
-		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
+		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam, &renderData);
 
 		float3 lightVector = (float3){
 			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),

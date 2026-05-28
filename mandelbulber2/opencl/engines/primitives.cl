@@ -323,6 +323,104 @@ float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
 }
 #endif
 
+float PrimitiveDistanceByType(__global sPrimitiveCl *primitive, float3 point, float distFromAnother)
+{
+	float distTemp = 0.0f;
+	switch (primitive->object.objectType)
+	{
+#ifdef USE_PRIMITIVE_PLANE
+		case objPlane:
+		{
+			distTemp = PrimitivePlane(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_BOX
+		case objBox:
+		{
+			distTemp = PrimitiveBox(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_SPHERE
+		case objSphere:
+		{
+			distTemp = PrimitiveSphere(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_RECTANGLE
+		case objRectangle:
+		{
+			distTemp = PrimitiveRectangle(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_CYLINDER
+		case objCylinder:
+		{
+			distTemp = PrimitiveCylinder(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_CIRCLE
+		case objCircle:
+		{
+			distTemp = PrimitiveCircle(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_CONE
+		case objCone:
+		{
+			distTemp = PrimitiveCone(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_WATER
+		case objWater:
+		{
+			distTemp = PrimitiveWater(primitive, point, distFromAnother);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_TORUS
+		case objTorus:
+		{
+			distTemp = PrimitiveTorus(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_PRISM
+		case objPrism:
+		{
+			distTemp = PrimitivePrism(primitive, point);
+			break;
+		}
+#endif
+
+#ifdef USE_PRIMITIVE_ELLIPSOID
+		case objEllipsoid:
+		{
+			distTemp = PrimitiveEllipsoid(primitive, point);
+			break;
+		}
+#endif
+
+		default: break;
+	}
+	return distTemp;
+}
+
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
 	int *closestObjectId, int objectIdForVolumetrics)
@@ -340,99 +438,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 
 		if (primitive->object.enable)
 		{
-			float distTemp = 0.0f;
-			switch (primitive->object.objectType)
-			{
-#ifdef USE_PRIMITIVE_PLANE
-				case objPlane:
-				{
-					distTemp = PrimitivePlane(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_BOX
-				case objBox:
-				{
-					distTemp = PrimitiveBox(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_SPHERE
-				case objSphere:
-				{
-					distTemp = PrimitiveSphere(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_RECTANGLE
-				case objRectangle:
-				{
-					distTemp = PrimitiveRectangle(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_CYLINDER
-				case objCylinder:
-				{
-					distTemp = PrimitiveCylinder(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_CIRCLE
-				case objCircle:
-				{
-					distTemp = PrimitiveCircle(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_CONE
-				case objCone:
-				{
-					distTemp = PrimitiveCone(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_WATER
-				case objWater:
-				{
-					distTemp = PrimitiveWater(primitive, point2, dist);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_TORUS
-				case objTorus:
-				{
-					distTemp = PrimitiveTorus(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_PRISM
-				case objPrism:
-				{
-					distTemp = PrimitivePrism(primitive, point2);
-					break;
-				}
-#endif
-
-#ifdef USE_PRIMITIVE_ELLIPSOID
-				case objEllipsoid:
-				{
-					distTemp = PrimitiveEllipsoid(primitive, point2);
-					break;
-				}
-#endif
-
-				default: break;
-			}
+			float distTemp = PrimitiveDistanceByType(primitive, point2, dist);
 
 			if (objectIdForVolumetrics == primitive->object.objectId)
 			{
