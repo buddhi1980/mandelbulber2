@@ -97,6 +97,7 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	renderData.objectsData = objectsData;
 	renderData.nodesData = nodesData;
 	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
 
 	formulaOut outF;
 

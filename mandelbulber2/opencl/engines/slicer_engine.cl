@@ -137,6 +137,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 	renderData.objectsData = objectsData;
 	renderData.nodesData = nodesData;
 	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
 
 	formulaOut outF;
 

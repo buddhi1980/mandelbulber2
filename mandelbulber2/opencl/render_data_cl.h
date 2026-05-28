@@ -140,6 +140,7 @@ typedef struct
 
 	__global sNodeDataForRenderingCl *nodesData;
 	int numberOfNodes;
+	int numberOfObjects;
 
 #if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;

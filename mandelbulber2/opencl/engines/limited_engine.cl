@@ -383,6 +383,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			renderData.objectsData = objectsData;
 			renderData.nodesData = nodesData;
 			renderData.numberOfNodes = numberOfNodes;
+			renderData.numberOfObjects = numberOfObjects;
 			renderData.mRot = rot;
 			renderData.mRotInv = rotInv;
 

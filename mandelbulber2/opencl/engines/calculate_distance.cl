@@ -80,13 +80,8 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	return delta;
 }
 
-#ifdef BOOLEAN_OPERATORS
 formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
 	sClCalcParams *calcParam, sRenderData *renderData, int forcedFormulaIndex)
-#else
-formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData, int forcedFormulaIndex)
-#endif
 {
 	formulaOut out;
 	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
@@ -400,10 +395,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	__global sNodeDataForRenderingCl *nodesData = renderData->nodesData;
 	const int nodeCount = renderData->numberOfNodes;
-	int numberOfObjects = 0;
-#if !defined(MESH_EXPORT) || 1
-	numberOfObjects = renderData->AOVectorsCount; // reuse field for count info
-#endif
+	const int numberOfObjects = renderData->numberOfObjects;
 
 	stack[0].cumulativeDistance = 1e20f;
 	stack[0].level = 0;

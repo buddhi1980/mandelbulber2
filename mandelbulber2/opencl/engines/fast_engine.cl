@@ -120,6 +120,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		renderData.objectsData = objectsData;
 		renderData.nodesData = nodesData;
 		renderData.numberOfNodes = numberOfNodes;
+		renderData.numberOfObjects = numberOfObjects;
 
 		// auxiliary vectors
 		const float3 one = (float3){1.0f, 0.0f, 0.0f};
