@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2025 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,55 +29,55 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * opencl dynamic data for transferring to the worker device
+ * OpenCL structures for hybrid fractal sequences
+ * derived from src/hybrid_fractal_sequences.h
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
-#define MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
+#ifndef MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_
+#define MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_
 
-#include <map>
+#ifndef OPENCL_KERNEL_CODE
+#include "fractal_cl.h"
+#include "fractal_sequence_cl.h"
+#endif
 
-#include "include_header_wrapper.hpp"
-#include "objects_tree.h"
-#include "opencl_abstract_dynamic_data.h"
-
-class cMaterial;
-struct sVectorsAround;
-class cLights;
-class cPrimitives;
-class cObjectData;
-class sParamRender;
-class cHybridFractalSequences;
-
-#ifdef USE_OPENCL
-class cOpenClDynamicData : public cOpenClAbstractDynamicData
+// OpenCL version of cHybridFractalSequences::sFractalData
+// Note: fractalFormulaObject pointer is not transferred to OpenCL
+typedef struct
 {
-public:
-	cOpenClDynamicData(int numberOfItems);
-	~cOpenClDynamicData();
+	cl_float formulaWeight;
+	cl_int formulaIterations;
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int addCConstant;
+	cl_int checkForBailout;
+	cl_float bailout;
+	cl_int useAdditionalBailoutCond;
+	sFractalCl fractalParameters;
+} sHybridFractalDataCl;
 
-	int BuildMaterialsData(const std::vector<cMaterial> &materials,
-		const QMap<QString, int> &textureIndexes); // returns array size
-	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
-	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
-	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
-	void BuildObjectsData(const std::vector<cObjectData> *objectData);
-	void BuildNodesData(const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData);
-	void BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences);
-	void BuildNebulaGradientsData(const sParamRender *params);
+// OpenCL version of cHybridFractalSequences::sSequence
+// The variable-length arrays (seqence and fractData) are stored separately in dynamic data
+typedef struct
+{
+	cl_int length;
+	cl_int numberOfFractalsInTheSequence;
+	cl_int internalObjectId;
 
-private:
-	const int materialsItemIndex = 0;
-	const int AOVectorsItemIndex = 1;
-	const int lightsItemIndex = 2;
-	const int primitivesItemIndex = 3;
-	const int objectsItemIndex = 4;
-	const int nodesItemIndex = 5;
-	const int hybridSequencesItemIndex = 6;
+	enumDEFunctionTypeCl DEFunctionType;
+	enumDETypeCl DEType;
+	enumDEAnalyticFunctionCl DEAnalyticFunction;
+	enumColoringFunctionCl coloringFunction;
 
-	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
-};
+	cl_int isHybrid;
+	cl_int juliaEnabled;
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float initialWAxis;
+	cl_int formulaMaxiter;
 
-#endif // USE_OPENCL
+	cl_int sequenceArrayOffset;   // offset to sequence array (cl_int[]) in dynamic data
+	cl_int fractDataArrayOffset;  // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+} sHybridSequenceCl;
 
-#endif /* MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_ */
+#endif /* MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_ */

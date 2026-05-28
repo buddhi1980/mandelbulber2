@@ -39,6 +39,7 @@
 
 #include "color_gradient.h"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
@@ -50,6 +51,7 @@
 #ifdef USE_OPENCL
 #include "opencl/material_cl.h"
 #include "opencl/input_data_structures.h"
+#include "opencl/hybrid_sequence_cl.h"
 #include "opencl/node_data_cl.h"
 #include "opencl/primitives_cl.h"
 #include "opencl/light_cl.h"
@@ -1146,6 +1148,137 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	// fill paletteItemsOffset value
 	data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
 		reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
+}
+
+void cOpenClDynamicData::BuildHybridSequencesData(
+	const cHybridFractalSequences *hybridSequences)
+{
+	/* hybrid sequences dynamic data structure:
+	 *
+	 * header:
+	 * cl_int numberOfSequences
+	 * cl_int sequencesArrayOffset  // offset to sHybridSequenceCl array
+	 *
+	 * array of sHybridSequenceCl (aligned to 16):
+	 *   sHybridSequenceCl seq0
+	 *   sHybridSequenceCl seq1
+	 *   ...
+	 *
+	 * for each sequence:
+	 *   cl_int sequenceArray[] (the iteration-to-fractal mapping)
+	 *   sHybridFractalDataCl fractData[] (aligned to 16)
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[hybridSequencesItemIndex].itemOffset = totalDataOffset;
+
+	cl_int numberOfSequences = hybridSequences->GetNumberOfSequences();
+	data.append(reinterpret_cast<char *>(&numberOfSequences), sizeof(numberOfSequences));
+	totalDataOffset += sizeof(numberOfSequences);
+
+	// reserve bytes for sequences array offset
+	cl_int sequencesArrayOffset = 0;
+	int sequencesArrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&sequencesArrayOffset), sizeof(sequencesArrayOffset));
+	totalDataOffset += sizeof(sequencesArrayOffset);
+
+	// write sequence headers (sHybridSequenceCl array)
+	// We'll need to fill in sequenceArrayOffset and fractDataArrayOffset later
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	sequencesArrayOffset = totalDataOffset;
+
+	// store addresses where we need to patch offsets
+	std::vector<int> seqArrayOffsetAddresses(numberOfSequences);
+	std::vector<int> fractDataOffsetAddresses(numberOfSequences);
+
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+
+		sHybridSequenceCl seqCl;
+		memset(&seqCl, 0, sizeof(seqCl));
+		seqCl.length = seq->length;
+		seqCl.numberOfFractalsInTheSequence = seq->numberOfFractalsInTheSequence;
+		seqCl.internalObjectId = seq->internalObjectId;
+		seqCl.DEFunctionType = static_cast<enumDEFunctionTypeCl>(seq->DEFunctionType);
+		seqCl.DEType = static_cast<enumDETypeCl>(seq->DEType);
+		seqCl.DEAnalyticFunction = static_cast<enumDEAnalyticFunctionCl>(seq->DEAnalyticFunction);
+		seqCl.coloringFunction = static_cast<enumColoringFunctionCl>(seq->coloringFunction);
+		seqCl.isHybrid = seq->isHybrid;
+		seqCl.juliaEnabled = seq->juliaEnabled;
+		seqCl.juliaConstant = toClFloat3(seq->juliaConstant);
+		seqCl.constantMultiplier = toClFloat3(seq->constantMultiplier);
+		seqCl.initialWAxis = seq->initialWAxis;
+		seqCl.formulaMaxiter = seq->formulaMaxiter;
+		seqCl.sequenceArrayOffset = 0;   // will be patched later
+		seqCl.fractDataArrayOffset = 0;  // will be patched later
+
+		// record addresses for patching
+		int seqClStartAddress = totalDataOffset;
+		seqArrayOffsetAddresses[i] =
+			seqClStartAddress + offsetof(sHybridSequenceCl, sequenceArrayOffset);
+		fractDataOffsetAddresses[i] =
+			seqClStartAddress + offsetof(sHybridSequenceCl, fractDataArrayOffset);
+
+		data.append(reinterpret_cast<char *>(&seqCl), sizeof(seqCl));
+		totalDataOffset += sizeof(seqCl);
+	}
+
+	// now write variable-length data for each sequence
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+
+		// write sequence array (cl_int[])
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 4, &data);
+		cl_int seqArrayOff = totalDataOffset;
+
+		for (int j = 0; j < seq->length; j++)
+		{
+			cl_int val = seq->seqence[j];
+			data.append(reinterpret_cast<char *>(&val), sizeof(val));
+			totalDataOffset += sizeof(val);
+		}
+
+		// patch sequenceArrayOffset
+		data.replace(seqArrayOffsetAddresses[i], sizeof(cl_int),
+			reinterpret_cast<char *>(&seqArrayOff), sizeof(cl_int));
+
+		// write fractData array (sHybridFractalDataCl[])
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		cl_int fractDataOff = totalDataOffset;
+
+		for (int j = 0; j < seq->numberOfFractalsInTheSequence; j++)
+		{
+			totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+			const cHybridFractalSequences::sFractalData &fd = seq->fractData[j];
+
+			sHybridFractalDataCl fdCl;
+			memset(&fdCl, 0, sizeof(fdCl));
+			fdCl.formulaWeight = fd.formulaWeight;
+			fdCl.formulaIterations = fd.formulaIterations;
+			fdCl.formulaStartIteration = fd.formulaStartIteration;
+			fdCl.formulaStopIteration = fd.formulaStopIteration;
+			fdCl.addCConstant = fd.addCConstant;
+			fdCl.checkForBailout = fd.checkForBailout;
+			fdCl.bailout = fd.bailout;
+			fdCl.useAdditionalBailoutCond = fd.useAdditionalBailoutCond;
+			fdCl.fractalParameters = clCopySFractalCl(fd.fractalParameters);
+
+			data.append(reinterpret_cast<char *>(&fdCl), sizeof(fdCl));
+			totalDataOffset += sizeof(fdCl);
+		}
+
+		// patch fractDataArrayOffset
+		data.replace(fractDataOffsetAddresses[i], sizeof(cl_int),
+			reinterpret_cast<char *>(&fractDataOff), sizeof(cl_int));
+	}
+
+	// patch sequencesArrayOffset in header
+	data.replace(sequencesArrayOffsetAddress, sizeof(sequencesArrayOffset),
+		reinterpret_cast<char *>(&sequencesArrayOffset), sizeof(sequencesArrayOffset));
 }
 
 #endif // USE_OPENCL

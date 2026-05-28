@@ -35,6 +35,7 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "fractal_cl.h"
 #include "fractal_sequence_cl.h"
+#include "hybrid_sequence_cl.h"
 #include "fractparams_cl.hpp"
 #endif
 

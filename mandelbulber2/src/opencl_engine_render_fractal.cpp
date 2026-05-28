@@ -152,6 +152,7 @@ void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFi
 	clHeaderFiles.append("fractal_coloring_cl.hpp");
 	clHeaderFiles.append("fractparams_cl.hpp");
 	clHeaderFiles.append("fractal_sequence_cl.h");
+	clHeaderFiles.append("hybrid_sequence_cl.h");
 	clHeaderFiles.append("texture_enums_cl.h");
 	clHeaderFiles.append("material_cl.h");
 	clHeaderFiles.append("shader_input_data_cl.h");
@@ -985,7 +986,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData(6));
+	dynamicData.reset(new cOpenClDynamicData(7));
 	dynamicData->ReserveHeader();
 
 	// ------------ enabling shaders ----------
@@ -1020,6 +1021,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 	{
 		dynamicData->BuildObjectsData(&renderData->objectData);
 		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
+		dynamicData->BuildHybridSequencesData(&renderData->hybridFractalSequences);
 	}
 
 	dynamicData->FillHeader();
