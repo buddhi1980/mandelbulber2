@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2025 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -27,68 +27,71 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * global structs for copying data to opencl and back
+ * OpenCL representation of node data for objects tree rendering
+ * Corresponds to CPU-side cObjectsTree::sNodeDataForRendering
  */
 
+#ifndef MANDELBULBER2_OPENCL_NODE_DATA_CL_H_
+#define MANDELBULBER2_OPENCL_NODE_DATA_CL_H_
+
 #ifndef OPENCL_KERNEL_CODE
-#include "fractal_cl.h"
-#include "fractal_sequence_cl.h"
-#include "hybrid_sequence_cl.h"
-#include "fractparams_cl.hpp"
-#include "node_data_cl.h"
+#include "opencl_algebra.h"
 #endif
 
-#ifndef INPUT_DATA_STRUCTURES
-#define INPUT_DATA_STRUCTURES
+typedef enum
+{
+	nodeTypeFractal = 1,
+	nodeTypePrimitive = 2,
+	nodeTypeHybrid = 10,
+	nodeTypeBooleanAdd = 11,
+	nodeTypeBooleanMul = 12,
+	nodeTypeBooleanSub = 13,
+} enumNodeTypeCl;
 
+// 4x4 homogeneous transformation matrix (stored as 4 rows of float4)
 typedef struct
 {
-	cl_ushort opacity;
-	cl_ushort alpha;
-	cl_float zBuffer;
-	cl_uchar3 color;
-	cl_float3 image;
-	cl_float3 normal;
-	cl_float3 normalWorld;
-	cl_float3 specular;
-	cl_float3 diffuse;
-	cl_float3 world;
-	cl_float3 shadows;
-	cl_float3 globalIllumination;
-} sClPixel;
+	cl_float4 r1;
+	cl_float4 r2;
+	cl_float4 r3;
+	cl_float4 r4;
+} matrix44;
 
+#ifndef OPENCL_KERNEL_CODE
+inline matrix44 toClMatrix44(const CMatrix44 &source)
+{
+	matrix44 m;
+	m.r1 = {{cl_float(source.m11), cl_float(source.m12), cl_float(source.m13),
+		cl_float(source.m14)}};
+	m.r2 = {{cl_float(source.m21), cl_float(source.m22), cl_float(source.m23),
+		cl_float(source.m24)}};
+	m.r3 = {{cl_float(source.m31), cl_float(source.m32), cl_float(source.m33),
+		cl_float(source.m34)}};
+	m.r4 = {{cl_float(source.m41), cl_float(source.m42), cl_float(source.m43),
+		cl_float(source.m44)}};
+	return m;
+}
+#endif
+
+// Node data for rendering - corresponds to CPU cObjectsTree::sNodeDataForRendering
 typedef struct
 {
-	sParamRenderCl params;
-	sFractalCl fractal[NUMBER_OF_FRACTALS]; // temporary for testing
-	sClFractalSequence sequence;
-} sClInConstants;
+	cl_int id;
+	enumNodeTypeCl type;
+	cl_int parentId;
+	cl_int userObjectId;
+	cl_int internalObjectId;
+	cl_int primitiveIdx;
+	cl_int level;
+	cl_int hybridSequenceIndex;
+	cl_float3 repeat;
+	cl_float scale;
+	cl_float absScale;
+	cl_int material;
+	matrix33 rotationMatrix;
+	matrix44 inverseTransformMatrix;
+} sNodeDataForRenderingCl;
 
-typedef struct
-{
-	cl_int dummy[256];
-} sClInBuff;
-
-typedef struct
-{
-	cl_uint N;
-	cl_uint deltaDEMaxN;
-	cl_int randomSeed;
-	cl_int iterThreshMode;
-	cl_int normalCalculationMode;
-	cl_int orbitTrapIndex;
-	cl_float3 orbitTrap;
-	cl_float distThresh;
-	cl_float detailSize;
-} sClCalcParams;
-
-// ambient occlusion data
-typedef struct
-{
-	cl_float3 v;
-	cl_float3 color;
-} sVectorsAroundCl;
-
-#endif // INPUT_DATA_STRUCTURES
+#endif /* MANDELBULBER2_OPENCL_NODE_DATA_CL_H_ */

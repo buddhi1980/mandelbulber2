@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2025 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -27,68 +27,57 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * global structs for copying data to opencl and back
+ * OpenCL structures for hybrid fractal sequences
+ * derived from src/hybrid_fractal_sequences.h
  */
+
+#ifndef MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_
+#define MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_
 
 #ifndef OPENCL_KERNEL_CODE
 #include "fractal_cl.h"
 #include "fractal_sequence_cl.h"
-#include "hybrid_sequence_cl.h"
-#include "fractparams_cl.hpp"
-#include "node_data_cl.h"
 #endif
 
-#ifndef INPUT_DATA_STRUCTURES
-#define INPUT_DATA_STRUCTURES
-
+// OpenCL version of cHybridFractalSequences::sFractalData
+// Note: fractalFormulaObject pointer is not transferred to OpenCL
 typedef struct
 {
-	cl_ushort opacity;
-	cl_ushort alpha;
-	cl_float zBuffer;
-	cl_uchar3 color;
-	cl_float3 image;
-	cl_float3 normal;
-	cl_float3 normalWorld;
-	cl_float3 specular;
-	cl_float3 diffuse;
-	cl_float3 world;
-	cl_float3 shadows;
-	cl_float3 globalIllumination;
-} sClPixel;
+	cl_float formulaWeight;
+	cl_int formulaIterations;
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int addCConstant;
+	cl_int checkForBailout;
+	cl_float bailout;
+	cl_int useAdditionalBailoutCond;
+	sFractalCl fractalParameters;
+} sHybridFractalDataCl;
 
+// OpenCL version of cHybridFractalSequences::sSequence
+// The variable-length arrays (seqence and fractData) are stored separately in dynamic data
 typedef struct
 {
-	sParamRenderCl params;
-	sFractalCl fractal[NUMBER_OF_FRACTALS]; // temporary for testing
-	sClFractalSequence sequence;
-} sClInConstants;
+	cl_int length;
+	cl_int numberOfFractalsInTheSequence;
+	cl_int internalObjectId;
 
-typedef struct
-{
-	cl_int dummy[256];
-} sClInBuff;
+	enumDEFunctionTypeCl DEFunctionType;
+	enumDETypeCl DEType;
+	enumDEAnalyticFunctionCl DEAnalyticFunction;
+	enumColoringFunctionCl coloringFunction;
 
-typedef struct
-{
-	cl_uint N;
-	cl_uint deltaDEMaxN;
-	cl_int randomSeed;
-	cl_int iterThreshMode;
-	cl_int normalCalculationMode;
-	cl_int orbitTrapIndex;
-	cl_float3 orbitTrap;
-	cl_float distThresh;
-	cl_float detailSize;
-} sClCalcParams;
+	cl_int isHybrid;
+	cl_int juliaEnabled;
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float initialWAxis;
+	cl_int formulaMaxiter;
 
-// ambient occlusion data
-typedef struct
-{
-	cl_float3 v;
-	cl_float3 color;
-} sVectorsAroundCl;
+	cl_int sequenceArrayOffset;   // offset to sequence array (cl_int[]) in dynamic data
+	cl_int fractDataArrayOffset;  // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+} sHybridSequenceCl;
 
-#endif // INPUT_DATA_STRUCTURES
+#endif /* MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_ */

@@ -75,6 +75,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
+	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
 
 	//--- materials
 	__global sMaterialCl *materials[MAT_ARRAY_SIZE];
@@ -200,6 +201,14 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
 		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
+	//--- Nodes
+
+	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
+	int nodesOffset = GetInteger(nodesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
+		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
 
 	//--------- end of data file ----------------------------------
 
@@ -408,6 +417,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.numberOfPrimitives = numberOfPrimitives;
 		renderData.primitivesGlobalData = primitivesGlobalData;
 		renderData.objectsData = objectsData;
+		renderData.nodesData = nodesData;
+		renderData.numberOfNodes = numberOfNodes;
+		renderData.numberOfObjects = numberOfObjects;
 		renderData.mRot = rot;
 		renderData.mRotInv = rotInv;
 #if defined(CLOUDS) || defined(USE_PERLIN_NOISE)

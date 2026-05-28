@@ -46,6 +46,8 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	// main offset for materials
 
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
+	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
+	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
 
 	//--- Primitives
 
@@ -62,6 +64,22 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
 
+	//--- Objects
+
+	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
+	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
+		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
+	//--- Nodes
+
+	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
+	int nodesOffset = GetInteger(nodesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
+		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
+
 	//--------- end of data file ----------------------------------
 
 	sClCalcParams calcParam;
@@ -76,6 +94,10 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
 	renderData.primitivesGlobalData = primitivesGlobalData;
+	renderData.objectsData = objectsData;
+	renderData.nodesData = nodesData;
+	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
 
 	formulaOut outF;
 

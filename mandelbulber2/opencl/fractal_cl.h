@@ -859,6 +859,31 @@ typedef struct
 {
 
 	cl_int formula;
+
+	// per-fractal general parameters
+	cl_int fractalEnable;
+	cl_int formulaIterations;
+	cl_float formulaWeight;
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int juliaMode;
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float initialWAxis;
+	cl_int dontAddCConstant;
+	cl_int checkForBailout;
+	cl_int formulaMaxiter;
+
+	// legacy fields (kept for CalculateDistanceSimple/nine_fractals path)
+	cl_float3 formulaPosition;
+	cl_float3 formulaRotation;
+	cl_float3 formulaRepeat;
+	cl_float formulaScale;
+
+	cl_int formulaMaterialId;
+	cl_int smoothDeCombineEnable;
+	cl_float smoothDeCombineDistance;
+
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -1644,6 +1669,31 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 {
 	sFractalCl target;
 	target.formula = source.formula;
+
+	// per-fractal general parameters
+	target.fractalEnable = source.fractalEnable;
+	target.formulaIterations = source.formulaIterations;
+	target.formulaWeight = source.formulaWeight;
+	target.formulaStartIteration = source.formulaStartIteration;
+	target.formulaStopIteration = source.formulaStopIteration;
+	target.juliaMode = source.juliaMode;
+	target.juliaConstant = toClFloat3(source.juliaConstant);
+	target.constantMultiplier = toClFloat3(source.constantMultiplier);
+	target.initialWAxis = source.initialWAxis;
+	target.dontAddCConstant = source.dontAddCConstant;
+	target.checkForBailout = source.checkForBailout;
+	target.formulaMaxiter = source.formulaMaxiter;
+
+	// legacy fields
+	target.formulaPosition = toClFloat3(source.formulaPosition);
+	target.formulaRotation = toClFloat3(source.formulaRotation);
+	target.formulaRepeat = toClFloat3(source.formulaRepeat);
+	target.formulaScale = source.formulaScale;
+
+	target.formulaMaterialId = source.formulaMaterialId;
+	target.smoothDeCombineEnable = source.smoothDeCombineEnable;
+	target.smoothDeCombineDistance = source.smoothDeCombineDistance;
+
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);

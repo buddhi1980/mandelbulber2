@@ -43,17 +43,17 @@
 // object data
 typedef struct
 {
-	cl_int enable;
-	cl_int objectId;
 	cl_int smoothDeCombineEnable;
+	cl_int usedForVolumetric;
 	cl_float smoothDeCombineDistance;
 	cl_float wallThickness;
+	cl_int materialId;
+	cl_int objectId;
+	enumObjectTypeCl objectType;
+	cl_int enable;
 	cl_float3 position;
 	cl_float3 size;
 	cl_float3 repeat;
-	cl_int materialId;
-	cl_int usedForVolumetric;
-	enumObjectTypeCl objectType;
 	matrix33 rotationMatrix;
 } sObjectDataCl;
 

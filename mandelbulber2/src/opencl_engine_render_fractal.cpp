@@ -152,11 +152,13 @@ void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFi
 	clHeaderFiles.append("fractal_coloring_cl.hpp");
 	clHeaderFiles.append("fractparams_cl.hpp");
 	clHeaderFiles.append("fractal_sequence_cl.h");
+	clHeaderFiles.append("hybrid_sequence_cl.h");
 	clHeaderFiles.append("texture_enums_cl.h");
 	clHeaderFiles.append("material_cl.h");
 	clHeaderFiles.append("shader_input_data_cl.h");
 	clHeaderFiles.append("object_type_cl.h");
 	clHeaderFiles.append("object_data_cl.h");
+	clHeaderFiles.append("node_data_cl.h");
 	clHeaderFiles.append("primitives_cl.h");
 	clHeaderFiles.append("input_data_structures.h");
 	clHeaderFiles.append("light_cl.h");
@@ -985,7 +987,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData(5));
+	dynamicData.reset(new cOpenClDynamicData(7));
 	dynamicData->ReserveHeader();
 
 	// ------------ enabling shaders ----------
@@ -1019,7 +1021,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (renderData)
 	{
 		dynamicData->BuildObjectsData(&renderData->objectData);
-		// definesCollector += " -DOBJ_ARRAY_SIZE=" + QString::number(renderData->objectData.size());
+		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
+		dynamicData->BuildHybridSequencesData(&renderData->hybridFractalSequences);
 	}
 
 	dynamicData->FillHeader();

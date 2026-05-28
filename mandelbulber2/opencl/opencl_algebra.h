@@ -118,6 +118,15 @@ inline float3 Matrix33MulFloat3(matrix33 matrix, float3 vect)
 	return out;
 }
 
+inline float3 Matrix44TransformPoint(matrix44 matrix, float3 point)
+{
+	float3 out;
+	out.x = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r1);
+	out.y = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r2);
+	out.z = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r3);
+	return out;
+}
+
 matrix33 Matrix33MulMatrix33(matrix33 m1, matrix33 m2)
 {
 	matrix33 out;

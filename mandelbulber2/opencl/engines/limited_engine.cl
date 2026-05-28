@@ -71,6 +71,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
+	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
+	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -181,6 +183,22 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	// data for primitives
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
+
+	//--- Objects
+
+	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
+	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
+		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
+	//--- Nodes
+
+	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
+	int nodesOffset = GetInteger(nodesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
+		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
 
 	//--------- end of data file ----------------------------------
 
@@ -362,6 +380,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			renderData.primitives = primitives;
 			renderData.numberOfPrimitives = numberOfPrimitives;
 			renderData.primitivesGlobalData = primitivesGlobalData;
+			renderData.objectsData = objectsData;
+			renderData.nodesData = nodesData;
+			renderData.numberOfNodes = numberOfNodes;
+			renderData.numberOfObjects = numberOfObjects;
 			renderData.mRot = rot;
 			renderData.mRotInv = rotInv;
 

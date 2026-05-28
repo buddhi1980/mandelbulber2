@@ -38,6 +38,7 @@
 #include <map>
 
 #include "include_header_wrapper.hpp"
+#include "objects_tree.h"
 #include "opencl_abstract_dynamic_data.h"
 
 class cMaterial;
@@ -46,6 +47,7 @@ class cLights;
 class cPrimitives;
 class cObjectData;
 class sParamRender;
+class cHybridFractalSequences;
 
 #ifdef USE_OPENCL
 class cOpenClDynamicData : public cOpenClAbstractDynamicData
@@ -60,6 +62,8 @@ public:
 	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
 	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
 	void BuildObjectsData(const std::vector<cObjectData> *objectData);
+	void BuildNodesData(const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData);
+	void BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences);
 	void BuildNebulaGradientsData(const sParamRender *params);
 
 private:
@@ -68,6 +72,8 @@ private:
 	const int lightsItemIndex = 2;
 	const int primitivesItemIndex = 3;
 	const int objectsItemIndex = 4;
+	const int nodesItemIndex = 5;
+	const int hybridSequencesItemIndex = 6;
 
 	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
 };
