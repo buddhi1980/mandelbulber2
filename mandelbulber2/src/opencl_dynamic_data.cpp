@@ -50,6 +50,7 @@
 #ifdef USE_OPENCL
 #include "opencl/material_cl.h"
 #include "opencl/input_data_structures.h"
+#include "opencl/node_data_cl.h"
 #include "opencl/primitives_cl.h"
 #include "opencl/light_cl.h"
 #endif
@@ -924,19 +925,86 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		if (i == 0) arrayOffset = totalDataOffset;
 
 		sObjectDataCl objectCl;
+		memset(&objectCl, 0, sizeof(objectCl));
 		const cObjectData *object = &objectData->at(i);
-		// FIXME: correct OpenCL code for objectsTree
-		//		objectCl.enable = true; // dummy - only used for primitives data
-		//		objectCl.objectId = i;
-		//		objectCl.position = toClFloat3(object->position);
-		//		objectCl.size = toClFloat3(object->size);
-		//		objectCl.repeat = toClFloat3(object->repeat);
-		//		objectCl.materialId = object->materialId;
-		//		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
-		//		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+		objectCl.smoothDeCombineEnable = object->smoothDeCombineEnable;
+		objectCl.usedForVolumetric = object->usedForVolumetric;
+		objectCl.smoothDeCombineDistance = object->smoothDeCombineDistance;
+		objectCl.wallThickness = object->wallThickness;
+		objectCl.materialId = object->materialId;
+		objectCl.objectId = i;
+		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
+		objectCl.enable = true;
+		objectCl.position = toClFloat3(CVector3(0.0, 0.0, 0.0));
+		objectCl.size = toClFloat3(object->size);
+		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
+		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
 		totalDataOffset += sizeof(objectCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildNodesData(
+	const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int numberOfNodes
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	sNodeDataForRenderingCl node1
+	 * 	sNodeDataForRenderingCl node2
+	 *  ...
+	 * 	sNodeDataForRenderingCl nodeN
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;
+
+	cl_int numberOfNodes = nodesData->size();
+	data.append(reinterpret_cast<char *>(&numberOfNodes), sizeof(numberOfNodes));
+	totalDataOffset += sizeof(numberOfNodes);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy nodes aligned to 16
+	for (int i = 0; i < numberOfNodes; i++)
+	{
+		// align struct to 16
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		sNodeDataForRenderingCl nodeCl;
+		memset(&nodeCl, 0, sizeof(nodeCl));
+		const cObjectsTree::sNodeDataForRendering &node = nodesData->at(i);
+		nodeCl.id = node.id;
+		nodeCl.type = static_cast<enumNodeTypeCl>(static_cast<int>(node.type));
+		nodeCl.parentId = node.parentId;
+		nodeCl.userObjectId = node.userObjectId;
+		nodeCl.internalObjectId = node.internalObjectId;
+		nodeCl.primitiveIdx = node.primitiveIdx;
+		nodeCl.level = node.level;
+		nodeCl.hybridSequenceIndex = node.hybridSequenceIndex;
+		nodeCl.repeat = toClFloat3(node.repeat);
+		nodeCl.scale = node.scale;
+		nodeCl.absScale = node.absScale;
+		nodeCl.material = node.material;
+		nodeCl.rotationMatrix = toClMatrix33(node.rotationMatrix);
+		nodeCl.inverseTransformMatrix = toClMatrix44(node.inverseTransformMatrix);
+
+		data.append(reinterpret_cast<char *>(&nodeCl), sizeof(nodeCl));
+		totalDataOffset += sizeof(nodeCl);
 	}
 
 	// replace arrayOffset:

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2025 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,52 +29,69 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * opencl dynamic data for transferring to the worker device
+ * OpenCL representation of node data for objects tree rendering
+ * Corresponds to CPU-side cObjectsTree::sNodeDataForRendering
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
-#define MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
+#ifndef MANDELBULBER2_OPENCL_NODE_DATA_CL_H_
+#define MANDELBULBER2_OPENCL_NODE_DATA_CL_H_
 
-#include <map>
+#ifndef OPENCL_KERNEL_CODE
+#include "opencl_algebra.h"
+#endif
 
-#include "include_header_wrapper.hpp"
-#include "objects_tree.h"
-#include "opencl_abstract_dynamic_data.h"
-
-class cMaterial;
-struct sVectorsAround;
-class cLights;
-class cPrimitives;
-class cObjectData;
-class sParamRender;
-
-#ifdef USE_OPENCL
-class cOpenClDynamicData : public cOpenClAbstractDynamicData
+typedef enum
 {
-public:
-	cOpenClDynamicData(int numberOfItems);
-	~cOpenClDynamicData();
+	nodeTypeFractal = 1,
+	nodeTypePrimitive = 2,
+	nodeTypeHybrid = 10,
+	nodeTypeBooleanAdd = 11,
+	nodeTypeBooleanMul = 12,
+	nodeTypeBooleanSub = 13,
+} enumNodeTypeCl;
 
-	int BuildMaterialsData(const std::vector<cMaterial> &materials,
-		const QMap<QString, int> &textureIndexes); // returns array size
-	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
-	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
-	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
-	void BuildObjectsData(const std::vector<cObjectData> *objectData);
-	void BuildNodesData(const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData);
-	void BuildNebulaGradientsData(const sParamRender *params);
+// 4x4 homogeneous transformation matrix (stored as 4 rows of float4)
+typedef struct
+{
+	cl_float4 r1;
+	cl_float4 r2;
+	cl_float4 r3;
+	cl_float4 r4;
+} matrix44;
 
-private:
-	const int materialsItemIndex = 0;
-	const int AOVectorsItemIndex = 1;
-	const int lightsItemIndex = 2;
-	const int primitivesItemIndex = 3;
-	const int objectsItemIndex = 4;
-	const int nodesItemIndex = 5;
+#ifndef OPENCL_KERNEL_CODE
+inline matrix44 toClMatrix44(const CMatrix44 &source)
+{
+	matrix44 m;
+	m.r1 = {{cl_float(source.m11), cl_float(source.m12), cl_float(source.m13),
+		cl_float(source.m14)}};
+	m.r2 = {{cl_float(source.m21), cl_float(source.m22), cl_float(source.m23),
+		cl_float(source.m24)}};
+	m.r3 = {{cl_float(source.m31), cl_float(source.m32), cl_float(source.m33),
+		cl_float(source.m34)}};
+	m.r4 = {{cl_float(source.m41), cl_float(source.m42), cl_float(source.m43),
+		cl_float(source.m44)}};
+	return m;
+}
+#endif
 
-	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
-};
+// Node data for rendering - corresponds to CPU cObjectsTree::sNodeDataForRendering
+typedef struct
+{
+	cl_int id;
+	enumNodeTypeCl type;
+	cl_int parentId;
+	cl_int userObjectId;
+	cl_int internalObjectId;
+	cl_int primitiveIdx;
+	cl_int level;
+	cl_int hybridSequenceIndex;
+	cl_float3 repeat;
+	cl_float scale;
+	cl_float absScale;
+	cl_int material;
+	matrix33 rotationMatrix;
+	matrix44 inverseTransformMatrix;
+} sNodeDataForRenderingCl;
 
-#endif // USE_OPENCL
-
-#endif /* MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_ */
+#endif /* MANDELBULBER2_OPENCL_NODE_DATA_CL_H_ */

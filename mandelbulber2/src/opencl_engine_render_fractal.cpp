@@ -985,7 +985,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData(5));
+	dynamicData.reset(new cOpenClDynamicData(6));
 	dynamicData->ReserveHeader();
 
 	// ------------ enabling shaders ----------
@@ -1019,7 +1019,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (renderData)
 	{
 		dynamicData->BuildObjectsData(&renderData->objectData);
-		// definesCollector += " -DOBJ_ARRAY_SIZE=" + QString::number(renderData->objectData.size());
+		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
 	}
 
 	dynamicData->FillHeader();
