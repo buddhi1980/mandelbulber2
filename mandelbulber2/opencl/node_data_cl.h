@@ -50,31 +50,6 @@ typedef enum
 	nodeTypeBooleanSub = 13,
 } enumNodeTypeCl;
 
-// 4x4 homogeneous transformation matrix (stored as 4 rows of float4)
-typedef struct
-{
-	cl_float4 r1;
-	cl_float4 r2;
-	cl_float4 r3;
-	cl_float4 r4;
-} matrix44;
-
-#ifndef OPENCL_KERNEL_CODE
-inline matrix44 toClMatrix44(const CMatrix44 &source)
-{
-	matrix44 m;
-	m.r1 = {{cl_float(source.m11), cl_float(source.m12), cl_float(source.m13),
-		cl_float(source.m14)}};
-	m.r2 = {{cl_float(source.m21), cl_float(source.m22), cl_float(source.m23),
-		cl_float(source.m24)}};
-	m.r3 = {{cl_float(source.m31), cl_float(source.m32), cl_float(source.m33),
-		cl_float(source.m34)}};
-	m.r4 = {{cl_float(source.m41), cl_float(source.m42), cl_float(source.m43),
-		cl_float(source.m44)}};
-	return m;
-}
-#endif
-
 // Node data for rendering - corresponds to CPU cObjectsTree::sNodeDataForRendering
 typedef struct
 {
