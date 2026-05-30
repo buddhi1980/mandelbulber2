@@ -56,6 +56,7 @@ struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
 class cNineFractals;
+class cHybridFractalSequences;
 class cRenderer;
 class cProgressText;
 struct sParamRender;
@@ -106,13 +107,13 @@ private:
 	int GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo);
 	void SetupStereoEyes(int repeat, bool twoPassStereo);
 	void InitNetRender();
-	void InitStatistics(const cNineFractals *fractals);
+	void InitStatistics();
 	void ConnectUpdateSinalsSlots(const cRenderer *renderer);
 	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
 
 #ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
-		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText);
+		std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText);
 	void RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
 		cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool *result);
