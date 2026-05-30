@@ -136,9 +136,16 @@ void MarchingCubes::RunMarchingCube()
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(paramsContainer, fractalContainer, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			paramsContainer, fractalContainer, params, fractals, renderData, true);
+			paramsContainer, fractalContainer, params, hybridFractals, renderData, true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{

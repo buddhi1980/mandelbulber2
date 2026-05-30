@@ -238,12 +238,19 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
 	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
+	cObjectsTree objectsTreeOCL;
+	objectsTreeOCL.CreateNodeDataFromParameters(gPar);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+		objectsTreeOCL.GetNodeDataListForRendering();
+	std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+	hybridFractals->CreateSequences(gPar, gParFractal, nodesOCL);
+
 	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
 	renderData->ValidateObjects();
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
-		gPar, gParFractal, params, fractals, renderData, true);
+		gPar, gParFractal, params, hybridFractals, renderData, true);
 
 	QString compilerOutput;
 	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar, &compilerOutput))
