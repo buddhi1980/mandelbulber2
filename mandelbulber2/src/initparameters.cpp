@@ -680,6 +680,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	WriteLog("Parameters initialization finished", 3);
 }
 
+// Backward-compatible overload for legacy call sites that still pass fractal container.
 void InitParams(
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> /* parFractal */)
 {
