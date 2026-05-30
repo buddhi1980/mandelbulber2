@@ -861,10 +861,17 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(par);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(par, parFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			par, parFractal, params, fractals, nullptr, false);
+			par, parFractal, params, hybridFractals, nullptr, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(par))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(par);
@@ -998,10 +1005,17 @@ void cInterface::ResetView(QWidget *navigationWidget,
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(parTemp);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(parTemp, gParFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			parTemp, gParFractal, params, fractals, nullptr, false);
+			parTemp, gParFractal, params, hybridFractals, nullptr, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(parTemp))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(parTemp);

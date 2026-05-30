@@ -138,9 +138,16 @@ void cVoxelExport::ProcessVolume()
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(gPar);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(gPar, gParFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params, fractals, renderData, true);
+			gPar, gParFractal, params, hybridFractals, renderData, true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
 		{

@@ -38,7 +38,9 @@
 #include "calculate_distance.hpp"
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "nine_fractals.hpp"
+#include "objects_tree.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
 #include "parameters.hpp"
@@ -61,10 +63,17 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(params);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(params, fractals, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			params, fractals, paramRender, nineFractals, nullptr, false);
+			params, fractals, paramRender, hybridFractals, nullptr, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(params))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(params);
