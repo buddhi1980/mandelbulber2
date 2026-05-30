@@ -322,19 +322,21 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 
 				if (par->Get<bool>("boolean_operators")) prefix += "boolean:\n";
 
-				for (int f = 1; f <= parFractal->size(); f++)
-				{
-					fractal::enumFractalFormula eFormula =
-						fractal::enumFractalFormula(par->Get<int>("formula", f));
-					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
-					{
-						cAbstractFractal *fractalFormula =
-							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
-						if (listOfFormulas.length() > 0) listOfFormulas += "\n";
-
-						listOfFormulas += fractalFormula->getNameInComboBox();
-					}
-				}
+				// FIXME cNineFractals no was replaced by cHybridFractalSequences and this code should be
+				// fixed by implementation of cHybridFractalSequences or implemented in all_fractal_list.hpp
+				//				for (int f = 1; f <= parFractal->size(); f++)
+				//				{
+				//					fractal::enumFractalFormula eFormula =
+				//						fractal::enumFractalFormula(par->Get<int>("formula", f));
+				//					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+				//					{
+				//						cAbstractFractal *fractalFormula =
+				//							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
+				//						if (listOfFormulas.length() > 0) listOfFormulas += "\n";
+				//
+				//						listOfFormulas += fractalFormula->getNameInComboBox();
+				//					}
+				//				}
 				ui->tableWidget->setItem(
 					rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
 

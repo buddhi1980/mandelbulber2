@@ -61,71 +61,74 @@ void cOpenClEngineRenderNebula::SetParameters(
 
 	// creating list of used formulas
 	listOfUsedFormulas.clear();
-	// creating list of used formulas
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
-		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
-		QString formulaName = newFractalList.at(listIndex)->getInternalName();
-		if (formulaName == "custom")
-		{
-			formulaName += QString::number(i);
-			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
+	// FIXME to be fixed by implementation of cHybridFractalSequences
+	//	// creating list of used formulas
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
+	//		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
+	//		QString formulaName = newFractalList.at(listIndex)->getInternalName();
+	//		if (formulaName == "custom")
+	//		{
+	//			formulaName += QString::number(i);
+	//			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
+	//
+	//			if (formulaCode.contains("CustomIteration("))
+	//			{
+	//				formulaCode = formulaCode.replace("CustomIteration",
+	// QString("Custom%1Iteration").arg(i)); 				QFile qFile(
+	// systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl"); 				if
+	// (qFile.open(QIODevice::WriteOnly))
+	//				{
+	//					qFile.write(formulaCode.toUtf8());
+	//					qFile.close();
+	//				}
+	//			}
+	//			else
+	//			{
+	//				emit showErrorMessage(
+	//					QObject::tr("Custom formula %1 has missing function name CustomIteration()!").arg(i),
+	//					cErrorMessage::errorMessage, nullptr);
+	//			}
+	//			customFormulaCodes[i] = formulaCode;
+	//		}
+	//		else
+	//		{
+	//			customFormulaCodes[i] = QString();
+	//		}
+	//		listOfUsedFormulas.append(formulaName);
+	//	}
+	//	// adding #defines to the list
+	//	for (int i = 0; i < listOfUsedFormulas.size(); i++)
+	//	{
+	//		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
+	//		if (internalID != "" && internalID != "None")
+	//		{
+	//			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+	//			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+	//		}
+	//	}
+	//
+	//	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 
-			if (formulaCode.contains("CustomIteration("))
-			{
-				formulaCode = formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(i));
-				QFile qFile(
-					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
-				if (qFile.open(QIODevice::WriteOnly))
-				{
-					qFile.write(formulaCode.toUtf8());
-					qFile.close();
-				}
-			}
-			else
-			{
-				emit showErrorMessage(
-					QObject::tr("Custom formula %1 has missing function name CustomIteration()!").arg(i),
-					cErrorMessage::errorMessage, nullptr);
-			}
-			customFormulaCodes[i] = formulaCode;
-		}
-		else
-		{
-			customFormulaCodes[i] = QString();
-		}
-		listOfUsedFormulas.append(formulaName);
-	}
-	// adding #defines to the list
-	for (int i = 0; i < listOfUsedFormulas.size(); i++)
-	{
-		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
-		if (internalID != "" && internalID != "None")
-		{
-			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
-			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
-		}
-	}
-
-	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
-
-	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
+	// FIXME to be fixed by implementation of cHybridFractalSequences
+	// if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
 
 	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
 
-	bool weightUsed = false;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		if (fractals->GetWeight(i) != 1.0)
-		{
-			weightUsed = true;
-		}
-	}
-	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
+	// FIXME to be fixed by implementation of cHybridFractalSequences
+	//	bool weightUsed = false;
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		if (fractals->GetWeight(i) != 1.0)
+	//		{
+	//			weightUsed = true;
+	//		}
+	//	}
+	//	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 
@@ -154,12 +157,14 @@ void cOpenClEngineRenderNebula::SetParameters(
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
-	}
+	// FIXME to be fixed by implementation of cHybridFractalSequences
+	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	//	{
+	//		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
+	//	}
 
-	fractals->CopyToOpenclData(&constantInBuffer->sequence);
+	// FIXME to be fixed by implementation of cHybridFractalSequences
+	// fractals->CopyToOpenclData(&constantInBuffer->sequence);
 
 	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
 

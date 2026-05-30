@@ -55,7 +55,6 @@ public:
 	long long totalNumberOfDOFRepeats;
 	double totalNoise;
 	double time;
-	QString usedDEType;
 
 	double GetTotalNumberOfIterations() const { return totalNumberOfIterations; }
 	double GetNumberOfIterationsPerPixel() const
@@ -64,7 +63,6 @@ public:
 	}
 	double GetNumberOfIterationsPerSecond() const { return double(totalNumberOfIterations) / time; }
 	double GetMissedDEPercentage() const { return double(missedDE) / numberOfRaymarchings * 100.0; }
-	QString GetDETypeString() const { return usedDEType; }
 	double GetAverageDOFSamples() const
 	{
 		return double(totalNumberOfDOFRepeats) / numberOfRenderedPixels;

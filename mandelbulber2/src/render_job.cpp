@@ -355,7 +355,6 @@ void cRenderJob::PrepareData()
 
 	renderData->perlinNoise.reset(
 		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
-
 }
 
 bool cRenderJob::Execute()
@@ -443,8 +442,7 @@ bool cRenderJob::Execute()
 					for (const auto &node : renderData->nodesDataForRendering)
 					{
 						if (node.material > 0 && node.internalObjectId >= 0
-								&& node.internalObjectId
-										< static_cast<int>(renderData->objectData.size()))
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
 						{
 							renderData->objectData[node.internalObjectId].materialId = node.material;
 						}
@@ -463,7 +461,6 @@ bool cRenderJob::Execute()
 				renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 				renderData->statistics.histogramStepCount.Resize(1000);
 				renderData->statistics.Reset();
-				renderData->statistics.usedDEType = fractals->GetDETypeString();
 
 				// create and execute renderer
 				std::unique_ptr<cRenderer> renderer(new cRenderer(params, fractals, renderData, image));
@@ -801,7 +798,6 @@ void cRenderJob::InitStatistics(const cNineFractals *fractals)
 	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 	renderData->statistics.histogramStepCount.Resize(1000);
 	renderData->statistics.Reset();
-	renderData->statistics.usedDEType = fractals->GetDETypeString();
 }
 
 #ifdef USE_OPENCL

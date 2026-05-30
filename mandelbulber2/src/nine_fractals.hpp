@@ -59,50 +59,6 @@ class cNineFractals
 public:
 	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
 		std::shared_ptr<const cParameterContainer> generalPar);
-	sFractal *GetFractal(int index) const { return fractals[index].get(); }
-	bool IsHybrid() const { return isHybrid; }
-	fractal::enumDEType GetDEType(int formulaIndex) const;
-	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
-	inline double GetWeight(int formulaIndex) const { return formulaWeight[formulaIndex]; }
-	// inline bool UseOptimizedDE() const { return useOptimizedDE; }
-	QString GetDETypeString() const;
-
-	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
-
-#ifdef USE_OPENCL
-	void CopyToOpenclData(sClFractalSequence *sequence) const;
-#endif
-
-private:
-	std::vector<std::unique_ptr<sFractal>> fractals;
-	bool forceDeltaDE;
-	bool forceAnalyticDE;
-	bool isHybrid;
-	bool isBoolean;
-	// bool useOptimizedDE;
-	int maxN;
-	std::vector<int> hybridSequence;
-	int hybridSequenceLength;
-
-	std::vector<double> formulaWeight;
-	std::vector<fractal::enumDEFunctionType> DEFunctionType;
-	std::vector<fractal::enumDEType> DEType;
-	std::vector<fractal::enumDEAnalyticFunction> DEAnalyticFunction;
-	std::vector<fractal::enumColoringFunction> coloringFunction;
-	std::vector<int> counts;
-	std::vector<int> formulaStartIteration;
-	std::vector<int> formulaStopIteration;
-	std::vector<bool> addCConstant;
-	std::vector<bool> checkForBailout;
-	std::vector<double> bailout;
-	std::vector<bool> juliaEnabled;
-	std::vector<CVector3> juliaConstant;
-	std::vector<CVector3> constantMultiplier;
-	std::vector<double> initialWAxis;
-	std::vector<bool> useAdditionalBailoutCond;
-	std::vector<int> formulaMaxiter;
-
-	void CreateSequence(std::shared_ptr<const cParameterContainer> generalPar);
 };
 
 #endif /* MANDELBULBER2_SRC_NINE_FRACTALS_HPP_ */
