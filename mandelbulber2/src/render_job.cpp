@@ -504,7 +504,7 @@ bool cRenderJob::Execute()
 				std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
 					objectsTreeOCL.GetNodeDataListForRendering();
 				fractals->CreateSequences(paramsContainer, fractalContainer, nodesOCL);
-				renderData->hybridFractalSequences = *fractals;
+				renderData->hybridFractalSequences = std::move(*fractals);
 
 				renderData->ValidateObjects();
 

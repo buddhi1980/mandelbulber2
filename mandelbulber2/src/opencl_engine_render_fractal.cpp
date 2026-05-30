@@ -481,7 +481,9 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 			if (formulaName == "custom")
 			{
 				formulaName += QString::number(formulaIndex);
-				// TODO: handle custom formula code loading for OpenCL
+				// Custom formula OpenCL code loading is not yet implemented for the
+				// cHybridFractalSequences path. The fractal container index mapping
+				// needs to be resolved through the sequence's object IDs.
 			}
 
 			listOfUsedFormulas.append(formulaName);
