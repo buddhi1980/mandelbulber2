@@ -77,7 +77,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	initialWAxis.resize(numFractals);
 	useAdditionalBailoutCond.resize(numFractals, false);
 	formulaMaxiter.resize(numFractals);
-	fractalFormulaFunctions.resize(numFractals);
 
 	// getting data from all formula slots
 	for (int i = 0; i < numFractals; i++)
@@ -99,7 +98,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 
-		fractalFormulaFunctions[i] = newFractalList[GetIndexOnFractalList(fractals[i]->formula)];
 		DEAnalyticFunction[i] =
 			newFractalList[GetIndexOnFractalList(fractals[i]->formula)]->getDeAnalyticFunction();
 		coloringFunction[i] =
@@ -167,11 +165,9 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	forceAnalyticDE =
 		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceAnalyticDE;
 
-	optimizedDEType = fractal::withoutDEFunction;
 	// useOptimizedDE = false;
 
 	maxN = generalPar->Get<int>("N");
-	maxFractalIndex = 0;
 	CreateSequence(generalPar);
 
 	if (isHybrid)
@@ -206,11 +202,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 				// looking if it's possible to use analyticDEType
 				if (!forceDeltaDE && newFractalList[index]->getInternalId() != fractal::none)
 				{
-					if (optimizedDEType == fractal::withoutDEFunction)
-					{
-						optimizedDEType = DEFunction;
-					}
-
 					if (!forceAnalyticDE && newFractalList[index]->getDeType() == fractal::deltaDEType)
 					{
 						DEType[0] = fractal::deltaDEType;
@@ -354,8 +345,6 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 				repeatCount++;
 			}
 			hybridSequence[i] = fractalNo;
-			if (fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex)
-				maxFractalIndex = fractalNo;
 
 			if (counter >= counts[fractalNo])
 			{
@@ -368,18 +357,6 @@ void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> ge
 		{
 			hybridSequence[i] = 0;
 		}
-	}
-}
-
-int cNineFractals::GetSequence(const int i) const
-{
-	if (i < hybridSequenceLength)
-	{
-		return hybridSequence[i];
-	}
-	else
-	{
-		return 0;
 	}
 }
 
