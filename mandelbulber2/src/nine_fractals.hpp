@@ -53,7 +53,6 @@
 class cParameterContainer;
 class cFractalContainer;
 struct sFractal;
-class cAbstractFractal;
 
 class cNineFractals
 {
@@ -61,41 +60,12 @@ public:
 	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
 		std::shared_ptr<const cParameterContainer> generalPar);
 	sFractal *GetFractal(int index) const { return fractals[index].get(); }
-	int GetSequence(const int i) const;
 	bool IsHybrid() const { return isHybrid; }
 	fractal::enumDEType GetDEType(int formulaIndex) const;
 	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
 	inline double GetWeight(int formulaIndex) const { return formulaWeight[formulaIndex]; }
-	inline int GetMaxFractalIndex() const { return maxFractalIndex; }
-	inline bool IsAddCConstant(int formulaIndex) const { return addCConstant[formulaIndex]; }
-	inline bool IsCheckForBailout(int formulaIndex) const { return checkForBailout[formulaIndex]; }
 	// inline bool UseOptimizedDE() const { return useOptimizedDE; }
 	QString GetDETypeString() const;
-	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; }
-	inline bool IsJuliaEnabled(int formulaIndex) const { return juliaEnabled[formulaIndex]; }
-	inline CVector3 GetJuliaConstant(int formulaIndex) const { return juliaConstant[formulaIndex]; }
-	inline CVector3 GetConstantMultiplier(int formulaIndex) const
-	{
-		return constantMultiplier[formulaIndex];
-	}
-	inline double GetInitialWAxis(int formulaIndex) const { return initialWAxis[formulaIndex]; }
-	inline bool UseAdditionalBailoutCond(int formulaIndex) const
-	{
-		return useAdditionalBailoutCond[formulaIndex];
-	};
-	inline cAbstractFractal *GetFractalFormulaFunction(int formulaIndex) const
-	{
-		return fractalFormulaFunctions[formulaIndex];
-	}
-	inline fractal::enumDEAnalyticFunction GetDEAnalyticFunction(int formulaIndex) const
-	{
-		return DEAnalyticFunction[formulaIndex];
-	}
-	inline fractal::enumColoringFunction GetColoringFunction(int formulaIndex) const
-	{
-		return coloringFunction[formulaIndex];
-	}
-	inline int GetFormulaMaxiter(int formulaIndex) const { return formulaMaxiter[formulaIndex]; }
 
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
@@ -109,9 +79,7 @@ private:
 	bool forceAnalyticDE;
 	bool isHybrid;
 	bool isBoolean;
-	fractal::enumDEFunctionType optimizedDEType;
 	// bool useOptimizedDE;
-	int maxFractalIndex;
 	int maxN;
 	std::vector<int> hybridSequence;
 	int hybridSequenceLength;
@@ -133,7 +101,6 @@ private:
 	std::vector<double> initialWAxis;
 	std::vector<bool> useAdditionalBailoutCond;
 	std::vector<int> formulaMaxiter;
-	std::vector<cAbstractFractal *> fractalFormulaFunctions;
 
 	void CreateSequence(std::shared_ptr<const cParameterContainer> generalPar);
 };
