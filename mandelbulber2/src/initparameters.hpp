@@ -41,9 +41,13 @@
 #include "parameters.hpp"
 #include "primitive_item.h"
 
+class cFractalContainer;
+
 extern std::shared_ptr<cParameterContainer> gPar;
 
 void InitParams(std::shared_ptr<cParameterContainer> par);
+void InitParams(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal);
 void InitFractalParams(std::shared_ptr<cParameterContainer> par);
 void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParameterContainer> par);
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
