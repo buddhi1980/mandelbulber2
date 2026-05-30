@@ -66,6 +66,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
 	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -113,6 +114,15 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
 		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
 
+	//--- Hybrid Sequences
+
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset =
+		GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
+
 	//--------- end of data file ----------------------------------
 
 	float3 point;
@@ -138,6 +148,9 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 	renderData.nodesData = nodesData;
 	renderData.numberOfNodes = numberOfNodes;
 	renderData.numberOfObjects = numberOfObjects;
+	renderData.dynamicData = inBuff;
+	renderData.hybridSequences = hybridSequences;
+	renderData.numberOfHybridSequences = numberOfHybridSequences;
 
 	formulaOut outF;
 
@@ -147,7 +160,8 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 #ifdef MESH_EXPORT_COLOR
 	int formulaIndex = -1;
 
-	outF = Fractal(consts, point, &calcParam, calcModeColouring, material, formulaIndex);
+	outF = Fractal(consts, point, &calcParam, calcModeColouring, material, formulaIndex,
+		&renderData, 0);
 	float color = outF.colorIndex;
 #else
 	float color = 0.0f;

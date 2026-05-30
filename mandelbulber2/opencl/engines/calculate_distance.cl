@@ -81,7 +81,7 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 }
 
 formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData, int forcedFormulaIndex)
+	sClCalcParams *calcParam, sRenderData *renderData, int hybridSequenceIndex)
 {
 	formulaOut out;
 	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
@@ -92,14 +92,16 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 	out.maxiter = false;
 	out.objectId = 0;
 
-	int forcedFormulaIndexForSequence = max(0, forcedFormulaIndex);
+	int seqIdx = (hybridSequenceIndex >= 0) ? hybridSequenceIndex : 0;
+	__global sHybridSequenceCl *seq = &renderData->hybridSequences[seqIdx];
 
 #ifdef ANALYTIC_DE
 #ifdef BOOLEAN_OPERATORS
-	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == analyticDEType)
+	if (seq->DEType == analyticDEType)
 #endif
 	{
-		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
+		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, -1,
+			renderData, hybridSequenceIndex);
 		bool maxiter = out.maxiter;
 
 		// don't use maxiter when limits are disabled and iterThresh mode is not used
@@ -148,7 +150,7 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 
 #ifdef DELTA_DE
 #ifdef BOOLEAN_OPERATORS
-	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == deltaDEType)
+	if (seq->DEType == deltaDEType)
 #endif
 	{
 
@@ -160,7 +162,8 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 #endif
 		float3 dr = 0.0f;
 
-		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
+		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, -1,
+			renderData, hybridSequenceIndex);
 		calcParam->deltaDEMaxN = out.iters - 1;
 		float r = length(out.z);
 		float4 zFromIters = out.z;
@@ -187,7 +190,8 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 		for (int i = 0; i < 6; i++)
 		{
 			rDelta[i] = length(
-				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, forcedFormulaIndex)
+				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, -1,
+					renderData, hybridSequenceIndex)
 					.z);
 		}
 		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
@@ -444,7 +448,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				if (numberOfFractalsToSkip == 0)
 				{
 					formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed,
-						calcParam, renderData, node->internalObjectId);
+						calcParam, renderData, node->hybridSequenceIndex);
 					distance = nodeOut.distance * absNodeScale;
 					objectId = node->internalObjectId;
 					sequenceIndex = node->hybridSequenceIndex;
@@ -478,7 +482,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			case nodeTypeHybrid:
 			{
 				formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed,
-					calcParam, renderData, -1);
+					calcParam, renderData, node->hybridSequenceIndex);
 				distance = nodeOut.distance * absNodeScale;
 				objectId = node->internalObjectId;
 				sequenceIndex = node->hybridSequenceIndex;

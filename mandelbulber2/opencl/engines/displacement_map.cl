@@ -81,7 +81,8 @@ float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCal
 	if (mat->textureFractalize)
 	{
 		formulaOut outF;
-		outF = Fractal(consts, point, calcParams, calcModeCubeOrbitTrap, mat, -1);
+		outF = Fractal(consts, point, calcParams, calcModeCubeOrbitTrap, mat, -1,
+			renderData, 0);
 		pointFractalized = outF.z.xyz;
 		*reduceDisplacement = pow(2.0f, outF.iters);
 	}

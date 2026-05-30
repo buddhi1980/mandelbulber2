@@ -124,7 +124,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 fakeLightsSpecular = 0.0f;
 #ifdef FAKE_LIGHTS
 	fakeLights =
-		FakeLightsShader(consts, input, calcParam, surfaceColor, gradients, &fakeLightsSpecular);
+		FakeLightsShader(consts, input, calcParam, surfaceColor, gradients, &fakeLightsSpecular,
+			renderData);
 #endif
 
 	float3 iridescence = 1.0f;

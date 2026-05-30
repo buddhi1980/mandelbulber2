@@ -53,6 +53,10 @@ typedef enum
 {
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
+	pseudoKleinianDEFunction = 3,
+	josKleinianDEFunction = 4,
+	customDEFunction = 5,
+	maxAxisDEFunction = 6,
 } enumDEFunctionTypeCl;
 
 typedef enum

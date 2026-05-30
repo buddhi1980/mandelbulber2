@@ -62,6 +62,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
 	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
 
 	//--- Primitives
 
@@ -94,6 +95,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
 		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
 
+	//--- Hybrid Sequences
+
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset =
+		GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
+
 	//--------- end of data file ----------------------------------
 
 	sClPixel pixel;
@@ -121,6 +131,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		renderData.nodesData = nodesData;
 		renderData.numberOfNodes = numberOfNodes;
 		renderData.numberOfObjects = numberOfObjects;
+		renderData.dynamicData = inBuff;
+		renderData.hybridSequences = hybridSequences;
+		renderData.numberOfHybridSequences = numberOfHybridSequences;
 
 		// auxiliary vectors
 		const float3 one = (float3){1.0f, 0.0f, 0.0f};

@@ -96,7 +96,8 @@ float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, 
 			{
 				point3 = point + point2 * delta;
 
-				out = Fractal(consts, point3, calcParam, calcModeNormal, NULL, -1);
+				out = Fractal(consts, point3, calcParam, calcModeNormal, NULL, -1,
+					renderData, 0);
 				float pseudoDistance = 1.0f + consts->params.N - out.iters;
 				normal += point2 * pseudoDistance;
 			}
