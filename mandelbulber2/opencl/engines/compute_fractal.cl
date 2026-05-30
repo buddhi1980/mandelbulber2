@@ -491,6 +491,29 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				{
 					dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 				}
+				else if (seq->DEFunctionType == pseudoKleinianDEFunction)
+				{
+					float rxy = length(z.xy);
+					dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / fabs(aux.DE);
+				}
+				else if (seq->DEFunctionType == josKleinianDEFunction)
+				{
+					if (fractDataArray[0].fractalParameters.transformCommon.spheresEnabled)
+						z.y = min(z.y,
+							fractDataArray[0].fractalParameters.transformCommon.foldingValue - z.y);
+					dist = min(z.y, fractDataArray[0].fractalParameters.analyticDE.tweak005)
+						/ max(fabs(aux.DE), fractDataArray[0].fractalParameters.analyticDE.offset1);
+				}
+				else if (seq->DEFunctionType == customDEFunction)
+				{
+					dist = aux.dist;
+				}
+				else if (seq->DEFunctionType == maxAxisDEFunction)
+				{
+					float4 absZ = fabs(z);
+					float rd = max(absZ.x, max(absZ.y, absZ.z));
+					dist = rd / fabs(aux.DE);
+				}
 			}
 			else
 			{
@@ -563,9 +586,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		dist = 0.0f;
 
 		// needed for JosKleinian fractal to calculate spheres in deltaDE mode
-		if (fractDataArray[sequence].fractalParameters.transformCommon.spheresEnabled)
-			z.y = min(z.y,
-				fractDataArray[sequence].fractalParameters.transformCommon.foldingValue - z.y);
+		if (seq->DEFunctionType == josKleinianDEFunction)
+		{
+			if (fractDataArray[sequence].fractalParameters.transformCommon.spheresEnabled)
+				z.y = min(z.y,
+					fractDataArray[sequence].fractalParameters.transformCommon.foldingValue - z.y);
+		}
 	}
 
 	// end
