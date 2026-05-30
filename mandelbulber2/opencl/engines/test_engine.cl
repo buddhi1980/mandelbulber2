@@ -110,6 +110,9 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	renderData.primitivesGlobalData = 0;
 	renderData.objectsData = 0;
 	renderData.numberOfObjects = 0;
+	renderData.dynamicData = 0;
+	renderData.hybridSequences = 0;
+	renderData.numberOfHybridSequences = 0;
 
 	formulaOut outF;
 	float step = 0.0f;

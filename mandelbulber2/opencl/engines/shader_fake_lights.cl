@@ -35,7 +35,7 @@
 #ifdef FAKE_LIGHTS
 float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
 	sClCalcParams *calcParams, float3 surfaceColor, sClGradientsCollection *gradients,
-	float3 *specularOut)
+	float3 *specularOut, sRenderData *renderData)
 {
 	float3 fakeLights = 0.0f;
 
@@ -49,7 +49,8 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		calcParams->orbitTrapIndex = fakeLightLoop;
 		formulaOut outF;
-		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1);
+		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1,
+			renderData, 0);
 		float rr = outF.orbitTrapR;
 		float r = 1.0f / (rr + 1e-20f);
 
@@ -60,15 +61,18 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		calcParams->detailSize = input->delta;
 
 		outF = Fractal(
-			consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
+			consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1,
+			renderData, 0);
 		float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		outF = Fractal(
-			consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
+			consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1,
+			renderData, 0);
 		float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		outF = Fractal(
-			consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL, -1);
+			consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL, -1,
+			renderData, 0);
 		float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		float3 fakeLightNormal;

@@ -49,7 +49,8 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 		{
 			formulaOut outF;
 			outF = Fractal(
-				consts, pointModified, calcParam, calcModeCubeOrbitTrap, shaderInputData->material, -1);
+				consts, pointModified, calcParam, calcModeCubeOrbitTrap, shaderInputData->material, -1,
+				renderData, 0);
 			pointModified = outF.z.xyz;
 		}
 #endif
