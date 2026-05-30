@@ -109,15 +109,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	__global sHybridFractalDataCl *fractDataArray =
 		(__global sHybridFractalDataCl *)&renderData->dynamicData[seq->fractDataArrayOffset];
 
-	// repeat, move and rotate
-	float3 pointTransformed = point;
-
-	float4 point4D = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, 0.0f};
+	float4 point4D = (float4){point.x, point.y, point.z, 0.0f};
 
 	float4 z;
-	z.x = pointTransformed.x;
-	z.y = pointTransformed.y;
-	z.z = pointTransformed.z;
+	z.x = point.x;
+	z.y = point.y;
+	z.z = point.z;
 
 	z.w = seq->initialWAxis;
 
@@ -139,6 +136,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float colorMin = 1000.0;
 	float orbitTrapTotal = 0.0f;
 
+	// fractalIndex is intentionally set once from the first formula in the sequence
+	// - used only for defaultFractal and initialScale, not updated per iteration
 	int fractalIndex = seqArray[0];
 
 	// formula init
@@ -498,11 +497,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				}
 				else if (seq->DEFunctionType == josKleinianDEFunction)
 				{
-					if (fractDataArray[0].fractalParameters.transformCommon.spheresEnabled)
+					if (fractDataArray[sequence].fractalParameters.transformCommon.spheresEnabled)
 						z.y = min(z.y,
-							fractDataArray[0].fractalParameters.transformCommon.foldingValue - z.y);
-					dist = min(z.y, fractDataArray[0].fractalParameters.analyticDE.tweak005)
-						/ max(fabs(aux.DE), fractDataArray[0].fractalParameters.analyticDE.offset1);
+							fractDataArray[sequence].fractalParameters.transformCommon.foldingValue - z.y);
+					dist = min(z.y, fractDataArray[sequence].fractalParameters.analyticDE.tweak005)
+						/ max(fabs(aux.DE), fractDataArray[sequence].fractalParameters.analyticDE.offset1);
 				}
 				else if (seq->DEFunctionType == customDEFunction)
 				{
