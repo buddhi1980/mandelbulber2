@@ -52,7 +52,7 @@
 #include "global_data.hpp"
 #include "material.h"
 #include "netrender.hpp"
-#include "nine_fractals.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "opencl_dynamic_data.hpp"
 #include "opencl_hardware.h"
 #include "opencl_scheduler.h"
@@ -406,13 +406,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 
 // set parameters defining distance estimation method
 void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
-	cNineFractals *fractals, sParamRender *paramRender)
+	cHybridFractalSequences *fractals, sParamRender *paramRender)
 {
-	// define distance estimation method
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	//	fractal::enumDEType deType = fractals->GetDEType(0);
-	//	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
-	// if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
+	// define distance estimation method using cHybridFractalSequences
 
 	bool useAnalyticDEType = false;
 	bool useDeltaDEType = false;
@@ -423,68 +419,31 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	bool useCustomDEFunction = false;
 	bool useMaxAxisDEFunction = false;
 
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	//	if (fractals->IsHybrid())
-	//	{
-	//		if (deType == fractal::analyticDEType)
-	//		{
-	//			useAnalyticDEType = true;
-	//			switch (deFunctionType)
-	//			{
-	//				case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
-	//				case fractal::logarithmicDEFunction: definesCollector += " -DANALYTIC_LOG_DE"; break;
-	//				case fractal::pseudoKleinianDEFunction:
-	//					definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
-	//					break;
-	//				case fractal::josKleinianDEFunction:
-	//					definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
-	//					break;
-	//				case fractal::customDEFunction: definesCollector += " -DANALYTIC_CUSTOM_DE"; break;
-	//				case fractal::maxAxisDEFunction: definesCollector += " -DANALYTIC_MAXAXIS_DE"; break;
-	//				default: break;
-	//			}
-	//		}
-	//		if (deType == fractal::deltaDEType)
-	//		{
-	//			useDeltaDEType = true;
-	//			switch (fractals->GetDEFunctionType(0))
-	//			{
-	//				case fractal::linearDEFunction: useLinearDEFunction = true; break;
-	//				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
-	//				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
-	//				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-	//				case fractal::customDEFunction: useCustomDEFunction = true; break;
-	//				case fractal::maxAxisDEFunction: useMaxAxisDEFunction = true; break;
-	//				default: break;
-	//			}
-	//		}
-	//	}
-	//	else // is not Hybrid
-	//	{
-	//		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	//		{
-	//			if (!paramRender->booleanOperatorsEnabled && i == 1) break;
-	//
-	//			if (fractals->GetDEType(i) == fractal::analyticDEType)
-	//			{
-	//				useAnalyticDEType = true;
-	//			}
-	//			else if (fractals->GetDEType(i) == fractal::deltaDEType)
-	//			{
-	//				useDeltaDEType = true;
-	//				switch (fractals->GetDEFunctionType(i))
-	//				{
-	//					case fractal::linearDEFunction: useLinearDEFunction = true; break;
-	//					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
-	//					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
-	//					case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-	//					case fractal::customDEFunction: useCustomDEFunction = true; break;
-	//					case fractal::maxAxisDEFunction: useMaxAxisDEFunction = true; break;
-	//					default: break;
-	//				}
-	//			}
-	//		}
-	//	}
+	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *seq = fractals->GetSequence(s);
+		fractal::enumDEType deType = seq->DEType;
+		fractal::enumDEFunctionType deFunctionType = seq->DEFunctionType;
+
+		if (deType == fractal::analyticDEType)
+		{
+			useAnalyticDEType = true;
+		}
+		if (deType == fractal::deltaDEType)
+		{
+			useDeltaDEType = true;
+			switch (deFunctionType)
+			{
+				case fractal::linearDEFunction: useLinearDEFunction = true; break;
+				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
+				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
+				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
+				case fractal::customDEFunction: useCustomDEFunction = true; break;
+				case fractal::maxAxisDEFunction: useMaxAxisDEFunction = true; break;
+				default: break;
+			}
+		}
+	}
 	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
 
 	if (useDeltaDEType) definesCollector += " -DDELTA_DE";
@@ -504,61 +463,44 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 
 // create list of used fractal formulas
 void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
-	cNineFractals *fractals, std::shared_ptr<const cFractalContainer> fractalContainer)
+	cHybridFractalSequences *fractals, std::shared_ptr<const cFractalContainer> fractalContainer)
 {
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	//	listOfUsedFormulas.clear();
-	//	// creating list of used formulas
-	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	//	{
-	//		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
-	//		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
-	//		QString formulaName = newFractalList.at(listIndex)->getInternalName();
-	//
-	//		// handling custom formulas
-	//		if (formulaName == "custom")
-	//		{
-	//			formulaName += QString::number(i);
-	//			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
-	//
-	//			// save custom formula code to temporary file
-	//			if (formulaCode.contains("CustomIteration("))
-	//			{
-	//				formulaCode = formulaCode.replace("CustomIteration",
-	// QString("Custom%1Iteration").arg(i)); 				QFile qFile(
-	// systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl"); 				if
-	// (qFile.open(QIODevice::WriteOnly))
-	//				{
-	//					qFile.write(formulaCode.toUtf8());
-	//					qFile.close();
-	//				}
-	//			}
-	//			else
-	//			{
-	//				emit showErrorMessage(
-	//					QObject::tr("Custom formula %1 has missing function name CustomIteration()!").arg(i),
-	//					cErrorMessage::errorMessage, nullptr);
-	//			}
-	//			customFormulaCodes[i] = formulaCode;
-	//		}
-	//		else
-	//		{
-	//			customFormulaCodes[i] = QString();
-	//		}
-	//		listOfUsedFormulas.append(formulaName);
-	//	}
-	//	// adding #defines to the list
-	//	for (int i = 0; i < listOfUsedFormulas.size(); i++)
-	//	{
-	//		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
-	//		if (internalID != "" && internalID != "None")
-	//		{
-	//			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
-	//			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
-	//		}
-	//	}
-	//
-	//	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
+	listOfUsedFormulas.clear();
+	customFormulaCodes.clear();
+
+	int formulaIndex = 0;
+	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *seq = fractals->GetSequence(s);
+		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
+		{
+			const cHybridFractalSequences::sFractalData &fractData = seq->fractData[f];
+			QString formulaName = fractData.fractalFormulaObject->getInternalName();
+
+			// handling custom formulas
+			if (formulaName == "custom")
+			{
+				formulaName += QString::number(formulaIndex);
+				// TODO: handle custom formula code loading for OpenCL
+			}
+
+			listOfUsedFormulas.append(formulaName);
+			formulaIndex++;
+		}
+	}
+
+	// adding #defines to the list
+	for (int i = 0; i < listOfUsedFormulas.size(); i++)
+	{
+		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
+		if (internalID != "" && internalID != "None")
+		{
+			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+		}
+	}
+
+	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 }
 
 void cOpenClEngineRenderFractal::SetParametersForPerspectiveProjection(sParamRender *paramRender)
@@ -912,36 +854,42 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 
 // create dynamic data for AO colored vectors
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
-	std::shared_ptr<const sParamRender> paramRender, std::shared_ptr<const cNineFractals> fractals,
+	std::shared_ptr<const sParamRender> paramRender,
 	std::shared_ptr<sRenderData> renderData)
 {
 	// AO colored vectors
 	std::unique_ptr<cRenderWorker> tempRenderWorker(
-		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr));
+		new cRenderWorker(paramRender, nullptr, nullptr, renderData, nullptr));
 	tempRenderWorker->PrepareAOVectors();
 	const sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 }
 
-void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *fractals)
+void cOpenClEngineRenderFractal::SetParametersForIterationWeight(
+	cHybridFractalSequences *fractals)
 {
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	//	bool weightUsed = false;
-	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	//	{
-	//		if (fractals->GetWeight(i) != 1.0)
-	//		{
-	//			weightUsed = true;
-	//		}
-	//	}
-	//	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
+	bool weightUsed = false;
+	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *seq = fractals->GetSequence(s);
+		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
+		{
+			if (seq->fractData[f].formulaWeight != 1.0)
+			{
+				weightUsed = true;
+				break;
+			}
+		}
+		if (weightUsed) break;
+	}
+	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 }
 
 void cOpenClEngineRenderFractal::SetParameters(
 	std::shared_ptr<const cParameterContainer> paramContainer,
 	std::shared_ptr<const cFractalContainer> fractalContainer,
-	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
+	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cHybridFractalSequences> fractals,
 	std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable)
 {
 	Q_UNUSED(fractalContainer);
@@ -1014,7 +962,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 		SetParametersAndDataForMaterials(textureIndexes, renderData.get(), paramRender.get());
 
 		// AO colored vectors
-		DynamicDataForAOVectors(paramRender, fractals, renderData);
+		DynamicDataForAOVectors(paramRender, renderData);
 
 		// random lights
 		dynamicData->BuildLightsData(&renderData->lights, textureIndexes);
@@ -1047,11 +995,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	//	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	//	{
-	//		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
-	//	}
+	// Fractal data is now passed through dynamic data via BuildHybridSequencesData
 
 	// buffer for Perlin noise seeds
 	perlinNoiseSeeds.resize(perlinNoiseArraySize);
@@ -1065,8 +1009,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	useOptionalImageChannels = paramContainer->Get<bool>("optional_image_channels_enabled");
 
-	// FIXME to be fixed by implementation of cHybridFractalSequences
-	// fractals->CopyToOpenclData(&constantInBuffer->sequence);
+	// Sequence data is now passed through dynamic data via BuildHybridSequencesData
 }
 
 void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(

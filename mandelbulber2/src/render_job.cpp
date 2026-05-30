@@ -455,7 +455,7 @@ bool cRenderJob::Execute()
 				params->resolution = 1.0 / image->GetHeight();
 				ReduceDetail();
 
-				InitStatistics(fractals.get());
+				InitStatistics();
 
 				// initialize histograms
 				renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
@@ -496,14 +496,21 @@ bool cRenderJob::Execute()
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(
 					new sParamRender(paramsContainer, &renderData->objectData, nullptr, fractalContainer));
-				std::shared_ptr<cNineFractals> fractals(
-					new cNineFractals(fractalContainer, paramsContainer));
+
+				// create hybrid fractal sequences for OpenCL
+				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+				cObjectsTree objectsTreeOCL;
+				objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
+				std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+					objectsTreeOCL.GetNodeDataListForRendering();
+				fractals->CreateSequences(paramsContainer, fractalContainer, nodesOCL);
+				renderData->hybridFractalSequences = *fractals;
 
 				renderData->ValidateObjects();
 
 				image->SetImageParameters(params->imageAdjustments);
 
-				InitStatistics(fractals.get());
+				InitStatistics();
 				emit updateStatistics(renderData->statistics);
 
 				image->SetFastPreview(true);
@@ -792,7 +799,7 @@ void cRenderJob::InitNetRender()
 	}
 }
 
-void cRenderJob::InitStatistics(const cNineFractals *fractals)
+void cRenderJob::InitStatistics()
 {
 	// initialize histograms
 	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
@@ -802,7 +809,7 @@ void cRenderJob::InitStatistics(const cNineFractals *fractals)
 
 #ifdef USE_OPENCL
 bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText)
+	std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText)
 {
 	bool result = false;
 	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
