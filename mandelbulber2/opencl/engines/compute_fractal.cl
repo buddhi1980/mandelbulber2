@@ -136,9 +136,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float colorMin = 1000.0;
 	float orbitTrapTotal = 0.0f;
 
-	// fractalIndex is intentionally set once from the first formula in the sequence
+	// fractalIndex is the local index of the first formula in this sequence
 	// - used only for defaultFractal and initialScale, not updated per iteration
 	int fractalIndex = seqArray[0];
+	// globalFractalIndex is used to index consts->fractal[] (global across all sequences)
+	int globalFractalIndex = fractalIndex + seq->formulaBaseIndex;
 
 	// formula init
 	sExtendedAuxCl aux;
@@ -159,9 +161,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.temp1000 = 1000.0f;
 
 	int sequence = 0;
+	int globalSequence = 0;
 	__constant sFractalCl *fractal;
 
-	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
+	__constant sFractalCl *defaultFractal = &consts->fractal[globalFractalIndex];
 
 	__global sFractalColoringCl *fractalColoring = (material) ? &material->fractalColoring : NULL;
 
@@ -198,11 +201,13 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	{
 #if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 		sequence = seqArray[min(i, seq->length - 1)];
+		globalSequence = sequence + seq->formulaBaseIndex;
 #else
 		sequence = 0;
+		globalSequence = seq->formulaBaseIndex;
 #endif
 
-		fractal = &consts->fractal[sequence];
+		fractal = &consts->fractal[globalSequence];
 
 		aux.i = i;
 
@@ -230,7 +235,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
-			switch (sequence)
+			switch (globalSequence)
 			{
 				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
 				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;

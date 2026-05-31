@@ -421,11 +421,13 @@ bool cRenderJob::Execute()
 					renderData->hybridFractalSequences = hybridSequences;
 				}
 
-				if (renderData->hybridFractalSequences.GetNumberOfSequences() == 0)
+				if (renderData->hybridFractalSequences.GetNumberOfSequences() == 0
+						&& renderData->nodesDataForRendering.empty())
 				{
 					WriteLog(
-						"cRenderJob: objectsTree is enabled but no fractal sequences were created. "
-						"Rendering will be skipped. Please check the object-tree structure in the settings.",
+						"cRenderJob: objectsTree is enabled but no fractal sequences and no nodes were "
+						"created. Rendering will be skipped. Please check the object-tree structure in "
+						"the settings.",
 						1);
 					continue;
 				}
@@ -493,17 +495,22 @@ bool cRenderJob::Execute()
 			{
 				SetupStereoEyes(repeat, twoPassStereo);
 
+				// create node data and store in renderData so BuildNodesData and
+				// primitive/fractal index assignment work correctly
+				cObjectsTree objectsTreeOCL;
+				objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
+				renderData->nodesDataForRendering = objectsTreeOCL.GetNodeDataListForRendering();
+
 				// move parameters from containers to structures
-				std::shared_ptr<sParamRender> params(
-					new sParamRender(paramsContainer, &renderData->objectData, nullptr, fractalContainer));
+				// pass &renderData->nodesDataForRendering so sParamRender can set
+				// internalObjectId and primitiveIdx on each node
+				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
+					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
 
 				// create hybrid fractal sequences for OpenCL
 				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
-				cObjectsTree objectsTreeOCL;
-				objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
-				std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
-					objectsTreeOCL.GetNodeDataListForRendering();
-				fractals->CreateSequences(paramsContainer, fractalContainer, nodesOCL);
+				fractals->CreateSequences(
+					paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 				renderData->hybridFractalSequences = std::move(*fractals);
 
 				renderData->ValidateObjects();

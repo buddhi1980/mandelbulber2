@@ -997,7 +997,26 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 
-	// Fractal data is now passed through dynamic data via BuildHybridSequencesData
+	// Populate constant-buffer fractal array so compute_fractal.cl can access
+	// formula parameters via consts->fractal[globalIndex].
+	// The dynamic data also carries fractal parameters (in sHybridFractalDataCl),
+	// but compute_fractal.cl reads the __constant buffer for all formula functions.
+	{
+		int globalFractalIdx = 0;
+		for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
+		{
+			const cHybridFractalSequences::sSequence *seq = fractals->GetSequence(s);
+			for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
+			{
+				if (globalFractalIdx < NUMBER_OF_FRACTALS)
+				{
+					constantInBuffer->fractal[globalFractalIdx] =
+						clCopySFractalCl(seq->fractData[f].fractalParameters);
+				}
+				globalFractalIdx++;
+			}
+		}
+	}
 
 	// buffer for Perlin noise seeds
 	perlinNoiseSeeds.resize(perlinNoiseArraySize);
