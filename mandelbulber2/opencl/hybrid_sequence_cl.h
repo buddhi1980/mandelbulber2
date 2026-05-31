@@ -78,6 +78,7 @@ typedef struct
 
 	cl_int sequenceArrayOffset;   // offset to sequence array (cl_int[]) in dynamic data
 	cl_int fractDataArrayOffset;  // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+	cl_int formulaBaseIndex;      // global index of first formula in consts->fractal[] for this sequence
 } sHybridSequenceCl;
 
 #endif /* MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_ */

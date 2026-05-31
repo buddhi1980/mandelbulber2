@@ -1191,6 +1191,7 @@ void cOpenClDynamicData::BuildHybridSequencesData(
 	std::vector<int> seqArrayOffsetAddresses(numberOfSequences);
 	std::vector<int> fractDataOffsetAddresses(numberOfSequences);
 
+	int formulaBaseIndex = 0; // cumulative global formula index across all sequences
 	for (int i = 0; i < numberOfSequences; i++)
 	{
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
@@ -1214,6 +1215,9 @@ void cOpenClDynamicData::BuildHybridSequencesData(
 		seqCl.formulaMaxiter = seq->formulaMaxiter;
 		seqCl.sequenceArrayOffset = 0;   // will be patched later
 		seqCl.fractDataArrayOffset = 0;  // will be patched later
+		seqCl.formulaBaseIndex = formulaBaseIndex;
+
+		formulaBaseIndex += seq->numberOfFractalsInTheSequence;
 
 		// record addresses for patching
 		int seqClStartAddress = totalDataOffset;
