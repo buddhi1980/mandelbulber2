@@ -511,7 +511,7 @@ bool cRenderJob::Execute()
 				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
 				fractals->CreateSequences(
 					paramsContainer, fractalContainer, renderData->nodesDataForRendering);
-				renderData->hybridFractalSequences = std::move(*fractals);
+				renderData->hybridFractalSequences = *fractals;
 
 				renderData->ValidateObjects();
 

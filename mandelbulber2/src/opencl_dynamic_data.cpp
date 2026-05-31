@@ -967,6 +967,8 @@ void cOpenClDynamicData::BuildNodesData(
 	 * 	sNodeDataForRenderingCl nodeN
 	 */
 
+	cObjectsTree::DebugPrintNodes(*nodesData);
+
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;
 
@@ -1150,8 +1152,7 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 		reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
 }
 
-void cOpenClDynamicData::BuildHybridSequencesData(
-	const cHybridFractalSequences *hybridSequences)
+void cOpenClDynamicData::BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences)
 {
 	/* hybrid sequences dynamic data structure:
 	 *
@@ -1213,8 +1214,8 @@ void cOpenClDynamicData::BuildHybridSequencesData(
 		seqCl.constantMultiplier = toClFloat3(seq->constantMultiplier);
 		seqCl.initialWAxis = seq->initialWAxis;
 		seqCl.formulaMaxiter = seq->formulaMaxiter;
-		seqCl.sequenceArrayOffset = 0;   // will be patched later
-		seqCl.fractDataArrayOffset = 0;  // will be patched later
+		seqCl.sequenceArrayOffset = 0;	// will be patched later
+		seqCl.fractDataArrayOffset = 0; // will be patched later
 		seqCl.formulaBaseIndex = formulaBaseIndex;
 
 		formulaBaseIndex += seq->numberOfFractalsInTheSequence;
@@ -1247,8 +1248,8 @@ void cOpenClDynamicData::BuildHybridSequencesData(
 		}
 
 		// patch sequenceArrayOffset
-		data.replace(seqArrayOffsetAddresses[i], sizeof(cl_int),
-			reinterpret_cast<char *>(&seqArrayOff), sizeof(cl_int));
+		data.replace(seqArrayOffsetAddresses[i], sizeof(cl_int), reinterpret_cast<char *>(&seqArrayOff),
+			sizeof(cl_int));
 
 		// write fractData array (sHybridFractalDataCl[])
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
