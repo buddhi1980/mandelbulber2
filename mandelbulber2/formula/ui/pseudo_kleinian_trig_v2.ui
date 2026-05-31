@@ -1431,6 +1431,13 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_40">
+          <property name="text">
+           <string notr="true">DE by Pupukuusikko</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
