@@ -220,7 +220,7 @@ FRACTAL_CLASS(cFractalPseudoKleinianMod6)
 FRACTAL_CLASS(cFractalPseudoKleinianMod7)
 FRACTAL_CLASS(cFractalPseudoKleinianTrig)
 FRACTAL_CLASS(cFractalPseudoKleinianTrigV2)
-
+FRACTAL_CLASS(cFractalPseudoKleinianTrigV3)
 FRACTAL_CLASS(cFractalPseudoKleinianStdDE)
 FRACTAL_CLASS(cFractalQuaternion)
 FRACTAL_CLASS(cFractalQuaternion3d)

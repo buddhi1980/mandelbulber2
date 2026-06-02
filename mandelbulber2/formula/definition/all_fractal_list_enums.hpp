@@ -327,6 +327,7 @@ enum enumFractalFormula
 	mandelbarV3 = 282,
 	pseudoKleinianTrig = 283,
 	pseudoKleinianTrigV2 = 284,
+	pseudoKleinianTrigV3 = 285,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

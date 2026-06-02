@@ -601,6 +601,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalPseudoKleinianTrig());
 	fractalList->append(new cFractalPseudoKleinianTrigV2());
+	fractalList->append(new cFractalPseudoKleinianTrigV3());
 
 	fractalList->append(new cFractalTinkerTowers());
 
