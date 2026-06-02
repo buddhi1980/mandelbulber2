@@ -92,14 +92,10 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	z -= fractal->transformCommon.offsetF000;
-
+	// DE stretch
 	// Use Identity: sqrt(chz^2 + shz^2) = sqrt(0.5 * (ez^2 + invEz^2))
 	REAL stretch = fractal->transformCommon.scaleF1 * native_sqrt(0.5f * (ez * ez + invEz * invEz));
-
-	if (fractal->transformCommon.functionEnabledOFalse) // temp to remove
-	{
-		stretch = max(fractal->transformCommon.scaleA1, stretch);
-	}
+	stretch = max(fractal->transformCommon.scaleA1, stretch);
 
 	// 6. Distance Estimation update
 	aux->DE = aux->DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
@@ -135,14 +131,11 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL addCol = fractal->foldColor.difs0000.x + aux->i * fractal->foldColor.difs0
-
-			+ fractal->foldColor.difs0000.y * fabs(z.z)
-			+ length(oldZ - z) * fractal->foldColor.difs0000.z
+		REAL addCol = fabs(z.x * z.y) * fractal->foldColor.difs0;
+		addCol += stretch * fractal->foldColor.difs0000.x
+			+ fabs(z.z) * fractal->foldColor.difs0000.y
 			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
-
-
-
+		if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

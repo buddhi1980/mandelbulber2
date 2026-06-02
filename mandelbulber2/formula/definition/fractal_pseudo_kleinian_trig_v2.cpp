@@ -99,14 +99,9 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 
 	z -= fractal->transformCommon.offsetF000;
 
-
 	// Use Identity: sqrt(chz^2 + shz^2) = sqrt(0.5 * (ez^2 + invEz^2))
 	double stretch = fractal->transformCommon.scaleF1 * sqrt(0.5 * (ez * ez + invEz * invEz));
-
-	if (fractal->transformCommon.functionEnabledOFalse)
-	{
-		stretch = max(fractal->transformCommon.scaleA1, stretch);
-	}
+	stretch = max(fractal->transformCommon.scaleA1, stretch);
 
 	// 6. Distance Estimation update
 	aux.DE = aux.DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
@@ -143,15 +138,12 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 		&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double addCol = fractal->foldColor.difs0000.x + aux.i * fractal->foldColor.difs0
-
+		double addCol = fabs(z.x * z.y) * fractal->foldColor.difs0;
+		addCol += fractal->foldColor.difs0000.x * stretch
 			+ fractal->foldColor.difs0000.y * fabs(z.z)
-
-			+ (oldZ - z).Length() * fractal->foldColor.difs0000.z
-
-			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
-
-
+			+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
+		if (fractal->foldColor.difs0000.z != 0.0)
+			addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

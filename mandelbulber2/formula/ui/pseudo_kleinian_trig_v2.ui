@@ -1062,7 +1062,7 @@ offset:</string>
    <item>
     <widget class="QLabel" name="label_275">
      <property name="text">
-      <string>stretch</string>
+      <string>DE stretch</string>
      </property>
     </widget>
    </item>
@@ -1568,21 +1568,21 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_17">
           <property name="text">
-           <string>palette offset:</string>
+           <string>DE stretch:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_33">
           <property name="text">
-           <string>z.z change:</string>
+           <string>length(oldZ - z):</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>iter add scale:</string>
+           <string>abs(z.x * z.y):</string>
           </property>
          </widget>
         </item>
@@ -1704,7 +1704,7 @@ offset:</string>
         <item row="5" column="0">
          <widget class="QLabel" name="label_32">
           <property name="text">
-           <string>abs(oldZ.z - z.z)</string>
+           <string>abs(oldZ.z - z.z):</string>
           </property>
          </widget>
         </item>
@@ -1742,7 +1742,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_43">
           <property name="text">
-           <string>abs(z.z)</string>
+           <string>abs(z.z):</string>
           </property>
          </widget>
         </item>

@@ -1069,7 +1069,7 @@ offset:</string>
    <item>
     <widget class="QLabel" name="label_275">
      <property name="text">
-      <string>stretch</string>
+      <string>DE stretch</string>
      </property>
     </widget>
    </item>
@@ -1470,7 +1470,7 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>dot*dot:</string>
+           <string>abs(z.x * z.y):</string>
           </property>
          </widget>
         </item>
