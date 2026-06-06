@@ -49,6 +49,7 @@
 #include "files.h"
 #include "fractal.h"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "global_data.hpp"
 #include "material.h"
 #include "netrender.hpp"
@@ -939,8 +940,6 @@ void cOpenClEngineRenderFractal::SetParameters(
 	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
 	std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable)
 {
-	Q_UNUSED(fractalContainer);
-
 	WriteLog(QString("Setting parameters for OpenCL rendering"), 2);
 
 	meshExportMode = meshExportModeEnable;
@@ -1059,6 +1058,56 @@ void cOpenClEngineRenderFractal::SetParameters(
 	useOptionalImageChannels = paramContainer->Get<bool>("optional_image_channels_enabled");
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
+
+	// Override sequence data with hybrid fractal sequences from objects tree
+	if (paramRender->objectsTreeEnable)
+	{
+		cHybridFractalSequences hybridSequences;
+		hybridSequences.CreateSequences(paramContainer, fractalContainer);
+
+		if (hybridSequences.GetNumberOfSequences() > 0)
+		{
+			cHybridFractalSequences::sSequence *seq = hybridSequences.GetSequence(0);
+
+			if (seq->numberOfFractalsInTheSequence > 1)
+			{
+				// Add hybrid defines for kernel compilation
+				definesCollector += " -DIS_HYBRID";
+
+				// Set DE type defines based on the sequence
+				switch (seq->DEFunctionType)
+				{
+					case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
+					case fractal::logarithmicDEFunction: definesCollector += " -DANALYTIC_LOG_DE"; break;
+					case fractal::pseudoKleinianDEFunction:
+						definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
+						break;
+					case fractal::josKleinianDEFunction:
+						definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
+						break;
+					case fractal::customDEFunction: definesCollector += " -DANALYTIC_CUSTOM_DE"; break;
+					case fractal::maxAxisDEFunction: definesCollector += " -DANALYTIC_MAXAXIS_DE"; break;
+					default: break;
+				}
+
+				if (seq->DEType == fractal::analyticDEType)
+				{
+					if (!definesCollector.contains("-DANALYTIC_DE")) definesCollector += " -DANALYTIC_DE";
+				}
+
+				// Override sequence data in the constant buffer
+				constantInBuffer->sequence.isHybrid = true;
+
+				for (int i = 0; i < OPENCL_FRACTAL_SEQUENCE_LENGTH; i++)
+				{
+					if (i < seq->length)
+						constantInBuffer->sequence.hybridSequence[i] = seq->seqence[i];
+					else
+						constantInBuffer->sequence.hybridSequence[i] = 0;
+				}
+			}
+		}
+	}
 }
 
 void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(
