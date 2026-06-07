@@ -95,11 +95,60 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
 		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
 
+	//	if (imageX == 0 && imageY == 0) // print only for first pixel to avoid flooding the output)
+	//	{
+	//		for (int i = 0; i < numberOfNodes; i++)
+	//		{
+	//			sNodeDataForRenderingCl node = nodesData[i];
+	//
+	//			//		typedef struct
+	//			//		{
+	//			//			cl_int id;
+	//			//			enumNodeTypeCl type;
+	//			//			cl_int parentId;
+	//			//			cl_int userObjectId;
+	//			//			cl_int internalObjectId;
+	//			//			cl_int primitiveIdx;
+	//			//			cl_int level;
+	//			//			cl_int hybridSequenceIndex;
+	//			//			cl_float3 repeat;
+	//			//			cl_float scale;
+	//			//			cl_float absScale;
+	//			//			cl_int material;
+	//			//			matrix33 rotationMatrix;
+	//			//			matrix44 inverseTransformMatrix;
+	//			//		} sNodeDataForRenderingCl;
+	//
+	//			printf(
+	//				"Node %d: id=%d, type=%d, parentId=%d, userObjectId=%d, internalObjectId=%d, "
+	//				"primitiveIdx=%d, level=%d, hybridSequenceIndex=%d, repeat=(%f,%f,%f), scale=%f, "
+	//				"absScale=%f, material=%d\n",
+	//				i, node.id, node.type, node.parentId, node.userObjectId, node.internalObjectId,
+	//				node.primitiveIdx, node.level, node.hybridSequenceIndex, node.repeat.x, node.repeat.y,
+	//				node.repeat.z, node.scale, node.absScale, node.material);
+	//
+	//			printf("Node %d rotation matrix: m1=(%f,%f,%f), m2=(%f,%f,%f), m3=(%f,%f,%f)\n", i,
+	//				node.rotationMatrix.m1.x, node.rotationMatrix.m1.y, node.rotationMatrix.m1.z,
+	//				node.rotationMatrix.m2.x, node.rotationMatrix.m2.y, node.rotationMatrix.m2.z,
+	//				node.rotationMatrix.m3.x, node.rotationMatrix.m3.y, node.rotationMatrix.m3.z);
+	//
+	//			printf(
+	//				"Node %d inverse transform matrix: m1=(%f,%f,%f,%f), m2=(%f,%f,%f,%f), m3=(%f,%f,%f,%f),
+	//" 				"m4=(%f,%f,%f,%f)\n", 				i, node.inverseTransformMatrix.r1.x, node.inverseTransformMatrix.r1.y,
+	//				node.inverseTransformMatrix.r1.z, node.inverseTransformMatrix.r1.w,
+	//				node.inverseTransformMatrix.r2.x, node.inverseTransformMatrix.r2.y,
+	//				node.inverseTransformMatrix.r2.z, node.inverseTransformMatrix.r2.w,
+	//				node.inverseTransformMatrix.r3.x, node.inverseTransformMatrix.r3.y,
+	//				node.inverseTransformMatrix.r3.z, node.inverseTransformMatrix.r3.w,
+	//				node.inverseTransformMatrix.r4.x, node.inverseTransformMatrix.r4.y,
+	//				node.inverseTransformMatrix.r4.z, node.inverseTransformMatrix.r4.w);
+	//		}
+	//	}
+
 	//--- Hybrid Sequences
 
 	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
-	int hybridSequencesArrayOffset =
-		GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
 
 	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
 		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];

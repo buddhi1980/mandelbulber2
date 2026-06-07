@@ -418,6 +418,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	bool useJosKleinianDEFunction = false;
 	bool useCustomDEFunction = false;
 	bool useMaxAxisDEFunction = false;
+	bool useHybrid = false;
 
 	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
 	{
@@ -443,6 +444,11 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				default: break;
 			}
 		}
+
+		if (seq->isHybrid)
+		{
+			useHybrid = true;
+		}
 	}
 	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
 
@@ -459,6 +465,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	if (useCustomDEFunction) definesCollector += " -DDELTA_DIFS_DE";
 
 	if (useMaxAxisDEFunction) definesCollector += " -DDELTA_MAXAXIS_DE";
+
+	if (useHybrid) definesCollector += " -DIS_HYBRID";
 }
 
 // create list of used fractal formulas
@@ -856,8 +864,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 
 // create dynamic data for AO colored vectors
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
-	std::shared_ptr<const sParamRender> paramRender,
-	std::shared_ptr<sRenderData> renderData)
+	std::shared_ptr<const sParamRender> paramRender, std::shared_ptr<sRenderData> renderData)
 {
 	// AO colored vectors
 	std::unique_ptr<cRenderWorker> tempRenderWorker(
@@ -868,8 +875,7 @@ void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 }
 
-void cOpenClEngineRenderFractal::SetParametersForIterationWeight(
-	cHybridFractalSequences *fractals)
+void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cHybridFractalSequences *fractals)
 {
 	bool weightUsed = false;
 	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
