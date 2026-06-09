@@ -30,7 +30,7 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = 1.0f / dot(z,z);
+		REAL invRR = fractal->transformCommon.maxR2d1 / dot(z,z);
 		z *= invRR;
 		aux->DE *= invRR;
 
@@ -47,7 +47,6 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 		z -= fractal->transformCommon.offsetA000;
 	}
-
 
 	// 2. Trigonometry & Hyperbolics
 	REAL sx, cx, sy, cy;
@@ -66,13 +65,15 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL sxchz = sx * chz;
 	REAL sychz = sy * chz;
 	REAL cxcy_shz = (cx * cy) * shz;
-	REAL4 z_new = (REAL4)(sxchz, sychz, cxcy_shz, 0.0f);
+	z = (REAL4)(sxchz, sychz, cxcy_shz, 0.0f);
 
 	// 4. Regulator
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
 		// native_rsqrt is 3x faster than 1.0/sqrt
-		z_new *= native_rsqrt(1.0f + (sx * sx * sy * sy));
+		REAL reg = native_rsqrt(1.0f + (sx * sx * sy * sy));
+		z *= reg;
+		aux->DE *= reg;
 	}
 
 	// rotation
@@ -80,14 +81,14 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		z_new = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z_new);
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
 	// 5. Transform & Stretch
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		z = z_new * fractal->transformCommon.scale1;
+		z *= fractal->transformCommon.scale1;
 		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
 
@@ -135,7 +136,11 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		addCol += stretch * fractal->foldColor.difs0000.x
 			+ fabs(z.z) * fractal->foldColor.difs0000.y
 			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
-		if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
+	//	if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
+
+		if (colDist != aux->dist) addCol += fractal->foldColor.difs0000.z;
+
+
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

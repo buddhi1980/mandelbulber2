@@ -29,7 +29,7 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = 1.0f / dot(z,z);
+		REAL invRR = fractal->transformCommon.maxR2d1 / dot(z,z);
 		z *= invRR;
 		aux->DE *= invRR;
 
@@ -68,7 +68,9 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
 		// native_rsqrt is 3x faster than 1.0/sqrt
-		z *= native_rsqrt(1.0f + (sx * sx * sy * sy));
+		REAL reg = native_rsqrt(1.0f + (sx * sx * sy * sy));
+		z *= reg;
+		aux->DE *= reg;
 	}
 
 	// rotation

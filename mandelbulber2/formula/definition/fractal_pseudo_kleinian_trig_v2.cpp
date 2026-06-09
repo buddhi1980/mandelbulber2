@@ -41,7 +41,7 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 		// Combine the magnitude-based inversion
-		double invRR = 1.0 / z.Dot(z);
+		double invRR = fractal->transformCommon.maxR2d1 / z.Dot(z);
 		z *= invRR;
 		aux.DE *= invRR;
 
@@ -75,25 +75,27 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	double sxchz = sx * chz;
 	double sychz = sy * chz;
 	double cxcy_shz = (cx * cy) * shz;
-	CVector4 z_new = CVector4(sxchz, sychz, cxcy_shz, 0.0);
+	z = CVector4(sxchz, sychz, cxcy_shz, 0.0);
 
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
-		z_new = fractal->transformCommon.rotationMatrix.RotateVector(z_new);
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	// 4. Regulator
 	if (fractal->transformCommon.functionEnabledHFalse)
 	{
-		// native_rsqrt is 3x faster than 1.0/sqrt
-		z_new *= 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
+		// native_rsqrt is 3x faster
+		double reg = 1.0 / sqrt(1.0 + (sx * sx * sy * sy));
+		z *= reg;
+		aux.DE *= reg;
 	}
 
 	// 5. Transform & Stretch
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		z = z_new * fractal->transformCommon.scale1;
+		z *= fractal->transformCommon.scale1;
 		aux.DE *= fabs(fractal->transformCommon.scale1);
 	}
 
@@ -106,7 +108,7 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	// 6. Distance Estimation update
 	aux.DE = aux.DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
 
-//	double colDist = aux.dist;
+	double colDist = aux.dist;
 	if (aux.i >= fractal->analyticDE.startIterationsA
 			&& aux.i < fractal->analyticDE.stopIterationsA)
 	{
@@ -142,8 +144,10 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 		addCol += fractal->foldColor.difs0000.x * stretch
 			+ fractal->foldColor.difs0000.y * fabs(z.z)
 			+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
-		if (fractal->foldColor.difs0000.z != 0.0)
-			addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+	//	if (fractal->foldColor.difs0000.z != 0.0)
+	//		addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+
+		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.z;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
