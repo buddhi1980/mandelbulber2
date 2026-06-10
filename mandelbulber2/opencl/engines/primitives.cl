@@ -37,8 +37,7 @@
 #ifdef USE_PRIMITIVE_PLANE
 float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float dist = point.z;
 	dist = primitive->data.plane.empty ? fabs(dist) : dist;
 	dist = max(dist - primitive->object.wallThickness, 0.0f);
@@ -49,8 +48,7 @@ float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_BOX
 float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.box.repeat);
 
 	float boxDist = -1e6f;
@@ -86,8 +84,7 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_SPHERE
 float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.sphere.repeat);
 	float dist = length(point) - primitive->data.sphere.radius;
 	dist = primitive->data.sphere.empty ? fabs(dist) : dist;
@@ -107,8 +104,7 @@ float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_RECTANGLE
 float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float3 boxTemp;
 	boxTemp.x = max(fabs(point.x) - primitive->data.rectangle.width * 0.5f, 0.0f);
 	boxTemp.y = max(fabs(point.y) - primitive->data.rectangle.height * 0.5f, 0.0f);
@@ -120,8 +116,7 @@ float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CYLINDER
 float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.cylinder.repeat);
 	float2 cylTemp = (float2){point.x, point.y};
 	float dist = length(cylTemp) - primitive->data.cylinder.radius;
@@ -144,8 +139,7 @@ float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CIRCLE
 float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float2 circleTemp = (float2){point.x, point.y};
 	float distTemp = length(circleTemp) - primitive->data.circle.radius;
 	distTemp = max(fabs(point.z), distTemp);
@@ -156,8 +150,7 @@ float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CONE
 float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.cone.repeat);
 	point.z -= primitive->data.cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
@@ -182,8 +175,7 @@ float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_WATER
 float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float distanceFromAnother)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 
 	float length = primitive->data.water.length;
 	if (primitive->data.water.waveFromObjectsEnable)
@@ -252,8 +244,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 #ifdef USE_PRIMITIVE_TORUS
 float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.torus.repeat);
 
 	float2 pointXY = (float2){point.x, point.y};
@@ -280,8 +271,7 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_PRISM
 float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.prism.repeat);
 
 	float3 q = fabs(point);
@@ -301,8 +291,7 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_ELLIPSOID
 float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	point = modRepeat(point, primitive->data.ellipsoid.repeat);
 
 	float k0 = length(point / primitive->object.size);
