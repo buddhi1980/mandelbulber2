@@ -47,7 +47,7 @@
       <attribute name="title">
        <string>Objects tree</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_53">
+      <layout class="QVBoxLayout" name="verticalLayout_53" stretch="0,1">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -118,19 +118,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer_10">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_description">
@@ -182,11 +169,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>cButtonResetSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_reset_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_load_settings_from_widget.h</header>
@@ -195,6 +177,11 @@
    <class>cButtonSaveSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_save_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonResetSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cButtonRandomSettingsFromWidget</class>
