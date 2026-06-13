@@ -203,6 +203,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
 		(__global sObjectDataCl *)&inBuff[objectsOffset];
 
+	if (imageX == 0 && imageY == 0)
+	{
+		for (int i = 0; i < numberOfObjects; i++)
+		{
+			printf(
+				"Data: objectID %d; materialId %d\n", objectsData[i].objectId, objectsData[i].materialId);
+		}
+	}
+
 	//--- Nodes
 
 	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
@@ -214,8 +223,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	//--- Hybrid Sequences
 
 	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
-	int hybridSequencesArrayOffset =
-		GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
 
 	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
 		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];

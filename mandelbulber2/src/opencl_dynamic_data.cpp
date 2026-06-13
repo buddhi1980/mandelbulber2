@@ -623,7 +623,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 		// FIXME: to correct OpenCL code for objectsTree
 		// primitiveCl.object.enable = primitive->enable;
-		primitiveCl.object.materialId = primitive->materialId;
 		primitiveCl.object.objectId = primitive->objectId;
 		primitiveCl.object.objectType = static_cast<enumObjectTypeCl>(primitive->objectType);
 		// primitiveCl.object.position = toClFloat3(primitive->position);
