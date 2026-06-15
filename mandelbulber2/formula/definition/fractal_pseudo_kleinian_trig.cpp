@@ -39,7 +39,7 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 		// Combine the magnitude-based inversion
-		double invRR = fractal->transformCommon.maxR2d1 / z.Dot(z);
+		double invRR = 1.0 / z.Dot(z);
 		z *= invRR;
 		aux.DE *= invRR;
 

@@ -29,7 +29,7 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = fractal->transformCommon.maxR2d1 / dot(z,z);
+		REAL invRR = 1.0f / dot(z,z);
 		z *= invRR;
 		aux->DE *= invRR;
 

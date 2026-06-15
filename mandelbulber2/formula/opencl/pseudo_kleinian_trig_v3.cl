@@ -29,7 +29,7 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = fractal->transformCommon.maxR2d1 / dot(z,z);
+		REAL invRR = 1.0f / dot(z,z);
 		z *= invRR;
 		aux->DE *= invRR;
 
@@ -91,7 +91,6 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	z -= fractal->transformCommon.offsetF000;
 
 	// Use Identity: sqrt(chz^2 + shz^2) = sqrt(0.5 * (ez^2 + invEz^2))
-
 	REAL stretch = 1.0f;
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
@@ -100,8 +99,6 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		stretch = fractal->transformCommon.scaleF1 * native_sqrt(0.5f * (ez2 + invEz2));
 		stretch = max(fractal->transformCommon.scaleA1, stretch);
 	}
-
-
 
 	// 6. Distance Estimation update
 	aux->DE = aux->DE * fractal->analyticDE.scale1 * stretch + fractal->analyticDE.offset0;
@@ -116,7 +113,7 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		REAL B = cos_x2 * cos_y2;
 
 		// Combined math multiplication multipliers
-		REAL S = fractal->transformCommon.scaleG1 * (sinh_z2 * (2.0f + A - B) + A + B) * 0.33333334f;
+		REAL S = fractal->transformCommon.scaleG1 * (sinh_z2 * (2.0f + A - B) + A + B) * FRAC_1_3_F;
 	//	S = max(S, 0.0f); // nnnnnnnnn 0.5f
 
 		aux->DE *= S;

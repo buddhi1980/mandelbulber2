@@ -41,7 +41,7 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 		// Combine the magnitude-based inversion
-		double invRR = fractal->transformCommon.maxR2d1 / z.Dot(z);
+		double invRR = 1.0 / z.Dot(z);
 		z *= invRR;
 		aux.DE *= invRR;
 
@@ -142,12 +142,13 @@ void cFractalPseudoKleinianTrigV2::FormulaCode(
 	{
 		double addCol = fabs(z.x * z.y) * fractal->foldColor.difs0;
 		addCol += fractal->foldColor.difs0000.x * stretch
-			+ fractal->foldColor.difs0000.y * fabs(z.z)
-			+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
-	//	if (fractal->foldColor.difs0000.z != 0.0)
-	//		addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+			+ fractal->foldColor.difs0000.y * fabs(z.z);
 
-		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.z;
+	//		+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
+		if (fractal->foldColor.difs0000.z != 0.0)
+			addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+
+		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.w;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{

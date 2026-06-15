@@ -39,7 +39,7 @@ void cFractalPseudoKleinianTrigV3::FormulaCode(
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 		// Combine the magnitude-based inversion
-		double invRR = fractal->transformCommon.maxR2d1 / z.Dot(z);
+		double invRR = 1.0 / z.Dot(z);
 		z *= invRR;
 		aux.DE *= invRR;
 
@@ -121,7 +121,7 @@ void cFractalPseudoKleinianTrigV3::FormulaCode(
 		double B = cos_x2 * cos_y2;
 
 		// Combined math multiplication multipliers
-		double S = fractal->transformCommon.scaleG1 * (sinh_z2 * (2.0 + A - B) + A + B) / 3.0;
+		double S = fractal->transformCommon.scaleG1 * (sinh_z2 * (2.0 + A - B) + A + B) * FRAC_1_3;
 	//	S = max(S, 0.0); // nnnnnnnnn 0.5f
 
 		aux.DE *= S;

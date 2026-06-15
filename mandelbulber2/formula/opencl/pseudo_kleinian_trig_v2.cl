@@ -30,13 +30,12 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = fractal->transformCommon.maxR2d1 / dot(z,z);
+		REAL invRR = 1.0f / dot(z,z);
 		z *= invRR;
 		aux->DE *= invRR;
 
 		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	}
-
 
 	// 1. Fold & Offset (Pre-Trig)
 	if (aux->i >= fractal->transformCommon.startIterationsF
@@ -134,11 +133,13 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	{
 		REAL addCol = fabs(z.x * z.y) * fractal->foldColor.difs0;
 		addCol += stretch * fractal->foldColor.difs0000.x
-			+ fabs(z.z) * fractal->foldColor.difs0000.y
-			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
-	//	if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
+			+ fabs(z.z) * fractal->foldColor.difs0000.y;
+			// + fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
 
-		if (colDist != aux->dist) addCol += fractal->foldColor.difs0000.z;
+
+		if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
+
+		if (colDist != aux->dist) addCol += fractal->foldColor.difs0000.w;
 
 
 
