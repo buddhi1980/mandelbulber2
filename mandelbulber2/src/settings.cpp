@@ -2096,18 +2096,34 @@ void cSettings::Compatibility2(
 					par->Set(
 						nodeDefinitionParam(primitiveNodeId), makeDefinition(primitiveName, primitiveNodeId,
 																										enumNodeType::primitive, 0, primitiveObjectId));
+					// Copy primitive material_id to node material (fix for primitive material inheritance)
+					{
+						QString matParam = primitive.Name("material_id");
+						if (par->IfExists(matParam))
+						{
+							int matId = par->Get<int>(matParam);
+							if (matId > 0)
+							{
+								par->Set(nodePrefix(primitiveNodeId) + "material", matId);
+							}
+						}
+					}
 					rootNodeId = primitiveNodeId;
 					continue;
 				}
 
 				const int boolNodeId = ++maxNodeId;
 				const int primitiveNodeId = ++maxNodeId;
-				const int primitiveBoolOp = par->Get<int>(primitive.Name("boolean_operator"));
+				const int primitiveBoolOp = par->IfExists(primitive.Name("boolean_operator"))
+					? par->Get<int>(primitive.Name("boolean_operator"))
+					: int(primBooleanOperatorOR);
 
 				InitNodeParams(boolNodeId, par);
 				par->Set(nodeDefinitionParam(boolNodeId),
 					makeDefinition(
 						"boolean", boolNodeId, primitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
+				// Boolean group nodes should have material -1 (no override) so child materials are inherited correctly
+				par->Set(nodePrefix(boolNodeId) + "material", -1);
 
 				setNodeParent(rootNodeId, boolNodeId);
 
@@ -2115,6 +2131,18 @@ void cSettings::Compatibility2(
 				par->Set(nodeDefinitionParam(primitiveNodeId),
 					makeDefinition(primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId,
 						primitiveObjectId));
+				// Copy primitive material_id to node material (fix for primitive material inheritance)
+				{
+					QString matParam = primitive.Name("material_id");
+					if (par->IfExists(matParam))
+					{
+						int matId = par->Get<int>(matParam);
+						if (matId > 0)
+						{
+							par->Set(nodePrefix(primitiveNodeId) + "material", matId);
+						}
+					}
+				}
 
 				rootNodeId = boolNodeId;
 			}
