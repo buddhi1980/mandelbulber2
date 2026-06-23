@@ -339,8 +339,6 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			// if found any object
 			if (found)
 			{
-				printf("objectID: %d; marerialId: %d\n", shaderInputData.objectId, objectData->materialId);
-
 				sClCalcParams calcParam;
 				calcParam.N = consts->params.N;
 				calcParam.normalCalculationMode = false;

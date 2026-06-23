@@ -1350,6 +1350,14 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 	par->addParam(QString(primitiveName) + "_smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima,
 		paramStandard);
 
+	// legacy transformation parameters for compatibility with old settings files (pre v2.35)
+	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima,
+		paramStandard);
+	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle,
+		paramStandard);
+	par->addParam(QString(primitiveName) + "_scale", CVector3(1.0, 1.0, 1.0), morphAkima,
+		paramStandard);
+
 	switch (primitive.type)
 	{
 		case fractal::objBox:

@@ -1715,6 +1715,34 @@ void cSettings::Compatibility2(
 		//   Values: 0=AND (intersection, booleanMul), 1=OR (union, booleanAdd), 2=SUB (complement,
 		//   booleanSub).
 
+		// Migrate old primitive transformation params (position/rotation/scale)
+		// to node-based params for the new objects tree system.
+		QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
+		for (const auto &primitive : primitives)
+		{
+			if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
+				continue;
+
+			int objectId = par->Get<int>(primitive.Name("object_id"));
+			const QString prefix = QString("node_%1_").arg(objectId, 4, 10, QChar('0'));
+
+			if (par->IfExists(primitive.Name("position"))
+					&& !par->isDefaultValue(primitive.Name("position")))
+			{
+				par->Set(prefix + "position", par->Get<CVector3>(primitive.Name("position")));
+			}
+			if (par->IfExists(primitive.Name("rotation"))
+					&& !par->isDefaultValue(primitive.Name("rotation")))
+			{
+				par->Set(prefix + "rotation", par->Get<CVector3>(primitive.Name("rotation")));
+			}
+			if (par->IfExists(primitive.Name("scale"))
+					&& !par->isDefaultValue(primitive.Name("scale")))
+			{
+				par->Set(prefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
+			}
+		}
+
 		if (fract)
 		{
 			DeleteAllNodeParams(par);
