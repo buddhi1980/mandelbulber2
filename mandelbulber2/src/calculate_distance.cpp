@@ -54,6 +54,7 @@
 #include "shader_perlin_noise_for_shaders.hpp"
 #include "texture_mapping.hpp"
 #include "write_log.hpp"
+#include "primitive.hpp"
 
 using namespace std;
 
@@ -242,8 +243,18 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 					{
-						distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
+					{
+						sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitives[primIdx].get());
+						if (water)
+						{
+							distance = water->PrimitiveDistanceWater(pointTransformed, distance);
+						}
+						else
+						{
+							distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
+						}
 						distance *= absNodeScale;
+					}
 						objectId = node.internalObjectId;
 					}
 					break;
