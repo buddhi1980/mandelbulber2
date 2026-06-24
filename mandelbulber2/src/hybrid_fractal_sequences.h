@@ -75,8 +75,16 @@ public:
 	void CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
 		std::shared_ptr<const cFractalContainer> par,
 		const std::vector<cObjectsTree::sNodeDataForRendering> &_objectsNodes);
-	sSequence *GetSequence(int seqIndex) { return &sequences[seqIndex]; };
-	const sSequence *GetSequence(int seqIndex) const { return &sequences[seqIndex]; };
+	sSequence *GetSequence(int seqIndex)
+	{
+		return (seqIndex >= 0 && seqIndex < static_cast<int>(sequences.size())) ? &sequences[seqIndex]
+																																						: nullptr;
+	}
+	const sSequence *GetSequence(int seqIndex) const
+	{
+		return (seqIndex >= 0 && seqIndex < static_cast<int>(sequences.size())) ? &sequences[seqIndex]
+																																						: nullptr;
+	}
 	int GetNumberOfSequences() const { return sequences.size(); };
 
 private:

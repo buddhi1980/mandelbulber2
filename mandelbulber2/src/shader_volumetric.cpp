@@ -646,18 +646,26 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 
 			for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 			{
-				sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
-				sFractalOut fractOut;
-				Compute<fractal::calcModeOrbitTrap>(
-					data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
-				float r = fractOut.orbitTrapR;
-				r = sqrtf(1.0f / (r + 1.0e-20f));
-				float fakeLight = 1.0f
-													/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-															 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-														 + 0.1f);
+				float accumulatedFakeLight = 0.0f;
 
-				fakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
+				for (int s = 0; s < data->hybridFractalSequences.GetNumberOfSequences(); s++)
+				{
+					const auto *seq = data->hybridFractalSequences.GetSequence(s);
+					if (!seq)
+						continue;
+
+					sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+					sFractalOut fractOut;
+					Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+					float r = fractOut.orbitTrapR;
+					r = sqrtf(1.0f / (r + 1.0e-20f));
+					accumulatedFakeLight += 1.0f
+						/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+							 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+							+ 0.1f);
+				}
+
+				accumulatedFakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
 
 				sRGBFloat color;
 				switch (fakeLightLoop)
@@ -668,10 +676,10 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 					default: color = params->fakeLightsColor; break;
 				}
 
-				output.R += fakeLight * float(step) * params->fakeLightsVisibility * color.R;
-				output.G += fakeLight * float(step) * params->fakeLightsVisibility * color.G;
-				output.B += fakeLight * float(step) * params->fakeLightsVisibility * color.B;
-				output.A += fakeLight * float(step) * params->fakeLightsVisibility;
+				output.R += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.R;
+				output.G += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.G;
+				output.B += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.B;
+				output.A += accumulatedFakeLight * float(step) * params->fakeLightsVisibility;
 			}
 		}
 
