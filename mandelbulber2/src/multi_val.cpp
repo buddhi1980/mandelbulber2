@@ -124,7 +124,7 @@ enumVarType cMultiVal::Store(const QString &val)
 	}
 	sVal = val;
 
-	if (!typeDefined) type = typeString;
+	if (type == typeNull) type = typeString;
 	return typeString;
 }
 

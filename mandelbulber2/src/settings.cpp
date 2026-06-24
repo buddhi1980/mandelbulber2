@@ -2354,16 +2354,19 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 	return enabledFractals;
 }
 
+// Default object_id value assigned to primitives that were not explicitly renumbered.
+static const int DefaultPrimitiveObjectId = 1234;
+
 void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 									 std::shared_ptr<cFractalContainer> fract,
 									 int &nextGroupObjectId)
 {
 	// Migrates legacy flat params to the new node-based objects tree structure.
-	// Migrate enabled primitive transforms (position/rotation/scale) to node prefixes
+	// Phase 1: migrate transforms only for primitives with non-default object_id
+	// (where a corresponding node might already exist from external files).
 	QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
 	for (const auto &primitive : primitives)
 	{
-		// Skip disabled primitives
 		if (!par->IfExists(primitive.Name("enabled"))
 				|| !par->Get<bool>(primitive.Name("enabled")))
 		{
@@ -2371,23 +2374,25 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 
 		int objectId = par->Get<int>(primitive.Name("object_id"));
+		if (objectId == DefaultPrimitiveObjectId)
+		{
+			continue;
+		}
+
 		const QString prefix = NodePrefix(objectId);
 
-		// Migrate position if non-default
 		if (par->IfExists(primitive.Name("position"))
 				&& !par->isDefaultValue(primitive.Name("position")))
 		{
 			par->Set(prefix + "position",
 				par->Get<CVector3>(primitive.Name("position")));
 		}
-		// Migrate rotation if non-default
 		if (par->IfExists(primitive.Name("rotation"))
 				&& !par->isDefaultValue(primitive.Name("rotation")))
 		{
 			par->Set(prefix + "rotation",
 				par->Get<CVector3>(primitive.Name("rotation")));
 		}
-		// Migrate scale if non-default
 		if (par->IfExists(primitive.Name("scale"))
 				&& !par->isDefaultValue(primitive.Name("scale")))
 		{
@@ -2607,6 +2612,65 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 
 	// Clean up temporary legacy boolean params after migration
 	DeleteTemporaryLegacyBooleanParams(par);
+
+	// Phase 2: migrate transforms for primitives that were skipped in phase 1
+	// (those with default object_id). Find the correct node for each primitive
+	// by matching the objectId field in the node definition.
+	for (const auto &primitive : primitives)
+	{
+		if (!par->IfExists(primitive.Name("enabled"))
+				|| !par->Get<bool>(primitive.Name("enabled")))
+		{
+			continue;
+		}
+
+		int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
+		if (primitiveObjectId != DefaultPrimitiveObjectId)
+		{
+			continue;
+		}
+
+		// Find the node whose definition stores this primitive's object_id
+		QStringList allParams = par->GetListOfParameters();
+		QString targetNodePrefix;
+		for (const QString &paramName : allParams)
+		{
+			if (!paramName.startsWith("node_") || !paramName.endsWith("_definition"))
+			{
+				continue;
+			}
+			QStringList parts = par->Get<QString>(paramName).split(',');
+			if (parts.size() == 5 && parts[4].trimmed().toInt() == primitiveObjectId)
+			{
+				targetNodePrefix = paramName.left(paramName.lastIndexOf('_')) + '_';
+				break;
+			}
+		}
+
+		if (targetNodePrefix.isEmpty())
+		{
+			continue;
+		}
+
+		if (par->IfExists(primitive.Name("position"))
+				&& !par->isDefaultValue(primitive.Name("position")))
+		{
+			par->Set(targetNodePrefix + "position",
+				par->Get<CVector3>(primitive.Name("position")));
+		}
+		if (par->IfExists(primitive.Name("rotation"))
+				&& !par->isDefaultValue(primitive.Name("rotation")))
+		{
+			par->Set(targetNodePrefix + "rotation",
+				par->Get<CVector3>(primitive.Name("rotation")));
+		}
+		if (par->IfExists(primitive.Name("scale"))
+				&& !par->isDefaultValue(primitive.Name("scale")))
+		{
+			par->Set(targetNodePrefix + "scale",
+				par->Get<CVector3>(primitive.Name("scale")));
+		}
+	}
 }
 
 void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
