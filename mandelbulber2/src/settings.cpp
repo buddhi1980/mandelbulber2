@@ -636,6 +636,27 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			if (!par->IfExists(paramName))
 				par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		}
+
+		// Legacy transformation params for old settings files (pre v2.35).
+		// Add temporary slots so DecodeOneLine stores their values, then Compatibility2()
+		// migrates them to node-based params and deletes them.
+		QStringList primitiveTypes = { "sphere", "box", "cylinder", "cone", "plane", "torus",
+			"rectangle", "circle", "water", "prism", "ellipsoid" };
+		for (const QString &type : primitiveTypes)
+		{
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			{
+				QString name = QString("primitive_%1_%2_position").arg(type).arg(i);
+				if (!par->IfExists(name))
+					par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+				name = QString("primitive_%1_%2_rotation").arg(type).arg(i);
+				if (!par->IfExists(name))
+					par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+				name = QString("primitive_%1_%2_scale").arg(type).arg(i);
+				if (!par->IfExists(name))
+					par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+			}
+		}
 	}
 
 	int errorCount = 0;
@@ -1025,6 +1046,27 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 			sPrimitiveItem item(objectType, primitiveIndex, primitiveName, split.at(1));
 			InitPrimitiveParams(item, par);
 			listOfLoadedPrimitives.append(primitiveName);
+
+			// Legacy transformation params — InitPrimitiveParams no longer adds them.
+			// Re-add them here for old settings files so the values can be stored.
+			// Compatibility2() will migrate them to node-based params and delete them.
+			if (fileVersion < 2.35)
+			{
+				QStringList legacyPrimitiveTypes = { "sphere", "box", "cylinder", "cone",
+					"plane", "torus", "rectangle", "circle", "water", "prism", "ellipsoid" };
+				for (const QString &type : legacyPrimitiveTypes)
+				{
+					QString name = QString("primitive_%1_%2_position").arg(type).arg(primitiveIndex);
+					if (!par->IfExists(name))
+						par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+					name = QString("primitive_%1_%2_rotation").arg(type).arg(primitiveIndex);
+					if (!par->IfExists(name))
+						par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+					name = QString("primitive_%1_%2_scale").arg(type).arg(primitiveIndex);
+					if (!par->IfExists(name))
+						par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+				}
+			}
 		}
 	}
 
@@ -2153,6 +2195,23 @@ void cSettings::Compatibility2(
 			for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
 			{
 				QString name = QString("boolean_operator_%1").arg(i);
+				if (par->IfExists(name)) par->DeleteParameter(name);
+			}
+		}
+
+		// Delete temporary legacy transformation params added in Decode().
+		// They were only needed so DecodeOneLine could store their values for Compatibility2().
+		QStringList legacyPrimitiveTypes = { "sphere", "box", "cylinder", "cone", "plane", "torus",
+			"rectangle", "circle", "water", "prism", "ellipsoid" };
+		for (const QString &type : legacyPrimitiveTypes)
+		{
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			{
+				QString name = QString("primitive_%1_%2_position").arg(type).arg(i);
+				if (par->IfExists(name)) par->DeleteParameter(name);
+				name = QString("primitive_%1_%2_rotation").arg(type).arg(i);
+				if (par->IfExists(name)) par->DeleteParameter(name);
+				name = QString("primitive_%1_%2_scale").arg(type).arg(i);
 				if (par->IfExists(name)) par->DeleteParameter(name);
 			}
 		}
