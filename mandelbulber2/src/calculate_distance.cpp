@@ -70,13 +70,14 @@ struct ObjectTreeStackFrame
 	int closestObjectId;
 	int closestObjectSequence;
 	double cumulativeDistance;
+	double detailSize;
 	enumNodeType nodeType;
 	CVector3 transformedPoint;
 	bool hasTransformedPoint;
 };
 
-static void mergeChildIntoParent(
-	const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent, const sRenderData *data)
+static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent,
+	const sRenderData *data, double detailSize)
 {
 	const double childDistance = child.cumulativeDistance;
 
@@ -104,11 +105,24 @@ static void mergeChildIntoParent(
 				parent->transformedPoint = child.transformedPoint;
 				parent->hasTransformedPoint = child.hasTransformedPoint;
 			}
-			else
+			else if (parent->detailSize > 0 && childDistance < parent->detailSize)
 			{
-				parent->cumulativeDistance = std::max(parent->cumulativeDistance, -childDistance);
-				if (childDistance < parent->cumulativeDistance)
+				const double limit = 1.5;
+				const double limitDist = parent->detailSize * limit;
+
+				if (childDistance < limitDist)
 				{
+					parent->cumulativeDistance = limitDist;
+					parent->closestObjectId = child.closestObjectId;
+					parent->closestObjectSequence = child.closestObjectSequence;
+					parent->transformedPoint = child.transformedPoint;
+					parent->hasTransformedPoint = child.hasTransformedPoint;
+				}
+				else
+				{
+					const double adjustedDistance =
+						max(limitDist - childDistance, parent->cumulativeDistance);
+					parent->cumulativeDistance = (adjustedDistance < 0) ? 0 : adjustedDistance;
 					parent->closestObjectId = child.closestObjectId;
 					parent->closestObjectSequence = child.closestObjectSequence;
 					parent->transformedPoint = child.transformedPoint;
@@ -179,6 +193,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		stack[0].level = 0;
 		stack[0].closestObjectId = -1;
 		stack[0].closestObjectSequence = -1;
+		stack[0].detailSize = in.detailSize;
 		stack[0].nodeType = enumNodeType::booleanAdd;
 		stack[0].transformedPoint = in.point;
 		stack[0].hasTransformedPoint = false;
@@ -212,7 +227,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					ObjectTreeStackFrame child = stack[stackLevel];
 					stackLevel--;
-					mergeChildIntoParent(child, &stack[stackLevel], data);
+					mergeChildIntoParent(child, &stack[stackLevel], data, stack[stackLevel].detailSize);
 				}
 			}
 
@@ -243,18 +258,18 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					int primIdx = node.primitiveIdx;
 					if (primIdx >= 0 && primIdx < (int)primitives.size() && primitives[primIdx])
 					{
-					{
-						sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitives[primIdx].get());
-						if (water)
 						{
-							distance = water->PrimitiveDistanceWater(pointTransformed, distance);
+							sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitives[primIdx].get());
+							if (water)
+							{
+								distance = water->PrimitiveDistanceWater(pointTransformed, distance);
+							}
+							else
+							{
+								distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
+							}
+							distance *= absNodeScale;
 						}
-						else
-						{
-							distance = primitives[primIdx]->PrimitiveDistance(pointTransformed);
-						}
-						distance *= absNodeScale;
-					}
 						objectId = node.internalObjectId;
 					}
 					break;
@@ -281,10 +296,11 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 					stackLevel++;
 					stack[stackLevel].cumulativeDistance =
 						(node.type == enumNodeType::booleanMul) ? -1e20 : 1e20;
-					stack[stackLevel].level = stackLevel;
+					stack[stackLevel].level = node.level;
 					stack[stackLevel].nodeType = node.type;
 					stack[stackLevel].closestObjectId = -1;
 					stack[stackLevel].closestObjectSequence = -1;
+					stack[stackLevel].detailSize = nodeIn.detailSize;
 					stack[stackLevel].transformedPoint = in.point;
 					stack[stackLevel].hasTransformedPoint = false;
 					continue;
@@ -297,9 +313,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			leaf.cumulativeDistance = distance;
 			leaf.closestObjectId = objectId;
 			leaf.closestObjectSequence = sequenceIndex;
+			leaf.detailSize = nodeIn.detailSize;
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
-			mergeChildIntoParent(leaf, &stack[stackLevel], data);
+			mergeChildIntoParent(leaf, &stack[stackLevel], data, stack[stackLevel].detailSize);
 		}
 
 		// final node summation
@@ -310,7 +327,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 			{
 				ObjectTreeStackFrame child = stack[stackLevel];
 				stackLevel--;
-				mergeChildIntoParent(child, &stack[stackLevel], data);
+				mergeChildIntoParent(child, &stack[stackLevel], data, stack[stackLevel].detailSize);
 			}
 		}
 
