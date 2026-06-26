@@ -251,6 +251,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 						numberOfFractalsToSkip--;
 						continue;
 					}
+					if (objectId >= 0)
+					{
+						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+					}
 					break;
 				}
 				case enumNodeType::primitive:
@@ -272,6 +276,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 						}
 						objectId = node.internalObjectId;
 					}
+					if (objectId >= 0)
+					{
+						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+					}
 					break;
 				}
 				case enumNodeType::hybrid:
@@ -287,6 +295,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
 					sequenceIndex = seqIndex;
 					objectId = data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
+					if (objectId >= 0)
+					{
+						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+					}
 					break;
 				}
 				case enumNodeType::booleanAdd:
