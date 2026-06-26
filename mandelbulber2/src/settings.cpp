@@ -77,8 +77,8 @@ cSettings::cSettings(enumFormat _format)
 
 /**
  * Serialize internal settings (parameters, fractal config, animations) into a text representation.
- * The output follows an INI-like format with sections [main_parameters], [fractal_N], [frames], etc.
- * A MD4 hash of the content (excluding the header) is computed for thumbnail generation.
+ * The output follows an INI-like format with sections [main_parameters], [fractal_N], [frames],
+ * etc. A MD4 hash of the content (excluding the header) is computed for thumbnail generation.
  *
  * Returns the number of characters written to settingsText.
  */
@@ -189,7 +189,8 @@ void cSettings::CreateAnimationString(
 		text += "frame;";
 		text += "framesPerKeyframe;";
 
-		// Write parameter column headers with type-specific suffixes (_x/_y/_z for vectors, _R/_G/_B for RGB)
+		// Write parameter column headers with type-specific suffixes (_x/_y/_z for vectors, _R/_G/_B
+		// for RGB)
 		for (int i = 0; i < parameterList.size(); ++i)
 		{
 			if (parameterList[i].varType == parameterContainer::typeVector3)
@@ -746,7 +747,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 					{
 						std::shared_ptr<cParameterContainer> targetContainer;
 						QString resolvedLine;
-						if (TryResolveLegacyFractalParam(decodeLine, par, fractPar, resolvedLine, targetContainer))
+						if (TryResolveLegacyFractalParam(
+									decodeLine, par, fractPar, resolvedLine, targetContainer))
 						{
 							decodeLine = resolvedLine;
 							result = DecodeOneLine(targetContainer, decodeLine);
@@ -755,8 +757,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 					}
 
 					// Apply selective loading filter for main parameters
-					if (!decodedAsLegacyFractalParam
-							&& !listOfParametersToProcess.isEmpty())
+					if (!decodedAsLegacyFractalParam && !listOfParametersToProcess.isEmpty())
 					{
 						int firstSpace = decodeLine.indexOf(' ');
 						QString parameterName = decodeLine.left(firstSpace);
@@ -961,8 +962,7 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 	// If formula_material_id references material 1 but it is not defined, mark as not found
 	if (par->IfExists("formula_material_id"))
 	{
-		if (par->Get<int>("formula_material_id") == 1
-				&& !par->IfExists("mat1_is_defined"))
+		if (par->Get<int>("formula_material_id") == 1 && !par->IfExists("mat1_is_defined"))
 		{
 			matParameterFound = false;
 		}
@@ -1413,8 +1413,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			{
 				QStringList split = name.split("_");
 				int lightIndex = split.last().toInt();
-				QString prefix =
-					QString("light%1").arg(lightIndex + 1);
+				QString prefix = QString("light%1").arg(lightIndex + 1);
 
 				if (split.at(2) == "intensity")
 					name = QString("%1_intensity").arg(prefix);
@@ -1579,16 +1578,10 @@ void cSettings::Compatibility2(
 		double fovDegrees = 0.0;
 		switch (perspectiveType)
 		{
-			case params::perspThreePoint:
-				fovDegrees = atan(fov / 2.0) * 360.0 / M_PI;
-				break;
+			case params::perspThreePoint: fovDegrees = atan(fov / 2.0) * 360.0 / M_PI; break;
 			case params::perspFishEye:
-			case params::perspFishEyeCut:
-				fovDegrees = fov * 180.0;
-				break;
-			case params::perspEquirectangular:
-				fovDegrees = fov * 360.0;
-				break;
+			case params::perspFishEyeCut: fovDegrees = fov * 180.0; break;
+			case params::perspEquirectangular: fovDegrees = fov * 360.0; break;
 		}
 		par->Set("fov", fovDegrees);
 	}
@@ -1715,8 +1708,8 @@ void cSettings::Compatibility2(
 
 /**
  * Parse the animation frames/keyframes header row (column names).
- * Detects parameter types (vector3, vector4, RGB, scalar) from column suffixes (_x/_y/_z, _R/_G/_B).
- * Registers each parameter with the frames object for later decoding.
+ * Detects parameter types (vector3, vector4, RGB, scalar) from column suffixes (_x/_y/_z,
+ * _R/_G/_B). Registers each parameter with the frames object for later decoding.
  */
 bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames)
@@ -2041,27 +2034,24 @@ void cSettings::PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParamet
 QStringList cSettings::GetLegacyPrimitiveTypes()
 {
 	// Returns the list of legacy primitive type names used in old file formats.
-	return { "sphere", "box", "cylinder", "cone", "plane", "torus",
-		"rectangle", "circle", "water", "prism", "ellipsoid" };
+	return {"sphere", "box", "cylinder", "cone", "plane", "torus", "rectangle", "circle", "water",
+		"prism", "ellipsoid"};
 }
 
-void cSettings::InjectTemporaryLegacyBooleanParams(
-	std::shared_ptr<cParameterContainer> par)
+void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
 {
-	// Injects temporary boolean and julia params from the legacy flat format into the parameter container.
-	// Ensure top-level boolean_operators flag exists
+	// Injects temporary boolean and julia params from the legacy flat format into the parameter
+	// container. Ensure top-level boolean_operators flag exists
 	if (!par->IfExists("boolean_operators"))
 		par->addParam("boolean_operators", false, morphNone, paramStandard);
 	// Inject per-fractal boolean_operator and dont_add_c_constant params
 	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
 	{
 		QString name = QString("boolean_operator_%1").arg(i);
-		if (!par->IfExists(name))
-			par->addParam(name, 1, morphLinear, paramStandard);
+		if (!par->IfExists(name)) par->addParam(name, 1, morphLinear, paramStandard);
 
 		name = QString("dont_add_c_constant_%1").arg(i);
-		if (!par->IfExists(name))
-			par->addParam(name, false, morphLinear, paramStandard);
+		if (!par->IfExists(name)) par->addParam(name, false, morphLinear, paramStandard);
 	}
 
 	// Inject per-fractal fractal_constant_factor params
@@ -2076,8 +2066,7 @@ void cSettings::InjectTemporaryLegacyBooleanParams(
 	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 	{
 		QString paramName = QString("julia_mode_%1").arg(i);
-		if (!par->IfExists(paramName))
-			par->addParam(paramName, false, morphLinear, paramStandard);
+		if (!par->IfExists(paramName)) par->addParam(paramName, false, morphLinear, paramStandard);
 		paramName = QString("julia_c_%1").arg(i);
 		if (!par->IfExists(paramName))
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
@@ -2087,7 +2076,8 @@ void cSettings::InjectTemporaryLegacyBooleanParams(
 void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 	std::shared_ptr<cParameterContainer> par, int primitiveIndex)
 {
-	// Injects temporary position/rotation/scale params for a legacy primitive into the parameter container.
+	// Injects temporary position/rotation/scale params for a legacy primitive into the parameter
+	// container.
 	QStringList legacyTypes = GetLegacyPrimitiveTypes();
 	for (const QString &type : legacyTypes)
 	{
@@ -2106,38 +2096,31 @@ void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 	}
 }
 
-bool cSettings::TryResolveLegacyFractalParam(
-	const QString &decodeLine,
-	std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar,
-	QString &resolvedLine,
-	std::shared_ptr<cParameterContainer> &targetContainer)
+bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
+	QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer)
 {
-	// Resolves a legacy fractal param name (e.g. "fractal_xxx_1") to the base param name and target fractal container.
-	// Early exit if fractPar is null or decodeLine is empty
-	if (!fractPar || decodeLine.isEmpty())
-		return false;
+	// Resolves a legacy fractal param name (e.g. "fractal_xxx_1") to the base param name and target
+	// fractal container. Early exit if fractPar is null or decodeLine is empty
+	if (!fractPar || decodeLine.isEmpty()) return false;
 
 	// Extract the parameter name (before the first space)
 	int firstSpace = decodeLine.indexOf(' ');
-	if (firstSpace <= 0)
-		return false;
+	if (firstSpace <= 0) return false;
 
 	QString rawName = decodeLine.left(firstSpace).trimmed();
-	if (rawName.size() < 2)
-		return false;
+	if (rawName.size() < 2) return false;
 
 	// Strip surrounding quotes (single or double) from the parameter name
 	if (((rawName.at(0) == '"' && rawName.at(rawName.size() - 1) == '"')
-			|| (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
+				|| (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
 	{
 		rawName = rawName.mid(1, rawName.size() - 2).trimmed();
 	}
 
 	// Extract the fractal index from the trailing _N suffix
 	int lastUnderscore = rawName.lastIndexOf('_');
-	if (lastUnderscore <= 0)
-		return false;
+	if (lastUnderscore <= 0) return false;
 
 	bool conversionOK = false;
 	int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
@@ -2145,10 +2128,8 @@ bool cSettings::TryResolveLegacyFractalParam(
 
 	// Check if the legacy param does not exist in the top-level container
 	// and the base param exists in the target fractal container
-	if (conversionOK && fractalIndex >= 0
-			&& fractalIndex < fractPar->size()
-			&& !par->IfExists(rawName)
-			&& fractPar->at(fractalIndex)->IfExists(baseParam))
+	if (conversionOK && fractalIndex >= 0 && fractalIndex < fractPar->size()
+			&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
 	{
 		// Build the resolved line with the base param name and update the target container
 		resolvedLine = baseParam + decodeLine.mid(firstSpace);
@@ -2160,11 +2141,10 @@ bool cSettings::TryResolveLegacyFractalParam(
 }
 
 void cSettings::MigrateLegacyParamsToFractal(
-	std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fract)
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
 {
-	// Migrates legacy flat params (dont_add_c_constant, fractal_constant_factor, julia_mode, julia_c) to the new fractal-based structure.
-	// Migrate per-fractal dont_add_c_constant params
+	// Migrates legacy flat params (dont_add_c_constant, fractal_constant_factor, julia_mode, julia_c)
+	// to the new fractal-based structure. Migrate per-fractal dont_add_c_constant params
 	for (int i = 1; i <= fract->size(); i++)
 	{
 		QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
@@ -2288,8 +2268,8 @@ static enumNodeType PrimitiveOpToNodeType(int boolOp)
 	}
 }
 
-static QString MakeNodeDefinition(const QString &formulaName, int nodeId,
-								  enumNodeType type, int parentId, int objectId)
+static QString MakeNodeDefinition(
+	const QString &formulaName, int nodeId, enumNodeType type, int parentId, int objectId)
 {
 	return QString("%1 %2,%2,%3,%4,%5")
 		.arg(formulaName)
@@ -2309,22 +2289,18 @@ static QString NodeDefinitionParam(int nodeId)
 	return NodePrefix(nodeId) + "definition";
 }
 
-static void SetNodeParent(std::shared_ptr<cParameterContainer> par,
-						  int nodeId, int parentId)
+static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
 {
 	const QString defParam = NodeDefinitionParam(nodeId);
-	if (!par->IfExists(defParam))
-		return;
+	if (!par->IfExists(defParam)) return;
 	QStringList parts = par->Get<QString>(defParam).split(',');
-	if (parts.size() != 5)
-		return;
+	if (parts.size() != 5) return;
 	parts[3] = QString::number(parentId);
 	par->Set(defParam, parts.join(","));
 }
 
-static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
-								 const QString &prefix,
-								 std::shared_ptr<cParameterContainer> fracPar)
+static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const QString &prefix,
+	std::shared_ptr<cParameterContainer> fracPar)
 {
 	if (fracPar->IfExists("formula_position"))
 		par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
@@ -2343,8 +2319,7 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 	QList<int> enabledFractals;
 	for (int i = 0; i < fract->size(); i++)
 	{
-		if ((!fract->at(i)->IfExists("fractal_enable")
-					|| fract->at(i)->Get<bool>("fractal_enable"))
+		if ((!fract->at(i)->IfExists("fractal_enable") || fract->at(i)->Get<bool>("fractal_enable"))
 				&& fract->at(i)->IfExists("formula")
 				&& fract->at(i)->Get<int>("formula") != int(fractal::none))
 		{
@@ -2358,8 +2333,7 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 static const int DefaultPrimitiveObjectId = 1234;
 
 void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
-									 std::shared_ptr<cFractalContainer> fract,
-									 int &nextGroupObjectId)
+	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
 {
 	// Migrates legacy flat params to the new node-based objects tree structure.
 	// Phase 1: migrate transforms only for primitives with non-default object_id
@@ -2367,8 +2341,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
 	for (const auto &primitive : primitives)
 	{
-		if (!par->IfExists(primitive.Name("enabled"))
-				|| !par->Get<bool>(primitive.Name("enabled")))
+		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
 		{
 			continue;
 		}
@@ -2384,26 +2357,21 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		if (par->IfExists(primitive.Name("position"))
 				&& !par->isDefaultValue(primitive.Name("position")))
 		{
-			par->Set(prefix + "position",
-				par->Get<CVector3>(primitive.Name("position")));
+			par->Set(prefix + "position", par->Get<CVector3>(primitive.Name("position")));
 		}
 		if (par->IfExists(primitive.Name("rotation"))
 				&& !par->isDefaultValue(primitive.Name("rotation")))
 		{
-			par->Set(prefix + "rotation",
-				par->Get<CVector3>(primitive.Name("rotation")));
+			par->Set(prefix + "rotation", par->Get<CVector3>(primitive.Name("rotation")));
 		}
-		if (par->IfExists(primitive.Name("scale"))
-				&& !par->isDefaultValue(primitive.Name("scale")))
+		if (par->IfExists(primitive.Name("scale")) && !par->isDefaultValue(primitive.Name("scale")))
 		{
-			par->Set(prefix + "scale",
-				par->Get<CVector3>(primitive.Name("scale")));
+			par->Set(prefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
 		}
 	}
 
 	bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
-	bool booleanMode = par->IfExists("boolean_operators")
-		&& par->Get<bool>("boolean_operators");
+	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 	// Migrate legacy flat fractal params to the new fractal-based structure
 	MigrateLegacyParamsToFractal(par, fract);
@@ -2421,8 +2389,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		{
 			InitNodeParams(1, par);
 			int objectId = enabledFractals[0];
-			QString formulaName = GetFormulaName(
-				fract->at(objectId - 1)->Get<int>("formula"));
+			QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
 			par->Set("node_0001_definition",
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
@@ -2451,8 +2418,8 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 
 				int parentId = (k == m - 2) ? 0 : (k + 2);
 				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
-					MakeNodeDefinition("boolean", nodeId, nodeType, parentId,
-						nextGroupObjectId++));
+					MakeNodeDefinition("boolean", nodeId, nodeType, parentId, nextGroupObjectId++));
+				par->Set(NodePrefix(nodeId) + "material", -1);
 			}
 
 			// Create fractal (leaf) nodes and attach them to the boolean tree
@@ -2462,12 +2429,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				int objectId = enabledFractals[i];
 				InitNodeParams(nodeId, par);
 
-				QString formulaName = GetFormulaName(
-					fract->at(objectId - 1)->Get<int>("formula"));
+				QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
 				int parentId = (i <= 1) ? 1 : i;
 				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
-					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal,
-						parentId, objectId));
+					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
 			}
 		}
@@ -2503,8 +2468,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				int objectId = enabledFractals[i];
 				InitNodeParams(nodeId, par);
 
-				QString formulaName = GetFormulaName(
-					fract->at(objectId - 1)->Get<int>("formula"));
+				QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
 				QString prefix = NodePrefix(nodeId);
 				par->Set(prefix + "definition",
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 1, objectId));
@@ -2518,7 +2482,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		[&](const sPrimitiveItem &a, const sPrimitiveItem &b)
 		{
 			return par->Get<int>(a.fullName + "_calculation_order")
-				< par->Get<int>(b.fullName + "_calculation_order");
+						 < par->Get<int>(b.fullName + "_calculation_order");
 		});
 
 	// Find the current root node (node with parent == 0) and the maximum node ID
@@ -2546,25 +2510,24 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	// Attach each enabled primitive to the node tree
 	for (const auto &primitive : primitives)
 	{
-		if (!par->IfExists(primitive.Name("enabled"))
-				|| !par->Get<bool>(primitive.Name("enabled")))
+		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
 		{
 			continue;
 		}
 
 		const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
 		const QString primitiveName = par->IfExists(primitive.Name("name"))
-			? par->Get<QString>(primitive.Name("name"))
-			: primitive.typeName;
+																		? par->Get<QString>(primitive.Name("name"))
+																		: primitive.typeName;
 
 		// If no root node exists yet, create one from the primitive
 		if (rootNodeId < 0)
 		{
 			const int primitiveNodeId = ++maxNodeId;
 			InitNodeParams(primitiveNodeId, par);
-			par->Set(NodeDefinitionParam(primitiveNodeId),
-				MakeNodeDefinition(primitiveName, primitiveNodeId,
-					enumNodeType::primitive, 0, primitiveObjectId));
+			par->Set(
+				NodeDefinitionParam(primitiveNodeId), MakeNodeDefinition(primitiveName, primitiveNodeId,
+																								enumNodeType::primitive, 0, primitiveObjectId));
 			QString matParam = primitive.Name("material_id");
 			if (par->IfExists(matParam))
 			{
@@ -2582,21 +2545,21 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		const int boolNodeId = ++maxNodeId;
 		const int primitiveNodeId = ++maxNodeId;
 		const int primitiveBoolOp = par->IfExists(primitive.Name("boolean_operator"))
-			? par->Get<int>(primitive.Name("boolean_operator"))
-			: int(primBooleanOperatorOR);
+																	? par->Get<int>(primitive.Name("boolean_operator"))
+																	: int(primBooleanOperatorOR);
 
 		InitNodeParams(boolNodeId, par);
 		par->Set(NodeDefinitionParam(boolNodeId),
-			MakeNodeDefinition("boolean", boolNodeId,
-				PrimitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
+			MakeNodeDefinition(
+				"boolean", boolNodeId, PrimitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
 		par->Set(NodePrefix(boolNodeId) + "material", -1);
 
 		SetNodeParent(par, rootNodeId, boolNodeId);
 
 		InitNodeParams(primitiveNodeId, par);
 		par->Set(NodeDefinitionParam(primitiveNodeId),
-			MakeNodeDefinition(primitiveName, primitiveNodeId,
-				enumNodeType::primitive, boolNodeId, primitiveObjectId));
+			MakeNodeDefinition(
+				primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
 		QString matParam = primitive.Name("material_id");
 		if (par->IfExists(matParam))
 		{
@@ -2618,8 +2581,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	// by matching the objectId field in the node definition.
 	for (const auto &primitive : primitives)
 	{
-		if (!par->IfExists(primitive.Name("enabled"))
-				|| !par->Get<bool>(primitive.Name("enabled")))
+		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
 		{
 			continue;
 		}
@@ -2655,20 +2617,16 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		if (par->IfExists(primitive.Name("position"))
 				&& !par->isDefaultValue(primitive.Name("position")))
 		{
-			par->Set(targetNodePrefix + "position",
-				par->Get<CVector3>(primitive.Name("position")));
+			par->Set(targetNodePrefix + "position", par->Get<CVector3>(primitive.Name("position")));
 		}
 		if (par->IfExists(primitive.Name("rotation"))
 				&& !par->isDefaultValue(primitive.Name("rotation")))
 		{
-			par->Set(targetNodePrefix + "rotation",
-				par->Get<CVector3>(primitive.Name("rotation")));
+			par->Set(targetNodePrefix + "rotation", par->Get<CVector3>(primitive.Name("rotation")));
 		}
-		if (par->IfExists(primitive.Name("scale"))
-				&& !par->isDefaultValue(primitive.Name("scale")))
+		if (par->IfExists(primitive.Name("scale")) && !par->isDefaultValue(primitive.Name("scale")))
 		{
-			par->Set(targetNodePrefix + "scale",
-				par->Get<CVector3>(primitive.Name("scale")));
+			par->Set(targetNodePrefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
 		}
 	}
 }
@@ -2695,7 +2653,8 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
 	std::shared_ptr<cParameterContainer> par)
 {
-	// Deletes the temporary legacy primitive transform params (position/rotation/scale) that were injected during migration.
+	// Deletes the temporary legacy primitive transform params (position/rotation/scale) that were
+	// injected during migration.
 	QStringList legacyTypes = GetLegacyPrimitiveTypes();
 	for (const QString &type : legacyTypes)
 	{
