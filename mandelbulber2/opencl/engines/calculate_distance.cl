@@ -518,6 +518,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					DEBUG_PRINT("  Fractal SKIPPED (numberOfFractalsToSkip=%d)\n", numberOfFractalsToSkip);
 					continue;
 				}
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
+				}
+#endif
 				break;
 			}
 			case nodeTypePrimitive:
@@ -530,6 +536,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					distance = PrimitiveDistanceByType(primitive, pointTransformed, 1e20f);
 					distance *= absNodeScale;
 					objectId = node->internalObjectId;
+				}
+#endif
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
 				}
 #endif
 				break;
@@ -550,6 +562,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
 				DEBUG_PRINT("  Hybrid: dist=%f objectId=%d seqIdx=%d skipNext=%d\n", distance, objectId,
 					sequenceIndex, numberOfFractalsToSkip);
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
+				}
+#endif
 				break;
 			}
 			case nodeTypeBooleanAdd:
