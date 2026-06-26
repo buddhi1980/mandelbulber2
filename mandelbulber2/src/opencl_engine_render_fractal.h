@@ -261,8 +261,9 @@ private:
 
 	bool autoRefreshMode;
 	bool monteCarlo;
-	bool meshExportMode;
-	cl_float3 pointToCalculateDistance;
+ 	bool meshExportMode;
+ 	bool hasBooleanNodes;
+ 	cl_float3 pointToCalculateDistance;
 	bool distanceMode;
 	bool useOptionalImageChannels;
 	double reservedGpuTime;

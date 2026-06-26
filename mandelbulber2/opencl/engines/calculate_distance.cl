@@ -35,6 +35,16 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
+// Set to 1 to enable debug printf output from boolean/tree processing
+// WARNING: printf in OpenCL kernels is platform-dependent and slow
+#define BOOLEAN_DEBUG 0
+
+#if BOOLEAN_DEBUG
+#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#else
+#define DEBUG_PRINT(...)
+#endif
+
 // calculation of distance where ray-marching stops
 float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 {
@@ -81,7 +91,7 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 }
 
 formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData, int hybridSequenceIndex)
+	sClCalcParams *calcParam, sRenderData *renderData, int hybridSequenceIndex, int internalObjectId)
 {
 	formulaOut out;
 	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
@@ -93,15 +103,23 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 	out.objectId = 0;
 
 	int seqIdx = (hybridSequenceIndex >= 0) ? hybridSequenceIndex : 0;
+	if (seqIdx < 0 || seqIdx >= renderData->numberOfHybridSequences)
+	{
+		seqIdx = 0;
+	}
 	__global sHybridSequenceCl *seq = &renderData->hybridSequences[seqIdx];
+
+	DEBUG_PRINT(
+		"  CalculateDistanceSimple: seqIdx=%d seq->length=%d seq->DEType=%d seq->formulaBaseIndex=%d\n",
+		hybridSequenceIndex, seq->length, seq->DEType, seq->formulaBaseIndex);
 
 #ifdef ANALYTIC_DE
 #ifdef BOOLEAN_OPERATORS
 	if (seq->DEType == analyticDEType)
 #endif
 	{
-		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, -1,
-			renderData, hybridSequenceIndex);
+		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, internalObjectId, renderData,
+			hybridSequenceIndex);
 		bool maxiter = out.maxiter;
 
 		// don't use maxiter when limits are disabled and iterThresh mode is not used
@@ -149,7 +167,9 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 #endif // ANALYTIC_DE
 
 #ifdef DELTA_DE
-#ifdef BOOLEAN_OPERATORS
+#if defined(BOOLEAN_OPERATORS) && defined(ANALYTIC_DE)
+	else if (seq->DEType == deltaDEType)
+#elif defined(BOOLEAN_OPERATORS)
 	if (seq->DEType == deltaDEType)
 #endif
 	{
@@ -162,8 +182,8 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 #endif
 		float3 dr = 0.0f;
 
-		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, -1,
-			renderData, hybridSequenceIndex);
+		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, internalObjectId, renderData,
+			hybridSequenceIndex);
 		calcParam->deltaDEMaxN = out.iters - 1;
 		float r = length(out.z);
 		float4 zFromIters = out.z;
@@ -189,9 +209,8 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 		float rDelta[6];
 		for (int i = 0; i < 6; i++)
 		{
-			rDelta[i] = length(
-				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, -1,
-					renderData, hybridSequenceIndex)
+			rDelta[i] = length(Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL,
+				internalObjectId, renderData, hybridSequenceIndex)
 					.z);
 		}
 		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
@@ -280,14 +299,14 @@ typedef struct
 	int closestObjectId;
 	int closestObjectSequence;
 	float cumulativeDistance;
+	float detailSize;
 	enumNodeTypeCl nodeType;
 	float3 transformedPoint;
 	bool hasTransformedPoint;
 } ObjectTreeStackFrameCl;
 
-void mergeChildIntoParentCl(
-	const ObjectTreeStackFrameCl *child, ObjectTreeStackFrameCl *parent,
-	__global sObjectDataCl *objectsData, int numberOfObjects)
+void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStackFrameCl *parent,
+	__global sObjectDataCl *objectsData, int numberOfObjects, float detailSize)
 {
 	const float childDistance = child->cumulativeDistance;
 
@@ -307,6 +326,8 @@ void mergeChildIntoParentCl(
 		}
 		case nodeTypeBooleanSub:
 		{
+			DEBUG_PRINT("    mergeSub: childDist=%f parentCumDist=%e parentDS=%f\n", childDistance,
+				parent->cumulativeDistance, parent->detailSize);
 			if (parent->cumulativeDistance >= 1e19f)
 			{
 				parent->cumulativeDistance = childDistance;
@@ -314,17 +335,39 @@ void mergeChildIntoParentCl(
 				parent->closestObjectSequence = child->closestObjectSequence;
 				parent->transformedPoint = child->transformedPoint;
 				parent->hasTransformedPoint = child->hasTransformedPoint;
+				DEBUG_PRINT("    mergeSub: first child, cumDist=%f\n", childDistance);
 			}
-			else
+			else if (parent->detailSize > 0.0f && childDistance < parent->detailSize)
 			{
-				parent->cumulativeDistance = max(parent->cumulativeDistance, -childDistance);
-				if (childDistance < parent->cumulativeDistance)
+				const float limitDist = parent->detailSize * 1.5f;
+
+				if (childDistance < limitDist)
 				{
+					parent->cumulativeDistance = limitDist;
 					parent->closestObjectId = child->closestObjectId;
 					parent->closestObjectSequence = child->closestObjectSequence;
 					parent->transformedPoint = child->transformedPoint;
 					parent->hasTransformedPoint = child->hasTransformedPoint;
+					DEBUG_PRINT(
+						"    mergeSub: childDist<limitDist, cumDist=%f limitDist=%f\n", limitDist, limitDist);
 				}
+				else
+				{
+					const float adjustedDistance = max(limitDist - childDistance, parent->cumulativeDistance);
+					parent->cumulativeDistance = (adjustedDistance < 0.0f) ? 0.0f : adjustedDistance;
+					parent->closestObjectId = child->closestObjectId;
+					parent->closestObjectSequence = child->closestObjectSequence;
+					parent->transformedPoint = child->transformedPoint;
+					parent->hasTransformedPoint = child->hasTransformedPoint;
+					DEBUG_PRINT(
+						"    mergeSub: childDist>=limitDist, cumDist=%f\n", parent->cumulativeDistance);
+				}
+			}
+			else
+			{
+				DEBUG_PRINT(
+					"    mergeSub: condition NOT met (childDist=%f >= parentDS=%f or parentDS<=0)\n",
+					childDistance, parent->detailSize);
 			}
 			break;
 		}
@@ -393,8 +436,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	}
 #endif
 
-	// Tree-based distance calculation
-	#define MAX_TREE_LEVELS 10
+// Tree-based distance calculation
+#define MAX_TREE_LEVELS 10
 	ObjectTreeStackFrameCl stack[MAX_TREE_LEVELS];
 
 	__global sNodeDataForRenderingCl *nodesData = renderData->nodesData;
@@ -405,12 +448,16 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	stack[0].level = 0;
 	stack[0].closestObjectId = -1;
 	stack[0].closestObjectSequence = -1;
+	stack[0].detailSize = calcParam->detailSize;
 	stack[0].nodeType = nodeTypeBooleanAdd;
 	stack[0].transformedPoint = point;
 	stack[0].hasTransformedPoint = false;
 
 	int stackLevel = 0;
 	int numberOfFractalsToSkip = 0;
+
+	DEBUG_PRINT("CalculateDistance: point=(%f,%f,%f) detailSize=%f nodeCount=%d\n", point.x, point.y,
+		point.z, calcParam->detailSize, nodeCount);
 
 	for (int i = 0; i < nodeCount; ++i)
 	{
@@ -427,7 +474,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		const float absNodeScale = node->absScale;
 		float savedDetailSize = calcParam->detailSize;
-		calcParam->detailSize = (absNodeScale > 0.0f) ? calcParam->detailSize / absNodeScale : calcParam->detailSize;
+		calcParam->detailSize =
+			(absNodeScale > 0.0f) ? calcParam->detailSize / absNodeScale : calcParam->detailSize;
+
+		DEBUG_PRINT("Node[%d]: type=%d level=%d absScale=%f savedDS=%f scaledDS=%f hybridSeq=%d\n", i,
+			node->type, node->level, absNodeScale, savedDetailSize, calcParam->detailSize,
+			node->hybridSequenceIndex);
 
 		if (node->level < stackLevel)
 		{
@@ -436,8 +488,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			{
 				ObjectTreeStackFrameCl child = stack[stackLevel];
 				stackLevel--;
-				mergeChildIntoParentCl(&child, &stack[stackLevel],
-					renderData->objectsData, numberOfObjects);
+				mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+					stack[stackLevel].detailSize);
 			}
 		}
 
@@ -447,8 +499,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			{
 				if (numberOfFractalsToSkip == 0)
 				{
-					formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed,
-						calcParam, renderData, node->hybridSequenceIndex);
+					formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed, calcParam,
+						renderData, node->hybridSequenceIndex, node->internalObjectId);
 					distance = nodeOut.distance * absNodeScale;
 					objectId = node->internalObjectId;
 					sequenceIndex = node->hybridSequenceIndex;
@@ -456,11 +508,14 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					out.colorIndex = nodeOut.colorIndex;
 					out.maxiter = nodeOut.maxiter;
 					out.z = nodeOut.z;
+					DEBUG_PRINT("  Fractal: dist=%f objectId=%d seqIdx=%d iters=%f\n", distance, objectId,
+						sequenceIndex, out.iters);
 				}
 				else
 				{
 					numberOfFractalsToSkip--;
 					calcParam->detailSize = savedDetailSize;
+					DEBUG_PRINT("  Fractal SKIPPED (numberOfFractalsToSkip=%d)\n", numberOfFractalsToSkip);
 					continue;
 				}
 				break;
@@ -481,8 +536,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			}
 			case nodeTypeHybrid:
 			{
-				formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed,
-					calcParam, renderData, node->hybridSequenceIndex);
+				formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed, calcParam,
+					renderData, node->hybridSequenceIndex, node->internalObjectId);
 				distance = nodeOut.distance * absNodeScale;
 				objectId = node->internalObjectId;
 				sequenceIndex = node->hybridSequenceIndex;
@@ -491,8 +546,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				out.maxiter = nodeOut.maxiter;
 				out.z = nodeOut.z;
 				// skip next fractals because they are part of this hybrid sequence
-				// numberOfFractalsToSkip is set based on sequence data
-				// For now hybrid sequences are handled via the Fractal() function
+				numberOfFractalsToSkip =
+					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
+				DEBUG_PRINT("  Hybrid: dist=%f objectId=%d seqIdx=%d skipNext=%d\n", distance, objectId,
+					sequenceIndex, numberOfFractalsToSkip);
 				break;
 			}
 			case nodeTypeBooleanAdd:
@@ -504,12 +561,15 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				{
 					stack[stackLevel].cumulativeDistance =
 						(node->type == nodeTypeBooleanMul) ? -1e20f : 1e20f;
-					stack[stackLevel].level = stackLevel;
+					stack[stackLevel].level = node->level;
 					stack[stackLevel].nodeType = node->type;
 					stack[stackLevel].closestObjectId = -1;
 					stack[stackLevel].closestObjectSequence = -1;
+					stack[stackLevel].detailSize = calcParam->detailSize;
 					stack[stackLevel].transformedPoint = point;
 					stack[stackLevel].hasTransformedPoint = false;
+					DEBUG_PRINT("  Boolean (%d): stackLevel=%d detailSize=%f cumDist=%e\n", node->type,
+						stackLevel, calcParam->detailSize, stack[stackLevel].cumulativeDistance);
 				}
 				calcParam->detailSize = savedDetailSize;
 				continue;
@@ -523,19 +583,26 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		leaf.cumulativeDistance = distance;
 		leaf.closestObjectId = objectId;
 		leaf.closestObjectSequence = sequenceIndex;
+		leaf.detailSize = savedDetailSize / absNodeScale;
 		leaf.transformedPoint = pointTransformed;
 		leaf.hasTransformedPoint = (objectId >= 0);
-		mergeChildIntoParentCl(&leaf, &stack[stackLevel],
-			renderData->objectsData, numberOfObjects);
+		DEBUG_PRINT("  Leaf: dist=%f objectId=%d seqIdx=%d parentDS=%f stackLevel=%d\n", distance,
+			objectId, sequenceIndex, stack[stackLevel].detailSize, stackLevel);
+		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+			stack[stackLevel].detailSize);
 	}
 
 	// final node summation - pop remaining stack levels
+	DEBUG_PRINT("Final: stackLevel=%d resultDist=%e objectId=%d\n", stackLevel,
+		stack[0].cumulativeDistance, stack[0].closestObjectId);
 	while (stackLevel > 0)
 	{
 		ObjectTreeStackFrameCl child = stack[stackLevel];
 		stackLevel--;
-		mergeChildIntoParentCl(&child, &stack[stackLevel],
-			renderData->objectsData, numberOfObjects);
+		DEBUG_PRINT("  Pop stack[%d+1]: cumDist=%e type=%d -> stack[%d] cumDist=%e\n", stackLevel + 1,
+			child.cumulativeDistance, child.nodeType, stackLevel, stack[stackLevel].cumulativeDistance);
+		mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+			stack[stackLevel].detailSize);
 	}
 
 	out.distance = stack[0].cumulativeDistance;

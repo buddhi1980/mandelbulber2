@@ -134,16 +134,20 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	//
 	//			printf(
 	//				"Node %d inverse transform matrix: m1=(%f,%f,%f,%f), m2=(%f,%f,%f,%f), m3=(%f,%f,%f,%f),
-	//" 				"m4=(%f,%f,%f,%f)\n", 				i, node.inverseTransformMatrix.r1.x, node.inverseTransformMatrix.r1.y,
-	//				node.inverseTransformMatrix.r1.z, node.inverseTransformMatrix.r1.w,
-	//				node.inverseTransformMatrix.r2.x, node.inverseTransformMatrix.r2.y,
-	//				node.inverseTransformMatrix.r2.z, node.inverseTransformMatrix.r2.w,
-	//				node.inverseTransformMatrix.r3.x, node.inverseTransformMatrix.r3.y,
-	//				node.inverseTransformMatrix.r3.z, node.inverseTransformMatrix.r3.w,
-	//				node.inverseTransformMatrix.r4.x, node.inverseTransformMatrix.r4.y,
-	//				node.inverseTransformMatrix.r4.z, node.inverseTransformMatrix.r4.w);
+	//" 				"m4=(%f,%f,%f,%f)\n", 				i, node.inverseTransformMatrix.r1.x,
+	// node.inverseTransformMatrix.r1.y, 				node.inverseTransformMatrix.r1.z,
+	// node.inverseTransformMatrix.r1.w, 				node.inverseTransformMatrix.r2.x,
+	// node.inverseTransformMatrix.r2.y, 				node.inverseTransformMatrix.r2.z,
+	// node.inverseTransformMatrix.r2.w, 				node.inverseTransformMatrix.r3.x,
+	// node.inverseTransformMatrix.r3.y, 				node.inverseTransformMatrix.r3.z,
+	// node.inverseTransformMatrix.r3.w, 				node.inverseTransformMatrix.r4.x,
+	// node.inverseTransformMatrix.r4.y, 				node.inverseTransformMatrix.r4.z,
+	// node.inverseTransformMatrix.r4.w);
 	//		}
 	//	}
+
+	//	printf("constant_multiplier %f %f %f", consts->fractal[1].constantMultiplier.x,
+	//		consts->fractal[1].constantMultiplier.y, consts->fractal[1].constantMultiplier.z);
 
 	//--- Hybrid Sequences
 

@@ -48,6 +48,7 @@
 #include "denoiser.h"
 #include "files.h"
 #include "fractal.h"
+#include "object_node_type.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "material.h"
@@ -378,6 +379,13 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 	SetUseBuildCache(!params->Get<bool>("opencl_disable_build_cache"));
 	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
+	// Add BOOLEAN_OPERATORS and BOOLEAN_DEBUG to definesCollector before Build()
+	if (hasBooleanNodes)
+	{
+		definesCollector += " -DBOOLEAN_OPERATORS";
+		definesCollector += " -DBOOLEAN_DEBUG=1";
+	}
+
 	// building OpenCl kernel
 	QString errorString;
 	bool quiet = (compilerErrorOutput) ? true : false;
@@ -451,7 +459,11 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 		}
 	}
 	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
+	qDebug() << "OpenCL kernel defines:" << definesCollector;
+	qDebug() << "useAnalyticDEType:" << useAnalyticDEType << "useDeltaDEType:" << useDeltaDEType
+					 << "useHybrid:" << useHybrid;
 
+	if (hasBooleanNodes) definesCollector += " -DBOOLEAN_OPERATORS";
 	if (useDeltaDEType) definesCollector += " -DDELTA_DE";
 
 	if (useLinearDEFunction) definesCollector += " -DDELTA_LINEAR_DE";
@@ -917,6 +929,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 	definesCollector.clear();
 
 	renderEngineMode = enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode"));
+	hasBooleanNodes = false;
 
 	// update camera rotation data (needed for simplified calculation in opencl kernel)
 	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
@@ -939,7 +952,6 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
 	if (paramRender->interiorMode) definesCollector += " -DINTERIOR_MODE";
-	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
 
 	SetParametersForIterationWeight(fractals.get());
 
@@ -984,6 +996,17 @@ void cOpenClEngineRenderFractal::SetParameters(
 		dynamicData->BuildObjectsData(&renderData->objectData);
 		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
 		dynamicData->BuildHybridSequencesData(&renderData->hybridFractalSequences);
+
+		// Check if any boolean nodes exist in the node tree (after BuildNodesData)
+		for (const auto &node : renderData->nodesDataForRendering)
+		{
+			if (node.type == enumNodeType::booleanAdd || node.type == enumNodeType::booleanMul
+					|| node.type == enumNodeType::booleanSub)
+			{
+				hasBooleanNodes = true;
+				break;
+			}
+		}
 	}
 
 	dynamicData->FillHeader();
