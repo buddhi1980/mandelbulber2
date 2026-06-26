@@ -55,7 +55,7 @@ float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParam
 			formulaOut outF;
 
 			outF = Fractal(consts, input->point, calcParams, calcModeCubeOrbitTrap, input->material, -1,
-				renderData, 0);
+				renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 			pointModified = outF.z.xyz;
 		}
 #endif

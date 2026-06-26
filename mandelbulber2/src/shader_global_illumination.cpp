@@ -29,8 +29,8 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cRenderWorker::GlobalIlumination method - calculates global illumination using Monte Carlo
- * algorithm
+ * cRenderWorker::GlobalIlumination method - calculates global illumination
+ * using Monte Carlo algorithm
  */
 #include "calculate_distance.hpp"
 #include "common_math.h"
@@ -103,6 +103,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 					return out;
 				}
 				inputCopy.point = point;
+				inputCopy.seqIndex = distanceOut.seqIndex;
 				CVector3 vn = CalculateNormals(inputCopy);
 				inputCopy.normal = vn;
 				inputCopy.objectId = objectId;
@@ -124,7 +125,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
-			// material pointer pre-resolved at setup time – direct access, no map lookup
+			// material pointer pre-resolved at setup time – direct access, no map
+			// lookup
 			inputCopy.material =
 				(inputCopy.objectId >= 0 && inputCopy.objectId < static_cast<int>(data->objectData.size()))
 					? &data->materials[data->objectData[inputCopy.objectId].materialId]

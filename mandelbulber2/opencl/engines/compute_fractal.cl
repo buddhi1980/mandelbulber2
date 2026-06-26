@@ -109,7 +109,8 @@ float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
 	enumCalculationModeCl mode, __global sMaterialCl *material, int forcedFormulaIndex,
-	sRenderData *renderData, int hybridSequenceIndex)
+	sRenderData *renderData, int hybridSequenceIndex, float3 pointTransformed,
+	bool hasTransformedPoint)
 {
 	// begin
 	float dist = 0.0f;
@@ -477,7 +478,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (i >= material->textureFractalizeStartIteration)
 				{
 					float size = material->textureFractalizeCubeSize;
-					float3 zz = z.xyz - pointTransformed;
+					float3 zz = z.xyz - (hasTransformedPoint ? pointTransformed : point);
 					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
 							&& zz.z < size)
 					{

@@ -620,8 +620,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			{
 				calcParam->orbitTrapIndex = fakeLightLoop;
 				formulaOut outF;
-				outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1,
-					renderData, 0);
+				outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1, renderData, 0,
+					input2.transformedPoint, input2.hasTransformedPoint);
 				float r = outF.orbitTrapR;
 				r = sqrt(1.0f / (r + 1.0e-20f));
 				float fakeLight = 1.0f

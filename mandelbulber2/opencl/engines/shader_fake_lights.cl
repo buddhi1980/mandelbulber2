@@ -49,8 +49,8 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		calcParams->orbitTrapIndex = fakeLightLoop;
 		formulaOut outF;
-		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1,
-			renderData, 0);
+		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1, renderData, 0,
+			input->transformedPoint, input->hasTransformedPoint);
 		float rr = outF.orbitTrapR;
 		float r = 1.0f / (rr + 1e-20f);
 
@@ -60,19 +60,19 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		calcParams->distThresh = input->distThresh;
 		calcParams->detailSize = input->delta;
 
-		outF = Fractal(
-			consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1,
-			renderData, 0);
+		outF =
+			Fractal(consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap,
+				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-		outF = Fractal(
-			consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1,
-			renderData, 0);
+		outF =
+			Fractal(consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap,
+				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-		outF = Fractal(
-			consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL, -1,
-			renderData, 0);
+		outF =
+			Fractal(consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap,
+				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		float3 fakeLightNormal;

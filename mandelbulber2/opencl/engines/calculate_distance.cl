@@ -119,7 +119,7 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 #endif
 	{
 		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, internalObjectId, renderData,
-			hybridSequenceIndex);
+			hybridSequenceIndex, point, false);
 		bool maxiter = out.maxiter;
 
 		// don't use maxiter when limits are disabled and iterThresh mode is not used
@@ -183,7 +183,7 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 		float3 dr = 0.0f;
 
 		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, internalObjectId, renderData,
-			hybridSequenceIndex);
+			hybridSequenceIndex, point, false);
 		calcParam->deltaDEMaxN = out.iters - 1;
 		float r = length(out.z);
 		float4 zFromIters = out.z;
@@ -210,7 +210,7 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 		for (int i = 0; i < 6; i++)
 		{
 			rDelta[i] = length(Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL,
-				internalObjectId, renderData, hybridSequenceIndex)
+				internalObjectId, renderData, hybridSequenceIndex, point, false)
 					.z);
 		}
 		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
