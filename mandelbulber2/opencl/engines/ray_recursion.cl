@@ -52,6 +52,8 @@ typedef struct
 	int objectId;
 	bool found;
 	int count;
+	float3 transformedPoint;
+	bool hasTransformedPoint;
 } sRayMarchingOut;
 
 typedef enum
@@ -138,6 +140,8 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
 		out->objectId = outF.objectId;
+		out->transformedPoint = outF.transformedPoint;
+		out->hasTransformedPoint = outF.hasTransformedPoint;
 
 #ifdef USE_REFRACTION
 		if (in.invertMode)
@@ -204,6 +208,8 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
 			out->objectId = outF.objectId;
+			out->transformedPoint = outF.transformedPoint;
+			out->hasTransformedPoint = outF.hasTransformedPoint;
 
 			// #ifdef USE_REFRACTION
 			if (in.invertMode)
@@ -281,6 +287,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];

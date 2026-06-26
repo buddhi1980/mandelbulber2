@@ -86,6 +86,8 @@ typedef struct
 	float orbitTrapR;
 	int objectId;
 	bool maxiter;
+	float3 transformedPoint;
+	bool hasTransformedPoint;
 } formulaOut;
 
 typedef enum

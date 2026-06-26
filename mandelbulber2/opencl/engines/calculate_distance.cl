@@ -625,6 +625,9 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out.iters = 0;
 	}
 
+	out.transformedPoint = stack[0].transformedPoint;
+	out.hasTransformedPoint = stack[0].hasTransformedPoint;
+
 	return out;
 }
 

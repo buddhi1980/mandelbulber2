@@ -35,6 +35,7 @@
 typedef struct
 {
 	float3 point;
+	float3 transformedPoint;
 	float3 viewVector;
 	float3 viewVectorNotRotated;
 	float3 normal;
@@ -58,6 +59,7 @@ typedef struct
 	int stepCount;
 	int randomSeed;
 	int objectId;
+	bool hasTransformedPoint;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
