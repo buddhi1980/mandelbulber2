@@ -198,6 +198,23 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 		stack[0].transformedPoint = in.point;
 		stack[0].hasTransformedPoint = false;
 
+		// Limit box distance check (mirrors OpenCL LIMITS_ENABLED behavior)
+		if (params.limitsEnabled)
+		{
+			CVector3 boxDist;
+			boxDist.x = max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
+			boxDist.y = max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
+			boxDist.z = max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
+			double limitBoxDist = std::max({boxDist.x, boxDist.y, boxDist.z});
+			if (limitBoxDist > in.detailSize)
+			{
+				out->maxiter = false;
+				out->distance = limitBoxDist;
+				out->totalIters = 0;
+				return limitBoxDist;
+			}
+		}
+
 		int stackLevel = 0;
 		int numberOfFractalsToSkip = 0;
 
