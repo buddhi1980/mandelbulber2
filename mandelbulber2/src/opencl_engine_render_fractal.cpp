@@ -182,7 +182,7 @@ void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFi
 
 void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeaderFiles,
 	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
-	const QString &openclEnginePath, QByteArray &programEngine)
+	const QString &openclEnginePath, QByteArray &programEngine, const QByteArray &formulaSwitchCode)
 {
 	// common headers
 	for (int i = 0; i < clHeaderFiles.size(); i++)
@@ -232,6 +232,16 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 	// compute fractal
 	programEngine.append(LoadUtf8TextFromFile(openclEnginePath + "compute_fractal.cl"));
 	programEngine.append("\n");
+	// insert dynamically generated formula switch code
+	if (!formulaSwitchCode.isEmpty())
+	{
+		int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
+		if (placeholderPos >= 0)
+		{
+			int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+			programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
+		}
+	}
 	if (!distanceMode)
 	{
 		// texture mapping
@@ -419,6 +429,11 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 
 		if (meshExportMode) clHeaderFiles.append("mesh_export_data_cl.h");
 
+		// generate dynamically formula switch code from pre-dedup list
+		QByteArray formulaSwitchCode;
+		GenerateFormulaSwitchCode(m_allFormulasPreDedup, m_allFormulasPreDedup.size(),
+			m_isHybrid || hasBooleanNodes, formulaSwitchCode);
+
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
 
@@ -432,7 +447,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 		QString openclPathSlash = openclPath;
 #endif
 
-		CreateListOfIncludes(clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine);
+		CreateListOfIncludes(
+			clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine, formulaSwitchCode);
 
 		// main engine
 		LoadSourceWithMainEngine(openclEnginePath, programEngine);
@@ -585,14 +601,76 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
+		QString functionName;
 		if (internalID != "" && internalID != "None")
 		{
-			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
-			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+			functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
 		}
+		else
+		{
+			functionName = "DummyIteration";
+		}
+		definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 	}
 
+	m_allFormulasPreDedup = listOfUsedFormulas;
 	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
+}
+
+void cOpenClEngineRenderFractal::GenerateFormulaSwitchCode(
+	const QStringList &formulas, int totalFormulaCount, bool needsSwitch, QByteArray &out)
+{
+	out.clear();
+
+	if (formulas.isEmpty())
+	{
+		out.append("		z = DummyIteration(z, fractal, &aux);");
+		return;
+	}
+
+	if (needsSwitch)
+	{
+		out.append("\t\tswitch (globalSequence)\n\t\t{\n");
+		for (int i = 0; i < totalFormulaCount; i++)
+		{
+			QString functionName;
+			if (i < formulas.size())
+			{
+				QString internalID = toCamelCase(formulas.at(i));
+				if (internalID != "" && internalID != "None")
+				{
+					functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+				}
+				else
+				{
+					functionName = "DummyIteration";
+				}
+			}
+			else
+			{
+				functionName = "DummyIteration";
+			}
+			out.append(QString("\t\t\tcase %1: z = %2(z, fractal, &aux); break;\n")
+					.arg(i)
+					.arg(functionName)
+					.toUtf8());
+		}
+		out.append("\t\t\tdefault: break;\n\t\t}\n");
+	}
+	else
+	{
+		QString internalID = toCamelCase(formulas.at(0));
+		QString functionName;
+		if (internalID != "" && internalID != "None")
+		{
+			functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+		}
+		else
+		{
+			functionName = "DummyIteration";
+		}
+		out.append(("		z = " + functionName + "(z, fractal, &aux);").toUtf8());
+	}
 }
 
 void cOpenClEngineRenderFractal::SetParametersForPerspectiveProjection(sParamRender *paramRender)
@@ -1000,6 +1078,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	renderEngineMode = enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode"));
 	hasBooleanNodes = false;
+	m_isHybrid = false;
 
 	// update camera rotation data (needed for simplified calculation in opencl kernel)
 	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
@@ -1018,6 +1097,16 @@ void cOpenClEngineRenderFractal::SetParameters(
 	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get());
 
 	CreateListOfUsedFormulas(fractals.get(), fractalContainer);
+
+	// check if any sequence is hybrid
+	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
+	{
+		if (fractals->GetSequence(s)->isHybrid)
+		{
+			m_isHybrid = true;
+			break;
+		}
+	}
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";

@@ -34,37 +34,6 @@
 
 #define MANDELBULBER_VERSION 2.34
 
-#ifndef FORMULA_ITER_0
-#define FORMULA_ITER_0 DummyIteration
-#endif /*FORMULA_ITER_0*/
-#ifndef FORMULA_ITER_1
-#define FORMULA_ITER_1 DummyIteration
-#endif /*FORMULA_ITER_1*/
-#ifndef FORMULA_ITER_2
-#define FORMULA_ITER_2 DummyIteration
-#endif /*FORMULA_ITER_2*/
-#ifndef FORMULA_ITER_3
-#define FORMULA_ITER_3 DummyIteration
-#endif /*FORMULA_ITER_3*/
-#ifndef FORMULA_ITER_4
-#define FORMULA_ITER_4 DummyIteration
-#endif /*FORMULA_ITER_4*/
-#ifndef FORMULA_ITER_5
-#define FORMULA_ITER_5 DummyIteration
-#endif /*FORMULA_ITER_5*/
-#ifndef FORMULA_ITER_6
-#define FORMULA_ITER_6 DummyIteration
-#endif /*FORMULA_ITER_6*/
-#ifndef FORMULA_ITER_7
-#define FORMULA_ITER_7 DummyIteration
-#endif /*FORMULA_ITER_7*/
-#ifndef FORMULA_ITER_8
-#define FORMULA_ITER_8 DummyIteration
-#endif /*FORMULA_ITER_8*/
-#ifndef FORMULA_ITER_9
-#define FORMULA_ITER_9 DummyIteration
-#endif /*FORMULA_ITER_9*/
-
 float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->r = -1.0f; // signal for main loop to break;
@@ -321,22 +290,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		{
 #endif
 
-#if defined(IS_HYBRID)
-			switch (sequence)
-			{
-				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
-				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
-				case 2: z = FORMULA_ITER_2(z, fractal, &aux); break;
-				case 3: z = FORMULA_ITER_3(z, fractal, &aux); break;
-				case 4: z = FORMULA_ITER_4(z, fractal, &aux); break;
-				case 5: z = FORMULA_ITER_5(z, fractal, &aux); break;
-				case 6: z = FORMULA_ITER_6(z, fractal, &aux); break;
-				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
-				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
-			}
-#else	 // not HYBRID
-		z = FORMULA_ITER_0(z, fractal, &aux);
-#endif // defined(IS_HYBRID)
+// PLACEHOLDER_FOR_FORMULA_ITER
 
 #ifdef ITERATION_WEIGHT
 		}

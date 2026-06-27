@@ -48,7 +48,7 @@ private:
 	void CreateListOfHeaderFiles(QStringList &clHeaderFiles);
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
-		QByteArray &programEngine);
+		QByteArray &programEngine, const QByteArray &formulaSwitchCode);
 	static QString toCamelCase(const QString &s);
 
 private:

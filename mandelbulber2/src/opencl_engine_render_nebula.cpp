@@ -220,7 +220,8 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		QString openclPathSlash = openclPath;
 #endif
 
-		CreateListOfIncludes(clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine);
+		CreateListOfIncludes(
+			clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine, QByteArray());
 
 		// main engine
 		QString mainEngineFileName = "nebula.cl";
@@ -602,7 +603,7 @@ void cOpenClEngineRenderNebula::CreateListOfHeaderFiles(QStringList &clHeaderFil
 
 void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeaderFiles,
 	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
-	const QString &openclEnginePath, QByteArray &programEngine)
+	const QString &openclEnginePath, QByteArray &programEngine, const QByteArray &formulaSwitchCode)
 {
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
@@ -634,6 +635,16 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 															 + "opencl" + QDir::separator() + formulaName + ".cl"));
 				programEngine.append("\n");
 			}
+		}
+	}
+	// insert dynamically generated formula switch code
+	if (!formulaSwitchCode.isEmpty())
+	{
+		int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
+		if (placeholderPos >= 0)
+		{
+			int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+			programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
 		}
 	}
 }
