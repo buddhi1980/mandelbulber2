@@ -27,6 +27,20 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
+static QByteArray StripNonAscii(const QByteArray &data)
+{
+	QByteArray result;
+	result.reserve(data.size());
+	for (char c : data)
+	{
+		if (static_cast<unsigned char>(c) < 128)
+		{
+			result.append(c);
+		}
+	}
+	return result;
+}
+
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
@@ -592,11 +606,14 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 {
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		AddInclude(programEngine, openclPathSlash + clHeaderFiles.at(i));
+		programEngine.append(
+			StripNonAscii(LoadUtf8TextFromFile(openclPathSlash + clHeaderFiles.at(i))));
+		programEngine.append("\n");
 	}
 	if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
 	{
-		AddInclude(programEngine, openclEnginePath + "basic_foldings.cl");
+		programEngine.append(LoadUtf8TextFromFile(openclEnginePath + "basic_foldings.cl"));
+		programEngine.append("\n");
 	}
 	// fractal formulas - only actually used
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
@@ -606,13 +623,16 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 		{
 			if (formulaName.startsWith("custom"))
 			{
-				AddInclude(programEngine,
-					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+				programEngine.append(LoadUtf8TextFromFile(
+					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl"));
+				programEngine.append("\n");
 			}
 			else
 			{
-				AddInclude(programEngine, systemDirectories.sharedDir + "formula" + QDir::separator()
-																		+ "opencl" + QDir::separator() + formulaName + ".cl");
+				programEngine.append(
+					LoadUtf8TextFromFile(systemDirectories.sharedDir + "formula" + QDir::separator()
+															 + "opencl" + QDir::separator() + formulaName + ".cl"));
+				programEngine.append("\n");
 			}
 		}
 	}
