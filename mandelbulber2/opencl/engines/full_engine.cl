@@ -219,6 +219,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
 		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
 
+	//--- Fractals ---
+
+	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
+	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
+	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
+
+	renderData->numberOfFractals = numberOfFractals;
+	renderData->fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
+
 	//--------- end of data file ----------------------------------
 
 	sClPixel pixel;

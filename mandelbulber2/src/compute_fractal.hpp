@@ -43,7 +43,7 @@
 #include "hybrid_fractal_sequences.h"
 
 // forward declarations
-class cNineFractals;
+class cHybridFractalSequences;
 class cMaterial;
 
 struct sFractalIn

@@ -90,6 +90,13 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
 		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
 
+	//--- Fractals ---
+
+	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
+	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
+	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
+	__global sFractalCl *fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
+
 	//--------- end of data file ----------------------------------
 
 	sClCalcParams calcParam;
@@ -111,6 +118,8 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	renderData.dynamicData = inBuff;
 	renderData.hybridSequences = hybridSequences;
 	renderData.numberOfHybridSequences = numberOfHybridSequences;
+	renderData.fractals = fractals;
+	renderData.numberOfFractals = numberOfFractals;
 
 	formulaOut outF;
 

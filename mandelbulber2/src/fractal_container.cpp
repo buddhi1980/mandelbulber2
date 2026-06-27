@@ -40,7 +40,7 @@ std::shared_ptr<cFractalContainer> gParFractal;
 
 cFractalContainer::cFractalContainer()
 {
-	fractals.resize(NUMBER_OF_FRACTALS);
+	fractals.resize(9);
 	for (int i = 0; i < (int)fractals.size(); i++)
 	{
 		fractals[i].reset(new cParameterContainer());

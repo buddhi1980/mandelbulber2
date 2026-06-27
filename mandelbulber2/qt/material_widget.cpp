@@ -118,6 +118,7 @@ void cMaterialWidget::InitializeData()
 
 		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
 		std::shared_ptr<cFractalContainer> fractal(new cFractalContainer());
+		fractal->resize(1);
 
 		params->SetContainerName("material");
 		InitParams(params);

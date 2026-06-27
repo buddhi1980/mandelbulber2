@@ -48,7 +48,6 @@
 #include "initparameters.hpp"
 #include "marchingcubes.h"
 #include "material.h"
-#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "wait.hpp"
 #include "write_log.hpp"
@@ -89,9 +88,10 @@ void cMeshExport::ProcessVolume()
 	objectsTree.CreateNodeDataFromParameters(gPar);
 	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(
-		new sParamRender(gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
+	std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+	fractals->CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+	std::shared_ptr<sParamRender> params(new sParamRender(
+		gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
 
 	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
 

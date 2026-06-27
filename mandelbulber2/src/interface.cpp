@@ -55,7 +55,6 @@
 #include "material_item_model.h"
 #include "my_ui_loader.h"
 #include "netrender.hpp"
-#include "nine_fractals.hpp"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
@@ -851,7 +850,12 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	std::shared_ptr<cFractalContainer> parFractal)
 {
 	std::shared_ptr<sParamRender> params(new sParamRender(par));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, par));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(par);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	cHybridFractalSequences fractals;
+	fractals.CreateSequences(par, parFractal, nodes);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
 
@@ -896,7 +900,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 	else
 	{
-		dist = CalculateDistance(*params, *fractals, in, &out);
+		dist = CalculateDistance(*params, fractals, in, &out);
 	}
 
 #ifdef USE_OPENCL
@@ -996,7 +1000,12 @@ void cInterface::ResetView(QWidget *navigationWidget,
 	double maxDist = 0.0;
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractalContainer, parTemp));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(parTemp);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	cHybridFractalSequences fractals;
+	fractals.CreateSequences(parTemp, parFractalContainer, nodes);
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
@@ -1056,7 +1065,7 @@ void cInterface::ResetView(QWidget *navigationWidget,
 			}
 			else
 			{
-				dist = CalculateDistance(*params, *fractals, in, &out);
+				dist = CalculateDistance(*params, fractals, in, &out);
 			}
 			if (dist < 0.1)
 			{
@@ -1153,7 +1162,12 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	parTemp->Set("interior_mode", false);
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, parTemp));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(parTemp);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	auto fractals = std::make_shared<cHybridFractalSequences>();
+	fractals->CreateSequences(parTemp, parFractal, nodes);
 
 	CVector3 direction;
 	CVector3 orthDirection;

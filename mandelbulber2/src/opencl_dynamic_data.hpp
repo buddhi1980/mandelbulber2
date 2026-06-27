@@ -64,9 +64,11 @@ public:
 	void BuildObjectsData(const std::vector<cObjectData> *objectData);
 	void BuildNodesData(const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData);
 	void BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences);
+	void BuildFractalData(const cHybridFractalSequences *hybridSequences);
 	void BuildNebulaGradientsData(const sParamRender *params);
+	void BuildNebulaSequenceData(const cHybridFractalSequences *hybridSequences);
 
-private:
+public:
 	const int materialsItemIndex = 0;
 	const int AOVectorsItemIndex = 1;
 	const int lightsItemIndex = 2;
@@ -74,9 +76,12 @@ private:
 	const int objectsItemIndex = 4;
 	const int nodesItemIndex = 5;
 	const int hybridSequencesItemIndex = 6;
+	const int fractalsItemIndex = 7;
 
 	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
-};
+	const int nebulaSequencesItemIndex = 1; // only one data set for nebulas
+
+}; // class cOpenClDynamicData
 
 #endif // USE_OPENCL
 

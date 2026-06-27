@@ -42,7 +42,6 @@
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "lights.hpp"
-#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 

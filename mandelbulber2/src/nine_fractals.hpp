@@ -46,6 +46,7 @@
 
 // custom includes
 #ifdef USE_OPENCL
+#include "src/include_header_wrapper.hpp"
 #include "opencl/fractal_sequence_cl.h"
 #endif
 

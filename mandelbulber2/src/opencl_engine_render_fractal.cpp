@@ -111,11 +111,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	reservedGpuTime = 0.0;
 
 	// create empty list of custom formulas
-	customFormulaCodes.reserve(NUMBER_OF_FRACTALS);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		customFormulaCodes.append(QString());
-	}
+	customFormulaCodes.clear();
 #endif
 }
 
@@ -1155,6 +1151,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 		dynamicData->BuildObjectsData(&renderData->objectData);
 		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
 		dynamicData->BuildHybridSequencesData(&renderData->hybridFractalSequences);
+		dynamicData->BuildFractalData(&renderData->hybridFractalSequences);
 
 		// Check if any boolean nodes exist in the node tree (after BuildNodesData)
 		for (const auto &node : renderData->nodesDataForRendering)
@@ -1184,27 +1181,6 @@ void cOpenClEngineRenderFractal::SetParameters(
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
-
-	// Populate constant-buffer fractal array so compute_fractal.cl can access
-	// formula parameters via consts->fractal[globalIndex].
-	// The dynamic data also carries fractal parameters (in sHybridFractalDataCl),
-	// but compute_fractal.cl reads the __constant buffer for all formula functions.
-	{
-		int globalFractalIdx = 0;
-		for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
-		{
-			const cHybridFractalSequences::sSequence *seq = fractals->GetSequence(s);
-			for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
-			{
-				if (globalFractalIdx < NUMBER_OF_FRACTALS)
-				{
-					constantInBuffer->fractal[globalFractalIdx] =
-						clCopySFractalCl(seq->fractData[f].fractalParameters);
-				}
-				globalFractalIdx++;
-			}
-		}
-	}
 
 	// buffer for Perlin noise seeds
 	perlinNoiseSeeds.resize(perlinNoiseArraySize);

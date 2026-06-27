@@ -48,7 +48,6 @@
 #include "common_math.h"
 #include "fractparams.hpp"
 #include "light.h"
-#include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "primitive.hpp"
 #include "primitives.h"
@@ -1341,7 +1340,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	double dpiScale = image->GetDpiScale();
 
-	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
+	int drawingStep = std::max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
 
 	int nPainted = 100;
 	if (tileArea > 0)
@@ -1352,13 +1351,14 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
 	{
-		float opacity = min(
-			float(i + nPainted - min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted, 1.0f);
+		float opacity = std::min(
+			float(i + nPainted - std::min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted,
+			1.0f);
 		painter.setOpacity(opacity);
 
 		sRenderedTileData &tile = listOfRenderedTilesData[i];
 
-		tileArea = max(int(tile.width * tile.height), tileArea);
+		tileArea = std::max(int(tile.width * tile.height), tileArea);
 
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{

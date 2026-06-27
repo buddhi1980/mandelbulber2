@@ -44,7 +44,6 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "nine_fractals.hpp"
 #include "opencl_engine.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
@@ -59,7 +58,7 @@
 
 MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
 	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, int numx,
+	std::shared_ptr<cHybridFractalSequences> fractals, std::shared_ptr<sRenderData> renderData, int numx,
 	int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
 	std::vector<double> &vertices, std::vector<long long> &polygons,
 	std::vector<double> &colorIndices)

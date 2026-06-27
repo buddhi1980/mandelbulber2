@@ -51,7 +51,7 @@ class cCameraTarget;
 class cImage;
 struct sRenderData;
 struct sParamRender;
-class cNineFractals;
+class cHybridFractalSequences;
 class cScheduler;
 
 // ambient occlusion data
@@ -74,7 +74,7 @@ public:
 	};
 
 	cRenderWorker(std::shared_ptr<const sParamRender> _params,
-		std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sThreadData> _threadData,
+		std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sThreadData> _threadData,
 		std::shared_ptr<sRenderData> _data, std::shared_ptr<cImage> _image);
 	~cRenderWorker() override;
 
@@ -278,7 +278,7 @@ private:
 
 	// data got from main thread
 	const sParamRender *params;
-	const cNineFractals *fractal;
+	const cHybridFractalSequences *fractal;
 	sRenderData *data;
 	std::shared_ptr<sThreadData> threadData;
 	std::shared_ptr<cImage> image;

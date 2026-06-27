@@ -49,7 +49,6 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "nine_fractals.hpp"
 #include "object_data.hpp"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
@@ -86,9 +85,10 @@ void cVoxelExport::ProcessVolume()
 	objectsTree.CreateNodeDataFromParameters(gPar);
 	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(
-		new sParamRender(gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
+	std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+	fractals->CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+	std::shared_ptr<sParamRender> params(new sParamRender(
+		gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
 
 	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
 
@@ -242,8 +242,8 @@ void cVoxelExport::ProcessVolume()
 						voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
 					}
 				} // for y
-			}		// for x
-		}			// if not openClEnabled
+			} // for x
+		} // if not openClEnabled
 
 		if (stop || !StoreLayer(z))
 		{

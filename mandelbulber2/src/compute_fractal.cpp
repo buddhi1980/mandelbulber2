@@ -37,7 +37,6 @@
 #include "common_math.h"
 #include "fractal.h"
 #include "material.h"
-#include "nine_fractals.hpp"
 #include "orbit_trap_shape.hpp"
 
 #include "formula/definition/legacy_fractal_transforms.hpp"

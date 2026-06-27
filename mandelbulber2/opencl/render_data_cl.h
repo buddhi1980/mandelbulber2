@@ -146,6 +146,12 @@ typedef struct
 	__global sHybridSequenceCl *hybridSequences;
 	int numberOfHybridSequences;
 
+	__global sFractalCl *fractals;
+	int numberOfFractals;
+
+	__global char *nebulaSequencesData;
+	int nebulaSequencesCount;
+
 #if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;
 	matrix33 mRotInv;

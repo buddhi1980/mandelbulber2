@@ -131,7 +131,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// fractalIndex is the local index of the first formula in this sequence
 	// - used only for defaultFractal and initialScale, not updated per iteration
 	int fractalIndex = seqArray[0];
-	// globalFractalIndex is used to index consts->fractal[] (global across all sequences)
+	// globalFractalIndex is used to index fractalsArray (global across all sequences)
 	int globalFractalIndex = fractalIndex + seq->formulaBaseIndex;
 
 	// formula init
@@ -156,7 +156,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int globalSequence = 0;
 	__constant sFractalCl *fractal;
 
-	__constant sFractalCl *defaultFractal = &consts->fractal[globalFractalIndex];
+	__global sFractalCl *defaultFractal = &renderData->fractals[globalFractalIndex];
 
 	__global sFractalColoringCl *fractalColoring = (material) ? &material->fractalColoring : NULL;
 

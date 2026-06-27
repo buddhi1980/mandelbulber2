@@ -39,7 +39,7 @@
 
 // forward declarations
 struct sRenderData;
-class cNineFractals;
+class cHybridFractalSequences;
 struct sParamRender;
 
 double DisplacementMap(

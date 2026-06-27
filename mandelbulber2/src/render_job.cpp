@@ -47,7 +47,6 @@
 #include "hybrid_fractal_sequences.h"
 #include "image_scale.hpp"
 #include "netrender.hpp"
-#include "nine_fractals.hpp"
 #include "objects_tree.h"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
@@ -406,8 +405,12 @@ bool cRenderJob::Execute()
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
 					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
-				std::shared_ptr<cNineFractals> fractals(
-					new cNineFractals(fractalContainer, paramsContainer));
+				cObjectsTree objectsTreeForSequences;
+				objectsTreeForSequences.CreateNodeDataFromParameters(paramsContainer);
+				std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+					objectsTreeForSequences.GetNodeDataListForRendering();
+				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+				fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
 
 				// Print node data now that internalObjectId and primitiveIdx have been populated
 				// by the sParamRender constructor (fractals) and cPrimitives (primitives).
@@ -627,7 +630,12 @@ bool cRenderJob::Execute()
 
 		// move parameters from containers to structures
 		std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
-		std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
+		cObjectsTree objectsTree;
+		objectsTree.CreateNodeDataFromParameters(paramsContainer);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+			objectsTree.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+		fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
 
 		*renderData->stopRequest = false;
 
@@ -683,7 +691,7 @@ bool cRenderJob::Execute()
 
 #ifdef USE_OPENCL
 void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result)
+	std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText, bool *result)
 {
 	if (!*renderData->stopRequest)
 	{
@@ -697,7 +705,7 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		busyOpenCl = true;
 		gOpenCl->openclEngineRenderNebula->Lock();
 		gOpenCl->openclEngineRenderNebula->SetParameters(
-			paramsContainer, fractalContainer, params, fractals);
+			paramsContainer, fractalContainer, params, fractals, renderData->hybridFractalSequences);
 		if (gOpenCl->openclEngineRenderNebula->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);

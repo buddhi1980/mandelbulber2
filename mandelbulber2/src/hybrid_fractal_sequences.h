@@ -86,6 +86,7 @@ public:
 																																						: nullptr;
 	}
 	int GetNumberOfSequences() const { return sequences.size(); };
+	static int GetIndexOnFractalListStatic(fractal::enumFractalFormula formula);
 
 private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,

@@ -53,7 +53,7 @@
 #include "texture.hpp"
 
 cRenderWorker::cRenderWorker(std::shared_ptr<const sParamRender> _params,
-	std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sThreadData> _threadData,
+	std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sThreadData> _threadData,
 	std::shared_ptr<sRenderData> _data, std::shared_ptr<cImage> _image)
 {
 	params = _params.get();

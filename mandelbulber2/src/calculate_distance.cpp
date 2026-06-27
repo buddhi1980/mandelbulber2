@@ -47,7 +47,6 @@
 #include "fractal_enums.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
-#include "nine_fractals.hpp"
 #include "object_node_type.h"
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
@@ -58,7 +57,7 @@
 
 using namespace std;
 
-double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
+double CalculateDistance(const sParamRender &params, const cHybridFractalSequences &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
@@ -170,7 +169,7 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 	}
 }
 
-double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybridFractalSequences &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	// limit to 10 levels of tree
@@ -568,7 +567,7 @@ double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in
 }
 
 double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
-	std::shared_ptr<const cNineFractals> fractals, const CVector3 planePoint,
+	std::shared_ptr<const cHybridFractalSequences> fractals, const CVector3 planePoint,
 	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest)
 {
 	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'

@@ -433,6 +433,11 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 
 int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula formula)
 {
+	return GetIndexOnFractalListStatic(formula);
+}
+
+int cHybridFractalSequences::GetIndexOnFractalListStatic(fractal::enumFractalFormula formula)
+{
 	for (int i = 0; i < newFractalList.size(); i++)
 	{
 		if (newFractalList[i]->getInternalId() == formula)

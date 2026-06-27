@@ -40,7 +40,6 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "light.h"
-#include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "random.hpp"
 #include "system_data.hpp"
@@ -77,7 +76,12 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	WriteLog("Preparation of lights started", 2);
 	// move parameters from containers to structures
 	std::unique_ptr<const sParamRender> params(new sParamRender(_params));
-	std::unique_ptr<const cNineFractals> fractals(new cNineFractals(_fractal, _params));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(_params);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	auto fractals = std::make_shared<cHybridFractalSequences>();
+	fractals->CreateSequences(_params, _fractal, nodes);
 
 	lights.clear();
 	numberOfLights = 0;

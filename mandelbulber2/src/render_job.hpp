@@ -55,7 +55,7 @@ class cImage;
 struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
-class cNineFractals;
+class cHybridFractalSequences;
 class cHybridFractalSequences;
 class cRenderer;
 class cProgressText;
@@ -120,7 +120,7 @@ private:
 	void RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
 		cProgressText *progressText, bool *result);
 	void RenderNebulaFractal(std::shared_ptr<sParamRender> params,
-		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result);
+		std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText, bool *result);
 #endif
 
 	void LoadTextures(int frameNo, const cRenderingConfiguration &config);

@@ -39,7 +39,6 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "hybrid_fractal_sequences.h"
-#include "nine_fractals.hpp"
 #include "objects_tree.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
@@ -51,7 +50,12 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 	double startingDepth, double resolution, double distanceLimit)
 {
 	std::shared_ptr<sParamRender> paramRender(new sParamRender(params));
-	std::shared_ptr<cNineFractals> nineFractals(new cNineFractals(fractals, params));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(params);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	std::shared_ptr<cHybridFractalSequences> nineFractals(new cHybridFractalSequences());
+	nineFractals->CreateSequences(params, fractals, nodes);
 	paramRender->resolution = resolution;
 	double totalDistanceBehind = 0.0;
 	double distanceBehind = 0.0;

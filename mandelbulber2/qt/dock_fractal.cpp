@@ -81,40 +81,7 @@ void cDockFractal::ConnectSignals() const {}
 // initialize ui for hybrid fractal components
 void cDockFractal::InitializeFractalUi() const
 {
-	/*
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
-	// MyUiLoader loader;
-
-	// QFile uiFile(uiFileName);
-
-	// if (uiFile.exists())
-	//{
-	//		uiFile.open(QFile::ReadOnly);
-	//		fractalWidgets[0] = loader.load(&uiFile);
-	//		ui->verticalLayout_fractal_1->addWidget(fractalWidgets[0]);
-	//		fractalWidgets[0]->show();
-
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		if (i == 0)
-			ui->tabWidget_fractals->setTabText(i, QString("#1: Mandelbulb"));
-		else
-		{
-			ui->tabWidget_fractals->setTabText(i, QString("#%1: None").arg(i + 1));
-			ui->tabWidget_fractals
-				->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i + 1))
-				->setEnabled(false);
-		}
-		fractalTabs[i]->AssignParameterContainers(params, fractalParams);
-		fractalTabs[i]->Init(i == 0, i);
-		fractalTabs[i]->AssignParentDockFractal(this);
-	}
-
-	static_cast<MyTabBar *>(ui->tabWidget_fractals->tabBar())->setupMoveButtons();
-
-	//}
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
-	*/
+	// Legacy UI code removed - now handled by cObjectsTreeWidget
 }
 
 void cDockFractal::slotPressedButtonGetJuliaConstant()

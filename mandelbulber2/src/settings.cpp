@@ -2045,7 +2045,8 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	if (!par->IfExists("boolean_operators"))
 		par->addParam("boolean_operators", false, morphNone, paramStandard);
 	// Inject per-fractal boolean_operator and dont_add_c_constant params
-	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i < maxLegacyFractals; i++)
 	{
 		QString name = QString("boolean_operator_%1").arg(i);
 		if (!par->IfExists(name)) par->addParam(name, 1, morphLinear, paramStandard);
@@ -2055,7 +2056,7 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 
 	// Inject per-fractal fractal_constant_factor params
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
 		QString name = QString("fractal_constant_factor_%1").arg(i);
 		if (!par->IfExists(name))
@@ -2063,7 +2064,7 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 
 	// Inject per-fractal julia_mode and julia_c params
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
 		QString paramName = QString("julia_mode_%1").arg(i);
 		if (!par->IfExists(paramName)) par->addParam(paramName, false, morphLinear, paramStandard);
@@ -2640,7 +2641,8 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 		par->DeleteParameter("boolean_operators");
 	}
 	// Remove per-fractal boolean_operator params
-	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i < maxLegacyFractals; i++)
 	{
 		QString name = QString("boolean_operator_%1").arg(i);
 		if (par->IfExists(name))
@@ -2656,9 +2658,10 @@ void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
 	// Deletes the temporary legacy primitive transform params (position/rotation/scale) that were
 	// injected during migration.
 	QStringList legacyTypes = GetLegacyPrimitiveTypes();
+	const int maxLegacyFractals = 9;
 	for (const QString &type : legacyTypes)
 	{
-		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		for (int i = 1; i <= maxLegacyFractals; i++)
 		{
 			// Delete position param
 			QString name = QString("primitive_%1_%2_position").arg(type).arg(i);
