@@ -216,10 +216,57 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
 	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
 
-	renderData->numberOfFractals = numberOfFractals;
-	renderData->fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
-
 	//--------- end of data file ----------------------------------
+
+	sRenderData renderData;
+	renderData.viewVectorNotRotated = 0;
+	renderData.material = material;
+	renderData.palette = palette;
+	renderData.AOVectors = AOVectors;
+	renderData.lights = lights;
+	renderData.numberOfLights = numberOfLights;
+#ifdef USE_SURFACE_GRADIENT
+	renderData.paletteSurfaceOffset = paletteSurfaceOffset;
+	renderData.paletteSurfaceLength = paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	renderData.paletteSpecularOffset = paletteSpecularOffset;
+	renderData.paletteSpecularLength = paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	renderData.paletteDiffuseOffset = paletteDiffuseOffset;
+	renderData.paletteDiffuseLength = paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	renderData.paletteLuminosityOffset = paletteLuminosityOffset;
+	renderData.paletteLuminosityLength = paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+	renderData.paletteRoughnessOffset = paletteRoughnessOffset;
+	renderData.paletteRoughnessLength = paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+	renderData.paletteReflectanceOffset = paletteReflectanceOffset;
+	renderData.paletteReflectanceLength = paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	renderData.paletteTransparencyOffset = paletteTransparencyOffset;
+	renderData.paletteTransparencyLength = paletteTransparencyLength;
+#endif
+	renderData.AOVectorsCount = AOVectorsCount;
+	renderData.reflectionsMax = 0;
+	renderData.primitives = primitives;
+	renderData.numberOfPrimitives = numberOfPrimitives;
+	renderData.primitivesGlobalData = primitivesGlobalData;
+	renderData.objectsData = objectsData;
+	renderData.nodesData = nodesData;
+	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
+	renderData.dynamicData = inBuff;
+	renderData.hybridSequences = hybridSequences;
+	renderData.numberOfHybridSequences = numberOfHybridSequences;
+	renderData.numberOfFractals = numberOfFractals;
+	renderData.fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
 
 	sClPixel pixel;
 
@@ -249,6 +296,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		rot = RotateX(rot, consts->params.sweetSpotVAngle);
 
 		matrix33 rotInv = TransposeMatrix(rot);
+		renderData.mRot = rot;
+		renderData.mRotInv = rotInv;
 
 		// starting point for ray-marching
 		float3 start = consts->params.camera;
@@ -358,54 +407,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			calcParam.iterThreshMode = consts->params.iterThreshMode;
 			distThresh = 1e-6f;
 
-			sRenderData renderData;
-			renderData.viewVectorNotRotated = viewVectorNotRotated;
-			renderData.material = material;
-			renderData.palette = palette;
-			renderData.AOVectors = AOVectors;
-			renderData.lights = lights;
-			renderData.numberOfLights = numberOfLights;
-
-#ifdef USE_SURFACE_GRADIENT
-			renderData.paletteSurfaceOffset = paletteSurfaceOffset;
-			renderData.paletteSurfaceLength = paletteSurfaceLength;
-#endif
-#ifdef USE_SPECULAR_GRADIENT
-			renderData.paletteSpecularOffset = paletteSpecularOffset;
-			renderData.paletteSpecularLength = paletteSpecularLength;
-#endif
-#ifdef USE_DIFFUSE_GRADIENT
-			renderData.paletteDiffuseOffset = paletteDiffuseOffset;
-			renderData.paletteDiffuseLength = paletteDiffuseLength;
-#endif
-#ifdef USE_LUMINOSITY_GRADIENT
-			renderData.paletteLuminosityOffset = paletteLuminosityOffset;
-			renderData.paletteLuminosityLength = paletteLuminosityLength;
-#endif
-#ifdef USE_ROUGHNESS_GRADIENT
-			renderData.paletteRoughnessOffset = paletteRoughnessOffset;
-			renderData.paletteRoughnessLength = paletteRoughnessLength;
-#endif
-#ifdef USE_REFLECTANCE_GRADIENT
-			renderData.paletteReflectanceOffset = paletteReflectanceOffset;
-			renderData.paletteReflectanceLength = paletteReflectanceLength;
-#endif
-#ifdef USE_TRANSPARENCY_GRADIENT
-			renderData.paletteTransparencyOffset = paletteTransparencyOffset;
-			renderData.paletteTransparencyLength = paletteTransparencyLength;
-#endif
-			renderData.AOVectorsCount = AOVectorsCount;
-			renderData.reflectionsMax = 0;
-			renderData.primitives = primitives;
-			renderData.numberOfPrimitives = numberOfPrimitives;
-			renderData.primitivesGlobalData = primitivesGlobalData;
-			renderData.objectsData = objectsData;
-			renderData.nodesData = nodesData;
-			renderData.numberOfNodes = numberOfNodes;
-			renderData.numberOfObjects = numberOfObjects;
-			renderData.dynamicData = inBuff;
-			renderData.hybridSequences = hybridSequences;
-			renderData.numberOfHybridSequences = numberOfHybridSequences;
 			renderData.mRot = rot;
 			renderData.mRotInv = rotInv;
 

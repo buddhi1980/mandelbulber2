@@ -225,9 +225,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
 	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
 
-	renderData->numberOfFractals = numberOfFractals;
-	renderData->fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
-
 	//--------- end of data file ----------------------------------
 
 	sClPixel pixel;
@@ -246,6 +243,56 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	{
 #endif
 
+		sRenderData renderData;
+		renderData.viewVectorNotRotated = 0;
+		renderData.materials = materials;
+		renderData.palettes = palettes;
+		renderData.AOVectors = AOVectors;
+		renderData.lights = lights;
+#ifdef USE_SURFACE_GRADIENT
+		renderData.paletteSurfaceOffsets = paletteSurfaceOffsets;
+		renderData.paletteSurfaceLengths = paletteSurfaceLengths;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+		renderData.paletteSpecularOffsets = paletteSpecularOffsets;
+		renderData.paletteSpecularLengths = paletteSpecularLengths;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+		renderData.paletteDiffuseOffsets = paletteDiffuseOffsets;
+		renderData.paletteDiffuseLengths = paletteDiffuseLengths;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+		renderData.paletteLuminosityOffsets = paletteLuminosityOffsets;
+		renderData.paletteLuminosityLengths = paletteLuminosityLengths;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+		renderData.paletteRoughnessOffsets = paletteRoughnessOffsets;
+		renderData.paletteRoughnessLengths = paletteRoughnessLengths;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+		renderData.paletteReflectanceOffsets = paletteReflectanceOffsets;
+		renderData.paletteReflectanceLengths = paletteReflectanceLengths;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+		renderData.paletteTransparencyOffsets = paletteTransparencyOffsets;
+		renderData.paletteTransparencyLengths = paletteTransparencyLengths;
+#endif
+		renderData.numberOfLights = numberOfLights;
+		renderData.AOVectorsCount = AOVectorsCount;
+		renderData.reflectionsMax = 0;
+		renderData.primitives = primitives;
+		renderData.numberOfPrimitives = numberOfPrimitives;
+		renderData.primitivesGlobalData = primitivesGlobalData;
+		renderData.objectsData = objectsData;
+		renderData.nodesData = nodesData;
+		renderData.numberOfNodes = numberOfNodes;
+		renderData.numberOfObjects = numberOfObjects;
+		renderData.dynamicData = inBuff;
+		renderData.hybridSequences = hybridSequences;
+		renderData.numberOfHybridSequences = numberOfHybridSequences;
+		renderData.numberOfFractals = numberOfFractals;
+		renderData.fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
+
 //------------------ decode texture data -----------
 #ifdef USE_TEXTURES
 		__global char4 *textures[NUMBER_OF_TEXTURES];
@@ -262,6 +309,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			__global uchar4 *texture = (__global uchar4 *)&inTextureBuff[textureDataOffset];
 			textures[i] = texture;
 		}
+		renderData.textures = textures;
+		renderData.textureSizes = textureSizes;
 #endif
 		//------------------ end of texture data -----------
 
@@ -284,6 +333,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		rot = RotateX(rot, consts->params.sweetSpotVAngle);
 
 		matrix33 rotInv = TransposeMatrix(rot);
+		renderData.mRot = rot;
+		renderData.mRotInv = rotInv;
 
 		// starting point for ray-marching
 		float3 start = consts->params.camera;
@@ -393,66 +444,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		int reflectionsMax = consts->params.reflectionsMax;
 		if (!consts->params.raytracedReflections) reflectionsMax = 0;
-
-		sRenderData renderData;
-		renderData.viewVectorNotRotated = viewVectorNotRotated;
-		renderData.materials = materials;
-		renderData.palettes = palettes;
-		renderData.AOVectors = AOVectors;
-		renderData.lights = lights;
-#ifdef USE_SURFACE_GRADIENT
-		renderData.paletteSurfaceOffsets = paletteSurfaceOffsets;
-		renderData.paletteSurfaceLengths = paletteSurfaceLengths;
-#endif
-#ifdef USE_SPECULAR_GRADIENT
-		renderData.paletteSpecularOffsets = paletteSpecularOffsets;
-		renderData.paletteSpecularLengths = paletteSpecularLengths;
-#endif
-#ifdef USE_DIFFUSE_GRADIENT
-		renderData.paletteDiffuseOffsets = paletteDiffuseOffsets;
-		renderData.paletteDiffuseLengths = paletteDiffuseLengths;
-#endif
-#ifdef USE_LUMINOSITY_GRADIENT
-		renderData.paletteLuminosityOffsets = paletteLuminosityOffsets;
-		renderData.paletteLuminosityLengths = paletteLuminosityLengths;
-#endif
-#ifdef USE_ROUGHNESS_GRADIENT
-		renderData.paletteRoughnessOffsets = paletteRoughnessOffsets;
-		renderData.paletteRoughnessLengths = paletteRoughnessLengths;
-#endif
-#ifdef USE_REFLECTANCE_GRADIENT
-		renderData.paletteReflectanceOffsets = paletteReflectanceOffsets;
-		renderData.paletteReflectanceLengths = paletteReflectanceLengths;
-#endif
-#ifdef USE_TRANSPARENCY_GRADIENT
-		renderData.paletteTransparencyOffsets = paletteTransparencyOffsets;
-		renderData.paletteTransparencyLengths = paletteTransparencyLengths;
-#endif
-		renderData.numberOfLights = numberOfLights;
-		renderData.AOVectorsCount = AOVectorsCount;
-		renderData.reflectionsMax = reflectionsMax;
-		renderData.primitives = primitives;
-		renderData.numberOfPrimitives = numberOfPrimitives;
-		renderData.primitivesGlobalData = primitivesGlobalData;
-		renderData.objectsData = objectsData;
-		renderData.nodesData = nodesData;
-		renderData.numberOfNodes = numberOfNodes;
-		renderData.numberOfObjects = numberOfObjects;
-		renderData.dynamicData = inBuff;
-		renderData.hybridSequences = hybridSequences;
-		renderData.numberOfHybridSequences = numberOfHybridSequences;
-		renderData.mRot = rot;
-		renderData.mRotInv = rotInv;
-#if defined(CLOUDS) || defined(USE_PERLIN_NOISE)
-		renderData.perlinNoiseSeeds = perlinNoiseSeeds;
-#endif
-#ifdef USE_TEXTURES
-		renderData.textures = textures;
-		renderData.textureSizes = textureSizes;
-#endif
-#ifdef CHROMATIC_ABERRATION
-		renderData.hue = hue;
-#endif
 
 		float4 resultShader = 0.0f;
 		float3 objectColour = 0.0f;
