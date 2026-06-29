@@ -422,6 +422,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.objectId = 0;
 
 	float limitBoxDist = 0.0f;
+	int totalIters = 0;
 
 #ifdef LIMITS_ENABLED
 	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
@@ -465,6 +466,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float distance = 1e20f;
 		int objectId = -1;
 		int sequenceIndex = -1;
+		int leafIters = 0;
 
 		// Apply repeat modulation first (in world space)
 		float3 pointWithRepeat = modRepeat(point, node->repeat);
@@ -508,6 +510,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					out.colorIndex = nodeOut.colorIndex;
 					out.maxiter = nodeOut.maxiter;
 					out.z = nodeOut.z;
+					leafIters = nodeOut.iters;
 					DEBUG_PRINT("  Fractal: dist=%f objectId=%d seqIdx=%d iters=%f\n", distance, objectId,
 						sequenceIndex, out.iters);
 				}
@@ -557,6 +560,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				out.colorIndex = nodeOut.colorIndex;
 				out.maxiter = nodeOut.maxiter;
 				out.z = nodeOut.z;
+				leafIters = nodeOut.iters;
 				// skip next fractals because they are part of this hybrid sequence
 				numberOfFractalsToSkip =
 					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
@@ -608,6 +612,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			objectId, sequenceIndex, stack[stackLevel].detailSize, stackLevel);
 		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,
 			stack[stackLevel].detailSize);
+		totalIters += leafIters;
 	}
 
 	// final node summation - pop remaining stack levels
@@ -625,6 +630,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	out.distance = stack[0].cumulativeDistance;
 	out.objectId = stack[0].closestObjectId;
+	out.iters = totalIters;
 
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
@@ -641,6 +647,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	{
 		out.maxiter = false;
 		out.iters = 0;
+		totalIters = 0;
 	}
 
 	out.transformedPoint = stack[0].transformedPoint;

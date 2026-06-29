@@ -650,8 +650,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 				for (int s = 0; s < data->hybridFractalSequences.GetNumberOfSequences(); s++)
 				{
 					const auto *seq = data->hybridFractalSequences.GetSequence(s);
-					if (!seq)
-						continue;
+					if (!seq) continue;
 
 					sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 					sFractalOut fractOut;
@@ -659,9 +658,9 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 					float r = fractOut.orbitTrapR;
 					r = sqrtf(1.0f / (r + 1.0e-20f));
 					accumulatedFakeLight += 1.0f
-						/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-							 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-							+ 0.1f);
+																	/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+																			 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+																		 + 0.1f);
 				}
 
 				accumulatedFakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;

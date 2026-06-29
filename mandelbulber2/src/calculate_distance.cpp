@@ -169,8 +169,9 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 	}
 }
 
-double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybridFractalSequences &fractals,
-	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
+double CalculateDistanceFromObjectsTree(const sParamRender &params,
+	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,
+	sRenderData *data)
 {
 	// limit to 10 levels of tree
 	ObjectTreeStackFrame stack[10];
@@ -187,6 +188,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 		const auto &nodes = data->nodesDataForRendering;
 		const auto &primitives = params.primitives.allPrimitives;
 		const int nodeCount = nodes.size();
+		int totalIters = 0;
 
 		stack[0].cumulativeDistance = 1e20;
 		stack[0].level = 0;
@@ -223,6 +225,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 			double distance = 1e20;
 			int objectId = -1;
 			int sequenceIndex = -1;
+			int leafIters = 0;
 
 			// Apply repeat modulation first (in world space)
 			CVector3 pointWithRepeat =
@@ -260,6 +263,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 						distance *= absNodeScale;
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
+						leafIters = nodeOut.iters;
 					}
 					else
 					{
@@ -311,6 +315,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
 					sequenceIndex = seqIndex;
 					objectId = data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
+					leafIters = nodeOut.iters;
 					if (objectId >= 0)
 					{
 						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
@@ -345,6 +350,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
 			mergeChildIntoParent(leaf, &stack[stackLevel], data, stack[stackLevel].detailSize);
+			totalIters += leafIters;
 		}
 
 		// final node summation
@@ -364,6 +370,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cHybri
 		out->seqIndex = stack[0].closestObjectSequence;
 		out->transformedPoint = stack[0].transformedPoint;
 		out->hasTransformedPoint = stack[0].hasTransformedPoint;
+		out->iters = totalIters;
 		return out->distance;
 	}
 	return 0;
