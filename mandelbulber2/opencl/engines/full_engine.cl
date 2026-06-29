@@ -293,6 +293,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.numberOfFractals = numberOfFractals;
 		renderData.fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
 
+#if defined(CLOUDS) || defined(USE_PERLIN_NOISE)
+		renderData.perlinNoiseSeeds = perlinNoiseSeeds;
+#endif
+
 //------------------ decode texture data -----------
 #ifdef USE_TEXTURES
 		__global char4 *textures[NUMBER_OF_TEXTURES];
