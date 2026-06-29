@@ -2201,9 +2201,19 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
-	// Handle global fractal_constant_factor when not in boolean mode
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
+	// Migrate global N to formula_maxiter for non-boolean mode files
+	if (!booleanMode && par->IfExists("N"))
+	{
+		int maxiter = par->Get<int>("N");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_maxiter", maxiter);
+		}
+	}
+
+	// Handle global fractal_constant_factor when not in boolean mode
 	if (!booleanMode && par->IfExists("fractal_constant_factor")
 			&& !par->isDefaultValue("fractal_constant_factor"))
 	{
@@ -2214,24 +2224,21 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
-	// Handle global julia_mode and julia_c when in boolean mode
-	if (booleanMode)
+	// Handle global julia_mode and julia_c
+	if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
 	{
-		if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+		bool juliaMode = par->Get<bool>("julia_mode");
+		for (int i = 0; i < fract->size(); i++)
 		{
-			bool juliaMode = par->Get<bool>("julia_mode");
-			for (int i = 0; i < fract->size(); i++)
-			{
-				fract->at(i)->Set("julia_mode", juliaMode);
-			}
+			fract->at(i)->Set("julia_mode", juliaMode);
 		}
-		if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+	}
+	if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+	{
+		CVector3 juliaC = par->Get<CVector3>("julia_c");
+		for (int i = 0; i < fract->size(); i++)
 		{
-			CVector3 juliaC = par->Get<CVector3>("julia_c");
-			for (int i = 0; i < fract->size(); i++)
-			{
-				fract->at(i)->Set("julia_c", juliaC);
-			}
+			fract->at(i)->Set("julia_c", juliaC);
 		}
 	}
 }
