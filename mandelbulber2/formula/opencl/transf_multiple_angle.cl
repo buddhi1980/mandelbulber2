@@ -13,7 +13,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfMultipleAngleIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfMultipleAngleIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL th0 = asin(z.z / aux->r);
 	REAL ph0 = atan2(z.y, z.x);

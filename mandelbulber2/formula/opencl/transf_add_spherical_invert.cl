@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfAddSphericalInvertIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 t = z;
 	REAL d = 1.0f / dot(t, t);

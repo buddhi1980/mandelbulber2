@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfAbsAddConditional4dIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{

@@ -154,7 +154,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	int sequence = 0;
 	int globalSequence = 0;
-	__constant sFractalCl *fractal;
+	__global sFractalCl *fractal;
 
 	__global sFractalCl *defaultFractal = &renderData->fractals[globalFractalIndex];
 
@@ -199,7 +199,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		globalSequence = seq->formulaBaseIndex;
 #endif
 
-		fractal = &consts->fractal[globalSequence];
+		fractal = &renderData->fractals[globalSequence];
 
 		aux.i = i;
 
@@ -226,7 +226,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 #endif
 
-// PLACEHOLDER_FOR_FORMULA_ITER
+			// PLACEHOLDER_FOR_FORMULA_ITER
 
 #ifdef ITERATION_WEIGHT
 		}

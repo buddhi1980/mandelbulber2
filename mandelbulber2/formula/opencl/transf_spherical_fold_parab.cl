@@ -17,7 +17,7 @@
  */
 
 REAL4 TransfSphericalFoldParabIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL m = 1.0f;
 	REAL rr;

@@ -16,7 +16,7 @@
  */
 
 REAL4 TransfSphericalFoldCuboidIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 temp3;
 	REAL4 R2;

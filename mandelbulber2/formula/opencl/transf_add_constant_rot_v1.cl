@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfAddConstantRotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfAddConstantRotV1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 rotadd = fractal->transformCommon.additionConstantA000;
 	rotadd = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, rotadd);

@@ -14,7 +14,7 @@
  */
 
 REAL4 TransfSphericalFoldPnormIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 lpN = fabs(z);
 	lpN.x = pow(lpN.x, fractal->transformCommon.scale2);

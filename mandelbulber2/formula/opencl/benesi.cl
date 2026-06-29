@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 BenesiIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->DE = aux->DE * 2.0f * aux->r + 1.0f;
 	REAL4 zz = z * z;
