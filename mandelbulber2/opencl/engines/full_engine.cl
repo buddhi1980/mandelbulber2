@@ -444,6 +444,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		int reflectionsMax = consts->params.reflectionsMax;
 		if (!consts->params.raytracedReflections) reflectionsMax = 0;
+		renderData.reflectionsMax = reflectionsMax;
 
 		float4 resultShader = 0.0f;
 		float3 objectColour = 0.0f;
