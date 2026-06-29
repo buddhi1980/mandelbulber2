@@ -35,17 +35,6 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_COMPUTE_FRACTAL_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_COMPUTE_FRACTAL_CL_
 
-// Debug printf - controlled by BOOLEAN_DEBUG
-#ifndef BOOLEAN_DEBUG
-#define BOOLEAN_DEBUG 0
-#endif
-
-#if BOOLEAN_DEBUG
-#define DEBUG_PRINT(...) printf(__VA_ARGS__)
-#else
-#define DEBUG_PRINT(...)
-#endif
-
 typedef struct
 {
 	float4 z;

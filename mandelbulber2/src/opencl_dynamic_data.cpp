@@ -1396,6 +1396,10 @@ void cOpenClDynamicData::BuildFractalData(const cHybridFractalSequences *hybridS
 	data.append(reinterpret_cast<char *>(&fractalsArrayOffset), sizeof(fractalsArrayOffset));
 	totalDataOffset += sizeof(fractalsArrayOffset);
 
+	// Align and calculate the offset where fractal data will start
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	int fractalDataOffset = totalDataOffset;
+
 	// write fractal data
 	int formulaBaseIndex = 0;
 	for (int i = 0; i < numberOfSequences; i++)
@@ -1403,8 +1407,6 @@ void cOpenClDynamicData::BuildFractalData(const cHybridFractalSequences *hybridS
 		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
 		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
 		{
-			totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-
 			const cHybridFractalSequences::sFractalData &fd = seq->fractData[f];
 			sFractalCl fdCl;
 			memset(&fdCl, 0, sizeof(fdCl));
@@ -1415,9 +1417,9 @@ void cOpenClDynamicData::BuildFractalData(const cHybridFractalSequences *hybridS
 		}
 	}
 
-	// patch fractalsArrayOffset in header
+	// patch fractalsArrayOffset in header with the correct offset
 	data.replace(fractalsArrayOffsetAddress, sizeof(fractalsArrayOffset),
-		reinterpret_cast<char *>(&fractalsArrayOffset), sizeof(fractalsArrayOffset));
+		reinterpret_cast<char *>(&fractalDataOffset), sizeof(fractalsArrayOffset));
 }
 
 #endif // USE_OPENCL

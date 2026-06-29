@@ -166,6 +166,28 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//--------- end of data file ----------------------------------
 
+	sRenderData renderData;
+	renderData.viewVectorNotRotated = 0;
+	renderData.material = 0;
+	renderData.palette = 0;
+	renderData.AOVectors = 0;
+	renderData.lights = 0;
+	renderData.numberOfLights = 0;
+	renderData.AOVectorsCount = 0;
+	renderData.reflectionsMax = 0;
+	renderData.primitives = primitives;
+	renderData.numberOfPrimitives = numberOfPrimitives;
+	renderData.primitivesGlobalData = primitivesGlobalData;
+	renderData.objectsData = objectsData;
+	renderData.nodesData = nodesData;
+	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
+	renderData.dynamicData = inBuff;
+	renderData.hybridSequences = hybridSequences;
+	renderData.numberOfHybridSequences = numberOfHybridSequences;
+	renderData.fractals = fractals;
+	renderData.numberOfFractals = numberOfFractals;
+
 	sClPixel pixel;
 
 #ifdef STEREO_REYCYAN
@@ -174,28 +196,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	for (int eye = 0; eye < 2; eye++)
 	{
 #endif
-
-		sRenderData renderData;
-		renderData.viewVectorNotRotated = 0;
-		renderData.material = 0;
-		renderData.palette = 0;
-		renderData.AOVectors = 0;
-		renderData.lights = 0;
-		renderData.numberOfLights = 0;
-		renderData.AOVectorsCount = 0;
-		renderData.reflectionsMax = 0;
-		renderData.primitives = primitives;
-		renderData.numberOfPrimitives = numberOfPrimitives;
-		renderData.primitivesGlobalData = primitivesGlobalData;
-		renderData.objectsData = objectsData;
-		renderData.nodesData = nodesData;
-		renderData.numberOfNodes = numberOfNodes;
-		renderData.numberOfObjects = numberOfObjects;
-	renderData.dynamicData = inBuff;
-	renderData.hybridSequences = hybridSequences;
-	renderData.numberOfHybridSequences = numberOfHybridSequences;
-	renderData.fractals = fractals;
-	renderData.numberOfFractals = numberOfFractals;
 
 		// auxiliary vectors
 		const float3 one = (float3){1.0f, 0.0f, 0.0f};
