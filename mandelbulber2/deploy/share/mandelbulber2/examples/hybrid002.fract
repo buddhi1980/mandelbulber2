@@ -1,20 +1,15 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 camera -0,151667443313769 0,152354817579443 -0,000182321813950907;
 camera_distance_to_target 0,00705078200136956;
-camera_rotation 70,2003150963232 0,0723747519331185 3,59682567817346E-10;
-camera_top 0,001188501660459873 -0,0004278795367855065 0,9999992021911341;
+camera_rotation 70,2003150963232 0,0723747519331185 3,59682567817346e-10;
+camera_top 0,00118850166045987 -0,000427879536785506 0,999999202191134;
 detail_level 2;
 flight_last_to_render 0;
-formula_1 8;
-formula_2 7;
-formula_3 3;
-formula_iterations_1 2;
-formula_iterations_2 3;
 hdr true;
 hybrid_fractal_enable true;
 image_height 1080;
@@ -22,24 +17,26 @@ image_width 1920;
 keyframe_last_to_render 0;
 light1_cone_angle 20;
 light1_cone_soft_angle 4;
-light1_intensity 1E-06;
+light1_intensity 8;
 light1_is_defined true;
 light1_position -0,00065 0 0;
 light1_rotation -10 0 0;
+light1_size 0,000244140625;
 light1_type spot;
-light1_visibility 0,0625;
+light1_visibility 0,0009765625;
 light2_color ffff ffff ffff;
 light2_cone_angle 20;
 light2_cone_soft_angle 4;
 light2_enabled true;
-light2_intensity 1E-06;
+light2_intensity 8;
 light2_is_defined true;
 light2_position 0,00065 0 0;
 light2_relative_position true;
 light2_rotation 10 0 0;
+light2_size 0,000244140625;
 light2_target 0 0 0;
 light2_type spot;
-light2_visibility 0,0625;
+light2_visibility 0,0009765625;
 mat1_coloring_speed 6,6;
 mat1_is_defined true;
 mat1_metallic false;
@@ -47,6 +44,18 @@ mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 005500 1999 94ce5e 3999 b05e23 5999 c0ca51 7999 15c100;
 mat1_use_colors_from_palette false;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100;
+node_0002_definition mandelbox 2,2,1,1,1;
+node_0003_definition menger_sponge 3,3,1,1,2;
+node_0004_definition mandelbulb_power2 4,4,1,1,3;
 target -0,158301396346965 0,154743146422051 -0,000173415425611079;
 [fractal_1]
+formula 8;
+formula_iterations 2;
 mandelbox_scale -0,4;
+[fractal_2]
+formula 7;
+formula_iterations 3;
+[fractal_3]
+formula 3;
