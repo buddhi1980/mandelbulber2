@@ -388,6 +388,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 #ifdef CHROMATIC_ABERRATION
 		float hue = Random(3600, &randomSeed) / 10.0f;
+		renderData.hue = hue;
 		float3 rgbFromHsv = Hsv2rgb(fmod(360.0f + hue - 60.0f, 360.0f), 1.0f, 1.0f) * 2.0f;
 		float3 randVector =
 			(float3){0.0f, hue / 20000.0f * consts->params.DOFMonteCarloCACameraDispersion, 0.0f};
