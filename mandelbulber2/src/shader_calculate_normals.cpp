@@ -79,7 +79,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 	}
 
 	// calculating normal vector based on average value of binary central difference
-	else
+	else if (input.seqIndex >= 0)
 	{
 		CVector3 point2;
 		CVector3 point3;
