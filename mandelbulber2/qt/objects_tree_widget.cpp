@@ -41,6 +41,9 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	// Default 50/50 split between tree widget and editor area
+	ui->splitter->setSizes({1, 1});
+
 	// Connect the refresh button so the user can force a reload of the tree from gPar
 	connect(
 		ui->pushButton_refresh, &QPushButton::clicked, this, &cObjectsTreeWidget::pressedRefreshButton);
