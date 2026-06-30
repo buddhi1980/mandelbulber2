@@ -175,6 +175,44 @@ QWidget *cObjectsTreeWidget::buildTypeLabel(int currentType)
 	return label;
 }
 
+// Returns the appropriate QIcon for a node based on its type and, for primitives,
+// the primitive type name. Returns an empty QIcon if the icon cannot be loaded.
+QIcon cObjectsTreeWidget::getIconForNode(enumNodeType type, const QString &primTypeName)
+{
+	if (type == enumNodeType::primitive && !primTypeName.isEmpty())
+	{
+		for (const auto &prim : s_primitiveSelectorItems)
+		{
+			if (prim.typeName == primTypeName)
+			{
+				QIcon icon(prim.iconPath);
+				return icon.pixmap(QSize(1, 1)).isNull() ? QIcon() : icon;
+			}
+		}
+	}
+	else if (type == enumNodeType::hybrid)
+	{
+		QIcon icon(":/navigation/icons/group_hybrid.svg");
+		return icon.pixmap(QSize(1, 1)).isNull() ? QIcon() : icon;
+	}
+	else if (type == enumNodeType::booleanAdd)
+	{
+		QIcon icon(":/navigation/icons/group_add.svg");
+		return icon.pixmap(QSize(1, 1)).isNull() ? QIcon() : icon;
+	}
+	else if (type == enumNodeType::booleanMul)
+	{
+		QIcon icon(":/navigation/icons/group_mul.svg");
+		return icon.pixmap(QSize(1, 1)).isNull() ? QIcon() : icon;
+	}
+	else if (type == enumNodeType::booleanSub)
+	{
+		QIcon icon(":/navigation/icons/group_sub.svg");
+		return icon.pixmap(QSize(1, 1)).isNull() ? QIcon() : icon;
+	}
+	return QIcon();
+}
+
 int cObjectsTreeWidget::findNextAvailableNodeId() const
 {
 	QSet<int> usedIds;
@@ -454,8 +492,8 @@ void cObjectsTreeWidget::UpdateTree(
 	worldItem->setData(treeData::nodeId, Qt::UserRole, 0); // nodeId 0 = World sentinel
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
-	ui->treeWidget_objects->setColumnCount(3);
-	ui->treeWidget_objects->setHeaderLabels({"Name", "Type", "Material"});
+	ui->treeWidget_objects->setColumnCount(4);
+	ui->treeWidget_objects->setHeaderLabels({"Icon", "Name", "Type", "Material"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
@@ -491,6 +529,59 @@ void cObjectsTreeWidget::UpdateTree(
 				}
 			}
 		}
+		// Load fractal icon for fractal nodes
+		{
+			int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+			QPixmap scaledPixmap;
+			if (nodeData.type == enumNodeType::fractal)
+			{
+				int objectId = nodeData.objectId;
+				if (objectId > 0 && objectId <= gParFractal->size())
+				{
+					int formulaEnum = gParFractal->at(objectId - 1)->Get<int>("formula");
+					for (cAbstractFractal *fractal : newFractalList)
+					{
+						if (int(fractal->getInternalId()) == formulaEnum)
+						{
+							QString iconName = fractal->getIconName();
+							QIcon icon(iconName);
+							QPixmap pixmap = icon.pixmap(QSize(128, 128));
+							if (!pixmap.isNull())
+							{
+								scaledPixmap =
+									pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+							}
+							break;
+						}
+					}
+				}
+			}
+			else if (isGroupType(nodeData.type))
+			{
+				QIcon icon = getIconForNode(nodeData.type);
+				QPixmap pixmap = icon.pixmap(QSize(128, 128));
+				if (!pixmap.isNull())
+				{
+					scaledPixmap =
+						pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				}
+			}
+			else
+			{
+				QString primTypeName = item->data(treeData::primTypeName, Qt::UserRole).toString();
+				QIcon icon = getIconForNode(nodeData.type, primTypeName);
+				QPixmap pixmap = icon.pixmap(QSize(128, 128));
+				if (!pixmap.isNull())
+				{
+					scaledPixmap =
+						pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				}
+			}
+			if (!scaledPixmap.isNull())
+			{
+				item->setIcon(treeCol::icon, QIcon(scaledPixmap));
+			}
+		}
 
 		nodeItems[nodeData.id] = item;
 	}
@@ -512,8 +603,33 @@ void cObjectsTreeWidget::UpdateTree(
 	int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	int rowHeight = miniSize;
 	ui->treeWidget_objects->header()->setMinimumSectionSize(miniSize);
+
+	// Calculate icon column width: miniSize + max indentation depth * indent pixel width + extra
+	// padding
+	int maxDepth = 0;
+	for (QTreeWidgetItem *item : nodeItems)
+	{
+		int depth = 0;
+		QTreeWidgetItem *parent = item->parent();
+		while (parent)
+		{
+			++depth;
+			parent = parent->parent();
+		}
+		maxDepth = qMax(maxDepth, depth);
+	}
+	int iconColWidth = miniSize + maxDepth * ui->treeWidget_objects->indentation() + miniSize;
+
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::icon, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::name, QHeaderView::Stretch);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::type, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::material, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::icon, iconColWidth);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::type, miniSize * 3);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::material, miniSize);
 	QString style = QString("QTreeWidget::item { height: %1px; }").arg(rowHeight);
 	ui->treeWidget_objects->setStyleSheet(style);
+	ui->treeWidget_objects->setIconSize(QSize(miniSize, miniSize));
 	for (QTreeWidgetItem *item : nodeItems)
 	{
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
@@ -639,6 +755,15 @@ void cObjectsTreeWidget::slotAddGroup()
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeLabel(int(groupType)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
+	QIcon icon = getIconForNode(groupType);
+	QPixmap pixmap = icon.pixmap(QSize(128, 128));
+	if (!pixmap.isNull())
+	{
+		int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+		QPixmap scaled =
+			pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		newItem->setIcon(treeCol::icon, QIcon(scaled));
+	}
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -704,6 +829,15 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::primitive)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
+	QIcon icon = getIconForNode(enumNodeType::primitive, primitiveType);
+	QPixmap pixmap = icon.pixmap(QSize(128, 128));
+	if (!pixmap.isNull())
+	{
+		int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+		QPixmap scaled =
+			pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		newItem->setIcon(treeCol::icon, QIcon(scaled));
+	}
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;

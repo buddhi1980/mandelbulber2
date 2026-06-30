@@ -53,9 +53,10 @@ private:
 	// Column indices for setText() / text() / itemWidget()
 	struct treeCol
 	{
-		static constexpr int name = 0;		 // display name string
-		static constexpr int type = 1;		 // type string + combo box
-		static constexpr int material = 2; // miniature cMaterialWidget thumbnail
+		static constexpr int icon = 0;		 // QIcon
+		static constexpr int name = 1;		 // display name string
+		static constexpr int type = 2;		 // type string + QLabel
+		static constexpr int material = 3; // miniature cMaterialWidget thumbnail
 	};
 
 	// Column indices for setData() / data(col, Qt::UserRole)
@@ -73,6 +74,7 @@ private:
 	int getNodeType(QTreeWidgetItem *item) const;
 	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
 	QWidget *buildTypeLabel(int currentType);
+	QIcon getIconForNode(enumNodeType type, const QString &primTypeName = QString());
 	void attachMaterialWidget(
 		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
 	int findNextAvailableNodeId() const;
