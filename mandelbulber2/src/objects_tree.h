@@ -29,6 +29,7 @@ public:
 		int parentId;
 		int objectId;
 		int level;
+		int displayOrder;
 		CVector3 position;
 		CVector3 rotation;
 		CVector3 repeat;

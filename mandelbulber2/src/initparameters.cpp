@@ -456,16 +456,17 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("objects_tree_enable", true, morphNone, paramStandard);
 
 	// Each "node_XXXX" parameter set represents an object tree node with the fields:
-	// name, id, type, parent_id, object_id
+	// name, id, type, parent_id, object_id, displayOrder
 	// - name: Node display name (QString)
 	// - id: Node unique integer ID
 	// - type: Node type (int, from enumNodeType)
 	// - parent_id: Parent node ID (int)
 	// - object_id: Associated object ID (int, or -1 if not applicable)
+	// - displayOrder: Tree display order (int, used for drag-and-drop reordering)
 
 	// Default: node 0001 is a simple Mandelbulb fractal (enumFractalFormula::mandelbulb)
 	par->addParam("node_0001_definition",
-		QString("mandelbulb 1,1,%1,0,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+		QString("mandelbulb 1,1,%1,0,1,0").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
 	par->addParam("node_0001_enabled", true, morphNone, paramStandard);
 	par->addParam("node_0001_position", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("node_0001_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);

@@ -131,15 +131,15 @@ static const QList<sPrimitiveSelectorItem> s_primitiveSelectorItems = {
 QList<QTreeWidgetItem *> cObjectsTreeWidget::collectAllTreeItems() const
 {
 	QList<QTreeWidgetItem *> allItems;
-	QStack<QTreeWidgetItem *> stack;
+	QList<QTreeWidgetItem *> queue;
 	for (int i = 0; i < ui->treeWidget_objects->topLevelItemCount(); ++i)
-		stack.push(ui->treeWidget_objects->topLevelItem(i));
-	while (!stack.isEmpty())
+		queue.append(ui->treeWidget_objects->topLevelItem(i));
+	while (!queue.isEmpty())
 	{
-		QTreeWidgetItem *item = stack.pop();
+		QTreeWidgetItem *item = queue.takeFirst();
 		allItems.append(item);
 		for (int i = 0; i < item->childCount(); ++i)
-			stack.push(item->child(i));
+			queue.append(item->child(i));
 	}
 	return allItems;
 }
@@ -568,6 +568,8 @@ void cObjectsTreeWidget::StoreTreeToParams(
 	}
 
 	// Write the current state of each tree item back into params
+	// Items are in DFS order, so we embed displayOrder as the 6th field in the definition string
+	int displayOrder = 0;
 	for (QTreeWidgetItem *item : allItems)
 	{
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
@@ -582,7 +584,14 @@ void cObjectsTreeWidget::StoreTreeToParams(
 		QString defParam = prefix + "_definition";
 
 		addOrSetParam(params, defParam,
-			QString("%1,%2,%3,%4,%5").arg(name).arg(nodeId).arg(nodeType).arg(parentId).arg(objectId));
+			QString("%1,%2,%3,%4,%5,%6")
+				.arg(name)
+				.arg(nodeId)
+				.arg(nodeType)
+				.arg(parentId)
+				.arg(objectId)
+				.arg(displayOrder));
+		displayOrder++;
 	}
 }
 
@@ -1257,5 +1266,8 @@ void cObjectsTreeWidget::onDropCompleted(
 
 void cObjectsTreeWidget::onTreeStructureChanged()
 {
+	// First store the current tree structure (with updated parentId and displayOrder)
+	StoreTreeToParams(gPar, gParFractal);
+	// Then rebuild the tree from params
 	UpdateTree(gPar, gParFractal);
 }

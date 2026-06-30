@@ -21,13 +21,14 @@ cObjectsTree::cObjectsTree()
 void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameterContainer> params)
 {
 	// Each "node_XXXX_definition" parameter is a QString with comma-separated values representing:
-	// name, id, type, parent_id, object_id
-	// Example: "hybrid group 1,1,0,0,-1"
+	// name, id, type, parent_id, object_id, displayOrder
+	// Example: "hybrid group 1,1,0,0,-1,0"
 	// - name: Node display name (QString)
 	// - id: Node unique integer ID
 	// - type: Node type (int, from enumNodeType)
 	// - parent_id: Parent node ID (int)
 	// - object_id: Associated object ID (int, or -1 if not applicable)
+	// - displayOrder: Tree display order (int, 0 = default/legacy)
 
 	QStringList allParams = params->GetListOfParameters();
 	for (const QString &paramName : allParams)
@@ -37,7 +38,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 			QString paramValue = params->Get<QString>(paramName);
 			QStringList parts = paramValue.split(',');
 
-			if (parts.size() == 5)
+			if (parts.size() >= 5)
 			{
 				sNodeData nodeData;
 				nodeData.name = parts[0];
@@ -46,6 +47,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.parentId = parts[3].toInt();
 				nodeData.objectId = parts[4].toInt();
 				nodeData.level = -1;
+				nodeData.displayOrder = parts.size() >= 6 ? parts[5].toInt() : 0;
 
 				// Extract the node ID suffix, e.g. "node_0001_definition" -> "_0001"
 				QString suffix = paramName.mid(QString("node").length(),
@@ -62,7 +64,6 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 		}
 	}
 }
-
 std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 {
 	// Make a local copy of the node data map to update levels without modifying the original
@@ -96,17 +97,23 @@ std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 	{
 		if (it.value() == 0) zeroInDegree.append(it.key());
 	}
-	// Sort root nodes in descending order for deterministic processing with stack
-	std::sort(zeroInDegree.begin(), zeroInDegree.end(), std::greater<int>());
+	// Sort root nodes by displayOrder (ascending), then by nodeId as tiebreaker for determinism
+	std::sort(zeroInDegree.begin(), zeroInDegree.end(),
+		[this](int a, int b)
+		{
+			if (nodeDataMap[a].displayOrder != nodeDataMap[b].displayOrder)
+				return nodeDataMap[a].displayOrder < nodeDataMap[b].displayOrder;
+			return a < b;
+		});
 
 	std::vector<sNodeData> sortedList; // Result list to store sorted nodes
 
 	// Stack for FILO traversal; stores pairs of (nodeId, level)
 	QStack<QPair<int, int>> stack;
 
-	// Push all root nodes onto the stack with level 0
-	for (int id : zeroInDegree)
-		stack.push(qMakePair(id, 0));
+	// Push all root nodes onto the stack in reverse order so first one is popped first
+	for (int i = zeroInDegree.size() - 1; i >= 0; --i)
+		stack.push(qMakePair(zeroInDegree[i], 0));
 
 	// Process nodes in FILO order using the stack
 	while (!stack.isEmpty())
@@ -121,8 +128,16 @@ std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 
 		// Get the list of children for the current node
 		QList<int> children = childrenMap.value(id);
-		// Sort children in descending order for deterministic stack processing
-		std::sort(children.begin(), children.end(), std::greater<int>());
+		// Sort children by displayOrder (ascending), then by nodeId as tiebreaker for determinism
+		std::sort(children.begin(), children.end(),
+			[this](int a, int b)
+			{
+				if (nodeDataMap[a].displayOrder != nodeDataMap[b].displayOrder)
+					return nodeDataMap[a].displayOrder < nodeDataMap[b].displayOrder;
+				return a < b;
+			});
+		// Reverse for FILO stack processing
+		std::reverse(children.begin(), children.end());
 
 		// For each child, decrement its in-degree and push to stack if it becomes 0
 		for (int childId : children)
@@ -292,8 +307,7 @@ void cObjectsTree::WriteInternalNodeID(int userObjectID, int internalObjectID, i
 	}
 }
 
-void cObjectsTree::DebugPrintNodes(
-	const std::vector<cObjectsTree::sNodeDataForRendering> &nodes)
+void cObjectsTree::DebugPrintNodes(const std::vector<cObjectsTree::sNodeDataForRendering> &nodes)
 {
 	for (const sNodeDataForRendering &node : nodes)
 	{

@@ -55,7 +55,7 @@
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(
-			systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
+				systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
 {
 	Init();
 }
@@ -132,7 +132,7 @@ void cMaterialWidget::InitializeData()
 		InitLightParams(1, params);
 		params->Set("objects_tree_enable", true);
 		params->Set("node_0001_definition",
-			QString("fractal preview,1,%1,0,1").arg(int(enumNodeType::fractal)));
+			QString("fractal preview,1,%1,0,1,0").arg(int(enumNodeType::fractal)));
 		params->Set("node_0001_material", 1);
 		fractal->at(0)->Set("formula", int(fractal::mandelbulb));
 

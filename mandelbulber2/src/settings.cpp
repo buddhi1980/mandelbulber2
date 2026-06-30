@@ -2276,15 +2276,16 @@ static enumNodeType PrimitiveOpToNodeType(int boolOp)
 	}
 }
 
-static QString MakeNodeDefinition(
-	const QString &formulaName, int nodeId, enumNodeType type, int parentId, int objectId)
+static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
+	int parentId, int objectId, int displayOrder = 0)
 {
-	return QString("%1 %2,%2,%3,%4,%5")
+	return QString("%1 %2,%2,%3,%4,%5,%6")
 		.arg(formulaName)
 		.arg(nodeId)
 		.arg(int(type))
 		.arg(parentId)
-		.arg(objectId);
+		.arg(objectId)
+		.arg(displayOrder);
 }
 
 static QString NodePrefix(int nodeId)
@@ -2302,7 +2303,7 @@ static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, 
 	const QString defParam = NodeDefinitionParam(nodeId);
 	if (!par->IfExists(defParam)) return;
 	QStringList parts = par->Get<QString>(defParam).split(',');
-	if (parts.size() != 5) return;
+	if (parts.size() < 5) return;
 	parts[3] = QString::number(parentId);
 	par->Set(defParam, parts.join(","));
 }
