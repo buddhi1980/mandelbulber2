@@ -8,9 +8,16 @@
 
 #include "drag_drop_tree_widget.h"
 #include <QApplication>
+#include <QPainter>
+#include <QHeaderView>
 
 cDragDropTreeWidget::cDragDropTreeWidget(QWidget *parent)
-		: QTreeWidget(parent), m_sourceNodeId(-1), m_dragActive(false)
+		: QTreeWidget(parent),
+			m_sourceNodeId(-1),
+			m_dragActive(false),
+			m_dropValid(false),
+			m_dropTargetItem(nullptr),
+			m_dropTargetPosition(DropOnViewport)
 {
 }
 
@@ -77,14 +84,27 @@ void cDragDropTreeWidget::dragMoveEvent(QDragMoveEvent *event)
 		if (!targetItem)
 		{
 			event->ignore();
+			setDropValid(false);
+			m_dropTargetItem = nullptr;
+			m_dropTargetPosition = DropOnViewport;
+			viewport()->update();
 			return;
 		}
 
 		DropPosition dropPos = calculateDropPosition(targetItem, pos);
+		m_dropTargetItem = targetItem;
+		m_dropTargetPosition = dropPos;
 		emit dragMoveOverItem(targetItem, static_cast<int>(dropPos), m_sourceNodeId);
+		viewport()->update();
 
-		// If the parent accepted the move (by not ignoring), accept it
-		event->acceptProposedAction();
+		if (m_dropValid)
+		{
+			event->acceptProposedAction();
+		}
+		else
+		{
+			event->ignore();
+		}
 	}
 	else
 	{
@@ -102,6 +122,7 @@ void cDragDropTreeWidget::dropEvent(QDropEvent *event)
 		{
 			DropPosition dropPos = calculateDropPosition(targetItem, pos);
 			emit dropCompleted(m_sourceNodeId, targetItem, static_cast<int>(dropPos));
+			emit treeStructureChanged();
 			event->acceptProposedAction();
 		}
 		else
@@ -116,6 +137,10 @@ void cDragDropTreeWidget::dropEvent(QDropEvent *event)
 
 	m_dragActive = false;
 	m_sourceNodeId = -1;
+	m_dropValid = false;
+	m_dropTargetItem = nullptr;
+	m_dropTargetPosition = DropOnViewport;
+	viewport()->update();
 }
 
 void cDragDropTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
@@ -123,6 +148,40 @@ void cDragDropTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
 	QTreeWidget::dragLeaveEvent(event);
 	m_dragActive = false;
 	m_sourceNodeId = -1;
+	m_dropValid = false;
+	m_dropTargetItem = nullptr;
+	m_dropTargetPosition = DropOnViewport;
+	viewport()->update();
+}
+
+void cDragDropTreeWidget::paintEvent(QPaintEvent *event)
+{
+	QTreeWidget::paintEvent(event);
+
+	if (!m_dragActive || !m_dropValid || !m_dropTargetItem || m_dropTargetPosition == DropOnViewport)
+		return;
+
+	QPainter painter(viewport());
+	painter.setPen(QPen(Qt::blue, 2));
+	painter.setRenderHint(QPainter::Antialiasing);
+
+	QRect itemRect = visualRect(indexFromItem(m_dropTargetItem));
+	int x1 = 5;
+	int x2 = viewport()->width() - 5;
+
+	if (m_dropTargetPosition == DropAboveItem)
+	{
+		painter.drawLine(x1, itemRect.top(), x2, itemRect.top());
+	}
+	else if (m_dropTargetPosition == DropBelowItem)
+	{
+		painter.drawLine(x1, itemRect.bottom() - 1, x2, itemRect.bottom() - 1);
+	}
+	else if (m_dropTargetPosition == DropOnItem)
+	{
+		int y = itemRect.center().y();
+		painter.drawLine(x1, y, x2, y);
+	}
 }
 
 cDragDropTreeWidget::DropPosition cDragDropTreeWidget::calculateDropPosition(
@@ -139,4 +198,18 @@ cDragDropTreeWidget::DropPosition cDragDropTreeWidget::calculateDropPosition(
 	if (relY < itemHeight / 3) return DropAboveItem;
 	if (relY > itemHeight * 2 / 3) return DropBelowItem;
 	return DropOnItem;
+}
+
+void cDragDropTreeWidget::setDropValid(bool isValidDrop)
+{
+	if (m_dropValid != isValidDrop)
+	{
+		m_dropValid = isValidDrop;
+		if (!isValidDrop)
+		{
+			m_dropTargetItem = nullptr;
+			m_dropTargetPosition = DropOnViewport;
+		}
+		viewport()->update();
+	}
 }

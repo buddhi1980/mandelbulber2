@@ -120,6 +120,7 @@ private slots:
 	void onDragStartRequested(int nodeId, QTreeWidgetItem *item);
 	void onDragMoveOverItem(QTreeWidgetItem *targetItem, int dropPosition, int sourceNodeId);
 	void onDropCompleted(int nodeId, QTreeWidgetItem *targetItem, int dropPosition);
+	void onTreeStructureChanged();
 
 private:
 	Ui::cObjectsTreeWidget *ui;

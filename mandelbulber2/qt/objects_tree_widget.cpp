@@ -91,6 +91,8 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 			&cObjectsTreeWidget::onDragMoveOverItem);
 		connect(
 			treeWidget, &cDragDropTreeWidget::dropCompleted, this, &cObjectsTreeWidget::onDropCompleted);
+		connect(treeWidget, &cDragDropTreeWidget::treeStructureChanged, this,
+			&cObjectsTreeWidget::onTreeStructureChanged);
 	}
 }
 
@@ -1078,10 +1080,11 @@ void cObjectsTreeWidget::onDragStartRequested(int /*nodeId*/, QTreeWidgetItem *i
 void cObjectsTreeWidget::onDragMoveOverItem(
 	QTreeWidgetItem *targetItem, int dropPosition, int sourceNodeId)
 {
-	Q_UNUSED(dropPosition)
-	Q_UNUSED(sourceNodeId)
-
-	if (!targetItem || targetItem == worldItem) return;
+	if (!targetItem || targetItem == worldItem)
+	{
+		qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+		return;
+	}
 
 	// Find source item
 	QTreeWidgetItem *sourceItem = nullptr;
@@ -1094,15 +1097,36 @@ void cObjectsTreeWidget::onDragMoveOverItem(
 			break;
 		}
 	}
-	if (!sourceItem || sourceItem == targetItem) return;
+	if (!sourceItem || sourceItem == targetItem)
+	{
+		qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+		return;
+	}
 
 	// Check for cycles
 	QTreeWidgetItem *parent = sourceItem->parent();
 	while (parent)
 	{
-		if (parent == targetItem) return;
+		if (parent == targetItem)
+		{
+			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+			return;
+		}
 		parent = parent->parent();
 	}
+
+	// Check if drop on leaf node (not allowed)
+	if (dropPosition == static_cast<int>(DropPosition::DropOnItem))
+	{
+		enumNodeType targetType = enumNodeType(getNodeType(targetItem));
+		if (!isGroupType(targetType))
+		{
+			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+			return;
+		}
+	}
+
+	qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(true);
 }
 
 void cObjectsTreeWidget::onDropCompleted(
@@ -1229,4 +1253,9 @@ void cObjectsTreeWidget::onDropCompleted(
 
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(sourceItem);
+}
+
+void cObjectsTreeWidget::onTreeStructureChanged()
+{
+	UpdateTree(gPar, gParFractal);
 }
