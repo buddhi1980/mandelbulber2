@@ -350,7 +350,6 @@ QTreeWidgetItem *cObjectsTreeWidget::createNodeItem(
 	QTreeWidgetItem *newItem = new QTreeWidgetItem();
 	newItem->setText(treeCol::name, name);
 	newItem->setText(treeCol::type, nodeTypeToString(nodeType));
-	newItem->setText(treeCol::objectId, QString::number(objectId));
 
 	newItem->setData(treeData::nodeId, Qt::UserRole, nodeId);
 	newItem->setData(treeData::nodeType, Qt::UserRole, int(nodeType));
@@ -460,8 +459,8 @@ void cObjectsTreeWidget::UpdateTree(
 	worldItem->setData(treeData::nodeId, Qt::UserRole, 0); // nodeId 0 = World sentinel
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
-	ui->treeWidget_objects->setColumnCount(4);
-	ui->treeWidget_objects->setHeaderLabels({"Name", "Type", "Object ID", "Material"});
+	ui->treeWidget_objects->setColumnCount(3);
+	ui->treeWidget_objects->setHeaderLabels({"Name", "Type", "Material"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
@@ -479,7 +478,6 @@ void cObjectsTreeWidget::UpdateTree(
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(treeCol::name, nodeData.name);
 		item->setText(treeCol::type, nodeTypeToString(nodeData.type));
-		item->setText(treeCol::objectId, QString::number(nodeData.objectId));
 
 		item->setData(treeData::nodeId, Qt::UserRole, nodeData.id);
 		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
@@ -517,9 +515,13 @@ void cObjectsTreeWidget::UpdateTree(
 
 	// Attach the type combo boxes and miniature material widgets after the tree is fully
 	// built so that setItemWidget() can find the correct persistent index for each item.
-	for (auto it = nodeItems.begin(); it != nodeItems.end(); ++it)
+	int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+	int rowHeight = miniSize;
+	ui->treeWidget_objects->header()->setMinimumSectionSize(miniSize);
+	QString style = QString("QTreeWidget::item { height: %1px; }").arg(rowHeight);
+	ui->treeWidget_objects->setStyleSheet(style);
+	for (QTreeWidgetItem *item : nodeItems)
 	{
-		QTreeWidgetItem *item = it.value();
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
 		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeComboBox(currentType));
@@ -599,12 +601,17 @@ void cObjectsTreeWidget::pressedRefreshButton()
 {
 	UpdateTree(gPar, gParFractal);
 }
-
 void cObjectsTreeWidget::attachMaterialWidget(
 	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
 {
-	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+	if (item->parent())
+	{
+		int parentType = getNodeType(item->parent());
+		if (enumNodeType(parentType) == enumNodeType::hybrid) return;
+	}
 	int materialId = params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	if (materialId < 0) return;
+	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
 	matWidget->AssignMaterial(params, materialId, nullptr);
 	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);

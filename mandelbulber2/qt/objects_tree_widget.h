@@ -55,8 +55,7 @@ private:
 	{
 		static constexpr int name = 0;		 // display name string
 		static constexpr int type = 1;		 // type string + combo box
-		static constexpr int objectId = 2; // object ID string
-		static constexpr int material = 3; // miniature cMaterialWidget thumbnail
+		static constexpr int material = 2; // miniature cMaterialWidget thumbnail
 	};
 
 	// Column indices for setData() / data(col, Qt::UserRole)
