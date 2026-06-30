@@ -163,20 +163,12 @@ bool cObjectsTreeWidget::isFractalInHybridGroup(QTreeWidgetItem *item) const
 	return enumNodeType(getNodeType(item->parent())) == enumNodeType::hybrid;
 }
 
-// Creates a combo box pre-populated with all supported node types and
-// with the entry matching 'currentType' already selected.
-QComboBox *cObjectsTreeWidget::buildTypeComboBox(int currentType)
+// Creates a QLabel displaying the node type as text.
+QWidget *cObjectsTreeWidget::buildTypeLabel(int currentType)
 {
-	QComboBox *combo = new QComboBox();
-	combo->addItem("fractal", int(enumNodeType::fractal));
-	combo->addItem("primitive", int(enumNodeType::primitive));
-	combo->addItem("hybrid", int(enumNodeType::hybrid));
-	combo->addItem("boolean Add", int(enumNodeType::booleanAdd));
-	combo->addItem("boolean Mul", int(enumNodeType::booleanMul));
-	combo->addItem("boolean Sub", int(enumNodeType::booleanSub));
-	int idx = combo->findData(currentType);
-	if (idx >= 0) combo->setCurrentIndex(idx);
-	return combo;
+	QLabel *label = new QLabel(nodeTypeToString(enumNodeType(currentType)));
+	label->setAlignment(Qt::AlignCenter);
+	return label;
 }
 
 int cObjectsTreeWidget::findNextAvailableNodeId() const
@@ -349,7 +341,6 @@ QTreeWidgetItem *cObjectsTreeWidget::createNodeItem(
 {
 	QTreeWidgetItem *newItem = new QTreeWidgetItem();
 	newItem->setText(treeCol::name, name);
-	newItem->setText(treeCol::type, nodeTypeToString(nodeType));
 
 	newItem->setData(treeData::nodeId, Qt::UserRole, nodeId);
 	newItem->setData(treeData::nodeType, Qt::UserRole, int(nodeType));
@@ -477,7 +468,6 @@ void cObjectsTreeWidget::UpdateTree(
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(treeCol::name, nodeData.name);
-		item->setText(treeCol::type, nodeTypeToString(nodeData.type));
 
 		item->setData(treeData::nodeId, Qt::UserRole, nodeData.id);
 		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
@@ -524,7 +514,7 @@ void cObjectsTreeWidget::UpdateTree(
 	{
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
-		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeComboBox(currentType));
+		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(currentType));
 		attachMaterialWidget(item, nodeId, params);
 	}
 
@@ -643,7 +633,7 @@ void cObjectsTreeWidget::slotAddGroup()
 		createNodeItem(newNodeId, groupType, groupObjectId, groupName, QString());
 	addNodeToSelectedGroup(newItem);
 
-	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(groupType)));
+	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeLabel(int(groupType)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
@@ -674,7 +664,7 @@ void cObjectsTreeWidget::slotAddFractal()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(
-		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::fractal)));
+		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::fractal)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
@@ -708,7 +698,7 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(
-		newItem, treeCol::type, buildTypeComboBox(int(enumNodeType::primitive)));
+		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::primitive)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
