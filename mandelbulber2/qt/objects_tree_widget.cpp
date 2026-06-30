@@ -18,6 +18,7 @@
 #include <QToolButton>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QMenu>
 #include <QFontMetrics>
 #include <QVBoxLayout>
 #include <QMouseEvent>
@@ -52,6 +53,7 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 	ui->treeWidget_objects->setDropIndicatorShown(true);
 	ui->treeWidget_objects->setDragDropOverwriteMode(false);
 	ui->treeWidget_objects->header()->setSectionsMovable(false);
+	ui->treeWidget_objects->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	// Default 50/50 split between tree widget and editor area
 	ui->splitter->setSizes({1, 1});
@@ -94,6 +96,8 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		connect(treeWidget, &cDragDropTreeWidget::treeStructureChanged, this,
 			&cObjectsTreeWidget::onTreeStructureChanged);
 	}
+	connect(ui->treeWidget_objects, &QWidget::customContextMenuRequested, this,
+		&cObjectsTreeWidget::onCustomContextMenu);
 }
 
 cObjectsTreeWidget::~cObjectsTreeWidget()
@@ -1267,4 +1271,49 @@ void cObjectsTreeWidget::onTreeStructureChanged()
 	StoreTreeToParams(gPar, gParFractal);
 	// Then rebuild the tree from params
 	UpdateTree(gPar, gParFractal);
+}
+
+void cObjectsTreeWidget::onCustomContextMenu(const QPoint &pos)
+{
+	QTreeWidgetItem *item = ui->treeWidget_objects->itemAt(pos);
+	if (!item || item == worldItem) return;
+
+	QMenu menu;
+	QAction *renameAction = menu.addAction(tr("Rename"));
+	QAction *selected = menu.exec(ui->treeWidget_objects->viewport()->mapToGlobal(pos));
+	if (selected != renameAction) return;
+
+	QString currentName = item->text(treeCol::name);
+	bool ok = false;
+	QString newName =
+		QInputDialog::getText(this, tr("Rename"), tr("New name:"), QLineEdit::Normal, currentName, &ok);
+	if (ok && !newName.isEmpty() && newName != currentName)
+	{
+		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
+		QString prefix = QString("node_%1").arg(nodeId, 4, 10, QChar('0'));
+		QString def = gPar->Get<QString>(prefix + "definition");
+		QStringList parts = def.split(',');
+		if (parts.size() >= 6)
+		{
+			parts[0] = newName;
+			gPar->Set<QString>(prefix + "definition", parts.join(','));
+		}
+		item->setText(treeCol::name, newName);
+
+		QWidget *editor = ui->treeWidget_objects->itemWidget(item, treeCol::type);
+		if (editor)
+		{
+			ui->treeWidget_objects->removeItemWidget(item, treeCol::type);
+			delete editor;
+		}
+		QWidget *matEditor = ui->treeWidget_objects->itemWidget(item, treeCol::material);
+		if (matEditor)
+		{
+			ui->treeWidget_objects->removeItemWidget(item, treeCol::material);
+			delete matEditor;
+		}
+		int nodeType = getNodeType(item);
+		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(nodeType));
+		attachMaterialWidget(item, nodeId, gPar);
+	}
 }
