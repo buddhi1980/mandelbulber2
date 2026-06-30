@@ -116,6 +116,11 @@ private slots:
 	void slotDeleteObject();
 	void slotItemSelectionChanged();
 
+	// Drag-and-drop slots connected to cDragDropTreeWidget signals
+	void onDragStartRequested(int nodeId, QTreeWidgetItem *item);
+	void onDragMoveOverItem(QTreeWidgetItem *targetItem, int dropPosition, int sourceNodeId);
+	void onDropCompleted(int nodeId, QTreeWidgetItem *targetItem, int dropPosition);
+
 private:
 	Ui::cObjectsTreeWidget *ui;
 
@@ -128,6 +133,15 @@ private:
 		-1; // index into gParFractal for the currently edited fractal (-1 if none)
 
 	QList<QPair<QWidget *, std::shared_ptr<cParameterContainer>>> editorSyncTargets;
+
+	enum DropPosition
+	{
+		DropOnViewport = 0,
+		DropAboveItem,
+		DropOnItem,
+		DropBelowItem,
+	};
+	bool isAncestorOf(QTreeWidgetItem *potentialAncestor, QTreeWidgetItem *potentialDescendant) const;
 };
 
 #endif /* MANDELBULBER2_QT_OBJECTS_TREE_WIDGET_H_ */

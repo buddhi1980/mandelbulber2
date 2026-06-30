@@ -85,7 +85,7 @@
      <property name="childrenCollapsible">
       <bool>false</bool>
      </property>
-     <widget class="QTreeWidget" name="treeWidget_objects">
+     <widget class="cDragDropTreeWidget" name="treeWidget_objects">
       <property name="dragEnabled">
        <bool>true</bool>
       </property>
@@ -134,7 +134,14 @@
     </widget>
    </item>
   </layout>
- </widget>
- <resources/>
- <connections/>
+  </widget>
+  <customwidgets>
+   <customwidget>
+    <class>cDragDropTreeWidget</class>
+    <extends>QTreeWidget</extends>
+    <header>drag_drop_tree_widget.h</header>
+   </customwidget>
+  </customwidgets>
+  <resources/>
+  <connections/>
 </ui>

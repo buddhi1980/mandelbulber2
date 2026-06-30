@@ -20,6 +20,10 @@
 #include <QMessageBox>
 #include <QFontMetrics>
 #include <QVBoxLayout>
+#include <QMouseEvent>
+#include <QDrag>
+#include <QMimeData>
+#include <QApplication>
 
 #include "src/interface.hpp"
 #include "src/primitives.h"
@@ -35,11 +39,19 @@
 #include "general_object_parameters.h"
 #include "fractal_calculation_parameters.h"
 #include "material_widget.h"
+#include "drag_drop_tree_widget.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
 {
 	ui->setupUi(this);
+
+	// Configure drag-and-drop on the tree widget (promoted to cDragDropTreeWidget)
+	ui->treeWidget_objects->setDragDropMode(QTreeWidget::DragDrop);
+	ui->treeWidget_objects->setDefaultDropAction(Qt::MoveAction);
+	ui->treeWidget_objects->setDropIndicatorShown(true);
+	ui->treeWidget_objects->setDragDropOverwriteMode(false);
+	ui->treeWidget_objects->header()->setSectionsMovable(false);
 
 	// Default 50/50 split between tree widget and editor area
 	ui->splitter->setSizes({1, 1});
@@ -68,6 +80,18 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 	// Initialize the editor area that appears below the tree widget
 	editorLayout = new QVBoxLayout();
 	ui->widget_editor_area->setLayout(editorLayout);
+
+	// Connect drag-and-drop signals from cDragDropTreeWidget to slots
+	cDragDropTreeWidget *treeWidget = qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects);
+	if (treeWidget)
+	{
+		connect(treeWidget, &cDragDropTreeWidget::dragStartRequested, this,
+			&cObjectsTreeWidget::onDragStartRequested);
+		connect(treeWidget, &cDragDropTreeWidget::dragMoveOverItem, this,
+			&cObjectsTreeWidget::onDragMoveOverItem);
+		connect(
+			treeWidget, &cDragDropTreeWidget::dropCompleted, this, &cObjectsTreeWidget::onDropCompleted);
+	}
 }
 
 cObjectsTreeWidget::~cObjectsTreeWidget()
@@ -565,13 +589,11 @@ void cObjectsTreeWidget::pressedRefreshButton()
 	UpdateTree(gPar, gParFractal);
 }
 
-
 void cObjectsTreeWidget::attachMaterialWidget(
 	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
 {
 	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
-	int materialId =
-		params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	int materialId = params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
 	matWidget->AssignMaterial(params, materialId, nullptr);
 	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
@@ -599,7 +621,8 @@ void cObjectsTreeWidget::slotAddGroup()
 			.arg(0) // parentId: updated via StoreTreeToParams once added to tree
 			.arg(groupObjectId));
 
-	QTreeWidgetItem *newItem = createNodeItem(newNodeId, groupType, groupObjectId, groupName, QString());
+	QTreeWidgetItem *newItem =
+		createNodeItem(newNodeId, groupType, groupObjectId, groupName, QString());
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeComboBox(int(groupType)));
@@ -620,8 +643,8 @@ void cObjectsTreeWidget::slotAddFractal()
 	{
 		gParFractal->ensureCapacity(fractalIndex);
 		InitFractalParams(gParFractal->at(fractalIndex));
-		gParFractal->at(fractalIndex)->SetContainerName(
-			QString("fractal") + QString::number(fractalIndex));
+		gParFractal->at(fractalIndex)
+			->SetContainerName(QString("fractal") + QString::number(fractalIndex));
 	}
 
 	int newNodeId = findNextAvailableNodeId();
@@ -775,8 +798,8 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 	{
 		gParFractal->ensureCapacity(fractalIndex);
 		InitFractalParams(gParFractal->at(fractalIndex));
-		gParFractal->at(fractalIndex)->SetContainerName(
-			QString("fractal") + QString::number(fractalIndex));
+		gParFractal->at(fractalIndex)
+			->SetContainerName(QString("fractal") + QString::number(fractalIndex));
 	}
 
 	QWidget *container = new QWidget();
@@ -935,8 +958,8 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 
 	QTreeWidgetItem *item = selected.first();
 
-	 // World sentinel item — allow selection but show no editor
-	 if (item == worldItem) return;
+	// World sentinel item — allow selection but show no editor
+	if (item == worldItem) return;
 
 	lastSelectedNodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 	enumNodeType type = enumNodeType(item->data(treeData::nodeType, Qt::UserRole).toInt());
@@ -1013,26 +1036,197 @@ void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::en
 	}
 }
 
-
 void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
- std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
+	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
 {
- SynchronizeEditorWidget(currentEditorWidget, mode);
+	SynchronizeEditorWidget(currentEditorWidget, mode);
 
- if (mode == qInterface::write)
- {
-  // Block itemSelectionChanged to prevent the editor from being destroyed and
-  // recreated during tree reconstruction, which causes blinking and focus loss.
-  ui->treeWidget_objects->blockSignals(true);
-  UpdateTree(params, fractalParams);
-  ui->treeWidget_objects->blockSignals(false);
+	if (mode == qInterface::write)
+	{
+		// Block itemSelectionChanged to prevent the editor from being destroyed and
+		// recreated during tree reconstruction, which causes blinking and focus loss.
+		ui->treeWidget_objects->blockSignals(true);
+		UpdateTree(params, fractalParams);
+		ui->treeWidget_objects->blockSignals(false);
 
-  // Re-populate the existing editor widgets with the updated parameter values
-  // instead of rebuilding the whole editor from scratch.
-  SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
- }
- else
- {
-  StoreTreeToParams(params, fractalParams);
- }
+		// Re-populate the existing editor widgets with the updated parameter values
+		// instead of rebuilding the whole editor from scratch.
+		SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
+	}
+	else
+	{
+		StoreTreeToParams(params, fractalParams);
+	}
+}
+
+// --- Drag-and-drop slots ---
+
+void cObjectsTreeWidget::onDragStartRequested(int /*nodeId*/, QTreeWidgetItem *item)
+{
+	if (!item || item == worldItem) return;
+
+	int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
+	if (nodeId <= 0) return;
+
+	cDragDropTreeWidget *treeWidget = qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects);
+	if (treeWidget)
+	{
+		treeWidget->setSourceNodeId(nodeId);
+	}
+}
+
+void cObjectsTreeWidget::onDragMoveOverItem(
+	QTreeWidgetItem *targetItem, int dropPosition, int sourceNodeId)
+{
+	Q_UNUSED(dropPosition)
+	Q_UNUSED(sourceNodeId)
+
+	if (!targetItem || targetItem == worldItem) return;
+
+	// Find source item
+	QTreeWidgetItem *sourceItem = nullptr;
+	auto allItems = collectAllTreeItems();
+	for (QTreeWidgetItem *item : allItems)
+	{
+		if (item->data(treeData::nodeId, Qt::UserRole).toInt() == sourceNodeId)
+		{
+			sourceItem = item;
+			break;
+		}
+	}
+	if (!sourceItem || sourceItem == targetItem) return;
+
+	// Check for cycles
+	QTreeWidgetItem *parent = sourceItem->parent();
+	while (parent)
+	{
+		if (parent == targetItem) return;
+		parent = parent->parent();
+	}
+}
+
+void cObjectsTreeWidget::onDropCompleted(
+	int sourceNodeId, QTreeWidgetItem *targetItem, int dropPosition)
+{
+	if (!targetItem || targetItem == worldItem) return;
+
+	// Find source item
+	QTreeWidgetItem *sourceItem = nullptr;
+	QTreeWidgetItem *oldParent = nullptr;
+	int oldSiblingIndex = -1;
+
+	auto allItems = collectAllTreeItems();
+	for (QTreeWidgetItem *item : allItems)
+	{
+		if (item->data(treeData::nodeId, Qt::UserRole).toInt() == sourceNodeId)
+		{
+			sourceItem = item;
+			oldParent = item->parent();
+			if (oldParent)
+			{
+				oldSiblingIndex = oldParent->indexOfChild(item);
+			}
+			else
+			{
+				oldSiblingIndex = ui->treeWidget_objects->indexOfTopLevelItem(item);
+			}
+			break;
+		}
+	}
+
+	if (!sourceItem) return;
+
+	// Check for cycles
+	QTreeWidgetItem *checkParent = sourceItem->parent();
+	while (checkParent)
+	{
+		if (checkParent == targetItem) return;
+		checkParent = checkParent->parent();
+	}
+
+	// Check if drop on leaf node (not allowed)
+	if (dropPosition == static_cast<int>(DropPosition::DropOnItem))
+	{
+		enumNodeType targetType = enumNodeType(getNodeType(targetItem));
+		if (!isGroupType(targetType)) return;
+	}
+
+	// Remove source from old location
+	if (oldParent)
+	{
+		oldParent->takeChild(oldSiblingIndex);
+	}
+	else
+	{
+		ui->treeWidget_objects->takeTopLevelItem(oldSiblingIndex);
+	}
+
+	// Determine insert location based on drop position
+	if (dropPosition == static_cast<int>(DropPosition::DropOnItem))
+	{
+		targetItem->insertChild(targetItem->childCount(), sourceItem);
+	}
+	else if (dropPosition == static_cast<int>(DropPosition::DropAboveItem))
+	{
+		QTreeWidgetItem *parent = targetItem->parent();
+		if (parent)
+		{
+			parent->insertChild(parent->indexOfChild(targetItem), sourceItem);
+		}
+		else
+		{
+			ui->treeWidget_objects->insertTopLevelItem(
+				ui->treeWidget_objects->indexOfTopLevelItem(targetItem), sourceItem);
+		}
+	}
+	else if (dropPosition == static_cast<int>(DropPosition::DropBelowItem))
+	{
+		QTreeWidgetItem *parent = targetItem->parent();
+		if (parent)
+		{
+			int insertIndex = parent->indexOfChild(targetItem) + 1;
+			parent->insertChild(insertIndex, sourceItem);
+		}
+		else
+		{
+			int insertIndex = ui->treeWidget_objects->indexOfTopLevelItem(targetItem) + 1;
+			ui->treeWidget_objects->insertTopLevelItem(insertIndex, sourceItem);
+		}
+	}
+	else
+	{
+		ui->treeWidget_objects->addTopLevelItem(sourceItem);
+	}
+
+	// Update parentId in params
+	QTreeWidgetItem *parentForUpdate = sourceItem->parent();
+	int newParentId =
+		parentForUpdate ? parentForUpdate->data(treeData::nodeId, Qt::UserRole).toInt() : 0;
+
+	QString prefix = QString("node_%1_").arg(sourceNodeId, 4, 10, QChar('0'));
+	QString defParam = prefix + "definition";
+
+	if (gPar->IfExists(defParam))
+	{
+		QString currentDef = gPar->Get<QString>(defParam);
+		QStringList parts = currentDef.split(',');
+		if (parts.size() >= 5)
+		{
+			QString namePart = parts[0];
+			QString nodeIdPart = parts[1];
+			QString typePart = parts[2];
+			QString objectIdPart = parts[4];
+
+			QString newDef = QString("%1,%2,%3,%4,%5")
+												 .arg(namePart)
+												 .arg(nodeIdPart)
+												 .arg(typePart)
+												 .arg(newParentId)
+												 .arg(objectIdPart);
+			gPar->Set(defParam, newDef);
+		}
+	}
+
+	ui->treeWidget_objects->expandAll();
+	ui->treeWidget_objects->setCurrentItem(sourceItem);
 }
