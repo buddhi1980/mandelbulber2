@@ -236,8 +236,25 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			CVector3 pointTransformed = node.inverseTransformMatrix.TransformPoint(pointWithRepeat);
 
 			const double absNodeScale = node.absScale;
+			const double detailMult = node.detailLevelMultiplier;
 			sDistanceIn nodeIn = in;
-			nodeIn.detailSize = (absNodeScale > 0.0) ? in.detailSize / absNodeScale : in.detailSize;
+
+			if (absNodeScale > 0.0 && detailMult > 0.0)
+			{
+				nodeIn.detailSize = in.detailSize / absNodeScale / detailMult;
+			}
+			else if (absNodeScale > 0.0)
+			{
+				nodeIn.detailSize = in.detailSize / absNodeScale;
+			}
+			else if (detailMult > 0.0)
+			{
+				nodeIn.detailSize = in.detailSize / detailMult;
+			}
+			else
+			{
+				nodeIn.detailSize = in.detailSize;
+			}
 
 			if (node.level < stackLevel)
 			{
@@ -371,6 +388,12 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 		out->transformedPoint = stack[0].transformedPoint;
 		out->hasTransformedPoint = stack[0].hasTransformedPoint;
 		out->iters = totalIters;
+		out->detailLevelMultiplier = 1.0;
+		if (stack[0].closestObjectId >= 0
+				&& stack[0].closestObjectId < static_cast<int>(data->objectData.size()))
+		{
+			out->detailLevelMultiplier = data->objectData[stack[0].closestObjectId].detailLevelMultiplier;
+		}
 		return out->distance;
 	}
 	return 0;

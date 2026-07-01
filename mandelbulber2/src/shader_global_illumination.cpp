@@ -90,6 +90,12 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			objectId = distanceOut.objectId;
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			step.distThresh = distThresh;
 			step.distance = dist;
 			step.iters = distanceOut.iters;

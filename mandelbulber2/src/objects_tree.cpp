@@ -58,6 +58,8 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.repeat = params->Get<CVector3>("node" + suffix + "_repeat");
 				nodeData.scale = params->Get<double>("node" + suffix + "_scale");
 				nodeData.material = params->Get<int>("node" + suffix + "_material");
+				nodeData.detailLevelMultiplier =
+					params->Get<double>("node" + suffix + "_detail_level_multiplier");
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -229,6 +231,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.scale = worldScale;
 		nodeDataForRendering.material = effectiveMaterial;
 		nodeDataForRendering.repeat = worldRepeat;
+		nodeDataForRendering.detailLevelMultiplier = nodeData.detailLevelMultiplier;
 
 		// Pre-calculate the inverse transform matrix (world → local space) that combines
 		// translation, rotation and scale into a single 4×4 homogeneous matrix.

@@ -52,6 +52,7 @@ public:
 		smoothDeCombineDistance = 0.0f;
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
+		detailLevelMultiplier = 1.0;
 	}
 
 	bool smoothDeCombineEnable;
@@ -62,6 +63,7 @@ public:
 	fractal::enumObjectType objectType;
 	CVector3 size;
 	CRotationMatrix rotationMatrix;
+	double detailLevelMultiplier;
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

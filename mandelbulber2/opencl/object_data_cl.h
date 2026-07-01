@@ -55,6 +55,7 @@ typedef struct
 	cl_float3 size;
 	cl_float3 repeat;
 	matrix33 rotationMatrix;
+	cl_float detailLevelMultiplier;
 } sObjectDataCl;
 
 #endif /* MANDELBULBER2_OPENCL_OBJECT_DATA_CL_H_ */

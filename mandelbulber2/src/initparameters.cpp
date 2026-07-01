@@ -473,6 +473,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("node_0001_scale", 1.0, morphLinear, paramStandard);
 	par->addParam("node_0001_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("node_0001_material", -1, morphNone, paramStandard);
+	par->addParam("node_0001_detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
@@ -2137,6 +2138,7 @@ void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(prefix + "scale", 1.0, morphNone, paramStandard);
 	par->addParam(prefix + "repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam(prefix + "material", 1, morphNone, paramStandard);
+	par->addParam(prefix + "detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 }
 
 void DeleteAllNodeParams(std::shared_ptr<cParameterContainer> par)

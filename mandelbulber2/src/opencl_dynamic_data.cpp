@@ -941,6 +941,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		objectCl.size = toClFloat3(object->size);
 		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+		objectCl.detailLevelMultiplier = static_cast<cl_float>(object->detailLevelMultiplier);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
 		totalDataOffset += sizeof(objectCl);
@@ -1006,6 +1007,8 @@ void cOpenClDynamicData::BuildNodesData(
 		nodeCl.material = node.material;
 		nodeCl.rotationMatrix = toClMatrix33(node.rotationMatrix);
 		nodeCl.inverseTransformMatrix = toClMatrix44(node.inverseTransformMatrix);
+		nodeCl.detailLevelMultiplier =
+			static_cast<cl_float>(static_cast<float>(node.detailLevelMultiplier));
 
 		data.append(reinterpret_cast<char *>(&nodeCl), sizeof(nodeCl));
 		totalDataOffset += sizeof(nodeCl);

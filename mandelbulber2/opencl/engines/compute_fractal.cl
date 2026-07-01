@@ -46,6 +46,7 @@ typedef struct
 	bool maxiter;
 	float3 transformedPoint;
 	bool hasTransformedPoint;
+	float detailLevelMultiplier;
 } formulaOut;
 
 typedef enum

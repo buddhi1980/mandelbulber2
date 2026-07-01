@@ -35,6 +35,7 @@ public:
 		CVector3 repeat;
 		double scale;
 		int material;
+		double detailLevelMultiplier = 1.0;
 	};
 
 	struct sNodeDataForRendering
@@ -56,6 +57,7 @@ public:
 		int material;
 		CRotationMatrix rotationMatrix;
 		CMatrix44 inverseTransformMatrix;
+		double detailLevelMultiplier = 1.0;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

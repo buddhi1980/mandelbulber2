@@ -135,6 +135,12 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			distance = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			iterations = distanceOut.iters;
 
+			// Apply per-object detailLevelMultiplier to input2.distThresh dynamically
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				input2.distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			step = (min(distance, lastCloudDistance) - 0.5 * input2.distThresh) * params->DEFactor
 						 * params->volumetricLightDEFactor;
 

@@ -656,6 +656,13 @@ void cRenderWorker::RayMarching(
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+
+		// Apply per-object detailLevelMultiplier to distThresh dynamically
+		if (distanceOut.detailLevelMultiplier > 0.0)
+		{
+			distThresh *= distanceOut.detailLevelMultiplier;
+		}
+
 		// qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
 		if (in.invertMode)
 		{
@@ -756,6 +763,12 @@ void cRenderWorker::RayMarching(
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically (binary search phase)
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			// qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan <<
 			// "step" << step;
 
@@ -786,6 +799,13 @@ void cRenderWorker::RayMarching(
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+
+			// Apply per-object detailLevelMultiplier to distThresh dynamically (iterThreshMode)
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			out->objectId = distanceOut.objectId;
 			out->seqIndex = distanceOut.seqIndex;
 			out->transformedPoint = distanceOut.transformedPoint;

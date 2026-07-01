@@ -114,6 +114,12 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		outF = CalculateDistance(consts, point, calcParam, renderData);
 		float distance = outF.distance;
 
+		// Apply per-object detailLevelMultiplier to input2.distThresh dynamically
+		if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+		{
+			input2.distThresh *= renderData->objectsData[outF.objectId].detailLevelMultiplier;
+		}
+
 		float step = (min(distance, lastCloudDistance) - 0.5f * input2.distThresh)
 								 * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 

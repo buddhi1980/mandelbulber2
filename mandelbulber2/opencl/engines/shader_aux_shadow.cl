@@ -126,6 +126,12 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		float dist = outF.distance;
 
+		// Apply per-object detailLevelMultiplier to dist_thresh dynamically
+		if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+		{
+			dist_thresh *= renderData->objectsData[outF.objectId].detailLevelMultiplier;
+		}
+
 #ifdef USE_SUBSURFACE_SCATTERING
 #ifdef FULL_ENGINE
 		__global sObjectDataCl *objectData = &renderData->objectsData[outF.objectId];

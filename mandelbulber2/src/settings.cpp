@@ -1110,8 +1110,8 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 				int nodeId = split.at(1).toInt(&conversionOK);
 				if (conversionOK && nodeId > 0)
 				{
-					static const QStringList validNodeParams = {
-						"definition", "position", "rotation", "scale", "repeat", "material"};
+					static const QStringList validNodeParams = {"definition", "position", "rotation", "scale",
+						"repeat", "material", "detail_level_multiplier"};
 					QString shortName = split.mid(2).join('_');
 					if (validNodeParams.contains(shortName))
 					{

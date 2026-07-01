@@ -54,6 +54,7 @@ typedef struct
 	int count;
 	float3 transformedPoint;
 	bool hasTransformedPoint;
+	float detailLevelMultiplier;
 } sRayMarchingOut;
 
 typedef enum
@@ -142,6 +143,17 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		out->objectId = outF.objectId;
 		out->transformedPoint = outF.transformedPoint;
 		out->hasTransformedPoint = outF.hasTransformedPoint;
+		out->detailLevelMultiplier = 1.0f;
+		if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+		{
+			out->detailLevelMultiplier = renderData->objectsData[outF.objectId].detailLevelMultiplier;
+		}
+
+		// Apply per-object detailLevelMultiplier to distThresh dynamically
+		if (out->detailLevelMultiplier > 0.0f)
+		{
+			distThresh *= out->detailLevelMultiplier;
+		}
 
 #ifdef USE_REFRACTION
 		if (in.invertMode)

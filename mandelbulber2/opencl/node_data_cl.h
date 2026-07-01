@@ -67,6 +67,7 @@ typedef struct
 	cl_int material;
 	matrix33 rotationMatrix;
 	matrix44 inverseTransformMatrix;
+	cl_float detailLevelMultiplier;
 } sNodeDataForRenderingCl;
 
 #endif /* MANDELBULBER2_OPENCL_NODE_DATA_CL_H_ */

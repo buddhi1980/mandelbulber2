@@ -475,9 +475,25 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float3 pointTransformed = Matrix44TransformPoint(node->inverseTransformMatrix, pointWithRepeat);
 
 		const float absNodeScale = node->absScale;
+		const float detailMult = node->detailLevelMultiplier;
 		float savedDetailSize = calcParam->detailSize;
-		calcParam->detailSize =
-			(absNodeScale > 0.0f) ? calcParam->detailSize / absNodeScale : calcParam->detailSize;
+
+		if (absNodeScale > 0.0f && detailMult > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / absNodeScale / detailMult;
+		}
+		else if (absNodeScale > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / absNodeScale;
+		}
+		else if (detailMult > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / detailMult;
+		}
+		else
+		{
+			calcParam->detailSize = savedDetailSize;
+		}
 
 		DEBUG_PRINT("Node[%d]: type=%d level=%d absScale=%f savedDS=%f scaledDS=%f hybridSeq=%d\n", i,
 			node->type, node->level, absNodeScale, savedDetailSize, calcParam->detailSize,
@@ -652,6 +668,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	out.transformedPoint = stack[0].transformedPoint;
 	out.hasTransformedPoint = stack[0].hasTransformedPoint;
+
+	out.detailLevelMultiplier = 1.0f;
+	if (stack[0].closestObjectId >= 0 && stack[0].closestObjectId < numberOfObjects)
+	{
+		out.detailLevelMultiplier =
+			renderData->objectsData[stack[0].closestObjectId].detailLevelMultiplier;
+	}
 
 	return out;
 }

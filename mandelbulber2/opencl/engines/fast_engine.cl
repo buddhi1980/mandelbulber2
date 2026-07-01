@@ -316,6 +316,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			outF = CalculateDistance(consts, point, &calcParam, &renderData);
 			distance = outF.distance;
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (outF.objectId >= 0 && outF.objectId < renderData.numberOfObjects)
+			{
+				distThresh *= renderData.objectsData[outF.objectId].detailLevelMultiplier;
+			}
+
 			if (distance < distThresh * 0.95f)
 			{
 				found = true;

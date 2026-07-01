@@ -204,8 +204,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	//--- Hybrid Sequences
 
 	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
-	int hybridSequencesArrayOffset =
-		GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
 
 	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
 		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
@@ -425,6 +424,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 				calcParam.detailSize = distThresh;
 				outF = CalculateDistance(consts, point, &calcParam, &renderData);
 				distance = outF.distance;
+
+				// Apply per-object detailLevelMultiplier to distThresh dynamically
+				if (outF.objectId >= 0 && outF.objectId < renderData.numberOfObjects)
+				{
+					distThresh *= renderData.objectsData[outF.objectId].detailLevelMultiplier;
+				}
 
 				if (distance < distThresh)
 				{

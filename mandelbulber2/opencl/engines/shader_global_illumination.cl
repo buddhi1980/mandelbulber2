@@ -106,6 +106,12 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			dist = outF.distance;
 			objectId = outF.objectId;
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+			{
+				distThresh *= renderData->objectsData[outF.objectId].detailLevelMultiplier;
+			}
+
 			if (dist < distThresh)
 			{
 				if (scan < distThresh * 2.0f)
