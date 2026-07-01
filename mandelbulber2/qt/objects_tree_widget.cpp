@@ -806,6 +806,17 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	QString primitiveType = showPrimitiveSelectionDialog(&ok);
 	if (!ok || primitiveType.isEmpty()) return;
 
+	// Check if the selected target group is a hybrid group
+	QTreeWidgetItem *targetGroup = selectedGroupTarget();
+	if (targetGroup)
+	{
+		enumNodeType targetType = enumNodeType(getNodeType(targetGroup));
+		if (targetType == enumNodeType::hybrid)
+		{
+			return;
+		}
+	}
+
 	int newNodeId = findNextAvailableNodeId();
 	ensureNodeParamsExist(newNodeId);
 
@@ -1247,26 +1258,69 @@ void cObjectsTreeWidget::onDragMoveOverItem(
 		return;
 	}
 
-	// Check for cycles
-	QTreeWidgetItem *parent = sourceItem->parent();
-	while (parent)
-	{
-		if (parent == targetItem)
-		{
-			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
-			return;
-		}
-		parent = parent->parent();
-	}
-
-	// Check if drop on leaf node (not allowed)
 	if (dropPosition == static_cast<int>(DropPosition::DropOnItem))
 	{
+		// DropOnItem: target becomes the new parent of source
 		enumNodeType targetType = enumNodeType(getNodeType(targetItem));
 		if (!isGroupType(targetType))
 		{
 			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
 			return;
+		}
+
+		// Check for cycles: source must not be an ancestor of target
+		QTreeWidgetItem *parent = sourceItem->parent();
+		while (parent)
+		{
+			if (parent == targetItem)
+			{
+				qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+				return;
+			}
+			parent = parent->parent();
+		}
+
+		// Check if dropping a primitive into a hybrid group (not allowed)
+		enumNodeType sourceType = enumNodeType(getNodeType(sourceItem));
+		if (sourceType == enumNodeType::primitive && targetType == enumNodeType::hybrid)
+		{
+			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+			return;
+		}
+	}
+	else
+	{
+		// DropAboveItem / DropBelowItem: source becomes a sibling of target
+		// under the same parent (targetItem->parent()).
+		// Only cycle check is needed: target must not be an ancestor of source.
+		QTreeWidgetItem *parent = targetItem->parent();
+		while (parent)
+		{
+			if (parent == sourceItem)
+			{
+				qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+				return;
+			}
+			parent = parent->parent();
+		}
+
+		// Check if the effective parent (targetItem->parent or worldItem) is a hybrid
+		// and source is a primitive — in that case the primitive would end up as a child
+		// of the hybrid group, which is not allowed.
+		QTreeWidgetItem *effectiveParent = targetItem->parent();
+		if (!effectiveParent)
+		{
+			effectiveParent = worldItem;
+		}
+		enumNodeType sourceType = enumNodeType(getNodeType(sourceItem));
+		if (sourceType == enumNodeType::primitive)
+		{
+			enumNodeType parentType = enumNodeType(getNodeType(effectiveParent));
+			if (parentType == enumNodeType::hybrid)
+			{
+				qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+				return;
+			}
 		}
 	}
 
