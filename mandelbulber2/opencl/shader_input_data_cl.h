@@ -94,6 +94,11 @@ typedef struct
 #endif
 } sShaderInputDataCl;
 
+static __inline__ float3 GetFractalPoint(sShaderInputDataCl *input)
+{
+	return input->hasTransformedPoint ? input->transformedPoint : input->point;
+}
+
 typedef struct
 {
 #ifdef USE_SURFACE_GRADIENT

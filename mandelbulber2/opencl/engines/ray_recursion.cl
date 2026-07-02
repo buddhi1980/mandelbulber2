@@ -601,6 +601,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #else
 			shaderInputData.objectId = 0;
 #endif
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];

@@ -41,9 +41,6 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 	float3 point = inPoint;
 	if (!material->textureFractalize)
 	{
-		point = point - objectData->position;
-		point = Matrix33MulFloat3(objectData->rotationMatrix, point);
-		point = modRepeat(point, objectData->repeat);
 		point /= objectData->size;
 	}
 
