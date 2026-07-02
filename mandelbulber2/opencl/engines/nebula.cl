@@ -63,7 +63,7 @@ typedef struct
 	cl_int coloringFunction;
 } sNebulaSequenceData;
 
-float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+float4 DummyIteration(float4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->r = -1.0f; // signal for main loop to break;
 	return 0.0f;
