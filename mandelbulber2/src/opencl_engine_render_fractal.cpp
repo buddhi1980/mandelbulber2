@@ -449,6 +449,17 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 		// main engine
 		LoadSourceWithMainEngine(openclEnginePath, programEngine);
 
+		// Write combined OpenCL source for debugging compiler errors
+		// Line numbers in build logs correspond to this combined file (no headers)
+		{
+			QString combinedPath = systemDirectories.GetDataDirectoryHidden() + "openclKernelCombined.cl";
+			QFile combinedFile(combinedPath);
+			if (combinedFile.open(QIODevice::WriteOnly))
+			{
+				combinedFile.write(programEngine);
+			}
+		}
+
 		// qDebug() << programEngine.toStdString().c_str();
 	}
 	catch (const QString &ex)
