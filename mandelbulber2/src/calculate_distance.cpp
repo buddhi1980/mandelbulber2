@@ -290,6 +290,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					}
 					if (objectId >= 0)
 					{
+						distance = DisplacementMap(distance, pointTransformed, objectId, data);
 						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
 					}
 					break;
@@ -315,6 +316,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					}
 					if (objectId >= 0)
 					{
+						distance = DisplacementMap(distance, pointTransformed, objectId, data);
 						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
 					}
 					break;
@@ -335,6 +337,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					leafIters = nodeOut.iters;
 					if (objectId >= 0)
 					{
+						distance = DisplacementMap(distance, pointTransformed, objectId, data);
 						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
 					}
 					break;
