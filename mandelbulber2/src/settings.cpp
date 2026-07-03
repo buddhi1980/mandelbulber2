@@ -1704,6 +1704,25 @@ void cSettings::Compatibility2(
 		}
 		DeleteTemporaryLegacyPrimitiveTransformParams(par);
 	}
+
+	// === compatibility: migrate "formula" (without index) to "formula_N" in fractal sections ===
+	if (fract)
+	{
+		for (int i = 0; i < fract->size(); i++)
+		{
+			QString formulaParamName = QString("formula_%1").arg(i + 1);
+			if (fract->at(i)->IfExists("formula") && !fract->at(i)->IfExists(formulaParamName))
+			{
+				fract->at(i)->Set(formulaParamName, fract->at(i)->Get<int>("formula"));
+			}
+			// If no formula set at all (old files without [fractal_N]] section), default to mandelbulb
+			if (!fract->at(i)->IfExists(formulaParamName)
+					|| fract->at(i)->Get<int>(formulaParamName) == 0)
+			{
+				fract->at(i)->Set(formulaParamName, int(fractal::mandelbulb));
+			}
+		}
+	}
 }
 
 /**

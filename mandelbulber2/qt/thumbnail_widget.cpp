@@ -153,7 +153,6 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 	std::shared_ptr<const cFractalContainer> _fractal)
 {
 	isFullyRendered = false;
-	// qDebug() << "AssignParameters";
 	if (image)
 	{
 		params.reset(new cParameterContainer);
@@ -292,7 +291,6 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 
 void cThumbnailWidget::slotRender()
 {
-	// qDebug() << "slotRender";
 	if (image && params)
 	{
 		stopRequest = true;
