@@ -274,9 +274,16 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					if (numberOfFractalsToSkip == 0)
 					{
 						int seqIndex = node.hybridSequenceIndex;
+						const cHybridFractalSequences::sSequence *seq =
+							data->hybridFractalSequences.GetSequence(seqIndex);
+						if (!seq)
+						{
+							qDebug() << "CalculateDistanceFromObjectsTree()/fractal: Missing sequence!";
+							continue;
+						}
 						sDistanceOut nodeOut;
-						distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut,
-							node.internalObjectId, data->hybridFractalSequences.GetSequence(seqIndex));
+						distance = CalculateDistanceSimple(
+							params, nodeIn, pointTransformed, &nodeOut, node.internalObjectId, seq);
 						distance *= absNodeScale;
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
@@ -323,17 +330,20 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 				}
 				case enumNodeType::hybrid:
 				{
-					// hybrid fractal sequence
 					int seqIndex = node.hybridSequenceIndex;
+					const cHybridFractalSequences::sSequence *seq =
+						data->hybridFractalSequences.GetSequence(seqIndex);
+					if (!seq)
+					{
+						qDebug() << "CalculateDistanceFromObjectsTree()/hybrid: Missing sequence!";
+						continue;
+					}
 					sDistanceOut nodeOut;
-					distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut, -1,
-						data->hybridFractalSequences.GetSequence(seqIndex));
+					distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut, -1, seq);
 					distance *= absNodeScale;
-					// skip next fractals because they are part of this hybrid sequence
-					numberOfFractalsToSkip =
-						data->hybridFractalSequences.GetSequence(seqIndex)->numberOfFractalsInTheSequence;
+					numberOfFractalsToSkip = seq->numberOfFractalsInTheSequence;
 					sequenceIndex = seqIndex;
-					objectId = data->hybridFractalSequences.GetSequence(seqIndex)->internalObjectId;
+					objectId = seq->internalObjectId;
 					leafIters = nodeOut.iters;
 					if (objectId >= 0)
 					{

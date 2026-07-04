@@ -859,6 +859,11 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
 
+	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
+	sRenderData renderData;
+	renderData.nodesDataForRendering = nodes;
+	renderData.hybridFractalSequences = fractals;
+
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
 	openClEnabled = par->Get<bool>("opencl_enabled") && parFractal->isUsedCustomFormula();
@@ -900,7 +905,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 	else
 	{
-		dist = CalculateDistance(*params, fractals, in, &out);
+		dist = CalculateDistance(*params, fractals, in, &out, &renderData);
 	}
 
 #ifdef USE_OPENCL
@@ -1007,6 +1012,11 @@ void cInterface::ResetView(QWidget *navigationWidget,
 	cHybridFractalSequences fractals;
 	fractals.CreateSequences(parTemp, parFractalContainer, nodes);
 
+	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
+	sRenderData renderData;
+	renderData.nodesDataForRendering = nodes;
+	renderData.hybridFractalSequences = fractals;
+
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
 	openClEnabled =
@@ -1065,7 +1075,7 @@ void cInterface::ResetView(QWidget *navigationWidget,
 			}
 			else
 			{
-				dist = CalculateDistance(*params, fractals, in, &out);
+				dist = CalculateDistance(*params, fractals, in, &out, &renderData);
 			}
 			if (dist < 0.1)
 			{
