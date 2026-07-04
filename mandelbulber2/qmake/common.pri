@@ -8,6 +8,9 @@ unix:!macx:CONFIG += c++14
 macx:!m1:CONFIG += c++14
 macx:m1:CONFIG += c++17
 
+# Prevent std::byte from conflicting with Windows SDK byte type
+win32:DEFINES += _HAS_STD_BYTE=0
+
 m1: {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 }
