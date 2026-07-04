@@ -1711,15 +1711,14 @@ void cSettings::Compatibility2(
 		for (int i = 0; i < fract->size(); i++)
 		{
 			QString formulaParamName = QString("formula_%1").arg(i + 1);
-			if (fract->at(i)->IfExists("formula") && !fract->at(i)->IfExists(formulaParamName))
+			if (!fract->at(i)->IfExists(formulaParamName))
+			{
+				fract->at(i)->addParam(
+					formulaParamName, int(fractal::mandelbulb), morphNone, paramStandard);
+			}
+			if (fract->at(i)->IfExists("formula") && !fract->at(i)->isDefaultValue("formula"))
 			{
 				fract->at(i)->Set(formulaParamName, fract->at(i)->Get<int>("formula"));
-			}
-			// If no formula set at all (old files without [fractal_N]] section), default to mandelbulb
-			if (!fract->at(i)->IfExists(formulaParamName)
-					|| fract->at(i)->Get<int>(formulaParamName) == 0)
-			{
-				fract->at(i)->Set(formulaParamName, int(fractal::mandelbulb));
 			}
 		}
 	}
@@ -2145,6 +2144,12 @@ bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 	bool conversionOK = false;
 	int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
 	QString baseParam = rawName.left(lastUnderscore);
+
+	// Ensure the target fractal container exists before checking the base parameter
+	if (conversionOK && fractalIndex >= 0)
+	{
+		fractPar->ensureCapacity(fractalIndex);
+	}
 
 	// Check if the legacy param does not exist in the top-level container
 	// and the base param exists in the target fractal container
