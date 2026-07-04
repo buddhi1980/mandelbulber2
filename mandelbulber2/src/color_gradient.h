@@ -67,7 +67,7 @@ public:
 	QVector<sRGB> GetGradient(int length, bool smooth);
 	QString GetColorsAsString();
 	void SetColorsFromString(const QString &string);
-	void SortGradient();
+	void SortGradient() const;
 	int GetNumberOfColors() { return colors.size(); }
 	void DeleteAll();
 	void DeleteAndKeepTwo();
@@ -80,9 +80,9 @@ private:
 	sRGB MakeGrayscaleIfNeeded(sRGB color);
 
 	QList<sColor> colors;
-	QList<sColor> sortedColors;
+	mutable QList<sColor> sortedColors;
 	bool grayscale;
-	bool sorted;
+	mutable bool sorted;
 };
 
 #endif /* MANDELBULBER2_SRC_COLOR_GRADIENT_H_ */
