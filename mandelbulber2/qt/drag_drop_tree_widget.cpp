@@ -79,7 +79,11 @@ void cDragDropTreeWidget::dragMoveEvent(QDragMoveEvent *event)
 {
 	if (event->mimeData()->hasFormat(kDragDropMimeFormat) && m_dragActive)
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		QPoint pos = event->position().toPoint();
+#else
+		QPoint pos = event->pos();
+#endif
 		QTreeWidgetItem *targetItem = itemAt(pos);
 		if (!targetItem)
 		{
@@ -116,7 +120,11 @@ void cDragDropTreeWidget::dropEvent(QDropEvent *event)
 {
 	if (event->mimeData()->hasFormat(kDragDropMimeFormat) && m_dragActive)
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		QPoint pos = event->position().toPoint();
+#else
+		QPoint pos = event->pos();
+#endif
 		QTreeWidgetItem *targetItem = itemAt(pos);
 		if (targetItem)
 		{
