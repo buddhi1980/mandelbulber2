@@ -1209,10 +1209,10 @@ void cOpenClDynamicData::BuildNebulaSequenceData(const cHybridFractalSequences *
 		seqCl.bailout =
 			static_cast<cl_float>(seq->fractData.size() > 0 ? seq->fractData[0].bailout : 0.0);
 		seqCl.juliaEnabled = seq->juliaEnabled ? 1 : 0;
-		seqCl.juliaConstant = (cl_float4){static_cast<cl_float>(seq->juliaConstant.x),
+		seqCl.juliaConstant = cl_float4{static_cast<cl_float>(seq->juliaConstant.x),
 			static_cast<cl_float>(seq->juliaConstant.y), static_cast<cl_float>(seq->juliaConstant.z),
 			0.0f};
-		seqCl.constantMultiplier = (cl_float4){static_cast<cl_float>(seq->constantMultiplier.x),
+		seqCl.constantMultiplier = cl_float4{static_cast<cl_float>(seq->constantMultiplier.x),
 			static_cast<cl_float>(seq->constantMultiplier.y),
 			static_cast<cl_float>(seq->constantMultiplier.z), 0.0f};
 		seqCl.initialWAxis = static_cast<cl_float>(seq->initialWAxis);
