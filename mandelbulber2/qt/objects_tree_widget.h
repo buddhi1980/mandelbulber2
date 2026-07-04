@@ -57,6 +57,7 @@ private:
 		static constexpr int name = 1;		 // display name string
 		static constexpr int type = 2;		 // type string + QLabel
 		static constexpr int material = 3; // miniature cMaterialWidget thumbnail
+		static constexpr int enable = 4;	 // QCheckBox for node enable/disable
 	};
 
 	// Column indices for setData() / data(col, Qt::UserRole)
@@ -77,6 +78,7 @@ private:
 	QIcon getIconForNode(enumNodeType type, const QString &primTypeName = QString());
 	void attachMaterialWidget(
 		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
+	void attachEnableCheckbox(QTreeWidgetItem *item, int nodeId, bool checked);
 	int findNextAvailableNodeId() const;
 	int findNextAvailableFractalObjectId() const;
 	int findNextAvailablePrimitiveObjectId() const;
@@ -136,6 +138,8 @@ private:
 		-1; // index into gParFractal for the currently edited fractal (-1 if none)
 
 	QList<QPair<QWidget *, std::shared_ptr<cParameterContainer>>> editorSyncTargets;
+
+	QHash<QObject *, int> checkboxToNodeId; // maps QCheckBox* -> nodeId for enable column
 
 	enum DropPosition
 	{

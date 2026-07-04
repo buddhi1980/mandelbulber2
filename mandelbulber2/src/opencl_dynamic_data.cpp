@@ -1007,6 +1007,7 @@ void cOpenClDynamicData::BuildNodesData(
 		nodeCl.material = node.material;
 		nodeCl.rotationMatrix = toClMatrix33(node.rotationMatrix);
 		nodeCl.inverseTransformMatrix = toClMatrix44(node.inverseTransformMatrix);
+		nodeCl.enabled = node.enabled ? 1 : 0;
 		nodeCl.detailLevelMultiplier =
 			static_cast<cl_float>(static_cast<float>(node.detailLevelMultiplier));
 

@@ -2138,6 +2138,7 @@ void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(prefix + "scale", 1.0, morphNone, paramStandard);
 	par->addParam(prefix + "repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam(prefix + "material", 1, morphNone, paramStandard);
+	par->addParam(prefix + "enabled", true, morphNone, paramStandard);
 	par->addParam(prefix + "detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 }
 

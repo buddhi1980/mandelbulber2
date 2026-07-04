@@ -463,6 +463,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	for (int i = 0; i < nodeCount; ++i)
 	{
 		__global sNodeDataForRenderingCl *node = &nodesData[i];
+		if (node->enabled == 0)
+		{
+			continue;
+		}
 		float distance = 1e20f;
 		int objectId = -1;
 		int sequenceIndex = -1;

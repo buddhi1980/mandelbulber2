@@ -222,6 +222,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 		for (int i = 0; i < nodeCount; ++i)
 		{
 			const auto &node = nodes[i];
+			if (!node.enabled)
+			{
+				continue;
+			}
 			double distance = 1e20;
 			int objectId = -1;
 			int sequenceIndex = -1;

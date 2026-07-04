@@ -67,6 +67,7 @@ typedef struct
 	cl_int material;
 	matrix33 rotationMatrix;
 	matrix44 inverseTransformMatrix;
+	cl_int enabled;
 	cl_float detailLevelMultiplier;
 } sNodeDataForRenderingCl;
 

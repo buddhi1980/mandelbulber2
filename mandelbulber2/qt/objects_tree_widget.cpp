@@ -12,6 +12,7 @@
 #include <QSet>
 #include <QStack>
 #include <QComboBox>
+#include <QCheckBox>
 #include <QInputDialog>
 #include <QList>
 #include <QDialog>
@@ -492,8 +493,8 @@ void cObjectsTreeWidget::UpdateTree(
 	worldItem->setData(treeData::nodeId, Qt::UserRole, 0); // nodeId 0 = World sentinel
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
-	ui->treeWidget_objects->setColumnCount(4);
-	ui->treeWidget_objects->setHeaderLabels({"Icon", "Name", "Type", "Material"});
+	ui->treeWidget_objects->setColumnCount(5);
+	ui->treeWidget_objects->setHeaderLabels({"Icon", "Name", "Type", "Material", "Enable"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
@@ -624,9 +625,11 @@ void cObjectsTreeWidget::UpdateTree(
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::name, QHeaderView::Stretch);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::type, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::material, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::enable, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::icon, iconColWidth);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::type, miniSize * 3);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::material, miniSize);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::enable, miniSize);
 	QString style = QString("QTreeWidget::item { height: %1px; }").arg(rowHeight);
 	ui->treeWidget_objects->setStyleSheet(style);
 	ui->treeWidget_objects->setIconSize(QSize(miniSize, miniSize));
@@ -636,6 +639,9 @@ void cObjectsTreeWidget::UpdateTree(
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
 		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(currentType));
 		attachMaterialWidget(item, nodeId, params);
+		QString enabledParam = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
+		bool isChecked = params->Get<bool>(enabledParam);
+		attachEnableCheckbox(item, nodeId, isChecked);
 	}
 
 	if (lastSelectedNodeId > 0 && nodeItems.contains(lastSelectedNodeId))
@@ -648,6 +654,7 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 	Q_UNUSED(column)
 	// Column edits are no longer handled here; position/rotation/scale/repeat have
 	// been replaced by the material thumbnail column which is not user-editable.
+	// Enable checkbox changes are handled by the lambda in attachEnableCheckbox.
 }
 
 // Writes the current tree structure back into 'params', removing any node parameters
@@ -703,6 +710,16 @@ void cObjectsTreeWidget::StoreTreeToParams(
 				.arg(parentId)
 				.arg(objectId)
 				.arg(displayOrder));
+
+		QWidget *enableWidget = ui->treeWidget_objects->itemWidget(item, treeCol::enable);
+		if (enableWidget)
+		{
+			QCheckBox *check = qobject_cast<QCheckBox *>(enableWidget);
+			if (check)
+			{
+				addOrSetParam(params, prefix + "_enabled", check->isChecked());
+			}
+		}
 		displayOrder++;
 	}
 }
@@ -725,6 +742,30 @@ void cObjectsTreeWidget::attachMaterialWidget(
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
 	matWidget->AssignMaterial(params, materialId, nullptr);
 	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
+}
+
+void cObjectsTreeWidget::attachEnableCheckbox(QTreeWidgetItem *item, int nodeId, bool checked)
+{
+	QWidget *centerWidget = new QWidget();
+	QHBoxLayout *layout = new QHBoxLayout(centerWidget);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setAlignment(Qt::AlignCenter);
+
+	QCheckBox *check = new QCheckBox();
+	check->setChecked(checked);
+	check->setObjectName(QString("enable_checkbox_%1").arg(nodeId));
+	check->setStyleSheet(
+		"QCheckBox { spacing: 0px; } QCheckBox::indicator { width: 16px; height: 16px; }");
+	layout->addWidget(check);
+
+	ui->treeWidget_objects->setItemWidget(item, treeCol::enable, centerWidget);
+	checkboxToNodeId[check] = nodeId;
+	connect(check, &QCheckBox::stateChanged, this,
+		[this, nodeId](int state)
+		{
+			QString paramName = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
+			gPar->Set(paramName, state == Qt::Checked);
+		});
 }
 
 void cObjectsTreeWidget::slotAddGroup()

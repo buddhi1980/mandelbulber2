@@ -58,6 +58,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.repeat = params->Get<CVector3>("node" + suffix + "_repeat");
 				nodeData.scale = params->Get<double>("node" + suffix + "_scale");
 				nodeData.material = params->Get<int>("node" + suffix + "_material");
+				nodeData.enabled = params->Get<bool>("node" + suffix + "_enabled");
 				nodeData.detailLevelMultiplier =
 					params->Get<double>("node" + suffix + "_detail_level_multiplier");
 
@@ -172,15 +173,63 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 	// Track whether a node is a hybrid or descends from one
 	QHash<int, bool> isHybridOrInsideHybrid;
 
+	// Build a parent-to-children adjacency map for enable propagation
+	QHash<int, QList<int>> childrenByParent;
+	for (const sNodeData &node : nodeDataMap)
+	{
+		if (node.parentId != 0)
+		{
+			childrenByParent[node.parentId].append(node.id);
+		}
+	}
+
+	// Compute effective enabled state for each node (propagated from ancestors)
+	QHash<int, bool> effectiveEnabled;
+	QStack<QPair<int, bool>> enableStack; // (nodeId, parentEffectiveEnabled)
+	// Start with root nodes (parentId == 0) as enabled
+	for (const sNodeData &node : nodeDataMap)
+	{
+		if (node.parentId == 0)
+		{
+			enableStack.push(qMakePair(node.id, true));
+		}
+	}
+	while (!enableStack.isEmpty())
+	{
+		auto pair = enableStack.pop();
+		int nodeId = pair.first;
+		bool parentEnabled = pair.second;
+		auto nodeIt = nodeDataMap.find(nodeId);
+		if (nodeIt == nodeDataMap.end()) continue;
+		bool nodeEnabled = nodeIt->enabled;
+		bool effective = parentEnabled && nodeEnabled;
+		effectiveEnabled[nodeId] = effective;
+		// Push children
+		if (childrenByParent.contains(nodeId))
+		{
+			for (int childId : childrenByParent[nodeId])
+			{
+				enableStack.push(qMakePair(childId, effective));
+			}
+		}
+	}
+
 	std::vector<sNodeDataForRendering> nodeDataList;
 	for (const sNodeData &nodeData : nodeList)
 	{
+		// Skip disabled nodes (and their children are already skipped by effectiveEnabled)
+		if (!effectiveEnabled.value(nodeData.id, true))
+		{
+			continue;
+		}
+
 		sNodeDataForRendering nodeDataForRendering;
 		nodeDataForRendering.id = nodeData.id;
 		nodeDataForRendering.name = nodeData.name;
 		nodeDataForRendering.type = nodeData.type;
 		nodeDataForRendering.parentId = nodeData.parentId;
 		nodeDataForRendering.userObjectId = nodeData.objectId;
+		nodeDataForRendering.enabled = nodeData.enabled;
 		nodeDataForRendering.level = nodeData.level;
 		nodeDataForRendering.internalObjectId = -1;
 		nodeDataForRendering.primitiveIdx = -1;

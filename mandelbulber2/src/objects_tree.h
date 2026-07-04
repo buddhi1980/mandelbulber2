@@ -35,6 +35,7 @@ public:
 		CVector3 repeat;
 		double scale;
 		int material;
+		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
 	};
 
@@ -57,6 +58,7 @@ public:
 		int material;
 		CRotationMatrix rotationMatrix;
 		CMatrix44 inverseTransformMatrix;
+		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
 	};
 
