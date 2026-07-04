@@ -11,6 +11,9 @@ macx:m1:CONFIG += c++17
 # Prevent std::byte from conflicting with Windows SDK byte type
 win32:DEFINES += _HAS_STD_BYTE=0
 
+# Prevent UCRT from redefining math constants that Qt already defines (M_PI, M_SQRT2, etc.)
+win32:DEFINES += _USE_MATH_DEFINES
+
 m1: {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 }
