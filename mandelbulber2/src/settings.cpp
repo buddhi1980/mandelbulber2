@@ -2620,12 +2620,20 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 
 		int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
+		// For old file formats (pre v2.35), object_id parameter may not exist.
+		// In that case, treat it as default and process here.
+		if (!par->IfExists(primitive.Name("object_id")))
+		{
+			primitiveObjectId = DefaultPrimitiveObjectId;
+		}
 		if (primitiveObjectId != DefaultPrimitiveObjectId)
 		{
 			continue;
 		}
 
-		// Find the node whose definition stores this primitive's object_id
+		// Find the node whose definition stores this primitive's object_id.
+		// Only match primitive-type nodes (parts[2] == enumNodeType::primitive == 2)
+		// to avoid matching boolean/group nodes that may share the same object_id (1234).
 		QStringList allParams = par->GetListOfParameters();
 		QString targetNodePrefix;
 		for (const QString &paramName : allParams)
@@ -2635,7 +2643,8 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				continue;
 			}
 			QStringList parts = par->Get<QString>(paramName).split(',');
-			if (parts.size() == 5 && parts[4].trimmed().toInt() == primitiveObjectId)
+			if (parts.size() >= 5 && parts[4].trimmed().toInt() == primitiveObjectId
+					&& parts[2].trimmed().toInt() == 2)
 			{
 				targetNodePrefix = paramName.left(paramName.lastIndexOf('_')) + '_';
 				break;
