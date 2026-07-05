@@ -67,6 +67,7 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 		}
 	}
 }
+
 std::vector<cObjectsTree::sNodeData> cObjectsTree::GetSortedNodeDataList() const
 {
 	// Make a local copy of the node data map to update levels without modifying the original

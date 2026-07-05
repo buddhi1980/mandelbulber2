@@ -1016,7 +1016,11 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 	editorSyncTargets.clear();
 	editorSyncTargets.append({fractalTab, gParFractal->at(fractalIndex)});
 
-	if (!isFractalInHybridGroup(item))
+	if (isFractalInHybridGroup(item))
+	{
+		fractalTab->FrameIterationFormulaSetWidgetsVisibility(true);
+	}
+	else
 	{
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		layout->addWidget(generalParams);
