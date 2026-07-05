@@ -102,6 +102,7 @@ private:
 	QWidget *buildFractalEditor(int objectId, QTreeWidgetItem *item);
 	QWidget *buildPrimitiveEditor(QTreeWidgetItem *item, int objectId);
 	QWidget *buildGeneralObjectParametersEditor(QTreeWidgetItem *item);
+	void hideRepeatFieldsForBooleanGroups(QWidget *widget, int nodeType);
 
 	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
 	// immediately after the first '_', so that SynchronizeInterfaceWindow can map the

@@ -1133,7 +1133,23 @@ QWidget *cObjectsTreeWidget::buildGeneralObjectParametersEditor(QTreeWidgetItem 
 		}
 	}
 
+	hideRepeatFieldsForBooleanGroups(generalParams, getNodeType(item));
+
 	return generalParams;
+}
+
+void cObjectsTreeWidget::hideRepeatFieldsForBooleanGroups(QWidget *widget, int nodeType)
+{
+	enumNodeType type = enumNodeType(nodeType);
+	if (type != enumNodeType::booleanAdd && type != enumNodeType::booleanMul
+			&& type != enumNodeType::booleanSub)
+		return;
+
+	for (QWidget *child : widget->findChildren<QWidget *>())
+	{
+		QString name = child->objectName();
+		if (name.contains("repeat", Qt::CaseInsensitive)) child->setVisible(false);
+	}
 }
 
 // Responds to the user selecting a different item in the object tree.
