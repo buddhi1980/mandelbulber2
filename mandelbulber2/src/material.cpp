@@ -34,6 +34,7 @@
 
 #include "material.h"
 
+#include "initparameters.hpp"
 #include "netrender.hpp"
 #include "parameters.hpp"
 #include "texture_enums.hpp"
@@ -730,6 +731,24 @@ void CreateMaterialsVector(const std::shared_ptr<cParameterContainer> params,
 		}
 	}
 
+	// Ensure material 1 is always defined (default fractal material)
+	bool mat1IsDefined = false;
+	for (auto const &parameterName : listOfParameters)
+	{
+		if (parameterName.left(8) == "mat1_is_")
+		{
+			mat1IsDefined = true;
+			break;
+		}
+	}
+	if (maxIndex >= 1 && !mat1IsDefined)
+	{
+		InitMaterialParams(1, params);
+		params->Set("mat1_is_defined", true);
+		// Refresh the parameter list to include newly added mat1_* parameters
+		listOfParameters = params->GetListOfParameters();
+	}
+
 	// Resize to hold all indices; gaps are filled with default-constructed cMaterial
 	materials->resize(maxIndex + 1);
 
@@ -742,8 +761,7 @@ void CreateMaterialsVector(const std::shared_ptr<cParameterContainer> params,
 			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
 			if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
-				(*materials)[matIndex] =
-					cMaterial(matIndex, params, loadTextures, quiet, useNetRender);
+				(*materials)[matIndex] = cMaterial(matIndex, params, loadTextures, quiet, useNetRender);
 			}
 		}
 	}
