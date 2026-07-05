@@ -47,7 +47,8 @@ sRGBFloat cRenderWorker::TextureShader(
 	cObjectData objectData = data->objectData[input.objectId];
 	double texturePixelSize = 0.0;
 	CVector3 textureVectorX, textureVectorY;
-	const CVector3 shaderPoint = input.GetFractalPoint();
+	// const CVector3 shaderPoint = input.GetFractalPoint();
+	const CVector3 shaderPoint = input.point;
 
 	CVector3 pointModified;
 

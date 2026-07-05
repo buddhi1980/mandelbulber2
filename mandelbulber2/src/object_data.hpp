@@ -61,8 +61,10 @@ public:
 	double wallThickness;
 	int materialId;
 	fractal::enumObjectType objectType;
+	CMatrix44 inverseTransformMatrix;
 	CVector3 size;
 	CRotationMatrix rotationMatrix;
+	CVector3 repeat;
 	double detailLevelMultiplier;
 };
 

@@ -41,7 +41,7 @@ float RoughnessTexture(sShaderInputDataCl *input, sRenderData *renderData,
 	{
 		float3 textureVectorX = 0.0f;
 		float3 textureVectorY = 0.0f;
-		float3 shaderPoint = GetFractalPoint(input);
+		float3 shaderPoint = input->point;
 		float2 texturePoint = TextureMapping(
 			shaderPoint, input->normal, objectData, input->material, &textureVectorX, &textureVectorY);
 

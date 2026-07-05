@@ -262,9 +262,9 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		int effectiveMaterial =
 			(parentTransform.material != -1) ? parentTransform.material : nodeData.material;
 
-		// Repeat: inherit parent repeat if own repeat is zero vector, otherwise use own
-		CVector3 worldRepeat =
-			(nodeData.repeat.Length() > 0.0) ? nodeData.repeat : parentTransform.repeat;
+		// Repeat: each leaf has its own repeat (no inheritance).
+		// Repeat is applied in local space during distance calculation.
+		CVector3 leafRepeat = nodeData.repeat;
 
 		// Store accumulated transform for children to inherit
 		AccumulatedTransform myTransform;
@@ -272,7 +272,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		myTransform.rotation = worldRotation;
 		myTransform.scale = worldScale;
 		myTransform.material = effectiveMaterial;
-		myTransform.repeat = worldRepeat;
+		myTransform.repeat = leafRepeat;
 		accumulatedTransforms[nodeData.id] = myTransform;
 
 		nodeDataForRendering.position = worldPosition;
@@ -280,7 +280,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.rotationMatrix.SetRotation2(worldRotation * (M_PI / 180.0));
 		nodeDataForRendering.scale = worldScale;
 		nodeDataForRendering.material = effectiveMaterial;
-		nodeDataForRendering.repeat = worldRepeat;
+		nodeDataForRendering.repeat = leafRepeat;
 		nodeDataForRendering.detailLevelMultiplier = nodeData.detailLevelMultiplier;
 
 		// Pre-calculate the inverse transform matrix (world → local space) that combines

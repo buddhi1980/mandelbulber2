@@ -47,7 +47,7 @@ float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParam
 		float3 textureVectorX = 0.0f;
 		float3 textureVectorY = 0.0f;
 
-		float3 shaderPoint = GetFractalPoint(input);
+		float3 shaderPoint = input->point;
 		float3 pointModified = shaderPoint;
 
 #ifdef FRACTALIZE_TEXTURE

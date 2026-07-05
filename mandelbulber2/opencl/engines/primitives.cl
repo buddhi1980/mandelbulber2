@@ -49,7 +49,6 @@ float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.box.repeat);
 
 	float boxDist = -1e6f;
 	if (primitive->data.box.empty)
@@ -85,7 +84,6 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.sphere.repeat);
 	float dist = length(point) - primitive->data.sphere.radius;
 	dist = primitive->data.sphere.empty ? fabs(dist) : dist;
 	dist = max(dist - primitive->object.wallThickness, 0.0f);
@@ -117,7 +115,6 @@ float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.cylinder.repeat);
 	float2 cylTemp = (float2){point.x, point.y};
 	float dist = length(cylTemp) - primitive->data.cylinder.radius;
 	if (!primitive->data.cylinder.caps) dist = fabs(dist);
@@ -151,7 +148,6 @@ float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.cone.repeat);
 	point.z -= primitive->data.cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
 	float2 vect = (float2){q, point.z};
@@ -245,7 +241,6 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.torus.repeat);
 
 	float2 pointXY = (float2){point.x, point.y};
 	float d1 =
@@ -272,7 +267,6 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.prism.repeat);
 
 	float3 q = fabs(point);
 
@@ -292,7 +286,6 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point;
-	point = modRepeat(point, primitive->data.ellipsoid.repeat);
 
 	float k0 = length(point / primitive->object.size);
 	float k1 = length(point / (primitive->object.size * primitive->object.size));

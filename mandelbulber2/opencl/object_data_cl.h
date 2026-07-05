@@ -55,6 +55,7 @@ typedef struct
 	cl_float3 size;
 	cl_float3 repeat;
 	matrix33 rotationMatrix;
+	matrix44 inverseTransformMatrix;
 	cl_float detailLevelMultiplier;
 } sObjectDataCl;
 

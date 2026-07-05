@@ -661,7 +661,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					{
 						primitiveCl.data.box.empty = box->empty;
 						primitiveCl.data.box.rounding = box->rounding;
-						primitiveCl.data.box.repeat = toClFloat3(box->repeat);
 						primitiveCl.data.box.limitsEnable = box->limitsEnable;
 						primitiveCl.data.box.limitsMax = toClFloat3(box->limitsMax);
 						primitiveCl.data.box.limitsMin = toClFloat3(box->limitsMin);
@@ -679,7 +678,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					{
 						primitiveCl.data.sphere.empty = sphere->empty;
 						primitiveCl.data.sphere.radius = sphere->radius;
-						primitiveCl.data.sphere.repeat = toClFloat3(sphere->repeat);
 						primitiveCl.data.sphere.limitsEnable = sphere->limitsEnable;
 						primitiveCl.data.sphere.limitsMax = toClFloat3(sphere->limitsMax);
 						primitiveCl.data.sphere.limitsMin = toClFloat3(sphere->limitsMin);
@@ -725,7 +723,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.cone.radius = cone->radius;
 						primitiveCl.data.cone.height = cone->height;
 						primitiveCl.data.cone.wallNormal = toClFloat2(cone->wallNormal);
-						primitiveCl.data.cone.repeat = toClFloat3(cone->repeat);
 						primitiveCl.data.cone.limitsEnable = cone->limitsEnable;
 						primitiveCl.data.cone.limitsMax = toClFloat3(cone->limitsMax);
 						primitiveCl.data.cone.limitsMin = toClFloat3(cone->limitsMin);
@@ -746,7 +743,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.cylinder.caps = cylinder->caps;
 						primitiveCl.data.cylinder.radius = cylinder->radius;
 						primitiveCl.data.cylinder.height = cylinder->height;
-						primitiveCl.data.cylinder.repeat = toClFloat3(cylinder->repeat);
 						primitiveCl.data.cylinder.limitsEnable = cylinder->limitsEnable;
 						primitiveCl.data.cylinder.limitsMax = toClFloat3(cylinder->limitsMax);
 						primitiveCl.data.cylinder.limitsMin = toClFloat3(cylinder->limitsMin);
@@ -767,7 +763,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.torus.radiusLPow = torus->radiusLPow;
 						primitiveCl.data.torus.tubeRadius = torus->tubeRadius;
 						primitiveCl.data.torus.tubeRadiusLPow = torus->tubeRadiusLPow;
-						primitiveCl.data.torus.repeat = toClFloat3(torus->repeat);
 						primitiveCl.data.torus.limitsEnable = torus->limitsEnable;
 						primitiveCl.data.torus.limitsMax = toClFloat3(torus->limitsMax);
 						primitiveCl.data.torus.limitsMin = toClFloat3(torus->limitsMin);
@@ -832,7 +827,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					if (ellipsoid)
 					{
 						primitiveCl.data.ellipsoid.empty = ellipsoid->empty;
-						primitiveCl.data.ellipsoid.repeat = toClFloat3(ellipsoid->repeat);
 						primitiveCl.data.ellipsoid.limitsEnable = ellipsoid->limitsEnable;
 						primitiveCl.data.ellipsoid.limitsMax = toClFloat3(ellipsoid->limitsMax);
 						primitiveCl.data.ellipsoid.limitsMin = toClFloat3(ellipsoid->limitsMin);
@@ -941,6 +935,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		objectCl.size = toClFloat3(object->size);
 		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+		objectCl.inverseTransformMatrix = toClMatrix44(object->inverseTransformMatrix);
 		objectCl.detailLevelMultiplier = static_cast<cl_float>(object->detailLevelMultiplier);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));

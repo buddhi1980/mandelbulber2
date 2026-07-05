@@ -41,11 +41,15 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 	float3 point = inPoint;
 	if (!material->textureFractalize)
 	{
+	// Transform to object local space (same as calculate_distance)
+		point = Matrix44TransformPoint(objectData->inverseTransformMatrix, point);
+		// Apply repeat in local space
+		point = modRepeat(point, objectData->repeat);
 		point /= objectData->size;
 	}
 
 	point = Matrix33MulFloat3(material->rotMatrixTexture, point);
-	normalVector = Matrix33MulFloat3(objectData->rotationMatrix, normalVector);
+	normalVector = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), normalVector);
 
 	switch (material->textureMappingType)
 	{

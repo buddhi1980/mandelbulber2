@@ -472,11 +472,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		int sequenceIndex = -1;
 		int leafIters = 0;
 
-		// Apply repeat modulation first (in world space)
-		float3 pointWithRepeat = modRepeat(point, node->repeat);
+		// Apply combined inverse transform (world -> local space)
+		float3 pointLocal = Matrix44TransformPoint(node->inverseTransformMatrix, point);
 
-		// Apply combined inverse transform (translate + rotate + scale)
-		float3 pointTransformed = Matrix44TransformPoint(node->inverseTransformMatrix, pointWithRepeat);
+		// Apply repeat in LOCAL space (leaf only)
+		float3 pointWithRepeat = modRepeat(pointLocal, node->repeat);
+
+		float3 pointTransformed = pointWithRepeat;
 
 		const float absNodeScale = node->absScale;
 		const float detailMult = node->detailLevelMultiplier;
@@ -544,13 +546,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #ifdef USE_DISPLACEMENT_TEXTURE
 				if (objectId >= 0)
 				{
-					distance = DisplacementMap(distance, pointTransformed, objectId, renderData, 1.0f);
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
 				}
 #endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 				if (objectId >= 0)
 				{
-					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
 				}
 #endif
 				break;
@@ -570,13 +572,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #ifdef USE_DISPLACEMENT_TEXTURE
 				if (objectId >= 0)
 				{
-					distance = DisplacementMap(distance, pointTransformed, objectId, renderData, 1.0f);
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
 				}
 #endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 				if (objectId >= 0)
 				{
-					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
 				}
 #endif
 				break;
@@ -601,13 +603,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #ifdef USE_DISPLACEMENT_TEXTURE
 				if (objectId >= 0)
 				{
-					distance = DisplacementMap(distance, pointTransformed, objectId, renderData, 1.0f);
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
 				}
 #endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 				if (objectId >= 0)
 				{
-					distance = PerlinNoiseDisplacement(distance, pointTransformed, renderData, objectId);
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
 				}
 #endif
 				break;

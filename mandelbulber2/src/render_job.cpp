@@ -451,6 +451,17 @@ bool cRenderJob::Execute()
 						{
 							renderData->objectData[node.internalObjectId].materialId = node.material;
 						}
+
+						// Copy inverse transform and repeat from node to objectData for texture mapping
+						if (node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].inverseTransformMatrix =
+							    node.inverseTransformMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix =
+							    node.rotationMatrix;
+							renderData->objectData[node.internalObjectId].repeat = node.repeat;
+						}
 					}
 				}
 
@@ -531,6 +542,17 @@ bool cRenderJob::Execute()
 								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
 						{
 							renderData->objectData[node.internalObjectId].materialId = node.material;
+						}
+
+						// Copy inverse transform and repeat from node to objectData for texture mapping
+						if (node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].inverseTransformMatrix =
+							    node.inverseTransformMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix =
+							    node.rotationMatrix;
+							renderData->objectData[node.internalObjectId].repeat = node.repeat;
 						}
 					}
 				}

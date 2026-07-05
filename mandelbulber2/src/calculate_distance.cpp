@@ -231,13 +231,15 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			int sequenceIndex = -1;
 			int leafIters = 0;
 
-			// Apply repeat modulation first (in world space)
-			CVector3 pointWithRepeat =
-				(node.repeat.Length() > 0.0) ? in.point.repeatMod(node.repeat) : in.point;
-
-			// Apply combined inverse transform (translate + rotate + scale)
+			// Apply combined inverse transform (world -> local space)
 			// using the pre-calculated 4×4 homogeneous matrix
-			CVector3 pointTransformed = node.inverseTransformMatrix.TransformPoint(pointWithRepeat);
+			CVector3 pointLocal = node.inverseTransformMatrix.TransformPoint(in.point);
+
+			// Apply repeat in LOCAL space (leaf only)
+			CVector3 pointWithRepeat =
+				(node.repeat.Length() > 0.0) ? pointLocal.repeatMod(node.repeat) : pointLocal;
+
+			CVector3 pointTransformed = pointWithRepeat;
 
 			const double absNodeScale = node.absScale;
 			const double detailMult = node.detailLevelMultiplier;
@@ -301,8 +303,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					}
 					if (objectId >= 0)
 					{
-						distance = DisplacementMap(distance, pointTransformed, objectId, data);
-						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+						distance = DisplacementMap(distance, in.point, objectId, data);
+						distance = PerlinNoiseDisplacement(distance, in.point, data, objectId);
 					}
 					break;
 				}
@@ -327,8 +329,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					}
 					if (objectId >= 0)
 					{
-						distance = DisplacementMap(distance, pointTransformed, objectId, data);
-						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+						distance = DisplacementMap(distance, in.point, objectId, data);
+						distance = PerlinNoiseDisplacement(distance, in.point, data, objectId);
 					}
 					break;
 				}
@@ -351,8 +353,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					leafIters = nodeOut.iters;
 					if (objectId >= 0)
 					{
-						distance = DisplacementMap(distance, pointTransformed, objectId, data);
-						distance = PerlinNoiseDisplacement(distance, pointTransformed, data, objectId);
+						distance = DisplacementMap(distance, in.point, objectId, data);
+						distance = PerlinNoiseDisplacement(distance, in.point, data, objectId);
 					}
 					break;
 				}
