@@ -96,7 +96,6 @@ sPrimitiveBox::sPrimitiveBox(
 {
 	empty = par->Get<bool>(fullName + "_empty");
 	rounding = par->Get<double>(fullName + "_rounding");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -135,7 +134,6 @@ sPrimitiveSphere::sPrimitiveSphere(
 {
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3(radius * 2.0, radius * 2.0, radius * 2.0);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -231,7 +229,6 @@ sPrimitiveCone::sPrimitiveCone(
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
 	height = par->Get<double>(fullName + "_height");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	wallNormal = CVector2<double>(1.0, radius / height);
 	wallNormal.Normalize();
 	size = CVector3(radius * 2.0, radius * 2.0, height);
@@ -270,7 +267,6 @@ sPrimitiveCylinder::sPrimitiveCylinder(
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
 	height = par->Get<double>(fullName + "_height");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3(radius * 2.0, radius * 2.0, height);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -314,7 +310,6 @@ sPrimitiveTorus::sPrimitiveTorus(
 	radiusLPow = par->Get<double>(fullName + "_radius_lpow");
 	tubeRadius = par->Get<double>(fullName + "_tube_radius");
 	tubeRadiusLPow = par->Get<double>(fullName + "_tube_radius_lpow");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3((radius + tubeRadius) * 2.0, (radius + tubeRadius) * 2.0, tubeRadius);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -426,7 +421,6 @@ sPrimitiveEllipsoid::sPrimitiveEllipsoid(
 		: sPrimitiveBasic(fullName, par)
 {
 	empty = par->Get<bool>(fullName + "_empty");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");

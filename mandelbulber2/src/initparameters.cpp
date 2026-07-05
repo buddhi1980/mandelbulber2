@@ -1991,7 +1991,6 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 {
 	par->DeleteParameter(QString(primitiveName) + "_position");
 	par->DeleteParameter(QString(primitiveName) + "_rotation");
-	par->DeleteParameter(QString(primitiveName) + "_repeat");
 	par->DeleteParameter(QString(primitiveName) + "_color");
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");

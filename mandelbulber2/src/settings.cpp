@@ -2112,6 +2112,10 @@ void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 		name = QString("primitive_%1_%2_scale").arg(type).arg(primitiveIndex);
 		if (!par->IfExists(name))
 			par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+		// Inject repeat param with default zero vector (legacy transform param)
+		name = QString("primitive_%1_%2_repeat").arg(type).arg(primitiveIndex);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	}
 }
 
@@ -2347,6 +2351,19 @@ static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const
 		par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
 }
 
+static void CopyPrimitiveTransform(
+	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
+{
+	if (par->IfExists(primitiveFullName + "_position"))
+		par->Set(prefix + "position", par->Get<CVector3>(primitiveFullName + "_position"));
+	if (par->IfExists(primitiveFullName + "_rotation"))
+		par->Set(prefix + "rotation", par->Get<CVector3>(primitiveFullName + "_rotation"));
+	if (par->IfExists(primitiveFullName + "_scale"))
+		par->Set(prefix + "scale", par->Get<CVector3>(primitiveFullName + "_scale"));
+	if (par->IfExists(primitiveFullName + "_repeat"))
+		par->Set(prefix + "repeat", par->Get<CVector3>(primitiveFullName + "_repeat"));
+}
+
 static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 {
 	QList<int> enabledFractals;
@@ -2514,8 +2531,14 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	std::sort(primitives.begin(), primitives.end(),
 		[&](const sPrimitiveItem &a, const sPrimitiveItem &b)
 		{
-			return par->Get<int>(a.fullName + "_calculation_order")
-						 < par->Get<int>(b.fullName + "_calculation_order");
+			const QString aOrderName = a.fullName + "_calculation_order";
+			const QString bOrderName = b.fullName + "_calculation_order";
+			const bool aExists = par->IfExists(aOrderName);
+			const bool bExists = par->IfExists(bOrderName);
+			if (!aExists && !bExists) return false;
+			if (!aExists) return true;
+			if (!bExists) return false;
+			return par->Get<int>(aOrderName) < par->Get<int>(bOrderName);
 		});
 
 	// Find the current root node (node with parent == 0) and the maximum node ID
@@ -2570,6 +2593,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 					par->Set(NodePrefix(primitiveNodeId) + "material", matId);
 				}
 			}
+			CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
 			rootNodeId = primitiveNodeId;
 			continue;
 		}
@@ -2602,75 +2626,13 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				par->Set(NodePrefix(primitiveNodeId) + "material", matId);
 			}
 		}
+		CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
 
 		rootNodeId = boolNodeId;
 	}
 
 	// Clean up temporary legacy boolean params after migration
 	DeleteTemporaryLegacyBooleanParams(par);
-
-	// Phase 2: migrate transforms for primitives that were skipped in phase 1
-	// (those with default object_id). Find the correct node for each primitive
-	// by matching the objectId field in the node definition.
-	for (const auto &primitive : primitives)
-	{
-		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
-		{
-			continue;
-		}
-
-		int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
-		// For old file formats (pre v2.35), object_id parameter may not exist.
-		// In that case, treat it as default and process here.
-		if (!par->IfExists(primitive.Name("object_id")))
-		{
-			primitiveObjectId = DefaultPrimitiveObjectId;
-		}
-		if (primitiveObjectId != DefaultPrimitiveObjectId)
-		{
-			continue;
-		}
-
-		// Find the node whose definition stores this primitive's object_id.
-		// Only match primitive-type nodes (parts[2] == enumNodeType::primitive == 2)
-		// to avoid matching boolean/group nodes that may share the same object_id (1234).
-		QStringList allParams = par->GetListOfParameters();
-		QString targetNodePrefix;
-		for (const QString &paramName : allParams)
-		{
-			if (!paramName.startsWith("node_") || !paramName.endsWith("_definition"))
-			{
-				continue;
-			}
-			QStringList parts = par->Get<QString>(paramName).split(',');
-			if (parts.size() >= 5 && parts[4].trimmed().toInt() == primitiveObjectId
-					&& parts[2].trimmed().toInt() == 2)
-			{
-				targetNodePrefix = paramName.left(paramName.lastIndexOf('_')) + '_';
-				break;
-			}
-		}
-
-		if (targetNodePrefix.isEmpty())
-		{
-			continue;
-		}
-
-		if (par->IfExists(primitive.Name("position"))
-				&& !par->isDefaultValue(primitive.Name("position")))
-		{
-			par->Set(targetNodePrefix + "position", par->Get<CVector3>(primitive.Name("position")));
-		}
-		if (par->IfExists(primitive.Name("rotation"))
-				&& !par->isDefaultValue(primitive.Name("rotation")))
-		{
-			par->Set(targetNodePrefix + "rotation", par->Get<CVector3>(primitive.Name("rotation")));
-		}
-		if (par->IfExists(primitive.Name("scale")) && !par->isDefaultValue(primitive.Name("scale")))
-		{
-			par->Set(targetNodePrefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
-		}
-	}
 }
 
 void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
@@ -2718,6 +2680,12 @@ void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
 			}
 			// Delete scale param
 			name = QString("primitive_%1_%2_scale").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete repeat param (legacy transform param)
+			name = QString("primitive_%1_%2_repeat").arg(type).arg(i);
 			if (par->IfExists(name))
 			{
 				par->DeleteParameter(name);
