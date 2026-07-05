@@ -48,12 +48,18 @@ struct sPrimitiveItem
 	int objectID;
 	QString fullName;
 	QString typeName;
+	bool objectIdInFile;
 
-	sPrimitiveItem() : type(fractal::objNone), id(0), objectID(0) {}
+	sPrimitiveItem() : type(fractal::objNone), id(0), objectID(0), objectIdInFile(false) {}
 
-	sPrimitiveItem(
-		fractal::enumObjectType _type, int _id, QString _fullName, QString _typeName, int _objectID = 0)
-			: type(_type), id(_id), objectID(_objectID), fullName(_fullName), typeName(_typeName)
+	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _fullName, QString _typeName,
+		int _objectID = 0, bool _objectIdInFile = false)
+			: type(_type),
+				id(_id),
+				objectID(_objectID),
+				fullName(_fullName),
+				typeName(_typeName),
+				objectIdInFile(_objectIdInFile)
 	{
 	}
 

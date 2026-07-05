@@ -466,13 +466,15 @@ QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(std::shared_ptr<cParamete
 
 				// read objectID from parameter
 				int objectID = 0;
+				bool objectIdInFile = false;
 				QString objectIDParamName = fullName + "_object_id";
 				if (params->IfExists(objectIDParamName))
 				{
 					objectID = params->Get<int>(objectIDParamName);
+					objectIdInFile = true;
 				}
 
-				sPrimitiveItem item(objectType, id, fullName, typeName, objectID);
+				sPrimitiveItem item(objectType, id, fullName, typeName, objectID, objectIdInFile);
 				list.append(item);
 			}
 		}

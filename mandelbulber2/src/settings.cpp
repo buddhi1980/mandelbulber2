@@ -2385,10 +2385,26 @@ static const int DefaultPrimitiveObjectId = 1234;
 void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
 {
+	// Scan raw settings text to find which primitives had object_id in the original file.
+	// This is needed because InitPrimitiveParams adds object_id=1234 during decode,
+	// so IfExists() would always return true.
+	QSet<QString> primitivesWithObjectIdInFile;
+	QRegularExpression re("primitive_(\\w+_(\\d+))_object_id");
+	QRegularExpressionMatchIterator regexIt(re.globalMatch(settingsText));
+	while (regexIt.hasNext())
+	{
+		QRegularExpressionMatch match = regexIt.next();
+		primitivesWithObjectIdInFile.insert(match.captured(1));
+	}
+
 	// Migrates legacy flat params to the new node-based objects tree structure.
 	// Phase 1: migrate transforms only for primitives with non-default object_id
 	// (where a corresponding node might already exist from external files).
 	QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
+	for (auto &primitive : primitives)
+	{
+		primitive.objectIdInFile = primitivesWithObjectIdInFile.contains(primitive.fullName);
+	}
 	for (const auto &primitive : primitives)
 	{
 		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
@@ -2397,7 +2413,9 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 
 		int objectId = par->Get<int>(primitive.Name("object_id"));
-		if (objectId == DefaultPrimitiveObjectId)
+		// Only migrate transforms for primitives that have explicit object_id in the file
+		// and that were renumbered (not using the default value).
+		if (!primitive.objectIdInFile || objectId == DefaultPrimitiveObjectId)
 		{
 			continue;
 		}
@@ -2564,6 +2582,8 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	}
 
 	// Attach each enabled primitive to the node tree
+	// Generate unique userObjectId for primitives that don't have explicit object_id in file.
+	int nextAutoObjectId = 200;
 	for (const auto &primitive : primitives)
 	{
 		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
@@ -2571,7 +2591,13 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			continue;
 		}
 
-		const int primitiveObjectId = par->Get<int>(primitive.Name("object_id"));
+		const int primitiveObjectId =
+			primitive.objectIdInFile ? primitive.objectID : nextAutoObjectId++;
+		// Update the parameter container so GetPrimitiveObjectId returns the unique ID.
+		if (!primitive.objectIdInFile)
+		{
+			par->Set(primitive.Name("object_id"), primitiveObjectId);
+		}
 		const QString primitiveName = par->IfExists(primitive.Name("name"))
 																		? par->Get<QString>(primitive.Name("name"))
 																		: primitive.typeName;
