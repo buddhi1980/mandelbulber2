@@ -110,7 +110,7 @@ void cFractalPseudoKleinianTrig::FormulaCode(
 		if (aux.i >= fractal->analyticDE.startIterationsA
 				&& aux.i < fractal->analyticDE.stopIterationsA)
 		{
-			aux.temp1000 = min(aux.temp1000, 1.0 /(aux.DE));
+			aux.temp1000 = min(aux.temp1000, 1.0 /aux.DE);
 			aux.dist = aux.temp1000;
 		}
 	}

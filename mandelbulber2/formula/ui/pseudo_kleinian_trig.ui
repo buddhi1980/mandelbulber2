@@ -1069,7 +1069,9 @@ offset:</string>
    <item>
     <widget class="QLabel" name="label_275">
      <property name="text">
-      <string>DE stretch</string>
+      <string>DE stretch (tuning the DE is generally necessary)
+reduce scale for finer detail
+increase limit to combat clipping</string>
      </property>
     </widget>
    </item>
