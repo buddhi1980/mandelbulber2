@@ -718,11 +718,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
 
-	// FIXME to be deleted later - will be replaced by general object parameters
-	par->addParam("formula_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("formula_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-	par->addParam("formula_repeat", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("formula_scale", 1.0, morphAkima, paramStandard);
 	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
 	par->addParam("smooth_de_combine_enable", false, morphLinear, paramStandard);
 	par->addParam("smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima, paramStandard);

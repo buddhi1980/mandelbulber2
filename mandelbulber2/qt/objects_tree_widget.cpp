@@ -444,7 +444,6 @@ void cObjectsTreeWidget::addOrSetParam(
 
 // Inserts 'prefix' into every child widget name of 'parent' immediately after the first '_',
 // so SynchronizeInterfaceWindow can map each widget to its namespaced parameter.
-// Example: prefix "formula_" transforms "vect3_position_x" → "vect3_formula_position_x".
 void cObjectsTreeWidget::renameWidgetsWithPrefix(QWidget *parent, const QString &prefix)
 {
 	for (QWidget *widget : parent->findChildren<QWidget *>())

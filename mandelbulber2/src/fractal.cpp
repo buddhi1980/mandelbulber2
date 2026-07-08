@@ -56,12 +56,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	checkForBailout = container->Get<bool>("check_for_bailout");
 	formulaMaxiter = container->Get<int>("formula_maxiter");
 
-	// FIXME: to be deleted later - will be replaced by general object parameters
-	formulaPosition = container->Get<CVector3>("formula_position");
-	formulaRotation = container->Get<CVector3>("formula_rotation");
-	formulaRepeat = container->Get<CVector3>("formula_repeat");
-	formulaScale = container->Get<double>("formula_scale");
-
 	formulaMaterialId = container->Get<int>("formula_material_id");
 	smoothDeCombineEnable = container->Get<bool>("smooth_de_combine_enable");
 	smoothDeCombineDistance = container->Get<double>("smooth_de_combine_distance");

@@ -2090,6 +2090,18 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 		if (!par->IfExists(paramName))
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	}
+
+	// Inject temporary legacy formula params (replaced by node params during migration)
+	if (!par->IfExists("formula_material_id"))
+		par->addParam("formula_material_id", 1, morphLinear, paramStandard);
+	if (!par->IfExists("formula_position"))
+		par->addParam("formula_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	if (!par->IfExists("formula_rotation"))
+		par->addParam("formula_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+	if (!par->IfExists("formula_repeat"))
+		par->addParam("formula_repeat", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	if (!par->IfExists("formula_scale"))
+		par->addParam("formula_scale", 1.0, morphAkima, paramStandard);
 }
 
 void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
@@ -2678,6 +2690,17 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 			par->DeleteParameter(name);
 		}
 	}
+	// Remove temporary legacy formula params
+	if (par->IfExists("formula_material_id"))
+		par->DeleteParameter("formula_material_id");
+	if (par->IfExists("formula_position"))
+		par->DeleteParameter("formula_position");
+	if (par->IfExists("formula_rotation"))
+		par->DeleteParameter("formula_rotation");
+	if (par->IfExists("formula_repeat"))
+		par->DeleteParameter("formula_repeat");
+	if (par->IfExists("formula_scale"))
+		par->DeleteParameter("formula_scale");
 }
 
 void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(

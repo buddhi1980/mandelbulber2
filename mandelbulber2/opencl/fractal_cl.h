@@ -873,12 +873,6 @@ typedef struct
 	cl_int checkForBailout;
 	cl_int formulaMaxiter;
 
-	// legacy fields (kept for CalculateDistanceSimple/nine_fractals path)
-	cl_float3 formulaPosition;
-	cl_float3 formulaRotation;
-	cl_float3 formulaRepeat;
-	cl_float formulaScale;
-
 	cl_int formulaMaterialId;
 	cl_int smoothDeCombineEnable;
 	cl_float smoothDeCombineDistance;
@@ -1681,12 +1675,6 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.dontAddCConstant = source.dontAddCConstant;
 	target.checkForBailout = source.checkForBailout;
 	target.formulaMaxiter = source.formulaMaxiter;
-
-	// legacy fields
-	target.formulaPosition = toClFloat3(source.formulaPosition);
-	target.formulaRotation = toClFloat3(source.formulaRotation);
-	target.formulaRepeat = toClFloat3(source.formulaRepeat);
-	target.formulaScale = source.formulaScale;
 
 	target.formulaMaterialId = source.formulaMaterialId;
 	target.smoothDeCombineEnable = source.smoothDeCombineEnable;

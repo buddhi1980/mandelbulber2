@@ -1641,7 +1641,6 @@ void cInterface::ResetFormula(int fractalNumber) const
 
 	QStringList listToReset = {"formula_iterations", "formula_weight", "formula_start_iteration",
 		"formula_stop_iteration", "julia_mode", "julia_c", "fractal_constant_factor", "initial_waxis",
-		"formula_position", "formula_rotation", "formula_repeat", "formula_scale",
 		"dont_add_c_constant", "check_for_bailout"};
 
 	for (int i = 0; i < listToReset.size(); i++)

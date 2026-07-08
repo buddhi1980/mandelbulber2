@@ -866,13 +866,6 @@ struct sFractal
 	bool checkForBailout;
 	int formulaMaxiter;
 
-	// FIXME: legacy fields kept for CalculateDistanceSimple/nine_fractals path.
-	// Object-tree rendering uses cObjectData as the source of transform/material data.
-	CVector3 formulaPosition;
-	CVector3 formulaRotation;
-	CVector3 formulaRepeat;
-	double formulaScale;
-
 	int formulaMaterialId;
 	bool smoothDeCombineEnable;
 	double smoothDeCombineDistance;
