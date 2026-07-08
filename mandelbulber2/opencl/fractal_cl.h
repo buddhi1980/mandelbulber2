@@ -861,7 +861,6 @@ typedef struct
 	cl_int formula;
 
 	// per-fractal general parameters
-	cl_int fractalEnable;
 	cl_int formulaIterations;
 	cl_float formulaWeight;
 	cl_int formulaStartIteration;
@@ -1671,7 +1670,6 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.formula = source.formula;
 
 	// per-fractal general parameters
-	target.fractalEnable = source.fractalEnable;
 	target.formulaIterations = source.formulaIterations;
 	target.formulaWeight = source.formulaWeight;
 	target.formulaStartIteration = source.formulaStartIteration;

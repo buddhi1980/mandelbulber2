@@ -709,11 +709,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	{
 		par->addParam("formula", int(fractal::none), morphNone, paramStandard);
 	}
-	// fractal_enable was true by default for all slots in older program versions;
-	// keep true as the default so that old settings files (which never stored this flag)
-	// correctly enable every slot that carries a non-none formula.
-	par->addParam("fractal_enable", true, morphLinear, paramStandard);
-
 	par->addParam("formula_iterations", 1, 1, 65536, morphNone, paramStandard);
 	par->addParam("formula_weight", 1.0, 0.0, 1.0, morphAkima, paramStandard);
 	par->addParam("formula_start_iteration", 0, 0, 65536, morphAkima, paramStandard);

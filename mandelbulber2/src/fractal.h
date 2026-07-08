@@ -854,7 +854,6 @@ struct sFractal
 	fractal::enumFractalFormula formula;
 
 	// per-fractal general parameters (moved from InitParams to InitFractalParams)
-	bool fractalEnable;
 	int formulaIterations;
 	double formulaWeight;
 	int formulaStartIteration;

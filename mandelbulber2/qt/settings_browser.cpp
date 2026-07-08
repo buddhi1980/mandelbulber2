@@ -326,7 +326,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 				{
 					fractal::enumFractalFormula eFormula =
 						fractal::enumFractalFormula(par->Get<int>("formula", f));
-					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+					if (eFormula != fractal::none)
 					{
 						int indexOnFractalList = cHybridFractalSequences::GetIndexOnFractalListStatic(eFormula);
 						cAbstractFractal *fractalFormula = newFractalList[indexOnFractalList];

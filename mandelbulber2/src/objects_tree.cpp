@@ -18,6 +18,22 @@ cObjectsTree::cObjectsTree()
 	// TODO Auto-generated constructor stub
 }
 
+QList<int> cObjectsTree::GetDefinedNodeIds(std::shared_ptr<const cParameterContainer> params)
+{
+	QList<int> nodeIds;
+	QStringList allParams = params->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (paramName.startsWith("node_") && paramName.endsWith("_definition"))
+		{
+			// Extract the node ID suffix, e.g. "node_0001_definition" -> "0001"
+			QString suffix = paramName.mid(5, paramName.length() - 5 - 11);
+			nodeIds.append(suffix.toInt());
+		}
+	}
+	return nodeIds;
+}
+
 void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameterContainer> params)
 {
 	// Each "node_XXXX_definition" parameter is a QString with comma-separated values representing:

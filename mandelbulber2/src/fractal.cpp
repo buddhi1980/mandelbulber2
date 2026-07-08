@@ -44,7 +44,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 
 	// per-fractal general parameters
 	formula = fractal::enumFractalFormula(container->Get<int>("formula"));
-	fractalEnable = container->Get<bool>("fractal_enable");
 	formulaIterations = container->Get<int>("formula_iterations");
 	formulaWeight = container->Get<double>("formula_weight");
 	formulaStartIteration = container->Get<int>("formula_start_iteration");

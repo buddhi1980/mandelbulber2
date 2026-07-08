@@ -78,6 +78,10 @@ public:
 
 	static void DebugPrintNodes(const std::vector<cObjectsTree::sNodeDataForRendering> &nodes);
 
+	// Returns the list of node IDs (int) for all nodes that have a "node_XXXX_definition" parameter
+	// in the given parameter container.
+	static QList<int> GetDefinedNodeIds(std::shared_ptr<const cParameterContainer> params);
+
 private:
 	nodeData_t nodeDataMap;
 };

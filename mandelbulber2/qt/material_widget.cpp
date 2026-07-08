@@ -164,7 +164,7 @@ void cMaterialWidget::InitializeData()
 		else
 		{
 			params->Set("camera", CVector3(1.5, -2.5, 0.7));
-			params->Set("fractal_enable_1", false);
+			params->Set("node_0001_enabled", false);
 			params->Set("textured_background", true);
 			params->Set("file_background",
 				QDir::toNativeSeparators(systemDirectories.sharedDir + "textures" + QDir::separator()

@@ -2369,8 +2369,7 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 	QList<int> enabledFractals;
 	for (int i = 0; i < fract->size(); i++)
 	{
-		if ((!fract->at(i)->IfExists("fractal_enable") || fract->at(i)->Get<bool>("fractal_enable"))
-				&& fract->at(i)->IfExists("formula")
+		if (fract->at(i)->IfExists("formula")
 				&& fract->at(i)->Get<int>("formula") != int(fractal::none))
 		{
 			enabledFractals.append(i + 1);
