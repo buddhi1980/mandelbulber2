@@ -2129,6 +2129,16 @@ void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(prefix + "material", 1, morphNone, paramStandard);
 	par->addParam(prefix + "enabled", true, morphNone, paramStandard);
 	par->addParam(prefix + "detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
+
+	// Common fractal parameters shared by all node types (including boolean groups)
+	par->addParam(prefix + "julia_mode", false, morphLinear, paramStandard);
+	par->addParam(prefix + "julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam(
+		prefix + "fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+	par->addParam(prefix + "initial_waxis", 0.0, morphAkima, paramStandard);
+	par->addParam(prefix + "smooth_de_combine_enable", false, morphLinear, paramStandard);
+	par->addParam(prefix + "smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima, paramStandard);
+	par->addParam(prefix + "formula_maxiter", 250, 1, 9999, morphLinear, paramStandard);
 }
 
 void DeleteAllNodeParams(std::shared_ptr<cParameterContainer> par)

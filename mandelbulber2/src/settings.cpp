@@ -1111,7 +1111,9 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 				if (conversionOK && nodeId > 0)
 				{
 					static const QStringList validNodeParams = {"definition", "position", "rotation", "scale",
-						"repeat", "material", "detail_level_multiplier"};
+						"repeat", "material", "detail_level_multiplier", "julia_mode", "julia_c",
+						"fractal_constant_factor", "initial_waxis", "smooth_de_combine_enable",
+						"smooth_de_combine_distance", "formula_maxiter"};
 					QString shortName = split.mid(2).join('_');
 					if (validNodeParams.contains(shortName))
 					{
@@ -2363,6 +2365,28 @@ static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const
 		par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
 }
 
+// Copy common fractal params (julia_mode, julia_c, etc.) from per-fractal container to node params.
+// Used during migration to populate node-level params from legacy per-fractal params.
+static void CopyCommonFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix,
+	std::shared_ptr<cParameterContainer> fracPar)
+{
+	if (fracPar->IfExists("julia_mode") && fracPar->Get<bool>("julia_mode"))
+		par->Set(prefix + "julia_mode", true);
+	if (fracPar->IfExists("julia_c")) par->Set(prefix + "julia_c", fracPar->Get<CVector3>("julia_c"));
+	if (fracPar->IfExists("fractal_constant_factor"))
+		par->Set(prefix + "fractal_constant_factor", fracPar->Get<CVector3>("fractal_constant_factor"));
+	if (fracPar->IfExists("initial_waxis"))
+		par->Set(prefix + "initial_waxis", fracPar->Get<double>("initial_waxis"));
+	if (fracPar->IfExists("smooth_de_combine_enable")
+			&& fracPar->Get<bool>("smooth_de_combine_enable"))
+		par->Set(prefix + "smooth_de_combine_enable", true);
+	if (fracPar->IfExists("smooth_de_combine_distance"))
+		par->Set(
+			prefix + "smooth_de_combine_distance", fracPar->Get<double>("smooth_de_combine_distance"));
+	if (fracPar->IfExists("formula_maxiter"))
+		par->Set(prefix + "formula_maxiter", fracPar->Get<int>("formula_maxiter"));
+}
+
 static void CopyPrimitiveTransform(
 	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
 {
@@ -2472,6 +2496,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			par->Set("node_0001_definition",
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
+			CopyCommonFractalParams(par, "node_0001_", fract->at(objectId - 1));
 		}
 		// Multiple fractals: build a left-associative binary tree
 		else if (m >= 2)
@@ -2513,6 +2538,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
+				CopyCommonFractalParams(par, NodePrefix(nodeId), fract->at(objectId - 1));
 			}
 		}
 	}
@@ -2527,6 +2553,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		par->Set("node_0001_definition",
 			MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 0, objectId));
 		CopyFormulaTransform(par, "node_0001_", fract->at(0));
+		CopyCommonFractalParams(par, "node_0001_", fract->at(0));
 	}
 	// Handle hybrid mode
 	else
@@ -2552,6 +2579,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				par->Set(prefix + "definition",
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 1, objectId));
 				CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
+				CopyCommonFractalParams(par, prefix, fract->at(objectId - 1));
 			}
 		}
 	}
@@ -2691,16 +2719,11 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 		}
 	}
 	// Remove temporary legacy formula params
-	if (par->IfExists("formula_material_id"))
-		par->DeleteParameter("formula_material_id");
-	if (par->IfExists("formula_position"))
-		par->DeleteParameter("formula_position");
-	if (par->IfExists("formula_rotation"))
-		par->DeleteParameter("formula_rotation");
-	if (par->IfExists("formula_repeat"))
-		par->DeleteParameter("formula_repeat");
-	if (par->IfExists("formula_scale"))
-		par->DeleteParameter("formula_scale");
+	if (par->IfExists("formula_material_id")) par->DeleteParameter("formula_material_id");
+	if (par->IfExists("formula_position")) par->DeleteParameter("formula_position");
+	if (par->IfExists("formula_rotation")) par->DeleteParameter("formula_rotation");
+	if (par->IfExists("formula_repeat")) par->DeleteParameter("formula_repeat");
+	if (par->IfExists("formula_scale")) par->DeleteParameter("formula_scale");
 }
 
 void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(

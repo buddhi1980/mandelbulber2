@@ -1024,12 +1024,27 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		layout->addWidget(generalParams);
 
-		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
-		// Widget names already include the parameter name prefix so no renaming is needed.
+		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis,
+		// smooth_de_combine). For standalone fractals and fractals inside boolean groups,
+		// sync to gPar with node prefix instead of per-fractal container.
 		cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
 
+		// Rename widget names to use node prefix so they bind to the correct gPar keys
+		QString nodePrefix =
+			QString("node_%1").arg(item->data(treeData::nodeId, Qt::UserRole).toInt(), 4, 10, QChar('0'));
+		for (QWidget *widget : calcParams->findChildren<QWidget *>())
+		{
+			QString widgetName = widget->objectName();
+			int firstUnderscore = widgetName.indexOf('_');
+			if (firstUnderscore >= 0)
+			{
+				widgetName.insert(firstUnderscore + 1, nodePrefix + "_");
+				widget->setObjectName(widgetName);
+			}
+		}
+
 		editorSyncTargets.append({generalParams, gPar});
-		editorSyncTargets.append({calcParams, gParFractal->at(fractalIndex)});
+		editorSyncTargets.append({calcParams, gPar});
 
 		layout->addWidget(calcParams);
 	}
@@ -1218,9 +1233,25 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 
 		containerLayout->addWidget(generalParams);
 
-		if (type == enumNodeType::hybrid)
+		// Add calculation params widget for hybrid AND boolean groups
+		// Boolean groups need shared julia_mode, julia_c, etc. for child fractals
+		if (type == enumNodeType::hybrid || type == enumNodeType::booleanAdd
+				|| type == enumNodeType::booleanMul || type == enumNodeType::booleanSub)
 		{
 			cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
+			// Rename widget names to use node prefix so they bind to the correct gPar keys
+			QString nodePrefix = QString("node_%1").arg(
+				item->data(treeData::nodeId, Qt::UserRole).toInt(), 4, 10, QChar('0'));
+			for (QWidget *widget : calcParams->findChildren<QWidget *>())
+			{
+				QString widgetName = widget->objectName();
+				int firstUnderscore = widgetName.indexOf('_');
+				if (firstUnderscore >= 0)
+				{
+					widgetName.insert(firstUnderscore + 1, nodePrefix + "_");
+					widget->setObjectName(widgetName);
+				}
+			}
 			editorSyncTargets.append({calcParams, gPar});
 			containerLayout->addWidget(calcParams);
 		}

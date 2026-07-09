@@ -78,6 +78,18 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.detailLevelMultiplier =
 					params->Get<double>("node" + suffix + "_detail_level_multiplier");
 
+				// Common fractal parameters shared by all node types (including boolean groups)
+				nodeData.julia_mode = params->Get<bool>("node" + suffix + "_julia_mode");
+				nodeData.julia_c = params->Get<CVector3>("node" + suffix + "_julia_c");
+				nodeData.fractal_constant_factor =
+					params->Get<CVector3>("node" + suffix + "_fractal_constant_factor");
+				nodeData.initial_waxis = params->Get<double>("node" + suffix + "_initial_waxis");
+				nodeData.smooth_de_combine_enable =
+					params->Get<bool>("node" + suffix + "_smooth_de_combine_enable");
+				nodeData.smooth_de_combine_distance =
+					params->Get<double>("node" + suffix + "_smooth_de_combine_distance");
+				nodeData.formula_maxiter = params->Get<int>("node" + suffix + "_formula_maxiter");
+
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
 		}
@@ -298,6 +310,13 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.material = effectiveMaterial;
 		nodeDataForRendering.repeat = leafRepeat;
 		nodeDataForRendering.detailLevelMultiplier = nodeData.detailLevelMultiplier;
+		nodeDataForRendering.julia_mode = nodeData.julia_mode;
+		nodeDataForRendering.julia_c = nodeData.julia_c;
+		nodeDataForRendering.fractal_constant_factor = nodeData.fractal_constant_factor;
+		nodeDataForRendering.initial_waxis = nodeData.initial_waxis;
+		nodeDataForRendering.smooth_de_combine_enable = nodeData.smooth_de_combine_enable;
+		nodeDataForRendering.smooth_de_combine_distance = nodeData.smooth_de_combine_distance;
+		nodeDataForRendering.formula_maxiter = nodeData.formula_maxiter;
 
 		// Pre-calculate the inverse transform matrix (world → local space) that combines
 		// translation, rotation and scale into a single 4×4 homogeneous matrix.

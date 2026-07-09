@@ -1005,6 +1005,15 @@ void cOpenClDynamicData::BuildNodesData(
 		nodeCl.enabled = node.enabled ? 1 : 0;
 		nodeCl.detailLevelMultiplier =
 			static_cast<cl_float>(static_cast<float>(node.detailLevelMultiplier));
+		// Common fractal parameters shared by all node types (including boolean groups)
+		nodeCl.julia_mode = node.julia_mode ? 1 : 0;
+		nodeCl.julia_c = toClFloat3(node.julia_c);
+		nodeCl.fractal_constant_factor = toClFloat3(node.fractal_constant_factor);
+		nodeCl.initial_waxis = static_cast<cl_float>(static_cast<float>(node.initial_waxis));
+		nodeCl.smooth_de_combine_enable = node.smooth_de_combine_enable ? 1 : 0;
+		nodeCl.smooth_de_combine_distance =
+			static_cast<cl_float>(static_cast<float>(node.smooth_de_combine_distance));
+		nodeCl.formula_maxiter = node.formula_maxiter;
 
 		data.append(reinterpret_cast<char *>(&nodeCl), sizeof(nodeCl));
 		totalDataOffset += sizeof(nodeCl);

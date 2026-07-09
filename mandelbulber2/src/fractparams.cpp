@@ -259,8 +259,28 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 		cObjectData baseObjectData;
 		baseObjectData.objectType = fractal::objFractal;
-		baseObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
-		baseObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
+
+		// Read smooth_de params from node data if available, otherwise fall back to per-fractal
+		// container
+		bool foundNodeData = false;
+		if (objectData && objectTreeNodes)
+		{
+			for (const auto &node : *objectTreeNodes)
+			{
+				if (node.userObjectId == i + 1)
+				{
+					baseObjectData.smoothDeCombineEnable = node.smooth_de_combine_enable;
+					baseObjectData.smoothDeCombineDistance = node.smooth_de_combine_distance;
+					foundNodeData = true;
+					break;
+				}
+			}
+		}
+		if (!foundNodeData)
+		{
+			baseObjectData.smoothDeCombineEnable = fracPar->Get<bool>("smooth_de_combine_enable");
+			baseObjectData.smoothDeCombineDistance = fracPar->Get<double>("smooth_de_combine_distance");
+		}
 
 		// Each node that references this fractal slot gets its own objectData entry so that
 		// per-node properties (material, rotation matrix) can differ independently.

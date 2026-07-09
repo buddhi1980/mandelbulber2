@@ -69,6 +69,14 @@ typedef struct
 	matrix44 inverseTransformMatrix;
 	cl_int enabled;
 	cl_float detailLevelMultiplier;
+	// Common fractal parameters shared by all node types (including boolean groups)
+	cl_int julia_mode;
+	cl_float3 julia_c;
+	cl_float3 fractal_constant_factor;
+	cl_float initial_waxis;
+	cl_int smooth_de_combine_enable;
+	cl_float smooth_de_combine_distance;
+	cl_int formula_maxiter;
 } sNodeDataForRenderingCl;
 
 #endif /* MANDELBULBER2_OPENCL_NODE_DATA_CL_H_ */

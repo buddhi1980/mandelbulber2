@@ -37,6 +37,14 @@ public:
 		int material;
 		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
+		// Common fractal parameters shared by all node types (including boolean groups)
+		bool julia_mode = false;
+		CVector3 julia_c;
+		CVector3 fractal_constant_factor;
+		double initial_waxis = 0.0;
+		bool smooth_de_combine_enable = false;
+		double smooth_de_combine_distance = 0.1;
+		int formula_maxiter = 250;
 	};
 
 	struct sNodeDataForRendering
@@ -60,6 +68,14 @@ public:
 		CMatrix44 inverseTransformMatrix;
 		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
+		// Common fractal parameters shared by all node types (including boolean groups)
+		bool julia_mode = false;
+		CVector3 julia_c;
+		CVector3 fractal_constant_factor;
+		double initial_waxis = 0.0;
+		bool smooth_de_combine_enable = false;
+		double smooth_de_combine_distance = 0.1;
+		int formula_maxiter = 250;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;
