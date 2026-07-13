@@ -665,11 +665,13 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 
 	DecodeHeader(separatedText);
 
-	// Inject temporary legacy boolean params for old settings files (< v2.35).
+	// Inject temporary legacy params for old settings files (< v2.35).
 	// These allow DecodeOneLine to store values; MigrateToObjectsTree() will consume and delete them.
 	if (fileVersion < 2.35)
 	{
-		InjectTemporaryLegacyBooleanParams(par, fractPar);
+		InjectTemporaryLegacyBooleanParams(par);
+		InjectTemporaryLegacyJuliaParams(par);
+		InjectTemporaryLegacyFormulaTransformParams(fractPar);
 	}
 
 	int errorCount = 0;
@@ -2058,10 +2060,9 @@ QStringList cSettings::GetLegacyPrimitiveTypes()
 		"prism", "ellipsoid"};
 }
 
-void cSettings::InjectTemporaryLegacyBooleanParams(
-	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar)
+void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
 {
-	// Injects temporary boolean and julia params from the legacy flat format into the parameter
+	// Injects temporary boolean params from the legacy flat format into the parameter
 	// container. Ensure top-level boolean_operators flag exists
 	if (!par->IfExists("boolean_operators"))
 		par->addParam("boolean_operators", false, morphNone, paramStandard);
@@ -2075,16 +2076,19 @@ void cSettings::InjectTemporaryLegacyBooleanParams(
 		name = QString("dont_add_c_constant_%1").arg(i);
 		if (!par->IfExists(name)) par->addParam(name, false, morphLinear, paramStandard);
 	}
+}
 
-	// Inject per-fractal fractal_constant_factor params
+void cSettings::InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Injects temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params
+	// from the legacy flat format into the parameter container.
+	const int maxLegacyFractals = 9;
 	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
 		QString name = QString("fractal_constant_factor_%1").arg(i);
 		if (!par->IfExists(name))
 			par->addParam(name, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	}
-
-	// Inject per-fractal julia_mode and julia_c params
 	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
 		QString paramName = QString("julia_mode_%1").arg(i);
@@ -2093,12 +2097,17 @@ void cSettings::InjectTemporaryLegacyBooleanParams(
 		if (!par->IfExists(paramName))
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	}
+}
 
-	// Inject temporary legacy formula params into each fractal container.
+void cSettings::InjectTemporaryLegacyFormulaTransformParams(
+	std::shared_ptr<cFractalContainer> fractPar)
+{
+	// Injects temporary legacy formula transform params into each fractal container.
 	// These are needed by TryResolveLegacyFractalParam to resolve formula_position_N,
 	// formula_rotation_N, formula_repeat_N, formula_scale_N params from old .fract files.
 	if (fractPar)
 	{
+		const int maxLegacyFractals = 9;
 		for (int i = 0; i < maxLegacyFractals; i++)
 		{
 			fractPar->ensureCapacity(i);
@@ -2709,12 +2718,13 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		rootNodeId = boolNodeId;
 	}
 
-	// Clean up temporary legacy boolean params after migration
-	DeleteTemporaryLegacyBooleanParams(par, fract);
+	// Clean up all temporary legacy params after migration
+	DeleteTemporaryLegacyBooleanParams(par);
+	DeleteTemporaryLegacyJuliaParams(par);
+	DeleteTemporaryLegacyFormulaTransformParams(fract);
 }
 
-void cSettings::DeleteTemporaryLegacyBooleanParams(
-	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar)
+void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary legacy boolean params that were injected during migration.
 	// Remove the top-level boolean_operators flag
@@ -2732,13 +2742,34 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(
 			par->DeleteParameter(name);
 		}
 	}
-	// Remove temporary legacy formula params from each fractal container
+}
+
+void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params.
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i <= maxLegacyFractals; i++)
+	{
+		QString name = QString("fractal_constant_factor_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("julia_mode_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("julia_c_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyFormulaTransformParams(
+	std::shared_ptr<cFractalContainer> fractPar)
+{
+	// Deletes the temporary legacy formula transform params from each fractal container.
 	if (fractPar)
 	{
+		const int maxLegacyFractals = 9;
 		for (int i = 0; i < maxLegacyFractals; i++)
 		{
-			if (!fractPar->at(i)->IfExists("formula_material_id")) continue;
-			fractPar->at(i)->DeleteParameter("formula_material_id");
+			if (fractPar->at(i)->IfExists("formula_material_id"))
+				fractPar->at(i)->DeleteParameter("formula_material_id");
 			if (fractPar->at(i)->IfExists("formula_position"))
 				fractPar->at(i)->DeleteParameter("formula_position");
 			if (fractPar->at(i)->IfExists("formula_rotation"))

@@ -94,8 +94,9 @@ private:
 		const std::shared_ptr<cFractalContainer> &fractPar);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	static QStringList GetLegacyPrimitiveTypes();
-	void InjectTemporaryLegacyBooleanParams(
-		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar);
+	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
+	void InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
+	void InjectTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
 	void InjectTemporaryLegacyPrimitiveTransformParams(
 		std::shared_ptr<cParameterContainer> par, int primitiveIndex);
 	bool TryResolveLegacyFractalParam(const QString &decodeLine,
@@ -105,8 +106,9 @@ private:
 		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
 	void MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId);
-	void DeleteTemporaryLegacyBooleanParams(
-		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar);
+	void DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
+	void DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
+	void DeleteTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
 	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;
