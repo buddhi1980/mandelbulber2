@@ -725,6 +725,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("dont_add_c_constant", false, morphLinear, paramStandard);
 	par->addParam("check_for_bailout", true, morphLinear, paramStandard);
 	par->addParam("formula_maxiter", 250, 1, 9999, morphLinear, paramStandard);
+	par->addParam("formula_scale", 1.0, morphAkima, paramStandard);
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
