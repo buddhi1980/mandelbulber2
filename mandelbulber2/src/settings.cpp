@@ -669,7 +669,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	// These allow DecodeOneLine to store values; MigrateToObjectsTree() will consume and delete them.
 	if (fileVersion < 2.35)
 	{
-		InjectTemporaryLegacyBooleanParams(par);
+		InjectTemporaryLegacyBooleanParams(par, fractPar);
 	}
 
 	int errorCount = 0;
@@ -2058,7 +2058,8 @@ QStringList cSettings::GetLegacyPrimitiveTypes()
 		"prism", "ellipsoid"};
 }
 
-void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+void cSettings::InjectTemporaryLegacyBooleanParams(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar)
 {
 	// Injects temporary boolean and julia params from the legacy flat format into the parameter
 	// container. Ensure top-level boolean_operators flag exists
@@ -2093,17 +2094,29 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	}
 
-	// Inject temporary legacy formula params (replaced by node params during migration)
-	if (!par->IfExists("formula_material_id"))
-		par->addParam("formula_material_id", 1, morphLinear, paramStandard);
-	if (!par->IfExists("formula_position"))
-		par->addParam("formula_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	if (!par->IfExists("formula_rotation"))
-		par->addParam("formula_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-	if (!par->IfExists("formula_repeat"))
-		par->addParam("formula_repeat", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	if (!par->IfExists("formula_scale"))
-		par->addParam("formula_scale", 1.0, morphAkima, paramStandard);
+	// Inject temporary legacy formula params into each fractal container.
+	// These are needed by TryResolveLegacyFractalParam to resolve formula_position_N,
+	// formula_rotation_N, formula_repeat_N, formula_scale_N params from old .fract files.
+	if (fractPar)
+	{
+		for (int i = 0; i < maxLegacyFractals; i++)
+		{
+			fractPar->ensureCapacity(i);
+			if (!fractPar->at(i)->IfExists("formula_material_id"))
+				fractPar->at(i)->addParam("formula_material_id", 1, morphLinear, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_position"))
+				fractPar->at(i)->addParam(
+					"formula_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_rotation"))
+				fractPar->at(i)->addParam(
+					"formula_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_repeat"))
+				fractPar->at(i)->addParam(
+					"formula_repeat", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_scale"))
+				fractPar->at(i)->addParam("formula_scale", 1.0, morphAkima, paramStandard);
+		}
+	}
 }
 
 void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
@@ -2697,10 +2710,11 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	}
 
 	// Clean up temporary legacy boolean params after migration
-	DeleteTemporaryLegacyBooleanParams(par);
+	DeleteTemporaryLegacyBooleanParams(par, fract);
 }
 
-void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+void cSettings::DeleteTemporaryLegacyBooleanParams(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar)
 {
 	// Deletes the temporary legacy boolean params that were injected during migration.
 	// Remove the top-level boolean_operators flag
@@ -2718,12 +2732,23 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 			par->DeleteParameter(name);
 		}
 	}
-	// Remove temporary legacy formula params
-	if (par->IfExists("formula_material_id")) par->DeleteParameter("formula_material_id");
-	if (par->IfExists("formula_position")) par->DeleteParameter("formula_position");
-	if (par->IfExists("formula_rotation")) par->DeleteParameter("formula_rotation");
-	if (par->IfExists("formula_repeat")) par->DeleteParameter("formula_repeat");
-	if (par->IfExists("formula_scale")) par->DeleteParameter("formula_scale");
+	// Remove temporary legacy formula params from each fractal container
+	if (fractPar)
+	{
+		for (int i = 0; i < maxLegacyFractals; i++)
+		{
+			if (!fractPar->at(i)->IfExists("formula_material_id")) continue;
+			fractPar->at(i)->DeleteParameter("formula_material_id");
+			if (fractPar->at(i)->IfExists("formula_position"))
+				fractPar->at(i)->DeleteParameter("formula_position");
+			if (fractPar->at(i)->IfExists("formula_rotation"))
+				fractPar->at(i)->DeleteParameter("formula_rotation");
+			if (fractPar->at(i)->IfExists("formula_repeat"))
+				fractPar->at(i)->DeleteParameter("formula_repeat");
+			if (fractPar->at(i)->IfExists("formula_scale"))
+				fractPar->at(i)->DeleteParameter("formula_scale");
+		}
+	}
 }
 
 void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(

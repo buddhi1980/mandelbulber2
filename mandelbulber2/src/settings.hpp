@@ -94,20 +94,19 @@ private:
 		const std::shared_ptr<cFractalContainer> &fractPar);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	static QStringList GetLegacyPrimitiveTypes();
-	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
-	void InjectTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par,
-														int primitiveIndex);
+	void InjectTemporaryLegacyBooleanParams(
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar);
+	void InjectTemporaryLegacyPrimitiveTransformParams(
+		std::shared_ptr<cParameterContainer> par, int primitiveIndex);
 	bool TryResolveLegacyFractalParam(const QString &decodeLine,
-									  std::shared_ptr<cParameterContainer> par,
-									  std::shared_ptr<cFractalContainer> fractPar,
-									  QString &resolvedLine,
-									  std::shared_ptr<cParameterContainer> &targetContainer);
-	void MigrateLegacyParamsToFractal(std::shared_ptr<cParameterContainer> par,
-									  std::shared_ptr<cFractalContainer> fract);
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
+		QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer);
+	void MigrateLegacyParamsToFractal(
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
 	void MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
-							  std::shared_ptr<cFractalContainer> fract,
-							  int &nextGroupObjectId);
-	void DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
+		std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId);
+	void DeleteTemporaryLegacyBooleanParams(
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar);
 	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;
