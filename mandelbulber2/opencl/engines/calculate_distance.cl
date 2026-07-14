@@ -212,6 +212,10 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 			rDelta[i] = length(Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL,
 				internalObjectId, renderData, hybridSequenceIndex, point, false)
 					.z);
+			if (isnan(rDelta[i]) || isinf(rDelta[i]))
+			{
+				rDelta[i] = 0.0f;
+			}
 		}
 		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
 		dr.y = min(fabs(rDelta[2] - r), fabs(rDelta[3] - r)) / delta;
@@ -219,9 +223,9 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 
 		float d = length(dr);
 
-		if (isinf(r) || isinf(d) || d == 0.0f)
+		if (isinf(r) || isinf(d) || isnan(r) || isnan(d) || d < 1e-10f)
 		{
-			out.distance = 0.0f;
+			out.distance = calcParam->detailSize;
 		}
 		else
 		{
