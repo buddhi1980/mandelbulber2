@@ -94,6 +94,7 @@ private:
 		const std::shared_ptr<cFractalContainer> &fractPar);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	static QStringList GetLegacyPrimitiveTypes();
+	static QString ConvertLegacyAnimationParamName(const QString &oldName);
 	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);

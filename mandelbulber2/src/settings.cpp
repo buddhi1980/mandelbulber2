@@ -1763,6 +1763,18 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 				{
 					QString lastTwo = fullParameterName.right(2);
 
+					// Convert old parameter names to new format (fileVersion < 2.35)
+					// Mirrors MigrateLegacyParamsToFractal() in Compatibility2()
+					if (fileVersion < 2.35)
+					{
+						QString converted = ConvertLegacyAnimationParamName(fullParameterName);
+						if (converted != fullParameterName)
+						{
+							lineSplit[i] = converted;
+							fullParameterName = converted;
+						}
+					}
+
 					// Detect vector4 type (_x suffix with _y, _z, _w following)
 					if (lastTwo == "_x")
 					{
@@ -2037,6 +2049,39 @@ QString cSettings::everyLocaleDouble(QString txt)
 	// Convert ',' to '.' for locales that use dot as decimal separator
 	if (systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
 	return txtOut;
+}
+
+struct sLegacyAnimMap
+{
+	const char *prefix;
+	const char *baseName;
+};
+
+static const sLegacyAnimMap gLegacyAnimPrefixes[] = {
+	{"main_formula_weight_", "formula_weight"},
+	{"main_formula_iterations_", "formula_iterations"},
+	{"dont_add_c_constant_", "dont_add_c_constant"},
+	{"fractal_constant_factor_", "fractal_constant_factor"},
+	{"julia_mode_", "julia_mode"},
+	{"julia_c_", "julia_c"},
+};
+
+QString cSettings::ConvertLegacyAnimationParamName(const QString &oldName)
+{
+	// Convert legacy animation parameter names to new format (fileVersion < 2.35)
+	// Mirrors MigrateLegacyParamsToFractal() in Compatibility2()
+	// Pattern: oldName_N -> fractalN_newName
+	for (const auto &entry : gLegacyAnimPrefixes)
+	{
+		QString prefix = entry.prefix;
+		if (oldName.startsWith(prefix))
+		{
+			int lastUnderscore = oldName.lastIndexOf('_');
+			int fractalIndex = oldName.mid(lastUnderscore + 1).toInt();
+			return QString("fractal%1_%2").arg(fractalIndex).arg(entry.baseName);
+		}
+	}
+	return oldName;
 }
 
 void cSettings::PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par)
