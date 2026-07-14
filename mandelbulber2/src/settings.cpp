@@ -2365,6 +2365,16 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
+	// Handle global initial_waxis
+	if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
+	{
+		double initialWAxis = par->Get<double>("initial_waxis");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("initial_waxis", initialWAxis);
+		}
+	}
+
 	// Migrate global formula_material_id to each fractal container
 	// (for files before node-based system where it was a top-level param)
 	if (par->IfExists("formula_material_id") && !par->isDefaultValue("formula_material_id"))
