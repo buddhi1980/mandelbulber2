@@ -98,6 +98,7 @@ private:
 	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
+	void InjectTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyPrimitiveTransformParams(
 		std::shared_ptr<cParameterContainer> par, int primitiveIndex);
 	bool TryResolveLegacyFractalParam(const QString &decodeLine,
@@ -110,6 +111,7 @@ private:
 	void DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
+	void DeleteTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;

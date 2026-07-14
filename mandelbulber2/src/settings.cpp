@@ -672,6 +672,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 		InjectTemporaryLegacyBooleanParams(par);
 		InjectTemporaryLegacyJuliaParams(par);
 		InjectTemporaryLegacyFormulaTransformParams(fractPar);
+		InjectTemporaryLegacyFormulaMaterialIdParams(par);
 	}
 
 	int errorCount = 0;
@@ -2173,6 +2174,19 @@ void cSettings::InjectTemporaryLegacyFormulaTransformParams(
 	}
 }
 
+void cSettings::InjectTemporaryLegacyFormulaMaterialIdParams(
+	std::shared_ptr<cParameterContainer> par)
+{
+	// Injects a temporary global formula_material_id param into the top-level container.
+	// This allows the decode loop to accept formula_material_id from old .fract files
+	// (before node-based system) where it was a top-level parameter.
+	// Compatibility2() will migrate it to per-fractal containers and this method will delete it.
+	if (!par->IfExists("formula_material_id"))
+	{
+		par->addParam("formula_material_id", 1, morphLinear, paramStandard);
+	}
+}
+
 void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 	std::shared_ptr<cParameterContainer> par, int primitiveIndex)
 {
@@ -2348,6 +2362,17 @@ void cSettings::MigrateLegacyParamsToFractal(
 		for (int i = 0; i < fract->size(); i++)
 		{
 			fract->at(i)->Set("julia_c", juliaC);
+		}
+	}
+
+	// Migrate global formula_material_id to each fractal container
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("formula_material_id") && !par->isDefaultValue("formula_material_id"))
+	{
+		int matId = par->Get<int>("formula_material_id");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_material_id", matId);
 		}
 	}
 }
@@ -2767,6 +2792,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	DeleteTemporaryLegacyBooleanParams(par);
 	DeleteTemporaryLegacyJuliaParams(par);
 	DeleteTemporaryLegacyFormulaTransformParams(fract);
+	DeleteTemporaryLegacyFormulaMaterialIdParams(par);
 }
 
 void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
@@ -2824,6 +2850,16 @@ void cSettings::DeleteTemporaryLegacyFormulaTransformParams(
 			if (fractPar->at(i)->IfExists("formula_scale"))
 				fractPar->at(i)->DeleteParameter("formula_scale");
 		}
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyFormulaMaterialIdParams(
+	std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary global formula_material_id param from the top-level container.
+	if (par->IfExists("formula_material_id"))
+	{
+		par->DeleteParameter("formula_material_id");
 	}
 }
 
