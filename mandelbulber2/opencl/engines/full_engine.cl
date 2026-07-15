@@ -221,7 +221,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 //------------------ decode texture data -----------
 #ifdef USE_TEXTURES
-		__global char4 *textures[NUMBER_OF_TEXTURES];
+		__global uchar4 *textures[NUMBER_OF_TEXTURES];
 		int2 textureSizes[NUMBER_OF_TEXTURES];
 
 		for (int i = 0; i < NUMBER_OF_TEXTURES; i++)
