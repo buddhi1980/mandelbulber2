@@ -53,6 +53,7 @@ public:
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
 		detailLevelMultiplier = 1.0;
+		absScale = 1.0;
 	}
 
 	bool smoothDeCombineEnable;
@@ -65,6 +66,7 @@ public:
 	CVector3 size;
 	CRotationMatrix rotationMatrix;
 	CVector3 repeat;
+	double absScale;
 	double detailLevelMultiplier;
 };
 

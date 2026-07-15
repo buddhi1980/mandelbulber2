@@ -457,10 +457,10 @@ bool cRenderJob::Execute()
 								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
 						{
 							renderData->objectData[node.internalObjectId].inverseTransformMatrix =
-							    node.inverseTransformMatrix;
-							renderData->objectData[node.internalObjectId].rotationMatrix =
-							    node.rotationMatrix;
+								node.inverseTransformMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix = node.rotationMatrix;
 							renderData->objectData[node.internalObjectId].repeat = node.repeat;
+							renderData->objectData[node.internalObjectId].absScale = node.absScale;
 						}
 					}
 				}
@@ -549,10 +549,10 @@ bool cRenderJob::Execute()
 								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
 						{
 							renderData->objectData[node.internalObjectId].inverseTransformMatrix =
-							    node.inverseTransformMatrix;
-							renderData->objectData[node.internalObjectId].rotationMatrix =
-							    node.rotationMatrix;
+								node.inverseTransformMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix = node.rotationMatrix;
 							renderData->objectData[node.internalObjectId].repeat = node.repeat;
+							renderData->objectData[node.internalObjectId].absScale = node.absScale;
 						}
 					}
 				}

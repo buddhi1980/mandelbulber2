@@ -480,11 +480,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float3 pointLocal = Matrix44TransformPoint(node->inverseTransformMatrix, point);
 
 		// Apply repeat in LOCAL space (leaf only)
-		float3 pointWithRepeat = modRepeat(pointLocal, node->repeat);
+		// Scale repeat by absScale so that repeat distance is in world space (independent of scale)
+		const float absNodeScale = node->absScale;
+		float3 repeatForLocalSpace = node->repeat / absNodeScale;
+		float3 pointWithRepeat = modRepeat(pointLocal, repeatForLocalSpace);
 
 		float3 pointTransformed = pointWithRepeat;
-
-		const float absNodeScale = node->absScale;
 		const float detailMult = node->detailLevelMultiplier;
 		float savedDetailSize = calcParam->detailSize;
 

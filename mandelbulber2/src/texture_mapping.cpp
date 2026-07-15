@@ -51,8 +51,9 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	{
 		// Transform to object local space (same as calculate_distance)
 		point = objectData.inverseTransformMatrix.TransformPoint(point);
-		// Apply repeat in local space
-		point = point.repeatMod(objectData.repeat);
+		// Apply repeat in local space (scale repeat by absScale for correct world-space repeat
+		// distance)
+		point = point.repeatMod(objectData.repeat / objectData.absScale);
 		point /= objectData.size;
 	}
 	point = material->rotMatrixTexture.RotateVector(point);

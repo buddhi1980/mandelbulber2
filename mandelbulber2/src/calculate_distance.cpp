@@ -236,12 +236,14 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			CVector3 pointLocal = node.inverseTransformMatrix.TransformPoint(in.point);
 
 			// Apply repeat in LOCAL space (leaf only)
-			CVector3 pointWithRepeat =
-				(node.repeat.Length() > 0.0) ? pointLocal.repeatMod(node.repeat) : pointLocal;
+			// Scale repeat by absScale so that repeat distance is in world space (independent of scale)
+			const double absNodeScale = node.absScale;
+			CVector3 repeatForLocalSpace = node.repeat / absNodeScale;
+			CVector3 pointWithRepeat = (repeatForLocalSpace.Length() > 0.0)
+																	 ? pointLocal.repeatMod(repeatForLocalSpace)
+																	 : pointLocal;
 
 			CVector3 pointTransformed = pointWithRepeat;
-
-			const double absNodeScale = node.absScale;
 			const double detailMult = node.detailLevelMultiplier;
 			sDistanceIn nodeIn = in;
 
