@@ -342,16 +342,6 @@ void cRenderJob::PrepareData()
 	CreateMaterialsVector(paramsContainer, &renderData->materials, loadTextures,
 		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
 
-	// preparation of lights
-	// connect signal for progress bar update
-	connect(&renderData->lights,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		Qt::UniqueConnection);
-
-	renderData->lights.Set(paramsContainer, fractalContainer, loadTextures,
-		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
-
 	renderData->perlinNoise.reset(
 		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
 }
@@ -422,6 +412,19 @@ bool cRenderJob::Execute()
 					hybridSequences.CreateSequences(
 						paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 					renderData->hybridFractalSequences = hybridSequences;
+				}
+
+				// lights need nodesDataForRendering and hybridFractalSequences to be ready
+				{
+					// connect signal for progress bar update
+					connect(&renderData->lights,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+
+					renderData->lights.Set(paramsContainer, fractalContainer, true,
+						renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender(),
+						renderData.get());
 				}
 
 				if (renderData->hybridFractalSequences.GetNumberOfSequences() == 0
@@ -526,6 +529,19 @@ bool cRenderJob::Execute()
 				fractals->CreateSequences(
 					paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 				renderData->hybridFractalSequences = *fractals;
+
+				// lights need nodesDataForRendering and hybridFractalSequences to be ready
+				{
+					// connect signal for progress bar update
+					connect(&renderData->lights,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+
+					renderData->lights.Set(paramsContainer, fractalContainer, true,
+						renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender(),
+						renderData.get());
+				}
 
 				// Apply node-tree materials to objectData.
 				// nodeDataForRendering.material holds the inherited world material (computed with
