@@ -2680,6 +2680,20 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			par->Set("node_0001_definition",
 				MakeNodeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
 
+			// Apply global fractal transform params to the hybrid root node
+			if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
+			{
+				par->Set("node_0001_rotation", par->Get<CVector3>("fractal_rotation"));
+			}
+			if (par->IfExists("fractal_position") && !par->isDefaultValue("fractal_position"))
+			{
+				par->Set("node_0001_position", par->Get<CVector3>("fractal_position"));
+			}
+			if (par->IfExists("repeat") && !par->isDefaultValue("repeat"))
+			{
+				par->Set("node_0001_repeat", par->Get<CVector3>("repeat"));
+			}
+
 			// Create fractal child nodes under the hybrid root
 			for (int i = 0; i < enabledFractals.size(); i++)
 			{
