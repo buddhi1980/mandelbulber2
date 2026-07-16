@@ -1453,6 +1453,9 @@ void cSettings::Compatibility(QString &name, QString &value) const
 	}
 }
 
+static void FlattenBooleanAddGroups(
+	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId);
+
 /**
  * Apply version-specific compatibility migrations for settings files.
  * Handles DE function normalization, primitive-to-material migration, gradient renames,
@@ -1706,6 +1709,7 @@ void cSettings::Compatibility2(
 			DeleteAllNodeParams(par);
 			int nextGroupObjectId = 100;
 			MigrateToObjectsTree(par, fract, nextGroupObjectId);
+			FlattenBooleanAddGroups(par, nextGroupObjectId);
 		}
 		DeleteTemporaryLegacyPrimitiveTransformParams(par);
 	}
@@ -2828,6 +2832,299 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	DeleteTemporaryLegacyJuliaParams(par);
 	DeleteTemporaryLegacyFormulaTransformParams(fract);
 	DeleteTemporaryLegacyFormulaMaterialIdParams(par);
+}
+
+// Flattens nested booleanAdd groups: finds each root booleanAdd, collects all its
+// leaf descendants (fractals/primitives), and reparents them directly to a new
+// booleanAdd root. Intermediate booleanAdd groups are reparented to the new root.
+static void FlattenBooleanAddGroups(
+	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId)
+{
+	struct sNodeInfo
+	{
+		int id;
+		enumNodeType type;
+		int parentId;
+	};
+
+	QList<sNodeInfo> nodes;
+	int maxNodeId = 0;
+	QList<int> rootIds;
+
+	// Scan all node definitions to build the node list
+	QStringList allParams = par->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+
+		const int nodeId = paramName.section('_', 1, 1).toInt();
+		if (nodeId > maxNodeId) maxNodeId = nodeId;
+
+		QString def = par->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 5) continue;
+
+		int id = parts[1].toInt();
+		enumNodeType type = static_cast<enumNodeType>(parts[2].toInt());
+		int parentId = parts[3].toInt();
+
+		nodes.append({id, type, parentId});
+
+		if (parentId == 0) rootIds.append(id);
+	}
+
+	// Process each root node
+	for (int rootId : rootIds)
+	{
+		QString rootDef = par->Get<QString>(NodeDefinitionParam(rootId));
+		QStringList rootParts = rootDef.split(',');
+		if (rootParts.size() < 2) continue;
+
+		enumNodeType rootType = static_cast<enumNodeType>(rootParts[2].toInt());
+		if (rootType != enumNodeType::booleanAdd) continue;
+
+		// Collect all descendants of this root
+		QList<int> allDescendants;
+		auto collectDesc = [&](auto &&self, int pid) -> void
+		{
+			for (const auto &node : nodes)
+			{
+				if (node.parentId == pid)
+				{
+					allDescendants.append(node.id);
+					self(self, node.id);
+				}
+			}
+		};
+		collectDesc(collectDesc, rootId);
+
+		// Find leaf nodes (non-boolean) and intermediate boolean groups
+		QSet<int> leafIds;
+		QSet<int> intermediateBoolIds;
+		for (int descId : allDescendants)
+		{
+			bool isBool = false;
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId
+						&& (n.type == enumNodeType::booleanAdd || n.type == enumNodeType::booleanMul
+								|| n.type == enumNodeType::booleanSub))
+				{
+					isBool = true;
+					break;
+				}
+			}
+			if (isBool)
+			{
+				// Check if this boolean group has non-boolean children
+				for (const auto &n : nodes)
+				{
+					if (n.parentId == descId)
+					{
+						bool childIsBool = false;
+						for (const auto &m : nodes)
+						{
+							if (m.id == n.id
+									&& (m.type == enumNodeType::booleanAdd || m.type == enumNodeType::booleanMul
+											|| m.type == enumNodeType::booleanSub))
+							{
+								childIsBool = true;
+								break;
+							}
+						}
+						if (!childIsBool)
+						{
+							intermediateBoolIds.insert(descId);
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				leafIds.insert(descId);
+			}
+		}
+
+		// Check for hybrid nodes among descendants
+		bool hasHybrid = false;
+		int hybridId = -1;
+		for (int descId : allDescendants)
+		{
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId && n.type == enumNodeType::hybrid)
+				{
+					hasHybrid = true;
+					hybridId = descId;
+					break;
+				}
+			}
+			if (hasHybrid) break;
+		}
+
+		// Determine group name based on descendant types
+		QString groupName = "fractals";
+		for (int descId : allDescendants)
+		{
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId && n.type == enumNodeType::primitive)
+				{
+					groupName = "primitives";
+					break;
+				}
+			}
+			if (groupName == "primitives") break;
+		}
+
+		// Create new root
+		const int newRootId = ++maxNodeId;
+		InitNodeParams(newRootId, par);
+		par->Set(NodeDefinitionParam(newRootId),
+			MakeNodeDefinition(groupName, newRootId, enumNodeType::booleanAdd, 0, nextGroupObjectId++));
+		par->Set(NodePrefix(newRootId) + "material", -1);
+
+		if (hasHybrid)
+		{
+			// Reparent non-hybrid descendants to new root
+			for (int descId : allDescendants)
+			{
+				bool isHybridOrDesc = false;
+				if (descId == hybridId)
+				{
+					isHybridOrDesc = true;
+				}
+				else
+				{
+					int checkId = descId;
+					while (checkId > 0)
+					{
+						if (checkId == hybridId)
+						{
+							isHybridOrDesc = true;
+							break;
+						}
+						bool found = false;
+						for (const auto &n : nodes)
+						{
+							if (n.id == checkId)
+							{
+								checkId = n.parentId;
+								found = true;
+								break;
+							}
+						}
+						if (!found) break;
+					}
+				}
+
+				if (!isHybridOrDesc)
+				{
+					QString def = par->Get<QString>(NodeDefinitionParam(descId));
+					QStringList parts = def.split(',');
+					if (parts.size() >= 4)
+					{
+						parts[3] = QString::number(newRootId);
+						par->Set(NodeDefinitionParam(descId), parts.join(','));
+					}
+				}
+			}
+
+			// Convert old root to hybrid pointing to new root
+			QString rootParam = NodePrefix(rootId) + "definition";
+
+			QString prefix = NodePrefix(rootId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+
+			InitNodeParams(rootId, par);
+			par->Set(NodeDefinitionParam(rootId),
+				MakeNodeDefinition("hybrid", rootId, enumNodeType::hybrid, newRootId, hybridId));
+			par->Set(NodePrefix(rootId) + "material", -1);
+		}
+		else
+		{
+			// Collect all nodes that should be reparented (leaves + all descendants of intermediate
+			// bools)
+			QSet<int> nodesToReparent;
+			for (int leafId : leafIds)
+				nodesToReparent.insert(leafId);
+			for (int boolId : intermediateBoolIds)
+			{
+				nodesToReparent.insert(boolId);
+				for (const auto &node : nodes)
+				{
+					if (node.parentId == boolId)
+					{
+						nodesToReparent.insert(node.id);
+						// Recursively add children
+						for (const auto &n : nodes)
+						{
+							if (n.parentId == node.id) nodesToReparent.insert(n.id);
+						}
+					}
+				}
+			}
+
+			// Reparent all collected nodes to new root
+			for (int nodeId : nodesToReparent)
+			{
+				QString def = par->Get<QString>(NodeDefinitionParam(nodeId));
+				QStringList parts = def.split(',');
+				if (parts.size() >= 4)
+				{
+					parts[3] = QString::number(newRootId);
+					par->Set(NodeDefinitionParam(nodeId), parts.join(','));
+				}
+			}
+
+			// Delete old root params (replaced by newRoot)
+			QString rootParam = NodePrefix(rootId) + "definition";
+
+			QString prefix = NodePrefix(rootId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+		}
+	}
+
+	// Remove empty boolean groups (groups with no children)
+	allParams = par->GetListOfParameters();
+	QSet<int> allNodeIds;
+	QSet<int> parentsWithChildren;
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+		const int nodeId = paramName.section('_', 1, 1).toInt();
+		allNodeIds.insert(nodeId);
+
+		QString def = par->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 4) continue;
+		int parentId = parts[3].toInt();
+		if (parentId != 0) parentsWithChildren.insert(parentId);
+	}
+	for (int nodeId : allNodeIds)
+	{
+		QString def = par->Get<QString>(NodeDefinitionParam(nodeId));
+		QStringList parts = def.split(',');
+		if (parts.size() < 3) continue;
+		enumNodeType type = static_cast<enumNodeType>(parts[2].toInt());
+		if ((type == enumNodeType::booleanAdd || type == enumNodeType::booleanMul
+				|| type == enumNodeType::booleanSub)
+			&& !parentsWithChildren.contains(nodeId))
+		{
+			QString prefix = NodePrefix(nodeId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+		}
+	}
 }
 
 void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
