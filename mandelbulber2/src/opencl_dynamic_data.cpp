@@ -936,6 +936,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
 		objectCl.worldToLocalMatrix = toClMatrix44(object->worldToLocalMatrix);
+		objectCl.absScale = static_cast<cl_float>(object->absScale);
 		objectCl.detailLevelMultiplier = static_cast<cl_float>(object->detailLevelMultiplier);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
