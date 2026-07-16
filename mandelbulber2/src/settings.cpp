@@ -2385,6 +2385,17 @@ void cSettings::MigrateLegacyParamsToFractal(
 			fract->at(i)->Set("formula_material_id", matId);
 		}
 	}
+
+	// Migrate global fractal_rotation to per-fractal formula_rotation
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
+	{
+		CVector3 rot = par->Get<CVector3>("fractal_rotation");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_rotation", rot);
+		}
+	}
 }
 
 static QString GetFormulaName(int formulaEnum)
@@ -2871,6 +2882,11 @@ void cSettings::DeleteTemporaryLegacyFormulaMaterialIdParams(
 	{
 		par->DeleteParameter("formula_material_id");
 	}
+
+	// Note: do NOT delete "fractal_rotation" here — sParamRender reads it from the
+	// top-level container for fractal coloring / texture mapping purposes. The value
+	// was migrated to per-fractal formula_rotation by Compatibility2() for the objects
+	// tree, but the top-level copy is still needed by the rendering pipeline.
 }
 
 void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
