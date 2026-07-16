@@ -42,7 +42,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 	if (!material->textureFractalize)
 	{
 		// Transform to object local space (same as calculate_distance)
-		point = Matrix44TransformPoint(objectData->inverseTransformMatrix, point);
+		point = Matrix44TransformPoint(objectData->worldToLocalMatrix, point);
 		// Apply repeat in local space (scale repeat by absScale for correct world-space repeat
 		// distance)
 		point = modRepeat(point, objectData->repeat / objectData->absScale);

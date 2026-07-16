@@ -477,7 +477,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		int leafIters = 0;
 
 		// Apply combined inverse transform (world -> local space)
-		float3 pointLocal = Matrix44TransformPoint(node->inverseTransformMatrix, point);
+		float3 pointLocal = Matrix44TransformPoint(node->worldToLocalMatrix, point);
 
 		// Apply repeat in LOCAL space (leaf only)
 		// Scale repeat by absScale so that repeat distance is in world space (independent of scale)

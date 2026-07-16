@@ -66,7 +66,7 @@ typedef struct
 	cl_float absScale;
 	cl_int material;
 	matrix33 rotationMatrix;
-	matrix44 inverseTransformMatrix;
+	matrix44 worldToLocalMatrix;
 	cl_int enabled;
 	cl_float detailLevelMultiplier;
 	// Common fractal parameters shared by all node types (including boolean groups)

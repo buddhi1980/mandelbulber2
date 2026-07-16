@@ -50,7 +50,7 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	if (!material->textureFractalize)
 	{
 		// Transform to object local space (same as calculate_distance)
-		point = objectData.inverseTransformMatrix.TransformPoint(point);
+		point = objectData.worldToLocalMatrix.TransformPoint(point);
 		// Apply repeat in local space (scale repeat by absScale for correct world-space repeat
 		// distance)
 		point = point.repeatMod(objectData.repeat / objectData.absScale);

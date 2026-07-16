@@ -62,7 +62,7 @@ public:
 	double wallThickness;
 	int materialId;
 	fractal::enumObjectType objectType;
-	CMatrix44 inverseTransformMatrix;
+	CMatrix44 worldToLocalMatrix;
 	CVector3 size;
 	CRotationMatrix rotationMatrix;
 	CVector3 repeat;

@@ -233,7 +233,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 
 			// Apply combined inverse transform (world -> local space)
 			// using the pre-calculated 4×4 homogeneous matrix
-			CVector3 pointLocal = node.inverseTransformMatrix.TransformPoint(in.point);
+			CVector3 pointLocal = node.worldToLocalMatrix.TransformPoint(in.point);
 
 			// Apply repeat in LOCAL space (leaf only)
 			// Scale repeat by absScale so that repeat distance is in world space (independent of scale)

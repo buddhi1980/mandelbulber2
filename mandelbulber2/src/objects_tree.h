@@ -65,7 +65,7 @@ public:
 		double absScale;
 		int material;
 		CRotationMatrix rotationMatrix;
-		CMatrix44 inverseTransformMatrix;
+		CMatrix44 worldToLocalMatrix;
 		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
 		// Common fractal parameters shared by all node types (including boolean groups)

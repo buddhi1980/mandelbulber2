@@ -935,7 +935,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		objectCl.size = toClFloat3(object->size);
 		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
-		objectCl.inverseTransformMatrix = toClMatrix44(object->inverseTransformMatrix);
+		objectCl.worldToLocalMatrix = toClMatrix44(object->worldToLocalMatrix);
 		objectCl.detailLevelMultiplier = static_cast<cl_float>(object->detailLevelMultiplier);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
@@ -1001,7 +1001,7 @@ void cOpenClDynamicData::BuildNodesData(
 		nodeCl.absScale = node.absScale;
 		nodeCl.material = node.material;
 		nodeCl.rotationMatrix = toClMatrix33(node.rotationMatrix);
-		nodeCl.inverseTransformMatrix = toClMatrix44(node.inverseTransformMatrix);
+		nodeCl.worldToLocalMatrix = toClMatrix44(node.worldToLocalMatrix);
 		nodeCl.enabled = node.enabled ? 1 : 0;
 		nodeCl.detailLevelMultiplier =
 			static_cast<cl_float>(static_cast<float>(node.detailLevelMultiplier));

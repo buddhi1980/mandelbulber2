@@ -318,33 +318,35 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.smooth_de_combine_distance = nodeData.smooth_de_combine_distance;
 		nodeDataForRendering.formula_maxiter = nodeData.formula_maxiter;
 
-		// Pre-calculate the inverse transform matrix (world → local space) that combines
+		// Pre-calculate the world-to-local transform matrix that combines
 		// translation, rotation and scale into a single 4×4 homogeneous matrix.
-		// Forward transform: p_world = R * (s * p_local) + t
-		// Inverse:           p_local = R^T * (p_world - t) / s
+		// Matches the legacy formula transform order: p_local = (1/S) * R * (p_world - t)
+		// where S is the user-facing scale (inverted on load, like formulaScale in legacy code).
 		{
-			const double s = (worldScale != 0.0) ? worldScale : 1.0;
-			const double invS = 1.0 / s;
-			nodeDataForRendering.absScale = fabs(s);
+			const double s = (worldScale != 0.0) ? (1.0 / worldScale) : 1.0;
+			nodeDataForRendering.absScale = fabs(worldScale);
 
 			const CMatrix33 &R = nodeDataForRendering.rotationMatrix.GetMatrix();
 
-			// Upper-left 3×3 block = (1/s) * R^T
-			CMatrix44 &M = nodeDataForRendering.inverseTransformMatrix;
-			M.m11 = invS * R.m11;
-			M.m12 = invS * R.m21;
-			M.m13 = invS * R.m31;
-			M.m21 = invS * R.m12;
-			M.m22 = invS * R.m22;
-			M.m23 = invS * R.m32;
-			M.m31 = invS * R.m13;
-			M.m32 = invS * R.m23;
-			M.m33 = invS * R.m33;
+			// Upper-left 3×3 block = s * R (no transpose, matching legacy behavior)
+			CMatrix44 &M = nodeDataForRendering.worldToLocalMatrix;
+			M.m11 = s * R.m11;
+			M.m12 = s * R.m12;
+			M.m13 = s * R.m13;
+			M.m21 = s * R.m21;
+			M.m22 = s * R.m22;
+			M.m23 = s * R.m23;
+			M.m31 = s * R.m31;
+			M.m32 = s * R.m32;
+			M.m33 = s * R.m33;
 
-			// Upper-right column = -(1/s) * R^T * position
-			M.m14 = -(M.m11 * worldPosition.x + M.m12 * worldPosition.y + M.m13 * worldPosition.z);
-			M.m24 = -(M.m21 * worldPosition.x + M.m22 * worldPosition.y + M.m23 * worldPosition.z);
-			M.m34 = -(M.m31 * worldPosition.x + M.m32 * worldPosition.y + M.m33 * worldPosition.z);
+			// Upper-right column = -s * R * position
+			double rx = R.m11 * worldPosition.x + R.m12 * worldPosition.y + R.m13 * worldPosition.z;
+			double ry = R.m21 * worldPosition.x + R.m22 * worldPosition.y + R.m23 * worldPosition.z;
+			double rz = R.m31 * worldPosition.x + R.m32 * worldPosition.y + R.m33 * worldPosition.z;
+			M.m14 = -s * rx;
+			M.m24 = -s * ry;
+			M.m34 = -s * rz;
 
 			// Bottom row (not used by TransformPoint, set for completeness)
 			M.m41 = 0.0;
