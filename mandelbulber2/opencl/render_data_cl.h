@@ -151,6 +151,7 @@ typedef struct
 
 	__global char *nebulaSequencesData;
 	int nebulaSequencesCount;
+	intptr_t nebulaSequencesDataOffset;
 
 #if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;

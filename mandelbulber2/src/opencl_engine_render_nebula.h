@@ -19,6 +19,10 @@ struct sNebulaRenderData
 {
 	int nebulaSequencesCount = 0;
 	intptr_t nebulaSequencesDataOffset = 0; // offset into dynamic data buffer
+	int hybridSequencesCount = 0;
+	intptr_t hybridSequencesDataOffset = 0;
+	int fractalsCount = 0;
+	intptr_t fractalsDataOffset = 0;
 };
 #endif // USE_OPENCL
 

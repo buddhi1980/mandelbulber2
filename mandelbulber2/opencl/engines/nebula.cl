@@ -34,35 +34,6 @@
 
 #define MANDELBULBER_VERSION 2.34
 
-// CPU-side render data struct for nebula (mirrors sNebulaRenderData in C++)
-typedef struct
-{
-	int nebulaSequencesCount;
-	intptr_t nebulaSequencesDataOffset;
-} sNebulaRenderData;
-
-// Nebula sequence data (mirrors sNebulaSequenceCl in opencl/nebula_sequence_cl.h)
-typedef struct
-{
-	cl_float formulaWeight;
-	cl_int DEFunctionType;
-	cl_int DEType;
-	cl_int counts;
-	cl_int formulaStartIteration;
-	cl_int formulaStopIteration;
-	cl_int addCConstant;
-	cl_int checkForBailout;
-	cl_float bailout;
-	cl_int juliaEnabled;
-	cl_float4 juliaConstant;
-	cl_float4 constantMultiplier;
-	cl_float initialWAxis;
-	cl_int useAdditionalBailoutCond;
-	cl_int formulaMaxiter;
-	cl_int DEAnalyticFunction;
-	cl_int coloringFunction;
-} sNebulaSequenceData;
-
 float4 DummyIteration(float4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->r = -1.0f; // signal for main loop to break;
@@ -131,7 +102,7 @@ float3 GetColorFromGradient(float position, bool smooth, int gradientSize, __glo
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *consts,
-	__global sRenderData *renderData, __global char *inBuff, int4 randomInt4)
+	__global char *inBuff, int4 randomInt4)
 {
 	const ulong index = get_global_id(0);
 	const ulong groupId = get_group_id(0);
@@ -194,25 +165,29 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	__global float4 *gradients = (__global float4 *)&inBuff[paletteItemsOffset];
 
-	//--- renderData for dynamic sequence data ---
-	__global sNebulaRenderData *renderDataPtr = renderData;
+	//--- Nebula sequences (from inBuff using header offsets) ---
+	int nebulaSequencesHeaderOffset = GetInteger(1 * sizeof(int), inBuff);
+	int numberOfNebulaSequences = GetInteger(nebulaSequencesHeaderOffset, inBuff);
+	int nebulaSequencesArrayOffset =
+		GetInteger(nebulaSequencesHeaderOffset + 1 * sizeof(int), inBuff);
+	__global sNebulaSequenceCl *nebulaSequences = 0;
+	if (numberOfNebulaSequences > 0)
+	{
+		nebulaSequences = (__global sNebulaSequenceCl *)&inBuff[nebulaSequencesArrayOffset];
+	}
+
+	//--- Hybrid Sequences (only first sequence, index 0) ---
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+	__global sHybridSequenceCl *hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
 
 	//--- Fractals ---
-
 	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
 	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
 	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
 	__global sFractalCl *fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
-
-	//--- Nebula sequences ---
-	__global sNebulaSequenceData *nebulaSequences = 0;
-	if (renderDataPtr->nebulaSequencesDataOffset != 0)
-	{
-		int seqArrayOffset =
-			GetInteger(4, (__global char *)&inBuff[renderDataPtr->nebulaSequencesDataOffset]);
-		nebulaSequences = (__global sNebulaSequenceData
-				*)&inBuff[renderDataPtr->nebulaSequencesDataOffset + seqArrayOffset];
-	}
 
 	float4 point;
 
@@ -279,7 +254,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
 	pointTransformed = modRepeat(pointTransformed, consts->params.common.repeat);
 
-	point.w = nebulaSequences ? nebulaSequences[sequence].initialWAxis : 0.0f;
+	point.w = (numberOfHybridSequences > 0) ? hybridSequences[0].initialWAxis : 0.0f;
 
 	float4 z = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, point.w};
 	float4 c = z;
@@ -306,23 +281,32 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	aux.temp1000 = 1000.0f;
 
 	int sequence = 0;
-	__constant sFractalCl *fractal;
-	__constant sFractalCl *defaultFractal = &fractals[fractalIndex];
+	__global sFractalCl *fractal;
+	__global sFractalCl *defaultFractal = &fractals[fractalIndex];
 
 	float4 zHistory[MAX_ITERATIONS];
 
 	// loop
 	for (i = 0; i < MAX_ITERATIONS; i++)
 	{
+		int seqIdx = 0;
+		int fractIdx = 0;
 
 #if defined(IS_HYBRID)
-		sequence = hybridSequences[sequence].sequenceArrayOffset;
-		sequence = GetInteger(sequence + min(i, 249) * sizeof(int), inBuff);
+		if (numberOfHybridSequences > 0)
+		{
+			seqIdx = 0;
+			int seqArrayOffset = hybridSequences[seqIdx].sequenceArrayOffset;
+			fractIdx = GetInteger(seqArrayOffset + min(i, 249) * sizeof(int), inBuff);
+			fractal = &fractals[hybridSequences[seqIdx].formulaBaseIndex + fractIdx];
+		}
+		else
+		{
+			fractal = &fractals[fractalIndex];
+		}
 #else
-		sequence = 0;
+		fractal = &fractals[fractalIndex];
 #endif
-
-		fractal = &fractals[sequence];
 
 		aux.i = i;
 
@@ -336,7 +320,17 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 #endif
 
 #ifdef ITERATION_WEIGHT
-		if (nebulaSequences && nebulaSequences[sequence].formulaWeight > 0)
+		// Read formulaWeight from fractData
+		float formulaWeight = 0.0f;
+		if (numberOfHybridSequences > 0)
+		{
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			formulaWeight = fractData[fractIdx].formulaWeight;
+		}
+
+		if (nebulaSequences && nebulaSequences[0].formulaWeight > 0)
 		{
 #endif
 
@@ -351,46 +345,74 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 			break;
 		}
 
-		if (nebulaSequences && nebulaSequences[sequence].addCConstant)
+		// Read addCConstant and julia data from fractData/hybridSequences
+		int addCConstant = 0;
+		int juliaEnabled = 0;
+		float3 juliaConstant = (float3)0.0f;
+		float3 constantMultiplier = (float3)1.0f;
+
+		if (numberOfHybridSequences > 0)
+		{
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			addCConstant = fractData[fractIdx].addCConstant;
+
+			juliaEnabled = hybridSequences[seqIdx].juliaEnabled;
+			juliaConstant = hybridSequences[seqIdx].juliaConstant;
+			constantMultiplier = hybridSequences[seqIdx].constantMultiplier;
+		}
+		else if (nebulaSequences)
+		{
+			addCConstant = nebulaSequences[0].addCConstant;
+			juliaEnabled = nebulaSequences[0].juliaEnabled;
+			juliaConstant = (float3){nebulaSequences[0].juliaConstant.x,
+				nebulaSequences[0].juliaConstant.y, nebulaSequences[0].juliaConstant.z};
+			constantMultiplier = (float3){nebulaSequences[0].constantMultiplier.x,
+				nebulaSequences[0].constantMultiplier.y, nebulaSequences[0].constantMultiplier.z};
+		}
+
+		if (addCConstant)
 		{
 			switch (fractal->formula)
 			{
 				case 64: // aboxMod1
 				case 73: // amazingSurf
 				{
-					if (nebulaSequences[sequence].juliaEnabled)
+					if (juliaEnabled)
 					{
-						float4 juliaC = nebulaSequences[sequence].juliaConstant
-														* nebulaSequences[sequence].constantMultiplier;
-						z += (float4){juliaC.y, juliaC.x, juliaC.z, juliaC.w};
+						float4 juliaC =
+							(float4){juliaConstant.y, juliaConstant.x, juliaConstant.z, 0.0f}
+							* (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
+						z += juliaC;
 					}
 					else
 					{
 						z += (float4){aux.const_c.y, aux.const_c.x, aux.const_c.z, aux.const_c.w}
-								 * nebulaSequences[sequence].constantMultiplier;
+								 * (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
 					}
 					break;
 				}
 
 				default:
 				{
-					if (nebulaSequences[sequence].juliaEnabled)
+					if (juliaEnabled)
 					{
-						z += nebulaSequences[sequence].juliaConstant
-								 * nebulaSequences[sequence].constantMultiplier;
+						z += (float4){juliaConstant.x, juliaConstant.y, juliaConstant.z, 0.0f}
+								 * (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
 					}
 					else
 					{
-						z += aux.const_c * nebulaSequences[sequence].constantMultiplier;
+						z += aux.const_c * constantMultiplier.x;
 					}
 				}
 			}
 		}
 
 #ifdef ITERATION_WEIGHT
-		if (nebulaSequences && nebulaSequences[sequence].formulaWeight > 0)
+		if (formulaWeight > 0)
 		{
-			float k = nebulaSequences[sequence].formulaWeight;
+			float k = formulaWeight;
 			if (k < 1.0f)
 			{
 				z = SmoothCVector(tempZ, z, k);
@@ -406,9 +428,26 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		aux.r = length(z);
 
 		// escape conditions
-		if (nebulaSequences && nebulaSequences[sequence].checkForBailout)
+		int checkForBailout = 0;
+		float bailout = 0.0f;
+
+		if (numberOfHybridSequences > 0)
 		{
-			if (aux.r > nebulaSequences[sequence].bailout)
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			checkForBailout = fractData[fractIdx].checkForBailout;
+			bailout = fractData[fractIdx].bailout;
+		}
+		else if (nebulaSequences)
+		{
+			checkForBailout = nebulaSequences[0].checkForBailout;
+			bailout = nebulaSequences[0].bailout;
+		}
+
+		if (checkForBailout)
+		{
+			if (aux.r > bailout)
 			{
 				break;
 			}

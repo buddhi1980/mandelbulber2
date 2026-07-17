@@ -92,6 +92,11 @@ void cOpenClEngineRenderNebula::SetParameters(
 		}
 	}
 
+	if (listOfUsedFormulas.isEmpty())
+	{
+		listOfUsedFormulas.append("mandelbulb");
+	}
+
 	// adding #defines to the list
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
@@ -131,6 +136,7 @@ void cOpenClEngineRenderNebula::SetParameters(
 	if (useHybrid) definesCollector += " -DIS_HYBRID";
 	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
+	definesCollector += " -DNEBULA_MODE";
 	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
@@ -167,10 +173,12 @@ void cOpenClEngineRenderNebula::SetParameters(
 
 	zBufferDefault = (paramRender->camera - paramRender->target).Length();
 
-	dynamicData.reset(new cOpenClDynamicData(2));
+	dynamicData.reset(new cOpenClDynamicData(8));
 	dynamicData->ReserveHeader();
 	dynamicData->BuildNebulaGradientsData(paramRender.get());
 	dynamicData->BuildNebulaSequenceData(&hybridSequences);
+	dynamicData->BuildHybridSequencesData(&hybridSequences);
+	dynamicData->BuildFractalData(&hybridSequences);
 	dynamicData->FillHeader();
 
 	inBuffer = dynamicData->GetData();
@@ -179,6 +187,11 @@ void cOpenClEngineRenderNebula::SetParameters(
 	renderData.nebulaSequencesCount = hybridSequences.GetNumberOfSequences();
 	renderData.nebulaSequencesDataOffset =
 		(intptr_t)dynamicData->GetItemOffset(1); // nebulaSequencesItemIndex = 1
+	renderData.hybridSequencesCount = hybridSequences.GetNumberOfSequences();
+	renderData.hybridSequencesDataOffset =
+		(intptr_t)dynamicData->GetItemOffset(6); // hybridSequencesItemIndex = 6
+	renderData.fractalsCount = 0;
+	renderData.fractalsDataOffset = (intptr_t)dynamicData->GetItemOffset(7); // fractalsItemIndex = 7
 }
 
 bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
@@ -195,6 +208,27 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 
 		QStringList clHeaderFiles;
 		CreateListOfHeaderFiles(clHeaderFiles);
+
+		// Generate formula switch code from listOfUsedFormulas
+		QByteArray formulaSwitchCode;
+		if (listOfUsedFormulas.isEmpty())
+		{
+			formulaSwitchCode.append("		z = MandelbulbIteration(z, fractal, &aux);");
+		}
+		else
+		{
+			QString internalID = toCamelCase(listOfUsedFormulas.at(0));
+			QString functionName;
+			if (internalID != "" && internalID != "None")
+			{
+				functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+			}
+			else
+			{
+				functionName = "DummyIteration";
+			}
+			formulaSwitchCode.append(("		z = " + functionName + "(z, fractal, &aux);").toUtf8());
+		}
 
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
@@ -216,6 +250,27 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		QString mainEngineFileName = "nebula.cl";
 		QString engineFullFileName = openclEnginePath + mainEngineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+		// Replace PLACEHOLDER_FOR_FORMULA_ITER with actual formula code
+		if (!formulaSwitchCode.isEmpty())
+		{
+			int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
+			if (placeholderPos >= 0)
+			{
+				int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+				programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
+			}
+		}
+
+		// Write combined OpenCL source for debugging compiler errors
+		{
+			QString combinedPath = systemDirectories.GetDataDirectoryHidden() + "openclKernelCombined.cl";
+			QFile combinedFile(combinedPath);
+			if (combinedFile.open(QIODevice::WriteOnly))
+			{
+				combinedFile.write(programEngine);
+			}
+		}
 
 		// adding hash code for custom formulas to the end of code to force recompile
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
@@ -370,21 +425,12 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	// Write updated renderData to buffer before passing to kernel
+	// Write updated renderData to buffer (used by SetParameters, not passed to kernel)
 	cl_int writeErr = clQueues.at(0)->enqueueWriteBuffer(*inCLRenderDataBuffer[deviceIndex], CL_FALSE,
 		0, sizeof(sNebulaRenderData), &renderData, nullptr, nullptr);
 	if (!checkErr(writeErr, "enqueueWriteBuffer(renderData)"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot write OpenCL %1").arg(QObject::tr("render data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = clKernels.at(deviceIndex)->setArg(argIterator++, *inCLRenderDataBuffer[deviceIndex]);
-	if (!checkErr(err, "kernel->setArg(renderData)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("render data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -621,6 +667,8 @@ void cOpenClEngineRenderNebula::CreateListOfHeaderFiles(QStringList &clHeaderFil
 	clHeaderFiles.append("fractal_cl.h");
 	clHeaderFiles.append("fractparams_cl.hpp");
 	clHeaderFiles.append("fractal_sequence_cl.h");
+	clHeaderFiles.append("nebula_sequence_cl.h");
+	clHeaderFiles.append("hybrid_sequence_cl.h");
 	clHeaderFiles.append("input_data_structures.h");
 }
 

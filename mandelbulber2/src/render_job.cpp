@@ -667,6 +667,10 @@ bool cRenderJob::Execute()
 		renderData->stopRequest = stopRequest;
 
 		// move parameters from containers to structures
+		if (paramsContainer->Get<bool>("nebula_mode"))
+		{
+			paramsContainer->Set("objects_tree_enable", true);
+		}
 		std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
 		cObjectsTree objectsTree;
 		objectsTree.CreateNodeDataFromParameters(paramsContainer);
@@ -674,6 +678,7 @@ bool cRenderJob::Execute()
 			objectsTree.GetNodeDataListForRendering();
 		std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
 		fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
+		renderData->hybridFractalSequences = *fractals;
 
 		*renderData->stopRequest = false;
 

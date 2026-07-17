@@ -88,6 +88,11 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
+	if (gPar->Get<bool>("nebula_mode"))
+	{
+		config.SetNebulaMode();
+		gPar->Set("objects_tree_enable", true);
+	}
 
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
