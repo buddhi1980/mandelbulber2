@@ -82,6 +82,7 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 
 	// Initialize the editor area that appears below the tree widget
 	editorLayout = new QVBoxLayout();
+	editorLayout->setContentsMargins(0, 0, 0, 0);
 	ui->widget_editor_area->setLayout(editorLayout);
 
 	// Connect drag-and-drop signals from cDragDropTreeWidget to slots
@@ -1238,6 +1239,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	// Wrapper widget so the whole editor area can be removed/replaced as a single unit
 	QWidget *editorContainer = new QWidget();
 	QVBoxLayout *containerLayout = new QVBoxLayout(editorContainer);
+	containerLayout->setContentsMargins(0, 0, 0, 0);
 
 	// Header label: tells the user which object and type they are currently editing
 	containerLayout->addWidget(buildInfoLabel(item, type));
