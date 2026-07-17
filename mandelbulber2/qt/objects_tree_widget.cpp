@@ -1595,11 +1595,13 @@ void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 	if (fractalIndex < 0 || fractalIndex >= gParFractal->size()) return;
 
 	int matchedObjectId = -1;
+	QString formulaName;
 	for (cAbstractFractal *fractal : newFractalList)
 	{
 		if (int(fractal->getInternalId()) == formulaEnum)
 		{
 			matchedObjectId = fractalIndex + 1;
+			formulaName = fractal->getNameInComboBox();
 			break;
 		}
 	}
@@ -1612,6 +1614,10 @@ void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 		if (enumNodeType(getNodeType(item)) == enumNodeType::fractal && objectId == matchedObjectId)
 		{
 			updateFractalIcon(item, objectId, formulaEnum);
+			QString currentName = item->text(treeCol::name);
+			qDebug() << "onFormulaChanged currentName" << currentName << "formulaName" << formulaName;
+			item->setText(treeCol::name, formulaName);
+			qDebug() << "  -> name changed to" << formulaName;
 			ui->treeWidget_objects->viewport()->update();
 			break;
 		}
