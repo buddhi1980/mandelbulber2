@@ -2697,6 +2697,24 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			{
 				par->Set("node_0001_repeat", par->Get<CVector3>("repeat"));
 			}
+			if (par->IfExists("fractal_constant_factor")
+					&& !par->isDefaultValue("fractal_constant_factor"))
+			{
+				par->Set(
+					"node_0001_fractal_constant_factor", par->Get<CVector3>("fractal_constant_factor"));
+			}
+			if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
+			{
+				par->Set("node_0001_initial_waxis", par->Get<double>("initial_waxis"));
+			}
+			if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+			{
+				par->Set("node_0001_julia_mode", par->Get<bool>("julia_mode"));
+			}
+			if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+			{
+				par->Set("node_0001_julia_c", par->Get<CVector3>("julia_c"));
+			}
 
 			// Create fractal child nodes under the hybrid root
 			for (int i = 0; i < enabledFractals.size(); i++)
@@ -3115,8 +3133,8 @@ static void FlattenBooleanAddGroups(
 		if (parts.size() < 3) continue;
 		enumNodeType type = static_cast<enumNodeType>(parts[2].toInt());
 		if ((type == enumNodeType::booleanAdd || type == enumNodeType::booleanMul
-				|| type == enumNodeType::booleanSub)
-			&& !parentsWithChildren.contains(nodeId))
+					|| type == enumNodeType::booleanSub)
+				&& !parentsWithChildren.contains(nodeId))
 		{
 			QString prefix = NodePrefix(nodeId);
 			for (const QString &pn : allParams)
