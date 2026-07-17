@@ -76,6 +76,7 @@ private:
 	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
 	QWidget *buildTypeLabel(int currentType);
 	QIcon getIconForNode(enumNodeType type, const QString &primTypeName = QString());
+	void updateFractalIcon(QTreeWidgetItem *item, int objectId, int formulaEnum);
 	void attachMaterialWidget(
 		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
 	void attachEnableCheckbox(QTreeWidgetItem *item, int nodeId, bool checked);
@@ -126,6 +127,7 @@ private slots:
 	void onDropCompleted(int nodeId, QTreeWidgetItem *targetItem, int dropPosition);
 	void onTreeStructureChanged();
 	void onCustomContextMenu(const QPoint &pos);
+	void onFormulaChanged(int fractalIndex, int formulaEnum);
 
 private:
 	Ui::cObjectsTreeWidget *ui;
@@ -141,6 +143,8 @@ private:
 	QList<QPair<QWidget *, std::shared_ptr<cParameterContainer>>> editorSyncTargets;
 
 	QHash<QObject *, int> checkboxToNodeId; // maps QCheckBox* -> nodeId for enable column
+
+	bool treeSyncBlocked = false; // prevents UpdateTree during formula change
 
 	enum DropPosition
 	{

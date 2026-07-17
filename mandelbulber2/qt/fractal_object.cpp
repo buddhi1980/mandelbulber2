@@ -200,6 +200,15 @@ void cFractalObject::slotChangedComboFractal(int indexInComboBox)
 			SynchronizeInterfaceWindow(
 				fractalWidget.get(), fractalParams->at(tabIndex), qInterface::write);
 
+			int fractalListIndex = qobject_cast<QComboBox *>(sender())->itemData(indexInComboBox).toInt();
+			if (fractalListIndex < 0 || fractalListIndex >= newFractalList.size())
+			{
+				emit formulaChanged(tabIndex, 0);
+				return;
+			}
+			int formulaFromCombo = newFractalList[fractalListIndex]->getInternalId();
+			emit formulaChanged(tabIndex, formulaFromCombo);
+
 			switch (newFractalList[index]->getCpixelAddition())
 			{
 				case fractal::cpixelEnabledByDefault:

@@ -213,7 +213,34 @@ QIcon cObjectsTreeWidget::getIconForNode(enumNodeType type, const QString &primT
 	}
 	return QIcon();
 }
+void cObjectsTreeWidget::updateFractalIcon(QTreeWidgetItem *item, int objectId, int formulaEnum)
+{
+	if (objectId <= 0 || objectId > gParFractal->size()) return;
 
+	int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+	QPixmap scaledPixmap;
+
+	for (cAbstractFractal *fractal : newFractalList)
+	{
+		if (int(fractal->getInternalId()) == formulaEnum)
+		{
+			QString iconName = fractal->getIconName();
+			QIcon icon(iconName);
+			QPixmap pixmap = icon.pixmap(QSize(128, 128));
+			if (!pixmap.isNull())
+			{
+				scaledPixmap =
+					pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			}
+			break;
+		}
+	}
+
+	if (!scaledPixmap.isNull())
+	{
+		item->setIcon(treeCol::icon, QIcon(scaledPixmap));
+	}
+}
 int cObjectsTreeWidget::findNextAvailableNodeId() const
 {
 	QSet<int> usedIds;
@@ -838,6 +865,8 @@ void cObjectsTreeWidget::slotAddFractal()
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::fractal)));
 	attachMaterialWidget(newItem, newNodeId, gPar);
+	int defaultFormula = gParFractal->at(fractalObjectId - 1)->Get<int>("formula");
+	updateFractalIcon(newItem, fractalObjectId, defaultFormula);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
@@ -1011,6 +1040,10 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 	fractalTab->AssignParameterContainers(gPar, gParFractal);
 	fractalTab->Init(true, fractalIndex);
 	fractalTab->AssignParentDockFractal(nullptr);
+
+	connect(fractalTab,
+		static_cast<void (cFractalObject::*)(int, int)>(&cFractalObject::formulaChanged), this,
+		&cObjectsTreeWidget::onFormulaChanged);
 
 	// Populate the tab with the current parameter values from gPar and gParFractal
 	layout->addWidget(fractalTab);
@@ -1290,9 +1323,12 @@ void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::en
 void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
 	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
 {
-	SynchronizeEditorWidget(currentEditorWidget, mode);
+	if (!treeSyncBlocked)
+	{
+		SynchronizeEditorWidget(currentEditorWidget, mode);
+	}
 
-	if (mode == qInterface::write)
+	if (mode == qInterface::write && !treeSyncBlocked)
 	{
 		// Block itemSelectionChanged to prevent the editor from being destroyed and
 		// recreated during tree reconstruction, which causes blinking and focus loss.
@@ -1553,6 +1589,33 @@ void cObjectsTreeWidget::onTreeStructureChanged()
 	StoreTreeToParams(gPar, gParFractal);
 	// Then rebuild the tree from params
 	UpdateTree(gPar, gParFractal);
+}
+void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
+{
+	if (fractalIndex < 0 || fractalIndex >= gParFractal->size()) return;
+
+	int matchedObjectId = -1;
+	for (cAbstractFractal *fractal : newFractalList)
+	{
+		if (int(fractal->getInternalId()) == formulaEnum)
+		{
+			matchedObjectId = fractalIndex + 1;
+			break;
+		}
+	}
+
+	if (matchedObjectId < 0) return;
+
+	for (QTreeWidgetItem *item : collectAllTreeItems())
+	{
+		int objectId = item->data(treeData::objectId, Qt::UserRole).toInt();
+		if (enumNodeType(getNodeType(item)) == enumNodeType::fractal && objectId == matchedObjectId)
+		{
+			updateFractalIcon(item, objectId, formulaEnum);
+			ui->treeWidget_objects->viewport()->update();
+			break;
+		}
+	}
 }
 
 void cObjectsTreeWidget::onCustomContextMenu(const QPoint &pos)
