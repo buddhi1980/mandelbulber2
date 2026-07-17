@@ -651,11 +651,12 @@ void cObjectsTreeWidget::UpdateTree(
 		miniSize + maxDepth * ui->treeWidget_objects->indentation() + miniSize + miniSize / 2;
 
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::icon, QHeaderView::Fixed);
-	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::name, QHeaderView::Stretch);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::name, QHeaderView::Interactive);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::type, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::material, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::enable, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::icon, iconColWidth);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::name, miniSize * 4);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::type, miniSize * 3);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::material, miniSize);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::enable, miniSize);
