@@ -155,6 +155,7 @@
     <file>icons/water.png</file>
   </qresource>
   <qresource prefix="/navigation">
+    <file>icons/world.png</file>
     <file>icons/precise.svg</file>
     <file>icons/auto.svg</file>
     <file>icons/rot.svg</file>

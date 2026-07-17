@@ -490,6 +490,7 @@ void cObjectsTreeWidget::UpdateTree(
 	worldItem = new QTreeWidgetItem();
 	worldItem->setText(treeCol::name, tr("World"));
 	worldItem->setData(treeData::nodeId, Qt::UserRole, 0); // nodeId 0 = World sentinel
+	worldItem->setIcon(treeCol::icon, QIcon(":/navigation/icons/world.png"));
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
 	ui->treeWidget_objects->setColumnCount(5);
@@ -603,6 +604,7 @@ void cObjectsTreeWidget::UpdateTree(
 	int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	int rowHeight = miniSize;
 	ui->treeWidget_objects->header()->setMinimumSectionSize(miniSize);
+	ui->treeWidget_objects->setIndentation(miniSize);
 
 	// Calculate icon column width: miniSize + max indentation depth * indent pixel width + extra
 	// padding
@@ -618,7 +620,8 @@ void cObjectsTreeWidget::UpdateTree(
 		}
 		maxDepth = qMax(maxDepth, depth);
 	}
-	int iconColWidth = miniSize + maxDepth * ui->treeWidget_objects->indentation() + miniSize;
+	int iconColWidth =
+		miniSize + maxDepth * ui->treeWidget_objects->indentation() + miniSize + miniSize / 2;
 
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::icon, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::name, QHeaderView::Stretch);
