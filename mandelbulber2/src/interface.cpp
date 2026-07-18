@@ -126,6 +126,12 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 
 cInterface::~cInterface()
 {
+	// Must zero this global pointer BEFORE QObject::~QObject() triggers deleteChildren().
+	// cNetRender (a child of cInterface) calls WriteLog() in its destructor,
+	// which reads gMainInterface->mainWindow. If mainWindow were deleted first,
+	// WriteLog would access a destroyed object -> crash.
+	gMainInterface = nullptr;
+
 	if (imageSequencePlayer) delete imageSequencePlayer;
 	if (mainWindow) delete mainWindow;
 }
