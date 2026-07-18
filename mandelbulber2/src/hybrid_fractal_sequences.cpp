@@ -183,6 +183,7 @@ void cHybridFractalSequences::CollectSequenceData(
 		seq.fractData[i].checkForBailout = fractalsMap[objectId].checkForBailout;
 		if (singleFractal) seq.fractData[i].checkForBailout = true;
 		seq.fractData[i].fractalParameters = fractalsMap[objectId];
+		seq.fractData[i].objectId = objectId;
 
 		// decide if use addition of C constant
 		bool addc = false;

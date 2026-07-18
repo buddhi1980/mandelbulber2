@@ -41,6 +41,7 @@ public:
 		bool useAdditionalBailoutCond;
 		cAbstractFractal *fractalFormulaObject;
 		sFractal fractalParameters; // data from fractal container for the fractal used in the sequence
+		int objectId = 0;
 	};
 
 	struct sSequence

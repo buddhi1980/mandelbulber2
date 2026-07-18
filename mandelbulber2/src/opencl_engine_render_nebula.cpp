@@ -85,6 +85,30 @@ void cOpenClEngineRenderNebula::SetParameters(
 			if (formulaName == "custom")
 			{
 				formulaName += QString::number(formulaIndex);
+				QString formulaCode =
+					fractalContainer->at(fractData.objectId - 1)->Get<QString>("formula_code");
+
+				if (formulaCode.contains("CustomIteration("))
+				{
+					formulaCode =
+						formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(formulaIndex));
+					formulaCode.replace("__constant sFractalCl *fractal", "__global sFractalCl *fractal");
+					QFile qFile(
+						systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+					if (qFile.open(QIODevice::WriteOnly))
+					{
+						qFile.write(formulaCode.toUtf8());
+						qFile.close();
+					}
+				}
+				else
+				{
+					emit showErrorMessage(
+						QObject::tr("Custom formula %1 has missing function name CustomIteration()!")
+							.arg(formulaIndex),
+						cErrorMessage::errorMessage, nullptr);
+				}
+				customFormulaCodes.append(formulaCode);
 			}
 
 			listOfUsedFormulas.append(formulaName);
