@@ -59,6 +59,71 @@
 #include "formula/definition/abstract_fractal.h"
 #include "formula/definition/all_fractal_list.hpp"
 
+static QString lookupFormulaNameByInternalId(int formulaEnum)
+{
+	for (cAbstractFractal *f : newFractalList)
+	{
+		if (int(f->getInternalId()) == formulaEnum)
+		{
+			return f->getNameInComboBox();
+		}
+	}
+	return QString();
+}
+
+static QString lookupFormulaNameByInternalName(const QString &internalName)
+{
+	for (cAbstractFractal *f : newFractalList)
+	{
+		if (f->getInternalName() == internalName)
+		{
+			return f->getNameInComboBox();
+		}
+	}
+	return QString();
+}
+
+static QStringList extractFormulasFromSettings(const QString &settingsText)
+{
+	QStringList formulaNames;
+	QRegularExpression nodeDefRe(
+		"node_\\d+_definition\\s+(\\S+)\\s+(\\d+),(\\d+),(\\d+),(\\d+),(\\d+)");
+	QRegularExpressionMatchIterator it(nodeDefRe.globalMatch(settingsText));
+	while (it.hasNext())
+	{
+		QRegularExpressionMatch match = it.next();
+		QString formulaName = match.captured(1);
+		int nodeType = match.captured(4).toInt();
+		if (nodeType == 1 && formulaName != "hybrid" && formulaName != "boolean")
+		{
+			QString displayName = lookupFormulaNameByInternalName(formulaName);
+			if (!displayName.isEmpty())
+			{
+				formulaNames.append(displayName);
+			}
+		}
+	}
+	if (!formulaNames.isEmpty()) return formulaNames;
+
+	QRegularExpression formulaRe("formula_(\\d+)\\s+(\\d+)");
+	QRegularExpressionMatchIterator fit(formulaRe.globalMatch(settingsText));
+	while (fit.hasNext())
+	{
+		QRegularExpressionMatch match = fit.next();
+		int formulaValue = match.captured(2).toInt();
+		if (formulaValue > 0)
+		{
+			fractal::enumFractalFormula eFormula = fractal::enumFractalFormula(formulaValue);
+			QString name = lookupFormulaNameByInternalId(int(eFormula));
+			if (!name.isEmpty())
+			{
+				formulaNames.append(name);
+			}
+		}
+	}
+	return formulaNames;
+}
+
 cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsBrowser)
 {
 	ui->setupUi(this);
@@ -322,16 +387,36 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid:\n";
 
 				if (par->Get<bool>("boolean_operators")) prefix += "boolean:\n";
-				for (int f = 1; f <= parFractal->size(); f++)
+
+				QString settingsTxt = parSettings.GetSettingsText();
+				QStringList nodeFormulaNames = extractFormulasFromSettings(settingsTxt);
+				if (!nodeFormulaNames.isEmpty())
 				{
-					fractal::enumFractalFormula eFormula =
-						fractal::enumFractalFormula(par->Get<int>("formula", f));
-					if (eFormula != fractal::none)
+					for (const QString &name : nodeFormulaNames)
 					{
-						int indexOnFractalList = cHybridFractalSequences::GetIndexOnFractalListStatic(eFormula);
-						cAbstractFractal *fractalFormula = newFractalList[indexOnFractalList];
-						if (listOfFormulas.length() > 0) listOfFormulas += "\n";
-						listOfFormulas += fractalFormula->getNameInComboBox();
+						if (!listOfFormulas.isEmpty()) listOfFormulas += "\n";
+						listOfFormulas += name;
+					}
+				}
+				else
+				{
+					for (int f = 1; f <= parFractal->size(); f++)
+					{
+						QString formulaParamName = "formula";
+						if (parFractal->at(f - 1)->IfExists(formulaParamName))
+						{
+							int formulaValue = parFractal->at(f - 1)->Get<int>(formulaParamName);
+							fractal::enumFractalFormula eFormula = fractal::enumFractalFormula(formulaValue);
+							if (eFormula != fractal::none)
+							{
+								QString name = lookupFormulaNameByInternalId(int(eFormula));
+								if (!name.isEmpty())
+								{
+									if (!listOfFormulas.isEmpty()) listOfFormulas += "\n";
+									listOfFormulas += name;
+								}
+							}
+						}
 					}
 				}
 				ui->tableWidget->setItem(
