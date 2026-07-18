@@ -136,16 +136,11 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_FRACTAL_COLORING
 			if (input->material->useColorsFromPalette)
 			{
-#ifdef BOOLEAN_OPERATORS
 				int formulaIndex = input->objectId;
 
 				float3 pointForFractal =
 					input->hasTransformedPoint ? input->transformedPoint : input->point;
 
-#else
-				int formulaIndex = -1;
-				float3 pointForFractal = input->point;
-#endif
 				fout = Fractal(consts, pointForFractal, calcParams, calcModeColouring, input->material,
 					formulaIndex, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 				float nCol = fmod(fabs(fout.colorIndex), 248.0f * 256.0f);
