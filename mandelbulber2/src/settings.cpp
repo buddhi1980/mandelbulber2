@@ -1713,7 +1713,6 @@ void cSettings::Compatibility2(
 		}
 		DeleteTemporaryLegacyPrimitiveTransformParams(par);
 	}
-
 }
 
 /**
@@ -2514,6 +2513,16 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 	return enabledFractals;
 }
 
+static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex)
+{
+	QString paramName = QString("fractal_enable_%1").arg(fractalIndex);
+	if (par->IfExists(paramName))
+	{
+		return par->Get<bool>(paramName);
+	}
+	return true;
+}
+
 // Default object_id value assigned to primitives that were not explicitly renumbered.
 static const int DefaultPrimitiveObjectId = 1234;
 
@@ -2597,6 +2606,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
 			CopyCommonFractalParams(par, "node_0001_", fract->at(objectId - 1));
+			if (!GetFractalEnableFlag(par, objectId))
+			{
+				par->Set("node_0001_enabled", false);
+			}
 		}
 		// Multiple fractals: build a left-associative binary tree
 		else if (m >= 2)
@@ -2639,6 +2652,11 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
 				CopyCommonFractalParams(par, NodePrefix(nodeId), fract->at(objectId - 1));
+
+				if (!GetFractalEnableFlag(par, objectId))
+				{
+					par->Set(NodePrefix(nodeId) + "enabled", false);
+				}
 			}
 		}
 	}
@@ -2700,18 +2718,48 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			}
 
 			// Create fractal child nodes under the hybrid root
-			for (int i = 0; i < enabledFractals.size(); i++)
+			// Iterate over ALL fractals (not just enabled ones) to preserve all fractal slots
+			int childNodeId = 2;
+			for (int objectId = 1; objectId <= fract->size(); objectId++)
 			{
-				int nodeId = i + 2;
-				int objectId = enabledFractals[i];
-				InitNodeParams(nodeId, par);
+				if (fract->at(objectId - 1)->IfExists("formula")
+						&& fract->at(objectId - 1)->Get<int>("formula") != int(fractal::none))
+				{
+					InitNodeParams(childNodeId, par);
 
-				QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
-				QString prefix = NodePrefix(nodeId);
-				par->Set(prefix + "definition",
-					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 1, objectId));
-				CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
-				CopyCommonFractalParams(par, prefix, fract->at(objectId - 1));
+					QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+					QString prefix = NodePrefix(childNodeId);
+					par->Set(prefix + "definition",
+						MakeNodeDefinition(formulaName, childNodeId, enumNodeType::fractal, 1, objectId));
+					CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
+					CopyCommonFractalParams(par, prefix, fract->at(objectId - 1));
+
+					// Set node enabled state based on fractal_enable_x parameter
+					// Note: fractal_enable_N is resolved by TryResolveLegacyFractalParam to
+					// fractal_enable in fract->at(N-1), not to top-level container.
+					QString fractalEnableParam = QString("fractal_enable_%1").arg(objectId);
+					bool hasParam = par->IfExists(fractalEnableParam)
+													|| (fract->at(objectId - 1)->IfExists("fractal_enable"));
+					bool paramValue;
+					if (par->IfExists(fractalEnableParam))
+					{
+						paramValue = par->Get<bool>(fractalEnableParam);
+					}
+					else if (fract->at(objectId - 1)->IfExists("fractal_enable"))
+					{
+						paramValue = fract->at(objectId - 1)->Get<bool>("fractal_enable");
+					}
+					else
+					{
+						paramValue = true;
+					}
+					if (hasParam && !paramValue)
+					{
+						par->Set(prefix + "enabled", false);
+					}
+
+					childNodeId++;
+				}
 			}
 		}
 	}
