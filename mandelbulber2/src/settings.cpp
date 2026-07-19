@@ -2382,6 +2382,17 @@ void cSettings::MigrateLegacyParamsToFractal(
 			fract->at(i)->Set("formula_rotation", rot);
 		}
 	}
+
+	// Migrate global fractal_position to per-fractal formula_position
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("fractal_position") && !par->isDefaultValue("fractal_position"))
+	{
+		CVector3 pos = par->Get<CVector3>("fractal_position");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_position", pos);
+		}
+	}
 }
 
 static QString GetFormulaName(int formulaEnum)
