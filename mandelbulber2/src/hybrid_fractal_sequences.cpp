@@ -152,7 +152,7 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 			fractal.ApplyNodeData(&nodeData->julia_mode, &nodeData->julia_c,
 				&nodeData->fractal_constant_factor, &nodeData->initial_waxis,
 				&nodeData->smooth_de_combine_enable, &nodeData->smooth_de_combine_distance,
-				&nodeData->formula_maxiter);
+				&nodeData->formula_maxiter, &nodeData->formula_stop_iteration);
 		}
 		fractalsMap.insert(objectId, fractal);
 		// formula is now read from the per-fractal container in sFractal constructor

@@ -2495,6 +2495,8 @@ static void CopyCommonFractalParams(std::shared_ptr<cParameterContainer> par, co
 			prefix + "smooth_de_combine_distance", fracPar->Get<double>("smooth_de_combine_distance"));
 	if (fracPar->IfExists("formula_maxiter"))
 		par->Set(prefix + "formula_maxiter", fracPar->Get<int>("formula_maxiter"));
+	if (fracPar->IfExists("formula_stop_iteration"))
+		par->Set(prefix + "formula_stop_iteration", fracPar->Get<int>("formula_stop_iteration"));
 }
 
 static void CopyPrimitiveTransform(
@@ -2726,6 +2728,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
 			{
 				par->Set("node_0001_julia_c", par->Get<CVector3>("julia_c"));
+			}
+			if (par->IfExists("N"))
+			{
+				par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
 			}
 
 			// Create fractal child nodes under the hybrid root

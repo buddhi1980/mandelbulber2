@@ -2140,6 +2140,7 @@ void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(prefix + "smooth_de_combine_enable", false, morphLinear, paramStandard);
 	par->addParam(prefix + "smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima, paramStandard);
 	par->addParam(prefix + "formula_maxiter", 250, 1, 9999, morphLinear, paramStandard);
+	par->addParam(prefix + "formula_stop_iteration", 250, 0, 65536, morphAkima, paramStandard);
 }
 
 void DeleteAllNodeParams(std::shared_ptr<cParameterContainer> par)

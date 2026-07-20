@@ -89,6 +89,8 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 				nodeData.smooth_de_combine_distance =
 					params->Get<double>("node" + suffix + "_smooth_de_combine_distance");
 				nodeData.formula_maxiter = params->Get<int>("node" + suffix + "_formula_maxiter");
+				nodeData.formula_stop_iteration =
+					params->Get<int>("node" + suffix + "_formula_stop_iteration");
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -317,6 +319,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.smooth_de_combine_enable = nodeData.smooth_de_combine_enable;
 		nodeDataForRendering.smooth_de_combine_distance = nodeData.smooth_de_combine_distance;
 		nodeDataForRendering.formula_maxiter = nodeData.formula_maxiter;
+		nodeDataForRendering.formula_stop_iteration = nodeData.formula_stop_iteration;
 
 		// Pre-calculate the world-to-local transform matrix that combines
 		// translation, rotation and scale into a single 4×4 homogeneous matrix.

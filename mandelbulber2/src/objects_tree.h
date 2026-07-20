@@ -45,6 +45,7 @@ public:
 		bool smooth_de_combine_enable = false;
 		double smooth_de_combine_distance = 0.1;
 		int formula_maxiter = 250;
+		int formula_stop_iteration = 250;
 	};
 
 	struct sNodeDataForRendering
@@ -76,6 +77,7 @@ public:
 		bool smooth_de_combine_enable = false;
 		double smooth_de_combine_distance = 0.1;
 		int formula_maxiter = 250;
+		int formula_stop_iteration = 250;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;
