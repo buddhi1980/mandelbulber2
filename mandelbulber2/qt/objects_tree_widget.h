@@ -19,25 +19,28 @@
 #include "src/algebra.hpp"
 #include "src/synchronize_interface.hpp"
 #include "src/object_node_type.h"
+#include "my_widget_with_params.h"
 
 // Forward declaration – full definition is only needed in the .cpp
 class cMaterialWidget;
-
-class cParameterContainer;
-class cFractalContainer;
 
 namespace Ui
 {
 class cObjectsTreeWidget;
 }
 
-class cObjectsTreeWidget : public QWidget
+class cObjectsTreeWidget : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 
 public:
 	explicit cObjectsTreeWidget(QWidget *parent = nullptr);
 	~cObjectsTreeWidget() override;
+
+	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams) override;
+	virtual void AssignSpecialWidgets(
+		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
 
 	// Data structure for subtree node info (used by static duplicate method)
 	struct sDuplicateNodeInfo

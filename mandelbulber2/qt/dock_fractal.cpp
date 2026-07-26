@@ -76,7 +76,10 @@ void cDockFractal::SynchronizeInterfaceFractals(std::shared_ptr<cParameterContai
 	ui->widget_objectsTree->SynchronizeInterface(par, parFractal, mode);
 }
 
-void cDockFractal::ConnectSignals() const {}
+void cDockFractal::ConnectSignals() const
+{
+	connect(ui->pushButton_local_navi, &QPushButton::clicked, this, &cDockFractal::slotPressedButtonNavi);
+}
 
 // initialize ui for hybrid fractal components
 void cDockFractal::InitializeFractalUi() const
@@ -97,6 +100,7 @@ void cDockFractal::AssignParameterContainers(
 	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
 {
 	cMyWidgetWithParams::AssignParameterContainers(_params, _fractalParams);
+	ui->widget_objectsTree->AssignParameterContainers(_params, _fractalParams);
 	//	ui->widgetPrimitivesManager->AssignParameterContainers(_params, _fractalParams);
 	//	ui->widgetPrimitivesManager->Init();
 }
@@ -105,6 +109,7 @@ void cDockFractal::AssignSpecialWidgets(
 	RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo)
 {
 	cMyWidgetWithParams::AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
+	ui->widget_objectsTree->AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 	//	ui->widgetPrimitivesManager->AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 }
 

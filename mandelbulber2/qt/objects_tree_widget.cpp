@@ -44,7 +44,7 @@
 #include "drag_drop_tree_widget.h"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
-		: QWidget(parent), ui(new Ui::cObjectsTreeWidget)
+		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cObjectsTreeWidget)
 {
 	ui->setupUi(this);
 
@@ -107,6 +107,18 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 cObjectsTreeWidget::~cObjectsTreeWidget()
 {
 	delete ui;
+}
+
+void cObjectsTreeWidget::AssignParameterContainers(
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
+{
+	cMyWidgetWithParams::AssignParameterContainers(_params, _fractalParams);
+}
+
+void cObjectsTreeWidget::AssignSpecialWidgets(
+	RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo)
+{
+	cMyWidgetWithParams::AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 }
 
 // Widget names from cGeneralObjectParameters that represent the common object parameters
@@ -237,7 +249,7 @@ QIcon cObjectsTreeWidget::getIconForNode(enumNodeType type, const QString &primT
 }
 void cObjectsTreeWidget::updateFractalIcon(QTreeWidgetItem *item, int objectId, int formulaEnum)
 {
-	if (objectId <= 0 || objectId > gParFractal->size()) return;
+	if (objectId <= 0 || objectId > fractalParams->size()) return;
 
 	int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	QPixmap scaledPixmap;
@@ -459,7 +471,7 @@ void cObjectsTreeWidget::addNodeToSelectedGroup(QTreeWidgetItem *newItem)
 void cObjectsTreeWidget::ensureNodeParamsExist(int nodeId)
 {
 	QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
-	if (!gPar->IfExists(prefix + "definition")) InitNodeParams(nodeId, gPar);
+	if (!params->IfExists(prefix + "definition")) InitNodeParams(nodeId, params);
 }
 
 // Adds or updates a string parameter in 'params'.
@@ -592,9 +604,9 @@ void cObjectsTreeWidget::UpdateTree(
 			if (nodeData.type == enumNodeType::fractal)
 			{
 				int objectId = nodeData.objectId;
-				if (objectId > 0 && objectId <= gParFractal->size())
+				if (objectId > 0 && objectId <= fractalParams->size())
 				{
-					int formulaEnum = gParFractal->at(objectId - 1)->Get<int>("formula");
+					int formulaEnum = fractalParams->at(objectId - 1)->Get<int>("formula");
 					for (cAbstractFractal *fractal : newFractalList)
 					{
 						if (int(fractal->getInternalId()) == formulaEnum)
@@ -788,7 +800,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 
 void cObjectsTreeWidget::pressedRefreshButton()
 {
-	UpdateTree(gPar, gParFractal);
+	UpdateTree(params, fractalParams);
 }
 void cObjectsTreeWidget::attachMaterialWidget(
 	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
@@ -826,7 +838,7 @@ void cObjectsTreeWidget::attachEnableCheckbox(QTreeWidgetItem *item, int nodeId,
 		[this, nodeId](int state)
 		{
 			QString paramName = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
-			gPar->Set(paramName, state == Qt::Checked);
+			params->Set(paramName, state == Qt::Checked);
 		});
 }
 
@@ -844,7 +856,7 @@ void cObjectsTreeWidget::slotAddGroup()
 	// overriding the generic placeholder created by ensureNodeParamsExist.
 	QString prefix = QString("node_%1_").arg(newNodeId, 4, 10, QChar('0'));
 	QString groupName = nodeTypeToString(groupType);
-	gPar->Set(prefix + "definition",
+	params->Set(prefix + "definition",
 		QString("%1 %2,%2,%3,%4,%5")
 			.arg(groupName)
 			.arg(newNodeId)
@@ -857,7 +869,7 @@ void cObjectsTreeWidget::slotAddGroup()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeLabel(int(groupType)));
-	attachMaterialWidget(newItem, newNodeId, gPar);
+	attachMaterialWidget(newItem, newNodeId, params);
 	QIcon icon = getIconForNode(groupType);
 	QPixmap pixmap = icon.pixmap(QSize(128, 128));
 	if (!pixmap.isNull())
@@ -879,11 +891,11 @@ void cObjectsTreeWidget::slotAddFractal()
 	// Grow the fractal container if this objectId needs a new slot.
 	// objectId is 1-indexed; container index is objectId-1.
 	const int fractalIndex = fractalObjectId - 1;
-	if (fractalIndex >= gParFractal->size())
+	if (fractalIndex >= fractalParams->size())
 	{
-		gParFractal->ensureCapacity(fractalIndex);
-		InitFractalParams(gParFractal->at(fractalIndex));
-		gParFractal->at(fractalIndex)
+		fractalParams->ensureCapacity(fractalIndex);
+		InitFractalParams(fractalParams->at(fractalIndex));
+		fractalParams->at(fractalIndex)
 			->SetContainerName(QString("fractal") + QString::number(fractalIndex));
 	}
 
@@ -897,8 +909,8 @@ void cObjectsTreeWidget::slotAddFractal()
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::fractal)));
-	attachMaterialWidget(newItem, newNodeId, gPar);
-	int defaultFormula = gParFractal->at(fractalObjectId - 1)->Get<int>("formula");
+	attachMaterialWidget(newItem, newNodeId, params);
+	int defaultFormula = fractalParams->at(fractalObjectId - 1)->Get<int>("formula");
 	updateFractalIcon(newItem, fractalObjectId, defaultFormula);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
@@ -925,26 +937,26 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	int newNodeId = findNextAvailableNodeId();
 	ensureNodeParamsExist(newNodeId);
 
-	QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+	QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
 	int newPrimitiveIndex = cPrimitives::NewPrimitiveIndex(primitiveType, primitiveList);
 	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveType).arg(newPrimitiveIndex);
 	sPrimitiveItem newPrimitive(cPrimitives::PrimitiveNameToEnum(primitiveType), newPrimitiveIndex,
 		primitiveFullName, primitiveType);
 
-	InitPrimitiveParams(newPrimitive, gPar);
-	gPar->Set(newPrimitive.Name("enabled"), true);
+	InitPrimitiveParams(newPrimitive, params);
+	params->Set(newPrimitive.Name("enabled"), true);
 
 	int primitiveObjectId = findNextAvailablePrimitiveObjectId();
-	gPar->Set(newPrimitive.Name("object_id"), primitiveObjectId);
+	params->Set(newPrimitive.Name("object_id"), primitiveObjectId);
 
-	QString primitiveName = gPar->Get<QString>(newPrimitive.Name("name"));
+	QString primitiveName = params->Get<QString>(newPrimitive.Name("name"));
 	QTreeWidgetItem *newItem = createNodeItem(
 		newNodeId, enumNodeType::primitive, primitiveObjectId, primitiveName, primitiveType);
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::primitive)));
-	attachMaterialWidget(newItem, newNodeId, gPar);
+	attachMaterialWidget(newItem, newNodeId, params);
 	QIcon icon = getIconForNode(enumNodeType::primitive, primitiveType);
 	QPixmap pixmap = icon.pixmap(QSize(128, 128));
 	if (!pixmap.isNull())
@@ -1004,14 +1016,15 @@ void cObjectsTreeWidget::slotDeleteObject()
 
 	if (deletedType == enumNodeType::primitive)
 	{
-		const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+		const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
 		for (const sPrimitiveItem &primitive : primitiveList)
 		{
-			if (gPar->Get<int>(primitive.Name("object_id")) != deletedObjectId) continue;
-			const QList<QString> paramsToDelete = cPrimitives::GetListOfPrimitiveParams(primitive, gPar);
+			if (params->Get<int>(primitive.Name("object_id")) != deletedObjectId) continue;
+			const QList<QString> paramsToDelete =
+				cPrimitives::GetListOfPrimitiveParams(primitive, params);
 			for (const QString &parameterName : paramsToDelete)
 			{
-				gPar->DeleteParameter(parameterName);
+				params->DeleteParameter(parameterName);
 			}
 			return;
 		}
@@ -1291,15 +1304,14 @@ int cObjectsTreeWidget::DuplicateNodesInParams(const QList<sDuplicateNodeInfo> &
 			QString primTypeName = info.primTypeName;
 			if (primTypeName.isEmpty()) continue;
 
-			// We need gPar for primitives manager — use a global access
-			// Since this is a static method, we access gPar directly
-			const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+			// Use the params parameter for primitives manager
+			const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
 			const sPrimitiveItem *oldPrimitive = nullptr;
 			for (const sPrimitiveItem &primitive : primitiveList)
 			{
 				if (primitive.typeName != primTypeName) continue;
 				// Check if this primitive's object_id matches the node's objectId
-				int primObjId = gPar->Get<int>(primitive.Name("object_id"));
+				int primObjId = params->Get<int>(primitive.Name("object_id"));
 				if (primObjId == oldObjId)
 				{
 					oldPrimitive = &primitive;
@@ -1315,14 +1327,14 @@ int cObjectsTreeWidget::DuplicateNodesInParams(const QList<sDuplicateNodeInfo> &
 				newPrimFullName, primTypeName);
 
 			// Initialize default parameters for the new primitive
-			InitPrimitiveParams(newPrimitive, gPar);
+			InitPrimitiveParams(newPrimitive, params);
 
 			// Copy all parameters from old primitive, replacing index in param names
 			QString oldPrimFullName = oldPrimitive->fullName;
-			QList<QString> primParams = cPrimitives::GetListOfPrimitiveParams(*oldPrimitive, gPar);
+			QList<QString> primParams = cPrimitives::GetListOfPrimitiveParams(*oldPrimitive, params);
 			for (const QString &paramName : primParams)
 			{
-				if (!gPar->IfExists(paramName)) continue;
+				if (!params->IfExists(paramName)) continue;
 				QString newParamName = paramName;
 				// Replace the primitive index part (after "primitive_<type>_")
 				QStringList parts = paramName.split('_');
@@ -1337,11 +1349,11 @@ int cObjectsTreeWidget::DuplicateNodesInParams(const QList<sDuplicateNodeInfo> &
 					}
 				}
 				newParamName = parts.join('_');
-				gPar->SetFromOneParameter(newParamName, gPar->GetAsOneParameter(paramName));
+				params->SetFromOneParameter(newParamName, params->GetAsOneParameter(paramName));
 			}
 
 			// Update object_id
-			gPar->Set(newPrimitive.Name("object_id"), newObjId);
+			params->Set(newPrimitive.Name("object_id"), newObjId);
 		}
 	}
 
@@ -1370,11 +1382,11 @@ void cObjectsTreeWidget::slotDuplicateObject()
 
 	// Collect the subtree from parameters (not from the tree widget)
 	auto nodeInfos =
-		CollectSubtreeFromParams(rootNode->data(treeData::nodeId, Qt::UserRole).toInt(), gPar);
+		CollectSubtreeFromParams(rootNode->data(treeData::nodeId, Qt::UserRole).toInt(), params);
 	if (nodeInfos.isEmpty()) return;
 
 	// Call the static duplicate method
-	int newRootNodeId = DuplicateNodesInParams(nodeInfos, gPar, gParFractal);
+	int newRootNodeId = DuplicateNodesInParams(nodeInfos, params, fractalParams);
 	if (newRootNodeId < 0)
 	{
 		qWarning() << "slotDuplicateObject: duplication failed";
@@ -1384,7 +1396,7 @@ void cObjectsTreeWidget::slotDuplicateObject()
 	// Rebuild the tree widget from the updated parameters
 	lastSelectedNodeId = newRootNodeId;
 	ui->treeWidget_objects->blockSignals(true);
-	UpdateTree(gPar, gParFractal);
+	UpdateTree(params, fractalParams);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->blockSignals(false);
 }
@@ -1424,14 +1436,14 @@ QLabel *cObjectsTreeWidget::buildInfoLabel(QTreeWidgetItem *item, enumNodeType t
 // The fractal index is clamped to the valid range so an out-of-range objectId cannot crash.
 QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *item)
 {
-	// objectId is 1-based; fractal indices stored in gParFractal are 0-based.
+	// objectId is 1-based; fractal indices stored in fractalParams are 0-based.
 	// Ensure the container has enough capacity for this index.
 	const int fractalIndex = qMax(0, objectId - 1);
-	if (fractalIndex >= gParFractal->size())
+	if (fractalIndex >= fractalParams->size())
 	{
-		gParFractal->ensureCapacity(fractalIndex);
-		InitFractalParams(gParFractal->at(fractalIndex));
-		gParFractal->at(fractalIndex)
+		fractalParams->ensureCapacity(fractalIndex);
+		InitFractalParams(fractalParams->at(fractalIndex));
+		fractalParams->at(fractalIndex)
 			->SetContainerName(QString("fractal") + QString::number(fractalIndex));
 	}
 
@@ -1441,7 +1453,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 
 	// Formula-specific parameter editor (formula selector + formula tab)
 	cFractalObject *fractalTab = new cFractalObject();
-	fractalTab->AssignParameterContainers(gPar, gParFractal);
+	fractalTab->AssignParameterContainers(params, fractalParams);
 	fractalTab->Init(true, fractalIndex);
 	fractalTab->AssignParentDockFractal(nullptr);
 
@@ -1453,7 +1465,7 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 	layout->addWidget(fractalTab);
 
 	editorSyncTargets.clear();
-	editorSyncTargets.append({fractalTab, gParFractal->at(fractalIndex)});
+	editorSyncTargets.append({fractalTab, fractalParams->at(fractalIndex)});
 
 	if (isFractalInHybridGroup(item))
 	{
@@ -1483,8 +1495,8 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 			}
 		}
 
-		editorSyncTargets.append({generalParams, gPar});
-		editorSyncTargets.append({calcParams, gPar});
+		editorSyncTargets.append({generalParams, params});
+		editorSyncTargets.append({calcParams, params});
 
 		layout->addWidget(calcParams);
 	}
@@ -1516,7 +1528,7 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	// Find the full parameter name prefix for this primitive (e.g. "primitive_box_001")
 	// so we can rewrite the widget object names to match the parameter keys in gPar
 	QString primFullName;
-	const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+	const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
 	for (const sPrimitiveItem &prim : primitiveList)
 	{
 		if (prim.objectID == objectId)
@@ -1556,8 +1568,8 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 
 	editorSyncTargets.clear();
-	editorSyncTargets.append({primWidget, gPar});
-	editorSyncTargets.append({generalParams, gPar});
+	editorSyncTargets.append({primWidget, params});
+	editorSyncTargets.append({generalParams, params});
 
 	QWidget *container = new QWidget();
 	QVBoxLayout *layout = new QVBoxLayout(container);
@@ -1670,7 +1682,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	{
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		editorSyncTargets.clear();
-		editorSyncTargets.append({generalParams, gPar});
+		editorSyncTargets.append({generalParams, params});
 
 		containerLayout->addWidget(generalParams);
 
@@ -1693,7 +1705,7 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 					widget->setObjectName(widgetName);
 				}
 			}
-			editorSyncTargets.append({calcParams, gPar});
+			editorSyncTargets.append({calcParams, params});
 			containerLayout->addWidget(calcParams);
 		}
 	}
@@ -1711,9 +1723,9 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	editorLayout->addWidget(currentEditorWidget);
 
 	// Apply the global UI style settings (colour coding, layout spacing) to the new editor
-	if (gPar->Get<bool>("ui_colorize"))
-		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed") + nodeId);
-	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
+	if (params->Get<bool>("ui_colorize"))
+		cInterface::ColorizeGroupBoxes(this, params->Get<int>("ui_colorize_random_seed") + nodeId);
+	cInterface::AdjustLayoutSpacing(this, params->Get<int>("ui_layout_spacing"));
 }
 
 void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)
@@ -1963,9 +1975,9 @@ void cObjectsTreeWidget::onDropCompleted(
 	QString prefix = QString("node_%1_").arg(sourceNodeId, 4, 10, QChar('0'));
 	QString defParam = prefix + "definition";
 
-	if (gPar->IfExists(defParam))
+	if (params->IfExists(defParam))
 	{
-		QString currentDef = gPar->Get<QString>(defParam);
+		QString currentDef = params->Get<QString>(defParam);
 		QStringList parts = currentDef.split(',');
 		if (parts.size() >= 5)
 		{
@@ -1980,7 +1992,7 @@ void cObjectsTreeWidget::onDropCompleted(
 												 .arg(typePart)
 												 .arg(newParentId)
 												 .arg(objectIdPart);
-			gPar->Set(defParam, newDef);
+			params->Set(defParam, newDef);
 		}
 	}
 
@@ -1991,13 +2003,13 @@ void cObjectsTreeWidget::onDropCompleted(
 void cObjectsTreeWidget::onTreeStructureChanged()
 {
 	// First store the current tree structure (with updated parentId and displayOrder)
-	StoreTreeToParams(gPar, gParFractal);
+	StoreTreeToParams(params, fractalParams);
 	// Then rebuild the tree from params
-	UpdateTree(gPar, gParFractal);
+	UpdateTree(params, fractalParams);
 }
 void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 {
-	if (fractalIndex < 0 || fractalIndex >= gParFractal->size()) return;
+	if (fractalIndex < 0 || fractalIndex >= fractalParams->size()) return;
 
 	int matchedObjectId = -1;
 	QString formulaName;
@@ -2047,12 +2059,12 @@ void cObjectsTreeWidget::onCustomContextMenu(const QPoint &pos)
 	{
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		QString prefix = QString("node_%1").arg(nodeId, 4, 10, QChar('0'));
-		QString def = gPar->Get<QString>(prefix + "definition");
+		QString def = params->Get<QString>(prefix + "definition");
 		QStringList parts = def.split(',');
 		if (parts.size() >= 6)
 		{
 			parts[0] = newName;
-			gPar->Set<QString>(prefix + "definition", parts.join(','));
+			params->Set<QString>(prefix + "definition", parts.join(','));
 		}
 		item->setText(treeCol::name, newName);
 
@@ -2070,6 +2082,6 @@ void cObjectsTreeWidget::onCustomContextMenu(const QPoint &pos)
 		}
 		int nodeType = getNodeType(item);
 		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(nodeType));
-		attachMaterialWidget(item, nodeId, gPar);
+		attachMaterialWidget(item, nodeId, params);
 	}
 }
