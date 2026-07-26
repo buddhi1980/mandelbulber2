@@ -80,6 +80,8 @@ private:
 		static constexpr int type = 2;		 // type string + QLabel
 		static constexpr int material = 3; // miniature cMaterialWidget thumbnail
 		static constexpr int enable = 4;	 // QCheckBox for node enable/disable
+		static constexpr int nodeId = 5;	 // node ID as text
+		static constexpr int objectId = 6; // object ID as text
 	};
 
 	// Column indices for setData() / data(col, Qt::UserRole)

@@ -432,7 +432,9 @@ QTreeWidgetItem *cObjectsTreeWidget::createNodeItem(
 	int nodeId, enumNodeType nodeType, int objectId, const QString &name, const QString &primTypeName)
 {
 	QTreeWidgetItem *newItem = new QTreeWidgetItem();
+	newItem->setText(treeCol::nodeId, QString::number(nodeId));
 	newItem->setText(treeCol::name, name);
+	newItem->setText(treeCol::objectId, objectId >= 0 ? QString::number(objectId) : QString());
 
 	newItem->setData(treeData::nodeId, Qt::UserRole, nodeId);
 	newItem->setData(treeData::nodeType, Qt::UserRole, int(nodeType));
@@ -542,8 +544,9 @@ void cObjectsTreeWidget::UpdateTree(
 	worldItem->setIcon(treeCol::icon, QIcon(":/navigation/icons/world.png"));
 	ui->treeWidget_objects->addTopLevelItem(worldItem);
 
-	ui->treeWidget_objects->setColumnCount(5);
-	ui->treeWidget_objects->setHeaderLabels({"Icon", "Name", "Type", "Material", "Enable"});
+	ui->treeWidget_objects->setColumnCount(7);
+	ui->treeWidget_objects->setHeaderLabels(
+		{"Icon", "Name", "Type", "Material", "Enable", "ID", "Object ID"});
 
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(params);
@@ -559,11 +562,14 @@ void cObjectsTreeWidget::UpdateTree(
 	for (const auto &nodeData : sortedList)
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(treeCol::nodeId, QString::number(nodeData.id));
 		item->setText(treeCol::name, nodeData.name);
+		item->setText(
+			treeCol::objectId, nodeData.objectId >= 0 ? QString::number(nodeData.objectId) : QString());
 
 		item->setData(treeData::nodeId, Qt::UserRole, nodeData.id);
-		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
 		item->setData(treeData::objectId, Qt::UserRole, nodeData.objectId);
+		item->setData(treeData::nodeType, Qt::UserRole, int(nodeData.type));
 		// item->setFlags(item->flags() | Qt::ItemIsEditable);
 
 		// Store the primitive type name (e.g. "box", "sphere") so the editor can later
@@ -677,11 +683,15 @@ void cObjectsTreeWidget::UpdateTree(
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::type, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::material, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::enable, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::nodeId, QHeaderView::Fixed);
+	ui->treeWidget_objects->header()->setSectionResizeMode(treeCol::objectId, QHeaderView::Fixed);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::icon, iconColWidth);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::name, miniSize * 4);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::type, miniSize * 3);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::material, miniSize);
 	ui->treeWidget_objects->header()->resizeSection(treeCol::enable, miniSize);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::nodeId, miniSize);
+	ui->treeWidget_objects->header()->resizeSection(treeCol::objectId, miniSize);
 	QString style = QString("QTreeWidget::item { height: %1px; }").arg(rowHeight);
 	ui->treeWidget_objects->setStyleSheet(style);
 	ui->treeWidget_objects->setIconSize(QSize(miniSize, miniSize));
