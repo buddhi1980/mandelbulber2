@@ -39,6 +39,28 @@ public:
 	explicit cObjectsTreeWidget(QWidget *parent = nullptr);
 	~cObjectsTreeWidget() override;
 
+	// Data structure for subtree node info (used by static duplicate method)
+	struct sDuplicateNodeInfo
+	{
+		int nodeId;
+		int nodeType; // enumNodeType
+		int objectId;
+		QString primTypeName;
+		QString name;
+		int parentId; // original parent node ID (before remapping)
+	};
+
+	// Parses gPar to find all nodes in the subtree rooted at 'rootNodeId'.
+	// Returns nodes in pre-order (root first) so parent references are always available.
+	static QList<sDuplicateNodeInfo> CollectSubtreeFromParams(
+		int rootNodeId, std::shared_ptr<const cParameterContainer> params);
+
+	// Duplicates a list of nodes in params/fractalParams.
+	// nodes must be in pre-order (root first) so parent references are always available.
+	// Returns the new root node ID, or -1 on failure.
+	static int DuplicateNodesInParams(const QList<sDuplicateNodeInfo> &nodes,
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+
 	void UpdateTree(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
 	void StoreTreeToParams(
@@ -72,6 +94,7 @@ private:
 	void pressedRefreshButton();
 
 	QList<QTreeWidgetItem *> collectAllTreeItems() const;
+	QList<QPair<int, QTreeWidgetItem *>> collectSubtree(QTreeWidgetItem *root) const;
 	int getNodeType(QTreeWidgetItem *item) const;
 	bool isFractalInHybridGroup(QTreeWidgetItem *item) const;
 	QWidget *buildTypeLabel(int currentType);
@@ -119,6 +142,7 @@ private slots:
 	void slotAddFractal();
 	void slotAddPrimitive();
 	void slotDeleteObject();
+	void slotDuplicateObject();
 	void slotItemSelectionChanged();
 
 	// Drag-and-drop slots connected to cDragDropTreeWidget signals

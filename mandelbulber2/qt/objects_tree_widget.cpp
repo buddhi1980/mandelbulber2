@@ -75,6 +75,8 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		&cObjectsTreeWidget::slotAddPrimitive);
 	connect(ui->pushButton_delete_object, &QPushButton::clicked, this,
 		&cObjectsTreeWidget::slotDeleteObject);
+	connect(ui->pushButton_duplicate, &QPushButton::clicked, this,
+		&cObjectsTreeWidget::slotDuplicateObject);
 
 	// When the user clicks a different tree item, rebuild the editor panel below the tree
 	connect(ui->treeWidget_objects, &QTreeWidget::itemSelectionChanged, this,
@@ -148,6 +150,25 @@ QList<QTreeWidgetItem *> cObjectsTreeWidget::collectAllTreeItems() const
 			queue.append(item->child(i));
 	}
 	return allItems;
+}
+
+// Collects the selected node and all its descendants as (nodeId, treeItem) pairs.
+// Returns nodes in pre-order (root first) so parent references are always available.
+QList<QPair<int, QTreeWidgetItem *>> cObjectsTreeWidget::collectSubtree(QTreeWidgetItem *root) const
+{
+	QList<QPair<int, QTreeWidgetItem *>> result;
+	if (!root || root == worldItem) return result;
+
+	std::function<void(QTreeWidgetItem *)> dfs;
+	dfs = [&](QTreeWidgetItem *node)
+	{
+		int nodeId = node->data(treeData::nodeId, Qt::UserRole).toInt();
+		result.append({nodeId, node});
+		for (int i = 0; i < node->childCount(); ++i)
+			dfs(node->child(i));
+	};
+	dfs(root);
+	return result;
 }
 
 // Returns the node type for an item, preferring the live combo-box value if one
@@ -985,6 +1006,377 @@ void cObjectsTreeWidget::slotDeleteObject()
 			return;
 		}
 	}
+}
+
+// Parses gPar to find all nodes in the subtree rooted at 'rootNodeId'.
+// Returns nodes in pre-order (root first) so parent references are always available.
+QList<cObjectsTreeWidget::sDuplicateNodeInfo> cObjectsTreeWidget::CollectSubtreeFromParams(
+	int rootNodeId, std::shared_ptr<const cParameterContainer> params)
+{
+	QList<sDuplicateNodeInfo> result;
+
+	// First, collect all node definitions into a map for traversal
+	QMap<int, sDuplicateNodeInfo> allNodes;
+	QList<QString> allParams = params->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+
+		bool ok = false;
+		int nodeId = paramName.mid(5, 4).toInt(&ok);
+		if (!ok || nodeId <= 0) continue;
+
+		QString def = params->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 5) continue;
+
+		sDuplicateNodeInfo info;
+		info.nodeId = nodeId;
+		info.name = parts[0];
+		info.nodeType = int(enumNodeType(parts[2].toInt()));
+		info.objectId = parts[4].toInt();
+		info.primTypeName.clear();
+		info.parentId = parts[3].toInt();
+
+		// Extract primTypeName from name for primitives
+		if (info.nodeType == int(enumNodeType::primitive))
+		{
+			// name format: "box 1" or "sphere 1" — first word is the type
+			QStringList nameParts = info.name.split(' ');
+			if (!nameParts.isEmpty()) info.primTypeName = nameParts.first();
+		}
+
+		allNodes[nodeId] = info;
+	}
+
+	// DFS from rootNodeId to collect subtree in pre-order
+	std::function<void(int)> dfs;
+	dfs = [&](int currentId)
+	{
+		if (!allNodes.contains(currentId)) return;
+
+		sDuplicateNodeInfo info = allNodes[currentId];
+		result.append(info);
+
+		// Find and visit children
+		for (const auto &node : allNodes)
+		{
+			if (node.parentId == currentId) dfs(node.nodeId);
+		}
+	};
+	dfs(rootNodeId);
+
+	return result;
+}
+
+// Static helper: duplicates nodes in parameters.
+// nodes must be in pre-order (root first) so parent references are always available.
+// Returns the new root node ID, or -1 on failure.
+int cObjectsTreeWidget::DuplicateNodesInParams(const QList<sDuplicateNodeInfo> &nodes,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
+{
+	if (nodes.isEmpty()) return -1;
+
+	// Collect all currently used IDs to avoid collisions
+	QSet<int> usedNodeIds;
+	QSet<int> usedFractalObjectIds;
+	QSet<int> usedGroupObjectIds;
+	QSet<int> usedPrimitiveObjectIds;
+	// Also collect primitive object IDs that belong to primitives IN the subtree
+	// (separate from the next available primitive ID counter)
+	QSet<int> subtreePrimitiveObjectIds;
+	for (const sDuplicateNodeInfo &info : nodes)
+	{
+		usedNodeIds.insert(info.nodeId);
+		if (info.nodeType == int(enumNodeType::fractal) && info.objectId > 0)
+			usedFractalObjectIds.insert(info.objectId);
+		if (isGroupType(enumNodeType(info.nodeType)) && info.objectId > 0)
+			usedGroupObjectIds.insert(info.objectId);
+		if (info.nodeType == int(enumNodeType::primitive) && info.objectId > 0)
+		{
+			usedPrimitiveObjectIds.insert(info.objectId);
+			subtreePrimitiveObjectIds.insert(info.objectId);
+		}
+	}
+
+	// Also scan existing params for node IDs and object IDs
+	QList<QString> allParams = params->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (paramName.startsWith("node_") && paramName.endsWith("_definition"))
+		{
+			bool ok = false;
+			int nodeId = paramName.mid(5, 4).toInt(&ok);
+			if (ok && nodeId > 0) usedNodeIds.insert(nodeId);
+
+			// Extract object_id from definition string
+			QString def = params->Get<QString>(paramName);
+			QStringList parts = def.split(',');
+			if (parts.size() >= 5)
+			{
+				int objId = parts[4].toInt();
+				if (objId > 0)
+				{
+					int type = parts[2].toInt();
+					if (type == int(enumNodeType::fractal))
+						usedFractalObjectIds.insert(objId);
+					else if (isGroupType(enumNodeType(type)))
+						usedGroupObjectIds.insert(objId);
+					else if (type == int(enumNodeType::primitive))
+						usedPrimitiveObjectIds.insert(objId);
+				}
+			}
+		}
+	}
+
+	// Build ID mappings: oldId -> newId
+	QMap<int, int> nodeIdMap;
+	QMap<int, int> fractalObjectIdMap;
+	QMap<int, int> groupObjectIdMap;
+	QMap<int, int> primitiveObjectIdMap;
+
+	// Find next available node ID that doesn't conflict with ANY existing node
+	int nextNodeId = 1;
+	while (usedNodeIds.contains(nextNodeId))
+		++nextNodeId;
+
+	// Find next available fractal object ID
+	int nextFractalId = 1;
+	while (usedFractalObjectIds.contains(nextFractalId))
+		++nextFractalId;
+
+	// Find next available group object ID
+	int nextGroupId = 100;
+	while (usedGroupObjectIds.contains(nextGroupId))
+		++nextGroupId;
+
+	// Find next available primitive object ID
+	int nextPrimitiveId = 1000;
+	while (usedPrimitiveObjectIds.contains(nextPrimitiveId))
+		++nextPrimitiveId;
+
+	for (const sDuplicateNodeInfo &info : nodes)
+	{
+		// Ensure new node ID doesn't conflict with any existing node
+		int newId = nextNodeId;
+		while (usedNodeIds.contains(newId))
+			++newId;
+		nodeIdMap[info.nodeId] = newId;
+		usedNodeIds.insert(newId); // Mark as used to prevent future conflicts
+		++nextNodeId;
+
+		if (info.nodeType == int(enumNodeType::fractal) && info.objectId > 0)
+		{
+			fractalObjectIdMap[info.objectId] = nextFractalId++;
+		}
+		else if (isGroupType(enumNodeType(info.nodeType)) && info.objectId > 0)
+		{
+			groupObjectIdMap[info.objectId] = nextGroupId++;
+		}
+		else if (info.nodeType == int(enumNodeType::primitive) && info.objectId > 0)
+		{
+			primitiveObjectIdMap[info.objectId] = nextPrimitiveId++;
+		}
+	}
+
+	// Duplicate parameters at the parameter container level
+	for (const sDuplicateNodeInfo &info : nodes)
+	{
+		int newId = nodeIdMap[info.nodeId];
+		int type = info.nodeType;
+		QString oldPrefix = QString("node_%1_").arg(info.nodeId, 4, 10, QChar('0'));
+		QString newPrefix = QString("node_%1_").arg(newId, 4, 10, QChar('0'));
+
+		// Ensure all default parameters exist for the new node before overwriting values
+		if (!params->IfExists(newPrefix + "definition")) InitNodeParams(newId, params);
+
+		// Read old definition string and update id/objectId/parent_id fields
+		QString oldDef = params->Get<QString>(oldPrefix + "definition");
+		QStringList defParts = oldDef.split(',');
+		if (defParts.size() >= 5)
+		{
+			int oldObjId = defParts[4].toInt();
+			int oldParentId = defParts[3].toInt();
+			QString newObjIdStr = QString::number(oldObjId);
+
+			// Use the correct object ID map based on this node's type
+			if (type == int(enumNodeType::fractal) && fractalObjectIdMap.contains(oldObjId))
+			{
+				newObjIdStr = QString::number(fractalObjectIdMap[oldObjId]);
+			}
+			else if (isGroupType(enumNodeType(type)) && groupObjectIdMap.contains(oldObjId))
+			{
+				newObjIdStr = QString::number(groupObjectIdMap[oldObjId]);
+			}
+			else if (type == int(enumNodeType::primitive) && primitiveObjectIdMap.contains(oldObjId))
+			{
+				newObjIdStr = QString::number(primitiveObjectIdMap[oldObjId]);
+			}
+
+			QString newParentIdStr = nodeIdMap.contains(oldParentId)
+																 ? QString::number(nodeIdMap[oldParentId])
+																 : QString::number(oldParentId);
+			defParts[1] = QString::number(newId);
+			defParts[3] = newParentIdStr;
+			defParts[4] = newObjIdStr;
+			params->Set(newPrefix + "definition", defParts.join(','));
+		}
+
+		// Copy all node parameters
+		QStringList nodeParams = {"position", "rotation", "repeat", "scale", "material", "enabled",
+			"detail_level_multiplier", "julia_mode", "julia_c", "fractal_constant_factor",
+			"initial_waxis", "smooth_de_combine_enable", "smooth_de_combine_distance", "formula_maxiter",
+			"formula_stop_iteration"};
+
+		for (const QString &paramName : nodeParams)
+		{
+			QString oldParam = oldPrefix + paramName;
+			QString newParam = newPrefix + paramName;
+			if (params->IfExists(oldParam))
+			{
+				params->SetFromOneParameter(newParam, params->GetAsOneParameter(oldParam));
+			}
+		}
+
+		// Duplicate fractal parameters for fractal nodes
+		if (type == int(enumNodeType::fractal))
+		{
+			int oldObjId = info.objectId;
+			if (!fractalObjectIdMap.contains(oldObjId)) continue;
+
+			int newObjId = fractalObjectIdMap[oldObjId];
+			int oldFractalIdx = oldObjId - 1;
+			int newFractalIdx = newObjId - 1;
+
+			if (newFractalIdx >= fractalParams->size())
+			{
+				fractalParams->ensureCapacity(newFractalIdx);
+				InitFractalParams(fractalParams->at(newFractalIdx));
+				fractalParams->at(newFractalIdx)
+					->SetContainerName(QString("fractal") + QString::number(newFractalIdx));
+			}
+
+			// Copy all parameters from old fractal to new fractal
+			QList<QString> fractalParamsList = fractalParams->at(oldFractalIdx)->GetListOfParameters();
+			for (const QString &paramName : fractalParamsList)
+			{
+				fractalParams->at(newFractalIdx)
+					->SetFromOneParameter(
+						paramName, fractalParams->at(oldFractalIdx)->GetAsOneParameter(paramName));
+			}
+		}
+
+		// Duplicate primitive parameters for primitive nodes
+		if (type == int(enumNodeType::primitive))
+		{
+			int oldObjId = info.objectId;
+			// Only remap if this node is a primitive IN the subtree (not just any node
+			// that happens to have the same objectId value)
+			if (!subtreePrimitiveObjectIds.contains(oldObjId)) continue;
+			if (!primitiveObjectIdMap.contains(oldObjId)) continue;
+
+			int newObjId = primitiveObjectIdMap[oldObjId];
+
+			// Find the primitive type and old index
+			QString primTypeName = info.primTypeName;
+			if (primTypeName.isEmpty()) continue;
+
+			// We need gPar for primitives manager — use a global access
+			// Since this is a static method, we access gPar directly
+			const QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(gPar);
+			const sPrimitiveItem *oldPrimitive = nullptr;
+			for (const sPrimitiveItem &primitive : primitiveList)
+			{
+				if (primitive.typeName != primTypeName) continue;
+				// Check if this primitive's object_id matches the node's objectId
+				int primObjId = gPar->Get<int>(primitive.Name("object_id"));
+				if (primObjId == oldObjId)
+				{
+					oldPrimitive = &primitive;
+					break;
+				}
+			}
+			if (!oldPrimitive) continue;
+
+			// Find next available primitive index for this type
+			int newPrimIndex = cPrimitives::NewPrimitiveIndex(primTypeName, primitiveList);
+			QString newPrimFullName = QString("primitive_%1_%2").arg(primTypeName).arg(newPrimIndex);
+			sPrimitiveItem newPrimitive(cPrimitives::PrimitiveNameToEnum(primTypeName), newPrimIndex,
+				newPrimFullName, primTypeName);
+
+			// Initialize default parameters for the new primitive
+			InitPrimitiveParams(newPrimitive, gPar);
+
+			// Copy all parameters from old primitive, replacing index in param names
+			QString oldPrimFullName = oldPrimitive->fullName;
+			QList<QString> primParams = cPrimitives::GetListOfPrimitiveParams(*oldPrimitive, gPar);
+			for (const QString &paramName : primParams)
+			{
+				if (!gPar->IfExists(paramName)) continue;
+				QString newParamName = paramName;
+				// Replace the primitive index part (after "primitive_<type>_")
+				QStringList parts = paramName.split('_');
+				for (int i = 2; i < parts.size(); ++i)
+				{
+					bool ok = false;
+					parts[i].toInt(&ok);
+					if (ok)
+					{
+						parts[i] = QString::number(newPrimIndex);
+						break;
+					}
+				}
+				newParamName = parts.join('_');
+				gPar->SetFromOneParameter(newParamName, gPar->GetAsOneParameter(paramName));
+			}
+
+			// Update object_id
+			gPar->Set(newPrimitive.Name("object_id"), newObjId);
+		}
+	}
+
+	// Return the new root node ID
+	return nodeIdMap.value(nodes.first().nodeId, -1);
+}
+
+// Duplicates the selected node (or its enclosing group) with all children.
+void cObjectsTreeWidget::slotDuplicateObject()
+{
+	QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
+	if (selected.isEmpty()) return;
+
+	QTreeWidgetItem *selectedItem = selected.first();
+	if (selectedItem == worldItem) return;
+
+	// Synchronize current editor state before reading from gPar/gParFractal
+	if (currentEditorWidget)
+	{
+		SynchronizeEditorWidget(currentEditorWidget, qInterface::read);
+	}
+
+	// Determine the actual root node to duplicate.
+	// Always duplicate exactly what is selected (whether group or leaf).
+	QTreeWidgetItem *rootNode = selectedItem;
+
+	// Collect the subtree from parameters (not from the tree widget)
+	auto nodeInfos =
+		CollectSubtreeFromParams(rootNode->data(treeData::nodeId, Qt::UserRole).toInt(), gPar);
+	if (nodeInfos.isEmpty()) return;
+
+	// Call the static duplicate method
+	int newRootNodeId = DuplicateNodesInParams(nodeInfos, gPar, gParFractal);
+	if (newRootNodeId < 0)
+	{
+		qWarning() << "slotDuplicateObject: duplication failed";
+		return;
+	}
+
+	// Rebuild the tree widget from the updated parameters
+	lastSelectedNodeId = newRootNodeId;
+	ui->treeWidget_objects->blockSignals(true);
+	UpdateTree(gPar, gParFractal);
+	ui->treeWidget_objects->expandAll();
+	ui->treeWidget_objects->blockSignals(false);
 }
 
 // Builds the info label that is shown at the top of the editor panel.

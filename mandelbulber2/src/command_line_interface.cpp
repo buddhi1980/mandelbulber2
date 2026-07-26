@@ -851,6 +851,7 @@ void cCommandLineInterface::handleArgs()
 				settingsSpecified = true;
 				systemData.lastSettingsFile = filename;
 				systemData.settingsLoadedFromCLI = true;
+
 				if (cliData.touch)
 				{
 					parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
