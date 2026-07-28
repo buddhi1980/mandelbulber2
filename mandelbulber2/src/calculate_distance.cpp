@@ -341,6 +341,13 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineF
 				{
 					// hybrid fractal sequence
 					int seqIndex = node.hybridSequenceIndex;
+					if (seqIndex < 0 || seqIndex >= data->hybridFractalSequences.GetNumberOfSequences())
+					{
+						WriteLog(
+							"CalculateDistanceFromObjectsTree: hybrid sequence index out of range, skipping node",
+							1);
+						break;
+					}
 					sDistanceOut nodeOut;
 					distance = CalculateDistanceSimple(
 						params, fractals, in, &nodeOut, -1, data->hybridFractalSequences.GetSequence(seqIndex));

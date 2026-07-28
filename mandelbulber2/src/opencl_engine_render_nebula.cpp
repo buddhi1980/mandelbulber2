@@ -18,6 +18,7 @@
 #include "fractal.h"
 #include "fractparams.hpp"
 #include "fractal_container.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "global_data.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_hardware.h"
@@ -53,8 +54,6 @@ void cOpenClEngineRenderNebula::SetParameters(
 	std::shared_ptr<const cFractalContainer> fractalContainer,
 	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals)
 {
-	Q_UNUSED(paramContainer);
-
 	constantInBuffer.reset(new sClInConstants);
 
 	definesCollector.clear();
@@ -160,6 +159,33 @@ void cOpenClEngineRenderNebula::SetParameters(
 	}
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
+
+	// Override sequence data with hybrid fractal sequences from objects tree
+	if (paramRender->objectsTreeEnable)
+	{
+		cHybridFractalSequences hybridSequences;
+		hybridSequences.CreateSequences(paramContainer, fractalContainer);
+
+		if (hybridSequences.GetNumberOfSequences() > 0)
+		{
+			cHybridFractalSequences::sSequence *seq = hybridSequences.GetSequence(0);
+
+			if (seq->numberOfFractalsInTheSequence > 1)
+			{
+				definesCollector += " -DIS_HYBRID";
+
+				constantInBuffer->sequence.isHybrid = true;
+
+				for (int i = 0; i < OPENCL_FRACTAL_SEQUENCE_LENGTH; i++)
+				{
+					if (i < seq->length)
+						constantInBuffer->sequence.hybridSequence[i] = seq->seqence[i];
+					else
+						constantInBuffer->sequence.hybridSequence[i] = 0;
+				}
+			}
+		}
+	}
 
 	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
 

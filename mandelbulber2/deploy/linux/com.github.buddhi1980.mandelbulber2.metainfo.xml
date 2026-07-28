@@ -79,4 +79,11 @@
             </description>
         </release>
   </releases>
+    <keywords>
+        <keyword>fractal generator</keyword>
+        <keyword>3d graphics software</keyword>
+        <keyword>mandelbulb</keyword>
+        <keyword>free fractal software</keyword>
+        <keyword>3d visualization tool</keyword>
+    </keywords>
 </component> 

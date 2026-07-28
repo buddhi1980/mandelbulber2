@@ -7,9 +7,11 @@ v2.35 (September 2025)
 
 
 - modified fractal formulas
+   mengerMod1, added aux.color
    msltoeSym3Mod6, added aux.color
 	 transfAbsSym3, add cPixel, add color
 	 transfJuliabox, update color
+
 
 
 
