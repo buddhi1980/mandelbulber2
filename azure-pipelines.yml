@@ -20,9 +20,10 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
 
-- task: NuGetCommand@1
+- task: NuGetCommand@2
   displayName: 'Restore NuGet Packages'
   inputs:
+    command: 'restore'
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
