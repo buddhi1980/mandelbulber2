@@ -12,7 +12,7 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'mandelbulber2/msvc/*.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Release'
 
@@ -25,6 +25,7 @@ steps:
   inputs:
     command: 'restore'
     restoreSolution: '$(solution)'
+    nugetConfigPath: 'mandelbulber2/msvc/nuget.config'
 
 - task: VSBuild@1
   displayName: 'Build C++ Solution'
