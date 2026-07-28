@@ -111,7 +111,7 @@
     <GenDir>$(SourceDir)build-win</GenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='x64'">
-    <QtDir>$(SourceDir)\packages\bulbqt6-msvc-x64.6.11.1.10900\build\native\</QtDir>
+    <QtDir>$(MSBuildThisFileDirectory)\packages\bulbqt6-msvc-x64.6.11.1.10900\build\native\</QtDir>
   </PropertyGroup>
   <PropertyGroup>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
