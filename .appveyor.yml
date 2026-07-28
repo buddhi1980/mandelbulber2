@@ -13,7 +13,7 @@ version: 1.0.1.0.0.7.{build}-{branch}
 #---------------------------------#
 
 # Build worker image (VM template)
-image: Previous Visual Studio 2019
+image: Visual Studio 2026
 # Enable Windows RDP Client Access to Build Worker
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -25,8 +25,6 @@ init:
 # add several platforms to build matrix:
 platform:
   - x64
-#  - ARM
-#  - Win32
 # add several configurations to build matrix:
 configuration:
   - Release
@@ -34,8 +32,6 @@ configuration:
 #  - AnalysisRelease
 matrix:
   allow_failures:
-    - platform: ARM
-    - platform: Win32
     - configuration: AnalysisRelease
     - configuration: Debug
 
@@ -182,6 +178,6 @@ notifications:
     to:
       - buddhi1980@gmail.com
       - sebastian.jennen@gmx.de
-      - RobertPancoast77@gmail.com
+      - rpancoast77@gmail.com
 
 
