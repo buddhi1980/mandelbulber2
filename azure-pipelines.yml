@@ -15,6 +15,7 @@ variables:
   solution: 'mandelbulber2/msvc/*.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Release'
+  NUGET_PACKAGES: '$(Build.SourcesDirectory)\packages'
 
 steps:
 - task: NuGetToolInstaller@1
