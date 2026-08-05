@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Pseudo Kleinian Trig, Knighty // info amoser's complex sine formula, DE by Pupukuusikko
+ * Pseudo Kleinian Trig, amoser's complex sine formula
  * @reference https://fractalforums.org/index.php?topic=5591.0;topicseen
  */
 
@@ -29,6 +29,17 @@ void cFractalPseudoKleinianTrigV3::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 { // info amoser's complex sine formula, DE by amoser
 	CVector4 oldZ = z;
+	double temp = 0.0;
+
+	// pi scale
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
+	{
+		temp = M_PI * fractal->transformCommon.scaleC1;
+		z *= temp;
+		aux.DE *= fabs(temp);
+	}
 
 	// sphere inversion (Pre-Trig)
 	if (fractal->transformCommon.functionEnabledPFalse

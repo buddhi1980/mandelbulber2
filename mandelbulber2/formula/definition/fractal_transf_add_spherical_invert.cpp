@@ -40,7 +40,7 @@ void cFractalTransfAddSphericalInvert::FormulaCode(
 	t *= g * d;
 	aux.DE += 1.0 / aux.DE;
 	z = (z + t) * fractal->transformCommon.scaleB1;
-	aux.DE *= fractal->transformCommon.scaleB1;
+	aux.DE *= fabs(fractal->transformCommon.scaleB1);
 
 	if (fractal->analyticDE.enabledFalse)
 	{
