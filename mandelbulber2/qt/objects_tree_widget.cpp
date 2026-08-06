@@ -128,7 +128,9 @@ void cObjectsTreeWidget::AssignSpecialWidgets(
 static const QSet<QString> s_commonGeneralObjectWidgetNames = {"vect3_position_x",
 	"vect3_position_y", "vect3_position_z", "spinboxd3_rotation_x", "spinboxd3_rotation_y",
 	"spinboxd3_rotation_z", "vect3_repeat_x", "vect3_repeat_y", "vect3_repeat_z",
-	"materialselector_material_id", "logedit_scale"};
+	"materialselector_material_id", "logedit_scale", "groupBox_smooth_de_combine",
+	"checkBox_smooth_de_combine_enable", "label_smooth_de_combine_distance",
+	"spinbox_smooth_de_combine_distance"};
 
 struct sPrimitiveSelectorItem
 {
@@ -1476,9 +1478,9 @@ QWidget *cObjectsTreeWidget::buildFractalEditor(int objectId, QTreeWidgetItem *i
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		layout->addWidget(generalParams);
 
-		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis,
-		// smooth_de_combine). For standalone fractals and fractals inside boolean groups,
-		// sync to gPar with node prefix instead of per-fractal container.
+		// Fractal calculation parameters (maxiter, julia mode, constant factor, initial w-axis).
+		// For standalone fractals and fractals inside boolean groups, sync to gPar with node
+		// prefix instead of per-fractal container.
 		cFractalCalculationParameters *calcParams = new cFractalCalculationParameters();
 
 		// Rename widget names to use node prefix so they bind to the correct gPar keys

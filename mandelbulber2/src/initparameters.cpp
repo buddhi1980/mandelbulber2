@@ -720,8 +720,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
 	par->addParam("fractal_enable", true, morphNone, paramStandard);
-	par->addParam("smooth_de_combine_enable", false, morphLinear, paramStandard);
-	par->addParam("smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima, paramStandard);
 
 	par->addParam("dont_add_c_constant", false, morphLinear, paramStandard);
 	par->addParam("check_for_bailout", true, morphLinear, paramStandard);
@@ -1337,11 +1335,6 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
 	par->addParam(QString(primitiveName) + "_name",
 		QString("%1 #%2").arg(primitive.typeName).arg(primitive.id), morphNone, paramStandard);
-
-	par->addParam(
-		QString(primitiveName) + "_smooth_de_combine_enable", false, morphLinear, paramStandard);
-	par->addParam(QString(primitiveName) + "_smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima,
-		paramStandard);
 
 	switch (primitive.type)
 	{
@@ -1986,8 +1979,6 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
-	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_enable");
-	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_distance");
 
 	switch (objectType)
 	{

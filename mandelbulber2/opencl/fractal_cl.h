@@ -874,8 +874,6 @@ typedef struct
 	cl_int formulaMaxiter;
 
 	cl_int formulaMaterialId;
-	cl_int smoothDeCombineEnable;
-	cl_float smoothDeCombineDistance;
 
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
@@ -1677,8 +1675,6 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.formulaMaxiter = source.formulaMaxiter;
 
 	target.formulaMaterialId = source.formulaMaterialId;
-	target.smoothDeCombineEnable = source.smoothDeCombineEnable;
-	target.smoothDeCombineDistance = source.smoothDeCombineDistance;
 
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);

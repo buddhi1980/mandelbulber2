@@ -46,8 +46,6 @@ sPrimitiveBasic::sPrimitiveBasic(
 	userObjectId = par->Get<int>(fullName + "_object_id");
 	objectId = -1;
 	materialId = par->Get<int>(fullName + "_material_id");
-	smoothDeCombineEnable = par->Get<bool>(fullName + "_smooth_de_combine_enable");
-	smoothDeCombineDistance = par->Get<double>(fullName + "_smooth_de_combine_distance");
 }
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 

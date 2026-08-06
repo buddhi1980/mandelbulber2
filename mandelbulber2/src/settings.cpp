@@ -2487,12 +2487,6 @@ static void CopyCommonFractalParams(std::shared_ptr<cParameterContainer> par, co
 		par->Set(prefix + "fractal_constant_factor", fracPar->Get<CVector3>("fractal_constant_factor"));
 	if (fracPar->IfExists("initial_waxis"))
 		par->Set(prefix + "initial_waxis", fracPar->Get<double>("initial_waxis"));
-	if (fracPar->IfExists("smooth_de_combine_enable")
-			&& fracPar->Get<bool>("smooth_de_combine_enable"))
-		par->Set(prefix + "smooth_de_combine_enable", true);
-	if (fracPar->IfExists("smooth_de_combine_distance"))
-		par->Set(
-			prefix + "smooth_de_combine_distance", fracPar->Get<double>("smooth_de_combine_distance"));
 	if (fracPar->IfExists("formula_maxiter"))
 		par->Set(prefix + "formula_maxiter", fracPar->Get<int>("formula_maxiter"));
 	if (fracPar->IfExists("formula_stop_iteration"))

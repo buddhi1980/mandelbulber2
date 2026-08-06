@@ -855,7 +855,6 @@ struct sFractal
 	// Pass nullptr for any param to skip it.
 	void ApplyNodeData(const bool *julia_mode, const CVector3 *julia_c,
 		const CVector3 *fractal_constant_factor, const double *initial_waxis,
-		const bool *smooth_de_combine_enable, const double *smooth_de_combine_distance,
 		const int *formula_maxiter, const int *formula_stop_iteration);
 
 	fractal::enumFractalFormula formula;
@@ -874,8 +873,6 @@ struct sFractal
 	int formulaMaxiter;
 
 	int formulaMaterialId;
-	bool smoothDeCombineEnable;
-	double smoothDeCombineDistance;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;

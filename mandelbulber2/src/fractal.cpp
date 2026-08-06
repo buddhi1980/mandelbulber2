@@ -57,8 +57,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	formulaMaxiter = container->Get<int>("formula_maxiter");
 
 	formulaMaterialId = container->Get<int>("formula_material_id");
-	smoothDeCombineEnable = container->Get<bool>("smooth_de_combine_enable");
-	smoothDeCombineDistance = container->Get<double>("smooth_de_combine_distance");
 
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
@@ -661,16 +659,13 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 // Used by boolean groups to share julia_mode, julia_c, etc. with child fractals.
 // Pass nullptr for any param to skip it.
 void sFractal::ApplyNodeData(const bool *julia_mode, const CVector3 *julia_c,
-	const CVector3 *fractal_constant_factor, const double *initial_waxis,
-	const bool *smooth_de_combine_enable, const double *smooth_de_combine_distance,
-	const int *formula_maxiter, const int *formula_stop_iteration)
+	const CVector3 *fractal_constant_factor, const double *initial_waxis, const int *formula_maxiter,
+	const int *formula_stop_iteration)
 {
 	if (julia_mode) this->juliaMode = *julia_mode;
 	if (julia_c) this->juliaConstant = *julia_c;
 	if (fractal_constant_factor) this->constantMultiplier = *fractal_constant_factor;
 	if (initial_waxis) this->initialWAxis = *initial_waxis;
-	if (smooth_de_combine_enable) this->smoothDeCombineEnable = *smooth_de_combine_enable;
-	if (smooth_de_combine_distance) this->smoothDeCombineDistance = *smooth_de_combine_distance;
 	if (formula_maxiter) this->formulaMaxiter = *formula_maxiter;
 	if (formula_stop_iteration) this->formulaStopIteration = *formula_stop_iteration;
 }

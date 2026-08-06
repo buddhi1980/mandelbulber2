@@ -398,81 +398,8 @@ for 4D fractals</string>
       </item>
       </layout>
      </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="groupBox_smooth_de_combine">
-      <property name="title">
-       <string>Smooth DE combine</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_122">
-       <property name="leftMargin">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>2</number>
-       </property>
-       <property name="rightMargin">
-        <number>2</number>
-       </property>
-       <property name="bottomMargin">
-        <number>2</number>
-       </property>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_77">
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="MyCheckBox" name="checkBox_smooth_de_combine_enable">
-           <property name="text">
-            <string>Enable smooth DE combine</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_smooth_de_combine_distance">
-           <property name="text">
-            <string>Combine distance:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="MyDoubleSpinBox" name="spinbox_smooth_de_combine_distance">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="prefix">
-            <string/>
-           </property>
-           <property name="suffix">
-            <string/>
-           </property>
-           <property name="decimals">
-            <number>6</number>
-           </property>
-           <property name="minimum">
-            <double>0.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>10000.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>0.100000000000000</double>
-           </property>
-           <property name="value">
-            <double>0.100000000000000</double>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-   </layout>
+     </item>
+    </layout>
   </widget>
   <customwidgets>
    <customwidget>
