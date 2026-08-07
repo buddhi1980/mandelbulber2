@@ -1689,14 +1689,16 @@ void cSettings::Compatibility2(
 	}
 
 	// === v2.29: migrate boolean_operators to per-fractal formula_maxiter ===
+	// Write directly to fractal containers since cParameterContainer doesn't support
+	// dynamic parameter creation on the main container.
 	if (fileVersion < 2.29)
 	{
 		if (par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators"))
 		{
 			int maxiter = par->Get<int>("N");
-			for (int i = 1; i <= fract->size(); i++)
+			for (int i = 0; i < fract->size(); i++)
 			{
-				par->Set("formula_maxiter", i, maxiter);
+				fract->at(i)->Set("formula_maxiter", maxiter);
 			}
 		}
 	}
@@ -2312,8 +2314,11 @@ void cSettings::MigrateLegacyParamsToFractal(
 
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
-	// Migrate global N to formula_maxiter for non-boolean mode files
-	if (!booleanMode && par->IfExists("N"))
+	// Migrate global N to formula_maxiter for boolean mode files where v2.29 migration
+	// did not run (file version >= 2.29). For files < 2.29, the v2.29 migration writes
+	// directly to fractal containers, so no action needed here.
+	// Also handles non-boolean mode files.
+	if (par->IfExists("N"))
 	{
 		int maxiter = par->Get<int>("N");
 		for (int i = 0; i < fract->size(); i++)
@@ -3209,7 +3214,9 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 
 void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
 {
-	// Deletes the temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params.
+	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor, and
+	// formula_maxiter params. The formula_maxiter_N params are created by the v2.29 migration
+	// for boolean mode files and need to be cleaned up after being migrated to fractal containers.
 	const int maxLegacyFractals = 9;
 	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
@@ -3218,6 +3225,8 @@ void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterConta
 		name = QString("julia_mode_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
 		name = QString("julia_c_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("formula_maxiter_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
 	}
 }
