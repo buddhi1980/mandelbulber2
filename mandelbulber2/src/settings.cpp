@@ -2597,6 +2597,26 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
+	// If boolean_operator_1 is defined in the file, use its value as default for
+	// missing boolean_operator_N. This ensures files like boolean001.fract
+	// (boolean_operator_1=2) and boolean002.fract (boolean_operator_1=0) get the
+	// correct default. If boolean_operator_1 is NOT defined, keep Add (1).
+	if (booleanMode)
+	{
+		QRegularExpression boolOp1Re("boolean_operator_1\\s(\\d+)");
+		const QRegularExpressionMatch boolOp1Match = boolOp1Re.match(settingsText);
+		const int defaultBoolOp = boolOp1Match.hasMatch() ? boolOp1Match.captured(1).toInt() : 1;
+		for (int i = 1; i < 9; i++)
+		{
+			QString name = QString("boolean_operator_%1").arg(i);
+			QRegularExpression boolOpRe(QString("boolean_operator_%1\\s").arg(i));
+			if (!boolOpRe.match(settingsText).hasMatch())
+			{
+				par->Set(name, defaultBoolOp);
+			}
+		}
+	}
+
 	// Migrate legacy flat fractal params to the new fractal-based structure
 	MigrateLegacyParamsToFractal(par, fract);
 
