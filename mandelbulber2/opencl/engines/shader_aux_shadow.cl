@@ -163,17 +163,17 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 				IterOpacity(step, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
 					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 
-#if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
-			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog) 						>
+			//dist_thresh) 					opacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
@@ -188,17 +188,17 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			float opacity = DistanceFogOpacity(step, dist, consts->params.volFogDistanceFromSurface,
 				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
 
-#if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
-			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog) 						>
+			//dist_thresh) 					opacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
@@ -211,17 +211,17 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		{
 			float opacity = step / consts->params.fogVisibility;
 
-#if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
-			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog) 						>
+			//dist_thresh) 					opacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
@@ -235,20 +235,20 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			bool calculateClouds = true;
 			float opacity = 0.0f;
 
-#if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
-			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds)
-						> dist_thresh)
-				{
-					opacity = 0.0f;
-					calculateClouds = false;
-				}
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
+			//			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds) 						> dist_thresh)
+			//				{
+			//					opacity = 0.0f;
+			//					calculateClouds = false;
+			//				}
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			if (calculateClouds)
 			{

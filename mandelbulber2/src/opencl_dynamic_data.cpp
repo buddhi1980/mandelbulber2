@@ -630,8 +630,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		// primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
 		primitiveCl.object.size = toClFloat3(primitive->size);
 		// primitiveCl.object.repeat = toClFloat3(primitive->repeat);
-		primitiveCl.object.smoothDeCombineEnable = primitive->smoothDeCombineEnable;
-		primitiveCl.object.smoothDeCombineDistance = primitive->smoothDeCombineDistance;
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 		primitiveCl.object.usedForVolumetric = primitive->usedForVolumetric;
@@ -923,9 +921,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 		sObjectDataCl objectCl;
 		memset(&objectCl, 0, sizeof(objectCl));
 		const cObjectData *object = &objectData->at(i);
-		objectCl.smoothDeCombineEnable = object->smoothDeCombineEnable;
 		objectCl.usedForVolumetric = object->usedForVolumetric;
-		objectCl.smoothDeCombineDistance = object->smoothDeCombineDistance;
 		objectCl.wallThickness = object->wallThickness;
 		objectCl.materialId = object->materialId;
 		objectCl.objectId = i;

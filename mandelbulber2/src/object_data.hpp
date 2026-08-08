@@ -48,17 +48,13 @@ public:
 	{
 		materialId = 0;
 		objectType = fractal::objNone;
-		smoothDeCombineEnable = false;
-		smoothDeCombineDistance = 0.0f;
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
 		detailLevelMultiplier = 1.0;
 		absScale = 1.0;
 	}
 
-	bool smoothDeCombineEnable;
 	bool usedForVolumetric;
-	double smoothDeCombineDistance;
 	double wallThickness;
 	int materialId;
 	fractal::enumObjectType objectType;

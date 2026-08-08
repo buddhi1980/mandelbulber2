@@ -166,17 +166,17 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		{
 			basicFogOpacity = step / consts->params.fogVisibility;
 
-#if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
-			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
-						> input2.delta)
-					basicFogOpacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog) 						>
+			//input2.delta) 					basicFogOpacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 		}
 #endif // BASIC_FOG
 
@@ -189,17 +189,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			iterFogOpacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
 				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 
-#if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
-			if (iterFogOpacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog)
-						> input2.delta)
-					iterFogOpacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (iterFogOpacity > 0.0f &&
+			//renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog) 						>
+			//input2.delta) 					iterFogOpacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			if (iterFogOpacity > 0.0f)
 			{
@@ -237,20 +238,21 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float distanceToClouds = 0.0f;
 			bool calculateClouds = true;
 
-#if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
-			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds)
-						> input2.delta)
-				{
-					cloudDensity = 0.0f;
-					calculateClouds = false;
-				}
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
+			//			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds) 						>
+			//input2.delta)
+			//				{
+			//					cloudDensity = 0.0f;
+			//					calculateClouds = false;
+			//				}
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			if (calculateClouds)
 			{
@@ -307,17 +309,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			distFogOpacity = DistanceFogOpacity(step, distance, consts->params.volFogDistanceFromSurface,
 				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
 
-#if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
-			if (distFogOpacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
-			{
-				int closestId = -1;
-
-				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog)
-						> input2.delta)
-					distFogOpacity = 0.0f;
-			}
-#endif // USE_PRIMITIVES
+			// FIXME: it needs to be rewritten to work with ObjectsTree
+			// #if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
+			//			if (distFogOpacity > 0.0f &&
+			//renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//
+			//				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta,
+			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog) 						>
+			//input2.delta) 					distFogOpacity = 0.0f;
+			//			}
+			// #endif // USE_PRIMITIVES
 
 			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;

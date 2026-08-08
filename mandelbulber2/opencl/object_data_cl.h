@@ -43,9 +43,7 @@
 // object data
 typedef struct
 {
-	cl_int smoothDeCombineEnable;
 	cl_int usedForVolumetric;
-	cl_float smoothDeCombineDistance;
 	cl_float wallThickness;
 	cl_int materialId;
 	cl_int objectId;
