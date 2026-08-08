@@ -44,11 +44,13 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <gsl/gsl_sys.h>
+#include <cmath>
 #include <math.h>
 
-#include <QString>
 #include <array>
+#include <cstdlib>
+#include <sstream>
+#include <string>
 
 // #include "include_header_wrapper.hpp"
 
@@ -90,7 +92,7 @@ public:
 		}
 		else
 		{
-			qFatal("Assigned nullptr to CVector3 as initialization!");
+			std::abort();
 		}
 	}
 	inline CVector3 operator+(const CVector3 &vector) const
@@ -212,16 +214,14 @@ public:
 	inline bool IsNotANumber() const
 	{
 		// Check for NaN
-		// single "&" is intended: since "most of times" gsl_finite is true,
+		// single "&" is intended: since "most of times" std::isfinite is true,
 		// always evaluating xyz at once allows cpu to perform faster
 		// than evaluating each dimension sequentially.
-		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z));
+		return !(static_cast<int>(std::isfinite(x)) & static_cast<int>(std::isfinite(y))
+						 & static_cast<int>(std::isfinite(z)));
 	}
 	CVector3 RotateAroundVectorByAngle(const CVector3 &axis, double angle) const;
-	QString Debug() const
-	{
-		return QString("[%1, %2, %3]").arg(QString::number(x), QString::number(y), QString::number(z));
-	}
+	std::string Debug() const;
 
 	double itemByName(char item) const;
 
@@ -444,19 +444,16 @@ public:
 	inline bool IsNotANumber() const
 	{
 		// Check for NaN
-		// single "&" is intended: since "most of times" gsl_finite is true,
+		// single "&" is intended: since "most of times" std::isfinite is true,
 		// always evaluating xyz at once allows cpu to perform faster
 		// than evaluating each dimension sequentially.
-		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z) & gsl_finite(w));
+		return !(static_cast<int>(std::isfinite(x)) & static_cast<int>(std::isfinite(y))
+						 & static_cast<int>(std::isfinite(z)) & static_cast<int>(std::isfinite(w)));
 	}
 
 	CVector4 RotateAroundVectorByAngle(const CVector3 &axis, double angle) const;
 
-	QString Debug() const
-	{
-		return QString("[%1, %2, %3, %4]")
-			.arg(QString::number(x), QString::number(y), QString::number(z), QString::number(w));
-	}
+	std::string Debug() const;
 
 	double itemByName(char item) const;
 
@@ -573,7 +570,7 @@ public:
 		y = y * norm;
 		return norm;
 	}
-	QString Debug() { return QString("[%1, %2]").arg(QString::number(x), QString::number(y)); }
+	std::string Debug() const;
 
 	T x;
 	T y;

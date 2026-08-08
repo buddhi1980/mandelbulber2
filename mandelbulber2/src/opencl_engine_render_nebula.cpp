@@ -8,6 +8,7 @@
 #include "opencl_engine_render_nebula.h"
 
 #include <memory>
+#include "common_math.h"
 #include <map>
 #include <QApplication>
 

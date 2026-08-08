@@ -38,6 +38,7 @@
 #include <memory>
 
 #include "algebra.hpp"
+#include "math_utilities.h"
 
 #include "formula/definition/all_fractal_list_enums.hpp"
 

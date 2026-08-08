@@ -39,6 +39,35 @@
 
 #include "algebra.hpp"
 
+#include <QString>
+
+std::string CVector3::Debug() const
+{
+	return QString("[%1, %2, %3]")
+		.arg(QString::number(x), QString::number(y), QString::number(z))
+		.toStdString();
+}
+
+std::string CVector4::Debug() const
+{
+	return QString("[%1, %2, %3, %4]")
+		.arg(QString::number(x), QString::number(y), QString::number(z), QString::number(w))
+		.toStdString();
+}
+
+template <typename T>
+std::string CVector2<T>::Debug() const
+{
+	std::ostringstream ss;
+	ss << "[" << x << ", " << y << "]";
+	return ss.str();
+}
+
+// explicit template instantiations for common types
+template std::string CVector2<float>::Debug() const;
+template std::string CVector2<double>::Debug() const;
+template std::string CVector2<int>::Debug() const;
+
 CVector3 CVector3::RotateAroundVectorByAngle(const CVector3 &axis, double angle) const
 {
 	CVector3 vector = *this * cos(angle);
