@@ -77,12 +77,24 @@ cRenderWorker::~cRenderWorker()
 	// nothing to delete
 }
 
-// main render engine function called as multiple threads
+// Main rendering entry point, executed as a thread. Processes a subset of image rows
+// assigned by the scheduler. Each pixel goes through: view vector calculation → raymarching
+// (with reflections/refractions) → shading → optional post-processing (AA, MC, stereo).
+//
+// The rendering pipeline:
+// 1. For each pixel: calculate the camera ray direction
+// 2. Raymarch along the ray using SDF distance estimation to find the surface
+// 3. Recursively trace reflections and refractions (stack-based, not true recursion)
+// 4. Shade the hit point (lights, AO, fog, etc.)
+// 5. Accumulate samples for AA/MC/DOF and average
+// 6. Write pixel and optional channels (normal, depth, shadow, GI) to the image buffer
 void cRenderWorker::doWork()
 {
 	// here will be rendering thread
 	int width = image->GetWidth();
 	int height = image->GetHeight();
+	// Aspect ratio for the image plane. For equirectangular (360°) projection,
+	// the horizontal field of view is 2π, so the effective aspect ratio is 2.0.
 	double aspectRatio = double(width) / height;
 
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
@@ -91,6 +103,7 @@ void cRenderWorker::doWork()
 	bool antiAliasing = params->antialiasingEnabled;
 	int antiAliasingSize = params->antialiasingSize;
 
+	// Stereo rendering can modify the aspect ratio for anaglyph modes.
 	if (data->stereo.isEnabled() && (params->perspectiveType != params::perspEquirectangular))
 		aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
 
@@ -102,14 +115,14 @@ void cRenderWorker::doWork()
 	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler.get();
 
-	// start point for ray-marching
+	// start point for ray-marching (camera position)
 	CVector3 start = params->camera;
 
 	scheduler->InitFirstLine(threadData->id, threadData->startLine);
 
 	bool lastLineWasBroken = false;
 
-	// main loop for y
+	// main loop for y — rows are distributed across threads by the scheduler
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id);
 		ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
@@ -117,7 +130,7 @@ void cRenderWorker::doWork()
 		if (ys < 0) break;
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
-		// main loop for x
+		// main loop for x — stepped by scheduler.GetProgressiveStep() for progressive rendering
 		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
 			if (systemData.globalStopRequest) break;
@@ -129,6 +142,8 @@ void cRenderWorker::doWork()
 				break;
 			}
 
+			// Progressive rendering: skip pixels on even passes to reduce redundant work.
+			// Each pass samples a staggered subset of pixels.
 			if (scheduler->GetProgressivePass() > 1 && xs % (scheduler->GetProgressiveStep() * 2) == 0
 					&& ys % (scheduler->GetProgressiveStep() * 2) == 0)
 				continue;
@@ -138,6 +153,7 @@ void cRenderWorker::doWork()
 
 			// calculate point in image coordinate system
 			CVector2<int> screenPoint(xs, ys);
+			// Map screen pixel coordinates to normalized image space.
 			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
 			cStereo::enumEye stereoEye = data->stereo.WhichEye(imagePoint);
 			if (data->stereo.isEnabled())
@@ -146,13 +162,15 @@ void cRenderWorker::doWork()
 			}
 			imagePoint.x *= aspectRatio;
 
-			// full dome hemisphere cut
+			// full dome hemisphere cut: for fulldome (fisheye cut) projection,
+			// pixels outside the hemisphere (angle > 90°) are skipped.
 			bool hemisphereCut = false;
 			if (params->perspectiveType == params::perspFishEyeCut
 					&& imagePoint.Length() > M_PI * 0.5f / params->fov)
 				hemisphereCut = true;
 
-			// Ray marching
+			// Determine the number of samples per pixel.
+			// Stereo modes may require multiple repeats (left eye, right eye, or combined anaglyph).
 			int repeats = data->stereo.GetNumberOfRepeats();
 
 			sRGBFloat finalPixel;
@@ -168,7 +186,9 @@ void cRenderWorker::doWork()
 			sRGBFloat worldPositionRGB;
 			sRGBFloat shadowsChannel;
 			sRGBFloat giChannel;
+			// Monte Carlo mode: each repeat is a DOF sample.
 			if (monteCarlo) repeats = params->DOFSamples;
+			// Anti-aliasing: each repeat is a sub-pixel sample position.
 			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
 
 			sRGBFloat finalPixelDOF;
@@ -181,6 +201,7 @@ void cRenderWorker::doWork()
 
 			CVector2<double> originalImagePoint = imagePoint;
 
+			// Sample accumulation loop: AA sub-pixel positions, MC DOF samples, or stereo eye passes.
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
 
@@ -189,6 +210,8 @@ void cRenderWorker::doWork()
 
 				if (antiAliasing)
 				{
+					// Anti-aliasing: offset the sample position within the pixel grid.
+					// The 'repeat' index is decoded into a sub-pixel grid position.
 					int xStep = repeat / antiAliasingSize;
 					int yStep = repeat % antiAliasingSize;
 					double xOffset = double(xStep) / antiAliasingSize / image->GetWidth() * aspectRatio;
@@ -201,7 +224,7 @@ void cRenderWorker::doWork()
 				{
 					if (!antiAliasing)
 					{
-						// MC anti-aliasing
+						// MC anti-aliasing: random jitter within the pixel (same as AA but stochastic).
 						imagePoint.x =
 							originalImagePoint.x
 							+ (double(Random(1000)) / 1000.0 - 0.5) / image->GetWidth() * aspectRatio;
@@ -212,6 +235,7 @@ void cRenderWorker::doWork()
 					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 					startRay = start;
 
+					// Depth of field: perturb the ray origin (lens position) and direction.
 					if (params->DOFEnabled)
 					{
 						MonteCarloDOF(&startRay, &viewVector);
@@ -224,6 +248,9 @@ void cRenderWorker::doWork()
 					startRay = start;
 				}
 
+				// Chromatic aberration: offset the view vector per sample based on a random hue.
+				// The hue is converted to an RGB offset that shifts the ray direction,
+				// simulating wavelength-dependent refraction through the lens.
 				sRGBFloat rgbFromHsv;
 				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
@@ -236,11 +263,15 @@ void cRenderWorker::doWork()
 					viewVector.Normalize();
 				}
 
+				// Stereo rendering: adjust the ray origin and direction for each eye.
+				// For anaglyph modes, WhichEyeForAnaglyph determines which eye this repeat belongs to.
 				if (data->stereo.isEnabled())
 				{
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
 					if (params->perspectiveType == params::perspFishEyeCut)
 					{
+						// For fisheye cut, compute left/right eye positions manually
+						// by offsetting along the camera's right vector.
 						CVector3 eyePosition;
 						CVector3 sideVector = viewVector.Cross(params->topVector);
 						sideVector.Normalize();
@@ -263,7 +294,9 @@ void cRenderWorker::doWork()
 					}
 					else
 					{
-						// reduce of stereo effect on poles
+						// For standard stereo, use the stereo engine's eye position calculation.
+						// Stereo intensity is reduced near the poles for equirectangular projection
+						// to prevent excessive eye separation at the top/bottom of the 360° image.
 						double stereoIntensity = (params->perspectiveType == params::perspEquirectangular)
 																			 ? 1.0 - pow(imagePoint.y * 2.0, 10.0)
 																			 : 1.0;
@@ -306,6 +339,8 @@ void cRenderWorker::doWork()
 
 					sRayRecursionInOut recursionInOut;
 					sRayMarchingInOut rayMarchingInOut;
+					// Pass per-reflection-level buffers for step data.
+					// Each reflection level gets its own rayBuffer slot.
 					rayMarchingInOut.buffCount = &rayBuffer[0].buffCount;
 					rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff.data();
 					recursionInOut.rayMarchingInOut = rayMarchingInOut;
@@ -338,6 +373,7 @@ void cRenderWorker::doWork()
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
+					// Apply chromatic aberration: multiply each channel by its hue-based factor.
 					finalPixel.R *= rgbFromHsv.R;
 					finalPixel.G *= rgbFromHsv.G;
 					finalPixel.B *= rgbFromHsv.B;
@@ -345,6 +381,7 @@ void cRenderWorker::doWork()
 
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
+					// Accumulate left/right eye colors separately for anaglyph mixing.
 					if (stereoEye == cStereo::eyeLeft)
 					{
 						pixelLeftEye.R += finalPixel.R;
@@ -366,6 +403,8 @@ void cRenderWorker::doWork()
 				colour.G = uchar(objectColour.G * 255);
 				colour.B = uchar(objectColour.B * 255);
 
+				// Write optional image channels (normals, depth, shadows, etc.).
+				// These are stored as separate floating-point textures for post-processing or export.
 				if (image->GetImageOptional()->optionalNormal)
 				{
 					CVector3 normalRotated = mRotInv.RotateVector(normal);
@@ -385,6 +424,7 @@ void cRenderWorker::doWork()
 					normalFloatWorld.B = normalNormalized.z;
 				}
 
+				// Accumulate samples for AA/MC averaging.
 				finalPixelDOF.R += finalPixel.R;
 				finalPixelDOF.G += finalPixel.G;
 				finalPixelDOF.B += finalPixel.B;
@@ -394,7 +434,8 @@ void cRenderWorker::doWork()
 				finalColourDOF.G += colour.G;
 				finalColourDOF.B += colour.B;
 
-				// noise estimation
+				// Adaptive Monte Carlo: estimate noise (standard deviation) per pixel.
+				// If noise drops below the threshold after min samples, stop sampling early.
 				if (monteCarlo)
 				{
 					monteCarloNoise =
@@ -409,6 +450,7 @@ void cRenderWorker::doWork()
 
 			} // next repeat
 
+			// Average accumulated samples. For red-cyan anaglyph, mix left/right eye colors first.
 			if (monteCarlo || antiAliasing)
 			{
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
@@ -440,6 +482,8 @@ void cRenderWorker::doWork()
 				finalPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
 			}
 
+			// Write the final pixel to the image buffer.
+			// Progressive rendering: each pixel covers a block of scheduler.GetProgressiveStep()² pixels.
 			for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
 			{
 				int yyy = screenPoint.y + yy;
@@ -485,31 +529,44 @@ void cRenderWorker::doWork()
 	return;
 }
 
-// calculation of base vectors
+// Set up the camera coordinate system: rotation matrix (mRot) transforms from
+// camera-local space to world space. Also computes the inverse (mRotInv) for
+// transforming world-space normals back to camera space for storage.
+//
+// The viewAngle contains yaw/pitch/roll derived from camera→target direction
+// and the top vector. Sweet spot angles shift the center of the image plane
+// (used for off-center perspectives).
 void cRenderWorker::PrepareMainVectors()
 {
 	cameraTarget.reset(new cCameraTarget(params->camera, params->target, params->topVector));
 	// cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
 	viewAngle = cameraTarget->GetRotation();
 
-	// preparing rotation matrix
+	// preparing rotation matrix: build the camera-to-world rotation from Euler angles.
+	// Order: Z (yaw) → X (pitch) → Y (roll), matching the camera target computation.
 	mRot.RotateZ(viewAngle.x); // yaw
 	mRot.RotateX(viewAngle.y); // pitch
 	mRot.RotateY(viewAngle.z); // roll
 
-	// preparing base vectors
+	// preparing base vectors: transform the identity basis vectors by the camera rotation.
+	// These are used for stereo eye offset calculations.
 	CVector3 vector;
 	baseX = mRot.RotateVector(baseX);
 	baseY = mRot.RotateVector(baseY);
 	baseZ = mRot.RotateVector(baseZ);
 
+	// Apply sweet spot offset to the rotation matrix.
 	mRot.RotateZ(-params->sweetSpotHAngle);
 	mRot.RotateX(params->sweetSpotVAngle);
 
+	// Inverse rotation: transpose for orthonormal matrices (faster than full inversion).
 	mRotInv = mRot.Transpose();
 }
 
-// reflection data
+// Allocate per-reflection-level buffers for ray marching step data.
+// Each reflection level needs its own step buffer because reflections
+// perform independent ray marches from the hit point of the previous level.
+// The buffer size is maxRaymarchingSteps + 2 (safety margin).
 void cRenderWorker::PrepareReflectionBuffer()
 {
 
@@ -527,7 +584,18 @@ void cRenderWorker::PrepareReflectionBuffer()
 	rayStack.resize(reflectionsMax + 1);
 }
 
-// calculating vectors for AmbientOcclusion
+// Pre-compute ambient occlusion sample directions by sampling the lightmap texture.
+// Directions are distributed on a hemisphere using a quasi-uniform angular sampling:
+//   - Polar angle b: -49° to +49° (leaving a small gap at the horizon)
+//   - Azimuthal angle a: 0 to 360°, with step size adjusted by cos(b) to maintain
+//     approximately uniform density on the sphere surface.
+//
+// Each direction is rotated by mRotAmbientOcclusionLightMapRotation to align with
+// the lightmap coordinate system. The lightmap color at the corresponding UV is stored
+// as the ambient light color for that direction.
+//
+// Directions with negligible lightmap color are pruned to reduce the sample count.
+// Maximum of 10000 AO directions are stored.
 void cRenderWorker::PrepareAOVectors()
 {
 	AOVectorsAround.resize(10000);
@@ -570,7 +638,18 @@ void cRenderWorker::PrepareAOVectors()
 	AOVectorsCount = counter;
 }
 
-// calculation of distance where ray-marching stops
+// Calculate the distance threshold that determines when the raymarcher stops.
+// The threshold controls the balance between speed and accuracy:
+// - Larger threshold = fewer SDF queries but lower precision
+// - Smaller threshold = more SDF queries but higher precision
+//
+// Three modes:
+// 1. iterThreshMode: threshold scales with camera distance (for "stop at maxIter" mode)
+// 2. constantDEThreshold: fixed threshold (params->DEThresh)
+// 3. Default: threshold scales with camera distance and detailLevel
+//
+// Advanced quality mode clamps the threshold to [detailSizeMin, detailSizeMax].
+// The result is divided by reduceDetail for region-based detail adjustment.
 double cRenderWorker::CalcDistThresh(CVector3 point) const
 {
 	double distThresh;
@@ -599,7 +678,9 @@ double cRenderWorker::CalcDistThresh(CVector3 point) const
 	return distThresh;
 }
 
-// calculation of "voxel" size
+// Calculate the "voxel" size at a given point: the approximate distance between
+// adjacent pixels projected onto the scene at the point's distance from the camera.
+// This is used by shaders to determine texture sampling step sizes.
 double cRenderWorker::CalcDelta(CVector3 point) const
 {
 	double delta;
@@ -608,15 +689,35 @@ double cRenderWorker::CalcDelta(CVector3 point) const
 	return delta;
 }
 
-// Ray-Marching
+// Adaptive raymarching using SDF (Signed Distance Field) distance estimation.
+// Steps along the ray, querying the fractal scene at each position to find
+// the closest surface. Uses an adaptive step size based on the estimated
+// distance to the nearest object (scaled by a safety factor).
+//
+// Algorithm:
+// 1. Coarse march: step size = (dist - 0.5 * distThresh) * DEFactor
+//    The 0.5 * distThresh safety margin prevents overshooting the surface.
+//    Random jitter (1.0 - rand/10000) adds anti-aliasing to the step positions.
+// 2. Binary search refinement: once the surface is approached (dist < distThresh),
+//    halve the step size and search backward to find the precise surface intersection.
+// 3. iterThreshMode correction: back off by distThresh to avoid noise from the
+//    "stop at maxIter" bailout mode.
+//
+// The step data (point, distance, distThresh) is stored in the step buffer for
+// use by shaders (AO, fog, subsurface scattering, etc.).
 void cRenderWorker::RayMarching(
 	sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const
 {
+	// Initialize point to 1e30 so that the first iteration always advances.
+	// 1e30 is specifically chosen because it won't equal any valid scene point,
+	// and it enables dead computation detection (point == lastPoint).
 	CVector3 point(1e30, 1e30, 1e30); // 1e30 is needed for detection of dead calculation
 																		// and camera at (0,0,0)
 	bool found = false;
 	double scan = in.minScan;
 	double dist = 0;
+	// search_accuracy and search_limit define the convergence criterion for binary search.
+	// The surface is considered found when dist is within search_limit of distThresh.
 	double search_accuracy = 0.001 * params->detailLevel;
 	double search_limit = 1.0 - search_accuracy;
 	int counter = 0;
@@ -638,8 +739,11 @@ void cRenderWorker::RayMarching(
 
 		counter++;
 
+		// Advance along the ray by the current scan distance.
 		point = in.start + in.direction * scan;
 
+		// Dead computation detection: if the point hasn't moved (or became NaN),
+		// the ray is stuck (e.g., at a fixed point of the fractal formula).
 		if (point == lastPoint || point.IsNotANumber()) // detection of dead calculation
 		{
 			// qWarning() << "Dead computation\n"
@@ -657,7 +761,9 @@ void cRenderWorker::RayMarching(
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 
-		// Apply per-object detailLevelMultiplier to distThresh dynamically
+		// Apply per-object detailLevelMultiplier to distThresh dynamically.
+		// Objects with detailLevelMultiplier > 1.0 get a larger threshold (coarser),
+		// while values < 1.0 get a smaller threshold (finer) for higher detail.
 		if (distanceOut.detailLevelMultiplier > 0.0)
 		{
 			distThresh *= distanceOut.detailLevelMultiplier;
@@ -666,6 +772,7 @@ void cRenderWorker::RayMarching(
 		// qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
 		if (in.invertMode)
 		{
+			// Invert mode: flip the distance sign for interior rendering.
 			dist = distThresh * 1.99 - dist;
 			if (dist < 0.0) dist = 0.0;
 		}
@@ -677,6 +784,7 @@ void cRenderWorker::RayMarching(
 		//-------------------- 4.18us for Calculate distance --------------
 
 		// printf("Distance = %g\n", dist/distThresh);
+		// Store step data for use by shaders (AO, fog, etc.).
 		inOut->stepBuff[i].distance = dist;
 		inOut->stepBuff[i].iters = distanceOut.iters;
 		inOut->stepBuff[i].distThresh = distThresh;
@@ -684,14 +792,20 @@ void cRenderWorker::RayMarching(
 		data->statistics.histogramIterations.Add(distanceOut.iters);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
+		// Surface hit: the SDF distance is less than the threshold.
 		if (dist < distThresh)
 		{
+			// Track how often the DE underestimates significantly (potential artifacts).
 			if (dist < 0.1 * distThresh) data->statistics.missedDE++;
 			found = true;
 			break;
 		}
 
 		inOut->stepBuff[i].step = step;
+		// Compute the next step size. The base formula uses the SDF distance minus
+		// a safety margin (0.5 * distThresh for exterior, 0.8 * distThresh for interior).
+		// DEFactor scales the step (typically < 1.0 for safety).
+		// Random jitter prevents regular patterns in the step sizes.
 		if (params->interiorMode)
 		{
 			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
@@ -701,6 +815,7 @@ void cRenderWorker::RayMarching(
 			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
 		}
 
+		// Apply advanced quality clamps to the step size.
 		if (params->advancedQuality)
 		{
 			if (step > params->absMaxMarchingStep) step = params->absMaxMarchingStep;
@@ -732,6 +847,9 @@ void cRenderWorker::RayMarching(
 
 	point = in.start + in.direction * scan;
 
+	// Binary search refinement: once the surface is approached, halve the step size
+	// and search backward to find the precise intersection point. This reduces the
+	// visual error from the coarse SDF step approximation.
 	// qDebug() << "------------ binary search";
 	if (found && in.binaryEnable && !deadComputationFound)
 	{
@@ -739,6 +857,7 @@ void cRenderWorker::RayMarching(
 		for (int i = 0; i < 30; i++)
 		{
 			counter++;
+			// Convergence: if dist is within search_limit of distThresh, we're close enough.
 			if (dist < distThresh && dist > distThresh * search_limit)
 			{
 				break;
@@ -747,11 +866,13 @@ void cRenderWorker::RayMarching(
 			{
 				if (dist > distThresh)
 				{
+					// Still outside: move forward by half step.
 					scan += step;
 					point = in.start + in.direction * scan;
 				}
 				else if (dist < distThresh * search_limit)
 				{
+					// Too far inside: move backward by half step.
 					scan -= step;
 					point = in.start + in.direction * scan;
 				}
@@ -789,6 +910,10 @@ void cRenderWorker::RayMarching(
 			step *= 0.5;
 		}
 	}
+	// iterThreshMode correction: back off by distThresh to avoid noise from the
+	// "stop at maxIter" bailout mode. When maxIter is hit, the distance is set to
+	// detailSize (a large value), which can cause the ray to stop too early.
+	// Backing off ensures the ray continues past the maxIter point.
 	if (params->common.iterThreshMode)
 	{
 		// this fixes problem with noise when there is used "stop at maxIter" mode
@@ -825,16 +950,34 @@ void cRenderWorker::RayMarching(
 	data->statistics.numberOfRaymarchings++;
 }
 
+// Trace a pixel's primary ray and all reflection/refraction bounces.
+// Uses an explicit stack (rayStack) instead of function recursion to avoid
+// stack overflow with high reflection counts. The stack depth is limited by
+// reflectionsMax (from params).
+//
+// Rendering pipeline per ray level:
+// 1. Raymarch to find surface intersection
+// 2. Calculate normal (with roughness perturbation and normal map)
+// 3. If reflection bounce limit not reached: push reflection ray onto stack
+// 4. If refraction bounce limit not reached: push refraction ray onto stack
+// 5. Shade the surface (lights, AO, fog, transparency, etc.)
+// 6. Pop stack and blend results from child bounces
+//
+// The rayBranch enum tracks the current processing stage:
+//   rayBranchReflection → rayBranchRefraction → rayBranchDone
+// This ensures each bounce is processed for reflection first, then refraction.
 cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	sRayRecursionIn in, sRayRecursionInOut &inOut)
 {
 	// qDebug() << "----------- new pixel ------------";
+	// Start at the primary ray level (index 0).
 	int rayIndex = 0; // level of recursion
 
 	rayStack[rayIndex].in = in;
 	rayStack[rayIndex].rayBranch = rayBranchReflection;
 	rayStack[rayIndex].goDeeper = true;
 
+	// Initialize all stack frames.
 	for (int i = 0; i < reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
@@ -842,6 +985,22 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 		rayStack[i].transparentShader = sRGBAFloat();
 	}
 
+	// Stack-based iteration loop (replaces function recursion).
+	// The loop alternates between two phases based on goDeeper:
+	//
+	//   goDeeper == true  → "PUSH phase": raymarch, shade, and potentially
+	//                        push reflection/refraction bounces onto the stack.
+	//                        If a bounce is pushed, goDeeper stays true for the
+	//                        new level and 'continue' jumps to process it immediately.
+	//
+	//   goDeeper == false → "POP phase": shade the surface, blend child bounce
+	//                        results, and pop the stack (rayIndex--).
+	//                        The parent level receives the child's result in
+	//                        reflectShader or transparentShader, and in resultShader/objectColour.
+	//
+	// The rayBranch state machine (Reflection → Refraction → Done) at each level
+	// ensures reflection is always processed before refraction, preventing incorrect
+	// blending order and infinite loops.
 	do
 	{
 		if (rayStack[rayIndex].goDeeper)
@@ -923,6 +1082,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					roughnessTex = RoughnessTexture(shaderInputData) * texRoughInt + texRoughIntN;
 				}
 
+				// Perturb the normal for rough surfaces: add random offsets proportional
+				// to the surface roughness. This simulates microfacet scattering.
 				if (shaderInputData.material->roughSurface)
 				{
 					vn.x += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
@@ -935,6 +1096,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				}
 				shaderInputData.normal = vn;
 
+				// Override the computed normal with a normal map if one is loaded.
 				if (shaderInputData.material->normalMapTexture.IsLoaded())
 				{
 					vn = NormalMapShader(shaderInputData);
@@ -947,7 +1109,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					hueEffect = 1.0f - aberrationStrength + aberrationStrength * actualHue / 180.0f;
 				}
 
-				// prepare refraction values
+				// prepare refraction values for Fresnel and Snell's law.
+				// When tracing inside an object, the refractive indices are reversed:
+				// n1 = material IOR, n2 = air (1.0). Outside: n1 = air, n2 = material IOR.
 				float n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
 				{
@@ -963,25 +1127,35 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 				rayStack[rayIndex].out.normal = vn;
 
+				// Check if we can still trace more bounces (stack depth limit).
 				if (rayIndex < reflectionsMax)
 				{
+					// === REFLECTION PUSH ===
+					// The rayBranch state machine ensures reflection is processed before refraction
+					// at each bounce level. This prevents processing refraction before reflection
+					// which would cause incorrect blending order.
 					if (rayStack[rayIndex].rayBranch == rayBranchReflection)
 					{
 						// qDebug() << "Reflection" << rayIndex;
+						// Transition to refraction state — this bounce level will now process
+						// refraction next time goDeeper is true.
 						rayStack[rayIndex].rayBranch = rayBranchRefraction;
 
 						// calculate reflection
 						if (reflect > 0.0f)
 						{
-							rayIndex++; // increase recursion level
+							rayIndex++; // increase recursion level (push onto stack)
 
 							sRayRecursionIn recursionIn;
 							sRayMarchingIn rayMarchingIn;
 							sRayMarchingInOut rayMarchingInOut;
 
-							// calculate new direction of reflection
+							// calculate new direction of reflection using the standard reflection formula:
+							// R = D - 2(D·N)N where D is the incident direction and N is the normal.
 							CVector3 newDirection =
 								ReflectionVector(vn, rayStack[rayIndex - 1].in.rayMarchingIn.direction);
+							// Offset the new ray origin by distThresh along the reflection direction
+							// to prevent self-intersection (shadow acne).
 							CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
 
 							// prepare for new recursion
@@ -993,6 +1167,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							rayMarchingIn.invertMode = false;
 							recursionIn.rayMarchingIn = rayMarchingIn;
 							recursionIn.calcInside = false;
+							// Pass the parent's result shader and object color to the child.
+							// The child will blend its result with these values.
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
 							recursionIn.rayBranch = rayBranchReflection;
@@ -1003,7 +1179,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 							inOut.rayMarchingInOut = rayMarchingInOut;
 
-							// recursion for reflection
+							// Push the reflection ray onto the stack and process it immediately (next iteration).
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
@@ -1011,21 +1187,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						}
 					}
 
+					// === REFRACTION PUSH ===
 					if (rayStack[rayIndex].rayBranch == rayBranchRefraction)
 					{
+						// Transition to done state — after this refraction is processed,
+						// no more bounces will be spawned from this level.
 						rayStack[rayIndex].rayBranch = rayBranchDone;
 						// qDebug() << "Transparency" << rayIndex;
 						// calculate refraction (transparency)
 						if (transparent > 0.0f)
 						{
 
-							rayIndex++; // increase recursion level
+							rayIndex++; // increase recursion level (push onto stack)
 
 							sRayRecursionIn recursionIn;
 							sRayMarchingIn rayMarchingIn;
 							sRayMarchingInOut rayMarchingInOut;
 
-							// calculate direction of refracted light
+							// calculate direction of refracted light using Snell's law.
 							CVector3 newDirection =
 								RefractVector(vn, rayStack[rayIndex - 1].in.rayMarchingIn.direction, n1, n2);
 
@@ -1052,9 +1231,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							rayMarchingIn.maxScan = params->viewDistanceMax;
 							rayMarchingIn.minScan = 0.0;
 							rayMarchingIn.start = newPoint;
+							// invertMode flips when crossing a boundary (inside→outside or outside→inside).
+							// For total internal reflection, the ray stays on the same side, so invertMode
+							// follows the parent's state.
 							rayMarchingIn.invertMode =
 								!rayStack[rayIndex - 1].in.calcInside || internalReflection;
 							recursionIn.rayMarchingIn = rayMarchingIn;
+							// calcInside tracks whether the ray is currently inside or outside the object.
+							// Flipped when crossing a boundary; preserved for total internal reflection.
 							recursionIn.calcInside = !rayStack[rayIndex - 1].in.calcInside || internalReflection;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
@@ -1065,7 +1249,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 							inOut.rayMarchingInOut = rayMarchingInOut;
 
-							// recursion for refraction
+							// Push the refraction ray onto the stack and process it immediately.
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
@@ -1081,6 +1265,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				} // reflectionsMax
 				else
 				{
+					// At max reflection depth: no more bounces, mark as done.
 					rayStack[rayIndex].goDeeper = false;
 				}
 
@@ -1091,6 +1276,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			}
 		} // goDeeper
 
+		// === POP PHASE: shade the surface and blend child bounce results ===
+		// This phase runs when goDeeper is false, meaning we've finished processing
+		// all child bounces (reflection/refraction) for this ray level.
+		// The rayBranch state machine ensures each level processes reflection first,
+		// then refraction, then is done — preventing infinite loops.
 		if (!rayStack[rayIndex].goDeeper)
 		{
 			// qDebug() << "Shaders" << rayIndex;
@@ -1102,6 +1292,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			CVector3 point = rayMarchingOut.point;
 
+			// Retrieve the reflection and refraction shader results from child bounces.
+			// These were computed by deeper stack frames and stored before popping.
 			sRGBAFloat reflectShader = rayStack[rayIndex].reflectShader;
 			sRGBAFloat transparentShader = rayStack[rayIndex].transparentShader;
 
@@ -1148,7 +1340,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			shaderInputData.normal = recursionOut.normal;
 
-			// letting colors from textures (before normal map shader)
+			// Sample all material texture maps (color, luminosity, diffuse, reflectance,
+			// transparency, transparency alpha). Each texture is multiplied by its intensity
+			// and blended with (1 - intensity) of the default value.
 			if (shaderInputData.material->colorTexture.IsLoaded())
 			{
 				shaderInputData.texColor =
@@ -1190,6 +1384,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
 
+			// Initialize the result shader with the material's interior transparency color.
+			// This is the base color seen through the object (used for refraction).
 			sRGBAFloat resultShader = rayStack[rayIndex].in.resultShader;
 			sRGBAFloat objectColour = rayStack[rayIndex].in.objectColour;
 			sRGBAFloat transparentColor = shaderInputData.material->transparencyInteriorColor;
@@ -1208,7 +1404,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				PerlinNoiseForShaders(&shaderInputData, shaderInputData.point);
 
 				// qDebug() << "Found" << rayIndex;
-				// calculate effects for object surface
+				// calculate effects for object surface: lighting, AO, shadows, emissive, iridescence.
 				sGradientsCollection gradients;
 
 				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular,
@@ -1252,18 +1448,21 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectanceN = 1.0f - reflectance;
 				}
 
+				// At the maximum reflection depth, force full transparency (no more bounces).
 				if (rayIndex == reflectionsMax)
 				{
 					reflectance = 0.0;
 					reflectanceN = 1.0;
 				}
 
-				// combine all results
+				// combine all results: object color + specular highlight
 				resultShader.R = (objectShader.R + recursionOut.specular.R);
 				resultShader.G = (objectShader.G + recursionOut.specular.G);
 				resultShader.B = (objectShader.B + recursionOut.specular.B);
 				resultShader.A = objectShader.A;
 
+				// Apply transparency: start with the material's transparency color,
+				// optionally modified by gradients or textures.
 				if (shaderInputData.material->useColorsFromPalette
 						&& shaderInputData.material->transparencyGradientEnable
 						&& !shaderInputData.material->perlinNoiseTransparencyColorEnable)
@@ -1295,8 +1494,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					PerlinNoiseForTransparency(shaderInputData, transparentShader, false);
 				}
 
+				// Blend reflection and refraction results using the Fresnel reflectance.
+				// The Fresnel equation determines how much light is reflected vs. transmitted
+				// at the surface based on the viewing angle and refractive indices.
 				if (reflectionsMax > 0)
 				{
+					// Compute the diffused (scattered) reflection color.
+					// This is the reflection that has been modified by the material's diffuse color,
+					// reflectance texture, Perlin noise, iridescence, and reflectance gradients.
 					sRGBFloat reflectDiffused;
 					float diffusionIntensity = shaderInputData.material->diffusionTextureIntensity;
 					float diffusionIntensityN = 1.0f - diffusionIntensity;
@@ -1370,6 +1575,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						transparent = transparent * (1.0f - alpha);
 					}
 
+					// Blend transparency: mix the transparent color with the background result
+					// based on the material's transparency amount and Fresnel transmission.
 					resultShader.R = transparentShader.R * transparent * reflectanceN
 													 + (1.0f - transparent * reflectanceN) * resultShader.R;
 					resultShader.G = transparentShader.G * transparent * reflectanceN
@@ -1377,6 +1584,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					resultShader.B = transparentShader.B * transparent * reflectanceN
 													 + (1.0f - transparent * reflectanceN) * resultShader.B;
 
+					// Blend reflection: mix the diffused reflection color with the current result
+					// based on the Fresnel reflectance. The avg term accounts for color channel
+					// imbalance in the reflection.
 					float reflectDiffusedAvg =
 						(reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0f;
 
@@ -1406,6 +1616,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			sRGBAFloat opacityOut;
 
+			// Interior absorption: when tracing inside a transparent/translucent object,
+			// compute light attenuation as the ray travels through the volume.
+			// Uses a Beer-Lambert-like model where opacityCollected accumulates the
+			// effective absorption coefficient along the path.
 			if (rayStack[rayIndex].in.calcInside) // if the object interior is traced, then the absorption
 																						// of light has to be
 																						// calculated
@@ -1499,6 +1713,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 					sRGBFloat lightColor;
 
+					// Subsurface scattering: for each light, compute the light vector from the
+					// inside point toward the light, apply cone/decay, and check shadows.
+					// The accumulated lightColor is used to tint the transmitted light.
 					if (shaderInputData.material->subsurfaceScattering)
 					{
 						input2.invertMode = false;
@@ -1539,6 +1756,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						lightColor = sRGBFloat(1.0, 1.0, 1.0);
 					}
 
+					// Apply volumetric absorption: mix the light-tinted transparent color with
+					// the current result based on the computed opacity for this step.
 					resultShader.R =
 						opacity * transparentColor.R * lightColor.R + (1.0f - opacity) * resultShader.R;
 					resultShader.G =
@@ -1546,16 +1765,21 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					resultShader.B =
 						opacity * transparentColor.B * lightColor.B + (1.0f - opacity) * resultShader.B;
 
+					// Adaptive step sizing: increase the step as we progress through the volume
+					// to speed up convergence, but never go below depth/1000.
 					endStep = opacityCollected * CalcDistThresh(shaderInputData.point);
 					step = std::max((endStep - startStep) * (scan / depth) + startStep, depth / 1000);
 				}
 			}
+			// Volumetric effects (fog, glow): when the ray is outside any object,
+			// compute volumetric scattering along the ray path.
 			else // if now is outside the object, then calculate all volumetric effects like fog, glow...
 			{
 				volumetricShader = VolumetricShader(shaderInputData, resultShader, &opacityOut);
 				resultShader = volumetricShader;
 			}
 
+			// Store the final result for this ray level.
 			recursionOut.point = point;
 			recursionOut.rayMarchingOut = rayMarchingOut;
 			recursionOut.objectColour = objectColour;
@@ -1565,6 +1789,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			recursionOut.normal = shaderInputData.normal;
 
 			rayStack[rayIndex].out = recursionOut;
+			// Propagate results to the parent bounce: store reflection/refraction shader
+			// results and pass the current result as the parent's input for the next bounce.
 			if (rayIndex > 0)
 			{
 				if (rayStack[rayIndex].in.rayBranch == rayBranchReflection)
@@ -1580,16 +1806,29 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				rayStack[rayIndex - 1].in.objectColour = objectColour;
 			}
 
+			// Pop the stack: move to the parent bounce level.
 			rayIndex--;
 		}
 		// prepare final result
 
 	} while (rayIndex >= 0);
 
+	// Return the result from the primary ray (index 0).
 	sRayRecursionOut out = rayStack[0].out;
 	return out;
 }
 
+// Simulate depth of field by perturbing the ray origin and direction.
+// The ray origin is offset on a circle perpendicular to the view direction,
+// simulating a point on the camera lens. The view direction is then adjusted
+// to aim through that lens point toward the focal plane.
+//
+// Two modes:
+// - perspThreePoint: offset in the camera's local XZ plane (simpler, faster)
+// - Other: offset in the plane spanned by (side = view × top, top = side × view)
+//
+// The radius is scaled by DOFRadius * DOFFocus and uses sqrt() on the random
+// value to produce a uniform disk distribution (avoiding concentration at center).
 void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) const
 {
 	if (params->perspectiveType == params::perspThreePoint)
@@ -1622,6 +1861,13 @@ void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) cons
 	}
 }
 
+// Estimate noise in the accumulated pixel samples using the running standard deviation.
+// Computes the per-sample standard deviation of RGB values, normalized by the mean
+// brightness (coefficient of variation). This normalization makes the noise metric
+// perceptually uniform across different brightness levels.
+//
+// Returns the normalized noise value. If this drops below DOFMaxNoise * 0.01 after
+// DOFMinSamples, the Monte Carlo sampling for this pixel stops early (adaptive).
 double cRenderWorker::MonteCarloDOFNoiseEstimation(
 	sRGBFloat pixel, int repeat, sRGBFloat pixelSum, sRGBFloat &StdDevSum)
 {
@@ -1640,10 +1886,14 @@ double cRenderWorker::MonteCarloDOFNoiseEstimation(
 	StdDevSum.B += monteCarloDOFSquareDiff.B;
 
 	sRGBFloat monteCarloDOFStdDev;
+	// Compute the standard deviation from the accumulated squared differences.
 	double totalStdDev = sqrt((StdDevSum.R + StdDevSum.G + StdDevSum.B) / (repeat + 1.0));
 
+	// Normalize by sqrt(n) to get the standard error of the mean.
 	totalStdDev /= sqrt(repeat + 1);
 
+	// Normalize by mean brightness for perceptual uniformity.
+	// Brighter pixels can tolerate higher absolute noise.
 	double sumBrightness = (pixelSum.R + pixelSum.G + pixelSum.B) / (repeat + 1.0);
 	if (sumBrightness > 1.0) totalStdDev /= sumBrightness;
 
