@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfBoxTiling4d::cFractalTransfBoxTiling4d() : cAbstractFractal()
 {

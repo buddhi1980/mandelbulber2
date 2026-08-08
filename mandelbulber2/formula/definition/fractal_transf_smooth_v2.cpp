@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSmoothV2::cFractalTransfSmoothV2() : cAbstractFractal()
 {

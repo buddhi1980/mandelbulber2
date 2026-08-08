@@ -20,6 +20,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAboxMb3d1::cFractalAboxMb3d1() : cAbstractFractal()
 {

@@ -14,6 +14,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfJuliaboxV2::cFractalTransfJuliaboxV2() : cAbstractFractal()
 {

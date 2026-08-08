@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMenger3M3d::cFractalMenger3M3d() : cAbstractFractal()
 {

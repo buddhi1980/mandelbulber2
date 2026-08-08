@@ -17,6 +17,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalKalisets1::cFractalKalisets1() : cAbstractFractal()
 {

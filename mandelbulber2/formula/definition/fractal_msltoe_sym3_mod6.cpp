@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMsltoeSym3Mod6::cFractalMsltoeSym3Mod6() : cAbstractFractal()
 {

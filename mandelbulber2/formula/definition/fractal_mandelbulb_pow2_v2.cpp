@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMandelbulbPow2V2::cFractalMandelbulbPow2V2() : cAbstractFractal()
 {

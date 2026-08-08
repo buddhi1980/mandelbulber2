@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMengerMod1::cFractalMengerMod1() : cAbstractFractal()
 {

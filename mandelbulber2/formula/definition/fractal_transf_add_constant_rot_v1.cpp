@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfAddConstantRotV1::cFractalTransfAddConstantRotV1() : cAbstractFractal()
 {

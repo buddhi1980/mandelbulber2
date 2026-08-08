@@ -15,8 +15,11 @@
 #include <QString>
 #include "all_fractal_list_enums.hpp"
 #include "src/algebra.hpp"
-#include "src/fractal.h"
 #include "src/fractal_enums.h"
+
+// Forward declarations — full definitions included in abstract_fractal.cpp
+struct sFractal;
+struct sExtendedAux;
 
 using std::max;
 using std::min;

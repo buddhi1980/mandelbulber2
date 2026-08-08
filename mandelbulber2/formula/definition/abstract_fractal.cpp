@@ -9,6 +9,7 @@
 #include <QDir>
 #include "abstract_fractal.h"
 #include "src/system_directories.hpp"
+#include "src/fractal.h"
 
 cAbstractFractal::cAbstractFractal()
 {

@@ -14,6 +14,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAmazingSurfMod1::cFractalAmazingSurfMod1() : cAbstractFractal()
 {

@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMengerPrismShape2::cFractalMengerPrismShape2() : cAbstractFractal()
 {
