@@ -52,7 +52,7 @@
            <number>1</number>
           </property>
           <property name="maximum">
-           <number>500</number>
+           <number>9999</number>
           </property>
          </widget>
         </item>
@@ -396,39 +396,34 @@ for 4D fractals</string>
         </item>
        </layout>
       </item>
-      </layout>
-     </widget>
-     </item>
-    </layout>
-  </widget>
-  <customwidgets>
-   <customwidget>
-    <class>MySpinBox</class>
-    <extends>QSpinBox</extends>
-    <header>my_spin_box.h</header>
-   </customwidget>
-   <customwidget>
-    <class>MyDoubleSpinBox</class>
-    <extends>QDoubleSpinBox</extends>
-    <header>my_double_spin_box.h</header>
-   </customwidget>
-   <customwidget>
-    <class>MyLineEdit</class>
-    <extends>QLineEdit</extends>
-    <header>my_line_edit.h</header>
-   </customwidget>
-   <customwidget>
-    <class>MyGroupBox</class>
-    <extends>QGroupBox</extends>
-    <header>my_group_box.h</header>
-    <container>1</container>
-   </customwidget>
-   <customwidget>
-    <class>MyCheckBox</class>
-    <extends>QCheckBox</extends>
-    <header>my_check_box.h</header>
-   </customwidget>
-  </customwidgets>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
