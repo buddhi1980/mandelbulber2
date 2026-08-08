@@ -586,8 +586,16 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 		lastProcessingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
 
-		float brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
-											 / sqrt(constantInBuffer->params.N);
+		float brightness;
+		if (totalSamplesCounter > 0)
+		{
+			brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
+									 / sqrt(constantInBuffer->params.N);
+		}
+		else
+		{
+			brightness = 1.0f;
+		}
 		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
 
 		if (nextRefreshCounter == 0 || lastPass || refreshCounter < 10)
@@ -608,9 +616,16 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 					sRGBFloat color(
 						colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
 
-					if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
+					if (constantInBuffer->params.nebulaConstantBrighness
+							&& totalSamplesCounter > 0) // darken by brightness
 					{
 						totalBrigtnessSum += color.R + color.G + color.B;
+						// check if not a number
+						if (color.R != color.R || color.G != color.G || color.B != color.B)
+						{
+							qDebug() << "color is not a number: " << color.R << color.G << color.B;
+							color = sRGBFloat(0.0f, 0.0f, 0.0f);
+						}
 					}
 
 					image->PutPixelPostImage(x, y, color);
@@ -624,10 +639,14 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
 			{
 				double averageBrighness = totalBrigtnessSum / (width * height * 3.0);
+				qDebug() << "totalBrigtnessSum = " << totalBrigtnessSum;
 				if (averageBrighness > 0)
 				{
 					double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
 					brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
+					qDebug() << "brightnessMultiplier = " << brightnessMultiplier
+									 << " averageBrighness = " << averageBrighness
+									 << " brighnessChange = " << brighnessChange;
 				}
 			}
 
