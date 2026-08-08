@@ -307,6 +307,8 @@ typedef struct
 	enumNodeTypeCl nodeType;
 	float3 transformedPoint;
 	bool hasTransformedPoint;
+	cl_int smoothCombineEnable;
+	cl_float smoothCombineDistance;
 } ObjectTreeStackFrameCl;
 
 void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStackFrameCl *parent,
@@ -378,14 +380,8 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 		case nodeTypeBooleanAdd:
 		default:
 		{
-			const int childObjectId = child->closestObjectId;
-			bool smoothEnabled = false;
-			float smoothDistance = 0.0f;
-			if (childObjectId >= 0 && childObjectId < numberOfObjects)
-			{
-				smoothEnabled = objectsData[childObjectId].smoothDeCombineEnable;
-				smoothDistance = objectsData[childObjectId].smoothDeCombineDistance;
-			}
+			const bool smoothEnabled = child->smoothCombineEnable;
+			const float smoothDistance = child->smoothCombineDistance;
 
 			if (smoothEnabled && parent->cumulativeDistance < 1e19f)
 			{
@@ -457,6 +453,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	stack[0].nodeType = nodeTypeBooleanAdd;
 	stack[0].transformedPoint = point;
 	stack[0].hasTransformedPoint = false;
+	stack[0].smoothCombineEnable = 0;
+	stack[0].smoothCombineDistance = 0.0f;
 
 	int stackLevel = 0;
 	int numberOfFractalsToSkip = 0;
@@ -635,6 +633,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					stack[stackLevel].detailSize = calcParam->detailSize;
 					stack[stackLevel].transformedPoint = point;
 					stack[stackLevel].hasTransformedPoint = false;
+					stack[stackLevel].smoothCombineEnable = node->smooth_de_combine_enable;
+					stack[stackLevel].smoothCombineDistance = node->smooth_de_combine_distance;
 					DEBUG_PRINT("  Boolean (%d): stackLevel=%d detailSize=%f cumDist=%e\n", node->type,
 						stackLevel, calcParam->detailSize, stack[stackLevel].cumulativeDistance);
 				}
@@ -653,6 +653,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		leaf.detailSize = savedDetailSize / absNodeScale;
 		leaf.transformedPoint = pointTransformed;
 		leaf.hasTransformedPoint = (objectId >= 0);
+		leaf.smoothCombineEnable = node->smooth_de_combine_enable;
+		leaf.smoothCombineDistance = node->smooth_de_combine_distance;
 		DEBUG_PRINT("  Leaf: dist=%f objectId=%d seqIdx=%d parentDS=%f stackLevel=%d\n", distance,
 			objectId, sequenceIndex, stack[stackLevel].detailSize, stackLevel);
 		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,

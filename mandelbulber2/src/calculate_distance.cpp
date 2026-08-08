@@ -73,6 +73,8 @@ struct ObjectTreeStackFrame
 	enumNodeType nodeType;
 	CVector3 transformedPoint;
 	bool hasTransformedPoint;
+	bool smoothCombineEnable = false;
+	double smoothCombineDistance = 0.0;
 };
 
 static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent,
@@ -133,15 +135,8 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 		case enumNodeType::booleanAdd:
 		default:
 		{
-			const int childObjectId = child.closestObjectId;
-			bool smoothEnabled = false;
-			double smoothDistance = 0.0;
-			if (childObjectId >= 0 && childObjectId < int(data->objectData.size()))
-			{
-				const cObjectData &obj = data->objectData[childObjectId];
-				smoothEnabled = obj.smoothDeCombineEnable;
-				smoothDistance = obj.smoothDeCombineDistance;
-			}
+			const bool smoothEnabled = child.smoothCombineEnable;
+			const double smoothDistance = child.smoothCombineDistance;
 
 			if (smoothEnabled && parent->cumulativeDistance < 1e19)
 			{
@@ -198,6 +193,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 		stack[0].nodeType = enumNodeType::booleanAdd;
 		stack[0].transformedPoint = in.point;
 		stack[0].hasTransformedPoint = false;
+		stack[0].smoothCombineEnable = false;
+		stack[0].smoothCombineDistance = 0.0;
 
 		// Limit box distance check (mirrors OpenCL LIMITS_ENABLED behavior)
 		if (params.limitsEnabled)
@@ -374,6 +371,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					stack[stackLevel].detailSize = nodeIn.detailSize;
 					stack[stackLevel].transformedPoint = in.point;
 					stack[stackLevel].hasTransformedPoint = false;
+					stack[stackLevel].smoothCombineEnable = node.smooth_de_combine_enable;
+					stack[stackLevel].smoothCombineDistance = node.smooth_de_combine_distance;
 					continue;
 				}
 
@@ -387,6 +386,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			leaf.detailSize = nodeIn.detailSize;
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
+			leaf.smoothCombineEnable = node.smooth_de_combine_enable;
+			leaf.smoothCombineDistance = node.smooth_de_combine_distance;
 			mergeChildIntoParent(leaf, &stack[stackLevel], data, stack[stackLevel].detailSize);
 			totalIters += leafIters;
 		}
