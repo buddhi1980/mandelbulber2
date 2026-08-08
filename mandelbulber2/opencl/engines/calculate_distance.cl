@@ -699,6 +699,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	out.transformedPoint = stack[0].transformedPoint;
 	out.hasTransformedPoint = stack[0].hasTransformedPoint;
+	out.sequenceIndex = stack[0].closestObjectSequence;
 
 	out.detailLevelMultiplier = 1.0f;
 	if (stack[0].closestObjectId >= 0 && stack[0].closestObjectId < numberOfObjects)

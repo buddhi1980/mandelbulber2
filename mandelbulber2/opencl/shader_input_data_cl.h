@@ -59,6 +59,7 @@ typedef struct
 	int stepCount;
 	int randomSeed;
 	int objectId;
+	int sequenceIndex;
 	bool hasTransformedPoint;
 	bool invertMode;
 	__global sMaterialCl *material;

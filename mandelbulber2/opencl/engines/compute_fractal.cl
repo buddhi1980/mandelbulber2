@@ -43,6 +43,7 @@ typedef struct
 	float colorIndex;
 	float orbitTrapR;
 	int objectId;
+	int sequenceIndex;
 	bool maxiter;
 	float3 transformedPoint;
 	bool hasTransformedPoint;

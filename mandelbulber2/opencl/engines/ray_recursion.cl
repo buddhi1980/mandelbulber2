@@ -50,6 +50,7 @@ typedef struct
 	float depth;
 	float distThresh;
 	int objectId;
+	int sequenceIndex;
 	bool found;
 	int count;
 	float3 transformedPoint;
@@ -141,6 +142,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
 		out->objectId = outF.objectId;
+		out->sequenceIndex = outF.sequenceIndex;
 		out->transformedPoint = outF.transformedPoint;
 		out->hasTransformedPoint = outF.hasTransformedPoint;
 		out->detailLevelMultiplier = 1.0f;
@@ -220,6 +222,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
 			out->objectId = outF.objectId;
+			out->sequenceIndex = outF.sequenceIndex;
 			out->transformedPoint = outF.transformedPoint;
 			out->hasTransformedPoint = outF.hasTransformedPoint;
 
@@ -299,6 +302,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
 			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 
@@ -598,8 +602,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 #if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
 #else
 			shaderInputData.objectId = 0;
+			shaderInputData.sequenceIndex = 0;
 #endif
 			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
