@@ -99,6 +99,10 @@ public:
 public slots:
 	void slotExecute();
 
+public:
+	QString settingsFile;
+	QString renderContext;
+
 private:
 	bool InitImage(int w, int h, const sImageOptional &optional);
 	void PrepareData();

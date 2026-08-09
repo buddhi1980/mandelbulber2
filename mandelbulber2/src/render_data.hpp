@@ -89,6 +89,7 @@ struct sRenderData
 	cStereo stereo;
 	std::vector<cObjectsTree::sNodeDataForRendering> nodesDataForRendering;
 	cHybridFractalSequences hybridFractalSequences;
+	QString settingsFile;
 
 	void ValidateObjects()
 	{

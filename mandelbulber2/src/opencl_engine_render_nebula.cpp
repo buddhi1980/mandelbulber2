@@ -104,7 +104,7 @@ void cOpenClEngineRenderNebula::SetParameters(
 				}
 				else
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("Custom formula %1 has missing function name CustomIteration()!")
 							.arg(formulaIndex),
 						cErrorMessage::errorMessage, nullptr);
@@ -368,7 +368,7 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 					"sizeof(sClInConstants), constantInBuffer, &err)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -382,7 +382,7 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inBuffer, &err)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -396,7 +396,7 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 		if (!checkErr(
 					err, "cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY, sizeof(sNebulaRenderData))"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for render data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -415,7 +415,7 @@ bool cOpenClEngineRenderNebula::WriteBuffersToQueue()
 		*inCLBuffer[0], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -434,7 +434,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -444,7 +444,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 					->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -455,7 +455,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		0, sizeof(sNebulaRenderData), &renderData, nullptr, nullptr);
 	if (!checkErr(writeErr, "enqueueWriteBuffer(renderData)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot write OpenCL %1").arg(QObject::tr("render data")),
+		emit EmitErrorMessage(QObject::tr("Cannot write OpenCL %1").arg(QObject::tr("render data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -464,7 +464,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	err = clKernels.at(deviceIndex)->setArg(argIterator++, randomSeed4); // random seed
 	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -481,7 +481,7 @@ bool cOpenClEngineRenderNebula::ProcessQueue(qint64 offset)
 		*clKernels.at(0), cl::NDRange(offset), cl::NDRange(optimalJob.stepSize), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
+		emit EmitErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -489,7 +489,7 @@ bool cOpenClEngineRenderNebula::ProcessQueue(qint64 offset)
 	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot finish rendering nebula"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

@@ -659,6 +659,7 @@ void cInterface::StartRender(bool noUndo)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
 		renderedImage); // deleted by deleteLater()
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 
 	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
@@ -676,6 +677,7 @@ void cInterface::StartRender(bool noUndo)
 	config.EnableNetRender();
 	if (gPar->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
 		mainImage->ReleaseImage();
@@ -1560,6 +1562,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(tempParam, tempFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 	connect(renderJob.get(), SIGNAL(updateImage()), renderedImage, SLOT(update()));
@@ -1570,6 +1573,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	config.DisableNetRender();
 	config.SetMaxRenderTime(5.0);
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 
 	cProgressText::ProgressStatusText(QObject::tr("Looking for optimal DE factor"),
@@ -2173,6 +2177,7 @@ void cInterface::RefreshMainImage()
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshPostEffects();
 }
 
@@ -2181,6 +2186,7 @@ void cInterface::RefreshImageAdjustments()
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshImageAdjustments();
 }
 

@@ -251,7 +251,7 @@ bool cOpenClWorkerThread::ProcessClQueue(
 	}
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -359,7 +359,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 	cl_int err = clKernel->setArg(7, antiAliasingOffset);
 	if (!checkErr(err, "kernel->setArg(7, cl_int(actualDepth))"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -481,7 +481,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 
 	if (!checkErr(err, "new cl::Buffer(...) for pixel mask"))
 	{
-		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
+		EmitErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
 		// qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
 		//<< sequenceSize;
@@ -492,7 +492,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 		sequenceSize * sizeof(cl_int), inPixelSequenceBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for pixel mask"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
+		EmitErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -500,7 +500,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(8, cl_int(sequenceSize));
 	if (!checkErr(err, "kernel->setArg(8, sequenceSize)"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("sequenceSize")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("sequenceSize")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -508,7 +508,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(9, cl_int(jobWidth));
 	if (!checkErr(err, "kernel->setArg(8, jobWidth)"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("jobWidth")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("jobWidth")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -516,8 +516,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(10, *inClPixelSequenceBuffer.get());
 	if (!checkErr(err, "kernel->setArg(8, inClPixelSequenceBuffer)"))
 	{
-		emit showErrorMessage(
-			tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelSequenceBuffer")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelSequenceBuffer")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}

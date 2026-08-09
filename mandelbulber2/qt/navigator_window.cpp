@@ -47,6 +47,7 @@
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"
 #include "src/global_data.hpp"
+#include "src/system_data.hpp"
 #include "src/image_scale.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
@@ -448,6 +449,7 @@ void cNavigatorWindow::StartRender()
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, 1, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 
 	connect(renderJob, SIGNAL(updateImage()), ui->widgetRenderedImage, SLOT(update()));
 	connect(renderJob, &cRenderJob::sendRenderedTilesList, ui->widgetRenderedImage,
@@ -463,6 +465,7 @@ void cNavigatorWindow::StartRender()
 	config.ForceFastPreview();
 	config.EnableIgnoreErrors();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
 		image->ReleaseImage();
@@ -726,6 +729,7 @@ void cNavigatorWindow::slotRefreshMainImage()
 	SynchronizeInterface(qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, 1, &stopRequest, ui->widgetRenderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshPostEffects();
 }
 

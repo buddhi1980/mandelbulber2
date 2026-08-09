@@ -49,6 +49,8 @@
 #include "netrender.hpp"
 #include "objects_tree.h"
 #include "opencl_engine_render_dof.h"
+#include "opencl_engine_render_dof_phase1.h"
+#include "opencl_engine_render_dof_phase2.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
@@ -212,6 +214,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	// aux renderer data
 	renderData.reset(new sRenderData);
+	renderData->settingsFile = settingsFile;
 
 	renderData->stereo = stereo;
 	renderData->configuration = config;
@@ -749,6 +752,7 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		gOpenCl->openclEngineRenderNebula->Lock();
 		gOpenCl->openclEngineRenderNebula->SetParameters(
 			paramsContainer, fractalContainer, params, fractals, renderData->hybridFractalSequences);
+		gOpenCl->openclEngineRenderNebula->settingsFile = renderData->settingsFile;
 		if (gOpenCl->openclEngineRenderNebula->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);
@@ -911,6 +915,7 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
+	gOpenCl->openClEngineRenderFractal->settingsFile = renderData->settingsFile;
 
 	if (!*stopRequest && gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	{
@@ -950,6 +955,7 @@ void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
 			busyOpenCl = true;
 			gOpenCl->openClEngineRenderSSAO->Lock();
 			gOpenCl->openClEngineRenderSSAO->SetParameters(params.get(), region);
+			gOpenCl->openClEngineRenderSSAO->settingsFile = renderData->settingsFile;
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 			{
 				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
@@ -1041,6 +1047,7 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				gOpenCl->openclEngineRenderPostFilter->Lock();
 				gOpenCl->openclEngineRenderPostFilter->SetParameters(
 					params.get(), region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+				gOpenCl->openclEngineRenderPostFilter->settingsFile = renderData->settingsFile;
 				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
 				{
 					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
@@ -1086,16 +1093,22 @@ void cRenderJob::RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool 
 				cRegion<int> region;
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, region);
 
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, region);
 			}
 			else
 			{
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
 			}

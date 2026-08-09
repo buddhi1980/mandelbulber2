@@ -530,6 +530,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 				cThumbnailWidget *thumbWidget =
 					new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
 				thumbWidget->UseOneCPUCore(false);
+				thumbWidget->SetSettingsFile(settingsListFiltered.at(rowToAdd).filename);
 
 				par->Set("image_width", previewWidth * dpiScale * resolution);
 				par->Set("image_height", previewHeight * dpiScale * resolution);

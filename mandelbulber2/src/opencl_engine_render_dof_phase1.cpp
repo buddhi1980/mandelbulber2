@@ -172,7 +172,7 @@ bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("DOF params")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -194,7 +194,7 @@ bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
 		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

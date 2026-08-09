@@ -238,7 +238,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 
 					if (!quiet)
 					{
-						emit showErrorMessage(
+						emit EmitErrorMessage(
 							QObject::tr("Error during compilation of OpenCL program\n") + errorText->left(500),
 							cErrorMessage::errorMessage, nullptr);
 					}
@@ -253,7 +253,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 			{
 				if (!quiet)
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")),
 						cErrorMessage::errorMessage, nullptr);
 				}
@@ -268,7 +268,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 	}
 	else
 	{
-		emit showErrorMessage(QObject::tr("No devices to use for OpenCL! Check program preferences."),
+		emit EmitErrorMessage(QObject::tr("No devices to use for OpenCL! Check program preferences."),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -343,7 +343,7 @@ bool cOpenClEngine::CreateKernels()
 	}
 	else
 	{
-		emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("kernel")),
+		emit EmitErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("kernel")),
 			cErrorMessage::errorMessage, nullptr);
 		kernelCreated = false;
 	}
@@ -416,7 +416,7 @@ bool cOpenClEngine::CreateCommandQueue()
 		}
 		else
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("command queue")),
 				cErrorMessage::errorMessage, nullptr);
 			readyForRendering = false;
@@ -514,7 +514,7 @@ bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer
 						inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.get(), &err));
 				if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffer.name))
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("OpenCL %1 cannot be created!").arg(inputAndOutputBuffer.name),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -532,7 +532,7 @@ bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer
 						outputBuffer.size(), outputBuffer.ptr.get(), &err));
 				if (!checkErr(err, "new cl::Buffer(...) for " + outputBuffer.name))
 				{
-					emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(outputBuffer.name),
+					emit EmitErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(outputBuffer.name),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
 				}
@@ -548,7 +548,7 @@ bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer
 					CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, inputBuffer.size(), inputBuffer.ptr.get(), &err));
 				if (!checkErr(err, "new cl::Buffer(...) for " + inputBuffer.name))
 				{
-					emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(inputBuffer.name),
+					emit EmitErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(inputBuffer.name),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
 				}
@@ -557,7 +557,7 @@ bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer
 	}
 	else
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -608,7 +608,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 				*inputBuffer.clPtr, CL_TRUE, 0, inputBuffer.size(), inputBuffer.ptr.get());
 			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputBuffer.name))
 			{
-				emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputBuffer.name),
+				emit EmitErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
@@ -617,7 +617,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 		int err = clQueues[d]->finish();
 		if (!checkErr(err, "CommandQueue::finish() - write buffers"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot finish writing OpenCL buffers"), cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -631,7 +631,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.get());
 			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputAndOutputBuffer.name))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputAndOutputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -640,7 +640,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 		int err = clQueues[d]->finish();
 		if (!checkErr(err, "CommandQueue::finish() - write buffers"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot finish writing OpenCL buffers"), cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -657,7 +657,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			*outputBuffer.clPtr, CL_FALSE, 0, outputBuffer.size(), outputBuffer.ptr.get());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(outputBuffer.name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -672,7 +672,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.get());
 			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot enqueue reading OpenCL buffers %1. \nCalculation probably took too "
 											"long and triggered timeout error in graphics driver.")
 						.arg(inputAndOutputBuffer.name),
@@ -685,7 +685,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 	err = clQueues[deviceIndex]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot finish reading OpenCL output buffers\nCalculation probably took too "
 									"long and triggered timeout error in graphics driver."),
 			cErrorMessage::errorMessage, nullptr);
@@ -706,7 +706,7 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 			if (!checkErr(
 						err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputBuffer.name))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot set OpenCL argument for %1").arg(inputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -719,7 +719,7 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 		if (!checkErr(
 					err, "kernel->setArg(" + QString::number(argIterator) + ") for " + outputBuffer.name))
 		{
-			emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffer.name),
+			emit EmitErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffer.name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -732,7 +732,7 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 			if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for "
 													 + inputAndOutputBuffer.name))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;

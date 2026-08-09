@@ -176,7 +176,7 @@ bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(uint argIterato
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsSSAO); // pixel offset
 	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsSSAO)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("SSAO params")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -209,7 +209,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(quint64 pixelsLeft, quint64 pixelInde
 		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -217,7 +217,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(quint64 pixelsLeft, quint64 pixelInde
 	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot finish rendering SSAO"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

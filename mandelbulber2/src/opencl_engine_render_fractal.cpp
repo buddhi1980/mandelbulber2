@@ -493,6 +493,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 	else
 	{
 		programsLoaded = false;
+		WriteLog(QString("Error while complining OpenCL program for [%1]").arg(settingsFile), 0);
 		WriteLog(errorString, 0);
 	}
 
@@ -612,7 +613,7 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 				}
 				else
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("Custom formula %1 has missing function name CustomIteration()!")
 							.arg(formulaIndex),
 						cErrorMessage::errorMessage, nullptr);
@@ -1293,7 +1294,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 						"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 						"sizeof(sClInConstants), constantInBuffer, &err)"))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -1310,7 +1311,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 							"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 							"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -1326,7 +1327,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 						"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 						"sizeof(sClInBuff), inBuffer, &err)"))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -1344,7 +1345,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 							"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 							"sizeof(sClInBuff), inBuffer, &err)"))
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for texture data")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -1363,7 +1364,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 							"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 							"sizeof(perlinNoiseSeeds), perlinNoiseSeeds, &err)"))
 				{
-					emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!")
+					emit EmitErrorMessage(QObject::tr("OpenCL %1 cannot be created!")
 																	.arg(QObject::tr("buffer for perlin noise seeds")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -1372,7 +1373,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(
 		}
 		else
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -1423,6 +1424,7 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setFullEngineFlag(bool(renderEngineMode == clRenderEngineTypeFull));
 		workers[d]->setMaxWorkgroupSize(
 			hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize);
+		workers[d]->setSettingsFile(settingsFile);
 		// stating threads
 		workers[d]->moveToThread(threads[d].get());
 		QObject::connect(
@@ -2479,7 +2481,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 							->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -2492,7 +2494,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 				->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input inOut in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input texture data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2504,7 +2506,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 						*inCLConstBuffer[deviceIndex]); // input inOut in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -2518,7 +2520,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 																												// than global)
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant mesh inOut")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2533,7 +2535,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 					*backgroundImage2D[deviceIndex]); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("background image")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2547,7 +2549,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 							*inCLPerlinNoiseSeedsBuffer[deviceIndex]); // input inOut for perlin noise seeds
 		if (!checkErr(err, "kernel->setArg(4, *inCLPerlinNoiseSeedsBuffer)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("perlin noise seeds")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2559,7 +2561,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		err = clKernels.at(deviceIndex)->setArg(argIterator++, std::rand()); // random seed
 		if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2571,7 +2573,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		err = clKernels.at(deviceIndex)->setArg(argIterator++, pointToCalculateDistance); // random seed
 		if (!checkErr(err, "kernel->setArg(4, pointToCalculateDistance)"))
 		{
-			emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
+			emit EmitErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
 															.arg(QObject::tr("pointToCalculateDistance")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2594,7 +2596,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			*inCLBuffer[d], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2603,7 +2605,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		err = clQueues.at(d)->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2617,7 +2619,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 				*inCLTextureBuffer[d], CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
 			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input texture buffers")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -2626,7 +2628,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			err = clQueues.at(d)->finish();
 			if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
 			{
-				emit showErrorMessage(
+				emit EmitErrorMessage(
 					QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input texture buffers")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -2639,7 +2641,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 					perlinNoiseSeeds.size() * sizeof(cl_uchar), perlinNoiseSeeds.data());
 				if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLPerlinNoiseSeedsBuffer)"))
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -2648,7 +2650,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 				err = clQueues.at(d)->finish();
 				if (!checkErr(err, "CommandQueue::finish() - inCLPerlinNoiseSeedsBuffer"))
 				{
-					emit showErrorMessage(
+					emit EmitErrorMessage(
 						QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
@@ -2661,7 +2663,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			*inCLConstBuffer[d].get(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.get());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("constant buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2670,7 +2672,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		err = clQueues.at(d)->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("constant buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2684,7 +2686,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			sizeof(sClMeshExport), constantInMeshExportBuffer.get());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
-			emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1")
+			emit EmitErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1")
 															.arg(QObject::tr("constant mesh export buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2693,7 +2695,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		err = clQueues.at(0)->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLConstMeshExportBuffer"))
 		{
-			emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1")
+			emit EmitErrorMessage(QObject::tr("Cannot finish writing OpenCL %1")
 															.arg(QObject::tr("constant mesh export buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -2718,7 +2720,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

@@ -239,7 +239,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	// setup of rendering engine
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(queuePar, queueParFractal, image, 1, &gQueue->stopRequest, imageWidget));
-
+	renderJob->settingsFile = QFileInfo(queueItem.filename).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -256,6 +256,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 		config.DisableRefresh();
 	}
 	config.EnableNetRender();
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 
 	gQueue->stopRequest = false;

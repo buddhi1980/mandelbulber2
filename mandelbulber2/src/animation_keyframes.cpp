@@ -694,6 +694,7 @@ std::shared_ptr<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopReque
 	// preparing Render Job
 	std::shared_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -980,6 +981,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	config.DisableProgressiveRender();
 	if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 
 	cProgressText progressText;
@@ -1095,6 +1097,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 			// render frame
 			renderJob->UpdateParameters(params, fractalParams);
+			renderJob->renderContext =
+				QString("keyframe %1/%2").arg(frameIndex + 1).arg(frameRanges.totalFrames);
 			result = renderJob->Execute();
 			if (!result) throw false;
 
