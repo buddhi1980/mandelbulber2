@@ -82,10 +82,29 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 
 		if (endOfHybridNode || singleFractal)
 		{
+			// Skip creating sequences for empty formula collections
+			if (formulaIndices.empty() && !singleFractal)
+			{
+				// Mark the hybrid node as not having a valid sequence
+				for (auto &n : objectsNodes)
+				{
+					if (n.id == hybridNodeId)
+					{
+						n.hybridSequenceIndex = -1;
+						break;
+					}
+				}
+				hybridNodeEntered = false;
+				formulaIndices.clear();
+				levelOfHybrid = -1;
+				continue;
+			}
+
 			// creating sequence for collected formula indices
 			sSequence sequence;
-			sequence = CreateSequence(
-				sequence, generalPar, formulaIndices, singleFractal, hybridNodeEntered ? hybridNodeId : -1);
+			int sequenceOwnerId = hybridNodeEntered ? hybridNodeId : -1;
+			sequence =
+				CreateSequence(sequence, generalPar, formulaIndices, singleFractal, sequenceOwnerId);
 
 			if (singleFractal)
 			{
@@ -95,11 +114,11 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			{
 				// Find the hybrid node to get its internalObjectId
 				int hid = -1;
-				for (const auto &node : objectsNodes)
+				for (const auto &n : objectsNodes)
 				{
-					if (node.id == hybridNodeId)
+					if (n.id == sequenceOwnerId)
 					{
-						hid = node.internalObjectId;
+						hid = n.internalObjectId;
 						break;
 					}
 				}
@@ -277,6 +296,13 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	seq.length = maxN * 5;
 	seq.seqence.resize(seq.length);
 	seq.fractData.resize(formulaIndices.size());
+
+	if (formulaIndices.empty())
+	{
+		seq.length = 0;
+		seq.numberOfFractalsInTheSequence = 0;
+		return seq;
+	}
 
 	int numberOfFormulas = formulaIndices.size();
 	seq.numberOfFractalsInTheSequence = numberOfFormulas;
@@ -502,8 +528,9 @@ void cHybridFractalSequences::DebugOutput()
 		qDebug() << "Sequence " << i << ": length=" << seq.length << ", isHybrid=" << seq.isHybrid
 						 << ", DEType=" << seq.DEType << ", DEFunctionType=" << seq.DEFunctionType
 						 << ", coloringFunction=" << seq.coloringFunction << "constantMultiplier"
-						 << QString::fromStdString(seq.constantMultiplier.Debug()) << "juliaConstant" << QString::fromStdString(seq.juliaConstant.Debug())
-						 << "initialWAxis" << seq.initialWAxis << "formulaMaxiter" << seq.formulaMaxiter;
+						 << QString::fromStdString(seq.constantMultiplier.Debug()) << "juliaConstant"
+						 << QString::fromStdString(seq.juliaConstant.Debug()) << "initialWAxis"
+						 << seq.initialWAxis << "formulaMaxiter" << seq.formulaMaxiter;
 
 		for (size_t f = 0; f < seq.fractData.size(); f++)
 		{

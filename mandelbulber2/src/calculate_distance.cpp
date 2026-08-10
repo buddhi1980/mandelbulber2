@@ -425,6 +425,12 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 						qDebug() << "CalculateDistanceFromObjectsTree()/hybrid: Missing sequence!";
 						continue;
 					}
+					if (seq->fractData.empty())
+					{
+						qDebug() << "CalculateDistanceFromObjectsTree()/hybrid: Empty sequence for node"
+										 << node.id;
+						continue;
+					}
 					sDistanceOut nodeOut;
 					distance = CalculateDistanceSimple(params, nodeIn, pointTransformed, &nodeOut, -1, seq);
 					distance *= absNodeScale;
