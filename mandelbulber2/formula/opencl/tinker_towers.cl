@@ -41,7 +41,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxC
 	// cut the unit sphere. They don't have to be scaled by the same amount, but every facit must
 	// contain its definining u_Fv vector.
 
-	__constant REAL3 *u_Fv;
+	__global REAL3 *u_Fv;
 
 	switch (fractal->genFoldBox.type)
 	{
