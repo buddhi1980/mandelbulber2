@@ -414,9 +414,18 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #ifdef USE_TEXTURES
 #ifdef USE_NORMAL_MAP_TEXTURE
-				normal = NormalMapShader(&shaderInputData, renderData, objectData,
-					shaderInputData.material->normalMapTextureIndex);
-				shaderInputData.normal = normal;
+				{
+					float3 normalMapResult = NormalMapShader(&shaderInputData, renderData, objectData,
+						shaderInputData.material->normalMapTextureIndex);
+					float normalMapLength = length(normalMapResult);
+					bool valid = normalMapLength > 1e-5f && normalMapLength < 1e5;
+
+					if (valid)
+					{
+						normal = normalMapResult;
+						shaderInputData.normal = normal;
+					}
+				}
 #endif
 #endif
 

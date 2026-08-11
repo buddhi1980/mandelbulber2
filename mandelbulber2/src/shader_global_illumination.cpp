@@ -110,9 +110,13 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 				}
 				inputCopy.point = point;
 				inputCopy.seqIndex = distanceOut.seqIndex;
+				inputCopy.transformedPoint = distanceOut.transformedPoint;
+				inputCopy.hasTransformedPoint = distanceOut.hasTransformedPoint;
+				inputCopy.objectId = objectId;
+				inputCopy.depth = scan;
+
 				CVector3 vn = CalculateNormals(inputCopy);
 				inputCopy.normal = vn;
-				inputCopy.objectId = objectId;
 
 				found = true;
 				break;

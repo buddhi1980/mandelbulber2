@@ -119,11 +119,14 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 					return out;
 				}
 				inputCopy.point = point;
+				inputCopy.sequenceIndex = outF.sequenceIndex;
+				inputCopy.transformedPoint = outF.transformedPoint;
+				inputCopy.hasTransformedPoint = outF.hasTransformedPoint;
+				inputCopy.objectId = objectId;
 
 				float3 normal = NormalVector(consts, renderData, inputCopy.point, inputCopy.lastDist,
 					inputCopy.distThresh, inputCopy.invertMode, calcParam);
 				inputCopy.normal = normal;
-				inputCopy.objectId = objectId;
 				inputCopy.depth = scan;
 
 				found = true;

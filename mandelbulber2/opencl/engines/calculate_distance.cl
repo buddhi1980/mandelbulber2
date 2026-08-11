@@ -109,10 +109,6 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 	}
 	__global sHybridSequenceCl *seq = &renderData->hybridSequences[seqIdx];
 
-	DEBUG_PRINT(
-		"  CalculateDistanceSimple: seqIdx=%d seq->length=%d seq->DEType=%d seq->formulaBaseIndex=%d\n",
-		hybridSequenceIndex, seq->length, seq->DEType, seq->formulaBaseIndex);
-
 #ifdef ANALYTIC_DE
 #ifdef BOOLEAN_OPERATORS
 	if (seq->DEType == analyticDEType)
@@ -160,6 +156,7 @@ formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 poi
 			}
 		}
 
+		if (isnan(out.distance)) out.distance = 0.0f;
 		if (isinf(out.distance)) out.distance = 0.0f;
 		if (out.distance < 0.0f) out.distance = 0.0f;
 		if (out.distance > 5.0f) out.distance = 5.0f;
@@ -332,8 +329,6 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 		}
 		case nodeTypeBooleanSub:
 		{
-			DEBUG_PRINT("    mergeSub: childDist=%f parentCumDist=%e parentDS=%f\n", childDistance,
-				parent->cumulativeDistance, parent->detailSize);
 			if (parent->cumulativeDistance >= 1e19f)
 			{
 				parent->cumulativeDistance = childDistance;
@@ -341,7 +336,6 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 				parent->closestObjectSequence = child->closestObjectSequence;
 				parent->transformedPoint = child->transformedPoint;
 				parent->hasTransformedPoint = child->hasTransformedPoint;
-				DEBUG_PRINT("    mergeSub: first child, cumDist=%f\n", childDistance);
 			}
 			else if (parent->detailSize > 0.0f && childDistance < parent->detailSize)
 			{
@@ -354,8 +348,6 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 					parent->closestObjectSequence = child->closestObjectSequence;
 					parent->transformedPoint = child->transformedPoint;
 					parent->hasTransformedPoint = child->hasTransformedPoint;
-					DEBUG_PRINT(
-						"    mergeSub: childDist<limitDist, cumDist=%f limitDist=%f\n", limitDist, limitDist);
 				}
 				else
 				{
@@ -365,15 +357,7 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 					parent->closestObjectSequence = child->closestObjectSequence;
 					parent->transformedPoint = child->transformedPoint;
 					parent->hasTransformedPoint = child->hasTransformedPoint;
-					DEBUG_PRINT(
-						"    mergeSub: childDist>=limitDist, cumDist=%f\n", parent->cumulativeDistance);
 				}
-			}
-			else
-			{
-				DEBUG_PRINT(
-					"    mergeSub: condition NOT met (childDist=%f >= parentDS=%f or parentDS<=0)\n",
-					childDistance, parent->detailSize);
 			}
 			break;
 		}
@@ -459,9 +443,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	int stackLevel = 0;
 	int numberOfFractalsToSkip = 0;
 
-	DEBUG_PRINT("CalculateDistance: point=(%f,%f,%f) detailSize=%f nodeCount=%d\n", point.x, point.y,
-		point.z, calcParam->detailSize, nodeCount);
-
 	for (int i = 0; i < nodeCount; ++i)
 	{
 		__global sNodeDataForRenderingCl *node = &nodesData[i];
@@ -504,10 +485,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			calcParam->detailSize = savedDetailSize;
 		}
 
-		DEBUG_PRINT("Node[%d]: type=%d level=%d absScale=%f savedDS=%f scaledDS=%f hybridSeq=%d\n", i,
-			node->type, node->level, absNodeScale, savedDetailSize, calcParam->detailSize,
-			node->hybridSequenceIndex);
-
 		if (node->level < stackLevel)
 		{
 			// pop stack levels
@@ -531,19 +508,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					distance = nodeOut.distance * absNodeScale;
 					objectId = node->internalObjectId;
 					sequenceIndex = node->hybridSequenceIndex;
-					out.iters = nodeOut.iters;
-					out.colorIndex = nodeOut.colorIndex;
-					out.maxiter = nodeOut.maxiter;
-					out.z = nodeOut.z;
 					leafIters = nodeOut.iters;
-					DEBUG_PRINT("  Fractal: dist=%f objectId=%d seqIdx=%d iters=%f\n", distance, objectId,
-						sequenceIndex, out.iters);
 				}
 				else
 				{
 					numberOfFractalsToSkip--;
 					calcParam->detailSize = savedDetailSize;
-					DEBUG_PRINT("  Fractal SKIPPED (numberOfFractalsToSkip=%d)\n", numberOfFractalsToSkip);
 					continue;
 				}
 #ifdef USE_DISPLACEMENT_TEXTURE
@@ -593,16 +563,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				distance = nodeOut.distance * absNodeScale;
 				objectId = node->internalObjectId;
 				sequenceIndex = node->hybridSequenceIndex;
-				out.iters = nodeOut.iters;
-				out.colorIndex = nodeOut.colorIndex;
-				out.maxiter = nodeOut.maxiter;
-				out.z = nodeOut.z;
 				leafIters = nodeOut.iters;
 				// skip next fractals because they are part of this hybrid sequence
 				numberOfFractalsToSkip =
 					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
-				DEBUG_PRINT("  Hybrid: dist=%f objectId=%d seqIdx=%d skipNext=%d\n", distance, objectId,
-					sequenceIndex, numberOfFractalsToSkip);
 #ifdef USE_DISPLACEMENT_TEXTURE
 				if (objectId >= 0)
 				{
@@ -635,8 +599,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					stack[stackLevel].hasTransformedPoint = false;
 					stack[stackLevel].smoothCombineEnable = node->smooth_de_combine_enable;
 					stack[stackLevel].smoothCombineDistance = node->smooth_de_combine_distance;
-					DEBUG_PRINT("  Boolean (%d): stackLevel=%d detailSize=%f cumDist=%e\n", node->type,
-						stackLevel, calcParam->detailSize, stack[stackLevel].cumulativeDistance);
 				}
 				calcParam->detailSize = savedDetailSize;
 				continue;
@@ -649,28 +611,23 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		ObjectTreeStackFrameCl leaf;
 		leaf.cumulativeDistance = distance;
 		leaf.closestObjectId = objectId;
+
 		leaf.closestObjectSequence = sequenceIndex;
 		leaf.detailSize = savedDetailSize / absNodeScale;
 		leaf.transformedPoint = pointTransformed;
 		leaf.hasTransformedPoint = (objectId >= 0);
 		leaf.smoothCombineEnable = node->smooth_de_combine_enable;
 		leaf.smoothCombineDistance = node->smooth_de_combine_distance;
-		DEBUG_PRINT("  Leaf: dist=%f objectId=%d seqIdx=%d parentDS=%f stackLevel=%d\n", distance,
-			objectId, sequenceIndex, stack[stackLevel].detailSize, stackLevel);
 		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,
 			stack[stackLevel].detailSize);
 		totalIters += leafIters;
 	}
 
 	// final node summation - pop remaining stack levels
-	DEBUG_PRINT("Final: stackLevel=%d resultDist=%e objectId=%d\n", stackLevel,
-		stack[0].cumulativeDistance, stack[0].closestObjectId);
 	while (stackLevel > 0)
 	{
 		ObjectTreeStackFrameCl child = stack[stackLevel];
 		stackLevel--;
-		DEBUG_PRINT("  Pop stack[%d+1]: cumDist=%e type=%d -> stack[%d] cumDist=%e\n", stackLevel + 1,
-			child.cumulativeDistance, child.nodeType, stackLevel, stack[stackLevel].cumulativeDistance);
 		mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
 			stack[stackLevel].detailSize);
 	}
@@ -678,6 +635,14 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.distance = stack[0].cumulativeDistance;
 	out.objectId = stack[0].closestObjectId;
 	out.iters = totalIters;
+
+	// Safety fallback: if no object was found during distance calculation,
+	// default to object 0 to prevent out-of-bounds access in shaders.
+	// This can happen when the point is far from all fractals or in empty space.
+	if (out.objectId < 0)
+	{
+		out.objectId = 0;
+	}
 
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
