@@ -353,7 +353,6 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 							data->hybridFractalSequences.GetSequence(seqIndex);
 						if (!seq)
 						{
-							qDebug() << "CalculateDistanceFromObjectsTree()/fractal: Missing sequence!";
 							continue;
 						}
 						sDistanceOut nodeOut;
@@ -422,13 +421,10 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 						data->hybridFractalSequences.GetSequence(seqIndex);
 					if (!seq)
 					{
-						qDebug() << "CalculateDistanceFromObjectsTree()/hybrid: Missing sequence!";
 						continue;
 					}
 					if (seq->fractData.empty())
 					{
-						qDebug() << "CalculateDistanceFromObjectsTree()/hybrid: Empty sequence for node"
-										 << node.id;
 						continue;
 					}
 					sDistanceOut nodeOut;

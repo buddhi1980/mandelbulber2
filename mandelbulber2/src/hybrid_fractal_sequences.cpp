@@ -63,8 +63,17 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			if (nodeIndex + 1 < objectsNodes.size())
 			{
 				const cObjectsTree::sNodeDataForRendering &nextNode = objectsNodes[nodeIndex + 1];
-				// end hybrid if next node is not fractal or level is less or equal to hybrid node level
-				endOfHybridNode = nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
+				// end hybrid if next node is at the same level as hybrid (sibling fractal)
+				// or if next node is not a fractal and its level is less or equal to hybrid level
+				if (nextNode.type == enumNodeType::fractal && nextNode.level == levelOfHybrid)
+				{
+					endOfHybridNode = true;
+				}
+				else
+				{
+					endOfHybridNode =
+						nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
+				}
 			}
 			else
 			{
