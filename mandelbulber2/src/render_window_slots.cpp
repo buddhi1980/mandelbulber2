@@ -432,6 +432,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 				for (int j = 0; j < parFractal->size(); j++)
 					parFractal->at(j)->SetContainerName(QString("fractal") + QString::number(j));
 				InitParams(par);
+				InitNodeParams(1, par);
 				for (int j = 0; j < parFractal->size(); j++)
 					InitFractalParams(parFractal->at(j));
 

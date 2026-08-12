@@ -68,6 +68,7 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 
 	queuePar->SetContainerName("main");
 	InitParams(queuePar);
+	InitNodeParams(1, queuePar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, queuePar);

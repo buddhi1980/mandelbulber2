@@ -464,17 +464,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	// - object_id: Associated object ID (int, or -1 if not applicable)
 	// - displayOrder: Tree display order (int, used for drag-and-drop reordering)
 
-	// Default: node 0001 is a simple Mandelbulb fractal (enumFractalFormula::mandelbulb)
-	par->addParam("node_0001_definition",
-		QString("mandelbulb 1,1,%1,0,1,0").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
-	par->addParam("node_0001_enabled", true, morphNone, paramStandard);
-	par->addParam("node_0001_position", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-	par->addParam("node_0001_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-	par->addParam("node_0001_scale", 1.0, morphLinear, paramStandard);
-	par->addParam("node_0001_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-	par->addParam("node_0001_material", -1, morphNone, paramStandard);
-	par->addParam("node_0001_detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
-
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
 	par->addParam("net_render_client_IP", QString("10.0.0.4"), morphNone, paramApp);

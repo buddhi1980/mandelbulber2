@@ -152,6 +152,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 				parFractal->at(j)->SetContainerName(QString("fractal") + QString::number(j));
 
 			InitParams(par);
+			InitNodeParams(1, par);
 			for (int i = 0; i < parFractal->size(); i++)
 				InitFractalParams(parFractal->at(i));
 

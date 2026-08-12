@@ -102,6 +102,7 @@ void Test::renderExamples() const
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
+	InitNodeParams(1, testPar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, testPar);
@@ -303,6 +304,7 @@ void Test::testFlight() const
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
+	InitNodeParams(1, testPar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, testPar);
@@ -365,6 +367,7 @@ void Test::testKeyframe() const
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
+	InitNodeParams(1, testPar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, testPar);
@@ -429,6 +432,7 @@ void Test::renderSimple() const
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
+	InitNodeParams(1, testPar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, testPar);

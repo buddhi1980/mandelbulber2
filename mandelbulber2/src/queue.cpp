@@ -725,6 +725,7 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 						tempFract->at(j)->SetContainerName(QString("fractal") + QString::number(j));
 
 					InitParams(tempPar);
+					InitNodeParams(1, tempPar);
 					for (int f = 0; f < tempFract->size(); f++)
 						InitFractalParams(tempFract->at(f));
 					InitMaterialParams(1, tempPar);

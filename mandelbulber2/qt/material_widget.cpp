@@ -122,6 +122,7 @@ void cMaterialWidget::InitializeData()
 
 		params->SetContainerName("material");
 		InitParams(params);
+		InitNodeParams(1, params);
 
 		for (int i = 0; i < fractal->size(); i++)
 		{
@@ -152,7 +153,10 @@ void cMaterialWidget::InitializeData()
 			params->Set("N", 3);
 			params->Set("DE_thresh", 0.1);
 			params->Set("constant_DE_threshold", true);
+			params->Set("node_0001_enabled", true);
+			params->Set("node_0001_formula_maxiter", 3);
 			fractal->at(0)->Set("power", 5);
+			fractal->at(0)->Set("formula_maxiter", 3);
 			params->Set("textured_background", true);
 			params->Set("file_background",
 				QDir::toNativeSeparators(

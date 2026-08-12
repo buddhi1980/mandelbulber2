@@ -340,6 +340,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 		examplePar->SetContainerName("main");
 		InitParams(examplePar);
+		InitNodeParams(1, examplePar);
 		/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 		InitMaterialParams(1, examplePar);
