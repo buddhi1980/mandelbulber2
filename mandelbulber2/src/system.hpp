@@ -56,7 +56,6 @@
 #ifdef _WIN32 /* WINDOWS */
 // #include <windows.h>
 #define HAVE_BOOLEAN /* prevent jmorecfg.h from redefining it */
-#define _HAS_STD_BYTE 0 /* prevent std::byte from conflicting with Windows SDK byte */
 #endif
 
 #ifndef SHARED_DIR
