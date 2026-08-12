@@ -3,6 +3,7 @@ abox4d,"Abox 4D",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,an
 aboxDonut4d,"Abox - Donut 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxDonut4dV2,"Abox - Donut 4D V2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxKlein,"Abox- Klein",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
+aboxMb3d1,"Abox - Mod1 (MB3D)",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 aboxMod1,"Abox - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 aboxMod11,"Abox - Mod 11",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxMod12,"Abox - Mod 12",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
@@ -100,6 +101,7 @@ mandalayBoxV2,"Mandalay Box V2",analyticDEType,linearDEFunction,cpixelEnabledByD
 mandalayKIFS,"Mandalay KIFS",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 mandelbar,Mandelbar,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbarV2,"Mandelbar V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbarV3,"Mandelbar V3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbox,Mandelbox,analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 mandelboxFast,"Mandelbox Fast",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 mandelboxMenger,"Mandelbox - Menger",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
@@ -129,6 +131,7 @@ mandelbulbPlusZ,"Mandelbulb Plus Z",analyticDEType,logarithmicDEFunction,cpixelD
 mandelbulbPow2V1,"Mandelbulb - Pow2 V1",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPow2V3,"Mandelbulb - Pow2 V3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbPow2V4,"Mandelbulb - Pow2 V4",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower1234,"Mandelbulb - Power 1234",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPupuku,"Mandelbulb Pupuku",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -201,8 +204,11 @@ pseudoKleinianMod3,"Pseudo Kleinian - Mod 3",analyticDEType,customDEFunction,cpi
 pseudoKleinianMod4,"Pseudo Kleinian - Mod 4",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod5,"Pseudo Kleinian - Mod 5",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod6,"Pseudo Kleinian - Mod 6",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
-pseudoKleinianMod7,"Pseudo Kleinian - Mod 7",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
+pseudoKleinianMod7,"Pseudo Kleinian - Mod 7",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+pseudoKleinianTrig,"Pseudo Kleinian - Trig",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+pseudoKleinianTrigV2,"Pseudo Kleinian - Trig V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+pseudoKleinianTrigV3,"Pseudo Kleinian - Trig V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 quaternion,Quaternion,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 quaternion3d,Quaternion3D,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 quaternion4d,"Quaternion 4D",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault

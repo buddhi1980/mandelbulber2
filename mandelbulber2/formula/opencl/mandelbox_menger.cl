@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,8 +23,15 @@ REAL4 MandelboxMengerIteration(REAL4 z, __global sFractalCl *fractal, sExtendedA
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		REAL4 zRot;
+		// cast vector to array pointer for address taking of components in opencl
+		REAL *zRotP = (REAL *)&zRot;
+		__global REAL *colP = (__global REAL *)&fractal->mandelbox.color.factor;
 		for (int dim = 0; dim < 3; dim++)
 		{
+			// handle each dimension x, y and z sequentially in pointer var dim
+			REAL *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+			__global REAL *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
+
 			zRot = Matrix33MulFloat4(fractal->mandelbox.rot[0][dim], z);
 
 			REAL mLimit = fractal->mandelbox.foldingLimit;
@@ -35,20 +42,20 @@ REAL4 MandelboxMengerIteration(REAL4 z, __global sFractalCl *fractal, sExtendedA
 				mValue *= fractal->transformCommon.scale1;
 			}
 
-			if (zRot[dim] > mLimit)
+			if (*rotDim > mLimit)
 			{
-				zRot[dim] = mValue - zRot[dim];
+				*rotDim = mValue - *rotDim;
 				z = Matrix33MulFloat4(fractal->mandelbox.rotinv[0][dim], zRot);
-				colorAdd += fractal->mandelbox.color.factor[dim];
+				colorAdd += *colorFactor;
 			}
 			else
 			{
 				zRot = Matrix33MulFloat4(fractal->mandelbox.rot[1][dim], z);
-				if (zRot[dim] < -mLimit)
+				if (*rotDim < -mLimit)
 				{
-					zRot[dim] = -mValue - zRot[dim];
+					*rotDim = -mValue - *rotDim;
 					z = Matrix33MulFloat4(fractal->mandelbox.rotinv[1][dim], zRot);
-					colorAdd += fractal->mandelbox.color.factor[dim];
+					colorAdd += *colorFactor;
 				}
 			}
 		}

@@ -135,6 +135,7 @@ function autogenOpenCLFile($copyFile, &$status)
 		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor
 		array('find' => '/void RecalculateFractalParams\([\s\S]*?\);/', 'replace' => ""), // remove method
 		array('find' => '/cl_float CalculateColorIndex\([\s\S]*?\);/', 'replace' => ""), // remove method
+		array('find' => '/[\s]*\/\/ Apply common fractal params[\s\S]*?void ApplyNodeData\([\s\S]*?\);/', 'replace' => ""), // remove method
 
 		array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
 		array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
@@ -175,6 +176,20 @@ function autogenOpenCLFile($copyFile, &$status)
 	$cppIncludes .= '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL;
 
 	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
+
+	// insert enumBooleanOperatorCl from boolean_operator.h into fractparams_cl.hpp
+	if (basename($copyFile['pathTarget']) === 'fractparams_cl.hpp') {
+		$boolOpSrc = PROJECT_PATH . 'src/boolean_operator.h';
+		if (file_exists($boolOpSrc)) {
+			$boolOpContent = file_get_contents($boolOpSrc);
+			if (preg_match('/enum\s+(enumBooleanOperator)\s*\{([\s\S]*?)\};?/', $boolOpContent, $boolOpMatch)) {
+				$enumName = $boolOpMatch[1] . 'Cl';
+				$enumBody = trim($boolOpMatch[2]);
+				$enumDef = PHP_EOL . 'typedef enum' . PHP_EOL . '{' . PHP_EOL . $enumBody . PHP_EOL . '} ' . $enumName . ';' . PHP_EOL . PHP_EOL;
+				$content = preg_replace('/(} enumTextureMapTypeCl;)/', '$1' . $enumDef, $content);
+			}
+		}
+	}
 
 	// create copy methods for structs
 	preg_match_all('/typedef struct\n{([\s\S]*?\n)}\s([0-9a-zA-Z_]+);/', $content, $structMatches);

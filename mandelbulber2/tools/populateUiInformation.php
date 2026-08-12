@@ -525,9 +525,9 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/" . $fod . "4 &z4D/", 'replace' => $fod . '4 *z4D'), // no passing by reference
 		array('find' => "/z4D\./", 'replace' => 'z4D->'),
 		array('find' => "/sExtendedAux &aux/", 'replace' => 'sExtendedAuxCl *aux'), // no passing by reference
-		array('find' => "/const sFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
+		array('find' => "/const sFractal \*fractal/", 'replace' => '__global sFractalCl *fractal'), // no passing by reference
 		array('find' => "/aux\./", 'replace' => 'aux->'),
-		array('find' => "/const(\s\w+\s\*)/", 'replace' => '__constant$1'), // const modifier allowed for pointers (vars from outside)
+		array('find' => "/const(\s\w+\s\*)/", 'replace' => '__global$1'), // const modifier allowed for pointers (vars from outside)
 		array('find' => "/const(\s)/", 'replace' => '$1'), // const modifier not allowed for local vars
 		//array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 		//array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer

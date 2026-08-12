@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -33,9 +33,9 @@ REAL4 EiffieCarIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->transformCommon.functionEnabledDFalse) d = 100.0f;
 
 	p.z = p0.z - fractal->transformCommon.offsetD0;					 // locate z
-	p.x = p0.x + fractal->transformCommon.minR2p25;					 // wheels and gurads locate x
+	p.x = p0.x + fractal->transformCommon.minR2p25;					 // wheels and guards locate x
 	p.y = fabs(fabs(p.y) - fractal->transformCommon.minR06); // locate y
-	p.x = fabs(p.x) - fractal->transformCommon.offsetR1;		 // wheels and gurads dist apart
+	p.x = fabs(p.x) - fractal->transformCommon.offsetR1;		 // wheels and guards dist apart
 	r = native_sqrt(p.z * p.z + p.x * p.x);
 	tp.x = max(r - fractal->transformCommon.scale025, 0.0f); // guard rad
 	tp.y = max(p.y - fractal->transformCommon.offsetBp01 - 0.05f, 0.0f);
@@ -57,17 +57,17 @@ REAL4 EiffieCarIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *
 	}
 
 	d = max(d, -max(p.y - 0.165f, r - 0.24f)); // guard and car
-REAL zcd = 0.0f;
+	REAL zcd = 0.0f;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		REAL4 q = fabs(p0) - fractal->transformCommon.offset100;
 		REAL4 zc = q;
 
-		zc.x = max(zc.x, 0.0);
+		zc.x = max(zc.x, 0.0f);
 
-		zc.y -=  fractal->transformCommon.minR06 + 2.0f * (fractal->transformCommon.offsetBp01 - 0.05f);
-		zc.y = max(zc.y, 0.0);
-		zc.z = max(zc.z, 0.0);
+		zc.y -= fractal->transformCommon.minR06 + 2.0f * (fractal->transformCommon.offsetBp01 - 0.05f);
+		zc.y = max(zc.y, 0.0f);
+		zc.z = max(zc.z, 0.0f);
 		zcd = length(zc);
 
 		zcd -= fractal->transformCommon.offsetB0;
@@ -101,10 +101,8 @@ REAL zcd = 0.0f;
 		else
 			aux->color = 5.0f + fractal->foldColor.difs0000.x;
 
-		if (aux->dist == zcd)
-			aux->color = 4.0f + fractal->foldColor.difs0000.z;
-
-
+		if (aux->dist == zcd) aux->color = 4.0f + fractal->foldColor.difs0000.z;
 	}
+
 	return z;
 }
