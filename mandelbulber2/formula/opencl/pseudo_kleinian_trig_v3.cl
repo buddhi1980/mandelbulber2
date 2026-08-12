@@ -18,7 +18,17 @@
 REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 { // info amoser's complex sine formula, DE by Pupukuusikko
 	REAL4 oldZ = z;
+	REAL temp = 0.0;
 
+	// pi scale
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	{
+		temp = M_PI_F * fractal->transformCommon.scaleC1;
+		z *= temp;
+		aux->DE *= fabs(temp);
+	}
 	// sphere inversion (Pre-Trig)
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
