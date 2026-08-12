@@ -260,7 +260,7 @@ void cObjectsTreeWidget::updateFractalIcon(QTreeWidgetItem *item, int objectId, 
 	{
 		if (int(fractal->getInternalId()) == formulaEnum)
 		{
-			QString iconName = fractal->getIconName();
+			QString iconName = QString::fromStdString(fractal->getIconName());
 			QIcon icon(iconName);
 			QPixmap pixmap = icon.pixmap(QSize(128, 128));
 			if (!pixmap.isNull())
@@ -613,7 +613,7 @@ void cObjectsTreeWidget::UpdateTree(
 					{
 						if (int(fractal->getInternalId()) == formulaEnum)
 						{
-							QString iconName = fractal->getIconName();
+							QString iconName = QString::fromStdString(fractal->getIconName());
 							QIcon icon(iconName);
 							QPixmap pixmap = icon.pixmap(QSize(128, 128));
 							if (!pixmap.isNull())
@@ -2020,7 +2020,7 @@ void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 		if (int(fractal->getInternalId()) == formulaEnum)
 		{
 			matchedObjectId = fractalIndex + 1;
-			formulaName = fractal->getNameInComboBox();
+			formulaName = QString::fromStdString(fractal->getNameInComboBox());
 			break;
 		}
 	}

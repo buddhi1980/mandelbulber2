@@ -28,7 +28,7 @@ cFractalIdes::cFractalIdes() : cAbstractFractal()
 
 void cFractalIdes::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	if (fabs(z.x) < 2.5) z.x = z.x * .9;
 	if (fabs(z.z) < 2.5) z.z = z.z * .9;

@@ -78,24 +78,27 @@ bool cAbstractFractal::CheckForErrors() const
 	return error;
 }
 
-QString cAbstractFractal::getIconName() const
+std::string cAbstractFractal::getIconName() const
 {
 	if (internalID == fractal::none)
 	{
-		return QString(":system/icons/list-remove.svg");
+		return std::string(":system/icons/list-remove.svg");
 	}
-	return systemDirectories.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
-				 + internalName + ".png";
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".png")
+		.toStdString();
 }
 
-QString cAbstractFractal::getUiFilename() const
+std::string cAbstractFractal::getUiFilename() const
 {
-	return systemDirectories.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
-				 + internalName + ".ui";
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".ui")
+		.toStdString();
 }
 
-QString cAbstractFractal::getOpenCLFilename() const
+std::string cAbstractFractal::getOpenCLFilename() const
 {
-	return systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
-				 + internalName + ".cl";
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".cl")
+		.toStdString();
 }

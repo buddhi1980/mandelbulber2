@@ -27,7 +27,7 @@ cFractalTransfRotation4d::cFractalTransfRotation4d() : cAbstractFractal()
 
 void cFractalTransfRotation4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	CVector4 tp;
 	if (fractal->transformCommon.rotation44a.x != 0)

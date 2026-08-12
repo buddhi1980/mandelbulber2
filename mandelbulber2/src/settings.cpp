@@ -2406,7 +2406,7 @@ static QString GetFormulaName(int formulaEnum)
 	{
 		if (int(f->getInternalId()) == formulaEnum)
 		{
-			return f->getInternalName();
+			return QString::fromStdString(f->getInternalName());
 		}
 	}
 	return "fractal";

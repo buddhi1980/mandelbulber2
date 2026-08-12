@@ -27,7 +27,7 @@ cFractalTransfAddConstant::cFractalTransfAddConstant() : cAbstractFractal()
 
 void cFractalTransfAddConstant::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	z += fractal->transformCommon.additionConstant000;
 	z += fractal->transformCommon.additionConstantA000;

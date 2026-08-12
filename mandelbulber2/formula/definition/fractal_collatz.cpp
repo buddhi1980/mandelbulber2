@@ -29,7 +29,7 @@ cFractalCollatz::cFractalCollatz() : cAbstractFractal()
 
 void cFractalCollatz::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	CVector4 xV = CVector4(1.0, 1.0, 1.0, 0.0);
 	CVector4 temp = xV + z * 2.0;

@@ -34,8 +34,8 @@ cFractalScatorPower2Imaginary::cFractalScatorPower2Imaginary() : cAbstractFracta
 void cFractalScatorPower2Imaginary::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	(void)fractal;
+	(void)aux;
 
 	double x2 = z.x * z.x; // + 1e-061;
 	double y2 = z.y * z.y;

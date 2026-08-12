@@ -30,8 +30,8 @@ cFractalTransfBenesiCubeSphere::cFractalTransfBenesiCubeSphere() : cAbstractFrac
 void cFractalTransfBenesiCubeSphere::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	// Q_UNUSED(aux);
+	(void)fractal;
+	// (void)aux;
 	CVector4 oldZ = z;
 	z *= z; // so all now positive
 

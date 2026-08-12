@@ -12,7 +12,7 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-#include <QString>
+#include <string>
 #include "all_fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal_enums.h"
@@ -82,8 +82,8 @@ public:
 	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
 
 protected:
-	QString nameInComboBox;
-	QString internalName;
+	std::string nameInComboBox;
+	std::string internalName;
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
@@ -100,12 +100,12 @@ public:
 	fractal::enumDEFunctionType getDeFunctionType() const { return DEFunctionType; }
 	fractal::enumDEType getDeType() const { return DEType; }
 	fractal::enumFractalFormula getInternalId() const { return internalID; }
-	const QString &getInternalName() const { return internalName; }
-	const QString &getNameInComboBox() const { return nameInComboBox; }
+	const std::string &getInternalName() const { return internalName; }
+	const std::string &getNameInComboBox() const { return nameInComboBox; }
 
-	virtual QString getIconName() const;
-	virtual QString getUiFilename() const;
-	virtual QString getOpenCLFilename() const;
+	virtual std::string getIconName() const;
+	virtual std::string getUiFilename() const;
+	virtual std::string getOpenCLFilename() const;
 };
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_ */

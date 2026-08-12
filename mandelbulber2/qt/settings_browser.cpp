@@ -65,7 +65,7 @@ static QString lookupFormulaNameByInternalId(int formulaEnum)
 	{
 		if (int(f->getInternalId()) == formulaEnum)
 		{
-			return f->getNameInComboBox();
+			return QString::fromStdString(f->getNameInComboBox());
 		}
 	}
 	return QString();
@@ -77,7 +77,7 @@ static QString lookupFormulaNameByInternalName(const QString &internalName)
 	{
 		if (f->getInternalName() == internalName)
 		{
-			return f->getNameInComboBox();
+			return QString::fromStdString(f->getNameInComboBox());
 		}
 	}
 	return QString();

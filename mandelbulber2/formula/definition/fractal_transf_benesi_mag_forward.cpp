@@ -30,8 +30,8 @@ cFractalTransfBenesiMagForward::cFractalTransfBenesiMagForward() : cAbstractFrac
 void cFractalTransfBenesiMagForward::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	(void)fractal;
+	(void)aux;
 
 	double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
 	z = CVector4(

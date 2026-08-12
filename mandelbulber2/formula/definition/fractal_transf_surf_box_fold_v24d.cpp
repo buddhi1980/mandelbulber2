@@ -33,7 +33,7 @@ cFractalTransfSurfBoxFoldV24d::cFractalTransfSurfBoxFoldV24d() : cAbstractFracta
 void cFractalTransfSurfBoxFoldV24d::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	double colorAdd = 0.0;
 	CVector4 oldZ = z;

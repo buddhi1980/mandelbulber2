@@ -31,7 +31,7 @@ cFractalTransfSphericalCoordInvs::cFractalTransfSphericalCoordInvs() : cAbstract
 void cFractalTransfSphericalCoordInvs::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	CVector4 t = z;
 	double sn = 0.0;

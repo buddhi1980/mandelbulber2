@@ -28,7 +28,7 @@ cFractalTransfMandalayFoldV1::cFractalTransfMandalayFoldV1() : cAbstractFractal(
 
 void cFractalTransfMandalayFoldV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	// darkbeam fold
 	double signX = sign(z.x);

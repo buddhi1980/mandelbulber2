@@ -31,7 +31,7 @@ cFractalTransfBenesiSphereCube::cFractalTransfBenesiSphereCube() : cAbstractFrac
 void cFractalTransfBenesiSphereCube::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 	CVector4 oldZ = z;
 	z *= z;
 	// if (z.z == 0.0) z.z = 1e-21;

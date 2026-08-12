@@ -80,7 +80,8 @@ void cOpenClEngineRenderNebula::SetParameters(
 		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
 		{
 			const cHybridFractalSequences::sFractalData &fractData = seq->fractData[f];
-			QString formulaName = fractData.fractalFormulaObject->getInternalName();
+			QString formulaName =
+				QString::fromStdString(fractData.fractalFormulaObject->getInternalName());
 
 			if (formulaName == "custom")
 			{

@@ -31,7 +31,7 @@ cFractalRiemannBulbMsltoeMod2::cFractalRiemannBulbMsltoeMod2() : cAbstractFracta
 void cFractalRiemannBulbMsltoeMod2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	double radius2 = fractal->transformCommon.minR05;
 	double rr = z.x * z.x + z.y * z.y + z.z * z.z; // r2 or point radius squared

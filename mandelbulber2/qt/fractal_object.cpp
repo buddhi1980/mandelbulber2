@@ -156,11 +156,11 @@ void cFractalObject::slotChangedComboFractal(int indexInComboBox)
 	QString comboName = sender()->objectName();
 	int index = qobject_cast<QComboBox *>(sender())->itemData(indexInComboBox).toInt();
 
-	QString fullFormulaName = newFractalList[index]->getNameInComboBox();
+	QString fullFormulaName = QString::fromStdString(newFractalList[index]->getNameInComboBox());
 	if (newFractalList[index]->getInternalId() > 0)
 	{
-		QString formulaName = newFractalList[index]->getInternalName();
-		QString uiFilename = newFractalList[index]->getUiFilename();
+		QString formulaName = QString::fromStdString(newFractalList[index]->getInternalName());
+		QString uiFilename = QString::fromStdString(newFractalList[index]->getUiFilename());
 
 		bool widgetLoaded = false;
 

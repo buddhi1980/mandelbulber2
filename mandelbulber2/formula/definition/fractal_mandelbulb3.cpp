@@ -27,7 +27,7 @@ cFractalMandelbulb3::cFractalMandelbulb3() : cAbstractFractal()
 
 void cFractalMandelbulb3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	aux.DE = aux.DE * 2.0 * aux.r;
 

@@ -28,7 +28,7 @@ cFractalTransfNegAbsAddConstant::cFractalTransfNegAbsAddConstant() : cAbstractFr
 void cFractalTransfNegAbsAddConstant::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	z += fractal->transformCommon.additionConstant000;
 	if (fractal->transformCommon.functionEnabledx) z.x = -fabs(z.x);
