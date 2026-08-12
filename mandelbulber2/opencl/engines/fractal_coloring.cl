@@ -36,7 +36,7 @@
 
 cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float colorMin,
 	const sExtendedAuxCl *extendedAux, __global sFractalColoringCl *fractalColoring,
-	cl_int coloringFunction, __constant sFractalCl *defaultFractal)
+	cl_int coloringFunction, __global sFractalCl *defaultFractal)
 {
 	float colorIndex = 0.0f;
 	// color by numbers

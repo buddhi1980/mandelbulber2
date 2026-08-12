@@ -49,12 +49,19 @@
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
+#include "object_node_type.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
 #include "system.hpp"
 #include "system_data.hpp"
 #include "write_log.hpp"
 
+#include "formula/definition/all_fractal_list.hpp"
+
+/**
+ * Construct cSettings with the specified output format.
+ * Initializes all member variables to their default values.
+ */
 cSettings::cSettings(enumFormat _format)
 {
 	format = _format;
@@ -68,6 +75,13 @@ cSettings::cSettings(enumFormat _format)
 	forcedFractalFormulaIndex = -1;
 }
 
+/**
+ * Serialize internal settings (parameters, fractal config, animations) into a text representation.
+ * The output follows an INI-like format with sections [main_parameters], [fractal_N], [frames],
+ * etc. A MD4 hash of the content (excluding the header) is computed for thumbnail generation.
+ *
+ * Returns the number of characters written to settingsText.
+ */
 size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 	std::shared_ptr<const cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
 	std::shared_ptr<cKeyframes> keyframes)
@@ -76,6 +90,8 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 	settingsText.clear();
 	QString header = CreateHeader();
 	settingsText += header;
+
+	// Write description section if present and format supports it
 	if ((format == formatFullText || format == formatCondensedText) && par->IfExists("description")
 			&& par->Get<QString>("description") != "")
 	{
@@ -84,30 +100,33 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 	}
 	settingsText += "[main_parameters]\n";
 
-	// standard parameters
+	// Iterate over all main parameters and serialize them
 	QList<QString> parameterList = par->GetListOfParameters();
 	for (auto &parameterNameFromList : parameterList)
 	{
 		if (parameterNameFromList == "description") continue;
 
-		if (!listOfParametersToProcess.isEmpty()) // selective saving
+		// Selective saving: only include parameters in the allowlist
+		if (!listOfParametersToProcess.isEmpty())
 		{
 			if (!listOfParametersToProcess.contains(QString("main_") + parameterNameFromList)) continue;
 		}
 		settingsText += CreateOneLine(par, parameterNameFromList);
 	}
 
+	// Serialize fractal parameters and animation data (not needed for app settings)
 	if (format != formatAppSettings)
 	{
 		if (fractPar)
 		{
-			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			for (int f = 0; f < fractPar->size(); f++)
 			{
 				QList<QString> parameterListFractal = fractPar->at(f)->GetListOfParameters();
 				QString fractalSettingsText = "";
 				for (const auto &parameterNameFromFractal : parameterListFractal)
 				{
-					if (!listOfParametersToProcess.isEmpty()) // selective saving
+					// Selective saving for fractal parameters
+					if (!listOfParametersToProcess.isEmpty())
 					{
 						if (!listOfParametersToProcess.contains(
 									QString("fractal%1_").arg(f) + parameterNameFromFractal))
@@ -124,18 +143,16 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 			}
 		}
 
+		// Serialize animation frames and keyframes (only for full/condensed formats)
 		if (listOfParametersToProcess.isEmpty())
 		{
-			// flight animation
 			CreateAnimationString(settingsText, QString("frames"), frames);
-
-			// keyframe animation
 			CreateAnimationString(settingsText, QString("keyframes"), keyframes);
 		}
 	}
 	textPrepared = true;
 
-	// hash code will be needed for generating thumbnails
+	// Compute MD4 hash of settings content (excluding header) for thumbnail generation
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QStringRef settingTextWithoutHeader(
@@ -147,155 +164,163 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 
 	hashCrypt.addData(settingTextWithoutHeader.toLocal8Bit());
 	hash = hashCrypt.result();
-	// qDebug() << "hash code" << hash.toHex();
 
 	WriteLogString("Settings text prepared", settingsText, 3);
 
 	return size_t(settingsText.size());
 }
 
+/**
+ * Serialize animation frames or keyframes data into CSV-like text.
+ * Each frame is written as a semicolon-separated row with parameter values.
+ * For keyframes, an additional interpolation row is appended after all frames.
+ */
 void cSettings::CreateAnimationString(
 	QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const
 {
-	if (frames)
+	if (frames && frames->GetNumberOfFrames() > 0)
 	{
-		if (frames->GetNumberOfFrames() > 0)
-		{
-			// write section header
-			text += "[" + headerText + "]\n";
+		// Write section header
+		text += "[" + headerText + "]\n";
 
-			// create first row of csv structure (column names)
-			QList<cAnimationFrames::sParameterDescription> parameterList =
-				frames->GetListOfUsedParameters();
-			// header
-			text += "frame;";
-			text += "framesPerKeyframe;";
+		// Build CSV column headers (frame index, framesPerKeyframe, parameter columns)
+		QList<cAnimationFrames::sParameterDescription> parameterList =
+			frames->GetListOfUsedParameters();
+		text += "frame;";
+		text += "framesPerKeyframe;";
+
+		// Write parameter column headers with type-specific suffixes (_x/_y/_z for vectors, _R/_G/_B
+		// for RGB)
+		for (int i = 0; i < parameterList.size(); ++i)
+		{
+			if (parameterList[i].varType == parameterContainer::typeVector3)
+			{
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
+			}
+			else if (parameterList[i].varType == parameterContainer::typeVector4)
+			{
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_w";
+			}
+			else if (parameterList[i].varType == parameterContainer::typeRgb)
+			{
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_G;";
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_B";
+			}
+			else
+			{
+				text += parameterList[i].containerName + "_" + parameterList[i].parameterName;
+			}
+
+			if (i != parameterList.size() - 1)
+			{
+				text += ";";
+			}
+		}
+		text += "\n";
+
+		// Serialize each frame as a CSV row
+		for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
+		{
+			text += QString::number(f) + ";";
+			text += QString::number(frames->GetFrame(f).numberOfSubFrames) + ";";
 
 			for (int i = 0; i < parameterList.size(); ++i)
 			{
-				if (parameterList[i].varType == parameterContainer::typeVector3)
+				if (frames->GetFrame(f).parameters.IsEmpty(
+							parameterList[i].containerName + "_" + parameterList[i].parameterName))
 				{
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
-				}
-				else if (parameterList[i].varType == parameterContainer::typeVector4)
-				{
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_w";
-				}
-				else if (parameterList[i].varType == parameterContainer::typeRgb)
-				{
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_G;";
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_B";
+					// Write empty columns for unset parameters
+					switch (parameterList[i].varType)
+					{
+						case parameterContainer::typeVector3:
+						case parameterContainer::typeRgb: text += ";;"; break;
+
+						case parameterContainer::typeVector4: text += ";;;"; break;
+						default: text += ""; break;
+					}
 				}
 				else
 				{
-					text += parameterList[i].containerName + "_" + parameterList[i].parameterName;
+					// Serialize parameter value based on its type
+					if (parameterList[i].varType == parameterContainer::typeVector3)
+					{
+						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(
+							parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 15);
+					}
+					else if (parameterList[i].varType == parameterContainer::typeVector4)
+					{
+						CVector4 val = frames->GetFrame(f).parameters.Get<CVector4>(
+							parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.w, 0, 'g', 15);
+					}
+					else if (parameterList[i].varType == parameterContainer::typeRgb)
+					{
+						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(
+							parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += QString::number(val.R) + ";";
+						text += QString::number(val.G) + ";";
+						text += QString::number(val.B);
+					}
+					else
+					{
+						text += frames->GetFrame(f).parameters.Get<QString>(
+							parameterList[i].containerName + "_" + parameterList[i].parameterName);
+					}
 				}
-
 				if (i != parameterList.size() - 1)
 				{
 					text += ";";
 				}
 			}
 			text += "\n";
-			for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
+		}
+
+		// Append interpolation types row for keyframe animations
+		if (headerText == "keyframes")
+		{
+			text += "interpolation;";
+			for (int i = 0; i < parameterList.size(); ++i)
 			{
-				// keyframe index
-				text += QString::number(f) + ";";
-
-				// frames per keyframe
-				text += QString::number(frames->GetFrame(f).numberOfSubFrames) + ";";
-
-				for (int i = 0; i < parameterList.size(); ++i)
+				switch (parameterList[i].morphType)
 				{
-					if (frames->GetFrame(f).parameters.IsEmpty(
-								parameterList[i].containerName + "_" + parameterList[i].parameterName))
-					{
-						switch (parameterList[i].varType)
-						{
-							case parameterContainer::typeVector3:
-							case parameterContainer::typeRgb: text += ";;"; break;
-
-							case parameterContainer::typeVector4: text += ";;;"; break;
-							default: text += ""; break;
-						}
-					}
-					else
-					{
-
-						if (parameterList[i].varType == parameterContainer::typeVector3)
-						{
-							CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(
-								parameterList[i].containerName + "_" + parameterList[i].parameterName);
-							text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
-							text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
-							text += QString("%L1").arg(val.z, 0, 'g', 15);
-						}
-						else if (parameterList[i].varType == parameterContainer::typeVector4)
-						{
-							CVector4 val = frames->GetFrame(f).parameters.Get<CVector4>(
-								parameterList[i].containerName + "_" + parameterList[i].parameterName);
-							text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
-							text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
-							text += QString("%L1").arg(val.z, 0, 'g', 15) + ";";
-							text += QString("%L1").arg(val.w, 0, 'g', 15);
-						}
-						else if (parameterList[i].varType == parameterContainer::typeRgb)
-						{
-							sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(
-								parameterList[i].containerName + "_" + parameterList[i].parameterName);
-							text += QString::number(val.R) + ";";
-							text += QString::number(val.G) + ";";
-							text += QString::number(val.B);
-						}
-						else
-						{
-							text += frames->GetFrame(f).parameters.Get<QString>(
-								parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						}
-					}
-					if (i != parameterList.size() - 1)
-					{
-						text += ";";
-					}
+					case morphNone: text += "morphNone"; break;
+					case morphLinear: text += "morphLinear"; break;
+					case morphLinearAngle: text += "morphLinearAngle"; break;
+					case morphCatMullRom: text += "morphCatMullRom"; break;
+					case morphCatMullRomAngle: text += "morphCatMullRomAngle"; break;
+					case morphAkima: text += "morphAkima"; break;
+					case morphAkimaAngle: text += "morphAkimaAngle"; break;
+					case morphCubic: text += "morphCubic"; break;
+					case morphCubicAngle: text += "morphCubicAngle"; break;
+					case morphSteffen: text += "morphSteffen"; break;
+					case morphSteffenAngle: text += "morphSteffenAngle"; break;
 				}
-				text += "\n";
-			}
-			if (headerText == "keyframes")
-			{
-				text += "interpolation;";
-				for (int i = 0; i < parameterList.size(); ++i)
+				if (i != parameterList.size() - 1)
 				{
-					switch (parameterList[i].morphType)
-					{
-						case morphNone: text += "morphNone"; break;
-						case morphLinear: text += "morphLinear"; break;
-						case morphLinearAngle: text += "morphLinearAngle"; break;
-						case morphCatMullRom: text += "morphCatMullRom"; break;
-						case morphCatMullRomAngle: text += "morphCatMullRomAngle"; break;
-						case morphAkima: text += "morphAkima"; break;
-						case morphAkimaAngle: text += "morphAkimaAngle"; break;
-						case morphCubic: text += "morphCubic"; break;
-						case morphCubicAngle: text += "morphCubicAngle"; break;
-						case morphSteffen: text += "morphSteffen"; break;
-						case morphSteffenAngle: text += "morphSteffenAngle"; break;
-					}
-					if (i != parameterList.size() - 1)
-					{
-						text += ";";
-					}
+					text += ";";
 				}
-				text += "\n";
 			}
+			text += "\n";
 		}
 	}
 }
 
+/**
+ * Generate the settings file header with version and format information.
+ * The header is used to identify valid Mandelbulber settings files during loading.
+ */
 QString cSettings::CreateHeader() const
 {
 	QString header("# Mandelbulber settings file\n");
@@ -311,21 +336,26 @@ QString cSettings::CreateHeader() const
 	return header;
 }
 
+/**
+ * Serialize a single parameter into a settings line: "name value;[script]".
+ * Respects format filtering (full, condensed, net render, app settings) and
+ * selective parameter lists. Skips parameters that match none of the active filters.
+ */
 QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par, QString name) const
 {
 	QString text;
 
 	cOneParameter parameter = par->GetAsOneParameter(name);
-
 	enumParameterType parType = parameter.GetParameterType();
 
+	// Determine if this parameter should be included based on format and parameter type
 	bool selNormal =
 		(format == formatFullText || format == formatCondensedText) && parType == paramStandard;
 
 	bool selNetRender =
 		(format == formatNetRender) && (parType == paramStandard || parType == paramOnlyForNet);
 
-	// adding selected appSettings to standard settings file
+	// Allow selected app settings to be included in standard settings files
 	bool additinalAppSetting = false;
 	if (parType == paramApp && !listOfAppSettings.isEmpty())
 	{
@@ -338,6 +368,7 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 		QString value;
 		enumVarType type = parameter.GetValueType();
 
+		// Only serialize non-default values (except in full/net formats or if a script is attached)
 		if (!parameter.isDefaultValue() || format == formatFullText || format == formatNetRender
 				|| parameter.HasScript())
 		{
@@ -358,6 +389,7 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 				}
 			}
 
+			// formula_code is compressed and base64-encoded to save space
 			if (name == "formula_code")
 			{
 				value = CompressAndCode(value);
@@ -378,6 +410,10 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 	return text;
 }
 
+/**
+ * Compress text using zlib and encode to base64.
+ * Used for formula_code to reduce settings file size.
+ */
 QString cSettings::CompressAndCode(const QString &text) const
 {
 	QByteArray blob = text.toUtf8();
@@ -385,6 +421,10 @@ QString cSettings::CompressAndCode(const QString &text) const
 	return compressedBlob.toBase64();
 }
 
+/**
+ * Decode base64 data and decompress using zlib.
+ * Reverse operation of CompressAndCode.
+ */
 QString cSettings::DecodeAndDecompress(const QString &text) const
 {
 	QByteArray compressedBlob = QByteArray::fromBase64(text.toUtf8());
@@ -392,6 +432,10 @@ QString cSettings::DecodeAndDecompress(const QString &text) const
 	return QString(blob);
 }
 
+/**
+ * Save the generated settings text to a file.
+ * Returns true on success, false if the file cannot be opened.
+ */
 bool cSettings::SaveToFile(QString filename) const
 {
 	WriteLogString("Saving settings started", filename, 2);
@@ -413,6 +457,9 @@ bool cSettings::SaveToFile(QString filename) const
 	}
 }
 
+/**
+ * Copy the generated settings text to the system clipboard.
+ */
 void cSettings::SaveToClipboard() const
 {
 	WriteLog("Save settings to clipboard", 2);
@@ -420,6 +467,10 @@ void cSettings::SaveToClipboard() const
 	clipboard->setText(settingsText);
 }
 
+/**
+ * Load settings text from a file and compute its hash.
+ * Returns true on success, false if the file cannot be opened.
+ */
 bool cSettings::LoadFromFile(QString filename)
 {
 	settingsText.clear();
@@ -433,11 +484,10 @@ bool cSettings::LoadFromFile(QString filename)
 		qFile.close();
 		textPrepared = true;
 
-		// hash code will be needed for generating thumbnails
+		// Compute MD4 hash of loaded settings for thumbnail generation
 		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 		hashCrypt.addData(settingsText.toLocal8Bit());
 		hash = hashCrypt.result();
-		// qDebug() << "hash code" << hash.toHex();
 
 		WriteLogString("Settings loaded", settingsText, 2);
 
@@ -455,6 +505,10 @@ bool cSettings::LoadFromFile(QString filename)
 	}
 }
 
+/**
+ * Load settings from a QString and compute its hash.
+ * Returns true on success.
+ */
 bool cSettings::LoadFromString(const QString &_settingsText)
 {
 	settingsText = _settingsText;
@@ -466,6 +520,10 @@ bool cSettings::LoadFromString(const QString &_settingsText)
 	return true;
 }
 
+/**
+ * Load settings text from the system clipboard.
+ * Returns true on success, false if clipboard is empty or unavailable.
+ */
 bool cSettings::LoadFromClipboard()
 {
 	WriteLog("Load settings from clipboard", 2);
@@ -473,6 +531,11 @@ bool cSettings::LoadFromClipboard()
 	return LoadFromString(clipboard->text());
 }
 
+/**
+ * Parse the settings file header to extract version and format information.
+ * Validates the file structure and updates the format member variable.
+ * Throws QString on error (caught by caller).
+ */
 void cSettings::DecodeHeader(QStringList &separatedText)
 {
 	if (textPrepared)
@@ -506,6 +569,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 				throw QObject::tr("File was saved in newer version of Mandelbulber\nFile version: ")
 					+ QString::number(fileVersion);
 
+			// Determine format from the third header line
 			QString thirdLine = separatedText[2];
 			if (thirdLine.contains("all parameters"))
 			{
@@ -537,14 +601,17 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 	}
 }
 
+/**
+ * Compatibility handler for settings files older than v2.25.
+ * Converts old light rotation parameters (alpha/beta) into the new unified rotation vector.
+ */
 void cSettings::Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
 	const std::shared_ptr<cParameterContainer> &par,
 	const std::shared_ptr<cFractalContainer> &fractPar)
 {
 	if (fileVersion < 2.25 && keyframes)
 	{
-		// conversion of old light rotation parameters to new parameters
-		// conversion of old light rotation parameters to new parameters
+		// Convert old alpha/beta light rotation parameters to the new rotation vector
 		QList<cAnimationFrames::sParameterDescription> listOfAnimatedParameters =
 			keyframes->GetListOfParameters();
 		for (const auto &animatedParameter : listOfAnimatedParameters)
@@ -571,6 +638,11 @@ void cSettings::Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
 	}
 }
 
+/**
+ * Parse settings text and populate the parameter containers.
+ * Handles section-based parsing, legacy compatibility migrations, frame/keyframe decoding,
+ * and audio file loading. Returns true on success.
+ */
 bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
 	std::shared_ptr<cKeyframes> keyframes)
@@ -593,25 +665,37 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 
 	DecodeHeader(separatedText);
 
+	// Inject temporary legacy params for old settings files (< v2.35).
+	// These allow DecodeOneLine to store values; MigrateToObjectsTree() will consume and delete them.
+	if (fileVersion < 2.35)
+	{
+		InjectTemporaryLegacyBooleanParams(par);
+		InjectTemporaryLegacyJuliaParams(par);
+		InjectTemporaryLegacyFormulaTransformParams(fractPar);
+		InjectTemporaryLegacyFormulaMaterialIdParams(par);
+	}
+
 	int errorCount = 0;
 	int csvLine = 0;
 
 	QString section;
 	if (textPrepared)
 	{
-		if (listOfParametersToProcess.isEmpty()) // if not selective load
+		// Reset all parameters to defaults if not doing selective loading
+		if (listOfParametersToProcess.isEmpty())
 		{
-			// clear settings
 			par->ResetAllToDefault();
 			if (fractPar)
 			{
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < fractPar->size(); i++)
 					fractPar->at(i)->ResetAllToDefault();
 			}
 			DeleteAllPrimitiveParams(par);
 			listOfLoadedPrimitives.clear();
 			DeleteAllMaterialParams(par);
 			DeleteAllLightParams(par);
+			DeleteAllNodeParams(par);
+			InitNodeParams(1, par);
 
 			if (frames)
 			{
@@ -625,10 +709,12 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				keyframes->RemoveAllAudioParameters(par);
 			}
 		}
-		// temporary containers to decode frames
+
+		// Temporary containers used during frame/keyframe decoding
 		std::shared_ptr<cParameterContainer> parTemp(new cParameterContainer());
 		std::shared_ptr<cFractalContainer> fractTemp(new cFractalContainer());
 
+		// Parse each line, dispatching to the appropriate handler based on section
 		for (int l = 3; l < separatedText.size(); l++)
 		{
 			QString line = separatedText[l];
@@ -641,7 +727,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			}
 			else if (section == QString("description"))
 			{
-				// concat multi-line description
+				// Concatenate multi-line description
 				QString description = "";
 				if (par->IfExists("description")) description = par->Get<QString>("description");
 				if (description != "") description += "\n";
@@ -653,23 +739,41 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			{
 				if (line == "") continue;
 				bool result = false;
+
 				if (section == QString("main_parameters"))
 				{
-					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					QString decodeLine = line.trimmed();
+					bool decodedAsLegacyFractalParam = false;
+
+					// Try to resolve legacy fractal parameters (old format: param_index)
+					if (fileVersion < 2.35 && fractPar && !decodeLine.isEmpty())
 					{
+						std::shared_ptr<cParameterContainer> targetContainer;
+						QString resolvedLine;
+						if (TryResolveLegacyFractalParam(
+									decodeLine, par, fractPar, resolvedLine, targetContainer))
+						{
+							decodeLine = resolvedLine;
+							result = DecodeOneLine(targetContainer, decodeLine);
+							decodedAsLegacyFractalParam = true;
+						}
+					}
 
-						int firstSpace = line.indexOf(' ');
-						QString parameterName = line.left(firstSpace);
+					// Apply selective loading filter for main parameters
+					if (!decodedAsLegacyFractalParam && !listOfParametersToProcess.isEmpty())
+					{
+						int firstSpace = decodeLine.indexOf(' ');
+						QString parameterName = decodeLine.left(firstSpace);
 
+						// Override fractal index if forced
 						if (forcedFractalFormulaIndex > 0)
 						{
-							// replace index in parameter name
 							bool conversionOK = false;
 							parameterName.right(1).toInt(&conversionOK);
-							if (conversionOK) // if last letter is a number, then replace index in settings line
+							if (conversionOK)
 							{
 								QString digit = QString::number(forcedFractalFormulaIndex);
-								line[firstSpace - 1] = digit[0];
+								decodeLine[firstSpace - 1] = digit[0];
 								parameterName[firstSpace - 1] = digit[0];
 							}
 						}
@@ -677,83 +781,72 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 						if (!listOfParametersToProcess.contains(QString("main_") + parameterName)) continue;
 					}
 
-					result = DecodeOneLine(par, line);
+					if (!decodedAsLegacyFractalParam) result = DecodeOneLine(par, decodeLine);
 				}
 				else if (section.contains("fractal"))
 				{
-					int i = section.right(1).toInt() - 1;
-					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
+					// Section names: "fractal_1", "fractal_2", ... (1-based in file, 0-based internally)
+					int fractalIndex = section.mid(8).toInt() - 1;
+					if (forcedFractalFormulaIndex > 0) fractalIndex = forcedFractalFormulaIndex - 1;
 
-					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					if (!listOfParametersToProcess.isEmpty())
 					{
 						int firstSpace = line.indexOf(' ');
 						QString parameterName = line.left(firstSpace);
 						if (forcedFractalFormulaIndex == -1
 								&& !listOfParametersToProcess.contains(
-									QString("fractal%1_").arg(i) + parameterName))
+									QString("fractal%1_").arg(fractalIndex) + parameterName))
 							continue;
 					}
 
-					if (fractPar) result = DecodeOneLine(fractPar->at(i), line);
+					if (fractPar)
+					{
+						fractPar->ensureCapacity(fractalIndex);
+						result = DecodeOneLine(fractPar->at(fractalIndex), line);
+					}
 				}
 				else if (section == QString("frames"))
 				{
-					if (listOfParametersToProcess.isEmpty())
+					if (listOfParametersToProcess.isEmpty() && frames)
 					{
-						if (frames)
+						if (csvLine == 0)
 						{
-							if (csvLine == 0)
-							{
-								CheckIfMaterialsAreDefined(par);
-								*parTemp = *par;
-								if (fractPar) *fractTemp = *fractPar;
-
-								result = DecodeFramesHeader(line, par, fractPar, frames);
-								csvLine++;
-							}
-							else
-							{
-								result = DecodeFramesLine(line, parTemp, fractTemp, frames);
-								csvLine++;
-							}
+							CheckIfMaterialsAreDefined(par);
+							*parTemp = *par;
+							if (fractPar) *fractTemp = *fractPar;
+							result = DecodeFramesHeader(line, par, fractPar, frames);
+							csvLine++;
 						}
 						else
 						{
-							result = true;
+							result = DecodeFramesLine(line, parTemp, fractTemp, frames);
+							csvLine++;
 						}
 					}
-					else // if listOfParametersToProcess is not empty
+					else
 					{
 						result = true;
 					}
 				}
 				else if (section == QString("keyframes"))
 				{
-					if (listOfParametersToProcess.isEmpty())
+					if (listOfParametersToProcess.isEmpty() && keyframes)
 					{
-						if (keyframes)
+						if (csvLine == 0)
 						{
-							if (csvLine == 0)
-							{
-								CheckIfMaterialsAreDefined(par);
-								*parTemp = *par;
-								if (fractPar) *fractTemp = *fractPar;
-
-								result = DecodeFramesHeader(line, par, fractPar, keyframes);
-								csvLine++;
-							}
-							else
-							{
-								result = DecodeFramesLine(line, parTemp, fractTemp, keyframes);
-								csvLine++;
-							}
+							CheckIfMaterialsAreDefined(par);
+							*parTemp = *par;
+							if (fractPar) *fractTemp = *fractPar;
+							result = DecodeFramesHeader(line, par, fractPar, keyframes);
+							csvLine++;
 						}
 						else
 						{
-							result = true;
+							result = DecodeFramesLine(line, parTemp, fractTemp, keyframes);
+							csvLine++;
 						}
 					}
-					else // if listOfParametersToProcess is not empty
+					else
 					{
 						result = true;
 					}
@@ -781,7 +874,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			}
 		}
 
-		// add default parameters for animation
+		// Add default camera animation parameters if keyframes exist but are empty
 		if (keyframes && listOfParametersToProcess.isEmpty())
 		{
 			if (keyframes->GetListOfUsedParameters().size() == 0)
@@ -792,24 +885,21 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			}
 		}
 
-		// check if there is at least one material defined
+		// Ensure at least one material is defined
 		if (format != formatAppSettings)
 		{
 			CheckIfMaterialsAreDefined(par);
 		}
 
+		// Process audio-linked parameters after animation data is loaded
 		if (listOfParametersToProcess.isEmpty())
 		{
-			// now when anim sound parameters are already prepared by animation, all animsound parameters
-			// can be processed
 			if (keyframes && linesWithSoundParameters.length() > 0)
 			{
 				foundAnimSoundParameters = true;
 				for (const auto &linesWithSoundParameter : linesWithSoundParameters)
 				{
-					bool result;
-					result = DecodeOneLine(par, linesWithSoundParameter);
-
+					bool result = DecodeOneLine(par, linesWithSoundParameter);
 					if (!result)
 					{
 						if (!quiet)
@@ -833,13 +923,14 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			}
 		}
 
+		// Apply version-specific compatibility migrations
 		if (format != formatAppSettings)
 		{
 			Compatibility2(par, fractPar);
-
 			Compatibility3(keyframes, par, fractPar);
 		}
 
+		// Load audio files referenced by animation/keyframe data
 		if (listOfParametersToProcess.isEmpty())
 		{
 			if (frames) frames->LoadAllAudioFiles(par);
@@ -854,6 +945,10 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	}
 }
 
+/**
+ * Check if any material parameters are defined. If none are found, initialize material 1.
+ * Returns true if materials were already defined, false if a new one was initialized.
+ */
 bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> par)
 {
 	bool matParameterFound = false;
@@ -867,10 +962,10 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 		}
 	}
 
-	if (par->IfExists("formula_material_id")) // if there is checked full set of parameters
+	// If formula_material_id references material 1 but it is not defined, mark as not found
+	if (par->IfExists("formula_material_id"))
 	{
-		if (par->Get<int>("formula_material_id") == 1
-				&& !par->IfExists("mat1_is_defined")) // if material 1 is used but still not defined
+		if (par->Get<int>("formula_material_id") == 1 && !par->IfExists("mat1_is_defined"))
 		{
 			matParameterFound = false;
 		}
@@ -884,26 +979,56 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 	return matParameterFound;
 }
 
+/**
+ * Parse a single settings line and set the corresponding parameter value.
+ * Handles parameter name/value extraction, quote stripping, compatibility transformations,
+ * lazy initialization of primitives/materials/lights/nodes, and script attachment.
+ * Returns true on success, false on error.
+ */
 bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString line)
 {
+	line = line.trimmed();
+	if (line.isEmpty()) return true;
+
 	int firstSpace = line.indexOf(' ');
 	int semicolon = line.indexOf(';');
-	QString parameterName = line.left(firstSpace);
-	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
+	if (firstSpace < 0 || semicolon < 0 || semicolon <= firstSpace) return false;
+
+	QString parameterName = line.left(firstSpace).trimmed();
+	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1).trimmed();
 	QString script;
 
-	// lokking for script
+	// Strip enclosing quotes from parameter name and value
+	auto stripEnclosingQuotes = [](const QString &text) -> QString
+	{
+		if (text.size() >= 2)
+		{
+			const QChar first = text.at(0);
+			const QChar last = text.at(text.size() - 1);
+			if ((first == '"' && last == '"') || (first == '\'' && last == '\''))
+			{
+				return text.mid(1, text.size() - 2).trimmed();
+			}
+		}
+		return text;
+	};
+	parameterName = stripEnclosingQuotes(parameterName);
+	value = stripEnclosingQuotes(value);
+
+	// Extract optional script portion (after the second semicolon)
 	if (semicolon < line.length() - 2)
 	{
 		int semicolon2 = line.indexOf(';', semicolon + 1);
 		script = line.mid(semicolon + 1, semicolon2 - semicolon - 1);
 	}
 
+	// Apply version-specific name/value transformations
 	Compatibility(parameterName, value);
 
-	// skip processing of parameter in case of compatibility issue
+	// Skip parameter if compatibility handler marked it for skipping
 	if (parameterName == "skip") return true;
 
+	// Lazy-initialize primitive parameters if this is a new primitive parameter
 	if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
 		if (!par->IfExists(parameterName))
@@ -915,9 +1040,17 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 			sPrimitiveItem item(objectType, primitiveIndex, primitiveName, split.at(1));
 			InitPrimitiveParams(item, par);
 			listOfLoadedPrimitives.append(primitiveName);
+
+			// Inject temporary legacy transform params for old settings files (< v2.35).
+			// MigrateToObjectsTree() will migrate them to node-based params and delete them.
+			if (fileVersion < 2.35)
+			{
+				InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
+			}
 		}
 	}
 
+	// Lazy-initialize material parameters if this is a new material parameter
 	if (parameterName.left(3) == "mat")
 	{
 		if (!par->IfExists(parameterName))
@@ -943,6 +1076,7 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		}
 	}
 
+	// Lazy-initialize light parameters if this is a new light parameter
 	if (parameterName.left(5) == "light")
 	{
 		if (!par->IfExists(parameterName))
@@ -967,22 +1101,58 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		}
 	}
 
+	// Lazy-initialize node parameters if this is a new node parameter
+	if (parameterName.left(5) == "node_")
+	{
+		if (!par->IfExists(parameterName))
+		{
+			QStringList split = parameterName.split('_');
+			if (split.size() >= 3)
+			{
+				bool conversionOK = false;
+				int nodeId = split.at(1).toInt(&conversionOK);
+				if (conversionOK && nodeId > 0)
+				{
+					static const QStringList validNodeParams = {"definition", "position", "rotation", "scale",
+						"repeat", "material", "detail_level_multiplier", "julia_mode", "julia_c",
+						"fractal_constant_factor", "initial_waxis", "smooth_de_combine_enable",
+						"smooth_de_combine_distance", "formula_maxiter"};
+					QString shortName = split.mid(2).join('_');
+					if (validNodeParams.contains(shortName))
+					{
+						InitNodeParams(nodeId, par);
+					}
+					else
+					{
+						if (!quiet)
+						{
+							cErrorMessage::showMessage(
+								QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+						}
+						return false;
+					}
+				}
+			}
+		}
+	}
+
+	// Defer audio-linked parameter processing until after animation data is loaded
 	if (parameterName.left(9) == "animsound")
 	{
 		if (!foundAnimSoundParameters)
 		{
-			linesWithSoundParameters.append(
-				line);		 // added line for further processing (after animation is loaded)
-			return true; // parameter will be processed later
+			linesWithSoundParameters.append(line);
+			return true;
 		}
 	}
 
+	// Ignore flight animation audio parameters
 	if (parameterName.left(15) == "flightanimsound")
 	{
-		// ignore this line from settings
 		return true;
 	}
 
+	// Validate parameter type and set value
 	enumVarType varType = par->GetVarType(parameterName);
 
 	if (varType == typeNull)
@@ -1018,11 +1188,13 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 			value = everyLocaleDouble(value);
 		}
 
+		// Decompress formula_code if needed
 		if (parameterName == "formula_code")
 		{
 			value = DecodeAndDecompress(value);
 		}
 
+		// Convert enumeration string to index
 		if (par->GetAsOneParameter(parameterName).IsEnumeration())
 		{
 			par->Set(parameterName, par->GetAsOneParameter(parameterName).GetIndexByEnumeration(value));
@@ -1038,6 +1210,10 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	}
 }
 
+/**
+ * Detect if a line is a section header (e.g. "[main_parameters]").
+ * Updates section with the section name and returns true if detected.
+ */
 bool cSettings::CheckSection(QString text, QString &section)
 {
 	if (text.left(1) == "[" && text.right(1) == "]")
@@ -1048,8 +1224,14 @@ bool cSettings::CheckSection(QString text, QString &section)
 	return false;
 }
 
+/**
+ * Apply version-specific compatibility transformations to parameter names and values.
+ * Handles renames, value conversions, and deprecated parameter handling across all
+ * Mandelbulber versions. Parameters marked "skip" are ignored by the caller.
+ */
 void cSettings::Compatibility(QString &name, QString &value) const
 {
+	// === v2.01 compatibility ===
 	if (fileVersion <= 2.01)
 	{
 		if (name.indexOf("aux_light_predefined") >= 0)
@@ -1071,6 +1253,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.04 compatibility ===
 	if (fileVersion <= 2.04)
 	{
 		if (name == QString("fractal_constant_factor"))
@@ -1080,6 +1263,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.06 compatibility ===
 	if (fileVersion <= 2.06)
 	{
 		if (name == QString("linear_DE_mode"))
@@ -1089,58 +1273,44 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.071 compatibility: rename material parameters to mat1_* prefix ===
 	if (fileVersion <= 2.071)
 	{
 		if (name == QString("shading")) name.replace("shading", "mat1_shading");
-
 		if (name == QString("specular")) name.replace("specular", "mat1_specular");
-
 		if (name == QString("reflect")) name.replace("reflect", "mat1_reflectance");
-
 		if (name == QString("transparency_of_surface"))
 			name.replace("transparency_of_surface", "mat1_transparency_of_surface");
-
 		if (name == QString("transparency_of_interior"))
 			name.replace("transparency_of_interior", "mat1_transparency_of_interior");
-
 		if (name == QString("transparency_index_of_refraction"))
 			name.replace("transparency_index_of_refraction", "mat1_transparency_index_of_refraction");
-
 		if (name == QString("transparency_interior_color"))
 			name.replace("transparency_interior_color", "mat1_transparency_interior_color");
-
 		if (name == QString("fresnel_reflectance"))
 			name.replace("fresnel_reflectance", "mat1_fresnel_reflectance");
-
 		if (name == QString("coloring_random_seed"))
 			name.replace("coloring_random_seed", "mat1_coloring_random_seed");
-
 		if (name == QString("coloring_saturation"))
 			name.replace("coloring_saturation", "mat1_coloring_saturation");
-
 		if (name == QString("coloring_speed")) name.replace("coloring_speed", "mat1_coloring_speed");
-
 		if (name == QString("coloring_palette_size"))
 			name.replace("coloring_palette_size", "mat1_coloring_palette_size");
-
 		if (name == QString("coloring_palette_offset"))
 			name.replace("coloring_palette_offset", "mat1_coloring_palette_offset");
-
 		if (name == QString("fractal_color"))
 			name.replace("fractal_color", "mat1_use_colors_from_palette");
-
 		if (name == QString("surface_color_palette"))
 			name.replace("surface_color_palette", "mat1_surface_color_palette");
-
 		if (name == QString("fractal_coloring_algorithm"))
 			name.replace("fractal_coloring_algorithm", "mat1_fractal_coloring_algorithm");
-
 		if (name == QString("fractal_coloring_sphere_radius"))
 			name.replace("fractal_coloring_sphere_radius", "mat1_fractal_coloring_sphere_radius");
-
 		if (name == QString("fractal_coloring_line_direction"))
 			name.replace("fractal_coloring_line_direction", "mat1_fractal_coloring_line_direction");
 	}
+
+	// === v2.09 compatibility: swap delta_DE_function values ===
 	if (fileVersion < 2.09)
 	{
 		if (name == QString("delta_DE_function"))
@@ -1156,11 +1326,13 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.12 compatibility: rename gpu_ to opencl_ ===
 	if (fileVersion < 2.12)
 	{
 		name.replace("gpu_", "opencl_");
 	}
 
+	// === v2.13 compatibility: primitive_water amplitude rename ===
 	if (fileVersion < 2.13)
 	{
 		if (name.contains("primitive_water"))
@@ -1169,6 +1341,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.19 compatibility: surface_color_palette -> surface_color_gradient ===
 	if (fileVersion < 2.19)
 	{
 		if (name.contains("surface_color_palette"))
@@ -1178,7 +1351,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			QStringList split = value.split(" ");
 			int numberOfColors = split.size();
 
-			// in case if last color is not a valid color (e.g. empty)
+			// Skip trailing invalid color entries
 			if (split.last().size() < 6) numberOfColors -= 1;
 
 			double step = 1.0 / numberOfColors;
@@ -1194,90 +1367,63 @@ void cSettings::Compatibility(QString &name, QString &value) const
 
 		if (name.contains("luminosity_color_thesame"))
 			name.replace("luminosity_color_thesame", "luminosity_gradient_enable");
-
 		if (name.contains("reflections_color_thesame"))
 			name.replace("reflections_color_thesame", "reflectance_gradient_enable");
-
 		if (name.contains("transparency_color_thesame"))
 			name.replace("transparency_color_thesame", "transparency_gradient_enable");
-
 		if (name.contains("coloring_palette_size")) name = "skip";
-
 		if (name.contains("coloring_random_seed")) name = "skip";
-
 		if (name.contains("coloring_saturation")) name = "skip";
 	}
 
+	// === v2.25 compatibility: rename main_light_* to light1_*, aux_light_* to light2_*+ ===
 	if (fileVersion < 2.25)
 	{
-		// conversion of main light to light #1
-
 		if (name.contains("main_light_intensity"))
 			name.replace("main_light_intensity", "light1_intensity");
-
 		if (name == QString("main_light_visibility"))
 			name.replace("main_light_visibility", "light1_visibility");
-
 		if (name.contains("main_light_visibility_size"))
 			name.replace("main_light_visibility_size", "light1_size");
-
 		if (name.contains("main_light_contour_sharpness"))
 			name.replace("main_light_contour_sharpness", "light1_contour_sharpness");
-
 		if (name.contains("main_light_alpha")) name.replace("main_light_alpha", "light1_alpha");
-
 		if (name.contains("main_light_beta")) name.replace("main_light_beta", "light1_beta");
-
 		if (name.contains("main_light_colour")) name.replace("main_light_colour", "light1_color");
-
 		if (name.contains("penetrating_lights"))
 			name.replace("penetrating_lights", "light1_penetrating");
-
 		if (name.contains("shadows_enabled")) name.replace("shadows_enabled", "light1_cast_shadows");
-
 		if (name.contains("shadows_cone_angle"))
 			name.replace("shadows_cone_angle", "light1_soft_shadow_cone");
-
 		if (name.contains("main_light_enable")) name.replace("main_light_enable", "light1_enabled");
-
 		if (name.contains("main_light_position_relative"))
 			name.replace("main_light_position_relative", "light1_relative_position");
-
 		if (name.contains("main_light_volumetric_intensity"))
 			name.replace("main_light_volumetric_intensity", "light1_volumetric_visibility");
-
 		if (name.contains("main_light_volumetric_enabled"))
 			name.replace("main_light_volumetric_enabled", "light1_volumetric");
 
+		// Handle aux_light_* -> light2_*+ renaming
 		if (name.contains("aux_light"))
 		{
-			// TODO: copy size and visibility to all another lights
-
 			if (name.contains("visibility_size"))
 				name.replace("aux_light_visibility_size", "light2_size");
-
 			else if (name.contains("visibility"))
 				name.replace("aux_light_visibility", "light2_visibility");
-
 			else if (name.contains("aux_light_place_behind"))
 			{
-			} // do nothing
-
+				// No mapping for this parameter
+			}
 			else
 			{
 				QStringList split = name.split("_");
 				int lightIndex = split.last().toInt();
-				QString prefix =
-					QString("light%1").arg(lightIndex + 1); // aux lights will start from index = 2
+				QString prefix = QString("light%1").arg(lightIndex + 1);
 
 				if (split.at(2) == "intensity")
 					name = QString("%1_intensity").arg(prefix);
 				else if (split.at(2) == "position")
 					name = QString("%1_position").arg(prefix);
-				if (split.at(2) == "position")
-					name = QString("%1_position").arg(prefix);
-				else if (split.at(2) == "intensity")
-					name = QString("%1_intensity").arg(prefix);
 				else if (split.at(2) == "enabled")
 					name = QString("%1_enabled").arg(prefix);
 				else if (split.at(2) == "colour")
@@ -1293,6 +1439,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
+	// === v2.28 compatibility: rename random_lights_one_color_enable ===
 	if (fileVersion < 2.28)
 	{
 		if (name == QString("random_lights_one_color_enable"))
@@ -1306,9 +1453,18 @@ void cSettings::Compatibility(QString &name, QString &value) const
 	}
 }
 
+static void FlattenBooleanAddGroups(
+	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId);
+
+/**
+ * Apply version-specific compatibility migrations for settings files.
+ * Handles DE function normalization, primitive-to-material migration, gradient renames,
+ * FOV conversion, light parameter migrations, and objects tree migration (v2.35+).
+ */
 void cSettings::Compatibility2(
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
 {
+	// === v2.06: normalize DE function, enable IFS rotation ===
 	if (fileVersion <= 2.06)
 	{
 		if (fractal::enumDEFunctionType(par->Get<int>("delta_DE_function"))
@@ -1324,6 +1480,7 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.071: migrate loaded primitives to materials ===
 	if (fileVersion <= 2.071)
 	{
 		for (int i = 0; i < listOfLoadedPrimitives.size(); i++)
@@ -1353,6 +1510,7 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.12: iteration fog boost, water relative amplitude fix ===
 	if (fileVersion <= 2.12)
 	{
 		if (par->Get<bool>("iteration_fog_enable"))
@@ -1371,6 +1529,7 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.19: palette offset/speed normalization, gradient migration ===
 	if (fileVersion < 2.19)
 	{
 		QSet<QString> materialList;
@@ -1396,16 +1555,15 @@ void cSettings::Compatibility2(
 
 			if (par->Get<bool>(mat + "_luminosity_gradient_enable"))
 				par->Set(mat + "_luminosity_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
-
 			if (par->Get<bool>(mat + "_reflectance_gradient_enable"))
 				par->Set(mat + "_reflectance_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
-
 			if (par->Get<bool>(mat + "_transparency_gradient_enable"))
 				par->Set(
 					mat + "_transparency_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
 		}
 	}
 
+	// === v2.20: delta_DE_method -> delta_DE_function mapping ===
 	if (fileVersion < 2.20)
 	{
 		if (par->IfExists("delta_DE_method"))
@@ -1417,6 +1575,7 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.21: FOV conversion (radians -> degrees) ===
 	if (fileVersion < 2.21)
 	{
 		params::enumPerspectiveType perspectiveType =
@@ -1427,31 +1586,20 @@ void cSettings::Compatibility2(
 		double fovDegrees = 0.0;
 		switch (perspectiveType)
 		{
-			case params::perspThreePoint:
-			{
-				fovDegrees = atan(fov / 2.0) * 360.0 / M_PI;
-				break;
-			}
+			case params::perspThreePoint: fovDegrees = atan(fov / 2.0) * 360.0 / M_PI; break;
 			case params::perspFishEye:
-			case params::perspFishEyeCut:
-			{
-				fovDegrees = fov * 180.0;
-				break;
-			}
-			case params::perspEquirectangular:
-			{
-				fovDegrees = fov * 360.0;
-				break;
-			}
+			case params::perspFishEyeCut: fovDegrees = fov * 180.0; break;
+			case params::perspEquirectangular: fovDegrees = fov * 360.0; break;
 		}
 		par->Set("fov", fovDegrees);
 	}
 
+	// === v2.22: enable IFS edge if non-zero ===
 	if (fileVersion < 2.22)
 	{
 		if (fract)
 		{
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < fract->size(); i++)
 			{
 				if (fract->at(i)->Get<CVector3>("IFS_edge").Length() > 0)
 				{
@@ -1461,10 +1609,9 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.25: light1 rotation vector, light intensity/size corrections, random lights ===
 	if (fileVersion < 2.25)
 	{
-		// FIXME: correct default lights parameters of aux lights
-
 		if (par->IfExists("light1_is_defined"))
 		{
 			par->Set("light1_rotation",
@@ -1477,7 +1624,7 @@ void cSettings::Compatibility2(
 			par->Set("light1_is_defined", true);
 		}
 
-		// copy light visibility and intensity to all another lights
+		// Copy light visibility and intensity from light2 to other aux lights
 		if (par->IfExists("light2_is_defined"))
 		{
 			for (int i = 3; i <= 5; i++)
@@ -1490,7 +1637,7 @@ void cSettings::Compatibility2(
 			}
 		}
 
-		// correct intensity of lights
+		// Correct intensity and size for aux lights
 		for (int i = 2; i <= 5; i++)
 		{
 			if (par->IfExists(QString("light%1_is_defined").arg(i)))
@@ -1500,26 +1647,23 @@ void cSettings::Compatibility2(
 					par->Set(QString("light%1_intensity").arg(i),
 						par->Get<double>(QString("light%1_intensity").arg(i)) / 4.0);
 				}
-
 				if (!par->isDefaultValue(QString("light%1_size").arg(i)))
 				{
 					par->Set(
 						QString("light%1_size").arg(i), par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
 				}
-
 				if (par->Get<double>(QString("light%1_volumetric").arg(i)))
 				{
 					par->Set(QString("light%1_volumetric_visibility").arg(i),
 						par->Get<double>(QString("light%1_volumetric_visibility").arg(i))
 							/ par->Get<double>(QString("light%1_intensity").arg(i)));
 				}
-
 				par->Set(QString("light%1_penetrating").arg(i), par->Get<bool>("light1_penetrating"));
 				par->Set(QString("light%1_cast_shadows").arg(i), par->Get<bool>("light1_cast_shadows"));
 			}
 		}
 
-		// correct intensity of random lights
+		// Correct random lights intensity and size
 		if (par->Get<bool>("random_lights_group"))
 		{
 			int numberOfRandomLights = par->Get<int>("random_lights_number");
@@ -1530,6 +1674,7 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.28: adjust light1 intensity for iteration fog ===
 	if (fileVersion < 2.28)
 	{
 		if (par->IfExists(cLight::Name("is_defined", 1)))
@@ -1543,19 +1688,40 @@ void cSettings::Compatibility2(
 		}
 	}
 
+	// === v2.29: migrate boolean_operators to per-fractal formula_maxiter ===
+	// Write directly to fractal containers since cParameterContainer doesn't support
+	// dynamic parameter creation on the main container.
 	if (fileVersion < 2.29)
 	{
-		if (par->Get<bool>("boolean_operators"))
+		if (par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators"))
 		{
 			int maxiter = par->Get<int>("N");
-			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < fract->size(); i++)
 			{
-				par->Set("formula_maxiter", i, maxiter);
+				fract->at(i)->Set("formula_maxiter", maxiter);
 			}
 		}
 	}
+
+	// === v2.35: migrate to objects tree (node-based hierarchy) ===
+	if (fileVersion < 2.35)
+	{
+		if (fract)
+		{
+			DeleteAllNodeParams(par);
+			int nextGroupObjectId = 100;
+			MigrateToObjectsTree(par, fract, nextGroupObjectId);
+			FlattenBooleanAddGroups(par, nextGroupObjectId);
+		}
+		DeleteTemporaryLegacyPrimitiveTransformParams(par);
+	}
 }
 
+/**
+ * Parse the animation frames/keyframes header row (column names).
+ * Detects parameter types (vector3, vector4, RGB, scalar) from column suffixes (_x/_y/_z,
+ * _R/_G/_B). Registers each parameter with the frames object for later decoding.
+ */
 bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames)
 {
@@ -1585,9 +1751,22 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 				if (fullParameterName.length() > 2)
 				{
 					QString lastTwo = fullParameterName.right(2);
-					if (lastTwo == "_x") // check if it's CVector4
+
+					// Convert old parameter names to new format (fileVersion < 2.35)
+					// Mirrors MigrateLegacyParamsToFractal() in Compatibility2()
+					if (fileVersion < 2.35)
 					{
-						// check if parameter with _x doesn't exists in the container
+						QString converted = ConvertLegacyAnimationParamName(fullParameterName);
+						if (converted != fullParameterName)
+						{
+							lineSplit[i] = converted;
+							fullParameterName = converted;
+						}
+					}
+
+					// Detect vector4 type (_x suffix with _y, _z, _w following)
+					if (lastTwo == "_x")
+					{
 						int firstUnderscore = fullParameterName.indexOf('_');
 						QString containerName = fullParameterName.left(firstUnderscore);
 						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
@@ -1596,7 +1775,6 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 
 						if (!selectedContainer->IfExists(parameterName))
 						{
-							// check if there are at least 2 parameters left and they are *_y and *_z
 							bool isCVector4 = false;
 							if (i + 3 < lineSplit.size())
 							{
@@ -1611,7 +1789,8 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 								}
 							}
 
-							if (!isCVector4 && i + 2 < lineSplit.size()) // check if it's CVector3
+							// Detect vector3 type (_x suffix with _y, _z following)
+							if (!isCVector4 && i + 2 < lineSplit.size())
 							{
 								QString lastTwoY = lineSplit[i + 1].right(2);
 								QString lastTwoZ = lineSplit[i + 2].right(2);
@@ -1623,9 +1802,9 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 							}
 						}
 					}
-					else if (lastTwo == "_R") // check if it's RGB
+					// Detect RGB type (_R suffix with _G, _B following)
+					else if (lastTwo == "_R")
 					{
-						// check if parameter with _R doesn't exists in the container
 						int firstUnderscore = fullParameterName.indexOf('_');
 						QString containerName = fullParameterName.left(firstUnderscore);
 						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
@@ -1634,7 +1813,6 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 
 						if (!selectedContainer->IfExists(parameterName))
 						{
-							// check if there are at least 2 parameters left and they are *_G and *_B
 							if (i + 2 < lineSplit.size())
 							{
 								QString lastTwoG = lineSplit[i + 1].right(2);
@@ -1649,13 +1827,12 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 					}
 				}
 
-				// compatibility with older settings
+				// Apply compatibility transformations to parameter names
 				int firstUnderscore = fullParameterName.indexOf('_');
 				QString containerName = fullParameterName.left(firstUnderscore);
 				QString parameterName = fullParameterName.mid(firstUnderscore + 1);
 				QString value = "";
 				Compatibility(parameterName, value);
-				// reconstruction of full parameter name
 				fullParameterName = containerName + "_" + parameterName;
 
 				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
@@ -1680,6 +1857,11 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 	return true;
 }
 
+/**
+ * Parse a single animation frames/keyframes data row.
+ * Handles interpolation type row for keyframes, or frame data with vector/RGB/scalar values.
+ * Returns true on success, false on error.
+ */
 bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames)
 {
@@ -1690,9 +1872,9 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 
 	try
 	{
+		// Handle interpolation types row (appended after all keyframe data)
 		if (lineSplit.size() > 0 && lineSplit[0] == QString("interpolation"))
 		{
-			// interpolation
 			if (lineSplit.size() - 1 == parameterList.size())
 			{
 				for (int i = 0; i < parameterList.size(); i++)
@@ -1836,6 +2018,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 
 QString cSettings::GetSettingsText() const
 {
+	// Returns the prepared settings text, or empty string if not yet prepared.
 	if (textPrepared)
 	{
 		return settingsText;
@@ -1848,18 +2031,1299 @@ QString cSettings::GetSettingsText() const
 
 QString cSettings::everyLocaleDouble(QString txt)
 {
+	// Converts decimal separators in a numeric string to match the current system locale.
 	QString txtOut;
+	// Convert '.' to ',' for locales that use comma as decimal separator
 	if (systemData.decimalPoint == ',') txtOut = txt.replace('.', ',');
+	// Convert ',' to '.' for locales that use dot as decimal separator
 	if (systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
 	return txtOut;
 }
 
+struct sLegacyAnimMap
+{
+	const char *prefix;
+	const char *baseName;
+};
+
+static const sLegacyAnimMap gLegacyAnimPrefixes[] = {
+	{"main_formula_weight_", "formula_weight"},
+	{"main_formula_iterations_", "formula_iterations"},
+	{"dont_add_c_constant_", "dont_add_c_constant"},
+	{"fractal_constant_factor_", "fractal_constant_factor"},
+	{"julia_mode_", "julia_mode"},
+	{"julia_c_", "julia_c"},
+};
+
+QString cSettings::ConvertLegacyAnimationParamName(const QString &oldName)
+{
+	// Convert legacy animation parameter names to new format (fileVersion < 2.35)
+	// Mirrors MigrateLegacyParamsToFractal() in Compatibility2()
+	// Pattern: oldName_N -> fractalN_newName
+	for (const auto &entry : gLegacyAnimPrefixes)
+	{
+		QString prefix = entry.prefix;
+		if (oldName.startsWith(prefix))
+		{
+			int lastUnderscore = oldName.lastIndexOf('_');
+			int fractalIndex = oldName.mid(lastUnderscore + 1).toInt();
+			return QString("fractal%1_%2").arg(fractalIndex).arg(entry.baseName);
+		}
+	}
+	return oldName;
+}
+
 void cSettings::PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par)
 {
+	// Sets default metallic/material params for file versions prior to 2.15.
 	if (fileVersion < 2.15)
 	{
+		// Set default metallic value to false for backward compatibility
 		par->Set(cMaterial::Name("metallic", matIndex), false);
+		// Set default specular value to 1.0 for backward compatibility
 		par->Set(cMaterial::Name("specular", matIndex), 1.0);
+		// Set default specular_width value to 1.0 for backward compatibility
 		par->Set(cMaterial::Name("specular_width", matIndex), 1.0);
+	}
+}
+
+QStringList cSettings::GetLegacyPrimitiveTypes()
+{
+	// Returns the list of legacy primitive type names used in old file formats.
+	return {"sphere", "box", "cylinder", "cone", "plane", "torus", "rectangle", "circle", "water",
+		"prism", "ellipsoid"};
+}
+
+void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Injects temporary boolean params from the legacy flat format into the parameter
+	// container. Ensure top-level boolean_operators flag exists
+	if (!par->IfExists("boolean_operators"))
+		par->addParam("boolean_operators", false, morphNone, paramStandard);
+	// Inject per-fractal boolean_operator and dont_add_c_constant params
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i < maxLegacyFractals; i++)
+	{
+		QString name = QString("boolean_operator_%1").arg(i);
+		if (!par->IfExists(name)) par->addParam(name, 1, morphLinear, paramStandard);
+
+		name = QString("dont_add_c_constant_%1").arg(i);
+		if (!par->IfExists(name)) par->addParam(name, false, morphLinear, paramStandard);
+	}
+}
+
+void cSettings::InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Injects temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params
+	// from the legacy flat format into the parameter container.
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i <= maxLegacyFractals; i++)
+	{
+		QString name = QString("fractal_constant_factor_%1").arg(i);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+	}
+	for (int i = 1; i <= maxLegacyFractals; i++)
+	{
+		QString paramName = QString("julia_mode_%1").arg(i);
+		if (!par->IfExists(paramName)) par->addParam(paramName, false, morphLinear, paramStandard);
+		paramName = QString("julia_c_%1").arg(i);
+		if (!par->IfExists(paramName))
+			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	}
+}
+
+void cSettings::InjectTemporaryLegacyFormulaTransformParams(
+	std::shared_ptr<cFractalContainer> fractPar)
+{
+	// Injects temporary legacy formula transform params into each fractal container.
+	// These are needed by TryResolveLegacyFractalParam to resolve formula_position_N,
+	// formula_rotation_N, formula_repeat_N, formula_scale_N params from old .fract files.
+	if (fractPar)
+	{
+		const int maxLegacyFractals = 9;
+		for (int i = 0; i < maxLegacyFractals; i++)
+		{
+			fractPar->ensureCapacity(i);
+			if (!fractPar->at(i)->IfExists("formula_material_id"))
+				fractPar->at(i)->addParam("formula_material_id", 1, morphLinear, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_position"))
+				fractPar->at(i)->addParam(
+					"formula_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_rotation"))
+				fractPar->at(i)->addParam(
+					"formula_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_repeat"))
+				fractPar->at(i)->addParam(
+					"formula_repeat", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+			if (!fractPar->at(i)->IfExists("formula_scale"))
+				fractPar->at(i)->addParam("formula_scale", 1.0, morphAkima, paramStandard);
+		}
+	}
+}
+
+void cSettings::InjectTemporaryLegacyFormulaMaterialIdParams(
+	std::shared_ptr<cParameterContainer> par)
+{
+	// Injects a temporary global formula_material_id param into the top-level container.
+	// This allows the decode loop to accept formula_material_id from old .fract files
+	// (before node-based system) where it was a top-level parameter.
+	// Compatibility2() will migrate it to per-fractal containers and this method will delete it.
+	if (!par->IfExists("formula_material_id"))
+	{
+		par->addParam("formula_material_id", 1, morphLinear, paramStandard);
+	}
+}
+
+void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
+	std::shared_ptr<cParameterContainer> par, int primitiveIndex)
+{
+	// Injects temporary position/rotation/scale params for a legacy primitive into the parameter
+	// container.
+	QStringList legacyTypes = GetLegacyPrimitiveTypes();
+	for (const QString &type : legacyTypes)
+	{
+		// Inject position param with default zero vector
+		QString name = QString("primitive_%1_%2_position").arg(type).arg(primitiveIndex);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+		// Inject rotation param with default zero vector
+		name = QString("primitive_%1_%2_rotation").arg(type).arg(primitiveIndex);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+		// Inject scale param with default (1,1,1) vector
+		name = QString("primitive_%1_%2_scale").arg(type).arg(primitiveIndex);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+		// Inject repeat param with default zero vector (legacy transform param)
+		name = QString("primitive_%1_%2_repeat").arg(type).arg(primitiveIndex);
+		if (!par->IfExists(name))
+			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	}
+}
+
+bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
+	QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer)
+{
+	// Resolves a legacy fractal param name (e.g. "fractal_xxx_1") to the base param name and target
+	// fractal container. Early exit if fractPar is null or decodeLine is empty
+	if (!fractPar || decodeLine.isEmpty()) return false;
+
+	// Extract the parameter name (before the first space)
+	int firstSpace = decodeLine.indexOf(' ');
+	if (firstSpace <= 0) return false;
+
+	QString rawName = decodeLine.left(firstSpace).trimmed();
+	if (rawName.size() < 2) return false;
+
+	// Strip surrounding quotes (single or double) from the parameter name
+	if (((rawName.at(0) == '"' && rawName.at(rawName.size() - 1) == '"')
+				|| (rawName.at(0) == '\'' && rawName.at(rawName.size() - 1) == '\'')))
+	{
+		rawName = rawName.mid(1, rawName.size() - 2).trimmed();
+	}
+
+	// Extract the fractal index from the trailing _N suffix
+	int lastUnderscore = rawName.lastIndexOf('_');
+	if (lastUnderscore <= 0) return false;
+
+	bool conversionOK = false;
+	int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
+	QString baseParam = rawName.left(lastUnderscore);
+
+	// Ensure the target fractal container exists before checking the base parameter
+	if (conversionOK && fractalIndex >= 0)
+	{
+		fractPar->ensureCapacity(fractalIndex);
+	}
+
+	// Check if the legacy param does not exist in the top-level container
+	// and the base param exists in the target fractal container
+	if (conversionOK && fractalIndex >= 0 && fractalIndex < fractPar->size()
+			&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
+	{
+		// Build the resolved line with the base param name and update the target container
+		resolvedLine = baseParam + decodeLine.mid(firstSpace);
+		targetContainer = fractPar->at(fractalIndex);
+		return true;
+	}
+
+	return false;
+}
+
+void cSettings::MigrateLegacyParamsToFractal(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
+{
+	// Migrates legacy flat params (dont_add_c_constant, fractal_constant_factor, julia_mode, julia_c)
+	// to the new fractal-based structure. Migrate per-fractal dont_add_c_constant params
+	for (int i = 1; i <= fract->size(); i++)
+	{
+		QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
+		if (par->IfExists(oldParamName))
+		{
+			if (par->Get<bool>(oldParamName))
+			{
+				fract->at(i - 1)->Set("dont_add_c_constant", true);
+			}
+			// Remove the legacy param after migration
+			par->DeleteParameter(oldParamName);
+		}
+	}
+
+	// Migrate per-fractal fractal_constant_factor params
+	for (int i = 1; i <= fract->size(); i++)
+	{
+		QString oldParamName = QString("fractal_constant_factor_%1").arg(i);
+		if (par->IfExists(oldParamName))
+		{
+			if (!par->isDefaultValue(oldParamName))
+			{
+				fract->at(i - 1)->Set("fractal_constant_factor", par->Get<CVector3>(oldParamName));
+			}
+			// Remove the legacy param after migration
+			par->DeleteParameter(oldParamName);
+		}
+	}
+
+	// Migrate per-fractal julia_mode and julia_c params
+	for (int i = 1; i <= fract->size(); i++)
+	{
+		QString juliaModeParamName = QString("julia_mode_%1").arg(i);
+		if (par->IfExists(juliaModeParamName))
+		{
+			if (par->Get<bool>(juliaModeParamName))
+			{
+				fract->at(i - 1)->Set("julia_mode", true);
+			}
+			// Remove the legacy param after migration
+			par->DeleteParameter(juliaModeParamName);
+		}
+
+		QString juliaCParamName = QString("julia_c_%1").arg(i);
+		if (par->IfExists(juliaCParamName))
+		{
+			if (!par->isDefaultValue(juliaCParamName))
+			{
+				fract->at(i - 1)->Set("julia_c", par->Get<CVector3>(juliaCParamName));
+			}
+			// Remove the legacy param after migration
+			par->DeleteParameter(juliaCParamName);
+		}
+	}
+
+	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+
+	// Migrate global N to formula_maxiter for boolean mode files where v2.29 migration
+	// did not run (file version >= 2.29). For files < 2.29, the v2.29 migration writes
+	// directly to fractal containers, so no action needed here.
+	// Also handles non-boolean mode files.
+	if (par->IfExists("N"))
+	{
+		int maxiter = par->Get<int>("N");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_maxiter", maxiter);
+		}
+	}
+
+	// Handle global fractal_constant_factor when not in boolean mode
+	if (!booleanMode && par->IfExists("fractal_constant_factor")
+			&& !par->isDefaultValue("fractal_constant_factor"))
+	{
+		CVector3 constFactor = par->Get<CVector3>("fractal_constant_factor");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("fractal_constant_factor", constFactor);
+		}
+	}
+
+	// Handle global julia_mode and julia_c
+	if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+	{
+		bool juliaMode = par->Get<bool>("julia_mode");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("julia_mode", juliaMode);
+		}
+	}
+	if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+	{
+		CVector3 juliaC = par->Get<CVector3>("julia_c");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("julia_c", juliaC);
+		}
+	}
+
+	// Handle global initial_waxis
+	if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
+	{
+		double initialWAxis = par->Get<double>("initial_waxis");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("initial_waxis", initialWAxis);
+		}
+	}
+
+	// Migrate global formula_material_id to each fractal container
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("formula_material_id") && !par->isDefaultValue("formula_material_id"))
+	{
+		int matId = par->Get<int>("formula_material_id");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_material_id", matId);
+		}
+	}
+
+	// Migrate global fractal_rotation to per-fractal formula_rotation
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
+	{
+		CVector3 rot = par->Get<CVector3>("fractal_rotation");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_rotation", rot);
+		}
+	}
+
+	// Migrate global fractal_position to per-fractal formula_position
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("fractal_position") && !par->isDefaultValue("fractal_position"))
+	{
+		CVector3 pos = par->Get<CVector3>("fractal_position");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_position", pos);
+		}
+	}
+}
+
+static QString GetFormulaName(int formulaEnum)
+{
+	for (cAbstractFractal *f : newFractalList)
+	{
+		if (int(f->getInternalId()) == formulaEnum)
+		{
+			return f->getInternalName();
+		}
+	}
+	return "fractal";
+}
+
+static enumNodeType ToNodeType(int boolOp)
+{
+	switch (boolOp)
+	{
+		case 0: return enumNodeType::booleanMul;
+		case 2: return enumNodeType::booleanSub;
+		default: return enumNodeType::booleanAdd;
+	}
+}
+
+static enumNodeType PrimitiveOpToNodeType(int boolOp)
+{
+	switch (boolOp)
+	{
+		case int(primBooleanOperatorAND): return enumNodeType::booleanMul;
+		case int(primBooleanOperatorSUB): return enumNodeType::booleanSub;
+		case int(primBooleanOperatorRevSUB): return enumNodeType::booleanSub;
+		default: return enumNodeType::booleanAdd;
+	}
+}
+
+static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
+	int parentId, int objectId, int displayOrder = 0)
+{
+	return QString("%1 %2,%2,%3,%4,%5,%6")
+		.arg(formulaName)
+		.arg(nodeId)
+		.arg(int(type))
+		.arg(parentId)
+		.arg(objectId)
+		.arg(displayOrder);
+}
+
+static QString NodePrefix(int nodeId)
+{
+	return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+}
+
+static QString NodeDefinitionParam(int nodeId)
+{
+	return NodePrefix(nodeId) + "definition";
+}
+
+static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
+{
+	const QString defParam = NodeDefinitionParam(nodeId);
+	if (!par->IfExists(defParam)) return;
+	QStringList parts = par->Get<QString>(defParam).split(',');
+	if (parts.size() < 5) return;
+	parts[3] = QString::number(parentId);
+	par->Set(defParam, parts.join(","));
+}
+
+static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const QString &prefix,
+	std::shared_ptr<cParameterContainer> fracPar)
+{
+	if (fracPar->IfExists("formula_position"))
+		par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
+	if (fracPar->IfExists("formula_rotation"))
+		par->Set(prefix + "rotation", fracPar->Get<CVector3>("formula_rotation"));
+	if (fracPar->IfExists("formula_scale"))
+		par->Set(prefix + "scale", fracPar->Get<double>("formula_scale"));
+	if (fracPar->IfExists("formula_repeat"))
+		par->Set(prefix + "repeat", fracPar->Get<CVector3>("formula_repeat"));
+	if (fracPar->IfExists("formula_material_id"))
+		par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
+}
+
+// Copy common fractal params (julia_mode, julia_c, etc.) from per-fractal container to node params.
+// Used during migration to populate node-level params from legacy per-fractal params.
+static void CopyCommonFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix,
+	std::shared_ptr<cParameterContainer> fracPar)
+{
+	if (fracPar->IfExists("julia_mode") && fracPar->Get<bool>("julia_mode"))
+		par->Set(prefix + "julia_mode", true);
+	if (fracPar->IfExists("julia_c")) par->Set(prefix + "julia_c", fracPar->Get<CVector3>("julia_c"));
+	if (fracPar->IfExists("fractal_constant_factor"))
+		par->Set(prefix + "fractal_constant_factor", fracPar->Get<CVector3>("fractal_constant_factor"));
+	if (fracPar->IfExists("initial_waxis"))
+		par->Set(prefix + "initial_waxis", fracPar->Get<double>("initial_waxis"));
+	if (fracPar->IfExists("formula_maxiter"))
+		par->Set(prefix + "formula_maxiter", fracPar->Get<int>("formula_maxiter"));
+	if (fracPar->IfExists("formula_stop_iteration"))
+		par->Set(prefix + "formula_stop_iteration", fracPar->Get<int>("formula_stop_iteration"));
+}
+
+static void CopyPrimitiveTransform(
+	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
+{
+	if (par->IfExists(primitiveFullName + "_position"))
+		par->Set(prefix + "position", par->Get<CVector3>(primitiveFullName + "_position"));
+	if (par->IfExists(primitiveFullName + "_rotation"))
+		par->Set(prefix + "rotation", par->Get<CVector3>(primitiveFullName + "_rotation"));
+	if (par->IfExists(primitiveFullName + "_scale"))
+		par->Set(prefix + "scale", par->Get<CVector3>(primitiveFullName + "_scale"));
+	if (par->IfExists(primitiveFullName + "_repeat"))
+		par->Set(prefix + "repeat", par->Get<CVector3>(primitiveFullName + "_repeat"));
+}
+
+static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
+{
+	QList<int> enabledFractals;
+	for (int i = 0; i < fract->size(); i++)
+	{
+		if (fract->at(i)->IfExists("formula")
+				&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+		{
+			enabledFractals.append(i + 1);
+		}
+	}
+	return enabledFractals;
+}
+
+static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex)
+{
+	QString paramName = QString("fractal_enable_%1").arg(fractalIndex);
+	if (par->IfExists(paramName))
+	{
+		return par->Get<bool>(paramName);
+	}
+	return true;
+}
+
+// Default object_id value assigned to primitives that were not explicitly renumbered.
+static const int DefaultPrimitiveObjectId = 1234;
+
+void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
+{
+	// Scan raw settings text to find which primitives had object_id in the original file.
+	// This is needed because InitPrimitiveParams adds object_id=1234 during decode,
+	// so IfExists() would always return true.
+	QSet<QString> primitivesWithObjectIdInFile;
+	QRegularExpression re("primitive_(\\w+_(\\d+))_object_id");
+	QRegularExpressionMatchIterator regexIt(re.globalMatch(settingsText));
+	while (regexIt.hasNext())
+	{
+		QRegularExpressionMatch match = regexIt.next();
+		primitivesWithObjectIdInFile.insert(match.captured(1));
+	}
+
+	// Migrates legacy flat params to the new node-based objects tree structure.
+	// Phase 1: migrate transforms only for primitives with non-default object_id
+	// (where a corresponding node might already exist from external files).
+	QList<sPrimitiveItem> primitives = cPrimitives::GetListOfPrimitives(par);
+	for (auto &primitive : primitives)
+	{
+		primitive.objectIdInFile = primitivesWithObjectIdInFile.contains(primitive.fullName);
+	}
+	for (const auto &primitive : primitives)
+	{
+		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
+		{
+			continue;
+		}
+
+		int objectId = par->Get<int>(primitive.Name("object_id"));
+		// Only migrate transforms for primitives that have explicit object_id in the file
+		// and that were renumbered (not using the default value).
+		if (!primitive.objectIdInFile || objectId == DefaultPrimitiveObjectId)
+		{
+			continue;
+		}
+
+		const QString prefix = NodePrefix(objectId);
+
+		if (par->IfExists(primitive.Name("position"))
+				&& !par->isDefaultValue(primitive.Name("position")))
+		{
+			par->Set(prefix + "position", par->Get<CVector3>(primitive.Name("position")));
+		}
+		if (par->IfExists(primitive.Name("rotation"))
+				&& !par->isDefaultValue(primitive.Name("rotation")))
+		{
+			par->Set(prefix + "rotation", par->Get<CVector3>(primitive.Name("rotation")));
+		}
+		if (par->IfExists(primitive.Name("scale")) && !par->isDefaultValue(primitive.Name("scale")))
+		{
+			par->Set(prefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
+		}
+	}
+
+	bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
+	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+
+	// If boolean_operator_1 is defined in the file, use its value as default for
+	// missing boolean_operator_N. This ensures files like boolean001.fract
+	// (boolean_operator_1=2) and boolean002.fract (boolean_operator_1=0) get the
+	// correct default. If boolean_operator_1 is NOT defined, keep Add (1).
+	if (booleanMode)
+	{
+		QRegularExpression boolOp1Re("boolean_operator_1\\s(\\d+)");
+		const QRegularExpressionMatch boolOp1Match = boolOp1Re.match(settingsText);
+		const int defaultBoolOp = boolOp1Match.hasMatch() ? boolOp1Match.captured(1).toInt() : 1;
+		for (int i = 1; i < 9; i++)
+		{
+			QString name = QString("boolean_operator_%1").arg(i);
+			QRegularExpression boolOpRe(QString("boolean_operator_%1\\s").arg(i));
+			if (!boolOpRe.match(settingsText).hasMatch())
+			{
+				par->Set(name, defaultBoolOp);
+			}
+		}
+	}
+
+	// Migrate legacy flat fractal params to the new fractal-based structure
+	MigrateLegacyParamsToFractal(par, fract);
+
+	QList<int> enabledFractals;
+
+	// Handle boolean mode: build a node tree for multiple fractals
+	if (booleanMode)
+	{
+		enabledFractals = GetEnabledFractals(fract);
+		const int m = enabledFractals.size();
+
+		// Single fractal: create a single fractal node
+		if (m == 1)
+		{
+			InitNodeParams(1, par);
+			int objectId = enabledFractals[0];
+			QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+			par->Set("node_0001_definition",
+				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
+			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
+			CopyCommonFractalParams(par, "node_0001_", fract->at(objectId - 1));
+			if (!GetFractalEnableFlag(par, objectId))
+			{
+				par->Set("node_0001_enabled", false);
+			}
+		}
+		// Multiple fractals: build a left-associative binary tree
+		else if (m >= 2)
+		{
+			// Build a left-associative binary tree for m fractals and m-1 operators.
+			// IDs are assigned as:
+			//   Boolean nodes (innermost first): ids 1 .. m-1
+			//   Fractal nodes: ids m .. 2m-1
+
+			// Create boolean (inner) nodes
+			for (int k = 0; k < m - 1; k++)
+			{
+				int nodeId = k + 1;
+				InitNodeParams(nodeId, par);
+
+				int slotIdx = enabledFractals[k + 1] - 1;
+				if (slotIdx < 1)
+				{
+					slotIdx = 1;
+				}
+				int boolOp = par->Get<int>(QString("boolean_operator_%1").arg(slotIdx));
+				enumNodeType nodeType = ToNodeType(boolOp);
+
+				int parentId = (k == m - 2) ? 0 : (k + 2);
+				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
+					MakeNodeDefinition("boolean", nodeId, nodeType, parentId, nextGroupObjectId++));
+				par->Set(NodePrefix(nodeId) + "material", -1);
+			}
+
+			// Create fractal (leaf) nodes and attach them to the boolean tree
+			for (int i = 0; i < m; i++)
+			{
+				int nodeId = m + i;
+				int objectId = enabledFractals[i];
+				InitNodeParams(nodeId, par);
+
+				QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+				int parentId = (i <= 1) ? 1 : i;
+				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
+					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
+				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
+				CopyCommonFractalParams(par, NodePrefix(nodeId), fract->at(objectId - 1));
+
+				if (!GetFractalEnableFlag(par, objectId))
+				{
+					par->Set(NodePrefix(nodeId) + "enabled", false);
+				}
+			}
+		}
+	}
+	// Handle non-hybrid single-fractal mode
+	else if (!hybridMode)
+	{
+		const int nodeId = 1;
+		const int objectId = 1;
+		InitNodeParams(nodeId, par);
+
+		QString formulaName = GetFormulaName(fract->at(0)->Get<int>("formula"));
+		par->Set("node_0001_definition",
+			MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 0, objectId));
+		CopyFormulaTransform(par, "node_0001_", fract->at(0));
+		CopyCommonFractalParams(par, "node_0001_", fract->at(0));
+	}
+	// Handle hybrid mode
+	else
+	{
+		enabledFractals = GetEnabledFractals(fract);
+
+		if (!enabledFractals.isEmpty())
+		{
+			// Create a hybrid root node
+			InitNodeParams(1, par);
+			par->Set("node_0001_definition",
+				MakeNodeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
+
+			// Apply global fractal transform params to the hybrid root node
+			if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
+			{
+				par->Set("node_0001_rotation", par->Get<CVector3>("fractal_rotation"));
+			}
+			if (par->IfExists("fractal_position") && !par->isDefaultValue("fractal_position"))
+			{
+				par->Set("node_0001_position", par->Get<CVector3>("fractal_position"));
+			}
+			if (par->IfExists("repeat") && !par->isDefaultValue("repeat"))
+			{
+				par->Set("node_0001_repeat", par->Get<CVector3>("repeat"));
+			}
+			if (par->IfExists("fractal_constant_factor")
+					&& !par->isDefaultValue("fractal_constant_factor"))
+			{
+				par->Set(
+					"node_0001_fractal_constant_factor", par->Get<CVector3>("fractal_constant_factor"));
+			}
+			if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
+			{
+				par->Set("node_0001_initial_waxis", par->Get<double>("initial_waxis"));
+			}
+			if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+			{
+				par->Set("node_0001_julia_mode", par->Get<bool>("julia_mode"));
+			}
+			if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+			{
+				par->Set("node_0001_julia_c", par->Get<CVector3>("julia_c"));
+			}
+			if (par->IfExists("N"))
+			{
+				par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
+			}
+
+			// Create fractal child nodes under the hybrid root
+			// Iterate over ALL fractals (not just enabled ones) to preserve all fractal slots
+			int childNodeId = 2;
+			for (int objectId = 1; objectId <= fract->size(); objectId++)
+			{
+				if (fract->at(objectId - 1)->IfExists("formula")
+						&& fract->at(objectId - 1)->Get<int>("formula") != int(fractal::none))
+				{
+					InitNodeParams(childNodeId, par);
+
+					QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+					QString prefix = NodePrefix(childNodeId);
+					par->Set(prefix + "definition",
+						MakeNodeDefinition(formulaName, childNodeId, enumNodeType::fractal, 1, objectId));
+					CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
+					CopyCommonFractalParams(par, prefix, fract->at(objectId - 1));
+
+					// Set node enabled state based on fractal_enable_x parameter
+					// Note: fractal_enable_N is resolved by TryResolveLegacyFractalParam to
+					// fractal_enable in fract->at(N-1), not to top-level container.
+					QString fractalEnableParam = QString("fractal_enable_%1").arg(objectId);
+					bool hasParam = par->IfExists(fractalEnableParam)
+													|| (fract->at(objectId - 1)->IfExists("fractal_enable"));
+					bool paramValue;
+					if (par->IfExists(fractalEnableParam))
+					{
+						paramValue = par->Get<bool>(fractalEnableParam);
+					}
+					else if (fract->at(objectId - 1)->IfExists("fractal_enable"))
+					{
+						paramValue = fract->at(objectId - 1)->Get<bool>("fractal_enable");
+					}
+					else
+					{
+						paramValue = true;
+					}
+					if (hasParam && !paramValue)
+					{
+						par->Set(prefix + "enabled", false);
+					}
+
+					childNodeId++;
+				}
+			}
+		}
+	}
+
+	// Sort primitives by their calculation order
+	std::sort(primitives.begin(), primitives.end(),
+		[&](const sPrimitiveItem &a, const sPrimitiveItem &b)
+		{
+			const QString aOrderName = a.fullName + "_calculation_order";
+			const QString bOrderName = b.fullName + "_calculation_order";
+			const bool aExists = par->IfExists(aOrderName);
+			const bool bExists = par->IfExists(bOrderName);
+			if (!aExists && !bExists) return false;
+			if (!aExists) return true;
+			if (!bExists) return false;
+			return par->Get<int>(aOrderName) < par->Get<int>(bOrderName);
+		});
+
+	// Find the current root node (node with parent == 0) and the maximum node ID
+	int maxNodeId = 0;
+	int rootNodeId = -1;
+	QStringList allParams = par->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition"))
+		{
+			continue;
+		}
+		const int nodeId = paramName.section('_', 1, 1).toInt();
+		if (nodeId > maxNodeId)
+		{
+			maxNodeId = nodeId;
+		}
+		QStringList parts = par->Get<QString>(paramName).split(',');
+		if (parts.size() == 5 && parts[3].toInt() == 0)
+		{
+			rootNodeId = nodeId;
+		}
+	}
+
+	// Attach each enabled primitive to the node tree
+	// Generate unique userObjectId for primitives that don't have explicit object_id in file.
+	int nextAutoObjectId = 200;
+	for (const auto &primitive : primitives)
+	{
+		if (!par->IfExists(primitive.Name("enabled")) || !par->Get<bool>(primitive.Name("enabled")))
+		{
+			continue;
+		}
+
+		const int primitiveObjectId =
+			primitive.objectIdInFile ? primitive.objectID : nextAutoObjectId++;
+		// Update the parameter container so GetPrimitiveObjectId returns the unique ID.
+		if (!primitive.objectIdInFile)
+		{
+			par->Set(primitive.Name("object_id"), primitiveObjectId);
+		}
+		const QString primitiveName = par->IfExists(primitive.Name("name"))
+																		? par->Get<QString>(primitive.Name("name"))
+																		: primitive.typeName;
+
+		// If no root node exists yet, create one from the primitive
+		if (rootNodeId < 0)
+		{
+			const int primitiveNodeId = ++maxNodeId;
+			InitNodeParams(primitiveNodeId, par);
+			par->Set(
+				NodeDefinitionParam(primitiveNodeId), MakeNodeDefinition(primitiveName, primitiveNodeId,
+																								enumNodeType::primitive, 0, primitiveObjectId));
+			QString matParam = primitive.Name("material_id");
+			if (par->IfExists(matParam))
+			{
+				int matId = par->Get<int>(matParam);
+				if (matId > 0)
+				{
+					par->Set(NodePrefix(primitiveNodeId) + "material", matId);
+				}
+			}
+			CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
+			rootNodeId = primitiveNodeId;
+			continue;
+		}
+
+		// Create a boolean node wrapping the primitive and attach it to the current root
+		const int boolNodeId = ++maxNodeId;
+		const int primitiveNodeId = ++maxNodeId;
+		const int primitiveBoolOp = par->IfExists(primitive.Name("boolean_operator"))
+																	? par->Get<int>(primitive.Name("boolean_operator"))
+																	: int(primBooleanOperatorOR);
+
+		InitNodeParams(boolNodeId, par);
+		par->Set(NodeDefinitionParam(boolNodeId),
+			MakeNodeDefinition(
+				"boolean", boolNodeId, PrimitiveOpToNodeType(primitiveBoolOp), 0, nextGroupObjectId++));
+		par->Set(NodePrefix(boolNodeId) + "material", -1);
+
+		SetNodeParent(par, rootNodeId, boolNodeId);
+
+		InitNodeParams(primitiveNodeId, par);
+		par->Set(NodeDefinitionParam(primitiveNodeId),
+			MakeNodeDefinition(
+				primitiveName, primitiveNodeId, enumNodeType::primitive, boolNodeId, primitiveObjectId));
+		QString matParam = primitive.Name("material_id");
+		if (par->IfExists(matParam))
+		{
+			int matId = par->Get<int>(matParam);
+			if (matId > 0)
+			{
+				par->Set(NodePrefix(primitiveNodeId) + "material", matId);
+			}
+		}
+		CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
+
+		rootNodeId = boolNodeId;
+	}
+
+	// Clean up all temporary legacy params after migration
+	DeleteTemporaryLegacyBooleanParams(par);
+	DeleteTemporaryLegacyJuliaParams(par);
+	DeleteTemporaryLegacyFormulaTransformParams(fract);
+	DeleteTemporaryLegacyFormulaMaterialIdParams(par);
+}
+
+// Flattens nested booleanAdd groups: finds each root booleanAdd, collects all its
+// leaf descendants (fractals/primitives), and reparents them directly to a new
+// booleanAdd root. Intermediate booleanAdd groups are reparented to the new root.
+static void FlattenBooleanAddGroups(
+	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId)
+{
+	struct sNodeInfo
+	{
+		int id;
+		enumNodeType type;
+		int parentId;
+	};
+
+	QList<sNodeInfo> nodes;
+	int maxNodeId = 0;
+	QList<int> rootIds;
+
+	// Scan all node definitions to build the node list
+	QStringList allParams = par->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+
+		const int nodeId = paramName.section('_', 1, 1).toInt();
+		if (nodeId > maxNodeId) maxNodeId = nodeId;
+
+		QString def = par->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 5) continue;
+
+		int id = parts[1].toInt();
+		enumNodeType type = static_cast<enumNodeType>(parts[2].toInt());
+		int parentId = parts[3].toInt();
+
+		nodes.append({id, type, parentId});
+
+		if (parentId == 0) rootIds.append(id);
+	}
+
+	// Process each root node
+	for (int rootId : rootIds)
+	{
+		QString rootDef = par->Get<QString>(NodeDefinitionParam(rootId));
+		QStringList rootParts = rootDef.split(',');
+		if (rootParts.size() < 2) continue;
+
+		enumNodeType rootType = static_cast<enumNodeType>(rootParts[2].toInt());
+		if (rootType != enumNodeType::booleanAdd) continue;
+
+		// Collect all descendants of this root
+		QList<int> allDescendants;
+		auto collectDesc = [&](auto &&self, int pid) -> void
+		{
+			for (const auto &node : nodes)
+			{
+				if (node.parentId == pid)
+				{
+					allDescendants.append(node.id);
+					self(self, node.id);
+				}
+			}
+		};
+		collectDesc(collectDesc, rootId);
+
+		// Find leaf nodes (non-boolean) and intermediate boolean groups
+		QSet<int> leafIds;
+		QSet<int> intermediateBoolIds;
+		for (int descId : allDescendants)
+		{
+			bool isBool = false;
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId
+						&& (n.type == enumNodeType::booleanAdd || n.type == enumNodeType::booleanMul
+								|| n.type == enumNodeType::booleanSub))
+				{
+					isBool = true;
+					break;
+				}
+			}
+			if (isBool)
+			{
+				// Check if this boolean group has non-boolean children
+				for (const auto &n : nodes)
+				{
+					if (n.parentId == descId)
+					{
+						bool childIsBool = false;
+						for (const auto &m : nodes)
+						{
+							if (m.id == n.id
+									&& (m.type == enumNodeType::booleanAdd || m.type == enumNodeType::booleanMul
+											|| m.type == enumNodeType::booleanSub))
+							{
+								childIsBool = true;
+								break;
+							}
+						}
+						if (!childIsBool)
+						{
+							intermediateBoolIds.insert(descId);
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				leafIds.insert(descId);
+			}
+		}
+
+		// Check for hybrid nodes among descendants
+		bool hasHybrid = false;
+		int hybridId = -1;
+		for (int descId : allDescendants)
+		{
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId && n.type == enumNodeType::hybrid)
+				{
+					hasHybrid = true;
+					hybridId = descId;
+					break;
+				}
+			}
+			if (hasHybrid) break;
+		}
+
+		// Determine group name based on descendant types
+		QString groupName = "fractals";
+		for (int descId : allDescendants)
+		{
+			for (const auto &n : nodes)
+			{
+				if (n.id == descId && n.type == enumNodeType::primitive)
+				{
+					groupName = "primitives";
+					break;
+				}
+			}
+			if (groupName == "primitives") break;
+		}
+
+		// Create new root
+		const int newRootId = ++maxNodeId;
+		InitNodeParams(newRootId, par);
+		par->Set(NodeDefinitionParam(newRootId),
+			MakeNodeDefinition(groupName, newRootId, enumNodeType::booleanAdd, 0, nextGroupObjectId++));
+		par->Set(NodePrefix(newRootId) + "material", -1);
+
+		if (hasHybrid)
+		{
+			// Reparent non-hybrid descendants to new root
+			for (int descId : allDescendants)
+			{
+				bool isHybridOrDesc = false;
+				if (descId == hybridId)
+				{
+					isHybridOrDesc = true;
+				}
+				else
+				{
+					int checkId = descId;
+					while (checkId > 0)
+					{
+						if (checkId == hybridId)
+						{
+							isHybridOrDesc = true;
+							break;
+						}
+						bool found = false;
+						for (const auto &n : nodes)
+						{
+							if (n.id == checkId)
+							{
+								checkId = n.parentId;
+								found = true;
+								break;
+							}
+						}
+						if (!found) break;
+					}
+				}
+
+				if (!isHybridOrDesc)
+				{
+					QString def = par->Get<QString>(NodeDefinitionParam(descId));
+					QStringList parts = def.split(',');
+					if (parts.size() >= 4)
+					{
+						parts[3] = QString::number(newRootId);
+						par->Set(NodeDefinitionParam(descId), parts.join(','));
+					}
+				}
+			}
+
+			// Convert old root to hybrid pointing to new root
+			QString rootParam = NodePrefix(rootId) + "definition";
+
+			QString prefix = NodePrefix(rootId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+
+			InitNodeParams(rootId, par);
+			par->Set(NodeDefinitionParam(rootId),
+				MakeNodeDefinition("hybrid", rootId, enumNodeType::hybrid, newRootId, hybridId));
+			par->Set(NodePrefix(rootId) + "material", -1);
+		}
+		else
+		{
+			// Collect all nodes that should be reparented (leaves + all descendants of intermediate
+			// bools)
+			QSet<int> nodesToReparent;
+			for (int leafId : leafIds)
+				nodesToReparent.insert(leafId);
+			for (int boolId : intermediateBoolIds)
+			{
+				nodesToReparent.insert(boolId);
+				for (const auto &node : nodes)
+				{
+					if (node.parentId == boolId)
+					{
+						nodesToReparent.insert(node.id);
+						// Recursively add children
+						for (const auto &n : nodes)
+						{
+							if (n.parentId == node.id) nodesToReparent.insert(n.id);
+						}
+					}
+				}
+			}
+
+			// Reparent all collected nodes to new root
+			for (int nodeId : nodesToReparent)
+			{
+				QString def = par->Get<QString>(NodeDefinitionParam(nodeId));
+				QStringList parts = def.split(',');
+				if (parts.size() >= 4)
+				{
+					parts[3] = QString::number(newRootId);
+					par->Set(NodeDefinitionParam(nodeId), parts.join(','));
+				}
+			}
+
+			// Delete old root params (replaced by newRoot)
+			QString rootParam = NodePrefix(rootId) + "definition";
+
+			QString prefix = NodePrefix(rootId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+		}
+	}
+
+	// Remove empty boolean groups (groups with no children)
+	allParams = par->GetListOfParameters();
+	QSet<int> allNodeIds;
+	QSet<int> parentsWithChildren;
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+		const int nodeId = paramName.section('_', 1, 1).toInt();
+		allNodeIds.insert(nodeId);
+
+		QString def = par->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 4) continue;
+		int parentId = parts[3].toInt();
+		if (parentId != 0) parentsWithChildren.insert(parentId);
+	}
+	for (int nodeId : allNodeIds)
+	{
+		QString def = par->Get<QString>(NodeDefinitionParam(nodeId));
+		QStringList parts = def.split(',');
+		if (parts.size() < 3) continue;
+		enumNodeType type = static_cast<enumNodeType>(parts[2].toInt());
+		if ((type == enumNodeType::booleanAdd || type == enumNodeType::booleanMul
+					|| type == enumNodeType::booleanSub)
+				&& !parentsWithChildren.contains(nodeId))
+		{
+			QString prefix = NodePrefix(nodeId);
+			for (const QString &pn : allParams)
+			{
+				if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+			}
+		}
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary legacy boolean params that were injected during migration.
+	// Remove the top-level boolean_operators flag
+	if (par->IfExists("boolean_operators"))
+	{
+		par->DeleteParameter("boolean_operators");
+	}
+	// Remove per-fractal boolean_operator params
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i < maxLegacyFractals; i++)
+	{
+		QString name = QString("boolean_operator_%1").arg(i);
+		if (par->IfExists(name))
+		{
+			par->DeleteParameter(name);
+		}
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor, and
+	// formula_maxiter params. The formula_maxiter_N params are created by the v2.29 migration
+	// for boolean mode files and need to be cleaned up after being migrated to fractal containers.
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i <= maxLegacyFractals; i++)
+	{
+		QString name = QString("fractal_constant_factor_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("julia_mode_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("julia_c_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("formula_maxiter_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyFormulaTransformParams(
+	std::shared_ptr<cFractalContainer> fractPar)
+{
+	// Deletes the temporary legacy formula transform params from each fractal container.
+	if (fractPar)
+	{
+		const int maxLegacyFractals = 9;
+		for (int i = 0; i < maxLegacyFractals; i++)
+		{
+			if (fractPar->at(i)->IfExists("formula_material_id"))
+				fractPar->at(i)->DeleteParameter("formula_material_id");
+			if (fractPar->at(i)->IfExists("formula_position"))
+				fractPar->at(i)->DeleteParameter("formula_position");
+			if (fractPar->at(i)->IfExists("formula_rotation"))
+				fractPar->at(i)->DeleteParameter("formula_rotation");
+			if (fractPar->at(i)->IfExists("formula_repeat"))
+				fractPar->at(i)->DeleteParameter("formula_repeat");
+			if (fractPar->at(i)->IfExists("formula_scale"))
+				fractPar->at(i)->DeleteParameter("formula_scale");
+		}
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyFormulaMaterialIdParams(
+	std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary global formula_material_id param from the top-level container.
+	if (par->IfExists("formula_material_id"))
+	{
+		par->DeleteParameter("formula_material_id");
+	}
+
+	// Note: do NOT delete "fractal_rotation" here — sParamRender reads it from the
+	// top-level container for fractal coloring / texture mapping purposes. The value
+	// was migrated to per-fractal formula_rotation by Compatibility2() for the objects
+	// tree, but the top-level copy is still needed by the rendering pipeline.
+}
+
+void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
+	std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary legacy primitive transform params (position/rotation/scale) that were
+	// injected during migration.
+	QStringList legacyTypes = GetLegacyPrimitiveTypes();
+	const int maxLegacyFractals = 9;
+	for (const QString &type : legacyTypes)
+	{
+		for (int i = 1; i <= maxLegacyFractals; i++)
+		{
+			// Delete position param
+			QString name = QString("primitive_%1_%2_position").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete rotation param
+			name = QString("primitive_%1_%2_rotation").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete scale param
+			name = QString("primitive_%1_%2_scale").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete repeat param (legacy transform param)
+			name = QString("primitive_%1_%2_repeat").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+		}
 	}
 }

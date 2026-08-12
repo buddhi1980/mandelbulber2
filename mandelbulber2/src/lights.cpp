@@ -40,7 +40,6 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "light.h"
-#include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "random.hpp"
 #include "system_data.hpp"
@@ -55,14 +54,14 @@ cLights::cLights() : QObject()
 
 cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
 	const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
-	bool useNetRender)
+	bool useNetRender, struct sRenderData *renderData)
 		: QObject()
 {
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
 	dummyLight = cLight();
-	Set(_params, _fractal, loadTextures, quiet, useNetRender);
+	Set(_params, _fractal, loadTextures, quiet, useNetRender, renderData);
 }
 
 cLights::~cLights()
@@ -72,12 +71,17 @@ cLights::~cLights()
 
 void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
-	bool useNetRender)
+	bool useNetRender, struct sRenderData *renderData)
 {
 	WriteLog("Preparation of lights started", 2);
 	// move parameters from containers to structures
 	std::unique_ptr<const sParamRender> params(new sParamRender(_params));
-	std::unique_ptr<const cNineFractals> fractals(new cNineFractals(_fractal, _params));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(_params);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	auto fractals = std::make_shared<cHybridFractalSequences>();
+	fractals->CreateSequences(_params, _fractal, nodes);
 
 	lights.clear();
 	numberOfLights = 0;
@@ -144,7 +148,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 				position = randomLightsCenter + rv * distributionRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
-				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut, renderData);
 
 				trialNumber++;
 				if (trialNumber % 100 == 0) radiusMultiplier *= 1.01;
@@ -216,8 +220,6 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 				QObject::tr("Positioned light %1 of %2")
 					.arg(QString::number(i + 1), QString::number(numberOfRandomLights)),
 				((i + 1.0) / numberOfRandomLights));
-			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i),
-			// position.Debug(), QString::number(distance));
 
 			if (systemData.globalStopRequest) break;
 		}

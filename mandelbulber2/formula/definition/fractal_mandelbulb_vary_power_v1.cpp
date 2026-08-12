@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMandelbulbVaryPowerV1::cFractalMandelbulbVaryPowerV1() : cAbstractFractal()
 {

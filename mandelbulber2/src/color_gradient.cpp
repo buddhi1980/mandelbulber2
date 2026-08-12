@@ -264,11 +264,11 @@ QList<cColorGradient::sColor> cColorGradient::GetListOfColors() const
 
 QList<cColorGradient::sColor> cColorGradient::GetListOfSortedColors() const
 {
-	if (!sorted) qCritical() << "Colors were not sorted!";
+	SortGradient();
 	return sortedColors;
 }
 
-void cColorGradient::SortGradient()
+void cColorGradient::SortGradient() const
 {
 	if (!sorted)
 	{

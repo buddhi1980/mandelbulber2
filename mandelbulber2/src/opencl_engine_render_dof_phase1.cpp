@@ -45,6 +45,20 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
+static QByteArray StripNonAscii(const QByteArray &data)
+{
+	QByteArray result;
+	result.reserve(data.size());
+	for (char c : data)
+	{
+		if (static_cast<unsigned char>(c) < 128)
+		{
+			result.append(c);
+		}
+	}
+	return result;
+}
+
 cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
@@ -110,7 +124,8 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(
 
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
+		programEngine.append(StripNonAscii(LoadUtf8TextFromFile(openclPath + clHeaderFiles.at(i))));
+		programEngine.append("\n");
 	}
 
 	QString engineFileName = "dof_phase1.cl";
@@ -157,7 +172,7 @@ bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("DOF params")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -179,7 +194,7 @@ bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
 		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

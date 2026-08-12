@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfAddConstantMod3::cFractalTransfAddConstantMod3() : cAbstractFractal()
 {

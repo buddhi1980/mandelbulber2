@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSinYM3d::cFractalTransfSinYM3d() : cAbstractFractal()
 {

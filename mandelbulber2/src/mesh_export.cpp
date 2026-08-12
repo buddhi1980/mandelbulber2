@@ -48,7 +48,6 @@
 #include "initparameters.hpp"
 #include "marchingcubes.h"
 #include "material.h"
-#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "wait.hpp"
 #include "write_log.hpp"
@@ -84,12 +83,24 @@ void cMeshExport::slotUpdateProgressAndStatus(int i, quint64 polygonsCount)
 void cMeshExport::ProcessVolume()
 {
 	std::shared_ptr<sRenderData> renderData(new sRenderData);
-	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(gPar);
+	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
-	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
+	std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+	fractals->CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+	std::shared_ptr<sParamRender> params(new sParamRender(
+		gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
+
+	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
+
+	if (params->objectsTreeEnable)
+	{
+		cHybridFractalSequences hybridSequences;
+		hybridSequences.CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+		renderData->hybridFractalSequences = hybridSequences;
+	}
 
 	renderData->ValidateObjects();
 

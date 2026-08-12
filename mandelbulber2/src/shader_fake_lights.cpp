@@ -33,6 +33,8 @@
  */
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
+#include "render_data.hpp"
 #include "render_worker.hpp"
 
 sRGBAFloat cRenderWorker::FakeLights(
@@ -46,62 +48,73 @@ sRGBAFloat cRenderWorker::FakeLights(
 
 	for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 	{
+		sRGBAFloat fakeLightAccum(0.0, 0.0, 0.0, 0.0);
 
-		double delta = input.distThresh * params->smoothness;
-
-		sFractalIn fractIn(input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
-		sFractalOut fractOut;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
-		double rr = fractOut.orbitTrapR;
-		double r = 1.0 / (rr + 1e-30);
-
-		double fakeLight = params->fakeLightsIntensity / r;
-
-		CVector3 deltaX(delta, 0.0, 0.0);
-		CVector3 deltaY(0.0, delta, 0.0);
-		CVector3 deltaZ(0.0, 0.0, delta);
-
-		fractIn.point = input.point + deltaX;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
-		double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-		fractIn.point = input.point + deltaY;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
-		double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-		fractIn.point = input.point + deltaZ;
-		Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
-		double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-		CVector3 fakeLightNormal;
-		fakeLightNormal.x = r - rx;
-		fakeLightNormal.y = r - ry;
-		fakeLightNormal.z = r - rz;
-
-		if (qFuzzyIsNull(fakeLightNormal.x) && qFuzzyIsNull(fakeLightNormal.y)
-				&& qFuzzyIsNull(fakeLightNormal.z))
+		for (int s = 0; s < data->hybridFractalSequences.GetNumberOfSequences(); s++)
 		{
-			fakeLightNormal.x = 0.0;
-		}
-		else
-		{
-			fakeLightNormal.Normalize();
-		}
-		float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
-		if (fakeLight2 < 0) fakeLight2 = 0;
+			const auto *seq = data->hybridFractalSequences.GetSequence(s);
+			if (!seq)
+				continue;
 
-		sRGBFloat color;
-		switch (fakeLightLoop)
-		{
-			case 0: color = params->fakeLightsColor; break;
-			case 1: color = params->fakeLightsColor2; break;
-			case 2: color = params->fakeLightsColor3; break;
-			default: color = params->fakeLightsColor; break;
+			double delta = input.distThresh * params->smoothness;
+
+			sFractalIn fractIn(input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+			sFractalOut fractOut;
+			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+			double rr = fractOut.orbitTrapR;
+			double r = 1.0 / (rr + 1e-30);
+
+			double fakeLight = params->fakeLightsIntensity / r;
+
+			CVector3 deltaX(delta, 0.0, 0.0);
+			CVector3 deltaY(0.0, delta, 0.0);
+			CVector3 deltaZ(0.0, 0.0, delta);
+
+			fractIn.point = input.point + deltaX;
+			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+			double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+			fractIn.point = input.point + deltaY;
+			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+			double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+			fractIn.point = input.point + deltaZ;
+			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+			double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+			CVector3 fakeLightNormal;
+			fakeLightNormal.x = r - rx;
+			fakeLightNormal.y = r - ry;
+			fakeLightNormal.z = r - rz;
+
+			if (qFuzzyIsNull(fakeLightNormal.x) && qFuzzyIsNull(fakeLightNormal.y)
+					&& qFuzzyIsNull(fakeLightNormal.z))
+			{
+				fakeLightNormal.x = 0.0;
+			}
+			else
+			{
+				fakeLightNormal.Normalize();
+			}
+			float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
+			if (fakeLight2 < 0)
+				fakeLight2 = 0;
+
+			sRGBFloat color;
+			switch (fakeLightLoop)
+			{
+				case 0: color = params->fakeLightsColor; break;
+				case 1: color = params->fakeLightsColor2; break;
+				case 2: color = params->fakeLightsColor3; break;
+				default: color = params->fakeLightsColor; break;
+			}
+
+			fakeLightAccum.R += fakeLight2 * color.R;
+			fakeLightAccum.G += fakeLight2 * color.G;
+			fakeLightAccum.B += fakeLight2 * color.B;
 		}
 
-		fakeLights.R += fakeLight2 * color.R;
-		fakeLights.G += fakeLight2 * color.G;
-		fakeLights.B += fakeLight2 * color.B;
+		fakeLights = fakeLightAccum;
 
 		//		sRGBAfloat fakeSpecular =
 		//			SpecularHighlightCombined(input, fakeLightNormal, surfaceColor,

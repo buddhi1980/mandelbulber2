@@ -49,7 +49,6 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "nine_fractals.hpp"
 #include "object_data.hpp"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
@@ -81,12 +80,24 @@ cVoxelExport::~cVoxelExport()
 void cVoxelExport::ProcessVolume()
 {
 	std::shared_ptr<sRenderData> renderData(new sRenderData);
-	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(gPar);
+	renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
-	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
+	std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+	fractals->CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+	std::shared_ptr<sParamRender> params(new sParamRender(
+		gPar, &renderData->objectData, &renderData->nodesDataForRendering, gParFractal));
+
+	CreateMaterialsVector(gPar, &renderData.get()->materials, false, true, false);
+
+	if (params->objectsTreeEnable)
+	{
+		cHybridFractalSequences hybridSequences;
+		hybridSequences.CreateSequences(gPar, gParFractal, renderData->nodesDataForRendering);
+		renderData->hybridFractalSequences = hybridSequences;
+	}
 
 	renderData->ValidateObjects();
 
@@ -127,9 +138,16 @@ void cVoxelExport::ProcessVolume()
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(gPar);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(gPar, gParFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params, fractals, renderData, true);
+			gPar, gParFractal, params, hybridFractals, renderData, true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
 		{
@@ -224,8 +242,8 @@ void cVoxelExport::ProcessVolume()
 						voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
 					}
 				} // for y
-			}		// for x
-		}			// if not openClEnabled
+			} // for x
+		} // if not openClEnabled
 
 		if (stop || !StoreLayer(z))
 		{

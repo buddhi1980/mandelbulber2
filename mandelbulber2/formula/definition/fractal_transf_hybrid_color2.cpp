@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfHybridColor2::cFractalTransfHybridColor2() : cAbstractFractal()
 {

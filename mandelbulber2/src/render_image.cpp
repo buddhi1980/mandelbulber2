@@ -55,7 +55,7 @@
 #include "write_log.hpp"
 
 cRenderer::cRenderer(std::shared_ptr<const sParamRender> _params,
-	std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sRenderData> _renderData,
+	std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sRenderData> _renderData,
 	std::shared_ptr<cImage> _image)
 		: QObject()
 {

@@ -50,6 +50,7 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/keyframes.hpp"
+#include "src/objects_tree.h"
 #include "src/settings.hpp"
 #include "src/system_data.hpp"
 #include "src/wait.hpp"
@@ -230,9 +231,10 @@ void cRandomizerDialog::RefreshReferenceSkyImage()
 	std::shared_ptr<cFractalContainer> parFractSky(new cFractalContainer);
 	*parFractSky = *actualFractParams;
 
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	QList<int> nodeIds = cObjectsTree::GetDefinedNodeIds(parSky);
+	for (int nodeId : nodeIds)
 	{
-		parSky->Set("fractal_enable", i, false);
+		parSky->Set(QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0')), false);
 	}
 	parSky->Set("iteration_threshold_mode", false);
 	// iterThresh mode needs to be disabled to render sky, otherwise DE will be zero.
@@ -999,7 +1001,7 @@ void cRandomizerDialog::slotClickedUseButton()
 	{
 		gPar->Copy(parameterName, actualParams);
 	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < actualFractParams->size(); i++)
 	{
 		QList<QString> listOfFractalParameters = actualFractParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)
@@ -1317,7 +1319,7 @@ void cRandomizerDialog::slotAddToKeyframes()
 	{
 		gPar->Copy(parameterName, actualParams);
 	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < actualFractParams->size(); i++)
 	{
 		QList<QString> listOfFractalParameters = actualFractParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)

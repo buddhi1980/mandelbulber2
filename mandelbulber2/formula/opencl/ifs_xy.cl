@@ -13,7 +13,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 IfsXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 IfsXYIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// REAL4 oldZ = z;
 	// REAL fillet = fractal->transformCommon.offset0;

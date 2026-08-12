@@ -71,6 +71,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
+	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
+	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -182,7 +185,87 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
 
+	//--- Objects
+
+	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
+	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
+		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
+	//--- Nodes
+
+	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
+	int nodesOffset = GetInteger(nodesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
+		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
+
+	//--- Hybrid Sequences
+
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
+
+	//--- Fractals ---
+
+	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
+	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
+	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
+
 	//--------- end of data file ----------------------------------
+
+	sRenderData renderData;
+	renderData.viewVectorNotRotated = 0;
+	renderData.material = material;
+	renderData.palette = palette;
+	renderData.AOVectors = AOVectors;
+	renderData.lights = lights;
+	renderData.numberOfLights = numberOfLights;
+#ifdef USE_SURFACE_GRADIENT
+	renderData.paletteSurfaceOffset = paletteSurfaceOffset;
+	renderData.paletteSurfaceLength = paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	renderData.paletteSpecularOffset = paletteSpecularOffset;
+	renderData.paletteSpecularLength = paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	renderData.paletteDiffuseOffset = paletteDiffuseOffset;
+	renderData.paletteDiffuseLength = paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	renderData.paletteLuminosityOffset = paletteLuminosityOffset;
+	renderData.paletteLuminosityLength = paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+	renderData.paletteRoughnessOffset = paletteRoughnessOffset;
+	renderData.paletteRoughnessLength = paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+	renderData.paletteReflectanceOffset = paletteReflectanceOffset;
+	renderData.paletteReflectanceLength = paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	renderData.paletteTransparencyOffset = paletteTransparencyOffset;
+	renderData.paletteTransparencyLength = paletteTransparencyLength;
+#endif
+	renderData.AOVectorsCount = AOVectorsCount;
+	renderData.reflectionsMax = 0;
+	renderData.primitives = primitives;
+	renderData.numberOfPrimitives = numberOfPrimitives;
+	renderData.primitivesGlobalData = primitivesGlobalData;
+	renderData.objectsData = objectsData;
+	renderData.nodesData = nodesData;
+	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
+	renderData.dynamicData = inBuff;
+	renderData.hybridSequences = hybridSequences;
+	renderData.numberOfHybridSequences = numberOfHybridSequences;
+	renderData.numberOfFractals = numberOfFractals;
+	renderData.fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
 
 	sClPixel pixel;
 
@@ -212,6 +295,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		rot = RotateX(rot, consts->params.sweetSpotVAngle);
 
 		matrix33 rotInv = TransposeMatrix(rot);
+		renderData.mRot = rot;
+		renderData.mRotInv = rotInv;
 
 		// starting point for ray-marching
 		float3 start = consts->params.camera;
@@ -321,47 +406,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			calcParam.iterThreshMode = consts->params.iterThreshMode;
 			distThresh = 1e-6f;
 
-			sRenderData renderData;
-			renderData.viewVectorNotRotated = viewVectorNotRotated;
-			renderData.material = material;
-			renderData.palette = palette;
-			renderData.AOVectors = AOVectors;
-			renderData.lights = lights;
-			renderData.numberOfLights = numberOfLights;
-
-#ifdef USE_SURFACE_GRADIENT
-			renderData.paletteSurfaceOffset = paletteSurfaceOffset;
-			renderData.paletteSurfaceLength = paletteSurfaceLength;
-#endif
-#ifdef USE_SPECULAR_GRADIENT
-			renderData.paletteSpecularOffset = paletteSpecularOffset;
-			renderData.paletteSpecularLength = paletteSpecularLength;
-#endif
-#ifdef USE_DIFFUSE_GRADIENT
-			renderData.paletteDiffuseOffset = paletteDiffuseOffset;
-			renderData.paletteDiffuseLength = paletteDiffuseLength;
-#endif
-#ifdef USE_LUMINOSITY_GRADIENT
-			renderData.paletteLuminosityOffset = paletteLuminosityOffset;
-			renderData.paletteLuminosityLength = paletteLuminosityLength;
-#endif
-#ifdef USE_ROUGHNESS_GRADIENT
-			renderData.paletteRoughnessOffset = paletteRoughnessOffset;
-			renderData.paletteRoughnessLength = paletteRoughnessLength;
-#endif
-#ifdef USE_REFLECTANCE_GRADIENT
-			renderData.paletteReflectanceOffset = paletteReflectanceOffset;
-			renderData.paletteReflectanceLength = paletteReflectanceLength;
-#endif
-#ifdef USE_TRANSPARENCY_GRADIENT
-			renderData.paletteTransparencyOffset = paletteTransparencyOffset;
-			renderData.paletteTransparencyLength = paletteTransparencyLength;
-#endif
-			renderData.AOVectorsCount = AOVectorsCount;
-			renderData.reflectionsMax = 0;
-			renderData.primitives = primitives;
-			renderData.numberOfPrimitives = numberOfPrimitives;
-			renderData.primitivesGlobalData = primitivesGlobalData;
 			renderData.mRot = rot;
 			renderData.mRotInv = rotInv;
 
@@ -380,6 +424,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 				calcParam.detailSize = distThresh;
 				outF = CalculateDistance(consts, point, &calcParam, &renderData);
 				distance = outF.distance;
+
+				// Apply per-object detailLevelMultiplier to distThresh dynamically
+				if (outF.objectId >= 0 && outF.objectId < renderData.numberOfObjects)
+				{
+					distThresh *= renderData.objectsData[outF.objectId].detailLevelMultiplier;
+				}
 
 				if (distance < distThresh)
 				{

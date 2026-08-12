@@ -45,14 +45,7 @@ sPrimitiveBasic::sPrimitiveBasic(
 {
 	userObjectId = par->Get<int>(fullName + "_object_id");
 	objectId = -1;
-	position = par->Get<CVector3>(fullName + "_position");
 	materialId = par->Get<int>(fullName + "_material_id");
-	SetRotation(par->Get<CVector3>(fullName + "_rotation"));
-	enable = par->Get<bool>(fullName + "_enabled");
-	booleanOperator = enumPrimitiveBooleanOperator(par->Get<int>(fullName + "_boolean_operator"));
-	repeat = par->Get<CVector3>(fullName + "_repeat");
-	smoothDeCombineEnable = par->Get<bool>(fullName + "_smooth_de_combine_enable");
-	smoothDeCombineDistance = par->Get<double>(fullName + "_smooth_de_combine_distance");
 }
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 
@@ -101,7 +94,6 @@ sPrimitiveBox::sPrimitiveBox(
 {
 	empty = par->Get<bool>(fullName + "_empty");
 	rounding = par->Get<double>(fullName + "_rounding");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -140,7 +132,6 @@ sPrimitiveSphere::sPrimitiveSphere(
 {
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3(radius * 2.0, radius * 2.0, radius * 2.0);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -236,7 +227,6 @@ sPrimitiveCone::sPrimitiveCone(
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
 	height = par->Get<double>(fullName + "_height");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	wallNormal = CVector2<double>(1.0, radius / height);
 	wallNormal.Normalize();
 	size = CVector3(radius * 2.0, radius * 2.0, height);
@@ -275,7 +265,6 @@ sPrimitiveCylinder::sPrimitiveCylinder(
 	empty = par->Get<bool>(fullName + "_empty");
 	radius = par->Get<double>(fullName + "_radius");
 	height = par->Get<double>(fullName + "_height");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3(radius * 2.0, radius * 2.0, height);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -319,7 +308,6 @@ sPrimitiveTorus::sPrimitiveTorus(
 	radiusLPow = par->Get<double>(fullName + "_radius_lpow");
 	tubeRadius = par->Get<double>(fullName + "_tube_radius");
 	tubeRadiusLPow = par->Get<double>(fullName + "_tube_radius_lpow");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3((radius + tubeRadius) * 2.0, (radius + tubeRadius) * 2.0, tubeRadius);
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -397,7 +385,6 @@ sPrimitivePrism::sPrimitivePrism(
 	height = par->Get<double>(fullName + "_height") / 2.0;
 	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
 	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	wallThickness = par->Get<double>(fullName + "_wall_thickness");
 	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
 	size =
@@ -432,7 +419,6 @@ sPrimitiveEllipsoid::sPrimitiveEllipsoid(
 		: sPrimitiveBasic(fullName, par)
 {
 	empty = par->Get<bool>(fullName + "_empty");
-	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 	limitsEnable = par->Get<bool>(fullName + "_limits_enable");
 	limitsMax = par->Get<CVector3>(fullName + "_limits_max");
@@ -470,22 +456,16 @@ void sPrimitiveEllipsoid::InitPrimitiveWireframeShape()
 	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
 }
 
-double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
+double sPrimitivePlane::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
 	double dist = point.z;
 	dist = empty ? fabs(dist) : dist;
 	dist = max(dist - wallThickness, 0.0);
 	return dist;
 }
 
-double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveBox::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	double boxDist = -1e10;
 
 	if (empty)
@@ -516,11 +496,8 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 	return boxDist;
 }
 
-double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveSphere::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
 	double dist = point.Length() - radius;
 	dist = empty ? fabs(dist) : dist;
 	dist = max(dist - wallThickness, 0.0);
@@ -535,21 +512,15 @@ double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
 
 double sPrimitiveRectangle::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
 	CVector3 boxTemp;
-	boxTemp.x = max(fabs(point.x) - width * 0.5, 0.0);
-	boxTemp.y = max(fabs(point.y) - height * 0.5, 0.0);
-	boxTemp.z = fabs(point.z);
+	boxTemp.x = max(fabs(_point.x) - width * 0.5, 0.0);
+	boxTemp.y = max(fabs(_point.y) - height * 0.5, 0.0);
+	boxTemp.z = fabs(_point.z);
 	return boxTemp.Length();
 }
 
-double sPrimitiveCylinder::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveCylinder::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - radius;
 	if (!caps) dist = fabs(dist);
@@ -567,20 +538,14 @@ double sPrimitiveCylinder::PrimitiveDistance(CVector3 _point) const
 
 double sPrimitiveCircle::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	CVector2<double> circleTemp(point.x, point.y);
+	CVector2<double> circleTemp(_point.x, _point.y);
 	double distTemp = circleTemp.Length() - radius;
-	distTemp = max(fabs(point.z), distTemp);
+	distTemp = max(fabs(_point.z), distTemp);
 	return distTemp;
 }
 
-double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveCone::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	point.z -= height;
 	double q = sqrt(point.x * point.x + point.y * point.y);
 	CVector2<double> vect(q, point.z);
@@ -604,12 +569,9 @@ double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 	return 0.0;
 }
 
-double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const
+double sPrimitiveWater::PrimitiveDistanceWater(CVector3 point, double distanceFromAnother) const
 {
 	// TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
-
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
 
 	if (waveFromObjectsEnable)
 	{
@@ -675,12 +637,8 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 	return planeDistance;
 }
 
-double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveTorus::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	double d1 = CVector2<double>(point.x, point.y).LengthPow(pow(2, radiusLPow)) - radius;
 	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tubeRadiusLPow)) - tubeRadius;
 
@@ -696,12 +654,8 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	return dist;
 }
 
-double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
+double sPrimitivePrism::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	CVector3 q = fabs(point);
 
 	double dist = max(q.z - height,
@@ -713,12 +667,8 @@ double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
 	return dist;
 }
 
-double sPrimitiveEllipsoid::PrimitiveDistance(CVector3 _point) const
+double sPrimitiveEllipsoid::PrimitiveDistance(CVector3 point) const
 {
-	CVector3 point = _point - position;
-	point = rotationMatrix.RotateVector(point);
-	point = point.repeatMod(repeat);
-
 	float k0 = (point / size).Length();
 	float k1 = (point / (size * size)).Length();
 	double dist = k0 * (k0 - 1.0) / k1;

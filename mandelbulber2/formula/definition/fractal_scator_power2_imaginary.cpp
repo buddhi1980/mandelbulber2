@@ -16,6 +16,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalScatorPower2Imaginary::cFractalScatorPower2Imaginary() : cAbstractFractal()
 {

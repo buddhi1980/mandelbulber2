@@ -35,6 +35,7 @@
 typedef struct
 {
 	float3 point;
+	float3 transformedPoint;
 	float3 viewVector;
 	float3 viewVectorNotRotated;
 	float3 normal;
@@ -58,6 +59,8 @@ typedef struct
 	int stepCount;
 	int randomSeed;
 	int objectId;
+	int sequenceIndex;
+	bool hasTransformedPoint;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
@@ -91,6 +94,11 @@ typedef struct
 	int paletteTransparencyLength;
 #endif
 } sShaderInputDataCl;
+
+static __inline__ float3 GetFractalPoint(sShaderInputDataCl *input)
+{
+	return input->hasTransformedPoint ? input->transformedPoint : input->point;
+}
 
 typedef struct
 {

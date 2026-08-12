@@ -68,6 +68,7 @@ private:
 
 private slots:
 	void slotAddMaterial() const;
+	void slotNoMaterial();
 	void slotDeleteMaterial();
 	void slotEditMaterial();
 	void slotLoadMaterial();

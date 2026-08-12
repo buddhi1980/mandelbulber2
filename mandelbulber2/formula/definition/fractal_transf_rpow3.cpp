@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfRpow3::cFractalTransfRpow3() : cAbstractFractal()
 {

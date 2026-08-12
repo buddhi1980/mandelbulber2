@@ -107,7 +107,7 @@ void Test::renderExamples() const
 	InitMaterialParams(1, testPar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < testParFractal->size(); i++)
 	{
 		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(testParFractal->at(i));
@@ -308,7 +308,7 @@ void Test::testFlight() const
 	InitMaterialParams(1, testPar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < testParFractal->size(); i++)
 	{
 		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(testParFractal->at(i));
@@ -370,7 +370,7 @@ void Test::testKeyframe() const
 	InitMaterialParams(1, testPar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < testParFractal->size(); i++)
 	{
 		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(testParFractal->at(i));
@@ -434,7 +434,7 @@ void Test::renderSimple() const
 	InitMaterialParams(1, testPar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < testParFractal->size(); i++)
 	{
 		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(testParFractal->at(i));
@@ -498,7 +498,7 @@ void Test::renderImageSave() const
 	InitMaterialParams(1, testPar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < testParFractal->size(); i++)
 	{
 		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(testParFractal->at(i));

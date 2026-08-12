@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfCayley2V1::cFractalTransfCayley2V1() : cAbstractFractal()
 {

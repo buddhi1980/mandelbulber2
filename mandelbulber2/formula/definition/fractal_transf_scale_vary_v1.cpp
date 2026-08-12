@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfScaleVaryV1::cFractalTransfScaleVaryV1() : cAbstractFractal()
 {

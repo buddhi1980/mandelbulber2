@@ -34,8 +34,9 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include "fractal_cl.h"
-#include "fractal_sequence_cl.h"
+#include "hybrid_sequence_cl.h"
 #include "fractparams_cl.hpp"
+#include "node_data_cl.h"
 #endif
 
 #ifndef INPUT_DATA_STRUCTURES
@@ -60,8 +61,6 @@ typedef struct
 typedef struct
 {
 	sParamRenderCl params;
-	sFractalCl fractal[NUMBER_OF_FRACTALS]; // temporary for testing
-	sClFractalSequence sequence;
 } sClInConstants;
 
 typedef struct

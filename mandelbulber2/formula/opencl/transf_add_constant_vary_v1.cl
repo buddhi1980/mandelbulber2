@@ -13,7 +13,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfAddConstantVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfAddConstantVaryV1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 tempVC = fractal->transformCommon.additionConstant000; // constant to be varied
 	if (aux->i < fractal->transformCommon.startIterations250)

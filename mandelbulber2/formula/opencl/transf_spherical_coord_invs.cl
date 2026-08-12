@@ -17,7 +17,7 @@
  */
 
 REAL4 TransfSphericalCoordInvsIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(aux);
 

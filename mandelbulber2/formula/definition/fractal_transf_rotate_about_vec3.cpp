@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfRotateAboutVec3::cFractalTransfRotateAboutVec3() : cAbstractFractal()
 {

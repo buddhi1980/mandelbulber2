@@ -35,6 +35,16 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
+// Set to 1 to enable debug printf output from boolean/tree processing
+// WARNING: printf in OpenCL kernels is platform-dependent and slow
+#define BOOLEAN_DEBUG 0
+
+#if BOOLEAN_DEBUG
+#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#else
+#define DEBUG_PRINT(...)
+#endif
+
 // calculation of distance where ray-marching stops
 float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 {
@@ -80,13 +90,8 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	return delta;
 }
 
-#ifdef BOOLEAN_OPERATORS
 formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData, int forcedFormulaIndex)
-#else
-formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData)
-#endif
+	sClCalcParams *calcParam, sRenderData *renderData, int hybridSequenceIndex, int internalObjectId)
 {
 	formulaOut out;
 	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
@@ -97,32 +102,20 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.maxiter = false;
 	out.objectId = 0;
 
-#ifndef BOOLEAN_OPERATORS
-	float limitBoxDist = 0.0f;
-	int forcedFormulaIndex = -1;
-
-#ifdef LIMITS_ENABLED
-	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
-	limitBoxDist = max(max(boxDistance.x, boxDistance.y), boxDistance.z);
-
-	if (limitBoxDist > calcParam->detailSize)
+	int seqIdx = (hybridSequenceIndex >= 0) ? hybridSequenceIndex : 0;
+	if (seqIdx < 0 || seqIdx >= renderData->numberOfHybridSequences)
 	{
-		out.maxiter = false;
-		out.distance = limitBoxDist;
-		out.iters = 0;
-		return out;
+		seqIdx = 0;
 	}
-#endif
-#endif // BOOLEAN_OPERATORS
-
-	int forcedFormulaIndexForSequence = max(0, forcedFormulaIndex);
+	__global sHybridSequenceCl *seq = &renderData->hybridSequences[seqIdx];
 
 #ifdef ANALYTIC_DE
 #ifdef BOOLEAN_OPERATORS
-	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == analyticDEType)
+	if (seq->DEType == analyticDEType)
 #endif
 	{
-		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
+		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, internalObjectId, renderData,
+			hybridSequenceIndex, point, false);
 		bool maxiter = out.maxiter;
 
 		// don't use maxiter when limits are disabled and iterThresh mode is not used
@@ -163,6 +156,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			}
 		}
 
+		if (isnan(out.distance)) out.distance = 0.0f;
 		if (isinf(out.distance)) out.distance = 0.0f;
 		if (out.distance < 0.0f) out.distance = 0.0f;
 		if (out.distance > 5.0f) out.distance = 5.0f;
@@ -170,8 +164,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif // ANALYTIC_DE
 
 #ifdef DELTA_DE
-#ifdef BOOLEAN_OPERATORS
-	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == deltaDEType)
+#if defined(BOOLEAN_OPERATORS) && defined(ANALYTIC_DE)
+	else if (seq->DEType == deltaDEType)
+#elif defined(BOOLEAN_OPERATORS)
+	if (seq->DEType == deltaDEType)
 #endif
 	{
 
@@ -183,7 +179,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 		float3 dr = 0.0f;
 
-		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
+		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, internalObjectId, renderData,
+			hybridSequenceIndex, point, false);
 		calcParam->deltaDEMaxN = out.iters - 1;
 		float r = length(out.z);
 		float4 zFromIters = out.z;
@@ -209,9 +206,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float rDelta[6];
 		for (int i = 0; i < 6; i++)
 		{
-			rDelta[i] = length(
-				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			rDelta[i] = length(Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL,
+				internalObjectId, renderData, hybridSequenceIndex, point, false)
 					.z);
+			if (isnan(rDelta[i]) || isinf(rDelta[i]))
+			{
+				rDelta[i] = 0.0f;
+			}
 		}
 		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
 		dr.y = min(fabs(rDelta[2] - r), fabs(rDelta[3] - r)) / delta;
@@ -219,9 +220,9 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		float d = length(dr);
 
-		if (isinf(r) || isinf(d) || d == 0.0f)
+		if (isinf(r) || isinf(d) || isnan(r) || isnan(d) || d < 1e-10f)
 		{
-			out.distance = 0.0f;
+			out.distance = calcParam->detailSize;
 		}
 		else
 		{
@@ -288,32 +289,360 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	}
 #endif // DELTA_DE
 
-	int closestObjectId = 0;
+	return out;
+}
 
-#ifndef BOOLEAN_OPERATORS
+//------------------------- Tree-based distance calculation -------------------
 
-	float3 pointFractalized = point;
-	float reduceDisplacement = 1.0f;
+typedef struct
+{
+	int level;
+	int closestObjectId;
+	int closestObjectSequence;
+	float cumulativeDistance;
+	float detailSize;
+	enumNodeTypeCl nodeType;
+	float3 transformedPoint;
+	bool hasTransformedPoint;
+	cl_int smoothCombineEnable;
+	cl_float smoothCombineDistance;
+} ObjectTreeStackFrameCl;
 
-#ifdef FRACTALIZE_TEXTURE
-	pointFractalized =
-		FractalizeTexture(point, consts, calcParam, renderData, closestObjectId, &reduceDisplacement);
-#endif // FRACTALIZE_TEXTURE
+void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStackFrameCl *parent,
+	__global sObjectDataCl *objectsData, int numberOfObjects, float detailSize)
+{
+	const float childDistance = child->cumulativeDistance;
 
-#ifdef USE_DISPLACEMENT_TEXTURE
-	out.distance =
-		DisplacementMap(out.distance, pointFractalized, out.objectId, renderData, reduceDisplacement);
-#endif // USE_DISPLACEMENT_TEXTURE
+	switch (parent->nodeType)
+	{
+		case nodeTypeBooleanMul:
+		{
+			if (childDistance > parent->cumulativeDistance)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child->closestObjectId;
+				parent->closestObjectSequence = child->closestObjectSequence;
+				parent->transformedPoint = child->transformedPoint;
+				parent->hasTransformedPoint = child->hasTransformedPoint;
+			}
+			break;
+		}
+		case nodeTypeBooleanSub:
+		{
+			if (parent->cumulativeDistance >= 1e19f)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child->closestObjectId;
+				parent->closestObjectSequence = child->closestObjectSequence;
+				parent->transformedPoint = child->transformedPoint;
+				parent->hasTransformedPoint = child->hasTransformedPoint;
+			}
+			else if (parent->detailSize > 0.0f && childDistance < parent->detailSize)
+			{
+				const float limitDist = parent->detailSize * 1.5f;
 
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-	out.distance = PerlinNoiseDisplacement(out.distance, pointFractalized, renderData, out.objectId);
-#endif // USE_PERLIN_NOISE
+				if (childDistance < limitDist)
+				{
+					parent->cumulativeDistance = limitDist;
+					parent->closestObjectId = child->closestObjectId;
+					parent->closestObjectSequence = child->closestObjectSequence;
+					parent->transformedPoint = child->transformedPoint;
+					parent->hasTransformedPoint = child->hasTransformedPoint;
+				}
+				else
+				{
+					const float adjustedDistance = max(limitDist - childDistance, parent->cumulativeDistance);
+					parent->cumulativeDistance = (adjustedDistance < 0.0f) ? 0.0f : adjustedDistance;
+					parent->closestObjectId = child->closestObjectId;
+					parent->closestObjectSequence = child->closestObjectSequence;
+					parent->transformedPoint = child->transformedPoint;
+					parent->hasTransformedPoint = child->hasTransformedPoint;
+				}
+			}
+			break;
+		}
+		case nodeTypeBooleanAdd:
+		default:
+		{
+			const bool smoothEnabled = child->smoothCombineEnable;
+			const float smoothDistance = child->smoothCombineDistance;
 
-#ifdef USE_PRIMITIVES
-	out.distance = TotalDistanceToPrimitives(consts, renderData, point, out.distance,
-		calcParam->detailSize, calcParam->normalCalculationMode, &closestObjectId, -1);
-	out.objectId = closestObjectId;
+			if (smoothEnabled && parent->cumulativeDistance < 1e19f)
+			{
+				const float parentDistanceBefore = parent->cumulativeDistance;
+				parent->cumulativeDistance =
+					opSmoothUnion(childDistance, parent->cumulativeDistance, smoothDistance);
+				if (childDistance < parentDistanceBefore)
+				{
+					parent->closestObjectId = child->closestObjectId;
+					parent->closestObjectSequence = child->closestObjectSequence;
+					parent->transformedPoint = child->transformedPoint;
+					parent->hasTransformedPoint = child->hasTransformedPoint;
+				}
+			}
+			else if (childDistance < parent->cumulativeDistance)
+			{
+				parent->cumulativeDistance = childDistance;
+				parent->closestObjectId = child->closestObjectId;
+				parent->closestObjectSequence = child->closestObjectSequence;
+				parent->transformedPoint = child->transformedPoint;
+				parent->hasTransformedPoint = child->hasTransformedPoint;
+			}
+			break;
+		}
+	}
+}
+
+formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
+	sClCalcParams *calcParam, sRenderData *renderData)
+{
+	formulaOut out;
+	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
+	out.iters = 0;
+	out.distance = 0.0f;
+	out.colorIndex = 0.0f;
+	out.orbitTrapR = 0.0f;
+	out.maxiter = false;
+	out.objectId = 0;
+
+	float limitBoxDist = 0.0f;
+	int totalIters = 0;
+
+#ifdef LIMITS_ENABLED
+	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
+	limitBoxDist = max(max(boxDistance.x, boxDistance.y), boxDistance.z);
+
+	if (limitBoxDist > calcParam->detailSize)
+	{
+		out.maxiter = false;
+		out.distance = limitBoxDist;
+		out.iters = 0;
+		return out;
+	}
 #endif
+
+// Tree-based distance calculation
+#define MAX_TREE_LEVELS 10
+	ObjectTreeStackFrameCl stack[MAX_TREE_LEVELS];
+
+	__global sNodeDataForRenderingCl *nodesData = renderData->nodesData;
+	const int nodeCount = renderData->numberOfNodes;
+	const int numberOfObjects = renderData->numberOfObjects;
+
+	stack[0].cumulativeDistance = 1e20f;
+	stack[0].level = 0;
+	stack[0].closestObjectId = -1;
+	stack[0].closestObjectSequence = -1;
+	stack[0].detailSize = calcParam->detailSize;
+	stack[0].nodeType = nodeTypeBooleanAdd;
+	stack[0].transformedPoint = point;
+	stack[0].hasTransformedPoint = false;
+	stack[0].smoothCombineEnable = 0;
+	stack[0].smoothCombineDistance = 0.0f;
+
+	int stackLevel = 0;
+	int numberOfFractalsToSkip = 0;
+
+	for (int i = 0; i < nodeCount; ++i)
+	{
+		__global sNodeDataForRenderingCl *node = &nodesData[i];
+		if (node->enabled == 0)
+		{
+			continue;
+		}
+		float distance = 1e20f;
+		int objectId = -1;
+		int sequenceIndex = -1;
+		int leafIters = 0;
+
+		// Apply combined inverse transform (world -> local space)
+		float3 pointLocal = Matrix44TransformPoint(node->worldToLocalMatrix, point);
+
+		// Apply repeat in LOCAL space (leaf only)
+		// Scale repeat by absScale so that repeat distance is in world space (independent of scale)
+		const float absNodeScale = node->absScale;
+		float3 repeatForLocalSpace = node->repeat / absNodeScale;
+		float3 pointWithRepeat = modRepeat(pointLocal, repeatForLocalSpace);
+
+		float3 pointTransformed = pointWithRepeat;
+		const float detailMult = node->detailLevelMultiplier;
+		float savedDetailSize = calcParam->detailSize;
+
+		if (absNodeScale > 0.0f && detailMult > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / absNodeScale / detailMult;
+		}
+		else if (absNodeScale > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / absNodeScale;
+		}
+		else if (detailMult > 0.0f)
+		{
+			calcParam->detailSize = savedDetailSize / detailMult;
+		}
+		else
+		{
+			calcParam->detailSize = savedDetailSize;
+		}
+
+		if (node->level < stackLevel)
+		{
+			// pop stack levels
+			while (stackLevel > node->level)
+			{
+				ObjectTreeStackFrameCl child = stack[stackLevel];
+				stackLevel--;
+				mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+					stack[stackLevel].detailSize);
+			}
+		}
+
+		switch (node->type)
+		{
+			case nodeTypeFractal:
+			{
+				if (numberOfFractalsToSkip == 0)
+				{
+					formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed, calcParam,
+						renderData, node->hybridSequenceIndex, node->internalObjectId);
+					distance = nodeOut.distance * absNodeScale;
+					objectId = node->internalObjectId;
+					sequenceIndex = node->hybridSequenceIndex;
+					leafIters = nodeOut.iters;
+				}
+				else
+				{
+					numberOfFractalsToSkip--;
+					calcParam->detailSize = savedDetailSize;
+					continue;
+				}
+#ifdef USE_DISPLACEMENT_TEXTURE
+				if (objectId >= 0)
+				{
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
+				}
+#endif
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
+				}
+#endif
+				break;
+			}
+			case nodeTypePrimitive:
+			{
+#ifdef USE_PRIMITIVES
+				int primIdx = node->primitiveIdx;
+				if (primIdx >= 0 && primIdx < renderData->numberOfPrimitives)
+				{
+					__global sPrimitiveCl *primitive = &renderData->primitives[primIdx];
+					distance = PrimitiveDistanceByType(primitive, pointTransformed, 1e20f);
+					distance *= absNodeScale;
+					objectId = node->internalObjectId;
+				}
+#endif
+#ifdef USE_DISPLACEMENT_TEXTURE
+				if (objectId >= 0)
+				{
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
+				}
+#endif
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
+				}
+#endif
+				break;
+			}
+			case nodeTypeHybrid:
+			{
+				formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed, calcParam,
+					renderData, node->hybridSequenceIndex, node->internalObjectId);
+				distance = nodeOut.distance * absNodeScale;
+				objectId = node->internalObjectId;
+				sequenceIndex = node->hybridSequenceIndex;
+				leafIters = nodeOut.iters;
+				// skip next fractals because they are part of this hybrid sequence
+				numberOfFractalsToSkip =
+					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
+#ifdef USE_DISPLACEMENT_TEXTURE
+				if (objectId >= 0)
+				{
+					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
+				}
+#endif
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
+				if (objectId >= 0)
+				{
+					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
+				}
+#endif
+				break;
+			}
+			case nodeTypeBooleanAdd:
+			case nodeTypeBooleanMul:
+			case nodeTypeBooleanSub:
+			{
+				stackLevel++;
+				if (stackLevel < MAX_TREE_LEVELS)
+				{
+					stack[stackLevel].cumulativeDistance =
+						(node->type == nodeTypeBooleanMul) ? -1e20f : 1e20f;
+					stack[stackLevel].level = node->level;
+					stack[stackLevel].nodeType = node->type;
+					stack[stackLevel].closestObjectId = -1;
+					stack[stackLevel].closestObjectSequence = -1;
+					stack[stackLevel].detailSize = calcParam->detailSize;
+					stack[stackLevel].transformedPoint = point;
+					stack[stackLevel].hasTransformedPoint = false;
+					stack[stackLevel].smoothCombineEnable = node->smooth_de_combine_enable;
+					stack[stackLevel].smoothCombineDistance = node->smooth_de_combine_distance;
+				}
+				calcParam->detailSize = savedDetailSize;
+				continue;
+			}
+			default: break;
+		}
+
+		calcParam->detailSize = savedDetailSize;
+
+		ObjectTreeStackFrameCl leaf;
+		leaf.cumulativeDistance = distance;
+		leaf.closestObjectId = objectId;
+
+		leaf.closestObjectSequence = sequenceIndex;
+		leaf.detailSize = savedDetailSize / absNodeScale;
+		leaf.transformedPoint = pointTransformed;
+		leaf.hasTransformedPoint = (objectId >= 0);
+		leaf.smoothCombineEnable = node->smooth_de_combine_enable;
+		leaf.smoothCombineDistance = node->smooth_de_combine_distance;
+		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+			stack[stackLevel].detailSize);
+		totalIters += leafIters;
+	}
+
+	// final node summation - pop remaining stack levels
+	while (stackLevel > 0)
+	{
+		ObjectTreeStackFrameCl child = stack[stackLevel];
+		stackLevel--;
+		mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
+			stack[stackLevel].detailSize);
+	}
+
+	out.distance = stack[0].cumulativeDistance;
+	out.objectId = stack[0].closestObjectId;
+	out.iters = totalIters;
+
+	// Safety fallback: if no object was found during distance calculation,
+	// default to object 0 to prevent out-of-bounds access in shaders.
+	// This can happen when the point is far from all fractals or in empty space.
+	if (out.objectId < 0)
+	{
+		out.objectId = 0;
+	}
 
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
@@ -330,212 +659,21 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	{
 		out.maxiter = false;
 		out.iters = 0;
+		totalIters = 0;
 	}
-#endif // BOOLEAN_OPERATORS
+
+	out.transformedPoint = stack[0].transformedPoint;
+	out.hasTransformedPoint = stack[0].hasTransformedPoint;
+	out.sequenceIndex = stack[0].closestObjectSequence;
+
+	out.detailLevelMultiplier = 1.0f;
+	if (stack[0].closestObjectId >= 0 && stack[0].closestObjectId < numberOfObjects)
+	{
+		out.detailLevelMultiplier =
+			renderData->objectsData[stack[0].closestObjectId].detailLevelMultiplier;
+	}
 
 	return out;
 }
-
-//------------------------- Calculate distance for Booleans -------------------
-
-#ifdef BOOLEAN_OPERATORS
-formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
-	sClCalcParams *calcParam, sRenderData *renderData)
-{
-	formulaOut out;
-	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
-	out.iters = 0;
-	out.distance = 0.0f;
-	out.colorIndex = 0.0f;
-	out.orbitTrapR = 0.0f;
-	out.maxiter = false;
-	out.objectId = 0;
-
-	float limitBoxDist = 0.0f;
-	float dist = 0.0f;
-
-#ifdef LIMITS_ENABLED
-	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
-	limitBoxDist = max(max(boxDistance.x, boxDistance.y), boxDistance.z);
-
-	if (limitBoxDist > calcParam->detailSize)
-	{
-		out.maxiter = false;
-		out.distance = limitBoxDist;
-		out.iters = 0;
-		return out;
-	}
-#endif
-
-	{
-		float3 pointTemp = point - consts->params.formulaPosition[0];
-		pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[0], pointTemp);
-		pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[0]);
-		pointTemp *= consts->params.formulaScale[0];
-
-		out = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, 0);
-		dist = out.distance / consts->params.formulaScale[0];
-		out.objectId = 0;
-
-		float3 pointFractalized = pointTemp;
-		float reduceDisplacement = 1.0f;
-
-#ifdef FRACTALIZE_TEXTURE
-		pointFractalized =
-			FractalizeTexture(pointTemp, consts, calcParam, renderData, 0, &reduceDisplacement);
-#endif // FRACTALIZE_TEXTURE
-
-#ifdef USE_DISPLACEMENT_TEXTURE
-		dist = DisplacementMap(dist, pointFractalized, out.objectId, renderData, reduceDisplacement);
-#endif // USE_DISPLACEMENT_TEXTURE
-
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-		dist = PerlinNoiseDisplacement(dist, pointFractalized, renderData, out.objectId);
-#endif // USE_PERLIN_NOISE
-	}
-
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
-	{
-		if (consts->fractal[i + 1].formula != 0) // != fractal::none
-		{
-			float3 pointTemp = point - consts->params.formulaPosition[i + 1];
-			pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[i + 1], pointTemp);
-			pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[i + 1]);
-			pointTemp *= consts->params.formulaScale[i + 1];
-
-			formulaOut outTemp;
-
-			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
-			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
-
-			float3 pointFractalized = pointTemp;
-			float reduceDisplacement = 1.0f;
-
-#ifdef FRACTALIZE_TEXTURE
-			pointFractalized =
-				FractalizeTexture(pointTemp, consts, calcParam, renderData, i + 1, &reduceDisplacement);
-#endif // FRACTALIZE_TEXTURE
-
-#ifdef USE_DISPLACEMENT_TEXTURE
-			distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, renderData, reduceDisplacement);
-#endif
-
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-			distTemp = PerlinNoiseDisplacement(distTemp, pointFractalized, renderData, i + 1);
-#endif // USE_PERLIN_NOISE
-
-			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];
-
-			switch (boolOperator)
-			{
-				case booleanOperatorOR:
-					if (distTemp < dist)
-					{
-						outTemp.objectId = 1 + i;
-						out.z = outTemp.z;
-						out.iters = outTemp.iters;
-						out.distance = outTemp.distance;
-						out.colorIndex = outTemp.colorIndex;
-						out.orbitTrapR = outTemp.orbitTrapR;
-						out.maxiter = outTemp.maxiter;
-						out.objectId = outTemp.objectId;
-					}
-					if (consts->params.smoothDeCombineEnable[i + 1])
-					{
-						dist = opSmoothUnion(distTemp, dist, consts->params.smoothDeCombineDistance[i + 1]);
-					}
-					else
-					{
-						dist = min(distTemp, dist);
-					}
-
-					break;
-				case booleanOperatorAND:
-					if (distTemp > dist)
-					{
-						outTemp.objectId = 1 + i;
-						out.z = outTemp.z;
-						out.iters = outTemp.iters;
-						out.distance = outTemp.distance;
-						out.colorIndex = outTemp.colorIndex;
-						out.orbitTrapR = outTemp.orbitTrapR;
-						out.maxiter = outTemp.maxiter;
-						out.objectId = outTemp.objectId;
-					}
-					dist = max(distTemp, dist);
-					break;
-				case booleanOperatorSUB:
-				{
-					float limit = 1.5f;
-					if (dist < calcParam->detailSize) // if inside 1st
-					{
-						if (distTemp < calcParam->detailSize * limit * 1.5)
-						{
-							outTemp.objectId = 1 + i;
-							out.z = outTemp.z;
-							out.iters = outTemp.iters;
-							out.distance = outTemp.distance;
-							out.colorIndex = outTemp.colorIndex;
-							out.orbitTrapR = outTemp.orbitTrapR;
-							out.maxiter = outTemp.maxiter;
-							out.objectId = outTemp.objectId;
-						}
-
-						if (distTemp < calcParam->detailSize * limit) // if inside 2nd
-						{
-							if (calcParam->normalCalculationMode)
-							{
-								dist = max(calcParam->detailSize * limit - distTemp, dist);
-							}
-							else
-							{
-								dist = calcParam->detailSize * limit;
-							}
-						}
-						else // if outside of 2nd
-						{
-							dist = max(calcParam->detailSize * limit - distTemp, dist);
-							if (dist < 0) dist = 0;
-						}
-					}
-					break;
-				}
-				default: break;
-			}
-		}
-	}
-
-	// out = CalculateDistanceSimple(consts, point, calcParam, renderData);
-
-	int closestObjectId = out.objectId;
-
-#ifdef USE_PRIMITIVES
-	dist = TotalDistanceToPrimitives(consts, renderData, point, dist, calcParam->detailSize,
-		calcParam->normalCalculationMode, &closestObjectId, -1);
-	out.objectId = closestObjectId;
-#endif
-
-#ifdef LIMITS_ENABLED
-	if (limitBoxDist < calcParam->detailSize)
-	{
-		dist = max(dist, limitBoxDist);
-	}
-#endif
-
-	float distFromCamera = length(point - consts->params.camera);
-	float distanceLimitMin = consts->params.viewDistanceMin - distFromCamera;
-	dist = max(dist, distanceLimitMin);
-
-	if (distanceLimitMin > calcParam->detailSize)
-	{
-		out.maxiter = false;
-		out.iters = 0;
-	}
-
-	out.distance = dist;
-
-	return out;
-}
-#endif
 
 #endif // MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_

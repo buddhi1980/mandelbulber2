@@ -48,7 +48,6 @@
 #include "common_math.h"
 #include "fractparams.hpp"
 #include "light.h"
-#include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "primitive.hpp"
 #include "primitives.h"
@@ -1341,7 +1340,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	double dpiScale = image->GetDpiScale();
 
-	int drawingStep = max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
+	int drawingStep = std::max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
 
 	int nPainted = 100;
 	if (tileArea > 0)
@@ -1352,13 +1351,14 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
 	{
-		float opacity = min(
-			float(i + nPainted - min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted, 1.0f);
+		float opacity = std::min(
+			float(i + nPainted - std::min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted,
+			1.0f);
 		painter.setOpacity(opacity);
 
 		sRenderedTileData &tile = listOfRenderedTilesData[i];
 
-		tileArea = max(int(tile.width * tile.height), tileArea);
+		tileArea = std::max(int(tile.width * tile.height), tileArea);
 
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{
@@ -1683,22 +1683,23 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x2, y2, tz1);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color, 					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x3, y3, tz2);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color,
+				//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 		}
 	}
@@ -1745,19 +1746,19 @@ void RenderedImage::DisplayAllPrimitives()
 
 			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
 			{
-				sizeMultiplier = (camera - primitive->position).Length();
+				// sizeMultiplier = (camera - primitive->position).Length();
 			}
 
-			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p1 * primitive->size * sizeMultiplier);
-			point1 = point1 + primitive->position;
+			//			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p1 * primitive->size * sizeMultiplier);
+			//			point1 = point1 + primitive->position;
+			//
+			//			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p2 * primitive->size * sizeMultiplier);
+			//			point2 = point2 + primitive->position;
 
-			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p2 * primitive->size * sizeMultiplier);
-			point2 = point2 + primitive->position;
-
-			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			// line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+			//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }

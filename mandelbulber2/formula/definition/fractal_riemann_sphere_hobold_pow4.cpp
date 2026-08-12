@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalRiemannSphereHoboldPow4::cFractalRiemannSphereHoboldPow4() : cAbstractFractal()
 {

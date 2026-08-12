@@ -859,6 +859,22 @@ typedef struct
 {
 
 	cl_int formula;
+
+	// per-fractal general parameters
+	cl_int formulaIterations;
+	cl_float formulaWeight;
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int juliaMode;
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float initialWAxis;
+	cl_int dontAddCConstant;
+	cl_int checkForBailout;
+	cl_int formulaMaxiter;
+
+	cl_int formulaMaterialId;
+
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -1644,6 +1660,22 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 {
 	sFractalCl target;
 	target.formula = source.formula;
+
+	// per-fractal general parameters
+	target.formulaIterations = source.formulaIterations;
+	target.formulaWeight = source.formulaWeight;
+	target.formulaStartIteration = source.formulaStartIteration;
+	target.formulaStopIteration = source.formulaStopIteration;
+	target.juliaMode = source.juliaMode;
+	target.juliaConstant = toClFloat3(source.juliaConstant);
+	target.constantMultiplier = toClFloat3(source.constantMultiplier);
+	target.initialWAxis = source.initialWAxis;
+	target.dontAddCConstant = source.dontAddCConstant;
+	target.checkForBailout = source.checkForBailout;
+	target.formulaMaxiter = source.formulaMaxiter;
+
+	target.formulaMaterialId = source.formulaMaterialId;
+
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);

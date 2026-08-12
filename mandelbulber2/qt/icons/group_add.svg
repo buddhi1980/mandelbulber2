@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="glossyPurple" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#bba2df" />
+      <stop offset="25%" stop-color="#d9cbef" />
+      <stop offset="45%" stop-color="#ffffff" /> <stop offset="55%" stop-color="#b399db" />
+      <stop offset="100%" stop-color="#8363b9" />
+    </linearGradient>
+
+    <g id="unionShape">
+      <circle cx="38" cy="38" r="32" />
+      <circle cx="62" cy="62" r="32" />
+    </g>
+  </defs>
+
+  <use href="#unionShape" fill="url(#glossyPurple)" />
+
+  <use href="#unionShape" fill="none" stroke="#4a2f70" stroke-width="4" stroke-linejoin="round" />
+
+  <circle cx="38" cy="38" r="32" fill="none" stroke="#5c3f85" stroke-width="1.5" opacity="0.4" />
+  <circle cx="62" cy="62" r="32" fill="none" stroke="#5c3f85" stroke-width="1.5" opacity="0.4" />
+</svg>

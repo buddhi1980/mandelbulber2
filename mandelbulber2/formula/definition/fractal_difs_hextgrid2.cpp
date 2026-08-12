@@ -14,6 +14,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalDIFSHextgrid2::cFractalDIFSHextgrid2() : cAbstractFractal()
 {

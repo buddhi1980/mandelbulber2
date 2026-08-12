@@ -47,9 +47,10 @@
 #include "hybrid_fractal_sequences.h"
 #include "image_scale.hpp"
 #include "netrender.hpp"
-#include "nine_fractals.hpp"
 #include "objects_tree.h"
 #include "opencl_engine_render_dof.h"
+#include "opencl_engine_render_dof_phase1.h"
+#include "opencl_engine_render_dof_phase2.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
@@ -213,6 +214,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	// aux renderer data
 	renderData.reset(new sRenderData);
+	renderData->settingsFile = settingsFile;
 
 	renderData->stereo = stereo;
 	renderData->configuration = config;
@@ -340,23 +342,11 @@ void cRenderJob::PrepareData()
 	// assign stop handler
 	renderData->stopRequest = stopRequest;
 
-	CreateMaterialsMap(paramsContainer, &renderData->materials, loadTextures,
-		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
-
-	// preparation of lights
-	// connect signal for progress bar update
-	connect(&renderData->lights,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		Qt::UniqueConnection);
-
-	renderData->lights.Set(paramsContainer, fractalContainer, loadTextures,
+	CreateMaterialsVector(paramsContainer, &renderData->materials, loadTextures,
 		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
 
 	renderData->perlinNoise.reset(
 		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
-
-	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
 }
 
 bool cRenderJob::Execute()
@@ -406,24 +396,79 @@ bool cRenderJob::Execute()
 				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
 				// move parameters from containers to structures
-				std::shared_ptr<sParamRender> params(new sParamRender(
-					paramsContainer, &renderData->objectData, &renderData->nodesDataForRendering));
-				std::shared_ptr<cNineFractals> fractals(
-					new cNineFractals(fractalContainer, paramsContainer));
+				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
+					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
+				cObjectsTree objectsTreeForSequences;
+				objectsTreeForSequences.CreateNodeDataFromParameters(paramsContainer);
+				std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+					objectsTreeForSequences.GetNodeDataListForRendering();
+				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+				fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
+
+				// Print node data now that internalObjectId and primitiveIdx have been populated
+				// by the sParamRender constructor (fractals) and cPrimitives (primitives).
+				cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
 
 				if (params->objectsTreeEnable)
 				{
 					cHybridFractalSequences hybridSequences;
-					hybridSequences.CreateSequences(paramsContainer, fractalContainer);
-					if (hybridSequences.GetNumberOfSequences() == 0)
-					{
-						WriteLog(
-							"cRenderJob: objectsTree is enabled but no fractal sequences were created. "
-							"Rendering will be skipped. Please check the object-tree structure in the settings.",
-							1);
-						continue;
-					}
+					hybridSequences.CreateSequences(
+						paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 					renderData->hybridFractalSequences = hybridSequences;
+				}
+
+				// lights need nodesDataForRendering and hybridFractalSequences to be ready
+				{
+					// connect signal for progress bar update
+					connect(&renderData->lights,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+
+					renderData->lights.Set(paramsContainer, fractalContainer, true,
+						renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender(),
+						renderData.get());
+				}
+
+				if (renderData->hybridFractalSequences.GetNumberOfSequences() == 0
+						&& renderData->nodesDataForRendering.empty())
+				{
+					WriteLog(
+						"cRenderJob: objectsTree is enabled but no fractal sequences and no nodes were "
+						"created. Rendering will be skipped. Please check the object-tree structure in "
+						"the settings.",
+						1);
+					continue;
+				}
+
+				// Apply node-tree materials to objectData.
+				// nodeDataForRendering.material holds the inherited world material (computed with
+				// parent-to-child inheritance in GetNodeDataListForRendering). internalObjectId is set
+				// during sParamRender construction. This step connects the node-tree material
+				// assignments to the actual per-object material used by the renderer.
+				// node.material > 0: materials are 1-indexed (mat1_*, mat2_*, ...); 0 and -1 are
+				// not valid material IDs and mean "no assignment / inherit from parent".
+				if (params->objectsTreeEnable)
+				{
+					for (const auto &node : renderData->nodesDataForRendering)
+					{
+						if (node.material > 0 && node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].materialId = node.material;
+						}
+
+						// Copy world-to-local transform and repeat from node to objectData for texture mapping
+						if (node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].worldToLocalMatrix =
+								node.worldToLocalMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix = node.rotationMatrix;
+							renderData->objectData[node.internalObjectId].repeat = node.repeat;
+							renderData->objectData[node.internalObjectId].absScale = node.absScale;
+						}
+					}
 				}
 
 				renderData->ValidateObjects();
@@ -432,13 +477,12 @@ bool cRenderJob::Execute()
 				params->resolution = 1.0 / image->GetHeight();
 				ReduceDetail();
 
-				InitStatistics(fractals.get());
+				InitStatistics();
 
 				// initialize histograms
 				renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 				renderData->statistics.histogramStepCount.Resize(1000);
 				renderData->statistics.Reset();
-				renderData->statistics.usedDEType = fractals->GetDETypeString();
 
 				// create and execute renderer
 				std::unique_ptr<cRenderer> renderer(new cRenderer(params, fractals, renderData, image));
@@ -471,17 +515,72 @@ bool cRenderJob::Execute()
 			{
 				SetupStereoEyes(repeat, twoPassStereo);
 
+				// create node data and store in renderData so BuildNodesData and
+				// primitive/fractal index assignment work correctly
+				cObjectsTree objectsTreeOCL;
+				objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
+				renderData->nodesDataForRendering = objectsTreeOCL.GetNodeDataListForRendering();
+
 				// move parameters from containers to structures
-				std::shared_ptr<sParamRender> params(
-					new sParamRender(paramsContainer, &renderData->objectData));
-				std::shared_ptr<cNineFractals> fractals(
-					new cNineFractals(fractalContainer, paramsContainer));
+				// pass &renderData->nodesDataForRendering so sParamRender can set
+				// internalObjectId and primitiveIdx on each node
+				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
+					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
+
+				// create hybrid fractal sequences for OpenCL
+				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+				fractals->CreateSequences(
+					paramsContainer, fractalContainer, renderData->nodesDataForRendering);
+				renderData->hybridFractalSequences = *fractals;
+
+				// lights need nodesDataForRendering and hybridFractalSequences to be ready
+				{
+					// connect signal for progress bar update
+					connect(&renderData->lights,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+
+					renderData->lights.Set(paramsContainer, fractalContainer, true,
+						renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender(),
+						renderData.get());
+				}
+
+				// Apply node-tree materials to objectData.
+				// nodeDataForRendering.material holds the inherited world material (computed with
+				// parent-to-child inheritance in GetNodeDataListForRendering). internalObjectId is set
+				// during sParamRender construction. This step connects the node-tree material
+				// assignments to the actual per-object material used by the renderer.
+				// node.material > 0: materials are 1-indexed (mat1_*, mat2_*, ...); 0 and -1 are
+				// not valid material IDs and mean "no assignment / inherit from parent".
+				if (params->objectsTreeEnable)
+				{
+					for (const auto &node : renderData->nodesDataForRendering)
+					{
+						if (node.material > 0 && node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].materialId = node.material;
+						}
+
+						// Copy world-to-local transform and repeat from node to objectData for texture mapping
+						if (node.internalObjectId >= 0
+								&& node.internalObjectId < static_cast<int>(renderData->objectData.size()))
+						{
+							renderData->objectData[node.internalObjectId].worldToLocalMatrix =
+								node.worldToLocalMatrix;
+							renderData->objectData[node.internalObjectId].rotationMatrix = node.rotationMatrix;
+							renderData->objectData[node.internalObjectId].repeat = node.repeat;
+							renderData->objectData[node.internalObjectId].absScale = node.absScale;
+						}
+					}
+				}
 
 				renderData->ValidateObjects();
 
 				image->SetImageParameters(params->imageAdjustments);
 
-				InitStatistics(fractals.get());
+				InitStatistics();
 				emit updateStatistics(renderData->statistics);
 
 				image->SetFastPreview(true);
@@ -571,8 +670,18 @@ bool cRenderJob::Execute()
 		renderData->stopRequest = stopRequest;
 
 		// move parameters from containers to structures
+		if (paramsContainer->Get<bool>("nebula_mode"))
+		{
+			paramsContainer->Set("objects_tree_enable", true);
+		}
 		std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
-		std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
+		cObjectsTree objectsTree;
+		objectsTree.CreateNodeDataFromParameters(paramsContainer);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+			objectsTree.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+		fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
+		renderData->hybridFractalSequences = *fractals;
 
 		*renderData->stopRequest = false;
 
@@ -628,7 +737,7 @@ bool cRenderJob::Execute()
 
 #ifdef USE_OPENCL
 void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result)
+	std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText, bool *result)
 {
 	if (!*renderData->stopRequest)
 	{
@@ -642,7 +751,8 @@ void cRenderJob::RenderNebulaFractal(std::shared_ptr<sParamRender> params,
 		busyOpenCl = true;
 		gOpenCl->openclEngineRenderNebula->Lock();
 		gOpenCl->openclEngineRenderNebula->SetParameters(
-			paramsContainer, fractalContainer, params, fractals);
+			paramsContainer, fractalContainer, params, fractals, renderData->hybridFractalSequences);
+		gOpenCl->openclEngineRenderNebula->settingsFile = renderData->settingsFile;
 		if (gOpenCl->openclEngineRenderNebula->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openclEngineRenderNebula->CreateKernel4Program(paramsContainer);
@@ -770,18 +880,17 @@ void cRenderJob::InitNetRender()
 	}
 }
 
-void cRenderJob::InitStatistics(const cNineFractals *fractals)
+void cRenderJob::InitStatistics()
 {
 	// initialize histograms
 	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 	renderData->statistics.histogramStepCount.Resize(1000);
 	renderData->statistics.Reset();
-	renderData->statistics.usedDEType = fractals->GetDETypeString();
 }
 
 #ifdef USE_OPENCL
 bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText)
+	std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText)
 {
 	bool result = false;
 	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
@@ -806,6 +915,7 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
+	gOpenCl->openClEngineRenderFractal->settingsFile = renderData->settingsFile;
 
 	if (!*stopRequest && gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	{
@@ -845,6 +955,7 @@ void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
 			busyOpenCl = true;
 			gOpenCl->openClEngineRenderSSAO->Lock();
 			gOpenCl->openClEngineRenderSSAO->SetParameters(params.get(), region);
+			gOpenCl->openClEngineRenderSSAO->settingsFile = renderData->settingsFile;
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 			{
 				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
@@ -936,6 +1047,7 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				gOpenCl->openclEngineRenderPostFilter->Lock();
 				gOpenCl->openclEngineRenderPostFilter->SetParameters(
 					params.get(), region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+				gOpenCl->openclEngineRenderPostFilter->settingsFile = renderData->settingsFile;
 				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
 				{
 					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
@@ -981,16 +1093,22 @@ void cRenderJob::RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool 
 				cRegion<int> region;
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, region);
 
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, region);
 			}
 			else
 			{
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase1->settingsFile = renderData->settingsFile;
+				gOpenCl->openclEngineRenderDOF->dofEnginePhase2->settingsFile = renderData->settingsFile;
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params.get(), paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
 			}
@@ -1076,13 +1194,7 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 	QSet<QString> listOfTextures;
 	if (renderData)
 	{
-		QList<int> keys;
-		for (auto const &element : renderData->materials)
-		{
-			keys.push_back(element.first);
-		}
-
-		for (int matIndex : keys)
+		for (int matIndex = 0; matIndex < static_cast<int>(renderData->materials.size()); matIndex++)
 		{
 			if (renderData->materials[matIndex].colorTexture.IsLoaded())
 				listOfTextures.insert(renderData->materials[matIndex].colorTexture.GetFileName());

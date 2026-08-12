@@ -53,6 +53,7 @@
 #include "queue.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
+#include "write_log.hpp"
 #include "system_data.hpp"
 #include "voxel_export.hpp"
 #include "wait.hpp"
@@ -67,6 +68,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, image, 1, &gMainInterface->stopRequest));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 
 	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
@@ -88,7 +90,13 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
+	if (gPar->Get<bool>("nebula_mode"))
+	{
+		config.SetNebulaMode();
+		gPar->Set("objects_tree_enable", true);
+	}
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 
@@ -260,6 +268,7 @@ void cHeadless::slotNetRender()
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, image, 1, &gMainInterface->stopRequest));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
@@ -271,6 +280,7 @@ void cHeadless::slotNetRender()
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 

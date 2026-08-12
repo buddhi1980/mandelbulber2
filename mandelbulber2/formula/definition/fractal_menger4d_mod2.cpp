@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMenger4dMod2::cFractalMenger4dMod2() : cAbstractFractal()
 {

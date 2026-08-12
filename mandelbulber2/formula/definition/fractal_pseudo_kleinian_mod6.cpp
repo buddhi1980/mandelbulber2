@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalPseudoKleinianMod6::cFractalPseudoKleinianMod6() : cAbstractFractal()
 {

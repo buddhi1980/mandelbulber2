@@ -8,6 +8,7 @@
 #include "hybrid_fractal_sequences.h"
 
 #include <QSet>
+#include <QDebug>
 
 #include "formula/definition/all_fractal_list.hpp"
 #include "fractal.h"
@@ -24,8 +25,10 @@ cHybridFractalSequences::cHybridFractalSequences()
 }
 
 void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterContainer> generalPar,
-	std::shared_ptr<const cFractalContainer> fractPar)
+	std::shared_ptr<const cFractalContainer> fractPar,
+	const std::vector<cObjectsTree::sNodeDataForRendering> &_objectsNodes)
 {
+	objectsNodes = _objectsNodes;
 	PrepareData(generalPar, fractPar);
 
 	// create sequences based on objects tree
@@ -33,6 +36,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	bool hybridNodeEntered = false;
 	std::vector<int> formulaIndices;
 	int levelOfHybrid = -1;
+	int hybridNodeId = -1;
 
 	for (int nodeIndex = 0; nodeIndex < objectsNodes.size(); nodeIndex++)
 	{
@@ -43,6 +47,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			hybridNodeEntered = true;
 			formulaIndices.clear();
 			levelOfHybrid = node.level;
+			hybridNodeId = node.id;
 		}
 
 		if (node.type == enumNodeType::fractal && hybridNodeEntered)
@@ -58,8 +63,17 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			if (nodeIndex + 1 < objectsNodes.size())
 			{
 				const cObjectsTree::sNodeDataForRendering &nextNode = objectsNodes[nodeIndex + 1];
-				// end hybrid if next node is not fractal or level is less or equal to hybrid node level
-				endOfHybridNode = nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
+				// end hybrid if next node is at the same level as hybrid (sibling fractal)
+				// or if next node is not a fractal and its level is less or equal to hybrid level
+				if (nextNode.type == enumNodeType::fractal && nextNode.level == levelOfHybrid)
+				{
+					endOfHybridNode = true;
+				}
+				else
+				{
+					endOfHybridNode =
+						nextNode.type != enumNodeType::fractal && nextNode.level <= levelOfHybrid;
+				}
 			}
 			else
 			{
@@ -77,14 +91,48 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 
 		if (endOfHybridNode || singleFractal)
 		{
+			// Skip creating sequences for empty formula collections
+			if (formulaIndices.empty() && !singleFractal)
+			{
+				// Mark the hybrid node as not having a valid sequence
+				for (auto &n : objectsNodes)
+				{
+					if (n.id == hybridNodeId)
+					{
+						n.hybridSequenceIndex = -1;
+						break;
+					}
+				}
+				hybridNodeEntered = false;
+				formulaIndices.clear();
+				levelOfHybrid = -1;
+				continue;
+			}
+
 			// creating sequence for collected formula indices
 			sSequence sequence;
-			sequence.DEFunctionType = logarithmicDEFunction;					 // FIXME: later
-			sequence.DEType = analyticDEType;													 // FIXME: later
-			sequence.DEAnalyticFunction = analyticFunctionLogarithmic; // FIXME: later
-			sequence.coloringFunction = coloringFunctionDefault;			 // FIXME: later
+			int sequenceOwnerId = hybridNodeEntered ? hybridNodeId : -1;
+			sequence =
+				CreateSequence(sequence, generalPar, formulaIndices, singleFractal, sequenceOwnerId);
 
-			sequence = CreateSequence(sequence, generalPar, formulaIndices);
+			if (singleFractal)
+			{
+				sequence.internalObjectId = node.internalObjectId;
+			}
+			else
+			{
+				// Find the hybrid node to get its internalObjectId
+				int hid = -1;
+				for (const auto &n : objectsNodes)
+				{
+					if (n.id == sequenceOwnerId)
+					{
+						hid = n.internalObjectId;
+						break;
+					}
+				}
+				sequence.internalObjectId = hid;
+			}
 
 			sequences.push_back(sequence);
 
@@ -93,15 +141,13 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			levelOfHybrid = -1;
 		}
 	}
+
+	DebugOutput();
 }
 
 void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
 	std::shared_ptr<const cFractalContainer> fractPar)
 {
-	// preparing objects tree to get used fractal objects
-	objectsTree.CreateNodeDataFromParameters(generalPar);
-	objectsNodes = objectsTree.GetNodeDataListForRendering();
-
 	// getting used fractal object indices
 	QSet<int> usedFractalObjectIndices;
 	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
@@ -115,54 +161,171 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 	// creating fractals map
 	for (int objectId : usedFractalObjectIndices)
 	{
-		sFractal fractal(fractPar->at(objectId - 1));
-		fractalsMap.insert(objectId, fractal);
+		// Find the node data for this objectId
+		const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
+		for (const auto &node : objectsNodes)
+		{
+			if (node.userObjectId == objectId)
+			{
+				nodeData = &node;
+				break;
+			}
+		}
 
-		// getting selected formula
-		fractalsMap[objectId].formula =
-			fractal::enumFractalFormula(generalPar->Get<int>("formula", objectId));
+		sFractal fractal(fractPar->at(objectId - 1));
+		// Apply common fractal params from node data (overrides per-fractal container values)
+		// This enables boolean groups to share julia_mode, julia_c, etc. with child fractals
+		if (nodeData)
+		{
+			fractal.ApplyNodeData(&nodeData->julia_mode, &nodeData->julia_c,
+				&nodeData->fractal_constant_factor, &nodeData->initial_waxis, &nodeData->formula_maxiter,
+				&nodeData->formula_stop_iteration);
+		}
+		fractalsMap.insert(objectId, fractal);
+		// formula is now read from the per-fractal container in sFractal constructor
+	}
+}
+
+void cHybridFractalSequences::CollectSequenceData(
+	const std::shared_ptr<const cParameterContainer> &generalPar,
+	const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, int hybridNodeId,
+	sSequence &seq)
+{
+	double maxBailout = 0.0;
+	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
+	double commonBailout = generalPar->Get<double>("bailout");
+	// collecting data for fractals within the sequence
+	for (size_t i = 0; i < formulaIndices.size(); i++)
+	{
+		int objectId = formulaIndices[i];
+		fractal::enumFractalFormula formula = fractalsMap[objectId].formula;
+		int indexOnFractalList = GetIndexOnFractalList(formula);
+		cAbstractFractal *fractalObject = newFractalList[indexOnFractalList];
+		seq.fractData[i].fractalFormulaObject = fractalObject;
+		// read per-fractal settings from sFractal fields (moved from generalPar indexed params)
+		seq.fractData[i].formulaIterations = fractalsMap[objectId].formulaIterations;
+		seq.fractData[i].formulaWeight = fractalsMap[objectId].formulaWeight;
+		seq.fractData[i].formulaStartIteration = fractalsMap[objectId].formulaStartIteration;
+		seq.fractData[i].formulaStopIteration = fractalsMap[objectId].formulaStopIteration;
+		seq.fractData[i].checkForBailout = fractalsMap[objectId].checkForBailout;
+		if (singleFractal) seq.fractData[i].checkForBailout = true;
+		seq.fractData[i].fractalParameters = fractalsMap[objectId];
+		seq.fractData[i].objectId = objectId;
+
+		// decide if use addition of C constant
+		bool addc = false;
+		if (fractalObject->getCpixelAddition() == fractal::cpixelAlreadyHas)
+		{
+			addc = false;
+		}
+		else
+		{
+			addc = !fractalsMap[objectId].dontAddCConstant;
+			if (fractalObject->getCpixelAddition() == fractal::cpixelDisabledByDefault) addc = !addc;
+		}
+		seq.fractData[i].addCConstant = addc;
+		// default bailout or global one
+		if (useDefaultBailout)
+		{
+			if (isHybrid)
+				maxBailout = qMax(maxBailout, fractalObject->getDefaultBailout());
+			else
+				seq.fractData[i].bailout = fractalObject->getDefaultBailout();
+		}
+		else
+		{
+			seq.fractData[i].bailout = commonBailout;
+		}
+		// Julia parameters - for single fractal read from per-fractal sFractal fields
+		if (singleFractal)
+		{
+			seq.juliaEnabled = fractalsMap[objectId].juliaMode;
+			seq.juliaConstant = fractalsMap[objectId].juliaConstant;
+			seq.constantMultiplier = fractalsMap[objectId].constantMultiplier;
+			seq.initialWAxis = fractalsMap[objectId].initialWAxis;
+			seq.formulaMaxiter = fractalsMap[objectId].formulaMaxiter;
+		}
+
+		if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
+				|| fractalObject->getDeFunctionType() == fractal::josKleinianDEFunction)
+		{
+			seq.fractData[i].useAdditionalBailoutCond = true;
+		}
+	}
+	// common bailout for all hybrid components
+	if (isHybrid && useDefaultBailout)
+	{
+		for (size_t i = 0; i < formulaIndices.size(); i++)
+		{
+			seq.fractData[i].bailout = maxBailout;
+		}
+	}
+
+	if (isHybrid)
+	{
+		// Find the hybrid parent node to get shared julia params
+		const cObjectsTree::sNodeDataForRendering *hybridNode = nullptr;
+		for (const auto &node : objectsNodes)
+		{
+			if (node.id == hybridNodeId)
+			{
+				hybridNode = &node;
+				break;
+			}
+		}
+
+		if (hybridNode)
+		{
+			seq.juliaEnabled = hybridNode->julia_mode;
+			seq.juliaConstant = hybridNode->julia_c;
+			seq.constantMultiplier = hybridNode->fractal_constant_factor;
+			seq.initialWAxis = hybridNode->initial_waxis;
+			seq.formulaMaxiter = hybridNode->formula_maxiter;
+		}
+	}
+
+	// For single (non-hybrid) fractals, derive the coloring function from the formula object.
+	// The coloringFunction field drives the CalculateColorIndex switch for non-hybrid sequences;
+	// without this, colorIndex is always 0 and the fractal renders as a solid flat colour.
+	if (!isHybrid && !seq.fractData.empty() && seq.fractData[0].fractalFormulaObject != nullptr)
+	{
+		seq.coloringFunction = seq.fractData[0].fractalFormulaObject->getColoringFunction();
 	}
 }
 
 cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequence seq,
-	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices)
+	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices,
+	bool singleFractal, int hybridNodeId)
 {
+	bool isHybrid = !singleFractal;
+	seq.isHybrid = isHybrid;
+
 	int maxN = 250; // FIXME separate for each sequence
 
 	seq.length = maxN * 5;
 	seq.seqence.resize(seq.length);
 	seq.fractData.resize(formulaIndices.size());
 
+	if (formulaIndices.empty())
+	{
+		seq.length = 0;
+		seq.numberOfFractalsInTheSequence = 0;
+		return seq;
+	}
+
 	int numberOfFormulas = formulaIndices.size();
 	seq.numberOfFractalsInTheSequence = numberOfFormulas;
 
 	int repeatFrom = generalPar->Get<int>("repeat_from");
+	// Convert 1-based repeatFrom to a 0-based index clamped to the valid range
+	int repeatFromIndex = qMax(0, qMin(repeatFrom - 1, static_cast<int>(formulaIndices.size()) - 1));
 
 	int fractalNoInSeqnece = 0;
 	int counter = 0;
 
-	// collecting data for fractals within the sequence
-	for (int i = 0; i < formulaIndices.size(); i++)
-	{
-		int objectId = formulaIndices[i];
+	CollectSequenceData(generalPar, formulaIndices, singleFractal, isHybrid, hybridNodeId, seq);
 
-		seq.fractData[i].fractalFormulaObject =
-			newFractalList[GetIndexOnFractalList(fractalsMap[objectId].formula)];
-
-		seq.fractData[i].formulaIterations =
-			generalPar->Get<int>("formula_iterations", objectId + 1); //+1 because objectId is 0-based
-																																// in UI fractals starts from 1
-		seq.fractData[i].formulaWeight = generalPar->Get<double>("formula_weight", objectId + 1);
-		seq.fractData[i].formulaStartIteration =
-			generalPar->Get<int>("formula_start_iteration", objectId + 1);
-		seq.fractData[i].formulaStopIteration =
-			generalPar->Get<int>("formula_stop_iteration", objectId + 1);
-		seq.fractData[i].addCConstant = generalPar->Get<bool>("dont_add_c_constant", objectId + 1);
-		seq.fractData[i].checkForBailout = generalPar->Get<bool>("check_for_bailout", objectId + 1);
-
-		seq.fractData[i].bailout = seq.fractData[i].fractalFormulaObject->getDefaultBailout();
-	}
-
+	// generating the sequence
 	bool rapidEndOfSequence = false;
 	int lastSequenceIndex = 0;
 
@@ -170,20 +333,21 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	{
 		counter++;
 
-		int objectId = formulaIndices[fractalNoInSeqnece];
-
-		sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
-
 		int searchRepeatCount = 0;
 		// skipping 'none' formulas and formulas out of iteration range
-		while ((fractalsMap[objectId].formula == fractal::none || i < seqData.formulaStartIteration
-						 || i > seqData.formulaStopIteration)
+		// NOTE: objectId and the formula bounds must be re-evaluated after each increment of
+		// fractalNoInSeqnece, so they are read directly from the indexed containers here rather
+		// than captured into pre-loop variables that would remain frozen on the original formula.
+		while ((fractalsMap[formulaIndices[fractalNoInSeqnece]].formula == fractal::none
+						 || i < seq.fractData[fractalNoInSeqnece].formulaStartIteration
+						 || i > seq.fractData[fractalNoInSeqnece].formulaStopIteration)
 					 && searchRepeatCount < seq.fractData.size())
 		{
 			fractalNoInSeqnece++;
 
 			// wrapping fractal number in sequence
-			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+			if (fractalNoInSeqnece >= static_cast<int>(seq.fractData.size()))
+				fractalNoInSeqnece = repeatFromIndex;
 			searchRepeatCount++;
 		}
 
@@ -194,9 +358,9 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			break;
 		}
 
-		// seq.seqence[i] = fractalNoInSeqnece;
-		seq.seqence[i] =
-			objectId - 1; // FIXME: temporaru solution for CalculateFractal to use NineFrcatas data
+		const sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
+
+		seq.seqence[i] = fractalNoInSeqnece;
 
 		lastSequenceIndex = i;
 
@@ -205,7 +369,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		{
 			counter = 0;
 			fractalNoInSeqnece++;
-			if (fractalNoInSeqnece >= seq.fractData.size()) fractalNoInSeqnece = 0;
+			if (fractalNoInSeqnece >= static_cast<int>(seq.fractData.size()))
+				fractalNoInSeqnece = repeatFromIndex;
 		}
 	}
 
@@ -214,10 +379,145 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		seq.length = lastSequenceIndex + 1;
 	}
 
+	bool forceDeltaDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceDeltaDEMethod;
+
+	bool forceAnalyticDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceAnalyticDE;
+
+	fractal::enumDEFunctionType optimizedDEType = fractal::withoutDEFunction;
+
+	if (isHybrid)
+	{
+		seq.DEType = fractal::analyticDEType;
+
+		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
+				== fractal::preferredDEFunction)
+		{
+			// finding preferred delta DE function
+
+			// table to check the which DE type is the most popular
+			int DEFunctionCount[fractal::numberOfDEFunctions + 1];
+			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				DEFunctionCount[i] = 0;
+
+			for (int f = 0; f < numberOfFormulas; f++)
+			{
+				fractal::enumFractalFormula formula = fractalsMap[formulaIndices[f]].formula;
+				int index = GetIndexOnFractalList(formula);
+
+				// looking for the best DE function for DeltaDE mode
+
+				// count usage of DE functions
+				fractal::enumDEFunctionType DEFunction = newFractalList[index]->getDeFunctionType();
+				if (DEFunction != fractal::withoutDEFunction)
+				{
+					DEFunctionCount[DEFunction] += seq.fractData[f].formulaIterations;
+				}
+
+				// looking if it's possible to use analyticDEType
+				if (!forceDeltaDE && newFractalList[index]->getInternalId() != fractal::none)
+				{
+					if (optimizedDEType == fractal::withoutDEFunction)
+					{
+						optimizedDEType = DEFunction;
+					}
+
+					if (!forceAnalyticDE && newFractalList[index]->getDeType() == fractal::deltaDEType)
+					{
+						seq.DEType = fractal::deltaDEType;
+						forceDeltaDE = true;
+					}
+				}
+			} // next f
+
+			// checking if used dIFS formula
+			if (DEFunctionCount[fractal::customDEFunction] > 0)
+			{
+				seq.DEFunctionType = fractal::customDEFunction;
+			}
+			else // use method which used in the highest iteration count
+			{
+				int maxCount = -1;
+				for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				{
+					if (DEFunctionCount[i] > maxCount)
+					{
+						maxCount = DEFunctionCount[i];
+						seq.DEFunctionType = fractal::enumDEFunctionType(i);
+					}
+				}
+			}
+		} // endif preferredDEFunction
+		else
+		{
+			seq.DEFunctionType = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
+
+			// if any fractal is delta DE type, then whole sequence is delta DE
+			for (int f = 0; f < numberOfFormulas; f++)
+			{
+				fractal::enumFractalFormula formula = fractalsMap[formulaIndices[f]].formula;
+				int index = GetIndexOnFractalList(formula);
+				if (newFractalList[index]->getDeType() == fractal::deltaDEType)
+				{
+					seq.DEType = fractal::deltaDEType;
+					break;
+				}
+			}
+		}
+
+		if (forceDeltaDE) seq.DEType = fractal::deltaDEType;
+		if (forceAnalyticDE) seq.DEType = fractal::analyticDEType;
+	}
+	else // not hybrid
+	{
+		fractal::enumFractalFormula formula = fractalsMap[formulaIndices[0]].formula;
+		int index = GetIndexOnFractalList(formula);
+		seq.DEType = newFractalList[index]->getDeType();
+		seq.DEFunctionType = newFractalList[index]->getDeFunctionType();
+		seq.DEAnalyticFunction = newFractalList[index]->getDeAnalyticFunction();
+
+		if (forceDeltaDE) seq.DEType = fractal::deltaDEType;
+		if (forceAnalyticDE) seq.DEType = fractal::analyticDEType;
+
+		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
+				!= fractal::preferredDEFunction)
+		{
+			seq.DEFunctionType = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
+
+			switch (seq.DEFunctionType)
+			{
+				case fractal::logarithmicDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionLogarithmic;
+					break;
+				case fractal::linearDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionLinear;
+					break;
+				case fractal::pseudoKleinianDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionPseudoKleinian;
+					break;
+				case fractal::josKleinianDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionJosKleinian;
+					break;
+				case fractal::customDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionCustomDE;
+					break;
+				case fractal::maxAxisDEFunction:
+					seq.DEAnalyticFunction = fractal::analyticFunctionMaxAxis;
+					break;
+				default: seq.DEAnalyticFunction = fractal::analyticFunctionLinear; break;
+			}
+		}
+	}
 	return seq;
 }
 
 int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula formula)
+{
+	return GetIndexOnFractalListStatic(formula);
+}
+
+int cHybridFractalSequences::GetIndexOnFractalListStatic(fractal::enumFractalFormula formula)
 {
 	for (int i = 0; i < newFractalList.size(); i++)
 	{
@@ -227,4 +527,30 @@ int cHybridFractalSequences::GetIndexOnFractalList(fractal::enumFractalFormula f
 		}
 	}
 	return 0;
+}
+
+void cHybridFractalSequences::DebugOutput()
+{
+	for (size_t i = 0; i < sequences.size(); i++)
+	{
+		const sSequence &seq = sequences[i];
+		qDebug() << "Sequence " << i << ": length=" << seq.length << ", isHybrid=" << seq.isHybrid
+						 << ", DEType=" << seq.DEType << ", DEFunctionType=" << seq.DEFunctionType
+						 << ", coloringFunction=" << seq.coloringFunction << "constantMultiplier"
+						 << QString::fromStdString(seq.constantMultiplier.Debug()) << "juliaConstant"
+						 << QString::fromStdString(seq.juliaConstant.Debug()) << "initialWAxis"
+						 << seq.initialWAxis << "formulaMaxiter" << seq.formulaMaxiter;
+
+		for (size_t f = 0; f < seq.fractData.size(); f++)
+		{
+			const sFractalData &data = seq.fractData[f];
+			qDebug() << "  Fractal " << f << ": formulaIterations=" << data.formulaIterations
+							 << ", formulaWeight=" << data.formulaWeight
+							 << ", formulaStartIteration=" << data.formulaStartIteration
+							 << ", formulaStopIteration=" << data.formulaStopIteration
+							 << ", checkForBailout=" << data.checkForBailout
+							 << ", addCConstant=" << data.addCConstant << ", bailout=" << data.bailout
+							 << ", useAdditionalBailoutCond=" << data.useAdditionalBailoutCond;
+		}
+	}
 }

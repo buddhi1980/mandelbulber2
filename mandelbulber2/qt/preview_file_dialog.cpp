@@ -146,8 +146,13 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 			//			progressBar->show();
 			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+
+			par->SetContainerName("main");
+			for (int j = 0; j < parFractal->size(); j++)
+				parFractal->at(j)->SetContainerName(QString("fractal") + QString::number(j));
+
 			InitParams(par);
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < parFractal->size(); i++)
 				InitFractalParams(parFractal->at(i));
 
 			InitMaterialParams(1, par);

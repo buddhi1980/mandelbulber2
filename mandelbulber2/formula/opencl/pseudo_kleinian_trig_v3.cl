@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 { // info amoser's complex sine formula, DE by Pupukuusikko
 	REAL4 oldZ = z;
 
@@ -29,7 +29,7 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 		// Combine the magnitude-based inversion
-		REAL invRR = 1.0f / dot(z,z);
+		REAL invRR = 1.0f / dot(z, z);
 		z *= invRR;
 		aux->DE *= invRR;
 
@@ -114,15 +114,15 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 		// Combined math multiplication multipliers
 		REAL S = fractal->transformCommon.scaleG1 * (sinh_z2 * (2.0f + A - B) + A + B) * FRAC_1_3_F;
-	//	S = max(S, 0.0f); // nnnnnnnnn 0.5f
+		//	S = max(S, 0.0f); // nnnnnnnnn 0.5f
 
 		aux->DE *= S;
 		aux->DE0 = max(aux->DE0, aux->DE);
 
 		if (aux->i >= fractal->analyticDE.startIterationsA
-			&& aux->i < fractal->analyticDE.stopIterationsA)
+				&& aux->i < fractal->analyticDE.stopIterationsA)
 		{
-			aux->dist = 1.0f * native_rsqrt(aux->DE0);  // scale?
+			aux->dist = 1.0f * native_rsqrt(aux->DE0); // scale?
 		}
 	}
 	else
@@ -135,10 +135,10 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL addCol = fabs(z.x * z.y) * fractal->foldColor.difs0;
-		addCol += stretch * fractal->foldColor.difs0000.x
-			+ fabs(z.z) * fractal->foldColor.difs0000.y
-			+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
-		if (fractal->foldColor.difs0000.z != 0.0) addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
+		addCol += stretch * fractal->foldColor.difs0000.x + fabs(z.z) * fractal->foldColor.difs0000.y
+							+ fabs(oldZ.z - z.z) * fractal->foldColor.difs0000.w;
+		if (fractal->foldColor.difs0000.z != 0.0)
+			addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -146,8 +146,7 @@ REAL4 PseudoKleinianTrigV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		}
 		else
 		{
-			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0)
-				aux->color += addCol;
+			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0) aux->color += addCol;
 		}
 	}
 	return z;

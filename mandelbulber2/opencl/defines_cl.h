@@ -105,7 +105,6 @@
 #define M_PI_2x_INV_F 0.1591549430919f
 #endif
 
-#define NUMBER_OF_FRACTALS 9
 #define IFS_VECTOR_COUNT 9
 #define HYBRID_COUNT 5
 #define MANDELBOX_FOLDS 2

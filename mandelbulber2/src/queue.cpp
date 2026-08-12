@@ -719,8 +719,13 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 				{
 					std::shared_ptr<cParameterContainer> tempPar(new cParameterContainer());
 					std::shared_ptr<cFractalContainer> tempFract(new cFractalContainer());
+
+					tempPar->SetContainerName("main");
+					for (int j = 0; j < tempFract->size(); j++)
+						tempFract->at(j)->SetContainerName(QString("fractal") + QString::number(j));
+
 					InitParams(tempPar);
-					for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+					for (int f = 0; f < tempFract->size(); f++)
 						InitFractalParams(tempFract->at(f));
 					InitMaterialParams(1, tempPar);
 

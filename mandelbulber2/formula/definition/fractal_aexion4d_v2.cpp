@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAexion4dV2::cFractalAexion4dV2() : cAbstractFractal()
 {

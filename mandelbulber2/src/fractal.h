@@ -38,6 +38,7 @@
 #include <memory>
 
 #include "algebra.hpp"
+#include "math_utilities.h"
 
 #include "formula/definition/all_fractal_list_enums.hpp"
 
@@ -850,8 +851,29 @@ struct sFractal
 	sFractal() {};
 	sFractal(const std::shared_ptr<cParameterContainer> par);
 	void RecalculateFractalParams();
+	// Apply common fractal params from node data (overrides per-fractal container values).
+	// Used by boolean groups to share julia_mode, julia_c, etc. with child fractals.
+	// Pass nullptr for any param to skip it.
+	void ApplyNodeData(const bool *julia_mode, const CVector3 *julia_c,
+		const CVector3 *fractal_constant_factor, const double *initial_waxis,
+		const int *formula_maxiter, const int *formula_stop_iteration);
 
 	fractal::enumFractalFormula formula;
+
+	// per-fractal general parameters (moved from InitParams to InitFractalParams)
+	int formulaIterations;
+	double formulaWeight;
+	int formulaStartIteration;
+	int formulaStopIteration;
+	bool juliaMode;
+	CVector3 juliaConstant;
+	CVector3 constantMultiplier;
+	double initialWAxis;
+	bool dontAddCConstant;
+	bool checkForBailout;
+	int formulaMaxiter;
+
+	int formulaMaterialId;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;

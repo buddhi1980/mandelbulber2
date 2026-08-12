@@ -29,8 +29,8 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cRenderWorker::GlobalIlumination method - calculates global illumination using Monte Carlo
- * algorithm
+ * cRenderWorker::GlobalIlumination method - calculates global illumination
+ * using Monte Carlo algorithm
  */
 #include "calculate_distance.hpp"
 #include "common_math.h"
@@ -73,7 +73,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		int stepCount = 0;
 
 		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax;
-				 scan += dist * params->DEFactor)
+			scan += dist * params->DEFactor)
 		{
 			if (stepCount >= maxRaymarchingSteps) break;
 			sStep step;
@@ -90,6 +90,12 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			objectId = distanceOut.objectId;
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			step.distThresh = distThresh;
 			step.distance = dist;
 			step.iters = distanceOut.iters;
@@ -103,9 +109,14 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 					return out;
 				}
 				inputCopy.point = point;
+				inputCopy.seqIndex = distanceOut.seqIndex;
+				inputCopy.transformedPoint = distanceOut.transformedPoint;
+				inputCopy.hasTransformedPoint = distanceOut.hasTransformedPoint;
+				inputCopy.objectId = objectId;
+				inputCopy.depth = scan;
+
 				CVector3 vn = CalculateNormals(inputCopy);
 				inputCopy.normal = vn;
-				inputCopy.objectId = objectId;
 
 				found = true;
 				break;
@@ -124,7 +135,13 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
-			inputCopy.material = &data->materials[objectData.materialId];
+			// material pointer pre-resolved at setup time – direct access, no map
+			// lookup
+			inputCopy.material =
+				(inputCopy.objectId >= 0 && inputCopy.objectId < static_cast<int>(data->objectData.size()))
+					? &data->materials[data->objectData[inputCopy.objectId].materialId]
+					: nullptr;
+			if (!inputCopy.material) return out; // materialId == -1: render black (skip GI)
 
 			// letting colors from textures (before normal map shader)
 			if (inputCopy.material->colorTexture.IsLoaded())
