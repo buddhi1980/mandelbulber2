@@ -2276,6 +2276,22 @@ void cSettings::MigrateLegacyParamsToFractal(
 			// Remove the legacy param after migration
 			par->DeleteParameter(oldParamName);
 		}
+
+		oldParamName = QString("formula_start_iteration_%1").arg(i);
+		if (par->IfExists(oldParamName))
+		{
+			fract->at(i - 1)->Set("formula_start_iteration", par->Get<int>(oldParamName));
+			// Remove the legacy param after migration
+			par->DeleteParameter(oldParamName);
+		}
+
+		oldParamName = QString("formula_stop_iteration_%1").arg(i);
+		if (par->IfExists(oldParamName))
+		{
+			fract->at(i - 1)->Set("formula_stop_iteration", par->Get<int>(oldParamName));
+			// Remove the legacy param after migration
+			par->DeleteParameter(oldParamName);
+		}
 	}
 
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
@@ -2446,12 +2462,12 @@ void cSettings::CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
 void cSettings::CopyOneFractalParams(
 	std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex)
 {
-	par->Set(prefix + "julia_mode", formulaIndex, par->Get<bool>("julia_mode"));
-	par->Set(prefix + "julia_c", formulaIndex, par->Get<CVector3>("julia_c"));
-	par->Set(prefix + "fractal_constant_factor", formulaIndex,
-		par->Get<CVector3>("fractal_constant_factor"));
-	par->Set(prefix + "initial_waxis", formulaIndex, par->Get<double>("initial_waxis"));
-	par->Set(prefix + "formula_maxiter", formulaIndex, par->Get<int>("formula_maxiter"));
+	par->Set(prefix + "julia_mode", par->Get<bool>("julia_mode", formulaIndex));
+	par->Set(prefix + "julia_c", par->Get<CVector3>("julia_c", formulaIndex));
+	par->Set(prefix + "fractal_constant_factor",
+		par->Get<CVector3>("fractal_constant_factor", formulaIndex));
+	par->Set(prefix + "initial_waxis", par->Get<double>("initial_waxis", formulaIndex));
+	par->Set(prefix + "formula_maxiter", par->Get<int>("formula_maxiter", formulaIndex));
 }
 
 void cSettings::CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix)
