@@ -2132,10 +2132,10 @@ void cSettings::InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterCon
 		if (!par->IfExists(paramName))
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
-		paramName = QString("formula_maxiter_%1").arg(1);
+		paramName = QString("formula_maxiter_%1").arg(i);
 		if (!par->IfExists(paramName)) par->addParam(paramName, 250, morphLinear, paramStandard);
 
-		paramName = QString("initial_waxis_%1").arg(1);
+		paramName = QString("initial_waxis_%1").arg(i);
 		if (!par->IfExists(paramName)) par->addParam(paramName, 0.0, morphAkima, paramStandard);
 	}
 }
@@ -2295,58 +2295,6 @@ void cSettings::MigrateLegacyParamsToFractal(
 	}
 
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
-
-	// Migrate global N to formula_maxiter for boolean mode files where v2.29 migration
-	// did not run (file version >= 2.29). For files < 2.29, the v2.29 migration writes
-	// directly to fractal containers, so no action needed here.
-	// Also handles non-boolean mode files.
-	if (par->IfExists("N"))
-	{
-		int maxiter = par->Get<int>("N");
-		for (int i = 0; i < fract->size(); i++)
-		{
-			fract->at(i)->Set("formula_maxiter", maxiter);
-		}
-	}
-
-	// Handle global fractal_constant_factor when not in boolean mode
-	if (!booleanMode && par->IfExists("fractal_constant_factor")
-			&& !par->isDefaultValue("fractal_constant_factor"))
-	{
-		CVector3 constFactor = par->Get<CVector3>("fractal_constant_factor");
-		for (int i = 0; i < fract->size(); i++)
-		{
-			fract->at(i)->Set("fractal_constant_factor", constFactor);
-		}
-	}
-
-	// Handle global julia_mode and julia_c
-	if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
-	{
-		bool juliaMode = par->Get<bool>("julia_mode");
-		for (int i = 0; i < fract->size(); i++)
-		{
-			fract->at(i)->Set("julia_mode", juliaMode);
-		}
-	}
-	if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
-	{
-		CVector3 juliaC = par->Get<CVector3>("julia_c");
-		for (int i = 0; i < fract->size(); i++)
-		{
-			fract->at(i)->Set("julia_c", juliaC);
-		}
-	}
-
-	// Handle global initial_waxis
-	if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
-	{
-		double initialWAxis = par->Get<double>("initial_waxis");
-		for (int i = 0; i < fract->size(); i++)
-		{
-			fract->at(i)->Set("initial_waxis", initialWAxis);
-		}
-	}
 
 	// Migrate global formula_material_id to each fractal container
 	// (for files before node-based system where it was a top-level param)

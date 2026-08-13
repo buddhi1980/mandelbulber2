@@ -51,8 +51,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	dontAddCConstant = container->Get<bool>("dont_add_c_constant");
 	checkForBailout = container->Get<bool>("check_for_bailout");
 
-	formulaMaterialId = container->Get<int>("formula_material_id");
-
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
 	bulb.betaAngleOffset = container->Get<double>("beta_angle_offset");

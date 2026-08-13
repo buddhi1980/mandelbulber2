@@ -862,7 +862,6 @@ struct sFractal
 	bool dontAddCConstant;
 	bool checkForBailout;
 
-	int formulaMaterialId;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;

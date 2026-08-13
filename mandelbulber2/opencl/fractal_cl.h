@@ -873,7 +873,6 @@ typedef struct
 	cl_int checkForBailout;
 	cl_int formulaMaxiter;
 
-	cl_int formulaMaterialId;
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -1665,7 +1664,6 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.formulaStopIteration = source.formulaStopIteration;
 	target.dontAddCConstant = source.dontAddCConstant;
 	target.checkForBailout = source.checkForBailout;
-	target.formulaMaterialId = source.formulaMaterialId;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);
