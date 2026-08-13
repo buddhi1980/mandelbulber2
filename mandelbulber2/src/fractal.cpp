@@ -48,13 +48,8 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	formulaWeight = container->Get<double>("formula_weight");
 	formulaStartIteration = container->Get<int>("formula_start_iteration");
 	formulaStopIteration = container->Get<int>("formula_stop_iteration");
-	juliaMode = container->Get<bool>("julia_mode");
-	juliaConstant = container->Get<CVector3>("julia_c");
-	constantMultiplier = container->Get<CVector3>("fractal_constant_factor");
-	initialWAxis = container->Get<double>("initial_waxis");
 	dontAddCConstant = container->Get<bool>("dont_add_c_constant");
 	checkForBailout = container->Get<bool>("check_for_bailout");
-	formulaMaxiter = container->Get<int>("formula_maxiter");
 
 	formulaMaterialId = container->Get<int>("formula_material_id");
 
@@ -654,20 +649,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	WriteLog("cFractal::RecalculateFractalParams(void)", 3);
 
 	RecalculateFractalParams();
-}
-// Apply common fractal params from node data (overrides per-fractal container values).
-// Used by boolean groups to share julia_mode, julia_c, etc. with child fractals.
-// Pass nullptr for any param to skip it.
-void sFractal::ApplyNodeData(const bool *julia_mode, const CVector3 *julia_c,
-	const CVector3 *fractal_constant_factor, const double *initial_waxis, const int *formula_maxiter,
-	const int *formula_stop_iteration)
-{
-	if (julia_mode) this->juliaMode = *julia_mode;
-	if (julia_c) this->juliaConstant = *julia_c;
-	if (fractal_constant_factor) this->constantMultiplier = *fractal_constant_factor;
-	if (initial_waxis) this->initialWAxis = *initial_waxis;
-	if (formula_maxiter) this->formulaMaxiter = *formula_maxiter;
-	if (formula_stop_iteration) this->formulaStopIteration = *formula_stop_iteration;
 }
 
 void sFractal::RecalculateFractalParams()

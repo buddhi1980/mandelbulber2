@@ -93,11 +93,11 @@ private:
 	void PrepareData(std::shared_ptr<const cParameterContainer> generalPa,
 		std::shared_ptr<const cFractalContainer> parr);
 	sSequence CreateSequence(sSequence seq, std::shared_ptr<const cParameterContainer> generalPar,
-		std::vector<int> formulaIndices, bool singleFractal, int hybridNodeId = -1);
+		std::vector<int> formulaIndices, bool singleFractal, int firstNodeIndex, int hybridNodeId = -1);
 	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 	void CollectSequenceData(const std::shared_ptr<const cParameterContainer> &generalPar,
-		const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, int hybridNodeId,
-		sSequence &seq);
+		const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, int firstNodeIndex,
+		int hybridNodeId, sSequence &seq);
 	void DebugOutput();
 
 	cObjectsTree objectsTree;

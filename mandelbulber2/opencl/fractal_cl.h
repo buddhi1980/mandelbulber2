@@ -1663,13 +1663,8 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.formulaWeight = source.formulaWeight;
 	target.formulaStartIteration = source.formulaStartIteration;
 	target.formulaStopIteration = source.formulaStopIteration;
-	target.juliaMode = source.juliaMode;
-	target.juliaConstant = toClFloat3(source.juliaConstant);
-	target.constantMultiplier = toClFloat3(source.constantMultiplier);
-	target.initialWAxis = source.initialWAxis;
 	target.dontAddCConstant = source.dontAddCConstant;
 	target.checkForBailout = source.checkForBailout;
-	target.formulaMaxiter = source.formulaMaxiter;
 	target.formulaMaterialId = source.formulaMaterialId;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);

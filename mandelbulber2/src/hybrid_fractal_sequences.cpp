@@ -113,7 +113,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			sSequence sequence;
 			int sequenceOwnerId = hybridNodeEntered ? hybridNodeId : -1;
 			sequence =
-				CreateSequence(sequence, generalPar, formulaIndices, singleFractal, sequenceOwnerId);
+				CreateSequence(sequence, generalPar, formulaIndices, singleFractal, nodeIndex, sequenceOwnerId);
 
 			if (singleFractal)
 			{
@@ -173,14 +173,6 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 		}
 
 		sFractal fractal(fractPar->at(objectId - 1));
-		// Apply common fractal params from node data (overrides per-fractal container values)
-		// This enables boolean groups to share julia_mode, julia_c, etc. with child fractals
-		if (nodeData)
-		{
-			fractal.ApplyNodeData(&nodeData->julia_mode, &nodeData->julia_c,
-				&nodeData->fractal_constant_factor, &nodeData->initial_waxis, &nodeData->formula_maxiter,
-				&nodeData->formula_stop_iteration);
-		}
 		fractalsMap.insert(objectId, fractal);
 		// formula is now read from the per-fractal container in sFractal constructor
 	}
@@ -188,8 +180,8 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 
 void cHybridFractalSequences::CollectSequenceData(
 	const std::shared_ptr<const cParameterContainer> &generalPar,
-	const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, int hybridNodeId,
-	sSequence &seq)
+	const std::vector<int> &formulaIndices, bool singleFractal, bool isHybrid, int firstNodeIndex,
+	int hybridNodeId, sSequence &seq)
 {
 	double maxBailout = 0.0;
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
@@ -239,11 +231,12 @@ void cHybridFractalSequences::CollectSequenceData(
 		// Julia parameters - for single fractal read from per-fractal sFractal fields
 		if (singleFractal)
 		{
-			seq.juliaEnabled = fractalsMap[objectId].juliaMode;
-			seq.juliaConstant = fractalsMap[objectId].juliaConstant;
-			seq.constantMultiplier = fractalsMap[objectId].constantMultiplier;
-			seq.initialWAxis = fractalsMap[objectId].initialWAxis;
-			seq.formulaMaxiter = fractalsMap[objectId].formulaMaxiter;
+			cObjectsTree::sNodeDataForRendering &node = objectsNodes[firstNodeIndex];
+			seq.juliaEnabled = node.juliaMode;
+			seq.juliaConstant = node.juliaConstant;
+			seq.constantMultiplier = node.fractalConstantMultiplier;
+			seq.initialWAxis = node.initialWAxis;
+			seq.formulaMaxiter = node.formulaMaxiter;
 		}
 
 		if (fractalObject->getDeFunctionType() == fractal::pseudoKleinianDEFunction
@@ -276,11 +269,11 @@ void cHybridFractalSequences::CollectSequenceData(
 
 		if (hybridNode)
 		{
-			seq.juliaEnabled = hybridNode->julia_mode;
-			seq.juliaConstant = hybridNode->julia_c;
-			seq.constantMultiplier = hybridNode->fractal_constant_factor;
-			seq.initialWAxis = hybridNode->initial_waxis;
-			seq.formulaMaxiter = hybridNode->formula_maxiter;
+			seq.juliaEnabled = hybridNode->juliaMode;
+			seq.juliaConstant = hybridNode->juliaConstant;
+			seq.constantMultiplier = hybridNode->fractalConstantMultiplier;
+			seq.initialWAxis = hybridNode->initialWAxis;
+			seq.formulaMaxiter = hybridNode->formulaMaxiter;
 		}
 	}
 
@@ -295,7 +288,7 @@ void cHybridFractalSequences::CollectSequenceData(
 
 cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequence seq,
 	std::shared_ptr<const cParameterContainer> generalPar, std::vector<int> formulaIndices,
-	bool singleFractal, int hybridNodeId)
+	bool singleFractal, int firstNodeIndex, int hybridNodeId)
 {
 	bool isHybrid = !singleFractal;
 	seq.isHybrid = isHybrid;
@@ -323,7 +316,8 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	int fractalNoInSeqnece = 0;
 	int counter = 0;
 
-	CollectSequenceData(generalPar, formulaIndices, singleFractal, isHybrid, hybridNodeId, seq);
+	CollectSequenceData(
+		generalPar, formulaIndices, singleFractal, isHybrid, firstNodeIndex, hybridNodeId, seq);
 
 	// generating the sequence
 	bool rapidEndOfSequence = false;

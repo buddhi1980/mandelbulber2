@@ -462,8 +462,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					stack[stackLevel].detailSize = nodeIn.detailSize;
 					stack[stackLevel].transformedPoint = in.point;
 					stack[stackLevel].hasTransformedPoint = false;
-					stack[stackLevel].smoothCombineEnable = node.smooth_de_combine_enable;
-					stack[stackLevel].smoothCombineDistance = node.smooth_de_combine_distance;
+					stack[stackLevel].smoothCombineEnable = node.smoothDECombineEnable;
+					stack[stackLevel].smoothCombineDistance = node.smoothDECombineDistance;
 					continue;
 				}
 
@@ -479,8 +479,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			leaf.detailSize = nodeIn.detailSize;
 			leaf.transformedPoint = pointTransformed;
 			leaf.hasTransformedPoint = (objectId >= 0);
-			leaf.smoothCombineEnable = node.smooth_de_combine_enable;
-			leaf.smoothCombineDistance = node.smooth_de_combine_distance;
+			leaf.smoothCombineEnable = node.smoothDECombineEnable;
+			leaf.smoothCombineDistance = node.smoothDECombineDistance;
 			mergeChildIntoParent(leaf, &stack[stackLevel], data, stack[stackLevel].detailSize);
 			totalIters += leafIters;
 		}

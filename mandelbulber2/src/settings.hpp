@@ -43,6 +43,7 @@
 #include <QString>
 #include <QStringList>
 
+#include "object_node_type.h"
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
@@ -96,7 +97,7 @@ private:
 	static QStringList GetLegacyPrimitiveTypes();
 	static QString ConvertLegacyAnimationParamName(const QString &oldName);
 	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
-	void InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
+	void InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
 	void InjectTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyPrimitiveTransformParams(
@@ -109,10 +110,30 @@ private:
 	void MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId);
 	void DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
-	void DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par);
+	void DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
 	void DeleteTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
+	static QString GetFormulaName(int formulaEnum);
+	static enumNodeType ToNodeType(int boolOp);
+	static enumNodeType PrimitiveOpToNodeType(int boolOp);
+	static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
+		int parentId, int objectId, int displayOrder = 0);
+	static QString NodePrefix(int nodeId);
+	static QString NodeDefinitionParam(int nodeId);
+	static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId);
+	static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const QString &prefix,
+		std::shared_ptr<cParameterContainer> fracPar);
+	static void CopyPrimitiveTransform(std::shared_ptr<cParameterContainer> par,
+		const QString &primitiveFullName, const QString &prefix);
+	static void CopyOneFractalParams(
+		std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex);
+	static void CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix);
+	static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract);
+	static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex);
+	static void FlattenBooleanAddGroups(
+		std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId);
+
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;
 

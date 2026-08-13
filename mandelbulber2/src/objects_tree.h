@@ -38,14 +38,13 @@ public:
 		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
 		// Common fractal parameters shared by all node types (including boolean groups)
-		bool julia_mode = false;
-		CVector3 julia_c;
-		CVector3 fractal_constant_factor;
-		double initial_waxis = 0.0;
-		bool smooth_de_combine_enable = false;
-		double smooth_de_combine_distance = 0.1;
-		int formula_maxiter = 250;
-		int formula_stop_iteration = 250;
+		bool juliaMode = false;
+		CVector3 juliaConstant;
+		CVector3 fractalConstantMultiplier;
+		double initialWAxis = 0.0;
+		bool smoothDECombineEnable = false;
+		double smoothDECombineDistance = 0.1;
+		int formulaMaxiter = 250;
 	};
 
 	struct sNodeDataForRendering
@@ -69,15 +68,14 @@ public:
 		CMatrix44 worldToLocalMatrix;
 		bool enabled = true;
 		double detailLevelMultiplier = 1.0;
-		// Common fractal parameters shared by all node types (including boolean groups)
-		bool julia_mode = false;
-		CVector3 julia_c;
-		CVector3 fractal_constant_factor;
-		double initial_waxis = 0.0;
-		bool smooth_de_combine_enable = false;
-		double smooth_de_combine_distance = 0.1;
-		int formula_maxiter = 250;
-		int formula_stop_iteration = 250;
+		bool smoothDECombineEnable = false;
+		double smoothDECombineDistance = 0.1;
+		// Common fractal parameters shared by all node types (including hybrid groups)
+		bool juliaMode = false;
+		CVector3 juliaConstant;
+		CVector3 fractalConstantMultiplier;
+		double initialWAxis = 0.0;
+		int formulaMaxiter = 250;
 	};
 
 	typedef QHash<int, sNodeData> nodeData_t;

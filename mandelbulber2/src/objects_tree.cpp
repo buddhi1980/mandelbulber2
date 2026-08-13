@@ -79,18 +79,16 @@ void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameter
 					params->Get<double>("node" + suffix + "_detail_level_multiplier");
 
 				// Common fractal parameters shared by all node types (including boolean groups)
-				nodeData.julia_mode = params->Get<bool>("node" + suffix + "_julia_mode");
-				nodeData.julia_c = params->Get<CVector3>("node" + suffix + "_julia_c");
-				nodeData.fractal_constant_factor =
+				nodeData.juliaMode = params->Get<bool>("node" + suffix + "_julia_mode");
+				nodeData.juliaConstant = params->Get<CVector3>("node" + suffix + "_julia_c");
+				nodeData.fractalConstantMultiplier =
 					params->Get<CVector3>("node" + suffix + "_fractal_constant_factor");
-				nodeData.initial_waxis = params->Get<double>("node" + suffix + "_initial_waxis");
-				nodeData.smooth_de_combine_enable =
+				nodeData.initialWAxis = params->Get<double>("node" + suffix + "_initial_waxis");
+				nodeData.smoothDECombineEnable =
 					params->Get<bool>("node" + suffix + "_smooth_de_combine_enable");
-				nodeData.smooth_de_combine_distance =
+				nodeData.smoothDECombineDistance =
 					params->Get<double>("node" + suffix + "_smooth_de_combine_distance");
-				nodeData.formula_maxiter = params->Get<int>("node" + suffix + "_formula_maxiter");
-				nodeData.formula_stop_iteration =
-					params->Get<int>("node" + suffix + "_formula_stop_iteration");
+				nodeData.formulaMaxiter = params->Get<int>("node" + suffix + "_formula_maxiter");
 
 				nodeDataMap.insert(nodeData.id, nodeData);
 			}
@@ -312,14 +310,13 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.material = effectiveMaterial;
 		nodeDataForRendering.repeat = leafRepeat;
 		nodeDataForRendering.detailLevelMultiplier = nodeData.detailLevelMultiplier;
-		nodeDataForRendering.julia_mode = nodeData.julia_mode;
-		nodeDataForRendering.julia_c = nodeData.julia_c;
-		nodeDataForRendering.fractal_constant_factor = nodeData.fractal_constant_factor;
-		nodeDataForRendering.initial_waxis = nodeData.initial_waxis;
-		nodeDataForRendering.smooth_de_combine_enable = nodeData.smooth_de_combine_enable;
-		nodeDataForRendering.smooth_de_combine_distance = nodeData.smooth_de_combine_distance;
-		nodeDataForRendering.formula_maxiter = nodeData.formula_maxiter;
-		nodeDataForRendering.formula_stop_iteration = nodeData.formula_stop_iteration;
+		nodeDataForRendering.juliaMode = nodeData.juliaMode;
+		nodeDataForRendering.juliaConstant = nodeData.juliaConstant;
+		nodeDataForRendering.fractalConstantMultiplier = nodeData.fractalConstantMultiplier;
+		nodeDataForRendering.initialWAxis = nodeData.initialWAxis;
+		nodeDataForRendering.smoothDECombineEnable = nodeData.smoothDECombineEnable;
+		nodeDataForRendering.smoothDECombineDistance = nodeData.smoothDECombineDistance;
+		nodeDataForRendering.formulaMaxiter = nodeData.formulaMaxiter;
 
 		// Pre-calculate the world-to-local transform matrix that combines
 		// translation, rotation and scale into a single 4×4 homogeneous matrix.

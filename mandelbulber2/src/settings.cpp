@@ -670,7 +670,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	if (fileVersion < 2.35)
 	{
 		InjectTemporaryLegacyBooleanParams(par);
-		InjectTemporaryLegacyJuliaParams(par);
+		InjectTemporaryLegacyFractalParams(par);
 		InjectTemporaryLegacyFormulaTransformParams(fractPar);
 		InjectTemporaryLegacyFormulaMaterialIdParams(par);
 	}
@@ -2112,7 +2112,7 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+void cSettings::InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par)
 {
 	// Injects temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params
 	// from the legacy flat format into the parameter container.
@@ -2127,9 +2127,16 @@ void cSettings::InjectTemporaryLegacyJuliaParams(std::shared_ptr<cParameterConta
 	{
 		QString paramName = QString("julia_mode_%1").arg(i);
 		if (!par->IfExists(paramName)) par->addParam(paramName, false, morphLinear, paramStandard);
+
 		paramName = QString("julia_c_%1").arg(i);
 		if (!par->IfExists(paramName))
 			par->addParam(paramName, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+
+		paramName = QString("formula_maxiter_%1").arg(1);
+		if (!par->IfExists(paramName)) par->addParam(paramName, 250, morphLinear, paramStandard);
+
+		paramName = QString("initial_waxis_%1").arg(1);
+		if (!par->IfExists(paramName)) par->addParam(paramName, 0.0, morphAkima, paramStandard);
 	}
 }
 
@@ -2271,47 +2278,6 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
-	// Migrate per-fractal fractal_constant_factor params
-	for (int i = 1; i <= fract->size(); i++)
-	{
-		QString oldParamName = QString("fractal_constant_factor_%1").arg(i);
-		if (par->IfExists(oldParamName))
-		{
-			if (!par->isDefaultValue(oldParamName))
-			{
-				fract->at(i - 1)->Set("fractal_constant_factor", par->Get<CVector3>(oldParamName));
-			}
-			// Remove the legacy param after migration
-			par->DeleteParameter(oldParamName);
-		}
-	}
-
-	// Migrate per-fractal julia_mode and julia_c params
-	for (int i = 1; i <= fract->size(); i++)
-	{
-		QString juliaModeParamName = QString("julia_mode_%1").arg(i);
-		if (par->IfExists(juliaModeParamName))
-		{
-			if (par->Get<bool>(juliaModeParamName))
-			{
-				fract->at(i - 1)->Set("julia_mode", true);
-			}
-			// Remove the legacy param after migration
-			par->DeleteParameter(juliaModeParamName);
-		}
-
-		QString juliaCParamName = QString("julia_c_%1").arg(i);
-		if (par->IfExists(juliaCParamName))
-		{
-			if (!par->isDefaultValue(juliaCParamName))
-			{
-				fract->at(i - 1)->Set("julia_c", par->Get<CVector3>(juliaCParamName));
-			}
-			// Remove the legacy param after migration
-			par->DeleteParameter(juliaCParamName);
-		}
-	}
-
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 	// Migrate global N to formula_maxiter for boolean mode files where v2.29 migration
@@ -2400,7 +2366,7 @@ void cSettings::MigrateLegacyParamsToFractal(
 	}
 }
 
-static QString GetFormulaName(int formulaEnum)
+QString cSettings::GetFormulaName(int formulaEnum)
 {
 	for (cAbstractFractal *f : newFractalList)
 	{
@@ -2412,7 +2378,7 @@ static QString GetFormulaName(int formulaEnum)
 	return "fractal";
 }
 
-static enumNodeType ToNodeType(int boolOp)
+enumNodeType cSettings::ToNodeType(int boolOp)
 {
 	switch (boolOp)
 	{
@@ -2422,7 +2388,7 @@ static enumNodeType ToNodeType(int boolOp)
 	}
 }
 
-static enumNodeType PrimitiveOpToNodeType(int boolOp)
+enumNodeType cSettings::PrimitiveOpToNodeType(int boolOp)
 {
 	switch (boolOp)
 	{
@@ -2433,8 +2399,8 @@ static enumNodeType PrimitiveOpToNodeType(int boolOp)
 	}
 }
 
-static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
-	int parentId, int objectId, int displayOrder = 0)
+QString cSettings::MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
+	int parentId, int objectId, int displayOrder)
 {
 	return QString("%1 %2,%2,%3,%4,%5,%6")
 		.arg(formulaName)
@@ -2445,17 +2411,17 @@ static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNo
 		.arg(displayOrder);
 }
 
-static QString NodePrefix(int nodeId)
+QString cSettings::NodePrefix(int nodeId)
 {
 	return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
 }
 
-static QString NodeDefinitionParam(int nodeId)
+QString cSettings::NodeDefinitionParam(int nodeId)
 {
 	return NodePrefix(nodeId) + "definition";
 }
 
-static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
+void cSettings::SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
 {
 	const QString defParam = NodeDefinitionParam(nodeId);
 	if (!par->IfExists(defParam)) return;
@@ -2465,40 +2431,39 @@ static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, 
 	par->Set(defParam, parts.join(","));
 }
 
-static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const QString &prefix,
-	std::shared_ptr<cParameterContainer> fracPar)
+void cSettings::CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
+	const QString &prefix, std::shared_ptr<cParameterContainer> fracPar)
 {
-	if (fracPar->IfExists("formula_position"))
-		par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
-	if (fracPar->IfExists("formula_rotation"))
-		par->Set(prefix + "rotation", fracPar->Get<CVector3>("formula_rotation"));
-	if (fracPar->IfExists("formula_scale"))
-		par->Set(prefix + "scale", fracPar->Get<double>("formula_scale"));
-	if (fracPar->IfExists("formula_repeat"))
-		par->Set(prefix + "repeat", fracPar->Get<CVector3>("formula_repeat"));
-	if (fracPar->IfExists("formula_material_id"))
-		par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
+	par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
+	par->Set(prefix + "rotation", fracPar->Get<CVector3>("formula_rotation"));
+	par->Set(prefix + "scale", fracPar->Get<double>("formula_scale"));
+	par->Set(prefix + "repeat", fracPar->Get<CVector3>("formula_repeat"));
+	par->Set(prefix + "material", fracPar->Get<int>("formula_material_id"));
 }
 
 // Copy common fractal params (julia_mode, julia_c, etc.) from per-fractal container to node params.
 // Used during migration to populate node-level params from legacy per-fractal params.
-static void CopyCommonFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix,
-	std::shared_ptr<cParameterContainer> fracPar)
+void cSettings::CopyOneFractalParams(
+	std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex)
 {
-	if (fracPar->IfExists("julia_mode") && fracPar->Get<bool>("julia_mode"))
-		par->Set(prefix + "julia_mode", true);
-	if (fracPar->IfExists("julia_c")) par->Set(prefix + "julia_c", fracPar->Get<CVector3>("julia_c"));
-	if (fracPar->IfExists("fractal_constant_factor"))
-		par->Set(prefix + "fractal_constant_factor", fracPar->Get<CVector3>("fractal_constant_factor"));
-	if (fracPar->IfExists("initial_waxis"))
-		par->Set(prefix + "initial_waxis", fracPar->Get<double>("initial_waxis"));
-	if (fracPar->IfExists("formula_maxiter"))
-		par->Set(prefix + "formula_maxiter", fracPar->Get<int>("formula_maxiter"));
-	if (fracPar->IfExists("formula_stop_iteration"))
-		par->Set(prefix + "formula_stop_iteration", fracPar->Get<int>("formula_stop_iteration"));
+	par->Set(prefix + "julia_mode", formulaIndex, par->Get<bool>("julia_mode"));
+	par->Set(prefix + "julia_c", formulaIndex, par->Get<CVector3>("julia_c"));
+	par->Set(prefix + "fractal_constant_factor", formulaIndex,
+		par->Get<CVector3>("fractal_constant_factor"));
+	par->Set(prefix + "initial_waxis", formulaIndex, par->Get<double>("initial_waxis"));
+	par->Set(prefix + "formula_maxiter", formulaIndex, par->Get<int>("formula_maxiter"));
 }
 
-static void CopyPrimitiveTransform(
+void cSettings::CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix)
+{
+	par->Set(prefix + "julia_mode", par->Get<bool>("julia_mode"));
+	par->Set(prefix + "julia_c", par->Get<CVector3>("julia_c"));
+	par->Set(prefix + "fractal_constant_factor", par->Get<CVector3>("fractal_constant_factor"));
+	par->Set(prefix + "initial_waxis", par->Get<double>("initial_waxis"));
+	par->Set(prefix + "formula_maxiter", par->Get<int>("N"));
+}
+
+void cSettings::CopyPrimitiveTransform(
 	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
 {
 	if (par->IfExists(primitiveFullName + "_position"))
@@ -2511,7 +2476,7 @@ static void CopyPrimitiveTransform(
 		par->Set(prefix + "repeat", par->Get<CVector3>(primitiveFullName + "_repeat"));
 }
 
-static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
+QList<int> cSettings::GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 {
 	QList<int> enabledFractals;
 	for (int i = 0; i < fract->size(); i++)
@@ -2525,7 +2490,7 @@ static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 	return enabledFractals;
 }
 
-static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex)
+bool cSettings::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex)
 {
 	QString paramName = QString("fractal_enable_%1").arg(fractalIndex);
 	if (par->IfExists(paramName))
@@ -2637,7 +2602,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			par->Set("node_0001_definition",
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
-			CopyCommonFractalParams(par, "node_0001_", fract->at(objectId - 1));
+			CopyOneFractalParams(par, "node_0001_", objectId);
 			if (!GetFractalEnableFlag(par, objectId))
 			{
 				par->Set("node_0001_enabled", false);
@@ -2683,7 +2648,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				par->Set(QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0')),
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
-				CopyCommonFractalParams(par, NodePrefix(nodeId), fract->at(objectId - 1));
+				CopyOneFractalParams(par, NodePrefix(nodeId), objectId);
 
 				if (!GetFractalEnableFlag(par, objectId))
 				{
@@ -2703,7 +2668,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		par->Set("node_0001_definition",
 			MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 0, objectId));
 		CopyFormulaTransform(par, "node_0001_", fract->at(0));
-		CopyCommonFractalParams(par, "node_0001_", fract->at(0));
+		CopyFractalParams(par, "node_0001_");
 	}
 	// Handle hybrid mode
 	else
@@ -2768,7 +2733,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 					par->Set(prefix + "definition",
 						MakeNodeDefinition(formulaName, childNodeId, enumNodeType::fractal, 1, objectId));
 					CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
-					CopyCommonFractalParams(par, prefix, fract->at(objectId - 1));
+					CopyOneFractalParams(par, prefix, objectId);
 
 					// Set node enabled state based on fractal_enable_x parameter
 					// Note: fractal_enable_N is resolved by TryResolveLegacyFractalParam to
@@ -2914,7 +2879,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 
 	// Clean up all temporary legacy params after migration
 	DeleteTemporaryLegacyBooleanParams(par);
-	DeleteTemporaryLegacyJuliaParams(par);
+	DeleteTemporaryLegacyFractalParams(par);
 	DeleteTemporaryLegacyFormulaTransformParams(fract);
 	DeleteTemporaryLegacyFormulaMaterialIdParams(par);
 }
@@ -2922,7 +2887,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 // Flattens nested booleanAdd groups: finds each root booleanAdd, collects all its
 // leaf descendants (fractals/primitives), and reparents them directly to a new
 // booleanAdd root. Intermediate booleanAdd groups are reparented to the new root.
-static void FlattenBooleanAddGroups(
+void cSettings::FlattenBooleanAddGroups(
 	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId)
 {
 	struct sNodeInfo
@@ -3232,7 +3197,7 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterContainer> par)
+void cSettings::DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor, and
 	// formula_maxiter params. The formula_maxiter_N params are created by the v2.29 migration
@@ -3247,6 +3212,8 @@ void cSettings::DeleteTemporaryLegacyJuliaParams(std::shared_ptr<cParameterConta
 		name = QString("julia_c_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
 		name = QString("formula_maxiter_%1").arg(i);
+		if (par->IfExists(name)) par->DeleteParameter(name);
+		name = QString("finitial_waxis_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
 	}
 }
