@@ -499,6 +499,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 
 		out->distance = stack[0].cumulativeDistance;
 		out->objectId = stack[0].closestObjectId;
+		if (out->objectId == -1) out->objectId = 0;
 		out->seqIndex = stack[0].closestObjectSequence;
 		out->transformedPoint = stack[0].transformedPoint;
 		out->hasTransformedPoint = stack[0].hasTransformedPoint;
