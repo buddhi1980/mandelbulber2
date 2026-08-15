@@ -1014,7 +1014,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasInnerColoring) definesCollector += " -DUSE_INNER_COLORING";
 
 	if (anyMaterialHasSubsurfaceScattering) definesCollector += " -DUSE_SUBSURFACE_SCATTERING";
-
+	
 	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 			|| paramRender->DOFMonteCarloGlobalIllumination)
 	{
