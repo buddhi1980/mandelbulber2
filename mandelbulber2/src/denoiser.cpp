@@ -49,6 +49,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 	height = imageHeight;
 	strength = _strength;
 
+	// set parameters according to strength
 	switch (_strength)
 	{
 		case light:
@@ -98,6 +99,7 @@ void cDenoiser::AllocMem()
 	blurRadiusBuffer.resize(width * height);
 }
 
+// store pixel color, depth and estimated noise level
 void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat &color, float z, float noise)
 {
 	float filterRadius = min(sqrtf(noise * noiseMultiplier) + minBlurRadius, maxBlurRadius);
@@ -107,6 +109,7 @@ void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat &color, float z, float
 	blurZBuffer[x + y * width] = z;
 }
 
+// denoise image in given rectangle
 void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool preserveGeometry,
 	std::shared_ptr<cImage> image, int loopCounter)
 {
@@ -115,6 +118,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 	// Qt Concurrect is not used because this module is not available in ppa:beiner repository
 
 	// #pragma omp parallel for schedule(dynamic, 1)
+
+	// for each pixel in rectangle
 	for (int y = 0; y < int(boxHeight); y++)
 	{
 		for (int x = 0; x < int(boxWidth); x++)
@@ -122,9 +127,11 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			size_t xx = x + boxX;
 			size_t yy = y + boxY;
 
+			// get filter radius for pixel
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
 			if (filterRadius <= 0.01f) continue;
 
+			// get pixel depth and normal
 			float z = 0;
 			CVector3 normal;
 			if (preserveGeometry)
@@ -144,12 +151,14 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				filterRadius = filterRadius + clamp(0.1f / (sum * sum + 0.0000001f), 0.0f, 10.0f);
 			}
 
+			// calculate weighted average
 			int delta = int(filterRadius + 1.0f);
 			sRGBFloat averagePixel;
 			float averageZ = 0.0f;
 
 			float totalWeight = 0.0f;
 
+			// for each pixel in filter area
 			for (int dy = -delta; dy <= delta; dy++)
 			{
 				for (int dx = -delta; dx <= delta; dx++)
@@ -157,6 +166,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 					int fx = xx + dx;
 					int fy = yy + dy;
 
+					// check image boundaries
 					if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 					{
 						float radius = sqrtf(float(dx * dx + dy * dy));
@@ -171,6 +181,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
 						float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
 
+						// use depth and normal information for weighting
 						if (preserveGeometry)
 						{
 							// use surface normals to select samples from similar surface direction
@@ -182,6 +193,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 								CVector3 filterNormal(
 									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
+								// calculate difference between normals
 								float normalDiff = (normal - filterNormal).Length();
 								float normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
 
@@ -209,6 +221,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							fweight *= noiseWeight;
 						}
 
+						// accumulate weighted pixel
 						if (fweight > 0.0f)
 						{
 							sRGBFloat inputPixel = blurBuffer[fx + fy * width];
@@ -234,6 +247,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				}
 			}
 
+			// store averaged pixel
 			if (totalWeight > 0.0f)
 			{
 				averagePixel.R /= totalWeight;
@@ -247,7 +261,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				image->PutPixelZBuffer(xx, yy, averageZ);
 			}
 		} // for x
-	}		// for y
+	} // for y
 
 	// copy buffer
 	for (int y = 0; y < int(boxHeight); y++)
@@ -271,9 +285,11 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			size_t xx = x + boxX;
 			size_t yy = y + boxY;
 
+			// get filter radius for pixel
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
 			if (filterRadius <= 0.01f) continue;
 
+			// get pixel depth and normal
 			float z = 0.0f;
 			CVector3 normal;
 			if (preserveGeometry)
@@ -284,6 +300,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
 			}
 
+			// apply median filter only for reasonable radius
 			if (filterRadius <= maxMedianSize)
 			{
 				float weight = 1.0f;
@@ -294,10 +311,12 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 					filterRadius = 1.0f;
 				}
 
+				// define neighborhood size
 				int delta = int(filterRadius + 1.0f);
 
 				int pixelCount = 0;
 
+				// collect neighborhood pixels
 				std::vector<float> medianRInput;
 				std::vector<float> medianGInput;
 				std::vector<float> medianBInput;
@@ -318,23 +337,27 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							float deltaZ = 0.0f;
 							float normalWeight = 1.0f;
 
+							// use depth and normal information for weighting
 							if (preserveGeometry)
 							{
 								float z2 = blurZBuffer[fx + fy * width];
 
 								if (z > 1e-10f)
 								{
+									// use samples from similar depth
 									deltaZ = fabs((z - z2) / z);
 
 									sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
 									CVector3 filterNormal(
 										filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
+									// calculate difference between normals
 									float normalDiff = (normal - filterNormal).Length();
 									normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
 								}
 							}
 
+							// collect pixel only when depth and normal are similar
 							if (radius <= filterRadius && normalWeight > 0.5f
 									&& deltaZ < 1.0f / zDepthFilterfactor)
 							{
@@ -349,6 +372,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 					}
 				}
 
+				// calculate median by partial sort: more efficient than full sort
 				if (pixelCount > 2)
 				{
 					sRGBFloat newPixel = blurBuffer[xx + yy * width];
@@ -375,6 +399,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 
 					sRGBFloat newPixelMixed;
 
+					// calculate mix factor decreasing with loop count
 					float mixFactor = 1.0f / (loopCounter / 50.0f + 1.0f) * weight;
 
 					newPixelMixed.R = oldPixel.R * (1.0f - mixFactor) + newPixel.R * mixFactor;
@@ -385,5 +410,5 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				}
 			}
 		} // for x
-	}		// for y
+	} // for y
 }

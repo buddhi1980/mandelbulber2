@@ -55,7 +55,6 @@
 #include "material_item_model.h"
 #include "my_ui_loader.h"
 #include "netrender.hpp"
-#include "nine_fractals.hpp"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_post_filter.h"
@@ -127,6 +126,12 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 
 cInterface::~cInterface()
 {
+	// Must zero this global pointer BEFORE QObject::~QObject() triggers deleteChildren().
+	// cNetRender (a child of cInterface) calls WriteLog() in its destructor,
+	// which reads gMainInterface->mainWindow. If mainWindow were deleted first,
+	// WriteLog would access a destroyed object -> crash.
+	gMainInterface = nullptr;
+
 	if (imageSequencePlayer) delete imageSequencePlayer;
 	if (mainWindow) delete mainWindow;
 }
@@ -275,6 +280,8 @@ void cInterface::ShowUi()
 	if (gPar->Get<bool>("ui_colorize"))
 		ColorizeGroupBoxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
 
+	AdjustLayoutSpacing(mainWindow, gPar->Get<int>("ui_layout_spacing"));
+
 	renderedImage->show();
 
 	mainWindow->setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
@@ -371,12 +378,6 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceLights);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceRandomLights,
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceRandomLights);
-	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceJulia,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfaceJulia);
-	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfacePrimitives,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfacePrimitives);
-	connect(mainWindow->manipulations, &cManipulations::signalEnableJuliaMode,
-		mainWindow->ui->widgetDockFractal, &cDockFractal::slotEnableJuliaMode);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceMeasuremets,
 		mainWindow->ui->widgetDockMeasurements, &cDockMeasurements::slotSynchronizeInterface);
 	connect(mainWindow->manipulations, &cManipulations::signalDisablePeriodicRefresh, this,
@@ -519,6 +520,8 @@ void cInterface::ConnectSignals() const
 		renderedImage, &RenderedImage::mouseDragFinish, mainWindow, &RenderWindow::slotMouseDragFinish);
 	connect(
 		renderedImage, &RenderedImage::mouseDragDelta, mainWindow, &RenderWindow::slotMouseDragDelta);
+	connect(mainWindow->ui->widgetEffects, &cDockEffects::changedMCNoiseVisibility, renderedImage,
+		&RenderedImage::slotSetMCNoiseVisibility);
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
@@ -552,8 +555,9 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
 		&cInterface::slotRefreshPostEffects);
 
-	connect(mainWindow->ui->widgetDockFractal, &cDockFractal::signalUpdatePrimitivesCombos,
-		mainWindow->ui->widgetEffects, &cDockEffects::slotUpdatePrimitivesCombos);
+	// FIXME slotUpdatePrimitivesCombos need to reimpelemnted
+	//	connect(mainWindow->ui->widgetDockFractal, &cDockFractal::signalUpdatePrimitivesCombos,
+	//		mainWindow->ui->widgetEffects, &cDockEffects::slotUpdatePrimitivesCombos);
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
@@ -655,6 +659,7 @@ void cInterface::StartRender(bool noUndo)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,
 		renderedImage); // deleted by deleteLater()
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 
 	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
@@ -672,6 +677,7 @@ void cInterface::StartRender(bool noUndo)
 	config.EnableNetRender();
 	if (gPar->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
 		mainImage->ReleaseImage();
@@ -852,9 +858,19 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	std::shared_ptr<cFractalContainer> parFractal)
 {
 	std::shared_ptr<sParamRender> params(new sParamRender(par));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, par));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(par);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	cHybridFractalSequences fractals;
+	fractals.CreateSequences(par, parFractal, nodes);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
+
+	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
+	sRenderData renderData;
+	renderData.nodesDataForRendering = nodes;
+	renderData.hybridFractalSequences = fractals;
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
@@ -862,10 +878,17 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(par);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(par, parFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			par, parFractal, params, fractals, nullptr, false);
+			par, parFractal, params, hybridFractals, nullptr, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(par))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(par);
@@ -890,7 +913,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 	else
 	{
-		dist = CalculateDistance(*params, *fractals, in, &out);
+		dist = CalculateDistance(*params, fractals, in, &out, &renderData);
 	}
 
 #ifdef USE_OPENCL
@@ -921,7 +944,6 @@ void cInterface::Undo()
 	{
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
-		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -942,7 +964,6 @@ void cInterface::Redo()
 	{
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
-		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -992,7 +1013,17 @@ void cInterface::ResetView(QWidget *navigationWidget,
 	double maxDist = 0.0;
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractalContainer, parTemp));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(parTemp);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	cHybridFractalSequences fractals;
+	fractals.CreateSequences(parTemp, parFractalContainer, nodes);
+
+	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
+	sRenderData renderData;
+	renderData.nodesDataForRendering = nodes;
+	renderData.hybridFractalSequences = fractals;
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
@@ -1001,10 +1032,17 @@ void cInterface::ResetView(QWidget *navigationWidget,
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(parTemp);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(parTemp, gParFractal, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			parTemp, gParFractal, params, fractals, nullptr, false);
+			parTemp, gParFractal, params, hybridFractals, nullptr, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(parTemp))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(parTemp);
@@ -1045,7 +1083,7 @@ void cInterface::ResetView(QWidget *navigationWidget,
 			}
 			else
 			{
-				dist = CalculateDistance(*params, *fractals, in, &out);
+				dist = CalculateDistance(*params, fractals, in, &out, &renderData);
 			}
 			if (dist < 0.1)
 			{
@@ -1142,7 +1180,12 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	parTemp->Set("interior_mode", false);
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, parTemp));
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(parTemp);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+	auto fractals = std::make_shared<cHybridFractalSequences>();
+	fractals->CreateSequences(parTemp, parFractal, nodes);
 
 	CVector3 direction;
 	CVector3 orthDirection;
@@ -1390,7 +1433,6 @@ bool cInterface::AutoRecovery() const
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			materialListModel->Regenerate();
 			mainWindow->ui->widgetEffects->RegenerateLights();
-			mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gInterfaceReadyForSynchronization = true;
 			gFlightAnimation->RefreshTable();
@@ -1520,6 +1562,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(tempParam, tempFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 	connect(renderJob.get(), SIGNAL(updateImage()), renderedImage, SLOT(update()));
@@ -1530,6 +1573,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	config.DisableNetRender();
 	config.SetMaxRenderTime(5.0);
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 
 	cProgressText::ProgressStatusText(QObject::tr("Looking for optimal DE factor"),
@@ -1607,7 +1651,6 @@ void cInterface::ResetFormula(int fractalNumber) const
 
 	QStringList listToReset = {"formula_iterations", "formula_weight", "formula_start_iteration",
 		"formula_stop_iteration", "julia_mode", "julia_c", "fractal_constant_factor", "initial_waxis",
-		"formula_position", "formula_rotation", "formula_repeat", "formula_scale",
 		"dont_add_c_constant", "check_for_bailout"};
 
 	for (int i = 0; i < listToReset.size(); i++)
@@ -1841,26 +1884,28 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 	cRandom random;
 	random.Initialize(randomSeed);
 
+	int colorIntensity = 40;
+
 	foreach (QGroupBox *groupbox, widgets)
 	{
 		QColor buttonColor;
-		if (brightness > 20)
+		if (brightness > colorIntensity)
 		{
-			int r = random.Random(40) + rBase - 20;
+			int r = random.Random(colorIntensity) + rBase - colorIntensity / 2;
 			r = clamp(r, 0, 255);
-			int g = random.Random(40) + gBase - 20;
+			int g = random.Random(colorIntensity) + gBase - colorIntensity / 2;
 			g = clamp(g, 0, 255);
-			int b = random.Random(40) + bBase - 20;
+			int b = random.Random(colorIntensity) + bBase - colorIntensity / 2;
 			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
 		else
 		{
-			int r = random.Random(40) + rBase;
+			int r = random.Random(colorIntensity) + rBase;
 			r = clamp(r, 0, 255);
-			int g = random.Random(40) + gBase;
+			int g = random.Random(colorIntensity) + gBase;
 			g = clamp(g, 0, 255);
-			int b = random.Random(40) + bBase;
+			int b = random.Random(colorIntensity) + bBase;
 			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
@@ -1868,6 +1913,43 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 		QPalette newPalette(buttonColor);
 		groupbox->setPalette(newPalette);
 		groupbox->setAutoFillBackground(true);
+	}
+}
+
+void cInterface::AdjustLayoutSpacing(QWidget *window, int spacing)
+{
+	QList<QLayout *> layouts;
+	layouts = window->findChildren<QLayout *>();
+
+	foreach (QLayout *layout, layouts)
+	{
+		layout->setSpacing(int(spacing * 0.6));
+
+		QMargins actualMargins = layout->contentsMargins();
+		if (actualMargins.left() == 0 && actualMargins.right() == 0 && actualMargins.top() == 0
+				&& actualMargins.bottom() == 0)
+		{
+			continue; // do not change margins if they are zero (for special layouts)
+		}
+
+		if (layout->parentWidget()->objectName().startsWith("scroll"))
+		{
+			continue;
+		}
+
+		if (layout->parentWidget()->objectName().startsWith("dock"))
+		{
+			continue;
+		}
+
+		if (layout->parentWidget()->objectName() == "toolBar")
+		{
+			layout->setContentsMargins(1, 1, 1, 1);
+			layout->setSpacing(1);
+			continue;
+		}
+
+		layout->setContentsMargins(int(spacing), int(spacing), int(spacing), int(spacing));
 	}
 }
 
@@ -1922,6 +2004,8 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
+
+		ResetLocalSettings(widget);
 
 		for (int i = 0; i < 2; i++) // repeat twice to refresh comboboxes and get new list of widgets
 		{
@@ -2093,6 +2177,7 @@ void cInterface::RefreshMainImage()
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshPostEffects();
 }
 
@@ -2101,6 +2186,7 @@ void cInterface::RefreshImageAdjustments()
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshImageAdjustments();
 }
 
@@ -2241,7 +2327,7 @@ bool cInterface::CheckForMissingTextures()
 							tr("Select one from proposed files"), foundFiles, 0, false, &ok);
 					if (ok)
 					{
-						qDebug() << "substitution" << substitution;
+						// qDebug() << "substitution" << substitution;
 						gPar->Set(parameterName, substitution);
 						correctionApplied = true;
 					}

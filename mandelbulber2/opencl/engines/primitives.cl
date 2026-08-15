@@ -37,8 +37,7 @@
 #ifdef USE_PRIMITIVE_PLANE
 float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float dist = point.z;
 	dist = primitive->data.plane.empty ? fabs(dist) : dist;
 	dist = max(dist - primitive->object.wallThickness, 0.0f);
@@ -49,9 +48,7 @@ float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_BOX
 float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.box.repeat);
+	float3 point = _point;
 
 	float boxDist = -1e6f;
 	if (primitive->data.box.empty)
@@ -86,9 +83,7 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_SPHERE
 float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.sphere.repeat);
+	float3 point = _point;
 	float dist = length(point) - primitive->data.sphere.radius;
 	dist = primitive->data.sphere.empty ? fabs(dist) : dist;
 	dist = max(dist - primitive->object.wallThickness, 0.0f);
@@ -107,8 +102,7 @@ float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_RECTANGLE
 float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float3 boxTemp;
 	boxTemp.x = max(fabs(point.x) - primitive->data.rectangle.width * 0.5f, 0.0f);
 	boxTemp.y = max(fabs(point.y) - primitive->data.rectangle.height * 0.5f, 0.0f);
@@ -120,9 +114,7 @@ float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CYLINDER
 float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.cylinder.repeat);
+	float3 point = _point;
 	float2 cylTemp = (float2){point.x, point.y};
 	float dist = length(cylTemp) - primitive->data.cylinder.radius;
 	if (!primitive->data.cylinder.caps) dist = fabs(dist);
@@ -144,8 +136,7 @@ float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CIRCLE
 float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 	float2 circleTemp = (float2){point.x, point.y};
 	float distTemp = length(circleTemp) - primitive->data.circle.radius;
 	distTemp = max(fabs(point.z), distTemp);
@@ -156,9 +147,7 @@ float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_CONE
 float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.cone.repeat);
+	float3 point = _point;
 	point.z -= primitive->data.cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
 	float2 vect = (float2){q, point.z};
@@ -182,8 +171,7 @@ float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_WATER
 float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float distanceFromAnother)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	float3 point = _point;
 
 	float length = primitive->data.water.length;
 	if (primitive->data.water.waveFromObjectsEnable)
@@ -252,9 +240,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 #ifdef USE_PRIMITIVE_TORUS
 float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.torus.repeat);
+	float3 point = _point;
 
 	float2 pointXY = (float2){point.x, point.y};
 	float d1 =
@@ -280,9 +266,7 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_PRISM
 float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.prism.repeat);
+	float3 point = _point;
 
 	float3 q = fabs(point);
 
@@ -301,9 +285,7 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 #ifdef USE_PRIMITIVE_ELLIPSOID
 float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
 {
-	float3 point = _point - primitive->object.position;
-	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
-	point = modRepeat(point, primitive->data.ellipsoid.repeat);
+	float3 point = _point;
 
 	float k0 = length(point / primitive->object.size);
 	float k1 = length(point / (primitive->object.size * primitive->object.size));
@@ -323,234 +305,102 @@ float PrimitiveEllipsoid(__global sPrimitiveCl *primitive, float3 _point)
 }
 #endif
 
-float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
-	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
-	int *closestObjectId, int objectIdForVolumetrics)
+float PrimitiveDistanceByType(__global sPrimitiveCl *primitive, float3 point, float distFromAnother)
 {
-	int numberOfPrimitives = renderData->numberOfPrimitives;
-	int closestObject = *closestObjectId;
-	float dist = fractalDistance;
-
-	float3 point2 = point - renderData->primitivesGlobalData->allPrimitivesPosition;
-	point2 = Matrix33MulFloat3(renderData->primitivesGlobalData->mRotAllPrimitivesRotation, point2);
-
-	for (int i = 0; i < numberOfPrimitives; i++)
+	float distTemp = 0.0f;
+	switch (primitive->object.objectType)
 	{
-		__global sPrimitiveCl *primitive = &renderData->primitives[i];
-
-		if (primitive->object.enable)
-		{
-			float distTemp = 0.0f;
-			switch (primitive->object.objectType)
-			{
 #ifdef USE_PRIMITIVE_PLANE
-				case objPlane:
-				{
-					distTemp = PrimitivePlane(primitive, point2);
-					break;
-				}
+		case objPlane:
+		{
+			distTemp = PrimitivePlane(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_BOX
-				case objBox:
-				{
-					distTemp = PrimitiveBox(primitive, point2);
-					break;
-				}
+		case objBox:
+		{
+			distTemp = PrimitiveBox(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_SPHERE
-				case objSphere:
-				{
-					distTemp = PrimitiveSphere(primitive, point2);
-					break;
-				}
+		case objSphere:
+		{
+			distTemp = PrimitiveSphere(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_RECTANGLE
-				case objRectangle:
-				{
-					distTemp = PrimitiveRectangle(primitive, point2);
-					break;
-				}
+		case objRectangle:
+		{
+			distTemp = PrimitiveRectangle(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_CYLINDER
-				case objCylinder:
-				{
-					distTemp = PrimitiveCylinder(primitive, point2);
-					break;
-				}
+		case objCylinder:
+		{
+			distTemp = PrimitiveCylinder(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_CIRCLE
-				case objCircle:
-				{
-					distTemp = PrimitiveCircle(primitive, point2);
-					break;
-				}
+		case objCircle:
+		{
+			distTemp = PrimitiveCircle(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_CONE
-				case objCone:
-				{
-					distTemp = PrimitiveCone(primitive, point2);
-					break;
-				}
+		case objCone:
+		{
+			distTemp = PrimitiveCone(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_WATER
-				case objWater:
-				{
-					distTemp = PrimitiveWater(primitive, point2, dist);
-					break;
-				}
+		case objWater:
+		{
+			distTemp = PrimitiveWater(primitive, point, distFromAnother);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_TORUS
-				case objTorus:
-				{
-					distTemp = PrimitiveTorus(primitive, point2);
-					break;
-				}
+		case objTorus:
+		{
+			distTemp = PrimitiveTorus(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_PRISM
-				case objPrism:
-				{
-					distTemp = PrimitivePrism(primitive, point2);
-					break;
-				}
+		case objPrism:
+		{
+			distTemp = PrimitivePrism(primitive, point);
+			break;
+		}
 #endif
 
 #ifdef USE_PRIMITIVE_ELLIPSOID
-				case objEllipsoid:
-				{
-					distTemp = PrimitiveEllipsoid(primitive, point2);
-					break;
-				}
-#endif
-
-				default: break;
-			}
-
-			if (objectIdForVolumetrics == primitive->object.objectId)
-			{
-				return distTemp;
-			}
-			else
-			{
-				if (primitive->object.usedForVolumetric)
-					continue; // skip distance calculation if primitive is used for volumetric effects
-			}
-
-#ifdef USE_DISPLACEMENT_TEXTURE
-			distTemp = DisplacementMap(distTemp, point2, primitive->object.objectId, renderData, 1.0f);
-#endif
-
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-			distTemp = PerlinNoiseDisplacement(distTemp, point2, renderData, primitive->object.objectId);
-#endif // USE_PERLIN_NOISE
-
-			switch (primitive->booleanOperator)
-			{
-				case clPrimBooleanOperatorOR:
-				{
-					if (distTemp < dist)
-					{
-						closestObject = primitive->object.objectId;
-					}
-
-					if (primitive->object.smoothDeCombineEnable)
-					{
-						dist = opSmoothUnion(distTemp, dist, primitive->object.smoothDeCombineDistance);
-					}
-					else
-					{
-						dist = min(distTemp, dist);
-					}
-					break;
-				}
-				case clPrimBooleanOperatorAND:
-				{
-					if (distTemp > dist)
-					{
-						closestObject = primitive->object.objectId;
-					}
-					dist = max(dist, distTemp);
-					break;
-				}
-				case clPrimBooleanOperatorSUB:
-				{
-					const float limit = 1.5f;
-					if (dist < detailSize) // if inside 1st
-					{
-						if (distTemp < detailSize * limit * 1.5f)
-						{
-							closestObject = primitive->object.objectId;
-						}
-
-						if (distTemp < detailSize * limit) // if inside 2nd
-						{
-							if (normalCalculationMode)
-							{
-								dist = max(detailSize * limit - distTemp, dist);
-							}
-							else
-							{
-								dist = detailSize * limit;
-							}
-						}
-						else // if outside of 2nd
-						{
-							dist = max(detailSize * limit - distTemp, dist);
-							if (dist < 0.0f) dist = 0.0f;
-						}
-					}
-					break;
-				}
-				case clPrimBooleanOperatorRevSUB:
-				{
-					int closestObjectTemp = closestObject;
-					closestObject = primitive->object.objectId;
-					const float limit = 1.5f;
-					if (distTemp < detailSize) // if inside 2nd
-					{
-						if (dist < detailSize * limit * 1.5f)
-						{
-							closestObject = closestObjectTemp;
-						}
-
-						if (dist < detailSize * limit) // if inside 1st
-						{
-							if (normalCalculationMode)
-							{
-								dist = max(detailSize * limit - dist, distTemp);
-							}
-							else
-							{
-								dist = detailSize * limit;
-							}
-						}
-						else // if outside of 1st
-						{
-							distTemp = max(detailSize * limit - dist, distTemp);
-							dist = distTemp;
-							if (dist < 0.0f) dist = 0.0f;
-						}
-					}
-					else
-					{
-						dist = distTemp;
-					}
-					break;
-				}
-			} // switch
+		case objEllipsoid:
+		{
+			distTemp = PrimitiveEllipsoid(primitive, point);
+			break;
 		}
-	}
+#endif
 
-	*closestObjectId = closestObject;
-	return dist;
+		default: break;
+	}
+	return distTemp;
 }
 
 #endif // USE_PRIMITIVES

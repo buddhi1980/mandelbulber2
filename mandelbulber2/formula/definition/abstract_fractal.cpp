@@ -6,7 +6,10 @@
  */
 
 #include <QDebug>
+#include <QDir>
 #include "abstract_fractal.h"
+#include "src/system_directories.hpp"
+#include "src/fractal.h"
 
 cAbstractFractal::cAbstractFractal()
 {
@@ -73,4 +76,29 @@ bool cAbstractFractal::CheckForErrors() const
 	}
 
 	return error;
+}
+
+std::string cAbstractFractal::getIconName() const
+{
+	if (internalID == fractal::none)
+	{
+		return std::string(":system/icons/list-remove.svg");
+	}
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".png")
+		.toStdString();
+}
+
+std::string cAbstractFractal::getUiFilename() const
+{
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".ui")
+		.toStdString();
+}
+
+std::string cAbstractFractal::getOpenCLFilename() const
+{
+	return (systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					+ QString::fromStdString(internalName) + ".cl")
+		.toStdString();
 }

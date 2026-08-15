@@ -456,7 +456,7 @@ void cDockRenderingEngine::slotPressedButtonAutoBrighnessDark()
 {
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double averageBrightness = gMainInterface->mainImage->GetAverageBrightness();
-	qDebug() << "Average brightness:" << averageBrightness;
+	//qDebug() << "Average brightness:" << averageBrightness;
 	double oldBrighness = gPar->Get<double>("nebula_brightness");
 	double newBrighness = oldBrighness * 0.05 / averageBrightness;
 	gPar->Set("nebula_brightness", newBrighness);

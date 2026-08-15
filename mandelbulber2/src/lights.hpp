@@ -64,10 +64,10 @@ public:
 	cLights();
 	cLights(const std::shared_ptr<cParameterContainer> _params,
 		const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
-		bool useNetRender);
+		bool useNetRender, struct sRenderData *renderData = nullptr);
 	void Set(const std::shared_ptr<cParameterContainer> _params,
 		const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
-		bool useNetRender);
+		bool useNetRender, struct sRenderData *renderData = nullptr);
 	~cLights() override;
 	const cLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }

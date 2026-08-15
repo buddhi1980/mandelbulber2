@@ -45,6 +45,7 @@
 #include "system_directories.hpp"
 #include "texture_enums.hpp"
 #include "write_log.hpp"
+#include "object_node_type.h"
 
 #include "formula/definition/all_fractal_list.hpp"
 
@@ -122,53 +123,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 	par->addParam("sweet_spot_horizontal_angle", 0.0, -180.0, 180.0, morphAkima, paramStandard);
 	par->addParam("sweet_spot_vertical_angle", 0.0, -90.0, 90.0, morphAkima, paramStandard);
-
-	// fractal formula selections
-	par->addParam("formula", 1, int(fractal::mandelbulb), morphNone, paramStandard);
-	par->addParam("formula_iterations", 1, 1, 1, 65536, morphNone, paramStandard);
-
-	for (int i = 2; i <= NUMBER_OF_FRACTALS; i++)
-	{
-		par->addParam("formula", i, int(fractal::none), morphNone, paramStandard);
-		par->addParam("formula_iterations", i, 1, 1, 65536, morphNone, paramStandard);
-	}
-
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
-	{
-		par->addParam("fractal_enable", i, true, morphLinear, paramStandard);
-		par->addParam("formula_weight", i, 1.0, 0.0, 1.0, morphAkima, paramStandard);
-		par->addParam("formula_start_iteration", i, 0, 0, 65536, morphAkima, paramStandard);
-		par->addParam("formula_stop_iteration", i, 250, 0, 65536, morphAkima, paramStandard);
-		par->addParam("julia_mode", i, false, morphLinear, paramStandard);
-		par->addParam("julia_c", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-		par->addParam(
-			"fractal_constant_factor", i, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
-		par->addParam("initial_waxis", i, 0.0, morphAkima, paramStandard);
-	}
-
-	// boolean operators
-	par->addParam("boolean_operators", false, morphLinear, paramStandard);
-	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
-	{
-		par->addParam(
-			"boolean_operator", i, int(params::booleanOperatorOR), morphLinear, paramStandard);
-	}
-
-	// fractal transform
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
-	{
-		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-		par->addParam("formula_scale", i, 1.0, morphAkima, paramStandard);
-		par->addParam("dont_add_c_constant", i, false, morphLinear, paramStandard);
-		par->addParam("check_for_bailout", i, true, morphLinear, paramStandard);
-		par->addParam("formula_material_id", i, 1, morphLinear, paramStandard);
-		par->addParam("formula_maxiter", i, 250, 1, 9999, morphLinear, paramStandard);
-		par->addParam("smooth_de_combine_enable", i, false, morphLinear, paramStandard);
-		par->addParam("smooth_de_combine_distance", i, 0.1, 1e-15, 1e4, morphAkima, paramStandard);
-	}
-	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
 
 	// general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
@@ -497,6 +451,19 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("description", QString(""), morphNone, paramStandard);
 
+	// OBJECT TREE TEST PARAMETERS
+
+	par->addParam("objects_tree_enable", true, morphNone, paramStandard);
+
+	// Each "node_XXXX" parameter set represents an object tree node with the fields:
+	// name, id, type, parent_id, object_id, displayOrder
+	// - name: Node display name (QString)
+	// - id: Node unique integer ID
+	// - type: Node type (int, from enumNodeType)
+	// - parent_id: Parent node ID (int)
+	// - object_id: Associated object ID (int, or -1 if not applicable)
+	// - displayOrder: Tree display order (int, used for drag-and-drop reordering)
+
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
 	par->addParam("net_render_client_IP", QString("10.0.0.4"), morphNone, paramApp);
@@ -577,6 +544,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("ui_style_type", QString("Fusion"), morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
+	par->addParam("ui_layout_spacing", systemData.GetPreferredFontPointSize() / 2 + 1, 1, 50,
+		morphNone, paramApp);
 	par->addParam(
 		"custom_formula_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
 	par->addParam(
@@ -720,6 +689,30 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	QStringList qslCombo4({"type1", "type2", "type3", "type4"});
 	QStringList qslCombo5({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslCombo6({"type1", "type2", "type3", "type4", "type5", "type6"});
+
+	if (par->GetContainerName() == "fractal0")
+	{
+		par->addParam("formula", int(fractal::mandelbulb), morphNone, paramStandard);
+	}
+	else
+	{
+		par->addParam("formula", int(fractal::none), morphNone, paramStandard);
+	}
+	par->addParam("formula_iterations", 1, 1, 65536, morphNone, paramStandard);
+	par->addParam("formula_weight", 1.0, 0.0, 1.0, morphAkima, paramStandard);
+	par->addParam("formula_start_iteration", 0, 0, 65536, morphAkima, paramStandard);
+	par->addParam("formula_stop_iteration", 250, 0, 65536, morphAkima, paramStandard);
+	par->addParam("julia_mode", false, morphLinear, paramStandard);
+	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
+
+	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
+	par->addParam("fractal_enable", true, morphNone, paramStandard);
+
+	par->addParam("dont_add_c_constant", false, morphLinear, paramStandard);
+	par->addParam("check_for_bailout", true, morphLinear, paramStandard);
+	par->addParam("formula_maxiter", 250, 1, 9999, morphLinear, paramStandard);
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -1320,13 +1313,7 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 {
 	QString primitiveName = primitive.fullName;
 
-	par->addParam(
-		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam(
-		QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-	par->addParam(
-		QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-	par->addParam(QString(primitiveName) + "_boolean_operator", 1, morphLinear, paramStandard);
+	par->addParam(QString(primitiveName) + "_object_id", 1234, morphNone, paramStandard);
 
 	// left to keep compatibility with older versions
 	par->addParam(
@@ -1335,14 +1322,8 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 
 	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
-	par->addParam(QString(primitiveName) + "_calculation_order", 1, morphNone, paramStandard);
 	par->addParam(QString(primitiveName) + "_name",
 		QString("%1 #%2").arg(primitive.typeName).arg(primitive.id), morphNone, paramStandard);
-
-	par->addParam(
-		QString(primitiveName) + "_smooth_de_combine_enable", false, morphLinear, paramStandard);
-	par->addParam(QString(primitiveName) + "_smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima,
-		paramStandard);
 
 	switch (primitive.type)
 	{
@@ -1983,15 +1964,10 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 {
 	par->DeleteParameter(QString(primitiveName) + "_position");
 	par->DeleteParameter(QString(primitiveName) + "_rotation");
-	par->DeleteParameter(QString(primitiveName) + "_repeat");
 	par->DeleteParameter(QString(primitiveName) + "_color");
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
-	par->DeleteParameter(QString(primitiveName) + "_boolean_operator");
-	par->DeleteParameter(QString(primitiveName) + "_calculation_order");
-	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_enable");
-	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_distance");
 
 	switch (objectType)
 	{
@@ -2116,6 +2092,43 @@ void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par)
 	for (auto &parameterName : list)
 	{
 		if (parameterName.left(5) == "light")
+		{
+			par->DeleteParameter(parameterName);
+		}
+	}
+}
+
+void InitNodeParams(int nodeId, std::shared_ptr<cParameterContainer> par)
+{
+	QString prefix = QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
+	par->addParam(prefix + "definition",
+		QString("mandelbulb 1,1,%1,0,1").arg(int(enumNodeType::fractal)), morphNone, paramStandard);
+	par->addParam(prefix + "position", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam(prefix + "rotation", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam(prefix + "scale", 1.0, morphNone, paramStandard);
+	par->addParam(prefix + "repeat", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+	par->addParam(prefix + "material", 1, morphNone, paramStandard);
+	par->addParam(prefix + "enabled", true, morphNone, paramStandard);
+	par->addParam(prefix + "detail_level_multiplier", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
+
+	// Common fractal parameters shared by all node types (including boolean groups)
+	par->addParam(prefix + "julia_mode", false, morphLinear, paramStandard);
+	par->addParam(prefix + "julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam(
+		prefix + "fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+	par->addParam(prefix + "initial_waxis", 0.0, morphAkima, paramStandard);
+	par->addParam(prefix + "smooth_de_combine_enable", false, morphLinear, paramStandard);
+	par->addParam(prefix + "smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima, paramStandard);
+	par->addParam(prefix + "formula_maxiter", 250, 1, 9999, morphLinear, paramStandard);
+	par->addParam(prefix + "formula_stop_iteration", 250, 0, 9999, morphAkima, paramStandard);
+}
+
+void DeleteAllNodeParams(std::shared_ptr<cParameterContainer> par)
+{
+	QList<QString> list = par->GetListOfParameters();
+	for (auto &parameterName : list)
+	{
+		if (parameterName.left(5) == "node_")
 		{
 			par->DeleteParameter(parameterName);
 		}

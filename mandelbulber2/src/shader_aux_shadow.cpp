@@ -106,12 +106,27 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
-		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
+		// Apply per-object detailLevelMultiplier to dist_thresh dynamically
+		if (distanceOut.detailLevelMultiplier > 0.0)
+		{
+			dist_thresh *= distanceOut.detailLevelMultiplier;
+		}
+
 		cObjectData &objectData = data->objectData[distanceOut.objectId];
-		cMaterial *material = &data->materials[objectData.materialId];
-		goThrough = material->subsurfaceScattering;
+		if (distanceOut.objectId >= 0
+				&& distanceOut.objectId < static_cast<int>(data->objectData.size()))
+		{
+			const int matId = objectData.materialId;
+			const cMaterial *mat = (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+															 ? &data->materials[matId]
+															 : nullptr;
+			goThrough = mat ? mat->subsurfaceScattering : false;
+		}
+		else
+			goThrough = false;
 
 		bool limitsReached = false;
 		if (params->limitsEnabled)
@@ -139,14 +154,15 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		{
 			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-			if (opacity > 0.0 && params->primitives.primitiveIndexForIterFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
-							params->primitives.primitiveIndexForIterFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
+//FIXME: it need to be rewritten later due to implementation of cObjectsTree
+			//			if (opacity > 0.0 && params->primitives.primitiveIndexForIterFog >= 0)
+//			{
+//				int closestId = -1;
+//				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
+//							params->primitives.primitiveIndexForIterFog)
+//						> dist_thresh)
+//					opacity = 0.0f;
+//			}
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
@@ -157,14 +173,16 @@ sRGBAFloat cRenderWorker::AuxShadow(
 			double distanceShifted;
 			double opacity = DistanceFogOpacity(step, dist, params->volFogDistanceFromSurface,
 				params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
-			if (opacity > 0.0 && params->primitives.primitiveIndexForDistFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
-							params->primitives.primitiveIndexForDistFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
+
+			//FIXME: it need to be rewritten later due to implementation of cObjectsTree
+//			if (opacity > 0.0 && params->primitives.primitiveIndexForDistFog >= 0)
+//			{
+//				int closestId = -1;
+//				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
+//							params->primitives.primitiveIndexForDistFog)
+//						> dist_thresh)
+//					opacity = 0.0f;
+//			}
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
@@ -178,14 +196,15 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 			if (params->primitives.primitiveIndexForClouds >= 0)
 			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
-							params->primitives.primitiveIndexForClouds)
-						> dist_thresh)
-				{
-					opacity = 0.0f;
-					calculateClouds = false;
-				}
+				//FIXME: it need to be rewritten later due to implementation of cObjectsTree
+//				int closestId = -1;
+//				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
+//							params->primitives.primitiveIndexForClouds)
+//						> dist_thresh)
+//				{
+//					opacity = 0.0f;
+//					calculateClouds = false;
+//				}
 			}
 
 			if (calculateClouds)
@@ -206,14 +225,15 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		if (params->fogEnabled && params->fogCastShadows)
 		{
 			double opacity = step / params->fogVisibility;
-			if (params->primitives.primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
-							params->primitives.primitiveIndexForBasicFog)
-						> dist_thresh)
-					opacity = 0.0f;
-			}
+			//FIXME: it need to be rewritten later due to implementation of cObjectsTree
+//			if (params->primitives.primitiveIndexForBasicFog >= 0)
+//			{
+//				int closestId = -1;
+//				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
+//							params->primitives.primitiveIndexForBasicFog)
+//						> dist_thresh)
+//					opacity = 0.0f;
+//			}
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
@@ -222,7 +242,8 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		if (goThrough && dist < dist_thresh)
 		{
 			double opacityCollected = 1.0;
-			if (material->insideColoringEnable && material->diffuseGradientEnable)
+			cMaterial &material = data->materials[objectData.materialId];
+			if (material.insideColoringEnable && material.diffuseGradientEnable)
 			{
 				sGradientsCollection gradients;
 				input2.objectId = distanceOut.objectId;

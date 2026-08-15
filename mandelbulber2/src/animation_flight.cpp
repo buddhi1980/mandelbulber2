@@ -344,6 +344,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	// setup of rendering engine
 	std::unique_ptr<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
 		mainInterface->mainImage, 1, &mainInterface->stopRequest, mainInterface->renderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
+	renderJob->renderContext = "flight_anim_record";
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -355,6 +357,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	config.DisableRefresh();
 	config.SetMaxRenderTime(params->Get<double>("flight_sec_per_frame"));
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::flightAnimRecord, config);
 	mainInterface->stopRequest = false;
 
@@ -757,6 +760,7 @@ std::shared_ptr<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest
 {
 	std::shared_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -1021,6 +1025,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::flightAnim, config);
 
 	cProgressText progressText;
@@ -1110,6 +1115,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			// render frame
 			renderJob->UpdateParameters(params, fractalParams);
+			renderJob->renderContext =
+				QString("flight frame %1/%2").arg(index + 1).arg(frameRanges.totalFrames);
 			const int result = renderJob->Execute();
 			if (!result) throw false;
 

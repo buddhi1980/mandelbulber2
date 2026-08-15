@@ -155,12 +155,17 @@
     <file>icons/water.png</file>
   </qresource>
   <qresource prefix="/navigation">
+    <file>icons/world.png</file>
     <file>icons/precise.svg</file>
     <file>icons/auto.svg</file>
     <file>icons/rot.svg</file>
     <file>icons/roll.svg</file>
     <file>icons/rot-around.svg</file>
     <file>icons/cross.svg</file>
+    <file>icons/group_hybrid.svg</file>
+    <file>icons/group_add.svg</file>
+    <file>icons/group_mul.svg</file>
+    <file>icons/group_sub.svg</file>
     <file>icons/arrow-down-double.png</file>
     <file>icons/arrow-up-double.png</file>
     <file>icons/go-down.png</file>

@@ -43,18 +43,19 @@
 // object data
 typedef struct
 {
-	cl_int enable;
-	cl_int objectId;
-	cl_int smoothDeCombineEnable;
-	cl_float smoothDeCombineDistance;
+	cl_int usedForVolumetric;
 	cl_float wallThickness;
+	cl_int materialId;
+	cl_int objectId;
+	enumObjectTypeCl objectType;
+	cl_int enable;
 	cl_float3 position;
 	cl_float3 size;
 	cl_float3 repeat;
-	cl_int materialId;
-	cl_int usedForVolumetric;
-	enumObjectTypeCl objectType;
 	matrix33 rotationMatrix;
+	matrix44 worldToLocalMatrix;
+	cl_float absScale;
+	cl_float detailLevelMultiplier;
 } sObjectDataCl;
 
 #endif /* MANDELBULBER2_OPENCL_OBJECT_DATA_CL_H_ */

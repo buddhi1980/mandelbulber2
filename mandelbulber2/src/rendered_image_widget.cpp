@@ -48,7 +48,6 @@
 #include "common_math.h"
 #include "fractparams.hpp"
 #include "light.h"
-#include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "primitive.hpp"
 #include "primitives.h"
@@ -1311,7 +1310,21 @@ void RenderedImage::DrawAnimationPath()
 
 void RenderedImage::showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles)
 {
-	listOfRenderedTilesData.append(listOfRenderedTiles);
+	if (listOfRenderedTiles.size() > 0)
+	{
+		listOfRenderedTilesData.append(listOfRenderedTiles);
+	}
+	else
+	{
+		listOfRenderedTilesData.clear();
+		tileArea = 0;
+	}
+}
+
+void RenderedImage::slotSetMCNoiseVisibility(bool visible)
+{
+	mcNoiseVisible = visible;
+	update();
 }
 
 void RenderedImage::PaintLastRenderedTilesInfo()
@@ -1327,18 +1340,104 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	double dpiScale = image->GetDpiScale();
 
-	for (sRenderedTileData &tile : listOfRenderedTilesData)
+	int drawingStep = std::max(int(1.0 / (image->GetPreviewScale() / dpiScale) * 5), 1);
+
+	int nPainted = 100;
+	if (tileArea > 0)
 	{
+		nPainted = int(image->GetWidth() * image->GetHeight() / tileArea) / 2;
+		if (nPainted < 5) nPainted = 5;
+	}
+
+	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
+	{
+		float opacity = std::min(
+			float(i + nPainted - std::min(int(listOfRenderedTilesData.size()), nPainted)) / nPainted,
+			1.0f);
+		painter.setOpacity(opacity);
+
+		sRenderedTileData &tile = listOfRenderedTilesData[i];
+
+		tileArea = std::max(int(tile.width * tile.height), tileArea);
+
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{
 			listOfPaintedTiles.append(QPair<int, int>(tile.x, tile.y));
+
+			if (mcNoiseVisible)
+			{
+				if (tile.individualNoiseLevels.size() > 0)
+				{
+					for (int y = 0; y < tile.height; y += drawingStep)
+					{
+						for (int x = 0; x < tile.width; x += drawingStep)
+						{
+							float noise = tile.individualNoiseLevels[y * tile.width + x];
+							if (noise > -100.0)
+							{
+								// Map t to blue → green → yellow → orange → red with custom ranges
+								float t = noise * 100.0; // use your actual value here
+								int r = 0, g = 0, b = 0;
+
+								if (t <= 0.25f)
+								{
+									// Blue (0,0,255) to Green (0,255,0)
+									float f = t / 0.25f;
+									r = 0;
+									g = int(255 * f);
+									b = 255 - int(255 * f);
+								}
+								else if (t <= 0.5f)
+								{
+									// Green (0,255,0) to Yellow (255,255,0)
+									float f = (t - 0.25f) / 0.25f;
+									r = int(255 * f);
+									g = 255;
+									b = 0;
+								}
+								else if (t < 1.0f)
+								{
+									// Yellow (255,255,0) to Orange (255,128,0)
+									float f = (t - 0.5f) / 0.5f;
+									r = 255;
+									g = 255 - int(127 * f);
+									b = 0;
+								}
+								else if (t < 5.0f)
+								{
+									// Orange (255,128,0) to Red (255,0,0)
+									float f = (t - 1.0f) / 4.0f;
+									r = 255;
+									g = 128 - int(128 * f);
+									b = 0;
+								}
+								else
+								{
+									// Red (255,0,0)
+									r = 255;
+									g = 0;
+									b = 0;
+								}
+
+								r = clamp(r, 0, 255);
+								g = clamp(g, 0, 255);
+								b = clamp(b, 0, 255);
+
+								painter.setPen(QPen(QColor(r, g, b), 2.0, Qt::SolidLine));
+								painter.drawPoint(QPointF((tile.x + x) * image->GetPreviewScale() / dpiScale,
+									(tile.y + y) * image->GetPreviewScale() / dpiScale));
+							}
+						}
+					}
+				}
+			}
 
 			QRect r(tile.x * image->GetPreviewScale() / dpiScale,
 				tile.y * image->GetPreviewScale() / dpiScale,
 				tile.width * image->GetPreviewScale() / dpiScale,
 				tile.height * image->GetPreviewScale() / dpiScale);
 
-			painter.setOpacity(0.5);
+			if (!mcNoiseVisible) painter.setOpacity(opacity * 0.5);
 			painter.setPen(penRed);
 
 			painter.drawLine(r.x(), r.y(), r.x() + r.width() / 4, r.y());
@@ -1355,7 +1454,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 			QPoint center = r.center();
 
-			painter.setOpacity(1.0);
+			if (!mcNoiseVisible) painter.setOpacity(opacity);
 			if (tile.noiseLevel > 0)
 			{
 				QStaticText text(QString("%1").arg(tile.noiseLevel * 100.0, 0, 'f', 1));
@@ -1365,7 +1464,21 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 			}
 		}
 	}
-	listOfRenderedTilesData.clear();
+	if (listOfRenderedTilesData.size() > nPainted)
+	{
+		int numberToRemove = listOfRenderedTilesData.size() - nPainted;
+		for (int i = 0; i < numberToRemove; i++)
+		{
+			listOfRenderedTilesData.removeAt(0);
+		}
+	}
+	for (int i = listOfRenderedTilesData.size() - 1; i >= 0; i--)
+	{
+		if (listOfRenderedTilesData[i].noiseLevel <= 0.0)
+		{
+			listOfRenderedTilesData.removeAt(i);
+		}
+	}
 }
 
 void RenderedImage::DisplayAllLights()
@@ -1570,22 +1683,23 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x2, y2, tz1);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color, 					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x3, y3, tz2);
-				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				point1 = point1 + torus->position;
-				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				point2 = point2 + torus->position;
-				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				//				point1 = point1 + torus->position;
+				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				//				point2 = point2 + torus->position;
+				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+				// height, color,
+				//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 		}
 	}
@@ -1632,19 +1746,19 @@ void RenderedImage::DisplayAllPrimitives()
 
 			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
 			{
-				sizeMultiplier = (camera - primitive->position).Length();
+				// sizeMultiplier = (camera - primitive->position).Length();
 			}
 
-			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p1 * primitive->size * sizeMultiplier);
-			point1 = point1 + primitive->position;
+			//			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p1 * primitive->size * sizeMultiplier);
+			//			point1 = point1 + primitive->position;
+			//
+			//			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
+			//				line.p2 * primitive->size * sizeMultiplier);
+			//			point2 = point2 + primitive->position;
 
-			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
-				line.p2 * primitive->size * sizeMultiplier);
-			point2 = point2 + primitive->position;
-
-			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			// line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+			//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }

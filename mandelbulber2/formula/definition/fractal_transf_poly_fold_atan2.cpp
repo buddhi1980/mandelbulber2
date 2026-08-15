@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfPolyFoldAtan2::cFractalTransfPolyFoldAtan2() : cAbstractFractal()
 {

@@ -35,11 +35,12 @@
 #ifndef MANDELBULBER2_SRC_RENDER_DATA_HPP_
 #define MANDELBULBER2_SRC_RENDER_DATA_HPP_
 
-#include <map>
 #include <memory>
+#include <vector>
 
 #include <QDebug>
 
+#include "hybrid_fractal_sequences.h"
 #include "lights.hpp"
 #include "material.h"
 #include "object_data.hpp"
@@ -49,6 +50,7 @@
 #include "statistics.h"
 #include "stereo.h"
 #include "texture.hpp"
+#include "objects_tree.h"
 
 struct sTextures
 {
@@ -82,36 +84,30 @@ struct sRenderData
 	cRenderingConfiguration configuration;
 
 	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise;
-	std::map<int, cMaterial> materials; // 'int' is an ID
-	QVector<cObjectData> objectData;
+	std::vector<cMaterial> materials; // indexed by material ID
+	std::vector<cObjectData> objectData;
 	cStereo stereo;
+	std::vector<cObjectsTree::sNodeDataForRendering> nodesDataForRendering;
+	cHybridFractalSequences hybridFractalSequences;
+	QString settingsFile;
 
 	void ValidateObjects()
 	{
 		for (cObjectData &object : objectData)
 		{
-			// check if material assigned to the object is defined
 			int materialId = object.materialId;
 
-			if (materials.size() == 0)
+			if (materials.empty())
 			{
 				qCritical() << "No materials defined! Adding empty material";
-				materials.emplace(1, cMaterial());
+				materials.resize(2); // index 0 unused, index 1 = default empty material
 			}
 
-			if (materials.find(materialId) == materials.end())
+			if (materialId < 0 || materialId >= static_cast<int>(materials.size()))
 			{
-				QList<int> keys;
-				for (auto const &element : materials)
-				{
-					keys.push_back(element.first);
-				}
-				std::sort(keys.begin(), keys.end());
-				int substituteMaterialId = keys.first();
-				qCritical() << QString("Material #%1 is not defined. Will be substitubed by material #%2")
-												 .arg(materialId)
-												 .arg(substituteMaterialId);
-				object.materialId = substituteMaterialId;
+				qCritical() << QString("Material #%1 is not defined. Will be substituted by material #1")
+												 .arg(materialId);
+				object.materialId = 1;
 			}
 		}
 	}

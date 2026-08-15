@@ -8,6 +8,12 @@ unix:!macx:CONFIG += c++14
 macx:!m1:CONFIG += c++14
 macx:m1:CONFIG += c++17
 
+# Prevent std::byte from conflicting with Windows SDK byte type
+win32:DEFINES += _HAS_STD_BYTE=0
+
+# Prevent UCRT from redefining math constants that Qt already defines (M_PI, M_SQRT2, etc.)
+win32:DEFINES += _USE_MATH_DEFINES
+
 m1: {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 }
@@ -18,9 +24,9 @@ SHARED = $$ROOT/deploy/share/mandelbulber2
 
 
 
-QMAKE_FULL_VERSION = 2.34
+QMAKE_FULL_VERSION = 2.35
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
-VERSION = 2.34
+VERSION = 2.35
 
 #m1:DEFINES += NO_AUDIO_OUTPUT
 #m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO

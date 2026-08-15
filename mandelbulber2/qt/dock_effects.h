@@ -102,6 +102,7 @@ private:
 
 signals:
 	void signalRefreshPostEffects(void);
+	void changedMCNoiseVisibility(bool);
 
 private:
 	Ui::cDockEffects *ui;

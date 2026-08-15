@@ -50,8 +50,12 @@ typedef struct
 	float depth;
 	float distThresh;
 	int objectId;
+	int sequenceIndex;
 	bool found;
 	int count;
+	float3 transformedPoint;
+	bool hasTransformedPoint;
+	float detailLevelMultiplier;
 } sRayMarchingOut;
 
 typedef enum
@@ -138,6 +142,20 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
 		out->objectId = outF.objectId;
+		out->sequenceIndex = outF.sequenceIndex;
+		out->transformedPoint = outF.transformedPoint;
+		out->hasTransformedPoint = outF.hasTransformedPoint;
+		out->detailLevelMultiplier = 1.0f;
+		if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+		{
+			out->detailLevelMultiplier = renderData->objectsData[outF.objectId].detailLevelMultiplier;
+		}
+
+		// Apply per-object detailLevelMultiplier to distThresh dynamically
+		if (out->detailLevelMultiplier > 0.0f)
+		{
+			distThresh *= out->detailLevelMultiplier;
+		}
 
 #ifdef USE_REFRACTION
 		if (in.invertMode)
@@ -204,6 +222,9 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
 			out->objectId = outF.objectId;
+			out->sequenceIndex = outF.sequenceIndex;
+			out->transformedPoint = outF.transformedPoint;
+			out->hasTransformedPoint = outF.hasTransformedPoint;
 
 			// #ifdef USE_REFRACTION
 			if (in.invertMode)
@@ -280,11 +301,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
-#else
-			shaderInputData.objectId = 0;
-#endif
+			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
+
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
@@ -393,9 +414,18 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #ifdef USE_TEXTURES
 #ifdef USE_NORMAL_MAP_TEXTURE
-				normal = NormalMapShader(&shaderInputData, renderData, objectData,
-					shaderInputData.material->normalMapTextureIndex);
-				shaderInputData.normal = normal;
+				{
+					float3 normalMapResult = NormalMapShader(&shaderInputData, renderData, objectData,
+						shaderInputData.material->normalMapTextureIndex);
+					float normalMapLength = length(normalMapResult);
+					bool valid = normalMapLength > 1e-5f && normalMapLength < 1e5;
+
+					if (valid)
+					{
+						normal = normalMapResult;
+						shaderInputData.normal = normal;
+					}
+				}
 #endif
 #endif
 
@@ -581,9 +611,13 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
 #if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
+			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
 #else
 			shaderInputData.objectId = 0;
+			shaderInputData.sequenceIndex = 0;
 #endif
+			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
+			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];

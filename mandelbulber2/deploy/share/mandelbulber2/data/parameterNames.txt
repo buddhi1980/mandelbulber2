@@ -1,3 +1,29 @@
+formula int formula
+
+formulaIterations int formula_iterations
+
+formulaWeight REAL formula_weight
+
+formulaStartIteration int formula_start_iteration
+
+formulaStopIteration int formula_stop_iteration
+
+juliaMode bool julia_mode
+
+juliaConstant REAL3 julia_c
+
+constantMultiplier REAL3 fractal_constant_factor
+
+initialWAxis REAL initial_waxis
+
+dontAddCConstant bool dont_add_c_constant
+
+checkForBailout bool check_for_bailout
+
+formulaMaxiter int formula_maxiter
+
+formulaMaterialId int formula_material_id
+
 bulb.power REAL power
 bulb.alphaAngleOffset REAL alpha_angle_offset
 bulb.betaAngleOffset REAL beta_angle_offset

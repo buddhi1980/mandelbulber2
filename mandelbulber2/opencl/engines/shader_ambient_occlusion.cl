@@ -64,6 +64,22 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 			outF = CalculateDistance(consts, point2, calcParam, renderData);
 			dist = outF.distance;
 
+			// Apply per-object detailLevelMultiplier to dist_thresh dynamically
+			float dist_thresh;
+			if (consts->params.iterFogEnabled)
+			{
+				dist_thresh = CalcDistThresh(point2, consts);
+			}
+			else
+			{
+				dist_thresh = input->distThresh;
+			}
+
+			if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+			{
+				dist_thresh *= renderData->objectsData[outF.objectId].detailLevelMultiplier;
+			}
+
 #ifdef ITER_FOG
 			opacity =
 				IterOpacity(dist * 2.0f, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
@@ -81,14 +97,6 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 			// #endif
 
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
-
-			float dist_thresh;
-			if (consts->params.iterFogEnabled)
-			{
-				dist_thresh = CalcDistThresh(point2, consts);
-			}
-			else
-				dist_thresh = input->distThresh;
 
 			if (dist < dist_thresh || shadowTemp < 0.0f)
 			{

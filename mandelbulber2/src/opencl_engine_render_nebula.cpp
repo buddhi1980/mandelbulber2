@@ -8,6 +8,7 @@
 #include "opencl_engine_render_nebula.h"
 
 #include <memory>
+#include "common_math.h"
 #include <map>
 #include <QApplication>
 
@@ -18,8 +19,9 @@
 #include "fractal.h"
 #include "fractparams.hpp"
 #include "fractal_container.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "global_data.hpp"
-#include "nine_fractals.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "opencl_hardware.h"
 #include "opencl_input_output_buffer.h"
 #include "progress_text.hpp"
@@ -27,15 +29,25 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
+static QByteArray StripNonAscii(const QByteArray &data)
+{
+	QByteArray result;
+	result.reserve(data.size());
+	for (char c : data)
+	{
+		if (static_cast<unsigned char>(c) < 128)
+		{
+			result.append(c);
+		}
+	}
+	return result;
+}
+
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
 #ifdef USE_OPENCL
-	customFormulaCodes.reserve(NUMBER_OF_FRACTALS);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		customFormulaCodes.append(QString());
-	}
+	customFormulaCodes.clear();
 #endif
 }
 
@@ -51,81 +63,109 @@ cOpenClEngineRenderNebula::~cOpenClEngineRenderNebula()
 void cOpenClEngineRenderNebula::SetParameters(
 	std::shared_ptr<const cParameterContainer> paramContainer,
 	std::shared_ptr<const cFractalContainer> fractalContainer,
-	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals)
+	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cHybridFractalSequences> fractals,
+	const cHybridFractalSequences &hybridSequences)
 {
-	Q_UNUSED(paramContainer);
-
 	constantInBuffer.reset(new sClInConstants);
 
 	definesCollector.clear();
 
-	// creating list of used formulas
 	listOfUsedFormulas.clear();
-	// creating list of used formulas
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
-		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
-		QString formulaName = newFractalList.at(listIndex)->getInternalName();
-		if (formulaName == "custom")
-		{
-			formulaName += QString::number(i);
-			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
+	customFormulaCodes.clear();
 
-			if (formulaCode.contains("CustomIteration("))
-			{
-				formulaCode = formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(i));
-				QFile qFile(
-					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
-				if (qFile.open(QIODevice::WriteOnly))
-				{
-					qFile.write(formulaCode.toUtf8());
-					qFile.close();
-				}
-			}
-			else
-			{
-				emit showErrorMessage(
-					QObject::tr("Custom formula %1 has missing function name CustomIteration()!").arg(i),
-					cErrorMessage::errorMessage, nullptr);
-			}
-			customFormulaCodes[i] = formulaCode;
-		}
-		else
+	int formulaIndex = 0;
+	for (int s = 0; s < hybridSequences.GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences.GetSequence(s);
+		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
 		{
-			customFormulaCodes[i] = QString();
+			const cHybridFractalSequences::sFractalData &fractData = seq->fractData[f];
+			QString formulaName =
+				QString::fromStdString(fractData.fractalFormulaObject->getInternalName());
+
+			if (formulaName == "custom")
+			{
+				formulaName += QString::number(formulaIndex);
+				QString formulaCode =
+					fractalContainer->at(fractData.objectId - 1)->Get<QString>("formula_code");
+
+				if (formulaCode.contains("CustomIteration("))
+				{
+					formulaCode =
+						formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(formulaIndex));
+					formulaCode.replace("__constant sFractalCl *fractal", "__global sFractalCl *fractal");
+					QFile qFile(
+						systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+					if (qFile.open(QIODevice::WriteOnly))
+					{
+						qFile.write(formulaCode.toUtf8());
+						qFile.close();
+					}
+				}
+				else
+				{
+					emit EmitErrorMessage(
+						QObject::tr("Custom formula %1 has missing function name CustomIteration()!")
+							.arg(formulaIndex),
+						cErrorMessage::errorMessage, nullptr);
+				}
+				customFormulaCodes.append(formulaCode);
+			}
+
+			listOfUsedFormulas.append(formulaName);
+			formulaIndex++;
 		}
-		listOfUsedFormulas.append(formulaName);
 	}
+
+	if (listOfUsedFormulas.isEmpty())
+	{
+		listOfUsedFormulas.append("mandelbulb");
+	}
+
 	// adding #defines to the list
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
+		QString functionName;
 		if (internalID != "" && internalID != "None")
 		{
-			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
-			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+			functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
 		}
+		else
+		{
+			functionName = "DummyIteration";
+		}
+		definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 	}
 
 	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 
-	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
+	// check for hybrid and iteration weight
+	bool useHybrid = false;
+	bool weightUsed = false;
+	for (int s = 0; s < hybridSequences.GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences.GetSequence(s);
+		if (seq->isHybrid)
+		{
+			useHybrid = true;
+		}
+		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
+		{
+			if (seq->fractData[f].formulaWeight != 1.0)
+			{
+				weightUsed = true;
+			}
+		}
+	}
+	if (useHybrid) definesCollector += " -DIS_HYBRID";
+	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
+	definesCollector += " -DNEBULA_MODE";
 	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
-
-	bool weightUsed = false;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		if (fractals->GetWeight(i) != 1.0)
-		{
-			weightUsed = true;
-		}
-	}
-	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 
@@ -154,23 +194,29 @@ void cOpenClEngineRenderNebula::SetParameters(
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
-	}
-
-	fractals->CopyToOpenclData(&constantInBuffer->sequence);
-
 	numberOfPixels = quint64(paramRender->imageWidth) * quint64(paramRender->imageHeight);
 
 	zBufferDefault = (paramRender->camera - paramRender->target).Length();
 
-	dynamicData.reset(new cOpenClDynamicData(1));
+	dynamicData.reset(new cOpenClDynamicData(8));
 	dynamicData->ReserveHeader();
 	dynamicData->BuildNebulaGradientsData(paramRender.get());
+	dynamicData->BuildNebulaSequenceData(&hybridSequences);
+	dynamicData->BuildHybridSequencesData(&hybridSequences);
+	dynamicData->BuildFractalData(&hybridSequences);
 	dynamicData->FillHeader();
 
 	inBuffer = dynamicData->GetData();
+
+	// Populate renderData for shader
+	renderData.nebulaSequencesCount = hybridSequences.GetNumberOfSequences();
+	renderData.nebulaSequencesDataOffset =
+		(intptr_t)dynamicData->GetItemOffset(1); // nebulaSequencesItemIndex = 1
+	renderData.hybridSequencesCount = hybridSequences.GetNumberOfSequences();
+	renderData.hybridSequencesDataOffset =
+		(intptr_t)dynamicData->GetItemOffset(6); // hybridSequencesItemIndex = 6
+	renderData.fractalsCount = 0;
+	renderData.fractalsDataOffset = (intptr_t)dynamicData->GetItemOffset(7); // fractalsItemIndex = 7
 }
 
 bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
@@ -188,6 +234,27 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		QStringList clHeaderFiles;
 		CreateListOfHeaderFiles(clHeaderFiles);
 
+		// Generate formula switch code from listOfUsedFormulas
+		QByteArray formulaSwitchCode;
+		if (listOfUsedFormulas.isEmpty())
+		{
+			formulaSwitchCode.append("		z = MandelbulbIteration(z, fractal, &aux);");
+		}
+		else
+		{
+			QString internalID = toCamelCase(listOfUsedFormulas.at(0));
+			QString functionName;
+			if (internalID != "" && internalID != "None")
+			{
+				functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+			}
+			else
+			{
+				functionName = "DummyIteration";
+			}
+			formulaSwitchCode.append(("		z = " + functionName + "(z, fractal, &aux);").toUtf8());
+		}
+
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
 
@@ -201,12 +268,34 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		QString openclPathSlash = openclPath;
 #endif
 
-		CreateListOfIncludes(clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine);
+		CreateListOfIncludes(
+			clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine, QByteArray());
 
 		// main engine
 		QString mainEngineFileName = "nebula.cl";
 		QString engineFullFileName = openclEnginePath + mainEngineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+		// Replace PLACEHOLDER_FOR_FORMULA_ITER with actual formula code
+		if (!formulaSwitchCode.isEmpty())
+		{
+			int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
+			if (placeholderPos >= 0)
+			{
+				int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+				programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
+			}
+		}
+
+		// Write combined OpenCL source for debugging compiler errors
+		{
+			QString combinedPath = systemDirectories.GetDataDirectoryHidden() + "openclKernelCombined.cl";
+			QFile combinedFile(combinedPath);
+			if (combinedFile.open(QIODevice::WriteOnly))
+			{
+				combinedFile.write(programEngine);
+			}
+		}
 
 		// adding hash code for custom formulas to the end of code to force recompile
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
@@ -279,7 +368,7 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 					"sizeof(sClInConstants), constantInBuffer, &err)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
@@ -293,8 +382,22 @@ bool cOpenClEngineRenderNebula::PreAllocateBuffers(
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inBuffer, &err)"))
 		{
-			emit showErrorMessage(
+			emit EmitErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+
+		WriteLog(QString("Allocating OpenCL buffer for render data"), 2);
+
+		inCLRenderDataBuffer.append(std::shared_ptr<cl::Buffer>(
+			new cl::Buffer(*hardware->getContext(0), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+				size_t(sizeof(sNebulaRenderData)), &renderData, &err)));
+		if (!checkErr(
+					err, "cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY, sizeof(sNebulaRenderData))"))
+		{
+			emit EmitErrorMessage(
+				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for render data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -312,7 +415,7 @@ bool cOpenClEngineRenderNebula::WriteBuffersToQueue()
 		*inCLBuffer[0], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -331,7 +434,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -341,8 +444,18 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 					->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input inOut")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	// Write updated renderData to buffer (used by SetParameters, not passed to kernel)
+	cl_int writeErr = clQueues.at(0)->enqueueWriteBuffer(*inCLRenderDataBuffer[deviceIndex], CL_FALSE,
+		0, sizeof(sNebulaRenderData), &renderData, nullptr, nullptr);
+	if (!checkErr(writeErr, "enqueueWriteBuffer(renderData)"))
+	{
+		emit EmitErrorMessage(QObject::tr("Cannot write OpenCL %1").arg(QObject::tr("render data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -351,7 +464,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 	err = clKernels.at(deviceIndex)->setArg(argIterator++, randomSeed4); // random seed
 	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -368,7 +481,7 @@ bool cOpenClEngineRenderNebula::ProcessQueue(qint64 offset)
 		*clKernels.at(0), cl::NDRange(offset), cl::NDRange(optimalJob.stepSize), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
+		emit EmitErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs. Error %1").arg(err),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -376,7 +489,7 @@ bool cOpenClEngineRenderNebula::ProcessQueue(qint64 offset)
 	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot finish rendering nebula"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -474,8 +587,16 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 
 		lastProcessingTime = timerForOptimalJobSize.nsecsElapsed() / 1.0e9;
 
-		float brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
-											 / sqrt(constantInBuffer->params.N);
+		float brightness;
+		if (totalSamplesCounter > 0)
+		{
+			brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
+									 / sqrt(constantInBuffer->params.N);
+		}
+		else
+		{
+			brightness = 1.0f;
+		}
 		// qDebug() << "cOpenClEngineRenderNebula::Render(): brightness = " << brightness;
 
 		if (nextRefreshCounter == 0 || lastPass || refreshCounter < 10)
@@ -496,9 +617,16 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 					sRGBFloat color(
 						colorCl.s0 * brightness, colorCl.s1 * brightness, colorCl.s2 * brightness);
 
-					if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
+					if (constantInBuffer->params.nebulaConstantBrighness
+							&& totalSamplesCounter > 0) // darken by brightness
 					{
 						totalBrigtnessSum += color.R + color.G + color.B;
+						// check if not a number
+						if (color.R != color.R || color.G != color.G || color.B != color.B)
+						{
+							qDebug() << "color is not a number: " << color.R << color.G << color.B;
+							color = sRGBFloat(0.0f, 0.0f, 0.0f);
+						}
 					}
 
 					image->PutPixelPostImage(x, y, color);
@@ -512,10 +640,14 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
 			{
 				double averageBrighness = totalBrigtnessSum / (width * height * 3.0);
+				qDebug() << "totalBrigtnessSum = " << totalBrigtnessSum;
 				if (averageBrighness > 0)
 				{
 					double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
 					brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
+					qDebug() << "brightnessMultiplier = " << brightnessMultiplier
+									 << " averageBrighness = " << averageBrighness
+									 << " brighnessChange = " << brighnessChange;
 				}
 			}
 
@@ -551,6 +683,7 @@ void cOpenClEngineRenderNebula::ReleaseMemory()
 {
 	constantInBuffer.reset();
 	inCLConstBuffer.clear();
+	inCLRenderDataBuffer.clear();
 	cOpenClEngine::ReleaseMemory();
 	dynamicData.reset();
 	inBuffer.clear();
@@ -578,20 +711,25 @@ void cOpenClEngineRenderNebula::CreateListOfHeaderFiles(QStringList &clHeaderFil
 	clHeaderFiles.append("fractal_cl.h");
 	clHeaderFiles.append("fractparams_cl.hpp");
 	clHeaderFiles.append("fractal_sequence_cl.h");
+	clHeaderFiles.append("nebula_sequence_cl.h");
+	clHeaderFiles.append("hybrid_sequence_cl.h");
 	clHeaderFiles.append("input_data_structures.h");
 }
 
 void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeaderFiles,
 	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
-	const QString &openclEnginePath, QByteArray &programEngine)
+	const QString &openclEnginePath, QByteArray &programEngine, const QByteArray &formulaSwitchCode)
 {
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		AddInclude(programEngine, openclPathSlash + clHeaderFiles.at(i));
+		programEngine.append(
+			StripNonAscii(LoadUtf8TextFromFile(openclPathSlash + clHeaderFiles.at(i))));
+		programEngine.append("\n");
 	}
 	if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
 	{
-		AddInclude(programEngine, openclEnginePath + "basic_foldings.cl");
+		programEngine.append(LoadUtf8TextFromFile(openclEnginePath + "basic_foldings.cl"));
+		programEngine.append("\n");
 	}
 	// fractal formulas - only actually used
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
@@ -601,14 +739,27 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 		{
 			if (formulaName.startsWith("custom"))
 			{
-				AddInclude(programEngine,
-					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+				programEngine.append(LoadUtf8TextFromFile(
+					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl"));
+				programEngine.append("\n");
 			}
 			else
 			{
-				AddInclude(programEngine, systemDirectories.sharedDir + "formula" + QDir::separator()
-																		+ "opencl" + QDir::separator() + formulaName + ".cl");
+				programEngine.append(
+					LoadUtf8TextFromFile(systemDirectories.sharedDir + "formula" + QDir::separator()
+															 + "opencl" + QDir::separator() + formulaName + ".cl"));
+				programEngine.append("\n");
 			}
+		}
+	}
+	// insert dynamically generated formula switch code
+	if (!formulaSwitchCode.isEmpty())
+	{
+		int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
+		if (placeholderPos >= 0)
+		{
+			int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+			programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
 		}
 	}
 }

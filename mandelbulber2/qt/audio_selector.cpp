@@ -213,7 +213,7 @@ void cAudioSelector::slotPlaybackStart() const
 	if (audio->isLoaded() && audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT
-		qDebug() << audioOutput->state();
+		//qDebug() << audioOutput->state();
 		switch (audioOutput->state())
 		{
 			case QAudio::ActiveState:

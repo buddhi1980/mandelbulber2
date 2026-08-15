@@ -40,6 +40,7 @@
 
 #include "common_math.h"
 #include "displacement_map.hpp"
+#include "objects_tree.h"
 #include "parameters.hpp"
 #include "shader_perlin_noise_for_shaders.hpp"
 #include "write_log.hpp"
@@ -97,19 +98,21 @@ enumObjectType cPrimitives::PrimitiveNameToEnum(const QString &primitiveType)
 	return type;
 }
 
-cPrimitives::cPrimitives(
-	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
+cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
 {
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) started", 3);
 	isAnyPrimitive = false;
 
-	Set(par, objectData);
+	Set(par, objectData, objectTreeNodes);
 
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
 }
 
-void cPrimitives::Set(
-	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
+void cPrimitives::Set(const std::shared_ptr<cParameterContainer> par,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes)
 {
 	allPrimitives.clear();
 	namesOfPrimitives.clear();
@@ -138,25 +141,6 @@ void cPrimitives::Set(
 	QString cloudsShapeName;
 	if (cloudsShapeIndex > 0 && cloudsShapeIndex - 1 < listOfPrimitives.count())
 		cloudsShapeName = listOfPrimitives.at(cloudsShapeIndex - 1).fullName; //-1 because 0 is "None"
-
-	// bubble sort by calculation order
-	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
-	{
-		for (int j = 0; j < listOfPrimitives.size() - 1; j++)
-		{
-			int order1 = par->Get<int>(listOfPrimitives.at(j).fullName + "_calculation_order");
-			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).fullName + "_calculation_order");
-
-			if (order1 > order2)
-			{
-#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
-				listOfPrimitives.swap(j, j + 1);
-#else
-				listOfPrimitives.swapItemsAt(j, j + 1);
-#endif
-			}
-		}
-	}
 
 	for (auto item : listOfPrimitives)
 	{
@@ -230,10 +214,44 @@ void cPrimitives::Set(
 
 		primitive->objectType = item.type;
 
-		if (objectData)
+		// The primitiveIdx used in the node tree is the index into allPrimitives (assigned below).
+		const int primitiveIdx = int(allPrimitives.size());
+
+		// Each tree node that references this primitive gets its own objectData entry so that
+		// per-node properties (rotation matrix) can be stored independently.
+		bool anyNodeMapped = false;
+		if (objectTreeNodes)
 		{
-			objectData->append(*primitive.get());
-			primitive->objectId = objectData->size() - 1;
+			for (auto &node : *objectTreeNodes)
+			{
+				if (node.userObjectId == primitive->userObjectId)
+				{
+					if (objectData)
+					{
+						objectData->push_back(*primitive.get());
+						const int newObjectId = int(objectData->size()) - 1;
+						if (!anyNodeMapped)
+							primitive->objectId = newObjectId; // keep first entry as the canonical id
+						node.internalObjectId = newObjectId;
+						node.primitiveIdx = primitiveIdx;
+					}
+					anyNodeMapped = true;
+				}
+			}
+		}
+
+		if (!anyNodeMapped)
+		{
+			if (objectData)
+			{
+				objectData->push_back(*primitive.get());
+				primitive->objectId = int(objectData->size()) - 1;
+			}
+			if (objectTreeNodes)
+			{
+				cObjectsTree::WriteInternalNodeID(
+					primitive->userObjectId, primitive->objectId, primitiveIdx, objectTreeNodes);
+			}
 		}
 
 		if (item.fullName == basicFogShapeName)
@@ -274,184 +292,45 @@ cPrimitives::~cPrimitives()
 	// nothing to do
 }
 
-double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double detailSize,
-	bool normalCalculationMode, int *closestObjectId, sRenderData *data,
-	int objectIdForVolumetrics) const
+QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(std::shared_ptr<cParameterContainer> params)
 {
-	using namespace fractal;
-	int closestObject = *closestObjectId;
-	double distance = fractalDistance;
+	QList<sPrimitiveItem> list;
+	QList<QString> paramList = params->GetListOfParameters();
 
-	if (allPrimitives.size() > 0)
+	for (const QString &paramName : paramList)
 	{
-		CVector3 point2 = point - allPrimitivesPosition;
-		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
-
-		for (auto primitive : allPrimitives)
+		if (paramName.startsWith("primitive_") && paramName.endsWith("_enabled"))
 		{
-			if (primitive->enable)
+			// extract fullName: e.g. "primitive_sphere_1" from "primitive_sphere_1_enabled"
+			QString fullName = paramName.left(paramName.length() - QString("_enabled").length());
+
+			// parse typeName and id from fullName: "primitive_<type>_<id>"
+			QStringList parts = fullName.split('_');
+			// parts[0] = "primitive", parts[1] = type, parts[2] = id
+			if (parts.size() >= 3)
 			{
-				sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitive.get());
-				double distTemp;
-				if (water)
-				{
-					distTemp = water->PrimitiveDistanceWater(point2, distance);
-				}
-				else
-				{
-					distTemp = primitive->PrimitiveDistance(point2);
-				}
+				QString typeName = parts[1];
+				int id = parts[2].toInt();
 
-				if (objectIdForVolumetrics == primitive->objectId)
+				fractal::enumObjectType objectType = PrimitiveNameToEnum(typeName);
+
+				// read objectID from parameter
+				int objectID = 0;
+				bool objectIdInFile = false;
+				QString objectIDParamName = fullName + "_object_id";
+				if (params->IfExists(objectIDParamName))
 				{
-					return distTemp;
-				}
-				else
-				{
-					if (primitive->usedForVolumetric)
-						continue; // skip distance calculation if primitive is used for volumetric effects
+					objectID = params->Get<int>(objectIDParamName);
+					objectIdInFile = true;
 				}
 
-				distTemp = DisplacementMap(distTemp, point2, primitive->objectId, data);
-				distTemp = PerlinNoiseDisplacement(distTemp, point2, data, primitive->objectId);
-
-				switch (primitive->booleanOperator)
-				{
-					case primBooleanOperatorOR:
-					{
-						if (distTemp < distance)
-						{
-							closestObject = primitive->objectId;
-						}
-						if (primitive->smoothDeCombineEnable)
-						{
-							distance = opSmoothUnion(distance, distTemp, primitive->smoothDeCombineDistance);
-						}
-						else
-						{
-							distance = min(distance, distTemp);
-						}
-						break;
-					}
-					case primBooleanOperatorAND:
-					{
-						if (distTemp > distance)
-						{
-							closestObject = primitive->objectId;
-						}
-						distance = max(distance, distTemp);
-						break;
-					}
-					case primBooleanOperatorSUB:
-					{
-						const double limit = 1.5;
-						if (distance < detailSize) // if inside 1st
-						{
-							if (distTemp < detailSize * limit * 1.5)
-							{
-								closestObject = primitive->objectId;
-							}
-
-							if (distTemp < detailSize * limit) // if inside 2nd
-							{
-								if (normalCalculationMode)
-								{
-									distance = max(detailSize * limit - distTemp, distance);
-								}
-								else
-								{
-									distance = detailSize * limit;
-								}
-							}
-							else // if outside of 2nd
-							{
-								distance = max(detailSize * limit - distTemp, distance);
-								if (distance < 0) distance = 0;
-							}
-						}
-						break;
-					}
-					case primBooleanOperatorRevSUB:
-					{
-						int closestObjectTemp = closestObject;
-						closestObject = primitive->objectId;
-						const double limit = 1.5;
-						if (distTemp < detailSize) // if inside 2nd
-						{
-							if (distance < detailSize * limit * 1.5)
-							{
-								closestObject = closestObjectTemp;
-							}
-
-							if (distance < detailSize * limit) // if inside 1st
-							{
-								if (normalCalculationMode)
-								{
-									distance = max(detailSize * limit - distance, distTemp);
-								}
-								else
-								{
-									distance = detailSize * limit;
-								}
-							}
-							else // if outside of 1st
-							{
-								distTemp = max(detailSize * limit - distance, distTemp);
-								distance = distTemp;
-								if (distance < 0) distance = 0;
-							}
-						}
-						else
-						{
-							distance = distTemp;
-						}
-						break;
-					}
-				} // switch
-			}
-		}
-
-	} // if is any primitive
-
-	*closestObjectId = closestObject;
-
-	return distance;
-}
-
-QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(
-	const std::shared_ptr<cParameterContainer> par)
-{
-	QList<sPrimitiveItem> listOfPrimitives;
-
-	QList<QString> listOfParameters = par->GetListOfParameters();
-	for (auto &parameterName : listOfParameters)
-	{
-		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
-		{
-			QStringList split = parameterName.split('_');
-			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			QString objectTypeString = split.at(1);
-			int index = split.at(2).toInt();
-
-			bool found = false;
-			for (const auto &listOfPrimitive : listOfPrimitives)
-			{
-				if (listOfPrimitive.fullName == primitiveName)
-				{
-					found = true;
-					break;
-				}
-			}
-
-			if (!found)
-			{
-				fractal::enumObjectType objectType = PrimitiveNameToEnum(objectTypeString);
-				sPrimitiveItem newItem(objectType, index, primitiveName, objectTypeString);
-				listOfPrimitives.append(newItem);
+				sPrimitiveItem item(objectType, id, fullName, typeName, objectID, objectIdInFile);
+				list.append(item);
 			}
 		}
 	}
-	return listOfPrimitives;
+
+	return list;
 }
 
 QList<QString> cPrimitives::GetListOfPrimitiveParams(

@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalQuaternion4d::cFractalQuaternion4d() : cAbstractFractal()
 {

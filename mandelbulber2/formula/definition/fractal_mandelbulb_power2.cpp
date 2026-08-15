@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMandelbulbPower2::cFractalMandelbulbPower2() : cAbstractFractal()
 {
@@ -27,7 +28,7 @@ cFractalMandelbulbPower2::cFractalMandelbulbPower2() : cAbstractFractal()
 
 void cFractalMandelbulbPower2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	aux.DE = aux.DE * 2.0 * aux.r;
 	double x2 = z.x * z.x;

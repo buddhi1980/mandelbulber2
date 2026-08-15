@@ -39,7 +39,6 @@
 #include <QDebug>
 #include <QtAlgorithms>
 
-#include "nine_fractals.hpp"
 #include "projection_3d.hpp"
 #include "write_log.hpp"
 

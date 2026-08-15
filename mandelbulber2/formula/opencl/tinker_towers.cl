@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TinkerTowersIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL t = 0.0f;
 	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f};
@@ -41,7 +41,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// cut the unit sphere. They don't have to be scaled by the same amount, but every facit must
 	// contain its definining u_Fv vector.
 
-	__constant REAL3 *u_Fv;
+	__global REAL3 *u_Fv;
 
 	switch (fractal->genFoldBox.type)
 	{

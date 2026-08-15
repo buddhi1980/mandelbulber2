@@ -83,6 +83,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// Mandelbulb formulas
 	fractalList->append(new cFractalMandelbar());
 	fractalList->append(new cFractalMandelbarV2());
+	fractalList->append(new cFractalMandelbarV3());
+
 	fractalList->append(new cFractalMandelbulb());
 	fractalList->append(new cFractalMandelbulb2());
 	fractalList->append(new cFractalMandelbulb3());
@@ -168,6 +170,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	// Abox formulas
 	fractalList->append(new cFractalAboxMod1());
+	fractalList->append(new cFractalAboxMb3d1());
 	fractalList->append(new cFractalAboxMod2());
 	fractalList->append(new cFractalAboxMod11());
 	fractalList->append(new cFractalAboxMod12());
@@ -361,6 +364,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinianMod3());
 	fractalList->append(new cFractalPseudoKleinianMod6());
 	fractalList->append(new cFractalPseudoKleinian4d());
+	fractalList->append(new cFractalPseudoKleinianTrig());
 	fractalList->append(new cFractalSphereCluster());
 	fractalList->append(new cFractalSphereClusterV2());
 	fractalList->append(new cFractalSphereClusterV3());
@@ -575,7 +579,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSurfBoxFold());
 	fractalList->append(new cFractalTransfSurfBoxFoldV2());
 	fractalList->append(new cFractalTransfSurfBoxFoldV24d());
-	fractalList->append(new cFractalTransfSurfFoldMulti());	fractalList->append(new cFractalKochIfs());
+	fractalList->append(new cFractalTransfSurfFoldMulti());
 	fractalList->append(new cFractalTransfZvectorAxisSwap());
 
 
@@ -590,11 +594,17 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 
+
 	fractalList->append(new cFractalEiffieCar());
 	fractalList->append(new cFractalMsltoeToroidalV3());
-
+	fractalList->append(new cFractalMandelbulbPow2V4());
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
+
+
+	fractalList->append(new cFractalPseudoKleinianTrigV2());
+	fractalList->append(new cFractalPseudoKleinianTrigV3());
+
 	fractalList->append(new cFractalTinkerTowers());
 
 	fractalList->append(new cFractalTransfSupershape());

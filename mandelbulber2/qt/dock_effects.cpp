@@ -121,6 +121,9 @@ void cDockEffects::ConnectSignals() const
 
 	connect(
 		ui->pushButton_local_navi, &QPushButton::clicked, this, &cDockEffects::slotPressedButtonNavi);
+
+	connect(ui->checkB_MCShowNoiseLevels, &QCheckBox::toggled, this,
+		&cDockEffects::changedMCNoiseVisibility);
 }
 
 void cDockEffects::slotSynchronizeInterfaceBasicFog(std::shared_ptr<cParameterContainer> par) const

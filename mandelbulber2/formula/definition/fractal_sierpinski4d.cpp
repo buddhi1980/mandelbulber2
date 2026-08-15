@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalSierpinski4d::cFractalSierpinski4d() : cAbstractFractal()
 {

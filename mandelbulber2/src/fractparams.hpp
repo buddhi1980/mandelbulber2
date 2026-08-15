@@ -35,17 +35,22 @@
 #ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
+#include <vector>
+
 #include "ao_modes.h"
+#include "boolean_operator.h"
 #include "color_gradient.h"
 #include "common_params.hpp"
 #include "fractal_enums.h"
 #include "image_adjustments.h"
+#include "objects_tree.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
 
 // forward declarations
 class cObjectData;
 class cParameterContainer;
+class cFractalContainer;
 
 namespace params
 {
@@ -56,20 +61,15 @@ enum enumTextureMapType
 	mapFlat = 2
 };
 
-enum enumBooleanOperator
-{
-	booleanOperatorAND = 0,
-	booleanOperatorOR = 1,
-	booleanOperatorSUB = 2
-};
-
 } // namespace params
 
 struct sParamRender
 {
 	// constructor with init
-	sParamRender(
-		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+	sParamRender(const std::shared_ptr<cParameterContainer> par,
+		std::vector<cObjectData> *objectData = nullptr,
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr,
+		const std::shared_ptr<const cFractalContainer> fractalContainer = nullptr);
 
 	int antialiasingSize;
 	int antialiasingOclDepth;
@@ -79,7 +79,6 @@ struct sParamRender
 	int frameNo;
 	int imageHeight; // image height
 	int imageWidth;	 // image width
-	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN; // minimum number of iterations
 	int N;
 	int nebulaNumberOfSamplesPerPixel;
@@ -96,7 +95,6 @@ struct sParamRender
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
-	params::enumBooleanOperator booleanOperator[NUMBER_OF_FRACTALS - 1];
 	fractal::enumDEMethod delta_DE_method;
 	fractal::enumDEFunctionType delta_DE_function;
 
@@ -147,11 +145,11 @@ struct sParamRender
 	bool nebulaZAxisColorsEnabled;
 	bool nebulaIterationsColorsEnabled;
 	bool nebulaGridDomainEnabled;
+	bool objectsTreeEnable;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
-	bool smoothDeCombineEnable[NUMBER_OF_FRACTALS];
 	bool SSAO_random_mode;
 	bool stereoSwapEyes;
 	bool texturedBackground; // enable textured background
@@ -218,7 +216,6 @@ struct sParamRender
 	float fakeLightsVisibility;
 	float fakeLightsVisibilitySize;
 	double fogVisibility;
-	double formulaScale[NUMBER_OF_FRACTALS];
 	double fov; // perspective factor
 	float glowIntensity;
 	double hdrBlurIntensity;
@@ -241,7 +238,6 @@ struct sParamRender
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates
-	double smoothDeCombineDistance[NUMBER_OF_FRACTALS];
 	double smoothness;
 	double stereoEyeDistance;
 	double stereoInfiniteCorrection;
@@ -263,9 +259,6 @@ struct sParamRender
 	CVector3 cloudsCenter;
 	CVector3 cloudsRotation;
 	CVector3 cloudsSpeed;
-	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
-	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
-	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 repeat;
@@ -274,7 +267,6 @@ struct sParamRender
 	CVector3 viewAngle;
 	CVector3 topVector;
 
-	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
 	CRotationMatrix mRotAmbientOcclusionLightMapRotation;

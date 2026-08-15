@@ -127,6 +127,7 @@ public:
 public slots:
 	void slotSetMinimumSize(int width, int height);
 	void showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles);
+	void slotSetMCNoiseVisibility(bool);
 
 signals:
 	void SpeedChanged(double amount);
@@ -177,6 +178,7 @@ private:
 	bool cursorVisible;
 	bool lightsVisible;
 	bool primitivesVisible;
+	bool mcNoiseVisible = false;
 	bool isFocus;
 	bool isOnObject;
 	bool placeLightBehind;
@@ -205,6 +207,7 @@ private:
 	sFlightData flightData;
 	sAnimationPathData animationPathData;
 	QList<sRenderedTileData> listOfRenderedTilesData;
+	int tileArea = 0;
 	int currentLightIndex;
 	sPrimitiveItem currentPrimitiveItem;
 

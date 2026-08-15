@@ -948,12 +948,32 @@ void cOldSettings::ConvertToNewContainer(
 {
 	// general parameters
 	par->ResetAllToDefault();
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < fractal->size(); i++)
 		fractal->at(i)->ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 	DeleteAllMaterialParams(par);
 	InitMaterialParams(1, par);
 	par->Set("mat1_is_defined", true);
+
+	// Legacy transformation params — needed because InitPrimitiveParams no longer adds them.
+	// These will be migrated to node-based params by Compatibility2() when loading from files.
+	QStringList legacyPrimitiveTypes = { "sphere", "box", "cylinder", "cone", "plane", "torus",
+		"rectangle", "circle", "water", "prism", "ellipsoid" };
+	for (const QString &type : legacyPrimitiveTypes)
+	{
+		for (int i = 1; i <= 8; i++)
+		{
+			QString name = QString("primitive_%1_%2_position").arg(type).arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+			name = QString("primitive_%1_%2_rotation").arg(type).arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+			name = QString("primitive_%1_%2_scale").arg(type).arg(i);
+			if (!par->IfExists(name))
+				par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+		}
+	}
 
 	par->Set("legacy_coordinate_system", true);
 
@@ -1349,7 +1369,7 @@ void cOldSettings::ConvertToNewContainer(
 			}
 		}
 		bool result = true;
-		if (fractalsListTemp.size() <= NUMBER_OF_FRACTALS)
+		if (fractalsListTemp.size() <= fractal->size())
 		{
 			for (int i = 0; i < fractalsListTemp.size(); i++)
 			{
@@ -1440,7 +1460,7 @@ void cOldSettings::ConvertToNewContainer(
 	if (oldData->fractal.juliaMode)
 	{
 		par->Set("fractal_constant_factor", CVector3(0.0, 0.0, 0.0));
-		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		for (int i = 1; i <= fractal->size(); i++)
 		{
 			par->Set("fractal_constant_factor", CVector3(1.0, 1.0, 1.0));
 		}

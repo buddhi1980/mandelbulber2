@@ -36,6 +36,7 @@
 #define MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_LIST_HPP_
 
 #include <utility>
+#include <QDir>
 
 #include "formula/definition/all_fractal_definitions.h"
 #include "formula/definition/abstract_fractal.h"

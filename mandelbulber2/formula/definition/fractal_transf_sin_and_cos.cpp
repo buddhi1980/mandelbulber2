@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSinAndCos::cFractalTransfSinAndCos() : cAbstractFractal()
 {
@@ -26,7 +27,7 @@ cFractalTransfSinAndCos::cFractalTransfSinAndCos() : cAbstractFractal()
 
 void cFractalTransfSinAndCos::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(aux);
+	// (void)aux;
 	CVector4 oldZ = z;
 	CVector4 sinZ = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 cosZ = CVector4(0.0, 0.0, 0.0, 0.0);

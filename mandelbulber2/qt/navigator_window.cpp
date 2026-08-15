@@ -40,14 +40,14 @@
 
 #include "dock_effects.h"
 #include "dock_fractal.h"
-#include "tab_fractal.h"
-
+#include "fractal_object.h"
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"
 #include "src/global_data.hpp"
+#include "src/system_data.hpp"
 #include "src/image_scale.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
@@ -141,6 +141,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	cInterface::ColorizeGroupBoxes(
 		ui->widgetNavigationButtons, gPar->Get<int>("ui_colorize_random_seed"));
 
+	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
+
 	restoreGeometry(gMainInterface->settings.value("navigatorWindowGeometry").toByteArray());
 
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
@@ -159,6 +161,7 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 		for (auto widget : childWidgets)
 		{
 			cInterface::ColorizeGroupBoxes(widget, gPar->Get<int>("ui_colorize_random_seed"));
+			cInterface::AdjustLayoutSpacing(widget, gPar->Get<int>("ui_layout_spacing"));
 		}
 
 		cDockEffects *dockEffects = dynamic_cast<cDockEffects *>(leftWidget);
@@ -267,7 +270,7 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 
 	if (leftWidget)
 	{
-		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
+		if (cFractalObject *fractalWidget = qobject_cast<cFractalObject *>(leftWidget))
 		{
 			int tabIndex = fractalWidget->GetTabIndex();
 			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), mode);
@@ -446,6 +449,7 @@ void cNavigatorWindow::StartRender()
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, 1, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 
 	connect(renderJob, SIGNAL(updateImage()), ui->widgetRenderedImage, SLOT(update()));
 	connect(renderJob, &cRenderJob::sendRenderedTilesList, ui->widgetRenderedImage,
@@ -461,6 +465,7 @@ void cNavigatorWindow::StartRender()
 	config.ForceFastPreview();
 	config.EnableIgnoreErrors();
 
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
 		image->ReleaseImage();
@@ -724,6 +729,7 @@ void cNavigatorWindow::slotRefreshMainImage()
 	SynchronizeInterface(qInterface::read);
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, 1, &stopRequest, ui->widgetRenderedImage));
+	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->RefreshPostEffects();
 }
 

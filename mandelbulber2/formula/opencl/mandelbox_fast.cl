@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MandelboxFastIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelboxFastIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 ones = (REAL4){1.0f, 1.0f, 1.0f, 1.0f};
 	z = fabs(z + ones) - fabs(z - ones) - z;

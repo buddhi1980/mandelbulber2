@@ -59,7 +59,6 @@ typedef struct
 	cl_int empty;
 	cl_int limitsEnable;
 	cl_float rounding;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveBoxCl;
@@ -69,7 +68,6 @@ typedef struct
 	cl_int empty;
 	cl_int limitsEnable;
 	cl_float radius;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveSphereCl;
@@ -98,7 +96,6 @@ typedef struct
 	cl_float radius;
 	cl_float height;
 	cl_float2 wallNormal;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveConeCl;
@@ -110,7 +107,6 @@ typedef struct
 	cl_int limitsEnable;
 	cl_float radius;
 	cl_float height;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveCylinderCl;
@@ -123,7 +119,6 @@ typedef struct
 	cl_float radiusLPow;
 	cl_float tubeRadius;
 	cl_float tubeRadiusLPow;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveTorusCl;
@@ -146,14 +141,12 @@ typedef struct
 	cl_float height;
 	cl_float prismAngle;
 	cl_float3 normals;
-	cl_float3 repeat;
 } sPrimitivePrismCl;
 
 typedef struct
 {
 	cl_int empty;
 	cl_int limitsEnable;
-	cl_float3 repeat;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
 } sPrimitiveEllipsoidCl;

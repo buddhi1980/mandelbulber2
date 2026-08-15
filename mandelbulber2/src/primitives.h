@@ -44,6 +44,7 @@
 
 #include "color_structures.hpp"
 #include "object_data.hpp"
+#include "objects_tree.h"
 #include "object_types.hpp"
 #include "primitive.hpp"
 #include "primitive_item.h"
@@ -59,15 +60,14 @@ class cPrimitives
 	// http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
 
 public:
-	cPrimitives(
-		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+	cPrimitives(const std::shared_ptr<cParameterContainer> par,
+		std::vector<cObjectData> *objectData = nullptr,
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr);
 	~cPrimitives();
-	void Set(
-		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+	void Set(const std::shared_ptr<cParameterContainer> par,
+		std::vector<cObjectData> *objectData = nullptr,
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr);
 
-	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
-		bool normalCalculationMode, int *closestObjectId, sRenderData *data,
-		int objectIdForVolumetrics) const;
 	const std::shared_ptr<sPrimitiveBasic> GetPrimitive(const int index) const
 	{
 		return allPrimitives[index];
@@ -92,8 +92,10 @@ public:
 	int primitiveIndexForIterFog = -1;
 	int primitiveIndexForClouds = -1;
 
-private:
+public:
 	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;
+
+private:
 	QStringList namesOfPrimitives;
 
 	static double Plane(CVector3 point, CVector3 position, CVector3 normal)

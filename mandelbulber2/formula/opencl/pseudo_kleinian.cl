@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 PseudoKleinianIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL oldZz = z.z;
 
@@ -121,6 +121,8 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
+		if (fractal->transformCommon.functionEnabledwFalse) z.w = -z.w; // 4D
+
 		aux->DE *= k + fractal->analyticDE.tweak005;
 		aux->pseudoKleinianDE = fractal->analyticDE.scale1;
 	}

@@ -106,6 +106,12 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			dist = outF.distance;
 			objectId = outF.objectId;
 
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (outF.objectId >= 0 && outF.objectId < renderData->numberOfObjects)
+			{
+				distThresh *= renderData->objectsData[outF.objectId].detailLevelMultiplier;
+			}
+
 			if (dist < distThresh)
 			{
 				if (scan < distThresh * 2.0f)
@@ -113,11 +119,14 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 					return out;
 				}
 				inputCopy.point = point;
+				inputCopy.sequenceIndex = outF.sequenceIndex;
+				inputCopy.transformedPoint = outF.transformedPoint;
+				inputCopy.hasTransformedPoint = outF.hasTransformedPoint;
+				inputCopy.objectId = objectId;
 
 				float3 normal = NormalVector(consts, renderData, inputCopy.point, inputCopy.lastDist,
 					inputCopy.distThresh, inputCopy.invertMode, calcParam);
 				inputCopy.normal = normal;
-				inputCopy.objectId = objectId;
 				inputCopy.depth = scan;
 
 				found = true;

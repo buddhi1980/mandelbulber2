@@ -142,7 +142,8 @@ int main(int argc, char *argv[])
 
 	gPar->SetContainerName("main");
 	InitParams(gPar);
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	InitNodeParams(1, gPar);
+	for (int i = 0; i < gParFractal->size(); i++)
 	{
 		gParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(gParFractal->at(i));

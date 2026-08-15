@@ -36,6 +36,9 @@
 #define MANDELBULBER2_SRC_MULTI_VAL_HPP_
 
 #include "algebra.hpp"
+
+#include <QString>
+
 #include "color_structures.hpp"
 
 namespace parameterContainer

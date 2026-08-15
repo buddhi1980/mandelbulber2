@@ -15,7 +15,7 @@
  */
 
 REAL4 TransfAddCpixelCxCyAxisSwapIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 

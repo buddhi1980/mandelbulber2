@@ -150,6 +150,7 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 		{
 			InitPrimitiveParams(primitive, params);
 		}
+		// params->Set(primitive.Name("object_id"), 10);
 
 		// QString name = QString("%1 #%2").arg(primitiveType).arg(newId);
 		QString name = params->Get<QString>(primitive.Name("name"));
@@ -162,6 +163,8 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 		if (params->Get<bool>("ui_colorize"))
 			cInterface::ColorizeGroupBoxes(ui->tabWidget_primitives->widget(newTabIndex - 1),
 				params->Get<int>("ui_colorize_random_seed") + newTabIndex);
+		cInterface::AdjustLayoutSpacing(
+			ui->tabWidget_primitives->widget(newTabIndex - 1), gPar->Get<int>("ui_layout_spacing"));
 
 		if (init)
 		{
@@ -267,6 +270,8 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
 
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
 	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(params);
 	int newIndex = cPrimitives::NewPrimitiveIndex(currentPrimitive.typeName, actualList);
@@ -358,6 +363,8 @@ void cPrimitivesManager::slorChangedWireframeVisibikity(int enabled)
 void cPrimitivesManager::slotButtonPlacePrimitive()
 {
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex < 0) return;
+
 	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
 
 	QList<QVariant> item;

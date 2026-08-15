@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfDIFSHelixV2::cFractalTransfDIFSHelixV2() : cAbstractFractal()
 {

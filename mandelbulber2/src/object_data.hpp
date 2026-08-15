@@ -38,6 +38,7 @@
 #define MANDELBULBER2_SRC_OBJECT_DATA_HPP_
 
 #include "algebra.hpp"
+#include "boolean_operator.h"
 #include "object_types.hpp"
 
 class cObjectData
@@ -47,26 +48,22 @@ public:
 	{
 		materialId = 0;
 		objectType = fractal::objNone;
-		smoothDeCombineEnable = false;
-		smoothDeCombineDistance = 0.0f;
 		wallThickness = 0.0f;
 		usedForVolumetric = false;
+		detailLevelMultiplier = 1.0;
+		absScale = 1.0;
 	}
 
-	bool smoothDeCombineEnable;
 	bool usedForVolumetric;
-	double smoothDeCombineDistance;
 	double wallThickness;
-	CVector3 position;
-	CVector3 size;
-	CVector3 repeat;
 	int materialId;
 	fractal::enumObjectType objectType;
+	CMatrix44 worldToLocalMatrix;
+	CVector3 size;
 	CRotationMatrix rotationMatrix;
-	void SetRotation(const CVector3 &rot) { rotationMatrix.SetRotation2(rot * M_PI / 180.0); }
-
-private:
-	CVector3 rotation;
+	CVector3 repeat;
+	double absScale;
+	double detailLevelMultiplier;
 };
 
 #endif /* MANDELBULBER2_SRC_OBJECT_DATA_HPP_ */

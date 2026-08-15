@@ -126,6 +126,20 @@ protected:
 
 	QString definesCollector;
 
+public:
+	QString settingsFile;
+
+protected:
+	void EmitErrorMessage(
+		QString message, cErrorMessage::enumMessageType type, QWidget *widget = nullptr)
+	{
+		if (!settingsFile.isEmpty())
+		{
+			message = QString("[%1] %2").arg(settingsFile, message);
+		}
+		emit showErrorMessage(message, type, widget);
+	}
+
 #endif
 
 	cOpenClHardware *hardware;

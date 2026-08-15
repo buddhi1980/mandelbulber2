@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSDiamondIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 normalTopA = (REAL4){0.0f, 0.81373347121f, 0.5812382f, 0.0f};
 	REAL4 normalTopB = (REAL4){0.0f, SQRT_1_2_F, SQRT_1_2_F, 0.0f};

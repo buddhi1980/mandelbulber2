@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalNone::cFractalNone() : cAbstractFractal()
 {
@@ -26,7 +27,7 @@ cFractalNone::cFractalNone() : cAbstractFractal()
 
 void cFractalNone::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(z);
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	(void)z;
+	(void)fractal;
+	(void)aux;
 }

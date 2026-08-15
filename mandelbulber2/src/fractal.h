@@ -38,6 +38,7 @@
 #include <memory>
 
 #include "algebra.hpp"
+#include "math_utilities.h"
 
 #include "formula/definition/all_fractal_list_enums.hpp"
 
@@ -847,10 +848,20 @@ struct sFractalTransformCommon
 
 struct sFractal
 {
+	sFractal() {};
 	sFractal(const std::shared_ptr<cParameterContainer> par);
 	void RecalculateFractalParams();
 
 	fractal::enumFractalFormula formula;
+
+	// per-fractal general parameters (moved from InitParams to InitFractalParams)
+	int formulaIterations;
+	double formulaWeight;
+	int formulaStartIteration;
+	int formulaStopIteration;
+	bool dontAddCConstant;
+	bool checkForBailout;
+
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;

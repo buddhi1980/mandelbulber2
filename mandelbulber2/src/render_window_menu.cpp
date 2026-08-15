@@ -474,7 +474,6 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
-	ui->widgetDockFractal->RegeneratePrimitives();
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	gInterfaceReadyForSynchronization = true;
@@ -504,7 +503,6 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->materialListModel->Regenerate();
 		ui->widgetEffects->RegenerateLights();
-		ui->widgetDockFractal->RegeneratePrimitives();
 
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gInterfaceReadyForSynchronization = true;
@@ -1014,7 +1012,7 @@ void RenderWindow::slotResetToDefault()
 	else
 	{
 		gPar->ResetAllToDefault();
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < gParFractal->size(); i++)
 		{
 			gParFractal->at(i)->ResetAllToDefault();
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);

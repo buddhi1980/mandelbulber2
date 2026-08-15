@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfAddConstantMod2::cFractalTransfAddConstantMod2() : cAbstractFractal()
 {

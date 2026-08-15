@@ -113,6 +113,8 @@ void cMaterialEditor::AssignMaterial(std::shared_ptr<cParameterContainer> params
 			}
 		}
 
+		cInterface::AdjustLayoutSpacing(this, params->Get<int>("ui_layout_spacing"));
+
 		SynchronizeInterfaceWindow(this, parameterContainer, qInterface::write);
 	}
 }

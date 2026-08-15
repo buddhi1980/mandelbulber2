@@ -48,24 +48,11 @@ sRGBAFloat cRenderWorker::SurfaceColour(
 			sRGBFloat colour(1.0, 1.0, 1.0);
 			if (input.material->useColorsFromPalette)
 			{
-				int formulaIndex = input.objectId;
-
-				CVector3 tempPoint = point;
-
-				if (!params->booleanOperatorsEnabled)
-					formulaIndex = -1;
-				else
-				{
-					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
-					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
-					tempPoint = tempPoint.repeatMod(params->formulaRepeat[formulaIndex]);
-					tempPoint *= params->formulaScale[formulaIndex];
-				}
-
 				sFractalIn fractIn(
-					tempPoint, 0, -1, 4, 0, &params->common, formulaIndex, false, input.material);
+					input.GetFractalPoint(), 0, -1, 4, 0, &params->common, -1, false, input.material);
 				sFractalOut fractOut;
-				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
+				Compute<fractal::calcModeColouring>(
+					data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
 				double nrCol = fmod(fabs(fractOut.colorIndex), 248.0 * 256.0); // kept for compatibility
 
 				double colorPosition = fmod(

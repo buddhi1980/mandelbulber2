@@ -14,6 +14,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalScatorTest::cFractalScatorTest() : cAbstractFractal()
 {
@@ -30,8 +31,8 @@ cFractalScatorTest::cFractalScatorTest() : cAbstractFractal()
 
 void cFractalScatorTest::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	 Q_UNUSED(aux);
+	(void)fractal;
+	 (void)aux;
 
 	double x2 = z.x * z.x; //+ 1e-061
 	double y2 = z.y * z.y * fractal->transformCommon.scaleB1;

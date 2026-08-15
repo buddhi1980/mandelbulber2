@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalIdes2::cFractalIdes2() : cAbstractFractal()
 {
@@ -27,7 +28,7 @@ cFractalIdes2::cFractalIdes2() : cAbstractFractal()
 
 void cFractalIdes2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	CVector4 z2 = z * z;
 	CVector4 newZ;

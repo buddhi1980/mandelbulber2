@@ -34,38 +34,7 @@
 
 #define MANDELBULBER_VERSION 2.34
 
-#ifndef FORMULA_ITER_0
-#define FORMULA_ITER_0 DummyIteration
-#endif /*FORMULA_ITER_0*/
-#ifndef FORMULA_ITER_1
-#define FORMULA_ITER_1 DummyIteration
-#endif /*FORMULA_ITER_1*/
-#ifndef FORMULA_ITER_2
-#define FORMULA_ITER_2 DummyIteration
-#endif /*FORMULA_ITER_2*/
-#ifndef FORMULA_ITER_3
-#define FORMULA_ITER_3 DummyIteration
-#endif /*FORMULA_ITER_3*/
-#ifndef FORMULA_ITER_4
-#define FORMULA_ITER_4 DummyIteration
-#endif /*FORMULA_ITER_4*/
-#ifndef FORMULA_ITER_5
-#define FORMULA_ITER_5 DummyIteration
-#endif /*FORMULA_ITER_5*/
-#ifndef FORMULA_ITER_6
-#define FORMULA_ITER_6 DummyIteration
-#endif /*FORMULA_ITER_6*/
-#ifndef FORMULA_ITER_7
-#define FORMULA_ITER_7 DummyIteration
-#endif /*FORMULA_ITER_7*/
-#ifndef FORMULA_ITER_8
-#define FORMULA_ITER_8 DummyIteration
-#endif /*FORMULA_ITER_8*/
-#ifndef FORMULA_ITER_9
-#define FORMULA_ITER_9 DummyIteration
-#endif /*FORMULA_ITER_9*/
-
-float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+float4 DummyIteration(float4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->r = -1.0f; // signal for main loop to break;
 	return 0.0f;
@@ -196,6 +165,30 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 
 	__global float4 *gradients = (__global float4 *)&inBuff[paletteItemsOffset];
 
+	//--- Nebula sequences (from inBuff using header offsets) ---
+	int nebulaSequencesHeaderOffset = GetInteger(1 * sizeof(int), inBuff);
+	int numberOfNebulaSequences = GetInteger(nebulaSequencesHeaderOffset, inBuff);
+	int nebulaSequencesArrayOffset =
+		GetInteger(nebulaSequencesHeaderOffset + 1 * sizeof(int), inBuff);
+	__global sNebulaSequenceCl *nebulaSequences = 0;
+	if (numberOfNebulaSequences > 0)
+	{
+		nebulaSequences = (__global sNebulaSequenceCl *)&inBuff[nebulaSequencesArrayOffset];
+	}
+
+	//--- Hybrid Sequences (only first sequence, index 0) ---
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+	__global sHybridSequenceCl *hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
+
+	//--- Fractals ---
+	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
+	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
+	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
+	__global sFractalCl *fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
+
 	float4 point;
 
 #ifdef LIMITS_ENABLED
@@ -261,7 +254,7 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
 	pointTransformed = modRepeat(pointTransformed, consts->params.common.repeat);
 
-	point.w = consts->sequence.initialWAxis[0];
+	point.w = (numberOfHybridSequences > 0) ? hybridSequences[0].initialWAxis : 0.0f;
 
 	float4 z = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, point.w};
 	float4 c = z;
@@ -281,29 +274,43 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 	aux.DE0 = 0.0;
 	aux.dist = 1000.0f;
 	aux.pseudoKleinianDE = 1.0f;
-	aux.actualScale = consts->fractal[fractalIndex].mandelbox.scale;
+	aux.actualScale = fractals[fractalIndex].mandelbox.scale;
 	aux.actualScaleA = 0.0f;
 	aux.color = 1.0f;
 	aux.colorHybrid = 0.0f;
 	aux.temp1000 = 1000.0f;
 
 	int sequence = 0;
-	__constant sFractalCl *fractal;
-	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
+	__global sFractalCl *fractal;
+	__global sFractalCl *defaultFractal = &fractals[fractalIndex];
+
+#ifdef IS_HYBRID
+	int fractIdx = 0;
+#else
+	// Hoisted constants - never change during single-fractal nebula rendering
+	int nebulaAddCConstant = nebulaSequences[0].addCConstant;
+	int nebulaJuliaEnabled = nebulaSequences[0].juliaEnabled;
+	float3 nebulaJuliaConstant = (float3){nebulaSequences[0].juliaConstant.x,
+		nebulaSequences[0].juliaConstant.y, nebulaSequences[0].juliaConstant.z};
+	float3 nebulaConstantMultiplier = (float3){nebulaSequences[0].constantMultiplier.x,
+		nebulaSequences[0].constantMultiplier.y, nebulaSequences[0].constantMultiplier.z};
+	int nebulaCheckForBailout = nebulaSequences[0].checkForBailout;
+	float nebulaBailout = nebulaSequences[0].bailout;
+#endif
 
 	float4 zHistory[MAX_ITERATIONS];
 
 	// loop
 	for (i = 0; i < MAX_ITERATIONS; i++)
 	{
-
-#if defined(IS_HYBRID)
-		sequence = consts->sequence.hybridSequence[min(i, 249)];
+#ifdef IS_HYBRID
+		int seqIdx = 0;
+		fractIdx =
+			GetInteger(hybridSequences[seqIdx].sequenceArrayOffset + min(i, 249) * sizeof(int), inBuff);
+		fractal = &fractals[hybridSequences[seqIdx].formulaBaseIndex + fractIdx];
 #else
-		sequence = 0;
+		fractal = &fractals[fractalIndex];
 #endif
-
-		fractal = &consts->fractal[sequence];
 
 		aux.i = i;
 
@@ -317,26 +324,23 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 #endif
 
 #ifdef ITERATION_WEIGHT
-		if (consts->sequence.formulaWeight[sequence] > 0)
+		// Read formulaWeight from fractData
+		float formulaWeight = 0.0f;
+#ifdef IS_HYBRID
+		if (numberOfHybridSequences > 0)
+		{
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			formulaWeight = fractData[fractIdx].formulaWeight;
+		}
+#endif
+
+		if (nebulaSequences && nebulaSequences[0].formulaWeight > 0)
 		{
 #endif
 
-#if defined(IS_HYBRID)
-			switch (sequence)
-			{
-				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
-				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
-				case 2: z = FORMULA_ITER_2(z, fractal, &aux); break;
-				case 3: z = FORMULA_ITER_3(z, fractal, &aux); break;
-				case 4: z = FORMULA_ITER_4(z, fractal, &aux); break;
-				case 5: z = FORMULA_ITER_5(z, fractal, &aux); break;
-				case 6: z = FORMULA_ITER_6(z, fractal, &aux); break;
-				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
-				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
-			}
-#else	 // not HYBRID
-		z = FORMULA_ITER_0(z, fractal, &aux);
-#endif // defined(IS_HYBRID)
+			// PLACEHOLDER_FOR_FORMULA_ITER
 
 #ifdef ITERATION_WEIGHT
 		}
@@ -347,46 +351,81 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 			break;
 		}
 
-		if (consts->sequence.addCConstant[sequence])
+		// Read addCConstant and julia data from fractData/hybridSequences
+		int addCConstant = 0;
+		int juliaEnabled = 0;
+		float3 juliaConstant = (float3)0.0f;
+		float3 constantMultiplier = (float3)1.0f;
+
+#ifdef IS_HYBRID
+		if (numberOfHybridSequences > 0)
+		{
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			addCConstant = fractData[fractIdx].addCConstant;
+
+			juliaEnabled = hybridSequences[seqIdx].juliaEnabled;
+			juliaConstant = hybridSequences[seqIdx].juliaConstant;
+			constantMultiplier = hybridSequences[seqIdx].constantMultiplier;
+		}
+		else if (nebulaSequences)
+		{
+			addCConstant = nebulaSequences[0].addCConstant;
+			juliaEnabled = nebulaSequences[0].juliaEnabled;
+			juliaConstant = (float3){nebulaSequences[0].juliaConstant.x,
+				nebulaSequences[0].juliaConstant.y, nebulaSequences[0].juliaConstant.z};
+			constantMultiplier = (float3){nebulaSequences[0].constantMultiplier.x,
+				nebulaSequences[0].constantMultiplier.y, nebulaSequences[0].constantMultiplier.z};
+		}
+#else
+		addCConstant = nebulaAddCConstant;
+		juliaEnabled = nebulaJuliaEnabled;
+		juliaConstant = nebulaJuliaConstant;
+		constantMultiplier = nebulaConstantMultiplier;
+#endif
+
+		if (addCConstant)
 		{
 			switch (fractal->formula)
 			{
 				case 64: // aboxMod1
 				case 73: // amazingSurf
 				{
-					if (consts->sequence.juliaEnabled[sequence])
+					if (juliaEnabled)
 					{
-						float4 juliaC = consts->sequence.juliaConstant[sequence]
-														* consts->sequence.constantMultiplier[sequence];
-						z += (float4){juliaC.y, juliaC.x, juliaC.z, juliaC.w};
+						float4 juliaC =
+							(float4){juliaConstant.y, juliaConstant.x, juliaConstant.z, 0.0f}
+							* (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
+						z += juliaC;
 					}
 					else
 					{
 						z += (float4){aux.const_c.y, aux.const_c.x, aux.const_c.z, aux.const_c.w}
-								 * consts->sequence.constantMultiplier[sequence];
+								 * (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
 					}
 					break;
 				}
 
 				default:
 				{
-					if (consts->sequence.juliaEnabled[sequence])
+					if (juliaEnabled)
 					{
-						z += consts->sequence.juliaConstant[sequence]
-								 * consts->sequence.constantMultiplier[sequence];
+						z += (float4){juliaConstant.x, juliaConstant.y, juliaConstant.z, 0.0f}
+								 * (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 0.0f};
 					}
 					else
 					{
-						z += aux.const_c * consts->sequence.constantMultiplier[sequence];
+						z += aux.const_c * constantMultiplier.x;
 					}
 				}
 			}
 		}
 
 #ifdef ITERATION_WEIGHT
-		if (consts->sequence.isHybrid)
+		if (formulaWeight > 0)
 		{
-			float k = consts->sequence.formulaWeight[sequence];
+			float k = formulaWeight;
 			if (k < 1.0f)
 			{
 				z = SmoothCVector(tempZ, z, k);
@@ -402,9 +441,31 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		aux.r = length(z);
 
 		// escape conditions
-		if (consts->sequence.checkForBailout[sequence])
+		int checkForBailout = 0;
+		float bailout = 0.0f;
+
+#ifdef IS_HYBRID
+		if (numberOfHybridSequences > 0)
 		{
-			if (aux.r > consts->sequence.bailout[sequence])
+			int fdArrayOffset = hybridSequences[seqIdx].fractDataArrayOffset;
+			__global sHybridFractalDataCl *fractData =
+				(__global sHybridFractalDataCl *)&inBuff[fdArrayOffset];
+			checkForBailout = fractData[fractIdx].checkForBailout;
+			bailout = fractData[fractIdx].bailout;
+		}
+		else if (nebulaSequences)
+		{
+			checkForBailout = nebulaSequences[0].checkForBailout;
+			bailout = nebulaSequences[0].bailout;
+		}
+#else
+		checkForBailout = nebulaCheckForBailout;
+		bailout = nebulaBailout;
+#endif
+
+		if (checkForBailout)
+		{
+			if (aux.r > bailout)
 			{
 				break;
 			}

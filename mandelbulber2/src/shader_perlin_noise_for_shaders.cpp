@@ -49,17 +49,23 @@ void cRenderWorker::PerlinNoiseForShaders(
 {
 	if (shaderInputData->material->perlinNoiseEnable)
 	{
+		const CVector3 shaderPoint =
+			(data->objectData[shaderInputData->objectId].objectType == fractal::objFractal)
+				? shaderInputData->GetFractalPoint()
+				: point;
 		CVector3 pointModified;
 		if (shaderInputData->material->textureFractalize)
 		{
-			sFractalIn fractIn(point, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
+			sFractalIn fractIn(
+				shaderPoint, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
 			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
+			Compute<fractal::calcModeCubeOrbitTrap>(
+				data->hybridFractalSequences.GetSequence(shaderInputData->seqIndex), fractIn, &fractOut);
 			pointModified = fractOut.z;
 		}
 		else
 		{
-			pointModified = point;
+			pointModified = shaderPoint;
 		}
 
 		pointModified = shaderInputData->material->rotMatrixPerlinNoise.RotateVector(pointModified);
@@ -158,7 +164,12 @@ double PerlinNoiseDisplacement(
 {
 	if (data)
 	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
+		const int matId = data->objectData[objectId].materialId;
+		const cMaterial *mat = (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+														 ? &data->materials[matId]
+														 : nullptr;
+		if (!mat) return distance; // no material: skip perlin displacement
 		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{
 			CVector3 pointModified = mat->rotMatrixPerlinNoise.RotateVector(point);

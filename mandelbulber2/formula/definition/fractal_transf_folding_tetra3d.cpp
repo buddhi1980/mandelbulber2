@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfFoldingTetra3d::cFractalTransfFoldingTetra3d() : cAbstractFractal()
 {
@@ -30,7 +31,7 @@ cFractalTransfFoldingTetra3d::cFractalTransfFoldingTetra3d() : cAbstractFractal(
 void cFractalTransfFoldingTetra3d::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	if (fractal->transformCommon.functionEnabledx)
 	{

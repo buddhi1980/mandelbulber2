@@ -50,6 +50,7 @@
 #include "src/opencl_engine_render_fractal.h"
 #include "src/render_job.hpp"
 #include "src/rendering_configuration.hpp"
+#include "src/write_log.hpp"
 #include "src/settings.hpp"
 #include "src/stereo.h"
 #include "src/system_data.hpp"
@@ -153,7 +154,6 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 	std::shared_ptr<const cFractalContainer> _fractal)
 {
 	isFullyRendered = false;
-	// qDebug() << "AssignParameters";
 	if (image)
 	{
 		params.reset(new cParameterContainer);
@@ -292,7 +292,6 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 
 void cThumbnailWidget::slotRender()
 {
-	// qDebug() << "slotRender";
 	if (image && params)
 	{
 		stopRequest = true;
@@ -328,6 +327,7 @@ void cThumbnailWidget::slotRender()
 
 		cRenderJob *renderJob =
 			new cRenderJob(params, fractal, image, 1, &stopRequest, static_cast<QWidget *>(this));
+		renderJob->settingsFile = settingsFile;
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));
@@ -343,6 +343,7 @@ void cThumbnailWidget::slotRender()
 		config.DisableNetRender();
 		if (params->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
+		WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 		renderJob->Init(cRenderJob::still, config);
 
 		QThread *thread = new QThread;

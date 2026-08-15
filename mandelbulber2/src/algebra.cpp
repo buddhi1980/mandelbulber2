@@ -39,6 +39,35 @@
 
 #include "algebra.hpp"
 
+#include <QString>
+
+std::string CVector3::Debug() const
+{
+	return QString("[%1, %2, %3]")
+		.arg(QString::number(x), QString::number(y), QString::number(z))
+		.toStdString();
+}
+
+std::string CVector4::Debug() const
+{
+	return QString("[%1, %2, %3, %4]")
+		.arg(QString::number(x), QString::number(y), QString::number(z), QString::number(w))
+		.toStdString();
+}
+
+template <typename T>
+std::string CVector2<T>::Debug() const
+{
+	std::ostringstream ss;
+	ss << "[" << x << ", " << y << "]";
+	return ss.str();
+}
+
+// explicit template instantiations for common types
+template std::string CVector2<float>::Debug() const;
+template std::string CVector2<double>::Debug() const;
+template std::string CVector2<int>::Debug() const;
+
 CVector3 CVector3::RotateAroundVectorByAngle(const CVector3 &axis, double angle) const
 {
 	CVector3 vector = *this * cos(angle);
@@ -325,17 +354,39 @@ void CRotationMatrix::Null()
 
 double CRotationMatrix::GetAlfa() const
 {
-	return atan2(matrix.m12, matrix.m22);
+	return -atan2(matrix.m12, matrix.m22);
 }
 
 double CRotationMatrix::GetBeta() const
 {
-	return asin(-matrix.m32);
+	double a = atan2(-matrix.m12, matrix.m22);
+	double c = atan2(-matrix.m31, matrix.m33);
+	if (fabs(matrix.m32) < 0.70710678118654752440084436210485)
+		return asin(matrix.m32);
+	else if (fabs(matrix.m12) > fabs(matrix.m22))
+		return atan2(matrix.m32, -matrix.m12 / sin(a));
+	else
+		return atan2(matrix.m32, matrix.m22 / cos(a));
 }
 
 double CRotationMatrix::GetGamma() const
 {
-	return atan2(matrix.m31, matrix.m33);
+	return atan2(-matrix.m31, matrix.m33);
+}
+
+// inverting CRotationMatrix::SetRotation2(const CVector3 &rotation)
+CVector3 CRotationMatrix::GetRotation2() const
+{
+	double a, b, c;
+	a = atan2(matrix.m21, matrix.m11);
+	c = atan2(matrix.m32, matrix.m33);
+	if (fabs(matrix.m31) < 0.70710678118654752440084436210485)
+		b = -asin(matrix.m31);
+	else if (fabs(matrix.m21) > fabs(matrix.m11))
+		b = -atan2(matrix.m31, matrix.m21 / sin(a));
+	else
+		b = -atan2(matrix.m31, matrix.m11 / cos(a));
+	return CVector3(c, b, a);
 }
 
 CRotationMatrix CRotationMatrix::Transpose() const
@@ -450,6 +501,17 @@ CVector4 CMatrix44::operator*(const CVector4 &vector) const
 	result.y = m21 * vector.x + m22 * vector.y + m23 * vector.z + m24 * vector.w;
 	result.z = m31 * vector.x + m32 * vector.y + m33 * vector.z + m34 * vector.w;
 	result.w = m41 * vector.x + m42 * vector.y + m43 * vector.z + m44 * vector.w;
+	return result;
+}
+
+// Transform a 3D point using this matrix with implicit w=1 (homogeneous coordinates).
+// Only the upper 3 rows are used; the 4th row is assumed to be [0, 0, 0, 1].
+CVector3 CMatrix44::TransformPoint(const CVector3 &point) const
+{
+	CVector3 result;
+	result.x = m11 * point.x + m12 * point.y + m13 * point.z + m14;
+	result.y = m21 * point.x + m22 * point.y + m23 * point.z + m24;
+	result.z = m31 * point.x + m32 * point.y + m33 * point.z + m34;
 	return result;
 }
 

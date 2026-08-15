@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-25 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-26 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -859,6 +859,20 @@ typedef struct
 {
 
 	cl_int formula;
+
+	// per-fractal general parameters (moved from InitParams to InitFractalParams)
+	cl_int formulaIterations;
+	cl_float formulaWeight;
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int juliaMode;
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float initialWAxis;
+	cl_int dontAddCConstant;
+	cl_int checkForBailout;
+	cl_int formulaMaxiter;
+
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -1644,6 +1658,12 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 {
 	sFractalCl target;
 	target.formula = source.formula;
+	target.formulaIterations = source.formulaIterations;
+	target.formulaWeight = source.formulaWeight;
+	target.formulaStartIteration = source.formulaStartIteration;
+	target.formulaStopIteration = source.formulaStopIteration;
+	target.dontAddCConstant = source.dontAddCConstant;
+	target.checkForBailout = source.checkForBailout;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);

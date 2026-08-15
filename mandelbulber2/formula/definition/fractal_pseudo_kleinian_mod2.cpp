@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalPseudoKleinianMod2::cFractalPseudoKleinianMod2() : cAbstractFractal()
 {
@@ -226,7 +227,8 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
-			aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
+
+		aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse

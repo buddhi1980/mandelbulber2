@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalBoxFoldBulbV4::cFractalBoxFoldBulbV4() : cAbstractFractal()
 {

@@ -34,12 +34,16 @@
 
 #include "fractparams.hpp"
 
+#include "fractal_container.hpp"
 #include "object_data.hpp"
+#include "objects_tree.h"
 #include "parameters.hpp"
 
-sParamRender::sParamRender(
-	const std::shared_ptr<cParameterContainer> container, QVector<cObjectData> *objectData)
-		: primitives(container, objectData)
+sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
+	std::vector<cObjectData> *objectData,
+	std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes,
+	const std::shared_ptr<const cFractalContainer> fractalContainer)
+		: primitives(container, objectData, objectTreeNodes)
 {
 	advancedQuality = container->Get<bool>("advanced_quality");
 	absMaxMarchingStep = container->Get<double>("abs_max_marching_step");
@@ -70,7 +74,9 @@ sParamRender::sParamRender(
 	backgroundTextureOffsetY = container->Get<double>("background_texture_offset_y");
 	backgroundVScale = container->Get<double>("background_v_scale");
 	backgroundRotation = container->Get<CVector3>("background_rotation");
-	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
+	// boolean_operators has been removed from general params - boolean mode is now handled
+	// by the objects tree (cHybridFractalSequences). Legacy code path defaults to false.
+	booleanOperatorsEnabled = false;
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
 	cloudsAmbientLight = container->Get<double>("clouds_ambient_light");
@@ -196,6 +202,7 @@ sParamRender::sParamRender(
 	nebulaXGridSize = container->Get<float>("nebula_x_grid_size");
 	nebulaYGridSize = container->Get<float>("nebula_y_grid_size");
 	nebulaZGridSize = container->Get<float>("nebula_z_grid_size");
+	objectsTreeEnable = container->Get<bool>("objects_tree_enable");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
@@ -245,45 +252,84 @@ sParamRender::sParamRender(
 	nebulaZAxisColors.SetColorsFromString(container->Get<QString>("nebula_z_axis_colors"));
 	nebulaIterationsColors.SetColorsFromString(container->Get<QString>("nebula_iterations_colors"));
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	const int fractalCount = fractalContainer ? fractalContainer->size() : 0;
+	for (int i = 0; i < fractalCount; i++)
 	{
-		booleanOperator[i] =
-			params::enumBooleanOperator(container->Get<int>("boolean_operator", i + 1));
-	}
+		auto fracPar = fractalContainer->at(i);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
-		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);
-		formulaRepeat[i] = container->Get<CVector3>("formula_repeat", i + 1);
-		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
-		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
-		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
-		smoothDeCombineEnable[i] = container->Get<bool>("smooth_de_combine_enable", i + 1);
-		smoothDeCombineDistance[i] = container->Get<double>("smooth_de_combine_distance", i + 1);
+		cObjectData baseObjectData;
+		baseObjectData.objectType = fractal::objFractal;
 
-		if (objectData)
+		// Each node that references this fractal slot gets its own objectData entry so that
+		// per-node properties (material, rotation matrix) can differ independently.
+		bool anyNodeMapped = false;
+		if (objectData && objectTreeNodes)
 		{
-			cObjectData oneObjectData;
-			oneObjectData.position = formulaPosition[i];
-			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / formulaScale[i];
-			oneObjectData.repeat = formulaRepeat[i];
-			oneObjectData.SetRotation(formulaRotation[i]);
-			oneObjectData.materialId = formulaMaterialId[i];
-			oneObjectData.objectType = fractal::objFractal;
-			(*objectData)[i] = oneObjectData;
+			for (auto &node : *objectTreeNodes)
+			{
+				if (node.userObjectId == i + 1)
+				{
+					cObjectData nodeObjectData = baseObjectData;
+					nodeObjectData.materialId = node.material;
+					nodeObjectData.size =
+						CVector3(1.0, 1.0, 1.0); // fractals are always rendered at size 1; scaling is done by
+																		 // the node's rotation matrix.
+					nodeObjectData.detailLevelMultiplier = node.detailLevelMultiplier;
+					objectData->push_back(nodeObjectData);
+					node.internalObjectId = int(objectData->size()) - 1;
+					node.primitiveIdx = -1;
+					anyNodeMapped = true;
+				}
+			}
+		}
+
+		if (!anyNodeMapped && objectData)
+		{
+			// No tree node uses this fractal slot — still push a placeholder entry.
+			objectData->push_back(baseObjectData);
+			const int internalObjectId = int(objectData->size()) - 1;
+			if (objectTreeNodes)
+				cObjectsTree::WriteInternalNodeID(i + 1, internalObjectId, -1, objectTreeNodes);
 		}
 	}
 
-	if (!booleanOperatorsEnabled && objectData)
+	// Group nodes (hybrid, booleanAdd, booleanMul, booleanSub) are never matched by the
+	// fractal or primitive loops above because they hold no fractal slot or primitive.
+	// Give each group node its own dedicated cObjectData entry so it can independently
+	// carry material and objectType information without borrowing from a child.
+	if (objectTreeNodes && objectData)
 	{
-		formulaMaterialId[0] = container->Get<int>("formula_material_id");
-		(*objectData)[0].materialId = formulaMaterialId[0];
-		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
-		(*objectData)[0].repeat = container->Get<CVector3>("repeat");
-		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
-		(*objectData)[0].SetRotation(container->Get<CVector3>("fractal_rotation"));
-		(*objectData)[0].objectType = fractal::objFractal;
+		for (auto &node : *objectTreeNodes)
+		{
+			if (node.internalObjectId == -1
+					&& (node.type == enumNodeType::hybrid || node.type == enumNodeType::booleanAdd
+							|| node.type == enumNodeType::booleanMul || node.type == enumNodeType::booleanSub))
+			{
+				cObjectData groupObjectData;
+				groupObjectData.objectType =
+					(node.type == enumNodeType::hybrid) ? fractal::objFractal : fractal::objNone;
+				// materialId = -1 means "no override" for groups; child objects keep their own material.
+				// A positive value overrides children's materials with the group's material.
+				groupObjectData.materialId = node.material;
+				objectData->push_back(groupObjectData);
+				node.internalObjectId = int(objectData->size()) - 1;
+			}
+		}
+	}
+
+	// Copy each node's accumulated world-space rotation matrix into its own objectData entry.
+	// This is done after all internalObjectIds have been assigned (including group nodes above)
+	// so every entry is guaranteed to exist.
+	if (objectTreeNodes && objectData)
+	{
+		for (const auto &node : *objectTreeNodes)
+		{
+			if (node.internalObjectId >= 0
+					&& node.internalObjectId < static_cast<int>(objectData->size()))
+			{
+				(*objectData)[node.internalObjectId].rotationMatrix = node.rotationMatrix;
+			}
+		}
 	}
 
 	common.fakeLightsColor2Enabled = container->Get<bool>("fake_lights_color_2_enabled");

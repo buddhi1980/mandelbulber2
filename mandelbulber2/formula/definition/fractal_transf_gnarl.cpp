@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfGnarl::cFractalTransfGnarl() : cAbstractFractal()
 {
@@ -28,7 +29,7 @@ cFractalTransfGnarl::cFractalTransfGnarl() : cAbstractFractal()
 
 void cFractalTransfGnarl::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 	CVector4 oldZ = z;
 	CVector4 tempZ = z;
 	double Scale = fractal->transformCommon.scale1;

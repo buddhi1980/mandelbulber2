@@ -15,7 +15,7 @@
  */
 
 REAL4 TransfSphericalFoldVaryVCLIteration(
-	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL para = 0.0f;
 	if (fractal->Cpara.enabledLinear)

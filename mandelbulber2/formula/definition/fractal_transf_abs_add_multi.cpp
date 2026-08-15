@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfAbsAddMulti::cFractalTransfAbsAddMulti() : cAbstractFractal()
 {
@@ -26,7 +27,7 @@ cFractalTransfAbsAddMulti::cFractalTransfAbsAddMulti() : cAbstractFractal()
 
 void cFractalTransfAbsAddMulti::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);

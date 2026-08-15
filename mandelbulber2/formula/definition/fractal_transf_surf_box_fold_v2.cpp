@@ -15,6 +15,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSurfBoxFoldV2::cFractalTransfSurfBoxFoldV2() : cAbstractFractal()
 {
@@ -32,7 +33,7 @@ cFractalTransfSurfBoxFoldV2::cFractalTransfSurfBoxFoldV2() : cAbstractFractal()
 void cFractalTransfSurfBoxFoldV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	double colorAdd = 0.0;
 	CVector4 oldZ = z;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -14,26 +14,36 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MengerMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MengerMod1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z = fabs(z);
+	REAL temp;
+	REAL col = 0.0f;
 	if (z.x < z.y)
 	{
-		REAL temp = z.y;
+		temp = z.y;
 		z.y = z.x;
 		z.x = temp;
+		col += fractal->foldColor.difs0000.x;
 	}
 	if (z.x < z.z)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.x;
 		z.x = temp;
+		col += fractal->foldColor.difs0000.y;
 	}
 	if (z.y < z.z)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.y;
 		z.y = temp;
+		col += fractal->foldColor.difs0000.z;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += col;
 	}
 	z *= fractal->transformCommon.scale3;
 	z.x -= 2.0f * fractal->transformCommon.constantMultiplier111.x;
@@ -46,6 +56,7 @@ REAL4 MengerMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		aux->DE = aux->DE * fractal->transformCommon.scaleD1 + fractal->transformCommon.offset1;
 	}
 	z += fractal->transformCommon.additionConstant000;
 

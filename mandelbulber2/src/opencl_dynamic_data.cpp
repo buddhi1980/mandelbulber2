@@ -39,6 +39,7 @@
 
 #include "color_gradient.h"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "light.h"
 #include "lights.hpp"
 #include "material.h"
@@ -50,6 +51,9 @@
 #ifdef USE_OPENCL
 #include "opencl/material_cl.h"
 #include "opencl/input_data_structures.h"
+#include "opencl/hybrid_sequence_cl.h"
+#include "opencl/nebula_sequence_cl.h"
+#include "opencl/node_data_cl.h"
 #include "opencl/primitives_cl.h"
 #include "opencl/light_cl.h"
 #endif
@@ -64,7 +68,7 @@ cOpenClDynamicData::cOpenClDynamicData(int numberOfItems)
 cOpenClDynamicData::~cOpenClDynamicData() = default;
 
 int cOpenClDynamicData::BuildMaterialsData(
-	const std::map<int, cMaterial> &materials, const QMap<QString, int> &textureIndexes)
+	const std::vector<cMaterial> &materials, const QMap<QString, int> &textureIndexes)
 {
 	/* material dynamic data structure
 
@@ -99,16 +103,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[materialsItemIndex].itemOffset = totalDataOffset;
 
-	// number of materials is a maximum material index
-	// Empty material indexes will be filled with zero data
-	QList<int> keys;
-	for (auto const &element : materials)
-	{
-		keys.push_back(element.first);
-	}
-
-	std::sort(keys.begin(), keys.end());
-	cl_int numberOfMaterials = keys.last() + 1;
+	cl_int numberOfMaterials = static_cast<cl_int>(materials.size());
 
 	// numberOfMaterials
 	data.append(reinterpret_cast<char *>(&numberOfMaterials), sizeof(numberOfMaterials));
@@ -148,9 +143,9 @@ int cOpenClDynamicData::BuildMaterialsData(
 		cl_int paletteOffsetTransparency;
 		cl_int paletteSizeTransparency;
 
-		if (materials.find(materialIndex) != materials.end())
+		if (materialIndex < numberOfMaterials)
 		{
-			const cMaterial &material = materials.at(materialIndex);
+			const cMaterial &material = materials[materialIndex];
 			materialCl = clCopySMaterialCl(material);
 
 			QString textureName;
@@ -627,16 +622,14 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		sPrimitiveCl primitiveCl;
 		const std::shared_ptr<sPrimitiveBasic> primitive = primitivesContainer->GetPrimitive(i);
 
-		primitiveCl.object.enable = primitive->enable;
-		primitiveCl.object.materialId = primitive->materialId;
+		// FIXME: to correct OpenCL code for objectsTree
+		// primitiveCl.object.enable = primitive->enable;
 		primitiveCl.object.objectId = primitive->objectId;
 		primitiveCl.object.objectType = static_cast<enumObjectTypeCl>(primitive->objectType);
-		primitiveCl.object.position = toClFloat3(primitive->position);
-		primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
+		// primitiveCl.object.position = toClFloat3(primitive->position);
+		// primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
 		primitiveCl.object.size = toClFloat3(primitive->size);
-		primitiveCl.object.repeat = toClFloat3(primitive->repeat);
-		primitiveCl.object.smoothDeCombineEnable = primitive->smoothDeCombineEnable;
-		primitiveCl.object.smoothDeCombineDistance = primitive->smoothDeCombineDistance;
+		// primitiveCl.object.repeat = toClFloat3(primitive->repeat);
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 		primitiveCl.object.usedForVolumetric = primitive->usedForVolumetric;
@@ -666,7 +659,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					{
 						primitiveCl.data.box.empty = box->empty;
 						primitiveCl.data.box.rounding = box->rounding;
-						primitiveCl.data.box.repeat = toClFloat3(box->repeat);
 						primitiveCl.data.box.limitsEnable = box->limitsEnable;
 						primitiveCl.data.box.limitsMax = toClFloat3(box->limitsMax);
 						primitiveCl.data.box.limitsMin = toClFloat3(box->limitsMin);
@@ -684,7 +676,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					{
 						primitiveCl.data.sphere.empty = sphere->empty;
 						primitiveCl.data.sphere.radius = sphere->radius;
-						primitiveCl.data.sphere.repeat = toClFloat3(sphere->repeat);
 						primitiveCl.data.sphere.limitsEnable = sphere->limitsEnable;
 						primitiveCl.data.sphere.limitsMax = toClFloat3(sphere->limitsMax);
 						primitiveCl.data.sphere.limitsMin = toClFloat3(sphere->limitsMin);
@@ -730,7 +721,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.cone.radius = cone->radius;
 						primitiveCl.data.cone.height = cone->height;
 						primitiveCl.data.cone.wallNormal = toClFloat2(cone->wallNormal);
-						primitiveCl.data.cone.repeat = toClFloat3(cone->repeat);
 						primitiveCl.data.cone.limitsEnable = cone->limitsEnable;
 						primitiveCl.data.cone.limitsMax = toClFloat3(cone->limitsMax);
 						primitiveCl.data.cone.limitsMin = toClFloat3(cone->limitsMin);
@@ -751,7 +741,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.cylinder.caps = cylinder->caps;
 						primitiveCl.data.cylinder.radius = cylinder->radius;
 						primitiveCl.data.cylinder.height = cylinder->height;
-						primitiveCl.data.cylinder.repeat = toClFloat3(cylinder->repeat);
 						primitiveCl.data.cylinder.limitsEnable = cylinder->limitsEnable;
 						primitiveCl.data.cylinder.limitsMax = toClFloat3(cylinder->limitsMax);
 						primitiveCl.data.cylinder.limitsMin = toClFloat3(cylinder->limitsMin);
@@ -772,7 +761,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.torus.radiusLPow = torus->radiusLPow;
 						primitiveCl.data.torus.tubeRadius = torus->tubeRadius;
 						primitiveCl.data.torus.tubeRadiusLPow = torus->tubeRadiusLPow;
-						primitiveCl.data.torus.repeat = toClFloat3(torus->repeat);
 						primitiveCl.data.torus.limitsEnable = torus->limitsEnable;
 						primitiveCl.data.torus.limitsMax = toClFloat3(torus->limitsMax);
 						primitiveCl.data.torus.limitsMin = toClFloat3(torus->limitsMin);
@@ -821,7 +809,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.prism.height = prism->height;
 						primitiveCl.data.prism.prismAngle = prism->prismAngle;
 						primitiveCl.data.prism.normals = toClFloat3(prism->normals);
-						primitiveCl.data.prism.repeat = toClFloat3(prism->repeat);
+						// primitiveCl.data.prism.repeat = toClFloat3(prism->repeat);
 
 						usePrimitivePrism = true;
 					}
@@ -837,7 +825,6 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					if (ellipsoid)
 					{
 						primitiveCl.data.ellipsoid.empty = ellipsoid->empty;
-						primitiveCl.data.ellipsoid.repeat = toClFloat3(ellipsoid->repeat);
 						primitiveCl.data.ellipsoid.limitsEnable = ellipsoid->limitsEnable;
 						primitiveCl.data.ellipsoid.limitsMax = toClFloat3(ellipsoid->limitsMax);
 						primitiveCl.data.ellipsoid.limitsMin = toClFloat3(ellipsoid->limitsMin);
@@ -896,7 +883,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	return definesCollector;
 }
 
-void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData)
+void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *objectData)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
 	 *
@@ -932,18 +919,101 @@ void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData
 		if (i == 0) arrayOffset = totalDataOffset;
 
 		sObjectDataCl objectCl;
+		memset(&objectCl, 0, sizeof(objectCl));
 		const cObjectData *object = &objectData->at(i);
-		objectCl.enable = true; // dummy - only used for primitives data
-		objectCl.objectId = i;
-		objectCl.position = toClFloat3(object->position);
-		objectCl.size = toClFloat3(object->size);
-		objectCl.repeat = toClFloat3(object->repeat);
+		objectCl.usedForVolumetric = object->usedForVolumetric;
+		objectCl.wallThickness = object->wallThickness;
 		objectCl.materialId = object->materialId;
+		objectCl.objectId = i;
 		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
+		objectCl.enable = true;
+		objectCl.position = toClFloat3(CVector3(0.0, 0.0, 0.0));
+		objectCl.size = toClFloat3(object->size);
+		objectCl.repeat = toClFloat3(CVector3(0.0, 0.0, 0.0));
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+		objectCl.worldToLocalMatrix = toClMatrix44(object->worldToLocalMatrix);
+		objectCl.absScale = static_cast<cl_float>(object->absScale);
+		objectCl.detailLevelMultiplier = static_cast<cl_float>(object->detailLevelMultiplier);
 
 		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
 		totalDataOffset += sizeof(objectCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildNodesData(
+	const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int numberOfNodes
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	sNodeDataForRenderingCl node1
+	 * 	sNodeDataForRenderingCl node2
+	 *  ...
+	 * 	sNodeDataForRenderingCl nodeN
+	 */
+
+	cObjectsTree::DebugPrintNodes(*nodesData);
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;
+
+	cl_int numberOfNodes = nodesData->size();
+	data.append(reinterpret_cast<char *>(&numberOfNodes), sizeof(numberOfNodes));
+	totalDataOffset += sizeof(numberOfNodes);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy nodes aligned to 16
+	for (int i = 0; i < numberOfNodes; i++)
+	{
+		// align struct to 16
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		sNodeDataForRenderingCl nodeCl;
+		memset(&nodeCl, 0, sizeof(nodeCl));
+		const cObjectsTree::sNodeDataForRendering &node = nodesData->at(i);
+		nodeCl.id = node.id;
+		nodeCl.type = static_cast<enumNodeTypeCl>(static_cast<int>(node.type));
+		nodeCl.parentId = node.parentId;
+		nodeCl.userObjectId = node.userObjectId;
+		nodeCl.internalObjectId = node.internalObjectId;
+		nodeCl.primitiveIdx = node.primitiveIdx;
+		nodeCl.level = node.level;
+		nodeCl.hybridSequenceIndex = node.hybridSequenceIndex;
+		nodeCl.repeat = toClFloat3(node.repeat);
+		nodeCl.scale = node.scale;
+		nodeCl.absScale = node.absScale;
+		nodeCl.material = node.material;
+		nodeCl.rotationMatrix = toClMatrix33(node.rotationMatrix);
+		nodeCl.worldToLocalMatrix = toClMatrix44(node.worldToLocalMatrix);
+		nodeCl.enabled = node.enabled ? 1 : 0;
+		nodeCl.detailLevelMultiplier =
+			static_cast<cl_float>(static_cast<float>(node.detailLevelMultiplier));
+		// Common fractal parameters shared by all node types (including boolean groups)
+		nodeCl.julia_mode = node.juliaMode ? 1 : 0;
+		nodeCl.julia_c = toClFloat3(node.juliaConstant);
+		nodeCl.fractal_constant_factor = toClFloat3(node.fractalConstantMultiplier);
+		nodeCl.initial_waxis = static_cast<cl_float>(static_cast<float>(node.initialWAxis));
+		nodeCl.smooth_de_combine_enable = node.smoothDECombineEnable ? 1 : 0;
+		nodeCl.smooth_de_combine_distance =
+			static_cast<cl_float>(static_cast<float>(node.smoothDECombineDistance));
+		nodeCl.formula_maxiter = node.formulaMaxiter;
+
+		data.append(reinterpret_cast<char *>(&nodeCl), sizeof(nodeCl));
+		totalDataOffset += sizeof(nodeCl);
 	}
 
 	// replace arrayOffset:
@@ -1085,6 +1155,276 @@ void cOpenClDynamicData::BuildNebulaGradientsData(const sParamRender *params)
 	// fill paletteItemsOffset value
 	data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
 		reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
+}
+
+void cOpenClDynamicData::BuildNebulaSequenceData(const cHybridFractalSequences *hybridSequences)
+{
+	/* nebula sequence dynamic data structure:
+	 *
+	 * header:
+	 * cl_int numberOfSequences
+	 * cl_int arrayOffset  // offset to sNebulaSequenceCl array
+	 *
+	 * array of sNebulaSequenceCl (aligned to 16):
+	 *   sNebulaSequenceCl seq0
+	 *   sNebulaSequenceCl seq1
+	 *   ...
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[nebulaSequencesItemIndex].itemOffset = totalDataOffset;
+
+	cl_int numberOfSequences = static_cast<cl_int>(hybridSequences->GetNumberOfSequences());
+	data.append(reinterpret_cast<char *>(&numberOfSequences), sizeof(numberOfSequences));
+	totalDataOffset += sizeof(numberOfSequences);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy nebula sequences aligned to 16
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+		sNebulaSequenceCl seqCl;
+		memset(&seqCl, 0, sizeof(seqCl));
+
+		seqCl.formulaWeight =
+			static_cast<cl_float>(seq->fractData.size() > 0 ? seq->fractData[0].formulaWeight : 0.0);
+		seqCl.DEFunctionType = static_cast<enumDEFunctionTypeCl>(seq->DEFunctionType);
+		seqCl.DEType = static_cast<enumDETypeCl>(seq->DEType);
+		seqCl.counts =
+			static_cast<cl_int>(seq->fractData.size() > 0 ? seq->fractData[0].formulaIterations : 0);
+		seqCl.formulaStartIteration =
+			static_cast<cl_int>(seq->fractData.size() > 0 ? seq->fractData[0].formulaStartIteration : 0);
+		seqCl.formulaStopIteration =
+			static_cast<cl_int>(seq->fractData.size() > 0 ? seq->fractData[0].formulaStopIteration : 0);
+		seqCl.addCConstant = seq->fractData.size() > 0 ? (seq->fractData[0].addCConstant ? 1 : 0) : 0;
+		seqCl.checkForBailout =
+			seq->fractData.size() > 0 ? (seq->fractData[0].checkForBailout ? 1 : 0) : 0;
+		seqCl.bailout =
+			static_cast<cl_float>(seq->fractData.size() > 0 ? seq->fractData[0].bailout : 0.0);
+		seqCl.juliaEnabled = seq->juliaEnabled ? 1 : 0;
+		seqCl.juliaConstant = cl_float4{static_cast<cl_float>(seq->juliaConstant.x),
+			static_cast<cl_float>(seq->juliaConstant.y), static_cast<cl_float>(seq->juliaConstant.z),
+			0.0f};
+		seqCl.constantMultiplier = cl_float4{static_cast<cl_float>(seq->constantMultiplier.x),
+			static_cast<cl_float>(seq->constantMultiplier.y),
+			static_cast<cl_float>(seq->constantMultiplier.z), 0.0f};
+		seqCl.initialWAxis = static_cast<cl_float>(seq->initialWAxis);
+		seqCl.useAdditionalBailoutCond =
+			seq->fractData.size() > 0 ? (seq->fractData[0].useAdditionalBailoutCond ? 1 : 0) : 0;
+		seqCl.formulaMaxiter = static_cast<cl_int>(seq->formulaMaxiter);
+		seqCl.DEAnalyticFunction = static_cast<enumDEAnalyticFunctionCl>(seq->DEAnalyticFunction);
+		seqCl.coloringFunction = static_cast<enumColoringFunctionCl>(seq->coloringFunction);
+
+		data.append(reinterpret_cast<char *>(&seqCl), sizeof(seqCl));
+		totalDataOffset += sizeof(seqCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences)
+{
+	/* hybrid sequences dynamic data structure:
+	 *
+	 * header:
+	 * cl_int numberOfSequences
+	 * cl_int sequencesArrayOffset  // offset to sHybridSequenceCl array
+	 *
+	 * array of sHybridSequenceCl (aligned to 16):
+	 *   sHybridSequenceCl seq0
+	 *   sHybridSequenceCl seq1
+	 *   ...
+	 *
+	 * for each sequence:
+	 *   cl_int sequenceArray[] (the iteration-to-fractal mapping)
+	 *   sHybridFractalDataCl fractData[] (aligned to 16)
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[hybridSequencesItemIndex].itemOffset = totalDataOffset;
+
+	cl_int numberOfSequences = hybridSequences->GetNumberOfSequences();
+	data.append(reinterpret_cast<char *>(&numberOfSequences), sizeof(numberOfSequences));
+	totalDataOffset += sizeof(numberOfSequences);
+
+	// reserve bytes for sequences array offset
+	cl_int sequencesArrayOffset = 0;
+	int sequencesArrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&sequencesArrayOffset), sizeof(sequencesArrayOffset));
+	totalDataOffset += sizeof(sequencesArrayOffset);
+
+	// write sequence headers (sHybridSequenceCl array)
+	// We'll need to fill in sequenceArrayOffset and fractDataArrayOffset later
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	sequencesArrayOffset = totalDataOffset;
+
+	// store addresses where we need to patch offsets
+	std::vector<int> seqArrayOffsetAddresses(numberOfSequences);
+	std::vector<int> fractDataOffsetAddresses(numberOfSequences);
+
+	int formulaBaseIndex = 0; // cumulative global formula index across all sequences
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+
+		sHybridSequenceCl seqCl;
+		memset(&seqCl, 0, sizeof(seqCl));
+		seqCl.length = seq->length;
+		seqCl.numberOfFractalsInTheSequence = seq->numberOfFractalsInTheSequence;
+		seqCl.internalObjectId = seq->internalObjectId;
+		seqCl.DEFunctionType = static_cast<enumDEFunctionTypeCl>(seq->DEFunctionType);
+		seqCl.DEType = static_cast<enumDETypeCl>(seq->DEType);
+		seqCl.DEAnalyticFunction = static_cast<enumDEAnalyticFunctionCl>(seq->DEAnalyticFunction);
+		seqCl.coloringFunction = static_cast<enumColoringFunctionCl>(seq->coloringFunction);
+		seqCl.isHybrid = seq->isHybrid;
+		seqCl.juliaEnabled = seq->juliaEnabled;
+		seqCl.juliaConstant = toClFloat3(seq->juliaConstant);
+		seqCl.constantMultiplier = toClFloat3(seq->constantMultiplier);
+		seqCl.initialWAxis = seq->initialWAxis;
+		seqCl.formulaMaxiter = seq->formulaMaxiter;
+		seqCl.sequenceArrayOffset = 0;	// will be patched later
+		seqCl.fractDataArrayOffset = 0; // will be patched later
+		seqCl.formulaBaseIndex = formulaBaseIndex;
+
+		formulaBaseIndex += seq->numberOfFractalsInTheSequence;
+
+		// record addresses for patching
+		int seqClStartAddress = totalDataOffset;
+		seqArrayOffsetAddresses[i] =
+			seqClStartAddress + offsetof(sHybridSequenceCl, sequenceArrayOffset);
+		fractDataOffsetAddresses[i] =
+			seqClStartAddress + offsetof(sHybridSequenceCl, fractDataArrayOffset);
+
+		data.append(reinterpret_cast<char *>(&seqCl), sizeof(seqCl));
+		totalDataOffset += sizeof(seqCl);
+	}
+
+	// now write variable-length data for each sequence
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+
+		// write sequence array (cl_int[])
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 4, &data);
+		cl_int seqArrayOff = totalDataOffset;
+
+		for (int j = 0; j < seq->length; j++)
+		{
+			cl_int val = seq->seqence[j];
+			data.append(reinterpret_cast<char *>(&val), sizeof(val));
+			totalDataOffset += sizeof(val);
+		}
+
+		// patch sequenceArrayOffset
+		data.replace(seqArrayOffsetAddresses[i], sizeof(cl_int), reinterpret_cast<char *>(&seqArrayOff),
+			sizeof(cl_int));
+
+		// write fractData array (sHybridFractalDataCl[])
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		cl_int fractDataOff = totalDataOffset;
+
+		for (int j = 0; j < seq->numberOfFractalsInTheSequence; j++)
+		{
+			totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+			const cHybridFractalSequences::sFractalData &fd = seq->fractData[j];
+
+			sHybridFractalDataCl fdCl;
+			memset(&fdCl, 0, sizeof(fdCl));
+			fdCl.formulaWeight = fd.formulaWeight;
+			fdCl.formulaIterations = fd.formulaIterations;
+			fdCl.formulaStartIteration = fd.formulaStartIteration;
+			fdCl.formulaStopIteration = fd.formulaStopIteration;
+			fdCl.addCConstant = fd.addCConstant;
+			fdCl.checkForBailout = fd.checkForBailout;
+			fdCl.bailout = fd.bailout;
+			fdCl.useAdditionalBailoutCond = fd.useAdditionalBailoutCond;
+			fdCl.fractalParameters = clCopySFractalCl(fd.fractalParameters);
+
+			data.append(reinterpret_cast<char *>(&fdCl), sizeof(fdCl));
+			totalDataOffset += sizeof(fdCl);
+		}
+
+		// patch fractDataArrayOffset
+		data.replace(fractDataOffsetAddresses[i], sizeof(cl_int),
+			reinterpret_cast<char *>(&fractDataOff), sizeof(cl_int));
+	}
+
+	// patch sequencesArrayOffset in header
+	data.replace(sequencesArrayOffsetAddress, sizeof(numberOfSequences),
+		reinterpret_cast<char *>(&sequencesArrayOffset), sizeof(sequencesArrayOffset));
+}
+
+void cOpenClDynamicData::BuildFractalData(const cHybridFractalSequences *hybridSequences)
+{
+	/* fractal dynamic data structure:
+	 *
+	 * header:
+	 * cl_int numberOfFractals
+	 * cl_int fractalsArrayOffset  // offset to sFractalCl array
+	 *
+	 * array of sFractalCl (aligned to 16):
+	 *   sFractalCl fractal0
+	 *   sFractalCl fractal1
+	 *   ...
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	itemOffsets[fractalsItemIndex].itemOffset = totalDataOffset;
+
+	// Count total number of fractals across all sequences
+	int totalFractals = 0;
+	int numberOfSequences = hybridSequences->GetNumberOfSequences();
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+		totalFractals += seq->numberOfFractalsInTheSequence;
+	}
+
+	data.append(reinterpret_cast<char *>(&totalFractals), sizeof(totalFractals));
+	totalDataOffset += sizeof(totalFractals);
+
+	// reserve bytes for fractals array offset
+	cl_int fractalsArrayOffset = 0;
+	int fractalsArrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&fractalsArrayOffset), sizeof(fractalsArrayOffset));
+	totalDataOffset += sizeof(fractalsArrayOffset);
+
+	// Align and calculate the offset where fractal data will start
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	int fractalDataOffset = totalDataOffset;
+
+	// write fractal data
+	int formulaBaseIndex = 0;
+	for (int i = 0; i < numberOfSequences; i++)
+	{
+		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
+		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
+		{
+			const cHybridFractalSequences::sFractalData &fd = seq->fractData[f];
+			sFractalCl fdCl;
+			memset(&fdCl, 0, sizeof(fdCl));
+			fdCl = clCopySFractalCl(fd.fractalParameters);
+
+			data.append(reinterpret_cast<char *>(&fdCl), sizeof(fdCl));
+			totalDataOffset += sizeof(fdCl);
+		}
+	}
+
+	// patch fractalsArrayOffset in header with the correct offset
+	data.replace(fractalsArrayOffsetAddress, sizeof(fractalsArrayOffset),
+		reinterpret_cast<char *>(&fractalDataOffset), sizeof(fractalsArrayOffset));
 }
 
 #endif // USE_OPENCL

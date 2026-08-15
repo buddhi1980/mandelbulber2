@@ -274,10 +274,11 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 	}
 
 	QList<QString> listOfFractalParametrs = fractal->at(0)->GetListOfParameters();
-	for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+	for (int f = 0; f < fractal->size(); f++)
 	{
 		for (const QString &parameterName : listOfFractalParametrs)
 		{
+			if (!fractal->at(f)->IfExists(parameterName)) continue;
 			cOneParameter parameter = fractal->at(f)->GetAsOneParameter(parameterName);
 			QString script =
 				EvaluateParameter(params, fractal, parameterName, parameter, error, evaluation);
@@ -286,7 +287,7 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 
 	if (error.length() > 0)
 	{
-		qDebug().noquote() << error;
+		qInfo().noquote() << error;
 	}
 	return error;
 }

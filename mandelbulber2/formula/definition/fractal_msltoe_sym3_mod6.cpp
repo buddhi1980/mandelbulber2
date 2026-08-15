@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMsltoeSym3Mod6::cFractalMsltoeSym3Mod6() : cAbstractFractal()
 {
@@ -97,8 +98,6 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.z -= aux.const_c.z * fractal->transformCommon.scaleE1;
 		//z.x -= c.y;
 		//z.y -= c.x;
-
-
 	}
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
@@ -136,4 +135,34 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
+
+	// aux->color // colDist != aux.dist ||
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colAdd = fractal->foldColor.difs0000.w
+				+ aux.i * fractal->foldColor.difs0;
+
+		// last two z lengths
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
+
+			aux.old_z = z; // update for next iter
+		}
+
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+
+		if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
+		else aux.color += colAdd;
+	}
 }

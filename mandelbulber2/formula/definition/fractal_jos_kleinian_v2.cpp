@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalJosKleinianV2::cFractalJosKleinianV2() : cAbstractFractal()
 {

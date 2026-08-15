@@ -12,13 +12,14 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-#include <QDir>
+#include <string>
 #include "all_fractal_list_enums.hpp"
 #include "src/algebra.hpp"
-#include "src/fractal.h"
 #include "src/fractal_enums.h"
-#include "src/common_math.h"
-#include "src/system_directories.hpp"
+
+// Forward declarations — full definitions included in abstract_fractal.cpp
+struct sFractal;
+struct sExtendedAux;
 
 using std::max;
 using std::min;
@@ -81,8 +82,8 @@ public:
 	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
 
 protected:
-	QString nameInComboBox;
-	QString internalName;
+	std::string nameInComboBox;
+	std::string internalName;
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
@@ -99,28 +100,12 @@ public:
 	fractal::enumDEFunctionType getDeFunctionType() const { return DEFunctionType; }
 	fractal::enumDEType getDeType() const { return DEType; }
 	fractal::enumFractalFormula getInternalId() const { return internalID; }
-	const QString &getInternalName() const { return internalName; }
-	const QString &getNameInComboBox() const { return nameInComboBox; }
+	const std::string &getInternalName() const { return internalName; }
+	const std::string &getNameInComboBox() const { return nameInComboBox; }
 
-	QString getIconName() const
-	{
-		if (internalID == fractal::none)
-		{
-			return QString(":system/icons/list-remove.svg");
-		}
-		return systemDirectories.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
-					 + internalName + ".png";
-	}
-	QString getUiFilename() const
-	{
-		return systemDirectories.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
-					 + internalName + ".ui";
-	}
-	QString getOpenCLFilename() const
-	{
-		return systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl"
-					 + QDir::separator() + internalName + ".cl";
-	}
+	virtual std::string getIconName() const;
+	virtual std::string getUiFilename() const;
+	virtual std::string getOpenCLFilename() const;
 };
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_ */

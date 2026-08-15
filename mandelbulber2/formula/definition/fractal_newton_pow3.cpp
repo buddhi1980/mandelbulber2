@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalNewtonPow3::cFractalNewtonPow3() : cAbstractFractal()
 {

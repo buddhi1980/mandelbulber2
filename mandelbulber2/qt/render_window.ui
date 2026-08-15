@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1215</width>
-            <height>817</height>
+            <width>1189</width>
+            <height>798</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -437,7 +437,7 @@
      <x>0</x>
      <y>0</y>
      <width>1422</width>
-     <height>17</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -609,8 +609,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>73</width>
-          <height>146</height>
+          <width>83</width>
+          <height>142</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -724,8 +724,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>73</width>
-          <height>146</height>
+          <width>83</width>
+          <height>143</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -765,58 +765,9 @@
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
-    <layout class="QVBoxLayout" name="verticalLayout_7">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <property name="leftMargin">
-      <number>2</number>
-     </property>
-     <property name="topMargin">
-      <number>2</number>
-     </property>
-     <property name="rightMargin">
-      <number>2</number>
-     </property>
-     <property name="bottomMargin">
-      <number>2</number>
-     </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QScrollArea" name="scrollArea_5">
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents_6">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>73</width>
-          <height>146</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_59">
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="topMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <property name="bottomMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="cDockFractal" name="widgetDockFractal" native="true"/>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+      <widget class="cDockFractal" name="widgetDockFractal" native="true"/>
      </item>
     </layout>
    </widget>
@@ -858,8 +809,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>73</width>
-          <height>146</height>
+          <width>83</width>
+          <height>143</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1027,8 +978,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>73</height>
+          <width>402</width>
+          <height>83</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -1094,8 +1045,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>89</width>
-          <height>319</height>
+          <width>101</width>
+          <height>316</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1155,8 +1106,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>73</width>
-          <height>146</height>
+          <width>83</width>
+          <height>142</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1234,8 +1185,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>73</width>
-          <height>359</height>
+          <width>83</width>
+          <height>356</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1718,8 +1669,7 @@
   </action>
   <action name="actionRender_Image">
    <property name="icon">
-    <iconset theme="applications-graphics">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="applications-graphics"/>
    </property>
    <property name="text">
     <string>Render Image</string>
@@ -1730,8 +1680,7 @@
   </action>
   <action name="actionStop_rendering">
    <property name="icon">
-    <iconset theme="process-stop">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="process-stop"/>
    </property>
    <property name="text">
     <string>Stop rendering</string>
@@ -1747,8 +1696,7 @@
   </action>
   <action name="actionReset_to_default">
    <property name="icon">
-    <iconset theme="document-new">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="document-new"/>
    </property>
    <property name="text">
     <string>New</string>
@@ -1865,7 +1813,6 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>scrollArea_2</tabstop>
-  <tabstop>scrollArea_5</tabstop>
   <tabstop>scrollArea_3</tabstop>
   <tabstop>scrollArea_material</tabstop>
   <tabstop>comboBox_image_preview_scale</tabstop>

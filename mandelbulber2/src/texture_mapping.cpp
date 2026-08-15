@@ -49,14 +49,18 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	CVector3 point = inPoint;
 	if (!material->textureFractalize)
 	{
-		point = point - objectData.position;
-		point = objectData.rotationMatrix.RotateVector(point);
-		point = point.repeatMod(objectData.repeat);
+		// Transform to object local space (same as calculate_distance)
+		point = objectData.worldToLocalMatrix.TransformPoint(point);
+		// Apply repeat in local space (scale repeat by absScale for correct world-space repeat
+		// distance)
+		point = point.repeatMod(objectData.repeat / objectData.absScale);
 		point /= objectData.size;
 	}
 	point = material->rotMatrixTexture.RotateVector(point);
 
-	normalVector = objectData.rotationMatrix.RotateVector(normalVector);
+	// Rotate the normal vector from world space into object-local space so that cubic
+	// (and other orientation-dependent) mapping selects the correct face.
+	normalVector = objectData.rotationMatrix.Transpose().RotateVector(normalVector);
 
 	switch (material->textureMappingType)
 	{
@@ -123,7 +127,6 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				CVector3 texX = texY.Cross(point);
 				texX.Normalize();
 				texY = texX.Cross(point);
-
 				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
 				texX = material->rotMatrixTexture.Transpose().RotateVector(texX);
 				*textureVectorX = texX;

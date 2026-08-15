@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfPwr2Polynomial::cFractalTransfPwr2Polynomial() : cAbstractFractal()
 {

@@ -110,7 +110,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 		scheduler->ReserveTile(startTile, monteCarloLoop);
 
 		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
-				 tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
+			tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
 		{
 			if (tile < 0) break;
 			if (!scheduler->IsTileEnabled(tile)) continue;
@@ -251,7 +251,7 @@ bool cOpenClWorkerThread::ProcessClQueue(
 	}
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -359,7 +359,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 	cl_int err = clKernel->setArg(7, antiAliasingOffset);
 	if (!checkErr(err, "kernel->setArg(7, cl_int(actualDepth))"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -379,39 +379,75 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 
 	if (pixelMask->size() > 0)
 	{
-		quint64 sequenceIndex = 0;
-		for (quint64 y = 0; y < jobHeight; y += subTileSize)
+		// check number of pixels left to render
+		quint64 pixelsToRender = 0;
+		for (quint64 y = 0; y < jobHeight; y++)
 		{
-			for (quint64 x = 0; x < jobWidth; x += subTileSize)
+			for (quint64 x = 0; x < jobWidth; x++)
 			{
-				bool havePixel = false;
-				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+				if (pixelMask->at((x + jobX) + (y + jobY) * imageWidth))
 				{
-					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
-					{
-						if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
-						{
-							havePixel = true;
-							break;
-						}
-					}
-					if (havePixel) break;
+					pixelsToRender++;
 				}
+			}
+		}
 
-				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+		if (pixelsToRender > maxWorkgroupSize * 32)
+		{
+			// creating the sequence
+			quint64 sequenceIndex = 0;
+			for (quint64 y = 0; y < jobHeight; y += subTileSize)
+			{
+				for (quint64 x = 0; x < jobWidth; x += subTileSize)
 				{
-					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+					// checking if at least one pixel in sub-tile is enabled
+					bool havePixel = false;
+					for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
 					{
-						if (havePixel)
+						for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
 						{
-							inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
-							sequenceIndex++;
+							if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
+							{
+								havePixel = true;
+								break;
+							}
+						}
+						if (havePixel) break;
+					}
+
+					// adding pixels from sub-tile to sequence
+					for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+					{
+						for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+						{
+							if (havePixel)
+							{
+								inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
+								sequenceIndex++;
+							}
 						}
 					}
 				}
 			}
+			sequenceSize = sequenceIndex;
 		}
-		sequenceSize = sequenceIndex;
+		else
+		{
+			// creating the sequence
+			quint64 sequenceIndex = 0;
+			for (quint64 y = 0; y < jobHeight; y++)
+			{
+				for (quint64 x = 0; x < jobWidth; x++)
+				{
+					if (pixelMask->at((x + jobX) + (y + jobY) * imageWidth))
+					{
+						inPixelSequenceBuffer[sequenceIndex] = x + y * jobWidth;
+						sequenceIndex++;
+					}
+				}
+			}
+			sequenceSize = sequenceIndex;
+		}
 	}
 	else
 	{
@@ -445,10 +481,10 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 
 	if (!checkErr(err, "new cl::Buffer(...) for pixel mask"))
 	{
-		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
+		EmitErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
-		qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
-						 << sequenceSize;
+		// qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
+		//<< sequenceSize;
 		return 0;
 	}
 
@@ -456,7 +492,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 		sequenceSize * sizeof(cl_int), inPixelSequenceBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for pixel mask"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
+		EmitErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -464,7 +500,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(8, cl_int(sequenceSize));
 	if (!checkErr(err, "kernel->setArg(8, sequenceSize)"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("sequenceSize")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("sequenceSize")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -472,7 +508,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(9, cl_int(jobWidth));
 	if (!checkErr(err, "kernel->setArg(8, jobWidth)"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("jobWidth")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("jobWidth")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}
@@ -480,8 +516,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	err = clKernel->setArg(10, *inClPixelSequenceBuffer.get());
 	if (!checkErr(err, "kernel->setArg(8, inClPixelSequenceBuffer)"))
 	{
-		emit showErrorMessage(
-			tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelSequenceBuffer")),
+		EmitErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelSequenceBuffer")),
 			cErrorMessage::errorMessage, nullptr);
 		return 0;
 	}

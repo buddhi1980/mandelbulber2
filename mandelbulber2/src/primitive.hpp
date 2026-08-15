@@ -54,8 +54,8 @@ enum enumPrimitiveBooleanOperator
 struct sPrimitiveBasic : cObjectData
 {
 	sPrimitiveBasic(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool enable = false;
 	int objectId = 0;
+	int userObjectId = 0;
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
 	virtual ~sPrimitiveBasic() = default;
 	virtual double PrimitiveDistance(CVector3 _point) const = 0;
@@ -91,7 +91,6 @@ struct sPrimitiveBox : sPrimitiveBasic
 	bool empty;
 	bool limitsEnable;
 	double rounding;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
@@ -107,7 +106,6 @@ struct sPrimitiveSphere : sPrimitiveBasic
 	bool empty;
 	bool limitsEnable;
 	double radius;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
@@ -126,7 +124,6 @@ struct sPrimitiveCone : sPrimitiveBasic
 	double radius;
 	double height;
 	CVector2<double> wallNormal;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
@@ -144,7 +141,6 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 	bool limitsEnable;
 	double radius;
 	double height;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
@@ -163,7 +159,6 @@ struct sPrimitiveTorus : sPrimitiveBasic
 	double radiusLPow;
 	double tubeRadius;
 	double tubeRadiusLPow;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
@@ -216,7 +211,6 @@ struct sPrimitiveEllipsoid : sPrimitiveBasic
 	sPrimitiveEllipsoid(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool limitsEnable;
-	CVector3 repeat;
 	CVector3 limitsMax;
 	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;

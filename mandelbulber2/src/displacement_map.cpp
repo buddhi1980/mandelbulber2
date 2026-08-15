@@ -36,6 +36,7 @@
 
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "hybrid_fractal_sequences.h"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
 
@@ -45,7 +46,12 @@ double DisplacementMap(
 	double distance = oldDistance;
 	if (data)
 	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
+		const int matId = data->objectData[objectId].materialId;
+		const cMaterial *mat =
+			(matId >= 0 && matId < static_cast<int>(data->materials.size())) ? &data->materials[matId]
+																																					 : nullptr;
+		if (!mat) return distance; // no material: skip displacement
 
 		if (mat->displacementTexture.IsLoaded())
 		{
@@ -63,7 +69,7 @@ double DisplacementMap(
 }
 
 CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sParamRender &params,
-	const cNineFractals &fractals, int objectId, double *reduceDisplacement)
+	int objectId, int seqIndex, double *reduceDisplacement)
 {
 	int forcedFormulaIndex = objectId;
 	if (objectId < 0) objectId = 0;
@@ -71,12 +77,20 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 	CVector3 pointFractalized = point;
 	if (data)
 	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size()))
+			return pointFractalized;
+		const int matId = data->objectData[objectId].materialId;
+		const cMaterial *mat =
+			(matId >= 0 && matId < static_cast<int>(data->materials.size()))
+				? &data->materials[matId]
+				: nullptr;
+		if (!mat) return pointFractalized; // no material: skip fractal texture
 		if (mat->textureFractalize)
 		{
 			sFractalIn fractIn(point, 0, -1, 1, 0, &params.common, forcedFormulaIndex, false, mat);
 			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(fractals, fractIn, &fractOut);
+			Compute<fractal::calcModeCubeOrbitTrap>(
+				data->hybridFractalSequences.GetSequence(seqIndex), fractIn, &fractOut);
 			pointFractalized = fractOut.z;
 			*reduceDisplacement = pow(2.0, fractOut.iters);
 		}

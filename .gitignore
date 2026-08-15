@@ -135,7 +135,4 @@ mandelbulber2/cmake/CMakeCache.txt
 mandelbulber2/cmake/CMakeFiles/*
 mandelbulber2/cmake/Makefile
 mandelbulber2/cmake/cmake_install.cmake
-mandelbulber2/cmake/compile_commands.json
 
-# Other
-*.bak

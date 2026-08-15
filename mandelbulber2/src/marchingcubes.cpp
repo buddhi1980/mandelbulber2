@@ -44,7 +44,6 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "nine_fractals.hpp"
 #include "opencl_engine.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
@@ -59,7 +58,7 @@
 
 MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
 	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, int numx,
+	std::shared_ptr<cHybridFractalSequences> fractals, std::shared_ptr<sRenderData> renderData, int numx,
 	int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
 	std::vector<double> &vertices, std::vector<long long> &polygons,
 	std::vector<double> &colorIndices)
@@ -136,9 +135,16 @@ void MarchingCubes::RunMarchingCube()
 
 	if (openClEnabled)
 	{
+		cObjectsTree objectsTreeOCL;
+		objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
+		std::vector<cObjectsTree::sNodeDataForRendering> nodesOCL =
+			objectsTreeOCL.GetNodeDataListForRendering();
+		std::shared_ptr<cHybridFractalSequences> hybridFractals(new cHybridFractalSequences());
+		hybridFractals->CreateSequences(paramsContainer, fractalContainer, nodesOCL);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			paramsContainer, fractalContainer, params, fractals, renderData, true);
+			paramsContainer, fractalContainer, params, hybridFractals, renderData, true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
@@ -237,7 +243,7 @@ void MarchingCubes::calculateVoxelPlane(int i)
 
 #pragma omp parallel for schedule(dynamic, 1)
 			for (long long kk = 0; kk < numzb;
-					 ++kk) // long long is used because size_t doesn't work with msvc and OpenMP
+				++kk) // long long is used because size_t doesn't work with msvc and OpenMP
 			{
 				long long ptr = ii * numyzb + jj * numzb + kk;
 
@@ -432,7 +438,7 @@ void MarchingCubes::calculateEdges(int i)
 #ifdef USE_OFFLOAD
 __declspec(target(mic))
 #endif // USE_OFFLOAD
-	double MarchingCubes::getDistance(double x, double y, double z, double *colorIndex) const
+double MarchingCubes::getDistance(double x, double y, double z, double *colorIndex) const
 {
 	CVector3 point;
 	point.x = x;
@@ -446,12 +452,21 @@ __declspec(target(mic))
 		CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut, renderData.get());
 
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
-	cMaterial *material = &renderData->materials[objectData.materialId];
+	cMaterial *material = nullptr;
+	if (distanceOut.objectId >= 0
+		&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
+	{
+		const int matId = renderData->objectData[distanceOut.objectId].materialId;
+		if (matId >= 0 && matId < static_cast<int>(renderData->materials.size()))
+			material = &renderData->materials[matId];
+	}
+	if (!material) return dist; // no material: skip colouring
 
 	sFractalIn fractIn(point, params->minN, -1, 1, 0, &params->common, -1, false, material);
 	sFractalOut fractOut;
 
-	Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
+	Compute<fractal::calcModeColouring>(
+		renderData->hybridFractalSequences.GetSequence(distanceOut.seqIndex), fractIn, &fractOut);
 
 	*colorIndex = fractOut.colorIndex;
 

@@ -138,6 +138,21 @@ typedef struct
 
 	int numberOfPrimitives;
 
+	__global sNodeDataForRenderingCl *nodesData;
+	int numberOfNodes;
+	int numberOfObjects;
+
+	__global char *dynamicData;
+	__global sHybridSequenceCl *hybridSequences;
+	int numberOfHybridSequences;
+
+	__global sFractalCl *fractals;
+	int numberOfFractals;
+
+	__global char *nebulaSequencesData;
+	int nebulaSequencesCount;
+	intptr_t nebulaSequencesDataOffset;
+
 #if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;
 	matrix33 mRotInv;

@@ -112,6 +112,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 
 	if (gPar->Get<bool>("ui_colorize"))
 		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed"));
+	cInterface::AdjustLayoutSpacing(this, gPar->Get<int>("ui_layout_spacing"));
 
 	initFinished = true;
 }
@@ -339,12 +340,13 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 		examplePar->SetContainerName("main");
 		InitParams(examplePar);
+		InitNodeParams(1, examplePar);
 		/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 		InitMaterialParams(1, examplePar);
 
 		/*******************************************************************/
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < exampleParFractal->size(); i++)
 		{
 			exampleParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 			InitFractalParams(exampleParFractal->at(i));

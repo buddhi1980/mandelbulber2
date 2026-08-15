@@ -1,5 +1,21 @@
 Version history
 
+v2.35 (September 2025)
+
+- Added new fractal formulas
+   mandelbarV3
+
+
+- modified fractal formulas
+   mengerMod1, added aux.color
+   msltoeSym3Mod6, added aux.color
+	 transfAbsSym3, add cPixel, add color
+	 transfJuliabox, update color
+	 transfAddSphericalInvert, fix DE
+
+
+
+
 v2.34 (September 2025)
 
 - Added new fractal formulas

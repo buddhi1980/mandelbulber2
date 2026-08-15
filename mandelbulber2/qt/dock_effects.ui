@@ -181,9 +181,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-36</y>
-            <width>437</width>
-            <height>1144</height>
+            <y>-168</y>
+            <width>421</width>
+            <height>1501</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -644,6 +644,19 @@ per pixel:</string>
                 </property>
                 <property name="text">
                  <string>Enable pixel level optimization</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkB_MCShowNoiseLevels">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="text">
+                 <string>Show detailed noise levels durining rendering</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1477,8 +1490,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>437</width>
-            <height>1670</height>
+            <width>421</width>
+            <height>2227</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -3132,8 +3145,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>451</width>
-            <height>1086</height>
+            <width>442</width>
+            <height>1058</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3850,8 +3863,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>437</width>
-            <height>1254</height>
+            <width>422</width>
+            <height>1651</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -5105,8 +5118,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>451</width>
-            <height>1075</height>
+            <width>442</width>
+            <height>1050</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

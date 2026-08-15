@@ -47,25 +47,21 @@ float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParam
 		float3 textureVectorX = 0.0f;
 		float3 textureVectorY = 0.0f;
 
-		float3 pointModified = input->point;
+		float3 shaderPoint = input->point;
+		float3 pointModified = shaderPoint;
 
 #ifdef FRACTALIZE_TEXTURE
 		if (input->material->textureFractalize)
 		{
 			formulaOut outF;
 
-			outF = Fractal(consts, input->point, calcParams, calcModeCubeOrbitTrap, input->material, -1);
+			outF = Fractal(consts, shaderPoint, calcParams, calcModeCubeOrbitTrap, input->material, -1,
+				renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 			pointModified = outF.z.xyz;
 		}
 #endif
 
-		if (objectData->objectType > objFractal)
-		{
-			pointModified = pointModified - renderData->primitivesGlobalData->allPrimitivesPosition;
-			pointModified = Matrix33MulFloat3(
-				renderData->primitivesGlobalData->mRotAllPrimitivesRotation, pointModified);
-		}
-		else
+		if (!input->hasTransformedPoint)
 		{
 			pointModified = pointModified - consts->params.common.fractalPosition;
 			pointModified = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointModified);
