@@ -446,6 +446,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.color = 128;
 	pixel.opacity = 0;
 	pixel.alpha = alpha * 65535;
+	//printf("sizeof sClPixel: %d", sizeof(sClPixel));
 
 	out[buffIndex] = pixel;
 #endif // STEREO_REYCYAN

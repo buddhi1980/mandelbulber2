@@ -47,11 +47,24 @@
 
 typedef struct
 {
-	cl_int id;
-	cl_int textureFractalizeStartIteration;
-	cl_int perlinNoiseIterations;
-
-	cl_float shading;
+	sFractalColoringCl fractalColoring;
+	
+	matrix33 rotMatrixTexture;
+	matrix33 rotMatrixPerlinNoise;
+	
+	cl_float3 specularColor;
+	cl_float3 transparencyColor;
+	
+	cl_float3 textureCenter;
+	cl_float3 textureScale;
+	cl_float3 perlinNoisePeriod;
+	cl_float3 perlinNoisePositionOffset;
+	
+	cl_float3 color;
+	cl_float3 luminosityColor;
+	cl_float3 transparencyInteriorColor;
+	cl_float3 reflectionsColor;
+	
 	cl_float specular;
 	cl_float specularWidth;
 	cl_float specularMetallic;
@@ -89,23 +102,12 @@ typedef struct
 	cl_float perlinNoiseTransparencyAlphaIntensity;
 	cl_float perlinNoiseTransparencyColorIntensityVol;
 	cl_float perlinNoiseTransparencyAlphaIntensityVol;
-
-	cl_float3 color;
-	cl_float3 luminosityColor;
-	cl_float3 transparencyInteriorColor;
-	cl_float3 reflectionsColor;
-	cl_float3 specularColor;
-	cl_float3 transparencyColor;
-
-	cl_float3 textureCenter;
-	cl_float3 textureScale;
-	cl_float3 perlinNoisePeriod;
-	cl_float3 perlinNoisePositionOffset;
-
-	matrix33 rotMatrixTexture;
-	matrix33 rotMatrixPerlinNoise;
-
-	enumTextureMappingCl textureMappingType;
+	cl_float shading;
+	
+	cl_int id;
+	cl_int textureFractalizeStartIteration;
+	cl_int perlinNoiseIterations;
+	
 	cl_int fresnelReflectance;
 	cl_int useColorsFromPalette;
 	cl_int specularPlasticEnable;
@@ -161,8 +163,10 @@ typedef struct
 	cl_int roughnessGradientEnable;
 	cl_int reflectanceGradientEnable;
 	cl_int transparencyGradientEnable;
+	
+	enumTextureMappingCl textureMappingType;
 
-	sFractalColoringCl fractalColoring;
+
 } sMaterialCl;
 
 #ifndef OPENCL_KERNEL_CODE

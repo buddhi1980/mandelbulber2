@@ -43,42 +43,44 @@
 
 // OpenCL version of cHybridFractalSequences::sFractalData
 // Note: fractalFormulaObject pointer is not transferred to OpenCL
-typedef struct
+typedef struct ALIGN16
 {
+	sFractalCl fractalParameters;
 	cl_float formulaWeight;
+	cl_float bailout;
 	cl_int formulaIterations;
 	cl_int formulaStartIteration;
 	cl_int formulaStopIteration;
 	cl_int addCConstant;
 	cl_int checkForBailout;
-	cl_float bailout;
 	cl_int useAdditionalBailoutCond;
-	sFractalCl fractalParameters;
 } sHybridFractalDataCl;
 
 // OpenCL version of cHybridFractalSequences::sSequence
 // The variable-length arrays (seqence and fractData) are stored separately in dynamic data
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	
+	cl_float initialWAxis;
+	
 	cl_int length;
 	cl_int numberOfFractalsInTheSequence;
 	cl_int internalObjectId;
 
-	enumDEFunctionTypeCl DEFunctionType;
-	enumDETypeCl DEType;
-	enumDEAnalyticFunctionCl DEAnalyticFunction;
-	enumColoringFunctionCl coloringFunction;
-
 	cl_int isHybrid;
 	cl_int juliaEnabled;
-	cl_float3 juliaConstant;
-	cl_float3 constantMultiplier;
-	cl_float initialWAxis;
 	cl_int formulaMaxiter;
 
 	cl_int sequenceArrayOffset;   // offset to sequence array (cl_int[]) in dynamic data
 	cl_int fractDataArrayOffset;  // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
 	cl_int formulaBaseIndex;      // global index of first formula in consts->fractal[] for this sequence
+	
+	enumDEFunctionTypeCl DEFunctionType;
+	enumDETypeCl DEType;
+	enumDEAnalyticFunctionCl DEAnalyticFunction;
+	enumColoringFunctionCl coloringFunction;
 } sHybridSequenceCl;
 
 #endif /* MANDELBULBER2_OPENCL_HYBRID_SEQUENCE_CL_H_ */

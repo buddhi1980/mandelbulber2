@@ -71,10 +71,125 @@ typedef enum
 	booleanOperatorSUB = 2
 } enumBooleanOperatorCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	sImageAdjustmentsCl imageAdjustments;
+	sCommonParamsCl common;
+	
+	matrix33 mRotBackgroundRotation;
+	matrix33 mRotCloudsRotation;
+	matrix33 mRotAmbientOcclusionLightMapRotation;
+	
+	cl_float3 ambientOcclusionLightMapRotation;
+	cl_float3 backgroundRotation;
+	cl_float3 cloudsCenter;
+	cl_float3 cloudsRotation;
+	cl_float3 cloudsSpeed;
+	cl_float3 limitMin;
+	cl_float3 limitMax;
+	cl_float3 repeat;
+	cl_float3 target;
+	cl_float3 camera; // view point
+	cl_float3 viewAngle;
+	cl_float3 topVector;
+		
 	// constructor with init
-
+	cl_float3 ambientOcclusionColor;
+	cl_float3 background_color1; // background colour
+	cl_float3 background_color2;
+	cl_float3 background_color3;
+	cl_float3 cloudsColor;
+	cl_float3 fakeLightsColor;
+	cl_float3 fakeLightsColor2;
+	cl_float3 fakeLightsColor3;
+	cl_float3 fillLightColor;
+	cl_float3 fogColor;
+	cl_float3 glowColor1;
+	cl_float3 glowColor2;
+	cl_float3 iterFogColour1;
+	cl_float3 iterFogColour2;
+	cl_float3 iterFogColour3;
+	cl_float3 volFogColour1;
+	cl_float3 volFogColour2;
+	cl_float3 volFogColour3;
+	
+	cl_float absMaxMarchingStep;
+	cl_float absMinMarchingStep;
+	cl_float ambientOcclusion;
+	cl_float ambientOcclusionFastTune;
+	cl_float background_brightness;
+	cl_float background_gamma;
+	cl_float backgroundHScale;
+	cl_float backgroundVScale;
+	cl_float backgroundTextureOffsetX;
+	cl_float backgroundTextureOffsetY;
+	cl_float cameraDistanceToTarget; // zoom
+	cl_float cloudsAmbientLight;
+	cl_float cloudsDEApproaching;
+	cl_float cloudsDEMultiplier;
+	cl_float cloudsDensity;
+	cl_float cloudsDetailAccuracy;
+	cl_float cloudsDistance;
+	cl_float cloudsDistanceLayer;
+	cl_float cloudsLightsBoost;
+	cl_float cloudsPeriod;
+	cl_float cloudsSharpness;
+	cl_float cloudsHeight;
+	cl_float cloudsOpacity;
+	cl_float constantFactor;
+	cl_float DEFactor; // factor for distance estimation steps
+	cl_float deltaDERelativeDelta;
+	cl_float detailLevel; // DE threshold factor
+	cl_float detailSizeMax;
+	cl_float detailSizeMin;
+	cl_float DEThresh;
+	cl_float DOFFocus;
+	cl_float DOFRadius;
+	cl_float DOFMaxRadius;
+	cl_float DOFBlurOpacity;
+	cl_float DOFMaxNoise;
+	cl_float DOFMonteCarloCADispersionGain;
+	cl_float DOFMonteCarloCACameraDispersion;
+	cl_float fakeLightsIntensity;
+	cl_float fakeLightsVisibility;
+	cl_float fakeLightsVisibilitySize;
+	cl_float fogVisibility;
+	cl_float fov; // perspective factor
+	cl_float glowIntensity;
+	cl_float hdrBlurIntensity;
+	cl_float hdrBlurRadius;
+	cl_float iterFogColor1Maxiter;
+	cl_float iterFogColor2Maxiter;
+	cl_float iterFogOpacity;
+	cl_float iterFogOpacityTrim;
+	cl_float iterFogOpacityTrimHigh;
+	cl_float iterFogBrightnessBoost;
+	cl_float monteCarloGIRadianceLimit;
+	cl_float nebulaBrighness;
+	cl_float nebulaXGridSize;
+	cl_float nebulaYGridSize;
+	cl_float nebulaZGridSize;
+	cl_float postChromaticAberrationIntensity;
+	cl_float postChromaticAberrationRadius;
+	cl_float rayleighScatteringBlue;
+	cl_float rayleighScatteringRed;
+	cl_float relMaxMarchingStep;
+	cl_float relMinMarchingStep;
+	cl_float resolution; // resolution of image in fractal coordinates
+	cl_float smoothness;
+	cl_float stereoEyeDistance;
+	cl_float stereoInfiniteCorrection;
+	cl_float sweetSpotHAngle;
+	cl_float sweetSpotVAngle;
+	cl_float viewDistanceMax;
+	cl_float viewDistanceMin;
+	cl_float volFogColour1Distance;
+	cl_float volFogColour2Distance;
+	cl_float volFogDensity;
+	cl_float volFogDistanceFactor;
+	cl_float volFogDistanceFromSurface;
+	cl_float volumetricLightDEFactor;
+	
 	cl_int antialiasingSize;
 	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
@@ -160,122 +275,6 @@ typedef struct
 	cl_int useDefaultBailout;
 	cl_int volFogEnabled;
 
-	cl_float3 ambientOcclusionColor;
-	cl_float3 background_color1; // background colour
-	cl_float3 background_color2;
-	cl_float3 background_color3;
-	cl_float3 cloudsColor;
-	cl_float3 fakeLightsColor;
-	cl_float3 fakeLightsColor2;
-	cl_float3 fakeLightsColor3;
-	cl_float3 fillLightColor;
-	cl_float3 fogColor;
-	cl_float3 glowColor1;
-	cl_float3 glowColor2;
-	cl_float3 iterFogColour1;
-	cl_float3 iterFogColour2;
-	cl_float3 iterFogColour3;
-	cl_float3 volFogColour1;
-	cl_float3 volFogColour2;
-	cl_float3 volFogColour3;
-
-	cl_float absMaxMarchingStep;
-	cl_float absMinMarchingStep;
-	cl_float ambientOcclusion;
-	cl_float ambientOcclusionFastTune;
-	cl_float background_brightness;
-	cl_float background_gamma;
-	cl_float backgroundHScale;
-	cl_float backgroundVScale;
-	cl_float backgroundTextureOffsetX;
-	cl_float backgroundTextureOffsetY;
-	cl_float cameraDistanceToTarget; // zoom
-	cl_float cloudsAmbientLight;
-	cl_float cloudsDEApproaching;
-	cl_float cloudsDEMultiplier;
-	cl_float cloudsDensity;
-	cl_float cloudsDetailAccuracy;
-	cl_float cloudsDistance;
-	cl_float cloudsDistanceLayer;
-	cl_float cloudsLightsBoost;
-	cl_float cloudsPeriod;
-	cl_float cloudsSharpness;
-	cl_float cloudsHeight;
-	cl_float cloudsOpacity;
-	cl_float constantFactor;
-	cl_float DEFactor; // factor for distance estimation steps
-	cl_float deltaDERelativeDelta;
-	cl_float detailLevel; // DE threshold factor
-	cl_float detailSizeMax;
-	cl_float detailSizeMin;
-	cl_float DEThresh;
-	cl_float DOFFocus;
-	cl_float DOFRadius;
-	cl_float DOFMaxRadius;
-	cl_float DOFBlurOpacity;
-	cl_float DOFMaxNoise;
-	cl_float DOFMonteCarloCADispersionGain;
-	cl_float DOFMonteCarloCACameraDispersion;
-	cl_float fakeLightsIntensity;
-	cl_float fakeLightsVisibility;
-	cl_float fakeLightsVisibilitySize;
-	cl_float fogVisibility;
-	cl_float fov; // perspective factor
-	cl_float glowIntensity;
-	cl_float hdrBlurIntensity;
-	cl_float hdrBlurRadius;
-	cl_float iterFogColor1Maxiter;
-	cl_float iterFogColor2Maxiter;
-	cl_float iterFogOpacity;
-	cl_float iterFogOpacityTrim;
-	cl_float iterFogOpacityTrimHigh;
-	cl_float iterFogBrightnessBoost;
-	cl_float monteCarloGIRadianceLimit;
-	cl_float nebulaBrighness;
-	cl_float nebulaXGridSize;
-	cl_float nebulaYGridSize;
-	cl_float nebulaZGridSize;
-	cl_float postChromaticAberrationIntensity;
-	cl_float postChromaticAberrationRadius;
-	cl_float rayleighScatteringBlue;
-	cl_float rayleighScatteringRed;
-	cl_float relMaxMarchingStep;
-	cl_float relMinMarchingStep;
-	cl_float resolution; // resolution of image in fractal coordinates
-	cl_float smoothness;
-	cl_float stereoEyeDistance;
-	cl_float stereoInfiniteCorrection;
-	cl_float sweetSpotHAngle;
-	cl_float sweetSpotVAngle;
-	cl_float viewDistanceMax;
-	cl_float viewDistanceMin;
-	cl_float volFogColour1Distance;
-	cl_float volFogColour2Distance;
-	cl_float volFogDensity;
-	cl_float volFogDistanceFactor;
-	cl_float volFogDistanceFromSurface;
-	cl_float volumetricLightDEFactor;
-
-	sImageAdjustmentsCl imageAdjustments;
-
-	cl_float3 ambientOcclusionLightMapRotation;
-	cl_float3 backgroundRotation;
-	cl_float3 cloudsCenter;
-	cl_float3 cloudsRotation;
-	cl_float3 cloudsSpeed;
-	cl_float3 limitMin;
-	cl_float3 limitMax;
-	cl_float3 repeat;
-	cl_float3 target;
-	cl_float3 camera; // view point
-	cl_float3 viewAngle;
-	cl_float3 topVector;
-
-	matrix33 mRotBackgroundRotation;
-	matrix33 mRotCloudsRotation;
-	matrix33 mRotAmbientOcclusionLightMapRotation;
-
-	sCommonParamsCl common;
 } sParamRenderCl;
 
 #ifndef OPENCL_KERNEL_CODE

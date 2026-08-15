@@ -51,32 +51,38 @@ typedef enum
 } enumNodeTypeCl;
 
 // Node data for rendering - corresponds to CPU cObjectsTree::sNodeDataForRendering
-typedef struct
+typedef struct ALIGN16
 {
+	matrix33 rotationMatrix;
+	matrix44 worldToLocalMatrix;
+	
+	cl_float3 repeat;
+	cl_float3 julia_c;
+	cl_float3 fractal_constant_factor;
+	
+	cl_float scale;
+	cl_float absScale;
+	cl_float detailLevelMultiplier;
+	cl_float initial_waxis;
+	cl_float smooth_de_combine_distance;
+	
 	cl_int id;
-	enumNodeTypeCl type;
 	cl_int parentId;
 	cl_int userObjectId;
 	cl_int internalObjectId;
 	cl_int primitiveIdx;
 	cl_int level;
 	cl_int hybridSequenceIndex;
-	cl_float3 repeat;
-	cl_float scale;
-	cl_float absScale;
 	cl_int material;
-	matrix33 rotationMatrix;
-	matrix44 worldToLocalMatrix;
 	cl_int enabled;
-	cl_float detailLevelMultiplier;
+
 	// Common fractal parameters shared by all node types (including boolean groups)
 	cl_int julia_mode;
-	cl_float3 julia_c;
-	cl_float3 fractal_constant_factor;
-	cl_float initial_waxis;
 	cl_int smooth_de_combine_enable;
-	cl_float smooth_de_combine_distance;
+
 	cl_int formula_maxiter;
+	
+		enumNodeTypeCl type;
 } sNodeDataForRenderingCl;
 
 #endif /* MANDELBULBER2_OPENCL_NODE_DATA_CL_H_ */

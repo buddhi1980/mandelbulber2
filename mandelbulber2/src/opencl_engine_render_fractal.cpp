@@ -113,6 +113,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	// create empty list of custom formulas
 	customFormulaCodes.clear();
+	
+	qDebug() << "sizeof(sClPixel)" << sizeof(sClPixel);
 #endif
 }
 
