@@ -49,113 +49,120 @@ typedef enum
 } enumClPrimitiveBooleanOperator;
 
 // primitive specified parameters
-typedef struct
+typedef struct ALIGN16
 {
 	cl_int empty;
 } sPrimitivePlaneCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int empty;
-	cl_int limitsEnable;
-	cl_float rounding;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
+	cl_float rounding;
+	cl_int empty;
+	cl_int limitsEnable;
+
+
 } sPrimitiveBoxCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int empty;
-	cl_int limitsEnable;
-	cl_float radius;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
-} sPrimitiveSphereCl;
-
-typedef struct
-{
+	cl_float radius;
 	cl_int empty;
 	cl_int limitsEnable;
-	cl_int waveFromObjectsEnable;
+
+
+} sPrimitiveSphereCl;
+
+typedef struct ALIGN16
+{
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 	cl_float relativeAmplitude;
 	cl_float animSpeed;
 	cl_float animProgressionSpeed;
 	cl_float length;
 	cl_float waveFromObjectsRelativeAmplitude;
+	cl_int empty;
+	cl_int limitsEnable;
+	cl_int waveFromObjectsEnable;
 	cl_int iterations;
 	cl_int animFrame;
-	cl_float3 limitsMax;
-	cl_float3 limitsMin;
+
 } sPrimitiveWaterCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
+	cl_float2 wallNormal;
+	cl_float radius;
+	cl_float height;
 	cl_int empty;
 	cl_int caps;
 	cl_int limitsEnable;
-	cl_float radius;
-	cl_float height;
-	cl_float2 wallNormal;
-	cl_float3 limitsMax;
-	cl_float3 limitsMin;
+
 } sPrimitiveConeCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
+	cl_float radius;
+	cl_float height;
 	cl_int empty;
 	cl_int caps;
 	cl_int limitsEnable;
-	cl_float radius;
-	cl_float height;
-	cl_float3 limitsMax;
-	cl_float3 limitsMin;
 } sPrimitiveCylinderCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int empty;
-	cl_int limitsEnable;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 	cl_float radius;
 	cl_float radiusLPow;
 	cl_float tubeRadius;
 	cl_float tubeRadiusLPow;
-	cl_float3 limitsMax;
-	cl_float3 limitsMin;
+	cl_int empty;
+	cl_int limitsEnable;
 } sPrimitiveTorusCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float radius;
 } sPrimitiveCircleCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float height;
 	cl_float width;
 } sPrimitiveRectangleCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int empty;
+	cl_float3 normals;
 	cl_float triangleHeight;
 	cl_float height;
 	cl_float prismAngle;
-	cl_float3 normals;
+	cl_int empty;
 } sPrimitivePrismCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int empty;
-	cl_int limitsEnable;
 	cl_float3 limitsMax;
 	cl_float3 limitsMin;
+	cl_int empty;
+	cl_int limitsEnable;
 } sPrimitiveEllipsoidCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	matrix33 mRotAllPrimitivesRotation;
 	cl_float3 allPrimitivesPosition;
 	cl_float3 allPrimitivesRotation;
-	matrix33 mRotAllPrimitivesRotation;
+
 	cl_int primitiveIndexForBasicFog;
 	cl_int primitiveIndexForDistFog;
 	cl_int primitiveIndexForIterFog;
@@ -163,7 +170,7 @@ typedef struct
 } sPrimitiveGlobalDataCl;
 
 // union - variable container for primitive data
-typedef union
+typedef union ALIGN16
 {
 	sPrimitivePlaneCl plane;
 	sPrimitiveBoxCl box;
@@ -179,7 +186,7 @@ typedef union
 } uPrimitiveCl;
 
 // full definition of primitive
-typedef struct
+typedef struct ALIGN16
 {
 	sObjectDataCl object; // structure
 	uPrimitiveCl data;		// union !!!

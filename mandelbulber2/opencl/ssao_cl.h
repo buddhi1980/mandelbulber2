@@ -37,10 +37,10 @@
 
 typedef struct
 {
+	cl_float fov;
 	cl_int width;
 	cl_int height;
 	cl_int quality;
-	cl_float fov;
 	cl_int random_mode;
 } sParamsSSAO;
 

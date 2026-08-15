@@ -42,12 +42,8 @@
 #ifndef INPUT_DATA_STRUCTURES
 #define INPUT_DATA_STRUCTURES
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_ushort opacity;
-	cl_ushort alpha;
-	cl_float zBuffer;
-	cl_uchar3 color;
 	cl_float3 image;
 	cl_float3 normal;
 	cl_float3 normalWorld;
@@ -56,7 +52,12 @@ typedef struct
 	cl_float3 world;
 	cl_float3 shadows;
 	cl_float3 globalIllumination;
+	cl_uchar3 color;
+	cl_float zBuffer;
+	cl_ushort opacity;
+	cl_ushort alpha;
 } sClPixel;
+
 
 typedef struct
 {

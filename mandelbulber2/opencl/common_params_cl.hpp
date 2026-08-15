@@ -67,7 +67,7 @@ typedef enum
 	fakeLightsShapeCube = 5
 } enumFakeLightsShapeCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float boxLimit; // parameters of TGlad's folding
 	cl_float boxValue;
@@ -77,8 +77,23 @@ typedef struct
 	cl_int sphericalEnable;
 } sFractalFoldingsCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	sFractalFoldingsCl foldings;
+	
+	matrix33 mRotFractalRotation;
+	matrix33 mRotFakeLightsRotation;
+	
+	cl_float3 fakeLightsOrbitTrap;
+	cl_float3 fakeLightsRotation;
+	cl_float3 fractalPosition;
+	cl_float3 fractalRotation;
+	cl_float3 repeat;
+	
+	cl_float fakeLightsOrbitTrapSize;
+	cl_float fakeLightsThickness;
+	cl_float linearDEOffset;
+	
 	cl_int iterThreshMode;
 	cl_int fakeLightsRelativeCenter;
 	cl_int fakeLightsColor2Enabled;
@@ -88,20 +103,6 @@ typedef struct
 	cl_int fakeLightsMinIter;
 
 	cl_int fakeLightsOrbitTrapShape;
-
-	cl_float fakeLightsOrbitTrapSize;
-	cl_float fakeLightsThickness;
-	cl_float linearDEOffset;
-
-	cl_float3 fakeLightsOrbitTrap;
-	cl_float3 fakeLightsRotation;
-	cl_float3 fractalPosition;
-	cl_float3 fractalRotation;
-	cl_float3 repeat;
-	matrix33 mRotFractalRotation;
-	matrix33 mRotFakeLightsRotation;
-
-	sFractalFoldingsCl foldings;
 } sCommonParamsCl;
 
 #ifndef OPENCL_KERNEL_CODE

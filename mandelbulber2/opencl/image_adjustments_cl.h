@@ -57,7 +57,7 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef struct
+typedef struct ALIGN16
 {
 
 	cl_float brightness;

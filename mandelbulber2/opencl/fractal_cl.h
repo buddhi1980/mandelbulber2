@@ -46,10 +46,10 @@
 #define MANDELBULBER2_OPENCL_FRACTAL_CL_H_
 
 #ifndef OPENCL_KERNEL_CODE
-#include "common_params_cl.hpp"
 #include "image_adjustments_cl.h"
 #include "opencl_algebra.h"
 
+#include "src/include_header_wrapper.hpp"
 #include "src/common_params.hpp"
 #include "src/fractal.h"
 #include "src/fractal_enums.h"
@@ -83,10 +83,8 @@ typedef enum
 	generalizedFoldBoxTypeCl_foldBox6 = 6,
 	generalizedFoldBoxTypeCl_foldBox5 = 7
 } enumGeneralizedFoldBoxTypeCl;
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int i;
-
 	cl_float4 c;
 	cl_float4 const_c;
 	cl_float4 old_z;
@@ -106,13 +104,15 @@ typedef struct
 	cl_float colorHybrid;
 
 	cl_float temp1000;
+	
+	cl_int i;
 } sExtendedAuxCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_float3 factor;
 	cl_float4 factor4D;
 	cl_float4 difs0000;
+	cl_float3 factor;
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
@@ -131,9 +131,8 @@ typedef struct
 	cl_int int2;
 } sFoldColorCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	enumGeneralizedFoldBoxTypeCl type;
 	cl_float3 Nv_tet[4];
 	cl_float3 Nv_cube[6];
 	cl_float3 Nv_oct[8];
@@ -150,10 +149,21 @@ typedef struct
 	cl_int sides_icosa;
 	cl_int sides_box6;
 	cl_int sides_box5;
+	enumGeneralizedFoldBoxTypeCl type;
 } sFractalGeneralizedFoldBoxCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	matrix33 mainRot;
+	matrix33 rot[IFS_VECTOR_COUNTCl];
+	cl_float4 direction[IFS_VECTOR_COUNTCl];
+	cl_float3 edge;
+	cl_float4 offset;
+	cl_float3 rotations[IFS_VECTOR_COUNTCl];
+	cl_float3 rotation;
+	cl_float distance[IFS_VECTOR_COUNTCl];
+	cl_float intensity[IFS_VECTOR_COUNTCl];
+	cl_float scale;
 	cl_int absX;
 	cl_int absY;
 	cl_int absZ;
@@ -161,19 +171,9 @@ typedef struct
 	cl_int mengerSpongeMode;
 	cl_int rotationEnabled;
 	cl_int edgeEnabled;
-	matrix33 mainRot;
-	matrix33 rot[IFS_VECTOR_COUNTCl];
-	cl_float4 direction[IFS_VECTOR_COUNTCl];
-	cl_float3 edge;
-	cl_float4 offset;
-	cl_float3 rotations[IFS_VECTOR_COUNTCl];
-	cl_float distance[IFS_VECTOR_COUNTCl];
-	cl_float intensity[IFS_VECTOR_COUNTCl];
-	cl_float3 rotation;
-	cl_float scale;
 } sFractalIFSCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float fold;
 	cl_float minR;
@@ -182,11 +182,15 @@ typedef struct
 	cl_float rPower;
 } sFractalMandelboxVary4DCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	sFoldColorCl color;
+	matrix33 mainRot;
+	matrix33 rot[MANDELBOX_FOLDSCl][3];
+	matrix33 rotinv[MANDELBOX_FOLDSCl][3];
 	cl_float3 rotationMain;
 	cl_float3 rotation[MANDELBOX_FOLDSCl][3];
-	sFoldColorCl color;
+	cl_float4 offset;
 	cl_float scale;
 	cl_float foldingLimit;
 	cl_float foldingValue;
@@ -195,25 +199,20 @@ typedef struct
 	cl_float sharpness;
 	cl_float solid;
 	cl_float melt;
-	cl_float4 offset;
-	cl_int rotationsEnabled;
-	cl_int mainRotationEnabled;
-	matrix33 mainRot;
-	matrix33 rot[MANDELBOX_FOLDSCl][3];
-	matrix33 rotinv[MANDELBOX_FOLDSCl][3];
-
 	cl_float fR2;
 	cl_float mR2;
 	cl_float mboxFactor1;
+	cl_int rotationsEnabled;
+	cl_int mainRotationEnabled;
 } sFractalMandelboxCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float zFactor;
 	cl_float foldFactor;
 } sFractalBoxFoldBulbPow2Cl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float power;
 	cl_float alphaAngleOffset;
@@ -221,12 +220,12 @@ typedef struct
 	cl_float gammaAngleOffset;
 } sFractalMandelbulbCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float cadd;
 } sFractalAexionCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_int preabsx;
 	cl_int preabsy;
@@ -237,7 +236,7 @@ typedef struct
 	cl_int posz;
 } sFractalBuffaloCl;
 
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float ringRadius;
 	cl_float ringThickness;
@@ -246,7 +245,7 @@ typedef struct
 } sFractalDonutCl;
 
 //----------------------------------------------------------
-typedef struct
+typedef struct ALIGN16
 {
 	cl_float frequency;
 	cl_float amplitude;
@@ -275,7 +274,7 @@ typedef enum
 	multi_OrderOfXYZCl_zxy,
 	multi_OrderOfXYZCl_zyx
 } enumMulti_OrderOfXYZCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_acosOrAsinCl acosOrAsin;
 	enumMulti_acosOrAsinCl acosOrAsinA;
@@ -325,7 +324,7 @@ typedef enum
 	multi_orderOfFoldsCl_type4,
 	multi_orderOfFoldsCl_type5
 } enumMulti_orderOfFoldsCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_orderOfFoldsCl orderOfFolds1;
 	enumMulti_orderOfFoldsCl orderOfFolds2;
@@ -341,7 +340,7 @@ typedef enum
 	multi_orderOf3FoldsCl_type2,
 	multi_orderOf3FoldsCl_type3
 } enumMulti_orderOf3FoldsCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_orderOf3FoldsCl orderOf3Folds1;
 	enumMulti_orderOf3FoldsCl orderOf3Folds2;
@@ -358,7 +357,7 @@ typedef enum
 	multi_orderOfTransfCl_typeT4,
 	multi_orderOfTransfCl_typeT5b,
 } enumMulti_orderOfTransfCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_orderOfTransfCl orderOfTransf1;
 	enumMulti_orderOfTransfCl orderOfTransf2;
@@ -374,7 +373,7 @@ typedef enum
 	multi_combo3Cl_type2,
 	multi_combo3Cl_type3,
 } enumMulti_combo3Cl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_combo3Cl combo3;
 } sFractalCombo3Cl;
@@ -401,7 +400,7 @@ typedef enum
 	multi_combo5Cl_type4,
 	multi_combo5Cl_type5,
 } enumMulti_combo5Cl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_combo5Cl combo5;
 } sFractalCombo5Cl;
@@ -416,7 +415,7 @@ typedef enum
 	multi_combo6Cl_type5,
 	multi_combo6Cl_type6,
 } enumMulti_combo6Cl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_combo6Cl combo6;
 } sFractalCombo6Cl;
@@ -433,7 +432,7 @@ typedef enum
 	comboCl_mode6,
 	comboCl_mode7,
 } enumComboCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumComboCl modeA;
 	//		combo modeB;
@@ -441,8 +440,17 @@ typedef struct
 } sFractalComboCl;
 
 // for surfbox types
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float4 offset1A111;
+	cl_float4 offset1B111;
+	cl_float4 offset2A111;
+	cl_float4 offset2B111;
+	cl_float4 offset3A111;
+	cl_float4 offset3B111;
+	cl_float4 offset1A222;
+	cl_float4 offset1B222;
+	cl_float scale1Z1;
 	cl_int enabledX1;
 	cl_int enabledY1;
 	cl_int enabledZ1;
@@ -458,24 +466,11 @@ typedef struct
 	cl_int enabledX5False;
 	cl_int enabledY5False;
 	cl_int enabledZ5False;
-	cl_float4 offset1A111;
-	cl_float4 offset1B111;
-	cl_float4 offset2A111;
-	cl_float4 offset2B111;
-	cl_float4 offset3A111;
-	cl_float4 offset3B111;
-	cl_float4 offset1A222;
-	cl_float4 offset1B222;
-	cl_float scale1Z1;
 } sFractalSurfBoxCl;
 
 // for curvilinear
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int enabledLinear;
-	cl_int enabledCurves;
-	cl_int enabledParabFalse;
-	cl_int enabledParaAddP0;
 	cl_float para00;
 	cl_float paraA0;
 	cl_float paraB0;
@@ -488,29 +483,120 @@ typedef struct
 	cl_float parabOffset;
 	cl_float parabSlope;
 	cl_float parabScale;
+	cl_int enabledLinear;
+	cl_int enabledCurves;
+	cl_int enabledParabFalse;
+	cl_int enabledParaAddP0;
 	cl_int iterA;
 	cl_int iterB;
 	cl_int iterC;
 } sFractalCparaCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int enabled;
-	cl_int enabledFalse;
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
+	cl_int enabled;
+	cl_int enabledFalse;
 	cl_int startIterationsA;
 	cl_int stopIterationsA;
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float4 additionConstant0555;
+	cl_float4 additionConstant0777;
+	cl_float4 additionConstant000;
+	cl_float4 additionConstantA000;
+	cl_float4 additionConstantP000;
+	cl_float4 additionConstant111;
+	cl_float4 additionConstantA111;
+	cl_float4 additionConstant222;
+	cl_float4 additionConstantNeg100;
+	cl_float4 constantMultiplier000;
+	cl_float4 constantMultiplier001;
+	cl_float4 constantMultiplier010;
+	cl_float4 constantMultiplier100;
+	cl_float4 constantMultiplierA100;
+	cl_float4 constantMultiplier111;
+	cl_float4 constantMultiplierA111;
+	cl_float4 constantMultiplierB111;
+	cl_float4 constantMultiplierC111;
+	cl_float4 constantMultiplier121;
+	cl_float4 constantMultiplier122;
+	cl_float4 constantMultiplier221;
+	cl_float4 constantMultiplier222;
+	cl_float4 constantMultiplier441;
+	cl_float4 juliaC;
+	cl_float4 offset000;
+	cl_float4 offsetA000;
+	cl_float4 offsetF000;
+	cl_float4 offset001;
+	cl_float4 offset002;
+	cl_float4 offset010;
+	cl_float4 offset100;
+	cl_float4 offset101;
+	cl_float4 offset110;
+	cl_float4 offset1105;
+	cl_float4 offset111;
+	cl_float4 offsetA111;
+	cl_float4 offsetB111;
+	cl_float4 offsetC111;
+	cl_float4 offset200;
+	cl_float4 offsetA200;
+	cl_float4 offset222;
+	cl_float4 offsetA222;
+	cl_float4 offset333;
+	cl_float4 power025;
+	cl_float4 power8;
+	cl_float4 vec111;
+	
+	cl_float3 rotation; // vec3s
+	cl_float3 rotation2;
+	cl_float3 rotationXYZ;
+	cl_float3 rotation2XYZ;
+	cl_float3 rotationVary;
+	cl_float3 rotation44a; //.........................
+	cl_float3 rotation44b; //..........................
+	
+	cl_float4 scaleP222;
+	cl_float4 scale3D000;
+	cl_float4 scale3D111;
+	cl_float4 scale3D222;
+	cl_float4 scale3Da222;
+	cl_float4 scale3Db222;
+	cl_float4 scale3Dc222;
+	cl_float4 scale3Dd222;
+	cl_float4 scale3D333;
+	cl_float4 scale3D444;
+	
+	cl_float4 additionConstant0000;
+	cl_float4 offset0000;
+	cl_float4 offsetA0000;
+	cl_float4 offsetB0000;
+	cl_float4 offsetp5555;
+	cl_float4 offset1111;
+	cl_float4 offsetA1111;
+	cl_float4 offsetB1111;
+	cl_float4 offsetNeg1111;
+	cl_float4 offset2222;
+	cl_float4 additionConstant111d5;
+	cl_float4 constantMultiplier1220;
+	cl_float4 scale0000;
+	cl_float4 scale1111;
+	
+	matrix33 rotationMatrix;
+	matrix33 rotationMatrix2;
+	matrix33 rotationMatrixXYZ;
+	matrix33 rotationMatrix2XYZ;
+	matrix33 rotationMatrixVary;
+	// matrix44 rotationMatrix44; //....................
+	
 	cl_float angle0;
-
 	cl_float angleDegA;
 	cl_float angleDegB;
 	cl_float angleDegC;
@@ -693,95 +779,7 @@ typedef struct
 	cl_int int8Z;
 	cl_int int16;
 	cl_int int32;
-
-	cl_float4 additionConstant0555;
-	cl_float4 additionConstant0777;
-	cl_float4 additionConstant000;
-	cl_float4 additionConstantA000;
-	cl_float4 additionConstantP000;
-	cl_float4 additionConstant111;
-	cl_float4 additionConstantA111;
-	cl_float4 additionConstant222;
-	cl_float4 additionConstantNeg100;
-	cl_float4 constantMultiplier000;
-	cl_float4 constantMultiplier001;
-	cl_float4 constantMultiplier010;
-	cl_float4 constantMultiplier100;
-	cl_float4 constantMultiplierA100;
-	cl_float4 constantMultiplier111;
-	cl_float4 constantMultiplierA111;
-	cl_float4 constantMultiplierB111;
-	cl_float4 constantMultiplierC111;
-	cl_float4 constantMultiplier121;
-	cl_float4 constantMultiplier122;
-	cl_float4 constantMultiplier221;
-	cl_float4 constantMultiplier222;
-	cl_float4 constantMultiplier441;
-	cl_float4 juliaC;
-	cl_float4 offset000;
-	cl_float4 offsetA000;
-	cl_float4 offsetF000;
-	cl_float4 offset001;
-	cl_float4 offset002;
-	cl_float4 offset010;
-	cl_float4 offset100;
-	cl_float4 offset101;
-	cl_float4 offset110;
-	cl_float4 offset1105;
-	cl_float4 offset111;
-	cl_float4 offsetA111;
-	cl_float4 offsetB111;
-	cl_float4 offsetC111;
-	cl_float4 offset200;
-	cl_float4 offsetA200;
-	cl_float4 offset222;
-	cl_float4 offsetA222;
-	cl_float4 offset333;
-	cl_float4 power025;
-	cl_float4 power8;
-	cl_float4 vec111;
-
-	cl_float3 rotation; // vec3s
-	cl_float3 rotation2;
-	cl_float3 rotationXYZ;
-	cl_float3 rotation2XYZ;
-	cl_float3 rotationVary;
-	cl_float3 rotation44a; //.........................
-	cl_float3 rotation44b; //..........................
-
-	cl_float4 scaleP222;
-	cl_float4 scale3D000;
-	cl_float4 scale3D111;
-	cl_float4 scale3D222;
-	cl_float4 scale3Da222;
-	cl_float4 scale3Db222;
-	cl_float4 scale3Dc222;
-	cl_float4 scale3Dd222;
-	cl_float4 scale3D333;
-	cl_float4 scale3D444;
-
-	cl_float4 additionConstant0000;
-	cl_float4 offset0000;
-	cl_float4 offsetA0000;
-	cl_float4 offsetB0000;
-	cl_float4 offsetp5555;
-	cl_float4 offset1111;
-	cl_float4 offsetA1111;
-	cl_float4 offsetB1111;
-	cl_float4 offsetNeg1111;
-	cl_float4 offset2222;
-	cl_float4 additionConstant111d5;
-	cl_float4 constantMultiplier1220;
-	cl_float4 scale0000;
-	cl_float4 scale1111;
-
-	matrix33 rotationMatrix;
-	matrix33 rotationMatrix2;
-	matrix33 rotationMatrixXYZ;
-	matrix33 rotationMatrix2XYZ;
-	matrix33 rotationMatrixVary;
-	// matrix44 rotationMatrix44; //....................
-
+	
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;
 	cl_int alternateEnabledFalse;
@@ -855,24 +853,8 @@ typedef struct
 	// cl_int functionEnabledTempFalse;
 } sFractalTransformCommonCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-
-	cl_int formula;
-
-	// per-fractal general parameters (moved from InitParams to InitFractalParams)
-	cl_int formulaIterations;
-	cl_float formulaWeight;
-	cl_int formulaStartIteration;
-	cl_int formulaStopIteration;
-	cl_int juliaMode;
-	cl_float3 juliaConstant;
-	cl_float3 constantMultiplier;
-	cl_float initialWAxis;
-	cl_int dontAddCConstant;
-	cl_int checkForBailout;
-	cl_int formulaMaxiter;
-
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -898,6 +880,25 @@ typedef struct
 	sFractalCombo4Cl combo4;
 	sFractalCombo5Cl combo5;
 	sFractalCombo6Cl combo6;
+	
+	cl_float3 juliaConstant;
+	cl_float3 constantMultiplier;
+	cl_float formulaWeight;
+	cl_float initialWAxis;
+	
+	cl_int formula;
+
+	// per-fractal general parameters (moved from InitParams to InitFractalParams)
+	cl_int formulaIterations;
+
+	cl_int formulaStartIteration;
+	cl_int formulaStopIteration;
+	cl_int juliaMode;
+
+	cl_int dontAddCConstant;
+	cl_int checkForBailout;
+	cl_int formulaMaxiter;
+
 
 #ifdef USE_OPENCL
 //	cl_float customParameters[15];

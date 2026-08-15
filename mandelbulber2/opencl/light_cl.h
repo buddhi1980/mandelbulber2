@@ -55,23 +55,19 @@ typedef enum
 	lightDecay1R3 = 2,
 } enumLightDecayFunctionCl;
 
-typedef struct
+typedef struct ALIGN16
 {
-	// booleans
-	cl_int enabled;
-	cl_int castShadows;
-	cl_int penetrating;
-	cl_int relativePosition;
-	cl_int repeatTexture;
-	cl_int volumetric;
+	cl_float3 color;
+	
+	cl_float3 position;
+	cl_float3 rotation;
+	cl_float3 target;
+	cl_float3 lightDirection;
+	cl_float3 lightTopVector;
+	cl_float3 lightRightVector;
+		
+	matrix33 rotMatrix;
 
-	// enums
-	enumLightTypeCl type;
-	enumLightDecayFunctionCl decayFunction;
-
-	cl_int colorTextureIndex;
-
-	cl_float coneAngle;
 	cl_float coneSoftAngle;
 	cl_float intensity;
 	cl_float visibility;
@@ -79,23 +75,28 @@ typedef struct
 	cl_float size;
 	cl_float softShadowCone;
 	cl_float contourSharpness;
-
+	
 	cl_float coneRatio;
 	cl_float coneSoftRatio;
-
+	
 	cl_float projectionHorizontalRatio;
 	cl_float projectionVerticalRatio;
+	
+	cl_float coneAngle;
+	
+	// booleans
+	cl_int enabled;
+	cl_int castShadows;
+	cl_int penetrating;
+	cl_int relativePosition;
+	cl_int repeatTexture;
+	cl_int volumetric;
+	
+	cl_int colorTextureIndex;
 
-	cl_float3 color;
-
-	cl_float3 position;
-	cl_float3 rotation;
-	cl_float3 target;
-	cl_float3 lightDirection;
-	cl_float3 lightTopVector;
-	cl_float3 lightRightVector;
-
-	matrix33 rotMatrix;
+	// enums
+	enumLightTypeCl type;
+	enumLightDecayFunctionCl decayFunction;
 
 } sLightCl;
 

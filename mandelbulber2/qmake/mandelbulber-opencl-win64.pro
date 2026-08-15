@@ -193,26 +193,32 @@ sharefiles.files += $$ROOT/deploy/share/mandelbulber2/sounds
 sharefiles.files += $$ROOT/deploy/share/mandelbulber2/textures
 sharefiles.files += $$ROOT/deploy/share/mandelbulber2/toolbar
 sharefiles.path = $$PREFIX
+sharefiles.CONFIFG = no_check_exist
 INSTALLS += sharefiles
 
 formulaui.files = $$ROOT/formula/ui
 formulaui.path = $$PREFIX/formula
+formulaui.CONFIFG = no_check_exist
 INSTALLS += formulaui
 
 formulaimg.files = $$ROOT/formula/img
 formulaimg.path = $$PREFIX/formula
+formulaimg.CONFIFG = no_check_exist
 INSTALLS += formulaimg
 
 formulaopencl.files = $$ROOT/formula/opencl
 formulaopencl.path = $$PREFIX/formula
+formulaimg.CONFIFG = no_check_exist
 INSTALLS += formulaopencl
 
 openclfiles.files = $$ROOT/opencl
 openclfiles.path = $$PREFIX
+openclfiles.CONFIFG = no_check_exist
 INSTALLS += openclfiles
 
 languagefiles.files = $$files($$ROOT/language/*.qm, false)
 languagefiles.path = $$PREFIX/language
+languagefiles.CONFIFG = no_check_exist
 INSTALLS += languagefiles
 
 documentation.files = $$ROOT/deploy/doc/Mandelbulber_Manual.pdf
@@ -220,16 +226,20 @@ documentation.files += $$ROOT/deploy/README
 documentation.files += $$ROOT/deploy/NEWS
 documentation.files += $$ROOT/deploy/COPYING
 documentation.path = $$PREFIX/doc
+documentation.CONFIFG = no_check_exist
 INSTALLS += documentation
 
 desktopfile.files = $$ROOT/deploy/linux/mandelbulber2.desktop
 desktopfile.path = $$PREFIX/applications
+desktopfile.CONFIFG = no_check_exist
 INSTALLS += desktopfile
 
 iconfile.files = $$ROOT/deploy/share/mandelbulber2/icons/mandelbulber.png
 iconfile.path = $$PREFIX/icons
+iconfile.CONFIFG = no_check_exist
 INSTALLS += iconfile
 
 target.path = $$PREFIX/bin
+target.CONFIFG = no_check_exist
 INSTALLS += target
 
