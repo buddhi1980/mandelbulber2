@@ -76,12 +76,13 @@ enum enumGeneralizedFoldBoxType
 };
 struct sExtendedAux
 {
-	int i;
-
+	// Vectors (as in OpenCL)
 	CVector4 c;
 	CVector4 const_c;
 	CVector4 old_z;
 	// CVector4 sum_z;
+
+	// Doubles (as in OpenCL)
 	double pos_neg;
 
 	double r;
@@ -97,6 +98,9 @@ struct sExtendedAux
 	double colorHybrid;
 
 	double temp1000;
+
+	// Int (last, as in OpenCL)
+	int i;
 };
 
 struct sFoldColor
@@ -124,7 +128,7 @@ struct sFoldColor
 
 struct sFractalGeneralizedFoldBox
 {
-	enumGeneralizedFoldBoxType type;
+	// Vectors (as in OpenCL)
 	CVector3 Nv_tet[4];
 	CVector3 Nv_cube[6];
 	CVector3 Nv_oct[8];
@@ -133,6 +137,8 @@ struct sFractalGeneralizedFoldBox
 	CVector3 Nv_icosa[20];
 	CVector3 Nv_box6[8];
 	CVector3 Nv_box5[7];
+
+	// Ints (as in OpenCL)
 	int sides_tet;
 	int sides_cube;
 	int sides_oct;
@@ -141,6 +147,9 @@ struct sFractalGeneralizedFoldBox
 	int sides_icosa;
 	int sides_box6;
 	int sides_box5;
+
+	// Enum (last, as in OpenCL)
+	enumGeneralizedFoldBoxType type;
 };
 
 struct sFractalIFS
@@ -175,9 +184,22 @@ struct sFractalMandelboxVary4D
 
 struct sFractalMandelbox
 {
+	// Nested struct (as in OpenCL)
+	sFoldColor color;
+
+	// Matrices (as in OpenCL)
+	CRotationMatrix mainRot;
+	CRotationMatrix rot[MANDELBOX_FOLDS][3];
+	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
+
+	// Vectors (as in OpenCL)
 	CVector3 rotationMain;
 	CVector3 rotation[MANDELBOX_FOLDS][3];
-	sFoldColor color;
+
+	// Vector (as in OpenCL)
+	CVector4 offset;
+
+	// Doubles (as in OpenCL)
 	double scale;
 	double foldingLimit;
 	double foldingValue;
@@ -186,16 +208,14 @@ struct sFractalMandelbox
 	double sharpness;
 	double solid;
 	double melt;
-	CVector4 offset;
-	bool rotationsEnabled;
-	bool mainRotationEnabled;
-	CRotationMatrix mainRot;
-	CRotationMatrix rot[MANDELBOX_FOLDS][3];
-	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
 
 	double fR2;
 	double mR2;
 	double mboxFactor1;
+
+	// Bools (as in OpenCL)
+	bool rotationsEnabled;
+	bool mainRotationEnabled;
 };
 
 struct sFractalBoxFoldBulbPow2
@@ -463,10 +483,7 @@ struct sFractalSurfBox
 // for curvilinear
 struct sFractalCpara
 {
-	bool enabledLinear;
-	bool enabledCurves;
-	bool enabledParabFalse;
-	bool enabledParaAddP0;
+	// Doubles (as in OpenCL)
 	double para00;
 	double paraA0;
 	double paraB0;
@@ -479,6 +496,14 @@ struct sFractalCpara
 	double parabOffset;
 	double parabSlope;
 	double parabScale;
+
+	// Bools (as in OpenCL)
+	bool enabledLinear;
+	bool enabledCurves;
+	bool enabledParabFalse;
+	bool enabledParaAddP0;
+
+	// Ints (as in OpenCL)
 	int iterA;
 	int iterB;
 	int iterC;
@@ -500,8 +525,107 @@ struct sFractalAnalyticDE
 // common parameters for transforming formulas
 struct sFractalTransformCommon
 {
-	double angle0;
+	// CVector4 (as in OpenCL)
+	CVector4 additionConstant0555;
+	CVector4 additionConstant0777;
+	CVector4 additionConstant000;
+	CVector4 additionConstantA000;
+	CVector4 additionConstantP000;
+	CVector4 additionConstant111;
+	CVector4 additionConstantA111;
+	CVector4 additionConstant222;
+	CVector4 additionConstantNeg100;
 
+	// CVector4 (as in OpenCL)
+	CVector4 constantMultiplier000;
+	CVector4 constantMultiplier001;
+	CVector4 constantMultiplier010;
+	CVector4 constantMultiplier100;
+	CVector4 constantMultiplierA100;
+	CVector4 constantMultiplier111;
+	CVector4 constantMultiplierA111;
+	CVector4 constantMultiplierB111;
+	CVector4 constantMultiplierC111;
+	CVector4 constantMultiplier121;
+	CVector4 constantMultiplier122;
+	CVector4 constantMultiplier221;
+	CVector4 constantMultiplier222;
+	CVector4 constantMultiplier441;
+
+	// CVector4 (as in OpenCL)
+	CVector4 juliaC;
+	CVector4 offset000;
+	CVector4 offsetA000;
+	CVector4 offsetF000;
+	CVector4 offset001;
+	CVector4 offset002;
+	CVector4 offset010;
+	CVector4 offset100;
+	CVector4 offset101;
+	CVector4 offset110;
+	CVector4 offset1105;
+	CVector4 offset111;
+	CVector4 offsetA111;
+	CVector4 offsetB111;
+	CVector4 offsetC111;
+	CVector4 offset200;
+	CVector4 offsetA200;
+	CVector4 offset222;
+	CVector4 offsetA222;
+	CVector4 offset333;
+
+	// CVector4 (as in OpenCL)
+	CVector4 power025;
+	CVector4 power8;
+	CVector4 vec111;
+
+	// CVector3 (as in OpenCL)
+	CVector3 rotation;
+	CVector3 rotation2;
+	CVector3 rotationXYZ;
+	CVector3 rotation2XYZ;
+	CVector3 rotationVary;
+	CVector3 rotation44a;
+	CVector3 rotation44b;
+
+	// CVector4 (as in OpenCL)
+	CVector4 scaleP222;
+	CVector4 scale3D000;
+	CVector4 scale3D111;
+	CVector4 scale3D222;
+	CVector4 scale3Da222;
+	CVector4 scale3Db222;
+	CVector4 scale3Dc222;
+	CVector4 scale3Dd222;
+	CVector4 scale3D333;
+	CVector4 scale3D444;
+
+	// CVector4 (as in OpenCL)
+	CVector4 additionConstant0000;
+	CVector4 offset0000;
+	CVector4 offsetA0000;
+	CVector4 offsetB0000;
+	CVector4 offsetp5555;
+	CVector4 offset1111;
+	CVector4 offsetA1111;
+	CVector4 offsetB1111;
+	CVector4 offsetNeg1111;
+	CVector4 offset2222;
+	CVector4 additionConstant111d5;
+	CVector4 constantMultiplier1220;
+	CVector4 scale0000;
+	CVector4 scale1111;
+
+	// CRotationMatrix (as in OpenCL)
+	CRotationMatrix rotationMatrix;
+	CRotationMatrix rotationMatrix2;
+	CRotationMatrix rotationMatrixXYZ;
+	CRotationMatrix rotationMatrix2XYZ;
+	CRotationMatrix rotationMatrixVary;
+	CRotationMatrix44 rotationMatrix44;
+
+	// Doubles (as in OpenCL)
+	double angle0;
 	double angleDegA;
 	double angleDegB;
 	double angleDegC;
@@ -602,6 +726,7 @@ struct sFractalTransformCommon
 	double inv0;
 	double inv1;
 
+	// Ints (as in OpenCL)
 	int startIterations;
 	int startIterations250;
 	int stopIterations;
@@ -685,94 +810,7 @@ struct sFractalTransformCommon
 	int int16;
 	int int32;
 
-	CVector4 additionConstant0555;
-	CVector4 additionConstant0777;
-	CVector4 additionConstant000;
-	CVector4 additionConstantA000;
-	CVector4 additionConstantP000;
-	CVector4 additionConstant111;
-	CVector4 additionConstantA111;
-	CVector4 additionConstant222;
-	CVector4 additionConstantNeg100;
-	CVector4 constantMultiplier000;
-	CVector4 constantMultiplier001;
-	CVector4 constantMultiplier010;
-	CVector4 constantMultiplier100;
-	CVector4 constantMultiplierA100;
-	CVector4 constantMultiplier111;
-	CVector4 constantMultiplierA111;
-	CVector4 constantMultiplierB111;
-	CVector4 constantMultiplierC111;
-	CVector4 constantMultiplier121;
-	CVector4 constantMultiplier122;
-	CVector4 constantMultiplier221;
-	CVector4 constantMultiplier222;
-	CVector4 constantMultiplier441;
-	CVector4 juliaC;
-	CVector4 offset000;
-	CVector4 offsetA000;
-	CVector4 offsetF000;
-	CVector4 offset001;
-	CVector4 offset002;
-	CVector4 offset010;
-	CVector4 offset100;
-	CVector4 offset101;
-	CVector4 offset110;
-	CVector4 offset1105;
-	CVector4 offset111;
-	CVector4 offsetA111;
-	CVector4 offsetB111;
-	CVector4 offsetC111;
-	CVector4 offset200;
-	CVector4 offsetA200;
-	CVector4 offset222;
-	CVector4 offsetA222;
-	CVector4 offset333;
-	CVector4 power025;
-	CVector4 power8;
-	CVector4 vec111;
-
-	CVector3 rotation; // vec3s
-	CVector3 rotation2;
-	CVector3 rotationXYZ;
-	CVector3 rotation2XYZ;
-	CVector3 rotationVary;
-	CVector3 rotation44a; //.........................
-	CVector3 rotation44b; //..........................
-
-	CVector4 scaleP222;
-	CVector4 scale3D000;
-	CVector4 scale3D111;
-	CVector4 scale3D222;
-	CVector4 scale3Da222;
-	CVector4 scale3Db222;
-	CVector4 scale3Dc222;
-	CVector4 scale3Dd222;
-	CVector4 scale3D333;
-	CVector4 scale3D444;
-
-	CVector4 additionConstant0000;
-	CVector4 offset0000;
-	CVector4 offsetA0000;
-	CVector4 offsetB0000;
-	CVector4 offsetp5555;
-	CVector4 offset1111;
-	CVector4 offsetA1111;
-	CVector4 offsetB1111;
-	CVector4 offsetNeg1111;
-	CVector4 offset2222;
-	CVector4 additionConstant111d5;
-	CVector4 constantMultiplier1220;
-	CVector4 scale0000;
-	CVector4 scale1111;
-
-	CRotationMatrix rotationMatrix;
-	CRotationMatrix rotationMatrix2;
-	CRotationMatrix rotationMatrixXYZ;
-	CRotationMatrix rotationMatrix2XYZ;
-	CRotationMatrix rotationMatrixVary;
-	CRotationMatrix44 rotationMatrix44; //....................
-
+	// Bools (as in OpenCL)
 	bool addCpixelEnabled;
 	bool addCpixelEnabledFalse;
 	bool alternateEnabledFalse;
@@ -852,16 +890,7 @@ struct sFractal
 	sFractal(const std::shared_ptr<cParameterContainer> par);
 	void RecalculateFractalParams();
 
-	fractal::enumFractalFormula formula;
-
-	// per-fractal general parameters (moved from InitParams to InitFractalParams)
-	int formulaIterations;
-	double formulaWeight;
-	int formulaStartIteration;
-	int formulaStopIteration;
-	bool dontAddCConstant;
-	bool checkForBailout;
-
+	// Sub-structs (as in OpenCL)
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
@@ -887,6 +916,24 @@ struct sFractal
 	sFractalCombo4 combo4;
 	sFractalCombo5 combo5;
 	sFractalCombo6 combo6;
+
+	// Vectors (as in OpenCL)
+	CVector3 juliaConstant;
+	CVector3 constantMultiplier;
+
+	// Double (as in OpenCL)
+	double formulaWeight;
+	double initialWAxis;
+
+	// Ints (as in OpenCL)
+	fractal::enumFractalFormula formula;
+	int formulaIterations;
+	int formulaStartIteration;
+	int formulaStopIteration;
+	int juliaMode;
+	int dontAddCConstant;
+	int checkForBailout;
+	int formulaMaxiter;
 
 #ifdef USE_OPENCL
 //	double customParameters[15];

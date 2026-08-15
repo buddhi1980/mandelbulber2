@@ -52,39 +52,50 @@ enum enumFakeLightsShape
 
 struct sFractalFoldings
 {
+	// Doubles (as in OpenCL)
 	double boxLimit; // parameters of TGlad's folding
 	double boxValue;
 	double sphericalOuter;
 	double sphericalInner;
+
+	// Bools (as in OpenCL)
 	bool boxEnable;
 	bool sphericalEnable;
 };
 
 struct sCommonParams
 {
-	bool iterThreshMode;
-	bool fakeLightsRelativeCenter;
-	bool fakeLightsColor2Enabled;
-	bool fakeLightsColor3Enabled;
+	// Nested struct (as in OpenCL)
+	sFractalFoldings foldings;
 
-	int fakeLightsMaxIter;
-	int fakeLightsMinIter;
+	// Matrices (as in OpenCL)
+	CRotationMatrix mRotFractalRotation;
+	CRotationMatrix mRotFakeLightsRotation;
 
-	params::enumFakeLightsShape fakeLightsOrbitTrapShape;
-
-	double fakeLightsOrbitTrapSize;
-	double fakeLightsThickness;
-	double linearDEOffset;
-
+	// Vectors (as in OpenCL)
 	CVector3 fakeLightsOrbitTrap;
 	CVector3 fakeLightsRotation;
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;
 	CVector3 repeat;
-	CRotationMatrix mRotFractalRotation;
-	CRotationMatrix mRotFakeLightsRotation;
 
-	sFractalFoldings foldings;
+	// Doubles (as in OpenCL)
+	double fakeLightsOrbitTrapSize;
+	double fakeLightsThickness;
+	double linearDEOffset;
+
+	// Bools (as in OpenCL)
+	bool iterThreshMode;
+	bool fakeLightsRelativeCenter;
+	bool fakeLightsColor2Enabled;
+	bool fakeLightsColor3Enabled;
+
+	// Ints (as in OpenCL)
+	int fakeLightsMaxIter;
+	int fakeLightsMinIter;
+
+	// Enum (last, as in OpenCL)
+	params::enumFakeLightsShape fakeLightsOrbitTrapShape;
 };
 
 #endif /* MANDELBULBER2_SRC_COMMON_PARAMS_HPP_ */

@@ -71,91 +71,30 @@ struct sParamRender
 		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr,
 		const std::shared_ptr<const cFractalContainer> fractalContainer = nullptr);
 
-	int antialiasingSize;
-	int antialiasingOclDepth;
-	int ambientOcclusionQuality; // ambient occlusion quality
-	int cloudsIterations;
-	int cloudsRandomSeed;
-	int frameNo;
-	int imageHeight; // image height
-	int imageWidth;	 // image width
-	int minN; // minimum number of iterations
-	int N;
-	int nebulaNumberOfSamplesPerPixel;
-	int nebulaMinIteration;
-	int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
-	int reflectionsMax;
-	int repeatFrom;
-	int DOFNumberOfPasses;
-	int DOFSamples;
-	int DOFMinSamples;
-	int monteCarloDenoiserStrength;
-	int maxRaymarchingSteps;
+	// Nested structs (as in OpenCL)
+	sImageAdjustments imageAdjustments;
+	sCommonParams common;
 
-	params::enumPerspectiveType perspectiveType;
-	params::enumAOMode ambientOcclusionMode;
-	params::enumTextureMapType texturedBackgroundMapType;
-	fractal::enumDEMethod delta_DE_method;
-	fractal::enumDEFunctionType delta_DE_function;
+	// Matrices (as in OpenCL)
+	CRotationMatrix mRotBackgroundRotation;
+	CRotationMatrix mRotCloudsRotation;
+	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
 
-	bool advancedQuality;
-	bool allPrimitivesInvisibleAlpha;
-	bool antialiasingEnabled;
-	bool antialiasingAdaptive;
-	bool ambientOcclusionEnabled; // enable global illumination
-	bool background3ColorsEnable;
-	bool booleanOperatorsEnabled;
-	bool cloudsCastShadows;
-	bool cloudsDistanceMode;
-	bool cloudsEnable;
-	bool cloudsPlaneShape;
-	bool cloudsSharpEdges;
-	bool constantDEThreshold;
-	bool distanceFogShadows;
-	bool DOFEnabled;
-	bool DOFHDRMode;
-	bool DOFMonteCarlo;
-	bool DOFMonteCarloGlobalIllumination;
-	bool DOFMonteCarloChromaticAberration;
-	bool envMappingEnable;
-	bool fakeLightsEnabled;
-	bool fogEnabled;
-	bool fogCastShadows;
-	bool glowEnabled;
-	bool hdrBlurEnabled;
-	bool hybridFractalEnable;
-	bool interiorMode;
-	bool iterThreshMode;
-	bool iterFogEnabled;
-	bool iterFogShadows;
-	bool legacyCoordinateSystem;
-	bool limitsEnabled; // enable limits (intersections)
-	bool monteCarloSoftShadows;
-	bool monteCarloGIVolumetric;
-	bool monteCarloGIUseReflectance;
-	bool monteCarloGIOfVolumetric;
-	bool monteCarloDenoiserEnable;
-	bool monteCarloDenoiserPreserveGeometry;
-	bool monteCarloPixelLevelOptimization;
-	bool nebulaConstantBrighness;
-	bool nebulaInnerEnabled;
-	bool nebulaOuterEnabled;
-	bool nebulaXAxisColorsEnabled;
-	bool nebulaYAxisColorsEnabled;
-	bool nebulaZAxisColorsEnabled;
-	bool nebulaIterationsColorsEnabled;
-	bool nebulaGridDomainEnabled;
-	bool objectsTreeEnable;
-	bool postChromaticAberrationEnabled;
-	bool postChromaticAberrationReverse;
-	bool raytracedReflections;
-	bool slowShading; // enable fake gradient calculation for shading
-	bool SSAO_random_mode;
-	bool stereoSwapEyes;
-	bool texturedBackground; // enable textured background
-	bool useDefaultBailout;
-	bool volFogEnabled;
+	// Vectors (as in OpenCL)
+	CVector3 ambientOcclusionLightMapRotation;
+	CVector3 backgroundRotation;
+	CVector3 cloudsCenter;
+	CVector3 cloudsRotation;
+	CVector3 cloudsSpeed;
+	CVector3 limitMin;
+	CVector3 limitMax;
+	CVector3 repeat;
+	CVector3 target;
+	CVector3 camera; // view point
+	CVector3 viewAngle;
+	CVector3 topVector;
 
+	// Color vectors (as in OpenCL)
 	sRGBFloat ambientOcclusionColor;
 	sRGBFloat background_color1; // background colour
 	sRGBFloat background_color2;
@@ -175,6 +114,7 @@ struct sParamRender
 	sRGBFloat volFogColour2;
 	sRGBFloat volFogColour3;
 
+	// Floats (as in OpenCL)
 	double absMaxMarchingStep;
 	double absMinMarchingStep;
 	float ambientOcclusion;
@@ -252,33 +192,101 @@ struct sParamRender
 	double volFogDistanceFromSurface;
 	double volumetricLightDEFactor;
 
-	sImageAdjustments imageAdjustments;
+	// Ints (as in OpenCL)
+	int antialiasingSize;
+	int antialiasingOclDepth;
+	int ambientOcclusionQuality; // ambient occlusion quality
+	int cloudsIterations;
+	int cloudsRandomSeed;
+	int frameNo;
+	int imageHeight; // image height
+	int imageWidth;	 // image width
+	int minN;				 // minimum number of iterations
+	int N;
+	int nebulaNumberOfSamplesPerPixel;
+	int nebulaMinIteration;
+	int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
+	int reflectionsMax;
+	int repeatFrom;
+	int DOFNumberOfPasses;
+	int DOFSamples;
+	int DOFMinSamples;
+	int monteCarloDenoiserStrength;
+	int maxRaymarchingSteps;
 
-	CVector3 ambientOcclusionLightMapRotation;
-	CVector3 backgroundRotation;
-	CVector3 cloudsCenter;
-	CVector3 cloudsRotation;
-	CVector3 cloudsSpeed;
-	CVector3 limitMin;
-	CVector3 limitMax;
-	CVector3 repeat;
-	CVector3 target;
-	CVector3 camera; // view point
-	CVector3 viewAngle;
-	CVector3 topVector;
+	// Enums (as in OpenCL)
+	params::enumPerspectiveType perspectiveType;
+	params::enumAOMode ambientOcclusionMode;
+	params::enumTextureMapType texturedBackgroundMapType;
+	fractal::enumDEMethod delta_DE_method;
+	fractal::enumDEFunctionType delta_DE_function;
 
-	CRotationMatrix mRotBackgroundRotation;
-	CRotationMatrix mRotCloudsRotation;
-	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
+	// Bools (as in OpenCL)
+	bool advancedQuality;
+	bool allPrimitivesInvisibleAlpha;
+	bool antialiasingEnabled;
+	bool antialiasingAdaptive;
+	bool ambientOcclusionEnabled; // enable global illumination
+	bool background3ColorsEnable;
+	bool booleanOperatorsEnabled;
+	bool cloudsCastShadows;
+	bool cloudsDistanceMode;
+	bool cloudsEnable;
+	bool cloudsPlaneShape;
+	bool cloudsSharpEdges;
+	bool constantDEThreshold;
+	bool distanceFogShadows;
+	bool DOFEnabled;
+	bool DOFHDRMode;
+	bool DOFMonteCarlo;
+	bool DOFMonteCarloGlobalIllumination;
+	bool DOFMonteCarloChromaticAberration;
+	bool envMappingEnable;
+	bool fakeLightsEnabled;
+	bool fogEnabled;
+	bool fogCastShadows;
+	bool glowEnabled;
+	bool hdrBlurEnabled;
+	bool hybridFractalEnable;
+	bool interiorMode;
+	bool iterThreshMode;
+	bool iterFogEnabled;
+	bool iterFogShadows;
+	bool legacyCoordinateSystem;
+	bool limitsEnabled; // enable limits (intersections)
+	bool monteCarloSoftShadows;
+	bool monteCarloGIVolumetric;
+	bool monteCarloGIUseReflectance;
+	bool monteCarloGIOfVolumetric;
+	bool monteCarloDenoiserEnable;
+	bool monteCarloDenoiserPreserveGeometry;
+	bool monteCarloPixelLevelOptimization;
+	bool nebulaConstantBrighness;
+	bool nebulaInnerEnabled;
+	bool nebulaOuterEnabled;
+	bool nebulaXAxisColorsEnabled;
+	bool nebulaYAxisColorsEnabled;
+	bool nebulaZAxisColorsEnabled;
+	bool nebulaIterationsColorsEnabled;
+	bool nebulaGridDomainEnabled;
+	bool objectsTreeEnable;
+	bool postChromaticAberrationEnabled;
+	bool postChromaticAberrationReverse;
+	bool raytracedReflections;
+	bool slowShading; // enable fake gradient calculation for shading
+	bool SSAO_random_mode;
+	bool stereoSwapEyes;
+	bool texturedBackground; // enable textured background
+	bool useDefaultBailout;
+	bool volFogEnabled;
 
+	// Non-OpenCL types (CPU-only)
 	cColorGradient nebulaXAxisColors;
 	cColorGradient nebulaYAxisColors;
 	cColorGradient nebulaZAxisColors;
 	cColorGradient nebulaIterationsColors;
 
 	cPrimitives primitives;
-
-	sCommonParams common;
 };
 
 #endif /* MANDELBULBER2_SRC_FRACTPARAMS_HPP_ */

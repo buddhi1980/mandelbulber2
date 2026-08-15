@@ -83,10 +83,14 @@ public:
 	const QStringList &GetListOfPrimitiveNames() const { return namesOfPrimitives; }
 	static void PrepareComboBox(QComboBox *comboBox, const std::shared_ptr<cParameterContainer> par);
 
-	CVector3 allPrimitivesPosition;
-	CVector3 allPrimitivesRotation;
+	// Matrix (as in OpenCL)
 	CRotationMatrix mRotAllPrimitivesRotation;
 
+	// Vectors (as in OpenCL)
+	CVector3 allPrimitivesPosition;
+	CVector3 allPrimitivesRotation;
+
+	// Ints (as in OpenCL)
 	int primitiveIndexForBasicFog = -1;
 	int primitiveIndexForDistFog = -1;
 	int primitiveIndexForIterFog = -1;

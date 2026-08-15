@@ -31,38 +31,61 @@ public:
 
 	struct sFractalData
 	{
+		// Nested struct (as in OpenCL)
+		sFractal fractalParameters; // data from fractal container for the fractal used in the sequence
+
+		// Doubles (as in OpenCL)
 		double formulaWeight;
+		double bailout;
+
+		// Ints (as in OpenCL)
 		int formulaIterations;
 		int formulaStartIteration;
 		int formulaStopIteration;
+
+		// Bools (as in OpenCL)
 		bool addCConstant;
 		bool checkForBailout;
-		double bailout;
 		bool useAdditionalBailoutCond;
+
+		// Non-OpenCL types (CPU-only)
 		cAbstractFractal *fractalFormulaObject;
-		sFractal fractalParameters; // data from fractal container for the fractal used in the sequence
 		int objectId = 0;
 	};
 
 	struct sSequence
 	{
-		std::vector<int> seqence;						 // hybrud fractal sequence - indexes to fractData
-		std::vector<sFractalData> fractData; // data for each fractal used in the sequence
-		int length;													 // length of the seqence
-		int numberOfFractalsInTheSequence;	 // number of different fractals used in the sequence
+		// Vectors (as in OpenCL)
+		CVector3 juliaConstant;
+		CVector3 constantMultiplier;
+
+		// Float (as in OpenCL)
+		double initialWAxis;
+
+		// Ints (as in OpenCL)
+		int length;
+		int numberOfFractalsInTheSequence;
 		int internalObjectId;
 
+		// Bools + int (as in OpenCL)
+		bool isHybrid;
+		bool juliaEnabled;
+		int formulaMaxiter;
+
+		// Ints (as in OpenCL)
+		int sequenceArrayOffset;	// offset to sequence array (cl_int[]) in dynamic data
+		int fractDataArrayOffset; // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+		int formulaBaseIndex; // global index of first formula in consts->fractal[] for this sequence
+
+		// Enums (last, as in OpenCL)
 		fractal::enumDEFunctionType DEFunctionType;
 		fractal::enumDEType DEType;
 		fractal::enumDEAnalyticFunction DEAnalyticFunction;
 		fractal::enumColoringFunction coloringFunction = fractal::coloringFunctionDefault;
 
-		bool isHybrid;
-		bool juliaEnabled;
-		CVector3 juliaConstant;
-		CVector3 constantMultiplier;
-		double initialWAxis;
-		int formulaMaxiter;
+		// Non-OpenCL types (kept for CPU use)
+		std::vector<int> seqence;
+		std::vector<sFractalData> fractData;
 
 		inline int GetSequence(const int i) const
 		{
