@@ -145,35 +145,35 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	DebugOutput();
 }
 
-void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
-	std::shared_ptr<const cFractalContainer> fractPar)
-{
-	// getting used fractal object indices
-	QSet<int> usedFractalObjectIndices;
-	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
+	void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
+		std::shared_ptr<const cFractalContainer> fractPar)
 	{
-		if (node.type == enumNodeType::fractal)
+		// getting used fractal object indices
+		QSet<int> usedFractalObjectIndices;
+		for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
 		{
-			usedFractalObjectIndices.insert(node.userObjectId);
-		}
-	}
-
-	// creating fractals map
-	for (int objectId : usedFractalObjectIndices)
-	{
-		// Find the node data for this objectId
-		const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
-		for (const auto &node : objectsNodes)
-		{
-			if (node.userObjectId == objectId)
+			if (node.type == enumNodeType::fractal)
 			{
-				nodeData = &node;
-				break;
+				usedFractalObjectIndices.insert(node.userObjectId);
 			}
 		}
 
-		sFractal fractal(fractPar->at(objectId - 1));
-		fractalsMap.insert(objectId, fractal);
+		// creating fractals map
+		for (int objectId : usedFractalObjectIndices)
+		{
+			// Find the node data for this objectId
+			const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
+			for (const auto &node : objectsNodes)
+			{
+				if (node.userObjectId == objectId)
+				{
+					nodeData = &node;
+					break;
+				}
+			}
+
+			sFractal fractal(fractPar->at(objectId - 1));
+			fractalsMap.insert(objectId, fractal);
 		// formula is now read from the per-fractal container in sFractal constructor
 	}
 }
