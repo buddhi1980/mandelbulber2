@@ -134,4 +134,44 @@ mandelbulber2/cmake/CMakeCache.txt
 mandelbulber2/cmake/CMakeFiles/*
 mandelbulber2/cmake/Makefile
 mandelbulber2/cmake/cmake_install.cmake
-mandelbulber2/cmake/compile_commands.json
+ mandelbulber2/cmake/compile_commands.json
+
+# Eclipse IDE
+# =========================
+.cproject
+.project
+.settings/
+
+# QMake
+# =========================
+*.qmake.stash
+Makefile.qmake
+mandelbulber2/qmake/Makefile
+mandelbulber2/.qmake.stash
+
+# Generated files
+# =========================
+qrc_*.cpp
+moc_*.cpp
+mandelbulber2_new
+
+# Tags / IDE index
+# =========================
+tags
+cscope.*
+
+# Agent config
+# =========================
+AGENTS.md
+
+# Additional build artifacts
+# =========================
+mandelbulber2/tools/CMakeCache.txt
+mandelbulber2/tools/CMakeFiles/
+mandelbulber2/tools/Makefile
+mandelbulber2/tools/cmake_install.cmake
+ mandelbulber2/tools/compile_commands.json
+
+# Temporary formula files
+# =========================
+mandelbulber2/formula/mb3dTemporaryFormulas/

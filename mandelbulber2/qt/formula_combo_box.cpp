@@ -119,8 +119,8 @@ void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fr
 	clear();
 	for (int f = 0; f < fractalList.size(); f++)
 	{
-		addItem(
-			GetIconFromCache(fractalList[f]->getIconName()), fractalList[f]->getNameInComboBox(), f);
+		addItem(GetIconFromCache(QString::fromStdString(fractalList[f]->getIconName())),
+			QString::fromStdString(fractalList[f]->getNameInComboBox()), f);
 	}
 
 	// set headings and separator of formulas and transforms

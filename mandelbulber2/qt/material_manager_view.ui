@@ -41,6 +41,13 @@
       <number>2</number>
      </property>
      <item>
+      <widget class="QPushButton" name="pushButton_noMaterial">
+       <property name="text">
+        <string>No material</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_newMaterial">
        <property name="text">
         <string>New material</string>

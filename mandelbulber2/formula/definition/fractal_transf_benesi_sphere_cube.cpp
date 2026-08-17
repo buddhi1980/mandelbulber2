@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfBenesiSphereCube::cFractalTransfBenesiSphereCube() : cAbstractFractal()
 {
@@ -30,7 +31,7 @@ cFractalTransfBenesiSphereCube::cFractalTransfBenesiSphereCube() : cAbstractFrac
 void cFractalTransfBenesiSphereCube::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 	CVector4 oldZ = z;
 	z *= z;
 	// if (z.z == 0.0) z.z = 1e-21;

@@ -45,6 +45,20 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
+static QByteArray StripNonAscii(const QByteArray &data)
+{
+	QByteArray result;
+	result.reserve(data.size());
+	for (char c : data)
+	{
+		if (static_cast<unsigned char>(c) < 128)
+		{
+			result.append(c);
+		}
+	}
+	return result;
+}
+
 #ifdef USE_OPENCL
 #include "opencl/opencl_algebra.h"
 #endif
@@ -138,7 +152,8 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 	clHeaderFiles.append("opencl_algebra.h"); // definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
+		programEngine.append(StripNonAscii(LoadUtf8TextFromFile(openclPath + clHeaderFiles.at(i))));
+		programEngine.append("\n");
 	}
 
 	QString engineFileName;
@@ -200,7 +215,7 @@ bool cOpenClEngineRenderPostFilter::AssignParametersToKernelAdditional(
 
 	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsPostEffect)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
+		emit EmitErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
 														.arg(QObject::tr("%1 params").arg(effectName)),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
@@ -233,7 +248,7 @@ bool cOpenClEngineRenderPostFilter::ProcessQueue(quint64 pixelsLeft, quint64 pix
 		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		emit showErrorMessage(
+		emit EmitErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -241,7 +256,7 @@ bool cOpenClEngineRenderPostFilter::ProcessQueue(quint64 pixelsLeft, quint64 pix
 	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot finish rendering %1").arg(effectName),
+		emit EmitErrorMessage(QObject::tr("Cannot finish rendering %1").arg(effectName),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

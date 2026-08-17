@@ -49,6 +49,14 @@ typedef struct
 	cl_float3 m3;
 } matrix33;
 
+typedef struct
+{
+	cl_float4 r1;
+	cl_float4 r2;
+	cl_float4 r3;
+	cl_float4 r4;
+} matrix44;
+
 #ifndef OPENCL_KERNEL_CODE
 inline matrix33 toClMatrix33(CRotationMatrix source)
 {
@@ -95,6 +103,20 @@ inline cl_float4 toClFloat4(sRGBAFloat v)
 	return retVal;
 }
 
+inline matrix44 toClMatrix44(const CMatrix44 &source)
+{
+	matrix44 m;
+	m.r1 = {{cl_float(source.m11), cl_float(source.m12), cl_float(source.m13),
+		cl_float(source.m14)}};
+	m.r2 = {{cl_float(source.m21), cl_float(source.m22), cl_float(source.m23),
+		cl_float(source.m24)}};
+	m.r3 = {{cl_float(source.m31), cl_float(source.m32), cl_float(source.m33),
+		cl_float(source.m34)}};
+	m.r4 = {{cl_float(source.m41), cl_float(source.m42), cl_float(source.m43),
+		cl_float(source.m44)}};
+	return m;
+}
+
 #endif
 
 #ifdef OPENCL_KERNEL_CODE
@@ -115,6 +137,15 @@ inline float3 Matrix33MulFloat3(matrix33 matrix, float3 vect)
 	out.x = dot(vect.xyz, matrix.m1);
 	out.y = dot(vect.xyz, matrix.m2);
 	out.z = dot(vect.xyz, matrix.m3);
+	return out;
+}
+
+inline float3 Matrix44TransformPoint(matrix44 matrix, float3 point)
+{
+	float3 out;
+	out.x = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r1);
+	out.y = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r2);
+	out.z = dot((float4){point.x, point.y, point.z, 1.0f}, matrix.r3);
 	return out;
 }
 

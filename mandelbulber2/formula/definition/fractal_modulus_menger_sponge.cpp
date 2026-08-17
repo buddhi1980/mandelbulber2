@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalModulusMengerSponge::cFractalModulusMengerSponge() : cAbstractFractal()
 {
@@ -30,7 +31,7 @@ cFractalModulusMengerSponge::cFractalModulusMengerSponge() : cAbstractFractal()
 void cFractalModulusMengerSponge::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);

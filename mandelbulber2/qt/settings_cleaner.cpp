@@ -144,6 +144,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName == "image_width") continue;
 			if (parameterName == "image_height") continue;
 			if (parameterName == "N") continue;
+			if (parameterName == "detail_level") continue;
 			if (parameterName == "reflections_max") continue;
 			if (parameterName == "DOF_samples") continue;
 			if (parameterName == "DOF_min_samples") continue;
@@ -171,6 +172,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName.contains("mat") && parameterName.contains("use_colors_from_palette"))
 				continue;
 			if (parameterName.contains("light") && parameterName.contains("is_defined")) continue;
+			if (parameterName.contains("node") && parameterName.contains("definition")) continue;
 
 			sDefaultedParameter par;
 			par.parameterName = parameterName;
@@ -179,7 +181,7 @@ void cSettingsCleaner::runCleaner()
 			listOfAllModifiedParameters.append(par);
 		}
 	}
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < actualFractalParams->size(); i++)
 	{
 		QList<QString> listOfFractalParameters = actualFractalParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)

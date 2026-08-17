@@ -68,7 +68,7 @@ cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScr
 	ui->comboBox_container->addItem("Last used", QVariant(QString("last")));
 	ui->comboBox_container->addItem("Modified", QVariant(QString("modified")));
 	ui->comboBox_container->addItem("Main parameters", QVariant(QString("main")));
-	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	for (int i = 1; i <= gParFractal->size(); i++)
 	{
 		ui->comboBox_container->addItem(
 			QString("Fractal #%1").arg(i), QVariant(QString("fractal%1").arg(i - 1)));
@@ -234,7 +234,7 @@ void cScriptDialog::slotPopulateComboWithParameters()
 				listOfAllModifiedParameters.append(gPar->GetContainerName() + "_" + parName);
 			}
 		}
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < gParFractal->size(); i++)
 		{
 			QList<QString> listOfFractalParameters = gParFractal->at(i)->GetListOfParameters();
 			for (const QString &parName : listOfFractalParameters)

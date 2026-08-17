@@ -41,7 +41,15 @@
 sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 {
 	// WriteLog("cFractal::cFractal(const std::shared_ptr<cParameterContainer> container)");
-	formula = fractal::none;
+
+	// per-fractal general parameters
+	formula = fractal::enumFractalFormula(container->Get<int>("formula"));
+	formulaIterations = container->Get<int>("formula_iterations");
+	formulaWeight = container->Get<double>("formula_weight");
+	formulaStartIteration = container->Get<int>("formula_start_iteration");
+	formulaStopIteration = container->Get<int>("formula_stop_iteration");
+	dontAddCConstant = container->Get<bool>("dont_add_c_constant");
+	checkForBailout = container->Get<bool>("check_for_bailout");
 
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
@@ -641,6 +649,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 
 	RecalculateFractalParams();
 }
+
 void sFractal::RecalculateFractalParams()
 {
 	IFS.mainRot.SetRotation3(IFS.rotation * M_PI_180);

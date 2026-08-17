@@ -42,7 +42,6 @@
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "lights.hpp"
-#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
@@ -136,6 +135,12 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			distance = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			iterations = distanceOut.iters;
 
+			// Apply per-object detailLevelMultiplier to input2.distThresh dynamically
+			if (distanceOut.detailLevelMultiplier > 0.0)
+			{
+				input2.distThresh *= distanceOut.detailLevelMultiplier;
+			}
+
 			step = (min(distance, lastCloudDistance) - 0.5 * input2.distThresh) * params->DEFactor
 						 * params->volumetricLightDEFactor;
 
@@ -209,14 +214,14 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 		{
 			basicFogOpacity = step / params->fogVisibility;
 
-			if (params->primitives.primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
-							params->primitives.primitiveIndexForBasicFog)
-						> input2.delta)
-					basicFogOpacity = 0;
-			}
+			// FIXME: it need to be rewritten later due to implementation of cObjectsTree
+			//			if (params->primitives.primitiveIndexForBasicFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//				if (params->primitives.TotalDistance(point, distance, input2.delta, false,
+			//&closestId, data, 							params->primitives.primitiveIndexForBasicFog) 						>
+			//input2.delta) 					basicFogOpacity = 0;
+			//			}
 		}
 
 		if (params->iterFogEnabled)
@@ -224,14 +229,14 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			iterFogOpacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
-			if (iterFogOpacity > 0.0 && params->primitives.primitiveIndexForIterFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
-							params->primitives.primitiveIndexForIterFog)
-						> input2.delta)
-					iterFogOpacity = 0;
-			}
+			// FIXME: it need to be rewritten later due to implementation of cObjectsTree
+			//			if (iterFogOpacity > 0.0 && params->primitives.primitiveIndexForIterFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//				if (params->primitives.TotalDistance(point, distance, input2.delta, false,
+			//&closestId, data, 							params->primitives.primitiveIndexForIterFog) 						>
+			//input2.delta) 					iterFogOpacity = 0;
+			//			}
 
 			if (iterFogOpacity > 0.0)
 			{
@@ -268,17 +273,17 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			double distanceToClouds = 0.0;
 			bool calculateClouds = true;
 
-			if (params->primitives.primitiveIndexForClouds >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
-							params->primitives.primitiveIndexForClouds)
-						> input2.delta)
-				{
-					cloudDensity = 0;
-					calculateClouds = false;
-				}
-			}
+			// FIXME: it need to be rewritten later due to implementation of cObjectsTree
+			//			if (params->primitives.primitiveIndexForClouds >= 0)
+			//			{
+			//				int closestId = -1;
+			//				if (params->primitives.TotalDistance(point, distance, input2.delta, false,
+			//&closestId, data, 							params->primitives.primitiveIndexForClouds) 						> input2.delta)
+			//				{
+			//					cloudDensity = 0;
+			//					calculateClouds = false;
+			//				}
+			//			}
 
 			if (calculateClouds)
 			{
@@ -328,14 +333,14 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			distFogOpacity = DistanceFogOpacity(step, distance, params->volFogDistanceFromSurface,
 				params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
 
-			if (distFogOpacity > 0.0 && params->primitives.primitiveIndexForDistFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
-							params->primitives.primitiveIndexForDistFog)
-						> input2.delta)
-					distFogOpacity = 0;
-			}
+			// FIXME: it need to be rewritten later due to implementation of cObjectsTree
+			//			if (distFogOpacity > 0.0 && params->primitives.primitiveIndexForDistFog >= 0)
+			//			{
+			//				int closestId = -1;
+			//				if (params->primitives.TotalDistance(point, distance, input2.delta, false,
+			//&closestId, data, 							params->primitives.primitiveIndexForDistFog) 						> input2.delta)
+			//					distFogOpacity = 0;
+			//			}
 
 			float k = distanceShifted / colourThresh;
 			if (k > 1) k = 1.0f;
@@ -646,17 +651,25 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 
 			for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 			{
-				sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
-				sFractalOut fractOut;
-				Compute<fractal::calcModeOrbitTrap>(*fractal, nullptr, fractIn, &fractOut);
-				float r = fractOut.orbitTrapR;
-				r = sqrtf(1.0f / (r + 1.0e-20f));
-				float fakeLight = 1.0f
-													/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-															 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-														 + 0.1f);
+				float accumulatedFakeLight = 0.0f;
 
-				fakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
+				for (int s = 0; s < data->hybridFractalSequences.GetNumberOfSequences(); s++)
+				{
+					const auto *seq = data->hybridFractalSequences.GetSequence(s);
+					if (!seq) continue;
+
+					sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+					sFractalOut fractOut;
+					Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
+					float r = fractOut.orbitTrapR;
+					r = sqrtf(1.0f / (r + 1.0e-20f));
+					accumulatedFakeLight += 1.0f
+																	/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+																			 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+																		 + 0.1f);
+				}
+
+				accumulatedFakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
 
 				sRGBFloat color;
 				switch (fakeLightLoop)
@@ -667,10 +680,10 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 					default: color = params->fakeLightsColor; break;
 				}
 
-				output.R += fakeLight * float(step) * params->fakeLightsVisibility * color.R;
-				output.G += fakeLight * float(step) * params->fakeLightsVisibility * color.G;
-				output.B += fakeLight * float(step) * params->fakeLightsVisibility * color.B;
-				output.A += fakeLight * float(step) * params->fakeLightsVisibility;
+				output.R += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.R;
+				output.G += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.G;
+				output.B += accumulatedFakeLight * float(step) * params->fakeLightsVisibility * color.B;
+				output.A += accumulatedFakeLight * float(step) * params->fakeLightsVisibility;
 			}
 		}
 

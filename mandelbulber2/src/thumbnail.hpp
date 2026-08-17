@@ -49,7 +49,8 @@ class cThumbnail
 {
 public:
 	cThumbnail(const std::shared_ptr<cParameterContainer> _params,
-		const std::shared_ptr<cFractalContainer> _fractal, int _width, int _height, QString _hash);
+		const std::shared_ptr<cFractalContainer> _fractal, int _width, int _height, QString _hash,
+		QString _settingsFile = QString());
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) { qWidget = widget; }
 	QPixmap Render();
@@ -63,6 +64,7 @@ private:
 	const int width;
 	const int height;
 	QString hash;
+	QString settingsFile;
 };
 
 #endif /* MANDELBULBER2_SRC_THUMBNAIL_HPP_ */

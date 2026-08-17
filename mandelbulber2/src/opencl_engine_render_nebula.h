@@ -13,12 +13,24 @@
 
 #ifdef USE_OPENCL
 #include "opencl/input_data_structures.h"
+
+// CPU-side render data for nebula shader (minimal version)
+struct sNebulaRenderData
+{
+	int nebulaSequencesCount = 0;
+	intptr_t nebulaSequencesDataOffset = 0; // offset into dynamic data buffer
+	int hybridSequencesCount = 0;
+	intptr_t hybridSequencesDataOffset = 0;
+	int fractalsCount = 0;
+	intptr_t fractalsDataOffset = 0;
+};
 #endif // USE_OPENCL
 
 class cImage;
 struct sParamRender;
 class cFractalContainer;
-class cNineFractals;
+class cHybridFractalSequences;
+class cHybridFractalSequences;
 
 class cOpenClEngineRenderNebula : public cOpenClEngine
 {
@@ -31,7 +43,8 @@ public:
 #ifdef USE_OPENCL
 	void SetParameters(std::shared_ptr<const cParameterContainer> paramContainer,
 		std::shared_ptr<const cFractalContainer> fractalContainer,
-		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals);
+		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cHybridFractalSequences> fractals,
+		const cHybridFractalSequences &hybridSequences);
 	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
@@ -48,7 +61,7 @@ private:
 	void CreateListOfHeaderFiles(QStringList &clHeaderFiles);
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
-		QByteArray &programEngine);
+		QByteArray &programEngine, const QByteArray &formulaSwitchCode);
 	static QString toCamelCase(const QString &s);
 
 private:
@@ -65,6 +78,9 @@ private:
 	QList<std::shared_ptr<cl::Buffer>> inCLBuffer;
 
 	std::unique_ptr<cOpenClDynamicData> dynamicData;
+
+	sNebulaRenderData renderData;
+	QList<std::shared_ptr<cl::Buffer>> inCLRenderDataBuffer;
 
 	const int inOutImageBufferIndex = 0;
 	const int inRandomBufferIndex = 0;

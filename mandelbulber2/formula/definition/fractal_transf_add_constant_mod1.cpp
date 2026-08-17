@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfAddConstantMod1::cFractalTransfAddConstantMod1() : cAbstractFractal()
 {
@@ -27,7 +28,7 @@ cFractalTransfAddConstantMod1::cFractalTransfAddConstantMod1() : cAbstractFracta
 void cFractalTransfAddConstantMod1::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 	// std offset
 	z += fractal->transformCommon.additionConstantA000;
 	// polynomial

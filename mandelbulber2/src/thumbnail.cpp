@@ -44,13 +44,19 @@
 #include "file_image.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
+#include "write_log.hpp"
 #include "settings.hpp"
 #include "system_directories.hpp"
 
 cThumbnail::cThumbnail(const std::shared_ptr<cParameterContainer> _params,
-	const std::shared_ptr<cFractalContainer> _fractal, int _width, int _height,
-	QString _hash = QString())
-		: params(_params), fractal(_fractal), width(_width), height(_height), hash(std::move(_hash))
+	const std::shared_ptr<cFractalContainer> _fractal, int _width, int _height, QString _hash,
+	QString _settingsFile)
+		: params(_params),
+			fractal(_fractal),
+			width(_width),
+			height(_height),
+			hash(std::move(_hash)),
+			settingsFile(std::move(_settingsFile))
 {
 	image = nullptr;
 	qWidget = nullptr;
@@ -85,6 +91,7 @@ QPixmap cThumbnail::Render()
 		bool stopRequest = false;
 		std::unique_ptr<cRenderJob> renderJob(
 			new cRenderJob(params, fractal, image, 1, &stopRequest, qWidget));
+		renderJob->settingsFile = settingsFile;
 		renderJob->UseSizeFromImage(true);
 
 		cRenderingConfiguration config;
@@ -93,6 +100,7 @@ QPixmap cThumbnail::Render()
 		config.DisableProgressiveRender();
 		config.EnableIgnoreErrors();
 
+		WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();
 		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()), width, height,

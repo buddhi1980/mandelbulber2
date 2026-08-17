@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalDIFSBoxDiagonalV3::cFractalDIFSBoxDiagonalV3() : cAbstractFractal()
 {

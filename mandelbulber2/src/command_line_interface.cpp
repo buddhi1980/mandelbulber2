@@ -851,6 +851,7 @@ void cCommandLineInterface::handleArgs()
 				settingsSpecified = true;
 				systemData.lastSettingsFile = filename;
 				systemData.settingsLoadedFromCLI = true;
+
 				if (cliData.touch)
 				{
 					parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
@@ -939,7 +940,7 @@ void cCommandLineInterface::handleOverrideParameters() const
 		QStringList overrideParameter = overrideParameters[i].split(QRegularExpression("\\="));
 		if (overrideParameter.size() == 2)
 		{
-			if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
+			if (fractalIndex >= 0 && fractalIndex < gParFractal->size())
 			{
 				gParFractal->at(fractalIndex)
 					->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());

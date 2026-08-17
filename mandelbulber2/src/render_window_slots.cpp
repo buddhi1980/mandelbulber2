@@ -428,8 +428,12 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			{
 				std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 				std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+				par->SetContainerName("main");
+				for (int j = 0; j < parFractal->size(); j++)
+					parFractal->at(j)->SetContainerName(QString("fractal") + QString::number(j));
 				InitParams(par);
-				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
+				InitNodeParams(1, par);
+				for (int j = 0; j < parFractal->size(); j++)
 					InitFractalParams(parFractal->at(j));
 
 				/****************** TEMPORARY CODE FOR MATERIALS *******************/
@@ -518,7 +522,6 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
-	ui->widgetDockFractal->RegeneratePrimitives();
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	gInterfaceReadyForSynchronization = true;

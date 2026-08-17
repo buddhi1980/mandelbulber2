@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_ENUMS_H_
 #define MANDELBULBER2_SRC_FRACTAL_ENUMS_H_
 
-#define NUMBER_OF_FRACTALS 9
-
 namespace fractal
 {
 enum enumDEMethod

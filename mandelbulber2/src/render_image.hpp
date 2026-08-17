@@ -44,7 +44,7 @@
 #include "statistics.h"
 
 // forward declarations
-class cNineFractals;
+class cHybridFractalSequences;
 struct sParamRender;
 struct sRenderData;
 class cImage;
@@ -57,7 +57,7 @@ class cRenderer : public QObject
 	Q_OBJECT
 public:
 	cRenderer(std::shared_ptr<const sParamRender> _params,
-		std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sRenderData> _renderData,
+		std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sRenderData> _renderData,
 		std::shared_ptr<cImage> _image);
 	~cRenderer() override;
 	bool RenderImage();
@@ -80,7 +80,7 @@ private:
 	void RenderHDRBlur();
 
 	std::shared_ptr<const sParamRender> params;
-	std::shared_ptr<const cNineFractals> fractal;
+	std::shared_ptr<const cHybridFractalSequences> fractal;
 	std::shared_ptr<sRenderData> data;
 	std::shared_ptr<cImage> image;
 	std::shared_ptr<cScheduler> scheduler;

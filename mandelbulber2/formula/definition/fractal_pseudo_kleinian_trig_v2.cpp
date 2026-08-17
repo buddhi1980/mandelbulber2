@@ -8,10 +8,10 @@
  *
  * Pseudo Kleinian TrigV2, info amoser's complex sine formula, DE by Knighty
  * @reference https://fractalforums.org/index.php?topic=5591.0;topicseen
- * added Knighty pseudo kleinian DE
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalPseudoKleinianTrigV2::cFractalPseudoKleinianTrigV2() : cAbstractFractal()
 {

@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAboxTetra4d::cFractalAboxTetra4d() : cAbstractFractal()
 {

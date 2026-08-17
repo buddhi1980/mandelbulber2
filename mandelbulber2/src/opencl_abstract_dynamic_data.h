@@ -51,6 +51,7 @@ public:
 	void FillHeader();
 	void Clear();
 	QByteArray &GetData();
+	cl_int GetItemOffset(int itemIndex) const;
 
 protected:
 	static int PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array);

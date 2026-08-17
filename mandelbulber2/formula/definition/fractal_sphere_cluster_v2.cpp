@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalSphereClusterV2::cFractalSphereClusterV2() : cAbstractFractal()
 {

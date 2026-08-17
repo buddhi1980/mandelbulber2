@@ -55,7 +55,8 @@ class cImage;
 struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
-class cNineFractals;
+class cHybridFractalSequences;
+class cHybridFractalSequences;
 class cRenderer;
 class cProgressText;
 struct sParamRender;
@@ -98,6 +99,10 @@ public:
 public slots:
 	void slotExecute();
 
+public:
+	QString settingsFile;
+	QString renderContext;
+
 private:
 	bool InitImage(int w, int h, const sImageOptional &optional);
 	void PrepareData();
@@ -106,20 +111,20 @@ private:
 	int GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo);
 	void SetupStereoEyes(int repeat, bool twoPassStereo);
 	void InitNetRender();
-	void InitStatistics(const cNineFractals *fractals);
+	void InitStatistics();
 	void ConnectUpdateSinalsSlots(const cRenderer *renderer);
 	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
 
 #ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
-		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText);
+		std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText);
 	void RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
 		cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool *result);
 	void RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
 		cProgressText *progressText, bool *result);
 	void RenderNebulaFractal(std::shared_ptr<sParamRender> params,
-		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText, bool *result);
+		std::shared_ptr<cHybridFractalSequences> fractals, cProgressText *progressText, bool *result);
 #endif
 
 	void LoadTextures(int frameNo, const cRenderingConfiguration &config);

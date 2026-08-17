@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMandelbulbAtan2Power2::cFractalMandelbulbAtan2Power2() : cAbstractFractal()
 {

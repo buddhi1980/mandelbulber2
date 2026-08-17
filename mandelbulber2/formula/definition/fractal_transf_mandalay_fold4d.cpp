@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfMandalayFold4d::cFractalTransfMandalayFold4d() : cAbstractFractal()
 {
@@ -27,7 +28,7 @@ cFractalTransfMandalayFold4d::cFractalTransfMandalayFold4d() : cAbstractFractal(
 
 void cFractalTransfMandalayFold4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	// darkbeam fold
 

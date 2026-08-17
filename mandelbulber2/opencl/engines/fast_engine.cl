@@ -60,6 +60,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//-------- decode data file ----------------
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
+	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
+	int nodesMainOffset = GetInteger(5 * sizeof(int), inBuff);
+	int hybridSequencesMainOffset = GetInteger(6 * sizeof(int), inBuff);
 
 	//--- Primitives
 
@@ -76,7 +79,114 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
 
+	//--- Objects
+
+	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
+	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
+		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
+	//--- Nodes
+
+	int numberOfNodes = GetInteger(nodesMainOffset, inBuff);
+	int nodesOffset = GetInteger(nodesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sNodeDataForRenderingCl *__attribute__((aligned(16))) nodesData =
+		(__global sNodeDataForRenderingCl *)&inBuff[nodesOffset];
+
+	//	if (imageX == 0 && imageY == 0) // print only for first pixel to avoid flooding the output)
+	//	{
+	//		for (int i = 0; i < numberOfNodes; i++)
+	//		{
+	//			sNodeDataForRenderingCl node = nodesData[i];
+	//
+	//			//		typedef struct
+	//			//		{
+	//			//			cl_int id;
+	//			//			enumNodeTypeCl type;
+	//			//			cl_int parentId;
+	//			//			cl_int userObjectId;
+	//			//			cl_int internalObjectId;
+	//			//			cl_int primitiveIdx;
+	//			//			cl_int level;
+	//			//			cl_int hybridSequenceIndex;
+	//			//			cl_float3 repeat;
+	//			//			cl_float scale;
+	//			//			cl_float absScale;
+	//			//			cl_int material;
+	//			//			matrix33 rotationMatrix;
+	//			//			matrix44 inverseTransformMatrix;
+	//			//		} sNodeDataForRenderingCl;
+	//
+	//			printf(
+	//				"Node %d: id=%d, type=%d, parentId=%d, userObjectId=%d, internalObjectId=%d, "
+	//				"primitiveIdx=%d, level=%d, hybridSequenceIndex=%d, repeat=(%f,%f,%f), scale=%f, "
+	//				"absScale=%f, material=%d\n",
+	//				i, node.id, node.type, node.parentId, node.userObjectId, node.internalObjectId,
+	//				node.primitiveIdx, node.level, node.hybridSequenceIndex, node.repeat.x, node.repeat.y,
+	//				node.repeat.z, node.scale, node.absScale, node.material);
+	//
+	//			printf("Node %d rotation matrix: m1=(%f,%f,%f), m2=(%f,%f,%f), m3=(%f,%f,%f)\n", i,
+	//				node.rotationMatrix.m1.x, node.rotationMatrix.m1.y, node.rotationMatrix.m1.z,
+	//				node.rotationMatrix.m2.x, node.rotationMatrix.m2.y, node.rotationMatrix.m2.z,
+	//				node.rotationMatrix.m3.x, node.rotationMatrix.m3.y, node.rotationMatrix.m3.z);
+	//
+	//			printf(
+	//				"Node %d inverse transform matrix: m1=(%f,%f,%f,%f), m2=(%f,%f,%f,%f), m3=(%f,%f,%f,%f),
+	//" 				"m4=(%f,%f,%f,%f)\n", 				i, node.worldToLocalMatrix.r1.x,
+	// node.worldToLocalMatrix.r1.y, 				node.worldToLocalMatrix.r1.z,
+	// node.worldToLocalMatrix.r1.w, 				node.worldToLocalMatrix.r2.x,
+	// node.worldToLocalMatrix.r2.y, 				node.worldToLocalMatrix.r2.z,
+	// node.worldToLocalMatrix.r2.w, 				node.worldToLocalMatrix.r3.x,
+	// node.worldToLocalMatrix.r3.y, 				node.worldToLocalMatrix.r3.z,
+	// node.worldToLocalMatrix.r3.w, 				node.worldToLocalMatrix.r4.x,
+	// node.worldToLocalMatrix.r4.y, 				node.worldToLocalMatrix.r4.z,
+	// node.worldToLocalMatrix.r4.w);
+	//		}
+	//	}
+
+	//	printf("constant_multiplier %f %f %f", consts->fractal[1].constantMultiplier.x,
+	//		consts->fractal[1].constantMultiplier.y, consts->fractal[1].constantMultiplier.z);
+
+	//--- Hybrid Sequences
+
+	int numberOfHybridSequences = GetInteger(hybridSequencesMainOffset, inBuff);
+	int hybridSequencesArrayOffset = GetInteger(hybridSequencesMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sHybridSequenceCl *__attribute__((aligned(16))) hybridSequences =
+		(__global sHybridSequenceCl *)&inBuff[hybridSequencesArrayOffset];
+
+	//--- Fractals ---
+
+	int fractalsMainOffset = GetInteger(7 * sizeof(int), inBuff);
+	int numberOfFractals = GetInteger(fractalsMainOffset, inBuff);
+	int fractalsArrayOffset = GetInteger(fractalsMainOffset + 1 * sizeof(int), inBuff);
+	__global sFractalCl *fractals = (__global sFractalCl *)&inBuff[fractalsArrayOffset];
+
 	//--------- end of data file ----------------------------------
+
+	sRenderData renderData;
+	renderData.viewVectorNotRotated = 0;
+	renderData.material = 0;
+	renderData.palette = 0;
+	renderData.AOVectors = 0;
+	renderData.lights = 0;
+	renderData.numberOfLights = 0;
+	renderData.AOVectorsCount = 0;
+	renderData.reflectionsMax = 0;
+	renderData.primitives = primitives;
+	renderData.numberOfPrimitives = numberOfPrimitives;
+	renderData.primitivesGlobalData = primitivesGlobalData;
+	renderData.objectsData = objectsData;
+	renderData.nodesData = nodesData;
+	renderData.numberOfNodes = numberOfNodes;
+	renderData.numberOfObjects = numberOfObjects;
+	renderData.dynamicData = inBuff;
+	renderData.hybridSequences = hybridSequences;
+	renderData.numberOfHybridSequences = numberOfHybridSequences;
+	renderData.fractals = fractals;
+	renderData.numberOfFractals = numberOfFractals;
 
 	sClPixel pixel;
 
@@ -86,19 +196,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	for (int eye = 0; eye < 2; eye++)
 	{
 #endif
-
-		sRenderData renderData;
-		renderData.viewVectorNotRotated = 0;
-		renderData.material = 0;
-		renderData.palette = 0;
-		renderData.AOVectors = 0;
-		renderData.lights = 0;
-		renderData.numberOfLights = 0;
-		renderData.AOVectorsCount = 0;
-		renderData.reflectionsMax = 0;
-		renderData.primitives = primitives;
-		renderData.numberOfPrimitives = numberOfPrimitives;
-		renderData.primitivesGlobalData = primitivesGlobalData;
 
 		// auxiliary vectors
 		const float3 one = (float3){1.0f, 0.0f, 0.0f};
@@ -218,6 +315,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			calcParam.detailSize = distThresh;
 			outF = CalculateDistance(consts, point, &calcParam, &renderData);
 			distance = outF.distance;
+
+			// Apply per-object detailLevelMultiplier to distThresh dynamically
+			if (outF.objectId >= 0 && outF.objectId < renderData.numberOfObjects)
+			{
+				distThresh *= renderData.objectsData[outF.objectId].detailLevelMultiplier;
+			}
 
 			if (distance < distThresh * 0.95f)
 			{
@@ -343,6 +446,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.color = 128;
 	pixel.opacity = 0;
 	pixel.alpha = alpha * 65535;
+	//printf("sizeof sClPixel: %d", sizeof(sClPixel));
 
 	out[buffIndex] = pixel;
 #endif // STEREO_REYCYAN

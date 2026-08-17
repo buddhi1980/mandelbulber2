@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 JosKleinianV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
 	// sphere inversion position

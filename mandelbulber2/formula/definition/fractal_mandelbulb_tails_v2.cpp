@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalMandelbulbTailsV2::cFractalMandelbulbTailsV2() : cAbstractFractal()
 {

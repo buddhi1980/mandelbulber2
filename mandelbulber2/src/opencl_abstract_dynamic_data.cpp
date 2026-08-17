@@ -58,6 +58,12 @@ QByteArray &cOpenClAbstractDynamicData::GetData()
 	return data;
 }
 
+cl_int cOpenClAbstractDynamicData::GetItemOffset(int itemIndex) const
+{
+	if (itemIndex >= 0 && itemIndex < itemOffsets.size()) return itemOffsets[itemIndex].itemOffset;
+	return 0;
+}
+
 int cOpenClAbstractDynamicData::PutDummyToAlign(
 	int dataLength, int alignmentSize, QByteArray *array)
 {

@@ -45,7 +45,7 @@
 #include "hybrid_fractal_sequences.h"
 
 // forward declarations
-class cNineFractals;
+class cHybridFractalSequences;
 struct sParamRender;
 struct sRenderData;
 
@@ -68,18 +68,23 @@ struct sDistanceOut
 	int totalIters;
 	int objectId;
 	bool maxiter;
+	int seqIndex;
+	CVector3 transformedPoint;
+	bool hasTransformedPoint = false;
+	double detailLevelMultiplier = 1.0;
 };
 
-double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
+double CalculateDistance(const sParamRender &params, const cHybridFractalSequences &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
-double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex,
+double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in,
+	const CVector3 &point, sDistanceOut *out, int forcedFormulaIndex,
 	const cHybridFractalSequences::sSequence *sequence);
 double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
-	std::shared_ptr<const cNineFractals> fractals, const CVector3 point, const CVector3 direction,
-	const CVector3 orthDirection, bool *stopRequest);
+	std::shared_ptr<const cHybridFractalSequences> fractals, const CVector3 point,
+	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest);
 
-double CalculateDistanceFromObjectsTree(const sParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, sRenderData *data);
+double CalculateDistanceFromObjectsTree(const sParamRender &params,
+	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,
+	sRenderData *data);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */

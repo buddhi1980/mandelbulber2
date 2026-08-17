@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 Menger4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 Menger4dIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)

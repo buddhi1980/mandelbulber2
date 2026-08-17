@@ -38,6 +38,7 @@
 #include <vector>
 
 #include "ao_modes.h"
+#include "boolean_operator.h"
 #include "color_gradient.h"
 #include "common_params.hpp"
 #include "fractal_enums.h"
@@ -49,6 +50,7 @@
 // forward declarations
 class cObjectData;
 class cParameterContainer;
+class cFractalContainer;
 
 namespace params
 {
@@ -59,13 +61,6 @@ enum enumTextureMapType
 	mapFlat = 2
 };
 
-enum enumBooleanOperator
-{
-	booleanOperatorAND = 0,
-	booleanOperatorOR = 1,
-	booleanOperatorSUB = 2
-};
-
 } // namespace params
 
 struct sParamRender
@@ -73,8 +68,131 @@ struct sParamRender
 	// constructor with init
 	sParamRender(const std::shared_ptr<cParameterContainer> par,
 		std::vector<cObjectData> *objectData = nullptr,
-		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr);
+		std::vector<cObjectsTree::sNodeDataForRendering> *objectTreeNodes = nullptr,
+		const std::shared_ptr<const cFractalContainer> fractalContainer = nullptr);
 
+	// Nested structs (as in OpenCL)
+	sImageAdjustments imageAdjustments;
+	sCommonParams common;
+
+	// Matrices (as in OpenCL)
+	CRotationMatrix mRotBackgroundRotation;
+	CRotationMatrix mRotCloudsRotation;
+	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
+
+	// Vectors (as in OpenCL)
+	CVector3 ambientOcclusionLightMapRotation;
+	CVector3 backgroundRotation;
+	CVector3 cloudsCenter;
+	CVector3 cloudsRotation;
+	CVector3 cloudsSpeed;
+	CVector3 limitMin;
+	CVector3 limitMax;
+	CVector3 repeat;
+	CVector3 target;
+	CVector3 camera; // view point
+	CVector3 viewAngle;
+	CVector3 topVector;
+
+	// Color vectors (as in OpenCL)
+	sRGBFloat ambientOcclusionColor;
+	sRGBFloat background_color1; // background colour
+	sRGBFloat background_color2;
+	sRGBFloat background_color3;
+	sRGBFloat cloudsColor;
+	sRGBFloat fakeLightsColor;
+	sRGBFloat fakeLightsColor2;
+	sRGBFloat fakeLightsColor3;
+	sRGBFloat fillLightColor;
+	sRGBFloat fogColor;
+	sRGBFloat glowColor1;
+	sRGBFloat glowColor2;
+	sRGBFloat iterFogColour1;
+	sRGBFloat iterFogColour2;
+	sRGBFloat iterFogColour3;
+	sRGBFloat volFogColour1;
+	sRGBFloat volFogColour2;
+	sRGBFloat volFogColour3;
+
+	// Floats (as in OpenCL)
+	double absMaxMarchingStep;
+	double absMinMarchingStep;
+	float ambientOcclusion;
+	double ambientOcclusionFastTune;
+	double background_brightness;
+	double background_gamma;
+	double backgroundHScale;
+	double backgroundVScale;
+	double backgroundTextureOffsetX;
+	double backgroundTextureOffsetY;
+	double cameraDistanceToTarget; // zoom
+	double cloudsAmbientLight;
+	double cloudsDEApproaching;
+	double cloudsDEMultiplier;
+	double cloudsDensity;
+	double cloudsDetailAccuracy;
+	double cloudsDistance;
+	double cloudsDistanceLayer;
+	double cloudsLightsBoost;
+	double cloudsPeriod;
+	double cloudsSharpness;
+	double cloudsHeight;
+	double cloudsOpacity;
+	double constantFactor;
+	double DEFactor; // factor for distance estimation steps
+	double deltaDERelativeDelta;
+	double detailLevel; // DE threshold factor
+	double detailSizeMax;
+	double detailSizeMin;
+	double DEThresh;
+	double DOFFocus;
+	double DOFRadius;
+	double DOFMaxRadius;
+	double DOFBlurOpacity;
+	double DOFMaxNoise;
+	float DOFMonteCarloCADispersionGain;
+	float DOFMonteCarloCACameraDispersion;
+	double fakeLightsIntensity;
+	float fakeLightsVisibility;
+	float fakeLightsVisibilitySize;
+	double fogVisibility;
+	double fov; // perspective factor
+	float glowIntensity;
+	double hdrBlurIntensity;
+	double hdrBlurRadius;
+	float iterFogColor1Maxiter;
+	float iterFogColor2Maxiter;
+	double iterFogOpacity;
+	float iterFogOpacityTrim;
+	float iterFogOpacityTrimHigh;
+	float iterFogBrightnessBoost;
+	float monteCarloGIRadianceLimit;
+	float nebulaBrighness;
+	float nebulaXGridSize;
+	float nebulaYGridSize;
+	float nebulaZGridSize;
+	float postChromaticAberrationIntensity;
+	float postChromaticAberrationRadius;
+	float rayleighScatteringBlue;
+	float rayleighScatteringRed;
+	double relMaxMarchingStep;
+	double relMinMarchingStep;
+	double resolution; // resolution of image in fractal coordinates
+	double smoothness;
+	double stereoEyeDistance;
+	double stereoInfiniteCorrection;
+	double sweetSpotHAngle;
+	double sweetSpotVAngle;
+	double viewDistanceMax;
+	double viewDistanceMin;
+	double volFogColour1Distance;
+	double volFogColour2Distance;
+	float volFogDensity;
+	double volFogDistanceFactor;
+	double volFogDistanceFromSurface;
+	double volumetricLightDEFactor;
+
+	// Ints (as in OpenCL)
 	int antialiasingSize;
 	int antialiasingOclDepth;
 	int ambientOcclusionQuality; // ambient occlusion quality
@@ -83,8 +201,7 @@ struct sParamRender
 	int frameNo;
 	int imageHeight; // image height
 	int imageWidth;	 // image width
-	int formulaMaterialId[NUMBER_OF_FRACTALS];
-	int minN; // minimum number of iterations
+	int minN;				 // minimum number of iterations
 	int N;
 	int nebulaNumberOfSamplesPerPixel;
 	int nebulaMinIteration;
@@ -97,13 +214,14 @@ struct sParamRender
 	int monteCarloDenoiserStrength;
 	int maxRaymarchingSteps;
 
+	// Enums (as in OpenCL)
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
-	params::enumBooleanOperator booleanOperator[NUMBER_OF_FRACTALS - 1];
 	fractal::enumDEMethod delta_DE_method;
 	fractal::enumDEFunctionType delta_DE_function;
 
+	// Bools (as in OpenCL)
 	bool advancedQuality;
 	bool allPrimitivesInvisibleAlpha;
 	bool antialiasingEnabled;
@@ -156,142 +274,19 @@ struct sParamRender
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
-	bool smoothDeCombineEnable[NUMBER_OF_FRACTALS];
 	bool SSAO_random_mode;
 	bool stereoSwapEyes;
 	bool texturedBackground; // enable textured background
 	bool useDefaultBailout;
 	bool volFogEnabled;
 
-	sRGBFloat ambientOcclusionColor;
-	sRGBFloat background_color1; // background colour
-	sRGBFloat background_color2;
-	sRGBFloat background_color3;
-	sRGBFloat cloudsColor;
-	sRGBFloat fakeLightsColor;
-	sRGBFloat fakeLightsColor2;
-	sRGBFloat fakeLightsColor3;
-	sRGBFloat fillLightColor;
-	sRGBFloat fogColor;
-	sRGBFloat glowColor1;
-	sRGBFloat glowColor2;
-	sRGBFloat iterFogColour1;
-	sRGBFloat iterFogColour2;
-	sRGBFloat iterFogColour3;
-	sRGBFloat volFogColour1;
-	sRGBFloat volFogColour2;
-	sRGBFloat volFogColour3;
-
-	double absMaxMarchingStep;
-	double absMinMarchingStep;
-	float ambientOcclusion;
-	double ambientOcclusionFastTune;
-	double background_brightness;
-	double background_gamma;
-	double backgroundHScale;
-	double backgroundVScale;
-	double backgroundTextureOffsetX;
-	double backgroundTextureOffsetY;
-	double cameraDistanceToTarget; // zoom
-	double cloudsAmbientLight;
-	double cloudsDEApproaching;
-	double cloudsDEMultiplier;
-	double cloudsDensity;
-	double cloudsDetailAccuracy;
-	double cloudsDistance;
-	double cloudsDistanceLayer;
-	double cloudsLightsBoost;
-	double cloudsPeriod;
-	double cloudsSharpness;
-	double cloudsHeight;
-	double cloudsOpacity;
-	double constantFactor;
-	double DEFactor; // factor for distance estimation steps
-	double deltaDERelativeDelta;
-	double detailLevel; // DE threshold factor
-	double detailSizeMax;
-	double detailSizeMin;
-	double DEThresh;
-	double DOFFocus;
-	double DOFRadius;
-	double DOFMaxRadius;
-	double DOFBlurOpacity;
-	double DOFMaxNoise;
-	float DOFMonteCarloCADispersionGain;
-	float DOFMonteCarloCACameraDispersion;
-	double fakeLightsIntensity;
-	float fakeLightsVisibility;
-	float fakeLightsVisibilitySize;
-	double fogVisibility;
-	double formulaScale[NUMBER_OF_FRACTALS];
-	double fov; // perspective factor
-	float glowIntensity;
-	double hdrBlurIntensity;
-	double hdrBlurRadius;
-	float iterFogColor1Maxiter;
-	float iterFogColor2Maxiter;
-	double iterFogOpacity;
-	float iterFogOpacityTrim;
-	float iterFogOpacityTrimHigh;
-	float iterFogBrightnessBoost;
-	float monteCarloGIRadianceLimit;
-	float nebulaBrighness;
-	float nebulaXGridSize;
-	float nebulaYGridSize;
-	float nebulaZGridSize;
-	float postChromaticAberrationIntensity;
-	float postChromaticAberrationRadius;
-	float rayleighScatteringBlue;
-	float rayleighScatteringRed;
-	double relMaxMarchingStep;
-	double relMinMarchingStep;
-	double resolution; // resolution of image in fractal coordinates
-	double smoothDeCombineDistance[NUMBER_OF_FRACTALS];
-	double smoothness;
-	double stereoEyeDistance;
-	double stereoInfiniteCorrection;
-	double sweetSpotHAngle;
-	double sweetSpotVAngle;
-	double viewDistanceMax;
-	double viewDistanceMin;
-	double volFogColour1Distance;
-	double volFogColour2Distance;
-	float volFogDensity;
-	double volFogDistanceFactor;
-	double volFogDistanceFromSurface;
-	double volumetricLightDEFactor;
-
-	sImageAdjustments imageAdjustments;
-
-	CVector3 ambientOcclusionLightMapRotation;
-	CVector3 backgroundRotation;
-	CVector3 cloudsCenter;
-	CVector3 cloudsRotation;
-	CVector3 cloudsSpeed;
-	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
-	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
-	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];
-	CVector3 limitMin;
-	CVector3 limitMax;
-	CVector3 repeat;
-	CVector3 target;
-	CVector3 camera; // view point
-	CVector3 viewAngle;
-	CVector3 topVector;
-
-	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
-	CRotationMatrix mRotBackgroundRotation;
-	CRotationMatrix mRotCloudsRotation;
-	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
-
+	// Non-OpenCL types (CPU-only)
 	cColorGradient nebulaXAxisColors;
 	cColorGradient nebulaYAxisColors;
 	cColorGradient nebulaZAxisColors;
 	cColorGradient nebulaIterationsColors;
 
 	cPrimitives primitives;
-
-	sCommonParams common;
 };
 
 #endif /* MANDELBULBER2_SRC_FRACTPARAMS_HPP_ */

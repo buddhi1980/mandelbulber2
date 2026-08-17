@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 	if (fractal->transformCommon.functionEnabled
@@ -122,11 +122,10 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	// aux->color //
+	// aux->color // colDist != aux->dist ||
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-
 		REAL colAdd = fractal->foldColor.difs0000.w + aux->i * fractal->foldColor.difs0;
 
 		// last two z lengths

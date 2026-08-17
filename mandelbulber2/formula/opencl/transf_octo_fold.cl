@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfOctoFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfOctoFoldIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (z.x + z.y < 0.0f) z = (REAL4){-z.y, -z.x, z.z, z.w};
 

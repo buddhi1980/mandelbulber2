@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -15,15 +15,14 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 PseudoKleinianMod7Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL oldZz = z.z;
-
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
-		z =
-			fabs(z + fractal->transformCommon.offset111) - fabs(z - fractal->transformCommon.offset111) - z;
+		z = fabs(z + fractal->transformCommon.offset111) - fabs(z - fractal->transformCommon.offset111)
+				- z;
 	}
 
 	REAL4 signs = z;
@@ -64,7 +63,7 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	aux->pseudoKleinianDE = fractal->transformCommon.offsetA1; // for pkDE function
 
-	//	aux->dist = min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) ) / aux->DE-
+	//	aux->dist = min(length(z.xy), fabs (z.z - fractal->transformCommon.offsetA0) )  / aux->DE-
 	//.001;
 
 	if (fractal->analyticDE.enabled && aux->i >= fractal->analyticDE.startIterationsA
@@ -72,20 +71,21 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		REAL tx = z.x - fractal->transformCommon.offsetD0;
 		REAL ty = z.y - fractal->transformCommon.offsetD0;
-		REAL rxy = sqrt(tx * tx + ty * ty)
-				- fractal->transformCommon.offsetC0;
+		REAL rxy = native_sqrt(tx * tx + ty * ty) - fractal->transformCommon.offsetC0;
+
 		REAL tp = 0.0f;
-		if (fractal->transformCommon.functionEnabledBFalse && aux->i >= fractal->transformCommon.startIterationsB
+		if (fractal->transformCommon.functionEnabledBFalse
+				&& aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
 		{
 			tp = min(rxy, fabs(z.z - fractal->transformCommon.offsetA0)) / aux->DE
-								 - fractal->transformCommon.offsetB0;
+					 - fractal->transformCommon.offsetB0;
+
 			aux->DE0 = tp; // mmmmmmmmmmmmmmmmmmm
 			aux->dist = min(aux->dist, tp);
 		}
 		else // pk
 		{
-
 			REAL tp2 = 0.0f;
 			if (!fractal->transformCommon.functionEnabledEFalse)
 			{
@@ -104,24 +104,21 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 					tp2 = tp;
 			}
 			tp = max(rxy - fractal->transformCommon.offsetA1, tp2 / length(z)) / aux->DE
-								 - fractal->transformCommon.offsetB0;
+					 - fractal->transformCommon.offsetB0;
 			aux->DE0 = tp; // mmmmmmmmmmmmmmmmmmm
 			aux->dist = min(aux->dist, tp);
 		}
 	}
-
-
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL addCol = fractal->foldColor.difs0000.y + aux->i * fractal->foldColor.difs0
-			+ fractal->foldColor.difs0000.x * k
-			+ fractal->foldColor.difs0000.w * fabs(z.z)
-			+ fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
+									+ fractal->foldColor.difs0000.x * k + fractal->foldColor.difs0000.w * fabs(z.z)
+									+ fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 
-	//	if (oldZz == z.z) addCol += fractal->foldColor.difs0000.w * aux->i;
+		//		if (oldZz == z.z) addCol += fractal->foldColor.difs0000.w * aux->i;
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
@@ -129,8 +126,7 @@ REAL4 PseudoKleinianMod7Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		else
 		{
-			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0)
-				aux->color += addCol;
+			if ((fractal->foldColor.int0 + aux->i) % fractal->foldColor.int2 == 0) aux->color += addCol;
 		}
 	}
 	return z;

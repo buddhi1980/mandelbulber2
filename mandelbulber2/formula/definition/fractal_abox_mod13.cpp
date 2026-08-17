@@ -16,6 +16,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAboxMod13::cFractalAboxMod13() : cAbstractFractal()
 {

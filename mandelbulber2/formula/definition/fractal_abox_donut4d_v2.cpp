@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalAboxDonut4dV2::cFractalAboxDonut4dV2() : cAbstractFractal()
 {

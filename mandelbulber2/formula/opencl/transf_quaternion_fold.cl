@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfQuaternionFoldIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 	// quat fold
@@ -28,6 +28,7 @@ REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	// quat scale and DE fudge
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z *= fractal->transformCommon.constantMultiplier122;
@@ -73,7 +74,6 @@ REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	// tweaking DE
-
 	aux->DE = aux->DE * aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->analyticDE.enabledFalse)

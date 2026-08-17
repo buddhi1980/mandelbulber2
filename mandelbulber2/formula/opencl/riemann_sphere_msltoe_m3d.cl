@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 RiemannSphereMsltoeM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 RiemannSphereMsltoeM3dIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (z.z > fractal->transformCommon.offsetA1)
 		z * 1000.0f; // fail bailout check

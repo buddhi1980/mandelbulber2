@@ -40,12 +40,14 @@
 
 #include <QMouseEvent>
 
+#include "formula/definition/all_fractal_list_enums.hpp"
 #include "src/fractal_container.hpp"
 #include "src/fractal_enums.h"
 #include "src/fractparams.hpp"
 #include "src/global_data.hpp"
 #include "src/initparameters.hpp"
 #include "src/material.h"
+#include "src/object_node_type.h"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
 #include "src/system_data.hpp"
@@ -53,7 +55,7 @@
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(
-			systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
+				systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
 {
 	Init();
 }
@@ -70,8 +72,8 @@ void cMaterialWidget::Init()
 	// DisableThumbnailCache();
 	DisableTimer();
 
-	previewWidth = systemData.GetPreferredThumbnailSize();
-	previewHeight = systemData.GetPreferredThumbnailSize();
+	previewWidth = width();
+	previewHeight = height();
 
 	timerPeriodicRefresh = new QTimer(this);
 	timerPeriodicRefresh->setSingleShot(true);
@@ -116,17 +118,24 @@ void cMaterialWidget::InitializeData()
 
 		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
 		std::shared_ptr<cFractalContainer> fractal(new cFractalContainer());
+		fractal->resize(1);
 
 		params->SetContainerName("material");
 		InitParams(params);
+		InitNodeParams(1, params);
 
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		for (int i = 0; i < fractal->size(); i++)
 		{
 			fractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 			InitFractalParams(fractal->at(i));
 		}
 		InitMaterialParams(1, params);
 		InitLightParams(1, params);
+		params->Set("objects_tree_enable", true);
+		params->Set("node_0001_definition",
+			QString("fractal preview,1,%1,0,1,0").arg(int(enumNodeType::fractal)));
+		params->Set("node_0001_material", 1);
+		fractal->at(0)->Set("formula", int(fractal::mandelbulb));
 
 		if (paramsCopy.IfExists(cMaterial::Name("is_defined", actualMaterialIndex)))
 		{
@@ -144,7 +153,10 @@ void cMaterialWidget::InitializeData()
 			params->Set("N", 3);
 			params->Set("DE_thresh", 0.1);
 			params->Set("constant_DE_threshold", true);
+			params->Set("node_0001_enabled", true);
+			params->Set("node_0001_formula_maxiter", 3);
 			fractal->at(0)->Set("power", 5);
+			fractal->at(0)->Set("formula_maxiter", 3);
 			params->Set("textured_background", true);
 			params->Set("file_background",
 				QDir::toNativeSeparators(
@@ -156,7 +168,7 @@ void cMaterialWidget::InitializeData()
 		else
 		{
 			params->Set("camera", CVector3(1.5, -2.5, 0.7));
-			params->Set("fractal_enable_1", false);
+			params->Set("node_0001_enabled", false);
 			params->Set("textured_background", true);
 			params->Set("file_background",
 				QDir::toNativeSeparators(systemDirectories.sharedDir + "textures" + QDir::separator()

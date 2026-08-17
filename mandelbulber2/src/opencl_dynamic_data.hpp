@@ -38,6 +38,7 @@
 #include <map>
 
 #include "include_header_wrapper.hpp"
+#include "objects_tree.h"
 #include "opencl_abstract_dynamic_data.h"
 
 class cMaterial;
@@ -46,6 +47,7 @@ class cLights;
 class cPrimitives;
 class cObjectData;
 class sParamRender;
+class cHybridFractalSequences;
 
 #ifdef USE_OPENCL
 class cOpenClDynamicData : public cOpenClAbstractDynamicData
@@ -54,23 +56,32 @@ public:
 	cOpenClDynamicData(int numberOfItems);
 	~cOpenClDynamicData();
 
-	int BuildMaterialsData(const std::map<int, cMaterial> &materials,
+	int BuildMaterialsData(const std::vector<cMaterial> &materials,
 		const QMap<QString, int> &textureIndexes); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights, const QMap<QString, int> &textureIndexes);
 	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
 	void BuildObjectsData(const std::vector<cObjectData> *objectData);
+	void BuildNodesData(const std::vector<cObjectsTree::sNodeDataForRendering> *nodesData);
+	void BuildHybridSequencesData(const cHybridFractalSequences *hybridSequences);
+	void BuildFractalData(const cHybridFractalSequences *hybridSequences);
 	void BuildNebulaGradientsData(const sParamRender *params);
+	void BuildNebulaSequenceData(const cHybridFractalSequences *hybridSequences);
 
-private:
+public:
 	const int materialsItemIndex = 0;
 	const int AOVectorsItemIndex = 1;
 	const int lightsItemIndex = 2;
 	const int primitivesItemIndex = 3;
 	const int objectsItemIndex = 4;
+	const int nodesItemIndex = 5;
+	const int hybridSequencesItemIndex = 6;
+	const int fractalsItemIndex = 7;
 
 	const int nebulaGradientsItemIndex = 0; // only one data set for nebulas
-};
+	const int nebulaSequencesItemIndex = 1; // only one data set for nebulas
+
+}; // class cOpenClDynamicData
 
 #endif // USE_OPENCL
 

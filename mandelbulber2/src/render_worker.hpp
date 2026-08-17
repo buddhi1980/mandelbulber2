@@ -51,7 +51,7 @@ class cCameraTarget;
 class cImage;
 struct sRenderData;
 struct sParamRender;
-class cNineFractals;
+class cHybridFractalSequences;
 class cScheduler;
 
 // ambient occlusion data
@@ -74,7 +74,7 @@ public:
 	};
 
 	cRenderWorker(std::shared_ptr<const sParamRender> _params,
-		std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sThreadData> _threadData,
+		std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sThreadData> _threadData,
 		std::shared_ptr<sRenderData> _data, std::shared_ptr<cImage> _image);
 	~cRenderWorker() override;
 
@@ -123,10 +123,13 @@ private:
 	struct sRayMarchingOut
 	{
 		CVector3 point;
+		CVector3 transformedPoint;
 		double lastDist = 0.0;
 		double depth = 0.0;
 		double distThresh = 0.0;
 		int objectId = 0;
+		int seqIndex = 0;
+		bool hasTransformedPoint = false;
 		bool found = false;
 		;
 	};
@@ -169,6 +172,7 @@ private:
 	struct sShaderInputData
 	{
 		CVector3 point;
+		CVector3 transformedPoint;
 		CVector3 viewVector;
 		CVector3 normal;
 		double distThresh; // distance threshold depend on 'detailLevel'
@@ -178,6 +182,8 @@ private:
 		sStep *stepBuff;
 		int stepCount;
 		int objectId;
+		int seqIndex;
+		bool hasTransformedPoint = false;
 		bool invertMode;
 		cMaterial *material;
 		sRGBFloat texDiffuse;
@@ -187,6 +193,8 @@ private:
 		sRGBFloat texTransparency;
 		sRGBFloat texTransparencyAlpha;
 		float perlinNoise;
+
+		CVector3 GetFractalPoint() const { return hasTransformedPoint ? transformedPoint : point; }
 	};
 
 	struct sRayStack
@@ -270,7 +278,7 @@ private:
 
 	// data got from main thread
 	const sParamRender *params;
-	const cNineFractals *fractal;
+	const cHybridFractalSequences *fractal;
 	sRenderData *data;
 	std::shared_ptr<sThreadData> threadData;
 	std::shared_ptr<cImage> image;

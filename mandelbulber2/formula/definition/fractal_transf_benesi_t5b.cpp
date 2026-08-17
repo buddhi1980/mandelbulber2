@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfBenesiT5b::cFractalTransfBenesiT5b() : cAbstractFractal()
 {
@@ -29,7 +30,7 @@ cFractalTransfBenesiT5b::cFractalTransfBenesiT5b() : cAbstractFractal()
 
 void cFractalTransfBenesiT5b::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
 	z = CVector4(

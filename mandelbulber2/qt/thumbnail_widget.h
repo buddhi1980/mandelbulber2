@@ -68,6 +68,7 @@ public:
 	void DisableTimer() { disableTimer = true; }
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
+	void SetSettingsFile(const QString &file) { settingsFile = file; }
 	bool IsRendered() const { return isFullyRendered; }
 	std::shared_ptr<cImage> GetImage() { return image; };
 	QString GetThumbnailFileName() const;
@@ -106,6 +107,7 @@ private:
 	bool disableRenderOnPaint = false;
 	bool disableThumbnailCache;
 	bool useForrandomizer;
+	QString settingsFile;
 	// timer for random trigger for rendering (renders thumbnail even when is not visible)
 	QTimer *timer;
 	QElapsedTimer renderingTimeTimer;

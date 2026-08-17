@@ -15,6 +15,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfRotationFolding::cFractalTransfRotationFolding() : cAbstractFractal()
 {
@@ -32,7 +33,7 @@ cFractalTransfRotationFolding::cFractalTransfRotationFolding() : cAbstractFracta
 void cFractalTransfRotationFolding::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 

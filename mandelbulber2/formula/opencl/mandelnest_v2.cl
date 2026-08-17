@@ -15,7 +15,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelnestV2Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL Power = fractal->bulb.power;
 	REAL4 shift = fractal->transformCommon.offset000 * M_PI_F;

@@ -11,6 +11,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSmooth::cFractalTransfSmooth() : cAbstractFractal()
 {
@@ -28,7 +29,7 @@ cFractalTransfSmooth::cFractalTransfSmooth() : cAbstractFractal()
 void cFractalTransfSmooth::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	double OffsetS = fractal->transformCommon.offset0005;
 	CVector4 Zigns = CVector4(1.0, 1.0, 1.0, 1.0);

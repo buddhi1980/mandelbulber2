@@ -53,6 +53,40 @@ enum enumFractalColoring
 
 struct sFractalColoring
 {
+	// Vectors (as in OpenCL)
+	CVector4 lineDirection;
+	CVector3 xyz000;
+	CVector3 xyzC111;
+
+	// Doubles (as in OpenCL)
+	double addMax;
+	double addSpread;
+	double addStartValue;
+	double auxColorHybridWeight;
+	double auxColorWeight;
+	double cosAdd;
+	double cosPeriod;
+	double cosStartValue;
+	double hybridAuxColorScale1;
+	double hybridOrbitTrapScale1;
+	double hybridRadDivDeScale1;
+	double icRadWeight;
+	double initialColorValue;
+	double iterAddScale;
+	double iterScale;
+	double maxColorValue;
+	double minColorValue;
+	double orbitTrapWeight;
+	double parabScale;
+	double parabStartValue;
+	double radDivDeWeight;
+
+	double radWeight;
+	double roundScale;
+	double sphereRadius;
+	double xyzIterScale;
+
+	// Bools (as in OpenCL)
 	bool addEnabledFalse;
 	bool auxColorFalse;
 	bool color4dEnabledFalse;
@@ -86,39 +120,11 @@ struct sFractalColoring
 
 	bool tempLimitFalse; // temporary
 
-	enumFractalColoring coloringAlgorithm;
+	// Int (as in OpenCL)
 	int iStartValue;
 
-	CVector4 lineDirection;
-	CVector3 xyz000;
-	CVector3 xyzC111;
-
-	double addMax;
-	double addSpread;
-	double addStartValue;
-	double auxColorHybridWeight;
-	double auxColorWeight;
-	double cosAdd;
-	double cosPeriod;
-	double cosStartValue;
-	double hybridAuxColorScale1;
-	double hybridOrbitTrapScale1;
-	double hybridRadDivDeScale1;
-	double icRadWeight;
-	double initialColorValue;
-	double iterAddScale;
-	double iterScale;
-	double maxColorValue;
-	double minColorValue;
-	double orbitTrapWeight;
-	double parabScale;
-	double parabStartValue;
-	double radDivDeWeight;
-
-	double radWeight;
-	double roundScale;
-	double sphereRadius;
-	double xyzIterScale;
+	// Enum (last, as in OpenCL)
+	enumFractalColoring coloringAlgorithm;
 
 	sFractalColoring();
 };

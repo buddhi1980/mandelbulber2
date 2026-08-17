@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 EiffieMsltoeIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 	REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8_F, M_PI_4_F) - M_PI_8_F);

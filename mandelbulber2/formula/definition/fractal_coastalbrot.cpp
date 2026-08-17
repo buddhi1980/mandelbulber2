@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalCoastalbrot::cFractalCoastalbrot() : cAbstractFractal()
 {
@@ -26,7 +27,7 @@ cFractalCoastalbrot::cFractalCoastalbrot() : cAbstractFractal()
 
 void cFractalCoastalbrot::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	double temp = aux.r;
 	temp = pow(temp, 7.7);

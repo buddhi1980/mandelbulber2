@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfScaleVaryV212::cFractalTransfScaleVaryV212() : cAbstractFractal()
 {

@@ -90,29 +90,10 @@ public:
 		lightDecay1R3 = 2,
 	};
 
-	bool enabled = false;
-	bool castShadows = false;
-	bool penetrating = false;
-	bool relativePosition = false;
-	bool repeatTexture = false;
-	bool useTargetPoint = false;
-	bool volumetric = false;
+	// Color (as in OpenCL)
+	sRGBFloat color;
 
-	int id = -1;
-
-	float coneAngle = 0.0f;
-	float coneSoftAngle = 0.0f;
-	float intensity = 0.0f;
-	float visibility = 0.0f;
-	float volumetricVisibility = 0.0f;
-	float size = 0.0f;
-	float softShadowCone = 0.0f;
-	float contourSharpness = 0.0f;
-	float coneRatio = 0.0;
-	float coneSoftRatio = 0.0;
-	float projectionHorizontalRatio = 0.0;
-	float projectionVerticalRatio = 0.0;
-
+	// Vectors (as in OpenCL)
 	CVector3 position;
 	CVector3 rotation;
 	CVector3 target;
@@ -120,12 +101,44 @@ public:
 	CVector3 lightTopVector;
 	CVector3 lightRightVector;
 
-	sRGBFloat color;
-
+	// Matrix (as in OpenCL)
 	CRotationMatrix rotMatrix;
 
+	// Floats (as in OpenCL)
+	float coneSoftAngle = 0.0f;
+	float intensity = 0.0f;
+	float visibility = 0.0f;
+	float volumetricVisibility = 0.0f;
+	float size = 0.0f;
+	float softShadowCone = 0.0f;
+	float contourSharpness = 0.0f;
+
+	float coneRatio = 0.0;
+	float coneSoftRatio = 0.0;
+
+	float projectionHorizontalRatio = 0.0;
+	float projectionVerticalRatio = 0.0;
+
+	float coneAngle = 0.0f;
+
+	// Bools (as in OpenCL)
+	bool enabled = false;
+	bool castShadows = false;
+	bool penetrating = false;
+	bool relativePosition = false;
+	bool repeatTexture = false;
+	bool volumetric = false;
+
+	// Int (as in OpenCL)
+	int colorTextureIndex;
+
+	// Enums (last, as in OpenCL)
 	enumLightType type = lightDirectional;
 	enumLightDecayFunction decayFunction = lightDecay1R;
+
+	// Non-OpenCL types (CPU-only)
+	int id = -1;
+	bool useTargetPoint = false;
 
 	cTexture colorTexture;
 };

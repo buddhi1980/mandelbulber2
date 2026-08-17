@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalHypercomplex::cFractalHypercomplex() : cAbstractFractal()
 {
@@ -29,7 +30,7 @@ cFractalHypercomplex::cFractalHypercomplex() : cAbstractFractal()
 
 void cFractalHypercomplex::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
+	(void)fractal;
 
 	aux.DE = aux.DE * 2.0 * aux.r;
 	double newx = z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w;

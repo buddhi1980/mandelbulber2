@@ -68,12 +68,13 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 
 	queuePar->SetContainerName("main");
 	InitParams(queuePar);
+	InitNodeParams(1, queuePar);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, queuePar);
 
 	/*******************************************************************/
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < queueParFractal->size(); i++)
 	{
 		queueParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(queueParFractal->at(i));
@@ -239,7 +240,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	// setup of rendering engine
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(queuePar, queueParFractal, image, 1, &gQueue->stopRequest, imageWidget));
-
+	renderJob->settingsFile = QFileInfo(queueItem.filename).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -256,6 +257,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 		config.DisableRefresh();
 	}
 	config.EnableNetRender();
+	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 
 	gQueue->stopRequest = false;

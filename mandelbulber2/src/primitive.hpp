@@ -54,7 +54,6 @@ enum enumPrimitiveBooleanOperator
 struct sPrimitiveBasic : cObjectData
 {
 	sPrimitiveBasic(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool enable = false;
 	int objectId = 0;
 	int userObjectId = 0;
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
@@ -78,7 +77,9 @@ struct sPrimitiveBasic : cObjectData
 struct sPrimitivePlane : sPrimitiveBasic
 {
 	sPrimitivePlane(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	// Bool (as in OpenCL)
 	bool empty;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -89,12 +90,17 @@ struct sPrimitivePlane : sPrimitiveBasic
 struct sPrimitiveBox : sPrimitiveBasic
 {
 	sPrimitiveBox(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool limitsEnable;
-	double rounding;
-	CVector3 repeat;
+	// Vectors (as in OpenCL)
 	CVector3 limitsMax;
 	CVector3 limitsMin;
+
+	// Double (as in OpenCL)
+	double rounding;
+
+	// Bools (as in OpenCL)
+	bool empty;
+	bool limitsEnable;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -105,12 +111,17 @@ struct sPrimitiveBox : sPrimitiveBasic
 struct sPrimitiveSphere : sPrimitiveBasic
 {
 	sPrimitiveSphere(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool limitsEnable;
-	double radius;
-	CVector3 repeat;
+	// Vectors (as in OpenCL)
 	CVector3 limitsMax;
 	CVector3 limitsMin;
+
+	// Double (as in OpenCL)
+	double radius;
+
+	// Bools (as in OpenCL)
+	bool empty;
+	bool limitsEnable;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -121,15 +132,20 @@ struct sPrimitiveSphere : sPrimitiveBasic
 struct sPrimitiveCone : sPrimitiveBasic
 {
 	sPrimitiveCone(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	// Vectors (as in OpenCL)
+	CVector3 limitsMax;
+	CVector3 limitsMin;
+	CVector2<double> wallNormal;
+
+	// Doubles (as in OpenCL)
+	double radius;
+	double height;
+
+	// Bools (as in OpenCL)
 	bool empty;
 	bool caps;
 	bool limitsEnable;
-	double radius;
-	double height;
-	CVector2<double> wallNormal;
-	CVector3 repeat;
-	CVector3 limitsMax;
-	CVector3 limitsMin;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -140,14 +156,19 @@ struct sPrimitiveCone : sPrimitiveBasic
 struct sPrimitiveCylinder : sPrimitiveBasic
 {
 	sPrimitiveCylinder(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	// Vectors (as in OpenCL)
+	CVector3 limitsMax;
+	CVector3 limitsMin;
+
+	// Doubles (as in OpenCL)
+	double radius;
+	double height;
+
+	// Bools (as in OpenCL)
 	bool empty;
 	bool caps;
 	bool limitsEnable;
-	double radius;
-	double height;
-	CVector3 repeat;
-	CVector3 limitsMax;
-	CVector3 limitsMin;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -158,15 +179,20 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 struct sPrimitiveTorus : sPrimitiveBasic
 {
 	sPrimitiveTorus(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool limitsEnable;
+	// Vectors (as in OpenCL)
+	CVector3 limitsMax;
+	CVector3 limitsMin;
+
+	// Doubles (as in OpenCL)
 	double radius;
 	double radiusLPow;
 	double tubeRadius;
 	double tubeRadiusLPow;
-	CVector3 repeat;
-	CVector3 limitsMax;
-	CVector3 limitsMin;
+
+	// Bools (as in OpenCL)
+	bool empty;
+	bool limitsEnable;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -177,7 +203,9 @@ struct sPrimitiveTorus : sPrimitiveBasic
 struct sPrimitiveCircle : sPrimitiveBasic
 {
 	sPrimitiveCircle(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	// Double (as in OpenCL)
 	double radius;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -188,8 +216,10 @@ struct sPrimitiveCircle : sPrimitiveBasic
 struct sPrimitiveRectangle : sPrimitiveBasic
 {
 	sPrimitiveRectangle(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	// Doubles (as in OpenCL)
 	double height;
 	double width;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -200,11 +230,17 @@ struct sPrimitiveRectangle : sPrimitiveBasic
 struct sPrimitivePrism : sPrimitiveBasic
 {
 	sPrimitivePrism(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
+	// Vector (as in OpenCL)
+	CVector3 normals;
+
+	// Doubles (as in OpenCL)
 	double triangleHeight;
 	double height;
 	double prismAngle;
-	CVector3 normals;
+
+	// Bool (as in OpenCL)
+	bool empty;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -215,11 +251,14 @@ struct sPrimitivePrism : sPrimitiveBasic
 struct sPrimitiveEllipsoid : sPrimitiveBasic
 {
 	sPrimitiveEllipsoid(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool limitsEnable;
-	CVector3 repeat;
+	// Vectors (as in OpenCL)
 	CVector3 limitsMax;
 	CVector3 limitsMin;
+
+	// Bools (as in OpenCL)
+	bool empty;
+	bool limitsEnable;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -230,20 +269,28 @@ struct sPrimitiveEllipsoid : sPrimitiveBasic
 struct sPrimitiveWater : sPrimitiveBasic
 {
 	sPrimitiveWater(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
-	bool empty;
-	bool waveFromObjectsEnable;
-	bool limitsEnable;
+	// Vectors (as in OpenCL)
+	CVector3 limitsMax;
+	CVector3 limitsMin;
+
+	// Doubles (as in OpenCL)
 	double relativeAmplitude;
 	double animSpeed;
 	double animProgressionSpeed;
 	double length;
 	double waveFromObjectsRelativeAmplitude;
+
+	// Bools (as in OpenCL)
+	bool empty;
+	bool limitsEnable;
+	bool waveFromObjectsEnable;
+
+	// Ints (as in OpenCL)
 	int iterations;
 	int animFrame;
+
 	double PrimitiveDistance(CVector3 _point) const override;
 	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
-	CVector3 limitsMax;
-	CVector3 limitsMin;
 
 	static tWireframeShape wireFrameShape;
 	static void InitPrimitiveWireframeShape();

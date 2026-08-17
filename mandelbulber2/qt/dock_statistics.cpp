@@ -73,12 +73,9 @@ void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 		QString::number(stat.GetNumberOfIterationsPerPixel()));
 	ui->tableWidget_statistics->item(2, 0)->setText(
 		QString::number(stat.GetNumberOfIterationsPerSecond()));
-	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
 	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
 	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelWrongDEPercentage(
 		tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
-	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelUsedDistanceEstimation(
-		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFSamples(
 		tr("Average number of MC samples: %1").arg(stat.GetAverageDOFSamples()));
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFNoise(

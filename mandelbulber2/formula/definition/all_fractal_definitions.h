@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
@@ -17,6 +17,7 @@ FRACTAL_CLASS(cFractalAbox4d)
 FRACTAL_CLASS(cFractalAboxDonut4d)
 FRACTAL_CLASS(cFractalAboxDonut4dV2)
 FRACTAL_CLASS(cFractalAboxKlein)
+FRACTAL_CLASS(cFractalAboxMb3d1)
 FRACTAL_CLASS(cFractalAboxMod1)
 FRACTAL_CLASS(cFractalAboxMod11)
 FRACTAL_CLASS(cFractalAboxMod12)
@@ -220,10 +221,10 @@ FRACTAL_CLASS(cFractalPseudoKleinianMod4)
 FRACTAL_CLASS(cFractalPseudoKleinianMod5)
 FRACTAL_CLASS(cFractalPseudoKleinianMod6)
 FRACTAL_CLASS(cFractalPseudoKleinianMod7)
+FRACTAL_CLASS(cFractalPseudoKleinianStdDE)
 FRACTAL_CLASS(cFractalPseudoKleinianTrig)
 FRACTAL_CLASS(cFractalPseudoKleinianTrigV2)
 FRACTAL_CLASS(cFractalPseudoKleinianTrigV3)
-FRACTAL_CLASS(cFractalPseudoKleinianStdDE)
 FRACTAL_CLASS(cFractalQuaternion)
 FRACTAL_CLASS(cFractalQuaternion3d)
 FRACTAL_CLASS(cFractalQuaternion4d)

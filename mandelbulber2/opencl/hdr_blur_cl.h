@@ -35,12 +35,12 @@
 #ifndef MANDELBULBER2_OPENCL_HDR_BLUR_CL_H_
 #define MANDELBULBER2_OPENCL_HDR_BLUR_CL_H_
 
-typedef struct
+typedef struct ALIGN16
 {
-	cl_int width;
-	cl_int height;
 	cl_float radius;
 	cl_float intensity;
+	cl_int width;
+	cl_int height;
 } sParamsHDRBlurCl;
 
 #endif /* MANDELBULBER2_OPENCL_HDR_BLUR_CL_H_ */

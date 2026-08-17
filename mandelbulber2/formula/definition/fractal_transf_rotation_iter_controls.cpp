@@ -10,6 +10,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfRotationIterControls::cFractalTransfRotationIterControls() : cAbstractFractal()
 {
@@ -27,7 +28,7 @@ cFractalTransfRotationIterControls::cFractalTransfRotationIterControls() : cAbst
 void cFractalTransfRotationIterControls::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 	CVector4 tp;
 	if (fractal->transformCommon.rotation44a.y != 0
 			&& aux.i >= fractal->transformCommon.startIterationsA

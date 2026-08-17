@@ -56,7 +56,7 @@ class cFractalContainer;
 class cOpenClDynamicData;
 class cOpenClTexturesData;
 struct sParamRender;
-class cNineFractals;
+class cHybridFractalSequences;
 struct sRenderData;
 class cOpenClScheduler;
 class cOpenCLWorkerOutputQueue;
@@ -140,7 +140,7 @@ public:
 		QString *compilerErrorOutput = nullptr) override;
 	void SetParameters(std::shared_ptr<const cParameterContainer> paramContainer,
 		std::shared_ptr<const cFractalContainer> fractalContainer,
-		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
+		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cHybridFractalSequences> fractals,
 		std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable);
 	void SetDistanceMode() { distanceMode = true; }
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
@@ -188,20 +188,23 @@ private:
 	void CreateListOfHeaderFiles(QStringList &clHeaderFiles);
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
-		QByteArray &programEngine);
+		QByteArray &programEngine, const QByteArray &formulaSwitchCode);
 	void LoadSourceWithMainEngine(const QString &openclEnginePath, QByteArray &programEngine);
-	void SetParametersForDistanceEstimationMethod(cNineFractals *fractals, sParamRender *paramRender);
+	void SetParametersForDistanceEstimationMethod(
+		cHybridFractalSequences *fractals, sParamRender *paramRender);
 	void CreateListOfUsedFormulas(
-		cNineFractals *fractals, std::shared_ptr<const cFractalContainer> fractalContainer);
+		cHybridFractalSequences *fractals, std::shared_ptr<const cFractalContainer> fractalContainer);
+	void GenerateFormulaSwitchCode(
+		const QStringList &formulas, int totalFormulaCount, bool needsSwitch, QByteArray &out);
 	void SetParametersForPerspectiveProjection(sParamRender *paramRender);
 	void SetParametersForShaders(sParamRender *paramRender, sRenderData *renderData);
 	void SetParametersForStereoscopic(sRenderData *renderData);
 	QMap<QString, int> SetParametersAndDataForTextures(sRenderData *renderData);
 	void SetParametersAndDataForMaterials(
 		const QMap<QString, int> &textureIndexes, sRenderData *renderData, sParamRender *paramRender);
-	void DynamicDataForAOVectors(std::shared_ptr<const sParamRender> paramRender,
-		std::shared_ptr<const cNineFractals> fractals, std::shared_ptr<sRenderData> renderData);
-	void SetParametersForIterationWeight(cNineFractals *fractals);
+	void DynamicDataForAOVectors(
+		std::shared_ptr<const sParamRender> paramRender, std::shared_ptr<sRenderData> renderData);
+	void SetParametersForIterationWeight(cHybridFractalSequences *fractals);
 	void CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
 		const std::shared_ptr<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
 		const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
@@ -255,16 +258,19 @@ private:
 
 	QStringList listOfUsedFormulas;
 	QStringList customFormulaCodes;
+	QStringList m_allFormulasPreDedup;
 
 	enumClRenderEngineMode renderEngineMode;
 
 	bool autoRefreshMode;
 	bool monteCarlo;
 	bool meshExportMode;
+	bool hasBooleanNodes;
 	cl_float3 pointToCalculateDistance;
 	bool distanceMode;
 	bool useOptionalImageChannels;
 	double reservedGpuTime;
+	bool m_isHybrid;
 
 #endif
 

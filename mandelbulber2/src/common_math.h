@@ -35,6 +35,10 @@
 #ifndef MANDELBULBER2_SRC_COMMON_MATH_H_
 #define MANDELBULBER2_SRC_COMMON_MATH_H_
 
+// Include lightweight math utilities (sign, clamp, smoothMin, etc.)
+// These are pure C++ with no Qt/GSL dependencies — intended for formula code.
+#include "math_utilities.h"
+
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
@@ -45,107 +49,37 @@
 
 extern unsigned int gRandomSeed;
 
-#undef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-
-#undef MIN
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-
-struct sVector
-{
-	double x;
-	double y;
-	double z;
-};
-
-inline double dmix(double a, double b, double x)
-{
-	return a * (1.0 - x) + b * x;
-}
-
-#if __cplusplus >= 201703L
-using std::clamp;
-#else
-template <typename T>
-inline T clamp(T x, T min, T max)
-{
-	return qBound(min, x, max);
-}
-#endif
-
-// reference: https://www.iquilezles.org/www/articles/smin/smin.htm
-inline double smoothMin(double a, double b, double k)
-{
-	double h = std::max(k - fabs(a - b), 0.0) / k;
-	return std::min(a, b) - h * h * h * k * (1.0 / 6.0);
-}
-
-// ref https://iquilezles.org/articles/distfunctions/
-inline double opSmoothUnion(double d1, double d2, double k)
-{
-	double h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
-	return dmix(d2, d1, h) - k * h * (1.0 - h);
-}
-
-// polynomial smooth min;
-// reference: http://www.iquilezles.org/www/articles/smin/smin.htm
-inline double dsmin(double a, double b, double k = 1)
-{
-	double ta = pow(a, k);
-	double tb = pow(b, k);
-	return pow((ta * tb) / (ta + tb), 1.0 / k);
-}
-
-template <typename T>
-inline int sign(T val)
-{
-	return (T(0) < val) - (val < T(0));
-}
-
 // int abs(int v);
 int RandomInt();
 int Random(int max);
-double dMax(double a, double b, double c);
-double dMin(double a, double b, double c);
 
-inline bool CheckNAN(double a)
-{
-	return !gsl_finite(a);
-}
-inline double SmoothConditionAGreaterB(double a, double b, double sharpness)
-{
-	return 1.0 / (1.0 + exp(sharpness * (b - a)));
-}
-inline double SmoothConditionALessB(double a, double b, double sharpness)
-{
-	return 1.0 / (1.0 + exp(sharpness * (a - b)));
-}
+// ---------------------------------------------------------------------------
+// Reflection / refraction — declared here, defined in common_math.cpp
+// ---------------------------------------------------------------------------
 CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident);
 CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
 double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
-inline double LimitAngle(double angle)
-{
-	return fmod(fmod(angle - 180.0, 360.0) + 360.0, 360.0) - 180.0;
-}
 
-// Smooth transition between two vectors with vector length control
-template <typename T>
-T SmoothCVector(const T &v1, const T &v2, double k);
-
+// ---------------------------------------------------------------------------
+// Interpolation — declared here, defined in common_math.cpp
+// ---------------------------------------------------------------------------
 float cubicInterpolate(float p[4], float x);
 float bicubicInterpolate(float p[4][4], float x, float y);
 
-CVector3 wrap(CVector3 x, const CVector3 &a, const CVector3 &s);
-
+// ---------------------------------------------------------------------------
+// MagicRound — declared here, defined in common_math.cpp
+// ---------------------------------------------------------------------------
 double MagicRound(double val, double maxError);
 
-// hypercomplex multiplication taken from:
-// https://www.physicsforums.com/threads/16-different-spherical-coordinate-systems.331883/
+// ---------------------------------------------------------------------------
+// Hypercomplex operations — declared here, defined in common_math.cpp
+// ---------------------------------------------------------------------------
 CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2);
 CVector4 hypercomplex_pow_constant(const CVector4 &vec1, int n);
-
-// 3D analogon to the 2D complex conjugate
-// mirroring a point on the x-axis
 CVector4 hypercomplex_conj(const CVector4 &vec1);
+
+// SmoothCVector template — declared here, defined in common_math.cpp
+template <typename T>
+T SmoothCVector(const T &v1, const T &v2, double k);
 
 #endif /* MANDELBULBER2_SRC_COMMON_MATH_H_ */

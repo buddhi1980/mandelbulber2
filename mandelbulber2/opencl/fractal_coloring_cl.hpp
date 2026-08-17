@@ -68,8 +68,39 @@ typedef enum
 	fractalColoringCl_Line = 4
 } enumFractalColoringCl;
 
-typedef struct
+typedef struct ALIGN16
 {
+	cl_float4 lineDirection;
+	cl_float3 xyz000;
+	cl_float3 xyzC111;
+	
+	cl_float addMax;
+	cl_float addSpread;
+	cl_float addStartValue;
+	cl_float auxColorHybridWeight;
+	cl_float auxColorWeight;
+	cl_float cosAdd;
+	cl_float cosPeriod;
+	cl_float cosStartValue;
+	cl_float hybridAuxColorScale1;
+	cl_float hybridOrbitTrapScale1;
+	cl_float hybridRadDivDeScale1;
+	cl_float icRadWeight;
+	cl_float initialColorValue;
+	cl_float iterAddScale;
+	cl_float iterScale;
+	cl_float maxColorValue;
+	cl_float minColorValue;
+	cl_float orbitTrapWeight;
+	cl_float parabScale;
+	cl_float parabStartValue;
+	cl_float radDivDeWeight;
+	
+	cl_float radWeight;
+	cl_float roundScale;
+	cl_float sphereRadius;
+	cl_float xyzIterScale;
+	
 	cl_int addEnabledFalse;
 	cl_int auxColorFalse;
 	cl_int color4dEnabledFalse;
@@ -102,40 +133,9 @@ typedef struct
 	cl_int xyzZSqrdFalse;
 
 	cl_int tempLimitFalse; // temporary
-
-	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
-
-	cl_float4 lineDirection;
-	cl_float3 xyz000;
-	cl_float3 xyzC111;
-
-	cl_float addMax;
-	cl_float addSpread;
-	cl_float addStartValue;
-	cl_float auxColorHybridWeight;
-	cl_float auxColorWeight;
-	cl_float cosAdd;
-	cl_float cosPeriod;
-	cl_float cosStartValue;
-	cl_float hybridAuxColorScale1;
-	cl_float hybridOrbitTrapScale1;
-	cl_float hybridRadDivDeScale1;
-	cl_float icRadWeight;
-	cl_float initialColorValue;
-	cl_float iterAddScale;
-	cl_float iterScale;
-	cl_float maxColorValue;
-	cl_float minColorValue;
-	cl_float orbitTrapWeight;
-	cl_float parabScale;
-	cl_float parabStartValue;
-	cl_float radDivDeWeight;
-
-	cl_float radWeight;
-	cl_float roundScale;
-	cl_float sphereRadius;
-	cl_float xyzIterScale;
+	
+	enumFractalColoringCl coloringAlgorithm;
 
 } sFractalColoringCl;
 

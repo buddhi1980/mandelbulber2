@@ -43,7 +43,7 @@
 #include "hybrid_fractal_sequences.h"
 
 // forward declarations
-class cNineFractals;
+class cHybridFractalSequences;
 class cMaterial;
 
 struct sFractalIn
@@ -86,7 +86,7 @@ struct sFractalOut
 };
 
 template <fractal::enumCalculationMode Mode>
-void Compute(const cNineFractals &fractals, const cHybridFractalSequences::sSequence *sequence,
-	const sFractalIn &in, sFractalOut *out);
+void Compute(
+	const cHybridFractalSequences::sSequence *sequence, const sFractalIn &in, sFractalOut *out);
 
 #endif /* MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_ */

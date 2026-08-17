@@ -136,19 +136,13 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_FRACTAL_COLORING
 			if (input->material->useColorsFromPalette)
 			{
-#ifdef BOOLEAN_OPERATORS
 				int formulaIndex = input->objectId;
 
-				pointTemp = pointTemp - consts->params.formulaPosition[formulaIndex];
-				pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[formulaIndex], pointTemp);
-				pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[formulaIndex]);
-				pointTemp *= consts->params.formulaScale[formulaIndex];
+				float3 pointForFractal =
+					input->hasTransformedPoint ? input->transformedPoint : input->point;
 
-#else
-				int formulaIndex = -1;
-#endif
-				fout =
-					Fractal(consts, pointTemp, calcParams, calcModeColouring, input->material, formulaIndex);
+				fout = Fractal(consts, pointForFractal, calcParams, calcModeColouring, input->material,
+					formulaIndex, renderData, input->sequenceIndex, input->transformedPoint, input->hasTransformedPoint);
 				float nCol = fmod(fabs(fout.colorIndex), 248.0f * 256.0f);
 
 				float colorPosition = fmod(

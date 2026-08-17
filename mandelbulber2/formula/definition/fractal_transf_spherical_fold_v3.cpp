@@ -13,6 +13,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfSphericalFoldV3::cFractalTransfSphericalFoldV3() : cAbstractFractal()
 {

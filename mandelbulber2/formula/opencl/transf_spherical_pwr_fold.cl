@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfSphericalPwrFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfSphericalPwrFoldIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// if (z.x > -1e-21f && z.x < 1e-21f) z.x = (z.x > 0) ? 1e-21f : -1e-21f;
 	// if (z.y > -1e-21f && z.y < 1e-21f) z.y = (z.y > 0) ? 1e-21f : -1e-21f;

@@ -97,4 +97,12 @@
 #pragma warning(pop)
 #endif // _MSC_VER
 
+#if defined(__OPENCL_VERSION__)
+#define ALIGN16 __attribute__((aligned(16)))
+#elif defined(_MSC_VER)
+#define ALIGN16 __declspec(align(16))
+#else
+#define ALIGN16 alignas(16)
+#endif
+
 #endif /* MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_ */

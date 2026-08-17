@@ -89,6 +89,7 @@ public:
 	void setStopRequest(bool *stopRequest) { this->stopRequest = stopRequest; }
 	void setReservedGpuTime(double reservedGpuTime) { this->reservedGpuTime = reservedGpuTime; }
 	void setMaxWorkgroupSize(int _maxWorkgroupSize) { this->maxWorkgroupSize = _maxWorkgroupSize; }
+	void setSettingsFile(const QString &_settingsFile) { settingsFile = _settingsFile; }
 	bool wasFishedWithSuccess() { return finishedWithSuccess; }
 
 private:
@@ -128,11 +129,22 @@ private:
 	int antiAliasingDepth;
 	int isFullEngine;
 	int maxWorkgroupSize;
+	QString settingsFile;
 
 	const int deviceIndex;
 
 public slots:
 	void ProcessRenderingLoop();
+
+	void EmitErrorMessage(
+		QString message, cErrorMessage::enumMessageType type, QWidget *widget = nullptr)
+	{
+		if (!settingsFile.isEmpty())
+		{
+			message = QString("[%1] %2").arg(settingsFile, message);
+		}
+		emit showErrorMessage(message, type, widget);
+	}
 
 signals:
 	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);

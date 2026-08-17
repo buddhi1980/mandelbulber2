@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MengerMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MengerMod1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z = fabs(z);
 	REAL temp;
@@ -57,7 +57,6 @@ REAL4 MengerMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		aux->DE = aux->DE * fractal->transformCommon.scaleD1 + fractal->transformCommon.offset1;
-
 	}
 	z += fractal->transformCommon.additionConstant000;
 

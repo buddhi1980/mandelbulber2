@@ -46,6 +46,7 @@
 
 // custom includes
 #ifdef USE_OPENCL
+#include "src/include_header_wrapper.hpp"
 #include "opencl/fractal_sequence_cl.h"
 #endif
 
@@ -53,89 +54,12 @@
 class cParameterContainer;
 class cFractalContainer;
 struct sFractal;
-class cAbstractFractal;
 
 class cNineFractals
 {
 public:
 	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
 		std::shared_ptr<const cParameterContainer> generalPar);
-	sFractal *GetFractal(int index) const { return fractals[index].get(); }
-	int GetSequence(const int i) const;
-	bool IsHybrid() const { return isHybrid; }
-	fractal::enumDEType GetDEType(int formulaIndex) const;
-	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
-	inline double GetWeight(int formulaIndex) const { return formulaWeight[formulaIndex]; }
-	inline int GetMaxFractalIndex() const { return maxFractalIndex; }
-	inline bool IsAddCConstant(int formulaIndex) const { return addCConstant[formulaIndex]; }
-	inline bool IsCheckForBailout(int formulaIndex) const { return checkForBailout[formulaIndex]; }
-	inline bool UseOptimizedDE() const { return useOptimizedDE; }
-	QString GetDETypeString() const;
-	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; }
-	inline bool IsJuliaEnabled(int formulaIndex) const { return juliaEnabled[formulaIndex]; }
-	inline CVector3 GetJuliaConstant(int formulaIndex) const { return juliaConstant[formulaIndex]; }
-	inline CVector3 GetConstantMultiplier(int formulaIndex) const
-	{
-		return constantMultiplier[formulaIndex];
-	}
-	inline double GetInitialWAxis(int formulaIndex) const { return initialWAxis[formulaIndex]; }
-	inline bool UseAdditionalBailoutCond(int formulaIndex) const
-	{
-		return useAdditionalBailoutCond[formulaIndex];
-	};
-	inline cAbstractFractal *GetFractalFormulaFunction(int formulaIndex) const
-	{
-		return fractalFormulaFunctions[formulaIndex];
-	}
-	inline fractal::enumDEAnalyticFunction GetDEAnalyticFunction(int formulaIndex) const
-	{
-		return DEAnalyticFunction[formulaIndex];
-	}
-	inline fractal::enumColoringFunction GetColoringFunction(int formulaIndex) const
-	{
-		return coloringFunction[formulaIndex];
-	}
-	inline int GetFormulaMaxiter(int formulaIndex) const { return formulaMaxiter[formulaIndex]; }
-
-	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
-
-#ifdef USE_OPENCL
-	void CopyToOpenclData(sClFractalSequence *sequence) const;
-#endif
-
-private:
-	std::vector<std::unique_ptr<sFractal>> fractals;
-	bool forceDeltaDE;
-	bool forceAnalyticDE;
-	bool isHybrid;
-	bool isBoolean;
-	fractal::enumDEFunctionType optimizedDEType;
-	bool useOptimizedDE;
-	int maxFractalIndex;
-	int maxN;
-	std::vector<int> hybridSequence;
-	int hybridSequenceLength;
-
-	double formulaWeight[NUMBER_OF_FRACTALS];
-	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
-	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
-	fractal::enumDEAnalyticFunction DEAnalyticFunction[NUMBER_OF_FRACTALS];
-	fractal::enumColoringFunction coloringFunction[NUMBER_OF_FRACTALS];
-	int counts[NUMBER_OF_FRACTALS];
-	int formulaStartIteration[NUMBER_OF_FRACTALS];
-	int formulaStopIteration[NUMBER_OF_FRACTALS];
-	bool addCConstant[NUMBER_OF_FRACTALS];
-	bool checkForBailout[NUMBER_OF_FRACTALS];
-	double bailout[NUMBER_OF_FRACTALS];
-	bool juliaEnabled[NUMBER_OF_FRACTALS];
-	CVector3 juliaConstant[NUMBER_OF_FRACTALS];
-	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
-	double initialWAxis[NUMBER_OF_FRACTALS];
-	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
-	int formulaMaxiter[NUMBER_OF_FRACTALS];
-	cAbstractFractal *fractalFormulaFunctions[NUMBER_OF_FRACTALS];
-
-	void CreateSequence(std::shared_ptr<const cParameterContainer> generalPar);
 };
 
 #endif /* MANDELBULBER2_SRC_NINE_FRACTALS_HPP_ */

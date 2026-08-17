@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MsltoeDonutIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL radius2 = fractal->donut.ringThickness;
 	REAL nSect = M_PI_2x_F / fractal->donut.number;

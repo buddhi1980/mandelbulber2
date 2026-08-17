@@ -12,6 +12,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalTransfBenesiMagBackward::cFractalTransfBenesiMagBackward() : cAbstractFractal()
 {
@@ -29,8 +30,8 @@ cFractalTransfBenesiMagBackward::cFractalTransfBenesiMagBackward() : cAbstractFr
 void cFractalTransfBenesiMagBackward::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	(void)fractal;
+	(void)aux;
 
 	double tempXZ = (z.y + z.x) * SQRT_1_2;
 	z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
