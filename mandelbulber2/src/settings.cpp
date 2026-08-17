@@ -2198,10 +2198,9 @@ void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 		name = QString("primitive_%1_%2_rotation").arg(type).arg(primitiveIndex);
 		if (!par->IfExists(name))
 			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-		// Inject scale param with default (1,1,1) vector
+		// Inject scale param with default 1.0
 		name = QString("primitive_%1_%2_scale").arg(type).arg(primitiveIndex);
-		if (!par->IfExists(name))
-			par->addParam(name, CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+		if (!par->IfExists(name)) par->addParam(name, 1.0, morphAkima, paramStandard);
 		// Inject repeat param with default zero vector (legacy transform param)
 		name = QString("primitive_%1_%2_repeat").arg(type).arg(primitiveIndex);
 		if (!par->IfExists(name))
@@ -2519,7 +2518,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 		if (par->IfExists(primitive.Name("scale")) && !par->isDefaultValue(primitive.Name("scale")))
 		{
-			par->Set(prefix + "scale", par->Get<CVector3>(primitive.Name("scale")));
+			par->Set(prefix + "scale", par->Get<double>(primitive.Name("scale")));
 		}
 	}
 
