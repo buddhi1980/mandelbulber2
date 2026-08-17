@@ -130,7 +130,8 @@ private:
 		std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex);
 	static void CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix);
 	static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract);
-	static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex);
+	static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
+		std::shared_ptr<cFractalContainer> fract, int fractalIndex);
 	static void FlattenBooleanAddGroups(
 		std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId);
 

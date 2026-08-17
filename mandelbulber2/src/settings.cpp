@@ -2453,12 +2453,20 @@ QList<int> cSettings::GetEnabledFractals(std::shared_ptr<cFractalContainer> frac
 	return enabledFractals;
 }
 
-bool cSettings::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par, int fractalIndex)
+bool cSettings::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fract, int fractalIndex)
 {
 	QString paramName = QString("fractal_enable_%1").arg(fractalIndex);
 	if (par->IfExists(paramName))
 	{
 		return par->Get<bool>(paramName);
+	}
+	if (fractalIndex >= 1 && fractalIndex - 1 < fract->size())
+	{
+		if (fract->at(fractalIndex - 1)->IfExists("fractal_enable"))
+		{
+			return fract->at(fractalIndex - 1)->Get<bool>("fractal_enable");
+		}
 	}
 	return true;
 }
@@ -2566,7 +2574,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
 			CopyOneFractalParams(par, "node_0001_", objectId);
-			if (!GetFractalEnableFlag(par, objectId))
+			if (!GetFractalEnableFlag(par, fract, objectId))
 			{
 				par->Set("node_0001_enabled", false);
 			}
@@ -2613,7 +2621,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
 				CopyOneFractalParams(par, NodePrefix(nodeId), objectId);
 
-				if (!GetFractalEnableFlag(par, objectId))
+				if (!GetFractalEnableFlag(par, fract, objectId))
 				{
 					par->Set(NodePrefix(nodeId) + "enabled", false);
 				}
@@ -2632,6 +2640,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, 0, objectId));
 		CopyFormulaTransform(par, "node_0001_", fract->at(0));
 		CopyFractalParams(par, "node_0001_");
+		if (fract->at(0)->IfExists("fractal_enable") && !fract->at(0)->Get<bool>("fractal_enable"))
+		{
+			par->Set("node_0001_enabled", false);
+		}
 	}
 	// Handle hybrid mode
 	else
