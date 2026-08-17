@@ -39,6 +39,7 @@
 
 #include <QClipboard>
 #include <QCryptographicHash>
+#include <QSet>
 
 #include "animation_frames.hpp"
 #include "error_message.hpp"
@@ -695,7 +696,33 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			DeleteAllMaterialParams(par);
 			DeleteAllLightParams(par);
 			DeleteAllNodeParams(par);
-			InitNodeParams(1, par);
+			// Only initialize nodes that are actually defined in this .fract file.
+			// Scanning the text prevents creating a phantom node_0001 when the file
+			// only defines node_0002+ (which would duplicate the fractal with objectid=1).
+			QSet<int> definedNodeIds;
+			for (const QString &line : separatedText)
+			{
+				QString trimmed = line.trimmed();
+				if (trimmed.startsWith("node_") && trimmed.contains("_definition"))
+				{
+					QStringList parts = trimmed.split('_');
+					if (parts.size() >= 3)
+					{
+						bool ok = false;
+						int nid = parts[1].toInt(&ok);
+						if (ok && nid > 0) definedNodeIds.insert(nid);
+					}
+				}
+			}
+			if (definedNodeIds.isEmpty())
+			{
+				InitNodeParams(1, par);
+			}
+			else
+			{
+				for (int nid : definedNodeIds)
+					InitNodeParams(nid, par);
+			}
 
 			if (frames)
 			{
