@@ -529,6 +529,7 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	QTextStream out(stdout);
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl(qApplication);
+	gPar->Set("opencl_enabled", true);
 	gOpenCl->InitPlatfromAndDevices();
 
 	out << QObject::tr(
@@ -544,7 +545,7 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	out << " * opencl_device_type  - " << QObject::tr("Possible device types of the platform to use")
 			<< QString("\n  `- %1\n")
 					 .arg(QObject::tr("possible values: [%1]")
-									.arg(gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup().join(", ")));
+							 .arg(gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup().join(", ")));
 	out << " * opencl_device_list  - "
 			<< QObject::tr("right now only one device at a time is supported.") << "\n"
 			<< " Specify the device hash of the device to use, see available devices below\n";
@@ -554,14 +555,14 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 					 "basic effects, 'full' contains all shaders.")
 			<< QString("\n  `- %1\n")
 					 .arg(QObject::tr("possible values: [%1]")
-									.arg(gPar->GetAsOneParameter("opencl_mode").GetEnumLookup().join(", ")));
+							 .arg(gPar->GetAsOneParameter("opencl_mode").GetEnumLookup().join(", ")));
 	out << " * opencl_precision    - "
 			<< QObject::tr(
 					 "Floating point precision of Render (single is faster, but "
 					 "less accurate)")
 			<< QString("\n  `- %1\n")
 					 .arg(QObject::tr("possible values: [%1]")
-									.arg(gPar->GetAsOneParameter("opencl_precision").GetEnumLookup().join(", ")));
+							 .arg(gPar->GetAsOneParameter("opencl_precision").GetEnumLookup().join(", ")));
 	out << " * opencl_memory_limit - " << QObject::tr("Memory limit in MB") << "\n";
 
 	// print available platforms
@@ -1188,9 +1189,8 @@ void cCommandLineInterface::handleGpu()
 #ifdef USE_OPENCL
 	QTextStream out(stdout);
 	gOpenCl->Reset();
-	gOpenCl->InitPlatfromAndDevices();
-
 	gPar->Set("opencl_enabled", true);
+	gOpenCl->InitPlatfromAndDevices();
 
 	// print available platforms
 	const QList<cOpenClHardware::sPlatformInformation> platforms =
@@ -1226,9 +1226,8 @@ void cCommandLineInterface::handleGpuAll()
 #ifdef USE_OPENCL
 	QTextStream out(stdout);
 	gOpenCl->Reset();
-	gOpenCl->InitPlatfromAndDevices();
-
 	gPar->Set("opencl_enabled", true);
+	gOpenCl->InitPlatfromAndDevices();
 
 	// print available platforms
 	const QList<cOpenClHardware::sPlatformInformation> platforms =
