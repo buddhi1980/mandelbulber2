@@ -2605,6 +2605,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			{
 				par->Set("node_0001_enabled", false);
 			}
+			par->Set("node_0001_formula_maxiter", fract->at(0)->Get<int>("formula_maxiter"));
 		}
 		// Multiple fractals: build a left-associative binary tree
 		else if (m >= 2)
@@ -2652,6 +2653,8 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				{
 					par->Set(NodePrefix(nodeId) + "enabled", false);
 				}
+				par->Set(NodePrefix(nodeId) + "formula_maxiter",
+					fract->at(objectId - 1)->Get<int>("formula_maxiter"));
 			}
 		}
 	}
