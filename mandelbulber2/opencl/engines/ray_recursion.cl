@@ -141,6 +141,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
+
 		out->objectId = outF.objectId;
 		out->sequenceIndex = outF.sequenceIndex;
 		out->transformedPoint = outF.transformedPoint;
@@ -301,6 +302,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
+
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
 			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
@@ -609,13 +611,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
 			shaderInputData.sequenceIndex = rayMarchingOut.sequenceIndex;
-#else
-			shaderInputData.objectId = 0;
-			shaderInputData.sequenceIndex = 0;
-#endif
 			shaderInputData.transformedPoint = rayMarchingOut.transformedPoint;
 			shaderInputData.hasTransformedPoint = rayMarchingOut.hasTransformedPoint;
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
