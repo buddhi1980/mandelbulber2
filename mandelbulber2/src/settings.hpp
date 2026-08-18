@@ -102,6 +102,8 @@ private:
 	void InjectTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void InjectTemporaryLegacyPrimitiveTransformParams(
 		std::shared_ptr<cParameterContainer> par, int primitiveIndex);
+	void InjectTemporaryLegacyPrimitiveNodeParams(
+		std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName);
 	bool TryResolveLegacyFractalParam(const QString &decodeLine,
 		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
 		QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer);
@@ -114,6 +116,7 @@ private:
 	void DeleteTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
 	void DeleteTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
 	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
+	void DeleteTemporaryLegacyPrimitiveNodeParams(std::shared_ptr<cParameterContainer> par);
 	static QString GetFormulaName(int formulaEnum);
 	static enumNodeType ToNodeType(int boolOp);
 	static enumNodeType PrimitiveOpToNodeType(int boolOp);

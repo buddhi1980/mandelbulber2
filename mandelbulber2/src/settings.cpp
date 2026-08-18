@@ -1073,6 +1073,9 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 			if (fileVersion < 2.35)
 			{
 				InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
+				// Inject temporary legacy node params needed during decode for migration.
+				// MigrateToObjectsTree() will migrate them to node-based params and delete them.
+				InjectTemporaryLegacyPrimitiveNodeParams(par, primitiveName);
 			}
 		}
 	}
@@ -1741,6 +1744,7 @@ void cSettings::Compatibility2(
 			FlattenBooleanAddGroups(par, nextGroupObjectId);
 		}
 		DeleteTemporaryLegacyPrimitiveTransformParams(par);
+		DeleteTemporaryLegacyPrimitiveNodeParams(par);
 	}
 }
 
@@ -2233,6 +2237,32 @@ void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 		if (!par->IfExists(name))
 			par->addParam(name, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	}
+}
+
+void cSettings::InjectTemporaryLegacyPrimitiveNodeParams(
+	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName)
+{
+	// Injects temporary node-related params for a specific legacy primitive into the parameter
+	// container. These params are needed during decode but will be migrated to node-based params
+	// and deleted by MigrateToObjectsTree().
+	// Inject enabled param with default true
+	QString name = primitiveFullName + "_enabled";
+	if (!par->IfExists(name)) par->addParam(name, true, morphAkima, paramStandard);
+	// Inject material_id param with default 1
+	name = primitiveFullName + "_material_id";
+	if (!par->IfExists(name)) par->addParam(name, 1, morphNone, paramStandard);
+	// Inject calculation_order param with default 0
+	name = primitiveFullName + "_calculation_order";
+	if (!par->IfExists(name)) par->addParam(name, 0, morphNone, paramStandard);
+	// Inject boolean_operator param with default 1 (Add)
+	name = primitiveFullName + "_boolean_operator";
+	if (!par->IfExists(name)) par->addParam(name, 1, morphNone, paramStandard);
+	// Inject smooth_de_combine_enable param with default false
+	name = primitiveFullName + "_smooth_de_combine_enable";
+	if (!par->IfExists(name)) par->addParam(name, false, morphAkima, paramStandard);
+	// Inject smooth_de_combine_distance param with default 0.1
+	name = primitiveFullName + "_smooth_de_combine_distance";
+	if (!par->IfExists(name)) par->addParam(name, 0.1, morphAkima, paramStandard);
 }
 
 bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
@@ -3292,6 +3322,51 @@ void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
 			}
 			// Delete repeat param (legacy transform param)
 			name = QString("primitive_%1_%2_repeat").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+		}
+	}
+}
+
+void cSettings::DeleteTemporaryLegacyPrimitiveNodeParams(std::shared_ptr<cParameterContainer> par)
+{
+	// Deletes the temporary legacy primitive node params (enabled, material_id, calculation_order,
+	// boolean_operator, smooth_de_combine_enable, smooth_de_combine_distance) that were injected
+	// during decode.
+	QStringList legacyTypes = GetLegacyPrimitiveTypes();
+	const int maxLegacyPrimitives = 99;
+	for (const QString &type : legacyTypes)
+	{
+		for (int i = 1; i <= maxLegacyPrimitives; i++)
+		{
+			// Delete material_id param
+			QString name = QString("primitive_%1_%2_material_id").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete calculation_order param
+			name = QString("primitive_%1_%2_calculation_order").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete boolean_operator param
+			name = QString("primitive_%1_%2_boolean_operator").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete smooth_de_combine_enable param
+			name = QString("primitive_%1_%2_smooth_de_combine_enable").arg(type).arg(i);
+			if (par->IfExists(name))
+			{
+				par->DeleteParameter(name);
+			}
+			// Delete smooth_de_combine_distance param
+			name = QString("primitive_%1_%2_smooth_de_combine_distance").arg(type).arg(i);
 			if (par->IfExists(name))
 			{
 				par->DeleteParameter(name);
