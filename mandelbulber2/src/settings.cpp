@@ -2384,6 +2384,17 @@ void cSettings::MigrateLegacyParamsToFractal(
 			fract->at(i)->Set("formula_position", pos);
 		}
 	}
+
+	//Migrate global fractal repeat to per-fractal formula_repeat
+	// (for files before node-based system where it was a top-level param)
+	if (par->IfExists("repeat") && !par->isDefaultValue("repeat"))
+	{
+		CVector3 repeat = par->Get<CVector3>("repeat");
+		for (int i = 0; i < fract->size(); i++)
+		{
+			fract->at(i)->Set("formula_repeat", repeat);
+		}
+	}
 }
 
 QString cSettings::GetFormulaName(int formulaEnum)
