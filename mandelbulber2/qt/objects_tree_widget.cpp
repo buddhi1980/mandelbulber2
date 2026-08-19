@@ -1744,13 +1744,7 @@ void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContaine
 {
 	if (!treeSyncBlocked)
 	{
-		// Only sync editor in read mode. In write mode, skip syncing before UpdateTree
-		// because the old editor widgets point to stale parameter containers that get
-		// replaced during undo. Sync happens after UpdateTree when new widgets are created.
-		if (mode == qInterface::read)
-		{
-			SynchronizeEditorWidget(currentEditorWidget, mode);
-		}
+		SynchronizeEditorWidget(currentEditorWidget, mode);
 	}
 
 	if (mode == qInterface::write && !treeSyncBlocked)
@@ -1761,17 +1755,9 @@ void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContaine
 		UpdateTree(params, fractalParams);
 		ui->treeWidget_objects->blockSignals(false);
 
-		// After UpdateTree, onItemSelectionChanged is NOT called because signals were
-		// blocked. The old editor widget still exists but points to stale fractalParams
-		// (e.g., after undo where gParFractal is replaced with a new shared pointer).
-		// We must destroy the old editor and recreate it so it points to the new params.
-		if (currentEditorWidget)
-		{
-			editorLayout->removeWidget(currentEditorWidget);
-			delete currentEditorWidget;
-			currentEditorWidget = nullptr;
-		}
-		slotItemSelectionChanged();
+		// Re-populate the existing editor widgets with the updated parameter values
+		// instead of rebuilding the whole editor from scratch.
+		SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
 	}
 	else
 	{

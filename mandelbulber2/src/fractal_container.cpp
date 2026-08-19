@@ -70,6 +70,15 @@ cFractalContainer &cFractalContainer::operator=(const cFractalContainer &other)
 	return *this;
 }
 
+void cFractalContainer::ResetDataFrom(const cFractalContainer &other)
+{
+	fractals.resize(other.size());
+	for (int i = 0; i < (int)other.size(); i++)
+	{
+		*fractals[i] = *other.fractals[i];
+	}
+}
+
 std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index)
 {
 	if (index >= 0 && index < (int)fractals.size())

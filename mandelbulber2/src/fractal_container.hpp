@@ -57,6 +57,11 @@ public:
 	void ensureCapacity(int minIndex);
 	bool isUsedCustomFormula();
 
+	// Copy data from another container in-place, preserving the shared_ptr addresses.
+	// This is used by the undo system to restore parameters without invalidating
+	// external references to individual fractal containers.
+	void ResetDataFrom(const cFractalContainer &other);
+
 private:
 	std::vector<std::shared_ptr<cParameterContainer>> fractals;
 };

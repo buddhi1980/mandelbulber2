@@ -160,7 +160,7 @@ bool cUndo::Undo(std::shared_ptr<cParameterContainer> par,
 			if (record.isLoaded)
 			{
 				*par = *record.mainParams;
-				*parFractal = *record.fractParams;
+				parFractal->ResetDataFrom(*record.fractParams);
 				if (frames && record.hasFrames)
 				{
 					*frames = *record.animationFrames;
@@ -196,7 +196,7 @@ bool cUndo::Redo(std::shared_ptr<cParameterContainer> par,
 		if (record.isLoaded)
 		{
 			*par = *record.mainParams;
-			*parFractal = *record.fractParams;
+			parFractal->ResetDataFrom(*record.fractParams);
 			if (frames && record.hasFrames)
 			{
 				*frames = *record.animationFrames;
