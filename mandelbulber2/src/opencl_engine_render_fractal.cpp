@@ -111,9 +111,12 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	useOptionalImageChannels = false;
 	reservedGpuTime = 0.0;
 
+	hasBooleanNodes = false;
+	m_isHybrid = false;
+
 	// create empty list of custom formulas
 	customFormulaCodes.clear();
-	
+
 	qDebug() << "sizeof(sClPixel)" << sizeof(sClPixel);
 #endif
 }
@@ -475,13 +478,6 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 	SetUseBuildCache(!params->Get<bool>("opencl_disable_build_cache"));
 	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
-	// Add BOOLEAN_OPERATORS and BOOLEAN_DEBUG to definesCollector before Build()
-	if (hasBooleanNodes)
-	{
-		definesCollector += " -DBOOLEAN_OPERATORS";
-		definesCollector += " -DBOOLEAN_DEBUG=1";
-	}
-
 	// building OpenCl kernel
 	QString errorString;
 	bool quiet = (compilerErrorOutput) ? true : false;
@@ -511,7 +507,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 
 // set parameters defining distance estimation method
 void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
-	cHybridFractalSequences *fractals, sParamRender *paramRender)
+	cHybridFractalSequences *fractals, sParamRender *paramRender,
+	std::shared_ptr<sRenderData> renderData)
 {
 	// define distance estimation method using cHybridFractalSequences
 
@@ -524,6 +521,9 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	bool useCustomDEFunction = false;
 	bool useMaxAxisDEFunction = false;
 	bool useHybrid = false;
+	bool hasBooleanSub = false;
+	bool hasBooleanMul = false;
+	bool hasHybridNodes = false;
 
 	for (int s = 0; s < fractals->GetNumberOfSequences(); s++)
 	{
@@ -556,11 +556,35 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 		}
 	}
 	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
-	qDebug() << "OpenCL kernel defines:" << definesCollector;
-	qDebug() << "useAnalyticDEType:" << useAnalyticDEType << "useDeltaDEType:" << useDeltaDEType
-					 << "useHybrid:" << useHybrid;
+
+	// Check if any boolean nodes exist in the node tree (after BuildNodesData)
+	for (const auto &node : renderData->nodesDataForRendering)
+	{
+		if (node.type == enumNodeType::booleanAdd || node.type == enumNodeType::booleanMul
+				|| node.type == enumNodeType::booleanSub)
+		{
+			hasBooleanNodes = true;
+		}
+		if (node.type == enumNodeType::booleanSub)
+		{
+			hasBooleanSub = true;
+		}
+		if (node.type == enumNodeType::booleanMul)
+		{
+			hasBooleanMul = true;
+		}
+		if (node.type == enumNodeType::hybrid)
+		{
+			hasHybridNodes = true;
+		}
+	}
 
 	if (hasBooleanNodes) definesCollector += " -DBOOLEAN_OPERATORS";
+	if (hasHybridNodes) definesCollector += " -DHYBRID_NODES";
+
+	if (hasBooleanSub) definesCollector += " -DBOOLEAN_SUB";
+	if (hasBooleanMul) definesCollector += " -DBOOLEAN_MUL";
+
 	if (useDeltaDEType) definesCollector += " -DDELTA_DE";
 
 	if (useLinearDEFunction) definesCollector += " -DDELTA_LINEAR_DE";
@@ -592,7 +616,8 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
 		{
 			const cHybridFractalSequences::sFractalData &fractData = seq->fractData[f];
-			QString formulaName = QString::fromStdString(fractData.fractalFormulaObject->getInternalName());
+			QString formulaName =
+				QString::fromStdString(fractData.fractalFormulaObject->getInternalName());
 
 			// handling custom formulas
 			if (formulaName == "custom")
@@ -1016,7 +1041,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasInnerColoring) definesCollector += " -DUSE_INNER_COLORING";
 
 	if (anyMaterialHasSubsurfaceScattering) definesCollector += " -DUSE_SUBSURFACE_SCATTERING";
-	
+
 	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 			|| paramRender->DOFMonteCarloGlobalIllumination)
 	{
@@ -1124,7 +1149,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 		definesCollector += " -DOPTIONAL_IMAGE_CHANNELS";
 
 	// define distance estimation method
-	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get());
+	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get(), renderData);
 
 	CreateListOfUsedFormulas(fractals.get(), fractalContainer);
 
@@ -1186,17 +1211,6 @@ void cOpenClEngineRenderFractal::SetParameters(
 		dynamicData->BuildNodesData(&renderData->nodesDataForRendering);
 		dynamicData->BuildHybridSequencesData(&renderData->hybridFractalSequences);
 		dynamicData->BuildFractalData(&renderData->hybridFractalSequences);
-
-		// Check if any boolean nodes exist in the node tree (after BuildNodesData)
-		for (const auto &node : renderData->nodesDataForRendering)
-		{
-			if (node.type == enumNodeType::booleanAdd || node.type == enumNodeType::booleanMul
-					|| node.type == enumNodeType::booleanSub)
-			{
-				hasBooleanNodes = true;
-				break;
-			}
-		}
 	}
 
 	dynamicData->FillHeader();

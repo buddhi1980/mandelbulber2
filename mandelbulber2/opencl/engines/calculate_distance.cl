@@ -315,6 +315,7 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 
 	switch (parent->nodeType)
 	{
+#ifdef BOOLEAN_MUL
 		case nodeTypeBooleanMul:
 		{
 			if (childDistance > parent->cumulativeDistance)
@@ -327,6 +328,9 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 			}
 			break;
 		}
+#endif // BOOLEAN_MUL
+
+#ifdef BOOLEAN_SUB
 		case nodeTypeBooleanSub:
 		{
 			if (parent->cumulativeDistance >= 1e19f)
@@ -361,6 +365,8 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 			}
 			break;
 		}
+#endif // BOOLEAN_SUB
+
 		case nodeTypeBooleanAdd:
 		default:
 		{
@@ -558,6 +564,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			}
 			case nodeTypeHybrid:
 			{
+#ifdef HYBRID_NODES
 				formulaOut nodeOut = CalculateDistanceSimple(consts, pointTransformed, calcParam,
 					renderData, node->hybridSequenceIndex, node->internalObjectId);
 				distance = nodeOut.distance * absNodeScale;
@@ -572,19 +579,21 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				{
 					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
 				}
-#endif
+#endif // USE_DISPLACEMENT_TEXTURE
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 				if (objectId >= 0)
 				{
 					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
 				}
-#endif
+#endif // USE_PERLIN_NOISE_DISPLACEMENT and USE_PERLIN_NOISE
+#endif // HYBRID_NODES
 				break;
 			}
 			case nodeTypeBooleanAdd:
 			case nodeTypeBooleanMul:
 			case nodeTypeBooleanSub:
 			{
+#ifdef BOOLEAN_OPERATORS
 				stackLevel++;
 				if (stackLevel < MAX_TREE_LEVELS)
 				{
@@ -601,6 +610,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					stack[stackLevel].smoothCombineDistance = node->smooth_de_combine_distance;
 				}
 				calcParam->detailSize = savedDetailSize;
+#endif // BOOLEAN_OPERATORS
 				continue;
 			}
 			default: break;
@@ -623,6 +633,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		totalIters += leafIters;
 	}
 
+#ifdef BOOLEAN_OPERATORS
 	// final node summation - pop remaining stack levels
 	while (stackLevel > 0)
 	{
@@ -631,6 +642,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
 			stack[stackLevel].detailSize);
 	}
+#endif
 
 	out.distance = stack[0].cumulativeDistance;
 	out.objectId = stack[0].closestObjectId;

@@ -452,6 +452,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			if (seq->isHybrid)
 			{
+#ifdef HYBRID_NODES
 				if (seq->DEFunctionType == logarithmicDEFunction)
 				{
 					if (aux.r > 1.0f)
@@ -486,6 +487,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					float rd = max(absZ.x, max(absZ.y, absZ.z));
 					dist = rd / fabs(aux.DE);
 				}
+#endif // HYBRID_NODES
 			}
 			else
 			{

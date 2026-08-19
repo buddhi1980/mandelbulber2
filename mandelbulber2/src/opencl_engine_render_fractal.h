@@ -190,8 +190,8 @@ private:
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
 		QByteArray &programEngine, const QByteArray &formulaSwitchCode);
 	void LoadSourceWithMainEngine(const QString &openclEnginePath, QByteArray &programEngine);
-	void SetParametersForDistanceEstimationMethod(
-		cHybridFractalSequences *fractals, sParamRender *paramRender);
+	void SetParametersForDistanceEstimationMethod(cHybridFractalSequences *fractals,
+		sParamRender *paramRender, std::shared_ptr<sRenderData> renderData);
 	void CreateListOfUsedFormulas(
 		cHybridFractalSequences *fractals, std::shared_ptr<const cFractalContainer> fractalContainer);
 	void GenerateFormulaSwitchCode(
