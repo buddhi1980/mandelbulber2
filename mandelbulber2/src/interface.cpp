@@ -868,9 +868,9 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	sDistanceOut out;
 
 	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
-	sRenderData renderData;
-	renderData.nodesDataForRendering = nodes;
-	renderData.hybridFractalSequences = fractals;
+	std::shared_ptr<sRenderData> renderData(new sRenderData());
+	renderData->nodesDataForRendering = nodes;
+	renderData->hybridFractalSequences = fractals;
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
@@ -888,7 +888,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			par, parFractal, params, hybridFractals, nullptr, false);
+			par, parFractal, params, hybridFractals, renderData, false);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(par))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(par);
@@ -913,7 +913,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 	else
 	{
-		dist = CalculateDistance(*params, fractals, in, &out, &renderData);
+		dist = CalculateDistance(*params, fractals, in, &out, renderData.get());
 	}
 
 #ifdef USE_OPENCL
