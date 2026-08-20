@@ -188,14 +188,33 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 	int sequenceIndex = 0;
 
-	// Accumulated world-space transforms keyed by node ID
+	// Accumulated world-space 4x4 transform matrix keyed by node ID.
+	// worldMatrix represents: p_world = worldMatrix * p_local (with w=1).
+	// For identity: upper 3x3 = identity, column 4 (m14/m24/m34) = zero, m44 = 1.
 	struct AccumulatedTransform
 	{
-		CVector3 position{0, 0, 0};
-		CVector3 rotation{0, 0, 0};
-		CVector3 repeat{0, 0, 0};
-		double scale = 1.0;
+		CMatrix44 matrix;
 		int material = -1;
+		AccumulatedTransform()
+		{
+			// Identity matrix: p_world = p_local (no transform for root/missing parent)
+			matrix.m11 = 1.0;
+			matrix.m12 = 0.0;
+			matrix.m13 = 0.0;
+			matrix.m14 = 0.0;
+			matrix.m21 = 0.0;
+			matrix.m22 = 1.0;
+			matrix.m23 = 0.0;
+			matrix.m24 = 0.0;
+			matrix.m31 = 0.0;
+			matrix.m32 = 0.0;
+			matrix.m33 = 1.0;
+			matrix.m34 = 0.0;
+			matrix.m41 = 0.0;
+			matrix.m42 = 0.0;
+			matrix.m43 = 0.0;
+			matrix.m44 = 1.0;
+		}
 	};
 	QHash<int, AccumulatedTransform> accumulatedTransforms;
 
@@ -270,20 +289,61 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 			parentTransform = accumulatedTransforms[nodeData.parentId];
 		}
 
-		// Build parent rotation matrix to rotate child's local position into parent space
-		CRotationMatrix parentRotMatrix;
-		parentRotMatrix.SetRotation2(parentTransform.rotation * (M_PI / 180.0));
+		// Build the local-to-world 4x4 matrix for this node from its local transform parameters.
+		// Forward transform: p_world = R * (s * p_local) + t
+		// Matrix layout (row-major): upper 3x3 = R * scale, column 4 = translation, row 4 = [0,0,0,1]
+		CMatrix44 localToWorld;
+		CVector3 rotationXYZ = nodeData.rotation * (M_PI / 180.0);
+		CRotationMatrix rotMat;
+		rotMat.SetRotation2(rotationXYZ);
+		const CMatrix33 &R = rotMat.GetMatrix();
+		double s = nodeData.scale;
+		localToWorld.m11 = R.m11 * s;
+		localToWorld.m12 = R.m21 * s;
+		localToWorld.m13 = R.m31 * s;
+		localToWorld.m21 = R.m12 * s;
+		localToWorld.m22 = R.m22 * s;
+		localToWorld.m23 = R.m32 * s;
+		localToWorld.m31 = R.m13 * s;
+		localToWorld.m32 = R.m23 * s;
+		localToWorld.m33 = R.m33 * s;
+		localToWorld.m14 = nodeData.position.x;
+		localToWorld.m24 = nodeData.position.y;
+		localToWorld.m34 = nodeData.position.z;
+		localToWorld.m41 = 0.0;
+		localToWorld.m42 = 0.0;
+		localToWorld.m43 = 0.0;
+		localToWorld.m44 = 1.0;
 
-		// World position = parent_position + parent_rotation * (parent_scale * child_local_position)
-		CVector3 scaledLocalPosition = nodeData.position * parentTransform.scale;
-		CVector3 worldPosition =
-			parentTransform.position + parentRotMatrix.RotateVector(scaledLocalPosition);
+		// Accumulate: worldMatrix = parentMatrix * localMatrix
+		// This composes transforms correctly: rotation, scale, and translation all chain properly.
+		CMatrix44 worldMatrix = parentTransform.matrix * localToWorld;
 
-		// Rotations accumulate additively (Euler angles)
-		CVector3 worldRotation = parentTransform.rotation + nodeData.rotation;
+		// Extract position from world matrix translation column
+		CVector3 worldPosition(worldMatrix.m14, worldMatrix.m24, worldMatrix.m34);
 
-		// Scales multiply
-		double worldScale = parentTransform.scale * nodeData.scale;
+		// Extract scale from the norm of any row of the 3x3 rotation*scale block
+		double worldScale = sqrt(worldMatrix.m11 * worldMatrix.m11 + worldMatrix.m12 * worldMatrix.m12
+														 + worldMatrix.m13 * worldMatrix.m13);
+
+		// Extract rotation from the 3x3 block of worldMatrix
+		// Build the rotation-only matrix by dividing each row by worldScale
+		CMatrix33 worldRotMatrix;
+		if (worldScale > 1e-12)
+		{
+			double invWScale = 1.0 / worldScale;
+			worldRotMatrix.m11 = worldMatrix.m11 * invWScale;
+			worldRotMatrix.m12 = worldMatrix.m12 * invWScale;
+			worldRotMatrix.m13 = worldMatrix.m13 * invWScale;
+			worldRotMatrix.m21 = worldMatrix.m21 * invWScale;
+			worldRotMatrix.m22 = worldMatrix.m22 * invWScale;
+			worldRotMatrix.m23 = worldMatrix.m23 * invWScale;
+			worldRotMatrix.m31 = worldMatrix.m31 * invWScale;
+			worldRotMatrix.m32 = worldMatrix.m32 * invWScale;
+			worldRotMatrix.m33 = worldMatrix.m33 * invWScale;
+		}
+		CRotationMatrix worldRot(worldRotMatrix);
+		CVector3 worldRotation = worldRot.GetRotation2();
 
 		// Material: a parent group with material != -1 overrides all descendants (outermost group
 		// wins).  Only when no ancestor has an override does the node use its own material setting.
@@ -296,11 +356,8 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 
 		// Store accumulated transform for children to inherit
 		AccumulatedTransform myTransform;
-		myTransform.position = worldPosition;
-		myTransform.rotation = worldRotation;
-		myTransform.scale = worldScale;
+		myTransform.matrix = worldMatrix;
 		myTransform.material = effectiveMaterial;
-		myTransform.repeat = leafRepeat;
 		accumulatedTransforms[nodeData.id] = myTransform;
 
 		nodeDataForRendering.position = worldPosition;
@@ -318,41 +375,12 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		nodeDataForRendering.smoothDECombineDistance = nodeData.smoothDECombineDistance;
 		nodeDataForRendering.formulaMaxiter = nodeData.formulaMaxiter;
 
-		// Pre-calculate the world-to-local transform matrix that combines
-		// translation, rotation and scale into a single 4×4 homogeneous matrix.
-		// Matches the legacy formula transform order: p_local = (1/S) * R * (p_world - t)
-		// where S is the user-facing scale (inverted on load, like formulaScale in legacy code).
+		// Pre-calculate the world-to-local transform matrix.
+		// Inverse of the forward transform: p_local = worldToLocalMatrix * p_world (w=1).
+		// For affine transform with orthogonal rotation: inv(R*s) = R^T / s, inv(t) = -R^T * t.
 		{
-			const double s = (worldScale != 0.0) ? (1.0 / worldScale) : 1.0;
+			nodeDataForRendering.worldToLocalMatrix = worldMatrix.InverseAffine();
 			nodeDataForRendering.absScale = fabs(worldScale);
-
-			const CMatrix33 &R = nodeDataForRendering.rotationMatrix.GetMatrix();
-
-			// Upper-left 3×3 block = s * R (no transpose, matching legacy behavior)
-			CMatrix44 &M = nodeDataForRendering.worldToLocalMatrix;
-			M.m11 = s * R.m11;
-			M.m12 = s * R.m12;
-			M.m13 = s * R.m13;
-			M.m21 = s * R.m21;
-			M.m22 = s * R.m22;
-			M.m23 = s * R.m23;
-			M.m31 = s * R.m31;
-			M.m32 = s * R.m32;
-			M.m33 = s * R.m33;
-
-			// Upper-right column = -s * R * position
-			double rx = R.m11 * worldPosition.x + R.m12 * worldPosition.y + R.m13 * worldPosition.z;
-			double ry = R.m21 * worldPosition.x + R.m22 * worldPosition.y + R.m23 * worldPosition.z;
-			double rz = R.m31 * worldPosition.x + R.m32 * worldPosition.y + R.m33 * worldPosition.z;
-			M.m14 = -s * rx;
-			M.m24 = -s * ry;
-			M.m34 = -s * rz;
-
-			// Bottom row (not used by TransformPoint, set for completeness)
-			M.m41 = 0.0;
-			M.m42 = 0.0;
-			M.m43 = 0.0;
-			M.m44 = 1.0;
 		}
 
 		// Determine if this node is a hybrid or descends from one

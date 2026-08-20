@@ -189,6 +189,12 @@ CRotationMatrix::CRotationMatrix()
 	zero = true;
 }
 
+CRotationMatrix::CRotationMatrix(const CMatrix33 &m)
+{
+	matrix = m;
+	zero = false;
+}
+
 void CRotationMatrix::RotateX(double angle)
 {
 	if (angle != 0.0)
@@ -512,6 +518,53 @@ CVector3 CMatrix44::TransformPoint(const CVector3 &point) const
 	result.x = m11 * point.x + m12 * point.y + m13 * point.z + m14;
 	result.y = m21 * point.x + m22 * point.y + m23 * point.z + m24;
 	result.z = m31 * point.x + m32 * point.y + m33 * point.z + m34;
+	return result;
+}
+
+// Inverse of an affine transform matrix (rotation + translation + uniform scale).
+// Assumes the lower row is [0, 0, 0, 1]. The upper-left 3x3 block is R * s where R is
+// orthogonal (rotation) and s is uniform scale. Inverse = (R*s)^-1 * (-R*s * t) = R^T/s * (-R^T *
+// t).
+CMatrix44 CMatrix44::InverseAffine() const
+{
+	CMatrix44 result;
+	// Inverse of 3x3 block (R*s)^-1 = R^T / s
+	double s = sqrt(m11 * m11 + m12 * m12 + m13 * m13);
+	if (s > 1e-12)
+	{
+		double invS = 1.0 / s;
+		result.m11 = m11 * invS;
+		result.m12 = m21 * invS;
+		result.m13 = m31 * invS;
+		result.m21 = m12 * invS;
+		result.m22 = m22 * invS;
+		result.m23 = m32 * invS;
+		result.m31 = m13 * invS;
+		result.m32 = m23 * invS;
+		result.m33 = m33 * invS;
+	}
+	else
+	{
+		result.m11 = 0;
+		result.m12 = 0;
+		result.m13 = 0;
+		result.m21 = 0;
+		result.m22 = 0;
+		result.m23 = 0;
+		result.m31 = 0;
+		result.m32 = 0;
+		result.m33 = 0;
+	}
+	// Upper-right = -(R^T) * t
+	double tx = m14, ty = m24, tz = m34;
+	result.m14 = -(m11 * tx + m21 * ty + m31 * tz);
+	result.m24 = -(m12 * tx + m22 * ty + m32 * tz);
+	result.m34 = -(m13 * tx + m23 * ty + m33 * tz);
+	// Bottom row
+	result.m41 = 0.0;
+	result.m42 = 0.0;
+	result.m43 = 0.0;
+	result.m44 = 1.0;
 	return result;
 }
 

@@ -2385,8 +2385,8 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
-	//Migrate global fractal repeat to per-fractal formula_repeat
-	// (for files before node-based system where it was a top-level param)
+	// Migrate global fractal repeat to per-fractal formula_repeat
+	//  (for files before node-based system where it was a top-level param)
 	if (par->IfExists("repeat") && !par->isDefaultValue("repeat"))
 	{
 		CVector3 repeat = par->Get<CVector3>("repeat");
@@ -2947,7 +2947,8 @@ void cSettings::FlattenBooleanAddGroups(
 	int maxNodeId = 0;
 	QList<int> rootIds;
 
-	// Scan all node definitions to build the node list
+	// Parse all node_XX_definition parameters to reconstruct the objects tree.
+	// The definition string encodes: formulaName, id, type, parentId, objectId, displayOrder.
 	QStringList allParams = par->GetListOfParameters();
 	for (const QString &paramName : allParams)
 	{
@@ -2969,7 +2970,7 @@ void cSettings::FlattenBooleanAddGroups(
 		if (parentId == 0) rootIds.append(id);
 	}
 
-	// Process each root node
+	// Process each top-level root node; only booleanAdd roots are flattened.
 	for (int rootId : rootIds)
 	{
 		QString rootDef = par->Get<QString>(NodeDefinitionParam(rootId));
@@ -2979,7 +2980,7 @@ void cSettings::FlattenBooleanAddGroups(
 		enumNodeType rootType = static_cast<enumNodeType>(rootParts[2].toInt());
 		if (rootType != enumNodeType::booleanAdd) continue;
 
-		// Collect all descendants of this root
+		// Recursively collect all descendants of this root node.
 		QList<int> allDescendants;
 		auto collectDesc = [&](auto &&self, int pid) -> void
 		{
@@ -2994,7 +2995,8 @@ void cSettings::FlattenBooleanAddGroups(
 		};
 		collectDesc(collectDesc, rootId);
 
-		// Find leaf nodes (non-boolean) and intermediate boolean groups
+		// Classify descendants into leaf nodes (fractals/primitives) and
+		// intermediate boolean groups (those containing non-boolean children).
 		QSet<int> leafIds;
 		QSet<int> intermediateBoolIds;
 		for (int descId : allDescendants)
@@ -3012,7 +3014,8 @@ void cSettings::FlattenBooleanAddGroups(
 			}
 			if (isBool)
 			{
-				// Check if this boolean group has non-boolean children
+				// A boolean group is "intermediate" only if it has at least one
+				// non-boolean child — it acts as a nesting level to be collapsed.
 				for (const auto &n : nodes)
 				{
 					if (n.parentId == descId)
@@ -3042,7 +3045,8 @@ void cSettings::FlattenBooleanAddGroups(
 			}
 		}
 
-		// Check for hybrid nodes among descendants
+		// Detect whether any descendant is a hybrid node.
+		// Hybrids must be preserved as-is; only non-hybrid descendants get reparented.
 		bool hasHybrid = false;
 		int hybridId = -1;
 		for (int descId : allDescendants)
@@ -3059,7 +3063,7 @@ void cSettings::FlattenBooleanAddGroups(
 			if (hasHybrid) break;
 		}
 
-		// Determine group name based on descendant types
+		// Choose the group name for the new root based on descendant content.
 		QString groupName = "fractals";
 		for (int descId : allDescendants)
 		{
@@ -3074,16 +3078,31 @@ void cSettings::FlattenBooleanAddGroups(
 			if (groupName == "primitives") break;
 		}
 
-		// Create new root
+		// Create a fresh booleanAdd root to replace the old one.
 		const int newRootId = ++maxNodeId;
 		InitNodeParams(newRootId, par);
 		par->Set(NodeDefinitionParam(newRootId),
 			MakeNodeDefinition(groupName, newRootId, enumNodeType::booleanAdd, 0, nextGroupObjectId++));
 		par->Set(NodePrefix(newRootId) + "material", -1);
 
+		// Migrating global position, rotation and repeat
+		if (groupName == "fractals")
+		{
+			par->Set(NodePrefix(newRootId) + "position", par->Get<CVector3>("fractal_position"));
+			par->Set(NodePrefix(newRootId) + "rotation", par->Get<CVector3>("fractal_rotation"));
+			par->Set(NodePrefix(newRootId) + "repeat", par->Get<CVector3>("repeat"));
+		}
+		else // primitives
+		{
+			par->Set(NodePrefix(newRootId) + "position", par->Get<CVector3>("all_primitives_position"));
+			par->Set(NodePrefix(newRootId) + "rotation", par->Get<CVector3>("all_primitives_rotation"));
+		}
+
 		if (hasHybrid)
 		{
-			// Reparent non-hybrid descendants to new root
+			// Hybrid present: reparent only non-hybrid descendants to the new root.
+			// Walk up the parent chain to skip any node that is the hybrid itself
+			// or a descendant of the hybrid.
 			for (int descId : allDescendants)
 			{
 				bool isHybridOrDesc = false;
@@ -3127,9 +3146,7 @@ void cSettings::FlattenBooleanAddGroups(
 				}
 			}
 
-			// Convert old root to hybrid pointing to new root
-			QString rootParam = NodePrefix(rootId) + "definition";
-
+			// Replace the old root with a hybrid node that points to the new root.
 			QString prefix = NodePrefix(rootId);
 			for (const QString &pn : allParams)
 			{
@@ -3143,8 +3160,8 @@ void cSettings::FlattenBooleanAddGroups(
 		}
 		else
 		{
-			// Collect all nodes that should be reparented (leaves + all descendants of intermediate
-			// bools)
+			// No hybrid: collect all leaves and intermediate boolean groups along
+			// with their descendants, then reparent everything to the new root.
 			QSet<int> nodesToReparent;
 			for (int leafId : leafIds)
 				nodesToReparent.insert(leafId);
@@ -3156,7 +3173,7 @@ void cSettings::FlattenBooleanAddGroups(
 					if (node.parentId == boolId)
 					{
 						nodesToReparent.insert(node.id);
-						// Recursively add children
+						// Add grandchildren (one level deep)
 						for (const auto &n : nodes)
 						{
 							if (n.parentId == node.id) nodesToReparent.insert(n.id);
@@ -3165,7 +3182,7 @@ void cSettings::FlattenBooleanAddGroups(
 				}
 			}
 
-			// Reparent all collected nodes to new root
+			// Update parent pointer of every collected node to point at the new root.
 			for (int nodeId : nodesToReparent)
 			{
 				QString def = par->Get<QString>(NodeDefinitionParam(nodeId));
@@ -3177,9 +3194,7 @@ void cSettings::FlattenBooleanAddGroups(
 				}
 			}
 
-			// Delete old root params (replaced by newRoot)
-			QString rootParam = NodePrefix(rootId) + "definition";
-
+			// Remove all params of the old root; it is fully replaced by newRoot.
 			QString prefix = NodePrefix(rootId);
 			for (const QString &pn : allParams)
 			{
@@ -3188,7 +3203,7 @@ void cSettings::FlattenBooleanAddGroups(
 		}
 	}
 
-	// Remove empty boolean groups (groups with no children)
+	// Remove any boolean groups left without children (orphaned during migration).
 	allParams = par->GetListOfParameters();
 	QSet<int> allNodeIds;
 	QSet<int> parentsWithChildren;

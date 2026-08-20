@@ -622,6 +622,7 @@ class CRotationMatrix
 {
 public:
 	CRotationMatrix();
+	CRotationMatrix(const CMatrix33 &m);
 	void RotateX(double angle);
 	void RotateY(double angle);
 	void RotateZ(double angle);
@@ -657,6 +658,7 @@ public:
 	CMatrix44 operator*(const CMatrix44 &matrix) const;
 	CVector4 operator*(const CVector4 &vector) const;
 	CVector3 TransformPoint(const CVector3 &point) const;
+	CMatrix44 InverseAffine() const;
 	CMatrix44 &operator=(const CMatrix44 &);
 	double m11;
 	double m12;
