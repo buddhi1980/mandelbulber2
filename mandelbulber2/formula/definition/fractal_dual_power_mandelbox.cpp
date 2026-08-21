@@ -15,6 +15,7 @@
  */
 
 #include "all_fractal_definitions.h"
+#include "src/fractal.h"
 
 cFractalDualPowerMandelbox::cFractalDualPowerMandelbox() : cAbstractFractal()
 {
