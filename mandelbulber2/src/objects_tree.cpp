@@ -297,7 +297,7 @@ std::vector<cObjectsTree::sNodeDataForRendering> cObjectsTree::GetNodeDataListFo
 		CRotationMatrix rotMat;
 		rotMat.SetRotation2(rotationXYZ);
 		const CMatrix33 &R = rotMat.GetMatrix();
-		double s = 1.0 / nodeData.scale;
+		double s = nodeData.scale;
 		localToWorld.m11 = R.m11 * s;
 		localToWorld.m12 = R.m21 * s;
 		localToWorld.m13 = R.m31 * s;

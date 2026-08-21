@@ -528,20 +528,23 @@ CVector3 CMatrix44::TransformPoint(const CVector3 &point) const
 CMatrix44 CMatrix44::InverseAffine() const
 {
 	CMatrix44 result;
-	// Inverse of 3x3 block (R*s)^-1 = R^T / s
+	// Compute scale from norm of first row of upper-left 3x3 block.
+	// Forward matrix has R*s in upper-left, so s = |row0| = sqrt(m11^2 + m12^2 + m13^2).
+	// Inverse upper-left = (R*s)^-1 = R^T / s.
+	// Since m11 = R[0][0]*s, we need m11 / (s*s) = R[0][0] / s.
 	double s = sqrt(m11 * m11 + m12 * m12 + m13 * m13);
+	double sSq = s * s;
 	if (s > 1e-12)
 	{
-		double invS = 1.0 / s;
-		result.m11 = m11 * invS;
-		result.m12 = m21 * invS;
-		result.m13 = m31 * invS;
-		result.m21 = m12 * invS;
-		result.m22 = m22 * invS;
-		result.m23 = m32 * invS;
-		result.m31 = m13 * invS;
-		result.m32 = m23 * invS;
-		result.m33 = m33 * invS;
+		result.m11 = m11 / sSq;
+		result.m12 = m21 / sSq;
+		result.m13 = m31 / sSq;
+		result.m21 = m12 / sSq;
+		result.m22 = m22 / sSq;
+		result.m23 = m32 / sSq;
+		result.m31 = m13 / sSq;
+		result.m32 = m23 / sSq;
+		result.m33 = m33 / sSq;
 	}
 	else
 	{
@@ -555,11 +558,15 @@ CMatrix44 CMatrix44::InverseAffine() const
 		result.m32 = 0;
 		result.m33 = 0;
 	}
-	// Upper-right = -(R^T) * t
+	// Upper-right = -(R^T) * t / s
+	// Since m11 = R[0][0]*s, we have (m11*tx + m21*ty + m31*tz) / sSq
+	// = (R[0][0]*s*tx + R[1][0]*s*ty + R[2][0]*s*tz) / sSq
+	// = (R[0][0]*tx + R[1][0]*ty + R[2][0]*tz) / s
+	// = (R^T * t)[0] / s
 	double tx = m14, ty = m24, tz = m34;
-	result.m14 = -(m11 * tx + m21 * ty + m31 * tz);
-	result.m24 = -(m12 * tx + m22 * ty + m32 * tz);
-	result.m34 = -(m13 * tx + m23 * ty + m33 * tz);
+	result.m14 = -(m11 * tx + m21 * ty + m31 * tz) / sSq;
+	result.m24 = -(m12 * tx + m22 * ty + m32 * tz) / sSq;
+	result.m34 = -(m13 * tx + m23 * ty + m33 * tz) / sSq;
 	// Bottom row
 	result.m41 = 0.0;
 	result.m42 = 0.0;
