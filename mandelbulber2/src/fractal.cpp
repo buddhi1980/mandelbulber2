@@ -55,6 +55,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
 	bulb.betaAngleOffset = container->Get<double>("beta_angle_offset");
 	bulb.gammaAngleOffset = container->Get<double>("gamma_angle_offset");
+	bulb.degree = container->Get<double>("degree");
 
 	mandelbox.scale = container->Get<double>("mandelbox_scale");
 	mandelbox.foldingLimit = container->Get<double>("mandelbox_folding_limit");
