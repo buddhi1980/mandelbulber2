@@ -81,7 +81,7 @@ double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in
 	const cHybridFractalSequences::sSequence *sequence);
 double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 	std::shared_ptr<const cHybridFractalSequences> fractals, const CVector3 point,
-	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest);
+	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest, sRenderData *data);
 
 double CalculateDistanceFromObjectsTree(const sParamRender &params,
 	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,

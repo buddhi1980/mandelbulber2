@@ -778,7 +778,7 @@ double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in
 // found or the search diverges.
 double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 	std::shared_ptr<const cHybridFractalSequences> fractals, const CVector3 planePoint,
-	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest)
+	const CVector3 direction, const CVector3 orthDirection, bool *stopRequest, sRenderData *data)
 {
 	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'
 	// the method will return the minimum distance from the plane to the fractal
@@ -809,7 +809,7 @@ double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 			if (i > 0) pointNext += transversalVect * distStep / 2.0;
 			const sDistanceIn in(pointNext, 0, false);
 			sDistanceOut out;
-			const double dist = CalculateDistance(*params.get(), *fractals.get(), in, &out);
+			const double dist = CalculateDistance(*params.get(), *fractals.get(), in, &out, data);
 			// The next step size is proportional to the current distance estimate.
 			// Smaller distance → smaller step (converging toward the surface).
 			const double newDistStep = dist * detail * 0.5;

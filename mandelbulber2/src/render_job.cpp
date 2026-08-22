@@ -398,12 +398,10 @@ bool cRenderJob::Execute()
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
 					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
-				cObjectsTree objectsTreeForSequences;
-				objectsTreeForSequences.CreateNodeDataFromParameters(paramsContainer);
-				std::vector<cObjectsTree::sNodeDataForRendering> nodes =
-					objectsTreeForSequences.GetNodeDataListForRendering();
+
 				std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
-				fractals->CreateSequences(paramsContainer, fractalContainer, nodes);
+				fractals->CreateSequences(
+					paramsContainer, fractalContainer, renderData->nodesDataForRendering);
 
 				// Print node data now that internalObjectId and primitiveIdx have been populated
 				// by the sParamRender constructor (fractals) and cPrimitives (primitives).

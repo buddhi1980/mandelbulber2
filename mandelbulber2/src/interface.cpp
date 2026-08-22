@@ -1179,13 +1179,21 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	parTemp->Set("limits_enabled", false);
 	parTemp->Set("interior_mode", false);
 
-	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
+	sRenderData renderData;
+
 	cObjectsTree objectsTree;
 	objectsTree.CreateNodeDataFromParameters(parTemp);
-	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
-		objectsTree.GetNodeDataListForRendering();
-	auto fractals = std::make_shared<cHybridFractalSequences>();
-	fractals->CreateSequences(parTemp, parFractal, nodes);
+	renderData.nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
+
+	std::shared_ptr<sParamRender> params(new sParamRender(
+		parTemp, &renderData.objectData, &renderData.nodesDataForRendering, parFractal));
+
+	std::shared_ptr<cHybridFractalSequences> fractals(new cHybridFractalSequences());
+	fractals->CreateSequences(parTemp, parFractal, renderData.nodesDataForRendering);
+
+	// Always pass renderData when nodes exist (primitives can have nodes without fractal sequences)
+
+	renderData.hybridFractalSequences = *fractals.get();
 
 	CVector3 direction;
 	CVector3 orthDirection;
@@ -1200,7 +1208,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
 	point = CVector3(outerBoundingMin.x, boundingCenter.y, boundingCenter.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double minX = point.x + dist;
 
 	// negative y limit
@@ -1209,7 +1218,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
 	point = CVector3(boundingCenter.x, outerBoundingMin.y, boundingCenter.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double minY = point.y + dist;
 
 	// negative z limit
@@ -1218,7 +1228,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
 	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMin.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double minZ = point.z + dist;
 
 	// positive x limit
@@ -1227,7 +1238,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
 	point = CVector3(outerBoundingMax.x, boundingCenter.y, boundingCenter.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double maxX = point.x - dist;
 
 	// positive y limit
@@ -1236,7 +1248,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
 	point = CVector3(boundingCenter.x, outerBoundingMax.y, boundingCenter.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double maxY = point.y - dist;
 
 	// positive z limit
@@ -1245,7 +1258,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
 	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMax.z);
-	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(
+		params, fractals, point, direction, orthDirection, &stopRequest, &renderData);
 	double maxZ = point.z - dist;
 
 	double medX = (maxX + minX) / 2.0;
