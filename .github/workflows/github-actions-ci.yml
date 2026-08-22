@@ -1,18 +1,106 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: C++ CI Build (Qt6)
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'continuous*'
+      - 'Continuous*'
+  pull_request:
+
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  build:
+    name: Build & Test (Linux)
+    runs-on: ubuntu-24.04
+    env:
+      CONFIG: release
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v6
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install System Dependencies
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          sudo apt-get -qq update
+          sudo apt-get install -y \
+            build-essential \
+            mesa-common-dev \
+            libgl1-mesa-dev \
+            libpng-dev \
+            libgsl-dev \
+            libgomp1 \
+            liblzo2-2 \
+            liblzo2-dev \
+            libtiff-dev \
+            libsndfile1-dev \
+            tree \
+            wget \
+            opencl-headers \
+            ocl-icd-libopencl1 \
+            ocl-icd-opencl-dev
+
+      - name: Install Qt6 Components
+        run: |
+          sudo apt-get install -y \
+            qt6-base-dev \
+            qt6-tools-dev \
+            qt6-multimedia-dev \
+            qt6-svg-dev \
+            qt6-tools-dev-tools
+
+      - name: Build Application
+        run: |
+          mkdir -p mandelbulber2/build
+          cd mandelbulber2/build
+          
+          # Native qmake6 tool invocation replaces the legacy environment script wrapper
+          qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
+          make -j$(nproc)
+          tree .
+
+      - name: Run Tests
+        run: |
+          cd mandelbulber2
+          mkdir package
+          ./make-package.sh test package
+          cp build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
+          cd package/mandelbulber2-test
+          ./install
+          mandelbulber2 --test
+
+      - name: Build & Upload AppImage (Qt6 Compatible)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd mandelbulber2/build
+          make INSTALL_ROOT=appdir -j$(nproc) install
+          find appdir/
+          
+          # Fix icon paths from your original script
+          cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true
+          cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/mandelbulber.png
+          
+          # 1. Download modern linuxdeploy core (Qt6 compatible bundle pipeline)
+          wget -c -nv "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
+          chmod a+x linuxdeploy-x86_64.AppImage
+          
+          # 2. Download the mandatory Qt plugin for linuxdeploy
+          wget -c -nv "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
+          chmod a+x linuxdeploy-plugin-qt-x86_64.AppImage
+          
+          # Clean environment variables to prevent local host leakage
+          unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+          
+          # 3. Tell linuxdeploy to extract and bundle using the Qt plugin
+          export QMAKE=/usr/bin/qmake6
+          ./linuxdeploy-x86_64.AppImage --appimage-extract-and-run \
+            --appdir appdir \
+            --plugin qt \
+            --output appimage \
+            --desktop-file appdir/usr/share/applications/*.desktop
+          
+          # 4. Corrected community uploadtool link
+          wget -c -nv "https://github.com/probonopd/uploadtool/raw/master/upload.sh"
+          export UPLOADTOOL_ISPRERELEASE=true
+          bash upload.sh Mandelbulber*.AppImage*
