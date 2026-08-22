@@ -2301,6 +2301,12 @@ bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 		fractPar->ensureCapacity(fractalIndex);
 	}
 
+	// formula_maxiter_N is a top-level indexed parameter, not a legacy fractal param
+	if (baseParam == "formula_maxiter")
+	{
+		return false;
+	}
+
 	// Check if the legacy param does not exist in the top-level container
 	// and the base param exists in the target fractal container
 	if (conversionOK && fractalIndex >= 0 && fractalIndex < fractPar->size()
@@ -2642,11 +2648,15 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
 			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
 			CopyOneFractalParams(par, "node_0001_", objectId);
+			// For old files (< v2.29), fall back to global N for formula_maxiter
+			if (fileVersion < 2.29 && par->IfExists("N"))
+			{
+				par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
+			}
 			if (!GetFractalEnableFlag(par, fract, objectId))
 			{
 				par->Set("node_0001_enabled", false);
 			}
-			par->Set("node_0001_formula_maxiter", fract->at(0)->Get<int>("formula_maxiter"));
 		}
 		// Multiple fractals: build a left-associative binary tree
 		else if (m >= 2)
@@ -2689,13 +2699,16 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
 				CopyOneFractalParams(par, NodePrefix(nodeId), objectId);
+				// For old files (< v2.29), fall back to global N for formula_maxiter
+				if (fileVersion < 2.29 && par->IfExists("N"))
+				{
+					par->Set(NodePrefix(nodeId) + "formula_maxiter", par->Get<int>("N"));
+				}
 
 				if (!GetFractalEnableFlag(par, fract, objectId))
 				{
 					par->Set(NodePrefix(nodeId) + "enabled", false);
 				}
-				par->Set(NodePrefix(nodeId) + "formula_maxiter",
-					fract->at(objectId - 1)->Get<int>("formula_maxiter"));
 			}
 		}
 	}
@@ -2780,6 +2793,11 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 						MakeNodeDefinition(formulaName, childNodeId, enumNodeType::fractal, 1, objectId));
 					CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
 					CopyOneFractalParams(par, prefix, objectId);
+					// For old files (< v2.29), fall back to global N for formula_maxiter
+					if (fileVersion < 2.29 && par->IfExists("N"))
+					{
+						par->Set(prefix + "formula_maxiter", par->Get<int>("N"));
+					}
 
 					// Set node enabled state based on fractal_enable_x parameter
 					// Note: fractal_enable_N is resolved by TryResolveLegacyFractalParam to
