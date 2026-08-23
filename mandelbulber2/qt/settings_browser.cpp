@@ -75,7 +75,7 @@ static QString lookupFormulaNameByInternalName(const QString &internalName)
 {
 	for (cAbstractFractal *f : newFractalList)
 	{
-		if (f->getInternalName() == internalName)
+		if (QString::fromStdString(f->getInternalName()) == internalName)
 		{
 			return QString::fromStdString(f->getNameInComboBox());
 		}

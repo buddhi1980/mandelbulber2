@@ -230,6 +230,7 @@ struct sFractalMandelbulb
 	double alphaAngleOffset;
 	double betaAngleOffset;
 	double gammaAngleOffset;
+	double degree;
 };
 
 struct sFractalAexion

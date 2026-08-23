@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>chebyshev_bulb</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>871</width>
+    <height>2400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">chebyshev_bulb</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Main parameters</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_degree">
+          <property name="text">
+           <string>Degree:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinboxd_degree">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>2.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>3.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_info">
+     <property name="title">
+      <string>&amp;Information</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">&lt;p&gt;Chebyshev Bulb — Mandelbulb with Chebyshev polynomial iteration.&lt;/p&gt;&lt;p&gt;Replaces the standard power operation z^power with the Chebyshev polynomial T_degree(x/|x|) * |x|, where T_n(x) = cos(n * arccos(x)) for |x| ≤ 1. This creates sharp, polygonal-like fractal structures with characteristic Chebyshev oscillation patterns. The degree parameter controls the polynomial order (minimum 2), with higher degrees producing more oscillations and sharper features.&lt;/p&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">&lt;body style="background-color:#fff5ee"&gt;
+&lt;pre style="color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;"&gt;&lt;span style="color:#2e8b57; font-weight:bold"&gt;void&lt;/span&gt; &lt;span style="color:#00008f"&gt;ChebyshevBulbIteration&lt;/span&gt;&lt;span style="color:#676767"&gt;(&lt;/span&gt;CVector4 &lt;span style="color:#676767"&gt;&amp;amp;&lt;/span&gt;z&lt;span style="color:#676767"&gt;,&lt;/span&gt; &lt;span style="color:#2e8b57; font-weight:bold"&gt;const&lt;/span&gt; sFractal &lt;span style="color:#676767"&gt;*&lt;/span&gt;fractal&lt;span style="color:#676767"&gt;,&lt;/span&gt; sExtendedAux &lt;span style="color:#676767"&gt;&amp;amp;&lt;/span&gt;aux&lt;span style="color:#676767"&gt;)&lt;/span&gt;
+&lt;span style="color:#676767"&gt;{&lt;/span&gt;
+  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; degree = fractal-&gt;bulb.degree;
+  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; r = aux.r;
+  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; tx = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.x / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
+  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; ty = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.y / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
+  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; tz = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.z / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
+  z = CVector4&lt;span style="color:#676767"&gt;(&lt;/span&gt;tx, ty, tz, 0&lt;span style="color:#676767"&gt;)&lt;/span&gt;;
+  aux.DE *= &lt;span style="color:#676767"&gt;(&lt;/span&gt;|T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;x/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;| + |T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;y/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;| + |T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;z/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;|&lt;span style="color:#676767"&gt;)&lt;/span&gt;;
+  z += offset;
+&lt;span style="color:#676767"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/body&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>spinboxd_degree</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

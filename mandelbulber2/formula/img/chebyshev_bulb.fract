@@ -1,0 +1,20 @@
+# Mandelbulber settings file
+# version 2.35
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 ff00 ff00 ff00;
+background_color_3 ff00 ff00 ff00;
+camera 12 -24 8;
+camera_distance_to_target 28;
+camera_rotation 26.5650511770779 -16.6015495990203 -2.03555499613665e-13;
+camera_top -0.127775312999991 0.255550625999975 0.95831484749991;
+detail_level 2;
+formula_1 287;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+raytraced_reflections true;

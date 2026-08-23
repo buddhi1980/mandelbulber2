@@ -718,6 +718,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("gamma_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("degree", 3.0, morphLinear, paramStandard);
 	par->addParam("cadd", -1.3, morphLinear, paramStandard);
 
 	// IFS formula
