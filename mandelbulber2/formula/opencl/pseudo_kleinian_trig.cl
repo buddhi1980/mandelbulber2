@@ -115,7 +115,7 @@ REAL4 PseudoKleinianTrigIteration(REAL4 z, __global sFractalCl *fractal, sExtend
 		addCol += fractal->foldColor.difs0000.x * stretch + fractal->foldColor.difs0000.y * fabs(z.z)
 							+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
 		if (fractal->foldColor.difs0000.z != 0.0f)
-			addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+			addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
 
 		if (!fractal->foldColor.auxColorEnabledBFalse)
 		{
