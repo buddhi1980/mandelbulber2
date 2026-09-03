@@ -130,7 +130,7 @@ REAL4 PseudoKleinianTrigV2Iteration(REAL4 z, __global sFractalCl *fractal, sExte
 
 		//		+ fractal->foldColor.difs0000.w * fabs(oldZ.z - z.z);
 		if (fractal->foldColor.difs0000.z != 0.0f)
-			addCol += fractal->foldColor.difs0000.z * (oldZ - z).Length();
+			addCol += fractal->foldColor.difs0000.z * length(oldZ - z);
 
 		if (colDist != aux->dist) addCol += fractal->foldColor.difs0000.w;
 
