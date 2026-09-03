@@ -112,8 +112,8 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 			// creating sequence for collected formula indices
 			sSequence sequence;
 			int sequenceOwnerId = hybridNodeEntered ? hybridNodeId : -1;
-			sequence =
-				CreateSequence(sequence, generalPar, formulaIndices, singleFractal, nodeIndex, sequenceOwnerId);
+			sequence = CreateSequence(
+				sequence, generalPar, formulaIndices, singleFractal, nodeIndex, sequenceOwnerId);
 
 			if (singleFractal)
 			{
@@ -145,35 +145,35 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	DebugOutput();
 }
 
-	void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
-		std::shared_ptr<const cFractalContainer> fractPar)
+void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
+	std::shared_ptr<const cFractalContainer> fractPar)
+{
+	// getting used fractal object indices
+	QSet<int> usedFractalObjectIndices;
+	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
 	{
-		// getting used fractal object indices
-		QSet<int> usedFractalObjectIndices;
-		for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
+		if (node.type == enumNodeType::fractal)
 		{
-			if (node.type == enumNodeType::fractal)
+			usedFractalObjectIndices.insert(node.userObjectId);
+		}
+	}
+
+	// creating fractals map
+	for (int objectId : usedFractalObjectIndices)
+	{
+		// Find the node data for this objectId
+		const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
+		for (const auto &node : objectsNodes)
+		{
+			if (node.userObjectId == objectId)
 			{
-				usedFractalObjectIndices.insert(node.userObjectId);
+				nodeData = &node;
+				break;
 			}
 		}
 
-		// creating fractals map
-		for (int objectId : usedFractalObjectIndices)
-		{
-			// Find the node data for this objectId
-			const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
-			for (const auto &node : objectsNodes)
-			{
-				if (node.userObjectId == objectId)
-				{
-					nodeData = &node;
-					break;
-				}
-			}
-
-			sFractal fractal(fractPar->at(objectId - 1));
-			fractalsMap.insert(objectId, fractal);
+		sFractal fractal(fractPar->at(objectId - 1));
+		fractalsMap.insert(objectId, fractal);
 		// formula is now read from the per-fractal container in sFractal constructor
 	}
 }
@@ -293,10 +293,6 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	bool isHybrid = !singleFractal;
 	seq.isHybrid = isHybrid;
 
-	int maxN = 250; // FIXME separate for each sequence
-
-	seq.length = maxN * 5;
-	seq.seqence.resize(seq.length);
 	seq.fractData.resize(formulaIndices.size());
 
 	if (formulaIndices.empty())
@@ -319,6 +315,9 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	CollectSequenceData(
 		generalPar, formulaIndices, singleFractal, isHybrid, firstNodeIndex, hybridNodeId, seq);
 
+	seq.length = seq.formulaMaxiter;
+	seq.seqence.resize(seq.length);
+
 	// generating the sequence
 	bool rapidEndOfSequence = false;
 	int lastSequenceIndex = 0;
@@ -333,8 +332,11 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		// fractalNoInSeqnece, so they are read directly from the indexed containers here rather
 		// than captured into pre-loop variables that would remain frozen on the original formula.
 		while ((fractalsMap[formulaIndices[fractalNoInSeqnece]].formula == fractal::none
-						 || i < seq.fractData[fractalNoInSeqnece].formulaStartIteration
-						 || i > seq.fractData[fractalNoInSeqnece].formulaStopIteration)
+						 || ((i < seq.fractData[fractalNoInSeqnece].formulaStartIteration
+									 || i > seq.fractData[fractalNoInSeqnece].formulaStopIteration
+
+									 )
+								 && isHybrid))
 					 && searchRepeatCount < seq.fractData.size())
 		{
 			fractalNoInSeqnece++;

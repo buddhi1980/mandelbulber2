@@ -162,7 +162,9 @@ void cOpenClEngineRenderNebula::SetParameters(
 	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
 	definesCollector += " -DNEBULA_MODE";
-	definesCollector += " -DMAX_ITERATIONS=" + QString::number(paramRender->N);
+
+	maxiter = hybridSequences.GetSequence(0)->length;
+	definesCollector += " -DMAX_ITERATIONS=" + QString::number(maxiter);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
@@ -590,8 +592,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		float brightness;
 		if (totalSamplesCounter > 0)
 		{
-			brightness = (brightnessMultiplier * width * height) / totalSamplesCounter
-									 / sqrt(constantInBuffer->params.N);
+			brightness = (brightnessMultiplier * width * height) / totalSamplesCounter / sqrt(maxiter);
 		}
 		else
 		{

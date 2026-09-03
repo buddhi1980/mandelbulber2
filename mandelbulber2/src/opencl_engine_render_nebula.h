@@ -85,6 +85,8 @@ private:
 	const int inOutImageBufferIndex = 0;
 	const int inRandomBufferIndex = 0;
 
+	int maxiter = 0;
+
 	double zBufferDefault = 0.0;
 
 #endif
