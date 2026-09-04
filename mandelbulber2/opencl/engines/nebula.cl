@@ -302,6 +302,8 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 		sequence = seqArray[min(i, seqLength - 1)];
 		fractal = &fractals[sequence + seq->formulaBaseIndex];
 
+		int globalSequence = sequence + seq->formulaBaseIndex;
+
 		aux.i = i;
 
 		zHistory[i] = z;

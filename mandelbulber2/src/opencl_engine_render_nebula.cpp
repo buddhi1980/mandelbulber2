@@ -138,17 +138,18 @@ void cOpenClEngineRenderNebula::SetParameters(
 		definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 	}
 
+	allFormulasPreDedup = listOfUsedFormulas;
 	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 
 	// check for hybrid and iteration weight
-	bool useHybrid = false;
+	isHybrid = false;
 	bool weightUsed = false;
 	for (int s = 0; s < hybridSequences.GetNumberOfSequences(); s++)
 	{
 		const cHybridFractalSequences::sSequence *seq = hybridSequences.GetSequence(s);
 		if (seq->isHybrid)
 		{
-			useHybrid = true;
+			isHybrid = true;
 		}
 		for (int f = 0; f < seq->numberOfFractalsInTheSequence; f++)
 		{
@@ -158,7 +159,7 @@ void cOpenClEngineRenderNebula::SetParameters(
 			}
 		}
 	}
-	if (useHybrid) definesCollector += " -DIS_HYBRID";
+	if (isHybrid) definesCollector += " -DIS_HYBRID";
 	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 
 	definesCollector += " -DNEBULA_MODE";
@@ -236,26 +237,10 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 		QStringList clHeaderFiles;
 		CreateListOfHeaderFiles(clHeaderFiles);
 
-		// Generate formula switch code from listOfUsedFormulas
+		// Generate formula switch code from allFormulasPreDedup
 		QByteArray formulaSwitchCode;
-		if (listOfUsedFormulas.isEmpty())
-		{
-			formulaSwitchCode.append("		z = MandelbulbIteration(z, fractal, &aux);");
-		}
-		else
-		{
-			QString internalID = toCamelCase(listOfUsedFormulas.at(0));
-			QString functionName;
-			if (internalID != "" && internalID != "None")
-			{
-				functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
-			}
-			else
-			{
-				functionName = "DummyIteration";
-			}
-			formulaSwitchCode.append(("		z = " + functionName + "(z, fractal, &aux);").toUtf8());
-		}
+		GenerateFormulaSwitchCode(
+			allFormulasPreDedup, allFormulasPreDedup.size(), isHybrid, formulaSwitchCode);
 
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
@@ -271,14 +256,14 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 #endif
 
 		CreateListOfIncludes(
-			clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine, QByteArray());
+			clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine, formulaSwitchCode);
 
 		// main engine
 		QString mainEngineFileName = "nebula.cl";
 		QString engineFullFileName = openclEnginePath + mainEngineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
-		// Replace PLACEHOLDER_FOR_FORMULA_ITER with actual formula code
+		// insert dynamically generated formula switch code
 		if (!formulaSwitchCode.isEmpty())
 		{
 			int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
@@ -753,16 +738,6 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 			}
 		}
 	}
-	// insert dynamically generated formula switch code
-	if (!formulaSwitchCode.isEmpty())
-	{
-		int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
-		if (placeholderPos >= 0)
-		{
-			int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
-			programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
-		}
-	}
 }
 
 QString cOpenClEngineRenderNebula::toCamelCase(const QString &s)
@@ -784,6 +759,62 @@ QString cOpenClEngineRenderNebula::toCamelCase(const QString &s)
 		}
 	}
 	return parts.join("");
+}
+
+void cOpenClEngineRenderNebula::GenerateFormulaSwitchCode(
+	const QStringList &formulas, int totalFormulaCount, bool needsSwitch, QByteArray &out)
+{
+	out.clear();
+
+	if (formulas.isEmpty())
+	{
+		out.append("		z = DummyIteration(z, fractal, &aux);");
+		return;
+	}
+
+	if (needsSwitch)
+	{
+		out.append("\t\tswitch (globalSequence)\n\t\t{\n");
+		for (int i = 0; i < totalFormulaCount; i++)
+		{
+			QString functionName;
+			if (i < formulas.size())
+			{
+				QString internalID = toCamelCase(formulas.at(i));
+				if (internalID != "" && internalID != "None")
+				{
+					functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+				}
+				else
+				{
+					functionName = "DummyIteration";
+				}
+			}
+			else
+			{
+				functionName = "DummyIteration";
+			}
+			out.append(QString("\t\t\tcase %1: z = %2(z, fractal, &aux); break;\n")
+					.arg(i)
+					.arg(functionName)
+					.toUtf8());
+		}
+		out.append("\t\t\tdefault: break;\n\t\t}\n");
+	}
+	else
+	{
+		QString internalID = toCamelCase(formulas.at(0));
+		QString functionName;
+		if (internalID != "" && internalID != "None")
+		{
+			functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+		}
+		else
+		{
+			functionName = "DummyIteration";
+		}
+		out.append(("		z = " + functionName + "(z, fractal, &aux);").toUtf8());
+	}
 }
 
 #endif

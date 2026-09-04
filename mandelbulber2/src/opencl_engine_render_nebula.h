@@ -62,11 +62,15 @@ private:
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
 		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
 		QByteArray &programEngine, const QByteArray &formulaSwitchCode);
+	void GenerateFormulaSwitchCode(
+		const QStringList &formulas, int totalFormulaCount, bool needsSwitch, QByteArray &out);
 	static QString toCamelCase(const QString &s);
 
 private:
 	QStringList customFormulaCodes;
 	QStringList listOfUsedFormulas;
+	QStringList allFormulasPreDedup;
+	bool isHybrid = false;
 	quint64 numberOfPixels = 0;
 
 	qint64 jobSize = 1024;
