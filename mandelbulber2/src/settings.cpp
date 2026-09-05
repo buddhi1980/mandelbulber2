@@ -2645,6 +2645,28 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	bool hybridMode = par->Get<bool>("hybrid_fractal_enable");
 	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
+	// For old file formats (< v2.29), boolean_operators flag may not be set explicitly.
+	// Detect if any primitive has a non-default boolean operator (not primBooleanOperatorOR).
+	// If so, enable boolean mode to ensure the fractal boolean tree is created.
+	if (!booleanMode && fileVersion < 2.29)
+	{
+		QList<sPrimitiveItem> primList = cPrimitives::GetListOfPrimitives(par);
+		for (const auto &prim : primList)
+		{
+			QString boolOpName = prim.Name("boolean_operator");
+			if (par->IfExists(boolOpName))
+			{
+				int boolOpVal = par->Get<int>(boolOpName);
+				if (boolOpVal != int(primBooleanOperatorOR))
+				{
+					booleanMode = true;
+					par->Set("boolean_operators", true);
+					break;
+				}
+			}
+		}
+	}
+
 	// If boolean_operator_1 is defined in the file, use its value as default for
 	// missing boolean_operator_N. This ensures files like boolean001.fract
 	// (boolean_operator_1=2) and boolean002.fract (boolean_operator_1=0) get the
@@ -2676,27 +2698,66 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		enabledFractals = GetEnabledFractals(fract);
 		const int m = enabledFractals.size();
 
-		// Single fractal: create a single fractal node
-		if (m == 1)
+		// In hybrid mode, create the hybrid root first so primitives can attach to it
+		if (hybridMode && m >= 1)
 		{
 			InitNodeParams(1, par);
-			int objectId = enabledFractals[0];
-			QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
 			par->Set("node_0001_definition",
-				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
-			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
-			CopyOneFractalParams(par, "node_0001_", objectId);
-			// For old files (< v2.29), fall back to global N for formula_maxiter
-			if (fileVersion < 2.29 && par->IfExists("N"))
+				MakeNodeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
+
+			if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
+				par->Set("node_0001_rotation", par->Get<CVector3>("fractal_rotation"));
+			if (par->IfExists("fractal_position") && !par->isDefaultValue("fractal_position"))
+				par->Set("node_0001_position", par->Get<CVector3>("fractal_position"));
+			if (par->IfExists("repeat") && !par->isDefaultValue("repeat"))
+				par->Set("node_0001_repeat", par->Get<CVector3>("repeat"));
+			if (par->IfExists("fractal_constant_factor")
+					&& !par->isDefaultValue("fractal_constant_factor"))
+				par->Set(
+					"node_0001_fractal_constant_factor", par->Get<CVector3>("fractal_constant_factor"));
+			if (par->IfExists("initial_waxis") && !par->isDefaultValue("initial_waxis"))
+				par->Set("node_0001_initial_waxis", par->Get<double>("initial_waxis"));
+			if (par->IfExists("julia_mode") && !par->isDefaultValue("julia_mode"))
+				par->Set("node_0001_julia_mode", par->Get<bool>("julia_mode"));
+			if (par->IfExists("julia_c") && !par->isDefaultValue("julia_c"))
+				par->Set("node_0001_julia_c", par->Get<CVector3>("julia_c"));
+			if (par->IfExists("N")) par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
+
+			// Create fractal child nodes under the hybrid root
+			int childNodeId = 2;
+			for (int objectId = 1; objectId <= fract->size(); objectId++)
 			{
-				par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
-			}
-			if (!GetFractalEnableFlag(par, fract, objectId))
-			{
-				par->Set("node_0001_enabled", false);
+				if (fract->at(objectId - 1)->IfExists("formula")
+						&& fract->at(objectId - 1)->Get<int>("formula") != int(fractal::none))
+				{
+					InitNodeParams(childNodeId, par);
+					QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+					QString prefix = NodePrefix(childNodeId);
+					par->Set(prefix + "definition",
+						MakeNodeDefinition(formulaName, childNodeId, enumNodeType::fractal, 1, objectId));
+					CopyFormulaTransform(par, prefix, fract->at(objectId - 1));
+					CopyOneFractalParams(par, prefix, objectId);
+					if (fileVersion < 2.29 && par->IfExists("N"))
+						par->Set(prefix + "formula_maxiter", par->Get<int>("N"));
+
+					QString fractalEnableParam = QString("fractal_enable_%1").arg(objectId);
+					bool hasParam = par->IfExists(fractalEnableParam)
+													|| (fract->at(objectId - 1)->IfExists("fractal_enable"));
+					bool paramValue = true;
+					if (hasParam)
+					{
+						if (par->IfExists(fractalEnableParam))
+							paramValue = par->Get<bool>(fractalEnableParam);
+						else if (fract->at(objectId - 1)->IfExists("fractal_enable"))
+							paramValue = fract->at(objectId - 1)->Get<bool>("fractal_enable");
+					}
+					if (hasParam && !paramValue) par->Set(prefix + "enabled", false);
+
+					childNodeId++;
+				}
 			}
 		}
-		// Multiple fractals: build a left-associative binary tree
+		// Non-hybrid boolean mode: build fractal boolean tree
 		else if (m >= 2)
 		{
 			// Build a left-associative binary tree for m fractals and m-1 operators.
@@ -2737,17 +2798,26 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 					MakeNodeDefinition(formulaName, nodeId, enumNodeType::fractal, parentId, objectId));
 				CopyFormulaTransform(par, NodePrefix(nodeId), fract->at(objectId - 1));
 				CopyOneFractalParams(par, NodePrefix(nodeId), objectId);
-				// For old files (< v2.29), fall back to global N for formula_maxiter
 				if (fileVersion < 2.29 && par->IfExists("N"))
-				{
 					par->Set(NodePrefix(nodeId) + "formula_maxiter", par->Get<int>("N"));
-				}
 
 				if (!GetFractalEnableFlag(par, fract, objectId))
-				{
 					par->Set(NodePrefix(nodeId) + "enabled", false);
-				}
 			}
+		}
+		// Single non-hybrid fractal in boolean mode
+		else if (m == 1)
+		{
+			InitNodeParams(1, par);
+			int objectId = enabledFractals[0];
+			QString formulaName = GetFormulaName(fract->at(objectId - 1)->Get<int>("formula"));
+			par->Set("node_0001_definition",
+				MakeNodeDefinition(formulaName, 1, enumNodeType::fractal, 0, objectId));
+			CopyFormulaTransform(par, "node_0001_", fract->at(objectId - 1));
+			CopyOneFractalParams(par, "node_0001_", objectId);
+			if (fileVersion < 2.29 && par->IfExists("N"))
+				par->Set("node_0001_formula_maxiter", par->Get<int>("N"));
+			if (!GetFractalEnableFlag(par, fract, objectId)) par->Set("node_0001_enabled", false);
 		}
 	}
 	// Handle non-hybrid single-fractal mode
@@ -2903,10 +2973,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 	}
 
-	// In hybrid mode, primitives need their own booleanAdd root as a sibling
-	// to the hybrid fractal root. Reset rootNodeId so the first primitive
-	// creates a fresh booleanAdd root with parentId=0.
-	if (hybridMode && rootNodeId > 0)
+	// In hybrid mode with boolean mode, keep rootNodeId so primitives attach to the
+	// hybrid fractal root. Only reset when NOT in boolean mode (pure hybrid without
+	// boolean operations).
+	if (hybridMode && !booleanMode && rootNodeId > 0)
 	{
 		rootNodeId = -1;
 	}
@@ -3060,8 +3130,7 @@ void cSettings::FlattenBooleanAddGroups(
 	// Process booleanAdd nodes bottom-up (deepest first) to avoid parent chain issues.
 	// For each booleanAdd node: reparent its children to its parent, then delete it.
 	// booleanSub/booleanMul children are promoted but their subtrees stay intact.
-	std::sort(booleanAddNodes.begin(), booleanAddNodes.end(),
-		[](int a, int b) { return a > b; });
+	std::sort(booleanAddNodes.begin(), booleanAddNodes.end(), [](int a, int b) { return a > b; });
 
 	for (int boolAddId : booleanAddNodes)
 	{
