@@ -2897,7 +2897,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			maxNodeId = nodeId;
 		}
 		QStringList parts = par->Get<QString>(paramName).split(',');
-		if (parts.size() == 5 && parts[3].toInt() == 0)
+		if (parts.size() >= 6 && parts[3].toInt() == 0)
 		{
 			rootNodeId = nodeId;
 		}
