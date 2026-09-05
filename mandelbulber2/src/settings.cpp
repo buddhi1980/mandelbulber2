@@ -2903,6 +2903,14 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 	}
 
+	// In hybrid mode, primitives need their own booleanAdd root as a sibling
+	// to the hybrid fractal root. Reset rootNodeId so the first primitive
+	// creates a fresh booleanAdd root with parentId=0.
+	if (hybridMode && rootNodeId > 0)
+	{
+		rootNodeId = -1;
+	}
+
 	// Attach each primitive to the node tree.
 	// A primitive is included if it has any parameter in the file OR is currently enabled.
 	// Generate unique userObjectId for primitives that don't have explicit object_id in file.
