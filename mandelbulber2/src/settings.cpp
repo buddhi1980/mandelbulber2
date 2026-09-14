@@ -3127,14 +3127,173 @@ void cSettings::FlattenBooleanAddGroups(
 		if (type == enumNodeType::booleanAdd) booleanAddNodes.append(id);
 	}
 
-	// Process booleanAdd nodes bottom-up (deepest first) to avoid parent chain issues.
-	// For each booleanAdd node: reparent its children to its parent, then delete it.
-	// booleanSub/booleanMul children are promoted but their subtrees stay intact.
-	std::sort(booleanAddNodes.begin(), booleanAddNodes.end(), [](int a, int b) { return a > b; });
+	// Helper lambda: query current children of a node from the parameter container
+	auto getChildren = [&](int nodeId) -> QList<sNodeInfo>
+	{
+		QList<sNodeInfo> children;
+		QStringList currentParams = par->GetListOfParameters();
+		for (const QString &pn : currentParams)
+		{
+			if (!pn.startsWith("node_") || !pn.endsWith("_definition")) continue;
+			int cnId = pn.section('_', 1, 1).toInt();
+			QString cDef = par->Get<QString>(pn);
+			QStringList cParts = cDef.split(',');
+			if (cParts.size() < 5) continue;
+			int cParentId = cParts[3].toInt();
+			if (cParentId == nodeId)
+			{
+				enumNodeType cType = static_cast<enumNodeType>(cParts[2].toInt());
+				children.append({cnId, cType, cParentId});
+			}
+		}
+		return children;
+	};
+
+	// Helper lambda: update a node's parent in the nodes list
+	auto updateNodeParent = [&](int nodeId, int newParentId)
+	{
+		for (auto &n : nodes)
+		{
+			if (n.id == nodeId)
+			{
+				n.parentId = newParentId;
+				break;
+			}
+		}
+	};
+
+	// Helper: check if any descendant of a node is booleanSub or booleanMul.
+	// Returns true if a blocking descendant exists, false otherwise.
+	auto hasBlockingDescendant = [&](int nodeId) -> bool
+	{
+		// BFS through children
+		QList<int> queue;
+		QSet<int> visited;
+		// Seed with direct children
+		QStringList currentParams = par->GetListOfParameters();
+		for (const QString &pn : currentParams)
+		{
+			if (!pn.startsWith("node_") || !pn.endsWith("_definition")) continue;
+			int cnId = pn.section('_', 1, 1).toInt();
+			QString cDef = par->Get<QString>(pn);
+			QStringList cParts = cDef.split(',');
+			if (cParts.size() < 5) continue;
+			int cParentId = cParts[3].toInt();
+			if (cParentId == nodeId)
+			{
+				queue.append(cnId);
+			}
+		}
+		while (!queue.isEmpty())
+		{
+			int current = queue.takeFirst();
+			if (visited.contains(current)) continue;
+			visited.insert(current);
+			// Find this node's type
+			for (const auto &n : nodes)
+			{
+				if (n.id == current)
+				{
+					enumNodeType nType = n.type;
+					if (nType == enumNodeType::booleanSub || nType == enumNodeType::booleanMul)
+					{
+						return true;
+					}
+					// Only recurse into booleanAdd nodes (skip fractals/primitives)
+					if (nType == enumNodeType::booleanAdd)
+					{
+						// Find this node's children
+						for (const QString &pn : currentParams)
+						{
+							if (!pn.startsWith("node_") || !pn.endsWith("_definition")) continue;
+							int cnId = pn.section('_', 1, 1).toInt();
+							QString cDef = par->Get<QString>(pn);
+							QStringList cParts = cDef.split(',');
+							if (cParts.size() < 5) continue;
+							int cParentId = cParts[3].toInt();
+							if (cParentId == current && !visited.contains(cnId))
+							{
+								queue.append(cnId);
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		return false;
+	};
+
+	// Phase 1: Identify which booleanAdd nodes can be flattened and where they go.
+	// Collect booleanAdd nodes that will be flattened under the same booleanSub parent.
+	struct sFlattenGroup
+	{
+		int targetParentId;
+		QList<int> boolAddIds;
+	};
+	QMap<int, sFlattenGroup> flattenGroups;
+	QSet<int> flattenableBoolAdds;
+
+	// Helper: recursively collect all booleanAdd descendants of a node
+	auto collectBoolAddDescendants = [&](int nodeId) -> QList<int>
+	{
+		QList<int> result;
+		QList<int> queue;
+		// Seed with direct children
+		QStringList currentParams = par->GetListOfParameters();
+		for (const QString &pn : currentParams)
+		{
+			if (!pn.startsWith("node_") || !pn.endsWith("_definition")) continue;
+			int cnId = pn.section('_', 1, 1).toInt();
+			QString cDef = par->Get<QString>(pn);
+			QStringList cParts = cDef.split(',');
+			if (cParts.size() < 5) continue;
+			int cParentId = cParts[3].toInt();
+			if (cParentId == nodeId)
+			{
+				queue.append(cnId);
+			}
+		}
+		while (!queue.isEmpty())
+		{
+			int current = queue.takeFirst();
+			// Find this node's type
+			for (const auto &n : nodes)
+			{
+				if (n.id == current)
+				{
+					enumNodeType nType = n.type;
+					if (nType == enumNodeType::booleanAdd)
+					{
+						result.append(current);
+					}
+					// Only recurse into booleanAdd nodes
+					if (nType == enumNodeType::booleanAdd)
+					{
+						for (const QString &pn : currentParams)
+						{
+							if (!pn.startsWith("node_") || !pn.endsWith("_definition")) continue;
+							int cnId = pn.section('_', 1, 1).toInt();
+							QString cDef = par->Get<QString>(pn);
+							QStringList cParts = cDef.split(',');
+							if (cParts.size() < 5) continue;
+							int cParentId = cParts[3].toInt();
+							if (cParentId == current)
+							{
+								queue.append(cnId);
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		return result;
+	};
 
 	for (int boolAddId : booleanAddNodes)
 	{
-		// Find this node's parent
+		// Find this node's current parent from the nodes list
 		int parentId = 0;
 		for (const auto &n : nodes)
 		{
@@ -3144,15 +3303,212 @@ void cSettings::FlattenBooleanAddGroups(
 				break;
 			}
 		}
+
+		// Check if any descendant is booleanSub/booleanMul.
+		// If so, we CANNOT flatten because it would change the hierarchy of the booleanSub.
+		if (hasBlockingDescendant(boolAddId))
+		{
+			continue;
+		}
+
+		flattenableBoolAdds.insert(boolAddId);
+
+		if (parentId != 0)
+		{
+			// Check if parent is booleanSub/booleanMul (needs a wrapper)
+			bool parentIsBlocking = false;
+			for (const auto &n : nodes)
+			{
+				if (n.id == parentId)
+				{
+					if (n.type == enumNodeType::booleanSub || n.type == enumNodeType::booleanMul)
+					{
+						parentIsBlocking = true;
+					}
+					break;
+				}
+			}
+			if (parentIsBlocking)
+			{
+				// Collect ALL booleanAdd descendants recursively
+				QList<int> descendants = collectBoolAddDescendants(boolAddId);
+				// Add the node itself and all descendants to the flatten group
+				flattenGroups[parentId].boolAddIds.append(boolAddId);
+				for (int descId : descendants)
+				{
+					if (!flattenGroups[parentId].boolAddIds.contains(descId))
+					{
+						flattenGroups[parentId].boolAddIds.append(descId);
+					}
+				}
+			}
+		}
+	}
+
+	// Phase 2: Process flatten groups - flatten booleanAdd chain under booleanSub.
+	// IMPORTANT: Preserve operand order of booleanSub!
+	// booleanSub(firstChild, secondChild) means firstChild - secondChild.
+	// We must keep the first child of booleanSub as the first operand.
+	for (auto [targetParentId, group] : flattenGroups.asKeyValueRange())
+	{
+		// Find the first child of the booleanSub parent (this is the first operand).
+		// We need to check if the first child is part of the flatten group.
+		QList<sNodeInfo> parentChildren = getChildren(targetParentId);
+		int firstChildId = parentChildren.isEmpty() ? 0 : parentChildren.first().id;
+
+		// Check if firstChild is in the flatten group
+		bool firstChildIsFlattenable = flattenableBoolAdds.contains(firstChildId);
+
+		if (firstChildIsFlattenable)
+		{
+			// The first child is a booleanAdd that will be flattened.
+			// We need to keep it as the first child of booleanSub, but flatten its children.
+			// Collect all children from ALL booleanAdd nodes in the group (EXCEPT firstChild)
+			QList<int> allChildren;
+			for (int boolAddId : group.boolAddIds)
+			{
+				if (boolAddId == firstChildId)
+				{
+					continue;
+				}
+				QList<sNodeInfo> children = getChildren(boolAddId);
+				for (const auto &n : children)
+				{
+					allChildren.append(n.id);
+				}
+			}
+
+			// Reparent all children (from non-first booleanAdd nodes) to the firstChild
+			// Only reparent non-booleanAdd nodes (fractals/primitives), not other booleanAdd nodes
+			for (int childId : allChildren)
+			{
+				// Skip booleanAdd nodes - they will be deleted
+				bool isBoolAdd = false;
+				for (const auto &n : nodes)
+				{
+					if (n.id == childId && n.type == enumNodeType::booleanAdd)
+					{
+						isBoolAdd = true;
+						break;
+					}
+				}
+				if (isBoolAdd) continue;
+				{
+					QString def = par->Get<QString>(NodeDefinitionParam(childId));
+					QStringList parts = def.split(',');
+					if (parts.size() >= 4)
+					{
+						parts[3] = QString::number(firstChildId);
+						par->Set(NodeDefinitionParam(childId), parts.join(','));
+						updateNodeParent(childId, firstChildId);
+					}
+				}
+			}
+
+			// Delete all booleanAdd nodes EXCEPT the firstChild
+			for (int boolAddId : group.boolAddIds)
+			{
+				if (boolAddId == firstChildId)
+				{
+					continue;
+				}
+				QString prefix = NodePrefix(boolAddId);
+				for (const QString &pn : allParams)
+				{
+					if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+				}
+			}
+		}
+		else
+		{
+			// The first child is NOT a booleanAdd (e.g., a primitive).
+			// Create a new booleanAdd wrapper for the flattened children.
+			// Insert it as the SECOND child of booleanSub (after the first operand).
+			const int wrapperId = ++maxNodeId;
+			InitNodeParams(wrapperId, par);
+			par->Set(NodeDefinitionParam(wrapperId),
+				MakeNodeDefinition(
+					"boolean", wrapperId, enumNodeType::booleanAdd, targetParentId, nextGroupObjectId++));
+			par->Set(NodePrefix(wrapperId) + "material", -1);
+
+			// Collect all children from all booleanAdd nodes in this group
+			QList<int> allChildren;
+			for (int boolAddId : group.boolAddIds)
+			{
+				QList<sNodeInfo> children = getChildren(boolAddId);
+				for (const auto &n : children)
+				{
+					allChildren.append(n.id);
+				}
+			}
+
+			// Reparent all children to the wrapper
+			for (int childId : allChildren)
+			{
+				QString def = par->Get<QString>(NodeDefinitionParam(childId));
+				QStringList parts = def.split(',');
+				if (parts.size() >= 4)
+				{
+					parts[3] = QString::number(wrapperId);
+					par->Set(NodeDefinitionParam(childId), parts.join(','));
+					updateNodeParent(childId, wrapperId);
+				}
+			}
+
+			// Delete all booleanAdd nodes in this group
+			for (int boolAddId : group.boolAddIds)
+			{
+				QString prefix = NodePrefix(boolAddId);
+				for (const QString &pn : allParams)
+				{
+					if (pn.startsWith(prefix)) par->DeleteParameter(pn);
+				}
+			}
+		}
+	}
+
+	// Remove processed booleanAdd nodes from flattenableBoolAdds (they were handled in Phase 2)
+	for (auto [targetParentId, group] : flattenGroups.asKeyValueRange())
+	{
+		for (int boolAddId : group.boolAddIds)
+		{
+			flattenableBoolAdds.remove(boolAddId);
+		}
+	}
+
+	// Phase 3: Process remaining flattenable booleanAdd nodes (top-level or under non-blocking
+	// parent).
+	std::sort(booleanAddNodes.begin(), booleanAddNodes.end(), [](int a, int b) { return a > b; });
+
+	for (int boolAddId : booleanAddNodes)
+	{
+		if (!flattenableBoolAdds.contains(boolAddId))
+		{
+			continue;
+		}
+
+		// Find this node's current parent from the nodes list
+		int parentId = 0;
+		for (const auto &n : nodes)
+		{
+			if (n.id == boolAddId)
+			{
+				parentId = n.parentId;
+				break;
+			}
+		}
+
 		if (parentId == 0)
 		{
 			// Top-level booleanAdd: create a replacement root
 			QString boolAddDef = par->Get<QString>(NodeDefinitionParam(boolAddId));
 			QStringList boolAddParts = boolAddDef.split(',');
 			QString groupName = "fractals";
-			for (const auto &n : nodes)
+			// Query actual children from the container (not the static nodes list)
+			QList<sNodeInfo> children = getChildren(boolAddId);
+			for (const auto &n : children)
 			{
-				if (n.parentId == boolAddId && n.type == enumNodeType::primitive)
+				if (n.type == enumNodeType::primitive)
 				{
 					groupName = "primitives";
 					break;
@@ -3178,17 +3534,15 @@ void cSettings::FlattenBooleanAddGroups(
 			}
 
 			// Reparent all direct children of this booleanAdd to the new root
-			for (const auto &n : nodes)
+			for (const auto &n : children)
 			{
-				if (n.parentId == boolAddId)
+				QString def = par->Get<QString>(NodeDefinitionParam(n.id));
+				QStringList parts = def.split(',');
+				if (parts.size() >= 4)
 				{
-					QString def = par->Get<QString>(NodeDefinitionParam(n.id));
-					QStringList parts = def.split(',');
-					if (parts.size() >= 4)
-					{
-						parts[3] = QString::number(newRootId);
-						par->Set(NodeDefinitionParam(n.id), parts.join(','));
-					}
+					parts[3] = QString::number(newRootId);
+					par->Set(NodeDefinitionParam(n.id), parts.join(','));
+					updateNodeParent(n.id, newRootId);
 				}
 			}
 
@@ -3202,18 +3556,17 @@ void cSettings::FlattenBooleanAddGroups(
 			continue;
 		}
 
-		// Non-root booleanAdd: reparent its children to its parent
-		for (const auto &n : nodes)
+		// Non-root booleanAdd with non-blocking parent: reparent its children to its parent
+		QList<sNodeInfo> boolAddChildren = getChildren(boolAddId);
+		for (const auto &n : boolAddChildren)
 		{
-			if (n.parentId == boolAddId)
+			QString def = par->Get<QString>(NodeDefinitionParam(n.id));
+			QStringList parts = def.split(',');
+			if (parts.size() >= 4)
 			{
-				QString def = par->Get<QString>(NodeDefinitionParam(n.id));
-				QStringList parts = def.split(',');
-				if (parts.size() >= 4)
-				{
-					parts[3] = QString::number(parentId);
-					par->Set(NodeDefinitionParam(n.id), parts.join(','));
-				}
+				parts[3] = QString::number(parentId);
+				par->Set(NodeDefinitionParam(n.id), parts.join(','));
+				updateNodeParent(n.id, parentId);
 			}
 		}
 
