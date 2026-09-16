@@ -1,0 +1,33 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+camera 3,26692276122184 -6,08218733402291 1,02238749446388;
+camera_rotation 28,4678002835648 -7,29247709443713 0,550790803262199;
+camera_top -0,0520517366276556 0,116163125610472 0,991865285692796;
+detail_level 2;
+DOF_monte_carlo true;
+fov 26,565;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_is_defined true;
+mat2_perlin_noise_color_enable true;
+mat2_perlin_noise_displacement_enable true;
+mat2_perlin_noise_enable true;
+mat2_perlin_noise_iterations 4;
+mat2_perlin_noise_period 0,015625 0,015625 1;
+mat2_specular_plastic_enable false;
+mat2_surface_color_gradient 0 a99239 999 1a8ad4 1999 f7e1b2 2999 47edcf 3999 1484db 5000 d2ab41 5999 9bb57e 7000 2e385e 7999 7f4777 9000 5665d5;
+MC_soft_shadows_enable true;
+primitive_water_1_enabled true;
+primitive_water_1_iterations 3;
+primitive_water_1_length 0,4;
+primitive_water_1_material_id 2;
+primitive_water_1_position 0 0 -1,18030563928817;
+primitive_water_1_relative_amplitude 0,8;
+primitive_water_1_rotation 0 0 49,399;
+raytraced_reflections true;
+target -0,0427410231419442 0,0216328817027162 0,133846888430587;

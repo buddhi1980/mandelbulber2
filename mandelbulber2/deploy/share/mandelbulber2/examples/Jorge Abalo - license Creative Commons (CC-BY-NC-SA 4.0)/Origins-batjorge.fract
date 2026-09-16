@@ -1,0 +1,97 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_color a500 a500 a500;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+background_3_colors_enable false;
+background_color_1 4d00 5c00 b300;
+background_color_2 ed00 e000 e000;
+background_color_3 2700 0500 0100;
+background_texture_offset_x -0,512;
+basic_fog_visibility 7,81014490127563;
+camera -3,81644558633268 -11,4886391549599 5,32307219047331;
+camera_distance_to_target 10,5453542640685;
+camera_rotation -14,4011772867591 -21,9894636582578 -27,2878155836043;
+camera_top -0,361292469639104 0,436334318440878 0,824063173508446;
+DE_factor 0,5;
+detail_level 1,5;
+DOF_blur_opacity 5;
+DOF_enabled true;
+DOF_focus 10,2673025131226;
+DOF_max_radius 512;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_radius 5;
+fake_lights_color b400 4300 0b00;
+fake_lights_enabled true;
+fake_lights_max_iter 16;
+fake_lights_orbit_trap 1,1857011917237 9,74309652892425 -2;
+fake_lights_orbit_trap_size 0,125;
+fake_lights_relative_center true;
+fake_lights_thickness 1,25;
+fake_lights_visibility 0,762454523641213;
+fake_lights_visibility_size 2,5;
+file_background /home/jorge/Imágenes/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+fill_light_color 0b00 0b00 0b00;
+formula_1 1053;
+formula_2 1106;
+formula_3 1138;
+formula_4 131;
+fov 12,6935560634348;
+fractal_enable_2 false;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 800;
+image_width 600;
+keyframe_last_to_render 0;
+light1_color ee00 ee00 ee00;
+light1_is_defined true;
+light1_rotation 30,63 41,87 0;
+mat1_coloring_palette_offset 0,0175;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_i_start_value 4;
+mat1_fractal_coloring_initial_color_value 0,5;
+mat1_fractal_coloring_iter_add_scale 0,9;
+mat1_fractal_coloring_iter_group_enabled_false true;
+mat1_fractal_coloring_iter_scale 1;
+mat1_fractal_coloring_iter_scale_enabled_false true;
+mat1_fractal_coloring_rad_weight 0,3;
+mat1_fractal_coloring_xyz_000 2,1 1 1,6;
+mat1_fractal_coloring_xyz_div_1e13_false true;
+mat1_fractal_coloring_xyz_iter_scale 0,5;
+mat1_iridescence_subsurface_thickness 0,125;
+mat1_is_defined true;
+mat1_specular 8;
+mat1_specular_color ed00 e000 e000;
+mat1_specular_metallic 1,6;
+mat1_specular_metallic_roughness 0,4;
+mat1_specular_metallic_width 1,6;
+mat1_specular_width 0,16;
+mat1_surface_color 4400 4400 4700;
+mat1_surface_color_gradient 0 ffc048 2313 ff8077 3743 54a9d2 6229 ff8aff 8457 d2ffff;
+MC_soft_shadows_enable true;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+target -1,38450941352842 -2,01768102821365 1,37451103892293;
+use_default_bailout false;
+[fractal_1]
+transf_function_enabled_false true;
+transf_function_enabledx_false true;
+transf_scale_1 1,8;
+transf_scaleA_1 0,7;
+transf_scaleB_1 1,4;
+transf_scaleC_1 1,6;
+[fractal_2]
+analyticDE_enabled_false true;
+power 8;
+transf_addition_constantA_000 0,3 0 0;
+[fractal_3]
+power 8;
+transf_rotation 0 90 0;
+transf_scaleA_0 0,1;
+[fractal_4]
+power 8;
+transf_rotation 0 90 0;
+transf_scaleA_0 0,4;

@@ -1,0 +1,48 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+anim_keyframe_dir /run/media/jorge/EVO-500/Mandelbulb Tails-nebula/;
+camera 6,37313138647957 -7,95822490768466 1,70576099320281;
+camera_distance_to_target 10,3372998368315;
+camera_rotation 38,6885574887511 -9,49783307493405 -98,5499999999999;
+camera_top -0,756545625545982 -0,637288840806894 -0,146634408820865;
+detail_level 2;
+dont_add_c_constant_1 true;
+formula_1 251;
+fov 20;
+frames_per_keyframe 120;
+image_proportion 1;
+image_width 600;
+keyframe_animation_loop true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+nebula_brightness 3,26163722321596;
+nebula_grid_domain_enabled true;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 8289 ffffff;
+nebula_mode true;
+nebula_samples_per_pixel 2000;
+nebula_x_grid_size 6,4;
+nebula_y_grid_size 0,4;
+raytraced_reflections true;
+[fractal_1]
+beta_angle_offset 152,25;
+power 8;
+transf_function_enabled_false true;
+transf_function_enabledA_false true;
+transf_function_enabledAz_false true;
+transf_function_enabledC_false true;
+transf_function_enabledD_false true;
+transf_function_enabledP_false true;
+transf_offset_222 1,9 2 2;
+transf_offsetC_0 0,7;
+transf_offsetD_0 0,6;
+[keyframes]
+frame;framesPerKeyframe;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;fractal0_beta_angle_offset
+0;120;6,37313138647957;-7,95822490768466;1,70576099320281;0;0;0;-0,756545625545982;-0,637288840806894;-0,146634408820865;45
+1;120;6,37313138647957;-7,95822490768466;1,70576099320281;0;0;0;-0,756545625545982;-0,637288840806894;-0,146634408820865;90
+2;120;6,37313138647957;-7,95822490768466;1,70576099320281;0;0;0;-0,756545625545982;-0,637288840806894;-0,146634408820865;135
+3;120;6,37313138647957;-7,95822490768466;1,70576099320281;0;0;0;-0,756545625545982;-0,637288840806894;-0,146634408820865;180
+interpolation;morphAkima;morphAkima;morphAkima;morphAkimaAngle

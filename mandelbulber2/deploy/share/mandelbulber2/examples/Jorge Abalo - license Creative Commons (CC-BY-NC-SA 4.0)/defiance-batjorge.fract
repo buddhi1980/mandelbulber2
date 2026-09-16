@@ -1,0 +1,86 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+aux_light_place_behind true;
+basic_fog_color 1a00 1d00 1d00;
+basic_fog_enabled true;
+basic_fog_visibility 0,222933977842331;
+camera 9,59585267511353 -16,502360865058 2,11217734361128;
+camera_distance_to_target 0,338294700660501;
+camera_rotation -40,9246943224705 -16,7980845522007 9,87319169503656;
+camera_top 0,316066685392386 0,102802889731542 0,943150791892747;
+DE_factor 0,5;
+detail_level 0,4;
+DOF_enabled true;
+DOF_focus 0,324903398752213;
+DOF_min_samples 12;
+DOF_monte_carlo true;
+DOF_samples 200;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+fill_light_color 1100 1100 1100;
+formula_1 217;
+formula_2 1620;
+formula_3 1607;
+fov 15,6784299651967;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 3000;
+image_proportion 1;
+image_width 3000;
+light1_color ec00 ec00 ec00;
+light1_is_defined true;
+light1_rotation 46,1 72,51 0;
+light2_color 6b00 9800 b000;
+light2_decayFunction 1/r3;
+light2_enabled true;
+light2_intensity 7,43914473116088e-07;
+light2_is_defined true;
+light2_position 9,80177496832964 -16,2574583566263 2,01303638875398;
+light2_volumetric true;
+light2_volumetric_visibility 128;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflections_color de00 de00 de00;
+mat1_specular 1;
+mat1_specular_color ef00 ef00 ef00;
+mat1_specular_metallic 1,8;
+mat1_specular_width 0,01;
+mat1_surface_color 9000 a600 b100;
+mat1_surface_color_gradient 0 2a2b25 2307 dfe0ed 3723 343436 5771 42443b;
+mat1_transparency_index_of_refraction 6;
+MC_soft_shadows_enable true;
+raytraced_reflections true;
+reflections_max 1;
+target 9,80800211428721 -16,2576620411393 2,01441024522907;
+use_default_bailout false;
+volumetric_light_DE_Factor 4;
+[fractal_1]
+transf_addition_constant_0777 0,7 1 1;
+transf_offset_000 1 1 0;
+[fractal_2]
+transf_function_enabledD_false true;
+transf_function_enabledK_false true;
+transf_function_enabledN_false true;
+transf_function_enabledO_false true;
+transf_function_enabledP_false true;
+transf_offset_0 -0,2;
+transf_offset_01 0,125;
+transf_offset_05 0,9;
+transf_offset_1 1,5;
+transf_offsetA_0 0,24;
+transf_offsetA_000 0 1,6 0;
+transf_offsetA_1 0,8;
+transf_offsetE_0 -2;
+transf_offsetF_0 0,08;
+transf_scale3D_000 0 0 0,5;
+transf_scale3D_111 2 2 0,9;
+[fractal_3]
+analyticDE_enabled_false true;
+transf_addition_constant_111 0,52 0,8 0,025;
+transf_function_enabledK_false true;
+transf_function_enabledO_false true;
+transf_scale3D_000 0 -0,5 0;
+transf_scale_0 3,8;

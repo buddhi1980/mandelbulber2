@@ -1,0 +1,70 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+background_color_1 0000 1100 1d00;
+background_color_2 ec00 e500 d300;
+background_color_3 2700 0100 0100;
+basic_fog_visibility 2,2000572681427;
+camera 3,54256583042059 -4,60813219419798 -0,654580400296432;
+camera_distance_to_target 1,23436561510945;
+camera_rotation 64,3203167498653 31,3690996630483 -65,5069829153138;
+camera_top -0,1998490278737 -0,913649839552741 0,353983526090109;
+DE_factor 0,75;
+detail_level 2;
+DOF_blur_opacity 2;
+DOF_enabled true;
+DOF_focus 1,2307094335556;
+DOF_max_noise 0,9;
+DOF_max_radius 40;
+DOF_MC_global_illumination true;
+DOF_min_samples 16;
+DOF_monte_carlo true;
+DOF_radius 6;
+DOF_samples 200;
+dont_add_c_constant_1 true;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+formula_1 9;
+formula_2 17;
+formula_iterations_1 16;
+fov 16,4167550604308;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_proportion 2;
+keyframe_last_to_render 0;
+light1_intensity 0,458527189280695;
+light1_is_defined true;
+light1_rotation -64,77 38,98 0;
+mat1_iridescence_enabled true;
+mat1_is_defined true;
+mat1_reflectance 0,8;
+mat1_specular 1;
+mat1_specular_width 0,01;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_transparency_index_of_refraction 1,6;
+mat1_use_colors_from_palette false;
+MC_soft_shadows_enable true;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+raytraced_reflections true;
+reflections_max 1;
+repeat_from 2;
+target 2,59272230803201 -4,15141812698192 -0,0120323355199926;
+use_default_bailout false;
+[fractal_1]
+mandelbox_folding_fixed_radius 1,04;
+mandelbox_folding_min_radius 0;
+mandelbox_scale 0,991;
+[fractal_2]
+mandelbox_folding_fixed_radius 3,1;
+mandelbox_folding_limit 0,2;
+mandelbox_folding_min_radius 2,2;
+mandelbox_folding_value 3,6;
+mandelbox_rotation_main 90 0 0;
+mandelbox_scale 2,13;
+mandelbox_sharpness 3,4;
+transf_offset_0005 0,0025;
+transf_offset_1105 1 2,94 1,04;
+transf_rotation -90 0 0;
+transf_scale_3 2;

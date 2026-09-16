@@ -1,0 +1,97 @@
+# Mandelbulber settings file
+# version 2.33
+# only modified parameters
+[main_parameters]
+ambient_occlusion_color e800 e800 e800;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+anim_keyframe_dir /run/media/jorge/EVO-500/Tbenesi_anim/t/;
+background_3_colors_enable false;
+background_color_1 0f00 0f00 0f00;
+basic_fog_color a500 c600 c600;
+basic_fog_enabled true;
+basic_fog_visibility 13,5715646743774;
+camera_rotation 26,5650511770779 -16,6015495990203 -0,102714068764292;
+camera_top -0,129780112 0,2555506 0,958314;
+detail_level 0,625;
+DOF_monte_carlo true;
+fake_lights_color 4300 1f00 2000;
+fake_lights_color_2 1000 2800 3a00;
+fake_lights_color_2_enabled true;
+fake_lights_enabled true;
+fake_lights_intensity 0,75;
+fake_lights_max_iter 16;
+fake_lights_orbit_trap -2 0 -0,9;
+fake_lights_orbit_trap_shape sphere;
+fake_lights_orbit_trap_size 0,125;
+fake_lights_relative_center true;
+fake_lights_thickness 1,75;
+fake_lights_visibility 0,5;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+fill_light_color 0c00 0c00 0c00;
+formula_1 1138;
+formula_2 1011;
+formula_3 131;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1920;
+image_width 1200;
+keyframe_last_to_render 0;
+light1_color e900 e900 f200;
+light1_is_defined true;
+light1_rotation 54,7 35,55 0;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_color fc00 fc00 fc00;
+mat1_specular_metallic 1,6;
+mat1_specular_width 0,01;
+mat1_surface_color 5b00 6100 7600;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+mat2_is_defined true;
+mat2_perlin_noise_color_enable true;
+mat2_perlin_noise_displacement_enable true;
+mat2_perlin_noise_displacement_invert true;
+mat2_perlin_noise_enable true;
+mat2_perlin_noise_period 0,015625 0,015625 1;
+mat2_perlin_noise_value_offset -0,1;
+mat2_specular 1,25;
+mat2_specular_width 0,01;
+mat2_surface_color_gradient 0 212e42 2886 c3b8b8 4946 69f6ff 6602 c8d5d0;
+MC_denoiser_enable true;
+MC_denoiser_strength 0;
+MC_soft_shadows_enable true;
+primitive_water_1_anim_progression_speed 0,25;
+primitive_water_1_anim_speed 0,25;
+primitive_water_1_enabled true;
+primitive_water_1_iterations 2;
+primitive_water_1_length 0,8;
+primitive_water_1_material_id 2;
+primitive_water_1_position 0 0 -2,47653812256519;
+primitive_water_1_relative_amplitude 0,4;
+primitive_water_1_rotation 0 0 90;
+primitive_water_1_wave_from_objects_enable true;
+primitive_water_1_wave_from_objects_relative_amplitude 1;
+[fractal_1]
+transf_rotation_enabled true;
+transf_scaleB_0 1,2;
+[fractal_2]
+power 7;
+transf_rotation 0 67,725 0;
+transf_rotation_enabled true;
+transf_scale3D_444 2 2 2;
+transf_scaleB_0 1,2;
+[fractal_3]
+power 7;
+transf_scaleA_0 -1,4;
+[keyframes]
+frame;framesPerKeyframe;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;fractal1_transf_rotation_x;fractal1_transf_rotation_y;fractal1_transf_rotation_z;main_primitive_water_1_anim_progression_speed;main_primitive_water_1_anim_speed
+0;100;3;-6;2;0;0;0;-0,1277753;0,2555506;0,958314;0;22,5;0;0,25;0,25
+1;100;3;-6;2;0;0;0;-0,1277753;0,2555506;0,958314;0;45;0;0,25;0,25
+2;100;3;-6;2;0;0;0;-0,1297753;0,2555506;0,958314;0;67,5;0;0,25;0,25
+3;100;3;-6;2;0;0;0;-0,1237753;0,2555506;0,958314;0;90;0;0,25;0,25
+4;100;3;-6;2;0;0;0;-0,1277753;0,2555506;0,958314;0;112,5;0;0,25;0,25
+5;100;3;-6;2;0;0;0;-0,1247753;0,2555506;0,958314;0;135;0;0,25;0,25
+6;100;3;-6;2;0;0;0;-0,1277753;0,2555506;0,958314;0;157,5;0;0,25;0,25
+7;100;3;-6;2;0;0;0;-0,1277753;0,2555506;0,958314;0;180;0;0,25;0,25
+interpolation;morphAkima;morphAkima;morphAkima;morphAkimaAngle;morphAkima;morphAkima

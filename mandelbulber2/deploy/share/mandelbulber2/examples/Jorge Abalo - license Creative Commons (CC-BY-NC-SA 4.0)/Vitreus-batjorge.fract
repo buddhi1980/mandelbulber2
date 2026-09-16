@@ -1,0 +1,65 @@
+# Mandelbulber settings file
+# version 2.34
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+background_3_colors_enable false;
+background_color_1 0c00 0c00 0c00;
+brightness 1,1;
+camera 1,69091579410024 -0,931180589080162 0,685368747991132;
+camera_distance_to_target 2,30815494060989;
+camera_rotation 63,6796631757407 -25,3435289064656 11,6422194557131;
+camera_top -0,286299703763324 0,366764758317725 0,885164443299195;
+DE_factor 0,5;
+detail_level 2;
+DOF_enabled true;
+DOF_focus 2,27396202087402;
+DOF_monte_carlo true;
+fake_lights_color 2b00 0f00 1800;
+fake_lights_enabled true;
+fake_lights_max_iter 16;
+fake_lights_visibility_size 10;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+fill_light_color 0d00 0d00 0d00;
+fog_color_2 5e00 5e00 4f00;
+formula_1 227;
+fov 0,947238477063965;
+glow_enabled false;
+hdr true;
+image_proportion 3;
+image_width 900;
+keyframe_last_to_render 0;
+light1_color f300 f300 f300;
+light1_is_defined true;
+light1_rotation -78,52 58,2 0;
+mat1_coloring_palette_offset 0,2525;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_initial_color_value 0,6;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_width 0,01;
+mat1_surface_color_gradient 0 b47bb3 2313 0bb47b 3743 e61e61 6229 bcfe75 8457 53782d;
+mat1_transparency_color ef00 ef00 ef00;
+mat1_transparency_of_interior 0,0625;
+mat1_transparency_of_surface 0,9;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+raytraced_reflections true;
+target -0,178838023738209 -0,00626478300634244 -0,302624491973204;
+use_default_bailout false;
+volumetric_fog_colour_1_distance 0,442684373995566;
+volumetric_fog_colour_2_distance 0,885368747991132;
+volumetric_fog_density 2;
+volumetric_fog_distance_factor 0,885368747991132;
+volumetric_light_DE_Factor 4;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 0 0 0,2 0;
+transf_function_enabled_false true;
+transf_function_enabledB_false true;
+transf_offset_000 0,1 0 -1,4;
+transf_offset_100 0,4 0 -1;
+transf_offset_2 0,04;
+transf_offsetC_0 0,1;
+transf_scale_1 0,6;
