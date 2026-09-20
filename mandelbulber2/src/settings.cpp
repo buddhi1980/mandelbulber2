@@ -3043,7 +3043,13 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			continue;
 		}
 
-		// Create a boolean node wrapping the primitive and attach it to the current root
+		// Create a boolean node wrapping the primitive and attach it to the current root.
+		// For RevSUB (primBooleanOperatorRevSUB=3), the operand order is reversed:
+		// primitive - oldRoot instead of oldRoot - primitive.
+		// We achieve this by adjusting displayOrder: children are sorted by displayOrder
+		// (ascending) then nodeId (ascending), and processed in reverse order (last = first).
+		// By giving the primitive a higher displayOrder than the old root, the primitive
+		// is processed first and becomes the left operand (A) in booleanSub(A, B).
 		const int boolNodeId = ++maxNodeId;
 		const int primitiveNodeId = ++maxNodeId;
 		const int primitiveBoolOp = par->IfExists(primitive.Name("boolean_operator"))
@@ -3075,6 +3081,35 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		if (!isPrimitiveEnabled)
 		{
 			par->Set(NodePrefix(primitiveNodeId) + "enabled", false);
+		}
+
+		// For RevSUB (primBooleanOperatorRevSUB=3), the operand order is reversed compared
+		// to standard SUB. In the old Mandelbulber2 system:
+		// - SUB (2) = B-A where B=primitive, A=fractal → primitive - fractal
+		// - RevSUB (3) = A-B → fractal - primitive (reversed)
+		// Children are sorted by displayOrder (asc) then nodeId (asc), processed in reverse.
+		// The last child in sorted order is processed first (becomes left operand A).
+		// For RevSUB: old root gets displayOrder=1 (processed first → left operand = fractal),
+		// primitive gets displayOrder=0 (processed second → right operand = primitive).
+		// Result: booleanSub(fractal, primitive) = fractal - primitive.
+		if (primitiveBoolOp == int(primBooleanOperatorRevSUB))
+		{
+			// Set old root's displayOrder to 1 (higher = processed first in reverse)
+			QString rootDef = par->Get<QString>(NodeDefinitionParam(rootNodeId));
+			QStringList rootParts = rootDef.split(',');
+			if (rootParts.size() >= 6)
+			{
+				rootParts[5] = "1";
+				par->Set(NodeDefinitionParam(rootNodeId), rootParts.join(','));
+			}
+			// Set primitive's displayOrder to 0 (lower = processed second in reverse)
+			QString primDef = par->Get<QString>(NodeDefinitionParam(primitiveNodeId));
+			QStringList primParts = primDef.split(',');
+			if (primParts.size() >= 6)
+			{
+				primParts[5] = "0";
+				par->Set(NodeDefinitionParam(primitiveNodeId), primParts.join(','));
+			}
 		}
 
 		rootNodeId = boolNodeId;
