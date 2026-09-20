@@ -127,6 +127,16 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 			// subsequent children subtract their contribution.
 			// Uses a smooth transition zone: when childDistance < 1.5 * detailSize,
 			// apply smooth subtraction; otherwise fall back to max(childDist, parentDist).
+
+			if (childDistance < parent->detailSize * 1.5 * 1.5)
+			{
+				// Within the smooth transition zone: clamp to limitDist.
+				parent->closestObjectId = child.closestObjectId;
+				parent->closestObjectSequence = child.closestObjectSequence;
+				parent->transformedPoint = child.transformedPoint;
+				parent->hasTransformedPoint = child.hasTransformedPoint;
+			}
+
 			if (parent->cumulativeDistance >= 1e19)
 			{
 				// First child in subtraction group initializes the result.
@@ -136,7 +146,7 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 				parent->transformedPoint = child.transformedPoint;
 				parent->hasTransformedPoint = child.hasTransformedPoint;
 			}
-			else if (parent->detailSize > 0 && childDistance < parent->detailSize)
+			else if (parent->detailSize > 0 && childDistance < parent->detailSize * 1.5)
 			{
 				// Child is close enough to the parent surface to apply smooth subtraction.
 				const double limit = 1.5;

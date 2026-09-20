@@ -333,6 +333,15 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 #ifdef BOOLEAN_SUB
 		case nodeTypeBooleanSub:
 		{
+			// to preserve rendering of correct material (without noise)
+			if (childDistance < parent->detailSize * 1.5 * 1.5)
+			{
+				parent->closestObjectId = child->closestObjectId;
+				parent->closestObjectSequence = child->closestObjectSequence;
+				parent->transformedPoint = child->transformedPoint;
+				parent->hasTransformedPoint = child->hasTransformedPoint;
+			}
+
 			if (parent->cumulativeDistance >= 1e19f)
 			{
 				parent->cumulativeDistance = childDistance;
@@ -341,7 +350,7 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 				parent->transformedPoint = child->transformedPoint;
 				parent->hasTransformedPoint = child->hasTransformedPoint;
 			}
-			else if (parent->detailSize > 0.0f && childDistance < parent->detailSize)
+			else if (parent->detailSize > 0.0f && childDistance < parent->detailSize * 1.5)
 			{
 				const float limitDist = parent->detailSize * 1.5f;
 
