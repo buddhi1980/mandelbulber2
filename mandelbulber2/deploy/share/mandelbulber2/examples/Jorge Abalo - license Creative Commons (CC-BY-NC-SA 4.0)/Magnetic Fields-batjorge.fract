@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_color e800 e800 e800;
@@ -29,9 +29,6 @@ fake_lights_thickness 1,75;
 fake_lights_visibility 0,5;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0c00 0c00 0c00;
-formula_1 1138;
-formula_2 1011;
-formula_3 131;
 glow_enabled false;
 hybrid_fractal_enable true;
 image_height 1920;
@@ -61,27 +58,36 @@ mat2_surface_color_gradient 0 212e42 2886 c3b8b8 4946 69f6ff 6602 c8d5d0;
 MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition transf_sincos 2,2,1,1,1,2;
+node_0003_definition transf_benesi_t2 3,3,1,1,2,3;
+node_0004_definition modulus_mandelbulb 4,4,1,1,3,4;
+node_0005_definition water #1 5,5,2,0,200,1;
+node_0005_material 2;
+node_0005_position 0 0 -2,47653812256519;
+node_0005_rotation 0 0 90;
 primitive_water_1_anim_progression_speed 0,25;
 primitive_water_1_anim_speed 0,25;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 2;
 primitive_water_1_length 0,8;
-primitive_water_1_material_id 2;
-primitive_water_1_position 0 0 -2,47653812256519;
+primitive_water_1_object_id 200;
 primitive_water_1_relative_amplitude 0,4;
-primitive_water_1_rotation 0 0 90;
 primitive_water_1_wave_from_objects_enable true;
 primitive_water_1_wave_from_objects_relative_amplitude 1;
 [fractal_1]
+formula 1138;
 transf_rotation_enabled true;
 transf_scaleB_0 1,2;
 [fractal_2]
+formula 1011;
 power 7;
 transf_rotation 0 67,725 0;
 transf_rotation_enabled true;
 transf_scale3D_444 2 2 2;
 transf_scaleB_0 1,2;
 [fractal_3]
+formula 131;
 power 7;
 transf_scaleA_0 -1,4;
 [keyframes]

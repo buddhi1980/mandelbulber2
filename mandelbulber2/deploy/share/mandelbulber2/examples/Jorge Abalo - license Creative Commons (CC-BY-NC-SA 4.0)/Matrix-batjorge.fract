@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -30,22 +30,19 @@ fill_light_color 0e00 0e00 0e00;
 fog_color_1 7500 7000 6d00;
 fog_color_2 1d00 3100 1b00;
 fog_color_3 e500 e500 e500;
-formula_1 227;
-formula_2 1614;
 fov 18,6552306031185;
 glow_enabled false;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_color e900 e900 e900;
 light1_is_defined true;
 light1_rotation 95,08 31,25 0;
-mat1_file_reflectance_texture /run/media/jorge/EVO-500/Mandelbulb3Dv199sr37/M3Maps/593.jpg;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 0,6;
-mat1_reflectance_texture_intensity 0,4;
 mat1_reflections_color e600 ef00 de00;
 mat1_rough_surface true;
 mat1_specular 1;
@@ -61,12 +58,16 @@ mat1_texture_mapping_type 1;
 mat1_texture_scale 0,0625 0,0625 0,0625;
 mat1_transparency_index_of_refraction 5;
 mat1_use_colors_from_palette false;
-mat1_use_reflectance_texture true;
 MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition koch_v4 2,2,1,1,1,2;
+node_0003_definition transf_difs_grid_v2 3,3,1,1,2,3;
+node_0004_definition sphere #1 4,4,2,0,200,1;
+node_0004_position -0,0345233721804673 -0,822303195389626 0,417459775843151;
 primitive_sphere_1_enabled true;
-primitive_sphere_1_position -0,0345233721804673 -0,822303195389626 0,417459775843151;
+primitive_sphere_1_object_id 200;
 primitive_sphere_1_radius 0,00390625;
 raytraced_reflections true;
 reflections_max 1;
@@ -76,6 +77,7 @@ volumetric_fog_colour_2_distance 0,122139279786728;
 volumetric_fog_density 4;
 volumetric_fog_distance_factor 0,977114238293824;
 [fractal_1]
+formula 227;
 transf_function_enabled_false true;
 transf_function_enabledC_false true;
 transf_function_enabledD_false true;
@@ -91,6 +93,7 @@ transf_scale_1 1,2;
 transf_scale_3 4,5;
 [fractal_2]
 analyticDE_offset_0 0,1;
+formula 1614;
 transf_function_enabledG_false true;
 transf_function_enabledJ_false true;
 transf_function_enabledM_false true;

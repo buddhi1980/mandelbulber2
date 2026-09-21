@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -23,12 +23,12 @@ fake_lights_visibility_size 10;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0d00 0d00 0d00;
 fog_color_2 5e00 5e00 4f00;
-formula_1 227;
 fov 0,947238477063965;
 glow_enabled false;
 hdr true;
+image_height 1200;
 image_proportion 3;
-image_width 900;
+image_width 1800;
 keyframe_last_to_render 0;
 light1_color f300 f300 f300;
 light1_is_defined true;
@@ -45,6 +45,7 @@ mat1_transparency_color ef00 ef00 ef00;
 mat1_transparency_of_interior 0,0625;
 mat1_transparency_of_surface 0,9;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition koch_v4 1,1,1,0,1,0;
 raytraced_reflections true;
 target -0,178838023738209 -0,00626478300634244 -0,302624491973204;
 use_default_bailout false;
@@ -56,6 +57,7 @@ volumetric_light_DE_Factor 4;
 [fractal_1]
 fold_color_aux_color_enabled_false true;
 fold_color_difs_0000 0 0 0,2 0;
+formula 227;
 transf_function_enabled_false true;
 transf_function_enabledB_false true;
 transf_offset_000 0,1 0 -1,4;

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -7,18 +7,15 @@ ambient_occlusion_mode 1;
 background_rotation 4 5 0;
 background_texture_offset_x 0,512;
 camera 4,39382112661241 -8,93024599854482 0,216551114985944;
-camera_distance_to_target 9,74307019605237;
-camera_rotation 24,6456449010891 2,35329796413868 -0,971127615813903;
-camera_top 0,00171566786271101 -0,0443830175746997 0,999013115146517;
+camera_distance_to_target 9,74317196096121;
+camera_rotation 24,5898364649183 -2,08497310769731 0,00229845623349847;
+camera_top -0,0151026217859544 0,0330988567922142 0,999337969104666;
 detail_level 2;
 DOF_max_noise 0,9;
 DOF_min_samples 18;
 DOF_monte_carlo true;
 DOF_samples 400;
-file_background /home/jorge/Imágenes/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
-formula_1 1619;
-formula_2 607;
 fov 38,7646298801447;
 gamma 0,9;
 glow_enabled false;
@@ -29,8 +26,6 @@ image_width 1200;
 keyframe_last_to_render 0;
 light1_is_defined true;
 light1_rotation -71,64 55,31 0;
-mat1_file_color_texture /run/media/jorge/EVO-500/Mandelbulb3Dv199sr37/M3Maps/591.jpg;
-mat1_file_luminosity_texture /run/media/jorge/EVO-500/Mandelbulb3Dv199sr37/M3Maps/591.jpg;
 mat1_fractal_coloring_aux_color_false true;
 mat1_fractal_coloring_aux_color_weight 2,2;
 mat1_fractal_coloring_extra_color_enabled_false true;
@@ -52,17 +47,19 @@ mat1_surface_color_gradient 0 dac3ac 2307 201f12 3723 cbcbc9 5771 685d52;
 mat1_texture_mapping_type 1;
 mat1_texture_scale 0,125 0,125 0,125;
 mat1_transparency_index_of_refraction 5;
-mat1_use_color_texture true;
 mat1_use_luminosity_texture true;
 MC_GI_use_reflectance true;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition transf_difs_gear_v1 2,2,1,1,1,1;
+node_0003_definition difs_menger 3,3,1,1,2,2;
 raytraced_reflections true;
 reflections_max 2;
 saturation 1,3;
-target 0,334338606878729 -0,0821971517251014 0,616613761921199;
-textured_background true;
+target 0,342181376810313 -0,0765482080052658 -0,137921214652627;
 [fractal_1]
+formula 1619;
 transf_offset_0 0,3;
 transf_offset_01 0,01;
 transf_offset_02 0,1;
@@ -75,6 +72,7 @@ transf_offsetR_0 0,3;
 fold_color_aux_color_enabled_false true;
 fold_color_difs1 2,1;
 fold_color_difs_0000 -0,1 1,1 0 0;
+formula 607;
 transf_int8_X 6;
 transf_offset_001 -4,1 -3 0,17;
 transf_offsetA_000 -0,8 -0,5 -2,6;

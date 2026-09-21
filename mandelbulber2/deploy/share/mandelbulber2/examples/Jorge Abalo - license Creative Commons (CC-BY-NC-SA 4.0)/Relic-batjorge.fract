@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -25,9 +25,6 @@ DOF_samples 200;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 2200 2200 2200;
 fog_color_2 ff00 ef00 be00;
-formula_1 1090;
-formula_2 1625;
-formula_3 1624;
 fov 27,0265625026496;
 gamma 0,8;
 glow_enabled false;
@@ -101,13 +98,18 @@ mat3_use_normal_map_texture true;
 MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition transf_spherical_inv_v2 2,2,1,1,1,2;
+node_0003_definition transf_difs_hexprism_v2 3,3,1,1,2,3;
+node_0004_definition transf_difs_amazing_ifs 4,4,1,1,3,4;
+node_0005_definition water #1 5,5,2,0,200,1;
+node_0005_material 2;
+node_0005_position 0 0 -0,253677538878673;
+node_0005_rotation 0 0 -28,902;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 2;
-primitive_water_1_material_id 2;
-primitive_water_1_position 0 0 -0,253677538878673;
+primitive_water_1_object_id 200;
 primitive_water_1_relative_amplitude 0,1;
-primitive_water_1_rotation 0 0 -28,902;
-primitive_water_1_smooth_de_combine_distance 0,304981809456486;
 saturation 0,9;
 target 0,0535832821561446 0,0715815052259907 0,362450889719822;
 use_default_bailout false;
@@ -118,6 +120,7 @@ volumetric_fog_density 2;
 volumetric_fog_distance_factor 2;
 volumetric_light_DE_Factor 4;
 [fractal_1]
+formula 1090;
 transf_function_enabledA_false true;
 transf_function_enabledAy_false true;
 transf_function_enabledD_false true;
@@ -129,6 +132,7 @@ transf_offset_000 0 0 -0,6;
 transf_offsetA_1 0,9;
 [fractal_2]
 fold_color_aux_color_enabled false;
+formula 1625;
 transf_addition_constant_0555 0,86 0,86 0,5;
 transf_function_enabledAy_false true;
 transf_function_enabledB_false true;
@@ -145,6 +149,7 @@ transf_rotation2 -3 0 0;
 transf_scale_015 1,2;
 [fractal_3]
 fold_color_aux_color_enabled false;
+formula 1624;
 transf_addition_constant_0555 0,86 0,86 0,5;
 transf_function_enabledS_false true;
 transf_minR2_p25 0,15;

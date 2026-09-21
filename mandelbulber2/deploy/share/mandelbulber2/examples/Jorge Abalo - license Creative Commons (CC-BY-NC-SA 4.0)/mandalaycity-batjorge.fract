@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -18,29 +18,23 @@ camera_top -0,0632350727369329 0,111329774651701 0,99176963396343;
 contrast 1,1;
 DE_factor 0,5;
 detail_level 2;
-DOF_max_noise 0,9;
+DOF_max_noise 1,8;
 DOF_MC_global_illumination true;
-DOF_min_samples 16;
 DOF_monte_carlo true;
 DOF_samples 256;
-dont_add_c_constant_1 true;
-file_background /home/jorge/Imágenes/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap3.jpg;
 fill_light_color 0c00 0c00 0c00;
 fog_color_1 c800 cd00 d500;
 fog_color_2 1c00 4700 6600;
 fog_color_3 df00 e000 ed00;
-formula_1 199;
-formula_2 1125;
 fov 31,1552500742296;
-fractal_enable_2 false;
 gamma 0,9;
 glow_enabled false;
 hdr true;
 hybrid_fractal_enable true;
-image_height 540;
+image_height 1080;
 image_proportion 4;
-image_width 960;
+image_width 1920;
 keyframe_last_to_render 0;
 light1_color ee00 eb00 ea00;
 light1_is_defined true;
@@ -52,11 +46,15 @@ mat1_specular 1;
 mat1_specular_color ef00 ef00 ef00;
 mat1_specular_width 0,01;
 mat1_surface_color_gradient 0 c3bfba 3653 1d311b 5212 a7a191;
+MC_denoiser_enable true;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition mandalay_box_v2 2,2,1,1,1,1;
+node_0003_definition transf_blockify_v2 3,3,1,1,2,2;
+node_0003_enabled false;
 raytraced_reflections true;
 target 1,71674688177524 -2,15370942479877 0,223972245327751;
-textured_background true;
 use_default_bailout false;
 volumetric_fog_colour_1_distance 0,760329188631;
 volumetric_fog_colour_2_distance 0,0029700358930898;
@@ -65,7 +63,9 @@ volumetric_fog_distance_factor 0,0475205742894372;
 volumetric_fog_distance_from_surface 0,013875767410658;
 volumetric_fog_enabled true;
 [fractal_1]
+dont_add_c_constant true;
 fold_color_aux_color_enabled_false true;
+formula 199;
 mandelbox_color_Sp1 1;
 mandelbox_color_Sp2 0,8;
 transf_addition_constant_0555 0,06 0,04 0,11;
@@ -79,6 +79,8 @@ transf_offsetA_000 0,15 0,15 0,04;
 transf_rotation 0 0 90;
 transf_rotation_enabled true;
 [fractal_2]
+formula 1125;
+fractal_enable false;
 transf_constant_multiplier_111 2,9 1,5 6,4;
 transf_function_enabledAx_false true;
 transf_function_enabledAy_false true;

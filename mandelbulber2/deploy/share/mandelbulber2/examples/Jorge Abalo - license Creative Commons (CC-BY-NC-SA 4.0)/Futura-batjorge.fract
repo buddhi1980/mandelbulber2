@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -11,9 +11,9 @@ background_texture_offset_x -0,032;
 basic_fog_color be00 c200 ad00;
 basic_fog_visibility 0,5625;
 camera 5,27473445510704 -4,11687446731072 0,383856537792554;
-camera_distance_to_target 7,00760528812152;
-camera_rotation 53,8756593153524 4,17234738701919 0,483798999844743;
-camera_top 0,0637444368499912 -0,0360711365897732 0,997314153050983;
+camera_distance_to_target 7,02277382080707;
+camera_rotation 54,2660702372232 -9,65855247631018 0,468986675088183;
+camera_top -0,131405412828719 0,104626052863783 0,985792070642414;
 constant_DE_threshold true;
 DE_factor 0,5;
 DE_thresh 0,000625;
@@ -39,8 +39,6 @@ fill_light_color 2400 2400 2400;
 fog_color_1 6200 7200 7d00;
 fog_color_2 9200 ab00 b800;
 fog_color_3 c700 df00 c500;
-formula_1 199;
-formula_2 1125;
 fov 50;
 glow_color_1 3a00 5e00 4400;
 glow_color_2 a500 bb00 ae00;
@@ -48,8 +46,9 @@ glow_enabled false;
 glow_intensity 0,1;
 hdr true;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_color df00 e000 e900;
 light1_intensity 0,85;
@@ -74,13 +73,18 @@ MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
 N 32;
-target -0,370583675683898 0,00343701384035655 0,893707863736119;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0001_formula_maxiter 32;
+node_0002_definition mandalay_box_v2 2,2,1,1,1,1;
+node_0003_definition transf_blockify_v2 3,3,1,1,2,2;
+target -0,345110469238212 -0,0735576849310102 -0,794398342040601;
 use_default_bailout false;
 view_distance_max 20;
 volumetric_fog_colour_1_distance 0,00256109928885942;
 volumetric_fog_colour_2_distance 0,00512219857771885;
 volumetric_fog_distance_factor 0,0670120625078561;
 [fractal_1]
+formula 199;
 transf_addition_constant_0555 0,7 0,6 0;
 transf_addition_constant_111 2,5 0,9 0;
 transf_function_enabledA_false true;
@@ -90,6 +94,7 @@ transf_scale_2 2,1;
 [fractal_2]
 analyticDE_offset_0 0,9;
 analyticDE_scale_1 1,1;
+formula 1125;
 transf_constant_multiplier_111 0,2 0,2 0,1;
 transf_function_enabledAx_false true;
 transf_function_enabledAy_false true;

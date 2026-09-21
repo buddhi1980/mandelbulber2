@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -12,9 +12,9 @@ basic_fog_color 5f00 6100 6700;
 basic_fog_enabled true;
 basic_fog_visibility 1,05773282051086;
 camera 3,03110206411595 -6,33121167810729 0,849819073402335;
-camera_distance_to_target 7,00206099167965;
-camera_rotation 29,6115957475638 -4,66438060567494 0;
-camera_top -0,040181122014946 0,0706982472486726 0,99668813340462;
+camera_distance_to_target 7,00207546616644;
+camera_rotation 29,7905273966678 -7,67779057822545 0,0145706504904566;
+camera_top -0,066156867397394 0,116072556203266 0,991035029952324;
 DE_factor 0,5;
 detail_level 2,22222222222222;
 DOF_monte_carlo true;
@@ -28,17 +28,15 @@ fake_lights_orbit_trap 0 0 -0,242377251346038;
 fake_lights_orbit_trap_size 0,125;
 fake_lights_thickness 8;
 fake_lights_visibility_size 0,46;
-file_background /home/jorge/Imágenes/HDR/kloppenheim_07_puresky_4k.hdr;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0b00 0b00 0b00;
 fog_color_2 a800 9000 6300;
 fog_color_3 3a00 3a00 4100;
-formula_1 602;
 fov 26,9696108202489;
 glow_enabled false;
-image_height 540;
+image_height 1080;
 image_proportion 4;
-image_width 960;
+image_width 1920;
 keyframe_last_to_render 0;
 light1_color ed00 ec00 ea00;
 light1_intensity 0,85;
@@ -59,15 +57,16 @@ mat1_transparency_index_of_refraction 6;
 MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
+node_0001_definition difs_box_diagonal_v3 1,1,1,0,1,0;
 reflections_max 1;
-target -0,417282567740799 -0,263816416699516 0,280419122732768;
-textured_background true;
+target -0,41655488229928 -0,308954800193956 -0,0856725140266146;
 volumetric_fog_colour_1_distance 0,0458491522883654;
 volumetric_fog_colour_2_distance 0,0916983045767307;
 volumetric_fog_density 0,166441233930705;
 volumetric_fog_distance_factor 0,0916983045767307;
 [fractal_1]
 fold_color_aux_color_enabled false;
+formula 602;
 transf_addition_constant_111 1 1 0,5;
 transf_addition_constantA_111 2,5 0,5 -0,6;
 transf_function_enabledB_false true;

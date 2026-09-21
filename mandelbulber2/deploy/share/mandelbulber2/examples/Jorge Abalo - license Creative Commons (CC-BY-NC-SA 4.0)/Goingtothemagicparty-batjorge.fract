@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -17,22 +17,19 @@ detail_level 2;
 DOF_blur_opacity 2;
 DOF_enabled true;
 DOF_focus 1,2307094335556;
-DOF_max_noise 0,9;
 DOF_max_radius 40;
 DOF_MC_global_illumination true;
 DOF_min_samples 16;
 DOF_monte_carlo true;
 DOF_radius 6;
 DOF_samples 200;
-dont_add_c_constant_1 true;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
-formula_1 9;
-formula_2 17;
-formula_iterations_1 16;
 fov 16,4167550604308;
 glow_enabled false;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 2;
+image_width 1600;
 keyframe_last_to_render 0;
 light1_intensity 0,458527189280695;
 light1_is_defined true;
@@ -47,16 +44,23 @@ mat1_transparency_index_of_refraction 1,6;
 mat1_use_colors_from_palette false;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition mandelbox_fast 2,2,1,1,1,1;
+node_0003_definition mandelbox_smooth 3,3,1,1,2,2;
 raytraced_reflections true;
 reflections_max 1;
 repeat_from 2;
 target 2,59272230803201 -4,15141812698192 -0,0120323355199926;
 use_default_bailout false;
 [fractal_1]
+dont_add_c_constant true;
+formula 9;
+formula_iterations 16;
 mandelbox_folding_fixed_radius 1,04;
 mandelbox_folding_min_radius 0;
 mandelbox_scale 0,991;
 [fractal_2]
+formula 17;
 mandelbox_folding_fixed_radius 3,1;
 mandelbox_folding_limit 0,2;
 mandelbox_folding_min_radius 2,2;

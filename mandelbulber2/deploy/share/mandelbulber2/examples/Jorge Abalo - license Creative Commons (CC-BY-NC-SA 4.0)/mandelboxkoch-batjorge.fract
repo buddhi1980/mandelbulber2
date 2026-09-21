@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -17,15 +17,11 @@ DOF_enabled true;
 DOF_focus 1,4538551568985;
 DOF_monte_carlo true;
 DOF_radius 7;
-dont_add_c_constant_1 true;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 1300 1300 1300;
 fog_color_1 4200 4200 4b00;
 fog_color_2 d600 cd00 c200;
 fog_color_3 ef00 ef00 ef00;
-formula_1 9;
-formula_2 279;
-formula_iterations_1 16;
 fov 50;
 glow_enabled false;
 hybrid_fractal_enable true;
@@ -51,6 +47,9 @@ mat1_surface_color_gradient 0 fdd38b 2653 fde9d1 5739 41392e;
 mat1_transparency_index_of_refraction 5;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition mandelbox_fast 2,2,1,1,1,1;
+node_0003_definition koch_ifs 3,3,1,1,2,2;
 reflections_max 1;
 repeat_from 2;
 target 2,14511213566138 -4,23542132681165 0,399766950558607;
@@ -60,6 +59,9 @@ volumetric_fog_colour_2_distance 0,0138978134549591;
 volumetric_fog_distance_factor 0,444730030558692;
 volumetric_fog_enabled true;
 [fractal_1]
+dont_add_c_constant true;
+formula 9;
+formula_iterations 16;
 mandelbox_folding_fixed_radius 0,92;
 mandelbox_folding_min_radius 0;
 mandelbox_scale 1;
@@ -67,6 +69,7 @@ mandelbox_scale 1;
 fold_color_aux_color_enabled_false true;
 fold_color_difs0 0,8;
 fold_color_difs_0000 0 0 0 0,7;
+formula 279;
 transf_addition_constant_neg100 -0,5 0 0;
 transf_function_enabled_false true;
 transf_function_enabledD_false true;

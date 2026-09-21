@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.33
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -12,29 +12,25 @@ basic_fog_visibility 3,35799217224122;
 brightness 0,8;
 camera 2,4386089982292 -6,68942840013819 3,34676868771121;
 camera_distance_to_target 1,0875740551424;
-camera_rotation -76,1853782895898 -22,3938943741719 89,2055062888369;
+camera_rotation -76,1853782895897 -22,3938943741719 89,2055062888369;
 camera_top 0,243888105495243 -0,969718634130265 0,0128203985302308;
 contrast 1,1;
 DE_factor 0,5;
-detail_level 0,5;
 DOF_enabled true;
 DOF_focus 1,26565527915955;
-DOF_min_samples 12;
 DOF_monte_carlo true;
 DOF_radius 12;
 DOF_samples 160;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
-formula_1 217;
-formula_2 1609;
-formula_3 1603;
 fov 36,4294588581952;
 gamma 0,8;
 glow_enabled false;
 hdr true;
 hybrid_fractal_enable true;
-image_height 2400;
+image_height 1200;
 image_proportion 2;
-image_width 3200;
+image_width 1600;
+keyframe_last_to_render 0;
 light1_color ef00 ef00 ef00;
 light1_is_defined true;
 light1_rotation 13,44 90 0;
@@ -75,30 +71,39 @@ MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_GI_radiance_limit 3;
 MC_soft_shadows_enable true;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition pseudo_kleinian_mod4 2,2,1,1,1,2;
+node_0003_definition transf_difs_box_v3 3,3,1,1,2,3;
+node_0004_definition transf_difs_hextgrid2 4,4,1,1,3,4;
+node_0005_definition water #1 5,5,2,0,200,1;
+node_0005_material 2;
+node_0005_position 3,51536928812149 -6,20358452828663 2,98745449194714;
+node_0005_rotation -89,243 0 -160,56;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 4;
 primitive_water_1_length 0,025;
-primitive_water_1_material_id 2;
-primitive_water_1_position 3,51536928812149 -6,20358452828663 2,98745449194714;
+primitive_water_1_object_id 200;
 primitive_water_1_relative_amplitude 0,268654393747611;
-primitive_water_1_rotation -89,243 0 -160,56;
 raytraced_reflections true;
 reflections_max 2;
 target 3,41507808206821 -6,44932034651178 2,93243358624233;
 view_distance_max 25;
 [fractal_1]
+formula 217;
 transf_addition_constant_0777 0,9 0,62 0,72;
 transf_function_enabledA_false true;
 transf_function_enabledBx false;
 transf_function_enabledBx_false true;
 transf_minimum_radius_05 0,38;
 [fractal_2]
+formula 1609;
 transf_addition_constant_111 1 0,05 0,92;
 transf_function_enabledE_false true;
 transf_function_enabledM_false true;
 transf_offsetB_0 0,00125;
 transf_scale3D_000 -3 0 -1;
 [fractal_3]
+formula 1603;
 transf_offset_0005 0,003;
 transf_offset_111 0,1 0,1 0,1;
 transf_rotation 90 0 0;

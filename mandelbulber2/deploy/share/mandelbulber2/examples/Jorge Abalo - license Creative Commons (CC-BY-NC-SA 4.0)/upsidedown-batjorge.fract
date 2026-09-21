@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -28,15 +28,12 @@ fill_light_color 0c00 0c00 0c00;
 fog_color_1 8c00 9100 9100;
 fog_color_2 4300 4600 4600;
 fog_color_3 ea00 f000 f000;
-formula_1 1633;
-formula_2 1005;
-formula_3 1109;
-formula_4 1127;
 fov 50;
 glow_enabled false;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_color ef00 ef00 ef00;
 light1_is_defined true;
@@ -59,7 +56,16 @@ mat1_transparency_index_of_refraction 7;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
-primitive_plane_1_rotation 0 90 0;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0001_formula_maxiter 31;
+node_0002_definition transf_difs_box_frame 2,2,1,1,1,2;
+node_0003_definition transf_box_offset 3,3,1,1,2,3;
+node_0004_definition transf_mandalay_fold_v2 4,4,1,1,3,4;
+node_0005_definition transf_sin_tan 5,5,1,1,4,5;
+node_0006_definition plane #1 6,6,2,0,300,1;
+node_0006_enabled false;
+node_0006_rotation 0 90 0;
+primitive_plane_1_object_id 300;
 raytraced_reflections true;
 reflections_max 2;
 target 4,91191687773421 -6,3291431090265 0,266591360192295;
@@ -76,6 +82,7 @@ fold_color_aux_color_enabledA_false true;
 fold_color_aux_color_enabledB_false true;
 fold_color_difs0 1,5;
 fold_color_difs_0000 0,7 0 1,2 0,8;
+formula 1633;
 transf_addition_constant_111 0,5 2 0,1;
 transf_function_enabledD_false true;
 transf_function_enabledR_false true;
@@ -89,8 +96,10 @@ transf_rotation 0 90 0;
 transf_scale_1 0,9;
 transf_stop_iterations_Zc 2;
 [fractal_2]
+formula 1005;
 transf_addition_constant 0,36 0,1 0,3;
 [fractal_3]
+formula 1109;
 transf_addition_constant_0555 0,38 0,7 0,1;
 transf_function_enabledAy false;
 transf_function_enabledAz_false true;
@@ -98,5 +107,6 @@ transf_offset_0000 0,1 0 0,7 0;
 transf_offset_1111 1 1 0 1;
 transf_offsetA_000 0 0 2;
 [fractal_4]
+formula 1127;
 transf_constant_multiplierB_111 1,3 1 1;
 transf_offset_000 0,1 0 0;

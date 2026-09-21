@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_color 6b00 6b00 6b00;
@@ -18,20 +18,17 @@ DOF_enabled true;
 DOF_focus 7,83343553543091;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;
-dont_add_c_constant_1 true;
-dont_add_c_constant_2 true;
+DOF_samples 150;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0c00 0c00 0c00;
-formula_1 266;
-formula_2 237;
-formula_iterations_1 3;
 fov 49,5918699629629;
 gamma 0,8;
 glow_enabled false;
 hdr true;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_intensity 0,25;
 light1_is_defined true;
@@ -71,16 +68,23 @@ mat2_surface_color_gradient 0 ffd98b 2307 ffffff 4224 f7ce94 7005 554530;
 mat2_texture_scale 0,25 0,25 0,125;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition mandelbulb_pupuku 2,2,1,1,1,2;
+node_0003_definition box_fold_bulb_v4 3,3,1,1,2,3;
+node_0004_definition plane #1 4,4,2,0,200,1;
+node_0004_material 2;
+node_0004_position 0,787563306919415 -1,77266002511819 -2,44377931387926;
+node_0004_rotation 3,4 8,78 -66,55;
 primitive_plane_1_enabled true;
-primitive_plane_1_material_id 2;
-primitive_plane_1_position 0,787563306919415 -1,77266002511819 -2,44377931387926;
-primitive_plane_1_rotation 3,4 8,78 -66,55;
-primitive_plane_1_smooth_de_combine_enable true;
+primitive_plane_1_object_id 200;
 raytraced_reflections true;
 repeat_from 2;
 target 1,36438352405464 1,41701086755484 0,639234596621648;
 use_default_bailout false;
 [fractal_1]
+dont_add_c_constant true;
+formula 266;
+formula_iterations 3;
 power 4,5;
 transf_function_enabledA_false true;
 transf_function_enabledCz_false true;
@@ -94,7 +98,9 @@ transf_scaleA_1 5,4;
 transf_scaleB_0 0,6;
 transf_scaleB_1 0,5;
 [fractal_2]
+dont_add_c_constant true;
 fold_color_aux_color_enabled_false true;
 fold_color_difs_0000 0 0 0,5 0,4;
+formula 237;
 transf_offset_222 16 16 13;
 transf_scaleA_1 1,9;

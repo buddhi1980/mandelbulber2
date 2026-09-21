@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -26,21 +26,18 @@ DOF_monte_carlo true;
 DOF_number_of_passes 3;
 DOF_radius 3;
 DOF_samples 256;
-file_background /home/jorge/Imágenes/HDR/kloppenheim_02_puresky_4k.hdr;
-file_lightmap /home/jorge/Documentos/1291340_20260226023940_1.png;
 fill_light_color 0a00 0a00 0a00;
 fog_color_1 2600 2600 2900;
 fog_color_2 1300 2e00 3b00;
 fog_color_3 df00 df00 df00;
-formula_1 217;
-formula_2 1619;
 fov 20,5631017707418;
 gamma 0,9;
 glow_enabled false;
 hdr true;
 hybrid_fractal_enable true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_color b100 af00 aa00;
 light1_intensity 0,5;
@@ -48,7 +45,6 @@ light1_is_defined true;
 light1_rotation -73,36 48,45 0;
 light2_color 4300 1800 1900;
 light2_decayFunction 1/r;
-light2_file_texture /home/jorge/Imágenes/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr;
 light2_is_defined true;
 light2_position 0,729283533068877 0,771507327172046 0,626776569828199;
 light2_repeat_texture true;
@@ -80,14 +76,19 @@ mat2_use_colors_from_palette false;
 MC_GI_use_reflectance true;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition pseudo_kleinian_mod4 2,2,1,1,1,2;
+node_0003_definition transf_difs_gear_v1 3,3,1,1,2,3;
+node_0004_definition water #1 4,4,2,0,200,1;
+node_0004_material 2;
+node_0004_position 0,112395361888401 -0,298300295610495 0,133245164721655;
+node_0004_rotation 0 0 68,199;
 primitive_water_1_empty true;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 3;
 primitive_water_1_length 0,0166441233930704;
-primitive_water_1_material_id 2;
-primitive_water_1_position 0,112395361888401 -0,298300295610495 0,133245164721655;
+primitive_water_1_object_id 200;
 primitive_water_1_relative_amplitude 0,0899574761377654;
-primitive_water_1_rotation 0 0 68,199;
 primitive_water_1_wave_from_objects_relative_amplitude 0,03125;
 raytraced_reflections true;
 reflections_max 1;
@@ -100,6 +101,7 @@ volumetric_fog_distance_factor 6,41429832465524;
 [fractal_1]
 fold_color_aux_color_enabled_false true;
 fold_color_difs_0000 0 0,7 0 0,1;
+formula 217;
 transf_addition_constant_0777 0,8 0,9 0,9;
 transf_addition_constantP_000 -1,1 0,5 -0,1;
 transf_function_enabledAx_false true;
@@ -112,6 +114,7 @@ transf_offsetA_1 1,6;
 transf_scaleA_1 0,8;
 transf_sphere_inversion_enabled_false true;
 [fractal_2]
+formula 1619;
 transf_offset_0 2,4;
 transf_offset_02 1,5;
 transf_offset_05 0,9;

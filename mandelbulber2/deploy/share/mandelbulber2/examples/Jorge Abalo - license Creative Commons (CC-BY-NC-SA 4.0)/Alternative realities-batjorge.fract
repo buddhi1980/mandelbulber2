@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -16,7 +16,7 @@ DE_thresh 0,00022345438127257;
 detail_level 2;
 DOF_blur_opacity 1;
 DOF_enabled true;
-DOF_focus 2,23156762123108;
+DOF_focus 8,40827465057373;
 DOF_max_radius 25;
 DOF_MC_global_illumination true;
 DOF_min_samples 12;
@@ -31,17 +31,16 @@ fake_lights_orbit_trap 0,5 0 0;
 fake_lights_thickness 1,34327196873804;
 fake_lights_visibility 4;
 fake_lights_visibility_size 8,8;
-file_background /home/jorge/Imágenes/HDR/mud_road_puresky_4k.hdr;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0f00 0f00 0f00;
 fog_color_2 4200 4400 3b00;
-formula_1 278;
 fov 33,9240933706576;
 gamma 0,7;
 glow_enabled false;
 hdr true;
+image_height 1200;
 image_proportion 1;
-image_width 600;
+image_width 1200;
 keyframe_last_to_render 0;
 light1_is_defined true;
 light1_rotation 39,23 45 0;
@@ -61,18 +60,18 @@ mat1_transparency_index_of_refraction 5;
 mat1_use_colors_from_palette false;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition koch_v5 1,1,1,0,1,0;
 raytraced_reflections true;
 reflections_max 1;
 saturation 1,6;
 target 0,834648683084913 -1,66930109375301 1,44414197460336;
-textured_background true;
 view_distance_max 12,5;
 volumetric_fog_colour_1_distance 0,262557980993782;
 volumetric_fog_colour_2_distance 0,525115961987563;
-volumetric_fog_density 2;
 volumetric_fog_distance_factor 1,05023192397513;
 volumetric_fog_enabled true;
 [fractal_1]
+formula 278;
 mandelbox_offset -1,2 -0,7 1;
 transf_addition_constant_neg100 0,2 0 0,7;
 transf_function_enabledE_false true;

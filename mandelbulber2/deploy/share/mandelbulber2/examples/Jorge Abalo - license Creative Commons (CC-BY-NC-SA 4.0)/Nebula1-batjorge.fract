@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -9,12 +9,10 @@ camera_rotation 9,8479755964452 -12,5675873287913 -1,17955761572158;
 camera_top -0,0574900942480129 0,210818626743115 0,975833180252394;
 DE_thresh 0,00175094299195855;
 detail_level 2,22222222222222;
-dont_add_c_constant_1 true;
-formula_1 89;
 fov 26,565;
-image_height 540;
+image_height 1080;
 image_proportion 4;
-image_width 960;
+image_width 1920;
 keyframe_last_to_render 0;
 light1_is_defined true;
 mat1_is_defined true;
@@ -26,10 +24,13 @@ nebula_samples_per_pixel 2000;
 nebula_x_grid_size 0,05;
 nebula_y_grid_size 0,025;
 nebula_z_grid_size 0,8;
+node_0001_definition collatz_mod 1,1,1,0,1,0;
 raytraced_reflections true;
 target 1,7603879083978 0,520456790892506 0,192109452444261;
 use_default_bailout false;
 [fractal_1]
+dont_add_c_constant true;
+formula 89;
 mandelbox_folding_min_radius 0,2;
 mandelbox_scale 2,2;
 transf_constant_multiplierB_111 6,1 1 1;

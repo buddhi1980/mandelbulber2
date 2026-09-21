@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.34
+# version 2.35
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -24,21 +24,16 @@ DOF_min_samples 12;
 DOF_monte_carlo true;
 DOF_radius 12;
 DOF_samples 200;
-dont_add_c_constant_1 true;
-dont_add_c_constant_2 true;
 file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
 fill_light_color 0c00 0c00 0c00;
 fog_color_2 df00 e000 ed00;
 fog_color_3 7400 7400 7400;
-formula_1 9;
-formula_2 64;
-formula_iterations_1 16;
 fov 29,5779772102194;
 glow_enabled false;
 hybrid_fractal_enable true;
-image_height 480;
+image_height 1080;
 image_proportion 4;
-image_width 853;
+image_width 1920;
 keyframe_last_to_render 0;
 light1_color ed00 ec00 ec00;
 light1_is_defined true;
@@ -48,7 +43,6 @@ light2_color b400 4300 0b00;
 light2_contour_sharpness 0,5;
 light2_decayFunction 1/r;
 light2_enabled true;
-light2_file_texture /home/jorge/Imágenes/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr;
 light2_intensity 0,040625;
 light2_is_defined true;
 light2_penetrating false;
@@ -79,6 +73,9 @@ MC_denoiser_enable true;
 MC_denoiser_strength 0;
 MC_soft_shadows_enable true;
 nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition mandelbox_fast 2,2,1,1,1,1;
+node_0003_definition abox_mod1 3,3,1,1,2,2;
 raytraced_reflections true;
 reflections_max 1;
 repeat_from 2;
@@ -89,10 +86,15 @@ volumetric_fog_colour_2_distance 0,007411116519018;
 volumetric_fog_density 0,125;
 volumetric_fog_distance_factor 0,007411116519018;
 [fractal_1]
+dont_add_c_constant true;
+formula 9;
+formula_iterations 16;
 mandelbox_folding_fixed_radius 1,0025;
 mandelbox_folding_min_radius 0;
 mandelbox_scale 1;
 [fractal_2]
+dont_add_c_constant true;
+formula 64;
 mandelbox_folding_value 2,2;
 mandelbox_scale 3,1;
 mandelbox_vary_rpower 16;
