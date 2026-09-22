@@ -1660,7 +1660,7 @@ void cInterface::ResetFormula(int fractalNumber) const
 	gUndo->Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	std::shared_ptr<cParameterContainer> fractal = gParFractal->at(fractalNumber);
 
-	QStringList exclude = {"formula_code"};
+	QStringList exclude = {"formula_code", "formula"};
 	fractal->ResetAllToDefault(exclude);
 
 	QStringList listToReset = {"formula_iterations", "formula_weight", "formula_start_iteration",
