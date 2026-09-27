@@ -34,6 +34,126 @@ QList<int> cObjectsTree::GetDefinedNodeIds(std::shared_ptr<const cParameterConta
 	return nodeIds;
 }
 
+QList<cObjectsTree::sNodeListItem> cObjectsTree::GetListOfNodes(
+	std::shared_ptr<const cParameterContainer> params)
+{
+	QList<sNodeListItem> nodeList;
+
+	// Parse all "node_XXXX_definition" parameters.
+	// Definition format: name, id, type, parent_id, object_id[, displayOrder]
+	QStringList allParams = params->GetListOfParameters();
+	for (const QString &paramName : allParams)
+	{
+		if (!paramName.startsWith("node_") || !paramName.endsWith("_definition")) continue;
+
+		bool ok = false;
+		int nodeId = paramName.mid(5, 4).toInt(&ok);
+		if (!ok || nodeId <= 0) continue;
+
+		QString def = params->Get<QString>(paramName);
+		QStringList parts = def.split(',');
+		if (parts.size() < 5) continue;
+
+		sNodeListItem item;
+		item.id = nodeId;
+		item.name = parts[0];
+		item.type = enumNodeType(parts[2].toInt());
+		item.parentId = parts[3].toInt();
+		item.objectId = parts[4].toInt();
+		item.displayOrder = parts.size() >= 6 ? parts[5].toInt() : 0;
+		nodeList.append(item);
+	}
+
+	// Sort in tree display order; use node ID as tiebreaker for determinism
+	std::sort(nodeList.begin(), nodeList.end(),
+		[](const sNodeListItem &a, const sNodeListItem &b)
+		{
+			if (a.displayOrder != b.displayOrder) return a.displayOrder < b.displayOrder;
+			return a.id < b.id;
+		});
+
+	// Compute nesting level for each node by walking up the parent chain.
+	// The depth counter guards against infinite loops in case of corrupted parent references.
+	QHash<int, int> parentOf;
+	for (const sNodeListItem &item : nodeList)
+		parentOf[item.id] = item.parentId;
+
+	for (sNodeListItem &item : nodeList)
+	{
+		int level = 0;
+		int parentId = item.parentId;
+		while (parentId != 0 && parentOf.contains(parentId) && level < 1000)
+		{
+			level++;
+			parentId = parentOf[parentId];
+		}
+		item.level = level;
+	}
+
+	return nodeList;
+}
+
+CMatrix44 cObjectsTree::NodeLocalToWorldMatrix(const sNodeData &nodeData)
+{
+	// Same math as in GetNodeDataListForRendering():
+	// Forward transform: p_parent = R * (s * p_local) + t
+	// Matrix layout (row-major): upper 3x3 = R * scale, column 4 = translation, row 4 = [0,0,0,1]
+	CMatrix44 localToWorld;
+	CVector3 rotationXYZ = nodeData.rotation * (M_PI / 180.0);
+	CRotationMatrix rotMat;
+	rotMat.SetRotation2(rotationXYZ);
+	const CMatrix33 &R = rotMat.GetMatrix();
+	double s = nodeData.scale;
+	localToWorld.m11 = R.m11 * s;
+	localToWorld.m12 = R.m21 * s;
+	localToWorld.m13 = R.m31 * s;
+	localToWorld.m21 = R.m12 * s;
+	localToWorld.m22 = R.m22 * s;
+	localToWorld.m23 = R.m32 * s;
+	localToWorld.m31 = R.m13 * s;
+	localToWorld.m32 = R.m23 * s;
+	localToWorld.m33 = R.m33 * s;
+	localToWorld.m14 = nodeData.position.x;
+	localToWorld.m24 = nodeData.position.y;
+	localToWorld.m34 = nodeData.position.z;
+	localToWorld.m41 = 0.0;
+	localToWorld.m42 = 0.0;
+	localToWorld.m43 = 0.0;
+	localToWorld.m44 = 1.0;
+	return localToWorld;
+}
+
+CMatrix44 cObjectsTree::GetParentWorldMatrix(int nodeId) const
+{
+	// Identity matrix: root-level nodes express their position directly in world space
+	CMatrix44 worldMatrix;
+	worldMatrix.m11 = 1.0;
+	worldMatrix.m22 = 1.0;
+	worldMatrix.m33 = 1.0;
+	worldMatrix.m44 = 1.0;
+
+	if (!nodeDataMap.contains(nodeId)) return worldMatrix;
+
+	// Collect the chain of ancestors from the node's parent up to the root.
+	// The chain size limit guards against infinite loops in corrupted parent references.
+	QList<int> ancestorChain;
+	int currentId = nodeDataMap.value(nodeId).parentId;
+	while (currentId != 0 && nodeDataMap.contains(currentId) && ancestorChain.size() < 1000)
+	{
+		ancestorChain.append(currentId);
+		currentId = nodeDataMap.value(currentId).parentId;
+	}
+
+	// Compose the transforms from the root down to the node's parent:
+	// worldMatrix = M_root * ... * M_parent
+	for (int i = ancestorChain.size() - 1; i >= 0; i--)
+	{
+		worldMatrix = worldMatrix * NodeLocalToWorldMatrix(nodeDataMap.value(ancestorChain[i]));
+	}
+
+	return worldMatrix;
+}
+
 void cObjectsTree::CreateNodeDataFromParameters(std::shared_ptr<const cParameterContainer> params)
 {
 	// Each "node_XXXX_definition" parameter is a QString with comma-separated values representing:

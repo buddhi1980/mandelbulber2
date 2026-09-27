@@ -86,6 +86,13 @@ private:
 		bool cameraDrag{false};
 		bool lightDrag{false};
 		bool primitiveDrag{false};
+		bool objectDrag{false};					 // dragging of an objects tree node (group or fractal)
+		QString objectPositionParamName; // full parameter name, e.g. "node_0001_position"
+		// Accumulated parent local-to-world transform of the dragged node and its inverse.
+		// The node position parameter is expressed in the parent's coordinate system,
+		// while the drag math operates in world coordinates.
+		CMatrix44 objectParentWorldMatrix;
+		CMatrix44 objectWorldToParentMatrix;
 		CVector2<double> startScreenPoint;
 		CVector2<double> startNormalizedPoint;
 		double startZ{0.0};
@@ -143,8 +150,17 @@ public:
 	void MouseDragCameraMove(const sMouseDragTempData &dragTempData);
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, double dx, double dy);
 	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, double dx, double dy);
+	// Generic drag handler that writes the new position to the given parameter name
+	// (used for primitives and objects tree nodes). The computed world position is
+	// converted by worldToWriteMatrix before writing (identity for legacy primitives,
+	// inverse of the parent's accumulated transform for objects tree nodes).
+	void ObjectDragLeftButton(const sMouseDragTempData &dragTempData, double dx, double dy,
+		const QString &positionParamName, const CMatrix44 &worldToWriteMatrix);
 	void MoveLightByWheel(double deltaWheel);
 	void MovePrimitiveByWheel(double deltaWheel);
+	// Moves the objects tree node (indicated by mode: [clickPlaceObject, nodeId])
+	// closer to or farther from the camera (mouse wheel action)
+	void MoveObjectByWheel(double deltaWheel, const QList<QVariant> &mode);
 
 	bool isDraggingStarted() { return mouseDragData.draggingStarted; }
 

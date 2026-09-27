@@ -78,6 +78,19 @@ public:
 		int formulaMaxiter = 250;
 	};
 
+	// Lightweight node description used for UI listings (e.g. mouse click function combo box).
+	// Parsed only from "node_XXXX_definition" parameters, without reading other node params.
+	struct sNodeListItem
+	{
+		int id = 0;																 // node ID
+		QString name;															 // node display name
+		enumNodeType type = enumNodeType::fractal; // node type
+		int parentId = 0;													 // parent node ID (0 = attached to World)
+		int objectId = -1;												 // associated object ID (fractal / primitive / group)
+		int displayOrder = 0;											 // tree display order stored in definition
+		int level = 0;														 // nesting depth (0 = root node)
+	};
+
 	typedef QHash<int, sNodeData> nodeData_t;
 
 public:
@@ -97,6 +110,22 @@ public:
 	// Returns the list of node IDs (int) for all nodes that have a "node_XXXX_definition" parameter
 	// in the given parameter container.
 	static QList<int> GetDefinedNodeIds(std::shared_ptr<const cParameterContainer> params);
+
+	// Returns a flat list of all tree nodes parsed from "node_XXXX_definition" parameters.
+	// The list is sorted in tree display order (displayOrder, then node ID as tiebreaker)
+	// and each item has its nesting level computed from parent references.
+	static QList<sNodeListItem> GetListOfNodes(std::shared_ptr<const cParameterContainer> params);
+
+	// Builds the node's own local-to-parent transform matrix from its
+	// position/rotation/scale parameters: p_parent = R * (s * p_local) + t
+	static CMatrix44 NodeLocalToWorldMatrix(const sNodeData &nodeData);
+
+	// Returns the accumulated local-to-world transform matrix of the parent of the node
+	// with the given ID (identity matrix for root-level nodes). The node's own "position"
+	// parameter is expressed in this coordinate system, so a world point must be converted
+	// by the inverse of this matrix before writing it to node_XXXX_position.
+	// Requires CreateNodeDataFromParameters() to be called first.
+	CMatrix44 GetParentWorldMatrix(int nodeId) const;
 
 private:
 	nodeData_t nodeDataMap;

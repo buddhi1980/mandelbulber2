@@ -98,6 +98,10 @@ private:
 
 	void pressedRefreshButton();
 
+	// Rebuilds the mouse click function combo box so that it lists all objects
+	// currently present in the tree (called after any tree content modification)
+	void refreshMouseClickCombo();
+
 	QList<QTreeWidgetItem *> collectAllTreeItems() const;
 	QList<QPair<int, QTreeWidgetItem *>> collectSubtree(QTreeWidgetItem *root) const;
 	int getNodeType(QTreeWidgetItem *item) const;

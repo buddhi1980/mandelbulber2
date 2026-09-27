@@ -42,6 +42,7 @@
 #include "fractal_container.hpp"
 #include "interface.hpp"
 #include "light.h"
+#include "objects_tree.h"
 #include "parameters.hpp"
 #include "projection_3d.hpp"
 #include "rendered_image_widget.hpp"
@@ -606,6 +607,30 @@ void cManipulations::SetByMouse(
 					emit signalWriteInterfacePrimitives(par);
 					break;
 				}
+				case RenderedImage::clickPlaceObject:
+				{
+					// Set position of the objects tree node (primitive, group or fractal).
+					// mode: [clickPlaceObject, nodeId]
+					int nodeId = mode.at(1).toInt();
+					QString parameterName = QString("node_%1_position").arg(nodeId, 4, 10, QChar('0'));
+					if (par->IfExists(parameterName))
+					{
+						// The node position parameter is relative to the parent node's
+						// coordinate system, so convert the clicked world point using the
+						// inverse of the parent's accumulated transform
+						cObjectsTree objectsTree;
+						objectsTree.CreateNodeDataFromParameters(par);
+						CMatrix44 worldToParentMatrix =
+							objectsTree.GetParentWorldMatrix(nodeId).InverseAffine();
+
+						par->Set(parameterName, worldToParentMatrix.TransformPoint(point));
+						emit signalWriteInterfacePrimitives(par);
+						// Refresh the objects tree editor so the new position is visible
+						if (fractalWidget)
+							fractalWidget->SynchronizeInterfaceFractals(par, parFractal, qInterface::write);
+					}
+					break;
+				}
 				case RenderedImage::clickDoNothing:
 					// nothing
 					break;
@@ -681,6 +706,34 @@ void cManipulations::MouseDragStart(
 		mouseDragData.primitiveDrag = true;
 		mouseDragData.objectStartPosition = par->Get<CVector3>(primitiveItem.fullName + "_position");
 	}
+	else if (clickMode == RenderedImage::clickPlaceObject)
+	{
+		// Dragging of an objects tree node (primitive, group or fractal).
+		// mode: [clickPlaceObject, nodeId]
+		int nodeId = mode.at(1).toInt();
+		mouseDragData.objectPositionParamName =
+			QString("node_%1_position").arg(nodeId, 4, 10, QChar('0'));
+		if (par->IfExists(mouseDragData.objectPositionParamName))
+		{
+			// The node position parameter is expressed in the parent node's coordinate
+			// system, while the drag math operates in world coordinates. Cache both
+			// conversion matrices for use during the drag.
+			cObjectsTree objectsTree;
+			objectsTree.CreateNodeDataFromParameters(par);
+			mouseDragData.objectParentWorldMatrix = objectsTree.GetParentWorldMatrix(nodeId);
+			mouseDragData.objectWorldToParentMatrix =
+				mouseDragData.objectParentWorldMatrix.InverseAffine();
+
+			mouseDragData.objectDrag = true;
+			CVector3 localPosition = par->Get<CVector3>(mouseDragData.objectPositionParamName);
+			mouseDragData.objectStartPosition =
+				mouseDragData.objectParentWorldMatrix.TransformPoint(localPosition);
+		}
+		else
+		{
+			mouseDragData.cameraDrag = true;
+		}
+	}
 	else
 	{
 		mouseDragData.cameraDrag = true;
@@ -752,7 +805,8 @@ void cManipulations::MouseDragStart(
 			mouseDragData.primitiveItem = primitiveItem;
 
 			if (clickMode == RenderedImage::clickMoveCamera || clickMode == RenderedImage::clickPlaceLight
-					|| clickMode == RenderedImage::clickPlacePrimitive)
+					|| clickMode == RenderedImage::clickPlacePrimitive
+					|| clickMode == RenderedImage::clickPlaceObject)
 			{
 				mouseDragData.draggingStarted = true;
 			}
@@ -970,6 +1024,22 @@ void cManipulations::LightDragLeftButton(
 void cManipulations::PrimitiveDragLeftButton(
 	const sMouseDragTempData &dragTempData, double dx, double dy)
 {
+	// Legacy primitive placement writes the world position directly (no parent transform)
+	CMatrix44 identityMatrix;
+	identityMatrix.m11 = 1.0;
+	identityMatrix.m22 = 1.0;
+	identityMatrix.m33 = 1.0;
+	identityMatrix.m44 = 1.0;
+	ObjectDragLeftButton(
+		dragTempData, dx, dy, mouseDragData.primitiveItem.fullName + "_position", identityMatrix);
+}
+
+// Moves the dragged object so that it follows the mouse cursor on the screen.
+// The new world position is converted by worldToWriteMatrix and written to the
+// parameter named positionParamName.
+void cManipulations::ObjectDragLeftButton(const sMouseDragTempData &dragTempData, double dx,
+	double dy, const QString &positionParamName, const CMatrix44 &worldToWriteMatrix)
+{
 	cCameraTarget cameraTarget(
 		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
 
@@ -1001,7 +1071,7 @@ void cManipulations::PrimitiveDragLeftButton(
 	CVector3 newPrimitivePosition =
 		mouseDragData.startCamera + viewVector * primitiveScreenPosition.z;
 
-	par->Set(mouseDragData.primitiveItem.fullName + "_position", newPrimitivePosition);
+	par->Set(positionParamName, worldToWriteMatrix.TransformPoint(newPrimitivePosition));
 }
 
 void cManipulations::MouseDragDelta(int dx, int dy)
@@ -1149,6 +1219,29 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				renderedImageWidget->update();
 				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
 			}
+			else if (mouseDragData.objectDrag)
+			{
+				// Dragging of an objects tree node (primitive, group or fractal)
+				switch (mouseDragData.button)
+				{
+					case Qt::LeftButton:
+					{
+						ObjectDragLeftButton(dragTempData, ddx, ddy, mouseDragData.objectPositionParamName,
+							mouseDragData.objectWorldToParentMatrix);
+						break;
+					}
+					default:
+					{
+						break;
+					}
+				}
+				QElapsedTimer timerStartRender;
+				timerStartRender.start();
+				if (fractalWidget)
+					fractalWidget->SynchronizeInterfaceFractals(par, parFractal, qInterface::write);
+				renderedImageWidget->update();
+				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
+			}
 		}
 	}
 }
@@ -1199,6 +1292,38 @@ void cManipulations::MovePrimitiveByWheel(double deltaWheel)
 	CVector3 newLightPosition = cameraPosition + newLightVector;
 
 	par->Set(actualPrimitiveName + "_position", newLightPosition);
+
+	if (fractalWidget)
+	{
+		fractalWidget->SynchronizeInterfaceFractals(par, parFractal, qInterface::write);
+	}
+	renderedImageWidget->update();
+}
+
+void cManipulations::MoveObjectByWheel(double deltaWheel, const QList<QVariant> &mode)
+{
+	// mode: [clickPlaceObject, nodeId]
+	if (mode.size() < 2) return;
+
+	int nodeId = mode.at(1).toInt();
+	QString parameterName = QString("node_%1_position").arg(nodeId, 4, 10, QChar('0'));
+	if (!par->IfExists(parameterName)) return;
+
+	// The node position parameter is expressed in the parent node's coordinate system,
+	// so convert it to world space before moving and back before writing
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(par);
+	CMatrix44 parentWorldMatrix = objectsTree.GetParentWorldMatrix(nodeId);
+
+	CVector3 localPosition = par->Get<CVector3>(parameterName);
+	CVector3 worldPosition = parentWorldMatrix.TransformPoint(localPosition);
+
+	double deltaLog = exp(deltaWheel * 0.0001);
+	CVector3 cameraPosition = par->Get<CVector3>("camera");
+	CVector3 objectVector = worldPosition - cameraPosition;
+	CVector3 newWorldPosition = cameraPosition + objectVector * deltaLog;
+
+	par->Set(parameterName, parentWorldMatrix.InverseAffine().TransformPoint(newWorldPosition));
 
 	if (fractalWidget)
 	{

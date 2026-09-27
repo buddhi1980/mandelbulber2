@@ -509,6 +509,7 @@ void cNavigatorWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton butto
 		case RenderedImage::clickPlaceLight:
 		case RenderedImage::clickGetJuliaConstant:
 		case RenderedImage::clickPlacePrimitive:
+		case RenderedImage::clickPlaceObject:
 		case RenderedImage::clickPlaceRandomLightCenter:
 		case RenderedImage::clickGetPoint:
 		case RenderedImage::clickWrapLimitsAroundObject:
@@ -532,6 +533,7 @@ void cNavigatorWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons
 	{
 		case RenderedImage::clickMoveCamera:
 		case RenderedImage::clickPlaceLight:
+		case RenderedImage::clickPlaceObject:
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
@@ -588,6 +590,14 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 			if (keyModifiers == Qt::NoModifier)
 			{
 				manipulations->MovePrimitiveByWheel(delta);
+			}
+			break;
+		}
+		case RenderedImage::clickPlaceObject:
+		{
+			if (keyModifiers == Qt::NoModifier)
+			{
+				manipulations->MoveObjectByWheel(delta, mode);
 			}
 			break;
 		}

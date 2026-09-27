@@ -1285,6 +1285,8 @@ void cInterface::ComboMouseClickUpdate(
 	QComboBox *combo, std::shared_ptr<cParameterContainer> params)
 {
 	int lastIndex = combo->currentIndex();
+	// Remember the selected item data to restore the selection by content after rebuild
+	QVariant lastData = combo->currentData();
 
 	combo->clear();
 	QList<QVariant> item;
@@ -1330,29 +1332,32 @@ void cInterface::ComboMouseClickUpdate(
 	item.clear();
 	item.append(int(RenderedImage::clickWrapLimitsAroundObject));
 	combo->addItem(QObject::tr("Wrap Limits around object"), item);
+	// Objects from the objects tree: build "Place ..." items from node_XXXX_definition
+	// parameters, so the combo box content matches the tree. All node types (primitives,
+	// groups and fractals) are placed via their node parameters: clicking on the image
+	// sets node_XXXX_position, which is the transform source of the object tree rendering
+	// pipeline. Legacy primitive_*_position params are no longer created for tree objects,
+	// so the old clickPlacePrimitive mode is not used here anymore.
+	QList<cObjectsTree::sNodeListItem> listOfNodes = cObjectsTree::GetListOfNodes(params);
 
-	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(params);
-
-	if (listOfPrimitives.size() > 0)
+	for (const auto &node : listOfNodes)
 	{
-		for (const auto &primitiveItem : listOfPrimitives)
-		{
-			QString primitiveName = cPrimitives::PrimitiveNames(primitiveItem.type);
-			int index = primitiveItem.id;
-			QString comboItemString =
-				QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
-			item.clear();
-			item.append(int(RenderedImage::clickPlacePrimitive));
-			item.append(int(primitiveItem.type));
-			item.append(primitiveItem.id);
-			item.append(primitiveItem.fullName);
-			combo->addItem(comboItemString, item);
-		}
+		// Indent the item text to reflect the node nesting level in the tree
+		QString indent = QString("   ").repeated(node.level);
+
+		item.clear();
+		item.append(int(RenderedImage::clickPlaceObject));
+		item.append(node.id);
+		combo->addItem(indent + QObject::tr("Place ") + node.name, item);
 	}
 
-	if (lastIndex < combo->count())
+	// Restore the previous selection, preferring a data match over the list position,
+	// because adding/removing items shifts positions of the remaining entries
+	int restoreIndex = combo->findData(lastData);
+	if (restoreIndex < 0) restoreIndex = lastIndex;
+	if (restoreIndex >= 0 && restoreIndex < combo->count())
 	{
-		combo->setCurrentIndex(lastIndex);
+		combo->setCurrentIndex(restoreIndex);
 	}
 }
 

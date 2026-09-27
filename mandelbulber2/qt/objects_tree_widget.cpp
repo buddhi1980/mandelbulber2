@@ -803,6 +803,15 @@ void cObjectsTreeWidget::StoreTreeToParams(
 void cObjectsTreeWidget::pressedRefreshButton()
 {
 	UpdateTree(params, fractalParams);
+	refreshMouseClickCombo();
+}
+
+// Rebuilds the mouse click function combo box so that it lists all objects
+// currently present in the tree (called after any tree content modification).
+// The combo widget may be null if AssignSpecialWidgets() was not called yet.
+void cObjectsTreeWidget::refreshMouseClickCombo()
+{
+	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 void cObjectsTreeWidget::attachMaterialWidget(
 	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
@@ -884,6 +893,10 @@ void cObjectsTreeWidget::slotAddGroup()
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
+
+	// Store the new node definition in params and refresh the mouse click function combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 void cObjectsTreeWidget::slotAddFractal()
@@ -917,6 +930,10 @@ void cObjectsTreeWidget::slotAddFractal()
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
+
+	// Store the new node definition in params and refresh the mouse click function combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 void cObjectsTreeWidget::slotAddPrimitive()
@@ -971,6 +988,10 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(newItem);
 	lastSelectedNodeId = newNodeId;
+
+	// Store the new node definition in params and refresh the mouse click function combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 // Removes the currently selected node from the tree.
@@ -1028,9 +1049,14 @@ void cObjectsTreeWidget::slotDeleteObject()
 			{
 				params->DeleteParameter(parameterName);
 			}
-			return;
+			break;
 		}
 	}
+
+	// Remove stale node parameters of the deleted node, write the new tree structure
+	// to params and refresh the mouse click function combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 // Parses gPar to find all nodes in the subtree rooted at 'rootNodeId'.
@@ -1401,6 +1427,10 @@ void cObjectsTreeWidget::slotDuplicateObject()
 	UpdateTree(params, fractalParams);
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->blockSignals(false);
+
+	// Rewrite definitions (parents, display order) and refresh the mouse click function combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 // Builds the info label that is shown at the top of the editor panel.
@@ -2000,6 +2030,10 @@ void cObjectsTreeWidget::onDropCompleted(
 
 	ui->treeWidget_objects->expandAll();
 	ui->treeWidget_objects->setCurrentItem(sourceItem);
+
+	// Rewrite definitions (parents, display order) after the drop and refresh the combo
+	StoreTreeToParams(params, fractalParams);
+	refreshMouseClickCombo();
 }
 
 void cObjectsTreeWidget::onTreeStructureChanged()
@@ -2008,6 +2042,7 @@ void cObjectsTreeWidget::onTreeStructureChanged()
 	StoreTreeToParams(params, fractalParams);
 	// Then rebuild the tree from params
 	UpdateTree(params, fractalParams);
+	refreshMouseClickCombo();
 }
 void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 {

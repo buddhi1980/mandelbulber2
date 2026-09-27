@@ -229,6 +229,20 @@ void RenderedImage::DisplayCoordinates()
 						 + cPrimitives::PrimitiveNames(fractal::enumObjectType(clickModeData.at(1).toInt()))
 						 + QString(" #") + QString::number(clickModeData.at(2).toInt());
 			break;
+		case clickPlaceObject:
+		{
+			// clickModeData: [clickPlaceObject, nodeId] - read node name from its definition
+			int nodeId = clickModeData.at(1).toInt();
+			QString objectName = QString::number(nodeId);
+			if (params)
+			{
+				QString definitionName = QString("node_%1_definition").arg(nodeId, 4, 10, QChar('0'));
+				if (params->IfExists(definitionName))
+					objectName = params->Get<QString>(definitionName).split(',').at(0);
+			}
+			text = tr("Place object: ") + objectName;
+			break;
+		}
 		case clickGetJuliaConstant: text = tr("Get Julia constant"); break;
 		case clickFlightSpeedControl:
 			text = tr("LMB - increase speed");

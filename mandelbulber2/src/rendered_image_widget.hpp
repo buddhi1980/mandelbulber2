@@ -72,6 +72,7 @@ public:
 		clickPlaceRandomLightCenter = 8,
 		clickGetPoint = 9,
 		clickWrapLimitsAroundObject = 10,
+		clickPlaceObject = 11, // place object tree node (group or fractal) by mouse click
 	};
 
 	enum enumGridType
