@@ -42,6 +42,7 @@
 #include "fractal_calculation_parameters.h"
 #include "material_widget.h"
 #include "drag_drop_tree_widget.h"
+#include "src/rendered_image_widget.hpp"
 
 cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cObjectsTreeWidget)
@@ -1758,6 +1759,8 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	if (params->Get<bool>("ui_colorize"))
 		cInterface::ColorizeGroupBoxes(this, params->Get<int>("ui_colorize_random_seed") + nodeId);
 	cInterface::AdjustLayoutSpacing(this, params->Get<int>("ui_layout_spacing"));
+
+	syncMouseClickComboForSelectedNode();
 }
 
 void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)
@@ -2074,6 +2077,55 @@ void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 			qDebug() << "  -> name changed to" << formulaName;
 			ui->treeWidget_objects->viewport()->update();
 			break;
+		}
+	}
+}
+
+void cObjectsTreeWidget::syncMouseClickComboForSelectedNode()
+{
+	if (mouseFunctionComboWidget == nullptr) return;
+
+	if (lastSelectedNodeId < 0) return;
+
+	int currentMode = mouseFunctionComboWidget->currentData().toList().at(0).toInt();
+
+	if (currentMode == int(RenderedImage::clickPlaceObject))
+	{
+		QList<QVariant> item;
+		item.append(int(RenderedImage::clickPlaceObject));
+		item.append(lastSelectedNodeId);
+
+		for (int i = 0; i < mouseFunctionComboWidget->count(); ++i)
+		{
+			QList<QVariant> data = mouseFunctionComboWidget->itemData(i).toList();
+			if (data.size() >= 2 && data[0].toInt() == int(RenderedImage::clickPlaceObject)
+					&& data[1].toInt() == lastSelectedNodeId)
+			{
+				if (mouseFunctionComboWidget->currentIndex() != i)
+				{
+					mouseFunctionComboWidget->setCurrentIndex(i);
+				}
+				return;
+			}
+		}
+	}
+	else if (currentMode == int(RenderedImage::clickPlacePrimitive))
+	{
+		for (int i = 0; i < mouseFunctionComboWidget->count(); ++i)
+		{
+			QList<QVariant> data = mouseFunctionComboWidget->itemData(i).toList();
+			if (data.size() >= 1 && data[0].toInt() == int(RenderedImage::clickPlaceObject))
+			{
+				int nodeId = data.size() >= 2 ? data[1].toInt() : -1;
+				if (nodeId == lastSelectedNodeId)
+				{
+					if (mouseFunctionComboWidget->currentIndex() != i)
+					{
+						mouseFunctionComboWidget->setCurrentIndex(i);
+					}
+					return;
+				}
+			}
 		}
 	}
 }

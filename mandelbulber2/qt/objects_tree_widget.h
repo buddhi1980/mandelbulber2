@@ -161,6 +161,7 @@ private slots:
 	void onTreeStructureChanged();
 	void onCustomContextMenu(const QPoint &pos);
 	void onFormulaChanged(int fractalIndex, int formulaEnum);
+	void syncMouseClickComboForSelectedNode();
 
 private:
 	Ui::cObjectsTreeWidget *ui;
