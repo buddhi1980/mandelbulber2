@@ -50,6 +50,11 @@ float DisplacementMap(
 
 		texturePoint += (float2){0.5f, 0.5f};
 
+		if (!isfinite(texturePoint.x) || !isfinite(texturePoint.y))
+		{
+			return distance;
+		}
+
 		int2 textureSize = renderData->textureSizes[textureIndex];
 		__global uchar4 *texture = renderData->textures[textureIndex];
 

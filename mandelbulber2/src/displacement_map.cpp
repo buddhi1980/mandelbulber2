@@ -34,6 +34,8 @@
 
 #include "displacement_map.hpp"
 
+#include <cmath>
+
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "hybrid_fractal_sequences.h"
@@ -48,9 +50,9 @@ double DisplacementMap(
 	{
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size())) return distance;
 		const int matId = data->objectData[objectId].materialId;
-		const cMaterial *mat =
-			(matId >= 0 && matId < static_cast<int>(data->materials.size())) ? &data->materials[matId]
-																																					 : nullptr;
+		const cMaterial *mat = (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+														 ? &data->materials[matId]
+														 : nullptr;
 		if (!mat) return distance; // no material: skip displacement
 
 		if (mat->displacementTexture.IsLoaded())
@@ -59,6 +61,13 @@ double DisplacementMap(
 			textureCoordinates =
 				TextureMapping(point, CVector3(0.0, 0.0, 1.0), data->objectData[objectId], mat)
 				+ CVector2<float>(0.5f, 0.5f);
+			// clamp inf/nan to valid range
+			const float clampLimit = 1e6f;
+			if (textureCoordinates.x > clampLimit || textureCoordinates.x < -clampLimit
+					|| textureCoordinates.y > clampLimit || textureCoordinates.y < -clampLimit)
+			{
+				return distance;
+			}
 			sRGBFloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
 			double bump = double(bump3.R);
 			distance -= bump * mat->displacementTextureHeight / reduce;
@@ -80,10 +89,9 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 		if (objectId < 0 || objectId >= static_cast<int>(data->objectData.size()))
 			return pointFractalized;
 		const int matId = data->objectData[objectId].materialId;
-		const cMaterial *mat =
-			(matId >= 0 && matId < static_cast<int>(data->materials.size()))
-				? &data->materials[matId]
-				: nullptr;
+		const cMaterial *mat = (matId >= 0 && matId < static_cast<int>(data->materials.size()))
+														 ? &data->materials[matId]
+														 : nullptr;
 		if (!mat) return pointFractalized; // no material: skip fractal texture
 		if (mat->textureFractalize)
 		{

@@ -33,6 +33,8 @@
  */
 #include <algorithm>
 
+#include <cmath>
+
 #include "render_data.hpp"
 #include "render_worker.hpp"
 #include "texture_mapping.hpp"
@@ -49,16 +51,22 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 		TextureMapping(point, input.normal, objectData, input.material, &texX, &texY)
 		+ CVector2<float>(0.5, 0.5);
 
+	// clamp inf/nan to valid range
+	const float clampLimit = 1e6f;
+	if (texPoint.x > clampLimit || texPoint.x < -clampLimit || texPoint.y > clampLimit
+			|| texPoint.y < -clampLimit)
+	{
+		return input.normal;
+	}
+
 	// mipmapping - calculation of texture pixel size
 	float delta = CalcDelta(input.point);
-	float deltaTexX =
-		(TextureMapping(point + texX * delta, input.normal, objectData, input.material)
-			+ CVector2<float>(0.5, 0.5) - texPoint)
-			.Length();
-	float deltaTexY =
-		(TextureMapping(point + texY * delta, input.normal, objectData, input.material)
-			+ CVector2<float>(0.5, 0.5) - texPoint)
-			.Length();
+	float deltaTexX = (TextureMapping(point + texX * delta, input.normal, objectData, input.material)
+										 + CVector2<float>(0.5, 0.5) - texPoint)
+											.Length();
+	float deltaTexY = (TextureMapping(point + texY * delta, input.normal, objectData, input.material)
+										 + CVector2<float>(0.5, 0.5) - texPoint)
+											.Length();
 	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);

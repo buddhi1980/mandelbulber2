@@ -40,6 +40,8 @@
 
 #include "texture.hpp"
 
+#include <cmath>
+
 #include <memory>
 
 #include <QCache>
@@ -287,6 +289,11 @@ sRGBFloat cTexture::Pixel(float x, float y, float pixelSize) const
 
 sRGBFloat cTexture::Pixel(CVector2<float> point, float pixelSize) const
 {
+	// clamp inf/nan to valid range - cannot be optimized away
+	const float clampLimit = 1e6f;
+	if (point.x > clampLimit || point.x < -clampLimit) point.x = 0.0f;
+	if (point.y > clampLimit || point.y < -clampLimit) point.y = 0.0f;
+
 	if (point.x > 0)
 		point.x = fmod(point.x, 1.0);
 	else
@@ -324,6 +331,10 @@ sRGBFloat cTexture::LinearInterpolation(float x, float y) const
 
 sRGBFloat cTexture::BicubicInterpolation(float x, float y, const sRGBFloat *bitm, int w, int h)
 {
+	// clamp inf/nan to valid range
+	const float clampLimit = 1e6f;
+	if (x > clampLimit || x < -clampLimit) x = 0.0f;
+	if (y > clampLimit || y < -clampLimit) y = 0.0f;
 	const int ix = int(x);
 	const int iy = int(y);
 	const float rx = x - ix;
@@ -362,6 +373,13 @@ sRGBFloat cTexture::BicubicInterpolation(float x, float y, const sRGBFloat *bitm
 
 CVector3 cTexture::NormalMapFromBumpMap(CVector2<float> point, float bump, float pixelSize) const
 {
+	// clamp inf/nan to valid range
+	const float clampLimit = 1e6f;
+	if (point.x > clampLimit || point.x < -clampLimit || point.y > clampLimit
+			|| point.y < -clampLimit)
+	{
+		return CVector3(0, 0, 1);
+	}
 	const int intX = int(point.x);
 	const int intY = int(point.y);
 	point.x = point.x - intX;
@@ -388,6 +406,13 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<float> point, float bump, float
 CVector3 cTexture::NormalMap(
 	CVector2<float> point, float bump, bool invertGreen, float pixelSize) const
 {
+	// clamp inf/nan to valid range
+	const float clampLimit = 1e6f;
+	if (point.x > clampLimit || point.x < -clampLimit || point.y > clampLimit
+			|| point.y < -clampLimit)
+	{
+		return CVector3(0, 0, 1);
+	}
 	const int intX = int(point.x);
 	const int intY = int(point.y);
 	point.x = point.x - intX;
@@ -406,6 +431,10 @@ CVector3 cTexture::NormalMap(
 
 sRGBFloat cTexture::MipMap(float x, float y, float pixelSize) const
 {
+	// clamp inf/nan to valid range
+	const float clampLimit = 1e6f;
+	if (x > clampLimit || x < -clampLimit) x = 0.0f;
+	if (y > clampLimit || y < -clampLimit) y = 0.0f;
 	pixelSize /= float(max(width, height));
 	if (mipmaps.size() > 0 && pixelSize > 0)
 	{
