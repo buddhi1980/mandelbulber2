@@ -271,7 +271,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					{
 						z += aux.const_c
 								 * (float4){seq->constantMultiplier.x, seq->constantMultiplier.y,
-									 seq->constantMultiplier.z, 0.0f};
+									 seq->constantMultiplier.z, 1.0f};
 					}
 				}
 			}

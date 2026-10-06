@@ -366,7 +366,8 @@ kernel void Nebula(__global float4 *inOutImage, __constant sClInConstants *const
 					}
 					else
 					{
-						z += aux.const_c * constantMultiplier.x;
+						z += aux.const_c
+								 * (float4){constantMultiplier.x, constantMultiplier.y, constantMultiplier.z, 1.0f};
 					}
 				}
 			}
