@@ -54,7 +54,8 @@ sRGBFloat cRenderWorker::TextureShader(
 
 	if (mat->textureFractalize)
 	{
-		sFractalIn fractIn(shaderPoint, 0, -1, 1, 0, &params->common, -1, false, input.material);
+		CVector3 fractalPoint = input.hasTransformedPoint ? input.transformedPoint : shaderPoint;
+		sFractalIn fractIn(fractalPoint, 0, -1, 1, 0, &params->common, -1, false, input.material);
 		sFractalOut fractOut;
 		Compute<fractal::calcModeCubeOrbitTrap>(
 			data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
