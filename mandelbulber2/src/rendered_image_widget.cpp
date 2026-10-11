@@ -1749,7 +1749,17 @@ void RenderedImage::DisplayAllPrimitives()
 	// by multiple nodes is drawn once per node, each with its own inherited world transform.
 	for (const cObjectsTree::sNodeDataForRendering &node : nodes)
 	{
-		if (node.type != enumNodeType::primitive) continue;
+		// node.worldToLocalMatrix maps world -> node-local space (full inherited transform).
+		// Its affine inverse gives the local -> world transform needed for drawing.
+		const CMatrix44 localToWorld = node.worldToLocalMatrix.InverseAffine();
+
+		// Non-primitive nodes (fractal / hybrid / boolean group) get a 3D origin cross gizmo
+		if (node.type != enumNodeType::primitive)
+		{
+			DrawObjectOriginCross(node, localToWorld, node.id == currentNodeId, camera, target, mRotInv,
+				perspectiveType, fov, width, height);
+			continue;
+		}
 
 		const int primitiveIndex = node.primitiveIdx;
 		if (primitiveIndex < 0 || primitiveIndex >= primitives.GetNumberOfPrimivives()) continue;
@@ -1760,10 +1770,6 @@ void RenderedImage::DisplayAllPrimitives()
 
 		sRGB8 color(0, 255, 0);
 		double thickness = (primitiveName == currentPrimitiveItem.fullName) ? 2.0 : 1.0;
-
-		// node.worldToLocalMatrix maps world -> primitive-local space (with the full inherited
-		// transform). Its affine inverse gives the local -> world transform needed for drawing.
-		const CMatrix44 localToWorld = node.worldToLocalMatrix.InverseAffine();
 
 		// primitive torus is drawn as a proper tube mesh instead of its cross wireframe
 		if (auto torus = std::dynamic_pointer_cast<sPrimitiveTorus>(primitive))
@@ -1782,6 +1788,58 @@ void RenderedImage::DisplayAllPrimitives()
 			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
 				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
+	}
+}
+
+// Draws a 3-axis origin cross for a non-primitive object tree node. The arm length is kept
+// proportional to the distance from the camera to the node origin, so the gizmo has an
+// approximately constant on-screen size regardless of how large or small the scene is.
+// Color encodes the node type; the selected node is drawn thicker and brighter.
+void RenderedImage::DrawObjectOriginCross(const cObjectsTree::sNodeDataForRendering &node,
+	const CMatrix44 &localToWorld, bool selected, const CVector3 &camera, const CVector3 &target,
+	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+	int width, int height)
+{
+	// Arm size is a fraction of the camera-to-origin distance (screen-constant sizing).
+	// Tweak baseFraction to make the gizmos bigger/smaller on screen.
+	const double baseFraction = 0.2;
+
+	const CVector3 origin = localToWorld.TransformPoint(CVector3(0.0, 0.0, 0.0));
+	const double distToCamera = (camera - origin).Length();
+	const double arm = std::max(baseFraction * distToCamera, 1e-6);
+
+	// Base color per object type (kept in sync conceptually with the tree node icons)
+	sRGB8 baseColor(255, 255, 255);
+	switch (node.type)
+	{
+		case enumNodeType::fractal: baseColor = sRGB8(0, 200, 255); break;
+		case enumNodeType::hybrid: baseColor = sRGB8(230, 200, 40); break;
+		case enumNodeType::booleanAdd: baseColor = sRGB8(120, 255, 120); break;
+		case enumNodeType::booleanMul: baseColor = sRGB8(255, 160, 40); break;
+		case enumNodeType::booleanSub: baseColor = sRGB8(255, 90, 130); break;
+		default: break;
+	}
+
+	const double thickness = selected ? 2.5 : 1.0;
+	const double overall = selected ? 1.0 : 0.6;
+
+	// Per-axis intensity multipliers give the X/Y/Z arms a slightly different brightness so the
+	// three directions stay distinguishable while all share the node's type color.
+	const double axisIntensity[3] = {0.9, 1.0, 0.5};
+	const CVector3 axisDir[3] = {
+		CVector3(arm, 0.0, 0.0), CVector3(0.0, arm, 0.0), CVector3(0.0, 0.0, arm)};
+
+	for (int a = 0; a < 3; a++)
+	{
+		double factor = axisIntensity[a] * overall;
+		sRGB8 color(static_cast<quint8>(baseColor.R * factor),
+			static_cast<quint8>(baseColor.G * factor), static_cast<quint8>(baseColor.B * factor));
+
+		CVector3 p1 = localToWorld.TransformPoint(axisDir[a] * (-1.0));
+		CVector3 p2 = localToWorld.TransformPoint(axisDir[a]);
+
+		line3D(p1, p2, camera, target, mRotInv, perspectiveType, fov, width, height, color, thickness,
+			sRGBFloat(0.9, 0.9, 0.9), 10, 1);
 	}
 }
 

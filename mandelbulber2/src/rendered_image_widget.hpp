@@ -43,6 +43,7 @@
 #include "QVariant"
 #include "algebra.hpp"
 #include "animation_path_data.hpp"
+#include "objects_tree.h"
 #include "primitive_item.h"
 #include "rendered_tile_data.hpp"
 #include "stereo.h"
@@ -123,6 +124,10 @@ public:
 	int GetCurrentLightIndex() { return currentLightIndex; }
 	void SetCurrentPrimitiveItem(const sPrimitiveItem &item) { currentPrimitiveItem = item; }
 	const sPrimitiveItem &GetCurrentPrimitiveItem() { return currentPrimitiveItem; }
+	// Selects the objects tree node whose origin cross is highlighted in the preview.
+	// Pass -1 to clear the selection.
+	void SetCurrentObjectNodeId(int id) { currentNodeId = id; }
+	int GetCurrentObjectNodeId() const { return currentNodeId; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -177,6 +182,15 @@ private:
 		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
 		int width, int height, sRGB8 color, double thickness);
 
+	// Draws a 3D origin cross (X/Y/Z axes gizmo) for a non-primitive object tree node
+	// (fractal, hybrid or boolean group). localToWorld is the node's accumulated local->world
+	// transform; the arm length is proportional to the camera distance so the gizmo keeps an
+	// approximately constant on-screen size. selected highlights the currently chosen node.
+	void DrawObjectOriginCross(const cObjectsTree::sNodeDataForRendering &node,
+		const CMatrix44 &localToWorld, bool selected, const CVector3 &camera, const CVector3 &target,
+		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+		int width, int height);
+
 	bool anaglyphMode;
 	bool cursorVisible;
 	bool lightsVisible;
@@ -213,6 +227,7 @@ private:
 	int tileArea = 0;
 	int currentLightIndex;
 	sPrimitiveItem currentPrimitiveItem;
+	int currentNodeId = -1;
 
 signals:
 	void mouseMoved(int x, int y);

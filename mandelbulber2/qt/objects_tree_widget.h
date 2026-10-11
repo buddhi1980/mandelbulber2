@@ -12,6 +12,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QGroupBox>
+#include <QTimer>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
 #include <memory>
@@ -166,8 +167,16 @@ private slots:
 	// Toggles drawing of primitive wire-frame previews in the rendered image widget
 	void slotWireframeVisibilityChanged(bool enabled);
 
+	// Periodically checks whether object parameters changed and refreshes the preview overlay
+	// (primitive wireframes and object origin crosses) while the tree dock is active
+	void slotAutoRefresh();
+
 private:
 	Ui::cObjectsTreeWidget *ui;
+
+	// Single-shot timer used to trigger preview refresh while editing object parameters
+	QTimer *autoRefreshTimer = nullptr;
+	QString autoRefreshLastHash;
 
 	QTreeWidgetItem *worldItem = nullptr;
 

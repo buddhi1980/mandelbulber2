@@ -36,6 +36,7 @@
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/objects_tree.h"
+#include "src/settings.hpp"
 #include "formula/definition/all_fractal_list.hpp"
 #include "fractal_object.h"
 #include "general_object_parameters.h"
@@ -86,6 +87,12 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 	// Toggle the primitive wire-frame preview overlay drawn in the rendered image widget
 	connect(ui->checkBox_displayWireFramePreviews, &QCheckBox::toggled, this,
 		&cObjectsTreeWidget::slotWireframeVisibilityChanged);
+
+	// Auto-refresh timer: polls the parameter container while the dock is active so the preview
+	// overlay (wireframes and origin crosses) updates live when parameters change
+	autoRefreshTimer = new QTimer(this);
+	autoRefreshTimer->setSingleShot(true);
+	connect(autoRefreshTimer, &QTimer::timeout, this, &cObjectsTreeWidget::slotAutoRefresh);
 
 	// Initialize the editor area that appears below the tree widget
 	editorLayout = new QVBoxLayout();
@@ -727,6 +734,12 @@ void cObjectsTreeWidget::UpdateTree(
 
 	if (lastSelectedNodeId > 0 && nodeItems.contains(lastSelectedNodeId))
 		ui->treeWidget_objects->setCurrentItem(nodeItems.value(lastSelectedNodeId));
+
+	// (Re)schedule the preview auto-refresh poll after the tree is (re)built
+	if (autoRefreshTimer)
+	{
+		autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
+	}
 }
 
 void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
@@ -1785,6 +1798,35 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	cGeneralObjectParameters *generalParams =
 		currentEditorWidget->findChild<cGeneralObjectParameters *>();
 	if (generalParams) generalParams->setPlaceObjectNodeId(lastSelectedNodeId);
+
+	// Highlight the newly selected object in the preview overlay (origin crosses for
+	// fractals/hybrids/groups, thicker wireframe for primitives) and repaint
+	if (renderedImageWidget)
+	{
+		renderedImageWidget->SetCurrentObjectNodeId(lastSelectedNodeId);
+		renderedImageWidget->update();
+	}
+}
+
+// Periodic auto-refresh for the preview overlay: whenever object parameters change while the
+// wire-frame/origin-cross checkbox is on, ask the RenderedImage widget to repaint so the gizmos
+// follow the edits live. Mirrors the pattern used by cPrimitivesManager::slotPeriodicRefresh.
+void cObjectsTreeWidget::slotAutoRefresh()
+{
+	if (renderedImageWidget && !visibleRegion().isEmpty()
+			&& ui->checkBox_displayWireFramePreviews->isChecked())
+	{
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(params, nullptr);
+		QString newHash = tempSettings.GetHashCode();
+		if (newHash != autoRefreshLastHash)
+		{
+			autoRefreshLastHash = newHash;
+			renderedImageWidget->update();
+		}
+	}
+
+	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)
