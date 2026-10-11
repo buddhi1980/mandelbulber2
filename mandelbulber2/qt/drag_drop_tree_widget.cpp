@@ -126,7 +126,10 @@ void cDragDropTreeWidget::dropEvent(QDropEvent *event)
 		QPoint pos = event->pos();
 #endif
 		QTreeWidgetItem *targetItem = itemAt(pos);
-		if (targetItem)
+		// Accept the drop only if the last drag-move validation marked it as valid.
+		// Without this guard a drop could slip through on a position that was never
+		// validated (e.g. releasing without a preceding dragMoveEvent).
+		if (targetItem && m_dropValid)
 		{
 			DropPosition dropPos = calculateDropPosition(targetItem, pos);
 			emit dropCompleted(m_sourceNodeId, targetItem, static_cast<int>(dropPos));

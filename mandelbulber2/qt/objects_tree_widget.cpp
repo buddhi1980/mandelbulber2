@@ -362,6 +362,19 @@ bool cObjectsTreeWidget::isGroupType(enumNodeType type)
 				 || type == enumNodeType::booleanMul || type == enumNodeType::booleanSub;
 }
 
+// Returns true when 'potentialAncestor' lies on the parent chain of
+// 'potentialDescendant' (strict ancestor: parent, grandparent, ...).
+bool cObjectsTreeWidget::isAncestorOf(
+	QTreeWidgetItem *potentialAncestor, QTreeWidgetItem *potentialDescendant) const
+{
+	if (!potentialAncestor || !potentialDescendant) return false;
+	for (QTreeWidgetItem *p = potentialDescendant->parent(); p; p = p->parent())
+	{
+		if (p == potentialAncestor) return true;
+	}
+	return false;
+}
+
 QTreeWidgetItem *cObjectsTreeWidget::selectedGroupTarget() const
 {
 	const QList<QTreeWidgetItem *> selected = ui->treeWidget_objects->selectedItems();
@@ -1916,16 +1929,14 @@ void cObjectsTreeWidget::onDragMoveOverItem(
 			return;
 		}
 
-		// Check for cycles: source must not be an ancestor of target
-		QTreeWidgetItem *parent = sourceItem->parent();
-		while (parent)
+		// Cycle check: the drop is invalid only when the source would become a
+		// descendant of itself, i.e. the source is an ancestor of the target.
+		// Note: dropping a node onto its own (grand)parent group is legal - it
+		// is the standard gesture for lifting a node one level up in the tree.
+		if (isAncestorOf(sourceItem, targetItem))
 		{
-			if (parent == targetItem)
-			{
-				qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
-				return;
-			}
-			parent = parent->parent();
+			qobject_cast<cDragDropTreeWidget *>(ui->treeWidget_objects)->setDropValid(false);
+			return;
 		}
 
 		// Check if dropping a primitive into a hybrid group (not allowed)
@@ -2006,19 +2017,30 @@ void cObjectsTreeWidget::onDropCompleted(
 
 	if (!sourceItem) return;
 
-	// Check for cycles
-	QTreeWidgetItem *checkParent = sourceItem->parent();
-	while (checkParent)
-	{
-		if (checkParent == targetItem) return;
-		checkParent = checkParent->parent();
-	}
+	// Determine the effective new parent of the dragged node. DropOnItem makes the
+	// target group the new parent; DropAbove/DropBelow inserts the node next to the
+	// target, so the target's own parent becomes the new parent.
+	QTreeWidgetItem *newParent =
+		dropPosition == static_cast<int>(DropPosition::DropOnItem) ? targetItem : targetItem->parent();
+
+	// Cycle check: the move is invalid only when the node would end up inside its
+	// own subtree (new parent is the node itself or its descendant). The target
+	// being the node's current (grand)parent is NOT a cycle - that is exactly the
+	// case of extracting a child out of a group to place it beside the group.
+	if (newParent && (newParent == sourceItem || isAncestorOf(sourceItem, newParent))) return;
 
 	// Check if drop on leaf node (not allowed)
 	if (dropPosition == static_cast<int>(DropPosition::DropOnItem))
 	{
 		enumNodeType targetType = enumNodeType(getNodeType(targetItem));
 		if (!isGroupType(targetType)) return;
+	}
+
+	// Mirror of the drag validation: a primitive must not be moved into a hybrid group
+	if (newParent && enumNodeType(getNodeType(sourceItem)) == enumNodeType::primitive
+			&& enumNodeType(getNodeType(newParent)) == enumNodeType::hybrid)
+	{
+		return;
 	}
 
 	// Remove source from old location
