@@ -381,12 +381,15 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 						continue;
 					}
 					// Apply displacement maps (bump maps) and Perlin noise to the distance.
-					// These modify the raw distance to add surface detail without changing
-					// the underlying geometry. Both operate in world space (use in.point).
+					// Use fractalized point for texture mapping.
 					if (objectId >= 0)
 					{
-						distance = DisplacementMap(distance, in.point, objectId, data);
-						distance = PerlinNoiseDisplacement(distance, in.point, data, objectId);
+						double reduceDisplacement = 1.0;
+						CVector3 pointFractalized = FractalizeTexture(
+							in.point, data, params, objectId, sequenceIndex, &reduceDisplacement);
+						distance =
+							DisplacementMap(distance, pointFractalized, objectId, data, reduceDisplacement);
+						distance = PerlinNoiseDisplacement(distance, pointFractalized, data, objectId);
 					}
 					break;
 				}
@@ -448,8 +451,12 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					leafIters = nodeOut.iters;
 					if (objectId >= 0)
 					{
-						distance = DisplacementMap(distance, in.point, objectId, data);
-						distance = PerlinNoiseDisplacement(distance, in.point, data, objectId);
+						double reduceDisplacement = 1.0;
+						CVector3 pointFractalized = FractalizeTexture(
+							in.point, data, params, objectId, sequenceIndex, &reduceDisplacement);
+						distance =
+							DisplacementMap(distance, pointFractalized, objectId, data, reduceDisplacement);
+						distance = PerlinNoiseDisplacement(distance, pointFractalized, data, objectId);
 					}
 					break;
 				}
