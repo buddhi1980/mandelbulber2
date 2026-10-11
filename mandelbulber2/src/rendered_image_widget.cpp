@@ -1672,13 +1672,15 @@ void RenderedImage::DisplayAllLights()
 	} // for parameterName
 }
 
+// Draws the wireframe preview of a torus primitive.
+// localToWorld is the node's accumulated local->world transform (position, rotation and scale
+// inherited from the objects tree). The torus radius / tubeRadius are already expressed in the
+// primitive's own local space, so no extra size scaling is applied here.
 void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &torus,
-	const CVector3 &camera, const CVector3 &target, const CRotationMatrix &mRotInv,
-	params::enumPerspectiveType perspectiveType, double fov, int width, int height, sRGB8 color,
-	double thickness)
+	const CMatrix44 &localToWorld, const CVector3 &camera, const CVector3 &target,
+	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+	int width, int height, sRGB8 color, double thickness)
 {
-	// primitive torus cannot be scaled
-
 	double angleStep = 2.0 * M_PI / sPrimitiveBasic::wireframeSegments;
 	for (double alpha = 0; alpha < 2.0 * M_PI; alpha += angleStep * 2.0)
 	{
@@ -1697,23 +1699,18 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x2, y2, tz1);
-				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				//				point1 = point1 + torus->position;
-				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				//				point2 = point2 + torus->position;
-				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
-				// height, color, 					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				CVector3 point1 = localToWorld.TransformPoint(p1);
+				CVector3 point2 = localToWorld.TransformPoint(p2);
+				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 			{
 				CVector3 p1(x1, y1, tz1);
 				CVector3 p2(x3, y3, tz2);
-				//				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
-				//				point1 = point1 + torus->position;
-				//				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
-				//				point2 = point2 + torus->position;
-				//				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
-				// height, color,
-				//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				CVector3 point1 = localToWorld.TransformPoint(p1);
+				CVector3 point2 = localToWorld.TransformPoint(p2);
+				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 			}
 		}
 	}
@@ -1721,7 +1718,17 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 
 void RenderedImage::DisplayAllPrimitives()
 {
-	cPrimitives primitives(params, nullptr);
+	// Build the objects tree so primitive previews follow the hierarchical scene graph:
+	// position, rotation and scale are inherited along the parent chain (same accumulation the
+	// renderer uses). cPrimitives::Set() assigns node.primitiveIdx / internalObjectId, so the
+	// tree and the primitive list must be created together.
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(params);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+
+	std::vector<cObjectData> objectData;
+	cPrimitives primitives(params, &objectData, &nodes);
 	QStringList listOfNames = primitives.GetListOfPrimitiveNames();
 
 	CVector3 camera = params->Get<CVector3>("camera");
@@ -1738,41 +1745,42 @@ void RenderedImage::DisplayAllPrimitives()
 	mRotInv.RotateX(-rotation.y / 180.0 * M_PI);
 	mRotInv.RotateZ(-rotation.x / 180.0 * M_PI);
 
-	for (int index = 0; index < primitives.GetNumberOfPrimivives(); index++)
+	// Iterate over the tree nodes (not the primitive list) so that the same primitive referenced
+	// by multiple nodes is drawn once per node, each with its own inherited world transform.
+	for (const cObjectsTree::sNodeDataForRendering &node : nodes)
 	{
-		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(index);
+		if (node.type != enumNodeType::primitive) continue;
+
+		const int primitiveIndex = node.primitiveIdx;
+		if (primitiveIndex < 0 || primitiveIndex >= primitives.GetNumberOfPrimivives()) continue;
+
+		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(primitiveIndex);
 		const sPrimitiveBasic::tWireframeShape primitiveShape = primitive->GetWireFrameShape();
-		const QString primitiveName = listOfNames.at(index);
+		const QString primitiveName = listOfNames.at(primitiveIndex);
 
 		sRGB8 color(0, 255, 0);
 		double thickness = (primitiveName == currentPrimitiveItem.fullName) ? 2.0 : 1.0;
 
-		// primitive torus cannot be scaled
+		// node.worldToLocalMatrix maps world -> primitive-local space (with the full inherited
+		// transform). Its affine inverse gives the local -> world transform needed for drawing.
+		const CMatrix44 localToWorld = node.worldToLocalMatrix.InverseAffine();
+
+		// primitive torus is drawn as a proper tube mesh instead of its cross wireframe
 		if (auto torus = std::dynamic_pointer_cast<sPrimitiveTorus>(primitive))
 		{
-			DrawWireframeTorus(
-				torus, camera, target, mRotInv, perspectiveType, fov, width, height, color, thickness);
+			DrawWireframeTorus(torus, localToWorld, camera, target, mRotInv, perspectiveType, fov, width,
+				height, color, thickness);
 		}
 
 		for (const sPrimitiveBasic::sPrimitiveWireLine &line : primitiveShape)
 		{
-			double sizeMultiplier = 1.0;
+			// Wireframe shapes are stored in normalized local coordinates; multiply by the
+			// primitive's local size to match the distance function, then map to world space.
+			CVector3 point1 = localToWorld.TransformPoint(line.p1 * primitive->size);
+			CVector3 point2 = localToWorld.TransformPoint(line.p2 * primitive->size);
 
-			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
-			{
-				// sizeMultiplier = (camera - primitive->position).Length();
-			}
-
-			//			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
-			//				line.p1 * primitive->size * sizeMultiplier);
-			//			point1 = point1 + primitive->position;
-			//
-			//			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
-			//				line.p2 * primitive->size * sizeMultiplier);
-			//			point2 = point2 + primitive->position;
-
-			// line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-			//	thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }

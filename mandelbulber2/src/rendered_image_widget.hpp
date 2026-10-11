@@ -170,10 +170,12 @@ private:
 		const CVector3 &target, const CRotationMatrix &mRotInv,
 		params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight,
 		sRGB8 color, double thickness, sRGBFloat opacity, int numberOfSegments, int layer);
-	void DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &primitive, const CVector3 &camera,
-		const CVector3 &target, const CRotationMatrix &mRotInv,
-		params::enumPerspectiveType perspectiveType, double fov, int width, int height, sRGB8 color,
-		double thickness);
+	// localToWorld is the node's accumulated local->world transform from the objects tree; it
+	// replaces the per-primitive position/rotation used before the tree refactor.
+	void DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &primitive,
+		const CMatrix44 &localToWorld, const CVector3 &camera, const CVector3 &target,
+		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+		int width, int height, sRGB8 color, double thickness);
 
 	bool anaglyphMode;
 	bool cursorVisible;

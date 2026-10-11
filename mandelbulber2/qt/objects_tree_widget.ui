@@ -86,6 +86,13 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QCheckBox" name="checkBox_displayWireFramePreviews">
+       <property name="text">
+        <string>Display wire-frame previews</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

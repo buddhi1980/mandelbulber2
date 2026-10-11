@@ -83,6 +83,10 @@ cObjectsTreeWidget::cObjectsTreeWidget(QWidget *parent)
 	connect(ui->treeWidget_objects, &QTreeWidget::itemSelectionChanged, this,
 		&cObjectsTreeWidget::slotItemSelectionChanged);
 
+	// Toggle the primitive wire-frame preview overlay drawn in the rendered image widget
+	connect(ui->checkBox_displayWireFramePreviews, &QCheckBox::toggled, this,
+		&cObjectsTreeWidget::slotWireframeVisibilityChanged);
+
 	// Initialize the editor area that appears below the tree widget
 	editorLayout = new QVBoxLayout();
 	editorLayout->setContentsMargins(0, 0, 0, 0);
@@ -854,6 +858,17 @@ void cObjectsTreeWidget::attachEnableCheckbox(QTreeWidgetItem *item, int nodeId,
 		});
 }
 
+void cObjectsTreeWidget::slotWireframeVisibilityChanged(bool enabled)
+{
+	// The preview overlay is drawn by the RenderedImage widget; forward the toggle and request a
+	// repaint so the wire-frame grid appears/disappears immediately.
+	if (renderedImageWidget)
+	{
+		renderedImageWidget->SetPrimitivesVisibility(enabled);
+		renderedImageWidget->update();
+	}
+}
+
 void cObjectsTreeWidget::slotAddGroup()
 {
 	bool ok = false;
@@ -1616,6 +1631,9 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 QWidget *cObjectsTreeWidget::buildGeneralObjectParametersEditor(QTreeWidgetItem *item)
 {
 	cGeneralObjectParameters *generalParams = new cGeneralObjectParameters();
+	// Pass the rendered image and mouse click function combo so the "Place object"
+	// button can activate the clickPlaceObject mode for the edited node
+	generalParams->AssignSpecialWidgets(renderedImageWidget, mouseFunctionComboWidget);
 	// renaming edit fields to have node_ prefix so they bind to the correct gPar keys (e.g.
 	// vect3_position_x → vect3_node_001_position_x)
 
@@ -1761,6 +1779,12 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	cInterface::AdjustLayoutSpacing(this, params->Get<int>("ui_layout_spacing"));
 
 	syncMouseClickComboForSelectedNode();
+
+	// Tell the embedded general object parameters editor which node the
+	// "Place object by mouse pointer" button should activate in the combo box
+	cGeneralObjectParameters *generalParams =
+		currentEditorWidget->findChild<cGeneralObjectParameters *>();
+	if (generalParams) generalParams->setPlaceObjectNodeId(lastSelectedNodeId);
 }
 
 void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)

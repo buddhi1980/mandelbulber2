@@ -23,8 +23,16 @@ public:
 	cGeneralObjectParameters(QWidget *parent = nullptr);
 	~cGeneralObjectParameters() override;
 
+	// Stores the objects tree node ID that the "Place object" button activates
+	// in the mouse click function combo box
+	void setPlaceObjectNodeId(int nodeId);
+
+private slots:
+	void onPushButtonPlaceObjectClicked();
+
 private:
 	Ui::cGeneralObjectParameters *ui;
+	int placeObjectNodeId = -1;
 };
 
 #endif /* MANDELBULBER2_QT_GENERAL_OBJECT_PARAMETERS_H_ */

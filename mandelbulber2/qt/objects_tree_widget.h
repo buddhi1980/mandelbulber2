@@ -163,6 +163,9 @@ private slots:
 	void onFormulaChanged(int fractalIndex, int formulaEnum);
 	void syncMouseClickComboForSelectedNode();
 
+	// Toggles drawing of primitive wire-frame previews in the rendered image widget
+	void slotWireframeVisibilityChanged(bool enabled);
+
 private:
 	Ui::cObjectsTreeWidget *ui;
 
