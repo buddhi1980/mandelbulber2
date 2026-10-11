@@ -1791,10 +1791,12 @@ void RenderedImage::DisplayAllPrimitives()
 	}
 }
 
-// Draws a 3-axis origin cross for a non-primitive object tree node. The arm length is kept
-// proportional to the distance from the camera to the node origin, so the gizmo has an
-// approximately constant on-screen size regardless of how large or small the scene is.
-// Color encodes the node type; the selected node is drawn thicker and brighter.
+// Draws a 3-axis origin cross plus a small orientation cube for a non-primitive object tree
+// node. The arm length is kept proportional to the distance from the camera to the node origin,
+// so the gizmo has an approximately constant on-screen size regardless of scene scale. The cube
+// is 3x smaller than the cross arm (tip-to-tip ratio 1:3) and provides a clear visual cue for
+// the local-space rotation. Color encodes the node type; the selected node is drawn thicker
+// and brighter.
 void RenderedImage::DrawObjectOriginCross(const cObjectsTree::sNodeDataForRendering &node,
 	const CMatrix44 &localToWorld, bool selected, const CVector3 &camera, const CVector3 &target,
 	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
@@ -1822,6 +1824,32 @@ void RenderedImage::DrawObjectOriginCross(const cObjectsTree::sNodeDataForRender
 
 	const double thickness = selected ? 2.5 : 1.0;
 	const double overall = selected ? 1.0 : 0.6;
+
+	// Orientation cube: half edge = arm/3, so tip-to-tip is exactly 1/3 of the cross.
+	// Drawn first so the axis lines remain visible on top.
+	{
+		const double boxHalf = arm / 3.0;
+		const CVector3 corners[8] = {CVector3(-boxHalf, -boxHalf, -boxHalf),
+			CVector3(boxHalf, -boxHalf, -boxHalf), CVector3(-boxHalf, boxHalf, -boxHalf),
+			CVector3(boxHalf, boxHalf, -boxHalf), CVector3(-boxHalf, -boxHalf, boxHalf),
+			CVector3(boxHalf, -boxHalf, boxHalf), CVector3(-boxHalf, boxHalf, boxHalf),
+			CVector3(boxHalf, boxHalf, boxHalf)};
+		static const int edges[12][2] = {{0, 1}, {2, 3}, {4, 5}, {6, 7}, {0, 2}, {1, 3}, {4, 6}, {5, 7},
+			{0, 4}, {1, 5}, {2, 6}, {3, 7}};
+
+		const double boxFactor = 0.7 * overall;
+		sRGB8 boxColor(static_cast<quint8>(baseColor.R * boxFactor),
+			static_cast<quint8>(baseColor.G * boxFactor), static_cast<quint8>(baseColor.B * boxFactor));
+		const double boxThickness = selected ? 1.8 : 0.8;
+
+		for (int e = 0; e < 12; e++)
+		{
+			CVector3 p1 = localToWorld.TransformPoint(corners[edges[e][0]]);
+			CVector3 p2 = localToWorld.TransformPoint(corners[edges[e][1]]);
+			line3D(p1, p2, camera, target, mRotInv, perspectiveType, fov, width, height, boxColor,
+				boxThickness, sRGBFloat(0.9, 0.9, 0.9), 10, 1);
+		}
+	}
 
 	// Per-axis intensity multipliers give the X/Y/Z arms a slightly different brightness so the
 	// three directions stay distinguishable while all share the node's type color.

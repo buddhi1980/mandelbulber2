@@ -182,10 +182,11 @@ private:
 		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
 		int width, int height, sRGB8 color, double thickness);
 
-	// Draws a 3D origin cross (X/Y/Z axes gizmo) for a non-primitive object tree node
-	// (fractal, hybrid or boolean group). localToWorld is the node's accumulated local->world
-	// transform; the arm length is proportional to the camera distance so the gizmo keeps an
-	// approximately constant on-screen size. selected highlights the currently chosen node.
+	// Draws a 3D origin cross (X/Y/Z axes gizmo) with a small orientation cube for a
+	// non-primitive object tree node (fractal, hybrid or boolean group). localToWorld is the
+	// node's accumulated local->world transform; the arm length is proportional to the camera
+	// distance so the gizmo keeps an approximately constant on-screen size. The cube half-edge
+	// is 1/3 of the arm. selected highlights the currently chosen node.
 	void DrawObjectOriginCross(const cObjectsTree::sNodeDataForRendering &node,
 		const CMatrix44 &localToWorld, bool selected, const CVector3 &camera, const CVector3 &target,
 		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
