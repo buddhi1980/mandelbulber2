@@ -1769,7 +1769,11 @@ void RenderedImage::DisplayAllPrimitives()
 		const QString primitiveName = listOfNames.at(primitiveIndex);
 
 		sRGB8 color(0, 255, 0);
-		double thickness = (primitiveName == currentPrimitiveItem.fullName) ? 2.0 : 1.0;
+		// Highlight the selected primitive either by objects tree node id (the tree dock sets
+		// currentNodeId on selection) or, for the legacy primitives manager dock, by fullName
+		const bool isSelected =
+			(node.id == currentNodeId) || (primitiveName == currentPrimitiveItem.fullName);
+		double thickness = isSelected ? 2.0 : 1.0;
 
 		// primitive torus is drawn as a proper tube mesh instead of its cross wireframe
 		if (auto torus = std::dynamic_pointer_cast<sPrimitiveTorus>(primitive))
