@@ -132,7 +132,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point, input2.distThresh, false);
-			distance = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			distance = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 			iterations = distanceOut.iters;
 
 			// Apply per-object detailLevelMultiplier to input2.distThresh dynamically

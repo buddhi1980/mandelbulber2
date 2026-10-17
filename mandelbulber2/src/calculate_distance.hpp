@@ -40,14 +40,38 @@
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
 #include <memory>
+#include <vector>
 
 #include "common_math.h"
 #include "hybrid_fractal_sequences.h"
+#include "objects_tree.h"
 
 // forward declarations
 class cHybridFractalSequences;
 struct sParamRender;
 struct sRenderData;
+
+// Stack frame for traversing the object tree hierarchy.
+// The tree uses a preorder traversal where boolean group nodes push a new
+// stack level and leaf nodes (fractals/primitives) are merged into the
+// current top level using the appropriate boolean operator.
+// 'cumulativeDistance' holds the running distance result for the current
+// boolean group scope (union, intersection, or subtraction).
+// 'closestObjectId' / 'closestObjectSequence' track which fractal leaf
+// is closest, needed later for coloring, displacement, and normal calc.
+struct ObjectTreeStackFrame
+{
+	int level;
+	int closestObjectId;
+	int closestObjectSequence;
+	double cumulativeDistance;
+	double detailSize;
+	enumNodeType nodeType;
+	CVector3 transformedPoint;
+	bool hasTransformedPoint;
+	bool smoothCombineEnable = false;
+	double smoothCombineDistance = 0.0;
+};
 
 struct sDistanceIn
 {
@@ -74,8 +98,14 @@ struct sDistanceOut
 	double detailLevelMultiplier = 1.0;
 };
 
+// data: scene render data (object tree nodes); null disables the objects tree path.
+// objectStack: per-thread traversal stack buffer. Required when data is not null.
+// Callers must pre-allocate it (size from GetObjectTreeRequiredStackDepth())
+// outside the hot rendering loop - CalculateDistance performs no dynamic
+// allocation with a properly sized buffer.
 double CalculateDistance(const sParamRender &params, const cHybridFractalSequences &fractals,
-	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data,
+	std::vector<ObjectTreeStackFrame> *objectStack);
 double CalculateDistanceSimple(const sParamRender &params, const sDistanceIn &in,
 	const CVector3 &point, sDistanceOut *out, int forcedFormulaIndex,
 	const cHybridFractalSequences::sSequence *sequence);
@@ -85,6 +115,11 @@ double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 
 double CalculateDistanceFromObjectsTree(const sParamRender &params,
 	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,
-	sRenderData *data);
+	sRenderData *data, std::vector<ObjectTreeStackFrame> *objectStack);
+
+// Returns the number of ObjectTreeStackFrame slots needed to traverse the
+// given node list: one slot per nesting level of boolean groups plus two
+// slots of headroom (root frame and boundary safety).
+int GetObjectTreeRequiredStackDepth(const std::vector<cObjectsTree::sNodeDataForRendering> &nodes);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */

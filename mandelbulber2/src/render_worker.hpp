@@ -41,6 +41,7 @@
 #include <QThread>
 
 #include "algebra.hpp"
+#include "calculate_distance.hpp"
 #include "color_structures.hpp"
 #include "texture_enums.hpp"
 
@@ -221,6 +222,7 @@ private:
 	// functions
 	void PrepareMainVectors();
 	void PrepareReflectionBuffer();
+	void PrepareObjectStack();
 	void RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const;
 	double CalcDistThresh(CVector3 point) const;
 	double CalcDelta(CVector3 point) const;
@@ -302,6 +304,11 @@ private:
 	std::vector<sRayBuffer> rayBuffer;
 	std::vector<sRayStack> rayStack;
 	std::vector<sVectorsAround> AOVectorsAround;
+	// Per-thread scratch buffer used as traversal stack by
+	// CalculateDistanceFromObjectsTree. Sized in PrepareObjectStack() to
+	// match the scene object tree nesting depth. Mutable because it is
+	// passed from const shading/ray-marching methods as working memory.
+	mutable std::vector<ObjectTreeStackFrame> objectStack;
 
 public slots:
 	void doWork();

@@ -42,6 +42,7 @@
 #include "light.h"
 #include "parameters.hpp"
 #include "random.hpp"
+#include "render_data.hpp"
 #include "system_data.hpp"
 #include "write_log.hpp"
 
@@ -131,6 +132,14 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 		cRandom random;
 		random.Initialize(randomSeed);
 
+		// Traversal stack buffer for the random light placement distance queries.
+		// Allocated once here (single-threaded scene preparation), not per query.
+		std::vector<ObjectTreeStackFrame> objectStack;
+		if (renderData)
+		{
+			objectStack.resize(GetObjectTreeRequiredStackDepth(renderData->nodesDataForRendering));
+		}
+
 		for (int i = 0; i < numberOfRandomLights; i++)
 		{
 			int trialNumber = 0;
@@ -148,7 +157,8 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 				position = randomLightsCenter + rv * distributionRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
-				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut, renderData);
+				distance =
+					CalculateDistance(*params, *fractals, distanceIn, &distanceOut, renderData, &objectStack);
 
 				trialNumber++;
 				if (trialNumber % 100 == 0) radiusMultiplier *= 1.01;

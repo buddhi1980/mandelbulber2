@@ -106,7 +106,8 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
-		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+		double dist =
+			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		// Apply per-object detailLevelMultiplier to dist_thresh dynamically

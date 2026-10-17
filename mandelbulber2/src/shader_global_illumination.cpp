@@ -87,7 +87,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point, distThresh, false);
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 			objectId = distanceOut.objectId;
 
 			// Apply per-object detailLevelMultiplier to distThresh dynamically

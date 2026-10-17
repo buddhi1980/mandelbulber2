@@ -43,6 +43,7 @@
 #include <QtConcurrent>
 
 #include "camera_target.hpp"
+#include "calculate_distance.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
 #include "denoiser.h"
@@ -1147,6 +1148,19 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
 	if (paramContainer->Get<bool>("optional_image_channels_enabled"))
 		definesCollector += " -DOPTIONAL_IMAGE_CHANNELS";
+
+	// Set the object tree traversal stack size in calculate_distance.cl dynamically,
+	// based on the actual scene node nesting depth. This allows trees deeper than the
+	// previously hard-coded 10 levels. The fallback value here and the #ifndef guard
+	// in the .cl file must be kept in sync.
+	{
+		int treeLevels = 10;
+		if (renderData)
+		{
+			treeLevels = GetObjectTreeRequiredStackDepth(renderData->nodesDataForRendering);
+		}
+		definesCollector += " -DMAX_TREE_LEVELS=" + QString::number(treeLevels);
+	}
 
 	// define distance estimation method
 	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get(), renderData);

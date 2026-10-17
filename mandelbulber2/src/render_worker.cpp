@@ -109,6 +109,7 @@ void cRenderWorker::doWork()
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
+	PrepareObjectStack();
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
 
@@ -584,6 +585,16 @@ void cRenderWorker::PrepareReflectionBuffer()
 	rayStack.resize(reflectionsMax + 1);
 }
 
+// Allocate the per-thread object-tree traversal stack used by
+// CalculateDistanceFromObjectsTree(). The size is derived from the actual
+// nesting depth of the scene nodes (sNodeDataForRendering), so arbitrarily
+// deep boolean hierarchies cannot overflow the traversal stack. Previously
+// the function used a fixed 10-element local array.
+void cRenderWorker::PrepareObjectStack()
+{
+	objectStack.resize(GetObjectTreeRequiredStackDepth(data->nodesDataForRendering));
+}
+
 // Pre-compute ambient occlusion sample directions by sampling the lightmap texture.
 // Directions are distributed on a hemisphere using a quasi-uniform angular sampling:
 //   - Polar angle b: -49° to +49° (leaving a small gap at the horizon)
@@ -759,7 +770,7 @@ void cRenderWorker::RayMarching(
 
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
-		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 
 		// Apply per-object detailLevelMultiplier to distThresh dynamically.
 		// Objects with detailLevelMultiplier > 1.0 get a larger threshold (coarser),
@@ -882,7 +893,7 @@ void cRenderWorker::RayMarching(
 
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 
 			// Apply per-object detailLevelMultiplier to distThresh dynamically (binary search phase)
 			if (distanceOut.detailLevelMultiplier > 0.0)
@@ -923,7 +934,7 @@ void cRenderWorker::RayMarching(
 		{
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 
 			// Apply per-object detailLevelMultiplier to distThresh dynamically (iterThreshMode)
 			if (distanceOut.detailLevelMultiplier > 0.0)

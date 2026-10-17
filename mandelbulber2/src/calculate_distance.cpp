@@ -58,32 +58,24 @@
 using namespace std;
 
 double CalculateDistance(const sParamRender &params, const cHybridFractalSequences &fractals,
-	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data,
+	std::vector<ObjectTreeStackFrame> *objectStack)
 {
-	return CalculateDistanceFromObjectsTree(params, fractals, in, out, data);
+	return CalculateDistanceFromObjectsTree(params, fractals, in, out, data, objectStack);
 }
 
-// Stack frame for traversing the object tree hierarchy.
-// The tree uses a preorder traversal where boolean group nodes push a new
-// stack level and leaf nodes (fractals/primitives) are merged into the
-// current top level using the appropriate boolean operator.
-// 'cumulativeDistance' holds the running distance result for the current
-// boolean group scope (union, intersection, or subtraction).
-// 'closestObjectId' / 'closestObjectSequence' track which fractal leaf
-// is closest, needed later for coloring, displacement, and normal calc.
-struct ObjectTreeStackFrame
+// Returns the number of ObjectTreeStackFrame slots needed to traverse the
+// given node list: one slot per nesting level of boolean groups plus two
+// slots of headroom (root frame and boundary safety).
+int GetObjectTreeRequiredStackDepth(const std::vector<cObjectsTree::sNodeDataForRendering> &nodes)
 {
-	int level;
-	int closestObjectId;
-	int closestObjectSequence;
-	double cumulativeDistance;
-	double detailSize;
-	enumNodeType nodeType;
-	CVector3 transformedPoint;
-	bool hasTransformedPoint;
-	bool smoothCombineEnable = false;
-	double smoothCombineDistance = 0.0;
-};
+	int maxLevel = 0;
+	for (const auto &node : nodes)
+	{
+		if (node.enabled && node.level > maxLevel) maxLevel = node.level;
+	}
+	return maxLevel + 2;
+}
 
 // Merge a child node's distance result into its parent boolean group.
 // Uses a stack-based approach: each boolean group node pushes a new
@@ -234,11 +226,8 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 // repeat tiling works correctly on rotated/scaled objects.
 double CalculateDistanceFromObjectsTree(const sParamRender &params,
 	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,
-	sRenderData *data)
+	sRenderData *data, std::vector<ObjectTreeStackFrame> *objectStack)
 {
-	// limit to 10 levels of tree
-	ObjectTreeStackFrame stack[10];
-
 	out->objectId = 0;
 	out->totalIters = 0;
 	out->maxiter = false;
@@ -252,6 +241,24 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 		const auto &primitives = params.primitives.allPrimitives;
 		const int nodeCount = nodes.size();
 		int totalIters = 0;
+
+		// The traversal stack buffer is owned by the caller (one per rendering
+		// thread, pre-allocated and sized to the scene nesting depth).
+		// With a correctly sized buffer this block performs no allocation.
+		// The resize is only a safety net against a mis-sized caller buffer;
+		// it replaces the old fixed ObjectTreeStackFrame stack[10].
+		if (objectStack == nullptr)
+		{
+			WriteLog("CalculateDistanceFromObjectsTree(): no traversal stack buffer provided", 2);
+			return 0.0;
+		}
+		std::vector<ObjectTreeStackFrame> *buffer = objectStack;
+		const int requiredDepth = GetObjectTreeRequiredStackDepth(nodes);
+		if (static_cast<int>(buffer->size()) < requiredDepth)
+		{
+			buffer->resize(requiredDepth);
+		}
+		ObjectTreeStackFrame *stack = buffer->data();
 
 		stack[0].cumulativeDistance = 1e20;
 		stack[0].level = 0;
@@ -809,6 +816,15 @@ double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 	CVector3 rotationAxis = planePoint;
 	rotationAxis.Normalize();
 
+	// Traversal stack buffer for the CalculateDistance calls below.
+	// Allocated once at function entry (this runs on the UI thread, not in
+	// the rendering hot path), so no dynamic allocation happens per query.
+	std::vector<ObjectTreeStackFrame> objectStack;
+	if (data)
+	{
+		objectStack.resize(GetObjectTreeRequiredStackDepth(data->nodesDataForRendering));
+	}
+
 	while (distStep == 0 || distStep > 0.00001)
 	{
 		CVector3 pointNextBest(0, 0, 0);
@@ -826,7 +842,8 @@ double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
 			if (i > 0) pointNext += transversalVect * distStep / 2.0;
 			const sDistanceIn in(pointNext, 0, false);
 			sDistanceOut out;
-			const double dist = CalculateDistance(*params.get(), *fractals.get(), in, &out, data);
+			const double dist =
+				CalculateDistance(*params.get(), *fractals.get(), in, &out, data, &objectStack);
 			// The next step size is proportional to the current distance estimate.
 			// Smaller distance → smaller step (converging toward the surface).
 			const double newDistStep = dist * detail * 0.5;

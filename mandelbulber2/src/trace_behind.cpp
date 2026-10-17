@@ -44,6 +44,7 @@
 #include "opencl_global.h"
 #include "parameters.hpp"
 #include "projection_3d.hpp"
+#include "render_data.hpp"
 
 double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 	std::shared_ptr<cFractalContainer> fractals, double maxDist, CVector3 viewVector,
@@ -57,6 +58,14 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 	std::shared_ptr<cHybridFractalSequences> nineFractals(new cHybridFractalSequences());
 	nineFractals->CreateSequences(params, fractals, nodes);
 	paramRender->resolution = resolution;
+
+	// Scene data for the objects-tree distance path (CPU branch) and the
+	// traversal stack buffer, allocated once for the whole tracing loop
+	sRenderData renderData;
+	renderData.nodesDataForRendering = nodes;
+	renderData.hybridFractalSequences = *nineFractals;
+	std::vector<ObjectTreeStackFrame> objectStack(
+		GetObjectTreeRequiredStackDepth(renderData.nodesDataForRendering));
 	double totalDistanceBehind = 0.0;
 	double distanceBehind = 0.0;
 	CVector3 point = paramRender->camera + viewVector * startingDepth;
@@ -118,7 +127,8 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 		}
 		else
 		{
-			distance = CalculateDistance(*paramRender, *nineFractals, in, &out);
+			distance =
+				CalculateDistance(*paramRender, *nineFractals, in, &out, &renderData, &objectStack);
 		}
 
 		double step = distance;

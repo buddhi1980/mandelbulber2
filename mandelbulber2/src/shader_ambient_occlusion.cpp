@@ -71,7 +71,7 @@ sRGBAFloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point2, input.distThresh, false);
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			float dist_thresh;

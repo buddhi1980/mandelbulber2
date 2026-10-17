@@ -44,6 +44,7 @@
 #include <QObject>
 
 #include "algebra.hpp"
+#include "calculate_distance.hpp"
 
 struct sParamRender;
 class cHybridFractalSequences;
@@ -108,6 +109,12 @@ private:
 	std::shared_ptr<const cParameterContainer> paramsContainer;
 	std::shared_ptr<const cFractalContainer> fractalContainer;
 	bool coloredMesh;
+
+	// Traversal stack buffers for CalculateDistance, one per OpenMP thread.
+	// Allocated once in the constructor (sized to the scene object tree
+	// nesting depth) so that getDistance() never performs dynamic allocation.
+	// Mutable because the buffers are scratch memory used from const methods.
+	mutable std::vector<std::vector<ObjectTreeStackFrame>> objectStacks;
 
 	bool *stop;
 	std::vector<double> &vertices;

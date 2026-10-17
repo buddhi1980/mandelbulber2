@@ -56,6 +56,12 @@
 #include "render_data.hpp"
 #include "write_log.hpp"
 
+// needed for per-thread traversal stack buffer indexing in the
+// OpenMP-parallel voxelizing loop
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 cVoxelExport::cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder,
 	int maxIter, bool greyscale)
 		: QObject()
@@ -215,6 +221,21 @@ void cVoxelExport::ProcessVolume()
 
 		if (!openClEnabled)
 		{
+			// Per-thread object-tree traversal stack buffers, allocated once
+			// before the OpenMP-parallel voxelizing loop so that no dynamic
+			// allocation happens inside CalculateDistance.
+#ifdef _OPENMP
+			const int nThreads = omp_get_max_threads();
+#else
+			const int nThreads = 1;
+#endif
+			const int depth = GetObjectTreeRequiredStackDepth(renderData->nodesDataForRendering);
+			std::vector<std::vector<ObjectTreeStackFrame>> objectStacks(nThreads);
+			for (auto &stack : objectStacks)
+			{
+				stack.resize(depth);
+			}
+
 #pragma omp parallel for schedule( \
 		dynamic, 1) // long long is used because size_t doesn't work with msvc and OpenMP
 			for (long long x = 0; x < w; x++)
@@ -230,7 +251,14 @@ void cVoxelExport::ProcessVolume()
 					sDistanceOut distanceOut;
 					const sDistanceIn distanceIn(point, dist_thresh, false);
 
-					const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+					// index into the per-thread traversal stack (0 in serial builds)
+#ifdef _OPENMP
+					const int threadNum = omp_get_thread_num();
+#else
+					const int threadNum = 0;
+#endif
+					const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut,
+						renderData.get(), &objectStacks[threadNum]);
 
 					if (greyscale)
 					{

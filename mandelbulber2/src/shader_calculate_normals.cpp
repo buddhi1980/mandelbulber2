@@ -51,26 +51,26 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 
 		CVector3 deltaX(delta, 0.0, 0.0);
 		sDistanceIn distanceIn1(input.point + deltaX, input.distThresh, true);
-		sx1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut, data);
+		sx1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn2(input.point - deltaX, input.distThresh, true);
-		sx2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut, data);
+		sx2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaY(0.0, delta, 0.0);
 		sDistanceIn distanceIn3(input.point + deltaY, input.distThresh, true);
-		sy1 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut, data);
+		sy1 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn4(input.point - deltaY, input.distThresh, true);
-		sy2 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut, data);
+		sy2 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaZ(0.0, 0.0, delta);
 		sDistanceIn distanceIn5(input.point + deltaZ, input.distThresh, true);
-		sz1 = CalculateDistance(*params, *fractal, distanceIn5, &distanceOut, data);
+		sz1 = CalculateDistance(*params, *fractal, distanceIn5, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn6(input.point - deltaZ, input.distThresh, true);
-		sz2 = CalculateDistance(*params, *fractal, distanceIn6, &distanceOut, data);
+		sz2 = CalculateDistance(*params, *fractal, distanceIn6, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		normal.x = sx1 - sx2;

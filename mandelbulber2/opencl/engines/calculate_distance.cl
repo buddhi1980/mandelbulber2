@@ -437,7 +437,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 
 // Tree-based distance calculation
+// MAX_TREE_LEVELS: size of the object tree traversal stack. The host sets it
+// dynamically per scene via -D (cOpenClEngineRenderFractal::SetParameters,
+// GetObjectTreeRequiredStackDepth). The fallback keeps the old hard-coded
+// behavior when the define is not provided (e.g. standalone kernel testing).
+#ifndef MAX_TREE_LEVELS
 #define MAX_TREE_LEVELS 10
+#endif
 	ObjectTreeStackFrameCl stack[MAX_TREE_LEVELS];
 
 	__global sNodeDataForRenderingCl *nodesData = renderData->nodesData;

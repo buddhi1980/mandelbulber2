@@ -45,7 +45,8 @@ sRGBFloat cRenderWorker::IridescenceShader(const sShaderInputData &input) const
 		CVector3 pointTemp = input.point - input.viewVector * input.delta;
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
-		double dist2 = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+		double dist2 =
+			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 		double diff = fabs(dist1 - dist2);
 		double surfaceThickness =
 			(diff > 0.0) ? input.delta * input.material->iridescenceSubsurfaceThickness / diff : 1e6;

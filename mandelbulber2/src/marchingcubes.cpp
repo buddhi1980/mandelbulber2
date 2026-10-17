@@ -51,6 +51,12 @@
 #include "system_data.hpp"
 #include "write_log.hpp"
 
+// needed for per-thread traversal stack buffer indexing in the
+// OpenMP-parallel voxel sampling loops
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 // custom includes
 #ifdef USE_OPENCL
 #include "opencl/mesh_export_data_cl.h"
@@ -92,6 +98,23 @@ MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsCo
 	this->stop = stop;
 
 	coloredMesh = paramsContainer->Get<bool>("mesh_color");
+
+	// One object-tree traversal stack buffer per OpenMP thread, sized to the
+	// scene nesting depth. Allocated here (once) so that getDistance() - which
+	// runs inside the parallel voxel sampling loop - never allocates memory.
+	{
+#ifdef _OPENMP
+		const int nThreads = omp_get_max_threads();
+#else
+		const int nThreads = 1;
+#endif
+		const int depth = GetObjectTreeRequiredStackDepth(renderData->nodesDataForRendering);
+		objectStacks.resize(nThreads);
+		for (auto &stack : objectStacks)
+		{
+			stack.resize(depth);
+		}
+	}
 
 	try
 	{
@@ -448,8 +471,15 @@ double MarchingCubes::getDistance(double x, double y, double z, double *colorInd
 	sDistanceOut distanceOut;
 	sDistanceIn distanceIn(point, dist_thresh, false);
 
-	double dist =
-		CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut, renderData.get());
+	// index into the per-thread traversal stack buffers (0 in serial regions)
+#ifdef _OPENMP
+	const int threadNum = omp_get_thread_num();
+#else
+	const int threadNum = 0;
+#endif
+
+	double dist = CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut,
+		renderData.get(), &objectStacks[threadNum]);
 
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
 	cMaterial *material = nullptr;

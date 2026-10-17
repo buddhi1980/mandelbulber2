@@ -872,6 +872,10 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	renderData->nodesDataForRendering = nodes;
 	renderData->hybridFractalSequences = fractals;
 
+	// Traversal stack buffer, allocated once for this single UI-side query
+	std::vector<ObjectTreeStackFrame> objectStack(
+		GetObjectTreeRequiredStackDepth(renderData->nodesDataForRendering));
+
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
 	openClEnabled = par->Get<bool>("opencl_enabled") && parFractal->isUsedCustomFormula();
@@ -913,7 +917,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 	else
 	{
-		dist = CalculateDistance(*params, fractals, in, &out, renderData.get());
+		dist = CalculateDistance(*params, fractals, in, &out, renderData.get(), &objectStack);
 	}
 
 #ifdef USE_OPENCL
@@ -1025,6 +1029,10 @@ void cInterface::ResetView(QWidget *navigationWidget,
 	renderData.nodesDataForRendering = nodes;
 	renderData.hybridFractalSequences = fractals;
 
+	// Traversal stack buffer, allocated once for the whole size-measurement loop
+	std::vector<ObjectTreeStackFrame> objectStack(
+		GetObjectTreeRequiredStackDepth(renderData.nodesDataForRendering));
+
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
 	openClEnabled =
@@ -1083,7 +1091,7 @@ void cInterface::ResetView(QWidget *navigationWidget,
 			}
 			else
 			{
-				dist = CalculateDistance(*params, fractals, in, &out, &renderData);
+				dist = CalculateDistance(*params, fractals, in, &out, &renderData, &objectStack);
 			}
 			if (dist < 0.1)
 			{
