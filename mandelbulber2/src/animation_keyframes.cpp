@@ -375,16 +375,15 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 	// original code unconditionally dereferenced it inside the error
 	// branches below, crashing the whole CLI render. Guard the parent
 	// widget so headless runs report errors to stderr instead.
-	QWidget *errParent = mainInterface->mainWindow
-		? mainInterface->mainWindow->GetCentralWidget()
-		: nullptr;
+	QWidget *errParent =
+		mainInterface->mainWindow ? mainInterface->mainWindow->GetCentralWidget() : nullptr;
 
 	if (keyframes)
 	{
 		if (keyframes->GetNumberOfFrames() == 0)
 		{
-			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
-				errParent);
+			emit showErrorMessage(
+				QObject::tr("No frames to render"), cErrorMessage::errorMessage, errParent);
 		}
 		else if (!QDir(params->Get<QString>("anim_keyframe_dir")).exists())
 		{
@@ -2562,6 +2561,8 @@ void cKeyframeAnimation::slotClearKeyframe(int key, int _tableRow)
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
 {
 	settingsText = _settingsText;
+	// name the thread for easier debugging
+	setObjectName("KeyframesRender");
 }
 
 void cKeyframeRenderThread::startAnimationRender()
@@ -2581,6 +2582,8 @@ cKeyframeSaveImageThread::cKeyframeSaveImageThread(std::shared_ptr<cImage> _imag
 	image = _image;
 	filename = _filename;
 	fileType = _fileType;
+	// name the object for easier debugging
+	setObjectName("ImageSaving");
 }
 
 void cKeyframeSaveImageThread::startSaving()

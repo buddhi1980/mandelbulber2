@@ -1719,6 +1719,8 @@ void cFlightAnimation::slotAnimationStopRequest()
 cFligtAnimRenderThread::cFligtAnimRenderThread(QString &_settingsText) : QThread()
 {
 	settingsText = _settingsText;
+	// name the thread for easier debugging
+	setObjectName("FlightAnimRender");
 }
 
 void cFligtAnimRenderThread::startAnimationRender()

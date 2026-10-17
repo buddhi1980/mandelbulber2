@@ -160,6 +160,7 @@ void cMeshExport::ProcessVolume()
 	}
 
 	QThread *thread = new QThread();
+	thread->setObjectName("MarchingCubes"); // name thread for debugging
 	marchingCube->moveToThread(thread);
 	QObject::connect(marchingCube, &MarchingCubes::signalUpdateProgressAndStatus, this,
 		&cMeshExport::slotUpdateProgressAndStatus);
