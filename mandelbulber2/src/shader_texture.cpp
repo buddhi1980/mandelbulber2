@@ -52,13 +52,16 @@ sRGBFloat cRenderWorker::TextureShader(
 
 	CVector3 pointModified;
 
-	if (mat->textureFractalize)
+	// texture fractalize requires a valid fractal sequence; primitives (seqIndex < 0)
+	// have no fractal iteration, so the option is silently ignored for them
+	const cHybridFractalSequences::sSequence *textureSeq =
+		mat->textureFractalize ? data->hybridFractalSequences.GetSequence(input.seqIndex) : nullptr;
+	if (textureSeq != nullptr)
 	{
 		CVector3 fractalPoint = input.hasTransformedPoint ? input.transformedPoint : shaderPoint;
 		sFractalIn fractIn(fractalPoint, 0, -1, 1, 0, &params->common, -1, false, input.material);
 		sFractalOut fractOut;
-		Compute<fractal::calcModeCubeOrbitTrap>(
-			data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
+		Compute<fractal::calcModeCubeOrbitTrap>(textureSeq, fractIn, &fractOut);
 		pointModified = fractOut.z;
 	}
 	else
@@ -76,7 +79,7 @@ sRGBFloat cRenderWorker::TextureShader(
 		TextureMapping(pointModified, input.normal, objectData, mat, &textureVectorX, &textureVectorY)
 		+ CVector2<float>(0.5, 0.5);
 
-	if (!mat->textureFractalize)
+	if (textureSeq == nullptr)
 	{
 		// mipmapping - calculation of texture pixel size
 		float delta = CalcDelta(input.point);

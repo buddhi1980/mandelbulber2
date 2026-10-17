@@ -93,12 +93,15 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 														 ? &data->materials[matId]
 														 : nullptr;
 		if (!mat) return pointFractalized; // no material: skip fractal texture
-		if (mat->textureFractalize)
+		// texture fractalize requires a valid fractal sequence; primitives (seqIndex < 0)
+		// have no fractal iteration, so the option is silently ignored for them
+		const cHybridFractalSequences::sSequence *seq =
+			mat->textureFractalize ? data->hybridFractalSequences.GetSequence(seqIndex) : nullptr;
+		if (seq != nullptr)
 		{
 			sFractalIn fractIn(point, 0, -1, 1, 0, &params.common, forcedFormulaIndex, false, mat);
 			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(
-				data->hybridFractalSequences.GetSequence(seqIndex), fractIn, &fractOut);
+			Compute<fractal::calcModeCubeOrbitTrap>(seq, fractIn, &fractOut);
 			pointFractalized = fractOut.z;
 			*reduceDisplacement = pow(2.0, fractOut.iters);
 		}

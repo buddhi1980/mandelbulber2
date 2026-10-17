@@ -541,8 +541,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				if (objectId >= 0)
 				{
 					float reduceDisplacement = 1.0f;
-					float3 pointFractalized =
-						FractalizeTexture(point, consts, calcParam, renderData, objectId, &reduceDisplacement);
+					float3 pointFractalized = FractalizeTexture(
+						point, consts, calcParam, renderData, objectId, sequenceIndex, &reduceDisplacement);
 					distance =
 						DisplacementMap(distance, pointFractalized, objectId, renderData, reduceDisplacement);
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
@@ -599,8 +599,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				if (objectId >= 0)
 				{
 					float reduceDisplacement = 1.0f;
-					float3 pointFractalized =
-						FractalizeTexture(point, consts, calcParam, renderData, objectId, &reduceDisplacement);
+					float3 pointFractalized = FractalizeTexture(
+						point, consts, calcParam, renderData, objectId, sequenceIndex, &reduceDisplacement);
 					distance =
 						DisplacementMap(distance, pointFractalized, objectId, renderData, reduceDisplacement);
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)

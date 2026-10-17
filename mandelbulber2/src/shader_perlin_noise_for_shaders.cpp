@@ -54,13 +54,18 @@ void cRenderWorker::PerlinNoiseForShaders(
 				? shaderInputData->GetFractalPoint()
 				: point;
 		CVector3 pointModified;
-		if (shaderInputData->material->textureFractalize)
+		// texture fractalize requires a valid fractal sequence; primitives (seqIndex < 0)
+		// have no fractal iteration, so the option is silently ignored for them
+		const cHybridFractalSequences::sSequence *perlinSeq =
+			shaderInputData->material->textureFractalize
+				? data->hybridFractalSequences.GetSequence(shaderInputData->seqIndex)
+				: nullptr;
+		if (perlinSeq != nullptr)
 		{
 			sFractalIn fractIn(
 				shaderPoint, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
 			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(
-				data->hybridFractalSequences.GetSequence(shaderInputData->seqIndex), fractIn, &fractOut);
+			Compute<fractal::calcModeCubeOrbitTrap>(perlinSeq, fractIn, &fractOut);
 			pointModified = fractOut.z;
 		}
 		else

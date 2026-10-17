@@ -73,7 +73,7 @@ float DisplacementMap(
 
 #ifdef FRACTALIZE_TEXTURE
 float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCalcParams *calcParams,
-	sRenderData *renderData, int objectId, float *reduceDisplacement)
+	sRenderData *renderData, int objectId, int sequenceIndex, float *reduceDisplacement)
 {
 	int forcedFormulaIndex = objectId;
 	if (objectId < 0) objectId = 0;
@@ -83,11 +83,13 @@ float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCal
 
 	float3 pointFractalized = point;
 
-	if (mat->textureFractalize)
+	// texture fractalize requires a valid fractal sequence; primitives (sequenceIndex < 0)
+	// have no fractal iteration, so the option is silently ignored for them
+	if (mat->textureFractalize && sequenceIndex >= 0)
 	{
 		formulaOut outF;
-		outF = Fractal(
-			consts, point, calcParams, calcModeCubeOrbitTrap, mat, -1, renderData, 0, point, false);
+		outF = Fractal(consts, point, calcParams, calcModeCubeOrbitTrap, mat, -1, renderData,
+			sequenceIndex, point, false);
 		pointFractalized = outF.z.xyz;
 		*reduceDisplacement = pow(2.0f, outF.iters);
 	}

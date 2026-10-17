@@ -51,13 +51,15 @@ float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParam
 		float3 pointModified = shaderPoint;
 
 #ifdef FRACTALIZE_TEXTURE
-		if (input->material->textureFractalize)
+		// texture fractalize requires a valid fractal sequence; primitives (sequenceIndex < 0)
+		// have no fractal iteration, so the option is silently ignored for them
+		if (input->material->textureFractalize && input->sequenceIndex >= 0)
 		{
 			formulaOut outF;
 
 			float3 fractalPoint = input->hasTransformedPoint ? input->transformedPoint : shaderPoint;
 			outF = Fractal(consts, fractalPoint, calcParams, calcModeCubeOrbitTrap, input->material, -1,
-				renderData, 0, input->transformedPoint, input->hasTransformedPoint);
+				renderData, input->sequenceIndex, input->transformedPoint, input->hasTransformedPoint);
 			pointModified = outF.z.xyz;
 		}
 #endif

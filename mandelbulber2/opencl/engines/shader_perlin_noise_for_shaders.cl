@@ -45,11 +45,14 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 		float3 pointModified = point;
 
 #ifdef FRACTALIZE_TEXTURE
-		if (shaderInputData->material->textureFractalize)
+		// texture fractalize requires a valid fractal sequence; primitives (sequenceIndex < 0)
+		// have no fractal iteration, so the option is silently ignored for them
+		if (shaderInputData->material->textureFractalize && shaderInputData->sequenceIndex >= 0)
 		{
 			formulaOut outF;
-			outF = Fractal(consts, pointModified, calcParam, calcModeCubeOrbitTrap,
-				shaderInputData->material, -1, renderData, 0, pointModified, false);
+			outF =
+				Fractal(consts, pointModified, calcParam, calcModeCubeOrbitTrap, shaderInputData->material,
+					-1, renderData, shaderInputData->sequenceIndex, pointModified, false);
 			pointModified = outF.z.xyz;
 		}
 #endif
