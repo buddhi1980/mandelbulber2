@@ -2937,18 +2937,22 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 		}
 	}
 
-	// Sort primitives by their calculation order
-	std::sort(primitives.begin(), primitives.end(),
+	// Sort primitives by their calculation order.
+	// The legacy cPrimitives::Set() used a stable bubble sort over the list
+	// returned by GetListOfPrimitives() (which is alphabetical by parameter
+	// name), and it read missing calculation_order as the default value 1.
+	// std::stable_sort is required here to reproduce that tie-breaking:
+	// primitives with equal order keep alphabetical order. A plain std::sort
+	// is unstable and scrambles equal elements, which changes the operand
+	// order of SUB/RevSUB boolean chains (e.g. many_booleans.fract).
+	std::stable_sort(primitives.begin(), primitives.end(),
 		[&](const sPrimitiveItem &a, const sPrimitiveItem &b)
 		{
 			const QString aOrderName = a.fullName + "_calculation_order";
 			const QString bOrderName = b.fullName + "_calculation_order";
-			const bool aExists = par->IfExists(aOrderName);
-			const bool bExists = par->IfExists(bOrderName);
-			if (!aExists && !bExists) return false;
-			if (!aExists) return true;
-			if (!bExists) return false;
-			return par->Get<int>(aOrderName) < par->Get<int>(bOrderName);
+			const int orderA = par->IfExists(aOrderName) ? par->Get<int>(aOrderName) : 1;
+			const int orderB = par->IfExists(bOrderName) ? par->Get<int>(bOrderName) : 1;
+			return orderA < orderB;
 		});
 
 	// Find the current root node (node with parent == 0) and the maximum node ID
@@ -2976,9 +2980,37 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	// In hybrid mode with boolean mode, keep rootNodeId so primitives attach to the
 	// hybrid fractal root. Only reset when NOT in boolean mode (pure hybrid without
 	// boolean operations).
+	// The legacy engine combined primitives sequentially with the fractal distance
+	// (cPrimitives::TotalDistance), so a non-OR operator (AND/SUB/RevSUB) must be
+	// applied against the fractal root: in that case keep rootNodeId and chain the
+	// primitives onto it in legacy calculation order. When every primitive uses OR
+	// (union), the primitives can live in their own sibling group instead, so reset
+	// rootNodeId to let the first primitive become a separate root (previous behavior).
 	if (hybridMode && !booleanMode && rootNodeId > 0)
 	{
-		rootNodeId = -1;
+		bool anyNonOrPrimitive = false;
+		for (const auto &primitive : primitives)
+		{
+			const bool hasParamInFile = primitivesWithParamInFile.contains(primitive.fullName);
+			const bool isPrimitiveEnabled =
+				par->IfExists(primitive.Name("enabled")) && par->Get<bool>(primitive.Name("enabled"));
+			if (!hasParamInFile && !isPrimitiveEnabled)
+			{
+				continue;
+			}
+			const QString boolOpName = primitive.Name("boolean_operator");
+			const int boolOp =
+				par->IfExists(boolOpName) ? par->Get<int>(boolOpName) : int(primBooleanOperatorOR);
+			if (boolOp != int(primBooleanOperatorOR))
+			{
+				anyNonOrPrimitive = true;
+				break;
+			}
+		}
+		if (!anyNonOrPrimitive)
+		{
+			rootNodeId = -1;
+		}
 	}
 
 	// Attach each primitive to the node tree.
@@ -3326,6 +3358,30 @@ void cSettings::FlattenBooleanAddGroups(
 		return result;
 	};
 
+	// Helper: check whether the subtree rooted at nodeId contains any node
+	// of one of the wanted types. Children are queried live from the container.
+	auto subtreeHasType = [&](int nodeId, std::initializer_list<enumNodeType> wanted) -> bool
+	{
+		QList<int> queue;
+		QSet<int> visited;
+		queue.append(nodeId);
+		while (!queue.isEmpty())
+		{
+			const int current = queue.takeFirst();
+			if (visited.contains(current)) continue;
+			visited.insert(current);
+			for (const auto &child : getChildren(current))
+			{
+				for (const enumNodeType w : wanted)
+				{
+					if (child.type == w) return true;
+				}
+				queue.append(child.id);
+			}
+		}
+		return false;
+	};
+
 	for (int boolAddId : booleanAddNodes)
 	{
 		// Find this node's current parent from the nodes list
@@ -3339,19 +3395,10 @@ void cSettings::FlattenBooleanAddGroups(
 			}
 		}
 
-		// Check if any descendant is booleanSub/booleanMul.
-		// If so, we CANNOT flatten because it would change the hierarchy of the booleanSub.
-		if (hasBlockingDescendant(boolAddId))
-		{
-			continue;
-		}
-
-		flattenableBoolAdds.insert(boolAddId);
-
+		// Check if parent is booleanSub/booleanMul (needs a wrapper)
+		bool parentIsBlocking = false;
 		if (parentId != 0)
 		{
-			// Check if parent is booleanSub/booleanMul (needs a wrapper)
-			bool parentIsBlocking = false;
 			for (const auto &n : nodes)
 			{
 				if (n.id == parentId)
@@ -3363,18 +3410,35 @@ void cSettings::FlattenBooleanAddGroups(
 					break;
 				}
 			}
-			if (parentIsBlocking)
+		}
+
+		// Check if any descendant is booleanSub/booleanMul.
+		// This conservative check is only needed when the parent is a booleanSub/booleanMul
+		// (phase 2 wrapper logic): flattening such a node would change the hierarchy of
+		// the booleanSub operands.
+		// For a booleanAdd under another booleanAdd or at root level, merging is safe even
+		// when the subtree contains booleanMul/booleanSub nodes: those subtrees are moved
+		// as a whole and union (min) is associative, so the semantics are preserved.
+		// This is required to flatten legacy primitive chains like (((F AND b1) OR b2) OR b3)
+		// into a flat union group.
+		if (parentIsBlocking && hasBlockingDescendant(boolAddId))
+		{
+			continue;
+		}
+
+		flattenableBoolAdds.insert(boolAddId);
+
+		if (parentIsBlocking)
+		{
+			// Collect ALL booleanAdd descendants recursively
+			QList<int> descendants = collectBoolAddDescendants(boolAddId);
+			// Add the node itself and all descendants to the flatten group
+			flattenGroups[parentId].boolAddIds.append(boolAddId);
+			for (int descId : descendants)
 			{
-				// Collect ALL booleanAdd descendants recursively
-				QList<int> descendants = collectBoolAddDescendants(boolAddId);
-				// Add the node itself and all descendants to the flatten group
-				flattenGroups[parentId].boolAddIds.append(boolAddId);
-				for (int descId : descendants)
+				if (!flattenGroups[parentId].boolAddIds.contains(descId))
 				{
-					if (!flattenGroups[parentId].boolAddIds.contains(descId))
-					{
-						flattenGroups[parentId].boolAddIds.append(descId);
-					}
+					flattenGroups[parentId].boolAddIds.append(descId);
 				}
 			}
 		}
@@ -3556,16 +3620,29 @@ void cSettings::FlattenBooleanAddGroups(
 				MakeNodeDefinition(groupName, newRootId, enumNodeType::booleanAdd, 0, nextGroupObjectId++));
 			par->Set(NodePrefix(newRootId) + "material", -1);
 
+			// The group transform may only be applied when the group contains
+			// exclusively objects of the matching kind. A mixed group (e.g. a
+			// legacy primitive chain wrapped around the fractal root) must not
+			// receive the transform, otherwise it would wrongly move objects of
+			// the other kind.
 			if (groupName == "fractals")
 			{
-				par->Set(NodePrefix(newRootId) + "position", par->Get<CVector3>("fractal_position"));
-				par->Set(NodePrefix(newRootId) + "rotation", par->Get<CVector3>("fractal_rotation"));
-				par->Set(NodePrefix(newRootId) + "repeat", par->Get<CVector3>("repeat"));
+				if (!subtreeHasType(boolAddId, {enumNodeType::primitive}))
+				{
+					par->Set(NodePrefix(newRootId) + "position", par->Get<CVector3>("fractal_position"));
+					par->Set(NodePrefix(newRootId) + "rotation", par->Get<CVector3>("fractal_rotation"));
+					par->Set(NodePrefix(newRootId) + "repeat", par->Get<CVector3>("repeat"));
+				}
 			}
 			else
 			{
-				par->Set(NodePrefix(newRootId) + "position", par->Get<CVector3>("all_primitives_position"));
-				par->Set(NodePrefix(newRootId) + "rotation", par->Get<CVector3>("all_primitives_rotation"));
+				if (!subtreeHasType(boolAddId, {enumNodeType::fractal, enumNodeType::hybrid}))
+				{
+					par->Set(
+						NodePrefix(newRootId) + "position", par->Get<CVector3>("all_primitives_position"));
+					par->Set(
+						NodePrefix(newRootId) + "rotation", par->Get<CVector3>("all_primitives_rotation"));
+				}
 			}
 
 			// Reparent all direct children of this booleanAdd to the new root
