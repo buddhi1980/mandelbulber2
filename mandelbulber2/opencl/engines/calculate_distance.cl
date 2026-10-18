@@ -45,6 +45,17 @@
 #define DEBUG_PRINT(...)
 #endif
 
+// Displacement effects (bump textures, perlin noise) must be applied independently
+// of each other. They are compiled in only when the corresponding functions are
+// actually available in the kernel: displacement_map.cl and the perlin noise
+// shaders are loaded just for the limited and full engines, and the perlin noise
+// seed buffer is not provided in distance calculation mode.
+#if !defined(DISTANCE_CALCULATION_MODE) \
+	&& (defined(USE_DISPLACEMENT_TEXTURE) \
+			|| (defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)))
+#define APPLY_DISPLACEMENT
+#endif
+
 // calculation of distance where ray-marching stops
 float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 {
@@ -537,24 +548,25 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					calcParam->detailSize = savedDetailSize;
 					continue;
 				}
-#if defined(FRACTALIZE_TEXTURE) && defined(USE_DISPLACEMENT_TEXTURE)
+#ifdef APPLY_DISPLACEMENT
 				if (objectId >= 0)
 				{
+#ifdef FRACTALIZE_TEXTURE
 					float reduceDisplacement = 1.0f;
-					float3 pointFractalized = FractalizeTexture(
+					float3 pointForDisplacement = FractalizeTexture(
 						point, consts, calcParam, renderData, objectId, sequenceIndex, &reduceDisplacement);
-					distance =
-						DisplacementMap(distance, pointFractalized, objectId, renderData, reduceDisplacement);
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-					distance = PerlinNoiseDisplacement(distance, pointFractalized, renderData, objectId);
+#else
+#ifdef USE_DISPLACEMENT_TEXTURE
+					const float reduceDisplacement = 1.0f;
 #endif
-				}
-#elif defined(USE_DISPLACEMENT_TEXTURE)
-				if (objectId >= 0)
-				{
-					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
+					const float3 pointForDisplacement = point;
+#endif
+#ifdef USE_DISPLACEMENT_TEXTURE
+					distance = DisplacementMap(
+						distance, pointForDisplacement, objectId, renderData, reduceDisplacement);
+#endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
+					distance = PerlinNoiseDisplacement(distance, pointForDisplacement, renderData, objectId);
 #endif
 				}
 #endif
@@ -572,10 +584,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					objectId = node->internalObjectId;
 				}
 #endif
-#if defined(USE_DISPLACEMENT_TEXTURE)
+#ifdef APPLY_DISPLACEMENT
 				if (objectId >= 0)
 				{
+#ifdef USE_DISPLACEMENT_TEXTURE
 					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
+#endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
 #endif
@@ -595,27 +609,28 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				// skip next fractals because they are part of this hybrid sequence
 				numberOfFractalsToSkip =
 					renderData->hybridSequences[node->hybridSequenceIndex].numberOfFractalsInTheSequence;
-#if defined(FRACTALIZE_TEXTURE) && defined(USE_DISPLACEMENT_TEXTURE)
+#ifdef APPLY_DISPLACEMENT
 				if (objectId >= 0)
 				{
+#ifdef FRACTALIZE_TEXTURE
 					float reduceDisplacement = 1.0f;
-					float3 pointFractalized = FractalizeTexture(
+					float3 pointForDisplacement = FractalizeTexture(
 						point, consts, calcParam, renderData, objectId, sequenceIndex, &reduceDisplacement);
-					distance =
-						DisplacementMap(distance, pointFractalized, objectId, renderData, reduceDisplacement);
+#else
+#ifdef USE_DISPLACEMENT_TEXTURE
+					const float reduceDisplacement = 1.0f;
+#endif
+					const float3 pointForDisplacement = point;
+#endif
+#ifdef USE_DISPLACEMENT_TEXTURE
+					distance = DisplacementMap(
+						distance, pointForDisplacement, objectId, renderData, reduceDisplacement);
+#endif
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-					distance = PerlinNoiseDisplacement(distance, pointFractalized, renderData, objectId);
+					distance = PerlinNoiseDisplacement(distance, pointForDisplacement, renderData, objectId);
 #endif
 				}
-#elif defined(USE_DISPLACEMENT_TEXTURE)
-				if (objectId >= 0)
-				{
-					distance = DisplacementMap(distance, point, objectId, renderData, 1.0f);
-#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
-					distance = PerlinNoiseDisplacement(distance, point, renderData, objectId);
-#endif
-				}
-#endif // USE_DISPLACEMENT_TEXTURE
+#endif // APPLY_DISPLACEMENT
 #endif // HYBRID_NODES
 				break;
 			}
