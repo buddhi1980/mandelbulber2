@@ -63,14 +63,15 @@ public:
 		double initialWAxis;
 
 		// Ints (as in OpenCL)
-		int length;
-		int numberOfFractalsInTheSequence;
-		int internalObjectId;
+		int length = 0;			 // number of iterations covered by valid (in-range) formulas
+		int tableLength = 0; // size of the seqence[] table (formulaMaxiter * 5)
+		int numberOfFractalsInTheSequence = 0;
+		int internalObjectId = -1;
 
 		// Bools + int (as in OpenCL)
-		bool isHybrid;
-		bool juliaEnabled;
-		int formulaMaxiter;
+		bool isHybrid = false;
+		bool juliaEnabled = false;
+		int formulaMaxiter = 0;
 
 		// Ints (as in OpenCL)
 		int sequenceArrayOffset;	// offset to sequence array (cl_int[]) in dynamic data
@@ -87,12 +88,16 @@ public:
 		std::vector<int> seqence;
 		std::vector<sFractalData> fractData;
 
+		// Returns the fractal index to be used at iteration i. The table covers the whole
+		// possible loop range (formulaMaxiter * 5); the clamp is only a safety net and
+		// mirrors the OpenCL behavior (repeat the last table entry, as in old cNineFractals).
 		inline int GetSequence(const int i) const
 		{
-			if (i < length)
+			if (tableLength <= 0) return 0;
+			if (i < tableLength)
 				return seqence[i];
 			else
-				return seqence[0];
+				return seqence[tableLength - 1];
 		}
 	};
 

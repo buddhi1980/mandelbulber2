@@ -62,10 +62,11 @@ typedef struct ALIGN16
 {
 	cl_float3 juliaConstant;
 	cl_float3 constantMultiplier;
-	
+
 	cl_float initialWAxis;
-	
+
 	cl_int length;
+	cl_int tableLength; // number of entries in the sequence array (formulaMaxiter * 5)
 	cl_int numberOfFractalsInTheSequence;
 	cl_int internalObjectId;
 
@@ -73,10 +74,10 @@ typedef struct ALIGN16
 	cl_int juliaEnabled;
 	cl_int formulaMaxiter;
 
-	cl_int sequenceArrayOffset;   // offset to sequence array (cl_int[]) in dynamic data
-	cl_int fractDataArrayOffset;  // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
-	cl_int formulaBaseIndex;      // global index of first formula in consts->fractal[] for this sequence
-	
+	cl_int sequenceArrayOffset;	 // offset to sequence array (cl_int[]) in dynamic data
+	cl_int fractDataArrayOffset; // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+	cl_int formulaBaseIndex; // global index of first formula in consts->fractal[] for this sequence
+
 	enumDEFunctionTypeCl DEFunctionType;
 	enumDETypeCl DEType;
 	enumDEAnalyticFunctionCl DEAnalyticFunction;

@@ -86,10 +86,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	__global sHybridFractalDataCl *fractDataArray =
 		(__global sHybridFractalDataCl *)&renderData->dynamicData[seq->fractDataArrayOffset];
 
-	int seqLength = seq->length;
-	if (seqLength <= 0)
+	// the sequence table covers formulaMaxiter * 5 iterations (see sHybridSequenceCl),
+	// the clamp is only a safety net; tail entries repeat the last active formula
+	int seqTableLength = seq->tableLength;
+	if (seqTableLength <= 0)
 	{
-		seqLength = 1;
+		seqTableLength = 1;
 	}
 
 	float4 point4D = (float4){point.x, point.y, point.z, 0.0f};
@@ -183,7 +185,20 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	for (i = 0; i < maxN; i++)
 	{
 #if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
-		sequence = seqArray[min(i, seqLength - 1)];
+		sequence = seqArray[min(i, seqTableLength - 1)];
+		if (sequence < 0)
+		{
+			// old cNineFractals 'none' slot in the sequence table: terminate the orbit
+			// like the DummyIteration fallback (maxiter stays true -> ray marcher
+			// treats the point as a hit, identical to the old CPU and OpenCL behavior)
+			float high = fractDataArray[0].bailout * 10.0f;
+			z = high;
+			out.distance = 10.0f;
+			out.iters = 1;
+			out.z = z;
+			out.colorIndex = 0.0f;
+			return out;
+		}
 		globalSequence = sequence + seq->formulaBaseIndex;
 #else
 		sequence = 0;

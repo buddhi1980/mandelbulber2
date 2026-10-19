@@ -1282,6 +1282,7 @@ void cOpenClDynamicData::BuildHybridSequencesData(const cHybridFractalSequences 
 		sHybridSequenceCl seqCl;
 		memset(&seqCl, 0, sizeof(seqCl));
 		seqCl.length = seq->length;
+		seqCl.tableLength = seq->tableLength;
 		seqCl.numberOfFractalsInTheSequence = seq->numberOfFractalsInTheSequence;
 		seqCl.internalObjectId = seq->internalObjectId;
 		seqCl.DEFunctionType = static_cast<enumDEFunctionTypeCl>(seq->DEFunctionType);
@@ -1316,11 +1317,13 @@ void cOpenClDynamicData::BuildHybridSequencesData(const cHybridFractalSequences 
 	{
 		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);
 
-		// write sequence array (cl_int[])
+		// write sequence array (cl_int[]); the whole table is uploaded (not only the
+		// valid part) so that tail iterations repeat the last active formula identically
+		// to the CPU code (old cNineFractals behavior)
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 4, &data);
 		cl_int seqArrayOff = totalDataOffset;
 
-		for (int j = 0; j < seq->length; j++)
+		for (int j = 0; j < seq->tableLength; j++)
 		{
 			cl_int val = seq->seqence[j];
 			data.append(reinterpret_cast<char *>(&val), sizeof(val));

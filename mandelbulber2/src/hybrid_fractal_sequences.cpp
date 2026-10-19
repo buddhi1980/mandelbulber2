@@ -315,14 +315,36 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 	CollectSequenceData(
 		generalPar, formulaIndices, singleFractal, isHybrid, firstNodeIndex, hybridNodeId, seq);
 
+	// The iteration-to-formula table must cover the longest possible render loop: up to
+	// formulaMaxiter * 5 iterations (threshold iteration mode on CPU and OpenCL, the
+	// OpenCL coloring pass uses formulaMaxiter * 4). This mirrors the old cNineFractals
+	// behavior where the table was always maxN * 5 entries long, so iterations past the
+	// last valid formula range do not fall into engine-dependent fallbacks: the tail
+	// repeats the last active formula, identically on CPU and OpenCL. If formulas return
+	// into their iteration range at a later index, the normal range search resumes there.
+	// seq.length keeps the meaning of "valid sequence end" (first index where no formula
+	// was in range) because it is used as the iteration limit by the nebula code.
 	seq.length = seq.formulaMaxiter;
-	seq.seqence.resize(seq.length);
+	seq.tableLength = qMax(1, seq.formulaMaxiter) * 5;
+	seq.seqence.assign(seq.tableLength, 0);
 
 	// generating the sequence
-	bool rapidEndOfSequence = false;
-	int lastSequenceIndex = 0;
+	bool sequenceEnded = false;
+	bool anyMatched = false;
+	int lastMatchedFractalNo = 0;
+	int tailNo = -1;
+	const int formulasNum = static_cast<int>(seq.fractData.size());
+	// old cNineFractals used 9 formula slots and the unused ones contained the 'none'
+	// formula; after all real formulas left their iteration ranges, the wrapping search
+	// kept landing on the following slots one by one (running real formulas out of their
+	// range) until it hit a 'none' slot, which terminated the orbit. With the compact
+	// formula list this is reproduced by cycling slots lastMatched+1 ... end-of-list and
+	// marking the rest of the table with -1 (processed as the old 'none' fallback).
+	// With 9 or more real formulas there were no 'none' slots in the old code, so the
+	// search just keeps cycling the compact list forever (no termination marker).
+	const bool hasNoneSlots = formulasNum < 9;
 
-	for (int i = 0; i < seq.length; i++)
+	for (int i = 0; i < seq.tableLength; i++)
 	{
 		counter++;
 
@@ -347,18 +369,55 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			searchRepeatCount++;
 		}
 
-		// checking if all formulas are 'none' or out of range
-		if (searchRepeatCount >= seq.fractData.size())
+		// all formulas are 'none' or out of range for this iteration: emulate the old
+		// 9-slot search wrap (see hasNoneSlots comment) and remember the first such
+		// index as the end of the valid sequence (nebula iteration limit)
+		if (searchRepeatCount >= formulasNum)
 		{
-			rapidEndOfSequence = true;
-			break;
+			if (!sequenceEnded)
+			{
+				sequenceEnded = true;
+				seq.length = i;
+			}
+			if (hasNoneSlots)
+			{
+				if (tailNo < 0) tailNo = anyMatched ? lastMatchedFractalNo + 1 : fractalNoInSeqnece;
+				if (tailNo < formulasNum)
+				{
+					seq.seqence[i] = tailNo;
+					if (counter >= seq.fractData[tailNo].formulaIterations)
+					{
+						counter = 0;
+						tailNo++;
+					}
+				}
+				else
+				{
+					// the old search landed on an empty ('none') slot
+					seq.seqence[i] = -1;
+				}
+			}
+			else
+			{
+				// no 'none' slots existed in the old code: keep cycling real formulas
+				seq.seqence[i] = fractalNoInSeqnece;
+				if (counter >= seq.fractData[fractalNoInSeqnece].formulaIterations)
+				{
+					counter = 0;
+					fractalNoInSeqnece++;
+					if (fractalNoInSeqnece >= formulasNum) fractalNoInSeqnece = repeatFromIndex;
+				}
+			}
+			continue;
 		}
+
+		tailNo = -1;
 
 		const sFractalData &seqData = seq.fractData[fractalNoInSeqnece];
 
 		seq.seqence[i] = fractalNoInSeqnece;
-
-		lastSequenceIndex = i;
+		lastMatchedFractalNo = fractalNoInSeqnece;
+		anyMatched = true;
 
 		// advancing to next fractal in sequence if needed
 		if (counter >= seqData.formulaIterations)
@@ -368,11 +427,6 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			if (fractalNoInSeqnece >= static_cast<int>(seq.fractData.size()))
 				fractalNoInSeqnece = repeatFromIndex;
 		}
-	}
-
-	if (rapidEndOfSequence)
-	{
-		seq.length = lastSequenceIndex + 1;
 	}
 
 	bool forceDeltaDE =
@@ -505,6 +559,10 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 			}
 		}
 	}
+	//	for (int i = 0; i < std::min(50, seq.tableLength); i++)
+	//	{
+	//		qDebug() << "Sequence " << i << seq.seqence[i];
+	//	}
 	return seq;
 }
 
@@ -530,8 +588,9 @@ void cHybridFractalSequences::DebugOutput()
 	for (size_t i = 0; i < sequences.size(); i++)
 	{
 		const sSequence &seq = sequences[i];
-		qDebug() << "Sequence " << i << ": length=" << seq.length << ", isHybrid=" << seq.isHybrid
-						 << ", DEType=" << seq.DEType << ", DEFunctionType=" << seq.DEFunctionType
+		qDebug() << "Sequence " << i << ": length=" << seq.length << ", tableLength=" << seq.tableLength
+						 << ", isHybrid=" << seq.isHybrid << ", DEType=" << seq.DEType
+						 << ", DEFunctionType=" << seq.DEFunctionType
 						 << ", coloringFunction=" << seq.coloringFunction << "constantMultiplier"
 						 << QString::fromStdString(seq.constantMultiplier.Debug()) << "juliaConstant"
 						 << QString::fromStdString(seq.juliaConstant.Debug()) << "initialWAxis"

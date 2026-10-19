@@ -180,8 +180,21 @@ void Compute(const cHybridFractalSequences::sSequence *seq, const sFractalIn &in
 		lastZ = z;
 
 		// Get the fractal formula index for this iteration from the hybrid sequence.
-		// GetSequence() wraps around if i exceeds the sequence length.
+		// GetSequence() clamps to the last table entry if i exceeds the table length.
 		sequence = seq->GetSequence(i);
+
+		// A negative entry marks the old cNineFractals 'none' slot: the orbit is
+		// terminated here like the formula-missing fallback below (maxiter stays true,
+		// so the ray-marcher treats the point as a hit, identical to the old behavior)
+		if (sequence < 0)
+		{
+			double high = seq->fractData[0].bailout * 10.0;
+			z = CVector4(high, high, high, high);
+			out->distance = 10.0;
+			out->iters = 1;
+			out->z = z.GetXYZ();
+			return;
+		}
 
 		const cHybridFractalSequences::sFractalData &fractData = seq->fractData[sequence];
 
