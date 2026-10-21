@@ -1905,6 +1905,13 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 		{
 			if (lineSplit.size() - 1 == parameterList.size())
 			{
+				// the interpolation row is created only for keyframes, so frames must be a cKeyframes
+				std::shared_ptr<cKeyframes> keyframes = std::dynamic_pointer_cast<cKeyframes>(frames);
+				if (!keyframes)
+				{
+					throw QObject::tr("Interpolation row is allowed only in the keyframes section");
+				}
+
 				for (int i = 0; i < parameterList.size(); i++)
 				{
 					column++;
@@ -1929,7 +1936,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 						morphType = morphSteffen;
 					else if (lineSplit[column] == "morphSteffenAngle")
 						morphType = morphSteffenAngle;
-					static_pointer_cast<cKeyframes>(frames)->ChangeMorphType(i, morphType);
+					keyframes->ChangeMorphType(i, morphType);
 				}
 				return true;
 			}
