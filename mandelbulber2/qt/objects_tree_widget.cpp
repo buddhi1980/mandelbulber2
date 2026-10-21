@@ -428,6 +428,55 @@ enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 	return selectedType;
 }
 
+// Returns true when the node type is one of the boolean group operators (ADD/MUL/SUB).
+bool cObjectsTreeWidget::isBooleanGroupType(enumNodeType type)
+{
+	return type == enumNodeType::booleanAdd || type == enumNodeType::booleanMul
+				 || type == enumNodeType::booleanSub;
+}
+
+// Shows a modal dialog allowing the user to pick a boolean operator for an existing
+// boolean group. The button matching 'currentType' is disabled so the user cannot
+// select the operator the group already uses. Returns the chosen enumNodeType and
+// sets *ok to true only when the user made a valid selection.
+enumNodeType cObjectsTreeWidget::showBooleanOperatorDialog(enumNodeType currentType, bool *ok)
+{
+	if (ok) *ok = false;
+
+	QDialog dialog(this);
+	dialog.setWindowTitle(tr("Change boolean operator"));
+
+	QGridLayout *layout = new QGridLayout(&dialog);
+
+	enumNodeType selectedType = currentType;
+	const QList<QPair<QString, enumNodeType>> options = {
+		{tr("Boolean ADD"), enumNodeType::booleanAdd}, {tr("Boolean MUL"), enumNodeType::booleanMul},
+		{tr("Boolean SUB"), enumNodeType::booleanSub}};
+
+	for (int i = 0; i < options.size(); ++i)
+	{
+		QToolButton *button = new QToolButton(&dialog);
+		button->setText(options[i].first);
+		button->setToolButtonStyle(Qt::ToolButtonTextOnly);
+		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+		if (options[i].second == currentType) button->setEnabled(false);
+		layout->addWidget(button, 0, i);
+		connect(button, &QToolButton::clicked, &dialog,
+			[&dialog, &selectedType, options, i]()
+			{
+				selectedType = options[i].second;
+				dialog.accept();
+			});
+	}
+
+	if (dialog.exec() == QDialog::Accepted)
+	{
+		if (ok) *ok = true;
+	}
+
+	return selectedType;
+}
+
 QString cObjectsTreeWidget::showPrimitiveSelectionDialog(bool *ok)
 {
 	if (ok) *ok = false;
@@ -2225,7 +2274,57 @@ void cObjectsTreeWidget::onCustomContextMenu(const QPoint &pos)
 
 	QMenu menu;
 	QAction *renameAction = menu.addAction(tr("Rename"));
+
+	// boolean groups can switch between ADD/MUL/SUB without recreating the subtree
+	const enumNodeType itemType = enumNodeType(getNodeType(item));
+	QAction *changeBoolAction = nullptr;
+	if (isBooleanGroupType(itemType))
+	{
+		changeBoolAction = menu.addAction(tr("Change boolean operator"));
+	}
+
 	QAction *selected = menu.exec(ui->treeWidget_objects->viewport()->mapToGlobal(pos));
+	if (!selected) return;
+
+	if (selected == changeBoolAction)
+	{
+		bool ok = false;
+		const enumNodeType newType = showBooleanOperatorDialog(itemType, &ok);
+		if (!ok || newType == itemType) return;
+
+		// update the stored node type used by getNodeType()/StoreTreeToParams
+		item->setData(treeData::nodeType, Qt::UserRole, int(newType));
+
+		// refresh the type label in the tree column
+		QWidget *typeEditor = ui->treeWidget_objects->itemWidget(item, treeCol::type);
+		if (typeEditor)
+		{
+			ui->treeWidget_objects->removeItemWidget(item, treeCol::type);
+			delete typeEditor;
+		}
+		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(int(newType)));
+
+		// swap the group icon; keep the name if the user has renamed the node
+		const QString oldDefaultName = nodeTypeToString(itemType);
+		if (item->text(treeCol::name) == oldDefaultName)
+		{
+			item->setText(treeCol::name, nodeTypeToString(newType));
+		}
+		const QIcon icon = getIconForNode(newType);
+		const QPixmap pixmap = icon.pixmap(QSize(128, 128));
+		if (!pixmap.isNull())
+		{
+			const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
+			item->setIcon(treeCol::icon,
+				QIcon(pixmap.scaled(miniSize, miniSize, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+		}
+
+		// rewrite the node_XXXX_definition parameters so the renderer sees the new type
+		StoreTreeToParams(params, fractalParams);
+		refreshMouseClickCombo();
+		return;
+	}
+
 	if (selected != renameAction) return;
 
 	QString currentName = item->text(treeCol::name);
