@@ -2517,6 +2517,24 @@ void cSettings::CopyPrimitiveTransform(
 		par->Set(prefix + "repeat", par->Get<CVector3>(primitiveFullName + "_repeat"));
 }
 
+// Migrates the legacy per-primitive smooth distance-estimate combine params
+// (smooth_de_combine_enable / smooth_de_combine_distance) onto the node prefix so
+// the objects tree can apply smooth blending on the primitive leaf node.
+void cSettings::CopyPrimitiveSmoothDECombine(
+	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
+{
+	if (par->IfExists(primitiveFullName + "_smooth_de_combine_enable"))
+	{
+		par->Set(prefix + "smooth_de_combine_enable",
+			par->Get<bool>(primitiveFullName + "_smooth_de_combine_enable"));
+	}
+	if (par->IfExists(primitiveFullName + "_smooth_de_combine_distance"))
+	{
+		par->Set(prefix + "smooth_de_combine_distance",
+			par->Get<double>(primitiveFullName + "_smooth_de_combine_distance"));
+	}
+}
+
 QList<int> cSettings::GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 {
 	QList<int> enabledFractals;
@@ -3087,6 +3105,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 				}
 			}
 			CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
+			CopyPrimitiveSmoothDECombine(par, primitive.fullName, NodePrefix(primitiveNodeId));
 			if (!isPrimitiveEnabled)
 			{
 				par->Set(NodePrefix(primitiveNodeId) + "enabled", false);
@@ -3130,6 +3149,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			}
 		}
 		CopyPrimitiveTransform(par, primitive.fullName, NodePrefix(primitiveNodeId));
+		CopyPrimitiveSmoothDECombine(par, primitive.fullName, NodePrefix(primitiveNodeId));
 		if (!isPrimitiveEnabled)
 		{
 			par->Set(NodePrefix(primitiveNodeId) + "enabled", false);

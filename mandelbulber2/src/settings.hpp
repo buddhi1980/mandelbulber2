@@ -129,6 +129,8 @@ private:
 		std::shared_ptr<cParameterContainer> fracPar);
 	static void CopyPrimitiveTransform(std::shared_ptr<cParameterContainer> par,
 		const QString &primitiveFullName, const QString &prefix);
+	static void CopyPrimitiveSmoothDECombine(std::shared_ptr<cParameterContainer> par,
+		const QString &primitiveFullName, const QString &prefix);
 	static void CopyOneFractalParams(
 		std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex);
 	static void CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix);
