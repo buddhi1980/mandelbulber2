@@ -3056,14 +3056,27 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 																		? par->Get<QString>(primitive.Name("name"))
 																		: primitive.typeName;
 
-		// If no root node exists yet, create one from the primitive
+		// If no root node exists yet, the primitives live in their own sibling
+		// group (separate from the fractal/hybrid tree). Create a booleanAdd
+		// "primitives" group as the root and put the primitive inside it. This is
+		// required even for a single primitive: the global primitive transform
+		// (all_primitives_position / all_primitives_rotation) can only be migrated
+		// onto a group by FlattenBooleanAddGroups(). Without the group, a lone
+		// primitive would have no wrapper and its global transform would be lost.
 		if (rootNodeId < 0)
 		{
+			const int primitiveGroupId = ++maxNodeId;
+			InitNodeParams(primitiveGroupId, par);
+			par->Set(
+				NodeDefinitionParam(primitiveGroupId), MakeNodeDefinition("primitives", primitiveGroupId,
+																								 enumNodeType::booleanAdd, 0, nextGroupObjectId++));
+			par->Set(NodePrefix(primitiveGroupId) + "material", -1);
+
 			const int primitiveNodeId = ++maxNodeId;
 			InitNodeParams(primitiveNodeId, par);
-			par->Set(
-				NodeDefinitionParam(primitiveNodeId), MakeNodeDefinition(primitiveName, primitiveNodeId,
-																								enumNodeType::primitive, 0, primitiveObjectId));
+			par->Set(NodeDefinitionParam(primitiveNodeId),
+				MakeNodeDefinition(primitiveName, primitiveNodeId, enumNodeType::primitive,
+					primitiveGroupId, primitiveObjectId));
 			QString matParam = primitive.Name("material_id");
 			if (par->IfExists(matParam))
 			{
@@ -3078,7 +3091,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			{
 				par->Set(NodePrefix(primitiveNodeId) + "enabled", false);
 			}
-			rootNodeId = primitiveNodeId;
+			rootNodeId = primitiveGroupId;
 			continue;
 		}
 
