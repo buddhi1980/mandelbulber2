@@ -2570,6 +2570,29 @@ bool cSettings::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
 // Default object_id value assigned to primitives that were not explicitly renumbered.
 static const int DefaultPrimitiveObjectId = 1234;
 
+// Returns the legacy material for a hybrid root node. In hybrid mode all child fractals are
+// computed together as a single hybrid sequence and their surfaces take the material from the
+// hybrid group node itself (children do not carry material information). The legacy value is
+// the global formula_material_id (1-based, mat1_* == 1); MigrateLegacyParamsToFractal copies
+// it onto each fractal container, so reading the first used fractal slot covers both old
+// (< 2.29, global param) and transitional (2.29, per-fractal param) file layouts.
+static int GetHybridRootLegacyMaterial(std::shared_ptr<cFractalContainer> fract)
+{
+	for (int i = 0; i < fract->size(); i++)
+	{
+		if (fract->at(i)->IfExists("formula")
+				&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+		{
+			if (fract->at(i)->IfExists("formula_material_id"))
+			{
+				return fract->at(i)->Get<int>("formula_material_id");
+			}
+			return 1;
+		}
+	}
+	return 1;
+}
+
 void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
 {
@@ -2729,6 +2752,11 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			InitNodeParams(1, par);
 			par->Set("node_0001_definition",
 				MakeNodeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
+			// The hybrid group node must carry the legacy formula_material_id: hybrid children are
+			// rendered as one sequence and their surfaces resolve the material through this node.
+			// InitNodeParams defaults material to 1, which wrongly pinned mat1 regardless of the
+			// formula_material_id value stored in the file.
+			par->Set("node_0001_material", GetHybridRootLegacyMaterial(fract));
 
 			if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
 				par->Set("node_0001_rotation", par->Get<CVector3>("fractal_rotation"));
@@ -2873,6 +2901,10 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 			InitNodeParams(1, par);
 			par->Set("node_0001_definition",
 				MakeNodeDefinition("hybrid", 1, enumNodeType::hybrid, 0, nextGroupObjectId++));
+			// The hybrid group node must carry the legacy formula_material_id (same reason as in the
+			// boolean+hybrid branch): hybrid children are computed together and resolve their
+			// material through the group node, not through the individual fractal children.
+			par->Set("node_0001_material", GetHybridRootLegacyMaterial(fract));
 
 			// Apply global fractal transform params to the hybrid root node
 			if (par->IfExists("fractal_rotation") && !par->isDefaultValue("fractal_rotation"))
