@@ -52,6 +52,11 @@ public:
 		usedForVolumetric = false;
 		detailLevelMultiplier = 1.0;
 		absScale = 1.0;
+		// Default size must be (1,1,1): it is used as a divisor in TextureMapping.
+		// Group nodes (hybrid/boolean) and legacy fractal placeholders never set it,
+		// so a zero default caused division by zero (NaN/inf UV) and silently
+		// disabled displacement and texture mapping for those objects.
+		size = CVector3(1.0, 1.0, 1.0);
 	}
 
 	bool usedForVolumetric;
