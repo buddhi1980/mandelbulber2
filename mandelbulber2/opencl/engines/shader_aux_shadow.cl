@@ -121,6 +121,13 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			dist_thresh = input->distThresh;
 
 		calcParam->distThresh = dist_thresh;
+		// detailSize must follow the shadow ray threshold (like in the primary
+		// RayMarching and in the CPU AuxShadow). The boolean subtraction clamps
+		// the distance inside the cut-out zone to 1.5*detailSize; if detailSize
+		// kept the caller value (delta = distThresh*detailLevel), that clamped
+		// distance could fall below dist_thresh for detailLevel < 2/3 and the
+		// invisible cutter object would cast a false shadow.
+		calcParam->detailSize = dist_thresh;
 		formulaOut outF;
 
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
@@ -170,8 +177,9 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			//				int closestId = -1;
 			//
 			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
-			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog) 						>
-			//dist_thresh) 					opacity = 0.0f;
+			// false, 							&closestId,
+			// renderData->primitivesGlobalData->primitiveIndexForIterFog) 						> dist_thresh)
+			// opacity = 0.0f;
 			//			}
 			// #endif // USE_PRIMITIVES
 
@@ -195,8 +203,9 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			//				int closestId = -1;
 			//
 			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
-			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog) 						>
-			//dist_thresh) 					opacity = 0.0f;
+			// false, 							&closestId,
+			// renderData->primitivesGlobalData->primitiveIndexForDistFog) 						> dist_thresh)
+			// opacity = 0.0f;
 			//			}
 			// #endif // USE_PRIMITIVES
 
@@ -218,8 +227,9 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			//				int closestId = -1;
 			//
 			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
-			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog) 						>
-			//dist_thresh) 					opacity = 0.0f;
+			// false, 							&closestId,
+			// renderData->primitivesGlobalData->primitiveIndexForBasicFog) 						> dist_thresh)
+			// opacity = 0.0f;
 			//			}
 			// #endif // USE_PRIMITIVES
 
@@ -242,7 +252,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			//				int closestId = -1;
 			//
 			//				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh,
-			//false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds) 						> dist_thresh)
+			// false, 							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds)
+			// > dist_thresh)
 			//				{
 			//					opacity = 0.0f;
 			//					calculateClouds = false;
