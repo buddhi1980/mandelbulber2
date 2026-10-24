@@ -93,7 +93,7 @@ int GetObjectTreeRequiredStackDepth(const std::vector<cObjectsTree::sNodeDataFor
 // code (coloring, displacement, normal calculation) knows which fractal
 // or primitive was the closest hit.
 static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent,
-	const sRenderData *data, double detailSize)
+	const sRenderData *data, double detailSize, bool normalCalculationMode)
 {
 	const double childDistance = child.cumulativeDistance;
 
@@ -146,8 +146,19 @@ static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeSt
 
 				if (childDistance < limitDist)
 				{
-					// Within the smooth transition zone: clamp to limitDist.
-					parent->cumulativeDistance = limitDist;
+					if (normalCalculationMode)
+					{
+						// During normal vector calculation a flat clamp would create a
+						// constant plateau around the cutter surface, so the DE gradient
+						// (and thus the normal) would be wrong. Use the sloped distance
+						// instead (same as the legacy 2.34 boolean code).
+						parent->cumulativeDistance = max(limitDist - childDistance, parent->cumulativeDistance);
+					}
+					else
+					{
+						// Within the smooth transition zone: clamp to limitDist.
+						parent->cumulativeDistance = limitDist;
+					}
 					parent->closestObjectId = child.closestObjectId;
 					parent->closestObjectSequence = child.closestObjectSequence;
 					parent->transformedPoint = child.transformedPoint;
@@ -355,7 +366,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 				{
 					ObjectTreeStackFrame child = stack[stackLevel];
 					stackLevel--;
-					mergeChildIntoParent(child, &stack[stackLevel], data, stack[stackLevel].detailSize);
+					mergeChildIntoParent(child, &stack[stackLevel], data, stack[stackLevel].detailSize,
+						in.normalCalculationMode);
 				}
 			}
 
@@ -505,7 +517,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			leaf.hasTransformedPoint = (objectId >= 0);
 			leaf.smoothCombineEnable = node.smoothDECombineEnable;
 			leaf.smoothCombineDistance = node.smoothDECombineDistance;
-			mergeChildIntoParent(leaf, &stack[stackLevel], data, stack[stackLevel].detailSize);
+			mergeChildIntoParent(
+				leaf, &stack[stackLevel], data, stack[stackLevel].detailSize, in.normalCalculationMode);
 			totalIters += leafIters;
 		}
 
@@ -517,7 +530,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 			{
 				ObjectTreeStackFrame child = stack[stackLevel];
 				stackLevel--;
-				mergeChildIntoParent(child, &stack[stackLevel], data, stack[stackLevel].detailSize);
+				mergeChildIntoParent(
+					child, &stack[stackLevel], data, stack[stackLevel].detailSize, in.normalCalculationMode);
 			}
 		}
 

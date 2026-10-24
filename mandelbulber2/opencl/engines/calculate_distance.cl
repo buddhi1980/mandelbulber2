@@ -320,7 +320,8 @@ typedef struct
 } ObjectTreeStackFrameCl;
 
 void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStackFrameCl *parent,
-	__global sObjectDataCl *objectsData, int numberOfObjects, float detailSize)
+	__global sObjectDataCl *objectsData, int numberOfObjects, float detailSize,
+	bool normalCalculationMode)
 {
 	const float childDistance = child->cumulativeDistance;
 
@@ -367,7 +368,19 @@ void mergeChildIntoParentCl(const ObjectTreeStackFrameCl *child, ObjectTreeStack
 
 				if (childDistance < limitDist)
 				{
-					parent->cumulativeDistance = limitDist;
+					if (normalCalculationMode)
+					{
+						// During normal vector calculation a flat clamp would create a
+						// constant plateau around the cutter surface, so the DE gradient
+						// (and thus the normal) would be wrong. Use the sloped distance
+						// instead (same as the legacy 2.34 boolean code).
+						parent->cumulativeDistance = max(limitDist - childDistance, parent->cumulativeDistance);
+					}
+					else
+					{
+						// Within the smooth transition zone: clamp to limitDist.
+						parent->cumulativeDistance = limitDist;
+					}
 					parent->closestObjectId = child->closestObjectId;
 					parent->closestObjectSequence = child->closestObjectSequence;
 					parent->transformedPoint = child->transformedPoint;
@@ -525,7 +538,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				ObjectTreeStackFrameCl child = stack[stackLevel];
 				stackLevel--;
 				mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
-					stack[stackLevel].detailSize);
+					stack[stackLevel].detailSize, calcParam->normalCalculationMode);
 			}
 		}
 
@@ -674,7 +687,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		leaf.smoothCombineEnable = node->smooth_de_combine_enable;
 		leaf.smoothCombineDistance = node->smooth_de_combine_distance;
 		mergeChildIntoParentCl(&leaf, &stack[stackLevel], renderData->objectsData, numberOfObjects,
-			stack[stackLevel].detailSize);
+			stack[stackLevel].detailSize, calcParam->normalCalculationMode);
 		totalIters += leafIters;
 	}
 
@@ -685,7 +698,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		ObjectTreeStackFrameCl child = stack[stackLevel];
 		stackLevel--;
 		mergeChildIntoParentCl(&child, &stack[stackLevel], renderData->objectsData, numberOfObjects,
-			stack[stackLevel].detailSize);
+			stack[stackLevel].detailSize, calcParam->normalCalculationMode);
 	}
 #endif
 
