@@ -456,6 +456,27 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 					if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
 					if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
 					if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
+
+					// material-based effects are stored with matN_ prefix, so detect them
+					// directly in the settings text
+					if (settingsTxt.contains(QRegularExpression("mat\\d+_subsurface_scattering\\s+true")))
+					{
+						listOfEffects += "sss ";
+					}
+					if (settingsTxt.contains(QRegularExpression("mat\\d+_perlin_noise_\\w*enable\\s+true")))
+					{
+						listOfEffects += "perlin ";
+					}
+				}
+
+				// animation-related effects: [frames] section is produced by flight
+				// animation, [keyframes] by keyframe animation; anim-by-sound parameters
+				// are prefixed with animsound_ (keyframes) or flightanimsound_ (flight)
+				if (settingsTxt.contains("[frames]")) listOfEffects += "flight ";
+				if (settingsTxt.contains("[keyframes]")) listOfEffects += "keyframes ";
+				if (settingsTxt.contains(QRegularExpression("animsound_enable_\\w+\\s+true")))
+				{
+					listOfEffects += "animBySound ";
 				}
 
 				ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));

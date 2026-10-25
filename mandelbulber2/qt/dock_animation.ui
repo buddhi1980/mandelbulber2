@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>477</width>
-              <height>682</height>
+              <width>336</width>
+              <height>367</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -941,8 +941,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>407</width>
-              <height>656</height>
+              <width>443</width>
+              <height>767</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1462,6 +1462,19 @@ keyframes</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
+          <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>3</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>22</number>
+           </attribute>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <property name="spacing">
             <number>2</number>
@@ -1553,19 +1566,6 @@ keyframes</string>
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>3</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>22</number>
-           </attribute>
-          </widget>
          </item>
         </layout>
        </item>
