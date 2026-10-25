@@ -605,7 +605,7 @@ void RenderWindow::slotMenuSaveImageAll()
 	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	QStringList filters;
-	filters << tr("images (*.jpg *.jpeg *.png *.exr *.tiff)");
+	filters << tr("images (*.jpg *.jpeg *.png *.exr *.tiff *.jxl)");
 	dialog.setNameFilters(filters);
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
@@ -659,6 +659,14 @@ void RenderWindow::slotMenuSaveImageTIFF()
 		ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
 }
 #endif // USE_TIFF
+
+#ifdef USE_JXL
+void RenderWindow::slotMenuSaveImageJXL()
+{
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_JXL, tr("JPEG XL images (*.jxl)"), "JPEG XL", "jxl");
+}
+#endif // USE_JXL
 
 void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType,
 	QString nameFilter, QString titleType, QString defaultSuffix)

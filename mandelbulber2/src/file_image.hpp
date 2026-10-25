@@ -76,7 +76,10 @@ public:
 		IMAGE_FILE_TYPE_PNG = 0,
 		IMAGE_FILE_TYPE_JPG = 1,
 		IMAGE_FILE_TYPE_EXR = 2,
-		IMAGE_FILE_TYPE_TIFF = 3
+		IMAGE_FILE_TYPE_TIFF = 3,
+		// NOTE: the combo boxes in the animation dock index items by this enum order,
+		// so a new format must always be appended at the end
+		IMAGE_FILE_TYPE_JXL = 4
 	};
 
 	enum enumImageContentType
@@ -236,6 +239,49 @@ public:
 	void SaveTiffRgbPixel(structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel);
 };
 #endif /* USE_TIFF */
+
+#ifdef USE_JXL
+/**
+ * JPEG XL saver: 8/16 bit integer and 32 bit float output, alpha channel
+ * (interleaved or as a separate file) and HDR transfer modes driven by the
+ * jxl_hdr_mode application parameter:
+ * 0 - SDR (sRGB transfer, gamma corrected buffers),
+ * 1 - float linear (scene referred, values may exceed 1.0 like in EXR),
+ * 2 - PQ (SMPTE ST 2084) with BT.2100 primaries for HDR displays
+ */
+class ImageFileSaveJXL : public ImageFileSave
+{
+	Q_OBJECT
+public:
+	ImageFileSaveJXL(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
+	QStringList SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("JPEG XL"); }
+
+private:
+	/**
+	 * Packs one image channel into a buffer matching the requested bit depth and
+	 * encodes it as a single JPEG XL frame.
+	 * @param fullFilename target path including .jxl extension
+	 * @param imageChannel channel configuration (content type + quality)
+	 * @param alphaPresent append the 16 bit alpha as interleaved 4th component (color only)
+	 */
+	bool SaveJxlChannel(
+		const QString &fullFilename, structSaveImageChannel imageChannel, bool alphaPresent);
+	/**
+	 * Low level libjxl encoder call for one already packed frame.
+	 * @param mainChannels number of main channels: 1 (gray) or 3 (rgb)
+	 * @param dataType JxlDataType cast to int (uint8/uint16/float)
+	 * @param buffer interleaved RGBA/RGB/grayA pixel data, bufferSize in bytes
+	 * @param contentType used to choose color encoding (data channels stay linear)
+	 */
+	bool EncodeJxl(const QString &fullFilename, uint64_t width, uint64_t height, int mainChannels,
+		bool alphaPresent, enumImageContentType contentType, int dataType, int bitsPerSample,
+		const void *buffer, size_t bufferSize);
+};
+#endif /* USE_JXL */
 
 #ifdef USE_EXR
 class ImageFileSaveEXR : public ImageFileSave

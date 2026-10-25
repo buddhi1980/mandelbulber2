@@ -72,6 +72,17 @@
 #include "tiff.h"
 #include "tiffio.h"
 #endif // USE_TIFF
+// custom includes
+#ifdef USE_JXL
+#include <jxl/codestream_header.h>
+#include <jxl/color_encoding.h>
+#include <jxl/encode.h>
+#include <jxl/thread_parallel_runner.h>
+#include <jxl/types.h>
+#include <cmath>
+#include <cstring>
+#include <vector>
+#endif // USE_JXL
 
 #define PNG_DEBUG 3
 
@@ -101,6 +112,10 @@ std::shared_ptr<ImageFileSave> ImageFileSave::create(QString filename, enumImage
 		case IMAGE_FILE_TYPE_TIFF:
 			return std::shared_ptr<ImageFileSave>(new ImageFileSaveTIFF(filename, image, imageConfig));
 #endif /* USE_TIFF */
+#ifdef USE_JXL
+		case IMAGE_FILE_TYPE_JXL:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSaveJXL(filename, image, imageConfig));
+#endif /* USE_JXL */
 #ifdef USE_EXR
 		case IMAGE_FILE_TYPE_EXR:
 			return std::shared_ptr<ImageFileSave>(new ImageFileSaveEXR(filename, image, imageConfig));
@@ -119,6 +134,7 @@ QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
 		case IMAGE_FILE_TYPE_PNG: return "png";
 		case IMAGE_FILE_TYPE_EXR: return "exr";
 		case IMAGE_FILE_TYPE_TIFF: return "tiff";
+		case IMAGE_FILE_TYPE_JXL: return "jxl";
 	}
 	return "";
 }
@@ -158,6 +174,8 @@ ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileE
 		return IMAGE_FILE_TYPE_EXR;
 	else if (imageFileExtension == "tiff" || imageFileExtension == "tif")
 		return IMAGE_FILE_TYPE_TIFF;
+	else if (imageFileExtension == "jxl")
+		return IMAGE_FILE_TYPE_JXL;
 	else
 		return IMAGE_FILE_TYPE_JPG;
 }
@@ -167,7 +185,7 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 	QFileInfo fi(path);
 	QString fileName = fi.completeBaseName();
 	if (fi.suffix() != ""
-			&& !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif"}).contains(fi.suffix()))
+			&& !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif", "jxl"}).contains(fi.suffix()))
 	{
 		fileName += "." + fi.suffix();
 	}
@@ -460,6 +478,540 @@ QStringList ImageFileSaveTIFF::SaveImage()
 	return listOfSavedFiles;
 }
 #endif /* USE_TIFF */
+
+#ifdef USE_JXL
+namespace
+{
+// Inverse of the SMPTE ST 2084 EOTF (PQ OETF). The input is a scene linear
+// relative value (1.0 corresponds to the SDR white point), the output is a
+// code value in [0, 1] ready to be stored in a BT.2100 PQ JPEG XL frame
+float JxlPqOetf(float relative, float sdrWhiteNits)
+{
+	const float m1 = 2610.0f / 16384.0f;
+	const float m2 = 2523.0f / 4096.0f * 128.0f;
+	const float c1 = 3424.0f / 4096.0f;
+	const float c2 = 2413.0f / 4096.0f * 32.0f;
+	const float c3 = 2392.0f / 4096.0f * 32.0f;
+	float nits = qMax(0.0f, relative) * sdrWhiteNits;
+	// ST 2084 works on luminance normalized to the 10000 cd/m2 peak
+	float n = powf(nits / 10000.0f, m1);
+	float v = powf((c1 + c2 * n) / (1.0f + c3 * n), m2);
+	return clamp(v, 0.0f, 1.0f);
+}
+} // namespace
+
+QStringList ImageFileSaveJXL::SaveImage()
+{
+	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
+
+	bool appendAlpha = gPar->Get<bool>("append_alpha_jxl")
+										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
+										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
+
+	currentChannel = 0;
+	totalChannel = imageConfig.size();
+	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
+	{
+		currentChannelKey = channel.key();
+
+		QString fullFilename =
+			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "jxl");
+
+		listOfSavedFiles.append(fullFilename);
+
+		emit updateProgressAndStatus(getJobName(),
+			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
+			1.0 * currentChannel / totalChannel);
+
+		switch (currentChannelKey)
+		{
+			case IMAGE_CONTENT_COLOR: SaveJxlChannel(fullFilename, channel.value(), appendAlpha); break;
+			case IMAGE_CONTENT_ALPHA:
+				if (!appendAlpha) SaveJxlChannel(fullFilename, channel.value(), false);
+				break;
+			case IMAGE_CONTENT_ZBUFFER:
+			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_NORMAL_WORLD:
+			case IMAGE_CONTENT_SPECULAR:
+			case IMAGE_CONTENT_DIFFUSE:
+			case IMAGE_CONTENT_WORLD_POSITION:
+			case IMAGE_CONTENT_SHADOWS:
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_NOT_DENOISED:
+			default: SaveJxlChannel(fullFilename, channel.value(), false); break;
+		}
+		currentChannel++;
+	}
+	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
+}
+
+bool ImageFileSaveJXL::SaveJxlChannel(
+	const QString &fullFilename, structSaveImageChannel imageChannel, bool alphaPresent)
+{
+	uint64_t width = image->GetWidth();
+	uint64_t height = image->GetHeight();
+	if (!width || !height) return false;
+
+	int hdrMode = gPar->Get<int>("jxl_hdr_mode");
+	bool isGray = (imageChannel.contentType == IMAGE_CONTENT_ALPHA
+								 || imageChannel.contentType == IMAGE_CONTENT_ZBUFFER);
+	int mainChannels = isGray ? 1 : 3;
+
+	JxlDataType dataType;
+	int bitsPerSample;
+	switch (imageChannel.channelQuality)
+	{
+		case IMAGE_CHANNEL_QUALITY_8:
+			dataType = JXL_TYPE_UINT8;
+			bitsPerSample = 8;
+			break;
+		case IMAGE_CHANNEL_QUALITY_16:
+			dataType = JXL_TYPE_UINT16;
+			bitsPerSample = 16;
+			break;
+		default:
+			dataType = JXL_TYPE_FLOAT;
+			bitsPerSample = 32;
+			break;
+	}
+
+	int channels = mainChannels + (alphaPresent ? 1 : 0);
+	size_t bufferSize = width * height * channels * (bitsPerSample / 8);
+	std::vector<uint8_t> packed;
+	const void *src = nullptr;
+	float sdrWhite = float(gPar->Get<double>("jxl_sdr_white_nits"));
+
+	switch (imageChannel.contentType)
+	{
+		case IMAGE_CONTENT_COLOR:
+			if (dataType == JXL_TYPE_FLOAT)
+			{
+				// float buffer cannot be taken directly from cImage, pack RGBA/RGB here;
+				// hdrMode decides between gamma code values, scene linear and PQ
+				packed.resize(bufferSize);
+				float *f = reinterpret_cast<float *>(packed.data());
+				for (uint64_t y = 0; y < height; y++)
+				{
+					for (uint64_t x = 0; x < width; x++)
+					{
+						sRGBFloat p;
+						if (hdrMode == 0)
+						{
+							// gamma corrected values, declared with the sRGB transfer
+							p = toRGBFloat(image->GetPixelImage16(x, y));
+						}
+						else
+						{
+							// unclamped scene linear values from the float buffer
+							p = image->GetPixelImage(x, y);
+							if (hdrMode == 2)
+							{
+								p = sRGBFloat(
+									JxlPqOetf(p.R, sdrWhite), JxlPqOetf(p.G, sdrWhite), JxlPqOetf(p.B, sdrWhite));
+							}
+						}
+						uint64_t i = (x + y * width) * channels;
+						f[i] = p.R;
+						f[i + 1] = p.G;
+						f[i + 2] = p.B;
+						if (alphaPresent) f[i + 3] = image->GetPixelAlpha(x, y) / 65535.0f;
+					}
+				}
+				src = packed.data();
+			}
+			else if (alphaPresent)
+			{
+				// interleaved RGBA, combined buffer is required
+				packed.resize(bufferSize);
+				if (dataType == JXL_TYPE_UINT8)
+				{
+					image->ConvertTo8bitChar();
+					image->ConvertAlphaTo8bit();
+					const std::vector<sRGB8> &rgb = image->GetImage8();
+					const std::vector<quint8> &alpha = image->GetAlphaBuf8();
+					sRGBA8 *rgba = reinterpret_cast<sRGBA8 *>(packed.data());
+					for (uint64_t i = 0; i < width * height; i++)
+					{
+						rgba[i] = sRGBA8(rgb[i]);
+						rgba[i].A = alpha[i];
+					}
+				}
+				else
+				{
+					const std::vector<sRGB16> &rgb = image->GetImage16();
+					const std::vector<quint16> &alpha = image->GetAlphaBuf();
+					sRGBA16 *rgba = reinterpret_cast<sRGBA16 *>(packed.data());
+					for (uint64_t i = 0; i < width * height; i++)
+					{
+						rgba[i] = sRGBA16(rgb[i]);
+						rgba[i].A = alpha[i];
+					}
+				}
+				src = packed.data();
+			}
+			else
+			{
+				// direct access to the existing buffers, no copy needed
+				if (dataType == JXL_TYPE_UINT8)
+					src = static_cast<const void *>(image->ConvertTo8bitChar());
+				else
+					src = static_cast<const void *>(image->GetImage16().data());
+			}
+			break;
+
+		case IMAGE_CONTENT_ALPHA:
+			if (dataType == JXL_TYPE_UINT8)
+			{
+				src = static_cast<const void *>(image->ConvertAlphaTo8bit().data());
+			}
+			else if (dataType == JXL_TYPE_UINT16)
+			{
+				src = static_cast<const void *>(image->GetAlphaBuf().data());
+			}
+			else
+			{
+				packed.resize(bufferSize);
+				float *f = reinterpret_cast<float *>(packed.data());
+				const std::vector<quint16> &alpha = image->GetAlphaBuf();
+				for (uint64_t i = 0; i < width * height; i++)
+					f[i] = alpha[i] / 65535.0f;
+				src = packed.data();
+			}
+			break;
+
+		case IMAGE_CONTENT_ZBUFFER:
+		{
+			// same normalization rules as the PNG / JPG channels, full range data map
+			std::vector<float> &zbuffer = image->GetZBuffer();
+			uint64_t size = width * height;
+			float minZ = float(1.0e50);
+			float maxZ = 0.0;
+			if (gPar->Get<bool>("zbuffer_constant_range"))
+			{
+				minZ = gPar->Get<double>("zbuffer_min_depth");
+				maxZ = gPar->Get<double>("zbuffer_max_depth");
+			}
+			else
+			{
+				for (uint64_t i = 0; i < size; i++)
+				{
+					float z = zbuffer[i];
+					if (z > maxZ && z < 1e19f) maxZ = z;
+					if (z < minZ) minZ = z;
+				}
+			}
+			float kZ = log(maxZ / minZ);
+			bool logarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
+			bool invertZ = gPar->Get<bool>("zbuffer_invert");
+
+			packed.resize(bufferSize);
+			for (uint64_t y = 0; y < height; y++)
+			{
+				for (uint64_t x = 0; x < width; x++)
+				{
+					uint64_t ptr = x + y * width;
+					float z = zbuffer[ptr];
+					bool far = (z > 1e19f);
+					float z1;
+					if (logarithmicScale)
+						z1 = log(z / minZ) / kZ;
+					else
+						z1 = (z - minZ) / (maxZ - minZ);
+					z1 = clamp(z1, 0.0f, 1.0f);
+					if (dataType == JXL_TYPE_UINT8)
+					{
+						int intZ = far ? 255 : int(z1 * 254.0f);
+						if (invertZ) intZ = 255 - intZ;
+						packed[ptr] = static_cast<unsigned char>(intZ);
+					}
+					else if (dataType == JXL_TYPE_UINT16)
+					{
+						int intZ = far ? 65535 : int(z1 * 65534.0f);
+						if (invertZ) intZ = 65535 - intZ;
+						reinterpret_cast<unsigned short *>(packed.data())[ptr] =
+							static_cast<unsigned short>(intZ);
+					}
+					else
+					{
+						float v = far ? 1.0f : z1;
+						if (invertZ) v = 1.0f - v;
+						reinterpret_cast<float *>(packed.data())[ptr] = v;
+					}
+				}
+			}
+			src = packed.data();
+			break;
+		}
+
+		case IMAGE_CONTENT_NORMAL:
+		case IMAGE_CONTENT_NORMAL_WORLD:
+		case IMAGE_CONTENT_SPECULAR:
+		case IMAGE_CONTENT_DIFFUSE:
+		case IMAGE_CONTENT_WORLD_POSITION:
+		case IMAGE_CONTENT_SHADOWS:
+		case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+		case IMAGE_CONTENT_NOT_DENOISED:
+		{
+			bool signedInput = (imageChannel.contentType == IMAGE_CONTENT_NORMAL_WORLD);
+			packed.resize(bufferSize);
+			for (uint64_t y = 0; y < height; y++)
+			{
+				for (uint64_t x = 0; x < width; x++)
+				{
+					sRGBFloat p;
+					switch (imageChannel.contentType)
+					{
+						case IMAGE_CONTENT_NORMAL: p = image->GetPixelNormal(x, y); break;
+						case IMAGE_CONTENT_NORMAL_WORLD: p = image->GetPixelNormalWorld(x, y); break;
+						case IMAGE_CONTENT_SPECULAR: p = image->GetPixelSpecular(x, y); break;
+						case IMAGE_CONTENT_DIFFUSE: p = image->GetPixelDiffuse(x, y); break;
+						case IMAGE_CONTENT_WORLD_POSITION: p = image->GetPixelWorld(x, y); break;
+						case IMAGE_CONTENT_SHADOWS: p = image->GetPixelShadows(x, y); break;
+						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+							p = image->GetPixelGlobalIllumination(x, y);
+							break;
+						default: p = image->GetPixelNotDenoised(x, y); break;
+					}
+					if (signedInput)
+					{
+						p = sRGBFloat((1.0f + p.R) * 0.5f, (1.0f + p.G) * 0.5f, (1.0f + p.B) * 0.5f);
+					}
+					uint64_t i = (x + y * width) * 3;
+					if (dataType == JXL_TYPE_UINT8)
+					{
+						packed[i] = static_cast<unsigned char>(clamp(p.R * 255.0f, 0.0f, 255.0f));
+						packed[i + 1] = static_cast<unsigned char>(clamp(p.G * 255.0f, 0.0f, 255.0f));
+						packed[i + 2] = static_cast<unsigned char>(clamp(p.B * 255.0f, 0.0f, 255.0f));
+					}
+					else if (dataType == JXL_TYPE_UINT16)
+					{
+						unsigned short *s = reinterpret_cast<unsigned short *>(packed.data());
+						s[i] = static_cast<unsigned short>(clamp(p.R * 65535.0f, 0.0f, 65535.0f));
+						s[i + 1] = static_cast<unsigned short>(clamp(p.G * 65535.0f, 0.0f, 65535.0f));
+						s[i + 2] = static_cast<unsigned short>(clamp(p.B * 65535.0f, 0.0f, 65535.0f));
+					}
+					else
+					{
+						// float keeps the full (even negative for raw world/normal) range
+						float *f = reinterpret_cast<float *>(packed.data());
+						f[i] = p.R;
+						f[i + 1] = p.G;
+						f[i + 2] = p.B;
+					}
+				}
+			}
+			src = packed.data();
+			break;
+		}
+		default: return false;
+	}
+
+	return EncodeJxl(fullFilename, width, height, mainChannels, alphaPresent,
+		imageChannel.contentType, static_cast<int>(dataType), bitsPerSample, src, bufferSize);
+}
+
+bool ImageFileSaveJXL::EncodeJxl(const QString &fullFilename, uint64_t width, uint64_t height,
+	int mainChannels, bool alphaPresent, enumImageContentType contentType, int dataType,
+	int bitsPerSample, const void *buffer, size_t bufferSize)
+{
+	bool ok = true;
+	QString errorText;
+
+	JxlEncoder *enc = JxlEncoderCreate(nullptr);
+	if (!enc)
+	{
+		ok = false;
+		errorText = QObject::tr("JxlEncoderCreate failed");
+	}
+
+	void *runner = nullptr;
+	if (ok)
+	{
+		runner =
+			JxlThreadParallelRunnerCreate(nullptr, JxlThreadParallelRunnerDefaultNumWorkerThreads());
+		if (runner) JxlEncoderSetParallelRunner(enc, JxlThreadParallelRunner, runner);
+	}
+
+	int hdrMode = gPar->Get<int>("jxl_hdr_mode");
+	bool isFloat = (dataType == JXL_TYPE_FLOAT);
+	bool isColor = (contentType == IMAGE_CONTENT_COLOR);
+	bool pqHdr = (hdrMode == 2 && isColor && isFloat);
+
+	JxlEncoderFrameSettings *settings = nullptr;
+
+	if (ok)
+	{
+		JxlBasicInfo info;
+		JxlEncoderInitBasicInfo(&info);
+		info.xsize = static_cast<uint32_t>(width);
+		info.ysize = static_cast<uint32_t>(height);
+		info.num_color_channels = static_cast<uint32_t>(mainChannels);
+		info.exponent_bits_per_sample = isFloat ? 8 : 0;
+		info.bits_per_sample = isFloat ? 32 : static_cast<uint32_t>(bitsPerSample);
+		if (alphaPresent)
+		{
+			// interleaved alpha becomes the single extra channel
+			info.num_extra_channels = 1;
+			info.alpha_bits = isFloat ? 32 : static_cast<uint32_t>(bitsPerSample);
+			info.alpha_exponent_bits = isFloat ? 8 : 0;
+			info.alpha_premultiplied = JXL_FALSE;
+		}
+		if (pqHdr) info.intensity_target = 10000.0f;
+		// libjxl refuses lossless frames when the codestream would be XYB encoded,
+		// the original profile flag forces the samples to be stored as they are
+		if (gPar->Get<bool>("jxl_lossless")) info.uses_original_profile = JXL_TRUE;
+		if (JxlEncoderSetBasicInfo(enc, &info) != JXL_ENC_SUCCESS)
+		{
+			ok = false;
+			errorText = QObject::tr("JxlEncoderSetBasicInfo failed");
+		}
+	}
+
+	if (ok)
+	{
+		// samples are stored directly in the declared space, so the transfer function
+		// must describe how the buffers were built; data channels are always linear
+		JxlColorEncoding colorEncoding;
+		memset(&colorEncoding, 0, sizeof(colorEncoding));
+		colorEncoding.color_space = (mainChannels == 1) ? JXL_COLOR_SPACE_GRAY : JXL_COLOR_SPACE_RGB;
+		colorEncoding.white_point = JXL_WHITE_POINT_D65;
+		colorEncoding.rendering_intent = JXL_RENDERING_INTENT_PERCEPTUAL;
+		colorEncoding.primaries = pqHdr ? JXL_PRIMARIES_2100 : JXL_PRIMARIES_SRGB;
+		if (pqHdr)
+			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_PQ;
+		else if (isColor && !isFloat)
+			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_SRGB;
+		else if (isColor && hdrMode == 0)
+			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_SRGB;
+		else
+			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_LINEAR;
+		if (JxlEncoderSetColorEncoding(enc, &colorEncoding) != JXL_ENC_SUCCESS)
+		{
+			ok = false;
+			errorText = QObject::tr("JxlEncoderSetColorEncoding failed");
+		}
+	}
+
+	if (ok)
+	{
+		// embed the render meta data as a plain xml box (no container is needed for a
+		// bare codestream only if we let the encoder add the container automatically)
+		QMap<QString, QString> meta = image->getMeta();
+		if (!meta.isEmpty())
+		{
+			if (JxlEncoderUseBoxes(enc) == JXL_ENC_SUCCESS)
+			{
+				QString xml =
+					QStringLiteral("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mandelbulber>\n");
+				for (auto it = meta.constBegin(); it != meta.constEnd(); ++it)
+				{
+					xml += QString("\t<item key=\"%1\">%2</item>\n")
+									 .arg(it.key().toHtmlEscaped(), it.value().toHtmlEscaped());
+				}
+				xml += QStringLiteral("</mandelbulber>\n");
+				QByteArray data = xml.toUtf8();
+				JxlBoxType boxType = {'x', 'm', 'l', ' '};
+				if (JxlEncoderAddBox(enc, boxType, reinterpret_cast<const uint8_t *>(data.constData()),
+							data.size(), JXL_FALSE)
+						!= JXL_ENC_SUCCESS)
+				{
+					ok = false;
+					errorText = QObject::tr("JxlEncoderAddBox failed");
+				}
+				JxlEncoderCloseBoxes(enc);
+			}
+			else
+			{
+				ok = false;
+				errorText = QObject::tr("JxlEncoderUseBoxes failed");
+			}
+		}
+	}
+
+	if (ok)
+	{
+		settings = JxlEncoderFrameSettingsCreate(enc, nullptr);
+		JxlEncoderFrameSettingsSetOption(
+			settings, JXL_ENC_FRAME_SETTING_EFFORT, gPar->Get<int>("jxl_effort"));
+		if (gPar->Get<bool>("jxl_lossless"))
+			JxlEncoderSetFrameLossless(settings, JXL_TRUE);
+		else
+			JxlEncoderSetFrameDistance(settings, float(gPar->Get<double>("jxl_distance")));
+		if (alphaPresent && !gPar->Get<bool>("jxl_lossless"))
+		{
+			// alpha is a mask, keep it free of lossy artifacts
+			JxlEncoderSetExtraChannelDistance(settings, 0, 0.0f);
+		}
+	}
+
+	if (ok)
+	{
+		JxlPixelFormat format;
+		format.num_channels = static_cast<uint32_t>(mainChannels + (alphaPresent ? 1 : 0));
+		format.data_type = static_cast<JxlDataType>(dataType);
+		format.endianness = JXL_NATIVE_ENDIAN;
+		format.align = 0;
+		if (JxlEncoderAddImageFrame(settings, &format, buffer, bufferSize) != JXL_ENC_SUCCESS)
+		{
+			ok = false;
+			errorText = QObject::tr("JxlEncoderAddImageFrame failed");
+		}
+		JxlEncoderCloseInput(enc);
+	}
+
+	if (ok) updateProgressAndStatusChannel(0.9);
+
+	if (ok)
+	{
+		QFile file(fullFilename);
+		if (!file.open(QIODevice::WriteOnly))
+		{
+			ok = false;
+			errorText = file.errorString();
+		}
+		else
+		{
+			std::vector<uint8_t> out(64 * 1024);
+			JxlEncoderStatus st = JXL_ENC_ERROR;
+			do
+			{
+				uint8_t *next = out.data();
+				size_t avail = out.size();
+				st = JxlEncoderProcessOutput(enc, &next, &avail);
+				qint64 written = file.write(
+					reinterpret_cast<const char *>(out.data()), static_cast<qint64>(out.size() - avail));
+				if (written != static_cast<qint64>(out.size() - avail))
+				{
+					ok = false;
+					errorText = file.errorString();
+					break;
+				}
+			} while (st == JXL_ENC_NEED_MORE_OUTPUT);
+			if (ok && st != JXL_ENC_SUCCESS)
+			{
+				ok = false;
+				errorText = QObject::tr("JxlEncoderProcessOutput failed");
+			}
+			file.close();
+		}
+	}
+
+	if (enc) JxlEncoderDestroy(enc);
+	if (runner) JxlThreadParallelRunnerDestroy(runner);
+
+	if (!ok)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Can't save image to JPEG XL file!\n") + fullFilename + "\n" + errorText,
+			cErrorMessage::errorMessage);
+	}
+	return ok;
+}
+#endif /* USE_JXL */
 
 #ifdef USE_EXR
 QStringList ImageFileSaveEXR::SaveImage()

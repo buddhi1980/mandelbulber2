@@ -44,6 +44,12 @@ packagesExist(OpenEXR){
 	message("Use OpenEXR libraries for EXR files")
 }
 
+packagesExist(libjxl){
+	PKGCONFIG += libjxl libjxl_threads
+	DEFINES += USE_JXL
+	message("Use JPEG XL library for JXL files")
+}
+
 packagesExist(libtiff-4){
 	PKGCONFIG += libtiff-4
 }

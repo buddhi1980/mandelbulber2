@@ -538,6 +538,9 @@ void Test::renderImageSave() const
 #ifdef USE_EXR
 	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_EXR);
 #endif /* USE_EXR */
+#ifdef USE_JXL
+	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_JXL);
+#endif /* USE_JXL */
 
 	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
 	for (auto fileType : fileTypes)
@@ -547,9 +550,13 @@ void Test::renderImageSave() const
 			bool isPngOrTiff = fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG;
 #ifdef USE_EXR
 			isPngOrTiff = isPngOrTiff || fileType == ImageFileSave::IMAGE_FILE_TYPE_TIFF;
-#endif																										 /* USE_EXR */
+#endif /* USE_EXR */
+#ifdef USE_JXL
+			isPngOrTiff = isPngOrTiff || fileType == ImageFileSave::IMAGE_FILE_TYPE_JXL;
+#endif																										 /* USE_JXL */
 			if (appendAlphaIndex == 1 && !isPngOrTiff) continue; // ignore this test
 			gPar->Set("append_alpha_png", appendAlphaIndex == 1 ? true : false);
+			gPar->Set("append_alpha_jxl", appendAlphaIndex == 1 ? true : false);
 
 			int combinationContentTypes = 2 * 2 * 2 * 2; // foreach content type enabled or not flags
 			int combinationQualityTypes =

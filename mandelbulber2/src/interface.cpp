@@ -254,6 +254,13 @@ void cInterface::ShowUi()
 	}
 #endif
 
+#ifndef USE_JXL
+	{
+		mainWindow->ui->actionSave_as_JXL->setVisible(false);
+		mainWindow->ui->widgetDockAnimation->DisableJXL();
+	}
+#endif
+
 #ifndef USE_GAMEPAD
 	{
 		delete mainWindow->ui->dockWidget_gamepad_dock;
@@ -470,6 +477,11 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->actionSave_as_TIFF, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuSaveImageTIFF);
 #endif // USE_TIFF
+
+#ifdef USE_JXL
+	connect(mainWindow->ui->actionSave_as_JXL, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageJXL);
+#endif // USE_JXL
 
 	connect(mainWindow->ui->actionAbout_Qt, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuAboutQt);

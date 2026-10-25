@@ -54,6 +54,7 @@ public:
 
 	void DisableEXR() const;
 	void DisableTIFF() const;
+	void DisableJXL() const;
 
 	Ui::cDockAnimation *GetUi() const;
 

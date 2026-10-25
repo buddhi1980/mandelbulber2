@@ -75,6 +75,16 @@ void cDockAnimation::DisableTIFF() const
 		->setEnabled(false);
 }
 
+void cDockAnimation::DisableJXL() const
+{
+	qobject_cast<QStandardItemModel *>(ui->comboBox_keyframe_animation_image_type->model())
+		->item(ImageFileSave::IMAGE_FILE_TYPE_JXL)
+		->setEnabled(false);
+	qobject_cast<QStandardItemModel *>(ui->comboBox_flight_animation_image_type->model())
+		->item(ImageFileSave::IMAGE_FILE_TYPE_JXL)
+		->setEnabled(false);
+}
+
 Ui::cDockAnimation *cDockAnimation::GetUi() const
 {
 	return ui;

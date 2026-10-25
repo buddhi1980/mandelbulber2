@@ -58,7 +58,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	WriteLog("Parameters initialization started: " + par->GetContainerName(), 3);
 
-	QStringList qslImageType({"png", "jpg", "exr", "tiff"});
+	QStringList qslImageType({"png", "jpg", "exr", "tiff", "jxl"});
 
 	// image
 	par->addParam("image_width", 800, 5, 65535, morphNone, paramStandard);
@@ -609,8 +609,15 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("save_settings_with_image", true, morphNone, paramApp);
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
+	par->addParam("append_alpha_jxl", true, morphNone, paramApp);
 	par->addParam("linear_colorspace", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
+	par->addParam("jxl_effort", 7, 1, 9, morphNone, paramApp);
+	par->addParam("jxl_distance", 1.0, 0.0, 20.0, morphNone, paramApp);
+	par->addParam("jxl_lossless", false, morphNone, paramApp);
+	// 0 - SDR (8/16 bit, gamma corrected), 1 - float linear (scene HDR), 2 - PQ BT.2100 HDR
+	par->addParam("jxl_hdr_mode", 0, 0, 2, morphNone, paramApp);
+	par->addParam("jxl_sdr_white_nits", 203.0, 1.0, 10000.0, morphNone, paramApp);
 	par->addParam("stereoscopic_in_separate_files", false, morphNone, paramApp);
 	par->addParam("save_channels_in_separate_folders", false, morphNone, paramApp);
 	par->addParam("optional_image_channels_enabled", false, morphNone, paramApp);

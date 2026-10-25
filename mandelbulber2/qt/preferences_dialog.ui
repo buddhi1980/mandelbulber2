@@ -808,7 +808,7 @@
            <item>
             <widget class="QGroupBox" name="groupBox_4">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPEG XL&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit. 32 bit stores full float precision and preserves HDR values above 1.0.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (JPEG XL)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;Extra options: encoder effort, distance, lossless mode and HDR mode (SDR, float linear or PQ BT.2100 with the configured SDR white point).&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>Image Settings</string>
@@ -832,7 +832,7 @@
               <item>
                <widget class="QLabel" name="label_12">
                 <property name="text">
-                 <string>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
+                 <string>These settings affect &quot;Save as JPG/PNG/EXR/TIFF/JPEG XL&quot; actions
  and saving animation frames.</string>
                 </property>
                </widget>
@@ -1443,6 +1443,118 @@ and will only be present after enabling and re-render.</string>
                  <widget class="QCheckBox" name="checkBox_save_settings_with_image">
                   <property name="text">
                    <string>Save fractal settings together with the image</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_jxl_effort">
+                  <property name="text">
+                   <string>JPEG XL effort:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_jxl_effort">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Encoder effort from 1 (fastest) to 9 (smallest file). The encoder runs multi-threaded, so even high effort values are usable on modern CPUs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_jxl_distance">
+                  <property name="text">
+                   <string>JPEG XL distance:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_jxl_distance">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Butteraugli distance: lower means higher quality. 1.0 is visually lossless, values close to 0.0 are near-lossless. Ignored when lossless mode is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="maximum">
+                   <double>25.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.050000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_jxl_hdr_mode">
+                  <property name="text">
+                   <string>JPEG XL HDR mode:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="1">
+                 <widget class="MyComboBox" name="comboBox_jxl_hdr_mode">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;SDR: image stored with 8 or 16 bit precision and sRGB transfer function.&lt;/p&gt;&lt;p&gt;Float linear: full 32 bit scene linear values (may exceed 1.0), like an EXR file. Viewers tone-map them to the display.&lt;/p&gt;&lt;p&gt;PQ BT.2100: values converted with the SMPTE ST 2084 curve for HDR displays, using the SDR white point below.&lt;/p&gt;&lt;p&gt;Only affects the color channel with 32 bit quality; data channels (zbuffer, normals, ...) are always stored linear.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>SDR (8/16 bit, sRGB)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Float linear (32 bit, scene HDR)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>PQ BT.2100 (32 bit, display HDR)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_jxl_sdr_white">
+                  <property name="text">
+                   <string>JPEG XL SDR white (nits):</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_jxl_sdr_white_nits">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display luminance that a scene linear value of 1.0 is mapped to in PQ mode. Typical values are 203 (PQ SDR reference) or 100 (legacy).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="minimum">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_jxl_lossless">
+                  <property name="text">
+                   <string>Save JPEG XL in lossless mode (overrides distance)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_append_alpha_jxl">
+                  <property name="text">
+                   <string>Append alpha to image (JPEG XL)</string>
                   </property>
                  </widget>
                 </item>
@@ -2148,6 +2260,12 @@ and will only be present after enabling and re-render.</string>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
+  <tabstop>spinboxInt_jxl_effort</tabstop>
+  <tabstop>spinbox_jxl_distance</tabstop>
+  <tabstop>comboBox_jxl_hdr_mode</tabstop>
+  <tabstop>spinbox_jxl_sdr_white_nits</tabstop>
+  <tabstop>checkBox_jxl_lossless</tabstop>
+  <tabstop>checkBox_append_alpha_jxl</tabstop>
   <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>
