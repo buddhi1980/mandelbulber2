@@ -541,6 +541,7 @@ void Test::renderImageSave() const
 #ifdef USE_JXL
 	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_JXL);
 #endif /* USE_JXL */
+	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_HDR);
 
 	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
 	for (auto fileType : fileTypes)

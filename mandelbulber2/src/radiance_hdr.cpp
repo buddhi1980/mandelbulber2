@@ -37,6 +37,8 @@
 #include <QImage>
 #include <QPixmap>
 
+#include <cstdio>
+
 // custom includes
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_HDR
@@ -128,4 +130,137 @@ void cRadianceHDR::LoadToQPixmap(QPixmap *pixmap)
 		imageWidth * sizeof(sRGB8), QImage::Format_RGB888);
 
 	pixmap->convertFromImage(qImage);
+}
+
+// convert one scene linear pixel to a 4 byte RGBE sample (Radiance float2rgbe algorithm)
+static void FloatToRgbe(const sRGBFloat &pixel, unsigned char *rgbe)
+{
+	float r = pixel.R > 0.0f ? pixel.R : 0.0f;
+	float g = pixel.G > 0.0f ? pixel.G : 0.0f;
+	float b = pixel.B > 0.0f ? pixel.B : 0.0f;
+	float e = r > g ? (r > b ? r : b) : (g > b ? g : b);
+	if (e < 1e-32f)
+	{
+		rgbe[0] = rgbe[1] = rgbe[2] = rgbe[3] = 0;
+		return;
+	}
+	int exponent = 0;
+	float mantissa = frexpf(e, &exponent);
+	float scale = mantissa * 256.0f / e;
+	rgbe[0] = static_cast<unsigned char>(r * scale);
+	rgbe[1] = static_cast<unsigned char>(g * scale);
+	rgbe[2] = static_cast<unsigned char>(b * scale);
+	rgbe[3] = static_cast<unsigned char>(exponent + 128);
+}
+
+// write one component plane of a scanline using the Radiance adaptive RLE scheme:
+// runs of 4..127 equal bytes are stored as 0x80|count + value, others as literal blocks
+// (a count of 128 would be ambiguous with the literal marker, so it must not be used)
+static void WriteRleComponent(FILE *fp, const unsigned char *row, int width, int component)
+{
+	int x = 0;
+	while (x < width)
+	{
+		int run = 1;
+		while (run < 127 && x + run < width && row[(x + run) * 4 + component] == row[x * 4 + component])
+		{
+			run++;
+		}
+		if (run >= 4)
+		{
+			fputc(0x80 | run, fp);
+			fputc(row[x * 4 + component], fp);
+			x += run;
+		}
+		else
+		{
+			// collect a literal run until the next repeat candidate or the 128 byte limit
+			long lit_start = ftell(fp);
+			fputc(0, fp); // placeholder for the literal count
+			int count = 0;
+			while (x < width && count < 128)
+			{
+				int r = 1;
+				while (r < 127 && x + r < width && row[(x + r) * 4 + component] == row[x * 4 + component])
+				{
+					r++;
+				}
+				if (r >= 4) break;
+				fputc(row[x * 4 + component], fp);
+				x++;
+				count++;
+			}
+			long lit_end = ftell(fp);
+			fseek(fp, lit_start, SEEK_SET);
+			fputc(count, fp);
+			fseek(fp, lit_end, SEEK_SET);
+		}
+	}
+}
+
+bool cRadianceHDR::SaveRGBE(const QString &filename, uint64_t width, uint64_t height,
+	const std::vector<sRGBFloat> &rgb, const QMap<QString, QString> &meta,
+	const std::function<void(double)> &progress)
+{
+	if (!width || !height || rgb.size() < width * height) return false;
+
+	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
+	if (!fp) return false;
+
+	bool ok = true;
+
+	// file header, meta data as comment lines (newlines are flattened)
+	fprintf(fp, "#?RADIANCE\n");
+	fprintf(fp, "# Software: Mandelbulber v2\n");
+	for (auto it = meta.constBegin(); it != meta.constEnd(); ++it)
+	{
+		QString value = it.value();
+		value.remove('\n');
+		value.remove('\r');
+		fprintf(fp, "# %s: %s\n", qPrintable(it.key()), qPrintable(value));
+	}
+	fprintf(fp, "FORMAT=32-bit_rle_rgbe\n\n");
+	fprintf(fp, "-Y %u +X %u\n", static_cast<unsigned>(height), static_cast<unsigned>(width));
+
+	bool useNewRle = (width >= 8 && width <= 0x7fff);
+	std::vector<unsigned char> row(static_cast<size_t>(width) * 4);
+
+	for (uint64_t y = 0; y < height && ok; y++)
+	{
+		const sRGBFloat *line = &rgb[y * width];
+		unsigned char *rgbe = row.data();
+		for (uint64_t x = 0; x < width; x++)
+		{
+			FloatToRgbe(line[x], rgbe + x * 4);
+		}
+
+		if (useNewRle)
+		{
+			fputc(2, fp);
+			fputc(2, fp);
+			fputc(static_cast<int>((width >> 8) & 0xff), fp);
+			fputc(static_cast<int>(width & 0xff), fp);
+			for (int component = 0; component < 4; component++)
+			{
+				WriteRleComponent(fp, row.data(), static_cast<int>(width), component);
+			}
+		}
+		else
+		{
+			// old format: plain scanline with the 2-byte width prefix
+			fputc(static_cast<int>((width >> 8) & 0x7f), fp);
+			fputc(static_cast<int>(width & 0xff), fp);
+			fwrite(row.data(), 1, row.size(), fp);
+		}
+		ok = ok && (ferror(fp) == 0);
+
+		if (progress && (y % 64 == 0 || y == height - 1))
+		{
+			progress(1.0 * y / height);
+		}
+	}
+
+	fclose(fp);
+	if (!ok) remove(filename.toLocal8Bit().constData());
+	return ok;
 }

@@ -605,7 +605,7 @@ void RenderWindow::slotMenuSaveImageAll()
 	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	QStringList filters;
-	filters << tr("images (*.jpg *.jpeg *.png *.exr *.tiff *.jxl)");
+	filters << tr("images (*.jpg *.jpeg *.png *.exr *.tiff *.jxl *.hdr)");
 	dialog.setNameFilters(filters);
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
@@ -667,6 +667,12 @@ void RenderWindow::slotMenuSaveImageJXL()
 		ImageFileSave::IMAGE_FILE_TYPE_JXL, tr("JPEG XL images (*.jxl)"), "JPEG XL", "jxl");
 }
 #endif // USE_JXL
+
+void RenderWindow::slotMenuSaveImageHDR()
+{
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_HDR, tr("Radiance HDR images (*.hdr)"), "HDR", "hdr");
+}
 
 void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType,
 	QString nameFilter, QString titleType, QString defaultSuffix)

@@ -164,6 +164,7 @@ private slots:
 #ifdef USE_JXL
 	void slotMenuSaveImageJXL();
 #endif // USE_JXL
+	void slotMenuSaveImageHDR();
 	void slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
 		QString titleType, QString defaultSuffix);
 

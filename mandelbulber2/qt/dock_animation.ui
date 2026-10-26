@@ -420,6 +420,11 @@
                    <string>JPEG XL</string>
                   </property>
                  </item>
+                 <item>
+                  <property name="text">
+                   <string>HDR</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
                <item row="8" column="0">
@@ -1145,6 +1150,11 @@
                     <item>
                      <property name="text">
                       <string>JPEG XL</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>HDR</string>
                      </property>
                     </item>
                    </widget>

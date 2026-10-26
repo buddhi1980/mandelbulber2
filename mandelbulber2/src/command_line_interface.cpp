@@ -113,6 +113,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 			"  exr  - EXR format\n"
 			"  tiff - TIFF format\n"
 			"  jxl  - JPEG XL format (8/16/32 bit, HDR via jxl_hdr_mode)\n"
+			"  hdr  - Radiance HDR format (scene linear RGBE)\n"
 			" Legacy formats for still frames:\n"
 			"  png16 - 16-bit PNG format\n"
 			"  png16alpha - 16-bit PNG with alpha channel format"),
@@ -998,7 +999,8 @@ void cCommandLineInterface::handleFpk()
 
 void cCommandLineInterface::handleImageFileFormat()
 {
-	QStringList allowedImageFileFormat({"jpg", "png", "png16", "png16alpha", "exr", "tiff", "jxl"});
+	QStringList allowedImageFileFormat(
+		{"jpg", "png", "png16", "png16alpha", "exr", "tiff", "jxl", "hdr"});
 	if (!allowedImageFileFormat.contains(cliData.imageFileFormat))
 	{
 		cErrorMessage::showMessage(QObject::tr("Specified imageFileFormat is not valid\n"

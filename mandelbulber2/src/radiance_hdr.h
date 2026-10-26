@@ -35,8 +35,10 @@
 #ifndef MANDELBULBER2_SRC_RADIANCE_HDR_H_
 #define MANDELBULBER2_SRC_RADIANCE_HDR_H_
 
+#include <functional>
 #include <vector>
 
+#include <QMap>
 #include <QString>
 
 #include "color_structures.hpp"
@@ -52,6 +54,22 @@ public:
 	bool Init(const QString filename, int *width, int *height);
 	void Load(std::vector<sRGBFloat> *fBitmap);
 	void LoadToQPixmap(QPixmap *pixmap);
+
+	/**
+	 * Save a scene linear float image as a classic Radiance RGBE file
+	 * (FORMAT=32-bit_rle_rgbe). Negative values are clamped to zero since
+	 * the format cannot represent them.
+	 * @param filename target path
+	 * @param width image width in pixels
+	 * @param height image height in pixels
+	 * @param rgb scene linear float pixels, size must be width*height
+	 * @param meta optional render meta data, written as '#' comment lines
+	 * @param progress optional callback with fraction [0..1] of written rows
+	 * @return true on success
+	 */
+	static bool SaveRGBE(const QString &filename, uint64_t width, uint64_t height,
+		const std::vector<sRGBFloat> &rgb, const QMap<QString, QString> &meta = {},
+		const std::function<void(double)> &progress = nullptr);
 
 private:
 	QString actualFileName;

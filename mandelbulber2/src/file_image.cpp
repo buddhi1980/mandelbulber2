@@ -66,6 +66,7 @@
 #include "files.h"
 #include "initparameters.hpp"
 #include "parameters.hpp"
+#include "radiance_hdr.h"
 #include "write_log.hpp"
 // custom includes
 #ifdef USE_TIFF
@@ -116,6 +117,8 @@ std::shared_ptr<ImageFileSave> ImageFileSave::create(QString filename, enumImage
 		case IMAGE_FILE_TYPE_JXL:
 			return std::shared_ptr<ImageFileSave>(new ImageFileSaveJXL(filename, image, imageConfig));
 #endif /* USE_JXL */
+		case IMAGE_FILE_TYPE_HDR:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSaveHDR(filename, image, imageConfig));
 #ifdef USE_EXR
 		case IMAGE_FILE_TYPE_EXR:
 			return std::shared_ptr<ImageFileSave>(new ImageFileSaveEXR(filename, image, imageConfig));
@@ -135,6 +138,7 @@ QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
 		case IMAGE_FILE_TYPE_EXR: return "exr";
 		case IMAGE_FILE_TYPE_TIFF: return "tiff";
 		case IMAGE_FILE_TYPE_JXL: return "jxl";
+		case IMAGE_FILE_TYPE_HDR: return "hdr";
 	}
 	return "";
 }
@@ -176,6 +180,8 @@ ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileE
 		return IMAGE_FILE_TYPE_TIFF;
 	else if (imageFileExtension == "jxl")
 		return IMAGE_FILE_TYPE_JXL;
+	else if (imageFileExtension == "hdr")
+		return IMAGE_FILE_TYPE_HDR;
 	else
 		return IMAGE_FILE_TYPE_JPG;
 }
@@ -185,7 +191,8 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 	QFileInfo fi(path);
 	QString fileName = fi.completeBaseName();
 	if (fi.suffix() != ""
-			&& !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif", "jxl"}).contains(fi.suffix()))
+			&& !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif", "jxl", "hdr"})
+				.contains(fi.suffix()))
 	{
 		fileName += "." + fi.suffix();
 	}
@@ -1012,6 +1019,165 @@ bool ImageFileSaveJXL::EncodeJxl(const QString &fullFilename, uint64_t width, ui
 	return ok;
 }
 #endif /* USE_JXL */
+
+QStringList ImageFileSaveHDR::SaveImage()
+{
+	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
+
+	currentChannel = 0;
+	totalChannel = imageConfig.size();
+	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
+	{
+		currentChannelKey = channel.key();
+
+		QString fullFilename =
+			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "hdr");
+
+		listOfSavedFiles.append(fullFilename);
+
+		emit updateProgressAndStatus(getJobName(),
+			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
+			1.0 * currentChannel / totalChannel);
+
+		SaveHdrChannel(fullFilename, channel.value());
+		currentChannel++;
+	}
+	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
+}
+
+bool ImageFileSaveHDR::SaveHdrChannel(
+	const QString &fullFilename, structSaveImageChannel imageChannel)
+{
+	uint64_t width = image->GetWidth();
+	uint64_t height = image->GetHeight();
+	if (!width || !height) return false;
+
+	std::vector<sRGBFloat> buffer;
+	const std::vector<sRGBFloat> *src = nullptr;
+
+	switch (imageChannel.contentType)
+	{
+		case IMAGE_CONTENT_COLOR:
+			// the scene linear float buffer is stored directly, values above 1.0 are kept
+			src = &image->GetImageFloat();
+			break;
+
+		case IMAGE_CONTENT_ALPHA:
+		{
+			// no alpha in RGBE, store it as a gray channel (like the JPG path does)
+			buffer.resize(width * height);
+			const std::vector<quint16> &alpha = image->GetAlphaBuf();
+			for (uint64_t i = 0; i < width * height; i++)
+			{
+				float a = alpha[i] / 65535.0f;
+				buffer[i] = sRGBFloat(a, a, a);
+			}
+			src = &buffer;
+			break;
+		}
+
+		case IMAGE_CONTENT_ZBUFFER:
+		{
+			// same normalization rules as the PNG / JPG channels
+			std::vector<float> &zbuffer = image->GetZBuffer();
+			uint64_t size = width * height;
+			float minZ = float(1.0e50);
+			float maxZ = 0.0;
+			if (gPar->Get<bool>("zbuffer_constant_range"))
+			{
+				minZ = gPar->Get<double>("zbuffer_min_depth");
+				maxZ = gPar->Get<double>("zbuffer_max_depth");
+			}
+			else
+			{
+				for (uint64_t i = 0; i < size; i++)
+				{
+					float z = zbuffer[i];
+					if (z > maxZ && z < 1e19f) maxZ = z;
+					if (z < minZ) minZ = z;
+				}
+			}
+			float kZ = log(maxZ / minZ);
+			bool logarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
+			bool invertZ = gPar->Get<bool>("zbuffer_invert");
+
+			buffer.resize(size);
+			for (uint64_t i = 0; i < size; i++)
+			{
+				float z = zbuffer[i];
+				bool far = (z > 1e19f);
+				float z1;
+				if (logarithmicScale)
+					z1 = log(z / minZ) / kZ;
+				else
+					z1 = (z - minZ) / (maxZ - minZ);
+				z1 = clamp(z1, 0.0f, 1.0f);
+				float v = far ? 1.0f : z1;
+				if (invertZ) v = 1.0f - v;
+				buffer[i] = sRGBFloat(v, v, v);
+			}
+			src = &buffer;
+			break;
+		}
+
+		case IMAGE_CONTENT_NORMAL:
+		case IMAGE_CONTENT_NORMAL_WORLD:
+		case IMAGE_CONTENT_SPECULAR:
+		case IMAGE_CONTENT_DIFFUSE:
+		case IMAGE_CONTENT_WORLD_POSITION:
+		case IMAGE_CONTENT_SHADOWS:
+		case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+		case IMAGE_CONTENT_NOT_DENOISED:
+		{
+			// RGBE cannot store negative values, so the signed input is remapped
+			// to [0, 1] the same way as in the PNG channel path
+			bool signedInput = (imageChannel.contentType == IMAGE_CONTENT_NORMAL_WORLD);
+			buffer.resize(width * height);
+			for (uint64_t y = 0; y < height; y++)
+			{
+				for (uint64_t x = 0; x < width; x++)
+				{
+					sRGBFloat p;
+					switch (imageChannel.contentType)
+					{
+						case IMAGE_CONTENT_NORMAL: p = image->GetPixelNormal(x, y); break;
+						case IMAGE_CONTENT_NORMAL_WORLD: p = image->GetPixelNormalWorld(x, y); break;
+						case IMAGE_CONTENT_SPECULAR: p = image->GetPixelSpecular(x, y); break;
+						case IMAGE_CONTENT_DIFFUSE: p = image->GetPixelDiffuse(x, y); break;
+						case IMAGE_CONTENT_WORLD_POSITION: p = image->GetPixelWorld(x, y); break;
+						case IMAGE_CONTENT_SHADOWS: p = image->GetPixelShadows(x, y); break;
+						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+							p = image->GetPixelGlobalIllumination(x, y);
+							break;
+						default: p = image->GetPixelNotDenoised(x, y); break;
+					}
+					if (signedInput)
+					{
+						p = sRGBFloat((1.0f + p.R) * 0.5f, (1.0f + p.G) * 0.5f, (1.0f + p.B) * 0.5f);
+					}
+					buffer[x + y * width] = p;
+				}
+			}
+			src = &buffer;
+			break;
+		}
+
+		default: return false;
+	}
+
+	bool ok = cRadianceHDR::SaveRGBE(fullFilename, width, height, *src, image->getMeta(),
+		[this](double p) { updateProgressAndStatusChannel(p); });
+	if (!ok)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Can't save image to HDR file!\n") + fullFilename, cErrorMessage::errorMessage);
+	}
+	return ok;
+}
 
 #ifdef USE_EXR
 QStringList ImageFileSaveEXR::SaveImage()

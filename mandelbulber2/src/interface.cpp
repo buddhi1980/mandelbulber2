@@ -483,6 +483,9 @@ void cInterface::ConnectSignals() const
 		&RenderWindow::slotMenuSaveImageJXL);
 #endif // USE_JXL
 
+	connect(mainWindow->ui->actionSave_as_HDR, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageHDR);
+
 	connect(mainWindow->ui->actionAbout_Qt, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuAboutQt);
 	connect(mainWindow->ui->actionUser_Manual, &QAction::triggered, mainWindow,

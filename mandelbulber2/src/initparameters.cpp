@@ -58,7 +58,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	WriteLog("Parameters initialization started: " + par->GetContainerName(), 3);
 
-	QStringList qslImageType({"png", "jpg", "exr", "tiff", "jxl"});
+	QStringList qslImageType({"png", "jpg", "exr", "tiff", "jxl", "hdr"});
 
 	// image
 	par->addParam("image_width", 800, 5, 65535, morphNone, paramStandard);

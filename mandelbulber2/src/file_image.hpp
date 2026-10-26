@@ -79,7 +79,8 @@ public:
 		IMAGE_FILE_TYPE_TIFF = 3,
 		// NOTE: the combo boxes in the animation dock index items by this enum order,
 		// so a new format must always be appended at the end
-		IMAGE_FILE_TYPE_JXL = 4
+		IMAGE_FILE_TYPE_JXL = 4,
+		IMAGE_FILE_TYPE_HDR = 5
 	};
 
 	enum enumImageContentType
@@ -282,6 +283,33 @@ private:
 		const void *buffer, size_t bufferSize);
 };
 #endif /* USE_JXL */
+
+/**
+ * Radiance HDR saver (*.hdr, classic RGBE with run-length encoding). The color
+ * channel stores the scene linear float buffer, so values above 1.0 are kept.
+ * The format has no alpha channel, therefore the alpha (and other single value
+ * channels) are saved as separate grayscale-like files. Quality settings are
+ * ignored since RGBE precision is fixed by the format.
+ */
+class ImageFileSaveHDR : public ImageFileSave
+{
+	Q_OBJECT
+public:
+	ImageFileSaveHDR(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
+	QStringList SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("HDR"); }
+
+private:
+	/**
+	 * Builds the float pixel buffer for one channel and saves it as an RGBE file.
+	 * @param fullFilename target path including .hdr extension
+	 * @param imageChannel channel configuration (content type decides the source buffer)
+	 */
+	bool SaveHdrChannel(const QString &fullFilename, structSaveImageChannel imageChannel);
+};
 
 #ifdef USE_EXR
 class ImageFileSaveEXR : public ImageFileSave
