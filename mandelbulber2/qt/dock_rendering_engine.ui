@@ -102,8 +102,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>417</width>
-            <height>1082</height>
+            <width>429</width>
+            <height>1114</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -125,7 +125,7 @@
            <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
-              <string>Fractal formula iterations</string>
+              <string>Bailout (iteration loop escape condition)</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_114">
               <property name="spacing">
@@ -151,23 +151,7 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_284">
-                  <property name="text">
-                   <string>Maximum number
-of fractal iterations
-(maxiter):</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="MyLineEdit" name="logedit_bailout">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0" colspan="2">
+                <item row="1" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_use_default_bailout">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -185,25 +169,13 @@ each fractal formula</string>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_N">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                 <widget class="MyLineEdit" name="logedit_bailout">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;) is, the more detail and subtlety emerge in the final image, but also the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>9999</number>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
+                <item row="0" column="0">
                  <widget class="QLabel" name="label_222">
                   <property name="text">
                    <string>Bailout
@@ -877,8 +849,8 @@ of raymarching steps</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>417</width>
-            <height>1082</height>
+            <width>410</width>
+            <height>1076</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1350,8 +1322,8 @@ bright</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>417</width>
-            <height>1082</height>
+            <width>410</width>
+            <height>1076</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1993,8 +1965,8 @@ bright</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>417</width>
-            <height>1082</height>
+            <width>410</width>
+            <height>1076</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_17">

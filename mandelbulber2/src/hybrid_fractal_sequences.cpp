@@ -142,7 +142,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		}
 	}
 
-	DebugOutput();
+	//DebugOutput();
 }
 
 void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,

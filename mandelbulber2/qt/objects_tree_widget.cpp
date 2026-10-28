@@ -2209,9 +2209,9 @@ void cObjectsTreeWidget::onFormulaChanged(int fractalIndex, int formulaEnum)
 		{
 			updateFractalIcon(item, objectId, formulaEnum);
 			QString currentName = item->text(treeCol::name);
-			qDebug() << "onFormulaChanged currentName" << currentName << "formulaName" << formulaName;
+			// qDebug() << "onFormulaChanged currentName" << currentName << "formulaName" << formulaName;
 			item->setText(treeCol::name, formulaName);
-			qDebug() << "  -> name changed to" << formulaName;
+			// qDebug() << "  -> name changed to" << formulaName;
 			ui->treeWidget_objects->viewport()->update();
 			break;
 		}

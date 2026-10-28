@@ -960,7 +960,7 @@ void cOpenClDynamicData::BuildNodesData(
 	 * 	sNodeDataForRenderingCl nodeN
 	 */
 
-	cObjectsTree::DebugPrintNodes(*nodesData);
+	// cObjectsTree::DebugPrintNodes(*nodesData);
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;

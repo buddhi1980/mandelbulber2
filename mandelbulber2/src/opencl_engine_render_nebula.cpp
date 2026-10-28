@@ -610,7 +610,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 						// check if not a number
 						if (color.R != color.R || color.G != color.G || color.B != color.B)
 						{
-							qDebug() << "color is not a number: " << color.R << color.G << color.B;
+							// qDebug() << "color is not a number: " << color.R << color.G << color.B;
 							color = sRGBFloat(0.0f, 0.0f, 0.0f);
 						}
 					}
@@ -626,14 +626,14 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 			if (constantInBuffer->params.nebulaConstantBrighness) // darken by brightness
 			{
 				double averageBrighness = totalBrigtnessSum / (width * height * 3.0);
-				qDebug() << "totalBrigtnessSum = " << totalBrigtnessSum;
+				// qDebug() << "totalBrigtnessSum = " << totalBrigtnessSum;
 				if (averageBrighness > 0)
 				{
 					double brighnessChange = (0.015 * brighnessMultiplierInit) / averageBrighness;
 					brightnessMultiplier = clamp(brighnessChange * brightnessMultiplier, 1e-6, 1e6);
-					qDebug() << "brightnessMultiplier = " << brightnessMultiplier
-									 << " averageBrighness = " << averageBrighness
-									 << " brighnessChange = " << brighnessChange;
+					//					qDebug() << "brightnessMultiplier = " << brightnessMultiplier
+					//									 << " averageBrighness = " << averageBrighness
+					//									 << " brighnessChange = " << brighnessChange;
 				}
 			}
 

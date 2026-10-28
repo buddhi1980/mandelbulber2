@@ -405,7 +405,7 @@ bool cRenderJob::Execute()
 
 				// Print node data now that internalObjectId and primitiveIdx have been populated
 				// by the sParamRender constructor (fractals) and cPrimitives (primitives).
-				cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
+				//cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
 
 				if (params->objectsTreeEnable)
 				{
