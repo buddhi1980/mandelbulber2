@@ -103,7 +103,17 @@ struct sRenderData
 				materials.resize(2); // index 0 unused, index 1 = default empty material
 			}
 
-			if (materialId < 0 || materialId >= static_cast<int>(materials.size()))
+			// materialId == -1 is a legitimate "no material / inherit from parent" value
+			// (see cMaterialSelector). Node material inheritance is already resolved in
+			// cObjectsTree and only positive node materials are applied to objectData
+			// (cRenderJob), so -1 simply means that no material was assigned (typically
+			// for group nodes). Substitute the default material silently - it is not an
+			// error. Only ids referencing undefined materials are reported.
+			if (materialId == -1)
+			{
+				object.materialId = 1;
+			}
+			else if (materialId < 0 || materialId >= static_cast<int>(materials.size()))
 			{
 				qCritical() << QString("Material #%1 is not defined. Will be substituted by material #1")
 												 .arg(materialId);

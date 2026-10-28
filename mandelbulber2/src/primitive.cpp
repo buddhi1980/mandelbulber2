@@ -45,7 +45,20 @@ sPrimitiveBasic::sPrimitiveBasic(
 {
 	userObjectId = par->Get<int>(fullName + "_object_id");
 	objectId = -1;
-	materialId = par->Get<int>(fullName + "_material_id");
+	// Legacy primitive material id. Since the objects tree migration the parameter is temporary:
+	// its value is moved to the node material (nodeX_material) and the legacy parameter is deleted
+	// from the container (see cSettings::DeleteTemporaryLegacyPrimitiveNodeParams). The renderer
+	// then overrides materialId from the node material (cRenderJob), so when the parameter is
+	// missing fall back to the legacy default material 1 (material ids are 1-based).
+	const QString materialIdName = fullName + "_material_id";
+	if (par->IfExists(materialIdName))
+	{
+		materialId = par->Get<int>(materialIdName);
+	}
+	else
+	{
+		materialId = 1;
+	}
 }
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 
