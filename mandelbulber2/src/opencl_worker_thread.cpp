@@ -100,7 +100,8 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	}
 
 	QElapsedTimer openclProcessingTime;
-	qint64 openclprocessingTimeNanoSeconds = 0;
+	// accumulator kept for debug/statistics purposes; not read in the current code path
+	[[maybe_unused]] qint64 openclprocessingTimeNanoSeconds = 0;
 
 	int actualAADepth = 0;
 	int actualAARepeatIndex = 0;
@@ -392,7 +393,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 			}
 		}
 
-		if (pixelsToRender > maxWorkgroupSize * 32)
+		if (pixelsToRender > static_cast<quint64>(maxWorkgroupSize * 32))
 		{
 			// creating the sequence
 			quint64 sequenceIndex = 0;

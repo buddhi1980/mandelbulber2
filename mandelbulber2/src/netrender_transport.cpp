@@ -74,7 +74,13 @@ bool cNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
 	{
 		socketWriteStream.writeRawData(msg.payload.data(), msg.size);
 		// append checksum
+#if QT_VERSION >= QT_VERSION_CHECK(6, 9, 0)
+		// the qChecksum(const char*, size) overload is deprecated since Qt 6.9;
+		// the QByteArrayView overload is used instead, the old one is kept for older Qt
+		qint16 checksum = qChecksum(QByteArrayView(msg.payload.data(), msg.size));
+#else
 		qint16 checksum = qChecksum(msg.payload.data(), msg.size);
+#endif
 		socketWriteStream << checksum;
 	}
 
@@ -125,7 +131,12 @@ bool cNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	msg->payload.append(buffer.data(), msg->size);
 
 	// run crc check on the payload
+#if QT_VERSION >= QT_VERSION_CHECK(6, 9, 0)
+	// the qChecksum(const char*, size) overload is deprecated since Qt 6.9 (see SendData)
+	quint16 crcCalculated = qChecksum(QByteArrayView(buffer.data(), msg->size));
+#else
 	quint16 crcCalculated = qChecksum(buffer.data(), msg->size);
+#endif
 	quint16 crcReceived;
 	socketReadStream >> crcReceived;
 	if (crcCalculated != crcReceived)

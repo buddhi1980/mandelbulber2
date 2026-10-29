@@ -121,10 +121,9 @@ void cMaterialSelector::SetMaterialIndex(int materialIndex)
 		materialWidget->AssignMaterial(parameterContainer, actualValue, nullptr);
 	}
 	if (materialIndex > 0 && parameterContainer
-		&& parameterContainer->IfExists(cMaterial::Name("name", materialIndex)))
+			&& parameterContainer->IfExists(cMaterial::Name("name", materialIndex)))
 	{
-		label->setText(
-			QString("%1 [mat%2]")
+		label->setText(QString("%1 [mat%2]")
 				.arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex)))
 				.arg(materialIndex));
 	}
@@ -169,4 +168,8 @@ void cMaterialSelector::slotMaterialEdited() const
 		gMainInterface->scrollAreaMaterialEditor, parameterContainer, qInterface::write);
 }
 
-void cMaterialSelector::UpdateScriptAppearance(bool hasScript) {}
+void cMaterialSelector::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

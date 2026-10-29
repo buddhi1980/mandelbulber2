@@ -50,6 +50,26 @@
 #include "src/system_data.hpp"
 #include "src/system_directories.hpp"
 
+// QMouseEvent::x()/y() are deprecated since Qt 6.0; position() is the replacement.
+// The fallback keeps this file compilable with Qt < 6.0.
+static inline int mouseLocalX(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().x());
+#else
+	return event->x();
+#endif
+}
+
+static inline int mouseLocalY(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().y());
+#else
+	return event->y();
+#endif
+}
+
 cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)
 {
@@ -225,14 +245,14 @@ void cGradientEditWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	if (pressedColorIndex >= 2)
 	{
-		if (event->x() != dragStartX)
+		if (mouseLocalX(event) != dragStartX)
 		{
 			mouseDragStarted = true;
 		}
 
 		if (mouseDragStarted)
 		{
-			float pos = float(event->x() - margins) / (width() - 2 * margins - 1);
+			float pos = float(mouseLocalX(event) - margins) / (width() - 2 * margins - 1);
 			gradient.ModifyPosition(pressedColorIndex, pos);
 			emit update();
 		}
@@ -249,8 +269,8 @@ void cGradientEditWidget::mousePressEvent(QMouseEvent *event)
 		}
 		else
 		{
-			int mouseX = event->x();
-			int mouseY = event->y();
+			int mouseX = mouseLocalX(event);
+			int mouseY = mouseLocalY(event);
 
 			if (mouseY > height() / 2)
 			{
@@ -728,4 +748,8 @@ QString cGradientEditWidget::getFullParameterName()
 	return parameterName;
 }
 
-void cGradientEditWidget::UpdateScriptAppearance(bool hasScript) {}
+void cGradientEditWidget::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

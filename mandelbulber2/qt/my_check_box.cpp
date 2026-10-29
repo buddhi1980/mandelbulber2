@@ -39,7 +39,19 @@
 void MyCheckBox::resetToDefault()
 {
 	setChecked(defaultValue);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// The deprecated stateChanged(int) is still emitted on purpose: some widgets keep
+	// old-style SIGNAL()/SLOT() connections to it. The deprecation warning is suppressed
+	// locally so this file compiles warning-free on Qt >= 6.7.
+	QT_WARNING_PUSH
+	QT_WARNING_DISABLE_DEPRECATED
 	emit stateChanged(defaultValue);
+	QT_WARNING_POP
+	// checkStateChanged(Qt::CheckState) is the modern replacement since Qt 6.7
+	emit checkStateChanged(checkState());
+#else
+	emit stateChanged(defaultValue);
+#endif
 }
 
 void MyCheckBox::paintEvent(QPaintEvent *event)

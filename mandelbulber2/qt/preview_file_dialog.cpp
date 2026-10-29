@@ -213,6 +213,9 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 void PreviewFileDialog::slotUpdateProgressAndStatus(
 	const QString &text, const QString &progressText, double progress)
 {
+	// progress bar update is currently disabled (see commented code below)
+	Q_UNUSED(progressText);
+	Q_UNUSED(progress);
 	info->setText(text);
 	//	if (!progressBar->isVisible()) progressBar->setVisible(true);
 	//	progressBar->setValue(int(progress * 1000.0));

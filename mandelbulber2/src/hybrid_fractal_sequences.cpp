@@ -37,8 +37,9 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 	std::vector<int> formulaIndices;
 	int levelOfHybrid = -1;
 	int hybridNodeId = -1;
+	const int nodesCount = static_cast<int>(objectsNodes.size());
 
-	for (int nodeIndex = 0; nodeIndex < objectsNodes.size(); nodeIndex++)
+	for (int nodeIndex = 0; nodeIndex < nodesCount; nodeIndex++)
 	{
 		const cObjectsTree::sNodeDataForRendering &node = objectsNodes[nodeIndex];
 
@@ -60,7 +61,7 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		if (hybridNodeEntered)
 		{
 			// checking next node
-			if (nodeIndex + 1 < objectsNodes.size())
+			if (nodeIndex + 1 < nodesCount)
 			{
 				const cObjectsTree::sNodeDataForRendering &nextNode = objectsNodes[nodeIndex + 1];
 				// end hybrid if next node is at the same level as hybrid (sibling fractal)
@@ -142,12 +143,14 @@ void cHybridFractalSequences::CreateSequences(std::shared_ptr<const cParameterCo
 		}
 	}
 
-	//DebugOutput();
+	// DebugOutput();
 }
 
 void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContainer> generalPar,
 	std::shared_ptr<const cFractalContainer> fractPar)
 {
+	// general parameters are not needed for the fractal map construction
+	Q_UNUSED(generalPar);
 	// getting used fractal object indices
 	QSet<int> usedFractalObjectIndices;
 	for (const cObjectsTree::sNodeDataForRendering &node : objectsNodes)
@@ -161,8 +164,9 @@ void cHybridFractalSequences::PrepareData(std::shared_ptr<const cParameterContai
 	// creating fractals map
 	for (int objectId : usedFractalObjectIndices)
 	{
-		// Find the node data for this objectId
-		const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
+		// Find the node data for this objectId (kept for possible future use, formula now
+		// comes from the per-fractal container)
+		[[maybe_unused]] const cObjectsTree::sNodeDataForRendering *nodeData = nullptr;
 		for (const auto &node : objectsNodes)
 		{
 			if (node.userObjectId == objectId)
@@ -359,7 +363,7 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 
 									 )
 								 && isHybrid))
-					 && searchRepeatCount < seq.fractData.size())
+					 && searchRepeatCount < static_cast<int>(seq.fractData.size()))
 		{
 			fractalNoInSeqnece++;
 

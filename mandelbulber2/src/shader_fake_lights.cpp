@@ -40,6 +40,8 @@
 sRGBAFloat cRenderWorker::FakeLights(
 	const sShaderInputData &input, sRGBAFloat surfaceColor, sRGBAFloat *fakeSpec) const
 {
+	// fake lights add their own contribution; the surface color itself is not modified here
+	Q_UNUSED(surfaceColor);
 	sRGBAFloat fakeLights(0.0, 0.0, 0.0, 0.0);
 
 	int fakeLightMaxLoop = 1;
@@ -53,12 +55,12 @@ sRGBAFloat cRenderWorker::FakeLights(
 		for (int s = 0; s < data->hybridFractalSequences.GetNumberOfSequences(); s++)
 		{
 			const auto *seq = data->hybridFractalSequences.GetSequence(s);
-			if (!seq)
-				continue;
+			if (!seq) continue;
 
 			double delta = input.distThresh * params->smoothness;
 
-			sFractalIn fractIn(input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+			sFractalIn fractIn(
+				input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
 			double rr = fractOut.orbitTrapR;
@@ -97,8 +99,7 @@ sRGBAFloat cRenderWorker::FakeLights(
 				fakeLightNormal.Normalize();
 			}
 			float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
-			if (fakeLight2 < 0)
-				fakeLight2 = 0;
+			if (fakeLight2 < 0) fakeLight2 = 0;
 
 			sRGBFloat color;
 			switch (fakeLightLoop)

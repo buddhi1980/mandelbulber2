@@ -60,7 +60,7 @@ public:
 		CVector3 constantMultiplier;
 
 		// Float (as in OpenCL)
-		double initialWAxis;
+		double initialWAxis = 0.0;
 
 		// Ints (as in OpenCL)
 		int length = 0;			 // number of iterations covered by valid (in-range) formulas
@@ -74,14 +74,16 @@ public:
 		int formulaMaxiter = 0;
 
 		// Ints (as in OpenCL)
-		int sequenceArrayOffset;	// offset to sequence array (cl_int[]) in dynamic data
-		int fractDataArrayOffset; // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
-		int formulaBaseIndex; // global index of first formula in consts->fractal[] for this sequence
+		int sequenceArrayOffset = 0; // offset to sequence array (cl_int[]) in dynamic data
+		int fractDataArrayOffset =
+			0; // offset to fractData array (sHybridFractalDataCl[]) in dynamic data
+		int formulaBaseIndex =
+			0; // global index of first formula in consts->fractal[] for this sequence
 
 		// Enums (last, as in OpenCL)
-		fractal::enumDEFunctionType DEFunctionType;
-		fractal::enumDEType DEType;
-		fractal::enumDEAnalyticFunction DEAnalyticFunction;
+		fractal::enumDEFunctionType DEFunctionType = fractal::undefinedDEFunction;
+		fractal::enumDEType DEType = fractal::undefinedDEType;
+		fractal::enumDEAnalyticFunction DEAnalyticFunction = fractal::analyticFunctionUndefined;
 		fractal::enumColoringFunction coloringFunction = fractal::coloringFunctionDefault;
 
 		// Non-OpenCL types (kept for CPU use)

@@ -64,7 +64,11 @@
 
 int main(int argc, char *argv[])
 {
+	// High-DPI scaling is always enabled since Qt 6.0, so the attribute is a no-op
+	// and deprecated there; it is still required for correct scaling with Qt 5.
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
 	gCoreApplication->setOrganizationName("Mandelbulber");

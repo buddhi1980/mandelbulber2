@@ -284,9 +284,7 @@ void handle_winch(int sig)
 	(void)sig;
 #ifndef _WIN32
 	signal(SIGWINCH, SIG_IGN);
-	struct winsize w
-	{
-	};
+	struct winsize w{};
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	systemData.terminalWidth = w.ws_col;
 	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
@@ -643,10 +641,19 @@ void UpdateLanguage()
 	QCoreApplication::installTranslator(&mandelbulberFractalUiTranslator);
 
 	// try to load qt translator
+	// QLibraryInfo::location() is deprecated since Qt 5.14 in favor of path();
+	// the old call is kept for compilation with Qt < 5.14
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	if (qtTranslator.load(
 				QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
 			|| qtTranslator.load(
 				QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+#else
+	if (qtTranslator.load(
+				QLatin1String("qt_") + locale, QLibraryInfo::path(QLibraryInfo::TranslationsPath))
+			|| qtTranslator.load(
+				QLatin1String("qtbase_") + locale, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+#endif
 	{
 		QCoreApplication::installTranslator(&qtTranslator);
 	}

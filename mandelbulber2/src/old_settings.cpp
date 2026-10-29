@@ -92,7 +92,8 @@ bool cOldSettings::LoadSettings2(const QString &filename)
 	FILE *fileSettings;
 	fileSettings = fopen(filename.toLocal8Bit(), "r");
 
-	int lineCounter = 0;
+	// lineCounter tracks progress only; currently not read anywhere
+	[[maybe_unused]] int lineCounter = 0;
 
 	oldData->settingsVersion = -1;
 
@@ -957,8 +958,8 @@ void cOldSettings::ConvertToNewContainer(
 
 	// Legacy transformation params — needed because InitPrimitiveParams no longer adds them.
 	// These will be migrated to node-based params by Compatibility2() when loading from files.
-	QStringList legacyPrimitiveTypes = { "sphere", "box", "cylinder", "cone", "plane", "torus",
-		"rectangle", "circle", "water", "prism", "ellipsoid" };
+	QStringList legacyPrimitiveTypes = {"sphere", "box", "cylinder", "cone", "plane", "torus",
+		"rectangle", "circle", "water", "prism", "ellipsoid"};
 	for (const QString &type : legacyPrimitiveTypes)
 	{
 		for (int i = 1; i <= 8; i++)

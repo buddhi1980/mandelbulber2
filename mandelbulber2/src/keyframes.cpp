@@ -80,14 +80,18 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 	const QString &parameterName, const QString &fullParameterName, int subIndex, int frameIndex,
 	const std::shared_ptr<cParameterContainer> &params)
 {
+	// keyframe/subIndex are part of the interface for symmetry with the animation API;
+	// this path only needs morphTableItemIndex/fullParameterName/frameIndex
+	Q_UNUSED(keyframe);
+	Q_UNUSED(subIndex);
 	// Prepare the interpolator
 	if (morph.size() <= morphTableItemIndex)
 	{
 		// Append a new morph object if the size of morph is less than or equal to morphTableItemIndex
 		morph.append(new cMorph());
 
-		//it cannot be looped if number of frames is less than two.
-		if(frames.size() < 3)
+		// it cannot be looped if number of frames is less than two.
+		if (frames.size() < 3)
 		{
 			looped = false;
 		}
@@ -105,8 +109,8 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 		// Get the parameter of the first frame
 		cOneParameter previousOnePar =
 			frames.at(firstFrameIndex).parameters.GetAsOneParameter(fullParameterName);
-		// Store the previous frame index
-		int previousK = firstFrameIndex;
+		// Store the previous frame index (updated in the loop, currently not read back)
+		[[maybe_unused]] int previousK = firstFrameIndex;
 		// Add the number of subframes of the first frame
 		numberOfSubFrames += frames.at(firstFrameIndex).numberOfSubFrames;
 
@@ -307,7 +311,7 @@ int cKeyframes::GetFramesPerKeyframe(int keyframeIndex) const
 
 int cKeyframes::GetKeyframeIndex(int frameIndex) const
 {
-	if (frameIndex < keyframesIndexesTable.size())
+	if (frameIndex < static_cast<int>(keyframesIndexesTable.size()))
 	{
 		return keyframesIndexesTable.at(frameIndex);
 	}
@@ -320,7 +324,7 @@ int cKeyframes::GetKeyframeIndex(int frameIndex) const
 
 int cKeyframes::GetFrameIndexForKeyframe(int keyframeIndex) const
 {
-	if (keyframeIndex < keyframesIndexesTable.size())
+	if (keyframeIndex < static_cast<int>(keyframesIndexesTable.size()))
 	{
 		return framesIndexesTable.at(keyframeIndex);
 	}

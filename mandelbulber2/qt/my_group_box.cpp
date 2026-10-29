@@ -177,4 +177,8 @@ void MyGroupBox::slotRandomize()
 	gMainInterface->RandomizeLocalSettings(this);
 }
 
-void MyGroupBox::UpdateScriptAppearance(bool hasScript) {}
+void MyGroupBox::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

@@ -101,8 +101,14 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 	connect(ui->pushButton_onlySelected, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonOnlySelected);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	connect(ui->checkBox_show_wireframe_primitives, &QCheckBox::checkStateChanged, this,
+		&cPrimitivesManager::slorChangedWireframeVisibikity);
+#else
 	connect(ui->checkBox_show_wireframe_primitives, &MyCheckBox::stateChanged, this,
 		&cPrimitivesManager::slorChangedWireframeVisibikity);
+#endif
 
 	connect(ui->tabWidget_primitives, &MyTabWidgetWithCheckboxes::currentChanged, this,
 		&cPrimitivesManager::slotChangedCurrentTab);
@@ -141,7 +147,8 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 	QFile uiFile(uiFileName);
 	if (uiFile.exists())
 	{
-		uiFile.open(QFile::ReadOnly);
+		// open failure surfaces as a nullptr from loader.load()
+		Q_UNUSED(uiFile.open(QFile::ReadOnly));
 		QWidget *newEditor = loader.load(&uiFile);
 		uiFile.close();
 		int newTabIndex = ui->tabWidget_primitives->count() + 1;

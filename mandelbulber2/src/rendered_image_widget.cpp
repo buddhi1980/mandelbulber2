@@ -589,7 +589,14 @@ void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 {
 	double dpiScale = image->GetDpiScale();
 
+	// QMouseEvent::x()/y() are deprecated since Qt 6.0; position() is the replacement,
+	// the old accessors are kept for compilation with Qt < 6.0
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	CVector2<int> screenPoint(
+		int(event->position().x()) * dpiScale, int(event->position().y()) * dpiScale);
+#else
 	CVector2<int> screenPoint(event->x() * dpiScale, event->y() * dpiScale);
+#endif
 
 	// remember last mouse position
 	lastMousePosition = screenPoint;
@@ -652,7 +659,13 @@ void RenderedImage::mousePressEvent(QMouseEvent *event)
 		{
 			draggingInitStarted = true;
 			double dpiScale = image->GetDpiScale();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			// QMouseEvent::x()/y() deprecated since Qt 6.0 (see mouseMoveEvent above)
+			dragStartPosition =
+				CVector2<int>(int(event->position().x()) * dpiScale, int(event->position().y()) * dpiScale);
+#else
 			dragStartPosition = CVector2<int>(event->x() * dpiScale, event->y() * dpiScale);
+#endif
 			dragButtons = event->buttons();
 		}
 	}
@@ -666,7 +679,13 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 		if (clickModesEnables)
 		{
 			double dpiScale = image->GetDpiScale();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			// QMouseEvent::x()/y() deprecated since Qt 6.0 (see mouseMoveEvent above)
+			emit singleClick(int(event->position().x()) * dpiScale, int(event->position().y()) * dpiScale,
+				event->button());
+#else
 			emit singleClick(event->x() * dpiScale, event->y() * dpiScale, event->button());
+#endif
 		}
 	}
 
@@ -1382,9 +1401,9 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 			{
 				if (tile.individualNoiseLevels.size() > 0)
 				{
-					for (int y = 0; y < tile.height; y += drawingStep)
+					for (int y = 0; y < static_cast<int>(tile.height); y += drawingStep)
 					{
-						for (int x = 0; x < tile.width; x += drawingStep)
+						for (int x = 0; x < static_cast<int>(tile.width); x += drawingStep)
 						{
 							float noise = tile.individualNoiseLevels[y * tile.width + x];
 							if (noise > -100.0)

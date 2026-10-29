@@ -820,6 +820,8 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 void cObjectsTreeWidget::StoreTreeToParams(
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
 {
+	// per-fractal containers are updated elsewhere; only general params are written here
+	Q_UNUSED(fractalParams);
 	const auto allItems = collectAllTreeItems();
 
 	// Build the set of node IDs currently visible in the tree
@@ -925,12 +927,23 @@ void cObjectsTreeWidget::attachEnableCheckbox(QTreeWidgetItem *item, int nodeId,
 
 	ui->treeWidget_objects->setItemWidget(item, treeCol::enable, centerWidget);
 	checkboxToNodeId[check] = nodeId;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	// (Qt::CheckState is implicitly convertible to the int lambda parameter)
+	connect(check, &QCheckBox::checkStateChanged, this,
+		[this, nodeId](int state)
+		{
+			QString paramName = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
+			params->Set(paramName, state == Qt::Checked);
+		});
+#else
 	connect(check, &QCheckBox::stateChanged, this,
 		[this, nodeId](int state)
 		{
 			QString paramName = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
 			params->Set(paramName, state == Qt::Checked);
 		});
+#endif
 }
 
 void cObjectsTreeWidget::slotWireframeVisibilityChanged(bool enabled)
@@ -1641,7 +1654,8 @@ QWidget *cObjectsTreeWidget::buildPrimitiveEditor(QTreeWidgetItem *item, int obj
 	QFile uiFile(uiFileName);
 	if (!uiFile.exists()) return nullptr;
 
-	uiFile.open(QFile::ReadOnly);
+	// open failure surfaces as a nullptr from loader.load()
+	Q_UNUSED(uiFile.open(QFile::ReadOnly));
 	MyUiLoader loader;
 	QWidget *primWidget = loader.load(&uiFile);
 	uiFile.close();

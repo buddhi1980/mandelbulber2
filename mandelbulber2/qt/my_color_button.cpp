@@ -151,4 +151,8 @@ void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
 	CommonMyWidgetWrapper::contextMenuEvent(event);
 }
 
-void MyColorButton::UpdateScriptAppearance(bool hasScript) {}
+void MyColorButton::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

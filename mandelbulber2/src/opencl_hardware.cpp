@@ -185,6 +185,8 @@ std::shared_ptr<cl::Context> cOpenClHardware::CreateOneContextForDevice(
 void cOpenClHardware::CreateAllContexts(
 	int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType)
 {
+	// deviceType is reserved for future per-device-type context creation
+	Q_UNUSED(deviceType);
 	selectedPlatformIndex = platformIndex;
 	if (platformIndex >= 0)
 	{

@@ -45,6 +45,17 @@
 #include "src/audio_track.h"
 #include "src/keyframes.hpp"
 
+// QMouseEvent::x() is deprecated since Qt 6.0; position() is the replacement.
+// The fallback keeps this file compilable with Qt < 6.0.
+static inline int mouseLocalX(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().x());
+#else
+	return event->x();
+#endif
+}
+
 cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 {
 	frames = 0;
@@ -139,7 +150,7 @@ void cTimeRuler::mousePressEvent(QMouseEvent *event)
 	if (event->button() == Qt::LeftButton)
 	{
 
-		int mouseX = event->x();
+		int mouseX = mouseLocalX(event);
 
 		int index = FindKeyAtPosition(mouseX);
 
@@ -154,14 +165,14 @@ void cTimeRuler::mouseMoveEvent(QMouseEvent *event)
 
 	if (pressedKeyIndex > 0)
 	{
-		if (event->x() != dragStartX)
+		if (mouseLocalX(event) != dragStartX)
 		{
 			mouseDragStarted = true;
 		}
 
 		if (mouseDragStarted)
 		{
-			ModifyKeyframePosition(pressedKeyIndex, event->x());
+			ModifyKeyframePosition(pressedKeyIndex, mouseLocalX(event));
 			emit update();
 		}
 	}

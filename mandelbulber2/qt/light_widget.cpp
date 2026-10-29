@@ -43,6 +43,26 @@
 #include "src/common_math.h"
 #include "src/system_data.hpp"
 
+// QMouseEvent::x()/y() are deprecated since Qt 6.0; position() is the replacement.
+// The fallback keeps this file compilable with Qt < 6.0.
+static inline int mouseLocalX(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().x());
+#else
+	return event->x();
+#endif
+}
+
+static inline int mouseLocalY(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().y());
+#else
+	return event->y();
+#endif
+}
+
 cLightWidget::cLightWidget(QWidget *parent) : QWidget(parent)
 {
 	size = systemData.GetPreferredThumbnailSize() * 0.7;
@@ -178,7 +198,7 @@ void cLightWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
-		dragStartPosition = CVector2<int>(event->x(), event->y());
+		dragStartPosition = CVector2<int>(mouseLocalX(event), mouseLocalY(event));
 		draggingInitStarted = true;
 		lightAngleBeforeDrag = lightAngle;
 	}
@@ -194,7 +214,7 @@ void cLightWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void cLightWidget::mouseMoveEvent(QMouseEvent *event)
 {
-	CVector2<int> screenPoint(event->x(), event->y());
+	CVector2<int> screenPoint(mouseLocalX(event), mouseLocalY(event));
 
 	if (abs(screenPoint.x - dragStartPosition.x) > 1 || abs(screenPoint.y - dragStartPosition.y) > 1)
 	{

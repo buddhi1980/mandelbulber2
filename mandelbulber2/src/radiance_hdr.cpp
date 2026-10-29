@@ -42,7 +42,21 @@
 // custom includes
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_HDR
+// stb_image.h is a vendored third-party single-header library; its own diagnostics
+// are suppressed locally instead of modifying the upstream source
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
 #include "third-party/stb/stb_image.h"
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 cRadianceHDR::cRadianceHDR()
 {

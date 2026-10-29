@@ -95,6 +95,9 @@ int GetObjectTreeRequiredStackDepth(const std::vector<cObjectsTree::sNodeDataFor
 static void mergeChildIntoParent(const ObjectTreeStackFrame &child, ObjectTreeStackFrame *parent,
 	const sRenderData *data, double detailSize, bool normalCalculationMode)
 {
+	// data and detailSize are reserved for possible future smooth-blend extensions
+	Q_UNUSED(data);
+	Q_UNUSED(detailSize);
 	const double childDistance = child.cumulativeDistance;
 
 	switch (parent->nodeType)
@@ -239,6 +242,8 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 	const cHybridFractalSequences &fractals, const sDistanceIn &in, sDistanceOut *out,
 	sRenderData *data, std::vector<ObjectTreeStackFrame> *objectStack)
 {
+	// hybrid sequences are accessed through params/consts; the container itself is not needed here
+	Q_UNUSED(fractals);
 	out->objectId = 0;
 	out->totalIters = 0;
 	out->maxiter = false;

@@ -81,4 +81,8 @@ int MyComboBox::GetDefault()
 	return defaultValue;
 }
 
-void MyComboBox::UpdateScriptAppearance(bool hasScript) {}
+void MyComboBox::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

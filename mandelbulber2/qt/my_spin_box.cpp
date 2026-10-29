@@ -199,7 +199,8 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 
 	double dDiff = iDiff / 500.0;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
-	double digits = log10(double(maximum()));
+	// digits is part of an alternative scaling idea, currently not used
+	[[maybe_unused]] double digits = log10(double(maximum()));
 
 	if (valueBeforeSliderDrag == 0)
 	{

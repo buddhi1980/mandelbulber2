@@ -203,7 +203,7 @@ void cOpenClEngineRenderPostFilter::RegisterInputOutputBuffers(
 bool cOpenClEngineRenderPostFilter::AssignParametersToKernelAdditional(
 	uint argIterator, int deviceIndex)
 {
-	int err;
+	int err = CL_SUCCESS;
 
 	switch (effectType)
 	{

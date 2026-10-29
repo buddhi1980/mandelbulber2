@@ -134,7 +134,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBAFloat outShadow;
 			sRGBFloat outLuminosityEmissive;
 
-			cObjectData objectData = data->objectData[inputCopy.objectId];
+			// objectData snapshot kept for debugging; GI now uses material pointer directly
+			[[maybe_unused]] cObjectData objectData = data->objectData[inputCopy.objectId];
 			// material pointer pre-resolved at setup time – direct access, no map
 			// lookup
 			inputCopy.material =

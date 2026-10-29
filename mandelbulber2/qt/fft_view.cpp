@@ -43,6 +43,17 @@
 
 #include "src/audio_fft_data.h"
 #include "src/audio_track.h"
+
+// QMouseEvent::y() is deprecated since Qt 6.0; position() is the replacement.
+// The fallback keeps this file compilable with Qt < 6.0.
+static inline int mouseLocalY(const QMouseEvent *event)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	return int(event->position().y());
+#else
+	return event->y();
+#endif
+}
 #include "src/write_log.hpp"
 
 cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
@@ -146,13 +157,13 @@ void cFFTView::paintEvent(QPaintEvent *event)
 void cFFTView::mousePressEvent(QMouseEvent *event)
 {
 	firstClickedFreqValue =
-		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
 }
 
 void cFFTView::mouseReleaseEvent(QMouseEvent *event)
 {
 	double secondClickedFreqValue =
-		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
 
 	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
 }
@@ -160,7 +171,7 @@ void cFFTView::mouseReleaseEvent(QMouseEvent *event)
 void cFFTView::mouseMoveEvent(QMouseEvent *event)
 {
 	double secondClickedFreqValue =
-		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
 
 	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
 }

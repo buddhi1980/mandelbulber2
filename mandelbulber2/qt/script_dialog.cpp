@@ -80,7 +80,11 @@ cScriptDialog::~cScriptDialog()
 	delete ui;
 }
 
-void cScriptDialog::closeEvent(QCloseEvent *event) {}
+void cScriptDialog::closeEvent(QCloseEvent *event)
+{
+	// default close behavior is wanted, no extra handling necessary
+	Q_UNUSED(event);
+}
 
 void cScriptDialog::AssignParameterName(
 	const QString &_parameterName, const QString &_containerName)
@@ -176,7 +180,7 @@ void cScriptDialog::slotInsertParameter()
 		parameter = parameter.mid(5);
 	}
 
-	//qDebug() << parameter << lastCursorPosition;
+	// qDebug() << parameter << lastCursorPosition;
 
 	QString script = ui->lineEdit_script->text();
 	script.insert(lastCursorPosition, QString("'%1'").arg(parameter));

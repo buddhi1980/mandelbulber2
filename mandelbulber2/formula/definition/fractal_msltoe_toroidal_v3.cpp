@@ -38,7 +38,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5f
-	double theta = atan2(z.y, z.x); // + fractal->bulb.alphaAngleOffset;
+	double theta = atan2(z.y, z.x);							 // + fractal->bulb.alphaAngleOffset;
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
 	double rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
@@ -48,8 +48,10 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (!fractal->transformCommon.functionEnabledYFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledAFalse) phi = asin(z.z / temp);
-		else phi = acos(z.z / temp);
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			phi = asin(z.z / temp);
+		else
+			phi = acos(z.z / temp);
 
 		phi = phi + fractal->bulb.betaAngleOffset;
 	}
@@ -68,8 +70,7 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		else
 			phi = acos(z.z / temp);
 
-		if (fractal->transformCommon.functionEnabledXFalse)
-			phi = atan2(z.z, temp);
+		if (fractal->transformCommon.functionEnabledXFalse) phi = atan2(z.z, temp);
 
 		phi = phi + fractal->bulb.betaAngleOffset;
 	}
@@ -129,7 +130,8 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
 
-	double colDist = aux.dist;
+	// snapshot of the distance before DE adjustments; currently not consumed
+	[[maybe_unused]] double colDist = aux.dist;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -159,42 +161,41 @@ void cFractalMsltoeToroidalV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		else
 		{
 			aux.dist = aux.DE0 * (1.0 - fractal->transformCommon.offset0)
-					- min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
+								 - min(aux.dist, aux.DE0) * fractal->transformCommon.offset0;
 		}
-		if (fractal->analyticDE.enabled)
-			aux.dist = fabs(aux.dist);
+		if (fractal->analyticDE.enabled) aux.dist = fabs(aux.dist);
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-//		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
-//		{
-			double colAdd = fractal->foldColor.difs0000.w
-					+ aux.i * fractal->foldColor.difs0;
+		//		if (colDist != aux.dist || fractal->foldColor.auxColorEnabledA)
+		//		{
+		double colAdd = fractal->foldColor.difs0000.w + aux.i * fractal->foldColor.difs0;
 
-			// last two z lengths
-			if (fractal->transformCommon.functionEnabledPFalse)
-			{
-				double lastVec = 0.0;
-				CVector4 oldPt = aux.old_z;
-				double lastZ = oldPt.Length(); // aux.old_r;
-				double newZ = z.Length();
-				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
-				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
-				lastVec *= fractal->foldColor.difs1;
-				colAdd += lastVec;
+		// last two z lengths
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			double lastVec = 0.0;
+			CVector4 oldPt = aux.old_z;
+			double lastZ = oldPt.Length(); // aux.old_r;
+			double newZ = z.Length();
+			if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
+			lastVec *= fractal->foldColor.difs1;
+			colAdd += lastVec;
 
-				aux.old_z = z; // update for next iter
-			}
+			aux.old_z = z; // update for next iter
+		}
 
-			colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
+		colAdd += fractal->foldColor.difs0000.z * fabs(z.x * z.y);
 
-			if (!fractal->foldColor.auxColorEnabledBFalse) aux.color = colAdd;
-			else aux.color += colAdd;
-//		}
+		if (!fractal->foldColor.auxColorEnabledBFalse)
+			aux.color = colAdd;
+		else
+			aux.color += colAdd;
+		//		}
 	}
 }

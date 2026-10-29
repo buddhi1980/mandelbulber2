@@ -64,9 +64,9 @@
 
 MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
 	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> params,
-	std::shared_ptr<cHybridFractalSequences> fractals, std::shared_ptr<sRenderData> renderData, int numx,
-	int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
-	std::vector<double> &vertices, std::vector<long long> &polygons,
+	std::shared_ptr<cHybridFractalSequences> fractals, std::shared_ptr<sRenderData> renderData,
+	int numx, int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh,
+	bool *stop, std::vector<double> &vertices, std::vector<long long> &polygons,
 	std::vector<double> &colorIndices)
 		: vertices{vertices}, polygons{polygons}, colorIndices{colorIndices}
 {
@@ -481,10 +481,11 @@ double MarchingCubes::getDistance(double x, double y, double z, double *colorInd
 	double dist = CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut,
 		renderData.get(), &objectStacks[threadNum]);
 
-	cObjectData objectData = renderData->objectData[distanceOut.objectId];
+	// objectData snapshot kept for debugging; not used in the material lookup below
+	[[maybe_unused]] cObjectData objectData = renderData->objectData[distanceOut.objectId];
 	cMaterial *material = nullptr;
 	if (distanceOut.objectId >= 0
-		&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
+			&& distanceOut.objectId < static_cast<int>(renderData->objectData.size()))
 	{
 		const int matId = renderData->objectData[distanceOut.objectId].materialId;
 		if (matId >= 0 && matId < static_cast<int>(renderData->materials.size()))

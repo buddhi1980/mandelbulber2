@@ -118,8 +118,14 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 			ui->pushButton_queue_render_queue, &QPushButton::clicked, this, &cQueue::slotQueueRender);
 		QApplication::connect(
 			ui->pushButton_queue_stop_rendering, &QPushButton::clicked, this, &cQueue::slotStopRequest);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+		// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+		QApplication::connect(ui->checkBox_show_queue_thumbnails, &QCheckBox::checkStateChanged, this,
+			&cQueue::slotShowQueueThumbsChanges);
+#else
 		QApplication::connect(ui->checkBox_show_queue_thumbnails, &QCheckBox::stateChanged, this,
 			&cQueue::slotShowQueueThumbsChanges);
+#endif
 
 		QApplication::connect(this, &cQueue::queueChanged, this, &cQueue::slotQueueListUpdate);
 		QApplication::connect(this, &cQueue::queueChangedRow, this, &cQueue::slotQueueListUpdateRow);

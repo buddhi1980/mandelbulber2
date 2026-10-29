@@ -511,6 +511,9 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	cHybridFractalSequences *fractals, sParamRender *paramRender,
 	std::shared_ptr<sRenderData> renderData)
 {
+	// DE parameters are taken directly from renderData/fractals; paramRender is kept
+	// in the signature for symmetry with other SetParameters* methods
+	Q_UNUSED(paramRender);
 	// define distance estimation method using cHybridFractalSequences
 
 	bool useAnalyticDEType = false;
@@ -1607,7 +1610,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	{
 		returnedMask.resize(data.in->optimalJob->stepSizeX * data.in->optimalJob->stepSizeY);
 		std::fill(returnedMask.begin(), returnedMask.end(), 0);
-		for (int i = 0; i < output.sequenceSize; i++)
+		for (int i = 0; i < static_cast<int>(output.sequenceSize); i++)
 		{
 			int seq = output.pixelSequence[i];
 			int x = seq % jobWidth;
@@ -2335,7 +2338,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			// processing collected tiles in parallel
 			if (collectedOuputs.size() > 0)
 			{
-				int numberOfTilesToProcess = collectedOuputs.size();
+				// count kept for local debugging; blockingMap processes the whole container
+				[[maybe_unused]] int numberOfTilesToProcess = collectedOuputs.size();
 
 				QtConcurrent::blockingMap(collectedOuputs, ConcurentProcessTile);
 

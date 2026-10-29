@@ -39,6 +39,8 @@
 sRGBAFloat cRenderWorker::SurfaceColour(
 	CVector3 point, const sShaderInputData &input, sGradientsCollection *gradients) const
 {
+	// all branches below work on input.GetFractalPoint()/input.point through the helpers
+	Q_UNUSED(point);
 	sRGBAFloat out;
 
 	switch (data->objectData[input.objectId].objectType)

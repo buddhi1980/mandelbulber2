@@ -183,4 +183,8 @@ void FileSelectWidget::slotChangedFile()
 	}
 }
 
-void FileSelectWidget::UpdateScriptAppearance(bool hasScript) {}
+void FileSelectWidget::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

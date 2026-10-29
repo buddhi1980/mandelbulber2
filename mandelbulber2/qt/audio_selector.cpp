@@ -213,7 +213,7 @@ void cAudioSelector::slotPlaybackStart() const
 	if (audio->isLoaded() && audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT
-		//qDebug() << audioOutput->state();
+		// qDebug() << audioOutput->state();
 		switch (audioOutput->state())
 		{
 			case QAudio::ActiveState:
@@ -349,6 +349,8 @@ void cAudioSelector::slotDeleteAudioTrack()
 
 void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 {
+	// the scroll-indicator logic below is only built for Qt < 6.0
+	Q_UNUSED(updateSlider);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #ifndef NO_AUDIO_OUTPUT
 	// set scroll indicator to current position

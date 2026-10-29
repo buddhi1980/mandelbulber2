@@ -1409,7 +1409,8 @@ void cOpenClDynamicData::BuildFractalData(const cHybridFractalSequences *hybridS
 	int fractalDataOffset = totalDataOffset;
 
 	// write fractal data
-	int formulaBaseIndex = 0;
+	// counter of formulas written so far; kept for offset debugging/tracing
+	[[maybe_unused]] int formulaBaseIndex = 0;
 	for (int i = 0; i < numberOfSequences; i++)
 	{
 		const cHybridFractalSequences::sSequence *seq = hybridSequences->GetSequence(i);

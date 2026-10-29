@@ -74,7 +74,8 @@ void MyLogWidget::appendMessage(const QString &text)
 void MyLogWidget::initFromLogFile()
 {
 	QFile logFile(systemData.logfileName);
-	logFile.open(QFile::ReadOnly | QFile::Text);
+	// if the log file cannot be opened, the stream stays empty and nothing is appended
+	Q_UNUSED(logFile.open(QFile::ReadOnly | QFile::Text));
 	QTextStream logTextStream(&logFile);
 	while (!logTextStream.atEnd())
 	{

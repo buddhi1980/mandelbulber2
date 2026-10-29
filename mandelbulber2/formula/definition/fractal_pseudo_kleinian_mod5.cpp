@@ -60,14 +60,12 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		double rr = z.Dot(z);
 		z *= fractal->transformCommon.scaleG1 / rr;
 		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
-		z += fractal->transformCommon.additionConstantP000
-				- fractal->transformCommon.offset000;
+		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& z.x > z.y
+	if (fractal->transformCommon.functionEnabledTFalse && z.x > z.y
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
@@ -92,14 +90,17 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
 		if (fractal->transformCommon.functionEnabledCx)
-			z.x = z.x - fractal->transformCommon.additionConstant222.x
-				* round(z.x / fractal->transformCommon.additionConstant222.x);
+			z.x = z.x
+						- fractal->transformCommon.additionConstant222.x
+								* round(z.x / fractal->transformCommon.additionConstant222.x);
 		if (fractal->transformCommon.functionEnabledCy)
-			z.y = z.y - fractal->transformCommon.additionConstant222.y
-				* round(z.y / fractal->transformCommon.additionConstant222.y);
+			z.y = z.y
+						- fractal->transformCommon.additionConstant222.y
+								* round(z.y / fractal->transformCommon.additionConstant222.y);
 		if (fractal->transformCommon.functionEnabledCz)
-			z.z = z.z - fractal->transformCommon.additionConstant222.z
-				* round(z.z / fractal->transformCommon.additionConstant222.z);
+			z.z = z.z
+						- fractal->transformCommon.additionConstant222.z
+								* round(z.z / fractal->transformCommon.additionConstant222.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledFFalse
@@ -108,13 +109,13 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)
 			z.x = fabs(z.x + fractal->transformCommon.additionConstant0777.x)
-				- fabs(z.x - fractal->transformCommon.additionConstant0777.x) - z.x;
+						- fabs(z.x - fractal->transformCommon.additionConstant0777.x) - z.x;
 		if (fractal->transformCommon.functionEnabledCyFalse)
 			z.y = fabs(z.y + fractal->transformCommon.additionConstant0777.y)
-				- fabs(z.y - fractal->transformCommon.additionConstant0777.y) - z.y;
+						- fabs(z.y - fractal->transformCommon.additionConstant0777.y) - z.y;
 		if (fractal->transformCommon.functionEnabledCzFalse)
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant0777.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
+						- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
 	double pNorm = 1.0;
 	if (aux.i >= fractal->transformCommon.startIterationsG
@@ -132,8 +133,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 		double useScale = fractal->transformCommon.scale1p1 - aux.actualScaleA;
 		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-			aux.actualScaleA = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) + 1.0);
+			aux.actualScaleA = fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) + 1.0);
 		pNorm = useScale / pNorm;
 		z *= pNorm;
 		aux.DE *= fabs(pNorm);
@@ -161,11 +161,11 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		if (fractal->transformCommon.functionEnabledBxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
-					z.x = -fabs(z.x);
+			z.x = -fabs(z.x);
 		if (fractal->transformCommon.functionEnabledBx
 				&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP)
-					z.y = -fabs(z.y);
+			z.y = -fabs(z.y);
 
 		t = z.x;
 		z.x = z.x + z.y;
@@ -175,29 +175,28 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		if (fractal->transformCommon.functionEnabledAx
 				&& aux.i >= fractal->transformCommon.startIterationsR
 				&& aux.i < fractal->transformCommon.stopIterationsR)
-					z.x = foldX - fabs(z.x + foldX);
+			z.x = foldX - fabs(z.x + foldX);
 		if (fractal->transformCommon.functionEnabledAxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsRV
 				&& aux.i < fractal->transformCommon.stopIterationsRV)
-					z.y = foldY - fabs(z.y + foldY);
+			z.y = foldY - fabs(z.y + foldY);
 	}
 
-	double len;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
-		len = z.Length();
+	// the flag pair guarantees assignment on every path; initializer silences the
+	// conservative GCC analysis (-O3)
+	double len = 0.0;
+	if (!fractal->transformCommon.functionEnabledSwFalse) len = z.Length();
 
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		double k = max(fractal->transformCommon.minR05
-					/ z.Dot(z), fractal->transformCommon.scale1);
+		double k = max(fractal->transformCommon.minR05 / z.Dot(z), fractal->transformCommon.scale1);
 		z *= k;
 		aux.DE *= k;
 	}
 
-	if (fractal->transformCommon.functionEnabledSwFalse)
-		len = z.Length();
+	if (fractal->transformCommon.functionEnabledSwFalse) len = z.Length();
 
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
@@ -215,8 +214,10 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 			aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
 		}
 
-		if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
-		else aux.dist = min(aux.dist, aux.DE0);
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			aux.dist = aux.DE0;
+		else
+			aux.dist = min(aux.dist, aux.DE0);
 	}
 
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE

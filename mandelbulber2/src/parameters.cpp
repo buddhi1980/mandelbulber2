@@ -737,7 +737,7 @@ bool cParameterContainer::HasScript(const QString &name) const
 
 	QMap<QString, cOneParameter>::const_iterator it;
 	it = myMap.find(name);
-	bool val;
+	bool val = false;
 	if (it != myMap.end())
 	{
 		val = it.value().HasScript();
@@ -791,7 +791,7 @@ bool cParameterContainer::IsEmpty(const QString &name) const
 
 	QMap<QString, cOneParameter>::const_iterator it;
 	it = myMap.find(name);
-	bool val;
+	bool val = false;
 	if (it != myMap.end())
 	{
 		val = it.value().IsEmpty();

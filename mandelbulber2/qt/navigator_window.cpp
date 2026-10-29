@@ -124,8 +124,14 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboMouseClickFunction(int)));
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	connect(ui->checkBox_navigator_dark_glow, &QCheckBox::checkStateChanged, this,
+		&cNavigatorWindow::slotDarkGlowEnabled);
+#else
 	connect(ui->checkBox_navigator_dark_glow, &QCheckBox::stateChanged, this,
 		&cNavigatorWindow::slotDarkGlowEnabled);
+#endif
 
 	connect(ui->widgetRenderedImage, &RenderedImage::keyPress, this,
 		&cNavigatorWindow::slotKeyPressOnImage);

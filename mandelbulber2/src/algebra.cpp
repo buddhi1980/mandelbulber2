@@ -366,7 +366,9 @@ double CRotationMatrix::GetAlfa() const
 double CRotationMatrix::GetBeta() const
 {
 	double a = atan2(-matrix.m12, matrix.m22);
-	double c = atan2(-matrix.m31, matrix.m33);
+	// c is part of the classical Euler beta extraction formula, kept for reference;
+	// the branch below only needs 'a'
+	[[maybe_unused]] double c = atan2(-matrix.m31, matrix.m33);
 	if (fabs(matrix.m32) < 0.70710678118654752440084436210485)
 		return asin(matrix.m32);
 	else if (fabs(matrix.m12) > fabs(matrix.m22))

@@ -64,8 +64,14 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 	connect(ui->pushButton_placeLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonPlaceLight);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	connect(ui->checkBox_show_wireframe_lights, &QCheckBox::checkStateChanged, this,
+		&cLightSourcesManager::slorChangedWireframeVisibikity);
+#else
 	connect(ui->checkBox_show_wireframe_lights, &MyCheckBox::stateChanged, this,
 		&cLightSourcesManager::slorChangedWireframeVisibikity);
+#endif
 
 	connect(ui->tabWidget_lightSources, &MyTabWidgetWithCheckboxes::currentChanged, this,
 		&cLightSourcesManager::slotChangedCurrentTab);

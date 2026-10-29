@@ -27,8 +27,7 @@ cFractalTinkerTowers::cFractalTinkerTowers() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTinkerTowers::FormulaCode(
-	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTinkerTowers::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t = 0.0;
 	CVector3 tv = CVector3(0.0, 0.0, 0.0);
@@ -38,22 +37,21 @@ void cFractalTinkerTowers::FormulaCode(
 	double mag_zXYZ = 0.0;
 
 	t = zXYZ.Dot(zXYZ);
-	if(t > 0.0)
+	if (t > 0.0)
 	{
 		t = sqrt(t);
 		u_zXYZ = zXYZ / t;
 		mag_zXYZ = t;
 	}
 
-
 	double flat = 0.0;
 	int sides;
 	int i;
 
-
-	// By defination u_Fv are unit vectors (rays) that define the orentation of the facets that cut a unit sphere.
-	// The Nv vectors need to be scaled by a number between 0 and 1, mag_Fv, in order to cut the unit sphere.
-	// They don't have to be scaled by the same amount, but every facit must contain its definining u_Fv vector.
+	// By defination u_Fv are unit vectors (rays) that define the orentation of the facets that cut a
+	// unit sphere. The Nv vectors need to be scaled by a number between 0 and 1, mag_Fv, in order to
+	// cut the unit sphere. They don't have to be scaled by the same amount, but every facit must
+	// contain its definining u_Fv vector.
 
 	const CVector3 *u_Fv;
 
@@ -107,27 +105,27 @@ void cFractalTinkerTowers::FormulaCode(
 	//
 	// Scale is used as the power.
 	double power = fractal->transformCommon.pwr4;
-	// fractal->transformCommon.functionEnabledAFalse is used for selecting fractal(disabled) or target map(enabled).
-//	double solid = fractal->mandelbox.solid;
-
+	// fractal->transformCommon.functionEnabledAFalse is used for selecting fractal(disabled) or
+	// target map(enabled).
+	//	double solid = fractal->mandelbox.solid;
 
 	// Find the lowest cutting plane that cuts the ray from the origin through zXYZ.
 	// The parameterized equation for this ray is L_Z(h) = h * u_zXYX.
 	// The plane equation is X dot u_Fv = mag_Fv;
 	// The value of h at the intersection point is h = mag_Fv/(u_zXYZ dot u_Fv)
 
-	int side = -1; // Assume no facet found before unit sphere.
+	int side = -1;	// Assume no facet found before unit sphere.
 	double h = 1.0; // so h=1.
 	double my_h;
 	for (i = 0; i < sides; i++)
 	{
 		my_h = 2.0; // just needs to be >1
 		double u_zXYZ_dot_u_Fvi = u_zXYZ.Dot(u_Fv[i]);
-		if(u_zXYZ_dot_u_Fvi > 0.0)
+		if (u_zXYZ_dot_u_Fvi > 0.0)
 		{
 			my_h = mag_Fv[i] / u_zXYZ_dot_u_Fvi;
 		}
-		if(my_h < h)
+		if (my_h < h)
 		{
 			h = my_h;
 			side = i;
@@ -139,7 +137,8 @@ void cFractalTinkerTowers::FormulaCode(
 	// the unit sphere if there are none.
 	// Zc = h * zXYZ
 	double w, my_w;
-	int edge = -1;
+	// edge tracks which cutting plane was hit; not read in the current result path
+	[[maybe_unused]] int edge = -1;
 	CVector3 Zc;
 	// The intersection point is Zc.
 	Zc = h * u_zXYZ;
@@ -155,12 +154,14 @@ void cFractalTinkerTowers::FormulaCode(
 		// u_Fv[side] dot unclipped circle = mag_Fv.
 
 		tv = (Zc - mag_Fv[side] * u_Fv[side]);
-		t = tv.Dot(Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		t =
+			tv.Dot(Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		double D_u_Fv_to_Zc = sqrt(t);
-		// double D_u_Fv_to_Zc = sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] * u_Fv[side]));
+		// double D_u_Fv_to_Zc = sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] *
+		// u_Fv[side]));
 
 		CVector3 u_Fv_to_Zc = (Zc - mag_Fv[side] * u_Fv[side]);
-		//CVector3 u_Fv_to_Zc;
+		// CVector3 u_Fv_to_Zc;
 		if (D_u_Fv_to_Zc > 0.0)
 		{
 			u_Fv_to_Zc = u_Fv_to_Zc / D_u_Fv_to_Zc;
@@ -173,15 +174,15 @@ void cFractalTinkerTowers::FormulaCode(
 		for (i = 0; i < sides; i++)
 		{
 			// Don't check side found in step 1.
-			if(side != i)
+			if (side != i)
 			{
-			// avoid dividing by zero.
-				if( (u_Fv_to_Zc.Dot(u_Fv[i])) > 0.0)
+				// avoid dividing by zero.
+				if ((u_Fv_to_Zc.Dot(u_Fv[i])) > 0.0)
 				{
-				// Distance from mag_Fv * u_Fv to cutting plane i.
+					// Distance from mag_Fv * u_Fv to cutting plane i.
 					my_w = (mag_Fv[i] - mag_Fv[side] * (u_Fv[side].Dot(u_Fv[i]))) / (u_Fv_to_Zc.Dot(u_Fv[i]));
 
-					if(my_w < w)
+					if (my_w < w)
 					{
 						w = my_w;
 						edge = i;
@@ -193,8 +194,8 @@ void cFractalTinkerTowers::FormulaCode(
 		// The ratio of the distance (|mag_nv * u_Fv - Zc|)/w is the radial parameter for the patch map.
 
 		double D = 0.0;
-		CVector3  Axis = CVector3(0.0, 0.0, 1.0); // angle does not matter if D=0;
-		//D = sqrt((Zc - mag_Fv * u_Fv[side]).Dot(Zc - mag_Fv * u_Fv[side]))/w;
+		CVector3 Axis = CVector3(0.0, 0.0, 1.0); // angle does not matter if D=0;
+		// D = sqrt((Zc - mag_Fv * u_Fv[side]).Dot(Zc - mag_Fv * u_Fv[side]))/w;
 		if (w > 0.0)
 		{
 			D = D_u_Fv_to_Zc / w;
@@ -204,40 +205,41 @@ void cFractalTinkerTowers::FormulaCode(
 		flat = Zc.Dot(u_zXYZ);
 		if (!fractal->transformCommon.functionEnabledAFalse)
 		{
-			//if(D>1.0){printf("HERE");}
-			// double rot_angle = 3.14159*(1-D*D)*(1-D*D);  // force detail away from edges and center.
-			//double rot_angle = 3.14159*(1-D)*(1-D); // Move detail toward center.
-			//double rot_angle = 3.14159*(1-D*D); // Move detail tword edge.
-			//double rot_angle = 3.14159*(1-.3 * D*D - .7*D);  // Mixing
+			// if(D>1.0){printf("HERE");}
+			//  double rot_angle = 3.14159*(1-D*D)*(1-D*D);  // force detail away from edges and center.
+			// double rot_angle = 3.14159*(1-D)*(1-D); // Move detail toward center.
+			// double rot_angle = 3.14159*(1-D*D); // Move detail tword edge.
+			// double rot_angle = 3.14159*(1-.3 * D*D - .7*D);  // Mixing
 			double rot_angle = M_PI * (1.0 - D); // Linear
 
-			//Sign of rot_angel determines the patch includes self
-			//rot_angle = rot_angle * ((side & 2)-1); // mix it up
+			// Sign of rot_angel determines the patch includes self
+			// rot_angle = rot_angle * ((side & 2)-1); // mix it up
 
-			if (!fractal->transformCommon.functionEnabledBFalse) {rot_angle = -rot_angle;}
-			//rot_angle = rot_angle;  // Exclude self
-			//rot_angle = -rot_angle; // Include self
+			if (!fractal->transformCommon.functionEnabledBFalse)
+			{
+				rot_angle = -rot_angle;
+			}
+			// rot_angle = rot_angle;  // Exclude self
+			// rot_angle = -rot_angle; // Include self
 
-			//zXYZ = zXYZ *(1.0 - .0*flat);  // Does not play well with power DE
-			//zXYZ =  zXYZ.RotateAroundVectorByAngle(u_Fv[side], 3.14159/3.0); // Taffy
+			// zXYZ = zXYZ *(1.0 - .0*flat);  // Does not play well with power DE
+			// zXYZ =  zXYZ.RotateAroundVectorByAngle(u_Fv[side], 3.14159/3.0); // Taffy
 
-            CVector4 v4 = CVector4(zXYZ.x, zXYZ.y, zXYZ.z, 0.0);
-            v4 = v4.RotateAroundVectorByAngle(Axis, rot_angle);  // php angel4 ?? mmmmmmmmmmmfix
-            zXYZ = CVector3(v4.x, v4.y, v4.z);
-
+			CVector4 v4 = CVector4(zXYZ.x, zXYZ.y, zXYZ.z, 0.0);
+			v4 = v4.RotateAroundVectorByAngle(Axis, rot_angle); // php angel4 ?? mmmmmmmmmmmfix
+			zXYZ = CVector3(v4.x, v4.y, v4.z);
 		}
 		else
 		{
 			zXYZ = zXYZ / flat;
-			double ramp = 5.0 * D - (int)(5.0 * D); // (int)
+			double ramp = 5.0 * D - (int)(5.0 * D);			// (int)
 			double saw = -1.0 + 2.0 * fabs(ramp - 0.5); // fabs
-			saw = (saw + 0.6) + fabs(saw + 0.6); // fabs
+			saw = (saw + 0.6) + fabs(saw + 0.6);				// fabs
 			saw = 0.02 * saw * saw;
 			double rings = 1.0 - (saw * (1.0 - 0.1 * ramp));
 			if (D < 0.02) rings = rings * 0.98;
 			zXYZ = zXYZ * rings;
 		}
-
 	}
 
 	// zXYZ ray hits unit sphere first.
@@ -247,7 +249,6 @@ void cFractalTinkerTowers::FormulaCode(
 	aux.DE = rp * aux.DE * power + 1.0;
 
 	zXYZ = zXYZ * rp;
-
 
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	z = CVector4(zXYZ, z.w);

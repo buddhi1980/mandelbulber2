@@ -44,7 +44,12 @@ void MyTabBarWithCheckBox::AddCheckBox(int index, const QString &checkBoxName)
 {
 	MyCheckBox *chActive = new MyCheckBox(this);
 	chActive->setObjectName(checkBoxName);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	connect(chActive, &QCheckBox::checkStateChanged, this, &MyTabBarWithCheckBox::slotToggleActive);
+#else
 	connect(chActive, &QCheckBox::stateChanged, this, &MyTabBarWithCheckBox::slotToggleActive);
+#endif
 	setTabButton(index, QTabBar::LeftSide, chActive);
 	listOfCheboxes.insert(checkBoxName, index);
 }

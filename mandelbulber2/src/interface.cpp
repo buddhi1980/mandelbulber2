@@ -2295,7 +2295,10 @@ bool cInterface::CheckForMissingTextures()
 			QPushButton *buttonSelect = msgBox.addButton(tr("Select file..."), QMessageBox::ActionRole);
 			QPushButton *buttonSearch = msgBox.addButton(tr("Search..."), QMessageBox::ActionRole);
 			QPushButton *buttonIgnore = msgBox.addButton(tr("Ignore"), QMessageBox::DestructiveRole);
-			int ret = msgBox.exec();
+			// NOTE: the return value is not used; the choice is resolved via clickedButton().
+			// TODO: there is a second unconditional msgBox.exec() below - looks like a bug
+			// (dialog shown twice); behaviour intentionally left unchanged while warning cleanup
+			[[maybe_unused]] int ret = msgBox.exec();
 
 			msgBox.exec();
 

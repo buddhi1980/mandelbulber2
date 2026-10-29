@@ -2360,7 +2360,9 @@ void cSettings::MigrateLegacyParamsToFractal(
 		}
 	}
 
-	bool booleanMode = par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
+	// booleanMode kept for possible future migration logic; currently not consumed
+	[[maybe_unused]] bool booleanMode =
+		par->IfExists("boolean_operators") && par->Get<bool>("boolean_operators");
 
 	// Migrate global formula_material_id to each fractal container
 	// (for files before node-based system where it was a top-level param)

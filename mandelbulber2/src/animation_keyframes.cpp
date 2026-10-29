@@ -160,17 +160,23 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 		connect(this, &cKeyframeAnimation::QuestionMessage, mainInterface->mainWindow,
 			&RenderWindow::slotQuestionMessage);
 
-		connect(ui->checkBox_show_camera_path, &QCheckBox::stateChanged, this,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+		// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+		auto checkboxStateChangedSignal = &QCheckBox::checkStateChanged;
+#else
+		auto checkboxStateChangedSignal = &QCheckBox::stateChanged;
+#endif
+		connect(ui->checkBox_show_camera_path, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
-		connect(ui->checkBox_show_target_path, &QCheckBox::stateChanged, this,
+		connect(ui->checkBox_show_target_path, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
-		connect(ui->checkBox_show_light_path_1, &QCheckBox::stateChanged, this,
+		connect(ui->checkBox_show_light_path_1, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
-		connect(ui->checkBox_show_light_path_2, &QCheckBox::stateChanged, this,
+		connect(ui->checkBox_show_light_path_2, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
-		connect(ui->checkBox_show_light_path_3, &QCheckBox::stateChanged, this,
+		connect(ui->checkBox_show_light_path_3, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
-		connect(ui->checkBox_show_light_path_4, &QCheckBox::stateChanged, this,
+		connect(ui->checkBox_show_light_path_4, checkboxStateChangedSignal, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
 
 		connect(ui->toolButton_chartZoomIn, &QToolButton::clicked, ui->widgetValueChart,
@@ -1821,7 +1827,8 @@ void cKeyframeAnimation::slotCellClicked(int row, int column) const
 	if (row >= reservedRows)
 	{
 		const int parameterIndex = rowParameter.at(row);
-		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
+		// component index is not needed by UpdateAnimationPathSingleParameter (row-based)
+		[[maybe_unused]] int vectorComponentIndex = row - parameterRows.at(parameterIndex);
 		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
 
@@ -1833,7 +1840,8 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter() const
 	if (table->currentRow() >= reservedRows)
 	{
 		const int parameterIndex = rowParameter.at(table->currentRow());
-		const int vectorComponentIndex = table->currentRow() - parameterRows.at(parameterIndex);
+		[[maybe_unused]] const int vectorComponentIndex =
+			table->currentRow() - parameterRows.at(parameterIndex);
 		UpdateAnimationPathSingleParameter(table->currentRow());
 	}
 }
@@ -2427,7 +2435,8 @@ void cKeyframeAnimation::slotSliderMovedActualFrame(int frameIndex)
 	keyframes->ClearMorphCache();
 
 	int index = keyframes->GetKeyframeIndex(frameIndex);
-	int subIndex = keyframes->GetSubIndex(frameIndex);
+	// subIndex is not used in the current refresh path, kept in case display code needs it
+	[[maybe_unused]] int subIndex = keyframes->GetSubIndex(frameIndex);
 
 	params->Set("frame_no", frameIndex);
 

@@ -66,6 +66,9 @@ void cOpenClEngineRenderNebula::SetParameters(
 	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cHybridFractalSequences> fractals,
 	const cHybridFractalSequences &hybridSequences)
 {
+	// nebula rendering does not use the fractal sequences nor the general container
+	Q_UNUSED(paramContainer);
+	Q_UNUSED(fractals);
 	constantInBuffer.reset(new sClInConstants);
 
 	definesCollector.clear();
@@ -706,6 +709,8 @@ void cOpenClEngineRenderNebula::CreateListOfIncludes(const QStringList &clHeader
 	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
 	const QString &openclEnginePath, QByteArray &programEngine, const QByteArray &formulaSwitchCode)
 {
+	// formula switching is not used for nebula rendering
+	Q_UNUSED(formulaSwitchCode);
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		programEngine.append(

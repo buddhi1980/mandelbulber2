@@ -1117,7 +1117,8 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 			dragTempData.aspectRatio = double(dragTempData.width) / dragTempData.height;
 			if (dragTempData.perspType == params::perspEquirectangular) dragTempData.aspectRatio = 2.0;
 
-			enumDragMode dragMode;
+			// rotate is the conventional fallback (same as the default branch below)
+			enumDragMode dragMode = enumDragMode::rotate;
 
 			if (mouseDragData.cameraDrag)
 			{

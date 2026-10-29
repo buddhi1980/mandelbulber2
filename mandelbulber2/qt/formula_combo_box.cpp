@@ -256,4 +256,8 @@ QString cFormulaComboBox::getFullParameterName()
 	return parameterName;
 }
 
-void cFormulaComboBox::UpdateScriptAppearance(bool hasScript) {}
+void cFormulaComboBox::UpdateScriptAppearance(bool hasScript)
+{
+	// scripting-dependent appearance is not implemented for this widget (stub)
+	Q_UNUSED(hasScript);
+}

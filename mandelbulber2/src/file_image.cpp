@@ -1786,7 +1786,8 @@ bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int wi
 	}
 
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
+	// open() failure is detected by the save() result check below
+	Q_UNUSED(file.open(QIODevice::WriteOnly));
 	bool result = qImage->save(&file, "JPEG", quality);
 	if (!result)
 	{
@@ -1849,7 +1850,8 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 		}
 	}
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
+	// open() failure is detected by the save() result check below
+	Q_UNUSED(file.open(QIODevice::WriteOnly));
 	bool result = qImage->save(&file, "JPEG", quality);
 	if (!result)
 	{
@@ -1894,7 +1896,8 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 	}
 
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
+	// open() failure is detected by the save() result check below
+	Q_UNUSED(file.open(QIODevice::WriteOnly));
 	bool result = qImage->save(&file, "JPEG", quality);
 	if (!result)
 	{
@@ -1924,7 +1927,8 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 		}
 	}
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
+	// open() failure is detected by the save() result check below
+	Q_UNUSED(file.open(QIODevice::WriteOnly));
 	bool result = qImage->save(&file, "PNG");
 	if (!result)
 	{
@@ -1950,7 +1954,8 @@ bool ImageFileSavePNG::SavePNGQtGreyscale(
 		}
 	}
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
+	// open() failure is detected by the save() result check below
+	Q_UNUSED(file.open(QIODevice::WriteOnly));
 	bool result = qImage->save(&file, "PNG");
 	if (!result)
 	{

@@ -129,6 +129,19 @@ macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 #macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
 macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
+# GCC 15+ introduced -Wsfinae-incomplete; Qt 6 headers trigger hundreds of these
+# warnings inside system includes, which project code cannot influence. Silence the
+# diagnostic only when the compiler is genuinely GCC 15 or newer, so builds with
+# older GCC, clang or MSVC never see an unknown command-line option.
+unix {
+	sfinae_gcc_ver = $$system($$QMAKE_CXX -dumpversion 2>/dev/null, out)
+	sfinae_gcc_id = $$system($$QMAKE_CXX --version 2>/dev/null | grep -c -i 'g++', out)
+	equals(sfinae_gcc_id, 0): sfinae_gcc_ver = 0
+	versionAtLeast(sfinae_gcc_ver, 15) {
+		QMAKE_CXXFLAGS += -Wno-sfinae-incomplete
+	}
+}
+
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
 m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include

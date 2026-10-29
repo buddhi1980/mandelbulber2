@@ -177,7 +177,8 @@ void cFractalObject::slotChangedComboFractal(int indexInComboBox)
 
 			if (uiFile.exists())
 			{
-				uiFile.open(QFile::ReadOnly);
+				// open failure surfaces as a nullptr from loader.load()
+				Q_UNUSED(uiFile.open(QFile::ReadOnly));
 				fractalWidget.reset(loader.load(&uiFile));
 
 				uiFile.close();

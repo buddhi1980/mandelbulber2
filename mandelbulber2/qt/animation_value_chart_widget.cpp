@@ -31,6 +31,7 @@ cAnimationValueChartWidget::~cAnimationValueChartWidget()
 
 void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 {
+	Q_UNUSED(event);
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
 	painter.fillRect(rect(), Qt::white);
@@ -83,7 +84,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	pen.setColor(Qt::lightGray);
 	pen.setWidth(1);
 	painter.setPen(pen);
-	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
+	for (int i = 0; i < static_cast<int>(animationPath.keyframeIndices.size()); i++)
 	{
 		float x =
 			(animationPath.keyframeIndices[i] - xShift) * zoom / animationPath.values.size() * width();
@@ -97,7 +98,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	// add texts with keyframe indices at the bottom of chart
 	pen.setColor(Qt::gray);
 	painter.setPen(pen);
-	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
+	for (int i = 0; i < static_cast<int>(animationPath.keyframeIndices.size()); i++)
 	{
 		float x =
 			(animationPath.keyframeIndices[i] - xShift) * zoom / animationPath.values.size() * width();
@@ -110,7 +111,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 
 	// draw polyline
 	QPolygonF polyline;
-	for (int i = 0; i < animationPath.values.size(); i++)
+	for (int i = 0; i < static_cast<int>(animationPath.values.size()); i++)
 	{
 		if (min != max)
 		{
@@ -134,7 +135,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 
 	keyButtons.clear();
 	float circleSize = 0.4f * fontPixelSize;
-	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
+	for (int i = 0; i < static_cast<int>(animationPath.keyframeIndices.size()); i++)
 	{
 		if (!animationPath.emptyKeyframes[i])
 		{
@@ -232,9 +233,15 @@ void cAnimationValueChartWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		// QMouseEvent::x()/y() are deprecated since Qt 6.0; position() is the replacement,
+		// the old accessors are kept for compilation with Qt < 6.0
+		int mouseX = int(event->position().x());
+		int mouseY = int(event->position().y());
+#else
 		int mouseX = event->x();
 		int mouseY = event->y();
-
+#endif
 		int index = FindButtonAtPosition(mouseX, mouseY);
 
 		dragStartX = mouseX;
@@ -248,7 +255,15 @@ void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	if (pressedKeyIndex >= 0)
 	{
-		if (event->x() != dragStartX)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		// QMouseEvent::x()/y() are deprecated since Qt 6.0; position() is the replacement
+		const int mouseX = int(event->position().x());
+		const int mouseY = int(event->position().y());
+#else
+		const int mouseX = event->x();
+		const int mouseY = event->y();
+#endif
+		if (mouseX != dragStartX)
 		{
 			mouseDragStarted = true;
 		}
@@ -257,7 +272,7 @@ void cAnimationValueChartWidget::mouseMoveEvent(QMouseEvent *event)
 		{
 			emit update();
 			double value =
-				max - (event->y() - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
+				max - (mouseY - margin * height()) / ((1.0 - 2.0 * margin) * height()) * (max - min);
 
 			emit signalUpdateKey(pressedKeyIndex, value, tableRow);
 		}

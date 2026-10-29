@@ -60,9 +60,15 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 		&cLightEditor::slotChangedLightColor);
 	connect(ui->widget_angle_preview, &cLightWidget::angleChanged, this,
 		&cLightEditor::slotChangedLightAngles);
-	connect(ui->checkBox_relative_position, &MyCheckBox::stateChanged, this,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+	// checkStateChanged(Qt::CheckState) replaces the deprecated stateChanged(int) since Qt 6.7
+	auto checkboxStateChangedSignal = &QCheckBox::checkStateChanged;
+#else
+	auto checkboxStateChangedSignal = &QCheckBox::stateChanged;
+#endif
+	connect(ui->checkBox_relative_position, checkboxStateChangedSignal, this,
 		&cLightEditor::slotChangedRelativeMode);
-	connect(ui->checkBox_use_target_point, &MyCheckBox::stateChanged, this,
+	connect(ui->checkBox_use_target_point, checkboxStateChangedSignal, this,
 		&cLightEditor::slotChangedUseTarget);
 
 	slotChangedUseTarget(false);

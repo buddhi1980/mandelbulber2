@@ -52,4 +52,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 {
 	// FIXME to be fixed by implementation of cHybridFractalSequences
 	// cNineFractals is going to be deprecated and replaced by cHybridFractalSequences
+	Q_UNUSED(par);
+	Q_UNUSED(generalPar);
 }
