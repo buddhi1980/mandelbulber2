@@ -30,6 +30,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+       <property name="toolTip">
+        <string>Loads settings from a selected fractal file into all parameters of the Rendering engine window.</string>
+       </property>
        <property name="text">
         <string>Load</string>
        </property>
@@ -37,6 +40,9 @@
      </item>
      <item>
       <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+       <property name="toolTip">
+        <string>Saves all parameters of the Rendering engine window to a selected file.</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -44,6 +50,9 @@
      </item>
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+       <property name="toolTip">
+        <string>Restores all parameters of the Rendering engine window to their default values.</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -66,6 +75,9 @@
    </item>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string>Rendering engine options organized into tabs: Fractal shape calculation, Nebula mode, Limits and NetRender.</string>
+     </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
      </property>
@@ -332,7 +344,7 @@ function:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation function is specific to the fractal formula calculations.&lt;/p&gt;&lt;p&gt;In some fractal fomulas the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the probable best function based on the fractal formulas used.&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Pseudo Kleinian - linear growth distance estimation function for working with Pseudo Kleinian formulas&lt;/p&gt;&lt;p&gt;- JosKleinian - linear growth distance estimation function for working with JosKleinian formulas&lt;/p&gt;&lt;p&gt;- Custom - distance estimation function where the distance estimation out.distance is calculated entirely in the formula. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation function is specific to the fractal formula calculations.&lt;/p&gt;&lt;p&gt;In some fractal formulas the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the probable best function based on the fractal formulas used.&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Pseudo Kleinian - linear growth distance estimation function for working with Pseudo Kleinian formulas&lt;/p&gt;&lt;p&gt;- JosKleinian - linear growth distance estimation function for working with JosKleinian formulas&lt;/p&gt;&lt;p&gt;- Custom - distance estimation function where the distance estimation out.distance is calculated entirely in the formula. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -486,6 +498,9 @@ with image resolution</string>
                  </item>
                  <item>
                   <widget class="QPushButton" name="pushButton_calculate_dist_thresh">
+                   <property name="toolTip">
+                    <string>Calculates the constant detail threshold automatically from the current camera distance to the fractal, field of view, detail level and image width.</string>
+                   </property>
                    <property name="text">
                     <string>Calculate threshold</string>
                    </property>
@@ -903,6 +918,9 @@ of raymarching steps</string>
                 </property>
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_dark">
+                  <property name="toolTip">
+                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 5%.</string>
+                  </property>
                   <property name="text">
                    <string>Auto
 dark</string>
@@ -911,6 +929,9 @@ dark</string>
                 </item>
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_medium">
+                  <property name="toolTip">
+                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 15%.</string>
+                  </property>
                   <property name="text">
                    <string>Auto
 medium</string>
@@ -919,6 +940,9 @@ medium</string>
                 </item>
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_bright">
+                  <property name="toolTip">
+                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 50%.</string>
+                  </property>
                   <property name="text">
                    <string>Auto
 bright</string>
@@ -941,6 +965,9 @@ bright</string>
                 </item>
                 <item row="5" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_nebula_inner_enabled">
+                  <property name="toolTip">
+                   <string>Draws the points which survived all iterations (inside the fractal) as nebula particles.</string>
+                  </property>
                   <property name="text">
                    <string>Inner fractal iterations</string>
                   </property>
@@ -962,6 +989,9 @@ bright</string>
                 </item>
                 <item row="4" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_nebula_outer_enabled">
+                  <property name="toolTip">
+                   <string>Draws the points which escaped before the last iteration as nebula particles. This is the main part of the nebula cloud.</string>
+                  </property>
                   <property name="text">
                    <string>Outer fractal iterations</string>
                   </property>
@@ -969,6 +999,9 @@ bright</string>
                 </item>
                 <item row="6" column="1">
                  <widget class="MyComboBox" name="comboBox_nebula_color_mixing">
+                  <property name="toolTip">
+                   <string>Method of combining the enabled nebula color gradients: lighten - adds the gradient colors (bright result); darken - multiplies them (dark result); darkenByBrighness - multiplies the color by the average luminance of the gradients.</string>
+                  </property>
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -1041,7 +1074,7 @@ bright</string>
                    <bool>true</bool>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It tries to keep image brighness constant.&lt;/p&gt;&lt;p&gt;It is not recommended for animations because can cause unintended flickering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It tries to keep image brightness constant.&lt;/p&gt;&lt;p&gt;It is not recommended for animations because it can cause unintended flickering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Constant brightness mode</string>
@@ -1080,7 +1113,7 @@ bright</string>
                  <item>
                   <widget class="cGradientEditWidget" name="colorpalette_nebula_x_axis_colors" native="true">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the nebula colors depending on the X coordinate of the point inside the limit box (Limits tab).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -1117,7 +1150,7 @@ bright</string>
                  <item>
                   <widget class="cGradientEditWidget" name="colorpalette_nebula_y_axis_colors" native="true">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the nebula colors depending on the Y coordinate of the point inside the limit box (Limits tab).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -1154,7 +1187,7 @@ bright</string>
                  <item>
                   <widget class="cGradientEditWidget" name="colorpalette_nebula_z_axis_colors" native="true">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the nebula colors depending on the Z coordinate of the point inside the limit box (Limits tab).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -1191,7 +1224,7 @@ bright</string>
                  <item>
                   <widget class="cGradientEditWidget" name="colorpalette_nebula_iterations_colors" native="true">
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the colors of the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines the nebula colors depending on the iteration count, from the 'Min. iteration to draw' up to the end of the sequence.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -1450,7 +1483,11 @@ bright</string>
                  <number>2</number>
                 </property>
                 <item row="0" column="1">
-                 <widget class="MyLineEdit" name="logedit_limit_outer_bounding"/>
+                 <widget class="MyLineEdit" name="logedit_limit_outer_bounding">
+                  <property name="toolTip">
+                   <string>Maximum bounding box (plus and minus this value on each axis) used as the search range when the 'Bounding Box to limit' button calculates the limit values.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_maximum_bounding_boy">
@@ -1482,6 +1519,9 @@ bright</string>
                 </item>
                 <item row="0" column="1">
                  <widget class="QToolButton" name="bu_bounding_box_size_x_up">
+                  <property name="toolTip">
+                   <string>Expands the limit box along the X axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1502,6 +1542,9 @@ bright</string>
                 </item>
                 <item row="0" column="2">
                  <widget class="QToolButton" name="bu_bounding_box_size_x_down">
+                  <property name="toolTip">
+                   <string>Shrinks the limit box along the X axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1522,6 +1565,9 @@ bright</string>
                 </item>
                 <item row="0" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_x_neg">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the X axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1542,6 +1588,9 @@ bright</string>
                 </item>
                 <item row="0" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_x_pos">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the X axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1569,6 +1618,9 @@ bright</string>
                 </item>
                 <item row="1" column="1">
                  <widget class="QToolButton" name="bu_bounding_box_size_y_up">
+                  <property name="toolTip">
+                   <string>Expands the limit box along the Y axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1589,6 +1641,9 @@ bright</string>
                 </item>
                 <item row="1" column="2">
                  <widget class="QToolButton" name="bu_bounding_box_size_y_down">
+                  <property name="toolTip">
+                   <string>Shrinks the limit box along the Y axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1609,6 +1664,9 @@ bright</string>
                 </item>
                 <item row="1" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_y_neg">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the Y axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1629,6 +1687,9 @@ bright</string>
                 </item>
                 <item row="1" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_y_pos">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the Y axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1656,6 +1717,9 @@ bright</string>
                 </item>
                 <item row="2" column="1">
                  <widget class="QToolButton" name="bu_bounding_box_size_z_up">
+                  <property name="toolTip">
+                   <string>Expands the limit box along the Z axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1676,6 +1740,9 @@ bright</string>
                 </item>
                 <item row="2" column="2">
                  <widget class="QToolButton" name="bu_bounding_box_size_z_down">
+                  <property name="toolTip">
+                   <string>Shrinks the limit box along the Z axis by 5% of its size on each side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1696,6 +1763,9 @@ bright</string>
                 </item>
                 <item row="2" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_z_neg">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the Z axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1716,6 +1786,9 @@ bright</string>
                 </item>
                 <item row="2" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_z_pos">
+                  <property name="toolTip">
+                   <string>Shifts the limit box along the Z axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1759,6 +1832,9 @@ bright</string>
                 </item>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_x">
+                  <property name="toolTip">
+                   <string>X coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1769,6 +1845,9 @@ bright</string>
                 </item>
                 <item row="2" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_z">
+                  <property name="toolTip">
+                   <string>Z coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1786,6 +1865,9 @@ bright</string>
                 </item>
                 <item row="1" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_y">
+                  <property name="toolTip">
+                   <string>Y coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1828,6 +1910,9 @@ bright</string>
                 </item>
                 <item row="0" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_x">
+                  <property name="toolTip">
+                   <string>X coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1838,6 +1923,9 @@ bright</string>
                 </item>
                 <item row="4" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_y">
+                  <property name="toolTip">
+                   <string>Y coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -1848,6 +1936,9 @@ bright</string>
                 </item>
                 <item row="5" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_z">
+                  <property name="toolTip">
+                   <string>Z coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -2159,6 +2250,9 @@ bright</string>
                    </item>
                    <item row="1" column="0">
                     <widget class="QPushButton" name="bu_netrender_disconnect">
+                     <property name="toolTip">
+                      <string>Ends the connection with the server. The client stops receiving rendering jobs.</string>
+                     </property>
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -2302,6 +2396,9 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
                    </item>
                    <item row="1" column="0">
                     <widget class="QPushButton" name="bu_netrender_stop_server">
+                     <property name="toolTip">
+                      <string>Stops the server. All connections with the clients are closed.</string>
+                     </property>
                      <property name="enabled">
                       <bool>false</bool>
                      </property>
@@ -2356,6 +2453,9 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
                  </item>
                  <item>
                   <widget class="QTableWidget" name="tableWidget_netrender_connected_clients">
+                   <property name="toolTip">
+                    <string>List of the connected rendering clients with their name, host address, number of CPUs, status, number of finished items and available actions.</string>
+                   </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                      <horstretch>0</horstretch>

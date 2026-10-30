@@ -554,7 +554,9 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 
 				par->Set("image_width", previewWidth * dpiScale * resolution);
 				par->Set("image_height", previewHeight * dpiScale * resolution);
-				thumbWidget->AssignParameters(par, parFractal);
+				// the browser has its own OpenCL mode selector (comboBoxOpenCLMode), so the
+				// global thumbnails preference must not override the choice made above
+				thumbWidget->AssignParameters(par, parFractal, false);
 				ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
 			}
 			else // if not possible to decode settings

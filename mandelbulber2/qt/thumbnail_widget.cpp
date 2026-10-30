@@ -46,6 +46,7 @@
 #include "src/common_math.h"
 #include "src/files.h"
 #include "src/global_data.hpp"
+#include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/opencl_engine_render_fractal.h"
 #include "src/render_job.hpp"
@@ -151,7 +152,7 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 }
 
 void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContainer> _params,
-	std::shared_ptr<const cFractalContainer> _fractal)
+	std::shared_ptr<const cFractalContainer> _fractal, bool respectThumbnailsPreference)
 {
 	isFullyRendered = false;
 	if (image)
@@ -173,6 +174,17 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 			params->Set("MC_denoiser_preserve_geometry", true);
 			params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 			params->Set("DOF_min_samples", 5);
+		}
+
+		// Respect the user preference "thumbnails_with_opencl" for all widgets based on
+		// cThumbnailWidget (file dialog previews, toolbar presets, keyframe thumbnails,
+		// thumbnail cache generation). When disabled, thumbnails are rendered on the CPU.
+		// Note: the custom formula check below still forces OpenCL, because custom
+		// formulas cannot be rendered on the CPU. Callers with their own engine selector
+		// (cSettingsBrowser) opt out through respectThumbnailsPreference.
+		if (respectThumbnailsPreference && !gPar->Get<bool>("thumbnails_with_opencl"))
+		{
+			params->Set("opencl_enabled", false);
 		}
 
 		if (fractal->isUsedCustomFormula())

@@ -30,6 +30,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+       <property name="toolTip">
+        <string>Loads settings from a selected fractal file into all parameters of the Image adjustments window.</string>
+       </property>
        <property name="text">
         <string>Load</string>
        </property>
@@ -37,6 +40,9 @@
      </item>
      <item>
       <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+       <property name="toolTip">
+        <string>Saves all parameters of the Image adjustments window to a selected file.</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -44,6 +50,9 @@
      </item>
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+       <property name="toolTip">
+        <string>Restores all parameters of the Image adjustments window to their default values.</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -94,6 +103,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_increase_decrease">
           <item>
            <widget class="QToolButton" name="pushButton_imagesize_increase">
+            <property name="toolTip">
+             <string>Multiplies both the image width and height by 2.</string>
+            </property>
             <property name="text">
              <string>×2</string>
             </property>
@@ -101,6 +113,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="pushButton_imagesize_decrease">
+            <property name="toolTip">
+             <string>Divides both the image width and height by 2.</string>
+            </property>
             <property name="text">
              <string>÷2</string>
             </property>
@@ -182,7 +197,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion. When a proportion is selected, the image width is calculated automatically from the current height. The 'Free' option allows to set the width manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -399,6 +414,9 @@
            </property>
            <item row="0" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_1">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 1 (default 720x480; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -412,6 +430,9 @@
            </item>
            <item row="0" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_2">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 2 (default 1280x720; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -425,6 +446,9 @@
            </item>
            <item row="2" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_9">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 9 (default 1600x1200; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -438,6 +462,9 @@
            </item>
            <item row="0" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_3">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 3 (default 1920x1080; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -451,6 +478,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_4">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 4 (default 2560x1440; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -464,6 +494,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_5">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 5 (default 4096x2160; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -477,6 +510,9 @@
            </item>
            <item row="1" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_6">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 6 (default 7680x4320; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -490,6 +526,9 @@
            </item>
            <item row="2" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_7">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 7 (default 320x240; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -503,6 +542,9 @@
            </item>
            <item row="2" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_8">
+             <property name="toolTip">
+              <string>Sets the image resolution to preset 8 (default 800x600; right-click the button to change the stored value).</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -658,6 +700,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_optimal_distance_between_eyes">
+        <property name="toolTip">
+         <string>Calculates the distance between the eyes as 5% of the current distance from the camera to the fractal.</string>
+        </property>
         <property name="text">
          <string>Calculate optimal distance
 between eyes</string>
@@ -920,7 +965,7 @@ no ambient occlusion)</string>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=" font-style:italic;"&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="prefix">
            <string/>

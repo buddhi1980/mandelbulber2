@@ -30,6 +30,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load">
+       <property name="toolTip">
+        <string>Loads settings from a selected fractal file into all parameters of the Effects window.</string>
+       </property>
        <property name="text">
         <string>Load</string>
        </property>
@@ -37,6 +40,9 @@
      </item>
      <item>
       <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save">
+       <property name="toolTip">
+        <string>Saves all parameters of the Effects window to a selected file.</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -44,6 +50,9 @@
      </item>
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset">
+       <property name="toolTip">
+        <string>Restores all parameters of the Effects window to their default values.</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -51,6 +60,9 @@
      </item>
      <item>
       <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_7">
+       <property name="toolTip">
+        <string>Randomizes parameters of the Effects window to generate new, random settings.</string>
+       </property>
        <property name="text">
         <string>Randomize</string>
        </property>
@@ -58,6 +70,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_local_navi">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens navigator window which allows changes to the effects parameters with instant preview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -93,7 +108,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flip the direction of Chromatic Aberration (RGB channel offset).&lt;/p&gt;&lt;p&gt;When enabled, the color fringing shifts in the opposite radial direction: - Off: channels shift outward from the image center. - On: channels shift inward toward the center. This also swaps the apparent order of the colored fringes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>Effects settings organized into tabs: Raytracing, Volumetric, Background, Lights and Post-effects.</string>
      </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
@@ -131,6 +146,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+           <property name="toolTip">
+            <string>Loads settings from a selected fractal file into all parameters of the Raytracing tab.</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>
@@ -138,6 +156,9 @@
          </item>
          <item>
           <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+           <property name="toolTip">
+            <string>Saves all parameters of the Raytracing tab to a selected file.</string>
+           </property>
            <property name="text">
             <string>Save</string>
            </property>
@@ -145,6 +166,9 @@
          </item>
          <item>
           <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+           <property name="toolTip">
+            <string>Restores all parameters of the Raytracing tab to their default values.</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -152,6 +176,9 @@
          </item>
          <item>
           <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_2">
+           <property name="toolTip">
+            <string>Randomizes parameters of the Raytracing tab to generate new, random settings.</string>
+           </property>
            <property name="text">
             <string>Randomize</string>
            </property>
@@ -497,7 +524,7 @@
            <item>
             <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithms for rendering the depth of field (DOF), global illumination, ambient occlusion (with multiple rays) and soft shadows effects. This mode is extremely slow for rendering, but gives a very realistic appearance of effects.&lt;/p&gt;&lt;p&gt;In addition Monte Carlo algorithm provides high quality adaptive anti-aliasing.&lt;/p&gt;&lt;p&gt;Every pixed (or tile) of the image is rendered multiple times with randomly changed parameters. Every repeat reduces noise. Sampling of each pixel (or tile) is stopped when noise is reduced to defined level (defined by &amp;quot;Max noise level&amp;quot; parameter&amp;quot;) or when maximum number of repeats is reached (defined by &amp;quot;Max number of samples&amp;quot;). &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithms for rendering the depth of field (DOF), global illumination, ambient occlusion (with multiple rays) and soft shadows effects. This mode is extremely slow for rendering, but gives a very realistic appearance of effects.&lt;/p&gt;&lt;p&gt;In addition Monte Carlo algorithm provides high quality adaptive anti-aliasing.&lt;/p&gt;&lt;p&gt;Every pixel (or tile) of the image is rendered multiple times with randomly changed parameters. Every repeat reduces noise. Sampling of each pixel (or tile) is stopped when noise is reduced to defined level (defined by &amp;quot;Max noise level&amp;quot; parameter) or when maximum number of repeats is reached (defined by &amp;quot;Max number of samples&amp;quot;). &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>&amp;Monte Carlo algorithm</string>
@@ -612,7 +639,7 @@ per pixel:</string>
                 <item row="5" column="0" colspan="2">
                  <widget class="QLabel" name="label_masked_pixels">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Shows what percentage of image pixels are already finished (masked from further calculation) during the current Monte Carlo rendering.</string>
                   </property>
                   <property name="text">
                    <string>Masked pixels:</string>
@@ -622,7 +649,7 @@ per pixel:</string>
                 <item row="6" column="0" colspan="2">
                  <widget class="QLabel" name="label_tiles_done">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Shows what percentage of image tiles are finished during the current rendering.</string>
                   </property>
                   <property name="text">
                    <string>Tiles done:</string>
@@ -649,6 +676,9 @@ per pixel:</string>
               </item>
               <item>
                <widget class="QCheckBox" name="checkB_MCShowNoiseLevels">
+                <property name="toolTip">
+                 <string>Shows the estimated noise level of every tile directly on the image during Monte Carlo rendering.</string>
+                </property>
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -782,6 +812,9 @@ per pixel:</string>
               </item>
               <item>
                <widget class="MyCheckBox" name="checkBox_MC_GI_use_reflectance">
+                <property name="toolTip">
+                 <string>Biases the Monte Carlo global illumination rays toward the mirror reflection direction with a probability given by the material's reflectance, so glossy surfaces can reflect indirect light. Works only in the OpenCL rendering mode.</string>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -840,7 +873,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow code angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by C&lt;span style=&quot; font-style:italic;&quot;&gt;ustom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow cone angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Custom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Calculate MC soft shadows</string>
@@ -882,7 +915,7 @@ per pixel:</string>
                    <item row="0" column="1">
                     <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refracted light more vsible on transparent objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refracted light more visible on transparent objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -1093,7 +1126,7 @@ per pixel:</string>
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Color of the scattered (ambient) light which is modulated by the ambient occlusion effect.</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
@@ -1229,6 +1262,9 @@ per pixel:</string>
                    </item>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_x">
+                     <property name="toolTip">
+                      <string>Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -1260,6 +1296,9 @@ per pixel:</string>
                    </item>
                    <item row="1" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_y">
+                     <property name="toolTip">
+                      <string>Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -1291,6 +1330,9 @@ per pixel:</string>
                    </item>
                    <item row="2" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_z">
+                     <property name="toolTip">
+                      <string>Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -1439,6 +1481,9 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
           <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_3">
+           <property name="toolTip">
+            <string>Loads settings from a selected fractal file into all parameters of the Volumetric tab.</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>
@@ -1446,6 +1491,9 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
          </item>
          <item>
           <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_3">
+           <property name="toolTip">
+            <string>Saves all parameters of the Volumetric tab to a selected file.</string>
+           </property>
            <property name="text">
             <string>Save</string>
            </property>
@@ -1453,6 +1501,9 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
          </item>
          <item>
           <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_3">
+           <property name="toolTip">
+            <string>Restores all parameters of the Volumetric tab to their default values.</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -1460,6 +1511,9 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
          </item>
          <item>
           <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_3">
+           <property name="toolTip">
+            <string>Randomizes parameters of the Volumetric tab to generate new, random settings.</string>
+           </property>
            <property name="text">
             <string>Randomize</string>
            </property>
@@ -1783,6 +1837,9 @@ for volumetric effects:</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="toolButton_fog_distance_double">
+                  <property name="toolTip">
+                   <string>Multiplies all fog distance parameters (color distances, distance factor and distance from surface) by 2.</string>
+                  </property>
                   <property name="text">
                    <string>x2</string>
                   </property>
@@ -1790,6 +1847,9 @@ for volumetric effects:</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="toolButton_fog_distance_half">
+                  <property name="toolTip">
+                   <string>Divides all fog distance parameters (color distances, distance factor and distance from surface) by 2.</string>
+                  </property>
                   <property name="text">
                    <string>÷2</string>
                   </property>
@@ -1873,7 +1933,7 @@ for volumetric effects:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables full shadow interaction for basic fog. &lt;/p&gt;&lt;p&gt;When activated, basic fog volumes will both cast shadows onto scene geometry and receive shadows from other objects and light sources. &lt;/p&gt;&lt;p&gt;This affects how light propagates through the fog, allowing occlusion effects and shadowed regions within and behind fog areas. &lt;/p&gt;&lt;p&gt;The result is a more physically accurate and visually integrated rendering of fog, though enabling this may increase computational complexity and rendering time due to additional light and shadow sampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Enables full shadow interaction for the distance based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</string>
                   </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
@@ -1897,7 +1957,7 @@ for volumetric effects:</string>
                 <item row="4" column="1">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls the width of the fog band around the chosen distance from the fractal surface. Higher values produce fog which reaches further from the surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -1935,14 +1995,14 @@ for volumetric effects:</string>
                 <item row="5" column="1">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_from_surface">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the distance from the fractal surface at which the fog is most dense. Increasing it moves the fog band away from the surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
                 <item row="7" column="1">
                  <widget class="MyComboBox" name="comboBox_distance_fog_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                   <string>Selects the geometric primitive used to define the spatial boundaries of the distance fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2164,7 +2224,7 @@ for volumetric effects:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables full shadow interaction for basic fog. &lt;/p&gt;&lt;p&gt;When activated, basic fog volumes will both cast shadows onto scene geometry and receive shadows from other objects and light sources. &lt;/p&gt;&lt;p&gt;This affects how light propagates through the fog, allowing occlusion effects and shadowed regions within and behind fog areas. &lt;/p&gt;&lt;p&gt;The result is a more physically accurate and visually integrated rendering of fog, though enabling this may increase computational complexity and rendering time due to additional light and shadow sampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Enables full shadow interaction for the iteration count based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</string>
                   </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
@@ -2268,7 +2328,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="9" column="1">
                  <widget class="MyComboBox" name="comboBox_iteration_fog_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                   <string>Selects the geometric primitive used to define the spatial boundaries of the iteration count based fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2462,6 +2522,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_clouds_color" native="true">
+                  <property name="toolTip">
+                   <string>Color of the clouds. The light scattered inside the cloud volume is multiplied by this color.</string>
+                  </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
                   </property>
@@ -2600,7 +2663,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  <number>2</number>
                 </property>
                 <item row="1" column="3">
-                 <widget class="MyLineEdit" name="vect3_clouds_speed_y"/>
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_y">
+                  <property name="toolTip">
+                   <string>Y-axis drift speed of the clouds. Controls how fast the noise field moves along +Y over time (animation). Positive = toward +Y, negative = toward -Y; 0 = no motion. Combine with X/Z for wind direction.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="1" column="2">
                  <widget class="QLabel" name="label_140">
@@ -2640,7 +2707,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="2" column="3">
-                 <widget class="MyLineEdit" name="vect3_clouds_speed_z"/>
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_z">
+                  <property name="toolTip">
+                   <string>Z-axis drift speed of the clouds. Controls how fast the noise field moves along +Z over time (animation). Positive = toward +Z, negative = toward -Z; 0 = no motion. Combine with X/Y for wind direction.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="1" column="1">
                  <widget class="QLabel" name="label_133">
@@ -2666,7 +2737,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_clouds_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                   <string>Selects the geometric primitive used to define the spatial boundaries of the clouds. The chosen shape (such as box or sphere) determines where in the scene the clouds are generated.</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2721,6 +2792,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </item>
                    <item row="6" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_z">
+                     <property name="toolTip">
+                      <string>Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -2760,7 +2834,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="3" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_z">
                      <property name="toolTip">
-                      <string>Vertical position (Z axis) of the center of the clouds volume relative to the fractal.</string>
+                      <string>Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the 'Plane shape' layer; the layer is measured along the rotated Z axis.</string>
                      </property>
                     </widget>
                    </item>
@@ -2811,12 +2885,15 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="1" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_x">
                      <property name="toolTip">
-                      <string>Vertical position (X axis) of the center of the clouds volume relative to the fractal.</string>
+                      <string>Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the 'Plane shape' layer and of its rotation.</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_y">
+                     <property name="toolTip">
+                      <string>Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -2858,6 +2935,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </item>
                    <item row="4" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_x">
+                     <property name="toolTip">
+                      <string>Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                     </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -2900,7 +2980,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="2" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_y">
                      <property name="toolTip">
-                      <string>Vertical position (Y axis) of the center of the clouds volume relative to the fractal.</string>
+                      <string>Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the 'Plane shape' layer and of its rotation.</string>
                      </property>
                     </widget>
                    </item>
@@ -3094,6 +3174,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
         <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
           <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_5">
+           <property name="toolTip">
+            <string>Loads settings from a selected fractal file into all parameters of the Background tab.</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>
@@ -3101,6 +3184,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_5">
+           <property name="toolTip">
+            <string>Saves all parameters of the Background tab to a selected file.</string>
+           </property>
            <property name="text">
             <string>Save</string>
            </property>
@@ -3108,6 +3194,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_5">
+           <property name="toolTip">
+            <string>Restores all parameters of the Background tab to their default values.</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -3115,6 +3204,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_4">
+           <property name="toolTip">
+            <string>Randomizes parameters of the Background tab to generate new, random settings.</string>
+           </property>
            <property name="text">
             <string>Randomize</string>
            </property>
@@ -3475,6 +3567,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="4" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_x">
+                  <property name="toolTip">
+                   <string>Shifts the background texture horizontally, in units of the texture width (1.0 = one full image width).</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3536,6 +3631,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="5" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_y">
+                  <property name="toolTip">
+                   <string>Shifts the background texture vertically, in units of the texture height (1.0 = one full image height).</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3587,6 +3685,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="6" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_x">
+                  <property name="toolTip">
+                   <string>Rotation of the background sphere (color gradient or texture) around the X axis (degrees).</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3644,6 +3745,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="3" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_v_scale">
+                  <property name="toolTip">
+                   <string>Scales the background texture vertically. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3669,6 +3773,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="8" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_z">
+                  <property name="toolTip">
+                   <string>Rotation of the background sphere (color gradient or texture) around the Z axis (degrees).</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3700,6 +3807,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="2" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_h_scale">
+                  <property name="toolTip">
+                   <string>Scales the background texture horizontally. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3725,6 +3835,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </item>
                 <item row="7" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_y">
+                  <property name="toolTip">
+                   <string>Rotation of the background sphere (color gradient or texture) around the Y axis (degrees).</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -3812,6 +3925,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
           <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_6">
+           <property name="toolTip">
+            <string>Loads settings from a selected fractal file into all parameters of the Lights tab.</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>
@@ -3819,6 +3935,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_6">
+           <property name="toolTip">
+            <string>Saves all parameters of the Lights tab to a selected file.</string>
+           </property>
            <property name="text">
             <string>Save</string>
            </property>
@@ -3826,6 +3945,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_6">
+           <property name="toolTip">
+            <string>Restores all parameters of the Lights tab to their default values.</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -3833,6 +3955,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
          </item>
          <item>
           <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_5">
+           <property name="toolTip">
+            <string>Randomizes parameters of the Lights tab to generate new, random settings.</string>
+           </property>
            <property name="text">
             <string>Randomize</string>
            </property>
@@ -4094,7 +4219,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
             </widget>
            </item>
            <item>
-            <widget class="cLightSourcesManager" name="widget_light_sources_manager" native="true"/>
+            <widget class="cLightSourcesManager" name="widget_light_sources_manager" native="true">
+             <property name="toolTip">
+              <string>Manager of light sources. Each tab is one light, which can be added, removed, duplicated and enabled or disabled with the checkbox on its tab.</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="MyGroupBox" name="groupCheck_random_lights_group">
@@ -4444,6 +4573,9 @@ of lights:</string>
                 </item>
                 <item row="16" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color_2" native="true">
+                  <property name="toolTip">
+                   <string>Second color of the random lights. Used only when the coloring type is 'Two colors' or 'Two colors based on distance'.</string>
+                  </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
                   </property>
@@ -4451,6 +4583,9 @@ of lights:</string>
                 </item>
                 <item row="15" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color" native="true">
+                  <property name="toolTip">
+                   <string>First color of the auto-generated random lights. Used by all lights for the 'Single color' type and as the first of two colors for the remaining colored types.</string>
+                  </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
                   </property>
@@ -4586,7 +4721,7 @@ of lights:</string>
                 <item row="5" column="2">
                  <widget class="MyLineEdit" name="logedit_fake_lights_thickness">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Relative thickness of the light glow around the orbit trap shape. Higher values soften and widen the light falloff.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -4864,6 +4999,9 @@ of lights:</string>
                 </item>
                 <item row="16" column="0" colspan="3">
                  <widget class="MyGroupBox" name="groupCheck_fake_lights_color_2_enabled">
+                  <property name="toolTip">
+                   <string>Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.</string>
+                  </property>
                   <property name="title">
                    <string>Enable color 2 (for second and further iterations)</string>
                   </property>
@@ -4905,6 +5043,9 @@ of lights:</string>
                    </item>
                    <item row="1" column="0" colspan="2">
                     <widget class="MyGroupBox" name="groupCheck_fake_lights_color_3_enabled">
+                     <property name="toolTip">
+                      <string>Adds a third set of orbit trap lights. When enabled, color 2 is used only for the second captured iteration and color 3 for the third and further iterations.</string>
+                     </property>
                      <property name="title">
                       <string>Enable color 3 (for third and further iterations)</string>
                      </property>
@@ -5067,6 +5208,9 @@ of lights:</string>
         <layout class="QHBoxLayout" name="horizontalLayout_15">
          <item>
           <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_7">
+           <property name="toolTip">
+            <string>Loads settings from a selected fractal file into all parameters of the Post-effects tab.</string>
+           </property>
            <property name="text">
             <string>Load</string>
            </property>
@@ -5074,6 +5218,9 @@ of lights:</string>
          </item>
          <item>
           <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_7">
+           <property name="toolTip">
+            <string>Saves all parameters of the Post-effects tab to a selected file.</string>
+           </property>
            <property name="text">
             <string>Save</string>
            </property>
@@ -5081,6 +5228,9 @@ of lights:</string>
          </item>
          <item>
           <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_7">
+           <property name="toolTip">
+            <string>Restores all parameters of the Post-effects tab to their default values.</string>
+           </property>
            <property name="text">
             <string>Reset</string>
            </property>
@@ -5088,6 +5238,9 @@ of lights:</string>
          </item>
          <item>
           <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_6">
+           <property name="toolTip">
+            <string>Randomizes parameters of the Post-effects tab to generate new, random settings.</string>
+           </property>
            <property name="text">
             <string>Randomize</string>
            </property>
@@ -5144,7 +5297,7 @@ of lights:</string>
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of DOF settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of post effects settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Update image</string>
@@ -5240,7 +5393,7 @@ of lights:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copilot said: &lt;/p&gt;&lt;p&gt;Controls the strength/threshold of the HDR Blur &lt;/p&gt;&lt;p&gt;Controls the strength/threshold of the HDR Blur contribution.&lt;/p&gt;&lt;p&gt;Lower values produce a stronger, brighter bloom; higher values dampen the effect. Works together with Radius (spread) but does not change blur size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls the strength of the HDR Blur contribution. Lower values produce a stronger, brighter bloom; higher values dampen the effect.&lt;/p&gt;&lt;p&gt;Works together with Radius (spread) but does not change the blur size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -5386,6 +5539,9 @@ of lights:</string>
                 </item>
                 <item row="2" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_post_chromatic_aberration_reverse">
+                  <property name="toolTip">
+                   <string>Flip the direction of Chromatic Aberration (RGB channel offset). When enabled, the color fringing shifts in the opposite radial direction: channels move inward toward the image center instead of outward, which also swaps the apparent order of the colored fringes.</string>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>

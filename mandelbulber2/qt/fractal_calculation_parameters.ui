@@ -91,6 +91,9 @@
       </property>
       <item>
        <widget class="MyGroupBox" name="groupCheck_julia_mode">
+        <property name="toolTip">
+         <string>Replaces the per-pixel iteration constant (c taken from the point coordinates) with the fixed Julia constant below. The result is the Julia set of the formula instead of the Mandelbrot-like set.</string>
+        </property>
         <property name="title">
          <string>&amp;Julia mode</string>
         </property>
@@ -143,6 +146,9 @@
            </item>
            <item row="1" column="2">
             <widget class="MyLineEdit" name="vect3_julia_c_y">
+             <property name="toolTip">
+              <string>Y component of the constant c added to the orbit in Julia mode.</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -153,6 +159,9 @@
            </item>
            <item row="0" column="2">
             <widget class="MyLineEdit" name="vect3_julia_c_x">
+             <property name="toolTip">
+              <string>X component of the constant c added to the orbit in Julia mode.</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -195,6 +204,9 @@
            </item>
            <item row="2" column="2">
             <widget class="MyLineEdit" name="vect3_julia_c_z">
+             <property name="toolTip">
+              <string>Z component of the constant c added to the orbit in Julia mode.</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -237,6 +249,9 @@
         </item>
         <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_x">
+          <property name="toolTip">
+           <string>X multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -265,6 +280,9 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_y">
+          <property name="toolTip">
+           <string>Y multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -293,6 +311,9 @@
         </item>
         <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_z">
+          <property name="toolTip">
+           <string>Z multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -368,6 +389,9 @@ for 4D fractals</string>
         </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis">
+          <property name="toolTip">
+           <string>Initial value of the w (4th) coordinate of the orbit point. Used by 4D / hypercomplex fractal formulas.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

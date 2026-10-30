@@ -40,7 +40,7 @@
      <item row="1" column="1">
       <widget class="QPushButton" name="pushButton_redo">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last revoked change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last undone change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>REDO</string>
@@ -244,6 +244,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+       <property name="toolTip">
+        <string>Loads settings from a selected fractal file into all parameters of the Navigation window.</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -257,6 +260,9 @@
      </item>
      <item>
       <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+       <property name="toolTip">
+        <string>Saves all parameters of the Navigation window to a selected file.</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -270,6 +276,9 @@
      </item>
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+       <property name="toolTip">
+        <string>Restores all parameters of the Navigation window to their default values.</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -391,6 +400,9 @@
                </item>
                <item row="0" column="1">
                 <widget class="MyLineEdit" name="vect3_camera_x">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World X coordinate of the camera (the viewpoint). Changing it moves the camera; how the view reacts depends on the camera movement mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -408,6 +420,9 @@
                </item>
                <item row="1" column="1">
                 <widget class="MyLineEdit" name="vect3_camera_y">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World Y coordinate of the camera (the viewpoint). Changing it moves the camera; how the view reacts depends on the camera movement mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -425,6 +440,9 @@
                </item>
                <item row="2" column="1">
                 <widget class="MyLineEdit" name="vect3_camera_z">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World Z coordinate of the camera (the viewpoint). Changing it moves the camera; how the view reacts depends on the camera movement mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -466,6 +484,9 @@
                </item>
                <item row="0" column="1">
                 <widget class="MyLineEdit" name="vect3_target_x">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World X coordinate of the target - the point which the camera looks at. Changing it rotates the view without moving the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -483,6 +504,9 @@
                </item>
                <item row="1" column="1">
                 <widget class="MyLineEdit" name="vect3_target_y">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World Y coordinate of the target - the point which the camera looks at. Changing it rotates the view without moving the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -500,6 +524,9 @@
                </item>
                <item row="2" column="1">
                 <widget class="MyLineEdit" name="vect3_target_z">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;World Z coordinate of the target - the point which the camera looks at. Changing it rotates the view without moving the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -583,7 +610,7 @@ to target:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1316,6 +1343,9 @@ to target:</string>
               </property>
               <item row="1" column="0">
                <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_horizontal_angle">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Horizontal (yaw) offset of the sweet spot in degrees. It moves the main sight direction away from the center of the image: the point under this angle is treated as the forward direction for rendering and for mouse navigation. Useful when the important part of a fulldome or panorama image should not be in the center.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -1344,6 +1374,9 @@ to target:</string>
               </item>
               <item row="1" column="1">
                <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_vertical_angle">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vertical (pitch) offset of the sweet spot in degrees. Works like the horizontal angle but tilts the main sight direction up or down.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                   <horstretch>0</horstretch>

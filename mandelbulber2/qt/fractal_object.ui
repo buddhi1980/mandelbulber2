@@ -30,6 +30,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_2">
+       <property name="toolTip">
+        <string>Randomizes parameters of this fractal tab to generate new, random settings.</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -43,6 +46,9 @@
      </item>
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load">
+       <property name="toolTip">
+        <string>Loads settings from a selected fractal file into all parameters of this fractal tab.</string>
+       </property>
        <property name="text">
         <string>Load</string>
        </property>
@@ -50,6 +56,9 @@
      </item>
      <item>
       <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save">
+       <property name="toolTip">
+        <string>Saves all parameters of this fractal tab to a selected file.</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -57,6 +66,9 @@
      </item>
      <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset">
+       <property name="toolTip">
+        <string>Restores all parameters of this fractal tab to their default values.</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -64,6 +76,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_local_navi">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens navigator window which allows changes to this fractal parameters with instant preview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -124,6 +139,9 @@
         </property>
         <item row="1" column="0" colspan="2">
          <widget class="QPushButton" name="pushButton_reset_formula">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resets the iterations, weight, Julia mode and all formula-specific parameters to their default values. The choice of the formula itself is kept.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Reset formula parameters</string>
           </property>
@@ -295,7 +313,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding Cpixel  constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding the global C constant (a copy of the coordinates of the point being iterated) to the result of the fractal formula in each iteration (e.g. z&lt;span style=" vertical-align:sub;"&gt;n+1&lt;/span&gt; = z&lt;span style=" vertical-align:sub;"&gt;n&lt;/span&gt;&lt;span style=" vertical-align:super;"&gt;2&lt;/span&gt; + C).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Don't add C constant</string>
@@ -330,6 +348,9 @@
       </property>
       <item>
        <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize">
+        <property name="toolTip">
+         <string>Randomizes the parameters of the selected formula to generate new, random values.</string>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
           <horstretch>0</horstretch>

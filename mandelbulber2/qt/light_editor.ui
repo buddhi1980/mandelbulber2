@@ -98,7 +98,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of illuminated fog around the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Physical size of the light emitter. It changes the size of the visible glow of the light and, when Monte Carlo soft shadows are used, larger values make the shadows softer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -357,6 +357,9 @@
           </item>
           <item row="0" column="0" colspan="3">
            <widget class="MyCheckBox" name="checkBox_use_target_point">
+            <property name="toolTip">
+             <string>Defines the light direction by aiming from the position at the target point instead of using the rotation angles. When enabled, the rotation fields are replaced by the target coordinates.</string>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
               <horstretch>0</horstretch>
@@ -495,7 +498,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>X coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
             </property>
            </widget>
           </item>
@@ -508,7 +511,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Y coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
             </property>
            </widget>
           </item>
@@ -521,7 +524,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Z coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
             </property>
            </widget>
           </item>
@@ -529,6 +532,9 @@
         </item>
         <item>
          <widget class="cLightWidget" name="widget_angle_preview" native="true">
+          <property name="toolTip">
+           <string>Preview of the light direction. Drag inside the ball to set the horizontal and vertical angles of the light.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>1</horstretch>

@@ -43,6 +43,9 @@
       </property>
       <item>
        <widget class="cMaterialSelector" name="materialselector_material" native="true">
+        <property name="toolTip">
+         <string>Selection of the material applied to this object. Materials are created and edited in the Material tab.</string>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -82,6 +85,9 @@
         </property>
         <item row="1" column="2">
          <widget class="MyLineEdit" name="vect3_position_x">
+          <property name="toolTip">
+           <string>Position of the object center along the X axis (world coordinates).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -115,6 +121,9 @@
         </item>
         <item row="10" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_z">
+          <property name="toolTip">
+           <string>Repeats the object in a grid with this distance between the neighboring copies along the Z axis. Values of 0 on all axes disable the repetition.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -141,6 +150,9 @@
         </item>
         <item row="3" column="2">
          <widget class="MyLineEdit" name="vect3_position_z">
+          <property name="toolTip">
+           <string>Position of the object center along the Z axis (world coordinates).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -151,6 +163,9 @@
         </item>
         <item row="2" column="2">
          <widget class="MyLineEdit" name="vect3_position_y">
+          <property name="toolTip">
+           <string>Position of the object center along the Y axis (world coordinates).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -198,6 +213,9 @@
         </item>
         <item row="9" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_y">
+          <property name="toolTip">
+           <string>Repeats the object in a grid with this distance between the neighboring copies along the Y axis. Values of 0 on all axes disable the repetition.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -215,6 +233,9 @@
         </item>
         <item row="4" column="2">
          <widget class="MyLineEdit" name="logedit_scale">
+          <property name="toolTip">
+           <string>Size of the object. 1.0 keeps the original size, values below 1 make it smaller, above 1 make it bigger.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -248,6 +269,9 @@
         </item>
         <item row="8" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_x">
+          <property name="toolTip">
+           <string>Repeats the object in a grid with this distance between the neighboring copies along the X axis. Values of 0 on all axes disable the repetition.</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -271,6 +295,9 @@
         </item>
         <item row="5" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
+          <property name="toolTip">
+           <string>Rotation of the object around the X axis (degrees).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -315,6 +342,9 @@
         </item>
         <item row="6" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
+          <property name="toolTip">
+           <string>Rotation of the object around the Y axis (degrees).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -350,6 +380,9 @@
         </item>
         <item row="7" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+          <property name="toolTip">
+           <string>Rotation of the object around the Z axis (degrees).</string>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -394,6 +427,9 @@
         </item>
         <item row="0" column="0" colspan="3">
          <widget class="QPushButton" name="pushButton_placeObject">
+          <property name="toolTip">
+           <string>Switches the mouse click function to 'Place object'. The next click in the render window sets the position of this object at the clicked point.</string>
+          </property>
           <property name="text">
            <string>Place object by mouse pointer</string>
           </property>
@@ -426,6 +462,9 @@
            </property>
            <item row="0" column="0">
             <widget class="MyCheckBox" name="checkBox_smooth_de_combine_enable">
+             <property name="toolTip">
+              <string>When the object is combined with the others by union (addition), its surface is smoothly blended with theirs instead of making a sharp intersection.</string>
+             </property>
              <property name="text">
               <string>Enable smooth DE combine</string>
              </property>
@@ -440,6 +479,9 @@
            </item>
            <item row="1" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox_smooth_de_combine_distance">
+             <property name="toolTip">
+              <string>Width of the smooth blending zone between the surfaces when 'Smooth DE combine' is enabled. Higher values melt the surfaces together over a larger area.</string>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>

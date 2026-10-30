@@ -32,6 +32,9 @@
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string>Application preferences organized in tabs: General, Image, OpenCL and Keyboard.</string>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -101,7 +104,11 @@
                  <number>2</number>
                 </property>
                 <item row="2" column="2">
-                 <widget class="MyLineEdit" name="text_default_textures_path"/>
+                 <widget class="MyLineEdit" name="text_default_textures_path">
+                  <property name="toolTip">
+                   <string>Folder with the default (shared) texture files. Used as the starting location in file dialogs for textures.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_settings_path">
@@ -111,7 +118,11 @@
                  </widget>
                 </item>
                 <item row="4" column="2">
-                 <widget class="MyLineEdit" name="text_toolbar_path"/>
+                 <widget class="MyLineEdit" name="text_toolbar_path">
+                  <property name="toolTip">
+                   <string>Folder where the toolbar presets are stored.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_image_path">
@@ -121,7 +132,11 @@
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="MyLineEdit" name="text_default_settings_path"/>
+                 <widget class="MyLineEdit" name="text_default_settings_path">
+                  <property name="toolTip">
+                   <string>Folder with fractal settings (*.fract) files. Used as the starting location in settings open/save dialogs.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_textures_path">
@@ -139,6 +154,9 @@
                 </item>
                 <item row="2" column="3">
                  <widget class="QPushButton" name="pushButton_select_textures_path">
+                  <property name="toolTip">
+                   <string>Selects the folder with the default textures.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -156,10 +174,17 @@
                  </widget>
                 </item>
                 <item row="0" column="2">
-                 <widget class="MyLineEdit" name="text_default_image_path"/>
+                 <widget class="MyLineEdit" name="text_default_image_path">
+                  <property name="toolTip">
+                   <string>Folder where the rendered images are saved by default.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="3">
                  <widget class="QPushButton" name="pushButton_select_image_path">
+                  <property name="toolTip">
+                   <string>Selects the default folder for saved images.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -171,6 +196,9 @@
                 </item>
                 <item row="4" column="3">
                  <widget class="QPushButton" name="pushButton_select_toolbar_path">
+                  <property name="toolTip">
+                   <string>Selects the folder with the toolbar presets.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -182,6 +210,9 @@
                 </item>
                 <item row="1" column="3">
                  <widget class="QPushButton" name="pushButton_select_settings_path">
+                  <property name="toolTip">
+                   <string>Selects the folder with the settings files.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -192,10 +223,17 @@
                  </widget>
                 </item>
                 <item row="3" column="2">
-                 <widget class="MyLineEdit" name="text_default_user_textures_path"/>
+                 <widget class="MyLineEdit" name="text_default_user_textures_path">
+                  <property name="toolTip">
+                   <string>Folder for the user's own textures. Used as the starting location in file dialogs when saving new textures.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="3" column="3">
                  <widget class="QPushButton" name="pushButton_select_user_textures_path">
+                  <property name="toolTip">
+                   <string>Selects the folder for the user textures.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -245,6 +283,9 @@
                 </property>
                 <item row="2" column="1">
                  <widget class="MyComboBox" name="comboBox_ui_skin">
+                  <property name="toolTip">
+                   <string>Color skin (theme) of the interface. To apply the change you need to restart the application.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>normal</string>
@@ -289,6 +330,9 @@
                 </item>
                 <item row="3" column="1">
                  <widget class="MySpinBox" name="spinboxInt_ui_font_size">
+                  <property name="toolTip">
+                   <string>Size of the interface font in points. To apply the change you need to restart the application.</string>
+                  </property>
                   <property name="minimum">
                    <number>5</number>
                   </property>
@@ -312,10 +356,17 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="MyComboBox" name="comboBox_ui_style_type"/>
+                 <widget class="MyComboBox" name="comboBox_ui_style_type">
+                  <property name="toolTip">
+                   <string>Base style of the interface widgets. To apply the change you need to restart the application.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="6" column="1">
                  <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
+                  <property name="toolTip">
+                   <string>Size of the toolbar icons in pixels.</string>
+                  </property>
                   <property name="minimum">
                    <number>20</number>
                   </property>
@@ -360,6 +411,9 @@
                 </item>
                 <item row="8" column="0" colspan="2">
                  <widget class="MyGroupBox" name="groupCheck_ui_colorize">
+                  <property name="toolTip">
+                   <string>When enabled, the group boxes in the interface are colored using random colors generated from the seed value. It makes it easier to visually distinguish the parameter groups.</string>
+                  </property>
                   <property name="title">
                    <string>Colorize group&amp;Boxes</string>
                   </property>
@@ -390,6 +444,9 @@
                      </item>
                      <item row="0" column="1">
                       <widget class="MySpinBox" name="spinboxInt_ui_colorize_random_seed">
+                       <property name="toolTip">
+                        <string>Seed of the random colors used to colorize the group boxes. Changing it generates a new color scheme.</string>
+                       </property>
                        <property name="minimum">
                         <number>0</number>
                        </property>
@@ -408,6 +465,9 @@
                 </item>
                 <item row="5" column="1">
                  <widget class="MySpinBox" name="spinboxInt_custom_formula_font_size">
+                  <property name="toolTip">
+                   <string>Size of the font (points) used in the Custom Formula Editor.</string>
+                  </property>
                   <property name="minimum">
                    <number>5</number>
                   </property>
@@ -425,6 +485,9 @@
                 </item>
                 <item row="7" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_display_tooltips">
+                  <property name="toolTip">
+                   <string>Enables showing the help tooltips when the mouse pointer hovers over interface elements.</string>
+                  </property>
                   <property name="text">
                    <string>Display tooltips</string>
                   </property>
@@ -432,6 +495,9 @@
                 </item>
                 <item row="4" column="1">
                  <widget class="MySpinBox" name="spinboxInt_ui_layout_spacing">
+                  <property name="toolTip">
+                   <string>Spacing between the widgets inside the interface layouts. Smaller values make the panels more compact.</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -477,6 +543,9 @@
                 </property>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_randomizer_preview_size">
+                  <property name="toolTip">
+                   <string>Size of the preview thumbnails displayed in the Randomizer dialog.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>Small</string>
@@ -510,6 +579,9 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="MyComboBox" name="comboBox_randomizer_preview_quality">
+                  <property name="toolTip">
+                   <string>Quality of the preview images rendered by the Randomizer.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>Low</string>
@@ -570,6 +642,9 @@
                 </item>
                 <item row="0" column="1">
                  <widget class="MySpinBox" name="spinboxInt_limit_CPU_cores">
+                  <property name="toolTip">
+                   <string>Maximum number of CPU cores used for the rendering threads.</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -587,6 +662,9 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="MySpinBox" name="spinboxInt_maximum_texture_cache_size">
+                  <property name="toolTip">
+                   <string>Maximum amount of RAM (in GB) reserved for the cache of loaded textures.</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -614,6 +692,9 @@
                 </item>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_threads_priority">
+                  <property name="toolTip">
+                   <string>Scheduling priority of the rendering threads. Higher priority gives more CPU time to rendering but the interface may become less responsive.</string>
+                  </property>
                   <property name="frame">
                    <bool>true</bool>
                   </property>
@@ -648,7 +729,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplies fractal c constant by this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Interval between the automatic re-renders when 'Auto-refresh' is enabled (seconds).</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -686,6 +767,9 @@
                 </item>
                 <item row="2" column="1">
                  <widget class="MySpinBox" name="spinboxInt_logging_verbosity">
+                  <property name="toolTip">
+                   <string>Amount of information written to the log file: 0 = only important messages, 3 = full debug output.</string>
+                  </property>
                   <property name="minimum">
                    <number>0</number>
                   </property>
@@ -699,6 +783,9 @@
                 </item>
                 <item row="3" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_console_output_enable">
+                  <property name="toolTip">
+                   <string>Enables the debug output printed to the console (stderr).</string>
+                  </property>
                   <property name="text">
                    <string>Console debug output</string>
                   </property>
@@ -721,6 +808,9 @@
            </item>
            <item>
             <widget class="MyCheckBox" name="checkBox_quit_do_not_ask_again">
+             <property name="toolTip">
+              <string>Exits the application without asking for confirmation.</string>
+             </property>
              <property name="text">
               <string>Do not ask for quit confirmation</string>
              </property>
@@ -728,6 +818,9 @@
            </item>
            <item>
             <widget class="MyCheckBox" name="checkBox_description_popup_do_not_show_again">
+             <property name="toolTip">
+              <string>Hides the popup with the fractal description and preview shown after loading a settings file.</string>
+             </property>
              <property name="text">
               <string>Do not show description on settings load</string>
              </property>
@@ -735,6 +828,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_retrieve_toolbar">
+             <property name="toolTip">
+              <string>Restores the default toolbar presets. Existing files in the toolbar folder may be overwritten (the program asks for confirmation).</string>
+             </property>
              <property name="text">
               <string>Retrieve default toolbar presets</string>
              </property>
@@ -742,6 +838,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_retrieve_materials">
+             <property name="toolTip">
+              <string>Copies the default material pack into the materials folder. Existing files may be overwritten (the program asks for confirmation).</string>
+             </property>
              <property name="text">
               <string>Retrieve default materials in material folder</string>
              </property>
@@ -865,6 +964,9 @@
                 </item>
                 <item row="1" column="0">
                  <widget class="MyCheckBox" name="checkBox_color_enabled">
+                  <property name="toolTip">
+                   <string>Saves the color channel of the rendered image.</string>
+                  </property>
                   <property name="text">
                    <string>Color</string>
                   </property>
@@ -875,6 +977,9 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="MyComboBox" name="comboBox_color_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -894,6 +999,9 @@
                 </item>
                 <item row="1" column="2">
                  <widget class="MyLineEdit" name="text_color_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'color' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -901,6 +1009,9 @@
                 </item>
                 <item row="2" column="0">
                  <widget class="MyCheckBox" name="checkBox_alpha_enabled">
+                  <property name="toolTip">
+                   <string>Saves the alpha channel (transparency/coverage) of the rendered image.</string>
+                  </property>
                   <property name="text">
                    <string>Alpha</string>
                   </property>
@@ -908,6 +1019,9 @@
                 </item>
                 <item row="2" column="1">
                  <widget class="MyComboBox" name="comboBox_alpha_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -927,6 +1041,9 @@
                 </item>
                 <item row="2" column="2">
                  <widget class="MyLineEdit" name="text_alpha_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'alpha' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -934,6 +1051,9 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="MyCheckBox" name="checkBox_zbuffer_enabled">
+                  <property name="toolTip">
+                   <string>Saves the z-buffer (depth) channel: each pixel encodes the distance of the visible surface from the camera.</string>
+                  </property>
                   <property name="text">
                    <string>Z Buffer</string>
                   </property>
@@ -941,6 +1061,9 @@
                 </item>
                 <item row="3" column="1">
                  <widget class="MyComboBox" name="comboBox_zbuffer_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -960,6 +1083,9 @@
                 </item>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="text_zbuffer_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'zbuffer' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -993,6 +1119,9 @@
               </property>
               <item row="0" column="0">
                <widget class="MyCheckBox" name="checkBox_zbuffer_invert">
+                <property name="toolTip">
+                 <string>Inverts the saved depth map: without it the distant objects are bright, with it the near objects become bright.</string>
+                </property>
                 <property name="text">
                  <string>Invert z-buffer</string>
                 </property>
@@ -1000,6 +1129,9 @@
               </item>
               <item row="1" column="0">
                <widget class="MyCheckBox" name="checkBox_zbuffer_logarithmic">
+                <property name="toolTip">
+                 <string>Maps the depth values to the image using a logarithmic scale, which keeps more precision for the surfaces close to the camera.</string>
+                </property>
                 <property name="text">
                  <string>Logarithmic scale</string>
                 </property>
@@ -1007,6 +1139,9 @@
               </item>
               <item row="2" column="0">
                <widget class="MyGroupBox" name="groupCheck_zbuffer_constant_range">
+                <property name="toolTip">
+                 <string>Uses the fixed minimum and maximum depth values below instead of computing the range from the rendered image.</string>
+                </property>
                 <property name="title">
                  <string>Use constant depth range</string>
                 </property>
@@ -1044,10 +1179,18 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="MyLineEdit" name="logedit_zbuffer_min_depth"/>
+                  <widget class="MyLineEdit" name="logedit_zbuffer_min_depth">
+                   <property name="toolTip">
+                    <string>Depth value (distance from the camera) which is mapped to the darkest pixel of the z-buffer image.</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="MyLineEdit" name="logedit_zbuffer_max_depth"/>
+                  <widget class="MyLineEdit" name="logedit_zbuffer_max_depth">
+                   <property name="toolTip">
+                    <string>Depth value (distance from the camera) which is mapped to the brightest pixel of the z-buffer image.</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -1059,6 +1202,9 @@
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
               <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled">
+               <property name="toolTip">
+                <string>Enables saving the additional render passes as separate images. The channels marked as on-demand require re-rendering after being enabled.</string>
+               </property>
                <property name="title">
                 <string>Op&amp;tional Image Channels</string>
                </property>
@@ -1071,6 +1217,9 @@
                 </property>
                 <item row="5" column="0">
                  <widget class="MyCheckBox" name="checkBox_diffuse_enabled">
+                  <property name="toolTip">
+                   <string>Saves the diffuse color pass (surface colors without the lighting effects).</string>
+                  </property>
                   <property name="text">
                    <string>Diffuse</string>
                   </property>
@@ -1078,6 +1227,9 @@
                 </item>
                 <item row="2" column="1">
                  <widget class="MyComboBox" name="comboBox_normal_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1105,6 +1257,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="4" column="0">
                  <widget class="MyCheckBox" name="checkBox_world_enabled">
+                  <property name="toolTip">
+                   <string>Saves the world position pass: coordinates of the visible surfaces encoded as colors.</string>
+                  </property>
                   <property name="text">
                    <string>World</string>
                   </property>
@@ -1112,6 +1267,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="9" column="0">
                  <widget class="MyCheckBox" name="checkBox_not_denoised_channel_enabled">
+                  <property name="toolTip">
+                   <string>Saves the image as it was before the denoiser was applied (available with Monte Carlo rendering).</string>
+                  </property>
                   <property name="text">
                    <string>Not denoised</string>
                   </property>
@@ -1126,6 +1284,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="8" column="0">
                  <widget class="MyCheckBox" name="checkBox_gi_channel_enabled">
+                  <property name="toolTip">
+                   <string>Saves the global illumination pass: only the indirect light contribution.</string>
+                  </property>
                   <property name="text">
                    <string>Global illumination</string>
                   </property>
@@ -1140,6 +1301,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="6" column="1">
                  <widget class="MyComboBox" name="comboBox_normalWorld_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1159,6 +1323,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="2" column="0">
                  <widget class="MyCheckBox" name="checkBox_normal_enabled">
+                  <property name="toolTip">
+                   <string>Saves the surface normals pass: the orientation of the visible surfaces encoded as colors.</string>
+                  </property>
                   <property name="text">
                    <string>Surface Normal</string>
                   </property>
@@ -1166,6 +1333,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="4" column="1">
                  <widget class="MyComboBox" name="comboBox_world_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1185,6 +1355,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="7" column="1">
                  <widget class="MyComboBox" name="comboBox_shadow_channel_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1204,6 +1377,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="9" column="1">
                  <widget class="MyComboBox" name="comboBox_not_denoised_channel_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1223,6 +1399,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="text_specular_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'specular' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1230,6 +1409,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="4" column="2">
                  <widget class="MyLineEdit" name="text_world_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'world' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1237,6 +1419,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="3" column="0">
                  <widget class="MyCheckBox" name="checkBox_specular_enabled">
+                  <property name="toolTip">
+                   <string>Saves the specular highlights pass.</string>
+                  </property>
                   <property name="text">
                    <string>Specular</string>
                   </property>
@@ -1244,6 +1429,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="5" column="2">
                  <widget class="MyLineEdit" name="text_diffuse_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'diffuse' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1251,6 +1439,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="5" column="1">
                  <widget class="MyComboBox" name="comboBox_diffuse_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1270,6 +1461,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="7" column="2">
                  <widget class="MyLineEdit" name="text_shadow_channel_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'shadow_channel' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1277,6 +1471,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="6" column="2">
                  <widget class="MyLineEdit" name="text_normalWorld_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'normalWorld' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1291,6 +1488,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="6" column="0">
                  <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+                  <property name="toolTip">
+                   <string>Saves the world-space surface normals pass (orientation of the surfaces relative to the world axes).</string>
+                  </property>
                   <property name="text">
                    <string>World Normal</string>
                   </property>
@@ -1298,6 +1498,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="8" column="2">
                  <widget class="MyLineEdit" name="text_gi_channel_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'gi_channel' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1305,6 +1508,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="7" column="0">
                  <widget class="MyCheckBox" name="checkBox_shadow_channel_enabled">
+                  <property name="toolTip">
+                   <string>Saves the shadow pass: how much light is blocked at each visible surface.</string>
+                  </property>
                   <property name="text">
                    <string>Shadows</string>
                   </property>
@@ -1312,6 +1518,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="3" column="1">
                  <widget class="MyComboBox" name="comboBox_specular_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1331,6 +1540,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="2" column="2">
                  <widget class="MyLineEdit" name="text_normal_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'normal' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1338,6 +1550,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="8" column="1">
                  <widget class="MyComboBox" name="comboBox_gi_channel_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1357,6 +1572,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="9" column="2">
                  <widget class="MyLineEdit" name="text_not_denoised_channel_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'not_denoised_channel' channel image.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1395,6 +1613,9 @@ and will only be present after enabling and re-render.</string>
                 </property>
                 <item row="4" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_linear_colorspace">
+                  <property name="toolTip">
+                   <string>Saves the image in the linear colorspace instead of sRGB. Works only for the EXR format.</string>
+                  </property>
                   <property name="text">
                    <string>Use linear colorspace (only EXR)</string>
                   </property>
@@ -1402,6 +1623,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="3" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
+                  <property name="toolTip">
+                   <string>Stores each image channel in a separate subfolder named after the channel.</string>
+                  </property>
                   <property name="text">
                    <string>Save each channel in separate folder</string>
                   </property>
@@ -1409,6 +1633,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="5" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
+                  <property name="toolTip">
+                   <string>Saves the left and right eye images as two separate files instead of one combined image. Works with the 'left-right' stereoscopic mode.</string>
+                  </property>
                   <property name="text">
                    <string>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</string>
@@ -1424,6 +1651,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="2" column="0">
                  <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                  <property name="toolTip">
+                   <string>When both color and alpha channels are enabled, they are saved together as a single RGBA image (PNG and TIFF only).</string>
+                  </property>
                   <property name="text">
                    <string>Append alpha to image (only PNG and TIFF)</string>
                   </property>
@@ -1431,6 +1661,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="0" column="1">
                  <widget class="MySpinBox" name="spinboxInt_jpeg_quality">
+                  <property name="toolTip">
+                   <string>Quality of the saved JPEG images (1-100). JPEG always uses 8 bit precision.</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -1441,6 +1674,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="1" column="0">
                  <widget class="QCheckBox" name="checkBox_save_settings_with_image">
+                  <property name="toolTip">
+                   <string>Embeds the fractal settings into the saved image file, so the scene can be loaded back from the image.</string>
+                  </property>
                   <property name="text">
                    <string>Save fractal settings together with the image</string>
                   </property>
@@ -1546,6 +1782,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="10" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_jxl_lossless">
+                  <property name="toolTip">
+                   <string>Saves the JPEG XL image losslessly. Overrides the JPEG XL distance setting.</string>
+                  </property>
                   <property name="text">
                    <string>Save JPEG XL in lossless mode (overrides distance)</string>
                   </property>
@@ -1553,6 +1792,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="11" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_append_alpha_jxl">
+                  <property name="toolTip">
+                   <string>When both color and alpha channels are enabled, they are saved together as a single RGBA JPEG XL image.</string>
+                  </property>
                   <property name="text">
                    <string>Append alpha to image (JPEG XL)</string>
                   </property>
@@ -1591,6 +1833,9 @@ and will only be present after enabling and re-render.</string>
                 </property>
                 <item row="1" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_thumbnails_with_opencl">
+                  <property name="toolTip">
+                   <string>Enables rendering of the scene thumbnails (file dialog previews, toolbar preset buttons, keyframe and queue previews, thumbnail cache) with OpenCL when it is available. When disabled, thumbnails are always rendered using the CPU, leaving the GPU free for other work. Scenes using custom formulas are always rendered with OpenCL, since they cannot be rendered on the CPU.</string>
+                  </property>
                   <property name="text">
                    <string>Render thumbnails with OpenCL (if OpenCL enabled)</string>
                   </property>
@@ -1598,6 +1843,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="0" column="1">
                  <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
+                  <property name="toolTip">
+                   <string>Generates the thumbnail images for the files in the queue and stores them in the thumbnail cache.</string>
+                  </property>
                   <property name="text">
                    <string>Generate</string>
                   </property>
@@ -1609,6 +1857,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="0" column="0">
                  <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
+                  <property name="toolTip">
+                   <string>Deletes all thumbnails stored in the cache.</string>
+                  </property>
                   <property name="text">
                    <string>Clear</string>
                   </property>
@@ -1683,6 +1934,9 @@ and will only be present after enabling and re-render.</string>
            </property>
            <item>
             <widget class="MyGroupBox" name="groupCheck_opencl_enabled">
+             <property name="toolTip">
+              <string>Enables rendering acceleration using OpenCL devices (GPUs, CPUs, accelerator cards).</string>
+             </property>
              <property name="title">
               <string>OpenCL ena&amp;ble</string>
              </property>
@@ -1722,6 +1976,9 @@ and will only be present after enabling and re-render.</string>
                 </property>
                 <item row="4" column="1">
                  <widget class="QSlider" name="sliderInt_opencl_memory_limit">
+                  <property name="toolTip">
+                   <string>Memory limit (MB) for a single OpenCL buffer. The slider is linked with the value field next to it.</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -1768,6 +2025,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="8" column="2">
                  <widget class="QPushButton" name="pushButton_select_clang_format_path">
+                  <property name="toolTip">
+                   <string>Selects the clang-format executable used to reformat the custom formula code.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1778,7 +2038,11 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="8" column="1">
-                 <widget class="MyLineEdit" name="text_clang_format_path"/>
+                 <widget class="MyLineEdit" name="text_clang_format_path">
+                  <property name="toolTip">
+                   <string>Path to the clang-format program used by the Custom Formula Editor for formatting the formula source code.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="5" column="0" colspan="3">
                  <widget class="QLabel" name="label_opencl_suggested_memory_limit">
@@ -1808,6 +2072,9 @@ and will only be present after enabling and re-render.</string>
                  <layout class="QVBoxLayout" name="verticalLayout_opencl_device">
                   <item>
                    <widget class="MyComboBox" name="comboBox_opencl_device_type">
+                    <property name="toolTip">
+                     <string>Which OpenCL devices are used for rendering: all GPU devices, the default device, all devices or all CPU devices.</string>
+                    </property>
                     <item>
                      <property name="text">
                       <string>All GPU devices</string>
@@ -1837,6 +2104,9 @@ and will only be present after enabling and re-render.</string>
                   </item>
                   <item>
                    <widget class="QListWidget" name="listWidget_opencl_device_list">
+                    <property name="toolTip">
+                     <string>List of the detected OpenCL devices. Check the devices which should take part in rendering.</string>
+                    </property>
                     <property name="selectionMode">
                      <enum>QAbstractItemView::ExtendedSelection</enum>
                     </property>
@@ -1872,6 +2142,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="2" column="1" colspan="2">
                  <widget class="MyComboBox" name="comboBox_opencl_precision">
+                  <property name="toolTip">
+                   <string>Floating point precision of the OpenCL kernels: single is faster, double is more accurate and slower (not always supported by the device).</string>
+                  </property>
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1906,6 +2179,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="0" column="1" colspan="2">
                  <widget class="QListWidget" name="listWidget_opencl_platform_list">
+                  <property name="toolTip">
+                   <string>List of the detected OpenCL platforms (driver stacks). Select the platforms from which the devices are taken.</string>
+                  </property>
                   <property name="selectionMode">
                    <enum>QAbstractItemView::SingleSelection</enum>
                   </property>
@@ -1980,6 +2256,9 @@ and will only be present after enabling and re-render.</string>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QPushButton" name="pushButton_key_layout_default">
+           <property name="toolTip">
+            <string>Restores the default keyboard layout (Q/Z/A/S/W/D for movement, arrow keys for rotation).</string>
+           </property>
            <property name="text">
             <string>Default layout</string>
            </property>
@@ -1987,6 +2266,9 @@ and will only be present after enabling and re-render.</string>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_key_layout_mb3d">
+           <property name="toolTip">
+            <string>Sets the Mandelbulber 3D style keyboard layout (W/S/A/D + E/C for movement, I/J/K/L for rotation, U/O for roll).</string>
+           </property>
            <property name="text">
             <string>MB3D layout</string>
            </property>
@@ -2010,7 +2292,11 @@ and will only be present after enabling and re-render.</string>
           </property>
           <layout class="QFormLayout" name="formLayout">
            <item row="0" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_render"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_render">
+             <property name="toolTip">
+              <string>Shortcut for starting the rendering. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_21">
@@ -2020,7 +2306,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_stop"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_stop">
+             <property name="toolTip">
+              <string>Shortcut for stopping the rendering. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_22">
@@ -2030,7 +2320,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_forward"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_forward">
+             <property name="toolTip">
+              <string>Shortcut for moving the camera forward. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_23">
@@ -2040,7 +2334,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward">
+             <property name="toolTip">
+              <string>Shortcut for moving the camera backward. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_24">
@@ -2050,7 +2348,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="4" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_left"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_left">
+             <property name="toolTip">
+              <string>Shortcut for strafing the camera left. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="4" column="1">
             <widget class="QLabel" name="label_25">
@@ -2060,7 +2362,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="5" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_right"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_right">
+             <property name="toolTip">
+              <string>Shortcut for strafing the camera right. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="5" column="1">
             <widget class="QLabel" name="label_26">
@@ -2070,7 +2376,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="6" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_up"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_up">
+             <property name="toolTip">
+              <string>Shortcut for lifting the camera up. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="6" column="1">
             <widget class="QLabel" name="label_27">
@@ -2080,7 +2390,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="7" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_down"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_down">
+             <property name="toolTip">
+              <string>Shortcut for lowering the camera. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="7" column="1">
             <widget class="QLabel" name="label_28">
@@ -2090,7 +2404,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="8" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_left"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_left">
+             <property name="toolTip">
+              <string>Shortcut for turning the view to the left. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="8" column="1">
             <widget class="QLabel" name="label_29">
@@ -2100,7 +2418,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="9" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_right"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_right">
+             <property name="toolTip">
+              <string>Shortcut for turning the view to the right. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="9" column="1">
             <widget class="QLabel" name="label_30">
@@ -2110,7 +2432,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="10" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_up"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_up">
+             <property name="toolTip">
+              <string>Shortcut for tilting the view up. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="10" column="1">
             <widget class="QLabel" name="label_33">
@@ -2120,10 +2446,18 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="11" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_down"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_down">
+             <property name="toolTip">
+              <string>Shortcut for tilting the view down. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="14" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_add_keyframe"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_add_keyframe">
+             <property name="toolTip">
+              <string>Shortcut for adding an animation keyframe. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="14" column="1">
             <widget class="QLabel" name="label_31">
@@ -2133,7 +2467,11 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="15" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_modify_keyframe"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_modify_keyframe">
+             <property name="toolTip">
+              <string>Modifier used while dragging to change an animation keyframe. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="15" column="1">
             <widget class="QLabel" name="label_32">
@@ -2150,10 +2488,18 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="12" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_left"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_left">
+             <property name="toolTip">
+              <string>Shortcut for rotating (rolling) the image to the left. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="13" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_right"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_right">
+             <property name="toolTip">
+              <string>Shortcut for rotating (rolling) the image to the right. Click in the field and press the key (or combination) to change it.</string>
+             </property>
+            </widget>
            </item>
            <item row="12" column="1">
             <widget class="QLabel" name="label_35">

@@ -61,8 +61,12 @@ public:
 	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
 	void SetSize(int _width, int _height, double _oversample);
+	// Assigns fractal parameters for the thumbnail. When respectThumbnailsPreference is
+	// true, the global "thumbnails_with_opencl" preference decides whether OpenCL may be
+	// used (custom formulas always require it and override this). Callers that offer their
+	// own engine selection (e.g. cSettingsBrowser) should pass false.
 	void AssignParameters(std::shared_ptr<const cParameterContainer> _params,
-		std::shared_ptr<const cFractalContainer> _fractal);
+		std::shared_ptr<const cFractalContainer> _fractal, bool respectThumbnailsPreference = true);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void UseForandomizer(bool _useForrandomizer) { useForrandomizer = _useForrandomizer; }
 	void DisableTimer() { disableTimer = true; }
