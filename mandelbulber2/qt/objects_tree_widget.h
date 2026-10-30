@@ -113,6 +113,13 @@ private:
 	void attachMaterialWidget(
 		QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params);
 	void attachEnableCheckbox(QTreeWidgetItem *item, int nodeId, bool checked);
+
+	// Opens the modal material manager for the given tree node and writes the chosen
+	// material id (or -1 for "no material") into the node_XXXX_material parameter.
+	void openMaterialManagerForNode(int nodeId);
+
+	// Finds the tree item associated with a node id (searches the whole tree).
+	QTreeWidgetItem *findItemByNodeId(int nodeId) const;
 	int findNextAvailableNodeId() const;
 	int findNextAvailableFractalObjectId() const;
 	int findNextAvailablePrimitiveObjectId() const;

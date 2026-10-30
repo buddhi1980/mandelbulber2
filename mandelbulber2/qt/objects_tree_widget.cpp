@@ -42,6 +42,9 @@
 #include "general_object_parameters.h"
 #include "fractal_calculation_parameters.h"
 #include "material_widget.h"
+#include "material_manager_view.h"
+#include "src/material_item_model.h"
+#include "src/synchronize_interface.hpp"
 #include "drag_drop_tree_widget.h"
 #include "src/rendered_image_widget.hpp"
 
@@ -903,12 +906,93 @@ void cObjectsTreeWidget::attachMaterialWidget(
 		int parentType = getNodeType(item->parent());
 		if (enumNodeType(parentType) == enumNodeType::hybrid) return;
 	}
+	// materialId -1 means "no material": no miniature is shown at all (empty column)
 	int materialId = params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
 	if (materialId < 0) return;
 	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
 	matWidget->AssignMaterial(params, materialId, nullptr);
 	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
+
+	// Left clicking the miniature opens the material manager (same behaviour as
+	// cMaterialSelector); connections die together with the thumbnail widget
+	connect(matWidget, &cMaterialWidget::clicked, this,
+		[this, nodeId](Qt::MouseButton button)
+		{
+			if (button == Qt::LeftButton) openMaterialManagerForNode(nodeId);
+		});
+}
+
+// Opens the modal material manager window for a single tree node. When the user picks
+// a material the node_XXXX_material parameter is updated and the miniature refreshed;
+// picking "no material" (-1) removes the miniature so the column stays empty.
+void cObjectsTreeWidget::openMaterialManagerForNode(int nodeId)
+{
+	cMaterialItemModel *model = gMainInterface->materialListModel;
+	if (!model) return;
+
+	QString paramName = QString("node_%1_material").arg(nodeId, 4, 10, QChar('0'));
+
+	cMaterialManagerView *view = new cMaterialManagerView(this);
+	view->SetModel(model);
+	view->setWindowFlags(Qt::Dialog);
+	view->setWindowModality(Qt::ApplicationModal);
+	view->window()->setWindowTitle(tr("Material manager"));
+	view->setAttribute(Qt::WA_DeleteOnClose);
+	view->show();
+	view->SetSelection(model->getModelIndexByMaterialId(params->Get<int>(paramName)));
+
+	connect(view, &cMaterialManagerView::materialSelected, this,
+		[this, nodeId, paramName](int matIndex)
+		{
+			params->Set(paramName, matIndex);
+
+			// Push the new value into the open node editor: its cMaterialSelector still
+			// holds the old index and a later 'read' sync would write it back into
+			// params, silently reverting the selection on the next refresh.
+			SynchronizeEditorWidget(currentEditorWidget, qInterface::write);
+
+			// Reflect the change on the miniature of the (possibly rebuilt) tree item.
+			// -1 ("no material") means the column must show nothing, so the existing
+			// widget is removed; otherwise the miniature is updated in place.
+			QTreeWidgetItem *item = findItemByNodeId(nodeId);
+			if (item)
+			{
+				QWidget *existing = ui->treeWidget_objects->itemWidget(item, treeCol::material);
+				if (matIndex < 0)
+				{
+					if (existing)
+					{
+						ui->treeWidget_objects->removeItemWidget(item, treeCol::material);
+						delete existing;
+					}
+				}
+				else
+				{
+					cMaterialWidget *matWidget = qobject_cast<cMaterialWidget *>(existing);
+					if (matWidget) matWidget->AssignMaterial(params, matIndex, nullptr);
+				}
+			}
+		});
+
+	// propagate material content edits to the material editor panel
+	connect(view, &cMaterialManagerView::materialEdited, this,
+		[this]()
+		{
+			SynchronizeInterfaceWindow(
+				gMainInterface->scrollAreaMaterialEditor, params, qInterface::write);
+		});
+}
+
+// Returns the tree item whose stored node id equals 'nodeId', or nullptr if not found.
+QTreeWidgetItem *cObjectsTreeWidget::findItemByNodeId(int nodeId) const
+{
+	const auto allItems = collectAllTreeItems();
+	for (QTreeWidgetItem *item : allItems)
+	{
+		if (item->data(treeData::nodeId, Qt::UserRole).toInt() == nodeId) return item;
+	}
+	return nullptr;
 }
 
 void cObjectsTreeWidget::attachEnableCheckbox(QTreeWidgetItem *item, int nodeId, bool checked)
@@ -984,7 +1068,13 @@ void cObjectsTreeWidget::slotAddGroup()
 	addNodeToSelectedGroup(newItem);
 
 	ui->treeWidget_objects->setItemWidget(newItem, treeCol::type, buildTypeLabel(int(groupType)));
+	// Boolean groups are pure operators; their visual material comes from children,
+	// so override the InitNodeParams default (1) with -1 meaning "no material".
+	if (isBooleanGroupType(groupType)) params->Set(prefix + "material", -1);
 	attachMaterialWidget(newItem, newNodeId, params);
+	// Attach the enable checkbox immediately; UpdateTree() is not re-run after adding,
+	// so without this the Enabled column stays empty until a manual refresh.
+	attachEnableCheckbox(newItem, newNodeId, params->Get<bool>(prefix + "enabled"));
 	QIcon icon = getIconForNode(groupType);
 	QPixmap pixmap = icon.pixmap(QSize(128, 128));
 	if (!pixmap.isNull())
@@ -1029,6 +1119,10 @@ void cObjectsTreeWidget::slotAddFractal()
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::fractal)));
 	attachMaterialWidget(newItem, newNodeId, params);
+	// Attach the enable checkbox immediately; UpdateTree() is not re-run after adding,
+	// so without this the Enabled column stays empty until a manual refresh.
+	QString enabledParam = QString("node_%1_enabled").arg(newNodeId, 4, 10, QChar('0'));
+	attachEnableCheckbox(newItem, newNodeId, params->Get<bool>(enabledParam));
 	int defaultFormula = fractalParams->at(fractalObjectId - 1)->Get<int>("formula");
 	updateFractalIcon(newItem, fractalObjectId, defaultFormula);
 	ui->treeWidget_objects->expandAll();
@@ -1080,6 +1174,10 @@ void cObjectsTreeWidget::slotAddPrimitive()
 	ui->treeWidget_objects->setItemWidget(
 		newItem, treeCol::type, buildTypeLabel(int(enumNodeType::primitive)));
 	attachMaterialWidget(newItem, newNodeId, params);
+	// Attach the enable checkbox immediately; UpdateTree() is not re-run after adding,
+	// so without this the Enabled column stays empty until a manual refresh.
+	QString enabledParam = QString("node_%1_enabled").arg(newNodeId, 4, 10, QChar('0'));
+	attachEnableCheckbox(newItem, newNodeId, params->Get<bool>(enabledParam));
 	QIcon icon = getIconForNode(enumNodeType::primitive, primitiveType);
 	QPixmap pixmap = icon.pixmap(QSize(128, 128));
 	if (!pixmap.isNull())
