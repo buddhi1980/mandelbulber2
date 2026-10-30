@@ -37,6 +37,8 @@
 
 #include "settings.hpp"
 
+#include <algorithm>
+
 #include <QClipboard>
 #include <QCryptographicHash>
 #include <QSet>
@@ -1058,24 +1060,32 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	// Lazy-initialize primitive parameters if this is a new primitive parameter
 	if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
-		if (!par->IfExists(parameterName))
+		QStringList split = parameterName.split('_');
+		if (split.size() >= 3)
 		{
-			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			int primitiveIndex = split.at(2).toInt();
-			fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(split.at(1));
-			sPrimitiveItem item(objectType, primitiveIndex, primitiveName, split.at(1));
-			InitPrimitiveParams(item, par);
-			listOfLoadedPrimitives.append(primitiveName);
-
-			// Inject temporary legacy transform params for old settings files (< v2.35).
-			// MigrateToObjectsTree() will migrate them to node-based params and delete them.
-			if (fileVersion < 2.35)
+			// Initialize only when the primitive is not yet known to the container. An unknown
+			// parameter of an already initialized primitive (typo or parameter removed in newer
+			// versions) must not run InitPrimitiveParams() again, otherwise every existing
+			// parameter of that primitive is reported as duplicated.
+			if (!par->IfExists(primitiveName + "_enabled"))
 			{
-				InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
-				// Inject temporary legacy node params needed during decode for migration.
+				int primitiveIndex = split.at(2).toInt();
+				fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(split.at(1));
+				sPrimitiveItem item(objectType, primitiveIndex, primitiveName, split.at(1));
+				InitPrimitiveParams(item, par);
+				if (!listOfLoadedPrimitives.contains(primitiveName))
+					listOfLoadedPrimitives.append(primitiveName);
+
+				// Inject temporary legacy transform params for old settings files (< v2.35).
 				// MigrateToObjectsTree() will migrate them to node-based params and delete them.
-				InjectTemporaryLegacyPrimitiveNodeParams(par, primitiveName);
+				if (fileVersion < 2.35)
+				{
+					InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
+					// Inject temporary legacy node params needed during decode for migration.
+					// MigrateToObjectsTree() will migrate them to node-based params and delete them.
+					InjectTemporaryLegacyPrimitiveNodeParams(par, primitiveName);
+				}
 			}
 		}
 	}
@@ -1654,12 +1664,18 @@ void cSettings::Compatibility2(
 		// Copy light visibility and intensity from light2 to other aux lights
 		if (par->IfExists("light2_is_defined"))
 		{
+			// light2_* parameters are created lazily, so a file may define the flag without
+			// the individual values. Fall back to the light defaults instead of reading
+			// parameters which are not present in the container.
+			double light2Visibility =
+				par->IfExists("light2_visibility") ? par->Get<double>("light2_visibility") : 1.0;
+			double light2Size = par->IfExists("light2_size") ? par->Get<double>("light2_size") : 0.5;
 			for (int i = 3; i <= 5; i++)
 			{
 				if (par->IfExists(QString("light%1_is_defined").arg(i)))
 				{
-					par->Set(QString("light%1_visibility").arg(i), par->Get<double>("light2_visibility"));
-					par->Set(QString("light%1_size").arg(i), par->Get<double>("light2_size"));
+					par->Set(QString("light%1_visibility").arg(i), light2Visibility);
+					par->Set(QString("light%1_size").arg(i), light2Size);
 				}
 			}
 		}
@@ -1694,10 +1710,11 @@ void cSettings::Compatibility2(
 		if (par->Get<bool>("random_lights_group"))
 		{
 			int numberOfRandomLights = par->Get<int>("random_lights_number");
+			// the aux light size may be undefined in the file, use the light default then
+			double refLightSize = par->IfExists("light2_size") ? par->Get<double>("light2_size") : 0.5;
 			par->Set("random_lights_intensity",
 				par->Get<double>("random_lights_intensity") / (numberOfRandomLights / 4 + 4));
-			par->Set(
-				"random_lights_size", par->Get<double>("light2_size") * (sqrt(numberOfRandomLights) / 4));
+			par->Set("random_lights_size", refLightSize * (sqrt(numberOfRandomLights) / 4));
 		}
 	}
 
@@ -2269,11 +2286,41 @@ void cSettings::InjectTemporaryLegacyPrimitiveNodeParams(
 	if (!par->IfExists(name)) par->addParam(name, 0.1, morphAkima, paramStandard);
 }
 
+// Base names of the parameters which were stored in the main container as "<baseName>_<N>"
+// in the legacy flat format (settings files up to v2.34), where N was the 1-based fractal
+// number (1..maxLegacyFractals). Only these names are allowed to be reinterpreted as
+// per-fractal parameters. Many other parameters legitimately end with digits
+// (e.g. "transf_offset_111", "analyticDE_tweak_005", "mat1_fractal_coloring_xyzC_111") and
+// their suffix is part of the name, not a fractal index.
+static const QStringList gLegacyPerFractalParams = {
+	"boolean_operator",
+	"check_for_bailout",
+	"dont_add_c_constant",
+	"fractal_constant_factor",
+	"fractal_enable",
+	"formula",
+	"formula_iterations",
+	"formula_material_id",
+	"formula_maxiter",
+	"formula_position",
+	"formula_repeat",
+	"formula_rotation",
+	"formula_scale",
+	"formula_start_iteration",
+	"formula_stop_iteration",
+	"formula_weight",
+	"initial_waxis",
+	"julia_c",
+	"julia_mode",
+	"smooth_de_combine_distance",
+	"smooth_de_combine_enable",
+};
+
 bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
 	QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer)
 {
-	// Resolves a legacy fractal param name (e.g. "fractal_xxx_1") to the base param name and target
+	// Resolves a legacy fractal param name (e.g. "formula_1") to the base param name and target
 	// fractal container. Early exit if fractPar is null or decodeLine is empty
 	if (!fractPar || decodeLine.isEmpty()) return false;
 
@@ -2299,11 +2346,19 @@ bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 	int fractalIndex = rawName.mid(lastUnderscore + 1).toInt(&conversionOK) - 1;
 	QString baseParam = rawName.left(lastUnderscore);
 
-	// Ensure the target fractal container exists before checking the base parameter
-	if (conversionOK && fractalIndex >= 0)
+	// The legacy flat format supported only maxLegacyFractals fractals and only the known
+	// per-fractal base names. Reject anything else (including parameters whose name simply
+	// ends with digits) before touching the fractal container - otherwise a bogus index such
+	// as "transf_offset_111" would grow the container with empty, uninitialized entries.
+	const int maxLegacyFractals = 9;
+	if (!conversionOK || fractalIndex < 0 || fractalIndex >= maxLegacyFractals
+			|| !gLegacyPerFractalParams.contains(baseParam))
 	{
-		fractPar->ensureCapacity(fractalIndex);
+		return false;
 	}
+
+	// Ensure the target fractal container exists before checking the base parameter
+	fractPar->ensureCapacity(fractalIndex);
 
 	// formula_maxiter_N is a top-level indexed parameter, not a legacy fractal param
 	if (baseParam == "formula_maxiter")
@@ -2313,8 +2368,8 @@ bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 
 	// Check if the legacy param does not exist in the top-level container
 	// and the base param exists in the target fractal container
-	if (conversionOK && fractalIndex >= 0 && fractalIndex < fractPar->size()
-			&& !par->IfExists(rawName) && fractPar->at(fractalIndex)->IfExists(baseParam))
+	if (fractalIndex < fractPar->size() && !par->IfExists(rawName)
+			&& fractPar->at(fractalIndex)->IfExists(baseParam))
 	{
 		// Build the resolved line with the base param name and update the target container
 		resolvedLine = baseParam + decodeLine.mid(firstSpace);
@@ -2329,8 +2384,11 @@ void cSettings::MigrateLegacyParamsToFractal(
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
 {
 	// Migrates legacy flat params (dont_add_c_constant, fractal_constant_factor, julia_mode, julia_c)
-	// to the new fractal-based structure. Migrate per-fractal dont_add_c_constant params
-	for (int i = 1; i <= fract->size(); i++)
+	// to the new fractal-based structure. Migrate per-fractal dont_add_c_constant params.
+	// The legacy flat format had at most maxLegacyFractals fractals, so the loop is bounded by
+	// that number instead of the current container size (which may contain extra node containers).
+	const int maxLegacyFractals = 9;
+	for (int i = 1; i <= std::min(fract->size(), maxLegacyFractals); i++)
 	{
 		QString oldParamName = QString("dont_add_c_constant_%1").arg(i);
 		if (par->IfExists(oldParamName))

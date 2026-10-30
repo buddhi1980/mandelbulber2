@@ -392,8 +392,6 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 				QString prefix;
 				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid:\n";
 
-				if (par->Get<bool>("boolean_operators")) prefix += "boolean:\n";
-
 				QString settingsTxt = parSettings.GetSettingsText();
 				QStringList nodeFormulaNames = extractFormulasFromSettings(settingsTxt);
 				if (!nodeFormulaNames.isEmpty())
