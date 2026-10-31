@@ -69,6 +69,8 @@ Name: "full"; Description: "Full installation"
 [Components]
 
 [Files]
+; copies the whole build output, including the doc folder with the html manual
+; (index.html, css, img) staged there by the mandelbulber2_autogen project
 DestDir: "{app}"; Flags: ignoreversion recursesubdirs; Source:"*"
 
 [UninstallDelete]

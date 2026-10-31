@@ -163,7 +163,7 @@
     <MakeDir Directories="$(IntDir)" />
     <Exec Command="rd /s /q &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q /I /S &quot;$(SourceDir)mandelbulber2\deploy\share\mandelbulber2&quot; &quot;$(OutDir)&quot;" />
-    <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)mandelbulber2\deploy\doc&quot; &quot;$(OutDir)doc&quot;" />
+    <Exec Command="xcopy /Y /Q /I /S /D &quot;$(SourceDir)mandelbulber2\deploy\doc&quot; &quot;$(OutDir)doc&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\iconengines&quot; &quot;$(OutDir)iconengines&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\imageformats&quot; &quot;$(OutDir)imageformats&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\platforms&quot; &quot;$(OutDir)platforms&quot;" />
