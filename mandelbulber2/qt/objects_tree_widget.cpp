@@ -151,15 +151,39 @@ struct sPrimitiveSelectorItem
 {
 	QString typeName;
 	QString iconPath;
+	QString description;
 };
 
 static const QList<sPrimitiveSelectorItem> s_primitiveSelectorItems = {
-	{"rectangle", ":/primitives/icons/rectangle.png"}, {"circle", ":/primitives/icons/circle.png"},
-	{"box", ":/primitives/icons/box.png"}, {"cylinder", ":/primitives/icons/cylinder.png"},
-	{"cone", ":/primitives/icons/cone.png"}, {"sphere", ":/primitives/icons/sphere.png"},
-	{"torus", ":/primitives/icons/torus.png"}, {"plane", ":/primitives/icons/plane.png"},
-	{"water", ":/primitives/icons/water.png"}, {"prism", ":/primitives/icons/prism.png"},
-	{"ellipsoid", ":/primitives/icons/ellipsoid.png"}};
+	{"rectangle", ":/primitives/icons/rectangle.png",
+		QObject::tr("A flat rectangle bounded by a single plane. Useful as a wall, card "
+								"or a light/texture backdrop.")},
+	{"circle", ":/primitives/icons/circle.png",
+		QObject::tr("A flat disc bounded by a single plane with an adjustable radius.")},
+	{"box", ":/primitives/icons/box.png",
+		QObject::tr("A closed cuboid defined by its three side lengths and corner "
+								"rounding.")},
+	{"cylinder", ":/primitives/icons/cylinder.png",
+		QObject::tr("A cylinder along its axis with an adjustable height and radius; can "
+								"be capped or open.")},
+	{"cone", ":/primitives/icons/cone.png",
+		QObject::tr("A cone tapering from the base radius to the apex point.")},
+	{"sphere", ":/primitives/icons/sphere.png", QObject::tr("A solid ball limited by its radius.")},
+	{"torus", ":/primitives/icons/torus.png",
+		QObject::tr("A donut shape defined by the ring radius and the tube radius.")},
+	{"plane", ":/primitives/icons/plane.png",
+		QObject::tr("An infinite plane dividing space into an inner and an outer half; "
+								"only the side defined as inside is visible.")},
+	{"water", ":/primitives/icons/water.png",
+		QObject::tr("A special water surface plane with wave displacement, used to render "
+								"sea and ocean surfaces.")},
+	{"prism", ":/primitives/icons/prism.png",
+		QObject::tr("A closed prism/polyhedron built from faces with an adjustable apex "
+								"angle; produces shapes such as tetrahedra and pyramids.")},
+	{"ellipsoid", ":/primitives/icons/ellipsoid.png",
+		QObject::tr("A stretched sphere with independent radii along the X, Y and Z "
+								"axes.")},
+};
 
 // --- Private helpers ---
 
@@ -394,6 +418,38 @@ QTreeWidgetItem *cObjectsTreeWidget::selectedGroupTarget() const
 	return isGroupType(parentType) ? parent : nullptr;
 }
 
+// Returns a tooltip text describing what the given group node type does with its
+// child objects. Used by the group selection and boolean operator dialogs.
+static QString groupTypeToolTip(enumNodeType type)
+{
+	switch (type)
+	{
+		case enumNodeType::hybrid:
+			return QObject::tr(
+				"Creates a hybrid fractal group: the formulas of the child "
+				"fractal objects are combined into one iteration sequence. "
+				"The iteration count table defines how the formulas are mixed "
+				"over the orbit, which allows morphing between the shapes.");
+		case enumNodeType::booleanAdd:
+			return QObject::tr(
+				"Creates a Boolean union group: all child objects are merged "
+				"into one, the result shows every point contained in any of "
+				"them. Surfaces of the children can be smoothly fused using "
+				"the 'Smooth DE combine' option.");
+		case enumNodeType::booleanMul:
+			return QObject::tr(
+				"Creates a Boolean intersection group: only the volume lying "
+				"inside all child objects at once is kept (the common part "
+				"of the children).");
+		case enumNodeType::booleanSub:
+			return QObject::tr(
+				"Creates a Boolean subtraction group: the volume of the "
+				"following children is cut out from the first child "
+				"(A - B - C ...).");
+		default: return QString();
+	}
+}
+
 enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 {
 	if (ok) *ok = false;
@@ -412,6 +468,7 @@ enumNodeType cObjectsTreeWidget::showGroupSelectionDialog(bool *ok)
 	{
 		QToolButton *button = new QToolButton(&dialog);
 		button->setText(options[i].first);
+		button->setToolTip(groupTypeToolTip(options[i].second));
 		button->setToolButtonStyle(Qt::ToolButtonTextOnly);
 		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 		layout->addWidget(button, i / 2, i % 2);
@@ -460,6 +517,7 @@ enumNodeType cObjectsTreeWidget::showBooleanOperatorDialog(enumNodeType currentT
 	{
 		QToolButton *button = new QToolButton(&dialog);
 		button->setText(options[i].first);
+		button->setToolTip(groupTypeToolTip(options[i].second));
 		button->setToolButtonStyle(Qt::ToolButtonTextOnly);
 		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 		if (options[i].second == currentType) button->setEnabled(false);
@@ -499,6 +557,7 @@ QString cObjectsTreeWidget::showPrimitiveSelectionDialog(bool *ok)
 		QToolButton *button = new QToolButton(&dialog);
 		button->setText(item.typeName);
 		button->setIcon(QIcon(item.iconPath));
+		button->setToolTip(item.description);
 		button->setIconSize(iconSize);
 		button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

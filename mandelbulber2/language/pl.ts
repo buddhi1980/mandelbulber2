@@ -2552,6 +2552,81 @@ Aktualna ścieżka do clang-format jest: %1</translation>
         <source>Cannot finish rendering nebula</source>
         <translation>Nie można dokończyć renderowania mgławicy</translation>
     </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="159"/>
+        <source>A flat rectangle bounded by a single plane. Useful as a wall, card or a light/texture backdrop.</source>
+        <translation>Płaski prostokąt ograniczony pojedynczą płaszczyzną. Przydatny jako ściana, karta lub tło światła/tekstury.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="162"/>
+        <source>A flat disc bounded by a single plane with an adjustable radius.</source>
+        <translation>Płaski dysk ograniczony pojedynczą płaszczyzną z regulowanym promieniem.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="164"/>
+        <source>A closed cuboid defined by its three side lengths and corner rounding.</source>
+        <translation>Domknięty prostopadłościan zdefiniowany przez długości trzech krawędzi i zaokrąglenie narożników.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="167"/>
+        <source>A cylinder along its axis with an adjustable height and radius; can be capped or open.</source>
+        <translation>Walec wzdłuż swojej osi z regulowaną wysokością i promieniem; może być zamknięty lub otwarty.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="170"/>
+        <source>A cone tapering from the base radius to the apex point.</source>
+        <translation>Stożek zwężający się od promienia podstawy do wierzchołka.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="171"/>
+        <source>A solid ball limited by its radius.</source>
+        <translation>Bryłowa kula ograniczona swoim promieniem.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="173"/>
+        <source>A donut shape defined by the ring radius and the tube radius.</source>
+        <translation>Kształt pączka zdefiniowany przez promień pierścienia i promień rurki.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="175"/>
+        <source>An infinite plane dividing space into an inner and an outer half; only the side defined as inside is visible.</source>
+        <translation>Nieskończona płaszczyzna dzieląca przestrzeń na stronę wewnętrzną i zewnętrzną; widoczna jest tylko strona uznana za wewnętrzną.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="178"/>
+        <source>A special water surface plane with wave displacement, used to render sea and ocean surfaces.</source>
+        <translation>Specjalna płaszczyzna powierzchni wody z przemieszczeniem fal, używana do renderowania powierzchni mórz i oceanów.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="181"/>
+        <source>A closed prism/polyhedron built from faces with an adjustable apex angle; produces shapes such as tetrahedra and pyramids.</source>
+        <translation>Domknięty graniastosłup/wielościan zbudowany ze ścian z regulowanym kątem wierzchołkowym; tworzy kształty takie jak czworościany i ostrosłupy.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="184"/>
+        <source>A stretched sphere with independent radii along the X, Y and Z axes.</source>
+        <translation>Rozciągnięta kula z niezależnymi promieniami wzdłuż osi X, Y i Z.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="428"/>
+        <source>Creates a hybrid fractal group: the formulas of the child fractal objects are combined into one iteration sequence. The iteration count table defines how the formulas are mixed over the orbit, which allows morphing between the shapes.</source>
+        <translation>Tworzy grupę fraktala hybrydowego: formuły podrzędnych obiektów fraktalnych są łączone w jedną sekwencję iteracji. Tabela liczb iteracji określa, jak formuły są mieszane wzdłuż orbity, co pozwala na morfowanie między kształtami.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="434"/>
+        <source>Creates a Boolean union group: all child objects are merged into one, the result shows every point contained in any of them. Surfaces of the children can be smoothly fused using the &apos;Smooth DE combine&apos; option.</source>
+        <translation>Tworzy grupę sumy boolowskiej: wszystkie obiekty podrzędne są scalane w jeden, wynik pokazuje każdy punkt zawarty w którymkolwiek z nich. Powierzchnie dzieci można płynnie zlewać za pomocą opcji „Gładkie przenikanie obiektów”.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="440"/>
+        <source>Creates a Boolean intersection group: only the volume lying inside all child objects at once is kept (the common part of the children).</source>
+        <translation>Tworzy grupę iloczynu boolowskiego: zachowywana jest tylko objętość leżąca jednocześnie wewnątrz wszystkich obiektów podrzędnych (część wspólna dzieci).</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="445"/>
+        <source>Creates a Boolean subtraction group: the volume of the following children is cut out from the first child (A - B - C ...).</source>
+        <translation>Tworzy grupę różnicy boolowskiej: objętość kolejnych obiektów podrzędnych jest wycinana z pierwszego dziecka (A - B - C ...).</translation>
+    </message>
 </context>
 <context>
     <name>RenderWindow</name>
@@ -9577,19 +9652,19 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
         <location filename="../qt/dock_effects.ui" line="1266"/>
         <location filename="../qt/ui_dock_effects.h" line="3539"/>
         <source>Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi X (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie 'Multiple rays' okluzji otoczenia.</translation>
+        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi X (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1300"/>
         <location filename="../qt/ui_dock_effects.h" line="3544"/>
         <source>Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Y (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie 'Multiple rays' okluzji otoczenia.</translation>
+        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Y (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1334"/>
         <location filename="../qt/ui_dock_effects.h" line="3549"/>
         <source>Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Z (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie 'Multiple rays' okluzji otoczenia.</translation>
+        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Z (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1485"/>
@@ -10925,37 +11000,37 @@ na powierzchni:</translation>
         <location filename="../qt/dock_effects.ui" line="2796"/>
         <location filename="../qt/ui_dock_effects.h" line="3839"/>
         <source>Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi Z (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie 'Płaszczyzna'.</translation>
+        <translation>Obrót warstwy chmur wokół osi Z (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2837"/>
         <location filename="../qt/ui_dock_effects.h" line="3845"/>
         <source>Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer; the layer is measured along the rotated Z axis.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi Z, względem fraktala. Używana jako początek warstwy 'Płaszczyzna'; warstwa jest mierzona wzdłuż obróconej osi Z.</translation>
+        <translation>Pozycja środka objętości chmur wzdłuż osi Z, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos;; warstwa jest mierzona wzdłuż obróconej osi Z.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2888"/>
         <location filename="../qt/ui_dock_effects.h" line="3853"/>
         <source>Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer and of its rotation.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi X, względem fraktala. Używana jako początek warstwy 'Płaszczyzna' oraz jej obrotu.</translation>
+        <translation>Pozycja środka objętości chmur wzdłuż osi X, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos; oraz jej obrotu.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2895"/>
         <location filename="../qt/ui_dock_effects.h" line="3856"/>
         <source>Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi Y (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie 'Płaszczyzna'.</translation>
+        <translation>Obrót warstwy chmur wokół osi Y (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2939"/>
         <location filename="../qt/ui_dock_effects.h" line="3862"/>
         <source>Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi X (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie 'Płaszczyzna'.</translation>
+        <translation>Obrót warstwy chmur wokół osi X (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2983"/>
         <location filename="../qt/ui_dock_effects.h" line="3868"/>
         <source>Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer and of its rotation.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi Y, względem fraktala. Używana jako początek warstwy 'Płaszczyzna' oraz jej obrotu.</translation>
+        <translation>Pozycja środka objętości chmur wzdłuż osi Y, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos; oraz jej obrotu.</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4735"/>
@@ -17922,7 +17997,7 @@ light</source>
         <location filename="../qt/material_editor.ui" line="3484"/>
         <location filename="../qt/ui_material_editor.h" line="3832"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with roughness map texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy chropowatości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol '%'. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy chropowatości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3497"/>
@@ -18000,7 +18075,7 @@ light</source>
         <location filename="../qt/material_editor.ui" line="4136"/>
         <location filename="../qt/ui_material_editor.h" line="3932"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with reflectance map texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy reflektancji.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol '%'. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy reflektancji.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4149"/>
@@ -18048,7 +18123,7 @@ light</source>
         <location filename="../qt/material_editor.ui" line="4486"/>
         <location filename="../qt/ui_material_editor.h" line="3994"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with transparency color map texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy koloru przezroczystości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol '%'. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury mapy koloru przezroczystości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4499"/>
@@ -18066,7 +18141,7 @@ light</source>
         <location filename="../qt/material_editor.ui" line="4571"/>
         <location filename="../qt/ui_material_editor.h" line="4007"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with transparency alpha texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury alfa przezroczystości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol '%'. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do tekstury alfa przezroczystości.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: texture%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4598"/>
@@ -20298,118 +20373,166 @@ wielkości obiektu)</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="50"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="152"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="153"/>
+        <source>Removes the selected object or group together with all its children from the scene tree. The &apos;World&apos; root element cannot be deleted.</source>
+        <translation>Usuwa wybrany obiekt lub grupę wraz ze wszystkimi elementami podrzędnymi z drzewa sceny. Element główny „Świat” nie może zostać usunięty.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="53"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="155"/>
         <source>Delete object</source>
         <translation>Usuń obiekt</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="57"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="153"/>
+        <location filename="../qt/objects_tree_widget.ui" line="60"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="157"/>
+        <source>Adds a new fractal object to the tree (into the currently selected group). The fractal formula and its parameters are edited in the panel below. Every fractal object has its own, independent formula settings.</source>
+        <translation>Dodaje nowy obiekt fraktalny do drzewa (do aktualnie wybranej grupy). Formuła fraktala i jej parametry są edytowane w panelu poniżej. Każdy obiekt fraktalny ma własne, niezależne ustawienia formuły.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="63"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="159"/>
         <source>Add Fractal</source>
         <translation>Dodaj fraktal</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="64"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="154"/>
+        <location filename="../qt/objects_tree_widget.ui" line="70"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="161"/>
+        <source>Adds a container which combines its child objects. Opens a dialog to choose the group type: Hybrid fractal (the child fractal formulas are combined into a single iteration sequence, allowing morphing between them), Boolean ADD (union), Boolean MUL (intersection) or Boolean SUB (difference).</source>
+        <translation>Dodaje kontener łączący obiekty podrzędne. Otwiera dialog wyboru typu grupy: Fraktal hybrydowy (formuły podrzędnych fraktali są łączone w pojedynczą sekwencję iteracji, umożliwiając morfowanie między nimi), Suma boolowska ADD, Iloczyn boolowski MUL (część wspólna) lub Różnica boolowska SUB (różnica).</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="73"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="163"/>
         <source>Add group</source>
         <translation>Dodaj grupę</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="71"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="155"/>
+        <location filename="../qt/objects_tree_widget.ui" line="80"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="165"/>
+        <source>Adds a geometric primitive object to the tree (into the currently selected group). Opens a dialog to choose the primitive type: rectangle, circle, box, cylinder, cone, sphere, torus, plane, water, prism or ellipsoid. Primitives have simple shape parameters (sizes, angles) and are fast to render.</source>
+        <translation>Dodaje obiekt prymitywu geometrycznego do drzewa (do aktualnie wybranej grupy). Otwiera dialog wyboru typu prymitywu: prostokąt, koło, box, walec, stożek, kula, torus, płaszczyzna, woda, graniastosłup lub elipsoida. Prymitywy mają proste parametry kształtu (rozmiary, kąty) i szybko się renderują.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="83"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="167"/>
         <source>Add Primitive</source>
         <translation>Dodaj prymityw</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="78"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="156"/>
+        <location filename="../qt/objects_tree_widget.ui" line="90"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="169"/>
+        <source>Creates a copy of the selected object together with its entire subtree, using new node and object ids, and adds it to the same group.</source>
+        <translation>Tworzy kopię wybranego obiektu wraz z całym jego poddrzewem, używając nowych identyfikatorów węzła i obiektu, i dodaje ją do tej samej grupy.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="93"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="171"/>
         <source>Duplicate</source>
         <translation>Duplikuj</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="85"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="157"/>
+        <location filename="../qt/objects_tree_widget.ui" line="100"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="173"/>
+        <source>Rebuilds the object tree from the parameters. Useful when the scene was changed elsewhere and the list needs to be synchronized.</source>
+        <translation>Przebudowuje drzewo obiektów na podstawie parametrów. Przydatne, gdy scena została zmieniona gdzie indziej i lista wymaga synchronizacji.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="103"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="175"/>
         <source>Refresh</source>
         <translation>Odśwież</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.ui" line="92"/>
-        <location filename="../qt/ui_objects_tree_widget.h" line="158"/>
+        <location filename="../qt/objects_tree_widget.ui" line="110"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="177"/>
+        <source>Displays wire-frame previews of the primitives and origin crosses of the objects in the render window. The overlay follows the parameter edits while this option is enabled.</source>
+        <translation>Wyświetla w oknie renderowania podgląd szkieletowy prymitywów oraz krzyże początkowe obiektów. Nakładka śledzi zmiany parametrów, gdy opcja jest włączona.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.ui" line="113"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="179"/>
         <source>Display wire-frame previews</source>
         <translation>Pokaż szkieletowy podgląd</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="402"/>
+        <location filename="../qt/objects_tree_widget.ui" line="135"/>
+        <location filename="../qt/ui_objects_tree_widget.h" line="181"/>
+        <source>Hierarchy of all objects in the scene: fractals, primitives and groups. Each line shows the node and object ids, the type, the name, the enable checkbox and the material. Select an item to edit it in the panel below; drag and drop moves items and changes the parent group.</source>
+        <translation>Hierarchia wszystkich obiektów w scenie: fraktale, prymitywy i grupy. Każdy wiersz pokazuje identyfikatory węzła i obiektu, typ, nazwę, pole włączenia oraz materiał. Zaznacz element, aby edytować go w panelu poniżej; przeciągnięcie przesuwa elementy i zmienia grupę nadrzędną.</translation>
+    </message>
+    <message>
+        <location filename="../qt/objects_tree_widget.cpp" line="458"/>
         <source>Select group type</source>
         <translation>Wybierz typ grupy</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="407"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="463"/>
         <source>Hybrid fractal</source>
         <translation>Fraktal hybrydowy</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="408"/>
-        <location filename="../qt/objects_tree_widget.cpp" line="456"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="464"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="513"/>
         <source>Boolean ADD</source>
         <translation>Suma boolowska (ADD)</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="408"/>
-        <location filename="../qt/objects_tree_widget.cpp" line="456"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="464"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="513"/>
         <source>Boolean MUL</source>
         <translation>Iloczyn boolowski (MUL)</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="409"/>
-        <location filename="../qt/objects_tree_widget.cpp" line="457"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="465"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="514"/>
         <source>Boolean SUB</source>
         <translation>Różnica boolowska (SUB)</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="450"/>
-        <location filename="../qt/objects_tree_widget.cpp" line="2395"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="507"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="2454"/>
         <source>Change boolean operator</source>
         <translation>Zmień operator boolowski</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="488"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="546"/>
         <source>Select primitive type</source>
         <translation>Wybierz typ prymitywu</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="633"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="692"/>
         <source>World</source>
         <translation>Świat</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="940"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="999"/>
         <source>Material manager</source>
         <translation>Menedżer materiałów</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="1114"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="1173"/>
         <source>fractal %1</source>
         <translation>fraktal %1</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="1655"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="1714"/>
         <source>%1 (%2)</source>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="1658"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="1717"/>
         <source>&lt;b&gt;Editing:&lt;/b&gt; %1 &amp;nbsp;&amp;nbsp; &lt;b&gt;Type:&lt;/b&gt; %2</source>
         <translation>&lt;b&gt;Edycja:&lt;/b&gt; %1 &amp;nbsp;&amp;nbsp; &lt;b&gt;Typ:&lt;/b&gt; %2</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="2388"/>
-        <location filename="../qt/objects_tree_widget.cpp" line="2445"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="2447"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="2504"/>
         <source>Rename</source>
         <translation>Zmień nazwę</translation>
     </message>
     <message>
-        <location filename="../qt/objects_tree_widget.cpp" line="2445"/>
+        <location filename="../qt/objects_tree_widget.cpp" line="2504"/>
         <source>New name:</source>
         <translation>Nowa nazwa:</translation>
     </message>
@@ -21438,7 +21561,7 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1003"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1872"/>
         <source>Text appended to the file name of the saved &apos;color&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'color'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;color&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1013"/>
@@ -21450,7 +21573,7 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1045"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1887"/>
         <source>Text appended to the file name of the saved &apos;alpha&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'alpha'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;alpha&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1055"/>
@@ -21462,7 +21585,7 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1087"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1902"/>
         <source>Text appended to the file name of the saved &apos;zbuffer&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'zbuffer'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;zbuffer&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1123"/>
@@ -21552,13 +21675,13 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1403"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1990"/>
         <source>Text appended to the file name of the saved &apos;specular&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'specular'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;specular&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1413"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1994"/>
         <source>Text appended to the file name of the saved &apos;world&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'world'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;world&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1423"/>
@@ -21570,19 +21693,19 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1433"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2002"/>
         <source>Text appended to the file name of the saved &apos;diffuse&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'diffuse'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;diffuse&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1465"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2013"/>
         <source>Text appended to the file name of the saved &apos;shadow_channel&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'shadow_channel'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;shadow_channel&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1475"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2017"/>
         <source>Text appended to the file name of the saved &apos;normalWorld&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'normalWorld'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;normalWorld&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1492"/>
@@ -21600,7 +21723,7 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1502"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2026"/>
         <source>Text appended to the file name of the saved &apos;gi_channel&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'gi_channel'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;gi_channel&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1512"/>
@@ -21618,13 +21741,13 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1544"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2041"/>
         <source>Text appended to the file name of the saved &apos;normal&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'normal'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;normal&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1576"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2052"/>
         <source>Text appended to the file name of the saved &apos;not_denoised_channel&apos; channel image.</source>
-        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału 'not_denoised_channel'.</translation>
+        <translation>Tekst dodawany do nazwy pliku zapisywanego obrazu kanału &apos;not_denoised_channel&apos;.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1591"/>
@@ -22573,223 +22696,407 @@ wybrany</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="29"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="694"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="695"/>
+        <source>Randomizes one parameter with a small change amplitude (10% of the range).</source>
+        <translation>Losowo zmienia jeden parametr z małą amplitudą zmian (10% zakresu).</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="32"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="697"/>
         <source>Slight randomize</source>
         <translation>Lekkie losowanie</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="36"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="695"/>
+        <location filename="../qt/randomizer_dialog.ui" line="39"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="699"/>
+        <source>Randomizes about 1% of the parameters (at least 2) with a medium change amplitude.</source>
+        <translation>Losowo zmienia około 1% parametrów (co najmniej 2) ze średnią amplitudą zmian.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="42"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="701"/>
         <source>Medium randomize</source>
         <translation>Średnie losowanie</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="43"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="696"/>
+        <location filename="../qt/randomizer_dialog.ui" line="49"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="703"/>
+        <source>Randomizes about 10% of the parameters (at least 3) with the full change amplitude.</source>
+        <translation>Losowo zmienia około 10% parametrów (co najmniej 3) z pełną amplitudą zmian.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="52"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="705"/>
         <source>Heavy randomize</source>
         <translation>Mocne losowanie</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="50"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="697"/>
+        <location filename="../qt/randomizer_dialog.ui" line="59"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="707"/>
+        <source>Stops the ongoing randomizing or cleaning up process.</source>
+        <translation>Zatrzymuje trwający proces losowania lub porządkowania.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="62"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="709"/>
         <source>STOP</source>
         <translation>STOP</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="59"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="698"/>
+        <location filename="../qt/randomizer_dialog.ui" line="71"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="711"/>
+        <source>Only float parameters are randomized; integer and boolean parameters (such as formula selection or iteration counts) stay unchanged.</source>
+        <translation>Losowane są tylko parametry zmiennoprzecinkowe; parametry całkowite i logiczne (np. wybór formuły czy liczba iteracji) pozostają bez zmian.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="74"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="713"/>
         <source>Do not randomize integers and booleans</source>
         <translation>Nie modyfikuj liczb całkowitych i przełączników</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="66"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="699"/>
+        <location filename="../qt/randomizer_dialog.ui" line="81"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="715"/>
+        <source>Keeps the camera position, angle and distance untouched during randomizing.</source>
+        <translation>Pozostawia bez zmian pozycję, kąt i odległość kamery podczas losowania.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="84"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="717"/>
         <source>Do not randomize camera</source>
         <translation>Nie losuj pozycji kamery</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="73"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="700"/>
+        <location filename="../qt/randomizer_dialog.ui" line="91"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="719"/>
+        <source>Discards all randomized settings and restores the actual version from the current scene parameters.</source>
+        <translation>Odrzuca wszystkie wylosowane ustawienia i przywraca bieżącą wersję na podstawie aktualnych parametrów sceny.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="94"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="721"/>
         <source>Reset</source>
         <translation>Resetuj</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="80"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="701"/>
+        <location filename="../qt/randomizer_dialog.ui" line="101"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="723"/>
+        <source>Tests every randomized parameter by re-rendering: those with no visible influence on the image are reset to their original values, so only the parameters which really changed the look stay randomized.</source>
+        <translation>Testuje każdy wylosowany parametr przez ponowne renderowanie: parametry bez widocznego wpływu na obraz są przywracane do wartości pierwotnych, więc losowe pozostają tylko te, które naprawdę zmieniły wygląd.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="104"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="725"/>
         <source>Reset negligible parameters</source>
         <translation>Resetuj nieistotne parametry</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="87"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="702"/>
+        <location filename="../qt/randomizer_dialog.ui" line="111"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="727"/>
+        <source>Applies the actual version to the scene, registers all the randomized parameters as keyframe animated and adds a new keyframe in the animation.</source>
+        <translation>Zastosowuje bieżącą wersję do sceny, rejestruje wszystkie zlosowane parametry jako animowane klatkami kluczowymi i dodaje nową klatkę kluczową w animacji.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="114"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="729"/>
         <source>Use and add to keyframe animation</source>
         <translation>Uzyj i dodaj do animacji klatek kluczowych</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="94"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="703"/>
+        <location filename="../qt/randomizer_dialog.ui" line="121"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="731"/>
+        <source>Applies the parameters of the actual version to the main scene.</source>
+        <translation>Zastosowuje parametry bieżącej wersji do sceny głównej.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="124"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="733"/>
         <source>Use</source>
         <translation>Użyj</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="113"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="704"/>
+        <location filename="../qt/randomizer_dialog.ui" line="131"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="735"/>
+        <source>Progress of the current randomizing or cleaning up process.</source>
+        <translation>Postęp bieżącego procesu losowania lub porządkowania.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="146"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="737"/>
         <source>Actual version</source>
         <translation>Aktualna wersja</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="136"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="705"/>
+        <location filename="../qt/randomizer_dialog.ui" line="152"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="739"/>
+        <source>Preview of the actual (working) version of the settings. When a version is selected, the tooltip of this widget lists the parameters changed by the randomizer.</source>
+        <translation>Podgląd bieżącej (roboczej) wersji ustawień. Gdy wybrano wersję, podpowiedź tego elementu wymienia parametry zmienione przez randomizer.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="172"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="741"/>
         <source>Version 1</source>
         <translation>Wersja 1</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="147"/>
-        <location filename="../qt/randomizer_dialog.ui" line="198"/>
+        <location filename="../qt/randomizer_dialog.ui" line="183"/>
+        <location filename="../qt/randomizer_dialog.ui" line="246"/>
+        <location filename="../qt/randomizer_dialog.ui" line="309"/>
+        <location filename="../qt/randomizer_dialog.ui" line="372"/>
+        <location filename="../qt/randomizer_dialog.ui" line="435"/>
+        <location filename="../qt/randomizer_dialog.ui" line="498"/>
+        <location filename="../qt/randomizer_dialog.ui" line="561"/>
+        <location filename="../qt/randomizer_dialog.ui" line="624"/>
+        <location filename="../qt/randomizer_dialog.ui" line="687"/>
+        <location filename="../qt/randomizer_dialog.ui" line="750"/>
+        <location filename="../qt/randomizer_dialog.ui" line="813"/>
+        <location filename="../qt/randomizer_dialog.ui" line="876"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="743"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="759"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="775"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="791"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="807"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="823"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="839"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="855"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="871"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="887"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="903"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="919"/>
+        <source>Copies the settings of this version to the actual (working) version and renders it as the new reference.</source>
+        <translation>Kopiuje ustawienia tej wersji do bieżącej (roboczej) wersji i renderuje ją jako nowy wzorzec odniesienia.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="186"/>
         <location filename="../qt/randomizer_dialog.ui" line="249"/>
-        <location filename="../qt/randomizer_dialog.ui" line="300"/>
-        <location filename="../qt/randomizer_dialog.ui" line="351"/>
-        <location filename="../qt/randomizer_dialog.ui" line="402"/>
-        <location filename="../qt/randomizer_dialog.ui" line="453"/>
-        <location filename="../qt/randomizer_dialog.ui" line="504"/>
-        <location filename="../qt/randomizer_dialog.ui" line="555"/>
-        <location filename="../qt/randomizer_dialog.ui" line="606"/>
-        <location filename="../qt/randomizer_dialog.ui" line="657"/>
-        <location filename="../qt/randomizer_dialog.ui" line="708"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="706"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="710"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="714"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="718"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="722"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="726"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="730"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="734"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="738"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="742"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="746"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="750"/>
+        <location filename="../qt/randomizer_dialog.ui" line="312"/>
+        <location filename="../qt/randomizer_dialog.ui" line="375"/>
+        <location filename="../qt/randomizer_dialog.ui" line="438"/>
+        <location filename="../qt/randomizer_dialog.ui" line="501"/>
+        <location filename="../qt/randomizer_dialog.ui" line="564"/>
+        <location filename="../qt/randomizer_dialog.ui" line="627"/>
+        <location filename="../qt/randomizer_dialog.ui" line="690"/>
+        <location filename="../qt/randomizer_dialog.ui" line="753"/>
+        <location filename="../qt/randomizer_dialog.ui" line="816"/>
+        <location filename="../qt/randomizer_dialog.ui" line="879"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="745"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="761"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="777"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="793"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="809"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="825"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="841"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="857"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="873"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="889"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="905"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="921"/>
         <source>Select</source>
         <translation>Wybierz</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="154"/>
-        <location filename="../qt/randomizer_dialog.ui" line="205"/>
+        <location filename="../qt/randomizer_dialog.ui" line="193"/>
         <location filename="../qt/randomizer_dialog.ui" line="256"/>
-        <location filename="../qt/randomizer_dialog.ui" line="307"/>
-        <location filename="../qt/randomizer_dialog.ui" line="358"/>
-        <location filename="../qt/randomizer_dialog.ui" line="409"/>
-        <location filename="../qt/randomizer_dialog.ui" line="460"/>
-        <location filename="../qt/randomizer_dialog.ui" line="511"/>
-        <location filename="../qt/randomizer_dialog.ui" line="562"/>
-        <location filename="../qt/randomizer_dialog.ui" line="613"/>
-        <location filename="../qt/randomizer_dialog.ui" line="664"/>
-        <location filename="../qt/randomizer_dialog.ui" line="715"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="707"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="711"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="715"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="719"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="723"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="727"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="731"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="735"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="739"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="743"/>
+        <location filename="../qt/randomizer_dialog.ui" line="319"/>
+        <location filename="../qt/randomizer_dialog.ui" line="382"/>
+        <location filename="../qt/randomizer_dialog.ui" line="445"/>
+        <location filename="../qt/randomizer_dialog.ui" line="508"/>
+        <location filename="../qt/randomizer_dialog.ui" line="571"/>
+        <location filename="../qt/randomizer_dialog.ui" line="634"/>
+        <location filename="../qt/randomizer_dialog.ui" line="697"/>
+        <location filename="../qt/randomizer_dialog.ui" line="760"/>
+        <location filename="../qt/randomizer_dialog.ui" line="823"/>
+        <location filename="../qt/randomizer_dialog.ui" line="886"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="747"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="751"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="763"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="779"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="795"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="811"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="827"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="843"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="859"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="875"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="891"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="907"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="923"/>
+        <source>Saves the settings of this version to a selected fractal (*.fract) file.</source>
+        <translation>Zapisuje ustawienia tej wersji do wybranego pliku fraktala (*.fract).</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="196"/>
+        <location filename="../qt/randomizer_dialog.ui" line="259"/>
+        <location filename="../qt/randomizer_dialog.ui" line="322"/>
+        <location filename="../qt/randomizer_dialog.ui" line="385"/>
+        <location filename="../qt/randomizer_dialog.ui" line="448"/>
+        <location filename="../qt/randomizer_dialog.ui" line="511"/>
+        <location filename="../qt/randomizer_dialog.ui" line="574"/>
+        <location filename="../qt/randomizer_dialog.ui" line="637"/>
+        <location filename="../qt/randomizer_dialog.ui" line="700"/>
+        <location filename="../qt/randomizer_dialog.ui" line="763"/>
+        <location filename="../qt/randomizer_dialog.ui" line="826"/>
+        <location filename="../qt/randomizer_dialog.ui" line="889"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="749"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="765"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="781"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="797"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="813"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="829"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="845"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="861"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="877"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="893"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="909"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="925"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="165"/>
-        <location filename="../qt/randomizer_dialog.ui" line="216"/>
-        <location filename="../qt/randomizer_dialog.ui" line="267"/>
-        <location filename="../qt/randomizer_dialog.ui" line="318"/>
-        <location filename="../qt/randomizer_dialog.ui" line="369"/>
-        <location filename="../qt/randomizer_dialog.ui" line="420"/>
-        <location filename="../qt/randomizer_dialog.ui" line="471"/>
+        <location filename="../qt/randomizer_dialog.ui" line="207"/>
+        <location filename="../qt/randomizer_dialog.ui" line="270"/>
+        <location filename="../qt/randomizer_dialog.ui" line="333"/>
+        <location filename="../qt/randomizer_dialog.ui" line="396"/>
+        <location filename="../qt/randomizer_dialog.ui" line="459"/>
         <location filename="../qt/randomizer_dialog.ui" line="522"/>
-        <location filename="../qt/randomizer_dialog.ui" line="573"/>
-        <location filename="../qt/randomizer_dialog.ui" line="624"/>
-        <location filename="../qt/randomizer_dialog.ui" line="675"/>
-        <location filename="../qt/randomizer_dialog.ui" line="726"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="708"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="712"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="716"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="720"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="724"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="728"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="732"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="736"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="740"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="744"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="748"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="752"/>
+        <location filename="../qt/randomizer_dialog.ui" line="585"/>
+        <location filename="../qt/randomizer_dialog.ui" line="648"/>
+        <location filename="../qt/randomizer_dialog.ui" line="711"/>
+        <location filename="../qt/randomizer_dialog.ui" line="774"/>
+        <location filename="../qt/randomizer_dialog.ui" line="837"/>
+        <location filename="../qt/randomizer_dialog.ui" line="900"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="751"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="767"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="783"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="799"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="815"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="831"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="847"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="863"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="879"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="895"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="911"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="927"/>
+        <source>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</source>
+        <translation>Zachowuje tę wersję: następne losowanie pozostawi ją bez zmian zamiast generować nowy zestaw parametrów.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="210"/>
+        <location filename="../qt/randomizer_dialog.ui" line="273"/>
+        <location filename="../qt/randomizer_dialog.ui" line="336"/>
+        <location filename="../qt/randomizer_dialog.ui" line="399"/>
+        <location filename="../qt/randomizer_dialog.ui" line="462"/>
+        <location filename="../qt/randomizer_dialog.ui" line="525"/>
+        <location filename="../qt/randomizer_dialog.ui" line="588"/>
+        <location filename="../qt/randomizer_dialog.ui" line="651"/>
+        <location filename="../qt/randomizer_dialog.ui" line="714"/>
+        <location filename="../qt/randomizer_dialog.ui" line="777"/>
+        <location filename="../qt/randomizer_dialog.ui" line="840"/>
+        <location filename="../qt/randomizer_dialog.ui" line="903"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="753"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="769"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="785"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="801"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="817"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="833"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="849"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="865"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="881"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="897"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="913"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="929"/>
         <source>Keep</source>
         <translation>Zostaw</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="391"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="725"/>
+        <location filename="../qt/randomizer_dialog.ui" line="219"/>
+        <location filename="../qt/randomizer_dialog.ui" line="282"/>
+        <location filename="../qt/randomizer_dialog.ui" line="345"/>
+        <location filename="../qt/randomizer_dialog.ui" line="408"/>
+        <location filename="../qt/randomizer_dialog.ui" line="471"/>
+        <location filename="../qt/randomizer_dialog.ui" line="534"/>
+        <location filename="../qt/randomizer_dialog.ui" line="597"/>
+        <location filename="../qt/randomizer_dialog.ui" line="660"/>
+        <location filename="../qt/randomizer_dialog.ui" line="723"/>
+        <location filename="../qt/randomizer_dialog.ui" line="786"/>
+        <location filename="../qt/randomizer_dialog.ui" line="849"/>
+        <location filename="../qt/randomizer_dialog.ui" line="912"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="755"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="771"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="787"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="803"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="819"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="835"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="851"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="867"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="883"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="899"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="915"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="931"/>
+        <source>Preview image rendered from the randomized settings of this version.</source>
+        <translation>Obraz podglądu zrenderowany z wylosowanych ustawień tej wersji.</translation>
+    </message>
+    <message>
+        <location filename="../qt/randomizer_dialog.ui" line="487"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="821"/>
         <source>Version 3</source>
         <translation>Wersja 3</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="238"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="713"/>
+        <location filename="../qt/randomizer_dialog.ui" line="298"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="773"/>
         <source>Version 2</source>
         <translation>Wersja 2</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="595"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="741"/>
+        <location filename="../qt/randomizer_dialog.ui" line="739"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="885"/>
         <source>Version 4</source>
         <translation>Wersja 4</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="289"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="717"/>
+        <location filename="../qt/randomizer_dialog.ui" line="361"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="789"/>
         <source>Version 5</source>
         <translation>Wersja 5</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="697"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="749"/>
+        <location filename="../qt/randomizer_dialog.ui" line="865"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="917"/>
         <source>Version 6</source>
         <translation>Wersja 6</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="646"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="745"/>
+        <location filename="../qt/randomizer_dialog.ui" line="802"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="901"/>
         <source>Version 7</source>
         <translation>Wersja 7</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="340"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="721"/>
+        <location filename="../qt/randomizer_dialog.ui" line="424"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="805"/>
         <source>Version 8</source>
         <translation>Wersja 8</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="493"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="733"/>
+        <location filename="../qt/randomizer_dialog.ui" line="613"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="853"/>
         <source>Version 10</source>
         <translation>Wersja 10</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="187"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="709"/>
+        <location filename="../qt/randomizer_dialog.ui" line="235"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="757"/>
         <source>Version 9</source>
         <translation>Wersja 9</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="544"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="737"/>
+        <location filename="../qt/randomizer_dialog.ui" line="676"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="869"/>
         <source>Version 11</source>
         <translation>Wersja 11</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.ui" line="442"/>
-        <location filename="../qt/ui_randomizer_dialog.h" line="729"/>
+        <location filename="../qt/randomizer_dialog.ui" line="550"/>
+        <location filename="../qt/ui_randomizer_dialog.h" line="837"/>
         <source>Version 12</source>
         <translation>Wersja 12</translation>
     </message>

@@ -46,6 +46,9 @@
      </property>
      <item row="1" column="0">
       <widget class="QPushButton" name="pushButton_delete_object">
+       <property name="toolTip">
+        <string>Removes the selected object or group together with all its children from the scene tree. The 'World' root element cannot be deleted.</string>
+       </property>
        <property name="text">
         <string>Delete object</string>
        </property>
@@ -53,6 +56,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="pushButton_add_fractal">
+       <property name="toolTip">
+        <string>Adds a new fractal object to the tree (into the currently selected group). The fractal formula and its parameters are edited in the panel below. Every fractal object has its own, independent formula settings.</string>
+       </property>
        <property name="text">
         <string>Add Fractal</string>
        </property>
@@ -60,6 +66,9 @@
      </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="pushButton_add_group">
+       <property name="toolTip">
+        <string>Adds a container which combines its child objects. Opens a dialog to choose the group type: Hybrid fractal (the child fractal formulas are combined into a single iteration sequence, allowing morphing between them), Boolean ADD (union), Boolean MUL (intersection) or Boolean SUB (difference).</string>
+       </property>
        <property name="text">
         <string>Add group</string>
        </property>
@@ -67,6 +76,9 @@
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pushButton_add_primitive">
+       <property name="toolTip">
+        <string>Adds a geometric primitive object to the tree (into the currently selected group). Opens a dialog to choose the primitive type: rectangle, circle, box, cylinder, cone, sphere, torus, plane, water, prism or ellipsoid. Primitives have simple shape parameters (sizes, angles) and are fast to render.</string>
+       </property>
        <property name="text">
         <string>Add Primitive</string>
        </property>
@@ -74,6 +86,9 @@
      </item>
      <item row="0" column="3">
       <widget class="QPushButton" name="pushButton_duplicate">
+       <property name="toolTip">
+        <string>Creates a copy of the selected object together with its entire subtree, using new node and object ids, and adds it to the same group.</string>
+       </property>
        <property name="text">
         <string>Duplicate</string>
        </property>
@@ -81,6 +96,9 @@
      </item>
      <item row="1" column="3">
       <widget class="QPushButton" name="pushButton_refresh">
+       <property name="toolTip">
+        <string>Rebuilds the object tree from the parameters. Useful when the scene was changed elsewhere and the list needs to be synchronized.</string>
+       </property>
        <property name="text">
         <string>Refresh</string>
        </property>
@@ -88,6 +106,9 @@
      </item>
      <item row="1" column="1" colspan="2">
       <widget class="QCheckBox" name="checkBox_displayWireFramePreviews">
+       <property name="toolTip">
+        <string>Displays wire-frame previews of the primitives and origin crosses of the objects in the render window. The overlay follows the parameter edits while this option is enabled.</string>
+       </property>
        <property name="text">
         <string>Display wire-frame previews</string>
        </property>
@@ -110,6 +131,9 @@
       <bool>false</bool>
      </property>
      <widget class="cDragDropTreeWidget" name="treeWidget_objects">
+      <property name="toolTip">
+       <string>Hierarchy of all objects in the scene: fractals, primitives and groups. Each line shows the node and object ids, the type, the name, the enable checkbox and the material. Select an item to edit it in the panel below; drag and drop moves items and changes the parent group.</string>
+      </property>
       <property name="dragEnabled">
        <bool>true</bool>
       </property>
