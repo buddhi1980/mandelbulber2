@@ -31,6 +31,9 @@ unix {
 	INSTALLS += openclfiles
 	
 	documentation.files = $$ROOT/deploy/doc/Mandelbulber_Manual.pdf
+	documentation.files += $$ROOT/deploy/doc/index.html
+	documentation.files += $$ROOT/deploy/doc/css
+	documentation.files += $$ROOT/deploy/doc/img
 	documentation.files += $$ROOT/deploy/README
 	documentation.files += $$ROOT/deploy/NEWS
 	documentation.files += $$ROOT/deploy/COPYING

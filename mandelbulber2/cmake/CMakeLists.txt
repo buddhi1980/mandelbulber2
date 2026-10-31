@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(mandelbulber2)
 
 # Detect Compilation System.
@@ -16,8 +16,8 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	message(STATUS "MSVC Compiler Detected")
 endif()
 
-#set C++ 14
-set(CMAKE_CXX_STANDARD 14)
+# Qt6 requires C++17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find includes in corresponding build directories.
@@ -32,15 +32,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Find necessary qt libraries.
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5UiTools REQUIRED)
-find_package(Qt5Test REQUIRED)
-find_package(Qt5Multimedia REQUIRED)
-find_package(Qt5Concurrent REQUIRED)
+# Find necessary qt libraries (Qt6; CMake 4.x no longer supports Qt5 config files).
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network UiTools Test Multimedia Qml Concurrent OpenGLWidgets)
 
 # Find other required libraries.
 find_package(PNG REQUIRED)
@@ -57,13 +50,17 @@ find_package(PkgConfig)
 # Extra CMake Modules package required for OpenEXR.
 IF(PKG_CONFIG_FOUND)
 	pkg_check_modules(OpenEXR OpenEXR)
+	# JPEG XL and libsndfile support (same feature macros as the qmake build)
+	pkg_check_modules(LIBJXL libjxl)
+	pkg_check_modules(LIBJXL_THREADS libjxl_threads)
+	pkg_check_modules(SNDFILE sndfile)
 ENDIF()
 
 IF(WIN32 AND NOT USING_INTEL)
 	# WIN32 MSVC
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GL /Ox")
 ELSEIF(NOT USING_INTEL)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -fopenmp -std=c++11")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -fopenmp")
 ENDIF()
 
 # Find all sources.
@@ -90,7 +87,9 @@ add_executable(mandelbulber2 WIN32
 	${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
 
 # Link qt libraries.
-qt5_use_modules(mandelbulber2 Core Widgets Network Gui UiTools Test Multimedia)
+target_link_libraries(mandelbulber2
+	Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Network Qt6::UiTools
+	Qt6::Test Qt6::Multimedia Qt6::Qml Qt6::Concurrent Qt6::OpenGLWidgets)
 
 # Link other required libraries.
 include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS} ${LZO_INCLUDE_DIR})
@@ -103,6 +102,21 @@ IF(TIFF_FOUND)
 	add_definitions(-DUSE_TIFF)
 ENDIF()
 
+IF(LIBJXL_FOUND)
+	include_directories(${LIBJXL_INCLUDE_DIRS})
+	target_link_libraries(mandelbulber2 ${LIBJXL_LIBRARIES})
+	IF(LIBJXL_THREADS_FOUND)
+		target_link_libraries(mandelbulber2 ${LIBJXL_THREADS_LIBRARIES})
+	ENDIF()
+	add_definitions(-DUSE_JXL)
+ENDIF()
+
+IF(SNDFILE_FOUND)
+	include_directories(${SNDFILE_INCLUDE_DIRS})
+	target_link_libraries(mandelbulber2 ${SNDFILE_LIBRARIES})
+	add_definitions(-DUSE_SNDFILE)
+ENDIF()
+
 IF(OpenEXR_FOUND)
 	include_directories(${OpenEXR_INCLUDE_DIRS})
 	target_link_libraries(mandelbulber2 ${OpenEXR_LIBRARIES})
@@ -110,9 +124,13 @@ IF(OpenEXR_FOUND)
 ENDIF()
 
 IF(USE_GAMEPAD)
-	find_package(Qt5Gamepad)
-	target_link_libraries(mandelbulber2 Qt5::Gamepad)
-	add_definitions(-DUSE_GAMEPAD=1)
+	find_package(Qt6Gamepad)
+	IF(Qt6Gamepad_FOUND)
+		target_link_libraries(mandelbulber2 Qt6::Gamepad)
+		add_definitions(-DUSE_GAMEPAD=1)
+	ELSE()
+		MESSAGE(WARNING "USE_GAMEPAD requested but Qt6 Gamepad module was not found")
+	ENDIF()
 ENDIF()
 
 IF(ZLIB_FOUND)
@@ -186,3 +204,18 @@ install(DIRECTORY ../deploy/share/mandelbulber2/ DESTINATION "${SHARED_DIR}")
 install(DIRECTORY ../formula DESTINATION "${SHARED_DIR}")
 install(DIRECTORY ../language DESTINATION "${SHARED_DIR}")
 install(DIRECTORY ../opencl DESTINATION "${SHARED_DIR}")
+
+# Documentation: legacy PDF plus the generated html manual (index.html + css + img).
+# On unix it is looked up in ${CMAKE_INSTALL_PREFIX}/share/doc/mandelbulber2
+if(UNIX AND NOT APPLE)
+	set(DOC_DIR "${CMAKE_INSTALL_PREFIX}/share/doc/mandelbulber2")
+else()
+	set(DOC_DIR "doc")
+endif()
+install(FILES ../deploy/doc/Mandelbulber_Manual.pdf
+		../deploy/doc/index.html
+		DESTINATION "${DOC_DIR}")
+install(DIRECTORY ../deploy/doc/css ../deploy/doc/img
+		DESTINATION "${DOC_DIR}")
+install(FILES ../deploy/README ../deploy/NEWS ../deploy/COPYING
+		DESTINATION "${DOC_DIR}")

@@ -30,157 +30,211 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="tabWidget_fractal">
-     <property name="tabPosition">
-      <enum>QTabWidget::West</enum>
+    <layout class="QVBoxLayout" name="verticalLayout_help_pushButton_help_fractal">
+     <property name="spacing">
+      <number>2</number>
      </property>
-     <property name="currentIndex">
+     <property name="leftMargin">
       <number>0</number>
      </property>
-     <property name="documentMode">
-      <bool>false</bool>
+     <property name="topMargin">
+      <number>0</number>
      </property>
-     <property name="movable">
-      <bool>true</bool>
+     <property name="rightMargin">
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="tabWidget_fractal_hybrid">
-      <attribute name="title">
-       <string>Objects tree</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_53" stretch="0,1">
-       <property name="spacing">
-        <number>2</number>
-       </property>
-       <property name="leftMargin">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>2</number>
-       </property>
-       <property name="rightMargin">
-        <number>2</number>
-       </property>
-       <property name="bottomMargin">
-        <number>2</number>
-       </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_help_pushButton_help_fractal">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <spacer name="horizontalSpacer_help_pushButton_help_fractal">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="cHelpButton" name="pushButton_help_fractal">
+         <property name="toolTip">
+          <string>Opens the user manual with the description of this part of the interface.</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="helpAnchor" stdset="0">
+          <string notr="true">single-formula-fractals</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="tabWidget_fractal">
+       <property name="tabPosition">
+        <enum>QTabWidget::West</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="documentMode">
+        <bool>false</bool>
+       </property>
+       <property name="movable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="tabWidget_fractal_hybrid">
+        <attribute name="title">
+         <string>Objects tree</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_53" stretch="0,1">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item>
-          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_6">
-           <property name="text">
-            <string>Load</string>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_6">
+             <property name="text">
+              <string>Load</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_6">
+             <property name="text">
+              <string>Save</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_6">
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_3">
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_local_navi">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Navi</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="cObjectsTreeWidget" name="widget_objectsTree" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
            </property>
           </widget>
          </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_description">
+        <attribute name="title">
+         <string>Description</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_description">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item>
-          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_6">
-           <property name="text">
-            <string>Save</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_6">
-           <property name="text">
-            <string>Reset</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_3">
-           <property name="text">
-            <string>Randomize</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_local_navi">
+          <widget class="QPlainTextEdit" name="text_description">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text">
-            <string>Navi</string>
+           <property name="font">
+            <font>
+             <family>Monospace</family>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An explanation of the setting&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="placeholderText">
+            <string>An explanation of the setting</string>
            </property>
           </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
         </layout>
-       </item>
-       <item>
-        <widget class="cObjectsTreeWidget" name="widget_objectsTree" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_description">
-      <attribute name="title">
-       <string>Description</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_description">
-       <property name="spacing">
-        <number>2</number>
-       </property>
-       <property name="leftMargin">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>2</number>
-       </property>
-       <property name="rightMargin">
-        <number>2</number>
-       </property>
-       <property name="bottomMargin">
-        <number>2</number>
-       </property>
-       <item>
-        <widget class="QPlainTextEdit" name="text_description">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Monospace</family>
-          </font>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An explanation of the setting&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="placeholderText">
-          <string>An explanation of the setting</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
+       </widget>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>cHelpButton</class>
+   <extends>QToolButton</extends>
+   <header>help_button.h</header>
+  </customwidget>
   <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
    <extends>QPushButton</extends>

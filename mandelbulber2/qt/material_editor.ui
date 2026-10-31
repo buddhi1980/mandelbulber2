@@ -68,6 +68,19 @@
       </widget>
      </item>
      <item>
+      <widget class="cHelpButton" name="pushButton_help_materials">
+       <property name="toolTip">
+        <string>Opens the user manual chapter about materials.</string>
+       </property>
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="helpAnchor" stdset="0">
+        <string notr="true">materials</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -6118,6 +6131,11 @@ rotation:</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>cHelpButton</class>
+   <extends>QToolButton</extends>
+   <header>help_button.h</header>
+  </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>

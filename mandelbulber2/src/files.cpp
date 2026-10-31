@@ -562,6 +562,23 @@ QString FilePathHelperSounds(const QString &path)
 	return FilePathHelper(nativePath, pathList);
 }
 
+QString FilePathHelperDoc(const QString &fileName)
+{
+	// resolves a file from the documentation folder; some installation layouts
+	// keep the docs under share/doc/mandelbulber2, others under share/mandelbulber2/doc
+	QStringList pathList = {systemDirectories.docDir + fileName,
+		systemDirectories.sharedDir + "doc" + QDir::separator() + fileName,
+		systemDirectories.sharedDir + "doc" + QDir::separator() + "mandelbulber2" + QDir::separator()
+			+ fileName,
+		systemDirectories.sharedDir + "mandelbulber2" + QDir::separator() + "doc" + QDir::separator()
+			+ fileName};
+	for (const QString &path : pathList)
+	{
+		if (FileExists(path)) return path;
+	}
+	return fileName;
+}
+
 QByteArray LoadUtf8TextFromFile(const QString &fileName)
 {
 	QFile file(fileName);

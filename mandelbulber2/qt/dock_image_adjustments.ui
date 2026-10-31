@@ -59,6 +59,19 @@
       </widget>
      </item>
      <item>
+      <widget class="cHelpButton" name="pushButton_help_image_adjustments">
+       <property name="toolTip">
+        <string>Opens the user manual with the description of this part of the interface.</string>
+       </property>
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="helpAnchor" stdset="0">
+        <string notr="true">miscellaneous</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_5">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1124,6 +1137,11 @@ no ambient occlusion)</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>cHelpButton</class>
+   <extends>QToolButton</extends>
+   <header>help_button.h</header>
+  </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>

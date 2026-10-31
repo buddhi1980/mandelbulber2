@@ -62,6 +62,7 @@ bool FileExists(const QString &path);
 QString FilePathHelper(const QString &path, const QStringList &pathList);
 QString FilePathHelperTextures(const QString &path);
 QString FilePathHelperSounds(const QString &path);
+QString FilePathHelperDoc(const QString &fileName);
 QByteArray LoadUtf8TextFromFile(const QString &fileName);
 QString AnimatedFileName(
 	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);

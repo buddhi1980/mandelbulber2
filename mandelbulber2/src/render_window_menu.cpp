@@ -148,9 +148,23 @@ void RenderWindow::slotMenuAboutQt()
 
 void RenderWindow::slotMenuAboutManual()
 {
-	// qDebug() << systemDirectories.docDir;
-	QString filename = systemDirectories.docDir + "Mandelbulber_Manual.pdf";
-	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
+	// prefer the HTML manual (generated from LaTeX by mandelbulber_doc/convert.py);
+	// fall back to the legacy PDF when the html tree is not installed
+	const QString htmlFilename = FilePathHelperDoc("index.html");
+	const QString pdfFilename = FilePathHelperDoc("Mandelbulber_Manual.pdf");
+	if (htmlFilename.endsWith("index.html") && QFile::exists(htmlFilename))
+	{
+		QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(htmlFilename).absoluteFilePath()));
+	}
+	else if (pdfFilename.endsWith("Mandelbulber_Manual.pdf") && QFile::exists(pdfFilename))
+	{
+		QDesktopServices::openUrl(QUrl::fromLocalFile(pdfFilename));
+	}
+	else
+	{
+		QMessageBox::warning(
+			this, tr("Help"), tr("User manual not found in:\n%1").arg(systemDirectories.docDir));
+	}
 }
 
 void RenderWindow::slotMenuAboutNews()
