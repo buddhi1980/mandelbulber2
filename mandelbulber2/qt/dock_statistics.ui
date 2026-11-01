@@ -53,6 +53,9 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;b&gt;Histogram of fractal iteration count&lt;/b&gt; (red bars): shows at which iteration the fractal formula stopped for the points sampled along the traced rays. See the chart below for details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Histogram of fractal iteration count</string>
          </property>
@@ -75,6 +78,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;b&gt;Histogram of fractal iteration count.&lt;/b&gt; For every point evaluated by the distance estimation along the traced rays, the program records the iteration at which the fractal formula stopped (bailout iteration).&lt;/p&gt;&lt;p&gt;X axis: iteration count, from 0 up to the last non-empty bin. The range is limited by the Maximum iterations value; samples that reach this limit fall into an overflow bin which is not drawn.&lt;/p&gt;&lt;p&gt;Y axis: number of samples per bin, normalized so that the most common value fills the plot height.&lt;/p&gt;&lt;p&gt;Text overlay: min and max are the 0.3 and 99.7 percentiles of the distribution, mode is the most common value, avg is the average iteration count per evaluated point.&lt;/p&gt;&lt;p&gt;Values close to the maximum indicate interior points or thin surface details that use the whole iteration budget.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -94,6 +100,9 @@
            <width>0</width>
            <height>0</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;b&gt;Histogram of ray-marching step count&lt;/b&gt; (green bars): shows how many distance estimation steps were needed to trace each ray. See the chart below for details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Histogram of ray-marching step count</string>
@@ -117,6 +126,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;b&gt;Histogram of ray-marching step count.&lt;/b&gt; Each traced ray (primary rays as well as reflection and refraction bounces) contributes one sample: the number of distance estimation evaluations made before the surface was found or the maximum raymarching steps limit was reached.&lt;/p&gt;&lt;p&gt;X axis: step count, up to 1000 bins; rays needing more steps fall into an overflow bin which is not drawn.&lt;/p&gt;&lt;p&gt;Y axis: number of rays per bin, normalized so that the most common value fills the plot height.&lt;/p&gt;&lt;p&gt;Text overlay: min and max are the 0.3 and 99.7 percentiles of the distribution, mode is the most common step count, avg is the average number of steps per ray.&lt;/p&gt;&lt;p&gt;A long right tail means the scene is expensive to trace, for example because of large scene depth, low DE factor or volumetric effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -131,26 +143,29 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rendering statistics collected during the current frame:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Total number of iterations:&lt;/b&gt; sum of all fractal formula iterations executed while evaluating points along the traced rays.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Number of iterations per pixel:&lt;/b&gt; the total divided by the number of rendered pixels.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Number of iterations per second:&lt;/b&gt; the total divided by the elapsed rendering time; a measure of the rendering performance.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Distance estimation algorithm:&lt;/b&gt; name of the algorithm used to calculate the distance to the fractal surface.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Percentage of wrong distance estimations:&lt;/b&gt; share of rays whose surface hit was deeper than ten percent of the expected distance threshold, which means the distance estimation overshot the surface; high values indicate possible shading artifacts.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Distance of camera to fractal surface:&lt;/b&gt; estimated distance from the camera position to the nearest fractal surface; recalculated when rendering starts or the camera is moved, and used to scale the camera navigation step to the scene size.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustToContents</enum>
      </property>
      <property name="showGrid">
       <bool>true</bool>
      </property>
-     <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>150</number>
-     </attribute>
      <attribute name="horizontalHeaderMinimumSectionSize">
       <number>14</number>
+     </attribute>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>150</number>
      </attribute>
      <attribute name="verticalHeaderCascadingSectionResizes">
       <bool>false</bool>
      </attribute>
-     <attribute name="verticalHeaderDefaultSectionSize">
-      <number>20</number>
-     </attribute>
      <attribute name="verticalHeaderMinimumSectionSize">
       <number>14</number>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>20</number>
      </attribute>
      <row>
       <property name="text">
@@ -179,7 +194,7 @@
      </row>
      <row>
       <property name="text">
-       <string>Distance of camera to fractal surface</string>
+       <string>Distance of the camera to the surface</string>
       </property>
      </row>
      <column>
