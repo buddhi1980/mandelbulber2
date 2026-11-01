@@ -19,10 +19,20 @@ installing all needed packages
 
 "
 
-sudo apt-get install build-essential libqt5gui5 qt6-base-dev libpng16-16 libpng-dev qt6-tools-dev \
-	libgomp1 libgsl-dev libsndfile1-dev qt6-multimedia-dev qt6-declarative-dev liblzo2-2 liblzo2-dev
+# Qt6 packages: qt6-base-dev provides Core/Gui/Widgets/Network/Test/Concurrent/OpenGLWidgets,
+# qt6-tools-dev provides UiTools, qt6-declarative-dev provides Qml,
+# qmake6 is the Qt6 qmake binary
+sudo apt-get install build-essential qmake6 qt6-base-dev qt6-base-dev-tools libqt6gui6t64 libqt6widgets6t64 \
+	qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev \
+	libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev
 sudo apt-get install qtcreator git
-sudo apt-get install opencl-headers ocl-icd-libopencl1
+# OpenCL headers and ICD loader development files are required to build the
+# mandelbulber-opencl.pro target
+sudo apt-get install opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev
+
+# optional format support (TIFF, EXR, JPEG XL); the build enables each
+# automatically when pkg-config finds the library
+sudo apt-get install libtiff-dev libopenexr-dev libjxl-dev
 
 echo "
 getting fresh source files from git repository
@@ -44,7 +54,7 @@ compiling the program
 "
 
 cd qmake
-qmake mandelbulber-opencl.pro
+qmake6 mandelbulber-opencl.pro
 make -j4
 
 echo "

@@ -35,7 +35,7 @@ LICENCE:         GNU GPL v3.0
 3. REQUIREMENTS
 ---------------
 
-- Linux OS with installed Qt 5 libraries (version >5.7)
+- Linux OS with installed Qt 6 libraries (Qt >= 6.4, tested with 6.8)
 - very fast CPU (recommended 3GHz, 4 cores)
 - 4GB RAM
 
@@ -43,27 +43,43 @@ LICENCE:         GNU GPL v3.0
 ---------------------------
 
 4.1. Compilation with qmake
+
+Qt 6 modules used by Mandelbulber:
+    Core Gui Widgets Network UiTools Test Multimedia Qml Concurrent
+    (optional: Gamepad; Svg is only used on macOS builds)
+
 packages needed to RUN
-Ubuntu:
-    libqt5gui5 libpng16-16, libgsl2 liblzo2-2 libgomp1 libqt5multimedia5
-    libqt5multimedia5-plugins libsndfile1 liblzo2-2 libqt5concurrent5
-    
-Debian Bullseye:
-    libQt5Widgets libQt5Multimedia libQt5Test libQt5Concurrent
+Ubuntu 24.04:
+    libqt6core6t64 libqt6gui6t64 libqt6widgets6t64 libqt6network6t64
+    libqt6concurrent6t64 libqt6test6t64 libqt6uitools6 libqt6qml6
+    libqt6opengl6t64 libqt6openglwidgets6t64 libqt6multimedia6
+    qt6-qpa-plugins libpng16-16t64 libgsl27 liblzo2-2 libgomp1 libsndfile1
+
+Debian 13 (trixie):
+    libqt6core6t64 libqt6gui6 libqt6widgets6 libqt6network6 libqt6concurrent6
+    libqt6test6 libqt6uitools6 libqt6qml6 libqt6opengl6 libqt6openglwidgets6
+    libqt6multimedia6 qt6-qpa-plugins
+    libpng16-16t64 libgsl28 liblzo2-2 libgomp1 libsndfile1
+
+note: on other releases some of the Qt 6 runtime library names may carry the
+"t64" suffix (or not); when distributing a manually compiled binary, check the
+exact dependency list with: ldd mandelbulber2
 
 packages needed to COMPILE
-	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev  
-	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev qtdeclarative5-dev
+	qmake6 qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-multimedia-dev
+	qt6-declarative-dev libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev
+(qt6-base-dev provides Core/Gui/Widgets/Network/Test/Concurrent/OpenGLWidgets,
+ qt6-tools-dev provides UiTools on Debian/Ubuntu, qt6-declarative-dev provides
+ Qml; lrelease/lupdate for translations come from the optional qt6-l10n-tools)
 
-Installing packages on Ubuntu, Debian stable (bookworm) or Mint: 
-sudo apt-get install build-essential qtbase5-dev \
-	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
-	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins \
-	liblzo2-2 liblzo2-dev qtdeclarative5-dev libqt5concurrent5
+Installing packages on Ubuntu 24.04, Debian stable (trixie) or Mint:
+sudo apt-get install build-essential qmake6 qt6-base-dev qt6-base-dev-tools \
+	qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev \
+	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev
 
 Compiling from source:
-cd makefiles
-qmake mandelbulber.pro
+cd qmake
+qmake6 mandelbulber.pro
 make all
 cd ..
 
@@ -77,9 +93,12 @@ sudo apt-get install extra-cmake-modules
 
 4.3. Optional packages
 
-TIFF:     install libtiff5-dev to have TIFF format support
+TIFF:     install libtiff-dev to have TIFF format support
 EXR:      install libopenexr-dev to have EXR format support
-QGAMEPAD: for gamepad support qt is required in version 5.7 and above
+JXL:      install libjxl-dev to have JPEG XL format support
+QGAMEPAD: for gamepad support the Qt Gamepad module is required; a Qt 6
+          Gamepad package is not available in the Debian/Ubuntu archives,
+          in that case gamepad support is silently disabled at build time
 
 4.3.2 OpenCL
 
@@ -91,8 +110,8 @@ required packages:
     opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev
 
 Compiling from source:
-cd makefiles
-qmake mandelbulber-opencl.pro
+cd qmake
+qmake6 mandelbulber-opencl.pro
 make all
 cd ..
 
@@ -117,7 +136,7 @@ git clone https://github.com/buddhi1980/mandelbulber2.git
 
 Compiling from source:
 cd mandelbulber2/mandelbulber2/qmake
-qmake mandelbulber.pro (or qmake mandelbulber-opencl.pro for OpenCL version)
+qmake6 mandelbulber.pro (or qmake6 mandelbulber-opencl.pro for OpenCL version)
 make -j4
 
 installation in the system:
@@ -129,7 +148,7 @@ mandelbulber2
 5.2 Compile and install the program to custom location (example for /usr/local)
 
 Compiling from source. PREFIX specifies where the program will be installed.
-qmake PREFIX=/usr/local mandelbulber-opencl.pro
+qmake6 PREFIX=/usr/local mandelbulber-opencl.pro
 make -j4
 
 installation in specified directory:
@@ -145,7 +164,7 @@ Create directory for the program:
 mkdir mandelbulberStandalone
 
 Compiling from source (example):
-qmake SHARED_PATH="/tmp/customDataDirectory" PREFIX=/tmp/mandelbulber mandelbulber-opencl.pro
+qmake6 SHARED_PATH="/tmp/customDataDirectory" PREFIX=/tmp/mandelbulber mandelbulber-opencl.pro
 make -j8
 
 installation in specified directory:
