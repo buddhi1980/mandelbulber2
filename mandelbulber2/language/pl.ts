@@ -9238,8 +9238,8 @@ szumu (procentowo)</translation>
     <message>
         <location filename="../qt/dock_effects.ui" line="111"/>
         <location filename="../qt/ui_dock_effects.h" line="3332"/>
-        <source>Effects settings organized into tabs: Raytracing, Volumetric, Background, Lights and Post-effects.</source>
-        <translation>Ustawienia efektów podzielone na zakładki: Raytracing, Objętościowe, Tło, Światła i Efekty końcowe.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Effects settings organized into tabs:&lt;/b&gt; Raytracing, Volumetric, Background, Lights and Post-effects.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Ustawienia efektów podzielone na zakładki:&lt;/b&gt; Raytracing, Objętościowe, Tło, Światła i Efekty końcowe.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="150"/>
@@ -9280,8 +9280,8 @@ szumu (procentowo)</translation>
     <message>
         <location filename="../qt/dock_effects.ui" line="642"/>
         <location filename="../qt/ui_dock_effects.h" line="3424"/>
-        <source>Shows what percentage of image pixels are already finished (masked from further calculation) during the current Monte Carlo rendering.</source>
-        <translation>Pokazuje, jaki procent pikseli obrazu jest już zakończony (wykluczony z dalszych obliczeń) podczas bieżącego renderowania Monte Carlo.</translation>
+        <source>&lt;p&gt;Shows what percentage of image pixels are already finished (masked from further calculation) during the current Monte Carlo rendering.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pokazuje, jaki procent pikseli obrazu jest już zakończony (wykluczony z dalszych obliczeń) podczas bieżącego renderowania Monte Carlo.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="645"/>
@@ -9316,8 +9316,8 @@ szumu (procentowo)</translation>
     <message>
         <location filename="../qt/dock_effects.ui" line="680"/>
         <location filename="../qt/ui_dock_effects.h" line="3436"/>
-        <source>Shows the estimated noise level of every tile directly on the image during Monte Carlo rendering.</source>
-        <translation>Wyświetla szacowany poziom szumu każdego bloku bezpośrednio na obrazie podczas renderowania Monte Carlo.</translation>
+        <source>&lt;p&gt;Shows the estimated noise level of every tile directly on the image during Monte Carlo rendering.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wyświetla szacowany poziom szumu każdego bloku bezpośrednio na obrazie podczas renderowania Monte Carlo.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="699"/>
@@ -9575,8 +9575,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="696"/>
         <location filename="../qt/ui_dock_effects.h" line="3440"/>
-        <source>Enable the Monte Carlo denoiser to reduce noise in rendered images. This post-processing step smooths out grainy patterns caused by limited sampling, resulting in cleaner and more visually appealing results, especially at lower sample counts.</source>
-        <translation>Włącz odszumiacz Monte Carlo, aby zredukować szum w renderowanych obrazach. Ten etap post-processingu wygładza ziarniste wzory spowodowane ograniczonym próbkowaniem, zapewniając czystszy i bardziej atrakcyjny wizualnie efekt, szczególnie przy niskiej liczbie próbek.</translation>
+        <source>&lt;p&gt;Enable the Monte Carlo denoiser to reduce noise in rendered images. This post-processing step smooths out grainy patterns caused by limited sampling, resulting in cleaner and more visually appealing results, especially at lower sample counts.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącz odszumiacz Monte Carlo, aby zredukować szum w renderowanych obrazach. Ten etap post-processingu wygładza ziarniste wzory spowodowane ograniczonym próbkowaniem, zapewniając czystszy i bardziej atrakcyjny wizualnie efekt, szczególnie przy niskiej liczbie próbek.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="726"/>
@@ -9604,8 +9604,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="816"/>
         <location filename="../qt/ui_dock_effects.h" line="3465"/>
-        <source>Biases the Monte Carlo global illumination rays toward the mirror reflection direction with a probability given by the material&apos;s reflectance, so glossy surfaces can reflect indirect light. Works only in the OpenCL rendering mode.</source>
-        <translation>Nachyla promienie globalnego oświetlenia Monte Carlo ku kierunkowi odbicia lustrzanego z prawdopodobieństwem wyznaczonym przez reflektancję materiału, dzięki czemu powierzchnie półbłyszczące mogą odbijać światło pośrednie. Działa tylko w trybie renderowania OpenCL.</translation>
+        <source>&lt;p&gt;Biases the Monte Carlo global illumination rays toward the mirror reflection direction with a probability given by the material&apos;s reflectance, so glossy surfaces can reflect indirect light. Works only in the OpenCL rendering mode.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Nachyla promienie globalnego oświetlenia Monte Carlo ku kierunkowi odbicia lustrzanego z prawdopodobieństwem wyznaczonym przez reflektancję materiału, dzięki czemu powierzchnie półbłyszczące mogą odbijać światło pośrednie. Działa tylko w trybie renderowania OpenCL.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="825"/>
@@ -9645,26 +9645,26 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="1129"/>
         <location filename="../qt/ui_dock_effects.h" line="3522"/>
-        <source>Color of the scattered (ambient) light which is modulated by the ambient occlusion effect.</source>
-        <translation>Kolor rozpraszanego światła otoczenia, modulowanego przez efekt okluzji otoczenia (ambient occlusion).</translation>
+        <source>&lt;p&gt;Color of the scattered (ambient) light which is modulated by the ambient occlusion effect.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kolor rozpraszanego światła otoczenia, modulowanego przez efekt okluzji otoczenia (ambient occlusion).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1266"/>
         <location filename="../qt/ui_dock_effects.h" line="3539"/>
-        <source>Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi X (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
+        <source>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; ambient occlusion mode.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót obrazu lightmapy okluzji otoczenia wokół osi X (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; okluzji otoczenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1300"/>
         <location filename="../qt/ui_dock_effects.h" line="3544"/>
-        <source>Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Y (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
+        <source>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; ambient occlusion mode.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót obrazu lightmapy okluzji otoczenia wokół osi Y (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; okluzji otoczenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1334"/>
         <location filename="../qt/ui_dock_effects.h" line="3549"/>
-        <source>Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;Multiple rays&apos; ambient occlusion mode.</source>
-        <translation>Obrót obrazu lightmapy okluzji otoczenia wokół osi Z (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;Multiple rays&apos; okluzji otoczenia.</translation>
+        <source>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; ambient occlusion mode.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót obrazu lightmapy okluzji otoczenia wokół osi Z (stopnie). Zmienia kierunek, z którego dociera kolorowe światło z lightmapy. Używane tylko w trybie &apos;&lt;i&gt;Multiple rays&lt;/i&gt;&apos; okluzji otoczenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1485"/>
@@ -9693,8 +9693,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="1634"/>
         <location filename="../qt/ui_dock_effects.h" line="3595"/>
-        <source>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</source>
-        <translation>Wybiera prymityw geometryczny używany do definiowania granic przestrzennych podstawowej mgły. Wybrany kształt (np. prostopadłościan, sfera lub inny dostępny prymityw) określa, w których miejscach sceny zostanie zastosowany efekt podstawowej mgły, umożliwiając precyzyjną kontrolę nad położeniem i zasięgiem mgły.</translation>
+        <source>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wybiera prymityw geometryczny używany do definiowania granic przestrzennych podstawowej mgły. Wybrany kształt (np. prostopadłościan, sfera lub inny dostępny prymityw) określa, w których miejscach sceny zostanie zastosowany efekt podstawowej mgły, umożliwiając precyzyjną kontrolę nad położeniem i zasięgiem mgły.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1677"/>
@@ -9710,20 +9710,20 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="1841"/>
         <location filename="../qt/ui_dock_effects.h" line="3639"/>
-        <source>Multiplies all fog distance parameters (color distances, distance factor and distance from surface) by 2.</source>
-        <translation>Mnoży wszystkie parametry odległości mgły (odległości kolorów, współczynnik odległości i odległość od powierzchni) przez 2.</translation>
+        <source>&lt;p&gt;Multiplies all fog distance parameters (color distances, distance factor and distance from surface) by 2.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnoży wszystkie parametry odległości mgły (odległości kolorów, współczynnik odległości i odległość od powierzchni) przez 2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1851"/>
         <location filename="../qt/ui_dock_effects.h" line="3643"/>
-        <source>Divides all fog distance parameters (color distances, distance factor and distance from surface) by 2.</source>
-        <translation>Dzieli wszystkie parametry odległości mgły (odległości kolorów, współczynnik odległości i odległość od powierzchni) przez 2.</translation>
+        <source>&lt;p&gt;Divides all fog distance parameters (color distances, distance factor and distance from surface) by 2.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dzieli wszystkie parametry odległości mgły (odległości kolorów, współczynnik odległości i odległość od powierzchni) przez 2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1936"/>
         <location filename="../qt/ui_dock_effects.h" line="3662"/>
-        <source>Enables full shadow interaction for the distance based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</source>
-        <translation>Włącza pełną interakcję z cieniami dla mgły zależnej od odległości. Gdy aktywne, objętości mgły rzucają cienie na geometrię sceny i odbierają cienie od innych obiektów oraz źródeł światła. Daje to bardziej realistyczną okluzję wewnątrz i za mgłą, ale wydłuża renderowanie przez dodatkowe próbkowanie światła.</translation>
+        <source>&lt;p&gt;Enables full shadow interaction for the distance based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza pełną interakcję z cieniami dla mgły zależnej od odległości. Gdy aktywne, objętości mgły rzucają cienie na geometrię sceny i odbierają cienie od innych obiektów oraz źródeł światła. Daje to bardziej realistyczną okluzję wewnątrz i za mgłą, ale wydłuża renderowanie przez dodatkowe próbkowanie światła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1960"/>
@@ -9740,8 +9740,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2005"/>
         <location filename="../qt/ui_dock_effects.h" line="3685"/>
-        <source>Selects the geometric primitive used to define the spatial boundaries of the distance fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</source>
-        <translation>Wybiera prymityw geometryczny definiujący przestrzenne granice mgły zależnej od odległości. Wybrany kształt (np. box lub kula) określa, gdzie w scenie jest aplikowana mgła.</translation>
+        <source>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the distance fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wybiera prymityw geometryczny definiujący przestrzenne granice mgły zależnej od odległości. Wybrany kształt (np. box lub kula) określa, gdzie w scenie jest aplikowana mgła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2032"/>
@@ -9758,20 +9758,20 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2227"/>
         <location filename="../qt/ui_dock_effects.h" line="3725"/>
-        <source>Enables full shadow interaction for the iteration count based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</source>
-        <translation>Włącza pełną interakcję z cieniami dla mgły zależnej od liczby iteracji. Gdy aktywne, objętości mgły rzucają cienie na geometrię sceny i odbierają cienie od innych obiektów oraz źródeł światła. Daje to bardziej realistyczną okluzję wewnątrz i za mgłą, ale wydłuża renderowanie przez dodatkowe próbkowanie światła.</translation>
+        <source>&lt;p&gt;Enables full shadow interaction for the iteration count based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza pełną interakcję z cieniami dla mgły zależnej od liczby iteracji. Gdy aktywne, objętości mgły rzucają cienie na geometrię sceny i odbierają cienie od innych obiektów oraz źródeł światła. Daje to bardziej realistyczną okluzję wewnątrz i za mgłą, ale wydłuża renderowanie przez dodatkowe próbkowanie światła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2331"/>
         <location filename="../qt/ui_dock_effects.h" line="3753"/>
-        <source>Selects the geometric primitive used to define the spatial boundaries of the iteration count based fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</source>
-        <translation>Wybiera prymityw geometryczny definiujący przestrzenne granice mgły zależnej od liczby iteracji. Wybrany kształt (np. box lub kula) określa, gdzie w scenie jest aplikowana mgła.</translation>
+        <source>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the iteration count based fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wybiera prymityw geometryczny definiujący przestrzenne granice mgły zależnej od liczby iteracji. Wybrany kształt (np. box lub kula) określa, gdzie w scenie jest aplikowana mgła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2348"/>
         <location filename="../qt/ui_dock_effects.h" line="3756"/>
-        <source>Enable procedural volumetric clouds. When checked, the renderer integrates noise-based cloud volumes along view rays, with per-light illumination and optional shadow casting/receiving (if enabled in Clouds settings). Configure color, density, scale (period), noise iterations, height/plane shape, distance mode, and motion below. Increases render time due to volumetric sampling and shadow queries.</source>
-        <translation>Włącz proceduralne chmury objętościowe. z opcjonalnym rzucaniem i przyjmowaniem cieni (jeśli włączone w ustawieniach Chmur). Skonfiguruj kolor, gęstość, skalę (okres), liczbę iteracji szumu, wysokość/kształt płaszczyzny, tryb odległości oraz ruch poniżej. Zwiększa czas renderowania ze względu na próbkowanie objętościowe i zapytania o cienie.</translation>
+        <source>&lt;p&gt;Enable procedural volumetric clouds. When checked, the renderer integrates noise-based cloud volumes along view rays, with per-light illumination and optional shadow casting/receiving (if enabled in Clouds settings). Configure color, density, scale (period), noise iterations, height/plane shape, distance mode, and motion below. Increases render time due to volumetric sampling and shadow queries.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącz proceduralne chmury objętościowe. z opcjonalnym rzucaniem i przyjmowaniem cieni (jeśli włączone w ustawieniach Chmur). Skonfiguruj kolor, gęstość, skalę (okres), liczbę iteracji szumu, wysokość/kształt płaszczyzny, tryb odległości oraz ruch poniżej. Zwiększa czas renderowania ze względu na próbkowanie objętościowe i zapytania o cienie.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2396"/>
@@ -9835,8 +9835,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2526"/>
         <location filename="../qt/ui_dock_effects.h" line="3787"/>
-        <source>Color of the clouds. The light scattered inside the cloud volume is multiplied by this color.</source>
-        <translation>Kolor chmur. Światło rozpraszane wewnątrz objętości chmur jest mnożone przez ten kolor.</translation>
+        <source>&lt;p&gt;Color of the clouds. The light scattered inside the cloud volume is multiplied by this color.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kolor chmur. Światło rozpraszane wewnątrz objętości chmur jest mnożone przez ten kolor.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2536"/>
@@ -9898,8 +9898,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2668"/>
         <location filename="../qt/ui_dock_effects.h" line="3815"/>
-        <source>Y-axis drift speed of the clouds. Controls how fast the noise field moves along +Y over time (animation). Positive = toward +Y, negative = toward -Y; 0 = no motion. Combine with X/Z for wind direction.</source>
-        <translation>Prędkość dryfu chmur w osi Y. Określa, jak szybko pole szumu przesuwa się wzdłuż +Y w czasie (animacja). Dodatnia = w stronę +Y, ujemna = w stronę -Y; 0 = brak ruchu. Łącz z osią X/Z, aby ustawić kierunek wiatru.</translation>
+        <source>&lt;p&gt;Y-axis drift speed of the clouds. Controls how fast the noise field moves along +Y over time (animation). Positive = toward +Y, negative = toward -Y; 0 = no motion. Combine with X/Z for wind direction.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Prędkość dryfu chmur w osi Y. Określa, jak szybko pole szumu przesuwa się wzdłuż +Y w czasie (animacja). Dodatnia = w stronę +Y, ujemna = w stronę -Y; 0 = brak ruchu. Łącz z osią X/Z, aby ustawić kierunek wiatru.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2695"/>
@@ -9916,8 +9916,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2712"/>
         <location filename="../qt/ui_dock_effects.h" line="3824"/>
-        <source>Z-axis drift speed of the clouds. Controls how fast the noise field moves along +Z over time (animation). Positive = toward +Z, negative = toward -Z; 0 = no motion. Combine with X/Y for wind direction.</source>
-        <translation>Prędkość dryfu chmur w osi Z. Określa, jak szybko pole szumu przesuwa się wzdłuż +Z w czasie (animacja). Dodatnia = w stronę +Z, ujemna = w stronę -Z; 0 = brak ruchu. Łącz z osią X/Y, aby ustawić kierunek wiatru.</translation>
+        <source>&lt;p&gt;Z-axis drift speed of the clouds. Controls how fast the noise field moves along +Z over time (animation). Positive = toward +Z, negative = toward -Z; 0 = no motion. Combine with X/Y for wind direction.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Prędkość dryfu chmur w osi Z. Określa, jak szybko pole szumu przesuwa się wzdłuż +Z w czasie (animacja). Dodatnia = w stronę +Z, ujemna = w stronę -Z; 0 = brak ruchu. Łącz z osią X/Y, aby ustawić kierunek wiatru.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2719"/>
@@ -9928,8 +9928,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="2740"/>
         <location filename="../qt/ui_dock_effects.h" line="3831"/>
-        <source>Selects the geometric primitive used to define the spatial boundaries of the clouds. The chosen shape (such as box or sphere) determines where in the scene the clouds are generated.</source>
-        <translation>Wybiera prymityw geometryczny definiujący przestrzenne granice chmur. Wybrany kształt (np. box lub kula) określa, gdzie w scenie są generowane chmury.</translation>
+        <source>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the clouds. The chosen shape (such as box or sphere) determines where in the scene the clouds are generated.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wybiera prymityw geometryczny definiujący przestrzenne granice chmur. Wybrany kształt (np. box lub kula) określa, gdzie w scenie są generowane chmury.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2754"/>
@@ -9980,34 +9980,26 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="3052"/>
         <location filename="../qt/ui_dock_effects.h" line="3883"/>
-        <source>Vertical thickness of the clouds layer, controlling how deep clouds extend from their base.</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
-&lt;p&gt;Pionowa grubość warstwy chmur, kontrolująca jak głęboko chmury rozciągają się od swojej podstawy.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;Vertical thickness of the clouds layer, controlling how deep clouds extend from their base.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pionowa grubość warstwy chmur, kontrolująca jak głęboko chmury rozciągają się od swojej podstawy.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3087"/>
         <location filename="../qt/ui_dock_effects.h" line="3887"/>
-        <source>Step size for distance estimation when approaching the clouds; lower values increase accuracy but reduce performance.</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
-&lt;p&gt;Rozmiar kroku dla szacowania odległości podczas zbliżania się do chmur; niższe wartości zwiększają dokładność, ale obniżają wydajność.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;Step size for distance estimation when approaching the clouds; lower values increase accuracy but reduce performance.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Rozmiar kroku dla szacowania odległości podczas zbliżania się do chmur; niższe wartości zwiększają dokładność, ale obniżają wydajność.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3101"/>
         <location filename="../qt/ui_dock_effects.h" line="3891"/>
-        <source>Controls the rendering accuracy for fine details in the clouds; higher values improve detail but increase render time.</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
-&lt;p&gt;Kontroluje dokładność renderowania drobnych detali w chmurach; wyższe wartości poprawiają szczegółowość, ale zwiększają czas renderowania.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;Controls the rendering accuracy for fine details in the clouds; higher values improve detail but increase render time.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje dokładność renderowania drobnych detali w chmurach; wyższe wartości poprawiają szczegółowość, ale zwiększają czas renderowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3122"/>
         <location filename="../qt/ui_dock_effects.h" line="3896"/>
-        <source>Multiplier for the distance estimation step size in clouds rendering. Increasing this value can speed up rendering but may reduce accuracy and detail in cloud boundaries. Lower values provide more precise results at the cost of performance.</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
-&lt;p&gt;Mnożnik rozmiaru kroku szacowania odległości w renderowaniu chmur. Zwiększenie tej wartości może przyspieszyć renderowanie, ale może obniżyć dokładność i szczegółowość krawędzi chmur. Niższe wartości zapewniają większą precyzję kosztem wydajności.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;p&gt;Multiplier for the distance estimation step size in clouds rendering. Increasing this value can speed up rendering but may reduce accuracy and detail in cloud boundaries. Lower values provide more precise results at the cost of performance.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnożnik rozmiaru kroku szacowania odległości w renderowaniu chmur. Zwiększenie tej wartości może przyspieszyć renderowanie, ale może obniżyć dokładność i szczegółowość krawędzi chmur. Niższe wartości zapewniają większą precyzję kosztem wydajności.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3178"/>
@@ -10053,44 +10045,44 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="3571"/>
         <location filename="../qt/ui_dock_effects.h" line="3965"/>
-        <source>Shifts the background texture horizontally, in units of the texture width (1.0 = one full image width).</source>
-        <translation>Przesuwa teksturę tła w poziomie, w jednostkach szerokości tekstury (1.0 = pełna szerokość obrazu).</translation>
+        <source>&lt;p&gt;Shifts the background texture horizontally, in units of the texture width (1.0 = one full image width).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa teksturę tła w poziomie, w jednostkach szerokości tekstury (1.0 = pełna szerokość obrazu).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3635"/>
         <location filename="../qt/ui_dock_effects.h" line="3973"/>
-        <source>Shifts the background texture vertically, in units of the texture height (1.0 = one full image height).</source>
-        <translation>Przesuwa teksturę tła w pionie, w jednostkach wysokości tekstury (1.0 = pełna wysokość obrazu).</translation>
+        <source>&lt;p&gt;Shifts the background texture vertically, in units of the texture height (1.0 = one full image height).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa teksturę tła w pionie, w jednostkach wysokości tekstury (1.0 = pełna wysokość obrazu).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3689"/>
         <location filename="../qt/ui_dock_effects.h" line="3980"/>
-        <source>Rotation of the background sphere (color gradient or texture) around the X axis (degrees).</source>
-        <translation>Obrót sfery tła (gradient kolorów lub tekstura) wokół osi X (stopnie).</translation>
+        <source>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the X axis (degrees).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót sfery tła (gradient kolorów lub tekstura) wokół osi X (stopnie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3749"/>
         <location filename="../qt/ui_dock_effects.h" line="3987"/>
-        <source>Scales the background texture vertically. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</source>
-        <translation>Skaluje teksturę tła w pionie. Wartości większe niż 1 pomniejszają wzór tekstury (widoczna jest większa część obrazu), wartości mniejsze niż 1 powiększają go.</translation>
+        <source>&lt;p&gt;Scales the background texture vertically. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skaluje teksturę tła w pionie. Wartości większe niż 1 pomniejszają wzór tekstury (widoczna jest większa część obrazu), wartości mniejsze niż 1 powiększają go.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3777"/>
         <location filename="../qt/ui_dock_effects.h" line="3992"/>
-        <source>Rotation of the background sphere (color gradient or texture) around the Z axis (degrees).</source>
-        <translation>Obrót sfery tła (gradient kolorów lub tekstura) wokół osi Z (stopnie).</translation>
+        <source>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the Z axis (degrees).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót sfery tła (gradient kolorów lub tekstura) wokół osi Z (stopnie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3811"/>
         <location filename="../qt/ui_dock_effects.h" line="3997"/>
-        <source>Scales the background texture horizontally. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</source>
-        <translation>Skaluje teksturę tła w poziomie. Wartości większe niż 1 pomniejszają wzór tekstury (widoczna jest większa część obrazu), wartości mniejsze niż 1 powiększają go.</translation>
+        <source>&lt;p&gt;Scales the background texture horizontally. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skaluje teksturę tła w poziomie. Wartości większe niż 1 pomniejszają wzór tekstury (widoczna jest większa część obrazu), wartości mniejsze niż 1 powiększają go.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3839"/>
         <location filename="../qt/ui_dock_effects.h" line="4002"/>
-        <source>Rotation of the background sphere (color gradient or texture) around the Y axis (degrees).</source>
-        <translation>Obrót sfery tła (gradient kolorów lub tekstura) wokół osi Y (stopnie).</translation>
+        <source>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the Y axis (degrees).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót sfery tła (gradient kolorów lub tekstura) wokół osi Y (stopnie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="3929"/>
@@ -10184,8 +10176,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="4224"/>
         <location filename="../qt/ui_dock_effects.h" line="4061"/>
-        <source>Manager of light sources. Each tab is one light, which can be added, removed, duplicated and enabled or disabled with the checkbox on its tab.</source>
-        <translation>Menedżer źródeł światła. Każda zakładka to jedno światło, które można dodać, usunąć, zduplikować oraz włączyć lub wyłączyć zaznaczeniem na jej zakładce.</translation>
+        <source>&lt;p&gt;Manager of light sources. Each tab is one light, which can be added, removed, duplicated and enabled or disabled with the checkbox on its tab.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Menedżer źródeł światła. Każda zakładka to jedno światło, które można dodać, usunąć, zduplikować oraz włączyć lub wyłączyć zaznaczeniem na jej zakładce.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4277"/>
@@ -10360,14 +10352,14 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="4577"/>
         <location filename="../qt/ui_dock_effects.h" line="4140"/>
-        <source>Second color of the random lights. Used only when the coloring type is &apos;Two colors&apos; or &apos;Two colors based on distance&apos;.</source>
-        <translation>Drugi kolor losowych świateł. Używany tylko, gdy typ kolorowania to „Dwa kolory” lub „Dwa kolory bazujące na odległości”.</translation>
+        <source>&lt;p&gt;Second color of the random lights. Used only when the coloring type is &apos;&lt;i&gt;Two colors&lt;/i&gt;&apos; or &apos;&lt;i&gt;Two colors based on distance&lt;/i&gt;&apos;.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Drugi kolor losowych świateł. Używany tylko, gdy typ kolorowania to „&lt;i&gt;Dwa kolory&lt;/i&gt;” lub „&lt;i&gt;Dwa kolory bazujące na odległości&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4587"/>
         <location filename="../qt/ui_dock_effects.h" line="4144"/>
-        <source>First color of the auto-generated random lights. Used by all lights for the &apos;Single color&apos; type and as the first of two colors for the remaining colored types.</source>
-        <translation>Pierwszy kolor automatycznie generowanych losowych świateł. Używany przez wszystkie światła dla typu „Pojedynczy kolor” oraz jako pierwszy z dwóch kolorów dla pozostałych kolorowych typów.</translation>
+        <source>&lt;p&gt;First color of the auto-generated random lights. Used by all lights for the &apos;&lt;i&gt;Single color&lt;/i&gt;&apos; type and as the first of two colors for the remaining colored types.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pierwszy kolor automatycznie generowanych losowych świateł. Używany przez wszystkie światła dla typu „&lt;i&gt;Pojedynczy kolor&lt;/i&gt;” oraz jako pierwszy z dwóch kolorów dla pozostałych kolorowych typów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4640"/>
@@ -10445,8 +10437,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="5003"/>
         <location filename="../qt/ui_dock_effects.h" line="4218"/>
-        <source>Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.</source>
-        <translation>Dodaje drugi zestaw świateł pułapki orbity. Po włączeniu kolor 1 jest używany tylko dla pierwszej zzechwyconej iteracji, a kolor 2 dla drugiej i dalszych iteracji.</translation>
+        <source>&lt;p&gt;Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje drugi zestaw świateł pułapki orbity. Po włączeniu kolor 1 jest używany tylko dla pierwszej zzechwyconej iteracji, a kolor 2 dla drugiej i dalszych iteracji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="5006"/>
@@ -10463,8 +10455,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="5047"/>
         <location filename="../qt/ui_dock_effects.h" line="4227"/>
-        <source>Adds a third set of orbit trap lights. When enabled, color 2 is used only for the second captured iteration and color 3 for the third and further iterations.</source>
-        <translation>Dodaje trzeci zestaw świateł pułapki orbity. Po włączeniu kolor 2 jest używany tylko dla drugiej zzechwyconej iteracji, a kolor 3 dla trzeciej i dalszych iteracji.</translation>
+        <source>&lt;p&gt;Adds a third set of orbit trap lights. When enabled, color 2 is used only for the second captured iteration and color 3 for the third and further iterations.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje trzeci zestaw świateł pułapki orbity. Po włączeniu kolor 2 jest używany tylko dla drugiej zzechwyconej iteracji, a kolor 3 dla trzeciej i dalszych iteracji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="5050"/>
@@ -10601,8 +10593,8 @@ Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</tran
     <message>
         <location filename="../qt/dock_effects.ui" line="5543"/>
         <location filename="../qt/ui_dock_effects.h" line="4305"/>
-        <source>Flip the direction of Chromatic Aberration (RGB channel offset). When enabled, the color fringing shifts in the opposite radial direction: channels move inward toward the image center instead of outward, which also swaps the apparent order of the colored fringes.</source>
-        <translation>Odwraca kierunek aberracji chromatycznej (przesunięcia kanałów RGB). Po włączeniu kolorowe obwódki przesuwają się w przeciwnym kierunku radialnym: kanały przesuwają się do środka obrazu zamiast na zewnątrz, co również zamienia pozorną kolejność kolorowych obwódek.</translation>
+        <source>&lt;p&gt;Flip the direction of Chromatic Aberration (RGB channel offset). When enabled, the color fringing shifts in the opposite radial direction: channels move inward toward the image center instead of outward, which also swaps the apparent order of the colored fringes.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Odwraca kierunek aberracji chromatycznej (przesunięcia kanałów RGB). Po włączeniu kolorowe obwódki przesuwają się w przeciwnym kierunku radialnym: kanały przesuwają się do środka obrazu zamiast na zewnątrz, co również zamienia pozorną kolejność kolorowych obwódek.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="5552"/>
@@ -10999,38 +10991,38 @@ na powierzchni:</translation>
     <message>
         <location filename="../qt/dock_effects.ui" line="2796"/>
         <location filename="../qt/ui_dock_effects.h" line="3839"/>
-        <source>Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi Z (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
+        <source>&lt;p&gt;Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót warstwy chmur wokół osi Z (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2837"/>
         <location filename="../qt/ui_dock_effects.h" line="3845"/>
-        <source>Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer; the layer is measured along the rotated Z axis.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi Z, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos;; warstwa jest mierzona wzdłuż obróconej osi Z.</translation>
+        <source>&lt;p&gt;Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; layer; the layer is measured along the rotated Z axis.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pozycja środka objętości chmur wzdłuż osi Z, względem fraktala. Używana jako początek warstwy &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos;; warstwa jest mierzona wzdłuż obróconej osi Z.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2888"/>
         <location filename="../qt/ui_dock_effects.h" line="3853"/>
-        <source>Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer and of its rotation.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi X, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos; oraz jej obrotu.</translation>
+        <source>&lt;p&gt;Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; layer and of its rotation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pozycja środka objętości chmur wzdłuż osi X, względem fraktala. Używana jako początek warstwy &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos; oraz jej obrotu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2895"/>
         <location filename="../qt/ui_dock_effects.h" line="3856"/>
-        <source>Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi Y (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
+        <source>&lt;p&gt;Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót warstwy chmur wokół osi Y (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2939"/>
         <location filename="../qt/ui_dock_effects.h" line="3862"/>
-        <source>Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;Plane shape&apos; is enabled.</source>
-        <translation>Obrót warstwy chmur wokół osi X (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;Płaszczyzna&apos;.</translation>
+        <source>&lt;p&gt;Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obrót warstwy chmur wokół osi X (stopnie, wokół Środka chmur). Przechyla warstwę płaską i obraca razem z nią pole szumu chmur. Działa tylko przy włączonym kształcie &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2983"/>
         <location filename="../qt/ui_dock_effects.h" line="3868"/>
-        <source>Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the &apos;Plane shape&apos; layer and of its rotation.</source>
-        <translation>Pozycja środka objętości chmur wzdłuż osi Y, względem fraktala. Używana jako początek warstwy &apos;Płaszczyzna&apos; oraz jej obrotu.</translation>
+        <source>&lt;p&gt;Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the &apos;&lt;i&gt;Plane shape&lt;/i&gt;&apos; layer and of its rotation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pozycja środka objętości chmur wzdłuż osi Y, względem fraktala. Używana jako początek warstwy &apos;&lt;i&gt;Płaszczyzna&lt;/i&gt;&apos; oraz jej obrotu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="4735"/>
@@ -12360,8 +12352,8 @@ bez światła rozproszonego)</translation>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="34"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="674"/>
-        <source>Loads settings from a selected fractal file into all parameters of the Image adjustments window.</source>
-        <translation>Wczytuje ustawienia z wybranego pliku fraktala do wszystkich parametrów okna Ustawienia obrazu.</translation>
+        <source>&lt;p&gt;Loads settings from a selected fractal file into all parameters of the Image adjustments window.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wczytuje ustawienia z wybranego pliku fraktala do wszystkich parametrów okna Ustawienia obrazu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="37"/>
@@ -12523,56 +12515,56 @@ bez światła rozproszonego)</translation>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="418"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="746"/>
-        <source>Sets the image resolution to preset 1 (default 720x480; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 1 (domyślnie 720x480; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 1 (default 720x480; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 1 (domyślnie 720x480; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="434"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="750"/>
-        <source>Sets the image resolution to preset 2 (default 1280x720; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 2 (domyślnie 1280x720; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 2 (default 1280x720; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 2 (domyślnie 1280x720; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="450"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="754"/>
-        <source>Sets the image resolution to preset 9 (default 1600x1200; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 9 (domyślnie 1600x1200; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 9 (default 1600x1200; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 9 (domyślnie 1600x1200; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="466"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="758"/>
-        <source>Sets the image resolution to preset 3 (default 1920x1080; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 3 (domyślnie 1920x1080; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 3 (default 1920x1080; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 3 (domyślnie 1920x1080; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="482"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="762"/>
-        <source>Sets the image resolution to preset 4 (default 2560x1440; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 4 (domyślnie 2560x1440; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 4 (default 2560x1440; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 4 (domyślnie 2560x1440; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="498"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="766"/>
-        <source>Sets the image resolution to preset 5 (default 4096x2160; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 5 (domyślnie 4096x2160; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 5 (default 4096x2160; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 5 (domyślnie 4096x2160; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="514"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="770"/>
-        <source>Sets the image resolution to preset 6 (default 7680x4320; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 6 (domyślnie 7680x4320; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 6 (default 7680x4320; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 6 (domyślnie 7680x4320; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="530"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="774"/>
-        <source>Sets the image resolution to preset 7 (default 320x240; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 7 (domyślnie 320x240; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 7 (default 320x240; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 7 (domyślnie 320x240; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="546"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="778"/>
-        <source>Sets the image resolution to preset 8 (default 800x600; right-click the button to change the stored value).</source>
-        <translation>Ustawia rozdzielczość obrazu na predefiniowane ustawienie 8 (domyślnie 800x600; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).</translation>
+        <source>&lt;p&gt;Sets the image resolution to preset 8 (default 800x600; right-click the button to change the stored value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia rozdzielczość obrazu na predefiniowane ustawienie 8 (domyślnie 800x600; kliknij przycisk prawym przyciskiem, aby zmienić zapisaną wartość).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="609"/>
@@ -12583,8 +12575,8 @@ bez światła rozproszonego)</translation>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="704"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="808"/>
-        <source>Calculates the distance between the eyes as 5% of the current distance from the camera to the fractal.</source>
-        <translation>Oblicza odległość między oczami jako 5% bieżącej odległości kamery od fraktala.</translation>
+        <source>&lt;p&gt;Calculates the distance between the eyes as 5% of the current distance from the camera to the fractal.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Oblicza odległość między oczami jako 5% bieżącej odległości kamery od fraktala.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="707"/>
@@ -13917,8 +13909,8 @@ iteracji fraktala
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="34"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1502"/>
-        <source>Loads settings from a selected fractal file into all parameters of the Rendering engine window.</source>
-        <translation>Wczytuje ustawienia z wybranego pliku fraktala do wszystkich parametrów okna Silnik renderowania.</translation>
+        <source>&lt;p&gt;Loads settings from a selected fractal file into all parameters of the Rendering engine window.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wczytuje ustawienia z wybranego pliku fraktala do wszystkich parametrów okna Silnik renderowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="37"/>
@@ -13956,8 +13948,8 @@ iteracji fraktala
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="79"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1514"/>
-        <source>Rendering engine options organized into tabs: Fractal shape calculation, Nebula mode, Limits and NetRender.</source>
-        <translation>Opcje silnika renderowania podzielone na zakładki: Obliczanie kształtu fraktala, Tryb mgławicy, Limity i NetRender.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Rendering engine options organized into tabs:&lt;/b&gt; Fractal shape calculation, Nebula mode, Limits and NetRender.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Opcje silnika renderowania podzielone na zakładki:&lt;/b&gt; Obliczanie kształtu fraktala, Tryb mgławicy, Limity i NetRender.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="178"/>
@@ -14205,8 +14197,8 @@ z rozdzielczością obrazu</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="890"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1653"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1507"/>
-        <source>Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.</source>
-        <translation>Umożliwia renderowanie fraktali w stylu mgławic, co pozwala uzyskać efekty wolumetryczne i chmuropodobne wraz z dodatkowymi kontrolkami jasności i koloru.</translation>
+        <source>&lt;p&gt;Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Umożliwia renderowanie fraktali w stylu mgławic, co pozwala uzyskać efekty wolumetryczne i chmuropodobne wraz z dodatkowymi kontrolkami jasności i koloru.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="893"/>
@@ -14260,8 +14252,8 @@ jasny</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="1061"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1697"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1533"/>
-        <source>Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.</source>
-        <translation>Minimalna liczba iteracji wymagana do rysowania pikseli mgławicy. Zwiększ tę wartość, aby ignorować obszary o niskiej liczbie iteracji.</translation>
+        <source>&lt;p&gt;Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Minimalna liczba iteracji wymagana do rysowania pikseli mgławicy. Zwiększ tę wartość, aby ignorować obszary o niskiej liczbie iteracji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1048"/>
@@ -14288,8 +14280,8 @@ jasny</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="979"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1677"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1519"/>
-        <source>Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.</source>
-        <translation>Liczba próbek na piksel podczas renderowania mgławicy. Wyższe wartości zmniejszają szum, ale wydłużają czas renderowania.</translation>
+        <source>&lt;p&gt;Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Liczba próbek na piksel podczas renderowania mgławicy. Wyższe wartości zmniejszają szum, ale wydłużają czas renderowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1041"/>
@@ -14410,8 +14402,8 @@ jasny</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="1200"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1725"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1561"/>
-        <source>Enable and configure a color gradient for the nebula based on the number of fractal iterations.</source>
-        <translation>Włącz i skonfiguruj gradient kolorów dla mgławicy w oparciu o liczbę iteracji fraktala.</translation>
+        <source>&lt;p&gt;Enable and configure a color gradient for the nebula based on the number of fractal iterations.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącz i skonfiguruj gradient kolorów dla mgławicy w oparciu o liczbę iteracji fraktala.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1203"/>
@@ -14424,8 +14416,8 @@ jasny</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="1237"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1732"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1568"/>
-        <source>Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.</source>
-        <translation>Włącz obliczenia domeny oparte na siatce dla mgławicy, umożliwiając kontrolę nad odstępami siatki wzdłuż każdej osi.</translation>
+        <source>&lt;p&gt;Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącz obliczenia domeny oparte na siatce dla mgławicy, umożliwiając kontrolę nad odstępami siatki wzdłuż każdej osi.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1240"/>
@@ -14480,8 +14472,8 @@ jasny</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="632"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1615"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1584"/>
-        <source>Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.</source>
-        <translation>Uzyskaj dostęp do zaawansowanych ustawień jakości umożliwiających precyzyjne dostrojenie liczby kroków raymarchingu, rozmiaru detali oraz precyzji renderowania.</translation>
+        <source>&lt;p&gt;Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Uzyskaj dostęp do zaawansowanych ustawień jakości umożliwiających precyzyjne dostrojenie liczby kroków raymarchingu, rozmiaru detali oraz precyzji renderowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="783"/>
@@ -14496,8 +14488,8 @@ kroków raymarchingu</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="800"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1649"/>
         <location filename="../qt/ui_dock_rendering_engine_copy.h" line="1618"/>
-        <source>Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.</source>
-        <translation>Maksymalna liczba kroków raymarchingu na piksel. Ogranicza, ile kroków jest wykonywanych podczas renderowania każdego piksela.</translation>
+        <source>&lt;p&gt;Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Maksymalna liczba kroków raymarchingu na piksel. Ogranicza, ile kroków jest wykonywanych podczas renderowania każdego piksela.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="518"/>
@@ -14515,8 +14507,8 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="502"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1593"/>
-        <source>Calculates the constant detail threshold automatically from the current camera distance to the fractal, field of view, detail level and image width.</source>
-        <translation>Oblicza automatycznie stały próg detali na podstawie bieżącej odległości kamery od fraktala, pola widzenia, ilości detali i szerokości obrazu.</translation>
+        <source>&lt;p&gt;Calculates the constant detail threshold automatically from the current camera distance to the fractal, field of view, detail level and image width.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Oblicza automatycznie stały próg detali na podstawie bieżącej odległości kamery od fraktala, pola widzenia, ilości detali i szerokości obrazu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="610"/>
@@ -14535,20 +14527,20 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="922"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1657"/>
-        <source>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 5%.</source>
-        <translation>Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 5%.</translation>
+        <source>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 5%.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 5%.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="933"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1662"/>
-        <source>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 15%.</source>
-        <translation>Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 15%.</translation>
+        <source>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 15%.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 15%.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="944"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1667"/>
-        <source>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 50%.</source>
-        <translation>Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 50%.</translation>
+        <source>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 50%.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Automatycznie skaluje jasność mgławicy tak, aby średnia jasność renderowanego obrazu wynosiła około 50%.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="969"/>
@@ -14559,14 +14551,14 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="993"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1681"/>
-        <source>Draws the points which escaped before the last iteration as nebula particles. This is the main part of the nebula cloud.</source>
-        <translation>Rysuje punkty, które wymknęły się przed ostatnią iteracją, jako cząstki mgławicy. To główna część chmury mgławicy.</translation>
+        <source>&lt;p&gt;Draws the points which escaped before the last iteration as nebula particles. This is the main part of the nebula cloud.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Rysuje punkty, które wymknęły się przed ostatnią iteracją, jako cząstki mgławicy. To główna część chmury mgławicy.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1003"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1689"/>
-        <source>Method of combining the enabled nebula color gradients: lighten - adds the gradient colors (bright result); darken - multiplies them (dark result); darkenByBrighness - multiplies the color by the average luminance of the gradients.</source>
-        <translation>Sposób łączenia włączonych gradientów kolorów mgławicy: lighten (rozjaśnienie) - dodaje kolory gradientów (jasny efekt); darken (przyciemnienie) - mnoży je (ciemny efekt); darkenByBrighness - mnoży kolor przez średnią luminancję gradientów.</translation>
+        <source>&lt;p&gt;Method of combining the enabled nebula color gradients: lighten - adds the gradient colors (bright result); darken - multiplies them (dark result); darkenByBrighness - multiplies the color by the average luminance of the gradients.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Sposób łączenia włączonych gradientów kolorów mgławicy: lighten (rozjaśnienie) - dodaje kolory gradientów (jasny efekt); darken (przyciemnienie) - mnoży je (ciemny efekt); darkenByBrighness - mnoży kolor przez średnią luminancję gradientów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1077"/>
@@ -14720,8 +14712,8 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1488"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1766"/>
-        <source>Maximum bounding box (plus and minus this value on each axis) used as the search range when the &apos;Bounding Box to limit&apos; button calculates the limit values.</source>
-        <translation>Maksymalny box ograniczający (plus i minus ta wartość na każdej osi) używany jako zakres poszukiwań, gdy przycisk „Granice z opisanego prostopadłościanu” oblicza wartości limitów.</translation>
+        <source>&lt;p&gt;Maximum bounding box (plus and minus this value on each axis) used as the search range when the &apos;&lt;i&gt;Bounding Box to limit&lt;/i&gt;&apos; button calculates the limit values.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Maksymalny box ograniczający (plus i minus ta wartość na każdej osi) używany jako zakres poszukiwań, gdy przycisk „&lt;i&gt;Granice z opisanego prostopadłościanu&lt;/i&gt;” oblicza wartości limitów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1495"/>
@@ -14745,14 +14737,14 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1569"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1778"/>
-        <source>Shifts the limit box along the X axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi X o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the X axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi X o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1592"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1781"/>
-        <source>Shifts the limit box along the X axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi X o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the X axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi X o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1622"/>
@@ -14769,14 +14761,14 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1668"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1791"/>
-        <source>Shifts the limit box along the Y axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi Y o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the Y axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi Y o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1691"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1794"/>
-        <source>Shifts the limit box along the Y axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi Y o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the Y axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi Y o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1721"/>
@@ -14793,14 +14785,14 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1767"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1804"/>
-        <source>Shifts the limit box along the Z axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi Z o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the Z axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi Z o 5% jego rozmiaru w stronę dodatnią; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę ujemną.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1790"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1807"/>
-        <source>Shifts the limit box along the Z axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</source>
-        <translation>Przesuwa box limitów wzdłuż osi Z o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.</translation>
+        <source>&lt;p&gt;Shifts the limit box along the Z axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa box limitów wzdłuż osi Z o 5% jego rozmiaru w stronę ujemną; widoczny wewnątrz fraktal sprawia wrażenie przesunięcia w stronę dodatnią.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1826"/>
@@ -14815,14 +14807,14 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1836"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1811"/>
-        <source>X coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna X limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;X coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna X limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1849"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1814"/>
-        <source>Z coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna Z limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;Z coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Z limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1862"/>
@@ -14834,8 +14826,8 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1869"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1818"/>
-        <source>Y coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna Y limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;Y coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Y limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1888"/>
@@ -14860,20 +14852,20 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1914"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1823"/>
-        <source>X coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna X limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;X coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna X limitu minimalnego - dolny lewy przedni narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1927"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1826"/>
-        <source>Y coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna Y limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;Y coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Y limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1940"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1829"/>
-        <source>Z coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</source>
-        <translation>Współrzędna Z limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.</translation>
+        <source>&lt;p&gt;Z coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Z limitu maksymalnego - górny prawy tylny narożnik boxa ograniczającego. Części sceny poza tym limitem są przycinane.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1953"/>
@@ -14892,8 +14884,8 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="2457"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1885"/>
-        <source>List of the connected rendering clients with their name, host address, number of CPUs, status, number of finished items and available actions.</source>
-        <translation>Lista połączonych klientów renderujących z ich nazwą, adresem hosta, liczbą CPU, statusem, liczbą zakończonych elementów i dostępnymi akcjami.</translation>
+        <source>&lt;p&gt;List of the connected rendering clients with their name, host address, number of CPUs, status, number of finished items and available actions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Lista połączonych klientów renderujących z ich nazwą, adresem hosta, liczbą CPU, statusem, liczbą zakończonych elementów i dostępnymi akcjami.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="2031"/>
@@ -15323,8 +15315,8 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="95"/>
         <location filename="../qt/ui_fractal_calculation_parameters.h" line="279"/>
-        <source>Replaces the per-pixel iteration constant (c taken from the point coordinates) with the fixed Julia constant below. The result is the Julia set of the formula instead of the Mandelbrot-like set.</source>
-        <translation>Zastępuje stałą iteracji pobieraną dla każdego piksela (c ze współrzędnych punktu) poniższą stałą Julii. Rezultatem jest zbiór Julii dla tej formuły zamiast zbioru typu Mandelbrota.</translation>
+        <source>&lt;p&gt;Replaces the per-pixel iteration constant (c taken from the point coordinates) with the fixed Julia constant below. The result is the Julia set of the formula instead of the Mandelbrot-like set.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastępuje stałą iteracji pobieraną dla każdego piksela (c ze współrzędnych punktu) poniższą stałą Julii. Rezultatem jest zbiór Julii dla tej formuły zamiast zbioru typu Mandelbrota.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="98"/>
@@ -15383,20 +15375,20 @@ kroków raymarchingu</translation>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="253"/>
         <location filename="../qt/ui_fractal_calculation_parameters.h" line="297"/>
-        <source>X multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</source>
-        <translation>Mnożnik X stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.</translation>
+        <source>&lt;p&gt;X multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnożnik X stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="284"/>
         <location filename="../qt/ui_fractal_calculation_parameters.h" line="302"/>
-        <source>Y multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</source>
-        <translation>Mnożnik Y stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.</translation>
+        <source>&lt;p&gt;Y multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnożnik Y stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="315"/>
         <location filename="../qt/ui_fractal_calculation_parameters.h" line="307"/>
-        <source>Z multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.</source>
-        <translation>Mnożnik Z stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.</translation>
+        <source>&lt;p&gt;Z multiplier of the constant c added on each iteration. Works in both standard and Julia mode; 1.0 means no scaling.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnożnik Z stałej c dodawanej w każdej iteracji. Działa zarówno w trybie standardowym jak i Julia; 1.0 oznacza brak skalowania.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="346"/>
@@ -15415,8 +15407,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/fractal_calculation_parameters.ui" line="393"/>
         <location filename="../qt/ui_fractal_calculation_parameters.h" line="317"/>
-        <source>Initial value of the w (4th) coordinate of the orbit point. Used by 4D / hypercomplex fractal formulas.</source>
-        <translation>Początkowa wartość w (czwartej) współrzędnej punktu orbity. Używana przez formuły fraktali 4D / hiperzespolonych.</translation>
+        <source>&lt;p&gt;Initial value of the w (4th) coordinate of the orbit point. Used by 4D / hypercomplex fractal formulas.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Początkowa wartość w (czwartej) współrzędnej punktu orbity. Używana przez formuły fraktali 4D / hiperzespolonych.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -15786,8 +15778,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="47"/>
         <location filename="../qt/ui_general_object_parameters.h" line="345"/>
-        <source>Selection of the material applied to this object. Materials are created and edited in the Material tab.</source>
-        <translation>Wybór materiału zastosowanego do tego obiektu. Materiały są tworzone i edytowane w zakładce Materiał.</translation>
+        <source>&lt;p&gt;Selection of the material applied to this object. Materials are created and edited in the Material tab.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wybór materiału zastosowanego do tego obiektu. Materiały są tworzone i edytowane w zakładce Materiał.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="63"/>
@@ -15818,8 +15810,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="125"/>
         <location filename="../qt/ui_general_object_parameters.h" line="354"/>
-        <source>Repeats the object in a grid with this distance between the neighboring copies along the Z axis. Values of 0 on all axes disable the repetition.</source>
-        <translation>Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi Z. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.</translation>
+        <source>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the Z axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi Z. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="154"/>
@@ -15862,8 +15854,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="217"/>
         <location filename="../qt/ui_general_object_parameters.h" line="368"/>
-        <source>Repeats the object in a grid with this distance between the neighboring copies along the Y axis. Values of 0 on all axes disable the repetition.</source>
-        <translation>Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi Y. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.</translation>
+        <source>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the Y axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi Y. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="230"/>
@@ -15874,8 +15866,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="237"/>
         <location filename="../qt/ui_general_object_parameters.h" line="372"/>
-        <source>Size of the object. 1.0 keeps the original size, values below 1 make it smaller, above 1 make it bigger.</source>
-        <translation>Rozmiar obiektu. 1.0 zachowuje oryginalny rozmiar, wartości poniżej 1 go pomniejszają, powyżej 1 powiększają.</translation>
+        <source>&lt;p&gt;Size of the object. 1.0 keeps the original size, values below 1 make it smaller, above 1 make it bigger.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Rozmiar obiektu. 1.0 zachowuje oryginalny rozmiar, wartości poniżej 1 go pomniejszają, powyżej 1 powiększają.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="250"/>
@@ -15886,14 +15878,14 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="273"/>
         <location filename="../qt/ui_general_object_parameters.h" line="377"/>
-        <source>Repeats the object in a grid with this distance between the neighboring copies along the X axis. Values of 0 on all axes disable the repetition.</source>
-        <translation>Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi X. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.</translation>
+        <source>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the X axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Powtarza obiekt w siatce z taką odległością między sąsiednimi kopiami wzdłuż osi X. Zerowa wartość na wszystkich osiach wyłącza powtórzenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="292"/>
         <location filename="../qt/ui_general_object_parameters.h" line="380"/>
-        <source>Per-object detail level multiplier. 1.0 = use global detail_level. Higher = more detail (slower).</source>
-        <translation>Mnożnik ilości detali dla pojedynczego obiektu. 1.0 = użyj globalnej ilości detali. Wyższa wartość = więcej detali (wolniej).</translation>
+        <source>&lt;p&gt;Per-object detail level multiplier. 1.0 = use global detail_level. Higher = more detail (slower).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mnożnik ilości detali dla pojedynczego obiektu. 1.0 = użyj globalnej ilości detali. Wyższa wartość = więcej detali (wolniej).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="299"/>
@@ -15930,8 +15922,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="431"/>
         <location filename="../qt/ui_general_object_parameters.h" line="401"/>
-        <source>Switches the mouse click function to &apos;Place object&apos;. The next click in the render window sets the position of this object at the clicked point.</source>
-        <translation>Przełącza funkcję kliknięcia myszy na „Umieść obiekt”. Następne kliknięcie w oknie renderowania ustawi pozycję tego obiektu w klikniętym punkcie.</translation>
+        <source>&lt;p&gt;Switches the mouse click function to &apos;&lt;i&gt;Place object&lt;/i&gt;&apos;. The next click in the render window sets the position of this object at the clicked point.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przełącza funkcję kliknięcia myszy na „&lt;i&gt;Umieść obiekt&lt;/i&gt;”. Następne kliknięcie w oknie renderowania ustawi pozycję tego obiektu w klikniętym punkcie.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="434"/>
@@ -15948,8 +15940,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="466"/>
         <location filename="../qt/ui_general_object_parameters.h" line="406"/>
-        <source>When the object is combined with the others by union (addition), its surface is smoothly blended with theirs instead of making a sharp intersection.</source>
-        <translation>Gdy obiekt jest łączony z innymi przez sumę (addition), jego powierzchnia jest płynnie zlewana z powierzchniami innych obiektów zamiast ostro się z nimi przecinać.</translation>
+        <source>&lt;p&gt;When the object is combined with the others by union (addition), its surface is smoothly blended with theirs instead of making a sharp intersection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy obiekt jest łączony z innymi przez sumę (addition), jego powierzchnia jest płynnie zlewana z powierzchniami innych obiektów zamiast ostro się z nimi przecinać.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="469"/>
@@ -15966,8 +15958,8 @@ dla fraktali 4D</translation>
     <message>
         <location filename="../qt/general_object_parameters.ui" line="483"/>
         <location filename="../qt/ui_general_object_parameters.h" line="411"/>
-        <source>Width of the smooth blending zone between the surfaces when &apos;Smooth DE combine&apos; is enabled. Higher values melt the surfaces together over a larger area.</source>
-        <translation>Szerokość strefy płynnego zlewania powierzchni przy włączonym „Gładkie przenikanie obiektów”. Wyższe wartości scalają powierzchnie na większym obszarze.</translation>
+        <source>&lt;p&gt;Width of the smooth blending zone between the surfaces when &apos;&lt;i&gt;Smooth DE combine&lt;/i&gt;&apos; is enabled. Higher values melt the surfaces together over a larger area.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Szerokość strefy płynnego zlewania powierzchni przy włączonym „&lt;i&gt;Gładkie przenikanie obiektów&lt;/i&gt;”. Wyższe wartości scalają powierzchnie na większym obszarze.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -16945,8 +16937,8 @@ klatek</translation>
     <message>
         <location filename="../qt/light_editor.ui" line="361"/>
         <location filename="../qt/ui_light_editor.h" line="646"/>
-        <source>Defines the light direction by aiming from the position at the target point instead of using the rotation angles. When enabled, the rotation fields are replaced by the target coordinates.</source>
-        <translation>Określa kierunek światła, celując z pozycji w punkt celu zamiast używać kątów obrotu. Po włączeniu pola obrotu są zastąpione współrzędnymi celu.</translation>
+        <source>&lt;p&gt;Defines the light direction by aiming from the position at the target point instead of using the rotation angles. When enabled, the rotation fields are replaced by the target coordinates.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Określa kierunek światła, celując z pozycji w punkt celu zamiast używać kątów obrotu. Po włączeniu pola obrotu są zastąpione współrzędnymi celu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/light_editor.ui" line="370"/>
@@ -16975,26 +16967,26 @@ klatek</translation>
     <message>
         <location filename="../qt/light_editor.ui" line="501"/>
         <location filename="../qt/ui_light_editor.h" line="668"/>
-        <source>X coordinate of the target point which the light is aimed at. Used when &apos;Use target point instead of angles&apos; is enabled.</source>
-        <translation>Współrzędna X punktu celu, w który skierowane jest światło. Używana przy włączonym «Użyj punktu celu zamiast kątów».</translation>
+        <source>&lt;p&gt;X coordinate of the target point which the light is aimed at. Used when &apos;&lt;i&gt;Use target point instead of angles&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna X punktu celu, w który skierowane jest światło. Używana przy włączonym «&lt;i&gt;Użyj punktu celu zamiast kątów&lt;/i&gt;».&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/light_editor.ui" line="514"/>
         <location filename="../qt/ui_light_editor.h" line="671"/>
-        <source>Y coordinate of the target point which the light is aimed at. Used when &apos;Use target point instead of angles&apos; is enabled.</source>
-        <translation>Współrzędna Y punktu celu, w który skierowane jest światło. Używana przy włączonym «Użyj punktu celu zamiast kątów».</translation>
+        <source>&lt;p&gt;Y coordinate of the target point which the light is aimed at. Used when &apos;&lt;i&gt;Use target point instead of angles&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Y punktu celu, w który skierowane jest światło. Używana przy włączonym «&lt;i&gt;Użyj punktu celu zamiast kątów&lt;/i&gt;».&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/light_editor.ui" line="527"/>
         <location filename="../qt/ui_light_editor.h" line="674"/>
-        <source>Z coordinate of the target point which the light is aimed at. Used when &apos;Use target point instead of angles&apos; is enabled.</source>
-        <translation>Współrzędna Z punktu celu, w który skierowane jest światło. Używana przy włączonym «Użyj punktu celu zamiast kątów».</translation>
+        <source>&lt;p&gt;Z coordinate of the target point which the light is aimed at. Used when &apos;&lt;i&gt;Use target point instead of angles&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Współrzędna Z punktu celu, w który skierowane jest światło. Używana przy włączonym «&lt;i&gt;Użyj punktu celu zamiast kątów&lt;/i&gt;».&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/light_editor.ui" line="536"/>
         <location filename="../qt/ui_light_editor.h" line="677"/>
-        <source>Preview of the light direction. Drag inside the ball to set the horizontal and vertical angles of the light.</source>
-        <translation>Podgląd kierunku światła. Przeciągnij wewnątrz kuli, aby ustawić poziomy i pionowy kąt światła.</translation>
+        <source>&lt;p&gt;Preview of the light direction. Drag inside the ball to set the horizontal and vertical angles of the light.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Podgląd kierunku światła. Przeciągnij wewnątrz kuli, aby ustawić poziomy i pionowy kąt światła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/light_editor.ui" line="557"/>
@@ -17458,8 +17450,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="373"/>
         <location filename="../qt/ui_material_editor.h" line="3375"/>
-        <source>When enabled, the reflectance is multiplied by the gradient color selected by the fractal color index. Perlin noise for reflectance also uses this gradient.</source>
-        <translation>Gdy włączone, reflektancja jest mnożona przez kolor gradientu wybrany przez indeks koloru fraktala. Szum Perlina dla reflektancji również używa tego gradientu.</translation>
+        <source>&lt;p&gt;When enabled, the reflectance is multiplied by the gradient color selected by the fractal color index. Perlin noise for reflectance also uses this gradient.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, reflektancja jest mnożona przez kolor gradientu wybrany przez indeks koloru fraktala. Szum Perlina dla reflektancji również używa tego gradientu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="376"/>
@@ -17476,8 +17468,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="410"/>
         <location filename="../qt/ui_material_editor.h" line="3382"/>
-        <source>When enabled, the transparency color is multiplied by the gradient color selected by the fractal color index. Perlin noise for transparency also uses this gradient.</source>
-        <translation>Gdy włączone, kolor przezroczystości jest mnożony przez kolor gradientu wybrany przez indeks koloru fraktala. Szum Perlina dla przezroczystości również używa tego gradientu.</translation>
+        <source>&lt;p&gt;When enabled, the transparency color is multiplied by the gradient color selected by the fractal color index. Perlin noise for transparency also uses this gradient.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, kolor przezroczystości jest mnożony przez kolor gradientu wybrany przez indeks koloru fraktala. Szum Perlina dla przezroczystości również używa tego gradientu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="437"/>
@@ -17488,14 +17480,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="687"/>
         <location filename="../qt/ui_material_editor.h" line="3425"/>
-        <source>Offset applied to the fractal coloring palette. Shifts the color mapping along the palette, allowing fine-tuning of color distribution on the fractal surface. Used in combination with coloring speed and gradients.</source>
-        <translation>Przesunięcie zastosowane do palety kolorowania fraktala. Przesuwa mapowanie kolorów wzdłuż palety, umożliwiając precyzyjne dostrojenie rozkładu kolorów na powierzchni fraktala. Używane w połączeniu z szybkością kolorowania oraz gradientami.</translation>
+        <source>&lt;p&gt;Offset applied to the fractal coloring palette. Shifts the color mapping along the palette, allowing fine-tuning of color distribution on the fractal surface. Used in combination with coloring speed and gradients.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesunięcie zastosowane do palety kolorowania fraktala. Przesuwa mapowanie kolorów wzdłuż palety, umożliwiając precyzyjne dostrojenie rozkładu kolorów na powierzchni fraktala. Używane w połączeniu z szybkością kolorowania oraz gradientami.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="754"/>
         <location filename="../qt/ui_material_editor.h" line="3436"/>
-        <source>When enabled, the w (4th) component of the orbit point takes part in the orbit trap coloring metric (length and dot products, minimum distance for the cross algorithm).</source>
-        <translation>Gdy włączone, składowa w (czwarta) punktu orbity bierze udział w metryce kolorowania pułapki orbity (długości i iloczyny skalarne, minimalna odległość dla algorytmu krzyża).</translation>
+        <source>&lt;p&gt;When enabled, the w (4th) component of the orbit point takes part in the orbit trap coloring metric (length and dot products, minimum distance for the cross algorithm).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, składowa w (czwarta) punktu orbity bierze udział w metryce kolorowania pułapki orbity (długości i iloczyny skalarne, minimalna odległość dla algorytmu krzyża).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="764"/>
@@ -17536,14 +17528,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1005"/>
         <location filename="../qt/ui_material_editor.h" line="3470"/>
-        <source>Base colorValue for every point, added before the other components (1.0 = one whole color step at the default color speed).</source>
-        <translation>Bazowa wartość colorValue dla każdego punktu, dodawana przed pozostałymi składowymi (1.0 = pełny krok koloru przy domyślnej prędkości koloru).</translation>
+        <source>&lt;p&gt;Base colorValue for every point, added before the other components (1.0 = one whole color step at the default color speed).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Bazowa wartość colorValue dla każdego punktu, dodawana przed pozostałymi składowymi (1.0 = pełny krok koloru przy domyślnej prędkości koloru).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1067"/>
         <location filename="../qt/ui_material_editor.h" line="3479"/>
-        <source>Adds the length of the starting point vector c (|c|), multiplied by its weight, to the colorValue.</source>
-        <translation>Dodaje do colorValue długość wektora punktu startowego c (|c|) pomnożoną przez jej wagę.</translation>
+        <source>&lt;p&gt;Adds the length of the starting point vector c (|c|), multiplied by its weight, to the colorValue.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje do colorValue długość wektora punktu startowego c (|c|) pomnożoną przez jej wagę.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1098"/>
@@ -17566,8 +17558,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1167"/>
         <location filename="../qt/ui_material_editor.h" line="3496"/>
-        <source>Adds the scaled c.x, c.y and c.z components (original coordinates of the iterated point) to the colorValue.</source>
-        <translation>Dodaje do colorValue skalowane składowe c.x, c.y i c.z (oryginalne współrzędne iterowanego punktu).</translation>
+        <source>&lt;p&gt;Adds the scaled c.x, c.y and c.z components (original coordinates of the iterated point) to the colorValue.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje do colorValue skalowane składowe c.x, c.y i c.z (oryginalne współrzędne iterowanego punktu).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1177"/>
@@ -17584,8 +17576,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1241"/>
         <location filename="../qt/ui_material_editor.h" line="3509"/>
-        <source>Disables the abs() operation on the c coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.</source>
-        <translation>Wyłącza operację abs() na współrzędnych c przed ważeniem (domyślnie abs() jest stosowane). Przy wartościach ze znakiem colorValue może się zerować, więc może wymagać zwiększenia.</translation>
+        <source>&lt;p&gt;Disables the abs() operation on the c coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wyłącza operację abs() na współrzędnych c przed ważeniem (domyślnie abs() jest stosowane). Przy wartościach ze znakiem colorValue może się zerować, więc może wymagać zwiększenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1254"/>
@@ -17626,8 +17618,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1352"/>
         <location filename="../qt/ui_material_editor.h" line="3520"/>
-        <source>Weight of the orbit trap component: colorValue += minimum orbit trap distance * weight. Weight 19.5 is equivalent to the old default (minimumR * 5000), 3.9 to the old hybrid default (minimumR * 1000).</source>
-        <translation>Waga składowej pułapki orbity: colorValue += minimalna odległość pułapki orbity * waga. Waga 19.5 odpowiada starej wartości domyślnej (minimumR * 5000), a 3.9 starej domyślnej wartości hybrydy (minimumR * 1000).</translation>
+        <source>&lt;p&gt;Weight of the orbit trap component: colorValue += minimum orbit trap distance * weight. Weight 19.5 is equivalent to the old default (minimumR * 5000), 3.9 to the old hybrid default (minimumR * 1000).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Waga składowej pułapki orbity: colorValue += minimalna odległość pułapki orbity * waga. Waga 19.5 odpowiada starej wartości domyślnej (minimumR * 5000), a 3.9 starej domyślnej wartości hybrydy (minimumR * 1000).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1385"/>
@@ -17692,8 +17684,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1575"/>
         <location filename="../qt/ui_material_editor.h" line="3552"/>
-        <source>Weight of the radius component: colorValue += radius (at the end of the iterations) * weight.</source>
-        <translation>Waga składowej promienia: colorValue += promień (na końcu iteracji) * waga.</translation>
+        <source>&lt;p&gt;Weight of the radius component: colorValue += radius (at the end of the iterations) * weight.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Waga składowej promienia: colorValue += promień (na końcu iteracji) * waga.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1606"/>
@@ -17758,8 +17750,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1753"/>
         <location filename="../qt/ui_material_editor.h" line="3579"/>
-        <source>Divides the z coordinates by 1e13 before weighting (useful for fractals with very large orbits).</source>
-        <translation>Dzieli współrzędne z przez 1e13 przed ważeniem (przydatne dla fraktali z bardzo dużymi orbitami).</translation>
+        <source>&lt;p&gt;Divides the z coordinates by 1e13 before weighting (useful for fractals with very large orbits).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dzieli współrzędne z przez 1e13 przed ważeniem (przydatne dla fraktali z bardzo dużymi orbitami).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1768"/>
@@ -17836,8 +17828,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="1959"/>
         <location filename="../qt/ui_material_editor.h" line="3616"/>
-        <source>Disables the abs() operation on the z coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.</source>
-        <translation>Wyłącza operację abs() na współrzędnych z przed ważeniem (domyślnie abs() jest stosowane). Przy wartościach ze znakiem colorValue może się zerować, więc może wymagać zwiększenia.</translation>
+        <source>&lt;p&gt;Disables the abs() operation on the z coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wyłącza operację abs() na współrzędnych z przed ważeniem (domyślnie abs() jest stosowane). Przy wartościach ze znakiem colorValue może się zerować, więc może wymagać zwiększenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1972"/>
@@ -17854,8 +17846,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2004"/>
         <location filename="../qt/ui_material_editor.h" line="3623"/>
-        <source>Enables the iteration addition: colorValue += scale * (iteration - startIteration) for points that terminate after the start iteration.</source>
-        <translation>Włącza dodawanie iteracyjne: colorValue += skala * (iteracja - iteracja początkowa) dla punktów kończących iterowanie po iteracji początkowej.</translation>
+        <source>&lt;p&gt;Enables the iteration addition: colorValue += scale * (iteration - startIteration) for points that terminate after the start iteration.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza dodawanie iteracyjne: colorValue += skala * (iteracja - iteracja początkowa) dla punktów kończących iterowanie po iteracji początkowej.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2020"/>
@@ -17866,8 +17858,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2045"/>
         <location filename="../qt/ui_material_editor.h" line="3631"/>
-        <source>Enables the iteration scaling: colorValue *= 1 + scale * (iteration - startIteration). Needs another component supplying a range of colorValues.</source>
-        <translation>Włącza skalowanie iteracyjne: colorValue *= 1 + skala * (iteracja - iteracja początkowa). Wymaga innej składowej dostarczającej zakres wartości colorValue.</translation>
+        <source>&lt;p&gt;Enables the iteration scaling: colorValue *= 1 + scale * (iteration - startIteration). Needs another component supplying a range of colorValues.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza skalowanie iteracyjne: colorValue *= 1 + skala * (iteracja - iteracja początkowa). Wymaga innej składowej dostarczającej zakres wartości colorValue.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2055"/>
@@ -17912,8 +17904,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2194"/>
         <location filename="../qt/ui_material_editor.h" line="3652"/>
-        <source>Controls how fast the addition curve approaches its maximum (bigger values produce a wider, smoother transition).</source>
-        <translation>Kontroluje, jak szybko krzywa dodawania zbliża się do swego maksimum (większe wartości dają szersze, łagodniejsze przejście).</translation>
+        <source>&lt;p&gt;Controls how fast the addition curve approaches its maximum (bigger values produce a wider, smoother transition).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak szybko krzywa dodawania zbliża się do swego maksimum (większe wartości dają szersze, łagodniejsze przejście).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2239"/>
@@ -17924,14 +17916,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2277"/>
         <location filename="../qt/ui_material_editor.h" line="3665"/>
-        <source>Maximum value added to the colorValue by the curve (approached when colorValue grows far above the start value).</source>
-        <translation>Maksymalna wartość dodawana do colorValue przez krzywą (osiągana, gdy colorValue rośnie daleko powyżej wartości początkowej).</translation>
+        <source>&lt;p&gt;Maximum value added to the colorValue by the curve (approached when colorValue grows far above the start value).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Maksymalna wartość dodawana do colorValue przez krzywą (osiągana, gdy colorValue rośnie daleko powyżej wartości początkowej).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2359"/>
         <location filename="../qt/ui_material_editor.h" line="3676"/>
-        <source>colorValue threshold above which the parabolic function is applied. Note: currently the formula subtracts the trig function start value as the offset.</source>
-        <translation>Próg colorValue, powyżej którego stosowana jest funkcja paraboliczna. Uwaga: obecnie formuła odejmuje wartość startową funkcji trygonometrycznej jako przesunięcie.</translation>
+        <source>&lt;p&gt;colorValue threshold above which the parabolic function is applied. Note: currently the formula subtracts the trig function start value as the offset.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Próg colorValue, powyżej którego stosowana jest funkcja paraboliczna. Uwaga: obecnie formuła odejmuje wartość startową funkcji trygonometrycznej jako przesunięcie.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2390"/>
@@ -17948,8 +17940,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2503"/>
         <location filename="../qt/ui_material_editor.h" line="3697"/>
-        <source>colorValue threshold above which the trigonometric function starts; it is also used as the phase offset of the wave.</source>
-        <translation>Próg colorValue, powyżej którego startuje funkcja trygonometryczna; jest też używany jako przesunięcie fazowe fali.</translation>
+        <source>&lt;p&gt;colorValue threshold above which the trigonometric function starts; it is also used as the phase offset of the wave.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Próg colorValue, powyżej którego startuje funkcja trygonometryczna; jest też używany jako przesunięcie fazowe fali.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2541"/>
@@ -17960,26 +17952,26 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="2614"/>
         <location filename="../qt/ui_material_editor.h" line="3712"/>
-        <source>Quantization step of the round function: colorValue is divided by it, rounded to the nearest integer and multiplied back, producing flat color bands.</source>
-        <translation>Krok kwantyzacji funkcji zaokrąglającej: colorValue jest dzielony przez tę wartość, zaokrąglany do najbliższej liczby całkowitej i mnożony z powrotem, co daje płaskie pasma kolorów.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Quantization step of the round function:&lt;/b&gt; colorValue is divided by it, rounded to the nearest integer and multiplied back, producing flat color bands.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Krok kwantyzacji funkcji zaokrąglającej:&lt;/b&gt; colorValue jest dzielony przez tę wartość, zaokrąglany do najbliższej liczby całkowitej i mnożony z powrotem, co daje płaskie pasma kolorów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2867"/>
         <location filename="../qt/ui_material_editor.h" line="3745"/>
-        <source>Adjusts the influence of the loaded color texture on the material&apos;s surface color. A value of 0 uses only the base color; a value of 1 uses only the texture. Intermediate values blend between the two.</source>
-        <translation>Reguluje wpływ załadowanej tekstury kolorów na kolor powierzchni materiału. Wartość 0 oznacza użycie wyłącznie koloru bazowego; wartość 1 oznacza użycie wyłącznie tekstury. Wartości pośrednie powodują płynne przejście między tymi dwoma opcjami.</translation>
+        <source>&lt;p&gt;Adjusts the influence of the loaded color texture on the material&apos;s surface color. A value of 0 uses only the base color; a value of 1 uses only the texture. Intermediate values blend between the two.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Reguluje wpływ załadowanej tekstury kolorów na kolor powierzchni materiału. Wartość 0 oznacza użycie wyłącznie koloru bazowego; wartość 1 oznacza użycie wyłącznie tekstury. Wartości pośrednie powodują płynne przejście między tymi dwoma opcjami.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2894"/>
         <location filename="../qt/ui_material_editor.h" line="3750"/>
-        <source>Applies the Perlin noise pattern to the surface color. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Zastosowuje wzór szumu Perlina do koloru powierzchni. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Applies the Perlin noise pattern to the surface color. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje wzór szumu Perlina do koloru powierzchni. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2930"/>
         <location filename="../qt/ui_material_editor.h" line="3754"/>
-        <source>Strength of the Perlin noise influence on the surface color (0 = no effect, 1 = the noise fully modulates the color). When the &apos;Surface color&apos; gradient is enabled, the gradient is sampled along the noise value.</source>
-        <translation>Siła wpływu szumu Perlina na kolor powierzchni (0 = brak efektu, 1 = szum w pełni moduluje kolor). Gdy włączony jest gradient „Kolor powierzchni”, gradient jest próbkowany według wartości szumu.</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the surface color (0 = no effect, 1 = the noise fully modulates the color). When the &apos;&lt;i&gt;Surface color&lt;/i&gt;&apos; gradient is enabled, the gradient is sampled along the noise value.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na kolor powierzchni (0 = brak efektu, 1 = szum w pełni moduluje kolor). Gdy włączony jest gradient „&lt;i&gt;Kolor powierzchni&lt;/i&gt;”, gradient jest próbkowany według wartości szumu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2962"/>
@@ -17990,8 +17982,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="3438"/>
         <location filename="../qt/ui_material_editor.h" line="3826"/>
-        <source>Use an image file as a roughness map texture. Brighter pixels make the surface rougher (stronger normal perturbation of the rough surface effect).</source>
-        <translation>Użyj pliku graficznego jako tekstury mapy chropowatości. Jaśniejsze piksele czynią powierzchnię bardziej chropowatą (silniejsza perturbacja normalnych w efekcie chropowatej powierzchni).</translation>
+        <source>&lt;p&gt;Use an image file as a roughness map texture. Brighter pixels make the surface rougher (stronger normal perturbation of the rough surface effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Użyj pliku graficznego jako tekstury mapy chropowatości. Jaśniejsze piksele czynią powierzchnię bardziej chropowatą (silniejsza perturbacja normalnych w efekcie chropowatej powierzchni).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3484"/>
@@ -18002,8 +17994,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="3497"/>
         <location filename="../qt/ui_material_editor.h" line="3835"/>
-        <source>Controls how strongly the roughness texture modulates the surface roughness (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</source>
-        <translation>Kontroluje, jak mocno tekstura chropowatości moduluje chropowatość powierzchni (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).</translation>
+        <source>&lt;p&gt;Controls how strongly the roughness texture modulates the surface roughness (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura chropowatości moduluje chropowatość powierzchni (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3533"/>
@@ -18014,14 +18006,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="3569"/>
         <location filename="../qt/ui_material_editor.h" line="3845"/>
-        <source>Saturation of the rainbow colors: higher values produce more vivid colors, 0 disables the color changes.</source>
-        <translation>Nasycenie tęczowych kolorów: wyższe wartości dają bardziej żywe kolory, 0 wyłącza zmiany koloru.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Saturation of the rainbow colors:&lt;/b&gt; higher values produce more vivid colors, 0 disables the color changes.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Nasycenie tęczowych kolorów:&lt;/b&gt; wyższe wartości dają bardziej żywe kolory, 0 wyłącza zmiany koloru.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3610"/>
         <location filename="../qt/ui_material_editor.h" line="3851"/>
-        <source>Scales the estimated thickness of the thin subsurface layer. It changes how fast the rainbow color bands cycle over the surface.</source>
-        <translation>Skaluje szacowaną grubość cienkiej podpowierzchniowej warstwy. Zmienia tempo cyklu tęczowych pasm koloru na powierzchni.</translation>
+        <source>&lt;p&gt;Scales the estimated thickness of the thin subsurface layer. It changes how fast the rainbow color bands cycle over the surface.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skaluje szacowaną grubość cienkiej podpowierzchniowej warstwy. Zmienia tempo cyklu tęczowych pasm koloru na powierzchni.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3714"/>
@@ -18038,20 +18030,20 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="3826"/>
         <location filename="../qt/ui_material_editor.h" line="3883"/>
-        <source>Controls how much the luminosity texture affects the material&apos;s self-illumination. Higher values increase the contribution of the texture to the final luminosity.</source>
-        <translation>Reguluje, w jakim stopniu tekstura jasności wpływa na samoświecenie materiału. Wyższe wartości zwiększają udział tekstury w końcowej jasności.</translation>
+        <source>&lt;p&gt;Controls how much the luminosity texture affects the material&apos;s self-illumination. Higher values increase the contribution of the texture to the final luminosity.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Reguluje, w jakim stopniu tekstura jasności wpływa na samoświecenie materiału. Wyższe wartości zwiększają udział tekstury w końcowej jasności.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3853"/>
         <location filename="../qt/ui_material_editor.h" line="3888"/>
-        <source>Applies the Perlin noise pattern to the luminosity effect. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Zastosowuje wzór szumu Perlina do efektu świetlistości. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Applies the Perlin noise pattern to the luminosity effect. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje wzór szumu Perlina do efektu świetlistości. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3889"/>
         <location filename="../qt/ui_material_editor.h" line="3892"/>
-        <source>Strength of the Perlin noise influence on the luminosity (0 = no effect; the noise multiplies the luminosity, or adds gradient colors when the &apos;Luminosity&apos; gradient is enabled).</source>
-        <translation>Siła wpływu szumu Perlina na świetlistość (0 = brak efektu; szum mnoży świetlistość lub dodaje kolory gradientu, gdy włączony jest gradient „Świetlistość”).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the luminosity (0 = no effect; the noise multiplies the luminosity, or adds gradient colors when the &apos;&lt;i&gt;Luminosity&lt;/i&gt;&apos; gradient is enabled).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na świetlistość (0 = brak efektu; szum mnoży świetlistość lub dodaje kolory gradientu, gdy włączony jest gradient „&lt;i&gt;Świetlistość&lt;/i&gt;”).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="3921"/>
@@ -18062,8 +18054,8 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4030"/>
         <location filename="../qt/ui_material_editor.h" line="3915"/>
-        <source>Color which tints the ray-traced reflected light: the reflected image is multiplied by this color. To apply this effect, enable ray-traced reflections in the Raytracing tab.</source>
-        <translation>Kolor barwiący światło odbite liczone ray-tracingiem: odbity obraz jest mnożony przez ten kolor. Aby zastosować efekt, włącz odbicia ray-traced w zakładce Raytracing.</translation>
+        <source>&lt;p&gt;Color which tints the ray-traced reflected light: the reflected image is multiplied by this color. To apply this effect, enable ray-traced reflections in the Raytracing tab.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kolor barwiący światło odbite liczone ray-tracingiem: odbity obraz jest mnożony przez ten kolor. Aby zastosować efekt, włącz odbicia ray-traced w zakładce Raytracing.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4090"/>
@@ -18080,20 +18072,20 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4149"/>
         <location filename="../qt/ui_material_editor.h" line="3935"/>
-        <source>Controls how strongly the reflectance texture modulates the amount of reflected light (0 = texture ignored, 1 = fully applied, higher values amplify the effect). Requires ray-traced reflections or environment mapping.</source>
-        <translation>Kontroluje, jak mocno tekstura reflektancji moduluje ilość odbijanego światła (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt). Wymaga odbić ray-tracing lub mapowania środowiskowego.</translation>
+        <source>&lt;p&gt;Controls how strongly the reflectance texture modulates the amount of reflected light (0 = texture ignored, 1 = fully applied, higher values amplify the effect). Requires ray-traced reflections or environment mapping.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura reflektancji moduluje ilość odbijanego światła (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt). Wymaga odbić ray-tracing lub mapowania środowiskowego.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4182"/>
         <location filename="../qt/ui_material_editor.h" line="3940"/>
-        <source>Applies the Perlin noise pattern to the reflectance. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Zastosowuje wzór szumu Perlina do reflektancji. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Applies the Perlin noise pattern to the reflectance. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje wzór szumu Perlina do reflektancji. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4218"/>
         <location filename="../qt/ui_material_editor.h" line="3944"/>
-        <source>Strength of the Perlin noise influence on the reflectance (0 = no effect, 1 = the noise fully modulates the reflected light).</source>
-        <translation>Siła wpływu szumu Perlina na reflektancję (0 = brak efektu, 1 = szum w pełni moduluje odbite światło).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the reflectance (0 = no effect, 1 = the noise fully modulates the reflected light).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na reflektancję (0 = brak efektu, 1 = szum w pełni moduluje odbite światło).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4250"/>
@@ -18104,20 +18096,20 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4364"/>
         <location filename="../qt/ui_material_editor.h" line="3973"/>
-        <source>Color which tints the light passing through the transparent surface. Used when the &apos;Transparency&apos; gradient is disabled.</source>
-        <translation>Kolor barwiący światło przenikające przez przezroczystą powierzchnię. Używany, gdy gradient „Przezroczystość” jest wyłączony.</translation>
+        <source>&lt;p&gt;Color which tints the light passing through the transparent surface. Used when the &apos;&lt;i&gt;Transparency&lt;/i&gt;&apos; gradient is disabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kolor barwiący światło przenikające przez przezroczystą powierzchnię. Używany, gdy gradient „&lt;i&gt;Przezroczystość&lt;/i&gt;” jest wyłączony.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4412"/>
         <location filename="../qt/ui_material_editor.h" line="3983"/>
-        <source>Use an image file as a transparency color map texture: it modulates the transparency color on the surface and inside the object volume.</source>
-        <translation>Użyj pliku graficznego jako tekstury mapy koloru przezroczystości: moduluje kolor przezroczystości na powierzchni i wewnątrz objętości obiektu.</translation>
+        <source>&lt;p&gt;Use an image file as a transparency color map texture: it modulates the transparency color on the surface and inside the object volume.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Użyj pliku graficznego jako tekstury mapy koloru przezroczystości: moduluje kolor przezroczystości na powierzchni i wewnątrz objętości obiektu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4444"/>
         <location filename="../qt/ui_material_editor.h" line="3987"/>
-        <source>Controls how strongly the texture modulates the transparency color on the surface (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</source>
-        <translation>Kontroluje, jak mocno tekstura moduluje kolor przezroczystości na powierzchni (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).</translation>
+        <source>&lt;p&gt;Controls how strongly the texture modulates the transparency color on the surface (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura moduluje kolor przezroczystości na powierzchni (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4486"/>
@@ -18128,14 +18120,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4499"/>
         <location filename="../qt/ui_material_editor.h" line="3997"/>
-        <source>Controls how strongly the texture modulates the transparency color inside the object volume (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</source>
-        <translation>Kontroluje, jak mocno tekstura moduluje kolor przezroczystości wewnątrz objętości obiektu (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).</translation>
+        <source>&lt;p&gt;Controls how strongly the texture modulates the transparency color inside the object volume (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura moduluje kolor przezroczystości wewnątrz objętości obiektu (0 = tekstura ignorowana, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4539"/>
         <location filename="../qt/ui_material_editor.h" line="4003"/>
-        <source>Use an image file as a transparency alpha (opacity) texture: bright pixels make the surface less transparent, dark pixels allow more light through.</source>
-        <translation>Użyj pliku graficznego jako tekstury alfa (krycia) przezroczystości: jasne piksele czynią powierzchnię mniej przezroczystą, ciemne przepuszczają więcej światła.</translation>
+        <source>&lt;p&gt;Use an image file as a transparency alpha (opacity) texture: bright pixels make the surface less transparent, dark pixels allow more light through.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Użyj pliku graficznego jako tekstury alfa (krycia) przezroczystości: jasne piksele czynią powierzchnię mniej przezroczystą, ciemne przepuszczają więcej światła.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4571"/>
@@ -18146,26 +18138,26 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4598"/>
         <location filename="../qt/ui_material_editor.h" line="4012"/>
-        <source>Controls how strongly the alpha texture reduces the transparency on the surface (0 = no influence, 1 = fully applied, higher values amplify the effect).</source>
-        <translation>Kontroluje, jak mocno tekstura alfa redukuje przezroczystość na powierzchni (0 = brak wpływu, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).</translation>
+        <source>&lt;p&gt;Controls how strongly the alpha texture reduces the transparency on the surface (0 = no influence, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura alfa redukuje przezroczystość na powierzchni (0 = brak wpływu, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4633"/>
         <location filename="../qt/ui_material_editor.h" line="4018"/>
-        <source>Controls how strongly the alpha texture reduces the transparency inside the object volume (0 = no influence, 1 = fully applied, higher values amplify the effect).</source>
-        <translation>Kontroluje, jak mocno tekstura alfa redukuje przezroczystość wewnątrz objętości obiektu (0 = brak wpływu, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).</translation>
+        <source>&lt;p&gt;Controls how strongly the alpha texture reduces the transparency inside the object volume (0 = no influence, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura alfa redukuje przezroczystość wewnątrz objętości obiektu (0 = brak wpływu, 1 = w pełni zastosowana, większe wartości wzmacniają efekt).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4666"/>
         <location filename="../qt/ui_material_editor.h" line="4023"/>
-        <source>Applies the Perlin noise pattern to the transparency color on the surface and inside the volume. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Zastosowuje wzór szumu Perlina do koloru przezroczystości na powierzchni i wewnątrz objętości. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Applies the Perlin noise pattern to the transparency color on the surface and inside the volume. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje wzór szumu Perlina do koloru przezroczystości na powierzchni i wewnątrz objętości. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4702"/>
         <location filename="../qt/ui_material_editor.h" line="4027"/>
-        <source>Strength of the Perlin noise influence on the transparency color on the surface (0 = no effect, 1 = the noise fully modulates the color).</source>
-        <translation>Siła wpływu szumu Perlina na kolor przezroczystości na powierzchni (0 = brak efektu, 1 = szum w pełni moduluje kolor).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the transparency color on the surface (0 = no effect, 1 = the noise fully modulates the color).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na kolor przezroczystości na powierzchni (0 = brak efektu, 1 = szum w pełni moduluje kolor).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4727"/>
@@ -18176,14 +18168,14 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4757"/>
         <location filename="../qt/ui_material_editor.h" line="4038"/>
-        <source>Strength of the Perlin noise influence on the transparency color inside the object volume (0 = no effect, 1 = the noise fully modulates the color).</source>
-        <translation>Siła wpływu szumu Perlina na kolor przezroczystości wewnątrz objętości obiektu (0 = brak efektu, 1 = szum w pełni moduluje kolor).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the transparency color inside the object volume (0 = no effect, 1 = the noise fully modulates the color).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na kolor przezroczystości wewnątrz objętości obiektu (0 = brak efektu, 1 = szum w pełni moduluje kolor).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4785"/>
         <location filename="../qt/ui_material_editor.h" line="4043"/>
-        <source>Applies the Perlin noise pattern to the transparency alpha: bright noise areas make the object less transparent. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Zastosowuje wzór szumu Perlina do alfa przezroczystości: jasne obszary szumu czynią obiekt mniej przezroczystym. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Applies the Perlin noise pattern to the transparency alpha: bright noise areas make the object less transparent. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje wzór szumu Perlina do alfa przezroczystości: jasne obszary szumu czynią obiekt mniej przezroczystym. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4822"/>
@@ -18194,26 +18186,26 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="4838"/>
         <location filename="../qt/ui_material_editor.h" line="4052"/>
-        <source>Strength of the Perlin noise influence on the transparency alpha on the surface (0 = no effect, 1 = the noise fully controls the opacity).</source>
-        <translation>Siła wpływu szumu Perlina na alfa przezroczystości na powierzchni (0 = brak efektu, 1 = szum w pełni kontroluje krycie).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the transparency alpha on the surface (0 = no effect, 1 = the noise fully controls the opacity).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na alfa przezroczystości na powierzchni (0 = brak efektu, 1 = szum w pełni kontroluje krycie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4876"/>
         <location filename="../qt/ui_material_editor.h" line="4058"/>
-        <source>Strength of the Perlin noise influence on the transparency alpha inside the object volume (0 = no effect, 1 = the noise fully controls the opacity).</source>
-        <translation>Siła wpływu szumu Perlina na alfa przezroczystości wewnątrz objętości obiektu (0 = brak efektu, 1 = szum w pełni kontroluje krycie).</translation>
+        <source>&lt;p&gt;Strength of the Perlin noise influence on the transparency alpha inside the object volume (0 = no effect, 1 = the noise fully controls the opacity).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Siła wpływu szumu Perlina na alfa przezroczystości wewnątrz objętości obiektu (0 = brak efektu, 1 = szum w pełni kontroluje krycie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="4985"/>
         <location filename="../qt/ui_material_editor.h" line="4073"/>
-        <source>Controls how strongly the diffusion texture modulates the reflected light and the specular highlights (0 = texture ignored, 1 = fully applied).</source>
-        <translation>Kontroluje, jak mocno tekstura dyfuzji moduluje odbite światło i specularne błyski (0 = tekstura ignorowana, 1 = w pełni zastosowana).</translation>
+        <source>&lt;p&gt;Controls how strongly the diffusion texture modulates the reflected light and the specular highlights (0 = texture ignored, 1 = fully applied).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kontroluje, jak mocno tekstura dyfuzji moduluje odbite światło i specularne błyski (0 = tekstura ignorowana, 1 = w pełni zastosowana).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5174"/>
         <location filename="../qt/ui_material_editor.h" line="4111"/>
-        <source>Displaces the object surface along the ray using the Perlin noise pattern, producing real geometric bumps. Requires the main &apos;Perlin noise&apos; option to be enabled.</source>
-        <translation>Przemieszcza powierzchnię obiektu wzdłuż promienia przy użyciu wzoru szumu Perlina, tworząc rzeczywiste geometryczne nierówności. Wymaga włączenia głównej opcji „Szum Perlina”.</translation>
+        <source>&lt;p&gt;Displaces the object surface along the ray using the Perlin noise pattern, producing real geometric bumps. Requires the main &apos;&lt;i&gt;Perlin noise&lt;/i&gt;&apos; option to be enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przemieszcza powierzchnię obiektu wzdłuż promienia przy użyciu wzoru szumu Perlina, tworząc rzeczywiste geometryczne nierówności. Wymaga włączenia głównej opcji „&lt;i&gt;Szum Perlina&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5211"/>
@@ -18224,32 +18216,32 @@ light</source>
     <message>
         <location filename="../qt/material_editor.ui" line="5221"/>
         <location filename="../qt/ui_material_editor.h" line="4120"/>
-        <source>Maximum height of the displacement produced by the Perlin noise, in the same units as object sizes.</source>
-        <translation>Maksymalna wysokość przemieszczenia wytwarzanego przez szum Perlina, w tych samych jednostkach co rozmiary obiektów.</translation>
+        <source>&lt;p&gt;Maximum height of the displacement produced by the Perlin noise, in the same units as object sizes.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Maksymalna wysokość przemieszczenia wytwarzanego przez szum Perlina, w tych samych jednostkach co rozmiary obiektów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5252"/>
         <location filename="../qt/ui_material_editor.h" line="4124"/>
-        <source>When enabled, texture coordinates are taken from the fractal orbit (orbit trap inside a bounding cube) instead of the point position, wrapping the texture over the fractal structure. Works only for fractal objects.</source>
-        <translation>Gdy włączone, współrzędne tekstury są pobierane z orbity fraktala (pułapka orbity wewnątrz boxa) zamiast z pozycji punktu, owijając teksturę wokół struktury fraktala. Działa tylko dla obiektów fraktalnych.</translation>
+        <source>&lt;p&gt;When enabled, texture coordinates are taken from the fractal orbit (orbit trap inside a bounding cube) instead of the point position, wrapping the texture over the fractal structure. Works only for fractal objects.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, współrzędne tekstury są pobierane z orbity fraktala (pułapka orbity wewnątrz boxa) zamiast z pozycji punktu, owijając teksturę wokół struktury fraktala. Działa tylko dla obiektów fraktalnych.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5302"/>
         <location filename="../qt/ui_material_editor.h" line="4131"/>
-        <source>Half-size of the cube which captures the orbit for the texture mapping (in units relative to the iterated point). When the orbit escapes the cube, no fractalized texture is produced.</source>
-        <translation>Połowa rozmiaru sześcianu przechwytującego orbitę do mapowania tekstury (w jednostkach względem iterowanego punktu). Gdy orbita wymknie się z sześcianu, fraktalizowana tekstura nie zostanie wygenerowana.</translation>
+        <source>&lt;p&gt;Half-size of the cube which captures the orbit for the texture mapping (in units relative to the iterated point). When the orbit escapes the cube, no fractalized texture is produced.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Połowa rozmiaru sześcianu przechwytującego orbitę do mapowania tekstury (w jednostkach względem iterowanego punktu). Gdy orbita wymknie się z sześcianu, fraktalizowana tekstura nie zostanie wygenerowana.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5309"/>
         <location filename="../qt/ui_material_editor.h" line="4134"/>
-        <source>First iteration at which the orbit can be captured into the cube for the fractalized texture mapping.</source>
-        <translation>Pierwsza iteracja, od której orbita może być przechwytywana do sześcianu na potrzeby fraktalizowanego mapowania tekstury.</translation>
+        <source>&lt;p&gt;First iteration at which the orbit can be captured into the cube for the fractalized texture mapping.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pierwsza iteracja, od której orbita może być przechwytywana do sześcianu na potrzeby fraktalizowanego mapowania tekstury.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5757"/>
         <location filename="../qt/ui_material_editor.h" line="4203"/>
-        <source>Enables procedural Perlin noise for the material. Individual effects (color, luminosity, reflectance, transparency, displacement) must be enabled separately in their sections.</source>
-        <translation>Włącza proceduralny szum Perlina dla materiału. Poszczególne efekty (kolor, świetlistość, reflektancja, przezroczystość, przemieszczenie) muszą być włączone osobno w swoich sekcjach.</translation>
+        <source>&lt;p&gt;Enables procedural Perlin noise for the material. Individual effects (color, luminosity, reflectance, transparency, displacement) must be enabled separately in their sections.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza proceduralny szum Perlina dla materiału. Poszczególne efekty (kolor, świetlistość, reflektancja, przezroczystość, przemieszczenie) muszą być włączone osobno w swoich sekcjach.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5760"/>
@@ -18272,14 +18264,14 @@ przesunięcie:</translation>
         <location filename="../qt/ui_material_editor.h" line="4209"/>
         <location filename="../qt/ui_material_editor.h" line="4234"/>
         <location filename="../qt/ui_material_editor.h" line="4251"/>
-        <source>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</source>
-        <translation>Określa okres (skalę) szumu Perlina wzdłuż każdej osi. Większe wartości powodują szersze, wolniejsze zmiany; mniejsze wartości tworzą drobniejsze detale.</translation>
+        <source>&lt;p&gt;Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Określa okres (skalę) szumu Perlina wzdłuż każdej osi. Większe wartości powodują szersze, wolniejsze zmiany; mniejsze wartości tworzą drobniejsze detale.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5810"/>
         <location filename="../qt/ui_material_editor.h" line="4212"/>
-        <source>If enabled, uses the absolute value of the Perlin noise (mirrored around 0.5), producing a symmetric, always positive noise pattern.</source>
-        <translation>Jeśli włączone, używa wartości bezwzględnej szumu Perlina (odbitej wokół 0.5), co daje symetryczny, zawsze dodatni wzór szumu.</translation>
+        <source>&lt;p&gt;If enabled, uses the absolute value of the Perlin noise (mirrored around 0.5), producing a symmetric, always positive noise pattern.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Jeśli włączone, używa wartości bezwzględnej szumu Perlina (odbitej wokół 0.5), co daje symetryczny, zawsze dodatni wzór szumu.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>f enabled, uses the absolute value of the Perlin noise, resulting in a mirrored, always-positive pattern for certain effects.</source>
@@ -18298,8 +18290,8 @@ przesunięcie:</translation>
         <location filename="../qt/ui_material_editor.h" line="4216"/>
         <location filename="../qt/ui_material_editor.h" line="4243"/>
         <location filename="../qt/ui_material_editor.h" line="4255"/>
-        <source>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</source>
-        <translation>Przesuwa wzór szumu Perlina w przestrzeni 3D, umożliwiając przesunięcie efektu szumu bez zmiany jego skali ani orientacji.</translation>
+        <source>&lt;p&gt;Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przesuwa wzór szumu Perlina w przestrzeni 3D, umożliwiając przesunięcie efektu szumu bez zmiany jego skali ani orientacji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5827"/>
@@ -18320,14 +18312,14 @@ przesunięcie:</translation>
         <location filename="../qt/ui_material_editor.h" line="4221"/>
         <location filename="../qt/ui_material_editor.h" line="4246"/>
         <location filename="../qt/ui_material_editor.h" line="4258"/>
-        <source>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</source>
-        <translation>Obraca wzór szumu Perlina wokół odpowiedniej osi, wpływając na orientację cech szumu.</translation>
+        <source>&lt;p&gt;Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Obraca wzór szumu Perlina wokół odpowiedniej osi, wpływając na orientację cech szumu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5878"/>
         <location filename="../qt/ui_material_editor.h" line="4226"/>
-        <source>Adds a constant offset to the Perlin noise value before applying it, useful for biasing the effect or controlling thresholds.</source>
-        <translation>Dodaje stałe przesunięcie do wartości szumu Perlina przed jego zastosowaniem, co jest przydatne do wprowadzania biasu efektu lub kontrolowania progów.</translation>
+        <source>&lt;p&gt;Adds a constant offset to the Perlin noise value before applying it, useful for biasing the effect or controlling thresholds.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje stałe przesunięcie do wartości szumu Perlina przed jego zastosowaniem, co jest przydatne do wprowadzania biasu efektu lub kontrolowania progów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="5946"/>
@@ -18338,8 +18330,8 @@ przesunięcie:</translation>
     <message>
         <location filename="../qt/material_editor.ui" line="5975"/>
         <location filename="../qt/ui_material_editor.h" line="4239"/>
-        <source>Sets the number of octaves (layers) for Perlin noise, increasing the complexity and detail of the noise pattern.</source>
-        <translation>Ustawia liczbę oktaw (warstw) dla szumu Perlina, zwiększając złożoność i szczegółowość wzoru szumu.</translation>
+        <source>&lt;p&gt;Sets the number of octaves (layers) for Perlin noise, increasing the complexity and detail of the noise pattern.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia liczbę oktaw (warstw) dla szumu Perlina, zwiększając złożoność i szczegółowość wzoru szumu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="6097"/>
@@ -18364,8 +18356,8 @@ szumu:</translation>
     <message>
         <location filename="../qt/material_editor.ui" line="47"/>
         <location filename="../qt/ui_material_editor.h" line="3324"/>
-        <source>Randomizes material parameters to generate a new, unique material appearance. Useful for exploring creative variations quickly.</source>
-        <translation>Losowo zmienia parametry materiału, aby wygenerować nowy, unikalny wygląd materiału. Przydatne do szybkiego eksplorowania kreatywnych wariantów.</translation>
+        <source>&lt;p&gt;Randomizes material parameters to generate a new, unique material appearance. Useful for exploring creative variations quickly.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Losowo zmienia parametry materiału, aby wygenerować nowy, unikalny wygląd materiału. Przydatne do szybkiego eksplorowania kreatywnych wariantów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="63"/>
@@ -19381,38 +19373,38 @@ kierunek wektora:</translation>
     <message>
         <location filename="../qt/material_editor.ui" line="188"/>
         <location filename="../qt/ui_material_editor.h" line="3340"/>
-        <source>When enabled, the surface color is selected from the gradient below according to the fractal color index. When disabled, the single surface color is used instead.</source>
-        <translation>Gdy włączone, kolor powierzchni jest wybierany z poniższego gradientu według indeksu koloru fraktala. Gdy wyłączone, używany jest pojedynczy kolor powierzchni.</translation>
+        <source>&lt;p&gt;When enabled, the surface color is selected from the gradient below according to the fractal color index. When disabled, the single surface color is used instead.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, kolor powierzchni jest wybierany z poniższego gradientu według indeksu koloru fraktala. Gdy wyłączone, używany jest pojedynczy kolor powierzchni.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="225"/>
         <location filename="../qt/ui_material_editor.h" line="3347"/>
-        <source>When enabled, the specular highlight color is multiplied by the gradient color selected by the fractal color index.</source>
-        <translation>Gdy włączone, kolor specularnych błysków jest mnożony przez kolor gradientu wybrany przez indeks koloru fraktala.</translation>
+        <source>&lt;p&gt;When enabled, the specular highlight color is multiplied by the gradient color selected by the fractal color index.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, kolor specularnych błysków jest mnożony przez kolor gradientu wybrany przez indeks koloru fraktala.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="262"/>
         <location filename="../qt/ui_material_editor.h" line="3354"/>
-        <source>When enabled, the gradient modulates the glossiness of the specular highlights (brighter colors produce a glossier surface) and tints the diffusely scattered reflections.</source>
-        <translation>Gdy włączone, gradient moduluje połyskliwość specularnych błysków (jaśniejsze kolory dają bardziej błyszczącą powierzchnię) i barwi rozproszone odbicia.</translation>
+        <source>&lt;p&gt;When enabled, the gradient modulates the glossiness of the specular highlights (brighter colors produce a glossier surface) and tints the diffusely scattered reflections.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, gradient moduluje połyskliwość specularnych błysków (jaśniejsze kolory dają bardziej błyszczącą powierzchnię) i barwi rozproszone odbicia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="289"/>
         <location filename="../qt/ui_material_editor.h" line="3358"/>
-        <source>Gradient which defines the glossiness of the surface. Brighter colors produce a more glossy surface, e.g. brighter specular highlights of a smaller width. It also tints the diffusely scattered reflections.</source>
-        <translation>Gradient definiujący połyskliwość powierzchni. Jaśniejsze kolory dają bardziej błyszczącą powierzchnię, np. jaśniejsze i węższe specularne błyski. Barwi również rozproszone odbicia.</translation>
+        <source>&lt;p&gt;Gradient which defines the glossiness of the surface. Brighter colors produce a more glossy surface, e.g. brighter specular highlights of a smaller width. It also tints the diffusely scattered reflections.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gradient definiujący połyskliwość powierzchni. Jaśniejsze kolory dają bardziej błyszczącą powierzchnię, np. jaśniejsze i węższe specularne błyski. Barwi również rozproszone odbicia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="299"/>
         <location filename="../qt/ui_material_editor.h" line="3361"/>
-        <source>When enabled, the luminosity color is taken from the gradient selected by the fractal color index instead of the single luminosity color.</source>
-        <translation>Gdy włączone, kolor świetlistości jest pobierany z gradientu wybranego przez indeks koloru fraktala zamiast pojedynczego koloru świetlistości.</translation>
+        <source>&lt;p&gt;When enabled, the luminosity color is taken from the gradient selected by the fractal color index instead of the single luminosity color.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, kolor świetlistości jest pobierany z gradientu wybranego przez indeks koloru fraktala zamiast pojedynczego koloru świetlistości.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="336"/>
         <location filename="../qt/ui_material_editor.h" line="3368"/>
-        <source>When enabled, the surface roughness is modulated by the brightness of the gradient selected by the fractal color index. Works only when &apos;Rough surface&apos; is enabled.</source>
-        <translation>Gdy włączone, chropowatość powierzchni jest modulowana przez jasność gradientu wybranego przez indeks koloru fraktala. Działa tylko przy włączonym efekcie „Chropowata powierzchnia”.</translation>
+        <source>&lt;p&gt;When enabled, the surface roughness is modulated by the brightness of the gradient selected by the fractal color index. Works only when &apos;&lt;i&gt;Rough surface&lt;/i&gt;&apos; is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, chropowatość powierzchni jest modulowana przez jasność gradientu wybranego przez indeks koloru fraktala. Działa tylko przy włączonym efekcie „&lt;i&gt;Chropowata powierzchnia&lt;/i&gt;”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1493"/>
@@ -20304,8 +20296,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/navigator_window.ui" line="517"/>
         <location filename="../qt/ui_navigator_window.h" line="427"/>
-        <source>Closes the Navigator and copies actual parameters to the main window. It does not copy camera position and rotation.</source>
-        <translation>Zamyka Nawigatora i kopiuje aktualne parametry do głównego okna. Nie są kopiowane pozycja i obrót kamery.</translation>
+        <source>&lt;p&gt;Closes the Navigator and copies actual parameters to the main window. It does not copy camera position and rotation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zamyka Nawigatora i kopiuje aktualne parametry do głównego okna. Nie są kopiowane pozycja i obrót kamery.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/navigator_window.ui" line="520"/>
@@ -20374,8 +20366,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="50"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="153"/>
-        <source>Removes the selected object or group together with all its children from the scene tree. The &apos;World&apos; root element cannot be deleted.</source>
-        <translation>Usuwa wybrany obiekt lub grupę wraz ze wszystkimi elementami podrzędnymi z drzewa sceny. Element główny „Świat” nie może zostać usunięty.</translation>
+        <source>&lt;p&gt;Removes the selected object or group together with all its children from the scene tree. The &apos;&lt;i&gt;World&lt;/i&gt;&apos; root element cannot be deleted.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Usuwa wybrany obiekt lub grupę wraz ze wszystkimi elementami podrzędnymi z drzewa sceny. Element główny „&lt;i&gt;Świat&lt;/i&gt;” nie może zostać usunięty.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="53"/>
@@ -20386,8 +20378,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="60"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="157"/>
-        <source>Adds a new fractal object to the tree (into the currently selected group). The fractal formula and its parameters are edited in the panel below. Every fractal object has its own, independent formula settings.</source>
-        <translation>Dodaje nowy obiekt fraktalny do drzewa (do aktualnie wybranej grupy). Formuła fraktala i jej parametry są edytowane w panelu poniżej. Każdy obiekt fraktalny ma własne, niezależne ustawienia formuły.</translation>
+        <source>&lt;p&gt;Adds a new fractal object to the tree (into the currently selected group). The fractal formula and its parameters are edited in the panel below. Every fractal object has its own, independent formula settings.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje nowy obiekt fraktalny do drzewa (do aktualnie wybranej grupy). Formuła fraktala i jej parametry są edytowane w panelu poniżej. Każdy obiekt fraktalny ma własne, niezależne ustawienia formuły.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="63"/>
@@ -20398,8 +20390,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="70"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="161"/>
-        <source>Adds a container which combines its child objects. Opens a dialog to choose the group type: Hybrid fractal (the child fractal formulas are combined into a single iteration sequence, allowing morphing between them), Boolean ADD (union), Boolean MUL (intersection) or Boolean SUB (difference).</source>
-        <translation>Dodaje kontener łączący obiekty podrzędne. Otwiera dialog wyboru typu grupy: Fraktal hybrydowy (formuły podrzędnych fraktali są łączone w pojedynczą sekwencję iteracji, umożliwiając morfowanie między nimi), Suma boolowska ADD, Iloczyn boolowski MUL (część wspólna) lub Różnica boolowska SUB (różnica).</translation>
+        <source>&lt;p&gt;Adds a container which combines its child objects. Opens a dialog to choose the group type:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Hybrid fractal&lt;/b&gt; - the child fractal formulas are combined into a single iteration sequence, allowing morphing between them&lt;/li&gt;&lt;li&gt;&lt;b&gt;Boolean ADD&lt;/b&gt; - union&lt;/li&gt;&lt;li&gt;&lt;b&gt;Boolean MUL&lt;/b&gt; - intersection&lt;/li&gt;&lt;li&gt;&lt;b&gt;Boolean SUB&lt;/b&gt; - difference&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;p&gt;Dodaje kontener łączący obiekty podrzędne. Otwiera dialog wyboru typu grupy:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Fraktal hybrydowy&lt;/b&gt; - formuły podrzędnych fraktali są łączone w pojedynczą sekwencję iteracji, umożliwiając morfowanie między nimi&lt;/li&gt;&lt;li&gt;&lt;b&gt;Suma boolowska ADD&lt;/b&gt; - suma&lt;/li&gt;&lt;li&gt;&lt;b&gt;Iloczyn boolowski MUL&lt;/b&gt; - część wspólna&lt;/li&gt;&lt;li&gt;&lt;b&gt;Różnica boolowska SUB&lt;/b&gt; - różnica&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="73"/>
@@ -20410,8 +20402,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="80"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="165"/>
-        <source>Adds a geometric primitive object to the tree (into the currently selected group). Opens a dialog to choose the primitive type: rectangle, circle, box, cylinder, cone, sphere, torus, plane, water, prism or ellipsoid. Primitives have simple shape parameters (sizes, angles) and are fast to render.</source>
-        <translation>Dodaje obiekt prymitywu geometrycznego do drzewa (do aktualnie wybranej grupy). Otwiera dialog wyboru typu prymitywu: prostokąt, koło, box, walec, stożek, kula, torus, płaszczyzna, woda, graniastosłup lub elipsoida. Prymitywy mają proste parametry kształtu (rozmiary, kąty) i szybko się renderują.</translation>
+        <source>&lt;p&gt;Adds a geometric primitive object to the tree (into the currently selected group). Opens a dialog to choose the primitive type: rectangle, circle, box, cylinder, cone, sphere, torus, plane, water, prism or ellipsoid. Primitives have simple shape parameters (sizes, angles) and are fast to render.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Dodaje obiekt prymitywu geometrycznego do drzewa (do aktualnie wybranej grupy). Otwiera dialog wyboru typu prymitywu: prostokąt, koło, box, walec, stożek, kula, torus, płaszczyzna, woda, graniastosłup lub elipsoida. Prymitywy mają proste parametry kształtu (rozmiary, kąty) i szybko się renderują.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="83"/>
@@ -20422,8 +20414,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="90"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="169"/>
-        <source>Creates a copy of the selected object together with its entire subtree, using new node and object ids, and adds it to the same group.</source>
-        <translation>Tworzy kopię wybranego obiektu wraz z całym jego poddrzewem, używając nowych identyfikatorów węzła i obiektu, i dodaje ją do tej samej grupy.</translation>
+        <source>&lt;p&gt;Creates a copy of the selected object together with its entire subtree, using new node and object ids, and adds it to the same group.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Tworzy kopię wybranego obiektu wraz z całym jego poddrzewem, używając nowych identyfikatorów węzła i obiektu, i dodaje ją do tej samej grupy.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="93"/>
@@ -20434,8 +20426,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="100"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="173"/>
-        <source>Rebuilds the object tree from the parameters. Useful when the scene was changed elsewhere and the list needs to be synchronized.</source>
-        <translation>Przebudowuje drzewo obiektów na podstawie parametrów. Przydatne, gdy scena została zmieniona gdzie indziej i lista wymaga synchronizacji.</translation>
+        <source>&lt;p&gt;Rebuilds the object tree from the parameters. Useful when the scene was changed elsewhere and the list needs to be synchronized.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przebudowuje drzewo obiektów na podstawie parametrów. Przydatne, gdy scena została zmieniona gdzie indziej i lista wymaga synchronizacji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="103"/>
@@ -20446,8 +20438,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="110"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="177"/>
-        <source>Displays wire-frame previews of the primitives and origin crosses of the objects in the render window. The overlay follows the parameter edits while this option is enabled.</source>
-        <translation>Wyświetla w oknie renderowania podgląd szkieletowy prymitywów oraz krzyże początkowe obiektów. Nakładka śledzi zmiany parametrów, gdy opcja jest włączona.</translation>
+        <source>&lt;p&gt;Displays wire-frame previews of the primitives and origin crosses of the objects in the render window. The overlay follows the parameter edits while this option is enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wyświetla w oknie renderowania podgląd szkieletowy prymitywów oraz krzyże początkowe obiektów. Nakładka śledzi zmiany parametrów, gdy opcja jest włączona.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="113"/>
@@ -20458,8 +20450,8 @@ wielkości obiektu)</translation>
     <message>
         <location filename="../qt/objects_tree_widget.ui" line="135"/>
         <location filename="../qt/ui_objects_tree_widget.h" line="181"/>
-        <source>Hierarchy of all objects in the scene: fractals, primitives and groups. Each line shows the node and object ids, the type, the name, the enable checkbox and the material. Select an item to edit it in the panel below; drag and drop moves items and changes the parent group.</source>
-        <translation>Hierarchia wszystkich obiektów w scenie: fraktale, prymitywy i grupy. Każdy wiersz pokazuje identyfikatory węzła i obiektu, typ, nazwę, pole włączenia oraz materiał. Zaznacz element, aby edytować go w panelu poniżej; przeciągnięcie przesuwa elementy i zmienia grupę nadrzędną.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Hierarchy of all objects in the scene:&lt;/b&gt; fractals, primitives and groups. Each line shows the node and object ids, the type, the name, the enable checkbox and the material. Select an item to edit it in the panel below; drag and drop moves items and changes the parent group.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Hierarchia wszystkich obiektów w scenie:&lt;/b&gt; fraktale, prymitywy i grupy. Każdy wiersz pokazuje identyfikatory węzła i obiektu, typ, nazwę, pole włączenia oraz materiał. Zaznacz element, aby edytować go w panelu poniżej; przeciągnięcie przesuwa elementy i zmienia grupę nadrzędną.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/objects_tree_widget.cpp" line="458"/>
@@ -21304,8 +21296,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="109"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1692"/>
-        <source>Folder with the default (shared) texture files. Used as the starting location in file dialogs for textures.</source>
-        <translation>Folder z domyślnymi (współdzielonymi) plikami tekstur. Używany jako startowa lokalizacja w oknach wyboru plików tekstur.</translation>
+        <source>&lt;p&gt;Folder with the default (shared) texture files. Used as the starting location in file dialogs for textures.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Folder z domyślnymi (współdzielonymi) plikami tekstur. Używany jako startowa lokalizacja w oknach wyboru plików tekstur.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="123"/>
@@ -21316,8 +21308,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="137"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1700"/>
-        <source>Folder with fractal settings (*.fract) files. Used as the starting location in settings open/save dialogs.</source>
-        <translation>Folder z plikami ustawień fraktali (*.fract). Używany jako startowa lokalizacja w oknach otwierania i zapisu ustawień.</translation>
+        <source>&lt;p&gt;Folder with fractal settings (*.fract) files. Used as the starting location in settings open/save dialogs.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Folder z plikami ustawień fraktali (*.fract). Używany jako startowa lokalizacja w oknach otwierania i zapisu ustawień.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="144"/>
@@ -21364,8 +21356,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="228"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1725"/>
-        <source>Folder for the user&apos;s own textures. Used as the starting location in file dialogs when saving new textures.</source>
-        <translation>Folder na własne tekstury użytkownika. Używany jako startowa lokalizacja w oknach zapisu nowych tekstur.</translation>
+        <source>&lt;p&gt;Folder for the user&apos;s own textures. Used as the starting location in file dialogs when saving new textures.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Folder na własne tekstury użytkownika. Używany jako startowa lokalizacja w oknach zapisu nowych tekstur.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="235"/>
@@ -21376,20 +21368,20 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="287"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1743"/>
-        <source>Color skin (theme) of the interface. To apply the change you need to restart the application.</source>
-        <translation>Kolorystyka (motyw) interfejsu. Aby zastosować zmianę, należy zrestartować aplikację.</translation>
+        <source>&lt;p&gt;Color skin (theme) of the interface. To apply the change you need to restart the application.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kolorystyka (motyw) interfejsu. Aby zastosować zmianę, należy zrestartować aplikację.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="334"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1746"/>
-        <source>Size of the interface font in points. To apply the change you need to restart the application.</source>
-        <translation>Rozmiar czcionki interfejsu w punktach. Aby zastosować zmianę, należy zrestartować aplikację.</translation>
+        <source>&lt;p&gt;Size of the interface font in points. To apply the change you need to restart the application.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Rozmiar czcionki interfejsu w punktach. Aby zastosować zmianę, należy zrestartować aplikację.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="361"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1753"/>
-        <source>Base style of the interface widgets. To apply the change you need to restart the application.</source>
-        <translation>Bazowy styl widgetów interfejsu. Aby zastosować zmianę, należy zrestartować aplikację.</translation>
+        <source>&lt;p&gt;Base style of the interface widgets. To apply the change you need to restart the application.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Bazowy styl widgetów interfejsu. Aby zastosować zmianę, należy zrestartować aplikację.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="368"/>
@@ -21400,14 +21392,14 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="415"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1763"/>
-        <source>When enabled, the group boxes in the interface are colored using random colors generated from the seed value. It makes it easier to visually distinguish the parameter groups.</source>
-        <translation>Gdy włączone, ramki grup w interfejsie są kolorowane losowymi kolorami generowanymi z wartości ziarna. Ułatwia to wizualne rozróżnianie grup parametrów.</translation>
+        <source>&lt;p&gt;When enabled, the group boxes in the interface are colored using random colors generated from the seed value. It makes it easier to visually distinguish the parameter groups.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy włączone, ramki grup w interfejsie są kolorowane losowymi kolorami generowanymi z wartości ziarna. Ułatwia to wizualne rozróżnianie grup parametrów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="448"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1768"/>
-        <source>Seed of the random colors used to colorize the group boxes. Changing it generates a new color scheme.</source>
-        <translation>Ziarno losowych kolorów używanych do kolorowania ramek grup. Zmiana generuje nową kolorystykę.</translation>
+        <source>&lt;p&gt;Seed of the random colors used to colorize the group boxes. Changing it generates a new color scheme.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ziarno losowych kolorów używanych do kolorowania ramek grup. Zmiana generuje nową kolorystykę.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="469"/>
@@ -21424,8 +21416,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="499"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1779"/>
-        <source>Spacing between the widgets inside the interface layouts. Smaller values make the panels more compact.</source>
-        <translation>Odstępy między widgetami w układach interfejsu. Mniejsze wartości sprawiają, że panele są bardziej zwarte.</translation>
+        <source>&lt;p&gt;Spacing between the widgets inside the interface layouts. Smaller values make the panels more compact.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Odstępy między widgetami w układach interfejsu. Mniejsze wartości sprawiają, że panele są bardziej zwarte.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="512"/>
@@ -21460,8 +21452,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="696"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1815"/>
-        <source>Scheduling priority of the rendering threads. Higher priority gives more CPU time to rendering but the interface may become less responsive.</source>
-        <translation>Priorytet planistyczny wątków renderujących. Wyższy priorytet daje renderowaniu więcej czasu CPU, ale interfejs może stać się mniej responsywny.</translation>
+        <source>&lt;p&gt;Scheduling priority of the rendering threads. Higher priority gives more CPU time to rendering but the interface may become less responsive.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Priorytet planistyczny wątków renderujących. Wyższy priorytet daje renderowaniu więcej czasu CPU, ale interfejs może stać się mniej responsywny.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="732"/>
@@ -21472,8 +21464,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="771"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1825"/>
-        <source>Amount of information written to the log file: 0 = only important messages, 3 = full debug output.</source>
-        <translation>Ilość informacji zapisywanych w pliku logu: 0 = tylko ważne komunikaty, 3 = pełne dane debugowe.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Amount of information written to the log file:&lt;/b&gt; 0 = only important messages, 3 = full debug output.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Ilość informacji zapisywanych w pliku logu:&lt;/b&gt; 0 = tylko ważne komunikaty, 3 = pełne dane debugowe.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="787"/>
@@ -21496,20 +21488,20 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="822"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1837"/>
-        <source>Hides the popup with the fractal description and preview shown after loading a settings file.</source>
-        <translation>Ukrywa wyskakujące okno z opisem fraktala i podglądem pokazywane po wczytaniu pliku ustawień.</translation>
+        <source>&lt;p&gt;Hides the popup with the fractal description and preview shown after loading a settings file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ukrywa wyskakujące okno z opisem fraktala i podglądem pokazywane po wczytaniu pliku ustawień.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="832"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1841"/>
-        <source>Restores the default toolbar presets. Existing files in the toolbar folder may be overwritten (the program asks for confirmation).</source>
-        <translation>Przywraca domyślne predefiniowane ustawienia paska narzędzi. Istniejące pliki w folderze paska narzędzi mogą zostać nadpisane (program pyta o potwierdzenie).</translation>
+        <source>&lt;p&gt;Restores the default toolbar presets. Existing files in the toolbar folder may be overwritten (the program asks for confirmation).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Przywraca domyślne predefiniowane ustawienia paska narzędzi. Istniejące pliki w folderze paska narzędzi mogą zostać nadpisane (program pyta o potwierdzenie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="842"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1845"/>
-        <source>Copies the default material pack into the materials folder. Existing files may be overwritten (the program asks for confirmation).</source>
-        <translation>Kopiuje domyślny pakiet materiałów do folderu materiałów. Istniejące pliki mogą zostać nadpisane (program pyta o potwierdzenie).</translation>
+        <source>&lt;p&gt;Copies the default material pack into the materials folder. Existing files may be overwritten (the program asks for confirmation).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kopiuje domyślny pakiet materiałów do folderu materiałów. Istniejące pliki mogą zostać nadpisane (program pyta o potwierdzenie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="910"/>
@@ -21578,8 +21570,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1055"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1891"/>
-        <source>Saves the z-buffer (depth) channel: each pixel encodes the distance of the visible surface from the camera.</source>
-        <translation>Zapisuje kanał bufora głębi (z-buffer): każdy piksel koduje odległość widocznej powierzchni od kamery.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Saves the z-buffer (depth) channel:&lt;/b&gt; each pixel encodes the distance of the visible surface from the camera.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Zapisuje kanał bufora głębi (z-buffer):&lt;/b&gt; każdy piksel koduje odległość widocznej powierzchni od kamery.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1087"/>
@@ -21590,38 +21582,38 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1123"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1907"/>
-        <source>Inverts the saved depth map: without it the distant objects are bright, with it the near objects become bright.</source>
-        <translation>Odwraca zapisywaną mapę głębi: bez tego odległe obiekty są jasne, z tym - bliskie obiekty stają się jasne.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Inverts the saved depth map:&lt;/b&gt; without it the distant objects are bright, with it the near objects become bright.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Odwraca zapisywaną mapę głębi:&lt;/b&gt; bez tego odległe obiekty są jasne, z tym - bliskie obiekty stają się jasne.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1133"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1911"/>
-        <source>Maps the depth values to the image using a logarithmic scale, which keeps more precision for the surfaces close to the camera.</source>
-        <translation>Mapuje wartości głębi do obrazu przy użyciu skali logarytmicznej, co zachowuje więcej precyzji dla powierzchni blisko kamery.</translation>
+        <source>&lt;p&gt;Maps the depth values to the image using a logarithmic scale, which keeps more precision for the surfaces close to the camera.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mapuje wartości głębi do obrazu przy użyciu skali logarytmicznej, co zachowuje więcej precyzji dla powierzchni blisko kamery.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1143"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1915"/>
-        <source>Uses the fixed minimum and maximum depth values below instead of computing the range from the rendered image.</source>
-        <translation>Używa poniższych stałych wartości minimalnej i maksymalnej głębi zamiast wyliczania zakresu ze zrenderowanego obrazu.</translation>
+        <source>&lt;p&gt;Uses the fixed minimum and maximum depth values below instead of computing the range from the rendered image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Używa poniższych stałych wartości minimalnej i maksymalnej głębi zamiast wyliczania zakresu ze zrenderowanego obrazu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1184"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1921"/>
-        <source>Depth value (distance from the camera) which is mapped to the darkest pixel of the z-buffer image.</source>
-        <translation>Wartość głębi (odległość od kamery) mapowana do najciemniejszego piksela obrazu bufora Z.</translation>
+        <source>&lt;p&gt;Depth value (distance from the camera) which is mapped to the darkest pixel of the z-buffer image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wartość głębi (odległość od kamery) mapowana do najciemniejszego piksela obrazu bufora Z.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1191"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1924"/>
-        <source>Depth value (distance from the camera) which is mapped to the brightest pixel of the z-buffer image.</source>
-        <translation>Wartość głębi (odległość od kamery) mapowana do najjaśniejszego piksela obrazu bufora Z.</translation>
+        <source>&lt;p&gt;Depth value (distance from the camera) which is mapped to the brightest pixel of the z-buffer image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wartość głębi (odległość od kamery) mapowana do najjaśniejszego piksela obrazu bufora Z.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1206"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1927"/>
-        <source>Enables saving the additional render passes as separate images. The channels marked as on-demand require re-rendering after being enabled.</source>
-        <translation>Włącza zapis dodatkowych przebiegów renderowania jako osobne obrazy. Kanały renderowane na żądanie wymagają ponownego renderowania po ich włączeniu.</translation>
+        <source>&lt;p&gt;Enables saving the additional render passes as separate images. The channels marked as on-demand require re-rendering after being enabled.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza zapis dodatkowych przebiegów renderowania jako osobne obrazy. Kanały renderowane na żądanie wymagają ponownego renderowania po ich włączeniu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1221"/>
@@ -21644,8 +21636,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1271"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1948"/>
-        <source>Saves the image as it was before the denoiser was applied (available with Monte Carlo rendering).</source>
-        <translation>Zapisuje obraz sprzed nałożenia odszumiacza (dostępne przy renderowaniu Monte Carlo).</translation>
+        <source>&lt;p&gt;Saves the image as it was before the denoiser was applied (available with Monte Carlo rendering).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zapisuje obraz sprzed nałożenia odszumiacza (dostępne przy renderowaniu Monte Carlo).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1274"/>
@@ -21668,8 +21660,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1327"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1965"/>
-        <source>Saves the surface normals pass: the orientation of the visible surfaces encoded as colors.</source>
-        <translation>Zapisuje przebieg normalnych powierzchni: orientacja widocznych powierzchni zakodowana jako kolory.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Saves the surface normals pass:&lt;/b&gt; the orientation of the visible surfaces encoded as colors.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Zapisuje przebieg normalnych powierzchni:&lt;/b&gt; orientacja widocznych powierzchni zakodowana jako kolory.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1403"/>
@@ -21710,8 +21702,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1492"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2022"/>
-        <source>Saves the world-space surface normals pass (orientation of the surfaces relative to the world axes).</source>
-        <translation>Zapisuje przebieg normalnych powierzchni w przestrzeni świata (orientacja powierzchni względem osi świata).</translation>
+        <source>&lt;p&gt;Saves the world-space surface normals pass (orientation of the surfaces relative to the world axes).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zapisuje przebieg normalnych powierzchni w przestrzeni świata (orientacja powierzchni względem osi świata).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1495"/>
@@ -21770,8 +21762,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1637"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2065"/>
-        <source>Saves the left and right eye images as two separate files instead of one combined image. Works with the &apos;left-right&apos; stereoscopic mode.</source>
-        <translation>Zapisuje obrazy lewego i prawego oka jako dwa osobne pliki zamiast jednego połączonego obrazu. Działa ze stereoskopowym trybem „lewo-prawo”.</translation>
+        <source>&lt;p&gt;Saves the left and right eye images as two separate files instead of one combined image. Works with the &apos;left-right&apos; stereoscopic mode.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zapisuje obrazy lewego i prawego oka jako dwa osobne pliki zamiast jednego połączonego obrazu. Działa ze stereoskopowym trybem „lewo-prawo”.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1648"/>
@@ -21782,8 +21774,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1655"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2071"/>
-        <source>When both color and alpha channels are enabled, they are saved together as a single RGBA image (PNG and TIFF only).</source>
-        <translation>Gdy kanały koloru i alfa są włączone razem, są zapisywane łącznie jako pojedynczy obraz RGBA (tylko PNG i TIFF).</translation>
+        <source>&lt;p&gt;When both color and alpha channels are enabled, they are saved together as a single RGBA image (PNG and TIFF only).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy kanały koloru i alfa są włączone razem, są zapisywane łącznie jako pojedynczy obraz RGBA (tylko PNG i TIFF).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1658"/>
@@ -21800,8 +21792,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1678"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2078"/>
-        <source>Embeds the fractal settings into the saved image file, so the scene can be loaded back from the image.</source>
-        <translation>Wbudowuje ustawienia fraktala w zapisywany plik obrazu, dzięki czemu scenę można wczytać z powrotem z obrazu.</translation>
+        <source>&lt;p&gt;Embeds the fractal settings into the saved image file, so the scene can be loaded back from the image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wbudowuje ustawienia fraktala w zapisywany plik obrazu, dzięki czemu scenę można wczytać z powrotem z obrazu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1681"/>
@@ -21890,8 +21882,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1796"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2106"/>
-        <source>When both color and alpha channels are enabled, they are saved together as a single RGBA JPEG XL image.</source>
-        <translation>Gdy kanały koloru i alfa są włączone razem, są zapisywane łącznie jako pojedynczy obraz RGBA JPEG XL.</translation>
+        <source>&lt;p&gt;When both color and alpha channels are enabled, they are saved together as a single RGBA JPEG XL image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gdy kanały koloru i alfa są włączone razem, są zapisywane łącznie jako pojedynczy obraz RGBA JPEG XL.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1799"/>
@@ -21902,8 +21894,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1837"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2111"/>
-        <source>Enables rendering of the scene thumbnails (file dialog previews, toolbar preset buttons, keyframe and queue previews, thumbnail cache) with OpenCL when it is available. When disabled, thumbnails are always rendered using the CPU, leaving the GPU free for other work. Scenes using custom formulas are always rendered with OpenCL, since they cannot be rendered on the CPU.</source>
-        <translation>Włącza renderowanie miniatur scen (podglądy w oknach plików, przyciski predefiniowane paska narzędzi, podglądy klatek kluczowych i kolejki, pamięć podręczna miniatur) przez OpenCL, gdy jest dostępne. Gdy wyłączone, miniatury są zawsze renderowane procesorem, pozostawiając GPU wolne do innej pracy. Sceny używające formuł własnych są zawsze renderowane przez OpenCL, ponieważ nie da się ich renderować na CPU.</translation>
+        <source>&lt;p&gt;Enables rendering of the scene thumbnails (file dialog previews, toolbar preset buttons, keyframe and queue previews, thumbnail cache) with OpenCL when it is available. When disabled, thumbnails are always rendered using the CPU, leaving the GPU free for other work. Scenes using custom formulas are always rendered with OpenCL, since they cannot be rendered on the CPU.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Włącza renderowanie miniatur scen (podglądy w oknach plików, przyciski predefiniowane paska narzędzi, podglądy klatek kluczowych i kolejki, pamięć podręczna miniatur) przez OpenCL, gdy jest dostępne. Gdy wyłączone, miniatury są zawsze renderowane procesorem, pozostawiając GPU wolne do innej pracy. Sceny używające formuł własnych są zawsze renderowane przez OpenCL, ponieważ nie da się ich renderować na CPU.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1840"/>
@@ -21915,8 +21907,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1847"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2115"/>
-        <source>Generates the thumbnail images for the files in the queue and stores them in the thumbnail cache.</source>
-        <translation>Generuje obrazy miniatur dla plików w kolejce i zapisuje je w pamięci podręcznej miniatur.</translation>
+        <source>&lt;p&gt;Generates the thumbnail images for the files in the queue and stores them in the thumbnail cache.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Generuje obrazy miniatur dla plików w kolejce i zapisuje je w pamięci podręcznej miniatur.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1861"/>
@@ -21933,8 +21925,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1980"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2129"/>
-        <source>Memory limit (MB) for a single OpenCL buffer. The slider is linked with the value field next to it.</source>
-        <translation>Limit pamięci (MB) dla pojedynczego bufora OpenCL. Suwak jest powiązany z polem wartości obok niego.</translation>
+        <source>&lt;p&gt;Memory limit (MB) for a single OpenCL buffer. The slider is linked with the value field next to it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Limit pamięci (MB) dla pojedynczego bufora OpenCL. Suwak jest powiązany z polem wartości obok niego.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2029"/>
@@ -21945,32 +21937,32 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2043"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2141"/>
-        <source>Path to the clang-format program used by the Custom Formula Editor for formatting the formula source code.</source>
-        <translation>Ścieżka do programu clang-format używanego przez Edytor formuł własnych do formatowania kodu źródłowego formuł.</translation>
+        <source>&lt;p&gt;Path to the clang-format program used by the Custom Formula Editor for formatting the formula source code.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ścieżka do programu clang-format używanego przez Edytor formuł własnych do formatowania kodu źródłowego formuł.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2076"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2153"/>
-        <source>Which OpenCL devices are used for rendering: all GPU devices, the default device, all devices or all CPU devices.</source>
-        <translation>Które urządzenia OpenCL są używane do renderowania: wszystkie GPU, domyślne, wszystkie lub wszystkie CPU.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Which OpenCL devices are used for rendering:&lt;/b&gt; all GPU devices, the default device, all devices or all CPU devices.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Które urządzenia OpenCL są używane do renderowania:&lt;/b&gt; wszystkie GPU, domyślne, wszystkie lub wszystkie CPU.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2108"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2156"/>
-        <source>List of the detected OpenCL devices. Check the devices which should take part in rendering.</source>
-        <translation>Lista wykrytych urządzeń OpenCL. Zaznacz urządzenia, które mają brać udział w renderowaniu.</translation>
+        <source>&lt;p&gt;List of the detected OpenCL devices. Check the devices which should take part in rendering.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Lista wykrytych urządzeń OpenCL. Zaznacz urządzenia, które mają brać udział w renderowaniu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2146"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2170"/>
-        <source>Floating point precision of the OpenCL kernels: single is faster, double is more accurate and slower (not always supported by the device).</source>
-        <translation>Precyzja zmiennoprzecinkowa kerneli OpenCL: single jest szybsza, double dokładniejsza i wolniejsza (nie zawsze wspierana przez urządzenie).</translation>
+        <source>&lt;p&gt;Floating point precision of the OpenCL kernels: single is faster, double is more accurate and slower (not always supported by the device).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Precyzja zmiennoprzecinkowa kerneli OpenCL: single jest szybsza, double dokładniejsza i wolniejsza (nie zawsze wspierana przez urządzenie).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2183"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2175"/>
-        <source>List of the detected OpenCL platforms (driver stacks). Select the platforms from which the devices are taken.</source>
-        <translation>Lista wykrytych platform OpenCL (stosów sterowników). Wybierz platformy, z których będą pobierane urządzenia.</translation>
+        <source>&lt;p&gt;List of the detected OpenCL platforms (driver stacks). Select the platforms from which the devices are taken.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Lista wykrytych platform OpenCL (stosów sterowników). Wybierz platformy, z których będą pobierane urządzenia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2217"/>
@@ -21999,8 +21991,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2270"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2187"/>
-        <source>Sets the Mandelbulber 3D style keyboard layout (W/S/A/D + E/C for movement, I/J/K/L for rotation, U/O for roll).</source>
-        <translation>Ustawia układ klawiatury w stylu Mandelbulber 3D (W/S/A/D + E/C dla ruchu, I/J/K/L dla obrotu, U/O dla przechylenia).</translation>
+        <source>&lt;p&gt;Sets the Mandelbulber 3D style keyboard layout (W/S/A/D + E/C for movement, I/J/K/L for rotation, U/O for roll).&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ustawia układ klawiatury w stylu Mandelbulber 3D (W/S/A/D + E/C dla ruchu, I/J/K/L dla obrotu, U/O dla przechylenia).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2273"/>
@@ -22011,8 +22003,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2297"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2191"/>
-        <source>Shortcut for starting the rendering. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do rozpoczęcia renderowania. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for starting the rendering. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do rozpoczęcia renderowania. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2304"/>
@@ -22023,8 +22015,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2311"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2195"/>
-        <source>Shortcut for stopping the rendering. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do zatrzymania renderowania. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for stopping the rendering. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do zatrzymania renderowania. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2318"/>
@@ -22035,8 +22027,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2325"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2199"/>
-        <source>Shortcut for moving the camera forward. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do przesunięcia kamery do przodu. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for moving the camera forward. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do przesunięcia kamery do przodu. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2332"/>
@@ -22047,8 +22039,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2339"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2203"/>
-        <source>Shortcut for moving the camera backward. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do przesunięcia kamery do tyłu. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for moving the camera backward. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do przesunięcia kamery do tyłu. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2346"/>
@@ -22059,8 +22051,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2353"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2207"/>
-        <source>Shortcut for strafing the camera left. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do bocznego przesunięcia kamery w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for strafing the camera left. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do bocznego przesunięcia kamery w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2360"/>
@@ -22071,8 +22063,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2367"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2211"/>
-        <source>Shortcut for strafing the camera right. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do bocznego przesunięcia kamery w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for strafing the camera right. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do bocznego przesunięcia kamery w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2374"/>
@@ -22083,8 +22075,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2381"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2215"/>
-        <source>Shortcut for lifting the camera up. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do uniesienia kamery. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for lifting the camera up. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do uniesienia kamery. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2388"/>
@@ -22095,8 +22087,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2395"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2219"/>
-        <source>Shortcut for lowering the camera. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do opuszczenia kamery. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for lowering the camera. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do opuszczenia kamery. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2402"/>
@@ -22107,8 +22099,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2409"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2223"/>
-        <source>Shortcut for turning the view to the left. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do obrotu widoku w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for turning the view to the left. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do obrotu widoku w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2416"/>
@@ -22119,8 +22111,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2423"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2227"/>
-        <source>Shortcut for turning the view to the right. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do obrotu widoku w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for turning the view to the right. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do obrotu widoku w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2430"/>
@@ -22131,8 +22123,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2437"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2231"/>
-        <source>Shortcut for tilting the view up. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do pochylenia widoku w górę. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for tilting the view up. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do pochylenia widoku w górę. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2444"/>
@@ -22143,14 +22135,14 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2451"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2235"/>
-        <source>Shortcut for tilting the view down. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do pochylenia widoku w dół. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for tilting the view down. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do pochylenia widoku w dół. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2458"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2238"/>
-        <source>Shortcut for adding an animation keyframe. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do dodania klatki kluczowej animacji. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for adding an animation keyframe. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do dodania klatki kluczowej animacji. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2465"/>
@@ -22161,8 +22153,8 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2472"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2242"/>
-        <source>Modifier used while dragging to change an animation keyframe. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Modyfator używany podczas przeciągania, aby zmienić klatkę kluczową animacji. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Modifier used while dragging to change an animation keyframe. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Modyfator używany podczas przeciągania, aby zmienić klatkę kluczową animacji. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2479"/>
@@ -22179,14 +22171,14 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2493"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2247"/>
-        <source>Shortcut for rotating (rolling) the image to the left. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do obrócenia (przechylenia) obrazu w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for rotating (rolling) the image to the left. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do obrócenia (przechylenia) obrazu w lewo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2500"/>
         <location filename="../qt/ui_preferences_dialog.h" line="2250"/>
-        <source>Shortcut for rotating (rolling) the image to the right. Click in the field and press the key (or combination) to change it.</source>
-        <translation>Skrót do obrócenia (przechylenia) obrazu w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.</translation>
+        <source>&lt;p&gt;Shortcut for rotating (rolling) the image to the right. Click in the field and press the key (or combination) to change it.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Skrót do obrócenia (przechylenia) obrazu w prawo. Kliknij w pole i naciśnij klawisz (lub kombinację), aby go zmienić.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="2507"/>
@@ -22745,8 +22737,8 @@ wybrany</translation>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="71"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="711"/>
-        <source>Only float parameters are randomized; integer and boolean parameters (such as formula selection or iteration counts) stay unchanged.</source>
-        <translation>Losowane są tylko parametry zmiennoprzecinkowe; parametry całkowite i logiczne (np. wybór formuły czy liczba iteracji) pozostają bez zmian.</translation>
+        <source>&lt;p&gt;Only float parameters are randomized; integer and boolean parameters (such as formula selection or iteration counts) stay unchanged.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Losowane są tylko parametry zmiennoprzecinkowe; parametry całkowite i logiczne (np. wybór formuły czy liczba iteracji) pozostają bez zmian.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="74"/>
@@ -22769,8 +22761,8 @@ wybrany</translation>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="91"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="719"/>
-        <source>Discards all randomized settings and restores the actual version from the current scene parameters.</source>
-        <translation>Odrzuca wszystkie wylosowane ustawienia i przywraca bieżącą wersję na podstawie aktualnych parametrów sceny.</translation>
+        <source>&lt;p&gt;Discards all randomized settings and restores the actual version from the current scene parameters.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Odrzuca wszystkie wylosowane ustawienia i przywraca bieżącą wersję na podstawie aktualnych parametrów sceny.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="94"/>
@@ -22781,8 +22773,8 @@ wybrany</translation>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="101"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="723"/>
-        <source>Tests every randomized parameter by re-rendering: those with no visible influence on the image are reset to their original values, so only the parameters which really changed the look stay randomized.</source>
-        <translation>Testuje każdy wylosowany parametr przez ponowne renderowanie: parametry bez widocznego wpływu na obraz są przywracane do wartości pierwotnych, więc losowe pozostają tylko te, które naprawdę zmieniły wygląd.</translation>
+        <source>&lt;p&gt;Tests every randomized parameter by re-rendering: those with no visible influence on the image are reset to their original values, so only the parameters which really changed the look stay randomized.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Testuje każdy wylosowany parametr przez ponowne renderowanie: parametry bez widocznego wpływu na obraz są przywracane do wartości pierwotnych, więc losowe pozostają tylko te, które naprawdę zmieniły wygląd.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="104"/>
@@ -22793,8 +22785,8 @@ wybrany</translation>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="111"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="727"/>
-        <source>Applies the actual version to the scene, registers all the randomized parameters as keyframe animated and adds a new keyframe in the animation.</source>
-        <translation>Zastosowuje bieżącą wersję do sceny, rejestruje wszystkie zlosowane parametry jako animowane klatkami kluczowymi i dodaje nową klatkę kluczową w animacji.</translation>
+        <source>&lt;p&gt;Applies the actual version to the scene, registers all the randomized parameters as keyframe animated and adds a new keyframe in the animation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Zastosowuje bieżącą wersję do sceny, rejestruje wszystkie zlosowane parametry jako animowane klatkami kluczowymi i dodaje nową klatkę kluczową w animacji.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="114"/>
@@ -22829,8 +22821,8 @@ wybrany</translation>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="152"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="739"/>
-        <source>Preview of the actual (working) version of the settings. When a version is selected, the tooltip of this widget lists the parameters changed by the randomizer.</source>
-        <translation>Podgląd bieżącej (roboczej) wersji ustawień. Gdy wybrano wersję, podpowiedź tego elementu wymienia parametry zmienione przez randomizer.</translation>
+        <source>&lt;p&gt;Preview of the actual (working) version of the settings. When a version is selected, the tooltip of this widget lists the parameters changed by the randomizer.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Podgląd bieżącej (roboczej) wersji ustawień. Gdy wybrano wersję, podpowiedź tego elementu wymienia parametry zmienione przez randomizer.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="172"/>
@@ -22863,8 +22855,8 @@ wybrany</translation>
         <location filename="../qt/ui_randomizer_dialog.h" line="887"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="903"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="919"/>
-        <source>Copies the settings of this version to the actual (working) version and renders it as the new reference.</source>
-        <translation>Kopiuje ustawienia tej wersji do bieżącej (roboczej) wersji i renderuje ją jako nowy wzorzec odniesienia.</translation>
+        <source>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kopiuje ustawienia tej wersji do bieżącej (roboczej) wersji i renderuje ją jako nowy wzorzec odniesienia.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="186"/>
@@ -22975,8 +22967,8 @@ wybrany</translation>
         <location filename="../qt/ui_randomizer_dialog.h" line="895"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="911"/>
         <location filename="../qt/ui_randomizer_dialog.h" line="927"/>
-        <source>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</source>
-        <translation>Zachowuje tę wersję: następne losowanie pozostawi ją bez zmian zamiast generować nowy zestaw parametrów.</translation>
+        <source>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Zachowuje tę wersję:&lt;/b&gt; następne losowanie pozostawi ją bez zmian zamiast generować nowy zestaw parametrów.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../qt/randomizer_dialog.ui" line="210"/>

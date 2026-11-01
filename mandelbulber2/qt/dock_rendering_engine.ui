@@ -31,7 +31,7 @@
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
        <property name="toolTip">
-        <string>Loads settings from a selected fractal file into all parameters of the Rendering engine window.</string>
+        <string>&lt;p&gt;Loads settings from a selected fractal file into all parameters of the Rendering engine window.&lt;/p&gt;</string>
        </property>
        <property name="text">
         <string>Load</string>
@@ -89,7 +89,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="toolTip">
-      <string>Rendering engine options organized into tabs: Fractal shape calculation, Nebula mode, Limits and NetRender.</string>
+      <string>&lt;p&gt;&lt;b&gt;Rendering engine options organized into tabs:&lt;/b&gt; Fractal shape calculation, Nebula mode, Limits and NetRender.&lt;/p&gt;</string>
      </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
@@ -559,7 +559,7 @@
                    <item>
                     <widget class="QPushButton" name="pushButton_calculate_dist_thresh">
                      <property name="toolTip">
-                      <string>Calculates the constant detail threshold automatically from the current camera distance to the fractal, field of view, detail level and image width.</string>
+                      <string>&lt;p&gt;Calculates the constant detail threshold automatically from the current camera distance to the fractal, field of view, detail level and image width.&lt;/p&gt;</string>
                      </property>
                      <property name="text">
                       <string>Calculate threshold</string>
@@ -689,7 +689,7 @@
              <item>
               <widget class="MyGroupBox" name="groupCheck_advanced_quality">
                <property name="toolTip">
-                <string>Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.</string>
+                <string>&lt;p&gt;Access advanced quality settings for fine-tuning raymarching steps, detail size, and rendering precision.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Advanced &amp;quality settings</string>
@@ -857,7 +857,7 @@
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.</string>
+                     <string>&lt;p&gt;Maximum number of raymarching steps per pixel. Limits how many steps are taken when rendering each pixel.&lt;/p&gt;</string>
                     </property>
                     <property name="minimum">
                      <number>1</number>
@@ -949,7 +949,7 @@
            <item>
             <widget class="MyGroupBox" name="groupCheck_nebula_mode">
              <property name="toolTip">
-              <string>Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.</string>
+              <string>&lt;p&gt;Enables rendering of nebula-style fractals, allowing for volumetric and cloud-like effects with additional controls for brightness and color.&lt;/p&gt;</string>
              </property>
              <property name="title">
               <string>Nebula fractals</string>
@@ -981,7 +981,7 @@
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_dark">
                   <property name="toolTip">
-                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 5%.</string>
+                   <string>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 5%.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Auto
@@ -992,7 +992,7 @@ dark</string>
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_medium">
                   <property name="toolTip">
-                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 15%.</string>
+                   <string>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 15%.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Auto
@@ -1003,7 +1003,7 @@ medium</string>
                 <item>
                  <widget class="QPushButton" name="pushButton_nebula_auto_brightness_bright">
                   <property name="toolTip">
-                   <string>Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 50%.</string>
+                   <string>&lt;p&gt;Scales the nebula brightness automatically so that the average brightness of the rendered image becomes about 50%.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Auto
@@ -1038,7 +1038,7 @@ bright</string>
                 <item row="2" column="1">
                  <widget class="MyLineEdit" name="logedit_nebula_samples_per_pixel">
                   <property name="toolTip">
-                   <string>Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.</string>
+                   <string>&lt;p&gt;Number of samples per pixel for nebula rendering. Higher values reduce noise but increase rendering time.&lt;/p&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -1052,7 +1052,7 @@ bright</string>
                 <item row="4" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_nebula_outer_enabled">
                   <property name="toolTip">
-                   <string>Draws the points which escaped before the last iteration as nebula particles. This is the main part of the nebula cloud.</string>
+                   <string>&lt;p&gt;Draws the points which escaped before the last iteration as nebula particles. This is the main part of the nebula cloud.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Outer fractal iterations</string>
@@ -1062,7 +1062,7 @@ bright</string>
                 <item row="6" column="1">
                  <widget class="MyComboBox" name="comboBox_nebula_color_mixing">
                   <property name="toolTip">
-                   <string>Method of combining the enabled nebula color gradients: lighten - adds the gradient colors (bright result); darken - multiplies them (dark result); darkenByBrighness - multiplies the color by the average luminance of the gradients.</string>
+                   <string>&lt;p&gt;Method of combining the enabled nebula color gradients: lighten - adds the gradient colors (bright result); darken - multiplies them (dark result); darkenByBrighness - multiplies the color by the average luminance of the gradients.&lt;/p&gt;</string>
                   </property>
                   <property name="enabled">
                    <bool>true</bool>
@@ -1120,7 +1120,7 @@ bright</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.</string>
+                   <string>&lt;p&gt;Minimum iteration count required to draw nebula pixels. Increase to ignore low-iteration regions.&lt;/p&gt;</string>
                   </property>
                   <property name="minimum">
                    <number>0</number>
@@ -1259,7 +1259,7 @@ bright</string>
               <item>
                <widget class="MyGroupBox" name="groupCheck_nebula_iterations_colors_enabled">
                 <property name="toolTip">
-                 <string>Enable and configure a color gradient for the nebula based on the number of fractal iterations.</string>
+                 <string>&lt;p&gt;Enable and configure a color gradient for the nebula based on the number of fractal iterations.&lt;/p&gt;</string>
                 </property>
                 <property name="title">
                  <string>Colors of iterations</string>
@@ -1296,7 +1296,7 @@ bright</string>
               <item>
                <widget class="MyGroupBox" name="groupCheck_nebula_grid_domain_enabled">
                 <property name="toolTip">
-                 <string>Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.</string>
+                 <string>&lt;p&gt;Enable grid-based domain calculation for the nebula, allowing control over grid spacing along each axis.&lt;/p&gt;</string>
                 </property>
                 <property name="title">
                  <string>Domain as grid</string>
@@ -1547,7 +1547,7 @@ bright</string>
                 <item row="0" column="1">
                  <widget class="MyLineEdit" name="logedit_limit_outer_bounding">
                   <property name="toolTip">
-                   <string>Maximum bounding box (plus and minus this value on each axis) used as the search range when the 'Bounding Box to limit' button calculates the limit values.</string>
+                   <string>&lt;p&gt;Maximum bounding box (plus and minus this value on each axis) used as the search range when the '&lt;i&gt;Bounding Box to limit&lt;/i&gt;' button calculates the limit values.&lt;/p&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -1628,7 +1628,7 @@ bright</string>
                 <item row="0" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_x_neg">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the X axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the X axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1651,7 +1651,7 @@ bright</string>
                 <item row="0" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_x_pos">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the X axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the X axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1727,7 +1727,7 @@ bright</string>
                 <item row="1" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_y_neg">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the Y axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the Y axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1750,7 +1750,7 @@ bright</string>
                 <item row="1" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_y_pos">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the Y axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the Y axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1826,7 +1826,7 @@ bright</string>
                 <item row="2" column="3">
                  <widget class="QToolButton" name="bu_bounding_box_move_z_neg">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the Z axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the Z axis by 5% of its size toward the positive side; the fractal visible inside appears to move toward the negative side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1849,7 +1849,7 @@ bright</string>
                 <item row="2" column="4">
                  <widget class="QToolButton" name="bu_bounding_box_move_z_pos">
                   <property name="toolTip">
-                   <string>Shifts the limit box along the Z axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.</string>
+                   <string>&lt;p&gt;Shifts the limit box along the Z axis by 5% of its size toward the negative side; the fractal visible inside appears to move toward the positive side.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1895,7 +1895,7 @@ bright</string>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_x">
                   <property name="toolTip">
-                   <string>X coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;X coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1908,7 +1908,7 @@ bright</string>
                 <item row="2" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_z">
                   <property name="toolTip">
-                   <string>Z coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;Z coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1928,7 +1928,7 @@ bright</string>
                 <item row="1" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_y">
                   <property name="toolTip">
-                   <string>Y coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;Y coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1973,7 +1973,7 @@ bright</string>
                 <item row="0" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_min_x">
                   <property name="toolTip">
-                   <string>X coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;X coordinate of the minimum limit - the bottom left front corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1986,7 +1986,7 @@ bright</string>
                 <item row="4" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_y">
                   <property name="toolTip">
-                   <string>Y coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;Y coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1999,7 +1999,7 @@ bright</string>
                 <item row="5" column="2">
                  <widget class="MyLineEdit" name="vect3_limit_max_z">
                   <property name="toolTip">
-                   <string>Z coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.</string>
+                   <string>&lt;p&gt;Z coordinate of the maximum limit - the top right back corner of the bounding box. Parts of the scene beyond this limit are cut off.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2563,7 +2563,7 @@ bright</string>
                    <item>
                     <widget class="QTableWidget" name="tableWidget_netrender_connected_clients">
                      <property name="toolTip">
-                      <string>List of the connected rendering clients with their name, host address, number of CPUs, status, number of finished items and available actions.</string>
+                      <string>&lt;p&gt;List of the connected rendering clients with their name, host address, number of CPUs, status, number of finished items and available actions.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">

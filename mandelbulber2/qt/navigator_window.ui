@@ -514,7 +514,7 @@
      <item>
       <widget class="QPushButton" name="pushButtonUse_without_camera">
        <property name="toolTip">
-        <string>Closes the Navigator and copies actual parameters to the main window. It does not copy camera position and rotation.</string>
+        <string>&lt;p&gt;Closes the Navigator and copies actual parameters to the main window. It does not copy camera position and rotation.&lt;/p&gt;</string>
        </property>
        <property name="text">
         <string>Use in main window (without camera)</string>

@@ -44,7 +44,7 @@
       <item>
        <widget class="cMaterialSelector" name="materialselector_material" native="true">
         <property name="toolTip">
-         <string>Selection of the material applied to this object. Materials are created and edited in the Material tab.</string>
+         <string>&lt;p&gt;Selection of the material applied to this object. Materials are created and edited in the Material tab.&lt;/p&gt;</string>
         </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -122,7 +122,7 @@
         <item row="10" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_z">
           <property name="toolTip">
-           <string>Repeats the object in a grid with this distance between the neighboring copies along the Z axis. Values of 0 on all axes disable the repetition.</string>
+           <string>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the Z axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</string>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -214,7 +214,7 @@
         <item row="9" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_y">
           <property name="toolTip">
-           <string>Repeats the object in a grid with this distance between the neighboring copies along the Y axis. Values of 0 on all axes disable the repetition.</string>
+           <string>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the Y axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</string>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -234,7 +234,7 @@
         <item row="4" column="2">
          <widget class="MyLineEdit" name="logedit_scale">
           <property name="toolTip">
-           <string>Size of the object. 1.0 keeps the original size, values below 1 make it smaller, above 1 make it bigger.</string>
+           <string>&lt;p&gt;Size of the object. 1.0 keeps the original size, values below 1 make it smaller, above 1 make it bigger.&lt;/p&gt;</string>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -270,7 +270,7 @@
         <item row="8" column="2">
          <widget class="MyLineEdit" name="vect3_repeat_x">
           <property name="toolTip">
-           <string>Repeats the object in a grid with this distance between the neighboring copies along the X axis. Values of 0 on all axes disable the repetition.</string>
+           <string>&lt;p&gt;Repeats the object in a grid with this distance between the neighboring copies along the X axis. Values of 0 on all axes disable the repetition.&lt;/p&gt;</string>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -289,7 +289,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Per-object detail level multiplier. 1.0 = use global detail_level. Higher = more detail (slower).</string>
+           <string>&lt;p&gt;Per-object detail level multiplier. 1.0 = use global detail_level. Higher = more detail (slower).&lt;/p&gt;</string>
           </property>
          </widget>
         </item>
@@ -428,7 +428,7 @@
         <item row="0" column="0" colspan="3">
          <widget class="QPushButton" name="pushButton_placeObject">
           <property name="toolTip">
-           <string>Switches the mouse click function to 'Place object'. The next click in the render window sets the position of this object at the clicked point.</string>
+           <string>&lt;p&gt;Switches the mouse click function to '&lt;i&gt;Place object&lt;/i&gt;'. The next click in the render window sets the position of this object at the clicked point.&lt;/p&gt;</string>
           </property>
           <property name="text">
            <string>Place object by mouse pointer</string>
@@ -463,7 +463,7 @@
            <item row="0" column="0">
             <widget class="MyCheckBox" name="checkBox_smooth_de_combine_enable">
              <property name="toolTip">
-              <string>When the object is combined with the others by union (addition), its surface is smoothly blended with theirs instead of making a sharp intersection.</string>
+              <string>&lt;p&gt;When the object is combined with the others by union (addition), its surface is smoothly blended with theirs instead of making a sharp intersection.&lt;/p&gt;</string>
              </property>
              <property name="text">
               <string>Enable smooth DE combine</string>
@@ -480,7 +480,7 @@
            <item row="1" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox_smooth_de_combine_distance">
              <property name="toolTip">
-              <string>Width of the smooth blending zone between the surfaces when 'Smooth DE combine' is enabled. Higher values melt the surfaces together over a larger area.</string>
+              <string>&lt;p&gt;Width of the smooth blending zone between the surfaces when '&lt;i&gt;Smooth DE combine&lt;/i&gt;' is enabled. Higher values melt the surfaces together over a larger area.&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">

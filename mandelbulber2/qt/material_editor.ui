@@ -44,7 +44,7 @@
      <item>
       <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_7">
        <property name="toolTip">
-        <string>Randomizes material parameters to generate a new, unique material appearance. Useful for exploring creative variations quickly.</string>
+        <string>&lt;p&gt;Randomizes material parameters to generate a new, unique material appearance. Useful for exploring creative variations quickly.&lt;/p&gt;</string>
        </property>
        <property name="text">
         <string>Randomize</string>
@@ -198,7 +198,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_surface_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the surface color is selected from the gradient below according to the fractal color index. When disabled, the single surface color is used instead.</string>
+             <string>&lt;p&gt;When enabled, the surface color is selected from the gradient below according to the fractal color index. When disabled, the single surface color is used instead.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Surface color</string>
@@ -235,7 +235,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_specular_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the specular highlight color is multiplied by the gradient color selected by the fractal color index.</string>
+             <string>&lt;p&gt;When enabled, the specular highlight color is multiplied by the gradient color selected by the fractal color index.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Specular highlights</string>
@@ -272,7 +272,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_diffuse_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the gradient modulates the glossiness of the specular highlights (brighter colors produce a glossier surface) and tints the diffusely scattered reflections.</string>
+             <string>&lt;p&gt;When enabled, the gradient modulates the glossiness of the specular highlights (brighter colors produce a glossier surface) and tints the diffusely scattered reflections.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Diffuse (brighter -&gt; higher glossiness)</string>
@@ -299,7 +299,7 @@
              <item>
               <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true">
                <property name="toolTip">
-                <string>Gradient which defines the glossiness of the surface. Brighter colors produce a more glossy surface, e.g. brighter specular highlights of a smaller width. It also tints the diffusely scattered reflections.</string>
+                <string>&lt;p&gt;Gradient which defines the glossiness of the surface. Brighter colors produce a more glossy surface, e.g. brighter specular highlights of a smaller width. It also tints the diffusely scattered reflections.&lt;/p&gt;</string>
                </property>
               </widget>
              </item>
@@ -309,7 +309,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_luminosity_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the luminosity color is taken from the gradient selected by the fractal color index instead of the single luminosity color.</string>
+             <string>&lt;p&gt;When enabled, the luminosity color is taken from the gradient selected by the fractal color index instead of the single luminosity color.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Luminosity</string>
@@ -346,7 +346,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_roughness_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the surface roughness is modulated by the brightness of the gradient selected by the fractal color index. Works only when 'Rough surface' is enabled.</string>
+             <string>&lt;p&gt;When enabled, the surface roughness is modulated by the brightness of the gradient selected by the fractal color index. Works only when '&lt;i&gt;Rough surface&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Roughness (brighter -&gt; higher roughness)</string>
@@ -383,7 +383,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_reflectance_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the reflectance is multiplied by the gradient color selected by the fractal color index. Perlin noise for reflectance also uses this gradient.</string>
+             <string>&lt;p&gt;When enabled, the reflectance is multiplied by the gradient color selected by the fractal color index. Perlin noise for reflectance also uses this gradient.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Reflectance</string>
@@ -420,7 +420,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_transparency_gradient_enable">
             <property name="toolTip">
-             <string>When enabled, the transparency color is multiplied by the gradient color selected by the fractal color index. Perlin noise for transparency also uses this gradient.</string>
+             <string>&lt;p&gt;When enabled, the transparency color is multiplied by the gradient color selected by the fractal color index. Perlin noise for transparency also uses this gradient.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Transparency</string>
@@ -697,7 +697,7 @@ sphere radius:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Offset applied to the fractal coloring palette. Shifts the color mapping along the palette, allowing fine-tuning of color distribution on the fractal surface. Used in combination with coloring speed and gradients.</string>
+               <string>&lt;p&gt;Offset applied to the fractal coloring palette. Shifts the color mapping along the palette, allowing fine-tuning of color distribution on the fractal surface. Used in combination with coloring speed and gradients.&lt;/p&gt;</string>
               </property>
               <property name="accelerated">
                <bool>false</bool>
@@ -764,7 +764,7 @@ direction vector:</string>
           <item>
            <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="toolTip">
-             <string>When enabled, the w (4th) component of the orbit point takes part in the orbit trap coloring metric (length and dot products, minimum distance for the cross algorithm).</string>
+             <string>&lt;p&gt;When enabled, the w (4th) component of the orbit point takes part in the orbit trap coloring metric (length and dot products, minimum distance for the cross algorithm).&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string notr="true">4D orbit trap color</string>
@@ -1015,7 +1015,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>Base colorValue for every point, added before the other components (1.0 = one whole color step at the default color speed).</string>
+                  <string>&lt;p&gt;Base colorValue for every point, added before the other components (1.0 = one whole color step at the default color speed).&lt;/p&gt;</string>
                  </property>
                  <property name="accelerated">
                   <bool>false</bool>
@@ -1077,7 +1077,7 @@ direction vector:</string>
                   <item row="0" column="1" colspan="3">
                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
                     <property name="toolTip">
-                     <string>Adds the length of the starting point vector c (|c|), multiplied by its weight, to the colorValue.</string>
+                     <string>&lt;p&gt;Adds the length of the starting point vector c (|c|), multiplied by its weight, to the colorValue.&lt;/p&gt;</string>
                     </property>
                     <property name="text">
                      <string notr="true"> c_radius</string>
@@ -1177,7 +1177,7 @@ direction vector:</string>
                   <item row="2" column="1" colspan="3">
                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
                     <property name="toolTip">
-                     <string>Adds the scaled c.x, c.y and c.z components (original coordinates of the iterated point) to the colorValue.</string>
+                     <string>&lt;p&gt;Adds the scaled c.x, c.y and c.z components (original coordinates of the iterated point) to the colorValue.&lt;/p&gt;</string>
                     </property>
                     <property name="text">
                      <string notr="true"> c_xyz</string>
@@ -1251,7 +1251,7 @@ direction vector:</string>
                 <item>
                  <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
                   <property name="toolTip">
-                   <string>Disables the abs() operation on the c coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.</string>
+                   <string>&lt;p&gt;Disables the abs() operation on the c coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string notr="true">disable abs(). May need to increase initial colorValue.</string>
@@ -1362,7 +1362,7 @@ direction vector:</string>
                         </sizepolicy>
                        </property>
                        <property name="toolTip">
-                        <string>Weight of the orbit trap component: colorValue += minimum orbit trap distance * weight. Weight 19.5 is equivalent to the old default (minimumR * 5000), 3.9 to the old hybrid default (minimumR * 1000).</string>
+                        <string>&lt;p&gt;Weight of the orbit trap component: colorValue += minimum orbit trap distance * weight. Weight 19.5 is equivalent to the old default (minimumR * 5000), 3.9 to the old hybrid default (minimumR * 1000).&lt;/p&gt;</string>
                        </property>
                        <property name="accelerated">
                         <bool>false</bool>
@@ -1585,7 +1585,7 @@ direction vector:</string>
                      <item row="1" column="1">
                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_weight">
                        <property name="toolTip">
-                        <string>Weight of the radius component: colorValue += radius (at the end of the iterations) * weight.</string>
+                        <string>&lt;p&gt;Weight of the radius component: colorValue += radius (at the end of the iterations) * weight.&lt;/p&gt;</string>
                        </property>
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1763,7 +1763,7 @@ direction vector:</string>
                    <item>
                     <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_div_1e13_false">
                      <property name="toolTip">
-                      <string>Divides the z coordinates by 1e13 before weighting (useful for fractals with very large orbits).</string>
+                      <string>&lt;p&gt;Divides the z coordinates by 1e13 before weighting (useful for fractals with very large orbits).&lt;/p&gt;</string>
                      </property>
                      <property name="text">
                       <string notr="true">xyz / 1e13</string>
@@ -1969,7 +1969,7 @@ direction vector:</string>
                    <item>
                     <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
                      <property name="toolTip">
-                      <string>Disables the abs() operation on the z coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.</string>
+                      <string>&lt;p&gt;Disables the abs() operation on the z coordinates before weighting (default: abs() is applied). With signed values the colorValue can cancel out, so it may need to be increased.&lt;/p&gt;</string>
                      </property>
                      <property name="text">
                       <string notr="true">disable abs(). May need to increase initial colorValue.</string>
@@ -2014,7 +2014,7 @@ direction vector:</string>
                      <item row="1" column="0">
                       <widget class="MyCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_true">
                        <property name="toolTip">
-                        <string>Enables the iteration addition: colorValue += scale * (iteration - startIteration) for points that terminate after the start iteration.</string>
+                        <string>&lt;p&gt;Enables the iteration addition: colorValue += scale * (iteration - startIteration) for points that terminate after the start iteration.&lt;/p&gt;</string>
                        </property>
                        <property name="text">
                         <string notr="true">addition value:</string>
@@ -2055,7 +2055,7 @@ direction vector:</string>
                      <item row="2" column="0">
                       <widget class="MyCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
                        <property name="toolTip">
-                        <string>Enables the iteration scaling: colorValue *= 1 + scale * (iteration - startIteration). Needs another component supplying a range of colorValues.</string>
+                        <string>&lt;p&gt;Enables the iteration scaling: colorValue *= 1 + scale * (iteration - startIteration). Needs another component supplying a range of colorValues.&lt;/p&gt;</string>
                        </property>
                        <property name="text">
                         <string notr="true"> scale (needs an input value):</string>
@@ -2204,7 +2204,7 @@ direction vector:</string>
                         <item row="1" column="1">
                          <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_add_spread">
                           <property name="toolTip">
-                           <string>Controls how fast the addition curve approaches its maximum (bigger values produce a wider, smoother transition).</string>
+                           <string>&lt;p&gt;Controls how fast the addition curve approaches its maximum (bigger values produce a wider, smoother transition).&lt;/p&gt;</string>
                           </property>
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2287,7 +2287,7 @@ direction vector:</string>
                         <item row="0" column="1">
                          <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_add_max">
                           <property name="toolTip">
-                           <string>Maximum value added to the colorValue by the curve (approached when colorValue grows far above the start value).</string>
+                           <string>&lt;p&gt;Maximum value added to the colorValue by the curve (approached when colorValue grows far above the start value).&lt;/p&gt;</string>
                           </property>
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2369,7 +2369,7 @@ direction vector:</string>
                         <item row="1" column="1">
                          <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_parab_start_value">
                           <property name="toolTip">
-                           <string>colorValue threshold above which the parabolic function is applied. Note: currently the formula subtracts the trig function start value as the offset.</string>
+                           <string>&lt;p&gt;colorValue threshold above which the parabolic function is applied. Note: currently the formula subtracts the trig function start value as the offset.&lt;/p&gt;</string>
                           </property>
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2513,7 +2513,7 @@ direction vector:</string>
                         <item row="2" column="1">
                          <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_start_value">
                           <property name="toolTip">
-                           <string>colorValue threshold above which the trigonometric function starts; it is also used as the phase offset of the wave.</string>
+                           <string>&lt;p&gt;colorValue threshold above which the trigonometric function starts; it is also used as the phase offset of the wave.&lt;/p&gt;</string>
                           </property>
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2624,7 +2624,7 @@ direction vector:</string>
                           <item row="0" column="1">
                            <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_round_scale">
                             <property name="toolTip">
-                             <string>Quantization step of the round function: colorValue is divided by it, rounded to the nearest integer and multiplied back, producing flat color bands.</string>
+                             <string>&lt;p&gt;&lt;b&gt;Quantization step of the round function:&lt;/b&gt; colorValue is divided by it, rounded to the nearest integer and multiplied back, producing flat color bands.&lt;/p&gt;</string>
                             </property>
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2877,7 +2877,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>Adjusts the influence of the loaded color texture on the material's surface color. A value of 0 uses only the base color; a value of 1 uses only the texture. Intermediate values blend between the two.</string>
+                  <string>&lt;p&gt;Adjusts the influence of the loaded color texture on the material's surface color. A value of 0 uses only the base color; a value of 1 uses only the texture. Intermediate values blend between the two.&lt;/p&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -2904,7 +2904,7 @@ direction vector:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_perlin_noise_color_enable">
             <property name="toolTip">
-             <string>Applies the Perlin noise pattern to the surface color. Requires the main 'Perlin noise' option to be enabled.</string>
+             <string>&lt;p&gt;Applies the Perlin noise pattern to the surface color. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Use perlin noise for color</string>
@@ -2940,7 +2940,7 @@ direction vector:</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>Strength of the Perlin noise influence on the surface color (0 = no effect, 1 = the noise fully modulates the color). When the 'Surface color' gradient is enabled, the gradient is sampled along the noise value.</string>
+                <string>&lt;p&gt;Strength of the Perlin noise influence on the surface color (0 = no effect, 1 = the noise fully modulates the color). When the '&lt;i&gt;Surface color&lt;/i&gt;' gradient is enabled, the gradient is sampled along the noise value.&lt;/p&gt;</string>
                </property>
                <property name="prefix">
                 <string/>
@@ -3448,7 +3448,7 @@ direction vector:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_use_roughness_texture">
             <property name="toolTip">
-             <string>Use an image file as a roughness map texture. Brighter pixels make the surface rougher (stronger normal perturbation of the rough surface effect).</string>
+             <string>&lt;p&gt;Use an image file as a roughness map texture. Brighter pixels make the surface rougher (stronger normal perturbation of the rough surface effect).&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Use roughness map texture</string>
@@ -3507,7 +3507,7 @@ direction vector:</string>
                <item row="1" column="2">
                 <widget class="MyDoubleSpinBox" name="spinbox_roughness_texture_intensity">
                  <property name="toolTip">
-                  <string>Controls how strongly the roughness texture modulates the surface roughness (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</string>
+                  <string>&lt;p&gt;Controls how strongly the roughness texture modulates the surface roughness (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</string>
                  </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3579,7 +3579,7 @@ direction vector:</string>
             <item row="0" column="1">
              <widget class="MyDoubleSpinBox" name="spinbox_iridescence_intensity">
               <property name="toolTip">
-               <string>Saturation of the rainbow colors: higher values produce more vivid colors, 0 disables the color changes.</string>
+               <string>&lt;p&gt;&lt;b&gt;Saturation of the rainbow colors:&lt;/b&gt; higher values produce more vivid colors, 0 disables the color changes.&lt;/p&gt;</string>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3620,7 +3620,7 @@ direction vector:</string>
             <item row="1" column="1">
              <widget class="MyDoubleSpinBox" name="spinbox_iridescence_subsurface_thickness">
               <property name="toolTip">
-               <string>Scales the estimated thickness of the thin subsurface layer. It changes how fast the rainbow color bands cycle over the surface.</string>
+               <string>&lt;p&gt;Scales the estimated thickness of the thin subsurface layer. It changes how fast the rainbow color bands cycle over the surface.&lt;/p&gt;</string>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3836,7 +3836,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>Controls how much the luminosity texture affects the material's self-illumination. Higher values increase the contribution of the texture to the final luminosity.</string>
+                  <string>&lt;p&gt;Controls how much the luminosity texture affects the material's self-illumination. Higher values increase the contribution of the texture to the final luminosity.&lt;/p&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -3863,7 +3863,7 @@ direction vector:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_perlin_noise_luminosity_enable">
             <property name="toolTip">
-             <string>Applies the Perlin noise pattern to the luminosity effect. Requires the main 'Perlin noise' option to be enabled.</string>
+             <string>&lt;p&gt;Applies the Perlin noise pattern to the luminosity effect. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Use perlin noise for luminosity</string>
@@ -3899,7 +3899,7 @@ direction vector:</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>Strength of the Perlin noise influence on the luminosity (0 = no effect; the noise multiplies the luminosity, or adds gradient colors when the 'Luminosity' gradient is enabled).</string>
+                <string>&lt;p&gt;Strength of the Perlin noise influence on the luminosity (0 = no effect; the noise multiplies the luminosity, or adds gradient colors when the '&lt;i&gt;Luminosity&lt;/i&gt;' gradient is enabled).&lt;/p&gt;</string>
                </property>
                <property name="prefix">
                 <string/>
@@ -4040,7 +4040,7 @@ direction vector:</string>
                <item row="1" column="1">
                 <widget class="MyColorButton" name="colorButton_reflections_color" native="true">
                  <property name="toolTip">
-                  <string>Color which tints the ray-traced reflected light: the reflected image is multiplied by this color. To apply this effect, enable ray-traced reflections in the Raytracing tab.</string>
+                  <string>&lt;p&gt;Color which tints the ray-traced reflected light: the reflected image is multiplied by this color. To apply this effect, enable ray-traced reflections in the Raytracing tab.&lt;/p&gt;</string>
                  </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -4159,7 +4159,7 @@ direction vector:</string>
                   <item row="1" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_reflectance_texture_intensity">
                     <property name="toolTip">
-                     <string>Controls how strongly the reflectance texture modulates the amount of reflected light (0 = texture ignored, 1 = fully applied, higher values amplify the effect). Requires ray-traced reflections or environment mapping.</string>
+                     <string>&lt;p&gt;Controls how strongly the reflectance texture modulates the amount of reflected light (0 = texture ignored, 1 = fully applied, higher values amplify the effect). Requires ray-traced reflections or environment mapping.&lt;/p&gt;</string>
                     </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4192,7 +4192,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_perlin_noise_reflectance_enable">
                <property name="toolTip">
-                <string>Applies the Perlin noise pattern to the reflectance. Requires the main 'Perlin noise' option to be enabled.</string>
+                <string>&lt;p&gt;Applies the Perlin noise pattern to the reflectance. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Use perlin noise for reflectance</string>
@@ -4228,7 +4228,7 @@ direction vector:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Strength of the Perlin noise influence on the reflectance (0 = no effect, 1 = the noise fully modulates the reflected light).</string>
+                   <string>&lt;p&gt;Strength of the Perlin noise influence on the reflectance (0 = no effect, 1 = the noise fully modulates the reflected light).&lt;/p&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4374,7 +4374,7 @@ direction vector:</string>
                <item row="1" column="1">
                 <widget class="MyColorButton" name="colorButton_transparency_color" native="true">
                  <property name="toolTip">
-                  <string>Color which tints the light passing through the transparent surface. Used when the 'Transparency' gradient is disabled.</string>
+                  <string>&lt;p&gt;Color which tints the light passing through the transparent surface. Used when the '&lt;i&gt;Transparency&lt;/i&gt;' gradient is disabled.&lt;/p&gt;</string>
                  </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -4422,7 +4422,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_use_transparency_texture">
                <property name="toolTip">
-                <string>Use an image file as a transparency color map texture: it modulates the transparency color on the surface and inside the object volume.</string>
+                <string>&lt;p&gt;Use an image file as a transparency color map texture: it modulates the transparency color on the surface and inside the object volume.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Use transparency color map texture</string>
@@ -4454,7 +4454,7 @@ direction vector:</string>
                   <item row="1" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_texture_intensity">
                     <property name="toolTip">
-                     <string>Controls how strongly the texture modulates the transparency color on the surface (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</string>
+                     <string>&lt;p&gt;Controls how strongly the texture modulates the transparency color on the surface (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</string>
                     </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4509,7 +4509,7 @@ direction vector:</string>
                   <item row="2" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_texture_intensity_vol">
                     <property name="toolTip">
-                     <string>Controls how strongly the texture modulates the transparency color inside the object volume (0 = texture ignored, 1 = fully applied, higher values amplify the effect).</string>
+                     <string>&lt;p&gt;Controls how strongly the texture modulates the transparency color inside the object volume (0 = texture ignored, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</string>
                     </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4549,7 +4549,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_use_transparency_alpha_texture">
                <property name="toolTip">
-                <string>Use an image file as a transparency alpha (opacity) texture: bright pixels make the surface less transparent, dark pixels allow more light through.</string>
+                <string>&lt;p&gt;Use an image file as a transparency alpha (opacity) texture: bright pixels make the surface less transparent, dark pixels allow more light through.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Use transparency texture (alpha)</string>
@@ -4608,7 +4608,7 @@ direction vector:</string>
                   <item row="1" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_alpha_texture_intensity">
                     <property name="toolTip">
-                     <string>Controls how strongly the alpha texture reduces the transparency on the surface (0 = no influence, 1 = fully applied, higher values amplify the effect).</string>
+                     <string>&lt;p&gt;Controls how strongly the alpha texture reduces the transparency on the surface (0 = no influence, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</string>
                     </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4643,7 +4643,7 @@ direction vector:</string>
                   <item row="2" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_alpha_texture_intensity_vol">
                     <property name="toolTip">
-                     <string>Controls how strongly the alpha texture reduces the transparency inside the object volume (0 = no influence, 1 = fully applied, higher values amplify the effect).</string>
+                     <string>&lt;p&gt;Controls how strongly the alpha texture reduces the transparency inside the object volume (0 = no influence, 1 = fully applied, higher values amplify the effect).&lt;/p&gt;</string>
                     </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4676,7 +4676,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_perlin_noise_transparency_color_enable">
                <property name="toolTip">
-                <string>Applies the Perlin noise pattern to the transparency color on the surface and inside the volume. Requires the main 'Perlin noise' option to be enabled.</string>
+                <string>&lt;p&gt;Applies the Perlin noise pattern to the transparency color on the surface and inside the volume. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Use perlin noise for transparency color</string>
@@ -4712,7 +4712,7 @@ direction vector:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Strength of the Perlin noise influence on the transparency color on the surface (0 = no effect, 1 = the noise fully modulates the color).</string>
+                   <string>&lt;p&gt;Strength of the Perlin noise influence on the transparency color on the surface (0 = no effect, 1 = the noise fully modulates the color).&lt;/p&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4767,7 +4767,7 @@ direction vector:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Strength of the Perlin noise influence on the transparency color inside the object volume (0 = no effect, 1 = the noise fully modulates the color).</string>
+                   <string>&lt;p&gt;Strength of the Perlin noise influence on the transparency color inside the object volume (0 = no effect, 1 = the noise fully modulates the color).&lt;/p&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4795,7 +4795,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_perlin_noise_transparency_alpha_enable">
                <property name="toolTip">
-                <string>Applies the Perlin noise pattern to the transparency alpha: bright noise areas make the object less transparent. Requires the main 'Perlin noise' option to be enabled.</string>
+                <string>&lt;p&gt;Applies the Perlin noise pattern to the transparency alpha: bright noise areas make the object less transparent. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
                </property>
                <property name="title">
                 <string>Use perlin noise for alpha</string>
@@ -4848,7 +4848,7 @@ direction vector:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Strength of the Perlin noise influence on the transparency alpha on the surface (0 = no effect, 1 = the noise fully controls the opacity).</string>
+                   <string>&lt;p&gt;Strength of the Perlin noise influence on the transparency alpha on the surface (0 = no effect, 1 = the noise fully controls the opacity).&lt;/p&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4886,7 +4886,7 @@ direction vector:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Strength of the Perlin noise influence on the transparency alpha inside the object volume (0 = no effect, 1 = the noise fully controls the opacity).</string>
+                   <string>&lt;p&gt;Strength of the Perlin noise influence on the transparency alpha inside the object volume (0 = no effect, 1 = the noise fully controls the opacity).&lt;/p&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -4995,7 +4995,7 @@ direction vector:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Controls how strongly the diffusion texture modulates the reflected light and the specular highlights (0 = texture ignored, 1 = fully applied).</string>
+               <string>&lt;p&gt;Controls how strongly the diffusion texture modulates the reflected light and the specular highlights (0 = texture ignored, 1 = fully applied).&lt;/p&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5184,7 +5184,7 @@ direction vector:</string>
        <item>
         <widget class="MyGroupBox" name="groupCheck_perlin_noise_displacement_enable">
          <property name="toolTip">
-          <string>Displaces the object surface along the ray using the Perlin noise pattern, producing real geometric bumps. Requires the main 'Perlin noise' option to be enabled.</string>
+          <string>&lt;p&gt;Displaces the object surface along the ray using the Perlin noise pattern, producing real geometric bumps. Requires the main '&lt;i&gt;Perlin noise&lt;/i&gt;' option to be enabled.&lt;/p&gt;</string>
          </property>
          <property name="title">
           <string>Use perlin noise for displacement</string>
@@ -5231,7 +5231,7 @@ direction vector:</string>
           <item row="0" column="1">
            <widget class="MyLineEdit" name="logedit_perlin_noise_displacement_intensity">
             <property name="toolTip">
-             <string>Maximum height of the displacement produced by the Perlin noise, in the same units as object sizes.</string>
+             <string>&lt;p&gt;Maximum height of the displacement produced by the Perlin noise, in the same units as object sizes.&lt;/p&gt;</string>
             </property>
            </widget>
           </item>
@@ -5262,7 +5262,7 @@ direction vector:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_texture_fractalize">
             <property name="toolTip">
-             <string>When enabled, texture coordinates are taken from the fractal orbit (orbit trap inside a bounding cube) instead of the point position, wrapping the texture over the fractal structure. Works only for fractal objects.</string>
+             <string>&lt;p&gt;When enabled, texture coordinates are taken from the fractal orbit (orbit trap inside a bounding cube) instead of the point position, wrapping the texture over the fractal structure. Works only for fractal objects.&lt;/p&gt;</string>
             </property>
             <property name="title">
              <string>Fractalize texture</string>
@@ -5312,14 +5312,14 @@ direction vector:</string>
                <item row="0" column="1">
                 <widget class="MyLineEdit" name="logedit_texture_fractalize_cube_size">
                  <property name="toolTip">
-                  <string>Half-size of the cube which captures the orbit for the texture mapping (in units relative to the iterated point). When the orbit escapes the cube, no fractalized texture is produced.</string>
+                  <string>&lt;p&gt;Half-size of the cube which captures the orbit for the texture mapping (in units relative to the iterated point). When the orbit escapes the cube, no fractalized texture is produced.&lt;/p&gt;</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="1">
                 <widget class="MySpinBox" name="spinboxInt_texture_fractalize_start_iteration">
                  <property name="toolTip">
-                  <string>First iteration at which the orbit can be captured into the cube for the fractalized texture mapping.</string>
+                  <string>&lt;p&gt;First iteration at which the orbit can be captured into the cube for the fractalized texture mapping.&lt;/p&gt;</string>
                  </property>
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5767,7 +5767,7 @@ object size)</string>
        <item>
         <widget class="MyGroupBox" name="groupCheck_perlin_noise_enable">
          <property name="toolTip">
-          <string>Enables procedural Perlin noise for the material. Individual effects (color, luminosity, reflectance, transparency, displacement) must be enabled separately in their sections.</string>
+          <string>&lt;p&gt;Enables procedural Perlin noise for the material. Individual effects (color, luminosity, reflectance, transparency, displacement) must be enabled separately in their sections.&lt;/p&gt;</string>
          </property>
          <property name="title">
           <string>Perlin noise</string>
@@ -5807,7 +5807,7 @@ offset:</string>
             <item row="1" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_period_x">
               <property name="toolTip">
-               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+               <string>&lt;p&gt;Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -5820,7 +5820,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>If enabled, uses the absolute value of the Perlin noise (mirrored around 0.5), producing a symmetric, always positive noise pattern.</string>
+               <string>&lt;p&gt;If enabled, uses the absolute value of the Perlin noise (mirrored around 0.5), producing a symmetric, always positive noise pattern.&lt;/p&gt;</string>
               </property>
               <property name="text">
                <string>abs() function</string>
@@ -5830,7 +5830,7 @@ offset:</string>
             <item row="5" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_y">
               <property name="toolTip">
-               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+               <string>&lt;p&gt;Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -5857,7 +5857,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
+               <string>&lt;p&gt;Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.&lt;/p&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5888,7 +5888,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Adds a constant offset to the Perlin noise value before applying it, useful for biasing the effect or controlling thresholds.</string>
+               <string>&lt;p&gt;Adds a constant offset to the Perlin noise value before applying it, useful for biasing the effect or controlling thresholds.&lt;/p&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -5949,7 +5949,7 @@ offset:</string>
             <item row="2" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_period_y">
               <property name="toolTip">
-               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+               <string>&lt;p&gt;Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -5985,7 +5985,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Sets the number of octaves (layers) for Perlin noise, increasing the complexity and detail of the noise pattern.</string>
+               <string>&lt;p&gt;Sets the number of octaves (layers) for Perlin noise, increasing the complexity and detail of the noise pattern.&lt;/p&gt;</string>
               </property>
               <property name="minimum">
                <number>1</number>
@@ -6014,7 +6014,7 @@ offset:</string>
             <item row="6" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_z">
               <property name="toolTip">
-               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+               <string>&lt;p&gt;Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -6027,7 +6027,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
+               <string>&lt;p&gt;Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.&lt;/p&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -6052,7 +6052,7 @@ offset:</string>
             <item row="3" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_period_z">
               <property name="toolTip">
-               <string>Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.</string>
+               <string>&lt;p&gt;Defines the period (scale) of the Perlin noise along each axis. Larger values create broader, slower variations; smaller values create finer details.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -6069,7 +6069,7 @@ offset:</string>
             <item row="4" column="2">
              <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_x">
               <property name="toolTip">
-               <string>Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.</string>
+               <string>&lt;p&gt;Offsets the Perlin noise pattern in 3D space, allowing you to shift the noise effect without changing its scale or orientation.&lt;/p&gt;</string>
               </property>
              </widget>
             </item>
@@ -6082,7 +6082,7 @@ offset:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.</string>
+               <string>&lt;p&gt;Rotates the Perlin noise pattern around the respective axis, affecting the orientation of noise features.&lt;/p&gt;</string>
               </property>
               <property name="prefix">
                <string/>

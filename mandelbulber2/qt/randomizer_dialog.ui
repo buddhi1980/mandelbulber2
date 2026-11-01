@@ -68,7 +68,7 @@
        <item>
         <widget class="QCheckBox" name="checkBox_dont_randomize_booleans">
          <property name="toolTip">
-          <string>Only float parameters are randomized; integer and boolean parameters (such as formula selection or iteration counts) stay unchanged.</string>
+          <string>&lt;p&gt;Only float parameters are randomized; integer and boolean parameters (such as formula selection or iteration counts) stay unchanged.&lt;/p&gt;</string>
          </property>
          <property name="text">
           <string>Do not randomize integers and booleans</string>
@@ -88,7 +88,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_reset">
          <property name="toolTip">
-          <string>Discards all randomized settings and restores the actual version from the current scene parameters.</string>
+          <string>&lt;p&gt;Discards all randomized settings and restores the actual version from the current scene parameters.&lt;/p&gt;</string>
          </property>
          <property name="text">
           <string>Reset</string>
@@ -98,7 +98,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_clean_up">
          <property name="toolTip">
-          <string>Tests every randomized parameter by re-rendering: those with no visible influence on the image are reset to their original values, so only the parameters which really changed the look stay randomized.</string>
+          <string>&lt;p&gt;Tests every randomized parameter by re-rendering: those with no visible influence on the image are reset to their original values, so only the parameters which really changed the look stay randomized.&lt;/p&gt;</string>
          </property>
          <property name="text">
           <string>Reset negligible parameters</string>
@@ -108,7 +108,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_add_to_keyframes">
          <property name="toolTip">
-          <string>Applies the actual version to the scene, registers all the randomized parameters as keyframe animated and adds a new keyframe in the animation.</string>
+          <string>&lt;p&gt;Applies the actual version to the scene, registers all the randomized parameters as keyframe animated and adds a new keyframe in the animation.&lt;/p&gt;</string>
          </property>
          <property name="text">
           <string>Use and add to keyframe animation</string>
@@ -149,7 +149,7 @@
         <item>
          <widget class="cThumbnailWidget" name="previewwidget_actual" native="true">
           <property name="toolTip">
-           <string>Preview of the actual (working) version of the settings. When a version is selected, the tooltip of this widget lists the parameters changed by the randomizer.</string>
+           <string>&lt;p&gt;Preview of the actual (working) version of the settings. When a version is selected, the tooltip of this widget lists the parameters changed by the randomizer.&lt;/p&gt;</string>
           </property>
           <property name="minimumSize">
            <size>
@@ -180,7 +180,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_01">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -204,7 +204,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_01">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -243,7 +243,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_09">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -267,7 +267,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_09">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -306,7 +306,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_02">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -330,7 +330,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_02">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -369,7 +369,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_05">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -393,7 +393,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_05">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -432,7 +432,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_08">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -456,7 +456,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_08">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -495,7 +495,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_03">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -519,7 +519,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_03">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -558,7 +558,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_12">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -582,7 +582,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_12">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -621,7 +621,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_10">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -645,7 +645,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_10">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -684,7 +684,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_11">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -708,7 +708,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_11">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -747,7 +747,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_04">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -771,7 +771,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_04">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -810,7 +810,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_07">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -834,7 +834,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_07">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>
@@ -873,7 +873,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_select_06">
             <property name="toolTip">
-             <string>Copies the settings of this version to the actual (working) version and renders it as the new reference.</string>
+             <string>&lt;p&gt;Copies the settings of this version to the actual (working) version and renders it as the new reference.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Select</string>
@@ -897,7 +897,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox_keep_06">
             <property name="toolTip">
-             <string>Keeps this version: the next randomizing run leaves it untouched instead of generating a new set of parameters.</string>
+             <string>&lt;p&gt;&lt;b&gt;Keeps this version:&lt;/b&gt; the next randomizing run leaves it untouched instead of generating a new set of parameters.&lt;/p&gt;</string>
             </property>
             <property name="text">
              <string>Keep</string>

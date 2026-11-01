@@ -358,7 +358,7 @@
           <item row="0" column="0" colspan="3">
            <widget class="MyCheckBox" name="checkBox_use_target_point">
             <property name="toolTip">
-             <string>Defines the light direction by aiming from the position at the target point instead of using the rotation angles. When enabled, the rotation fields are replaced by the target coordinates.</string>
+             <string>&lt;p&gt;Defines the light direction by aiming from the position at the target point instead of using the rotation angles. When enabled, the rotation fields are replaced by the target coordinates.&lt;/p&gt;</string>
             </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -498,7 +498,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>X coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
+             <string>&lt;p&gt;X coordinate of the target point which the light is aimed at. Used when '&lt;i&gt;Use target point instead of angles&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
             </property>
            </widget>
           </item>
@@ -511,7 +511,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>Y coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
+             <string>&lt;p&gt;Y coordinate of the target point which the light is aimed at. Used when '&lt;i&gt;Use target point instead of angles&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
             </property>
            </widget>
           </item>
@@ -524,7 +524,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>Z coordinate of the target point which the light is aimed at. Used when 'Use target point instead of angles' is enabled.</string>
+             <string>&lt;p&gt;Z coordinate of the target point which the light is aimed at. Used when '&lt;i&gt;Use target point instead of angles&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
             </property>
            </widget>
           </item>
@@ -533,7 +533,7 @@
         <item>
          <widget class="cLightWidget" name="widget_angle_preview" native="true">
           <property name="toolTip">
-           <string>Preview of the light direction. Drag inside the ball to set the horizontal and vertical angles of the light.</string>
+           <string>&lt;p&gt;Preview of the light direction. Drag inside the ball to set the horizontal and vertical angles of the light.&lt;/p&gt;</string>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">

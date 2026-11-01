@@ -31,7 +31,7 @@
      <item>
       <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
        <property name="toolTip">
-        <string>Loads settings from a selected fractal file into all parameters of the Image adjustments window.</string>
+        <string>&lt;p&gt;Loads settings from a selected fractal file into all parameters of the Image adjustments window.&lt;/p&gt;</string>
        </property>
        <property name="text">
         <string>Load</string>
@@ -428,7 +428,7 @@
            <item row="0" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_1">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 1 (default 720x480; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 1 (default 720x480; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -444,7 +444,7 @@
            <item row="0" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_2">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 2 (default 1280x720; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 2 (default 1280x720; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -460,7 +460,7 @@
            <item row="2" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_9">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 9 (default 1600x1200; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 9 (default 1600x1200; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -476,7 +476,7 @@
            <item row="0" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_3">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 3 (default 1920x1080; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 3 (default 1920x1080; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -492,7 +492,7 @@
            <item row="1" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_4">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 4 (default 2560x1440; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 4 (default 2560x1440; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -508,7 +508,7 @@
            <item row="1" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_5">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 5 (default 4096x2160; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 5 (default 4096x2160; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -524,7 +524,7 @@
            <item row="1" column="2">
             <widget class="QToolButton" name="toolButton_resolution_preset_6">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 6 (default 7680x4320; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 6 (default 7680x4320; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -540,7 +540,7 @@
            <item row="2" column="0">
             <widget class="QToolButton" name="toolButton_resolution_preset_7">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 7 (default 320x240; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 7 (default 320x240; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -556,7 +556,7 @@
            <item row="2" column="1">
             <widget class="QToolButton" name="toolButton_resolution_preset_8">
              <property name="toolTip">
-              <string>Sets the image resolution to preset 8 (default 800x600; right-click the button to change the stored value).</string>
+              <string>&lt;p&gt;Sets the image resolution to preset 8 (default 800x600; right-click the button to change the stored value).&lt;/p&gt;</string>
              </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -714,7 +714,7 @@
       <item>
        <widget class="QPushButton" name="pushButton_optimal_distance_between_eyes">
         <property name="toolTip">
-         <string>Calculates the distance between the eyes as 5% of the current distance from the camera to the fractal.</string>
+         <string>&lt;p&gt;Calculates the distance between the eyes as 5% of the current distance from the camera to the fractal.&lt;/p&gt;</string>
         </property>
         <property name="text">
          <string>Calculate optimal distance

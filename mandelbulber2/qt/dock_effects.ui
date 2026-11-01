@@ -121,7 +121,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>Effects settings organized into tabs: Raytracing, Volumetric, Background, Lights and Post-effects.</string>
+      <string>&lt;p&gt;&lt;b&gt;Effects settings organized into tabs:&lt;/b&gt; Raytracing, Volumetric, Background, Lights and Post-effects.&lt;/p&gt;</string>
      </property>
      <property name="tabPosition">
       <enum>QTabWidget::West</enum>
@@ -665,7 +665,7 @@ per pixel:</string>
                 <item row="5" column="0" colspan="2">
                  <widget class="QLabel" name="label_masked_pixels">
                   <property name="toolTip">
-                   <string>Shows what percentage of image pixels are already finished (masked from further calculation) during the current Monte Carlo rendering.</string>
+                   <string>&lt;p&gt;Shows what percentage of image pixels are already finished (masked from further calculation) during the current Monte Carlo rendering.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Masked pixels:</string>
@@ -703,7 +703,7 @@ per pixel:</string>
               <item>
                <widget class="QCheckBox" name="checkB_MCShowNoiseLevels">
                 <property name="toolTip">
-                 <string>Shows the estimated noise level of every tile directly on the image during Monte Carlo rendering.</string>
+                 <string>&lt;p&gt;Shows the estimated noise level of every tile directly on the image during Monte Carlo rendering.&lt;/p&gt;</string>
                 </property>
                 <property name="enabled">
                  <bool>true</bool>
@@ -719,7 +719,7 @@ per pixel:</string>
               <item>
                <widget class="MyGroupBox" name="groupCheck_MC_denoiser_enable">
                 <property name="toolTip">
-                 <string>Enable the Monte Carlo denoiser to reduce noise in rendered images. This post-processing step smooths out grainy patterns caused by limited sampling, resulting in cleaner and more visually appealing results, especially at lower sample counts.</string>
+                 <string>&lt;p&gt;Enable the Monte Carlo denoiser to reduce noise in rendered images. This post-processing step smooths out grainy patterns caused by limited sampling, resulting in cleaner and more visually appealing results, especially at lower sample counts.&lt;/p&gt;</string>
                 </property>
                 <property name="title">
                  <string>Denoiser</string>
@@ -839,7 +839,7 @@ per pixel:</string>
               <item>
                <widget class="MyCheckBox" name="checkBox_MC_GI_use_reflectance">
                 <property name="toolTip">
-                 <string>Biases the Monte Carlo global illumination rays toward the mirror reflection direction with a probability given by the material's reflectance, so glossy surfaces can reflect indirect light. Works only in the OpenCL rendering mode.</string>
+                 <string>&lt;p&gt;Biases the Monte Carlo global illumination rays toward the mirror reflection direction with a probability given by the material's reflectance, so glossy surfaces can reflect indirect light. Works only in the OpenCL rendering mode.&lt;/p&gt;</string>
                 </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1152,7 +1152,7 @@ per pixel:</string>
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Color of the scattered (ambient) light which is modulated by the ambient occlusion effect.</string>
+                   <string>&lt;p&gt;Color of the scattered (ambient) light which is modulated by the ambient occlusion effect.&lt;/p&gt;</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
@@ -1289,7 +1289,7 @@ per pixel:</string>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_x">
                      <property name="toolTip">
-                      <string>Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                      <string>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the X axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the '&lt;i&gt;Multiple rays&lt;/i&gt;' ambient occlusion mode.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1323,7 +1323,7 @@ per pixel:</string>
                    <item row="1" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_y">
                      <property name="toolTip">
-                      <string>Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                      <string>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the Y axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the '&lt;i&gt;Multiple rays&lt;/i&gt;' ambient occlusion mode.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1357,7 +1357,7 @@ per pixel:</string>
                    <item row="2" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_ao_light_map_rotation_z">
                      <property name="toolTip">
-                      <string>Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the 'Multiple rays' ambient occlusion mode.</string>
+                      <string>&lt;p&gt;Rotation of the ambient occlusion lightmap image around the Z axis (degrees). Changes the direction from which the colored light of the lightmap arrives. Used only by the '&lt;i&gt;Multiple rays&lt;/i&gt;' ambient occlusion mode.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1657,7 +1657,7 @@ for volumetric effects:</string>
                 <item row="3" column="1">
                  <widget class="MyComboBox" name="comboBox_basic_fog_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.</string>
+                   <string>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of basic fog. The chosen shape (such as box, sphere, or other available primitives) determines where in the scene the basic fog effect will be applied, allowing for precise control over the fog’s location and extent.&lt;/p&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -1864,7 +1864,7 @@ for volumetric effects:</string>
                 <item>
                  <widget class="QToolButton" name="toolButton_fog_distance_double">
                   <property name="toolTip">
-                   <string>Multiplies all fog distance parameters (color distances, distance factor and distance from surface) by 2.</string>
+                   <string>&lt;p&gt;Multiplies all fog distance parameters (color distances, distance factor and distance from surface) by 2.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>x2</string>
@@ -1874,7 +1874,7 @@ for volumetric effects:</string>
                 <item>
                  <widget class="QToolButton" name="toolButton_fog_distance_half">
                   <property name="toolTip">
-                   <string>Divides all fog distance parameters (color distances, distance factor and distance from surface) by 2.</string>
+                   <string>&lt;p&gt;Divides all fog distance parameters (color distances, distance factor and distance from surface) by 2.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>÷2</string>
@@ -1959,7 +1959,7 @@ for volumetric effects:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Enables full shadow interaction for the distance based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</string>
+                   <string>&lt;p&gt;Enables full shadow interaction for the distance based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
@@ -2028,7 +2028,7 @@ for volumetric effects:</string>
                 <item row="7" column="1">
                  <widget class="MyComboBox" name="comboBox_distance_fog_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of the distance fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</string>
+                   <string>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the distance fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.&lt;/p&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2250,7 +2250,7 @@ for volumetric effects:</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>Enables full shadow interaction for the iteration count based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.</string>
+                   <string>&lt;p&gt;Enables full shadow interaction for the iteration count based fog. When activated, fog volumes cast shadows onto scene geometry and receive shadows from other objects and light sources. This gives more realistic occlusion inside and behind the fog, but increases rendering time due to additional light sampling.&lt;/p&gt;</string>
                   </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
@@ -2354,7 +2354,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="9" column="1">
                  <widget class="MyComboBox" name="comboBox_iteration_fog_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of the iteration count based fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.</string>
+                   <string>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the iteration count based fog. The chosen shape (such as box or sphere) determines where in the scene the fog is applied.&lt;/p&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2371,7 +2371,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <item>
             <widget class="MyGroupBox" name="groupCheck_clouds_enable">
              <property name="toolTip">
-              <string>Enable procedural volumetric clouds. When checked, the renderer integrates noise-based cloud volumes along view rays, with per-light illumination and optional shadow casting/receiving (if enabled in Clouds settings). Configure color, density, scale (period), noise iterations, height/plane shape, distance mode, and motion below. Increases render time due to volumetric sampling and shadow queries.</string>
+              <string>&lt;p&gt;Enable procedural volumetric clouds. When checked, the renderer integrates noise-based cloud volumes along view rays, with per-light illumination and optional shadow casting/receiving (if enabled in Clouds settings). Configure color, density, scale (period), noise iterations, height/plane shape, distance mode, and motion below. Increases render time due to volumetric sampling and shadow queries.&lt;/p&gt;</string>
              </property>
              <property name="title">
               <string>Clouds</string>
@@ -2549,7 +2549,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_clouds_color" native="true">
                   <property name="toolTip">
-                   <string>Color of the clouds. The light scattered inside the cloud volume is multiplied by this color.</string>
+                   <string>&lt;p&gt;Color of the clouds. The light scattered inside the cloud volume is multiplied by this color.&lt;/p&gt;</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
@@ -2691,7 +2691,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="1" column="3">
                  <widget class="MyLineEdit" name="vect3_clouds_speed_y">
                   <property name="toolTip">
-                   <string>Y-axis drift speed of the clouds. Controls how fast the noise field moves along +Y over time (animation). Positive = toward +Y, negative = toward -Y; 0 = no motion. Combine with X/Z for wind direction.</string>
+                   <string>&lt;p&gt;Y-axis drift speed of the clouds. Controls how fast the noise field moves along +Y over time (animation). Positive = toward +Y, negative = toward -Y; 0 = no motion. Combine with X/Z for wind direction.&lt;/p&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -2735,7 +2735,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="2" column="3">
                  <widget class="MyLineEdit" name="vect3_clouds_speed_z">
                   <property name="toolTip">
-                   <string>Z-axis drift speed of the clouds. Controls how fast the noise field moves along +Z over time (animation). Positive = toward +Z, negative = toward -Z; 0 = no motion. Combine with X/Y for wind direction.</string>
+                   <string>&lt;p&gt;Z-axis drift speed of the clouds. Controls how fast the noise field moves along +Z over time (animation). Positive = toward +Z, negative = toward -Z; 0 = no motion. Combine with X/Y for wind direction.&lt;/p&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -2763,7 +2763,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_clouds_primitive">
                   <property name="toolTip">
-                   <string>Selects the geometric primitive used to define the spatial boundaries of the clouds. The chosen shape (such as box or sphere) determines where in the scene the clouds are generated.</string>
+                   <string>&lt;p&gt;Selects the geometric primitive used to define the spatial boundaries of the clouds. The chosen shape (such as box or sphere) determines where in the scene the clouds are generated.&lt;/p&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2819,7 +2819,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="6" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_z">
                      <property name="toolTip">
-                      <string>Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                      <string>&lt;p&gt;Rotation of the cloud layer around the Z axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when '&lt;i&gt;Plane shape&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2860,7 +2860,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="3" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_z">
                      <property name="toolTip">
-                      <string>Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the 'Plane shape' layer; the layer is measured along the rotated Z axis.</string>
+                      <string>&lt;p&gt;Position of the clouds volume center along the Z axis, relative to the fractal. Used as the origin of the '&lt;i&gt;Plane shape&lt;/i&gt;' layer; the layer is measured along the rotated Z axis.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -2911,14 +2911,14 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="1" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_x">
                      <property name="toolTip">
-                      <string>Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the 'Plane shape' layer and of its rotation.</string>
+                      <string>&lt;p&gt;Position of the clouds volume center along the X axis, relative to the fractal. Used as the origin of the '&lt;i&gt;Plane shape&lt;/i&gt;' layer and of its rotation.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_y">
                      <property name="toolTip">
-                      <string>Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                      <string>&lt;p&gt;Rotation of the cloud layer around the Y axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when '&lt;i&gt;Plane shape&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2962,7 +2962,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="4" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_x">
                      <property name="toolTip">
-                      <string>Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when 'Plane shape' is enabled.</string>
+                      <string>&lt;p&gt;Rotation of the cloud layer around the X axis (degrees, around the Clouds center). Tilts the plane layer and rotates the cloud noise field together with it. Works only when '&lt;i&gt;Plane shape&lt;/i&gt;' is enabled.&lt;/p&gt;</string>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3006,7 +3006,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="2" column="2">
                     <widget class="MyLineEdit" name="vect3_clouds_center_y">
                      <property name="toolTip">
-                      <string>Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the 'Plane shape' layer and of its rotation.</string>
+                      <string>&lt;p&gt;Position of the clouds volume center along the Y axis, relative to the fractal. Used as the origin of the '&lt;i&gt;Plane shape&lt;/i&gt;' layer and of its rotation.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3075,7 +3075,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="1" column="1">
                     <widget class="MyLineEdit" name="logedit_clouds_distance_layer">
                      <property name="toolTip">
-                      <string>Vertical thickness of the clouds layer, controlling how deep clouds extend from their base.</string>
+                      <string>&lt;p&gt;Vertical thickness of the clouds layer, controlling how deep clouds extend from their base.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3110,7 +3110,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="1" column="1">
                     <widget class="MyLineEdit" name="logedit_clouds_DE_approaching">
                      <property name="toolTip">
-                      <string>Step size for distance estimation when approaching the clouds; lower values increase accuracy but reduce performance.</string>
+                      <string>&lt;p&gt;Step size for distance estimation when approaching the clouds; lower values increase accuracy but reduce performance.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3124,7 +3124,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="0" column="1">
                     <widget class="MyLineEdit" name="logedit_clouds_detail_accuracy">
                      <property name="toolTip">
-                      <string>Controls the rendering accuracy for fine details in the clouds; higher values improve detail but increase render time.</string>
+                      <string>&lt;p&gt;Controls the rendering accuracy for fine details in the clouds; higher values improve detail but increase render time.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3145,7 +3145,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    <item row="2" column="1">
                     <widget class="MyLineEdit" name="logedit_clouds_DE_multiplier">
                      <property name="toolTip">
-                      <string>Multiplier for the distance estimation step size in clouds rendering. Increasing this value can speed up rendering but may reduce accuracy and detail in cloud boundaries. Lower values provide more precise results at the cost of performance.</string>
+                      <string>&lt;p&gt;Multiplier for the distance estimation step size in clouds rendering. Increasing this value can speed up rendering but may reduce accuracy and detail in cloud boundaries. Lower values provide more precise results at the cost of performance.&lt;/p&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3594,7 +3594,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="4" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_x">
                   <property name="toolTip">
-                   <string>Shifts the background texture horizontally, in units of the texture width (1.0 = one full image width).</string>
+                   <string>&lt;p&gt;Shifts the background texture horizontally, in units of the texture width (1.0 = one full image width).&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3658,7 +3658,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="5" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_y">
                   <property name="toolTip">
-                   <string>Shifts the background texture vertically, in units of the texture height (1.0 = one full image height).</string>
+                   <string>&lt;p&gt;Shifts the background texture vertically, in units of the texture height (1.0 = one full image height).&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3712,7 +3712,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="6" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_x">
                   <property name="toolTip">
-                   <string>Rotation of the background sphere (color gradient or texture) around the X axis (degrees).</string>
+                   <string>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the X axis (degrees).&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3772,7 +3772,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="3" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_v_scale">
                   <property name="toolTip">
-                   <string>Scales the background texture vertically. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</string>
+                   <string>&lt;p&gt;Scales the background texture vertically. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3800,7 +3800,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="8" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_z">
                   <property name="toolTip">
-                   <string>Rotation of the background sphere (color gradient or texture) around the Z axis (degrees).</string>
+                   <string>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the Z axis (degrees).&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3834,7 +3834,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="2" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_h_scale">
                   <property name="toolTip">
-                   <string>Scales the background texture horizontally. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.</string>
+                   <string>&lt;p&gt;Scales the background texture horizontally. Values greater than 1 make the texture pattern smaller (more of the image is visible), values lower than 1 enlarge it.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3862,7 +3862,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="7" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_y">
                   <property name="toolTip">
-                   <string>Rotation of the background sphere (color gradient or texture) around the Y axis (degrees).</string>
+                   <string>&lt;p&gt;Rotation of the background sphere (color gradient or texture) around the Y axis (degrees).&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4247,7 +4247,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <item>
             <widget class="cLightSourcesManager" name="widget_light_sources_manager" native="true">
              <property name="toolTip">
-              <string>Manager of light sources. Each tab is one light, which can be added, removed, duplicated and enabled or disabled with the checkbox on its tab.</string>
+              <string>&lt;p&gt;Manager of light sources. Each tab is one light, which can be added, removed, duplicated and enabled or disabled with the checkbox on its tab.&lt;/p&gt;</string>
              </property>
             </widget>
            </item>
@@ -4600,7 +4600,7 @@ of lights:</string>
                 <item row="16" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color_2" native="true">
                   <property name="toolTip">
-                   <string>Second color of the random lights. Used only when the coloring type is 'Two colors' or 'Two colors based on distance'.</string>
+                   <string>&lt;p&gt;Second color of the random lights. Used only when the coloring type is '&lt;i&gt;Two colors&lt;/i&gt;' or '&lt;i&gt;Two colors based on distance&lt;/i&gt;'.&lt;/p&gt;</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
@@ -4610,7 +4610,7 @@ of lights:</string>
                 <item row="15" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color" native="true">
                   <property name="toolTip">
-                   <string>First color of the auto-generated random lights. Used by all lights for the 'Single color' type and as the first of two colors for the remaining colored types.</string>
+                   <string>&lt;p&gt;First color of the auto-generated random lights. Used by all lights for the '&lt;i&gt;Single color&lt;/i&gt;' type and as the first of two colors for the remaining colored types.&lt;/p&gt;</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
@@ -5026,7 +5026,7 @@ of lights:</string>
                 <item row="16" column="0" colspan="3">
                  <widget class="MyGroupBox" name="groupCheck_fake_lights_color_2_enabled">
                   <property name="toolTip">
-                   <string>Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.</string>
+                   <string>&lt;p&gt;Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.&lt;/p&gt;</string>
                   </property>
                   <property name="title">
                    <string>Enable color 2 (for second and further iterations)</string>
@@ -5070,7 +5070,7 @@ of lights:</string>
                    <item row="1" column="0" colspan="2">
                     <widget class="MyGroupBox" name="groupCheck_fake_lights_color_3_enabled">
                      <property name="toolTip">
-                      <string>Adds a third set of orbit trap lights. When enabled, color 2 is used only for the second captured iteration and color 3 for the third and further iterations.</string>
+                      <string>&lt;p&gt;Adds a third set of orbit trap lights. When enabled, color 2 is used only for the second captured iteration and color 3 for the third and further iterations.&lt;/p&gt;</string>
                      </property>
                      <property name="title">
                       <string>Enable color 3 (for third and further iterations)</string>
@@ -5566,7 +5566,7 @@ of lights:</string>
                 <item row="2" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_post_chromatic_aberration_reverse">
                   <property name="toolTip">
-                   <string>Flip the direction of Chromatic Aberration (RGB channel offset). When enabled, the color fringing shifts in the opposite radial direction: channels move inward toward the image center instead of outward, which also swaps the apparent order of the colored fringes.</string>
+                   <string>&lt;p&gt;Flip the direction of Chromatic Aberration (RGB channel offset). When enabled, the color fringing shifts in the opposite radial direction: channels move inward toward the image center instead of outward, which also swaps the apparent order of the colored fringes.&lt;/p&gt;</string>
                   </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
