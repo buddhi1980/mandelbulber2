@@ -56,8 +56,17 @@ typedef struct ALIGN16
 	cl_float zBuffer;
 	cl_ushort opacity;
 	cl_ushort alpha;
+	// per-pixel render statistics collected inside RayMarching (full engine only);
+	// final aggregation of these values is done on the CPU side
+	cl_uint statsItersSum;			// sum of iterations over all CalculateDistance calls
+	cl_uint statsDeCalls;				// number of CalculateDistance calls
+	cl_ushort statsStepCount;		// raymarching steps of the primary ray (with binary search)
+	cl_ushort statsHitIters;		// iterations at the surface hit point of the primary ray
+	cl_uchar statsRaymarchings; // number of RayMarching calls (primary + bounces, saturated)
+	cl_uchar statsMissedDE;			// number of missed distance estimation events (saturated)
+	cl_uchar statsFlags;				// bit0: primary ray hit a surface (histogram samples valid)
+	cl_uchar statsPad;					// explicit padding to keep the struct 16-byte aligned
 } sClPixel;
-
 
 typedef struct
 {

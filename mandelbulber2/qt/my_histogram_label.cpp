@@ -64,6 +64,25 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 	update();
 }
 
+// index of the highest non-empty bin; used to scale the X axis and the bars
+// so that the empty tail of the histogram does not compress the plot.
+// Falls back to the full bin count when the histogram has no samples.
+int MyHistogramLabel::GetVisibleMaxIndex() const
+{
+	int size = histData.GetSize();
+	// a default constructed histogram has no bins allocated at all (it is painted
+	// before the first UpdateHistogram call); keep the original scale in this case
+	if (size <= 0)
+	{
+		return 0;
+	}
+	for (int i = size; i >= 0; i--)
+	{
+		if (histData.GetHist(i) > 0) return max(1, i);
+	}
+	return size;
+}
+
 void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 {
 	// get max Element
@@ -114,13 +133,18 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			painter.setPen(QPen(barColor));
 			painter.setBrush(QBrush(barColor));
 
-			// draw each column bar
-			for (int i = 0; i < size; i++)
+			// draw each column bar; the X axis is scaled to the last non-empty bin
+			// (the overflow bin at index 'size' is not drawn, as before). Bar i is
+			// centered at axis position i, so the last bar touches the right edge
+			int visibleMax = max(1, GetVisibleMaxIndex());
+			int barWidth = max(1, int(floor(1.0 * drawWidth / (visibleMax + 1))));
+			int barSpan = max(1, drawWidth - barWidth);
+			for (int i = 0; i < size && i <= visibleMax; i++)
 			{
 				int height = int(double(drawHeight) * max(0L, histData.GetHist(i)) / maxH);
+				int x = legendWidthP1 + int(round(double(i) * barSpan / visibleMax));
 
-				painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
-					int(floor(1.0 * drawWidth / size)), height));
+				painter.drawRect(QRect(x, drawHeight - height, barWidth, height));
 			}
 
 			// draw max description
@@ -150,7 +174,8 @@ QString MyHistogramLabel::GetShortNumberDisplay(int val) const
 
 void MyHistogramLabel::DrawLegend(QPainter &painter)
 {
-	legendX = histData.GetSize();
+	// X axis ends at the last non-empty bin, so the scale adapts to the data
+	legendX = GetVisibleMaxIndex();
 	painter.setPen(QPen(backgroundColor));
 	painter.setBrush(QBrush(backgroundColor));
 	painter.drawRect(QRect(0, 0, width(), height()));
@@ -164,18 +189,26 @@ void MyHistogramLabel::DrawLegend(QPainter &painter)
 	// Y-Axis
 	painter.drawLine(legendWidth, 0, legendWidth, height() - legendWidth / 2);
 
-	// Nuntius X-Axis
+	// Nuntius X-Axis - tick positions match the bar centers used in RedrawHistogram
 
 	int mul = (legendX > 250) ? 10 : 1;
 
-	for (int i = 0; i < legendX; i++)
+	if (legendX > 0)
 	{
-		if (i % (5 * mul) == 0)
+		int visibleMax = max(1, legendX);
+		int plotWidth = max(1, width() - legendWidth - 1);
+		int barWidth = max(1, int(floor(1.0 * plotWidth / (visibleMax + 1))));
+		int barSpan = max(1, plotWidth - barWidth);
+
+		for (int i = 0; i <= legendX; i++)
 		{
-			int xPos = legendWidth + (width() - legendWidth) * i / legendX;
-			int nuntiusLength = (i % (10 * mul) == 0 ? legendHeight / 2 : legendHeight / 4);
-			painter.drawLine(
-				xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
+			if (i % (5 * mul) == 0 || i == legendX)
+			{
+				int xPos = legendWidth + 1 + int(round(double(i) * barSpan / legendX)) + barWidth / 2;
+				int nuntiusLength = (i % (10 * mul) == 0 ? legendHeight / 2 : legendHeight / 4);
+				painter.drawLine(
+					xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
+			}
 		}
 	}
 

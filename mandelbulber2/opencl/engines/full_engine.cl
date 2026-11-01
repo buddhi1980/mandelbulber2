@@ -229,6 +229,29 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 	sClPixel pixel;
 
+	// initialize render statistics payload (kept zeroed when a path skips
+	// ray marching, e.g. the fish-eye hemisphere cut)
+	pixel.statsItersSum = 0;
+	pixel.statsDeCalls = 0;
+	pixel.statsStepCount = 0;
+	pixel.statsHitIters = 0;
+	pixel.statsRaymarchings = 0;
+	pixel.statsMissedDE = 0;
+	pixel.statsFlags = 0;
+	pixel.statsPad = 0;
+
+	// per-pixel render statistics accumulator; declared outside the stereo eye
+	// loop so it sums the work of both eyes (histogram samples keep the values
+	// of the last traced eye - acceptable approximation for diagnostics)
+	sPixelStatsCl pixelStats;
+	pixelStats.itersSum = 0;
+	pixelStats.deCalls = 0;
+	pixelStats.stepCount = 0;
+	pixelStats.hitIters = 0;
+	pixelStats.raymarchings = 0;
+	pixelStats.missedDE = 0;
+	pixelStats.hasHit = false;
+
 #ifdef STEREO_REYCYAN
 	float3 pixelLeftColor = 0.0f;
 	float3 pixelRightColor = 0.0f;
@@ -482,7 +505,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			recursionIn.rayBranch = rayBranchReflection;
 
 			sRayRecursionOut recursionOut =
-				RayRecursion(recursionIn, &renderData, consts, image2dBackground, &randomSeed);
+				RayRecursion(recursionIn, &renderData, consts, image2dBackground, &randomSeed, &pixelStats);
 			resultShader = recursionOut.resultShader;
 			objectColour = recursionOut.objectColour;
 			depth = recursionOut.rayMarchingOut.depth;
@@ -493,6 +516,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			globalIlluminationOut = recursionOut.outGlobalIllumination;
 			specularOut = recursionOut.specular;
 			worldPositionRGB = recursionOut.rayMarchingOut.point;
+
+			// copy the per-pixel render statistics into the output buffer payload
+			pixel.statsItersSum = pixelStats.itersSum;
+			pixel.statsDeCalls = pixelStats.deCalls;
+			pixel.statsStepCount = pixelStats.stepCount;
+			pixel.statsHitIters = pixelStats.hitIters;
+			pixel.statsRaymarchings = pixelStats.raymarchings;
+			pixel.statsMissedDE = pixelStats.missedDE;
+			pixel.statsFlags = pixelStats.hasHit ? 1 : 0;
 
 #ifdef PERSP_FISH_EYE_CUT
 		}

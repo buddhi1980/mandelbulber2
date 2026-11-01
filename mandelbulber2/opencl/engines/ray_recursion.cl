@@ -109,11 +109,40 @@ float3 ReflectionVector(const float3 normal, const float3 incident)
 }
 #endif
 
+// Statistics of a single RayMarching call. Only scalar values are produced
+// inside RayMarching (no per-pixel arrays / global atomics), the final
+// aggregation into histograms is done on the CPU after reading sClPixel back.
+// Shadows, AO and volumetric effects are intentionally not covered.
+typedef struct
+{
+	uint deCalls;	 // number of CalculateDistance calls in this raymarch
+	uint itersSum; // sum of iterations over all those calls
+	uint hitIters; // iterations at the step where the surface was hit
+	ushort steps;	 // main loop steps + binary search iterations
+	bool hit;			 // surface was found
+	bool missedDE; // hit with distance < 0.1 * distThresh (bad DE estimate)
+} sRaymarchStatsCl;
+
+// Per-pixel statistics accumulated across all RayMarching calls of a pixel
+// (primary ray + reflection/refraction bounces). Histogram samples
+// (stepCount, hitIters) are taken from the primary ray only.
+typedef struct
+{
+	uint itersSum;			// total iterations of all raymarchings of the pixel
+	uint deCalls;				// total CalculateDistance calls of all raymarchings
+	ushort stepCount;		// steps of the primary raymarch
+	ushort hitIters;		// iterations at the hit point of the primary ray
+	uchar raymarchings; // number of RayMarching calls (saturated at 255)
+	uchar missedDE;			// number of missed DE events (saturated at 255)
+	bool hasHit;				// primary ray hit a surface -> histogram samples are valid
+} sPixelStatsCl;
+
 void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts,
-	sRenderData *renderData, int *randomSeed)
+	sRenderData *renderData, int *randomSeed, __private sRaymarchStatsCl *rmStats)
 {
 	bool found = false;
 	int count;
+	int bsIterations = 0; // binary search iterations (counted into step stats)
 
 	float3 point;
 	float scan, distance;
@@ -142,6 +171,10 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
 
+		// statistics: one sample per distance estimation call
+		rmStats->deCalls++;
+		rmStats->itersSum += (uint)outF.iters;
+
 		out->objectId = outF.objectId;
 		out->sequenceIndex = outF.sequenceIndex;
 		out->transformedPoint = outF.transformedPoint;
@@ -168,6 +201,11 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 
 		if (distance < distThresh)
 		{
+			// statistics: record the iteration count at the surface hit point;
+			// a hit far below the threshold means a bad distance estimation
+			rmStats->hit = true;
+			rmStats->hitIters = (uint)outF.iters;
+			if (distance < 0.1f * distThresh) rmStats->missedDE = true;
 			found = true;
 			break;
 		}
@@ -203,6 +241,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		step *= 0.5f;
 		for (int i = 0; i < 30; i++)
 		{
+			bsIterations++;
 			if (distance < distThresh && distance > distThresh * searchLimit)
 			{
 				break;
@@ -222,6 +261,11 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			}
 			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
+
+			// statistics: binary search performs additional distance estimations too
+			rmStats->deCalls++;
+			rmStats->itersSum += (uint)outF.iters;
+
 			out->objectId = outF.objectId;
 			out->sequenceIndex = outF.sequenceIndex;
 			out->transformedPoint = outF.transformedPoint;
@@ -245,10 +289,12 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 	out->distThresh = distThresh;
 	out->point = point;
 	out->count = count;
+	rmStats->steps = (ushort)(count + bsIterations);
 }
 
 sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
-	__constant sClInConstants *consts, image2d_t image2dBackground, int *randomSeed)
+	__constant sClInConstants *consts, image2d_t image2dBackground, int *randomSeed,
+	__private sPixelStatsCl *pixelStats)
 {
 	int rayIndex = 0; // level of recursion
 
@@ -277,9 +323,36 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 		if (rayStack[rayIndex].goDeeper)
 		{
 
+			// statistics: prepare per-raymarch storage
+			sRaymarchStatsCl rmStats;
+			rmStats.deCalls = 0;
+			rmStats.itersSum = 0;
+			rmStats.hitIters = 0;
+			rmStats.steps = 0;
+			rmStats.hit = false;
+			rmStats.missedDE = false;
+
 			sRayMarchingOut rayMarchingOut;
-			RayMarching(
-				rayStack[rayIndex].in.rayMarchingIn, &rayMarchingOut, consts, renderData, randomSeed);
+			RayMarching(rayStack[rayIndex].in.rayMarchingIn, &rayMarchingOut, consts, renderData,
+				randomSeed, &rmStats);
+
+			// statistics: accumulate across all bounces; histogram samples are taken
+			// from the primary ray only (rayIndex == 0) to keep the payload minimal
+			pixelStats->itersSum += rmStats.itersSum;
+			pixelStats->deCalls += rmStats.deCalls;
+			if (rmStats.missedDE && pixelStats->missedDE < 255) pixelStats->missedDE++;
+			if (pixelStats->raymarchings < 255) pixelStats->raymarchings++;
+			if (rayIndex == 0)
+			{
+				pixelStats->stepCount = rmStats.steps;
+				if (rmStats.hit)
+				{
+					pixelStats->hitIters =
+						(rmStats.hitIters > 65535u) ? (ushort)65535 : (ushort)rmStats.hitIters;
+					pixelStats->hasHit = true;
+				}
+			}
+
 			float3 point = rayMarchingOut.point;
 
 			bool found = rayMarchingOut.found;

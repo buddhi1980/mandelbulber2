@@ -69,6 +69,9 @@ private:
 	void DrawLegend(QPainter &painter);
 	void RedrawHistogram(QPainter &painter) const;
 	QString GetShortNumberDisplay(int val) const;
+	// index of the highest non-empty bin; used to scale the X axis and the bars
+	// so that the empty tail of the histogram does not compress the plot
+	int GetVisibleMaxIndex() const;
 
 	QColor barColor;
 	QColor backgroundColor;

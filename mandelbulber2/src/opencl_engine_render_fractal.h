@@ -104,6 +104,8 @@ public:
 		bool useDenoiser;
 		bool monteCarlo;
 		bool useOptionalImageChannels;
+		// read per-pixel render statistics from sClPixel (full engine only)
+		bool collectStatistics;
 		int minNumberOfSamples;
 		int outputIndex;
 		float noiseTarget;

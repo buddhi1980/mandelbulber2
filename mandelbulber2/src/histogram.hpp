@@ -64,6 +64,25 @@ public:
 		}
 	}
 
+	// Adds the amount of samples at once; used to merge per-tile histograms
+	// collected on the OpenCL path into the shared render statistics
+	inline void AddWeighted(int index, long long amount)
+	{
+		if (amount <= 0) return;
+		if (index >= 0 && index < histSize)
+		{
+			data[index] += amount;
+			count += amount;
+			sum += static_cast<long long>(index) * amount;
+		}
+		else if (index >= histSize)
+		{
+			data[histSize] += amount;
+			count += amount;
+			sum += histSize * amount;
+		}
+	}
+
 	long GetHist(int index) const;
 	long long GetCount() const { return count; }
 	long long GetSum() const { return sum; }

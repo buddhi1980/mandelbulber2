@@ -1622,6 +1622,21 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	// buffer for individual noise levels for visualization
 	std::vector<float> individualNoiseLevels(jobWidth * jobHeight, -1000.0f);
 
+	// per-tile render statistics aggregation (sClPixel payload, full engine only);
+	// merged into the shared statistics under the tile mutex at the end of the loop
+	// (statsDeCalls is transferred per pixel but not consumed yet)
+	unsigned long long tileItersSum = 0;
+	unsigned long long tileRaymarchings = 0;
+	unsigned long long tileMissedDE = 0;
+	unsigned long long tileRenderedPixels = 0;
+	cHistogram tileHistIter;
+	cHistogram tileHistStep;
+	if (data.in->collectStatistics)
+	{
+		tileHistIter.Resize(data.renderData->statistics.histogramIterations.GetSize());
+		tileHistStep.Resize(data.renderData->statistics.histogramStepCount.GetSize());
+	}
+
 	// processing pixels of tile
 	for (quint64 y = 0; y < jobHeight; y++)
 	{
@@ -1637,6 +1652,25 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 
 			size_t xx = x + jobX;
 			size_t yy = y + jobY;
+
+			// render statistics: pixel payload is valid only for pixels re-rendered
+			// in this pass (masked pixels keep stale data from the output buffer)
+			if (data.in->collectStatistics
+					&& (!data.in->monteCarlo || !data.in->pixelLevelOptimization
+							|| returnedMask[x + y * jobWidth]))
+			{
+				tileItersSum += pixelCl.statsItersSum;
+				tileRaymarchings += pixelCl.statsRaymarchings;
+				tileMissedDE += pixelCl.statsMissedDE;
+				if (pixelCl.statsFlags & 1)
+				{
+					tileHistIter.Add((int)pixelCl.statsHitIters);
+					tileHistStep.Add((int)pixelCl.statsStepCount);
+				}
+				// in MC mode the pixel count is handled on tile level (first pass);
+				// for single-pass rendering count every painted pixel here
+				if (!data.in->monteCarlo) tileRenderedPixels++;
+			}
 
 			// if MC then paint pixels and calculate noise statistics
 			if (data.in->monteCarlo)
@@ -1821,6 +1855,28 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 			}
 		} // next y
 	} // next x
+
+	// merge per-tile render statistics into the shared structure; the mutex is
+	// needed because tiles are processed concurrently by multiple worker threads
+	// and cHistogram is not thread safe
+	if (data.in->collectStatistics)
+	{
+		data.inOut->mutex.lock();
+		data.renderData->statistics.totalNumberOfIterations += tileItersSum;
+		data.renderData->statistics.numberOfRaymarchings += (int)tileRaymarchings;
+		data.renderData->statistics.missedDE += (int)tileMissedDE;
+		data.renderData->statistics.numberOfRenderedPixels += (size_t)tileRenderedPixels;
+		// merge histograms bin by bin (the last bin is the overflow slot)
+		for (int b = 0; b <= tileHistIter.GetSize(); b++)
+		{
+			data.renderData->statistics.histogramIterations.AddWeighted(b, tileHistIter.GetHist(b));
+		}
+		for (int b = 0; b <= tileHistStep.GetSize(); b++)
+		{
+			data.renderData->statistics.histogramStepCount.AddWeighted(b, tileHistStep.GetHist(b));
+		}
+		data.inOut->mutex.unlock();
+	}
 
 	// update pixel mask based on edge detection - initialization for AA
 	if (data.in->useAntiAliasing && output.monteCarloLoop == 1 && data.in->pixelLevelOptimization)
@@ -2285,6 +2341,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		tileInputData.useDenoiser = useDenoiser;
 		tileInputData.monteCarlo = monteCarlo;
 		tileInputData.useOptionalImageChannels = useOptionalImageChannels;
+		// per-pixel render statistics are produced only by the full engine (the
+		// RayMarching function in ray_recursion.cl); other engines leave the
+		// stats fields of sClPixel undefined and they must not be read
+		tileInputData.collectStatistics =
+			renderEngineMode == clRenderEngineTypeFull && !distanceMode && !meshExportMode;
 		tileInputData.minNumberOfSamples = minNumberOfSamples;
 		tileInputData.outputIndex = outputIndex;
 		tileInputData.noiseTarget = noiseTarget;
@@ -2374,6 +2435,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				}
 				totalNoise /= noiseTableSize;
 				renderData->statistics.totalNoise = totalNoise * width * height;
+				// time is needed by iterations-per-second statistic (CPU renderer sets it
+				// from progress timer, here the pure rendering timer is used)
+				renderData->statistics.time = pureRenderingTime.elapsed() / 1000.0;
 
 				emit updateStatistics(renderData->statistics);
 
@@ -2415,6 +2479,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			}
 			if (!outputQueue->isEmpty()) continueWhileLoop = true;
 		} while (continueWhileLoop);
+
+		// emit the finall statistics state (the periodic refresh might have been
+		// skipped between processing of the last tile and the end of rendering)
+		renderData->statistics.time = pureRenderingTime.elapsed() / 1000.0;
+		emit updateStatistics(renderData->statistics);
 
 		// finall refresh of image
 		if (tileSharedData.lastRenderedRects.size() > 0)
