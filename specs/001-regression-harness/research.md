@@ -112,32 +112,34 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 ## R13. Standard Scene Suite budget
 
 - **Decision**: Keep the scene portion of the gate to about 90 seconds of 32-thread render time, which is about 12 minutes on a 4-vCPU runner (estimated at 8 times slower). For example, 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. The suite must exercise each stochastic CPU path (FR-039).
-- **Rationale**: With the sweep, this keeps render time to about 15 minutes, well inside the 30-minute target (SC-004), and keeps capture to about 2 hours. Capped scene times ranged from 5 to 41 seconds, so scenes need to be chosen by cost. `difs_tree` measured 5.0 seconds, `chromatic_aberration` 9.8 seconds, and `IFS_001` 1.8 seconds.
+- **Rationale**: With the sweep, this keeps render time to about 15 minutes, well inside the 30-minute target (SC-004), and keeps capture to about 2 hours. Capped Monte Carlo scenes ranged from 5 to 41 seconds, so scenes need to be chosen by cost.
 - **Available scenes**: 151 top-level examples have no external assets. Four of those are nebula scenes, which always render through OpenCL whatever `opencl_enabled` says, so the harness rejects them. That leaves 147: 55 plain, 71 with ambient occlusion, 12 with Monte Carlo, 1 with Monte Carlo and ambient occlusion, and 8 with Monte Carlo and global illumination.
 
-The stochastic paths come from the CPU callers of `Random()`, plus the seeded generators that run during a render: `cRandom` in `lights.cpp`, and the Perlin noise generator created in `render_job.cpp`. These are the candidates among the 147 usable scenes. Scenes other than the three timed above have not been timed yet.
+The stochastic paths come from the CPU callers of `Random()`, plus the seeded generators that run during a render: `cRandom` in `lights.cpp`, and the Perlin noise generator created in `render_job.cpp`. These are the candidates among the 147 usable scenes. Each one rendered with the gated settings, exited 0, and printed no failure messages. Times are seconds on 32 threads, including startup and image saving, and they total about 30 seconds across the 11 scenes.
 
-| Path | Usable scenes | Candidate |
-|---|---|---|
-| Raymarch step jitter | 147 | Any scene |
-| Monte Carlo depth of field | 21 | `chromatic_aberration.fract` |
-| Monte Carlo antialiasing | 21 | `chromatic_aberration.fract` |
-| Monte Carlo soft shadows | 9 | `chromatic_aberration.fract` |
-| Monte Carlo chromatic aberration | 1 | `chromatic_aberration.fract` |
-| Monte Carlo global illumination | 8 | `difs_tree.fract` |
-| Rough surfaces | 5 | `difs_tree.fract` |
-| Specular roughness | Most scenes, because it defaults on for metallic materials | Any scene with a specular highlight |
-| Post-effect depth of field | 38 | `IFS_002.fract` |
-| Multi-ray ambient occlusion | 10 | `IFS_001.fract` |
-| Random screen-space ambient occlusion | 7 | `amazing_surf 002.fract` |
-| Volumetric fog | 70 | `EXR example.fract` |
-| Iteration fog | 7 | `benchmark-GPU.fract` |
-| Volumetric auxiliary light | 2 | `IFS_001.fract` |
-| Beam light | 0 | `tests/scenes/beam_light.fract`, purpose-built |
-| Random lights | 4 | `mandelbulb_bermarte 001.fract` |
-| Perlin noise on materials | 3 | `difs_tree.fract` |
-| Clouds | 6 | `clouds 001.fract` |
-| HDR blur | 0 | `tests/scenes/hdr_blur.fract`, purpose-built |
+| Path | Usable scenes | Candidate | Seconds |
+|---|---|---|---|
+| Raymarch step jitter | 147 | Any scene | - |
+| Monte Carlo depth of field | 21 | `chromatic_aberration.fract` | 13.0 |
+| Monte Carlo antialiasing | 21 | `chromatic_aberration.fract` | 13.0 |
+| Monte Carlo soft shadows | 9 | `chromatic_aberration.fract` | 13.0 |
+| Monte Carlo chromatic aberration | 1 | `chromatic_aberration.fract` | 13.0 |
+| Monte Carlo global illumination | 8 | `difs_tree.fract` | 6.2 |
+| Rough surfaces | 5 | `difs_tree.fract` | 6.2 |
+| Specular roughness | Most scenes, because it defaults on for metallic materials | Any scene with a specular highlight | - |
+| Post-effect depth of field | 38 | `IFS_002.fract` | 0.3 |
+| Multi-ray ambient occlusion | 10 | `IFS_001.fract` | 1.9 |
+| Random screen-space ambient occlusion | 7 | `amazing_surf 002.fract` | 1.1 |
+| Volumetric fog | 70 | `EXR example.fract` | 2.0 |
+| Iteration fog | 7 | `benchmark-GPU.fract` | 2.5 |
+| Volumetric auxiliary light | 2 | `IFS_001.fract` | 1.9 |
+| Beam light | 0 | `tests/scenes/beam_light.fract`, purpose-built | 0.2 |
+| Random lights | 4 | `menger octo 001.fract` | 1.0 |
+| Perlin noise on materials | 3 | `difs_tree.fract` | 6.2 |
+| Clouds | 6 | `clouds 005.fract` | 1.5 |
+| HDR blur | 0 | `tests/scenes/hdr_blur.fract`, purpose-built | 0.2 |
+
+Scene choice matters for cost: `mandelbulb_bermarte 001.fract` also has random lights but took 27 seconds, and `clouds 001.fract` took 15 seconds. `chromatic_aberration.fract` is over the 10-second guide, and it stays because no other scene has Monte Carlo chromatic aberration.
 
 HDR blur is not random. It is in the table because it runs in an OpenMP region that playbook Phase 3 audits, and Self-Parity can only measure that audit with a scene that reaches it. From reading the code, each pixel reads a snapshot of the image, so it is not expected to depend on thread order.
 
