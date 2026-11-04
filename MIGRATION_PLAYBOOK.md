@@ -57,13 +57,15 @@ claude -c "/speckit-plan Design the architecture for the regression engine from 
 claude -c "/speckit-tasks Break down the implementation into incremental, discrete engineering items inside tasks.md. Keep the runner isolated from core C++ production code. The only C++ changes allowed are the verification export and the read-only --list-formulas option, which must only read values that already exist. The export must be written only after a successful settings load and render. Add tests/outputs/ to .gitignore. Do not capture references."
 ```
 
-Clarification recorded five decisions that changed the original request:
+The spec's Clarifications section records seven decisions that changed the original request:
 
 - The harness compares the application's raw buffers through a new verification export, instead of TIFF files.
 - Every render uses one fixed Monte Carlo sample cap.
 - The gate covers a sweep of every formula as well as the scene suite.
 - A fourth mode compares two builds on one machine, for local checks.
 - The export is written only after a successful load and render, so its presence proves success.
+- A toolchain difference passes with a note if output matches. If output differs, it is a Reference Target mismatch rather than drift.
+- Compare mode can pass where renders cannot be fully isolated, labeled as not gate-valid.
 
 Before implementing, you can optionally check the three documents for gaps and contradictions. This command only reports findings and changes no files:
 ```bash
@@ -81,14 +83,14 @@ The harness depends on these behaviors. They were tested on a Windows build. The
 | Monte Carlo cost | `--override DOF_samples=8#DOF_min_samples=4` on every render | At 320x240 on 32 threads, scenes took 47 to 90+ seconds as authored and 5 to 41 seconds capped |
 | Formula sweep | `--override formula_1=<id>` with `--res 32x24` on one base scene | The new `--list-formulas` option supplies the list. `Custom OpenCL formula` has no CPU code and needs a listed exclusion |
 | Binary location | The installed tree, `mandelbulber2/build/appdir/usr/bin/mandelbulber2` | On Linux the app finds its data at `../share/mandelbulber2` relative to the binary, or at `/usr/share/mandelbulber2`. A binary left in the build folder has neither |
-| Isolation | A temporary `HOME` and a fixed `LC_ALL` | Otherwise the app reads per-user settings. Windows ignores this, so Windows runs are for debugging only |
-| Failure detection | Require the export, then check the output text | The app exits 0 and prints `Image saved to:` even when the target folder is missing. A bad settings file or a missing texture also exits 0 |
+| Isolation | A temporary `HOME`, a fixed `LC_ALL`, and a clean environment | Otherwise the app reads per-user settings. Windows ignores a redirected home folder, so the gate and self-parity cannot pass there, and capture refuses. Compare mode can still pass, labeled as not gate-valid |
+| Failure detection | Require the export, then check the output text | The app exits 0 and prints `Image saved to:` even when the target folder is missing. A bad settings file or a missing texture also exits 0, and up to 3 bad settings lines still count as a successful load |
 | Computation logs | The statistics record in the export | Log lines start with a process ID and elapsed time, `--stats` prints values rounded to six significant digits, and `--logfilepath` wrote no file in testing |
 
 An earlier TIFF-based prototype of the runner is in commit `fbcc70492`. Its comparison no longer applies, but its temporary home directory and failure checks were tested and can be reused.
 
 ### 4. Implement and Verify
-`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes that exercise Monte Carlo depth of field, global illumination, and ambient occlusion, as the constitution requires. A scene that references an asset by URL or absolute path fails the run, so leave those out:
+`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes until the suite exercises each stochastic CPU path, as the constitution requires. FR-039 in the spec lists the paths, and `research.md` names a candidate scene for each. A scene that references an asset by URL or absolute path fails the run, so leave those out:
 
 ```text
 # Standard Scene Suite
@@ -362,7 +364,7 @@ This project uses **GitHub Actions** alongside a custom differential testing fra
 The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit.
 
 ### Locally Testing Parity
-Before committing changes to feature branches, compare your branch with a `master` build on the same Linux machine. This works with any toolchain, and the GitHub Actions gate stays the authority:
+Before committing changes to feature branches, compare your branch with a `master` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release

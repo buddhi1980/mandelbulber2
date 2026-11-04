@@ -118,8 +118,8 @@ All references for one Reference Target.
 ```text
 pending → rendering → checked → compared → passed
                  ↓          ↓         ↓
-              render     invalid    parity
-              failure    export     failure
+              render     invalid    parity failure, or Reference Target
+              failure    export     mismatch when the toolchain differs
 ```
 
 Each failure state is final for that item. The run continues with the remaining items, so one report shows every problem. A setup error before rendering stops the run.
@@ -132,4 +132,4 @@ self-parity running → staged → promoted to tests/references/
       failed           failed     (existing references unchanged)
 ```
 
-Nothing reaches `tests/references/` before the final step, which replaces the set in a single move.
+Nothing reaches `tests/references/` before the final step, which moves any existing set aside, moves the new set into place, and then deletes the old set.

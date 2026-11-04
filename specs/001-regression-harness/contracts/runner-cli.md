@@ -69,6 +69,6 @@ result: parity failure (1 of 487 items failed)
 |---|---|
 | `tests/scenes.txt` | Standard Scene Suite, one path per line. Blank lines and lines starting with `#` are ignored |
 | `tests/formula_sweep_base.fract` | Base scene for the formula sweep |
-| `tests/formula_exclusions.txt` | One excluded formula per line, as `name reason` |
+| `tests/formula_exclusions.txt` | One excluded formula per line, as `name reason`. Blank lines and lines starting with `#` are ignored |
 | `tests/outputs/` | Working output. Failed items are kept here, and passing items are removed |
 | `tests/references/<target>/` | [Reference set](reference-set.md) |

@@ -105,7 +105,7 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 ## R12. Harness structure and testing
 
 - **Decision**: One standard-library script, `tests/regression_runner.py`, for Python 3.10 and later. Tests use `unittest` with a stand-in renderer that implements the export contract.
-- **Rationale**: Real renders cannot pass until Phase 3, so a stand-in is the only way to exercise the success paths. It can also produce every failure on demand. This approach found real defects in the prototype.
+- **Rationale**: Real renders cannot pass until playbook Phase 3, so a stand-in is the only way to exercise the success paths. It can also produce every failure on demand. This approach found real defects in the prototype.
 
 ## R13. Standard Scene Suite budget
 
@@ -113,7 +113,7 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 - **Rationale**: With the sweep, this keeps render time to about 15 minutes, well inside the 30-minute target (SC-004), and keeps capture to about 2 hours. Capped scene times ranged from 5 to 41 seconds, so scenes need to be chosen by cost. `difs_tree` measured 5.0 seconds, `chromatic_aberration` 9.8 seconds, and `IFS_001` 1.8 seconds.
 - **Available scenes**: 151 top-level examples have no external assets: 55 plain, 75 with ambient occlusion, 12 with Monte Carlo, 1 with Monte Carlo and ambient occlusion, and 8 with Monte Carlo and global illumination.
 
-The stochastic paths come from the CPU callers of `Random()`. These are the candidates among the 151 usable scenes. Scenes other than the three timed above have not been timed yet.
+The stochastic paths come from the CPU callers of `Random()`, plus the seeded generators that run during a render: `cRandom` in `lights.cpp`, and the Perlin noise generator created in `render_job.cpp`. These are the candidates among the 151 usable scenes. Scenes other than the three timed above have not been timed yet.
 
 | Path | Usable scenes | Candidate |
 |---|---|---|
@@ -132,5 +132,8 @@ The stochastic paths come from the CPU callers of `Random()`. These are the cand
 | Iteration fog | 7 | `benchmark-GPU.fract` |
 | Volumetric auxiliary light | 2 | `IFS_001.fract` |
 | Beam light | 0 | `tests/scenes/beam_light.fract`, purpose-built |
+| Random lights | 4 | `mandelbulb_bermarte 001.fract` |
+| Perlin noise on materials | 3 | `difs_tree.fract` |
+| Clouds | 6 | `clouds 001.fract` |
 
 A beam light is light type 4. A test scene built on the sweep base rendered with no errors, and its image differed from a point light in all but 175 of 19,200 pixels.

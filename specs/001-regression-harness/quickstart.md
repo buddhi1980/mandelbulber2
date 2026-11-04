@@ -5,7 +5,7 @@ These scenarios prove the feature works end to end. Commands are defined in [con
 ## Prerequisites
 
 - Python 3.10 or later.
-- For scenarios 2 to 5, a Linux machine with the Qt6 and library packages from the playbook.
+- For scenarios 2 to 6, a Linux machine with the Qt6 and library packages from the playbook.
 - For scenario 7, a Windows build.
 
 Build the installed tree:
@@ -40,6 +40,7 @@ python3 tests/test_regression_runner.py
 
 ```bash
 B=mandelbulber2/build/appdir/usr/bin/mandelbulber2
+mkdir -p /tmp/parity
 $B --list-formulas | grep -c $'\t'
 ```
 
@@ -78,7 +79,7 @@ python3 tests/regression_runner.py --self-parity
 echo "exit: $?"
 ```
 
-**Expected on the current build**: A non-zero exit, sample differences reported per item and buffer, and a statement that thread coverage is incomplete. This is the correct result until Phase 3.
+**Expected on the current build**: A non-zero exit, sample differences reported per item and buffer, and a statement that thread coverage is incomplete. This is the correct result until playbook Phase 3.
 
 **Expected after playbook Phase 3**: Exit 0 with both thread counts enabled.
 

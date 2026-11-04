@@ -232,7 +232,7 @@ An engine developer compares their branch against master on their own machine, b
 **Capture and suite coverage**
 
 - **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
-- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter, Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration, rough surfaces, specular roughness, post-effect depth of field, multi-ray ambient occlusion, random screen-space ambient occlusion, volumetric rendering, and beam lights.
+- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter, Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration, rough surfaces, specular roughness, post-effect depth of field, multi-ray ambient occlusion, random screen-space ambient occlusion, volumetric rendering, beam lights, and the seeded paths: random lights, Perlin noise on materials, and clouds.
 
 ### Decisions
 
