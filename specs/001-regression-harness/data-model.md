@@ -11,7 +11,7 @@ One thing the harness renders and checks.
 | Kind | `scene` or `formula` |
 | Name | Scene file name without its extension, or the formula's internal name |
 | Source | The scene path, or the formula sweep base scene |
-| Formula ID | For formulas only, from `--list-formulas` |
+| Formula ID | For formulas only, from the `--list-formulas` output of the binary that renders it |
 | Resolution | 320x240 for scenes, 32x24 for formulas |
 | Time limit | 30 minutes for scenes, 2 minutes for formulas |
 

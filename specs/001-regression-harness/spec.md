@@ -228,14 +228,14 @@ An engine developer compares their branch against master on their own machine, b
 
 **Compare mode**
 
-- **FR-035**: Compare mode MUST render every listed scene and sweep formula with two supplied builds on the same machine, and compare their buffers and statistics exactly, with the same fixed settings as the gate.
+- **FR-035**: Compare mode MUST render every listed scene and sweep formula with two supplied builds on the same machine, and compare their buffers and statistics exactly, with the same fixed settings as the gate. Formulas MUST be matched by name, because their numeric IDs can differ between builds.
 - **FR-036**: Compare mode MUST apply the same failure detection as the gate, and the same isolation where the platform allows it. A failed render on either build MUST fail the run and name that build.
 - **FR-037**: Compare mode MUST NOT read or modify references, and its report MUST state that it is a local check that does not replace the gate.
 
 **Capture and suite coverage**
 
 - **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
-- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds. It MUST also exercise HDR blur, which is not random but runs in an OpenMP region that playbook Phase 3 audits.
+- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds. It MUST also exercise HDR blur, which is not random but runs on several threads, and which playbook Phase 3 audits for thread-order effects.
 
 ### Decisions
 

@@ -138,7 +138,7 @@ claude -c "/speckit-specify Close KD-2 and KD-3 from the constitution. Remove -f
 
 Expect output to change. `-ffast-math` lets the compiler treat values as always finite, so the `std::isfinite` guards in `algebra.hpp` and `math_utilities.h` may start taking effect once it is removed.
 
-Add the flag check as a reusable action and a new workflow. The existing `.circleci/config.yml` only packages macOS builds and is not part of this process, so leave it as it is.
+Add the flag check as a reusable action and a new workflow. It reads the link flags as well as the compile flags, because GCC's `-ffast-math` also changes floating-point behavior when it is used at link time. The existing `.circleci/config.yml` only packages macOS builds and is not part of this process, so leave it as it is.
 
 Create `.github/actions/compile-engine/action.yml`:
 
@@ -168,12 +168,15 @@ runs:
     - name: Reject Prohibited Compile Flags
       shell: bash
       run: |
-        FLAGS=$(grep -E '^(CFLAGS|CXXFLAGS)[[:space:]]*=' mandelbulber2/build/Makefile)
+        MAKEFILE=mandelbulber2/build/Makefile
+        FLAGS=$(grep -E '^(CFLAGS|CXXFLAGS|LFLAGS)[[:space:]]*=' "$MAKEFILE")
         if echo "$FLAGS" | grep -E -- '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-march=native|-mtune=native'; then
           echo "Prohibited compile flag found"
           exit 1
         fi
-        echo "$FLAGS" | grep -q -- '-ffp-contract=off'
+        for VARIABLE in CFLAGS CXXFLAGS; do
+          grep -E "^$VARIABLE[[:space:]]*=" "$MAKEFILE" | grep -q -- '-ffp-contract=off'
+        done
 ```
 
 Create `.github/workflows/parity-gate.yml`:
