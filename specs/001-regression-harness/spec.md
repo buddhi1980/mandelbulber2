@@ -207,7 +207,7 @@ An engine developer compares their branch against master on their own machine, b
 
 - **FR-029**: The report MUST give a verdict for each scene and buffer, the number of differing samples for each failed comparison, and an overall result. It MUST distinguish setup errors from parity failures.
 - **FR-030**: The harness MUST return a success status only when every check passed, and MUST keep the outputs of failed comparisons for inspection, outside version control.
-- **FR-031**: Apart from the verification export, this feature MUST NOT change engine code. It MUST NOT create or commit references, because renders do not reproduce yet (KD-1).
+- **FR-031**: Apart from the verification export and a read-only formula listing, this feature MUST NOT change engine code. It MUST NOT create or commit references, because renders do not reproduce yet (KD-1).
 
 **Formula sweep**
 
@@ -246,7 +246,7 @@ An engine developer compares their branch against master on their own machine, b
 **Coverage: add a formula sweep to the gate.**
 
 - **Why**: Phase 5 refactors the formula code, and only formulas that get rendered are protected. The 791 example scenes reach 315 of the 462 formulas, and the best 25 scenes reach about 76.
-- **Cost**: About 10 extra minutes on a small CI machine (estimated) and about 16 MB of references before compression.
+- **Cost**: All 462 formulas rendered in 34 seconds on 32 threads, or an estimated 2 to 5 minutes on a CI runner, plus about 16 MB of references before compression.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -292,9 +292,9 @@ An engine developer compares their branch against master on their own machine, b
 
 **Environment and defaults**
 
-- The first Reference Target is the Linux x86-64 GCC build. Windows runs are for debugging only, because the application ignores a redirected home folder there.
+- The first Reference Target is the Linux x86-64 GCC build on GitHub-hosted `ubuntu-24.04` runners. Windows runs are for debugging only, because the application ignores a redirected home folder there.
 - The fixed resolution is 320x240, which keeps runs short while still exercising each render path.
 - The fixed Monte Carlo cap is a maximum of 8 samples per pixel with a minimum of 4, so both the sampling loop and its early-stop check still run. Images are noisier than authored, but they are still exact. Changing the cap is a Baseline Change.
-- The formula sweep renders at 32x24. Its run time is estimated from 10 formulas timed at 64x48 on a 32-thread workstation, at 0.35 seconds each. It has not been measured in CI.
+- The formula sweep renders at 32x24. It has not been measured in CI.
 - References are stored as full buffers in the repository.
 - Application behavior described here was observed on a Windows Release build from July 2026 and read from the current source. It has not yet been confirmed on a Linux build.
