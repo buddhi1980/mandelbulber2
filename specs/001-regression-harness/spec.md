@@ -15,8 +15,10 @@
 - Q: The 32-bit TIFF color channel is effectively 16-bit, EXR color skips post effects, and no file format saves the post-effect float image. What should the gate compare for color? → A: A raw buffer export. The application writes its engine buffers directly, which replaces TIFF as the compared data.
 - Q: Monte Carlo scenes take too long at their authored sample counts for a small CI machine. How should the harness keep them affordable? → A: One fixed sample cap, applied by the harness to every scene.
 - Q: Only formulas used by listed scenes get checked, and a 25-scene suite reaches about 76 of the 462 formulas. What should the gate cover? → A: The Standard Scene Suite plus a low-resolution formula sweep that renders every formula once.
-- Q: References come from CI, so a local run on a different toolchain could report drift when nothing changed. What should happen? → A: Add a fourth mode that compares two builds on the same machine. The gate keeps its behavior on a toolchain mismatch.
+- Q: References come from CI, so a local run on a different toolchain could report drift when nothing changed. What should happen? → A: Add a fourth mode that compares two builds on the same machine.
 - Q: Failed scene loads are detected by matching error text, which is translatable and could be reworded. Should the verification export be written only after a successful load and render? → A: Yes. The export's presence proves success, and text checks stay as a second layer.
+- Q: The constitution says a difference between Reference Targets is not drift. What should the gate do when the toolchain differs from the references? → A: Matching output passes with a note. Differing output is a Reference Target mismatch, which needs a Baseline Change.
+- Q: Can compare mode pass on a platform where renders cannot be fully isolated? → A: Yes, labeled as not gate-valid, because both builds see the same state. The gate and self-parity cannot pass there.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -45,7 +47,7 @@ An engine developer or CI job runs the harness and can trust a passing result. T
 
 An engine developer checks whether a build produces identical output every time. This is how the Determinism Foundation work is measured, and it must pass before any references are accepted.
 
-**Why this priority**: It is useful as soon as it exists. It reports KD-1 on today's build, and it is the only check available for Phase 3, because no references exist until after that work is done.
+**Why this priority**: It is useful as soon as it exists. It reports KD-1 on today's build, and it is the only check available for playbook Phase 3, because no references exist until after that work is done.
 
 **Independent Test**: Run self-parity on today's build and confirm it reports differences. Run it against a stand-in renderer with fixed output and confirm that it passes.
 
@@ -78,6 +80,8 @@ A CI job or engine developer confirms that a change did not alter any output for
 7. **Given** a buffer whose dimensions or sample type differ from the reference, **When** the gate runs, **Then** it fails and reports the layout difference.
 8. **Given** drift in a formula that no listed scene uses, **When** the gate runs, **Then** the formula sweep fails and names the formula.
 9. **Given** a formula the application offers with no sweep reference, **When** the gate runs, **Then** it fails and names the formula.
+10. **Given** a toolchain that differs from the references and output that matches, **When** the gate runs, **Then** it passes and notes the difference.
+11. **Given** a toolchain that differs from the references and output that differs, **When** the gate runs, **Then** it reports a Reference Target mismatch rather than drift, and it does not pass.
 
 ---
 
@@ -96,14 +100,15 @@ A maintainer performing a Baseline Change produces a complete new reference set 
 3. **Given** no working headless thread control, **When** capture runs, **Then** it refuses before rendering and explains why.
 4. **Given** a failure part way through the scene list, **When** capture stops, **Then** existing references are unchanged and no partial set remains.
 5. **Given** a platform where a render cannot be isolated from per-user state, **When** capture runs, **Then** it refuses.
+6. **Given** a run outside CI, **When** capture runs, **Then** it refuses before rendering and explains why.
 
 ---
 
-### User Story 5 - Catch Computation Drift With Statistics (Priority: P3)
+### User Story 5 - Catch Computation Drift With Statistics (Priority: P1)
 
 An engine developer wants drift in the computation caught even when no pixel changes. A change in iteration or raymarch counts can reveal a behavior change that the fixed test resolution does not show.
 
-**Why this priority**: Buffer comparison provides value by itself, and statistics add a second, independent signal.
+**Why this priority**: Self-Parity includes statistics, so playbook Phase 3 cannot be judged without them. They also add a second signal, independent of the buffers.
 
 **Independent Test**: Render one scene with the export requested and confirm that the record holds all five statistics. Change one count in a copy of the record and confirm that the comparison fails.
 
@@ -121,7 +126,7 @@ An engine developer wants drift in the computation caught even when no pixel cha
 
 An engine developer compares their branch against master on their own machine, before pushing, using any toolchain. References come from CI and may not match a local compiler, so this check compares two local builds with each other instead.
 
-**Why this priority**: It shortens the refactoring loop in Phase 5, but the CI gate remains the authority, and this mode gives clean results only after Phase 3.
+**Why this priority**: It shortens the refactoring loop in playbook Phase 5, but the CI gate remains the authority, and this mode gives clean results only after playbook Phase 3.
 
 **Independent Test**: Run compare mode with two stand-in renderers. Identical output passes, and output with one flipped bit fails. No references are needed.
 
@@ -132,6 +137,7 @@ An engine developer compares their branch against master on their own machine, b
 3. **Given** no references exist, **When** compare mode runs, **Then** it still runs, and it neither reads nor changes any reference.
 4. **Given** a render that fails on either build, **When** compare mode runs, **Then** it fails and names the build and the cause.
 5. **Given** any compare result, **When** the report is shown, **Then** it states that this is a local check and does not replace the gate.
+6. **Given** a platform where renders cannot be isolated, **When** compare mode finds no differences, **Then** it passes and labels the result as not gate-valid.
 
 ---
 
@@ -144,8 +150,10 @@ An engine developer compares their branch against master on their own machine, b
 - **NaN and negative zero**: Samples are compared by their bits. A NaN matches only the same bit pattern, and positive zero does not match negative zero.
 - **Interrupted capture**: Existing references survive, and no partial set is left behind.
 - **Scene removed from the list**: The gate fails on the leftover reference, so coverage cannot shrink without a Baseline Change.
-- **Toolchain mismatch**: The report shows when the toolchain differs from the one recorded with the references. The comparison result still decides the verdict, so a gate run on a different toolchain can report drift when nothing changed. Compare mode is the local check for that case.
+- **Toolchain mismatch**: The report shows when the toolchain differs from the one recorded with the references. Matching output passes, because that demonstrates equality. Differing output is a Reference Target mismatch, because a difference between targets is not drift. Compare mode is the local check for that case.
 - **Asset found by the alternate-location search**: This counts as a failure even if the render completes, because the search looks outside the repository, including the user's home folder.
+- **Partly loaded settings**: The application tolerates up to 3 bad lines in a settings file and still reports success, so the harness fails a scene that prints a settings line error.
+- **Two-pass stereo scenes**: Statistics and float buffers describe the last eye only, because the application resets statistics on each pass. The final image holds both eyes, so drift in the first eye still fails there.
 
 ## Requirements *(mandatory)*
 
@@ -159,14 +167,14 @@ An engine developer compares their branch against master on their own machine, b
 **Rendering**
 
 - **FR-003**: Every render MUST run headlessly through the application's `--nogui` mode on the CPU engine, at one fixed resolution and one fixed Monte Carlo sample cap, both the same in all modes and for all scenes.
-- **FR-004**: Every render MUST be isolated from per-user settings, caches, and the host locale.
-- **FR-005**: On a platform where FR-004 cannot be met, the harness MAY run for debugging, but it MUST label the results as not gate-valid and MUST refuse to capture.
+- **FR-004**: Every render MUST be isolated from per-user settings, caches, the host locale, and environment variables that affect rendering.
+- **FR-005**: On a platform where FR-004 cannot be met, the harness MAY run for debugging, but it MUST label the results as not gate-valid. The gate and self-parity MUST NOT report a pass there, and capture MUST refuse. Compare mode MAY report a pass, because both builds see the same state.
 - **FR-006**: The harness MUST remove earlier output for a render before starting it.
 - **FR-007**: Each render MUST have a time limit, and exceeding it MUST fail that scene.
 
 **Failure detection**
 
-- **FR-008**: The harness MUST NOT treat a zero exit status as success. A scene succeeds only if the exit status is zero, the application reported no settings load failure, no asset load failure, and no alternate-location asset search, and the verification export exists, is complete, and is valid.
+- **FR-008**: The harness MUST NOT treat a zero exit status as success. A scene succeeds only if the exit status is zero, the application reported no settings load failure or settings line error, no asset load failure, and no alternate-location asset search, and the verification export exists, is complete, and is valid.
 - **FR-009**: Any failed check in FR-008 MUST fail the run and identify the scene and the cause.
 
 **Engine buffers**
@@ -192,8 +200,8 @@ An engine developer compares their branch against master on their own machine, b
 **References**
 
 - **FR-021**: References MUST be stored per Reference Target, and each run MUST state which target it used.
-- **FR-022**: A reference set MUST contain every buffer and statistics record for every listed scene, plus the compiler and math library versions of the build that produced it.
-- **FR-023**: The gate MUST report a toolchain difference from the recorded versions, without changing its verdict.
+- **FR-022**: A reference set MUST contain every buffer and statistics record for every listed scene, plus the compiler and math library versions of the build that produced it, and the installed toolchain package versions where the platform reports them.
+- **FR-023**: The gate MUST report any toolchain difference from the recorded versions. If every comparison still matches, it MUST pass with a note. If any comparison differs, it MUST report a Reference Target mismatch rather than drift, and it MUST NOT pass.
 
 **Verification export**
 
@@ -205,7 +213,7 @@ An engine developer compares their branch against master on their own machine, b
 
 **Reporting and scope**
 
-- **FR-029**: The report MUST give a verdict for each scene and buffer, the number of differing samples for each failed comparison, and an overall result. It MUST distinguish setup errors from parity failures.
+- **FR-029**: The report MUST give a verdict for each scene and formula, name each failing buffer or statistic, give the number of differing samples for each failed comparison, and give an overall result. It MUST distinguish setup errors, Reference Target mismatches, and parity failures.
 - **FR-030**: The harness MUST return a success status only when every check passed, and MUST keep the outputs of failed comparisons for inspection, outside version control.
 - **FR-031**: Apart from the verification export and a read-only formula listing, this feature MUST NOT change engine code. It MUST NOT create or commit references, because renders do not reproduce yet (KD-1).
 
@@ -218,8 +226,13 @@ An engine developer compares their branch against master on their own machine, b
 **Compare mode**
 
 - **FR-035**: Compare mode MUST render every listed scene and sweep formula with two supplied builds on the same machine, and compare their buffers and statistics exactly, with the same fixed settings as the gate.
-- **FR-036**: Compare mode MUST apply the same isolation and failure detection as the gate, and a failed render on either build MUST fail the run and name that build.
+- **FR-036**: Compare mode MUST apply the same failure detection as the gate, and the same isolation where the platform allows it. A failed render on either build MUST fail the run and name that build.
 - **FR-037**: Compare mode MUST NOT read or modify references, and its report MUST state that it is a local check that does not replace the gate.
+
+**Capture and suite coverage**
+
+- **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
+- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter, Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration, rough surfaces, specular roughness, post-effect depth of field, multi-ray ambient occlusion, random screen-space ambient occlusion, volumetric rendering, and beam lights.
 
 ### Decisions
 
@@ -245,7 +258,7 @@ An engine developer compares their branch against master on their own machine, b
 
 **Coverage: add a formula sweep to the gate.**
 
-- **Why**: Phase 5 refactors the formula code, and only formulas that get rendered are protected. The 791 example scenes reach 315 of the 462 formulas, and the best 25 scenes reach about 76.
+- **Why**: Playbook Phase 5 refactors the formula code, and only formulas that get rendered are protected. The 791 example scenes reach 315 of the 462 formulas, and the best 25 scenes reach about 76.
 - **Cost**: All 462 formulas rendered in 34 seconds on 32 threads, or an estimated 2 to 5 minutes on a CI runner, plus about 16 MB of references before compression.
 
 ### Key Entities *(include if feature involves data)*
@@ -257,7 +270,7 @@ An engine developer compares their branch against master on their own machine, b
 - **Engine Buffer**: One of the raw render, post-effect image, final image, depth, or normal, for one scene.
 - **Statistics Record**: The final exact counts for one render, with no time-based values.
 - **Reference Set**: All engine buffers and statistics records for one Reference Target, plus the toolchain identity.
-- **Toolchain Identity**: The compiler and math library versions of the build that produced a reference set.
+- **Toolchain Identity**: The compiler and math library versions of the build that produced a reference set, plus installed toolchain package versions where available.
 - **Run Report**: The per-scene and per-buffer verdicts and the overall result of one run.
 
 ## Success Criteria *(mandatory)*
@@ -266,29 +279,30 @@ An engine developer compares their branch against master on their own machine, b
 
 - **SC-001**: Every failure condition in this specification, seeded one at a time, produces a failing run that names the cause, with no false passes.
 - **SC-002**: A single flipped bit in any one sample of any buffer, and a change of 1 in any statistic, is detected in 100% of trials.
-- **SC-003**: On today's build, self-parity reports non-reproducible output for every scene tested, matching KD-1. After Phase 3, it passes with no changes to the harness other than enabling the second thread count.
-- **SC-004**: A full gate run, including the formula sweep, finishes in under 30 minutes in the automated build environment.
+- **SC-003**: On today's build, self-parity reports non-reproducible output for every scene tested, matching KD-1. After playbook Phase 3, it passes with no changes to the harness other than enabling the second thread count.
+- **SC-004**: A full gate run, including the formula sweep, finishes in under 30 minutes on a 4-vCPU CI runner.
 - **SC-005**: From the report alone, a developer can identify the failing scene, buffer or statistic, and size of the difference without rerunning the harness.
 - **SC-006**: A failed or interrupted capture leaves existing references byte-for-byte unchanged in 100% of trials.
-- **SC-007**: After Phase 3, the final image matches exactly with the normal buffer and the verification export on or off, for every scene in the suite.
+- **SC-007**: After playbook Phase 3, the final image matches exactly with the normal buffer and the verification export on or off, for every scene in the suite.
 - **SC-008**: One target's stored reference set, including the formula sweep, stays under 100 MB.
 - **SC-009**: The gate covers 100% of the formulas the application offers, apart from any listed exclusions.
-- **SC-010**: After Phase 3, compare mode reports zero differences between two builds of the same source on one machine, and it reports a deliberate change to one formula against that formula.
+- **SC-010**: After playbook Phase 3, compare mode reports zero differences between two builds of the same source on one machine, and it reports a deliberate change to one formula against that formula.
 
 ## Assumptions
 
-**Dependencies on Phase 3 (Determinism Foundation)**
+**Dependencies on playbook Phase 3 (Determinism Foundation)**
 
 - **Statistics will not match until the counters are fixed.** All render threads update one shared statistics object with no synchronization. On 2026-11-04, three identical renders of `IFS_001.fract` reported about 3.17e8, 2.70e8, and 2.43e8 total iterations. That spread suggests lost updates, though the cause is not proven. This feature exports the values as collected (FR-027). Making them exact belongs to KD-1, because Self-Parity includes statistics and KD-1 closes only when Self-Parity passes.
-- **Two thread counts need a new control.** `limit_CPU_cores` showed no effect under `--nogui`, so self-parity cannot pass until Phase 3 adds a working control (FR-017).
+- **Two thread counts need a new control.** `limit_CPU_cores` showed no effect under `--nogui`, so self-parity cannot pass until playbook Phase 3 adds a working control (FR-017).
 - **FR-012 and SC-007 cannot be confirmed until renders reproduce.**
-- **Compare mode needs reproducible builds.** Until Phase 3, every render differs from the last, so compare mode will report differences even between two builds of the same source.
+- **Compare mode needs reproducible builds.** Until playbook Phase 3, every render differs from the last, so compare mode will report differences even between two builds of the same source.
 
 **Scope**
 
 - This feature covers still renders on the CPU engine. OpenCL, animation, voxel export, and network rendering are out of scope.
 - Engine determinism fixes, floating-point flag changes, CI jobs, and Baseline 1 are out of scope. They belong to Phases 3 and 4 of the playbook.
-- Selecting the full Standard Scene Suite is an implementation task. The constitution requires coverage of Monte Carlo depth of field, global illumination, and ambient occlusion, and the top-level examples include 22, 9, and 77 such scenes respectively.
+- Selecting the full Standard Scene Suite is an implementation task, and `research.md` lists a candidate scene for each path in FR-039. No example scene uses a beam light, so that path needs a purpose-built scene.
+- This feature expects the OpenCL build, which is the one CI compiles. The `custom` formula exists only in that build, so its exclusion fails on a build without OpenCL.
 
 **Environment and defaults**
 

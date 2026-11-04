@@ -138,10 +138,10 @@ Expect output to change. `-ffast-math` lets the compiler treat values as always 
 
 Add the flag check as a reusable action and a new workflow. The existing `.circleci/config.yml` only packages macOS builds and is not part of this process, so leave it as it is.
 
-Create `.github/actions/build-engine/action.yml`:
+Create `.github/actions/compile-engine/action.yml`:
 
 ```yaml
-name: Build Engine
+name: Compile Engine
 description: Build and install the release binary, then reject prohibited compile flags.
 runs:
   using: composite
@@ -191,7 +191,7 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/build-engine
+      - uses: ./.github/actions/compile-engine
 ```
 
 The `ubuntu-24.04` label fixes the operating system, but GitHub typically updates the software on the image weekly, so the compiler or math library can change with no commit. The gate reports this against the toolchain recorded with the references. If output changes too, that needs a Baseline Change.
@@ -224,7 +224,7 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/build-engine
+      - uses: ./.github/actions/compile-engine
       - name: Run Parity Gate
         run: python3 tests/regression_runner.py
       - name: Upload Failed Outputs
@@ -250,7 +250,7 @@ jobs:
     timeout-minutes: 350
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/build-engine
+      - uses: ./.github/actions/compile-engine
       - name: Capture References
         run: python3 tests/regression_runner.py --capture
       - name: Upload References

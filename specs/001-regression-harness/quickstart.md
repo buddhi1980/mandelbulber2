@@ -31,8 +31,10 @@ python3 tests/test_regression_runner.py
 - Each failure condition, seeded one at a time, fails and names the cause.
 - One flipped bit in any buffer fails, and so does a change of 1 in any statistic.
 - Identical output passes in gate and compare modes.
+- A toolchain difference passes with a note when output matches, and exits 3 as a Reference Target mismatch when it differs.
+- The render command uses the fixed settings, and each render gets an isolated home and a clean environment.
 - An unstable render blocks capture, and references stay unchanged.
-- An interrupted capture leaves references byte-for-byte unchanged.
+- Capture refuses outside CI, and an interrupted capture leaves references byte-for-byte unchanged.
 
 ## Scenario 2: Application Contract
 
@@ -78,7 +80,7 @@ echo "exit: $?"
 
 **Expected on the current build**: A non-zero exit, sample differences reported per item and buffer, and a statement that thread coverage is incomplete. This is the correct result until Phase 3.
 
-**Expected after Phase 3**: Exit 0 with both thread counts enabled.
+**Expected after playbook Phase 3**: Exit 0 with both thread counts enabled.
 
 ## Scenario 5: Capture and Gate Refuse Safely
 
@@ -89,7 +91,7 @@ python3 tests/regression_runner.py
 echo "exit: $?"
 ```
 
-**Expected on the current build**: Both exit 3. Capture explains that Self-Parity needs a second thread count, and the gate reports that no reference set exists. Nothing appears under `tests/references/`.
+**Expected on the current build**: Both exit 3. Capture refuses before rendering and explains why, because it runs only in CI and needs a second thread count. The gate reports that no reference set exists. Nothing appears under `tests/references/`.
 
 ## Scenario 6: Compare Mode
 
@@ -100,7 +102,7 @@ echo "exit: $?"
 
 **Expected on the current build**: Exit 1, because renders do not reproduce yet.
 
-**Expected after Phase 3**: Exit 0 when a build is compared with itself, and a report that this is a local check.
+**Expected after playbook Phase 3**: Exit 0 when a build is compared with itself, and a report that this is a local check.
 
 ## Scenario 7: Windows Debug Run
 
@@ -110,9 +112,9 @@ Run from the repository root, with the path to your build:
 MANDELBULBER_BINARY=build-win/Release/x64/mandelbulber2.exe python tests/regression_runner.py --self-parity
 ```
 
-**Expected**: The report states that the run is not gate-valid, and `--capture` refuses to run.
+**Expected**: The report states that the run is not gate-valid, the run does not pass, and `--capture` refuses to run. After playbook Phase 3, `--compare` can pass on Windows, labeled as not gate-valid.
 
-## After Phase 3
+## After Playbook Phase 3
 
 Before Baseline 1, confirm these outcomes:
 

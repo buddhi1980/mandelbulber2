@@ -18,7 +18,7 @@ mandelbulber2 --nogui --res 320x240 --format tiff \
 | Settings failed to load | No manifest is written |
 | The render reported failure | No manifest is written |
 | A write failed | An error is printed and no manifest is written |
-| Used with animation, queue, voxel, or network modes | An error is printed and the program exits with a non-zero status |
+| Used without `--nogui`, or with animation, queue, voxel, network, test, or benchmark modes | An error is printed and the program exits with a non-zero status |
 
 **Rules**
 

@@ -19,7 +19,11 @@ tests/references/<target>/
 ```text
 compiler gcc 13.3.0
 math_library glibc 2.39
+package libc6 2.39-0ubuntu8.9
+package gcc-13 13.3.0-6ubuntu2~24.04
 ```
+
+`package` lines come from `dpkg-query` for `gcc-[0-9]*`, `g++-[0-9]*`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1`, in sorted order, skipping entries with no version. They are left out on platforms without `dpkg-query`. Versions shown here are examples.
 
 ## `settings.txt`
 
@@ -59,6 +63,6 @@ Reading a reference reverses the plane split and verifies each entry's checksum.
 
 1. Build the new set in a staging directory.
 2. Check that it is complete and under 100 MB.
-3. Replace `tests/references/<target>/` with a single directory move.
+3. Move any existing `tests/references/<target>/` aside, move the new set into place, then delete the old set.
 
-Any failure leaves the existing set unchanged.
+If the new set cannot be moved into place, the old set is moved back. Any failure before step 3 leaves the existing set untouched.

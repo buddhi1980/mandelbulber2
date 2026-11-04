@@ -32,7 +32,7 @@
 ## Notes
 
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`
-- **Named formats and paths**: The spec names `tests/scenes.txt`, TIFF, 32-bit float, and `--nogui`. The feature request fixed these as interface constraints, so they are not implementation choices. It names no language, framework, or code structure.
+- **Named formats and paths**: The spec names `tests/scenes.txt`, `--nogui`, and the CI runner. These are interface constraints from the request and its clarifications, not implementation choices. It names no language, framework, or code structure.
 - **Audience**: This is an internal engineering tool, so its stakeholders are engine developers and maintainers. Domain terms such as z-buffer and raymarch are used without explanation.
-- **Deviation from the request**: None. The statistics and channel decisions the request delegated to the spec are recorded under Decisions.
-- **Added beyond the request**: Failing on texture load errors, the alternate-location asset search, URL or absolute-path assets, leftover references, and color changes caused by the gated configuration. Each closes a false-pass route found while testing the application.
+- **Deviation from the request**: The request asked for TIFF comparison and three modes. Clarification replaced TIFF with a raw buffer export, because TIFF color is effectively 16-bit, and added a fourth mode. The decisions are recorded under Clarifications and Decisions.
+- **Added beyond the request**: Failing on texture load errors, settings line errors, the alternate-location asset search, URL or absolute-path assets, leftover references, and color changes caused by the gated configuration. Each closes a false-pass route found while testing the application. Capture is limited to CI, and the suite must cover each stochastic CPU path, as the constitution requires.

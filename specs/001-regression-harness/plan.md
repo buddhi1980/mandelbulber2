@@ -43,16 +43,20 @@ No references are created in this feature. Renders do not reproduce yet (KD-1), 
 | Principle II: adds randomness, timing, threading, or external state? | Pass | Nothing is added to the render path. The harness isolates home, locale, and environment. |
 | Principle II: Self-Parity | Pass | Three runs at each of two thread counts, one of them 1. Capture refuses without it. |
 | Principle III: touches build flags, compilers, math libraries, or arithmetic order? | Pass | No flags change. The manifest only reads compiler and math library versions. |
+| Reference Targets: a difference between targets is not drift | Pass | A toolchain difference with differing output is a Reference Target mismatch, not a parity failure. |
+| Standard Scene Suite: each stochastic CPU path | Pass | FR-039 lists the paths, and `research.md` gives a candidate scene for each. |
 | Workflow 1: engine changes only to close a Known Deviation | Pass | The two application additions exist to close KD-4. Nothing else changes. |
 | Workflow 3: no regenerating references to clear a failure | Pass | Gate, self-parity, and compare modes cannot write references. |
 | Workflow 4: refactors and output changes stay separate | Pass | This feature changes no output. |
-| Baseline Change rules | Pass | Capture is built for CI, requires Self-Parity, and is all or nothing. No references are created here. |
+| Baseline Change rules | Pass | Capture runs only in CI, requires Self-Parity, and is all or nothing. No references are created here. |
 
 **Known Deviations**: These are not reported as passing.
 
-- **KD-1 (open)**: `--self-parity` is expected to fail on the current build, and the statistics spread suggests a second cause beyond the random seed. Both are for Phase 3 to fix.
-- **KD-2, KD-3 (open)**: This feature doesn't touch them. The CI flag check arrives in Phase 3.
-- **KD-4 (partly closed)**: This feature delivers the harness and scene list. References and the CI gate arrive in Phase 4.
+- **KD-1 (open)**: `--self-parity` is expected to fail on the current build, and the statistics spread suggests a second cause beyond the random seed. Both are for playbook Phase 3 to fix.
+- **KD-2, KD-3 (open)**: This feature doesn't touch them. The CI flag check arrives in playbook Phase 3.
+- **KD-4 (partly closed)**: This feature delivers the harness and scene list. References and the CI gate arrive in playbook Phase 4.
+
+**Expected effect on output**: None. The constitution requires each pre-baseline engine change to state this. The application changes run after the render or instead of it, and only when requested.
 
 **Post-design re-check**: Pass. The design adds no violations. `--list-formulas` required a small update to FR-031, recorded in the spec.
 
@@ -82,11 +86,12 @@ specs/001-regression-harness/
 tests/
 ├── regression_runner.py        # The harness
 ├── scenes.txt                  # Standard Scene Suite
+├── scenes/beam_light.fract     # Purpose-built scene for the beam light path
 ├── formula_sweep_base.fract    # Fixed base scene for the sweep
 ├── formula_exclusions.txt      # Excluded formulas, with reasons
 ├── stub_renderer.py            # Stand-in renderer for tests
 ├── test_regression_runner.py   # Harness tests
-├── references/<target>/        # Created in Phase 4
+├── references/<target>/        # Created in playbook Phase 4
 └── outputs/                    # Not version-controlled
 
 mandelbulber2/src/
@@ -100,7 +105,7 @@ mandelbulber2/src/
 .gitignore                      # Adds tests/outputs/
 ```
 
-**Structure Decision**: A single script, as requested, keeps the harness easy to run anywhere Python exists. New C++ goes in its own file pair, so the two existing files change as little as possible. qmake, CMake, and the MSVC project all use `src/*.cpp` wildcards, so no build file changes are needed.
+**Structure Decision**: A single script, as requested, keeps the harness easy to run anywhere Python exists. New C++ goes in its own file pair, so the existing files change as little as possible. qmake, CMake, and the MSVC project all use `src/*.cpp` wildcards, so no build file changes are needed.
 
 ## Design Overview
 
@@ -116,15 +121,15 @@ mandelbulber2/src/
 1. Load and check the scene list, then read the formula list from the binary and apply exclusions.
 2. For each item, render it in isolation, check the output text, and validate the export.
 3. Compare the result with references, with earlier runs, or with a second build, depending on the mode.
-4. Report per item and buffer, keep failed outputs, and return an exit code that separates parity failures from setup errors.
+4. Report per item and buffer, keep failed outputs, and return an exit code that separates parity failures, setup errors, and Reference Target mismatches.
 
 **Self-parity order**: All-thread and neutral renders run one item at a time. Single-thread renders then run for several items at once, one worker per CPU, and each item's own runs stay consecutive.
 
-**Capture in CI**: One manually started GitHub Actions workflow builds the binary, runs `--capture`, and uploads the reference set as an artifact. A maintainer then commits it in a Baseline Change pull request. The workflows belong to Phases 3 and 4 of the playbook, and this feature provides the runner they call.
+**Capture in CI**: One manually started GitHub Actions workflow builds the binary, runs `--capture`, and uploads the reference set as an artifact. Capture refuses to run outside CI. A maintainer then commits the set in a Baseline Change pull request. The workflows belong to Phases 3 and 4 of the playbook, and this feature provides the runner they call.
 
 ## Follow-ups Outside This Feature
 
-- The Phase 3 thread control must set the OpenMP thread count too, and the harness then needs its second thread count enabled.
+- The playbook Phase 3 thread control must set the OpenMP thread count too, and the harness then needs its second thread count enabled.
 - The hosted runner image changes over time. If updates start to cause false failures, a pinned container and pinned packages are the next step.
 
 ## Complexity Tracking

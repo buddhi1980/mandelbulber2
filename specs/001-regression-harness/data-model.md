@@ -89,7 +89,7 @@ All references for one Reference Target.
 | Field | Description |
 |---|---|
 | Target | For example `linux-x86_64-gcc` |
-| Toolchain identity | Compiler and math library of the capturing build |
+| Toolchain identity | Compiler and math library of the capturing build, plus package versions where available |
 | Render settings | As captured |
 | Scene references | One per scene |
 | Formula references | One per formula |
@@ -109,7 +109,7 @@ All references for one Reference Target.
 | Gate validity | Whether isolation could be guaranteed |
 | Toolchain note | Any difference from recorded versions |
 | Item results | Verdict per item, with per-buffer and per-statistic detail |
-| Overall result | Passed, parity failure, or setup error |
+| Overall result | Passed, parity failure, Reference Target mismatch, or setup error |
 
 ## State Transitions
 
