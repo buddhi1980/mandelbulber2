@@ -90,7 +90,7 @@ The harness depends on these behaviors. They were tested on a Windows build. The
 An earlier TIFF-based prototype of the runner is in commit `fbcc70492`. Its comparison no longer applies, but its temporary home directory and failure checks were tested and can be reused.
 
 ### 4. Implement and Verify
-`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes until the suite exercises each stochastic CPU path, as the constitution requires. FR-039 in the spec lists the paths, and `research.md` names a candidate scene for each. A scene that references an asset by URL or absolute path fails the run, so leave those out:
+`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes until the suite exercises each stochastic CPU path, as the constitution requires. FR-039 in the spec lists the paths, and `research.md` names a candidate scene for each. A scene that references an asset by URL or absolute path fails the run, and so does a nebula scene, because nebula mode always renders through OpenCL. Leave those out:
 
 ```text
 # Standard Scene Suite
@@ -227,6 +227,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/compile-engine
+      - name: Test the Harness
+        run: python3 tests/test_regression_runner.py
       - name: Run Parity Gate
         run: python3 tests/regression_runner.py
       - name: Upload Failed Outputs

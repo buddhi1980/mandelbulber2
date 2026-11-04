@@ -53,7 +53,7 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 - **Capture time**: Each item renders 7 times: 3 at each thread count, plus 1 neutral render. With about 15 minutes of render time in a gate, the 3 all-thread runs and the neutral render take about 1 hour. Run one after another, the 3 single-thread runs would add about 3 hours, because each takes about 4 times as long. Rendering 4 items at once brings that down to about 45 minutes, for a total of about 2 hours (estimated). An item's own runs stay consecutive, as the constitution requires.
 - **Runner image**: The `ubuntu-24.04` label fixes the OS, but [GitHub typically updates the software weekly](https://github.com/actions/runner-images). The [October 2026 image](https://raw.githubusercontent.com/actions/runner-images/main/images/ubuntu/Ubuntu2404-Readme.md) has GCC 13.3.0 and glibc 2.39. A patch update can therefore reach the gate with no commit. The gate reports this against the recorded toolchain (FR-023), and if output changes, that needs a Baseline Change.
 - **Runner hardware**: Hosted runners may not all use the same CPU model, and glibc selects some math routines by CPU features. This is a small risk of a false failure, and it can only be measured once renders reproduce.
-- **Capture location**: The constitution requires references from a CI build, so capture refuses unless `CI` is set. [GitHub Actions always sets it](https://docs.github.com/en/actions/reference/workflows-and-actions/variables). This stops a local run from replacing references by accident.
+- **Capture location**: The constitution requires references from a CI build, so capture refuses unless `CI` is `true`. [GitHub Actions always sets it](https://docs.github.com/en/actions/reference/workflows-and-actions/variables). This stops a local run from replacing references by accident.
 - **Alternatives considered**:
   - CircleCI: its [1-hour job limit on the Free plan](https://support.circleci.com/hc/en-us/articles/4411086979867-Updates-to-maximum-duration-of-jobs) would force capture into 8 jobs and a merge step, it uses credits, and its Docker executors [report the host's CPU count](https://ideas.circleci.com/cloud-feature-requests/p/have-nproc-accurately-reporter-number-of-cpus-available-to-container).
   - Matrix shards on GitHub Actions: not needed at this size. With [20 concurrent jobs and a 6-hour limit](https://docs.github.com/en/actions/reference/limits), this remains an option if the suite grows.
@@ -107,19 +107,19 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 ## R12. Harness structure and testing
 
 - **Decision**: One standard-library script, `tests/regression_runner.py`, for Python 3.10 and later. Tests use `unittest` with a stand-in renderer that implements the export contract.
-- **Rationale**: Real renders cannot pass until playbook Phase 3, so a stand-in is the only way to exercise the success paths. It can also produce every failure on demand. This approach found real defects in the prototype.
+- **Rationale**: Real renders cannot pass until playbook Phase 3, so a stand-in is the only way to exercise the success paths. It can also produce every failure on demand. This approach found real defects in the prototype. The gate job runs these tests first (playbook Phase 4), so a change that weakens a check cannot pass unnoticed.
 
 ## R13. Standard Scene Suite budget
 
 - **Decision**: Keep the scene portion of the gate to about 90 seconds of 32-thread render time, which is about 12 minutes on a 4-vCPU runner (estimated at 8 times slower). For example, 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. The suite must exercise each stochastic CPU path (FR-039).
 - **Rationale**: With the sweep, this keeps render time to about 15 minutes, well inside the 30-minute target (SC-004), and keeps capture to about 2 hours. Capped scene times ranged from 5 to 41 seconds, so scenes need to be chosen by cost. `difs_tree` measured 5.0 seconds, `chromatic_aberration` 9.8 seconds, and `IFS_001` 1.8 seconds.
-- **Available scenes**: 151 top-level examples have no external assets: 55 plain, 75 with ambient occlusion, 12 with Monte Carlo, 1 with Monte Carlo and ambient occlusion, and 8 with Monte Carlo and global illumination.
+- **Available scenes**: 151 top-level examples have no external assets. Four of those are nebula scenes, which always render through OpenCL whatever `opencl_enabled` says, so the harness rejects them. That leaves 147: 55 plain, 71 with ambient occlusion, 12 with Monte Carlo, 1 with Monte Carlo and ambient occlusion, and 8 with Monte Carlo and global illumination.
 
-The stochastic paths come from the CPU callers of `Random()`, plus the seeded generators that run during a render: `cRandom` in `lights.cpp`, and the Perlin noise generator created in `render_job.cpp`. These are the candidates among the 151 usable scenes. Scenes other than the three timed above have not been timed yet.
+The stochastic paths come from the CPU callers of `Random()`, plus the seeded generators that run during a render: `cRandom` in `lights.cpp`, and the Perlin noise generator created in `render_job.cpp`. These are the candidates among the 147 usable scenes. Scenes other than the three timed above have not been timed yet.
 
 | Path | Usable scenes | Candidate |
 |---|---|---|
-| Raymarch step jitter | 151 | Any scene |
+| Raymarch step jitter | 147 | Any scene |
 | Monte Carlo depth of field | 21 | `chromatic_aberration.fract` |
 | Monte Carlo antialiasing | 21 | `chromatic_aberration.fract` |
 | Monte Carlo soft shadows | 9 | `chromatic_aberration.fract` |
@@ -137,8 +137,20 @@ The stochastic paths come from the CPU callers of `Random()`, plus the seeded ge
 | Random lights | 4 | `mandelbulb_bermarte 001.fract` |
 | Perlin noise on materials | 3 | `difs_tree.fract` |
 | Clouds | 6 | `clouds 001.fract` |
+| HDR blur | 0 | `tests/scenes/hdr_blur.fract`, purpose-built |
 
-A beam light is light type 4. A test scene built on the sweep base rendered with no errors, and its image differed from a point light in all but 175 of 19,200 pixels.
+HDR blur is not random. It is in the table because it runs in an OpenMP region that playbook Phase 3 audits, and Self-Parity can only measure that audit with a scene that reaches it. From reading the code, each pixel reads a snapshot of the image, so it is not expected to depend on thread order.
+
+A beam light is light type 4. Test scenes for the beam light and HDR blur, built on the sweep base, rendered with no errors. Renders do not reproduce yet, so counting differing pixels proves nothing, and these checks compare the size of each difference at 320x240, as a mean gap in 16-bit samples:
+
+| Comparison | Mean gap |
+|---|---|
+| Sweep base rendered twice | 0.6 |
+| HDR blur scene rendered twice | 0.3 |
+| HDR blur on against off | 145 |
+| Beam light scene rendered twice | 659 |
+
+The HDR blur effect is far larger than the noise, so that path runs. The beam light's noise is far larger than the base scene's, so its random sampling runs.
 
 ## R14. Compared channels
 

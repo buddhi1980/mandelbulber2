@@ -147,6 +147,7 @@ An engine developer compares their branch against master on their own machine, b
 - **Same file name twice**: Two listed scenes with the same file name fail the run, because their outputs and references would collide.
 - **Stale outputs**: Output from an earlier run is removed before each render, so it can never satisfy a check.
 - **URL or absolute-path assets**: A listed scene that references an asset this way fails the run. 54 of the 791 example scenes do, and such assets depend on the network or on one machine's folders.
+- **Nebula scenes**: Nebula mode always renders through OpenCL, whatever the engine setting, so a listed scene that enables it fails the run.
 - **NaN and negative zero**: Samples are compared by their bits. A NaN matches only the same bit pattern, and positive zero does not match negative zero.
 - **Interrupted capture**: Existing references survive, and no partial set is left behind.
 - **Scene removed from the list**: The gate fails on the leftover reference, so coverage cannot shrink without a Baseline Change.
@@ -164,7 +165,7 @@ An engine developer compares their branch against master on their own machine, b
 **Scene list**
 
 - **FR-001**: The harness MUST read the Standard Scene Suite from `tests/scenes.txt`, a version-controlled file with one scene path per line, relative to the repository root. Blank lines and comment lines MUST be ignored.
-- **FR-002**: The harness MUST fail before rendering if the list has no scenes, a listed scene is missing, two scenes share a file name, or a scene references an asset by URL or absolute path.
+- **FR-002**: The harness MUST fail before rendering if the list has no scenes, a listed scene is missing, two scenes share a file name, a scene references an asset by URL or absolute path, or a scene enables nebula mode.
 
 **Rendering**
 
@@ -234,7 +235,7 @@ An engine developer compares their branch against master on their own machine, b
 **Capture and suite coverage**
 
 - **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
-- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds.
+- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds. It MUST also exercise HDR blur, which is not random but runs in an OpenMP region that playbook Phase 3 audits.
 
 ### Decisions
 
@@ -303,7 +304,7 @@ An engine developer compares their branch against master on their own machine, b
 
 - This feature covers still renders on the CPU engine. OpenCL, animation, voxel export, and network rendering are out of scope.
 - Engine determinism fixes, floating-point flag changes, CI jobs, and Baseline 1 are out of scope. They belong to Phases 3 and 4 of the playbook.
-- Selecting the full Standard Scene Suite is an implementation task, and `research.md` lists a candidate scene for each path in FR-039. No example scene uses a beam light, so that path needs a purpose-built scene.
+- Selecting the full Standard Scene Suite is an implementation task, and `research.md` lists a candidate scene for each path in FR-039. No example scene uses a beam light or HDR blur, so those paths need purpose-built scenes.
 - This feature expects the OpenCL build, which is the one CI compiles. The `custom` formula exists only in that build, so its exclusion fails on a build without OpenCL.
 
 **Environment and defaults**

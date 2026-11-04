@@ -20,6 +20,7 @@ One thing the harness renders and checks.
 - Names are unique within their kind. Two scenes with the same file name fail the run (FR-002).
 - The scene list must not be empty, and every listed file must exist (FR-002).
 - A scene must not reference an asset by URL or absolute path (FR-002).
+- A scene must not enable nebula mode (FR-002).
 - Every formula from `--list-formulas` is a work item unless it is listed in `tests/formula_exclusions.txt` (FR-034).
 - An exclusion needs a reason and must name a formula the binary offers.
 

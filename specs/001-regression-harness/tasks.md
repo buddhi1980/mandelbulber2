@@ -94,7 +94,7 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 ### Harness: shared code
 
-- [ ] T019 [P] Create `tests/stub_renderer.py`, an executable stand-in that implements `contracts/application-cli.md`. It reads its mode from `stub_mode.txt` in its working directory, because the runner's clean environment removes unknown variables, and defaults to `same`. It appends each call's arguments and environment to `stub_calls.jsonl` in that folder, accepts and ignores `--threads N`, handles `--list-formulas`, writes a complete export for `--verification-export` from fixed sample data, and writes a 16-bit deflate TIFF to `<output>.tiff` without that option, so the neutral render can match `final_image.bin`. A mode written as `only:<item>:<mode>` applies to one scene name or formula ID, and every other item behaves as `same`. Modes: `same`, `flip-bit:<buffer>`, `flip-mantissa:<buffer>`, `stat-plus-one:<name>`, `unstable` (using a counter file), `unstable:<buffer>`, `unstable-stat:<name>`, `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `exit-3`, `hang`, `neutral-differs`, `no-neutral-image`, `resize`, `other-toolchain`, `other-toolchain-drift`, `extra-formula`, `missing-formula`, `no-list-end`
+- [ ] T019 [P] Create `tests/stub_renderer.py`, an executable stand-in that implements `contracts/application-cli.md`. It reads its mode from `stub_mode.txt` in its working directory, because the runner's clean environment removes unknown variables, and defaults to `same`. It appends each call's arguments and environment to `stub_calls.jsonl` in that folder, accepts and ignores `--threads N`, handles `--list-formulas`, writes a complete export for `--verification-export` from fixed sample data, and writes a 16-bit deflate TIFF to `<output>.tiff` without that option, so the neutral render can match `final_image.bin`. A mode written as `only:<item>:<mode>` applies to one scene name or formula ID, and every other item behaves as `same`. Modes: `same`, `flip-bit:<buffer>`, `flip-mantissa:<buffer>`, `stat-plus-one:<name>`, `unstable` (using a counter file), `unstable:<buffer>`, `unstable-stat:<name>`, `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, `no-statistics`, `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `exit-3`, `hang`, `neutral-differs`, `no-neutral-image`, `resize`, `other-toolchain`, `other-toolchain-drift`, `extra-formula`, `missing-formula`, `no-list-end`
 - [ ] T020 [P] Create the scaffolding in `tests/test_regression_runner.py`: a `unittest` base class that builds a temporary root with a `tests/` folder, a scene list, a base scene, and exclusions, copies or wraps `tests/stub_renderer.py` as a launcher in its own folder (a `.cmd` wrapper on Windows), writes `stub_mode.txt`, changes into the temporary root, sets `MANDELBULBER_BINARY`, patches `gate_valid` to return true and sets `CI=true` unless a test overrides them, patches the time limits to a few seconds, and calls `regression_runner.main([...])` in-process
 - [ ] T021 Add a `Report` class to `tests/regression_runner.py` with the fields in `data-model.md`: "Mode", "Target", "Gate validity", "Toolchain note", "Item results", and "Overall result". It writes each line to the console with `flush=True` and to `tests/outputs/report.txt`, in the format in `contracts/runner-cli.md`, guarded by a `threading.Lock` because self-parity uses worker threads. It tracks parity failures, setup failures, and Reference Target mismatches separately, and follows the exit code rules in that contract
 - [ ] T022 Add `clean_environment(home)` and `gate_valid()` to `tests/regression_runner.py`: build the environment from an allowlist of `PATH`, `SYSTEMROOT`, `TEMP`, `TMP`, and `TMPDIR`, then set `HOME`, `LC_ALL=C.UTF-8`, and `LANG=C.UTF-8`. Leave out `LD_LIBRARY_PATH`, because it can select a different math library. `gate_valid()` returns false on Windows, because the application ignores a redirected home folder there (FR-004, FR-005)
@@ -113,15 +113,15 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 > **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
 
-- [ ] T023 [US1] Add scene list tests to `tests/test_regression_runner.py`: an empty list, a comment-only list, a missing scene, two scenes with the same file name, a scene with a URL asset, and a scene with an absolute-path asset each raise a setup failure that names the cause before any render runs
-- [ ] T024 [US1] Add formula list tests to `tests/test_regression_runner.py`: a missing binary exits 3 and names the path, in every mode, `no-list-end` fails, an exclusion with no reason fails, an exclusion that names a formula the binary does not offer fails, and excluded formulas do not become work items
+- [ ] T023 [US1] Add scene list tests to `tests/test_regression_runner.py`: an empty list, a comment-only list, a missing scene, two scenes with the same file name, a scene with a URL asset, a scene with an absolute-path asset, and a scene with `nebula_mode true` each raise a setup failure that names the cause before any render runs
+- [ ] T024 [US1] Add formula list tests to `tests/test_regression_runner.py`: a missing binary raises a setup failure that names the path, `no-list-end` fails, an exclusion with no reason fails, an exclusion that names a formula the binary does not offer fails, and excluded formulas do not become work items
 - [ ] T025 [US1] Add render failure tests to `tests/test_regression_runner.py` using the modes `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `exit-3`, and `hang`, confirming that each fails that item, names the cause, and that a stale export from an earlier run cannot satisfy the check
-- [ ] T026 [US1] Add export validation tests to `tests/test_regression_runner.py` using the modes `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, and `bad-statistics`, confirming that each fails that item, and with `only:<item>:<mode>`, that the remaining items still run and pass
+- [ ] T026 [US1] Add export validation tests to `tests/test_regression_runner.py` using the modes `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, and `no-statistics`, confirming that each fails that item, and with `only:<item>:<mode>`, that the remaining items still run and pass
 - [ ] T027 [US1] Add command and isolation tests to `tests/test_regression_runner.py`, reading `stub_calls.jsonl`: scene and formula renders use `--nogui`, the fixed resolution, and `RENDER_OVERRIDES` in one `--override` option, formula renders add `formula_1=<id>`, every path is absolute, the output folder exists before the render starts, each render gets a different `HOME`, `LC_ALL` is `C.UTF-8`, and variables outside the allowlist, including `LD_LIBRARY_PATH` and `OMP_NUM_THREADS`, do not reach the render. The `--list-formulas` call gets the same environment rules
 
 ### Implementation for User Story 1
 
-- [ ] T028 [US1] Implement `load_scenes()` in `tests/regression_runner.py`, enforcing: "Names are unique within their kind. Two scenes with the same file name fail the run (FR-002).", "The scene list must not be empty, and every listed file must exist (FR-002).", and "A scene must not reference an asset by URL or absolute path (FR-002)." Ignore blank lines and lines starting with `#`, and detect assets with the tested pattern `^[A-Za-z0-9_]*(file|texture)[A-Za-z0-9_]* +"?(https?://|/|[A-Za-z]:[/\\])`
+- [ ] T028 [US1] Implement `load_scenes()` in `tests/regression_runner.py`, enforcing: "Names are unique within their kind. Two scenes with the same file name fail the run (FR-002).", "The scene list must not be empty, and every listed file must exist (FR-002).", "A scene must not reference an asset by URL or absolute path (FR-002).", and "A scene must not enable nebula mode (FR-002)." Ignore blank lines and lines starting with `#`, detect assets with the tested pattern `^[A-Za-z0-9_]*(file|texture)[A-Za-z0-9_]* +"?(https?://|/|[A-Za-z]:[/\\])`, and detect nebula mode with `^nebula_mode true`
 - [ ] T029 [US1] Implement `load_formulas(binary)` in `tests/regression_runner.py`: run the binary with `--list-formulas` in a temporary home, with `clean_environment`, the binary's folder as the working directory, and `FORMULA_TIMEOUT` as the time limit. Read the lines between `mandelbulber-formula-list 1` and `end`, and raise a setup failure that names the binary if it cannot start, times out, or exits non-zero, if either marker is missing, or if the list is empty
 - [ ] T030 [US1] Implement `load_exclusions()` and `build_work_items(binary)` in `tests/regression_runner.py`, with a Work Item of kind, name, source, formula ID, resolution, and time limit, enforcing: "Every formula from `--list-formulas` is a work item unless it is listed in `tests/formula_exclusions.txt` (FR-034)." and "An exclusion needs a reason and must name a formula the binary offers." Ignore blank lines and lines starting with `#` in the exclusions file. Scenes use `SCENE_RESOLUTION` and `SCENE_TIMEOUT`, and formulas use `FORMULA_BASE`, `FORMULA_RESOLUTION`, `FORMULA_TIMEOUT`, and `formula_1=<id>` added to the overrides
 - [ ] T031 [US1] Implement `render_item(item, binary, output_dir, thread_args=(), neutral=False)` in `tests/regression_runner.py`: remove earlier output, create `output_dir` before rendering because the app reports success when the folder is missing, create a temporary home for this render, build the command from `contracts/application-cli.md` with absolute paths, because the working directory changes, and run it with `clean_environment`, the item's time limit, and the binary's folder as the working directory. Save its output to a log file. A neutral render leaves out `normal_enabled=1` and `--verification-export`, and adds `color_quality=1`
@@ -144,7 +144,7 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 > **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
 
 - [ ] T035 [US2] Add self-parity tests to `tests/test_regression_runner.py`: with `THREAD_OPTION` patched to `--threads`, `same` mode passes and `stub_calls.jsonl` shows every item rendering three times at each thread count plus one neutral render, `unstable` fails and reports differing samples per item and buffer, `unstable:<buffer>` is caught for every buffer, and a self-parity run leaves every reference file unchanged
-- [ ] T036 [US2] Add coverage tests to `tests/test_regression_runner.py`: with `THREAD_OPTION = None`, a run with identical output exits 3 and states that thread coverage is incomplete, and a run with differing output exits 1 and reports both
+- [ ] T036 [US2] Add coverage tests to `tests/test_regression_runner.py`: with `THREAD_OPTION = None`, a run with identical output exits 3 and states that thread coverage is incomplete, a run with differing output exits 1 and reports both, and a missing binary exits 3 rather than 1
 - [ ] T037 [US2] Add neutral render tests to `tests/test_regression_runner.py`: `neutral-differs` fails that item, `no-neutral-image` fails that item, and a matching neutral render passes
 - [ ] T038 [US2] Add a platform test to `tests/test_regression_runner.py`: with `gate_valid` returning false, self-parity with identical output states that the run is not gate-valid and exits 3
 
@@ -222,7 +222,7 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 > **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
 
 - [ ] T059 [US4] Add capture success tests to `tests/test_regression_runner.py`: with `THREAD_OPTION` patched, capture writes every scene and formula reference plus `toolchain.txt` and `settings.txt`, a gate run then passes against that set, and a second capture of unchanged data is byte-identical
-- [ ] T060 [US4] Add capture refusal tests to `tests/test_regression_runner.py`: an `unstable` build fails and leaves existing references byte-for-byte unchanged, `THREAD_OPTION = None` refuses before any render runs, a not gate-valid platform refuses, a run with `CI` unset refuses before any render runs, a set over `MAX_REFERENCE_BYTES` fails, and with `only:<scene>:exit-3` on a scene part way through the list, capture leaves no partial set
+- [ ] T060 [US4] Add capture refusal tests to `tests/test_regression_runner.py`: an `unstable` build fails and leaves existing references byte-for-byte unchanged, `THREAD_OPTION = None` refuses before any render runs, a not gate-valid platform refuses, a run with `CI` unset refuses before any render runs, a set over `MAX_REFERENCE_BYTES` fails, `only:<scene>:exit-3` on a scene part way through the list leaves no partial set, a failed move during promotion restores the old set byte for byte, and a `KeyboardInterrupt` during rendering leaves references unchanged
 
 ### Implementation for User Story 4
 
@@ -245,7 +245,7 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 > **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
 
-- [ ] T065 [US6] Add compare mode tests to `tests/test_regression_runner.py` with two stand-in launchers in separate folders: identical output passes, a flipped bit or a `stat-plus-one:<name>` change in either build fails and names the item, a failed render on either build names that build, `extra-formula` and `missing-formula` are reported as differences, and the run works with no references and leaves any reference file untouched
+- [ ] T065 [US6] Add compare mode tests to `tests/test_regression_runner.py` with two stand-in launchers in separate folders: identical output passes, a flipped bit or a `stat-plus-one:<name>` change in either build fails and names the item, a failed render on either build names that build, a missing second binary exits 3 and names the path, `extra-formula` and `missing-formula` are reported as differences, and the run works with no references and leaves any reference file untouched
 - [ ] T066 [US6] Add report tests to `tests/test_regression_runner.py`: compare mode prints both toolchains and states that it is a local check that does not replace the gate, and with `gate_valid` returning false, identical output exits 0 and is labeled as not gate-valid
 
 ### Implementation for User Story 6
@@ -262,7 +262,9 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 **Purpose**: Complete the scene suite and confirm the feature's limits
 
-- [ ] T070 [P] Create `tests/scenes/beam_light.fract` with exactly the content below, which covers the beam light path that no example scene uses
+- [ ] T070 [P] Create `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract` with exactly the content below, which cover the beam light and HDR blur paths that no example scene uses
+
+  `tests/scenes/beam_light.fract`:
 
   ```text
   # Mandelbulber settings file
@@ -286,7 +288,26 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
   light1_intensity 2;
   ```
 
-- [ ] T071 Expand `tests/scenes.txt` to about 25 scenes, adding `tests/scenes/beam_light.fract`, with a total capped render time of about 90 seconds on 32 threads: about 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. It must exercise every stochastic CPU path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, time each candidate before adding it, and pass the asset check in `load_scenes()`
+  `tests/scenes/hdr_blur.fract`:
+
+  ```text
+  # Mandelbulber settings file
+  # version 2.35
+  # only modified parameters
+  [main_parameters]
+  camera 3 -6 2;
+  camera_distance_to_target 7;
+  camera_rotation 26.565 -16.60154 0;
+  camera_top -0.1277753 0.2555506 0.958314;
+  target 0 0 0;
+  N 50;
+  detail_level 1;
+  formula_1 2;
+  mat1_is_defined true;
+  hdr_blur_enabled true;
+  ```
+
+- [ ] T071 Expand `tests/scenes.txt` to about 25 scenes, adding `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract`, with a total capped render time of about 90 seconds on 32 threads: about 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. It must exercise every stochastic CPU path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, time each candidate before adding it, and pass the asset check in `load_scenes()`
 - [ ] T072 Review `tests/test_regression_runner.py` against the requirements in `specs/001-regression-harness/spec.md`, and add a test for any failure condition without one, so SC-001 and SC-002 are covered
 - [ ] T073 Format `mandelbulber2/src/verification_export.hpp`, `mandelbulber2/src/verification_export.cpp`, and the changed lines in `mandelbulber2/src/command_line_interface.cpp`, `mandelbulber2/src/command_line_interface.hpp`, `mandelbulber2/src/headless.cpp`, and `mandelbulber2/src/headless.h` to match `.clang-format`
 - [ ] T074 Run `python3 tests/test_regression_runner.py` and all scenarios in `specs/001-regression-harness/quickstart.md`, and record any result that differs from what the guide expects
@@ -358,7 +379,7 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 - **Phase 1**: T002, T003, and T004
 - **Phase 2**: T007 can run with T019 and T020. The C++ tasks (T007 to T018) and the shared harness tasks (T019 to T022) are separate tracks, and one person can work on each
 - **After US5**: US3 and US6 are independent of each other, but they edit the same files, so run them one at a time unless working on separate branches
-- **Phase 9**: T070 can run alongside other Polish work, because it creates a new file
+- **Phase 9**: T070 can run alongside other Polish work, because it creates new files
 - **Within a story**: There are no `[P]` tasks, because every story edits `tests/regression_runner.py` and `tests/test_regression_runner.py`
 
 ---

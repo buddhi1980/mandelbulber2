@@ -87,6 +87,7 @@ tests/
 ├── regression_runner.py        # The harness
 ├── scenes.txt                  # Standard Scene Suite
 ├── scenes/beam_light.fract     # Purpose-built scene for the beam light path
+├── scenes/hdr_blur.fract       # Purpose-built scene for the HDR blur path
 ├── formula_sweep_base.fract    # Fixed base scene for the sweep
 ├── formula_exclusions.txt      # Excluded formulas, with reasons
 ├── stub_renderer.py            # Stand-in renderer for tests
