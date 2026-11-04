@@ -9,7 +9,7 @@ The [project constitution](.specify/memory/constitution.md) governs this process
 | Phase | Result | Closes | Complete when |
 |---|---|---|---|
 | 1. Setup | Spec Kit and the constitution are in place | None | Done |
-| 2. Harness | The regression runner exists, with no references yet | Part of KD-4 | The runner's failure checks pass |
+| 2. Harness | The regression runner and verification export exist, with no references yet | Part of KD-4 | The runner's failure checks pass |
 | 3. Determinism Foundation | Renders reproduce and floating-point flags are locked | KD-1, KD-2, KD-3 | `--self-parity` passes at two thread counts and the CI flag check passes |
 | 4. Baseline 1 and Gate | References and the CI parity gate are live | KD-4 | Baseline 1 is merged and the gate is required |
 | 5. Upgrades | Refactoring can begin | None | Repeats for each upgrade |
@@ -43,249 +43,40 @@ We do not refactor production code until we build the automated harness capable 
 **Do not capture references in this phase.** A reference captured now would fail against itself (KD-1). This phase ends with a runner that correctly reports that failure.
 
 ### 1. Define the Harness Specification
-Create the feature branch, then generate the specification. Spec Kit places it in a numbered folder, such as `specs/001-regression-harness/`:
-```bash
-git checkout -b upgrade/regression-harness
-claude -c "/speckit-specify Create a specification for a headless differential testing engine. It reads a version-controlled scene list from tests/scenes.txt, renders each .fract file with the mandelbulber2 CPU engine using --nogui, and compares decoded 32-bit float TIFF samples against per-target reference data with exact bitwise equality and no tolerance. It needs three modes: self-parity, reference capture, and gate. It must fail on an empty scene list, a missing scene, a failed settings load, or a missing output file, and must not rely on the exit code, because the application exits 0 after a failed load or a failed save. It must also record final render statistics from cStatistics (total iterations, raymarch count, missed DE, and the iteration and step-count histograms) and diff them exactly, excluding time-based values. No deterministic export of these statistics exists, so the spec must define one. All written image channels must be compared, and the spec must decide whether to enable the z-buffer and normal channels as well."
-```
+This step is complete. The specification is in [specs/001-regression-harness/spec.md](specs/001-regression-harness/spec.md). Its Clarifications section records five decisions that changed the original request:
+
+- The harness compares the application's raw buffers through a new verification export, instead of TIFF files.
+- Every render uses one fixed Monte Carlo sample cap.
+- The gate covers a sweep of every formula as well as the scene suite.
+- A fourth mode compares two builds on one machine, for local checks.
+- The export is written only after a successful load and render, so its presence proves success.
 
 ### 2. Design the Implementation Breakdown
-Convert your specification into technical tasks:
+Convert the specification into technical tasks:
 ```bash
-claude -c "/speckit-clarify Analyze the mandelbulber2 build system, headless execution flags, and C++ structure to surface any hidden ambiguities before creating the technical implementation design plan."
-claude -c "/speckit-plan Design the architecture for the regression engine using a standalone Python script at tests/regression_runner.py that uses only the standard library, targets the installed binary at mandelbulber2/build/appdir/usr/bin/mandelbulber2, and compares decoded TIFF samples bit for bit."
-claude -c "/speckit-tasks Break down the implementation into incremental, discrete engineering items inside tasks.md. Keep the runner isolated from core C++ production code. The only C++ change allowed is the statistics export, which must only read existing counters. Add tests/outputs/ to .gitignore. Do not capture references."
+claude -c "/speckit-plan Design the architecture for the regression engine from specs/001-regression-harness/spec.md. Use a standalone Python script at tests/regression_runner.py that uses only the standard library and targets the installed binary at mandelbulber2/build/appdir/usr/bin/mandelbulber2. Gate is the default mode, with --self-parity, --capture, and --compare followed by the path of a second binary. Design the opt-in verification export in the application, including its file format. Settle these open items: how capture fits CI given that it renders everything about eight times, how references stay under 100 MB, where the formula list comes from because the CLI cannot list formulas, how toolchain identity is recorded because the binary does not store it, and how two-pass stereo scenes are handled because statistics reset on each pass."
+claude -c "/speckit-tasks Break down the implementation into incremental, discrete engineering items inside tasks.md. Keep the runner isolated from core C++ production code. The only C++ change allowed is the verification export, which must only read values the renderer has already produced and must be written only after a successful settings load and render. Add tests/outputs/ to .gitignore. Do not capture references."
 ```
 
-### 3. Generate the Harness Boilerplate
-These application behaviors shape the runner. They were tested on a Windows build. The Linux install layout and `HOME` handling come from reading the source, because they have not been run yet.
+### 3. Review the Application Behaviors
+The harness depends on these behaviors. They were tested on a Windows build. The Linux install layout and `HOME` handling come from reading the source, because they have not been run yet.
 
 | Need | Use | Why |
 |---|---|---|
 | Headless render | `--nogui`, with the scene file as a positional argument | The app exits by itself after saving |
-| Full precision | `--format tiff --override color_quality=2` | Plain `--format tiff` saves 8-bit, which hides small drift. This saves 32-bit float RGB |
-| Boolean overrides | `name=1` or `name=0` | `name=true` has no effect |
+| Full precision | The new verification export | TIFF color at `color_quality=2` is 16-bit data stored as float, EXR color comes from before post effects, and no format saves the float image after them |
+| Overrides | One `--override` option, with `#` between items, and `name=1` or `name=0` for booleans | `name=true` has no effect |
+| Monte Carlo cost | `--override DOF_samples=8#DOF_min_samples=4` on every render | At 320x240 on 32 threads, scenes took 47 to 90+ seconds as authored and 5 to 41 seconds capped |
+| Formula sweep | `--override formula_1=<id>` with `--res 32x24` on one base scene | The CLI cannot list formulas, so the plan must choose another source. `Custom OpenCL formula` has no CPU code and needs a listed exclusion |
 | Binary location | The installed tree, `mandelbulber2/build/appdir/usr/bin/mandelbulber2` | On Linux the app finds its data at `../share/mandelbulber2` relative to the binary, or at `/usr/share/mandelbulber2`. A binary left in the build folder has neither |
 | Isolation | A temporary `HOME` and a fixed `LC_ALL` | Otherwise the app reads per-user settings. Windows ignores this, so Windows runs are for debugging only |
-| Failure detection | Check the scene, the output file, and the output text | The app exits 0 and prints `Image saved to:` even when the target folder is missing. A bad settings file also exits 0, after rendering default parameters |
-| Computation logs | A dedicated statistics export | Log lines start with a process ID and elapsed time, `--stats` prints values rounded to six significant digits, and `--logfilepath` wrote no file in testing |
+| Failure detection | Require the export, then check the output text | The app exits 0 and prints `Image saved to:` even when the target folder is missing. A bad settings file or a missing texture also exits 0 |
+| Computation logs | The statistics record in the export | Log lines start with a process ID and elapsed time, `--stats` prints values rounded to six significant digits, and `--logfilepath` wrote no file in testing |
 
-Instruct Claude Code to write the runner to your repository, then create `tests/scenes.txt`:
+An earlier TIFF-based prototype of the runner is in commit `fbcc70492`. Its comparison no longer applies, but its temporary home directory and failure checks were tested and can be reused.
 
-```bash
-claude -c "Write the Python template below to tests/regression_runner.py and create tests/scenes.txt. Keep the template's checks. Add statistics comparison once the export exists."
-```
-
-```python
-#!/usr/bin/env python3
-"""Zero-drift regression runner for the mandelbulber2 CPU engine.
-
-  python3 tests/regression_runner.py                compare renders against references (the gate)
-  python3 tests/regression_runner.py --self-parity  require repeated renders to match each other
-  python3 tests/regression_runner.py --capture      write new references (Baseline Change only)
-"""
-import argparse
-import os
-import shutil
-import struct
-import subprocess
-import sys
-import tempfile
-import zlib
-
-BINARY = os.environ.get("MANDELBULBER_BINARY", "mandelbulber2/build/appdir/usr/bin/mandelbulber2")
-TARGET = os.environ.get("PARITY_TARGET", "linux-x86_64-gcc")
-SCENE_LIST = os.path.join("tests", "scenes.txt")
-REF_DIR = os.path.join("tests", "references", TARGET)
-OUT_DIR = os.path.join("tests", "outputs")
-RESOLUTION = "320x240"
-RENDER_TIMEOUT_SECONDS = 1800
-SELF_PARITY_RUNS = 3
-# Extra CLI arguments for each Self-Parity thread setting. When KD-1 gives --nogui a working
-# thread control, add a second entry that forces one thread. Capture is refused until then.
-THREAD_SETTINGS = [[]]
-# color_quality=2 saves 32-bit float. The default is 8-bit, which hides small drift.
-OVERRIDES = "color_quality=2#opencl_enabled=0"
-# The app exits 0 after these failures, so the exit code alone cannot be trusted.
-FAILURE_MARKERS = ("not valid Mandelbulber settings file", "No materials defined")
-
-
-class RenderError(Exception):
-    pass
-
-
-def scene_name(scene):
-    return os.path.splitext(os.path.basename(scene))[0]
-
-
-def load_scenes():
-    with open(SCENE_LIST, encoding="utf-8") as file:
-        scenes = [line.strip() for line in file if line.strip() and not line.startswith("#")]
-    if not scenes:
-        raise RenderError(f"{SCENE_LIST} lists no scenes")
-    missing = [scene for scene in scenes if not os.path.isfile(scene)]
-    if missing:
-        raise RenderError(f"scene files not found: {missing}")
-    names = [scene_name(scene) for scene in scenes]
-    if len(set(names)) != len(names):
-        raise RenderError("scene file names must be unique")
-    return scenes
-
-
-def run_headless_render(scene, output_base, extra_args=()):
-    """Renders one scene with an isolated home directory and returns the saved TIFF path."""
-    image = output_base + ".tiff"
-    if os.path.exists(image):
-        os.remove(image)
-    # The app reports "Image saved" and exits 0 when the target folder does not exist.
-    os.makedirs(os.path.dirname(output_base), exist_ok=True)
-    binary = os.path.abspath(BINARY)
-    cmd = [binary, "--nogui", "--format", "tiff", "--res", RESOLUTION, "--override", OVERRIDES]
-    cmd += [*extra_args, "--output", os.path.abspath(output_base), os.path.abspath(scene)]
-    with tempfile.TemporaryDirectory(prefix="mandelbulber-home-") as home:
-        env = dict(os.environ, HOME=home, LC_ALL="C.UTF-8")
-        # On Windows the app loads its program data from the working directory.
-        result = subprocess.run(
-            cmd,
-            cwd=os.path.dirname(binary),
-            env=env,
-            capture_output=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=RENDER_TIMEOUT_SECONDS,
-        )
-    output = result.stdout + result.stderr
-    with open(output_base + ".log", "w", encoding="utf-8") as log:
-        log.write(output)
-    if result.returncode != 0:
-        raise RenderError(f"{scene}: exit code {result.returncode}, see {output_base}.log")
-    for marker in FAILURE_MARKERS:
-        if marker in output:
-            raise RenderError(f"{scene}: {marker}, see {output_base}.log")
-    if not os.path.isfile(image):
-        raise RenderError(f"{scene}: no image written, see {output_base}.log")
-    return image
-
-
-def read_tiff(path):
-    """Decodes a deflate TIFF and returns its layout and raw sample bytes, without conversion."""
-    with open(path, "rb") as file:
-        data = file.read()
-    order = {b"II": "<", b"MM": ">"}.get(data[:2])
-    if order is None or struct.unpack(order + "H", data[2:4])[0] != 42:
-        raise RenderError(f"{path}: not a classic TIFF")
-    ifd = struct.unpack(order + "I", data[4:8])[0]
-    tags = {}
-    for index in range(struct.unpack(order + "H", data[ifd : ifd + 2])[0]):
-        entry = ifd + 2 + index * 12
-        tag, kind, count = struct.unpack(order + "HHI", data[entry : entry + 8])
-        code = {3: "H", 4: "I"}.get(kind)
-        if code is None:
-            continue
-        size = count * struct.calcsize(code)
-        offset = entry + 8
-        if size > 4:
-            offset = struct.unpack(order + "I", data[offset : offset + 4])[0]
-        tags[tag] = struct.unpack(f"{order}{count}{code}", data[offset : offset + size])
-    if tags.get(259) not in ((8,), (32946,)) or tags.get(317, (1,)) != (1,):
-        raise RenderError(f"{path}: unsupported TIFF compression or predictor")
-    width, height = tags[256][0], tags[257][0]
-    bits, samples_per_pixel = tags[258], tags[277][0]
-    strips = zip(tags[273], tags[279])
-    samples = b"".join(zlib.decompress(data[start : start + size]) for start, size in strips)
-    if len(samples) != width * height * samples_per_pixel * bits[0] // 8:
-        raise RenderError(f"{path}: decoded size does not match the image layout")
-    return (width, height, bits, samples_per_pixel, tags.get(339)), samples
-
-
-def compare_images(reference, current):
-    """Compares decoded samples bit for bit. There is no tolerance."""
-    ref_layout, ref_samples = read_tiff(reference)
-    cur_layout, cur_samples = read_tiff(current)
-    if ref_layout != cur_layout:
-        return False, f"layout differs: {ref_layout} vs {cur_layout}"
-    if ref_samples == cur_samples:
-        return True, "exact match"
-    step = ref_layout[2][0] // 8
-    offsets = range(0, len(ref_samples), step)
-    differing = sum(ref_samples[i : i + step] != cur_samples[i : i + step] for i in offsets)
-    return False, f"{differing} of {len(offsets)} samples differ"
-
-
-def check_self_parity(scenes):
-    passed = True
-    for scene in scenes:
-        name = scene_name(scene)
-        first = None
-        for setting, extra_args in enumerate(THREAD_SETTINGS):
-            for run in range(SELF_PARITY_RUNS):
-                base = os.path.join(OUT_DIR, "self-parity", f"{name}-s{setting}-r{run}")
-                image = run_headless_render(scene, base, extra_args)
-                first = first or image
-                same, detail = compare_images(first, image)
-                passed = passed and same
-                print(f"[{'+' if same else '-'}] {name} s{setting} r{run}: {detail}", flush=True)
-    return passed
-
-
-def capture_references(scenes):
-    if len(THREAD_SETTINGS) < 2:
-        raise RenderError("Self-Parity needs a second thread setting, see KD-1")
-    if not check_self_parity(scenes):
-        return False
-    os.makedirs(REF_DIR, exist_ok=True)
-    for scene in scenes:
-        name = scene_name(scene)
-        image = run_headless_render(scene, os.path.join(OUT_DIR, name))
-        shutil.copyfile(image, os.path.join(REF_DIR, name + ".tiff"))
-        print(f"[+] {name}: reference captured", flush=True)
-    return True
-
-
-def compare_against_references(scenes):
-    passed = True
-    for scene in scenes:
-        name = scene_name(scene)
-        reference = os.path.join(REF_DIR, name + ".tiff")
-        if not os.path.isfile(reference):
-            passed = False
-            print(f"[-] {name}: no reference at {reference}", flush=True)
-            continue
-        image = run_headless_render(scene, os.path.join(OUT_DIR, name))
-        same, detail = compare_images(reference, image)
-        passed = passed and same
-        print(f"[{'+' if same else '-'}] {name}: {detail}", flush=True)
-    return passed
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
-    )
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--self-parity", action="store_true")
-    mode.add_argument("--capture", action="store_true")
-    args = parser.parse_args()
-    try:
-        scenes = load_scenes()
-        if args.self_parity:
-            passed = check_self_parity(scenes)
-        elif args.capture:
-            passed = capture_references(scenes)
-        else:
-            passed = compare_against_references(scenes)
-    except (RenderError, OSError, subprocess.TimeoutExpired) as error:
-        print(f"[-] {error}", file=sys.stderr)
-        return 1
-    print("[+] All scenes passed" if passed else "[-] Parity failed", flush=True)
-    return 0 if passed else 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
-
-`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes that exercise Monte Carlo depth of field, global illumination, and ambient occlusion, as the constitution requires:
+### 4. Implement and Verify
+`tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes that exercise Monte Carlo depth of field, global illumination, and ambient occlusion, as the constitution requires. A scene that references an asset by URL or absolute path fails the run, so leave those out:
 
 ```text
 # Standard Scene Suite
@@ -293,11 +84,10 @@ mandelbulber2/deploy/share/mandelbulber2/examples/IFS_001.fract
 mandelbulber2/deploy/share/mandelbulber2/examples/Makin3D-Julia_001.fract
 ```
 
-### 4. Implement and Verify
 Have Claude complete the implementation loop:
 ```bash
-claude -c "/speckit-implement Iteratively write code to satisfy the checklist items found inside tasks.md. Wire tests/regression_runner.py to the scene list in tests/scenes.txt and the installed binary. Do not create anything under tests/references/ in this phase."
-claude -c "/speckit-converge Confirm that one flipped bit in a float sample fails the comparison, that an unstable render blocks capture and writes no references, and that a missing scene, a failed settings load, and a missing output file each fail. Confirm that --self-parity fails on the current build, which is the expected KD-1 result."
+claude -c "/speckit-implement Iteratively write code to satisfy the checklist items found inside tasks.md. Wire tests/regression_runner.py to the scene list in tests/scenes.txt, the formula sweep, and the installed binary. Do not create anything under tests/references/ in this phase."
+claude -c "/speckit-converge Confirm that one flipped bit in any buffer and a change of 1 in any statistic each fail the comparison, that an unstable render blocks capture and writes no references, and that a missing scene, a failed settings load, a missing texture, and a missing or incomplete export each fail. Confirm that --self-parity fails on the current build, which is the expected KD-1 result."
 ```
 
 Build the installed tree on Linux, then run the check. The `mandelbulber2/qmake` folder holds several `.pro` files, so `qmake6` must be given one by name:
@@ -320,10 +110,10 @@ These changes close KD-1, KD-2, and KD-3. They are the only engine changes permi
 Specify the fix on its own branch, then run `/speckit-plan`, `/speckit-tasks`, and `/speckit-implement`:
 ```bash
 git checkout -b upgrade/deterministic-rendering
-claude -c "/speckit-specify Close KD-1 from the constitution by making CPU renders reproducible. First confirm the cause, because it is not yet proven: render threads share the unsynchronized global gRandomSeed in common_math.cpp, and Random() runs on every raymarch step. Replace that shared state so each random value derives only from a seed fixed in the scene or harness and from the pixel and sample position. Cover every CPU caller of Random(): render_worker, dof, light, ssao_worker, shader_ambient_occlusion, shader_aux_shadow, shader_global_illumination, shader_specular_highlight, and shader_volumetric. Audit the OpenMP regions in cimage, denoiser, dof, and post_effect_hdr_blur for order-dependent results. Make the render statistics exact: all render threads update one shared statistics object with no synchronization, and identical renders reported total iterations that differed by about 30 percent. Total iterations, raymarch count, missed DE, and both histograms must give the same values at every thread count, without changing rendered output. Give --nogui a working thread-count control, because limit_CPU_cores is only applied by the GUI startup path and the queue. Success means --self-parity passes for images and statistics at one thread and at all available threads."
+claude -c "/speckit-specify Close KD-1 from the constitution by making CPU renders reproducible. First confirm the cause, because it is not yet proven: render threads share the unsynchronized global gRandomSeed in common_math.cpp, and Random() runs on every raymarch step. Replace that shared state so each random value derives only from a seed fixed in the scene or harness and from the pixel and sample position. Cover every CPU caller of Random(): render_worker, dof, light, ssao_worker, shader_ambient_occlusion, shader_aux_shadow, shader_global_illumination, shader_specular_highlight, and shader_volumetric. Audit the OpenMP regions in dof and post_effect_hdr_blur for order-dependent results. Make the render statistics exact: all render threads update one shared statistics object with no synchronization, and identical renders reported total iterations that differed by about 30 percent. Total iterations, raymarch count, missed DE, and both histograms must give the same values at every thread count, without changing rendered output. Give --nogui a working thread-count control that also governs those OpenMP regions, because limit_CPU_cores is only applied by the GUI startup path and the queue. Success means --self-parity passes for all engine buffers and statistics at one thread and at all available threads."
 ```
 
-When the thread control exists, add its one-thread arguments as a second entry in `THREAD_SETTINGS` in the runner. Until then, `--self-parity` covers only one thread setting and `--capture` is refused.
+Once the thread control exists, enable the second thread count in the runner. Until then, `--self-parity` cannot report a pass and `--capture` is refused.
 
 ### 2. Lock Floating-Point Behavior (KD-2, KD-3)
 Specify this as a separate change:
@@ -378,7 +168,7 @@ jobs:
 
 The image tag is pinned on purpose. A new image can change the compiler or math library, which makes it a Reference Target change.
 
-Phase 3 is complete when `--self-parity` passes at two thread settings with both changes merged, and `parity-gate` passes in CircleCI.
+Phase 3 is complete when `--self-parity` passes at two thread counts with both changes merged, and `parity-gate` passes in CircleCI.
 
 ---
 
@@ -412,9 +202,7 @@ jobs:
       - build-engine
       - run:
           name: Capture References
-          command: |
-            python3 tests/regression_runner.py --capture
-            { g++ --version | head -1; ldd --version | head -1; } > tests/references/linux-x86_64-gcc/toolchain.txt
+          command: python3 tests/regression_runner.py --capture
       - store_artifacts:
           path: tests/references
           destination: baseline-references
@@ -429,6 +217,8 @@ workflows:
             branches:
               only: /^baseline\/.*/
 ```
+
+Capture renders every scene and formula about eight times, so it takes far longer than the gate. The harness plan decides how this job fits your CircleCI limits.
 
 ### 2. Capture Baseline 1
 Baseline 1 is a Baseline Change, so its pull request contains only reference files. References must come from CI rather than a development machine:
@@ -445,7 +235,7 @@ In the GitHub branch protection rules for `master`, mark `parity-gate` as a requ
 
 ### 4. Prove the Gate Catches Drift
 ```bash
-claude -c "On a throwaway branch, change one constant in a formula used by a scene in tests/scenes.txt, confirm that the parity-gate job fails on that scene, then delete the branch without merging it."
+claude -c "On a throwaway branch, change one constant in a formula that no scene in tests/scenes.txt uses, confirm that the parity-gate job fails on that formula in the sweep, then delete the branch without merging it."
 ```
 
 ### 5. Close the Known Deviations
@@ -478,14 +268,28 @@ claude -c "/speckit-implement Implement the Qt6 abstraction interfaces and type 
 ```
 
 ### Step 4: Run the Parity Gatekeeper
-Verify that changes compile cleanly and yield identical output before pushing:
+Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `master` build on the same machine. This is a local check, and the CircleCI gate stays the authority.
+
+Build `master` once in a separate worktree:
+```bash
+git worktree add ../mandelbulber2-master master
+(
+  mkdir -p ../mandelbulber2-master/mandelbulber2/build
+  cd ../mandelbulber2-master/mandelbulber2/build
+  qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
+  make -j$(nproc)
+  make INSTALL_ROOT=appdir install
+)
+```
+
+Then build your branch and compare it with that build:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
 make -j$(nproc)
 make INSTALL_ROOT=appdir install
 cd ../..
-python3 tests/regression_runner.py
+python3 tests/regression_runner.py --compare ../mandelbulber2-master/mandelbulber2/build/appdir/usr/bin/mandelbulber2
 ```
 
 *If convergence parameters require adjustment:*
@@ -496,7 +300,7 @@ claude -c "/speckit-converge Audit the decoupled abstraction code, verify that n
 A parity failure is a defect in the change. Do not regenerate references to clear it.
 
 ### Step 5: Merge and Push to CircleCI Verification Gating
-When all test scenarios report an **exact match**, push your changes so the `parity-gate` job can verify them on the Reference Target:
+When compare mode reports **no differences**, push your changes so the `parity-gate` job can verify them on the Reference Target:
 ```bash
 git add mandelbulber2 specs
 git commit -m "refactor(core): implemented abstract interface layer to decouple engine from Qt6 types"
@@ -513,15 +317,15 @@ After Phase 4, add this structural snippet to the main project workspace documen
 
 This project uses **CircleCI** alongside a custom differential testing framework to guarantee **Zero Behavioral Drift** across core fractal calculation models and rendering loops during upgrades or optimizations.
 
-The regression gate builds the codebase with `qmake6`, renders a fixed scene list headlessly, and compares the decoded 32-bit float image samples against per-platform references, bit for bit.
+The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit.
 
 ### Locally Testing Parity
-Before committing changes to feature branches, run the local gatekeeper check on Linux to confirm that your change produces an exact match against the reference baseline:
+Before committing changes to feature branches, compare your branch with a `master` build on the same Linux machine. This works with any toolchain, and the CircleCI gate stays the authority:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
 make -j$(nproc)
 make INSTALL_ROOT=appdir install
 cd ../..
-python3 tests/regression_runner.py
+python3 tests/regression_runner.py --compare <path to a master build's installed binary>
 ```
