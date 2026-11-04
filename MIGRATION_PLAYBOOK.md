@@ -43,7 +43,21 @@ We do not refactor production code until we build the automated harness capable 
 **Do not capture references in this phase.** A reference captured now would fail against itself (KD-1). This phase ends with a runner that correctly reports that failure.
 
 ### 1. Define the Harness Specification
-This step is complete. The specification is in [specs/001-regression-harness/spec.md](specs/001-regression-harness/spec.md). Its Clarifications section records five decisions that changed the original request:
+This step is complete. The commands below are a record of how the specification was created, shown as they were run, and do not need to be run again. The result is in [specs/001-regression-harness/spec.md](specs/001-regression-harness/spec.md). Spec Kit places each specification in a numbered folder, and this prompt still asks for TIFF comparison and three modes, which clarification later replaced:
+```bash
+git checkout -b upgrade/regression-harness
+claude -c "/speckit-specify Create a specification for a headless differential testing engine. It reads a version-controlled scene list from tests/scenes.txt, renders each .fract file with the mandelbulber2 CPU engine using --nogui, and compares decoded 32-bit float TIFF samples against per-target reference data with exact bitwise equality and no tolerance. It needs three modes: self-parity, reference capture, and gate. It must fail on an empty scene list, a missing scene, a failed settings load, or a missing output file, and must not rely on the exit code, because the application exits 0 after a failed load or a failed save. It must also record final render statistics from cStatistics (total iterations, raymarch count, missed DE, and the iteration and step-count histograms) and diff them exactly, excluding time-based values. No deterministic export of these statistics exists, so the spec must define one. All written image channels must be compared, and the spec must decide whether to enable the z-buffer and normal channels as well."
+```
+
+### 2. Design the Implementation Breakdown
+These steps are also complete, and the commands are a record, shown as they were run. The documents they produced are the source of truth: the [plan](specs/001-regression-harness/plan.md) and the [task list](specs/001-regression-harness/tasks.md). The plan prompt predates the move to GitHub Actions, so its CI wording is out of date:
+```bash
+claude -c "/speckit-clarify Analyze the mandelbulber2 build system, headless execution flags, and C++ structure to surface any hidden ambiguities before creating the technical implementation design plan."
+claude -c "/speckit-plan Design the architecture for the regression engine from specs/001-regression-harness/spec.md. Use a standalone Python script at tests/regression_runner.py that uses only the standard library and targets the installed binary at mandelbulber2/build/appdir/usr/bin/mandelbulber2. Gate is the default mode, with --self-parity, --capture, and --compare followed by the path of a second binary. Design the opt-in verification export in the application, including its file format. Settle these open items: how capture fits CI given that it renders everything about eight times, how references stay under 100 MB, where the formula list comes from because the CLI cannot list formulas, how toolchain identity is recorded because the binary does not store it, and how two-pass stereo scenes are handled because statistics reset on each pass."
+claude -c "/speckit-tasks Break down the implementation into incremental, discrete engineering items inside tasks.md. Keep the runner isolated from core C++ production code. The only C++ changes allowed are the verification export and the read-only --list-formulas option, which must only read values that already exist. The export must be written only after a successful settings load and render. Add tests/outputs/ to .gitignore. Do not capture references."
+```
+
+Clarification recorded five decisions that changed the original request:
 
 - The harness compares the application's raw buffers through a new verification export, instead of TIFF files.
 - Every render uses one fixed Monte Carlo sample cap.
@@ -51,10 +65,9 @@ This step is complete. The specification is in [specs/001-regression-harness/spe
 - A fourth mode compares two builds on one machine, for local checks.
 - The export is written only after a successful load and render, so its presence proves success.
 
-### 2. Design the Implementation Breakdown
-The design is complete, in [specs/001-regression-harness/plan.md](specs/001-regression-harness/plan.md). Convert it into technical tasks:
+Before implementing, you can optionally check the three documents for gaps and contradictions. This command only reports findings and changes no files:
 ```bash
-claude -c "/speckit-tasks Break down the implementation into incremental, discrete engineering items inside tasks.md. Keep the runner isolated from core C++ production code. The only C++ changes allowed are the verification export and the read-only --list-formulas option, which must only read values that already exist. The export must be written only after a successful settings load and render. Add tests/outputs/ to .gitignore. Do not capture references."
+claude -c "/speckit-analyze Check spec.md, plan.md, and tasks.md in specs/001-regression-harness for gaps, contradictions, and conflicts with the constitution."
 ```
 
 ### 3. Review the Application Behaviors
