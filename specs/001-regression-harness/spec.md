@@ -153,7 +153,9 @@ An engine developer compares their branch against master on their own machine, b
 - **Toolchain mismatch**: The report shows when the toolchain differs from the one recorded with the references. Matching output passes, because that demonstrates equality. Differing output is a Reference Target mismatch, because a difference between targets is not drift. Compare mode is the local check for that case.
 - **Asset found by the alternate-location search**: This counts as a failure even if the render completes, because the search looks outside the repository, including the user's home folder.
 - **Partly loaded settings**: The application tolerates up to 3 bad lines in a settings file and still reports success, so the harness fails a scene that prints a settings line error.
-- **Two-pass stereo scenes**: Statistics and float buffers describe the last eye only, because the application resets statistics on each pass. The final image holds both eyes, so drift in the first eye still fails there.
+- **System data folder**: If the application finds no data folder beside the binary, it falls back to `/usr/share/mandelbulber2`. That is outside the repository and build output, so the harness fails the render.
+- **Missing binary**: A binary that does not exist or will not start fails the run as a setup error and names the path.
+- **Two-pass stereo scenes**: Statistics and every buffer except the final image describe the last eye only, because the application resets statistics on each pass and mixes only the final image. The final image holds both eyes, so drift in the first eye still fails there.
 
 ## Requirements *(mandatory)*
 
@@ -174,12 +176,12 @@ An engine developer compares their branch against master on their own machine, b
 
 **Failure detection**
 
-- **FR-008**: The harness MUST NOT treat a zero exit status as success. A scene succeeds only if the exit status is zero, the application reported no settings load failure or settings line error, no asset load failure, and no alternate-location asset search, and the verification export exists, is complete, and is valid.
+- **FR-008**: The harness MUST NOT treat a zero exit status as success. A scene succeeds only if the exit status is zero, the application reported no settings load failure or settings line error, no asset load failure, no alternate-location asset search, and no fallback to a system data folder, and the verification export exists, is complete, and is valid.
 - **FR-009**: Any failed check in FR-008 MUST fail the run and identify the scene and the cause.
 
 **Engine buffers**
 
-- **FR-010**: Each gated render MUST produce a verification export containing five engine buffers at the engine's own precision: the raw render, the post-effect image, the final image, depth, and normal.
+- **FR-010**: Each gated render MUST produce a verification export containing seven engine buffers at the engine's own precision: the raw render, the post-effect image, the final image, alpha, depth, normal, and world normal.
 - **FR-011**: The harness MUST compare every buffer in the export. A missing buffer or an unexpected buffer MUST fail the scene.
 - **FR-012**: Self-parity MUST include one render of each scene with the normal buffer and the verification export switched off, and the final image it saves MUST match the final-image buffer of the gated renders.
 
@@ -209,7 +211,7 @@ An engine developer compares their branch against master on their own machine, b
 - **FR-025**: The statistics record MUST contain total iterations, raymarch count, missed DE count, and every bucket of the iteration and step-count histograms, including the overflow bucket.
 - **FR-026**: Buffers MUST hold the engine's exact values, with no scaling, normalization, gamma, or quantization added by the export. Every statistics value MUST be an exact whole number in a fixed order, and the export MUST use a versioned format. It MUST NOT contain time-based values, rates, process IDs, host names, file paths, or locale-dependent formatting.
 - **FR-027**: The export MUST only read values the renderer has already produced. It MUST NOT add work to the render path or change any rendered output, and without the request the application MUST behave exactly as it does today.
-- **FR-028**: Statistics MUST be compared exactly in every mode. A mismatch MUST name the statistic and both values.
+- **FR-028**: Statistics MUST be compared exactly in every mode. A difference MUST name the statistic and both values.
 
 **Reporting and scope**
 
@@ -232,21 +234,21 @@ An engine developer compares their branch against master on their own machine, b
 **Capture and suite coverage**
 
 - **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
-- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter, Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration, rough surfaces, specular roughness, post-effect depth of field, multi-ray ambient occlusion, random screen-space ambient occlusion, volumetric rendering, beam lights, and the seeded paths: random lights, Perlin noise on materials, and clouds.
+- **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds.
 
 ### Decisions
 
 **Compared data: export the engine's buffers directly.**
 
 - **Why**: The application's image formats cannot deliver the full precision the constitution requires. Every color sample in a TIFF saved at `color_quality=2` sits on a 1/65536 grid, so it is 16-bit data stored as float. EXR color holds true floats but comes from before SSAO, depth of field, HDR blur, and tone mapping. No format saves the float image after those effects, and saved z-buffers are rescaled per image.
-- **Buffers**: The raw render is the float image before post effects. The post-effect image is the float image after SSAO, depth of field, and HDR blur. The final image is the 16-bit result of brightness, contrast, and gamma. Depth is the true hit distance. Normal is the surface direction.
-- **Cost**: One render produces all five, with no new library. Uncompressed, they take 46 bytes per pixel, about 3.5 MB per scene at 320x240.
+- **Buffers**: The raw render is the float image before post effects. The post-effect image is the float image after SSAO, depth of field, and HDR blur. The final image is the 16-bit result of brightness, contrast, and gamma. Alpha is the 16-bit transparency channel. Depth is the true hit distance. Normal is the surface direction relative to the camera, and world normal is the same direction in scene coordinates.
+- **Cost**: One render produces all seven, with no new library. Uncompressed, they take 60 bytes per pixel, about 4.6 MB per scene at 320x240.
 
-**Extra buffers: include depth and normal alongside color.**
+**Extra buffers: include alpha, depth, and both normals alongside color.**
 
-- **Why**: Color is the shaded end result, so clipping, fog, and dark regions can hide a change in geometry. Depth and normal record hit distance and surface orientation directly, and they show a developer whether drift began in geometry or in shading.
-- **Risk**: The gated configuration is not the default one. Depth is always computed, and the normal buffer only transforms a vector the shader has already produced, so the final image is not expected to change. FR-012 confirms this rather than assuming it.
-- **Not included**: Alpha, specular, diffuse, world position, world normal, shadow, global illumination, and not-denoised. Adding one later is a Baseline Change.
+- **Why**: Color is the shaded end result, so clipping, fog, and dark regions can hide a change in geometry. Depth and normal record hit distance and surface orientation directly, and they show a developer whether drift began in geometry or in shading. The constitution also requires every channel the engine writes to be compared, and the engine writes alpha and world normal on every render, whatever the settings.
+- **Risk**: The gated configuration is not the default one. Depth, alpha, and world normal are always written, and the normal buffer only transforms a vector the shader has already produced, so the final image is not expected to change. FR-012 confirms this rather than assuming it.
+- **Not included**: Specular, diffuse, world position, shadow, global illumination, and not-denoised. The engine writes these only when they are enabled, and gated renders leave them off. Opacity and object color are working inputs to SSAO that the application cannot save, so they are not channels. Adding a buffer later is a Baseline Change.
 
 **Statistics: part of the same export.**
 
@@ -259,15 +261,15 @@ An engine developer compares their branch against master on their own machine, b
 **Coverage: add a formula sweep to the gate.**
 
 - **Why**: Playbook Phase 5 refactors the formula code, and only formulas that get rendered are protected. The 791 example scenes reach 315 of the 462 formulas, and the best 25 scenes reach about 76.
-- **Cost**: All 462 formulas rendered in 34 seconds on 32 threads, or an estimated 2 to 5 minutes on a CI runner, plus about 16 MB of references before compression.
+- **Cost**: All 462 formulas rendered in 34 seconds on 32 threads, or an estimated 2 to 5 minutes on a CI runner, plus about 21 MB of references before compression.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Scene List**: The version-controlled Standard Scene Suite, an ordered list of `.fract` files.
 - **Formula Sweep**: One low-resolution render of every formula the application offers, from one fixed base scene, compared like any other render.
 - **Gated Render**: One headless CPU render of one scene, at the fixed resolution and sample cap, in an isolated environment. It produces one verification export.
-- **Verification Export**: The opt-in output of a successful render: five engine buffers and a statistics record, in a versioned format.
-- **Engine Buffer**: One of the raw render, post-effect image, final image, depth, or normal, for one scene.
+- **Verification Export**: The opt-in output of a successful render: seven engine buffers and a statistics record, in a versioned format.
+- **Engine Buffer**: One of the raw render, post-effect image, final image, alpha, depth, normal, or world normal, for one scene.
 - **Statistics Record**: The final exact counts for one render, with no time-based values.
 - **Reference Set**: All engine buffers and statistics records for one Reference Target, plus the toolchain identity.
 - **Toolchain Identity**: The compiler and math library versions of the build that produced a reference set, plus installed toolchain package versions where available.
@@ -306,7 +308,7 @@ An engine developer compares their branch against master on their own machine, b
 
 **Environment and defaults**
 
-- The first Reference Target is the Linux x86-64 GCC build on GitHub-hosted `ubuntu-24.04` runners. Windows runs are for debugging only, because the application ignores a redirected home folder there.
+- The first Reference Target is the Linux x86-64 GCC build on GitHub-hosted `ubuntu-24.04` runners. Windows runs are not gate-valid, because the application ignores a redirected home folder there, so they serve debugging and compare mode's local check.
 - The fixed resolution is 320x240, which keeps runs short while still exercising each render path.
 - The fixed Monte Carlo cap is a maximum of 8 samples per pixel with a minimum of 4, so both the sampling loop and its early-stop check still run. Images are noisier than authored, but they are still exact. Changing the cap is a Baseline Change.
 - The formula sweep renders at 32x24. It has not been measured in CI.

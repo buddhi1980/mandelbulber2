@@ -11,8 +11,10 @@ The application writes one directory per render. The harness is the only consume
 ├── raw_render.bin
 ├── post_effect.bin
 ├── final_image.bin
+├── alpha.bin
 ├── depth.bin
 ├── normal.bin
+├── normal_world.bin
 ├── statistics.txt
 └── manifest.txt
 ```
@@ -30,10 +32,12 @@ The application writes one directory per render. The harness is the only consume
 | `raw_render.bin` | float32 | 3 | `cImage::GetImageFloat()` |
 | `post_effect.bin` | float32 | 3 | `cImage::GetPostImageFloat()` |
 | `final_image.bin` | uint16 | 3 | `cImage::GetImage16()` |
+| `alpha.bin` | uint16 | 1 | `cImage::GetAlphaBuf()` |
 | `depth.bin` | float32 | 1 | `cImage::GetZBuffer()` |
 | `normal.bin` | float32 | 3 | `cImage::GetPixelNormal()`, row by row |
+| `normal_world.bin` | float32 | 3 | `cImage::GetPixelNormalWorld()`, row by row |
 
-`normal.bin` is written only when the normal buffer is enabled. A gated render always enables it, so a missing file fails the scene.
+`normal.bin` and `normal_world.bin` are written only when their buffers are enabled. A gated render enables the normal buffer, and the engine currently enables the world normal buffer on every render, so a missing file fails the scene.
 
 ## `statistics.txt`
 
@@ -71,8 +75,10 @@ math_library glibc 2.39
 buffer raw_render f32 3
 buffer post_effect f32 3
 buffer final_image u16 3
+buffer alpha u16 1
 buffer depth f32 1
 buffer normal f32 3
+buffer normal_world f32 3
 statistics statistics.txt
 end
 ```

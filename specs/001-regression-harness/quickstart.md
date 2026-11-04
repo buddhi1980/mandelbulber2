@@ -57,9 +57,11 @@ ls -l /tmp/parity/export
 **Expected**:
 
 - `manifest.txt` ends with `end`.
-- `raw_render.bin`, `post_effect.bin`, and `normal.bin` are 921,600 bytes each.
+- `raw_render.bin`, `post_effect.bin`, `normal.bin`, and `normal_world.bin` are 921,600 bytes each.
 - `final_image.bin` is 460,800 bytes.
+- `alpha.bin` is 153,600 bytes.
 - `depth.bin` is 307,200 bytes.
+- `statistics.txt` holds `total_iterations`, `raymarch_count`, `missed_de`, and every bucket of both histograms, all as whole numbers.
 
 ## Scenario 3: A Failed Load Writes No Export
 
@@ -123,4 +125,4 @@ Before Baseline 1, confirm these outcomes:
 |---|---|
 | `--self-parity` passes at two thread counts | SC-003 |
 | The final image matches with the normal buffer and export on or off | SC-007 |
-| A build compared with itself reports no differences | SC-010 |
+| Two builds of the same source report no differences, and a deliberate change to one formula is reported against that formula | SC-010 |

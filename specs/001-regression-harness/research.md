@@ -19,7 +19,7 @@ Resolved decisions for the implementation plan. Measurements were taken on 2026-
 ## R3. Statistics record format
 
 - **Decision**: UTF-8 text with one `name value` pair per line in a fixed order, and one line per histogram bucket, including the overflow bucket.
-- **Rationale**: A line-based record lets the harness name the exact statistic and both values on a mismatch (FR-028). The values come from the public `cStatistics` fields, not the `double` getters, so they stay exact. `QString::number` on integers does not depend on the locale.
+- **Rationale**: A line-based record lets the harness name the exact statistic and both values on a difference (FR-028). The values come from the public `cStatistics` fields, not the `double` getters, so they stay exact. `QString::number` on integers does not depend on the locale.
 - **Alternatives considered**: JSON adds nothing here and risks losing precision on large integers. A binary record would be harder to review in a Baseline Change.
 
 ## R4. Keeping references under 100 MB
@@ -37,7 +37,9 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 | Byte planes plus deflate | 2,163 KB |
 | Byte planes plus LZMA | 2,049 KB |
 
-- **Expected size**: 25 scenes at about 2.2 MB, plus 462 sweep renders at about 20 KB each (estimated), comes to about 64 MB.
+That table covers the first five buffers. Alpha and world normal came later (R14). With byte planes plus deflate, they add 33 KB and 457 KB per scene, and 0.2 KB and 1.1 KB for a sweep render of the base scene.
+
+- **Expected size**: 25 scenes at about 2.7 MB, plus 462 sweep renders at about 21 KB each (estimated), comes to about 77 MB.
 - **Known cost**: Each Baseline Change adds about that much to git history, because compressed data does not delta well. This is acceptable for infrequent baselines. If they become frequent, references can move to Git LFS without changing their format.
 - **Alternatives considered**:
   - LZMA: about 5% smaller, but slower, and the module is optional in Python builds.
@@ -71,7 +73,7 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 
 ## R7. Toolchain identity
 
-- **Decision**: The export manifest records the compiler from compile-time macros and the math library from a runtime call. `gcc` or `clang` use `__VERSION__`, MSVC uses `_MSC_FULL_VER`, and glibc uses `gnu_get_libc_version()`. Capture copies these into `toolchain.txt`, and it adds package versions from `dpkg-query` for `gcc-[0-9]*`, `g++-[0-9]*`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1`, skipping entries with no version.
+- **Decision**: The export manifest records the compiler from compile-time macros and the math library from a runtime call. GCC uses `__VERSION__`, Clang uses `__clang_version__`, MSVC uses `_MSC_FULL_VER`, and glibc uses `gnu_get_libc_version()`. Capture copies these into `toolchain.txt`, and it adds package versions from `dpkg-query` for `gcc-[0-9]*`, `g++-[0-9]*`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1`, skipping entries with no version.
 - **Rationale**: The manifest identifies the binary that actually rendered, not whichever compiler happens to be installed where the harness runs. It matters more on hosted runners, because the image changes over time (R5). Package versions are needed as well, because `__VERSION__` and `gnu_get_libc_version()` stay at `13.3.0` and `2.39` across Ubuntu patch updates.
 - **Behavior**: A difference between targets is not drift, so the gate passes with a note if output still matches. If output differs, it reports a Reference Target mismatch (FR-023). Compare mode prints both identities. Identity lines are never part of the parity comparison.
 - **Alternatives considered**: Running `g++ --version` and `ldd --version` from the harness or CI. This describes the machine rather than the binary, and it could be wrong in compare mode. Package versions have the same limit, so they supplement the manifest rather than replace it, and they apply only where capture and the gate build on the same machine.
@@ -79,7 +81,7 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 ## R8. Two-pass stereo scenes
 
 - **Decision**: No special handling. Stereo scenes are allowed, and the limit is documented.
-- **Rationale**: Two passes happen only for red-cyan stereo with screen-space AO or non-Monte Carlo depth of field. That is 2 of the 791 example scenes. `InitStatistics` resets on each pass, so the statistics and float buffers describe the last eye only. `MixImages` writes both eyes into the 16-bit final image, so drift in the first eye is still caught there. All of it is deterministic, so comparisons stay valid.
+- **Rationale**: Two passes happen only for red-cyan stereo with screen-space AO or non-Monte Carlo depth of field. That is 2 of the 791 example scenes. `InitStatistics` resets on each pass, so the statistics and every buffer except the final image describe the last eye only. `MixImages` writes both eyes into the 16-bit final image, so drift in the first eye is still caught there. All of it is deterministic, so comparisons stay valid.
 - **Alternatives considered**:
   - Accumulating statistics across passes: changes engine behavior for a rare case.
   - Rejecting stereo scenes: leaves that path with no coverage.
@@ -94,7 +96,7 @@ Measured at 320x240, mean of `IFS_001`, `Makin3D-Julia_001`, and `difs_tree`, wi
 ## R10. Failure detection
 
 - **Decision**: Three layers. Check scenes before rendering. Require a complete, valid export. Scan the output text for known failure messages.
-- **Rationale**: The export proves that the load and render succeeded. Text checks remain because a missing texture does not change those results: the render still exits 0 and saves an image. `Decode` also tolerates up to 3 bad lines and still returns true, so a partly loaded scene would otherwise get a valid export. The scan looks for `Can't load texture`, `Looking for the file at`, `not valid Mandelbulber settings file`, `No materials defined`, `Error in settings file`, and `Too many errors in settings file`. Healthy renders, including a `$SHARED_DIR` texture scene and all 462 sweep renders, printed none of these, while `hybrid002.fract` prints the settings error.
+- **Rationale**: The export proves that the load and render succeeded. Text checks remain because a missing texture does not change those results: the render still exits 0 and saves an image. `Decode` also tolerates up to 3 bad lines and still returns true, so a partly loaded scene would otherwise get a valid export. The scan looks for `Can't load texture`, `Looking for the file at`, `not valid Mandelbulber settings file`, `No materials defined`, `Error in settings file`, and `Too many errors in settings file`. Healthy renders, including a `$SHARED_DIR` texture scene and all 462 sweep renders, printed none of these, while `hybrid002.fract` prints the settings error. The scan also looks for `Trying to use /usr/share/mandelbulber2`, which `system.cpp` prints on Linux when it finds no data folder beside the binary. That folder is outside the repository and build output, so the constitution forbids reading it. This case comes from reading the source and has not been run.
 - **Static asset check**: A parameter whose name contains `file` or `texture` and whose value starts with a URL or absolute path fails the run. This matches 54 of the 791 example scenes.
 
 ## R11. Neutral render
@@ -137,3 +139,11 @@ The stochastic paths come from the CPU callers of `Random()`, plus the seeded ge
 | Clouds | 6 | `clouds 001.fract` |
 
 A beam light is light type 4. A test scene built on the sweep base rendered with no errors, and its image differed from a point light in all but 175 of 19,200 pixels.
+
+## R14. Compared channels
+
+- **Decision**: Compare every channel the engine writes in a gated render: the three color stages, alpha, depth, normal, and world normal.
+- **Rationale**: The constitution requires every channel the engine writes to be compared. `render_worker.cpp` writes alpha on every render, and post-effect depth of field blends it separately from color in `dof.cpp`, so comparing color does not cover it. In three measured scenes it held 1, 8,791, and 17,982 distinct values, so it is not a simple mask. `render_job.cpp` turns world normal on for every render, with a FIXME, because the denoiser reads it.
+- **Not compared**: Specular, diffuse, world position, shadow, global illumination, and not-denoised are written only when enabled. They are application settings, and no example scene sets them. Opacity and object color are working inputs to SSAO, and no image format can save them, so they are not channels.
+- **If the FIXME is fixed**: The engine would stop writing world normal, so every render would fail export validation. A change to that behavior therefore cannot pass unnoticed.
+- **Size**: 60 bytes per pixel in total. The reference set stays under the 100 MB limit (R4).

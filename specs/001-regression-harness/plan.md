@@ -8,7 +8,7 @@
 
 Build a headless differential testing engine that proves whether a build changes any render output. A standalone Python script, `tests/regression_runner.py`, renders the Standard Scene Suite and a sweep of every formula, then compares the results bit for bit. Gate is the default mode, with `--self-parity`, `--capture`, and `--compare <binary>`.
 
-A small opt-in addition to the application provides the data. `--verification-export <dir>` writes the engine's five buffers and exact statistics after a successful render, and `--list-formulas` prints the formulas the binary offers. Both only read values that already exist, so the render path is unchanged.
+A small opt-in addition to the application provides the data. `--verification-export <dir>` writes the engine's seven buffers and exact statistics after a successful render, and `--list-formulas` prints the formulas the binary offers. Both only read values that already exist, so the render path is unchanged.
 
 No references are created in this feature. Renders do not reproduce yet (KD-1), so the expected result is a harness that correctly reports that failure. See [research.md](research.md) for the evidence behind each decision.
 
@@ -22,7 +22,7 @@ No references are created in this feature. Renders do not reproduce yet (KD-1), 
 
 **Testing**: Python `unittest` with a stand-in renderer that implements the export contract, plus validation against the real binary in [quickstart.md](quickstart.md).
 
-**Target Platform**: Linux x86-64 with GCC, built from `mandelbulber-opencl.pro` in release mode, on GitHub-hosted `ubuntu-24.04` runners (currently GCC 13.3.0 and glibc 2.39). Windows runs are for debugging only.
+**Target Platform**: Linux x86-64 with GCC, built from `mandelbulber-opencl.pro` in release mode, on GitHub-hosted `ubuntu-24.04` runners (currently GCC 13.3.0 and glibc 2.39). Windows runs are not gate-valid, so they serve debugging and compare mode's local check.
 
 **Project Type**: Command-line test harness, plus a small addition to an existing desktop and CLI application.
 
@@ -39,8 +39,8 @@ No references are created in this feature. Renders do not reproduce yet (KD-1), 
 | Gate | Status | Notes |
 |---|---|---|
 | Principle I: can this change affect gated output? | Pass | The export and listing run after the render or instead of it, and only when requested. Scenes and every formula are covered. FR-012 proves the gated configuration matches a default render. |
-| Principle I: exact, full-precision comparison | Pass | Raw engine buffers are compared bit for bit, with no tolerance or down-conversion. This is why TIFF was replaced. |
-| Principle II: adds randomness, timing, threading, or external state? | Pass | Nothing is added to the render path. The harness isolates home, locale, and environment. |
+| Principle I: exact, full-precision comparison | Pass | Raw engine buffers, covering every channel the engine writes in a gated render, are compared bit for bit, with no tolerance or down-conversion. This is why TIFF was replaced. |
+| Principle II: adds randomness, timing, threading, or external state? | Pass | Nothing is added to the render path. The harness isolates home, locale, and environment, and it fails a render that falls back to a system data folder. |
 | Principle II: Self-Parity | Pass | Three runs at each of two thread counts, one of them 1. Capture refuses without it. |
 | Principle III: touches build flags, compilers, math libraries, or arithmetic order? | Pass | No flags change. The manifest only reads compiler and math library versions. |
 | Reference Targets: a difference between targets is not drift | Pass | A toolchain difference with differing output is a Reference Target mismatch, not a parity failure. |

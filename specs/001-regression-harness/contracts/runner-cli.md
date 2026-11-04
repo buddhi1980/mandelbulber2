@@ -33,13 +33,13 @@ Self-Parity uses 1 thread and the machine's CPU count, or 2 threads on a single-
 | Code | Meaning |
 |---|---|
 | 0 | Every check passed |
-| 1 | Parity failure: drift, non-reproducible output, or a difference between builds |
+| 1 | Parity failure: drift, non-reproducible output, a difference between builds, or a missing or leftover reference |
 | 2 | Invalid command line |
 | 3 | Setup or render failure, a Reference Target mismatch, or a result that cannot count as a pass |
 
-Code 3 covers an empty scene list, a missing scene, a failed render, an invalid export, a missing reference set, changed render settings, a Reference Target mismatch, incomplete thread coverage, and a gate or self-parity run that is not gate-valid. Capture also exits 3 when it refuses to run.
+Code 3 covers a missing binary, an empty scene list, a missing scene, a failed render, an invalid export, a missing reference set, changed render settings, a Reference Target mismatch, incomplete thread coverage, and a gate or self-parity run that is not gate-valid. Capture also exits 3 when it refuses to run.
 
-If a run has both parity failures and a code 3 condition that did not stop it, it exits 1, and the report lists both. For example, self-parity on today's build reports differences and incomplete thread coverage, and exits 1. The exception is a toolchain difference: the gate then reports every comparison difference as a Reference Target mismatch, and exits 3.
+If a run has both parity failures and a code 3 condition that did not stop it, it exits 1, and the report lists both. For example, self-parity on today's build reports differences and incomplete thread coverage, and exits 1. With a toolchain difference, the gate reports each comparison difference as a Reference Target mismatch instead of a parity failure, so those alone exit 3. A missing or leftover reference stays a parity failure, because it does not depend on the toolchain. An unexpected error in the harness exits 3, so exit 1 only ever means a parity failure.
 
 ## Report
 

@@ -48,8 +48,10 @@ statistics.txt
 raw_render.planes
 post_effect.planes
 final_image.planes
+alpha.planes
 depth.planes
 normal.planes
+normal_world.planes
 ```
 
 - `manifest.txt` and `statistics.txt` are stored as written by the application.

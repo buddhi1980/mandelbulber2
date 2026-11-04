@@ -34,7 +34,7 @@ The fixed configuration for every gated render. Changing any of these requires a
 | Monte Carlo cap | `DOF_samples=8`, `DOF_min_samples=4` |
 | Export format | Version 1 |
 
-The reference set records these settings. A mismatch is a setup error, not drift.
+The reference set records these settings. A difference is a setup error, not drift.
 
 ## Verification Export
 
@@ -45,14 +45,14 @@ The output of one successful render.
 | Format version | Integer, currently 1 |
 | Width, height | Image dimensions |
 | Compiler, math library | Toolchain identity |
-| Buffers | The five engine buffers |
+| Buffers | The seven engine buffers |
 | Statistics | The Statistics Record |
 
 **Validation**
 
 - The manifest exists and ends with its `end` line. This proves completeness (FR-008).
 - The format version is one the harness understands.
-- Exactly the five expected buffers are present (FR-011).
+- Exactly the seven expected buffers are present (FR-011).
 - Each buffer file is exactly `width × height × channels × sample size` bytes.
 - The statistics record is complete and contains only whole numbers.
 
@@ -63,10 +63,12 @@ The output of one successful render.
 | `raw_render` | float32 | 3 | 12 | Float image before post effects |
 | `post_effect` | float32 | 3 | 12 | Float image after SSAO, depth of field, and HDR blur |
 | `final_image` | uint16 | 3 | 6 | Result of brightness, contrast, and gamma |
+| `alpha` | uint16 | 1 | 2 | Transparency |
 | `depth` | float32 | 1 | 4 | True hit distance |
-| `normal` | float32 | 3 | 12 | Surface direction |
+| `normal` | float32 | 3 | 12 | Surface direction relative to the camera |
+| `normal_world` | float32 | 3 | 12 | Surface direction in scene coordinates |
 
-The total is 46 bytes per pixel.
+The total is 60 bytes per pixel.
 
 **Comparison**: Two buffers match only if their dimensions, sample type, and every byte are identical (FR-013, FR-014). The report counts differing samples, not bytes.
 
