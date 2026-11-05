@@ -1,0 +1,10 @@
+.git/
+.dockerignore
+Dockerfile*
+build-*/
+mandelbulber2/build/
+mandelbulber2/msvc/packages/
+packages/
+tests/outputs/
+*.log*
+.env*

@@ -11,6 +11,8 @@ build/
 build-mic/
 build-win/
 build-*/
+tests/outputs/
+__pycache__/
 build*.txt
 
 # Visual Studio

@@ -1,0 +1,3 @@
+# Standard Scene Suite
+mandelbulber2/deploy/share/mandelbulber2/examples/IFS_001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/Makin3D-Julia_001.fract
