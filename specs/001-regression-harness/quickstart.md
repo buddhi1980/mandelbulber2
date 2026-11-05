@@ -153,7 +153,7 @@ python tests/regression_runner.py --cross-check tests/outputs/collection/qmake t
 
 - Both collections exit 0, and the Windows one is labeled as not isolated.
 - The cross-check exits 0 with `result: functional agreement`.
-- It reports that 0 items matched exactly, because renders do not reproduce yet.
+- It reports that almost no items matched exactly, because renders do not reproduce yet. On 2026-11-05 that was 1 of 486.
 - It states that it does not replace the gate.
 - `tests/outputs/cross-check-details.txt` lists every differing statistic.
 
