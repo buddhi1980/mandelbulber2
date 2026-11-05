@@ -55,6 +55,7 @@
 #include "rendering_configuration.hpp"
 #include "write_log.hpp"
 #include "system_data.hpp"
+#include "verification_export.hpp"
 #include "voxel_export.hpp"
 #include "wait.hpp"
 
@@ -62,7 +63,8 @@ cHeadless::cHeadless(QObject *parent) : QObject(parent) {}
 
 cHeadless::~cHeadless() = default;
 
-void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
+void cHeadless::RenderStillImage(
+	QString filename, QString imageFileFormat, QString verificationExportDir, bool settingsLoaded)
 {
 	std::shared_ptr<cImage> image(
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
@@ -98,7 +100,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 
 	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
-	renderJob->Execute();
+	const bool renderSucceeded = renderJob->Execute();
 
 	QString filenameWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
 
@@ -124,6 +126,11 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 
 	QTextStream out(stdout);
 	out << tr("Image saved to: %1\n").arg(filenameWithoutExtension + ext);
+
+	if (!verificationExportDir.isEmpty() && settingsLoaded && renderSucceeded)
+	{
+		WriteVerificationExport(verificationExportDir, image, renderJob->GetStatistics());
+	}
 
 	emit finished();
 }

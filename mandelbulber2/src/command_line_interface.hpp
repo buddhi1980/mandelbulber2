@@ -84,7 +84,9 @@ public:
 
 		cliErrorOpenClNotCompiled = -70,
 		cliErrorOpenClNoPlatform = -71,
-		cliErrorOpenClNoDevice = -72
+		cliErrorOpenClNoDevice = -72,
+
+		cliErrorVerificationExportMode = -80
 	};
 
 	void ReadCLI();
@@ -98,6 +100,7 @@ private:
 	[[noreturn]] static void printInputHelpAndExit();
 	[[noreturn]] void printOpenCLHelpAndExit();
 	[[noreturn]] static void printParametersAndExit();
+	[[noreturn]] static void printFormulasAndExit();
 	[[noreturn]] static void runTestCasesAndExit();
 	[[noreturn]] void runBenchmarksAndExit();
 
@@ -123,6 +126,7 @@ private:
 		bool nogui;
 		bool server;
 		bool listParameters;
+		bool listFormulas;
 		bool showInputHelp;
 		bool showExampleHelp;
 		bool showOpenCLHelp;
@@ -147,12 +151,14 @@ private:
 		QString outputText;
 		QString voxelFormat;
 		QString logFilepathText;
+		QString verificationExportDir;
 	} cliData;
 
 	QCommandLineParser parser;
 	QStringList args;
 	cliOperationalMode cliOperationalMode;
 	bool settingsSpecified;
+	bool settingsLoaded;
 	QCoreApplication *qApplication;
 };
 

@@ -42,6 +42,7 @@
 #include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "file_image.hpp"
+#include "formula/definition/all_fractal_list.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "headless.h"
@@ -60,7 +61,7 @@
 #include "write_log.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
-		: settingsSpecified(false)
+		: settingsSpecified(false), settingsLoaded(false)
 {
 	qApplication = _qApplication;
 	// text from http://sourceforge.net/projects/mandelbulber/
@@ -188,6 +189,14 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	const QCommandLineOption statsOption(QStringList({"stats"}),
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
 
+	const QCommandLineOption verificationExportOption(QStringList({"verification-export"}),
+		QCoreApplication::translate(
+			"main", "Writes engine buffers and exact statistics to <DIR> after a still render."),
+		QCoreApplication::translate("main", "DIR"));
+
+	const QCommandLineOption listFormulasOption(QStringList({"list-formulas"}),
+		QCoreApplication::translate("main", "Lists the formulas this build offers, then exits."));
+
 	const QCommandLineOption helpInputOption(
 		QStringList({"help-input"}), QCoreApplication::translate("main", "Shows help about input."));
 	const QCommandLineOption helpExamplesOption(
@@ -225,6 +234,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
 	parser.addOption(statsOption);
+	parser.addOption(verificationExportOption);
+	parser.addOption(listFormulasOption);
 	parser.addOption(gpuOption);
 	parser.addOption(gpuAllOption);
 	parser.addOption(helpInputOption);
@@ -258,6 +269,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	cliData.outputText = parser.value(outputOption);
 	cliData.logFilepathText = parser.value(logFilepathOption);
 	cliData.listParameters = parser.isSet(listOption);
+	cliData.listFormulas = parser.isSet(listFormulasOption);
+	cliData.verificationExportDir = parser.value(verificationExportOption);
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
 	cliData.voxelFormat = parser.value(voxelOption);
@@ -279,6 +292,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 #endif /* WINDOWS */
 
 	if (cliData.listParameters) cliData.nogui = true;
+	if (cliData.listFormulas) cliData.nogui = true;
 	if (cliData.queue) cliData.nogui = true;
 	if (cliData.test) cliData.nogui = true;
 	if (cliData.benchmark) cliData.nogui = true;
@@ -290,6 +304,20 @@ cCommandLineInterface::~cCommandLineInterface() = default;
 void cCommandLineInterface::ReadCLI()
 {
 	settingsSpecified = false;
+	settingsLoaded = false;
+
+	// the verification export only supports a plain headless still render
+	if (cliData.verificationExportDir != "")
+	{
+		if (!cliData.nogui || cliData.keyframe || cliData.flight || cliData.queue || cliData.voxel
+				|| cliData.server || cliData.test || cliData.benchmark || cliData.host != "")
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("--verification-export needs --nogui and a single still render"),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorVerificationExportMode);
+		}
+	}
 
 	// show example help only
 	if (cliData.showExampleHelp) printExampleHelpAndExit();
@@ -297,6 +325,8 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.showInputHelp) printInputHelpAndExit();
 	// list parameters only
 	if (cliData.listParameters) printParametersAndExit();
+	// list formulas only
+	if (cliData.listFormulas) printFormulasAndExit();
 
 	// log filepath if it is specified
 	if (cliData.logFilepathText != "")
@@ -423,7 +453,8 @@ void cCommandLineInterface::ProcessCLI() const
 		case modeStill:
 		{
 			gMainInterface->headless = new cHeadless(gMainInterface);
-			gMainInterface->headless->RenderStillImage(cliData.outputText, cliData.imageFileFormat);
+			gMainInterface->headless->RenderStillImage(
+				cliData.outputText, cliData.imageFileFormat, cliData.verificationExportDir, settingsLoaded);
 			break;
 		}
 		case modeQueue:
@@ -641,6 +672,21 @@ void cCommandLineInterface::printParametersAndExit()
 	exit(0);
 }
 
+void cCommandLineInterface::printFormulasAndExit()
+{
+	QTextStream out(stdout);
+	out << "mandelbulber-formula-list 1\n";
+	for (const cAbstractFractal *formula : newFractalList)
+	{
+		if (formula->getInternalId() == fractal::none) continue;
+		out << static_cast<int>(formula->getInternalId()) << "\t"
+				<< QString::fromStdString(formula->getInternalName()) << "\n";
+	}
+	out << "end\n";
+	out.flush();
+	exit(0);
+}
+
 void cCommandLineInterface::runTestCasesAndExit()
 {
 	systemData.noGui = true;
@@ -849,8 +895,9 @@ void cCommandLineInterface::handleArgs()
 			if (QFile::exists(filename))
 			{
 				// hint: do not use auto loading of v1 files in batch mode
-				parSettings.LoadFromFile(filename);
-				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				const bool fileLoaded = parSettings.LoadFromFile(filename);
+				const bool fileDecoded = parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				settingsLoaded = fileLoaded && fileDecoded;
 				settingsSpecified = true;
 				systemData.lastSettingsFile = filename;
 				systemData.settingsLoadedFromCLI = true;
@@ -866,7 +913,7 @@ void cCommandLineInterface::handleArgs()
 			else if (parSettings.LoadFromString(args[0]))
 			{
 				// the whole settings file is specified as an argument from stdin
-				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				settingsLoaded = parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 				settingsSpecified = true;
 				systemData.lastSettingsFile = "from stdin";
 				systemData.settingsLoadedFromCLI = true;
