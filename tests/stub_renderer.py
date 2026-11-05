@@ -42,6 +42,8 @@ item behaves as "same". The modes are:
   missing-formula          The formula list has one entry fewer.
   renumber-formulas        Each formula has a different numeric ID.
   no-list-end              The formula list has no end line.
+  no-list-start            The formula list has no first line.
+  empty-list               The formula list has no entries.
   blank                    Every final_image sample holds one value.
   other-version            --version prints a different version.
   other-histogram-size     The iteration histogram has one more bucket.
@@ -105,7 +107,14 @@ def next_count():
 
 
 def record_call(arguments):
-    line = json.dumps({"args": arguments, "env": dict(os.environ)})
+    output = arguments[arguments.index("--output") + 1] if "--output" in arguments else None
+    call = {
+        "args": arguments,
+        "env": dict(os.environ),
+        "cwd": os.getcwd(),
+        "output_folder_exists": output is not None and os.path.isdir(os.path.dirname(output)),
+    }
+    line = json.dumps(call)
     with folder_lock():
         with open("stub_calls.jsonl", "a", encoding="utf-8") as file:
             file.write(line + "\n")
@@ -140,12 +149,19 @@ def formula_table(mode):
 
 
 def print_formulas(mode):
+    if mode == "exit-3":
+        return 3
+    if mode == "hang":
+        time.sleep(30)
     print("cannot move folder /home/settings to /home/mandelbulber/settings!")
-    print("mandelbulber-formula-list 1")
-    for number, name in formula_table(mode):
-        print(f"{number}\t{name}")
+    if mode != "no-list-start":
+        print("mandelbulber-formula-list 1")
+    if mode != "empty-list":
+        for number, name in formula_table(mode):
+            print(f"{number}\t{name}")
     if mode != "no-list-end":
         print("end")
+    return 0
 
 
 def print_version(mode):
@@ -332,8 +348,7 @@ def main(arguments):
     options = parse_arguments(arguments)
     mode = read_mode()
     if "--list-formulas" in options:
-        print_formulas(mode)
-        return 0
+        return print_formulas(mode)
     if "--version" in options:
         print_version(mode)
         return 0
