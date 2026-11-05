@@ -1815,13 +1815,13 @@ class CrossCheckResultTests(CrossCheckTestCase):
     def test_layout_and_names_and_version_fail(self):
         for mode, pattern in (
             ("resize", r"\[-\] scene alpha: image size differs: \d+x\d+ on first, \d+x\d+ on second"),
-            ("other-histogram-size", r"\[-\] scene alpha: statistic names differ: "),
+            ("other-histogram-size", r"\[-\] scene alpha: statistic names differ: iteration_histogram\.51 on {build} only"),
             ("other-version", r"\[-\] application version: Mandelbulber 2\.35-\w+ on first, Mandelbulber 2\.35-\w+ on second"),
         ):
             for name, code, output in self.both_ways(mode):
                 with self.subTest(mode=mode, build=name):
                     self.assertEqual(code, regression_runner.EXIT_PARITY, output)
-                    self.assertRegex(output, pattern)
+                    self.assertRegex(output, pattern.replace("{build}", name))
 
     def test_single_value_image_on_one_build_fails(self):
         for name, code, output in self.both_ways("blank"):
@@ -1866,6 +1866,32 @@ class CrossCheckResultTests(CrossCheckTestCase):
         self.assertEqual(code, regression_runner.EXIT_PASSED, output)
         self.assertEqual(len([line for line in output.splitlines() if "scene alpha statistics" in line]), 1)
         self.assertEqual(len(self.details().splitlines()), 24)
+
+
+class StatisticNamesTests(unittest.TestCase):
+    """T098: a statistic name that only one build has is listed with that build."""
+
+    def export(self, *names):
+        statistics = dict.fromkeys(names, 0)
+        return regression_runner.Export(1, 1, "", "", {"final_image": bytes(6)}, statistics, b"", b"")
+
+    def test_names_on_one_build(self):
+        first, second = self.export("shared", "extra", "more"), self.export("shared")
+        self.assertEqual(
+            regression_runner.functional_disagreement(first, second),
+            "statistic names differ: extra, more on first only",
+        )
+        self.assertEqual(
+            regression_runner.functional_disagreement(second, first),
+            "statistic names differ: extra, more on second only",
+        )
+
+    def test_names_on_each_build(self):
+        first, second = self.export("shared", "one"), self.export("shared", "other")
+        self.assertEqual(
+            regression_runner.functional_disagreement(first, second),
+            "statistic names differ: one on first only; other on second only",
+        )
 
 
 class SingleValueTests(unittest.TestCase):

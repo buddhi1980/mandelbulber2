@@ -1312,15 +1312,22 @@ def holds_one_value(export):
     return final == final[:FINAL_PIXEL_BYTES] * (len(final) // FINAL_PIXEL_BYTES)
 
 
+def names_on_one_build(first, second):
+    """Lists the statistic names only one build has, each with that build (SC-011)."""
+    differing = differing_statistics(first, second)
+    only_first = [name for name, _, other in differing if other == "missing"]
+    only_second = [name for name, one, _ in differing if one == "missing"]
+    sides = ((only_first, "first"), (only_second, "second"))
+    return "; ".join(f"{', '.join(names)} on {build} only" for names, build in sides if names)
+
+
 def functional_disagreement(first, second):
     """Returns the cause if two renders of one item disagree on a fact, or None (FR-044)."""
     sizes = (f"{first.width}x{first.height}", f"{second.width}x{second.height}")
     if sizes[0] != sizes[1]:
         return f"image size differs: {sizes[0]} on first, {sizes[1]} on second"
     if list(first.statistics) != list(second.statistics):
-        differing = differing_statistics(first.statistics, second.statistics)
-        names = [name for name, one, other in differing if "missing" in (one, other)]
-        return f"statistic names differ: {', '.join(names)}"
+        return f"statistic names differ: {names_on_one_build(first.statistics, second.statistics)}"
     if holds_one_value(first) != holds_one_value(second):
         return f"final image holds one pixel value on {'first' if holds_one_value(first) else 'second'} only"
     return None
