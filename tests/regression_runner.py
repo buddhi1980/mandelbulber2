@@ -15,7 +15,9 @@ See specs/001-regression-harness/contracts/runner-cli.md.
 
 import argparse
 import os
+import subprocess
 import sys
+import threading
 from pathlib import Path
 
 EXIT_PASSED = 0
@@ -39,6 +41,17 @@ EXPORT_VERSION = 1
 # Playbook Phase 3 adds a working headless thread control and sets this to its option name.
 THREAD_OPTION = None
 
+# Variables a render may inherit. LD_LIBRARY_PATH stays out, because it can select another math library.
+ALLOWED_VARIABLES = ("PATH", "SYSTEMROOT", "TEMP", "TMP", "TMPDIR")
+
+# The console shows this many statistic differences per item and comparison. A histogram has about
+# 1,000 values, and report.txt keeps them all.
+CONSOLE_STATISTIC_LIMIT = 5
+
+PARITY = "parity failure"
+MISMATCH = "reference target mismatch"
+SETUP = "setup error"
+
 
 class SetupError(Exception):
     """The run cannot go ahead or cannot be trusted."""
@@ -48,9 +61,153 @@ class RenderError(Exception):
     """One item failed to render or to validate."""
 
 
+class Report:
+    """One run's results. Every line goes to tests/outputs/report.txt and to the console."""
+
+    def __init__(self, mode, environment, target=None):
+        self.mode = mode
+        self.environment = environment
+        self.target = target
+        self.gate_validity = None
+        self.toolchain_note = None
+        self.item_results = {}
+        self.overall_result = None
+        self.item_count = 0
+        self.parity_failures = set()
+        self.setup_failures = set()
+        self.mismatches = set()
+        self.run_problems = []
+        self.lock = threading.Lock()
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        self.file = open(OUT_DIR / "report.txt", "w", encoding="utf-8", newline="\n")
+        self.line(f"mode: {mode}")
+        self.line(f"environment: {environment}")
+        if target:
+            self.line(f"target: {target}")
+
+    def line(self, text, console=True):
+        """Writes one line to the report file, and to the console unless told not to."""
+        with self.lock:
+            self.file.write(text + "\n")
+            self.file.flush()
+            if console:
+                print(text, flush=True)
+
+    def note(self, text):
+        self.line(f"note: {text}")
+
+    def set_gate_validity(self, valid, reason=""):
+        self.gate_validity = valid
+        self.line("gate validity: valid" if valid else f"gate validity: not gate-valid ({reason})")
+
+    def set_toolchain_note(self, text):
+        self.toolchain_note = text
+        self.note(text)
+
+    def passed(self, label, text="exact match"):
+        """Records an item that passed, unless it has already failed."""
+        with self.lock:
+            if label in self.item_results:
+                return
+            self.item_results[label] = "passed"
+        self.line(f"[+] {label}: {text}")
+
+    def failed(self, label, text, category=PARITY):
+        """Records one failure of one item."""
+        with self.lock:
+            self.item_results[label] = "failed"
+            self.failures(category).add(label)
+        self.line(f"[-] {label}: {text}")
+
+    def failures(self, category):
+        return {PARITY: self.parity_failures, MISMATCH: self.mismatches, SETUP: self.setup_failures}[category]
+
+    def differences(self, label, differences, category=PARITY, context=""):
+        """Reports one comparison, capping its statistic lines on the console only."""
+        if not differences:
+            return
+        with self.lock:
+            self.item_results[label] = "failed"
+            self.failures(category).add(label)
+        suffix = f" ({context})" if context else ""
+        statistic_lines = 0
+        for difference in differences:
+            if difference.name == "statistics":
+                statistic_lines += 1
+            console = difference.name != "statistics" or statistic_lines <= CONSOLE_STATISTIC_LIMIT
+            self.line(f"[-] {label} {difference.name}: {difference.text}{suffix}", console)
+        if statistic_lines > CONSOLE_STATISTIC_LIMIT:
+            rest = statistic_lines - CONSOLE_STATISTIC_LIMIT
+            with self.lock:
+                print(f"[-] {label} statistics: {rest} more differ{suffix}, see {OUT_DIR / 'report.txt'}", flush=True)
+
+    def recorded(self, label, text):
+        """Writes a difference that never changes the result."""
+        self.line(f"[~] {label}: {text}")
+
+    def cannot_pass(self, reason):
+        """Records something that stops the run from passing, whatever its results are."""
+        with self.lock:
+            self.run_problems.append(reason)
+        self.note(reason)
+
+    def setup_error(self, cause):
+        """Records a setup failure that stopped the run."""
+        with self.lock:
+            self.run_problems.append(cause)
+        self.line(f"setup error: {cause}")
+
+    def exit_code(self):
+        """A parity failure wins over every other condition, as the runner contract says."""
+        if self.parity_failures:
+            return EXIT_PARITY
+        if self.mismatches or self.setup_failures or self.run_problems:
+            return EXIT_SETUP
+        if "passed" not in self.item_results.values():
+            return EXIT_SETUP
+        return EXIT_PASSED
+
+    def result_name(self):
+        code = self.exit_code()
+        if code == EXIT_PARITY:
+            return "functional disagreement" if self.mode == "cross-check" else PARITY
+        if code == EXIT_PASSED:
+            return "functional agreement" if self.mode == "cross-check" else "passed"
+        return MISMATCH if self.mismatches else SETUP
+
+    def finish(self):
+        """Writes the overall result, closes the report, and returns the exit code."""
+        failed = sum(1 for result in self.item_results.values() if result == "failed")
+        total = self.item_count or len(self.item_results)
+        self.overall_result = self.result_name()
+        detail = f" ({failed} of {total} items failed)" if total else ""
+        self.line(f"result: {self.overall_result}{detail}")
+        code = self.exit_code()
+        self.close()
+        return code
+
+    def close(self):
+        with self.lock:
+            self.file.close()
+
+
+def clean_environment(home):
+    """Builds a render's whole environment, so nothing from the host can affect it (FR-004)."""
+    environment = {name: os.environ[name] for name in ALLOWED_VARIABLES if name in os.environ}
+    environment.update(HOME=str(home), LC_ALL="C.UTF-8", LANG="C.UTF-8")
+    return environment
+
+
+def gate_valid():
+    """Whether renders can be isolated here. The application ignores HOME on Windows (FR-005)."""
+    return os.name != "nt"
+
+
 def binary_path():
     """The binary under test, read from the environment at call time."""
-    default = "build-win/Release/x64/mandelbulber2.exe" if os.name == "nt" else "mandelbulber2/build/appdir/usr/bin/mandelbulber2"
+    default = "mandelbulber2/build/appdir/usr/bin/mandelbulber2"
+    if os.name == "nt":
+        default = "build-win/Release/x64/mandelbulber2.exe"
     return Path(os.environ.get("MANDELBULBER_BINARY", default))
 
 
