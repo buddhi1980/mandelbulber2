@@ -79,7 +79,7 @@ The harness reads both collections and starts neither build.
 - An item failed on either build. The report names the build and the cause.
 - An item exists in only one collection. Formulas are matched by internal name.
 - `application` differs between the collections.
-- An item's width, height, buffer names, sample types, or statistic names differ between the builds.
+- An item's width, height, or statistic names differ between the builds. Buffer names and sample types cannot differ, because an export with any others fails validation when it is collected.
 - An item's `final_image` buffer holds one value throughout on one build, and more than one on the other.
 
 **Recorded, never a failure**
