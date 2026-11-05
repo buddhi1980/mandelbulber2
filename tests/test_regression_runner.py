@@ -1858,6 +1858,18 @@ class CrossCheckResultTests(CrossCheckTestCase):
         code, output = self.cross_check()
         self.assertEqual(code, regression_runner.EXIT_PASSED, output)
 
+    def test_flipped_bit_in_an_image_flat_on_both_builds_fails(self):
+        """FR-044 takes precedence over recording it, as spec.md says under Edge Cases."""
+        for changed, flat, name in ((self.binary, self.second, "second"), (self.second, self.binary, "first")):
+            with self.subTest(flat_build=name):
+                self.set_mode("blank-flip-bit", changed)
+                self.set_mode("blank", flat)
+                self.collect_both()
+                code, output = self.cross_check()
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertIn(f"[-] scene alpha: final image holds one pixel value on {name} only", output)
+                self.assertRegex(output, r"\[~\] scene alpha final_image: 1 of \d+ samples differ")
+
     def test_unisolated_collection_can_pass_and_is_labeled(self):
         self.collect(self.binary, self.first_path)
         with mock.patch.object(regression_runner, "gate_valid", return_value=False):

@@ -81,7 +81,7 @@ The harness reads both collections and starts neither build.
 - An item exists in only one collection. Formulas are matched by internal name.
 - `application` differs between the collections.
 - An item's width, height, or statistic names differ between the builds. Buffer names and sample types cannot differ, because an export with any others fails validation when it is collected.
-- An item's `final_image` buffer holds one pixel value throughout on one build, and more than one on the other.
+- An item's `final_image` buffer holds one pixel value throughout on one build, and more than one on the other. This holds even if the two images differ by one bit: an image that is flat on both builds, as `transf_de_controls` is, fails here if one bit flips on one build, and the difference is still recorded (FR-044).
 
 **Recorded, never a failure**
 
