@@ -28,7 +28,7 @@ import threading
 import zipfile
 import zlib
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Optional
 
@@ -982,6 +982,119 @@ def run_gate(report):
     compare_against_references(items, binary, reference_set, report)
 
 
+def write_lines(path, lines):
+    """Writes a text file with LF line endings on every platform."""
+    Path(path).write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
+
+
+def folder_size(folder):
+    return sum(file.stat().st_size for file in folder.rglob("*") if file.is_file())
+
+
+def stage_references(items, exports):
+    """Builds a whole reference set under tests/outputs, and returns its folder."""
+    staging = OUT_DIR / "staging"
+    shutil.rmtree(staging, ignore_errors=True)
+    identities = {tuple(toolchain_identity(exports[item.label])) for item in items}
+    if len(identities) != 1:
+        raise SetupError("the renders came from more than one toolchain")
+    for item in items:
+        write_reference(staging / f"{item.kind}s" / f"{item.name}.zip", exports[item.label])
+    write_lines(staging / "toolchain.txt", list(identities.pop()))
+    write_lines(staging / "settings.txt", settings_lines())
+    return staging
+
+
+def promote_references(staging, target, items):
+    """Replaces a target's reference set whole, or not at all (FR-018)."""
+    if set(list_references(staging)) != {item.label for item in items}:
+        raise SetupError("the new reference set is incomplete")
+    size = folder_size(staging)
+    if size >= MAX_REFERENCE_BYTES:
+        raise SetupError(f"the new reference set is {size} bytes, over the {MAX_REFERENCE_BYTES} byte limit")
+    final = REF_ROOT / target
+    old = OUT_DIR / "replaced-references"
+    shutil.rmtree(old, ignore_errors=True)
+    final.parent.mkdir(parents=True, exist_ok=True)
+    had_old_set = final.exists()
+    if had_old_set:
+        shutil.move(str(final), str(old))
+    try:
+        shutil.move(str(staging), str(final))
+    except OSError as error:
+        if had_old_set:
+            shutil.move(str(old), str(final))
+        raise SetupError(f"cannot move the new reference set into place: {error}") from None
+    shutil.rmtree(old, ignore_errors=True)
+
+
+def run_capture(report):
+    """Passes Self-Parity in this run, then replaces the target's references (FR-018, FR-038)."""
+    if os.environ.get("CI") != "true":
+        raise SetupError("capture refuses to run outside CI, because references must come from a CI build")
+    if not thread_settings()[1]:
+        raise SetupError("capture refuses to run, because thread coverage is incomplete")
+    report.set_gate_validity(gate_valid(), NOT_ISOLATED_REASON)
+    if not report.gate_validity:
+        raise SetupError("capture refuses to run, because this run is not gate-valid")
+    binary = binary_path()
+    items = build_work_items(binary)
+    report.item_count = len(items)
+    exports = check_self_parity(items, binary, report)
+    finish_items(items, report)
+    if report.exit_code() != EXIT_PASSED:
+        report.note("capture wrote nothing, because Self-Parity did not pass")
+        return
+    target = parity_target()
+    promote_references(stage_references(items, exports), target, items)
+    report.note(f"wrote {len(items)} references to {REF_ROOT / target}")
+
+
+def compare_builds(items, first_binary, second_binary, second_formulas, report):
+    """Renders every item with both binaries, and compares the exports exactly (FR-035, FR-036).
+
+    Each binary renders with its own formula ID, because IDs can differ between builds.
+    """
+    toolchains_shown = False
+    for item in items:
+        second_item = item
+        if item.kind == "formula":
+            second_item = replace(item, formula_id=second_formulas[item.name])
+        folder = item_folder(item)
+        first = render_and_validate(item, first_binary, folder / "first", report, context="first build")
+        second = render_and_validate(second_item, second_binary, folder / "second", report, context="second build")
+        if first is None or second is None:
+            continue
+        if not toolchains_shown:
+            toolchains_shown = True
+            report.line(f"first toolchain: {first.compiler}, {first.math_library}")
+            report.line(f"second toolchain: {second.compiler}, {second.math_library}")
+        report.differences(item.label, compare_exports(first, second))
+        finish_item(item, report)
+
+
+def run_compare(options, report):
+    """Compares two builds on this machine. It never reads references (FR-037)."""
+    report.set_gate_validity(gate_valid(), NOT_ISOLATED_REASON)
+    report.note("this is a local check, and it does not replace the gate")
+    first = binary_path()
+    second = Path(options.compare)
+    items = build_work_items(first)
+    exclusions = load_exclusions()
+    first_names = set(load_formulas(first)) - set(exclusions)
+    second_formulas = load_formulas(second)
+    second_names = set(second_formulas) - set(exclusions)
+    only_first = sorted(first_names - second_names)
+    only_second = sorted(second_names - first_names)
+    shared = [item for item in items if item.kind == "scene" or item.name in second_names]
+    report.item_count = len(shared) + len(only_first) + len(only_second)
+    for name in only_first:
+        report.failed(f"formula {name}", "offered by the first build only")
+    for name in only_second:
+        report.failed(f"formula {name}", "offered by the second build only")
+    compare_builds(shared, first, second, second_formulas, report)
+
+
 def build_parser():
     parser = argparse.ArgumentParser(description="Regression harness for the Mandelbulber CPU renderer.")
     group = parser.add_mutually_exclusive_group()
@@ -1010,7 +1123,11 @@ def mode_name(options):
 def run_mode(options, report):
     if options.self_parity:
         run_self_parity(report)
-    elif options.capture or options.compare or options.collect or options.cross_check:
+    elif options.capture:
+        run_capture(report)
+    elif options.compare:
+        run_compare(options, report)
+    elif options.collect or options.cross_check:
         raise SetupError("this mode is not implemented yet")
     else:
         run_gate(report)

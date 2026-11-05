@@ -1210,6 +1210,279 @@ class GateSafetyTests(GateTestCase):
         self.assertEqual(lines, ["package gcc-13 13.3.0", "package libc6 2.39", "package libgomp1 14.2"])
 
 
+class CaptureTestCase(GateTestCase):
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.enable_threads()
+        self.folder = self.tests_dir / "references" / "test-target"
+
+
+class CaptureSuccessTests(CaptureTestCase):
+    """T059: capture writes a whole set that the gate then passes against."""
+
+    def test_capture_writes_a_complete_set(self):
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(
+            sorted(self.tree_bytes(self.folder)),
+            sorted(
+                str(Path(name))
+                for name in (
+                    "toolchain.txt",
+                    "settings.txt",
+                    "scenes/alpha.zip",
+                    "scenes/beta scene.zip",
+                    "formulas/mandelbulb.zip",
+                )
+            ),
+        )
+        toolchain = (self.folder / "toolchain.txt").read_text(encoding="utf-8").splitlines()
+        self.assertEqual(toolchain[:2], ["compiler gcc 13.3.0", "math_library glibc 2.39"])
+        settings = (self.folder / "settings.txt").read_text(encoding="utf-8").splitlines()
+        self.assertEqual(settings, regression_runner.settings_lines())
+
+    def test_gate_passes_against_a_captured_set(self):
+        self.run_main("--capture")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+
+    def test_second_capture_of_unchanged_data_is_byte_identical(self):
+        self.run_main("--capture")
+        first = self.tree_bytes(self.folder)
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(self.tree_bytes(self.folder), first)
+
+    def test_capture_replaces_a_whole_set(self):
+        self.run_main("--capture")
+        (self.folder / "scenes" / "retired.zip").write_bytes(b"old")
+        self.run_main("--capture")
+        self.assertFalse((self.folder / "scenes" / "retired.zip").exists())
+
+
+class CaptureRefusalTests(CaptureTestCase):
+    """T060: a failed or refused capture leaves existing references byte-for-byte unchanged."""
+
+    def setUp(self):
+        super().setUp()
+        self.run_main("--capture")
+        self.before = self.tree_bytes(self.folder)
+        self.calls_before = len(self.render_calls())
+
+    def assert_unchanged(self):
+        self.assertEqual(self.tree_bytes(self.folder), self.before)
+
+    def assert_refused_before_rendering(self, code, output, cause):
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn(cause, output)
+        self.assertEqual(len(self.render_calls()), self.calls_before)
+        self.assert_unchanged()
+
+    def test_unstable_build_writes_nothing(self):
+        self.set_mode("unstable")
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assert_unchanged()
+
+    def test_no_thread_control_refuses(self):
+        with mock.patch.object(regression_runner, "THREAD_OPTION", None):
+            code, output = self.run_main("--capture")
+        self.assert_refused_before_rendering(code, output, "thread coverage is incomplete")
+
+    def test_not_gate_valid_refuses(self):
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.run_main("--capture")
+        self.assert_refused_before_rendering(code, output, "not gate-valid")
+
+    def test_outside_ci_refuses(self):
+        with mock.patch.dict(os.environ):
+            del os.environ["CI"]
+            code, output = self.run_main("--capture")
+        self.assert_refused_before_rendering(code, output, "outside CI")
+
+    def test_ci_must_be_true(self):
+        with mock.patch.dict(os.environ, {"CI": "1"}):
+            code, output = self.run_main("--capture")
+        self.assert_refused_before_rendering(code, output, "outside CI")
+
+    def test_oversized_set_exits_three(self):
+        with mock.patch.object(regression_runner, "MAX_REFERENCE_BYTES", 10):
+            code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("over the", output)
+        self.assert_unchanged()
+
+    def test_failed_item_leaves_no_partial_set(self):
+        self.set_mode("only:beta scene:exit-3")
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assert_unchanged()
+
+    def test_failed_item_on_a_first_capture_leaves_no_set(self):
+        shutil.rmtree(self.tests_dir / "references")
+        self.set_mode("only:beta scene:exit-3")
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertFalse((self.tests_dir / "references").exists())
+
+    def test_mixed_toolchains_exit_three(self):
+        self.set_mode("only:alpha:other-toolchain")
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("toolchain", output)
+        self.assert_unchanged()
+
+    def test_failed_move_restores_the_old_set(self):
+        real = shutil.move
+        target = regression_runner.REF_ROOT / "test-target"
+
+        def fail_into_place(source, destination, *arguments):
+            if Path(destination) == target and "staging" in str(source):
+                raise OSError("seeded failure")
+            return real(source, destination, *arguments)
+
+        with mock.patch.object(regression_runner.shutil, "move", fail_into_place):
+            code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("seeded failure", output)
+        self.assert_unchanged()
+
+    def test_interrupt_during_rendering_leaves_references_unchanged(self):
+        real = regression_runner.render_item
+        calls = []
+
+        def interrupt(item, *arguments, **options):
+            calls.append(item.name)
+            if len(calls) == 4:
+                raise KeyboardInterrupt
+            return real(item, *arguments, **options)
+
+        with mock.patch.object(regression_runner, "render_item", interrupt):
+            with self.assertRaises(KeyboardInterrupt):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    regression_runner.main(["--capture"])
+        self.assert_unchanged()
+
+
+class CompareTestCase(ModeTestCase):
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.second = self.make_launcher("second")
+
+
+class CompareModeTests(CompareTestCase):
+    """T065: two builds on one machine, with no references."""
+
+    def test_identical_output_passes(self):
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("mode: compare", output)
+        self.assertIn("[+] scene alpha: exact match", output)
+        self.assertEqual(len(self.render_calls()), 3)
+        self.assertEqual(len(self.render_calls(self.second)), 3)
+
+    def test_second_build_differs(self):
+        for mode, pattern in (
+            ("flip-bit:depth", r"\[-\] scene alpha depth: 1 of \d+ samples differ"),
+            ("stat-plus-one:missed_de", r"\[-\] scene alpha statistics: missed_de \d+ vs \d+"),
+        ):
+            with self.subTest(mode=mode):
+                self.set_mode(mode, self.second)
+                code, output = self.run_main("--compare", str(self.second))
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, pattern)
+
+    def test_first_build_differs(self):
+        self.set_mode("flip-bit:depth")
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertRegex(output, r"\[-\] scene alpha depth: 1 of \d+ samples differ")
+
+    def test_failed_render_names_the_build(self):
+        self.set_mode("only:alpha:exit-3", self.second)
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertRegex(output, r"\[-\] scene alpha: second build: .*exit status 3")
+        self.set_mode("same", self.second)
+        self.set_mode("only:alpha:exit-3")
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertRegex(output, r"\[-\] scene alpha: first build: .*exit status 3")
+
+    def test_missing_second_binary_names_the_path(self):
+        missing = self.root / "nowhere" / "mandelbulber2"
+        code, output = self.run_main("--compare", str(missing))
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("nowhere", output)
+        self.assertEqual(self.render_calls(), [])
+
+    def test_formula_on_one_build_is_a_difference(self):
+        self.set_mode("extra-formula", self.second)
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] formula stubExtra: offered by the second build only", output)
+        self.set_mode("same", self.second)
+        self.set_mode("extra-formula")
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] formula stubExtra: offered by the first build only", output)
+
+    def test_excluded_formula_missing_from_one_build_is_not_a_difference(self):
+        (self.tests_dir / "formula_exclusions.txt").write_text(
+            "custom reason\nmandelbulbPower2 reason\naexion reason\n", encoding="utf-8"
+        )
+        self.set_mode("missing-formula", self.second)
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+
+    def test_each_build_uses_its_own_formula_ids(self):
+        self.set_mode("renumber-formulas", self.second)
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("2", self.calls_by_item())
+        self.assertIn("1002", self.calls_by_item(self.second))
+
+    def test_works_without_references_and_leaves_them_alone(self):
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertFalse((self.tests_dir / "references").exists())
+        folder = self.tests_dir / "references" / "test-target"
+        folder.mkdir(parents=True)
+        (folder / "toolchain.txt").write_text("broken", encoding="utf-8")
+        before = self.tree_bytes(self.tests_dir / "references")
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(self.tree_bytes(self.tests_dir / "references"), before)
+
+    def test_failing_outputs_stay(self):
+        self.set_mode("only:alpha:flip-bit:depth", self.second)
+        self.run_main("--compare", str(self.second))
+        renders = self.tests_dir / "outputs" / "renders"
+        self.assertTrue((renders / "scenes" / "alpha").exists())
+        self.assertFalse((renders / "formulas" / "mandelbulb").exists())
+
+
+class CompareReportTests(CompareTestCase):
+    """T066: the report states what the comparison is, and is not."""
+
+    def test_report_prints_both_toolchains_and_the_statement(self):
+        self.set_mode("other-toolchain", self.second)
+        code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("first toolchain: gcc 13.3.0, glibc 2.39", output)
+        self.assertIn("second toolchain: gcc 99.1.0, glibc 2.39", output)
+        self.assertIn("local check", output)
+        self.assertIn("does not replace the gate", output)
+
+    def test_not_gate_valid_can_still_pass(self):
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.run_main("--compare", str(self.second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("not gate-valid", output)
+        self.assertIn("result: passed", output)
+
+
 class ExportSourceTests(unittest.TestCase):
     """T048: the export writes only the values the contract lists."""
 
