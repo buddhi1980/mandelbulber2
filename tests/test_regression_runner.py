@@ -15,6 +15,7 @@ import stat
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from unittest import mock
 
@@ -911,6 +912,302 @@ class StatisticsFormatTests(unittest.TestCase):
     def test_empty_histogram_buckets_follow_the_size(self):
         statistics = regression_runner.parse_statistics(self.record(iteration_size=3))
         self.assertEqual(statistics["iteration_histogram.3"], 3)
+
+
+class GateTestCase(ModeTestCase):
+    """Helpers for tests that need references. Everything stays in the temporary root."""
+
+    def make_references(self, binary=None):
+        """Writes a reference set from stand-in exports, and returns its folder."""
+        binary = binary or self.binary
+        folder = regression_runner.REF_ROOT / "test-target"
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("test", "linux")
+            self.addCleanup(report.close)
+            for item in regression_runner.build_work_items(binary):
+                output_dir = regression_runner.OUT_DIR / "fixture" / item.name
+                export = regression_runner.render_and_validate(item, binary, output_dir, report)
+                regression_runner.write_reference(folder / f"{item.kind}s" / f"{item.name}.zip", export)
+        toolchain = regression_runner.toolchain_identity(export)
+        (folder / "toolchain.txt").write_text("\n".join(toolchain) + "\n", encoding="utf-8", newline="\n")
+        settings = regression_runner.settings_lines()
+        (folder / "settings.txt").write_text("\n".join(settings) + "\n", encoding="utf-8", newline="\n")
+        shutil.rmtree(regression_runner.OUT_DIR / "fixture", ignore_errors=True)
+        return folder
+
+
+class ReferenceFormatTests(GateTestCase):
+    """T049: the reference format round-trips exactly, and it is reproducible."""
+
+    def setUp(self):
+        super().setUp()
+        self.write_scenes("alpha")
+        self.use_one_formula()
+        self.path = self.root / "reference.zip"
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("test", "linux")
+            self.addCleanup(report.close)
+            item = regression_runner.build_work_items(self.binary)[0]
+            self.export = regression_runner.render_and_validate(
+                item, self.binary, regression_runner.OUT_DIR / "fixture", report
+            )
+        regression_runner.write_reference(self.path, self.export)
+
+    def test_planes_split_and_join(self):
+        data = bytes(range(24))
+        for size in (2, 4):
+            planes = regression_runner.split_planes(data, size)
+            self.assertEqual(planes[:2], bytes([0, size]))
+            self.assertEqual(regression_runner.join_planes(planes, size), data)
+
+    def test_every_buffer_round_trips(self):
+        loaded = regression_runner.read_reference(self.path)
+        self.assertEqual(loaded.buffers, self.export.buffers)
+        self.assertEqual(loaded.statistics, self.export.statistics)
+        self.assertEqual((loaded.width, loaded.height), (self.export.width, self.export.height))
+        self.assertEqual(loaded.compiler, self.export.compiler)
+        self.assertEqual(loaded.math_library, self.export.math_library)
+        self.assertEqual(loaded.manifest_bytes, self.export.manifest_bytes)
+        self.assertEqual(loaded.statistics_bytes, self.export.statistics_bytes)
+
+    def test_entries_follow_the_contract(self):
+        expected = ["manifest.txt", "statistics.txt"] + [f"{name}.planes" for name in BUFFER_NAMES]
+        with zipfile.ZipFile(self.path) as archive:
+            self.assertEqual(archive.namelist(), expected)
+            for info in archive.infolist():
+                self.assertEqual(info.date_time, (1980, 1, 1, 0, 0, 0))
+                self.assertEqual(info.compress_type, zipfile.ZIP_DEFLATED)
+
+    def test_corrupted_entry_is_rejected(self):
+        data = bytearray(self.path.read_bytes())
+        with zipfile.ZipFile(self.path) as archive:
+            info = archive.getinfo("raw_render.planes")
+        start = info.header_offset + 30 + len(info.filename) + len(info.extra)
+        data[start + info.compress_size // 2] ^= 0xFF
+        self.path.write_bytes(data)
+        with self.assertRaisesRegex(regression_runner.SetupError, "reference.zip"):
+            regression_runner.read_reference(self.path)
+
+    def test_writing_twice_is_byte_identical(self):
+        again = self.root / "again.zip"
+        regression_runner.write_reference(again, self.export)
+        self.assertEqual(again.read_bytes(), self.path.read_bytes())
+
+    def test_missing_entry_is_rejected(self):
+        with zipfile.ZipFile(self.path, "r") as archive:
+            kept = [(info, archive.read(info.filename)) for info in archive.infolist()[:-1]]
+        with zipfile.ZipFile(self.path, "w") as archive:
+            for info, data in kept:
+                archive.writestr(info, data)
+        with self.assertRaisesRegex(regression_runner.SetupError, "reference.zip"):
+            regression_runner.read_reference(self.path)
+
+
+class GateResultTests(GateTestCase):
+    """T050: the gate passes on identical output and names every difference."""
+
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.make_references()
+
+    def test_identical_output_passes(self):
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("mode: gate", output)
+        self.assertIn("target: test-target", output)
+        self.assertIn("toolchain: gcc 13.3.0, glibc 2.39", output)
+        self.assertIn("[+] scene alpha: exact match", output)
+        self.assertIn("[+] formula mandelbulb: exact match", output)
+        self.assertIn("result: passed", output)
+
+    def test_one_render_per_item(self):
+        before = len(self.render_calls())
+        self.run_main()
+        self.assertEqual(len(self.render_calls()) - before, 3)
+
+    def test_flipped_bit_names_the_item_buffer_and_count(self):
+        for buffer in BUFFER_NAMES:
+            with self.subTest(buffer=buffer):
+                self.set_mode(f"flip-bit:{buffer}")
+                code, output = self.run_main()
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, rf"\[-\] scene alpha {buffer}: 1 of \d+ samples differ")
+                self.assertIn("result: parity failure", output)
+
+    def test_mantissa_change_fails_on_float_buffers(self):
+        for buffer in FLOAT_BUFFERS:
+            with self.subTest(buffer=buffer):
+                self.set_mode(f"flip-mantissa:{buffer}")
+                code, output = self.run_main()
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, rf"\[-\] scene alpha {buffer}: 1 of \d+ samples differ")
+                self.assertNotIn("final_image:", output)
+
+    def test_changed_statistic_names_both_values(self):
+        self.set_mode("stat-plus-one:raymarch_count")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        match = re.search(r"\[-\] scene alpha statistics: raymarch_count (\d+) vs (\d+)", output)
+        self.assertIsNotNone(match, output)
+        self.assertEqual(int(match.group(1)) + 1, int(match.group(2)))
+
+    def test_resize_reports_a_layout_difference(self):
+        self.set_mode("resize")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertRegex(output, r"\[-\] scene alpha layout: 8x6 vs 9x6")
+
+    def test_failing_outputs_stay_and_passing_outputs_go(self):
+        self.set_mode("only:alpha:flip-bit:depth")
+        self.run_main()
+        renders = self.tests_dir / "outputs" / "renders"
+        self.assertTrue((renders / "scenes" / "alpha").exists())
+        self.assertFalse((renders / "scenes" / "beta scene").exists())
+
+
+class GateCoverageTests(GateTestCase):
+    """T051: every item needs a reference, and every reference needs an item."""
+
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.folder = self.make_references()
+
+    def test_scene_with_no_reference_fails(self):
+        (self.folder / "scenes" / "alpha.zip").unlink()
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] scene alpha: no reference", output)
+
+    def test_formula_with_no_reference_fails(self):
+        (self.folder / "formulas" / "mandelbulb.zip").unlink()
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] formula mandelbulb: no reference", output)
+
+    def test_leftover_reference_fails(self):
+        shutil.copy(self.folder / "scenes" / "alpha.zip", self.folder / "scenes" / "retired.zip")
+        shutil.copy(self.folder / "formulas" / "mandelbulb.zip", self.folder / "formulas" / "gone.zip")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] scene retired: reference has no work item", output)
+        self.assertIn("[-] formula gone: reference has no work item", output)
+        self.assertIn("2 of 5 items failed", output)
+
+    def test_extra_buffer_fails(self):
+        self.set_mode("extra-buffer")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("unexpected buffer specular", output)
+
+    def test_drift_in_one_formula_fails_on_that_formula_alone(self):
+        self.set_mode("only:2:flip-bit:normal")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertRegex(output, r"\[-\] formula mandelbulb normal: 1 of \d+ samples differ")
+        self.assertIn("[+] scene alpha: exact match", output)
+        self.assertIn("result: parity failure (1 of 3 items failed)", output)
+
+    def test_missing_reference_set_exits_three(self):
+        shutil.rmtree(self.folder)
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("no reference set", output)
+        self.assertNotIn("result: passed", output)
+        self.assertNotIn("[+]", output)
+
+    def test_changed_settings_exit_three(self):
+        changes = (
+            ("SCENE_RESOLUTION", "16x12"),
+            ("FORMULA_RESOLUTION", "8x6"),
+            ("RENDER_OVERRIDES", "opencl_enabled=0"),
+            ("EXPORT_VERSION", 2),
+        )
+        for name, value in changes:
+            with self.subTest(name=name):
+                with mock.patch.object(regression_runner, name, value):
+                    code, output = self.run_main()
+                self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+                self.assertIn("render settings differ", output)
+
+    def test_corrupted_reference_exits_three(self):
+        (self.folder / "scenes" / "alpha.zip").write_bytes(b"not a zip")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("alpha.zip", output)
+
+
+class GateSafetyTests(GateTestCase):
+    """T052: a toolchain difference is not drift, and the gate never writes references."""
+
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.folder = self.make_references()
+
+    def test_other_toolchain_with_matching_output_passes_with_a_note(self):
+        self.set_mode("other-toolchain")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("note: the toolchain differs from the reference set", output)
+        self.assertIn("gcc 99.1.0", output)
+
+    def test_other_toolchain_with_drift_is_a_mismatch(self):
+        self.set_mode("other-toolchain-drift")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("result: reference target mismatch", output)
+        self.assertNotIn("result: parity failure", output)
+        self.assertRegex(output, r"\[-\] scene alpha raw_render: 1 of \d+ samples differ")
+
+    def test_package_difference_is_a_toolchain_difference(self):
+        with mock.patch.object(regression_runner, "package_lines", return_value=["package libc6 9.9"]):
+            code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("note: the toolchain differs from the reference set", output)
+        self.assertIn("package libc6 9.9", output)
+        self.set_mode("flip-bit:depth")
+        with mock.patch.object(regression_runner, "package_lines", return_value=["package libc6 9.9"]):
+            code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("result: reference target mismatch", output)
+
+    def test_leftover_reference_beside_a_toolchain_difference_exits_one(self):
+        shutil.copy(self.folder / "scenes" / "alpha.zip", self.folder / "scenes" / "retired.zip")
+        self.set_mode("other-toolchain-drift")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("[-] scene retired: reference has no work item", output)
+
+    def test_not_gate_valid_exits_three(self):
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("not gate-valid", output)
+
+    def test_references_stay_unchanged(self):
+        before = self.tree_bytes(self.folder)
+        self.set_mode("flip-bit:depth")
+        self.run_main()
+        self.set_mode("same")
+        self.run_main()
+        self.assertEqual(self.tree_bytes(self.folder), before)
+
+    def test_toolchain_identity_without_dpkg(self):
+        result = mock.Mock(side_effect=FileNotFoundError("dpkg-query"))
+        regression_runner.package_lines.cache_clear()
+        self.addCleanup(regression_runner.package_lines.cache_clear)
+        with mock.patch.object(regression_runner.subprocess, "run", result):
+            self.assertEqual(regression_runner.package_lines(), [])
+
+    def test_toolchain_identity_with_dpkg(self):
+        result = mock.Mock(stdout="libgomp1 14.2\nlibc6 2.39\ngcc-13 \ngcc-13 13.3.0\n")
+        regression_runner.package_lines.cache_clear()
+        self.addCleanup(regression_runner.package_lines.cache_clear)
+        with mock.patch.object(regression_runner.subprocess, "run", return_value=result):
+            lines = regression_runner.package_lines()
+        self.assertEqual(lines, ["package gcc-13 13.3.0", "package libc6 2.39", "package libgomp1 14.2"])
 
 
 class ExportSourceTests(unittest.TestCase):

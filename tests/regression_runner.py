@@ -15,6 +15,7 @@ See specs/001-regression-harness/contracts/runner-cli.md.
 
 import argparse
 import contextlib
+import functools
 import operator
 import os
 import re
@@ -24,6 +25,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+import zipfile
 import zlib
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
@@ -94,6 +96,11 @@ PLAIN_STATISTICS = ("total_iterations", "raymarch_count", "missed_de")
 SAMPLE_CODES = {"f32": "I", "u16": "H"}
 NOT_ISOLATED_REASON = "the application ignores a redirected home folder on this platform"
 
+# A fixed timestamp keeps a recapture of unchanged data byte-identical.
+REFERENCE_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
+REFERENCE_ENTRIES = ("manifest.txt", "statistics.txt") + tuple(f"{name}.planes" for name, _, _ in EXPECTED_BUFFERS)
+TOOLCHAIN_PACKAGES = ("gcc-[0-9]*", "g++-[0-9]*", "libc6", "libstdc++6", "libgcc-s1", "libgomp1")
+
 
 class SetupError(Exception):
     """The run cannot go ahead or cannot be trusted."""
@@ -133,6 +140,14 @@ class Export:
     statistics_bytes: bytes
 
 
+@dataclass
+class ReferenceSet:
+    """The folder of one target's references, and the toolchain that made them."""
+
+    folder: Path
+    toolchain: list
+
+
 @dataclass(frozen=True)
 class Difference:
     """One difference from a comparison. The name is a buffer, statistics, or layout."""
@@ -157,6 +172,7 @@ class Report:
         self.setup_failures = set()
         self.mismatches = set()
         self.run_problems = []
+        self.toolchain_shown = False
         self.lock = threading.Lock()
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         self.file = open(OUT_DIR / "report.txt", "w", encoding="utf-8", newline="\n")
@@ -183,6 +199,14 @@ class Report:
     def set_toolchain_note(self, text):
         self.toolchain_note = text
         self.note(text)
+
+    def show_toolchain(self, export):
+        """Prints the toolchain of the build under test, once."""
+        with self.lock:
+            if self.toolchain_shown:
+                return
+            self.toolchain_shown = True
+        self.line(f"toolchain: {export.compiler}, {export.math_library}")
 
     def passed(self, label, text="exact match"):
         """Records an item that passed, unless it has already failed."""
@@ -498,20 +522,17 @@ def check_render_output(returncode, log_path):
             raise RenderError(f"{marker}, see {log_path}")
 
 
-def read_manifest(path):
-    """Parses manifest.txt, and returns its fields and its raw bytes."""
-    if not path.is_file():
-        raise RenderError(f"no manifest in {path.parent}, so the export is incomplete")
-    data = path.read_bytes()
+def parse_manifest(data, source):
+    """Parses the bytes of a manifest, and returns its fields. Source names it in failures."""
     lines = data.decode("utf-8", errors="replace").split("\n")
     if lines[-2:] != ["end", ""]:
-        raise RenderError(f"{path} has no end line, so the export is incomplete")
+        raise RenderError(f"{source} has no end line, so the export is incomplete")
     lines = lines[:-2]
     header = lines[0].split(" ") if lines else []
     if len(header) != 2 or header[0] != EXPORT_HEADER:
-        raise RenderError(f"{path} does not start with {EXPORT_HEADER}")
+        raise RenderError(f"{source} does not start with {EXPORT_HEADER}")
     if header[1] != str(EXPORT_VERSION):
-        raise RenderError(f"{path} has unknown format version {header[1]}")
+        raise RenderError(f"{source} has unknown format version {header[1]}")
     fields = {"buffer": []}
     for line in lines[1:]:
         name, _, value = line.partition(" ")
@@ -521,10 +542,11 @@ def read_manifest(path):
             fields[name] = value
     for name in ("width", "height", "compiler", "math_library", "statistics"):
         if name not in fields:
-            raise RenderError(f"{path} has no {name} line")
+            raise RenderError(f"{source} has no {name} line")
     if not fields["width"].isdigit() or not fields["height"].isdigit():
-        raise RenderError(f"{path} has a bad image size")
-    return fields, data
+        raise RenderError(f"{source} has a bad image size")
+    check_buffer_list(source, fields["buffer"])
+    return fields
 
 
 def check_buffer_list(path, listed):
@@ -585,8 +607,10 @@ def read_export(directory):
     """Reads and validates one export. Anything other than a complete export fails (FR-008)."""
     directory = Path(directory)
     manifest_path = directory / "manifest.txt"
-    fields, manifest_bytes = read_manifest(manifest_path)
-    check_buffer_list(manifest_path, fields["buffer"])
+    if not manifest_path.is_file():
+        raise RenderError(f"no manifest in {directory}, so the export is incomplete")
+    manifest_bytes = manifest_path.read_bytes()
+    fields = parse_manifest(manifest_bytes, manifest_path)
     width = int(fields["width"])
     height = int(fields["height"])
     buffers = {}
@@ -756,6 +780,7 @@ def check_self_parity(items, binary, report):
         firsts[item.label] = first
         if first is None:
             continue
+        report.show_toolchain(first)
         context = "neutral render"
         output_dir = item_folder(item) / "neutral"
         image = render_and_validate(item, binary, output_dir, report, all_threads, neutral=True, context=context)
@@ -773,12 +798,160 @@ def check_self_parity(items, binary, report):
     return firsts
 
 
+def finish_item(item, report, text="exact match"):
+    """Gives an item that did not fail its verdict, and removes its outputs (FR-030)."""
+    report.passed(item.label, text)
+    if report.item_results[item.label] == "passed":
+        shutil.rmtree(item_folder(item), ignore_errors=True)
+
+
+def split_planes(data, size):
+    """Splits samples into byte planes: all first bytes, then all second bytes, and so on."""
+    return b"".join(data[plane::size] for plane in range(size))
+
+
+def join_planes(data, size):
+    """Reverses split_planes."""
+    joined = bytearray(len(data))
+    count = len(data) // size
+    for plane in range(size):
+        joined[plane::size] = data[plane * count : (plane + 1) * count]
+    return bytes(joined)
+
+
+def write_reference(path, export):
+    """Writes one render as a zip. Writing the same data twice gives the same bytes."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    entries = {"manifest.txt": export.manifest_bytes, "statistics.txt": export.statistics_bytes}
+    for name, sample, _ in EXPECTED_BUFFERS:
+        entries[f"{name}.planes"] = split_planes(export.buffers[name], SAMPLE_BYTES[sample])
+    with zipfile.ZipFile(path, "w") as archive:
+        for name in REFERENCE_ENTRIES:
+            info = zipfile.ZipInfo(name, date_time=REFERENCE_TIMESTAMP)
+            info.create_system = 3  # Otherwise the bytes depend on the platform that wrote them.
+            archive.writestr(info, entries[name], compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+
+
+def read_reference(path):
+    """Reads one zip back into an Export. Reading an entry verifies its checksum."""
+    try:
+        with zipfile.ZipFile(path) as archive:
+            if archive.namelist() != list(REFERENCE_ENTRIES):
+                raise RenderError("it does not hold the expected entries")
+            contents = {name: archive.read(name) for name in REFERENCE_ENTRIES}
+        fields = parse_manifest(contents["manifest.txt"], path)
+        width = int(fields["width"])
+        height = int(fields["height"])
+        buffers = {}
+        for name, sample, channels in EXPECTED_BUFFERS:
+            buffers[name] = join_planes(contents[f"{name}.planes"], SAMPLE_BYTES[sample])
+            if len(buffers[name]) != width * height * channels * SAMPLE_BYTES[sample]:
+                raise RenderError(f"buffer {name} has the wrong size")
+        statistics = parse_statistics(contents["statistics.txt"].decode("utf-8"))
+    except (OSError, EOFError, UnicodeDecodeError, zipfile.BadZipFile, zlib.error, RenderError) as error:
+        raise SetupError(f"cannot read {path}: {error}") from None
+    return Export(
+        width,
+        height,
+        fields["compiler"],
+        fields["math_library"],
+        buffers,
+        statistics,
+        contents["manifest.txt"],
+        contents["statistics.txt"],
+    )
+
+
+@functools.lru_cache(maxsize=None)
+def package_lines():
+    """Reports the installed toolchain packages, where the platform can say (FR-022)."""
+    command = ["dpkg-query", "-W", "-f", "${Package} ${Version}\n", *TOOLCHAIN_PACKAGES]
+    try:
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, encoding="utf-8")
+    except OSError:
+        return []
+    lines = set()
+    for line in result.stdout.splitlines():
+        name, _, version = line.partition(" ")
+        if version.strip():
+            lines.add(f"package {name} {version.strip()}")
+    return sorted(lines)
+
+
+def toolchain_identity(export):
+    """The lines of toolchain.txt for the build that made an export."""
+    return [f"compiler {export.compiler}", f"math_library {export.math_library}"] + package_lines()
+
+
+def settings_lines():
+    """The lines of settings.txt: the render settings a reference set depends on."""
+    return [
+        f"export_format {EXPORT_VERSION}",
+        f"scene_resolution {SCENE_RESOLUTION}",
+        f"formula_resolution {FORMULA_RESOLUTION}",
+        f"overrides {RENDER_OVERRIDES}",
+    ]
+
+
+def load_reference_set(target):
+    """Finds a target's references, and refuses a set made with other render settings."""
+    folder = REF_ROOT / target
+    if not folder.is_dir():
+        raise SetupError(f"no reference set for {target}: {folder} does not exist")
+    toolchain_path = folder / "toolchain.txt"
+    settings_path = folder / "settings.txt"
+    for required in (toolchain_path, settings_path):
+        if not required.is_file():
+            raise SetupError(f"the reference set for {target} is incomplete: {required} is missing")
+    recorded = settings_path.read_text(encoding="utf-8").splitlines()
+    changed = [line for line in settings_lines() if line not in recorded]
+    if changed or len(recorded) != len(settings_lines()):
+        raise SetupError(f"render settings differ from the reference set: {', '.join(changed) or settings_path}")
+    return ReferenceSet(folder, toolchain_path.read_text(encoding="utf-8").splitlines())
+
+
+def list_references(folder):
+    """Returns the path of every reference in a folder, by item label."""
+    references = {}
+    for kind in ("scene", "formula"):
+        for path in sorted((folder / f"{kind}s").glob("*.zip")):
+            references[f"{kind} {path.stem}"] = path
+    return references
+
+
+def compare_against_references(items, binary, reference_set, report):
+    """Renders each item once and compares it with its reference (FR-019, FR-034)."""
+    references = list_references(reference_set.folder)
+    leftovers = sorted(set(references) - {item.label for item in items})
+    report.item_count = len(items) + len(leftovers)
+    differing_lines = set()
+    for item in items:
+        if item.label not in references:
+            report.failed(item.label, "no reference for this item")
+            continue
+        export = render_and_validate(item, binary, item_folder(item) / "gate", report)
+        if export is None:
+            continue
+        report.show_toolchain(export)
+        identity = toolchain_identity(export)
+        category = PARITY
+        if identity != reference_set.toolchain:
+            differing_lines.update(set(identity) ^ set(reference_set.toolchain))
+            category = MISMATCH
+        expected = read_reference(references[item.label])
+        report.differences(item.label, compare_exports(expected, export), category)
+        finish_item(item, report)
+    for label in leftovers:
+        report.failed(label, "reference has no work item")
+    if differing_lines:
+        report.set_toolchain_note(f"the toolchain differs from the reference set: {', '.join(sorted(differing_lines))}")
+
+
 def finish_items(items, report):
     """Gives every item that did not fail its verdict, and removes the outputs of passing items."""
     for item in items:
-        report.passed(item.label)
-        if report.item_results[item.label] == "passed":
-            shutil.rmtree(item_folder(item), ignore_errors=True)
+        finish_item(item, report)
 
 
 def require_gate_validity(report):
@@ -798,6 +971,15 @@ def run_self_parity(report):
     report.item_count = len(items)
     check_self_parity(items, binary, report)
     finish_items(items, report)
+
+
+def run_gate(report):
+    """The default mode. It reads references and never writes them (FR-020)."""
+    require_gate_validity(report)
+    binary = binary_path()
+    items = build_work_items(binary)
+    reference_set = load_reference_set(parity_target())
+    compare_against_references(items, binary, reference_set, report)
 
 
 def build_parser():
@@ -828,8 +1010,10 @@ def mode_name(options):
 def run_mode(options, report):
     if options.self_parity:
         run_self_parity(report)
-    else:
+    elif options.capture or options.compare or options.collect or options.cross_check:
         raise SetupError("this mode is not implemented yet")
+    else:
+        run_gate(report)
 
 
 def stop_run(report, cause):
