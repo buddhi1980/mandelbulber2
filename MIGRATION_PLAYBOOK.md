@@ -168,7 +168,7 @@ The harness depends on these behaviors. They were tested on a Windows build, and
 | Failure detection | Require the export, then check the output text | The app exits 0 and prints `Image saved to:` even when the target folder is missing. A missing scene, a bad settings file, or a missing texture also exits 0, a failed load saves a black image, and up to 3 bad settings lines still count as a successful load |
 | Computation logs | The statistics record in the export | Log lines start with a process ID and elapsed time, `--stats` prints values rounded to six significant digits, and `--logfilepath` wrote no file in testing |
 
-An earlier TIFF-based prototype of the runner is in commit `fbcc70492`. Its comparison no longer applies, but its temporary home directory and failure checks were tested and can be reused.
+An earlier TIFF-based prototype of the runner is in commit `9b59d130d`. Its comparison no longer applies, but its temporary home directory and failure checks were tested and can be reused.
 
 ### 4. Implement and Verify
 `tests/scenes.txt` is the Standard Scene Suite, with one path per line, relative to the repository root. Start with these two, then add scenes until the suite exercises each stochastic CPU path, as the constitution requires. FR-039 in the spec lists the paths, and `research.md` names a candidate scene for each. A scene that references an asset by URL or absolute path fails the run, and so does a nebula scene, because nebula mode always renders through OpenCL. Leave those out:

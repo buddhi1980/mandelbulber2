@@ -104,7 +104,7 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 ## R11. Neutral render
 
 - **Decision**: One render per item with the normal buffer and export off, saved as a 16-bit TIFF, and compared with the `final_image` buffer.
-- **Rationale**: `--override color_quality=1` writes `GetPixelImage16` directly, so its samples should equal the final-image buffer bit for bit. The TIFF reader in the earlier prototype (commit `fbcc70492`) has been tested on real files.
+- **Rationale**: `--override color_quality=1` writes `GetPixelImage16` directly, so its samples should equal the final-image buffer bit for bit. The TIFF reader in the earlier prototype (commit `9b59d130d`) has been tested on real files.
 
 ## R12. Harness structure and testing
 
