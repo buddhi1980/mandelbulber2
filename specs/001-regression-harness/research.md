@@ -224,7 +224,7 @@ Both `--test` runs tried the same 791 example scenes. Two identical renders of `
   - An image similarity score: the constitution rules it out, and renders differ too much between runs to set a meaningful limit. Any limit would only measure noise.
   - A separate script: it would repeat the harness's isolation, failure detection, and comparison code.
   - Comparing `--test` results only: that suite renders examples at 5x5 pixels and compares nothing between builds.
-- **Measured**: On 2026-11-05, fresh qmake and MSVC builds of commit `961f857ab` each collected all 486 items with no failures, in 81 seconds on WSL and 102 seconds on Windows. The cross-check took 5 seconds and exited 0 with functional agreement, which meets SC-013. The whole run took 187 seconds, well inside the 15 minutes of SC-012. One item, `transf_benesi_cube_sphere`, matched exactly, and it is one of the formulas that render black. Each collection held 75 MB, and the details file listed 14,891 differing statistics.
+- **Measured**: On 2026-11-05, fresh qmake and MSVC builds of commit `6f9d8b9be` each collected all 487 items with no failures, in 77 seconds on WSL and 98 seconds on Windows. The cross-check took 6 seconds and exited 0 with functional agreement, which meets SC-013. The whole run took 180 seconds, well inside the 15 minutes of SC-012. No item matched exactly. Each collection held 79 MB, and the details file listed 18,448 differing statistics.
 
 ## R17. Cross-Build Check pipeline
 
