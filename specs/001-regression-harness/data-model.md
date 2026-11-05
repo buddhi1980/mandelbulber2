@@ -202,9 +202,10 @@ Nothing reaches `tests/references/` before the final step, which moves any exist
 **Collection**
 
 ```text
-folder prepared → rendering items → complete (collection.txt written)
-                        ↓
-                setup error (no collection.txt, so it can never be cross-checked)
+setup checked → folder prepared → rendering items → complete (collection.txt written)
+      ↓                                  ↓
+ setup error                        run stopped
+ (folder unchanged)                 (no collection.txt, so it can never be cross-checked)
 ```
 
 A failed item does not stop a collection. It is recorded and the run continues.

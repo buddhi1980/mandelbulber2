@@ -54,13 +54,14 @@ end
 
 ## Collecting
 
-1. Create `DIR` and its parents if they do not exist. A folder counts as a collection if it holds nothing except `collection.txt`, `scenes/`, and `formulas/`, so a run that stopped part way can be replaced. If `DIR` holds anything else, refuse it, exit 3, and change nothing.
-2. Delete any earlier collection in `DIR`, removing `collection.txt` first.
-3. Render every work item once, with the gate's settings and failure detection, and the gate's isolation where the platform allows it. A failed item is recorded, and the run continues.
-4. Write `collection.txt` last.
-5. Exit 0 if every item passed, or 3 if any item failed.
+1. Check the setup: the scene list, the binary, the formula list, the application version, and the source state. A failure here exits 3 and leaves `DIR` unchanged.
+2. Create `DIR` and its parents if they do not exist. A folder counts as a collection if it holds nothing except `collection.txt`, `scenes/`, and `formulas/`, so a run that stopped part way can be replaced. If `DIR` holds anything else, refuse it, exit 3, and change nothing.
+3. Delete any earlier collection in `DIR`, removing `collection.txt` first.
+4. Render every work item once, with the gate's settings and failure detection, and the gate's isolation where the platform allows it. A failed item is recorded, and the run continues.
+5. Write `collection.txt` last.
+6. Exit 0 if every item passed, or 3 if any item failed.
 
-A setup error before rendering stops the run and leaves no `collection.txt`, so a cross-check can never read a partial collection. If the binary is older than the commit, the report says so, and the run continues.
+A run that stops part way leaves no `collection.txt`, so a cross-check can never read a partial collection. If the binary is older than the commit, the report says so, and the run continues.
 
 ## Cross-Checking
 
