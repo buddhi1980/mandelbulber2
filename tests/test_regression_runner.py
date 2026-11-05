@@ -2143,6 +2143,28 @@ class TiffTests(unittest.TestCase):
             regression_runner.read_tiff(self.path)
 
 
+class SweepBaseSceneTests(unittest.TestCase):
+    """T003: every swept formula must run first in a real hybrid, not just in name."""
+
+    def setUp(self):
+        self.text = (TESTS_DIR / "formula_sweep_base.fract").read_text(encoding="utf-8")
+
+    def test_the_tree_makes_the_hybrid(self):
+        # A version 2.35 file takes its tree from these lines. hybrid_fractal_enable alone does nothing.
+        for line in (
+            "node_0001_definition hybrid 1,1,10,0,100;",
+            "node_0002_definition mandelbulb 2,2,1,1,1;",
+            "node_0003_definition mandelbulb 3,3,1,1,2;",
+        ):
+            self.assertIn(line, self.text)
+
+    def test_the_swept_formula_runs_first_and_most(self):
+        # Going first means the formula runs before mandelbulb can escape. Running most keeps its distance function.
+        first, second = self.text.split("[fractal_2]")
+        self.assertIn("[fractal_1]\nformula_iterations 3;\n", first)
+        self.assertEqual(second, "\nformula 2;\nformula_iterations 2;\n")
+
+
 class ExportSourceTests(unittest.TestCase):
     """T048: the export writes only the values the contract lists."""
 

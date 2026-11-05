@@ -276,7 +276,7 @@ A developer pushes a branch, and GitHub Actions builds the commit with both buil
 
 **Formula sweep**
 
-- **FR-032**: The gate MUST include a formula sweep: one render of every formula the application offers, from one fixed base scene in the repository, at one fixed low resolution that is the same in all modes.
+- **FR-032**: The gate MUST include a formula sweep: one render of every formula the application offers, from one fixed base scene in the repository, at one fixed low resolution that is the same in all modes. The base scene MUST run each formula first in a hybrid with Mandelbulb, so that a formula that shows nothing alone still produces a picture.
 - **FR-033**: Sweep renders MUST meet every requirement that applies to scene renders, in every mode, including isolation, failure detection, buffer and statistics comparison, and reference storage.
 - **FR-034**: A formula with no sweep reference, or a sweep reference for a formula the application no longer offers, MUST fail the gate. Any formula excluded from the sweep MUST be listed with its reason in a version-controlled file.
 
@@ -352,7 +352,7 @@ A developer pushes a branch, and GitHub Actions builds the commit with both buil
 ### Key Entities *(include if feature involves data)*
 
 - **Scene List**: The version-controlled Standard Scene Suite, an ordered list of `.fract` files.
-- **Formula Sweep**: One low-resolution render of every formula the application offers, from one fixed base scene, compared like any other render.
+- **Formula Sweep**: One low-resolution render of every formula the application offers, each running first in a hybrid with Mandelbulb from one fixed base scene, compared like any other render.
 - **Gated Render**: One headless CPU render of one scene, at the fixed resolution and sample cap, in an isolated environment. It produces one verification export.
 - **Verification Export**: The opt-in output of a successful render: seven engine buffers and a statistics record, in a versioned format.
 - **Engine Buffer**: One of the raw render, post-effect image, final image, alpha, depth, normal, or world normal, for one scene.
@@ -412,6 +412,7 @@ A developer pushes a branch, and GitHub Actions builds the commit with both buil
 - The fixed resolution is 320x240, which keeps runs short while still exercising each render path.
 - The fixed Monte Carlo cap is a maximum of 8 samples per pixel with a minimum of 4, so both the sampling loop and its early-stop check still run. Images are noisier than authored, but they are still exact. Changing the cap is a Baseline Change.
 - The formula sweep renders at 32x24. It has not been measured in CI.
+- **What the sweep cannot show.** `transf_de_controls` still renders one flat value, because its default distance is 0. Another 105 formulas look like Mandelbulb paired with itself, 72 of them transforms whose default settings do not visibly change the picture at this size. A change to those formulas shows only if it changes that picture or the statistics. The sweep also never runs the single-fractal distance estimates, so the scene list covers them.
 - The pipeline's Windows job has not been run yet, so its time on a hosted runner is an estimate, and its behavior there is unproven until the first run. AppVeyor's Release build of the same solution took about 52 minutes.
 - References are stored as full buffers in the repository.
 - Application behavior described here was observed on a Windows Release build from July 2026 and read from the current source. A fresh Linux build confirmed headless rendering, `HOME` isolation, the data folder lookup, and the failure behavior on 2026-11-04. Other behavior has not yet been confirmed on Linux.

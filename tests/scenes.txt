@@ -21,6 +21,7 @@ mandelbulber2/deploy/share/mandelbulber2/examples/pseudo kleinian std de 001.fra
 mandelbulber2/deploy/share/mandelbulber2/examples/voxel_export_with_Bristorbrot4D.fract
 tests/scenes/beam_light.fract
 tests/scenes/hdr_blur.fract
+tests/scenes/jos_kleinian.fract
 
 # Monte Carlo scenes
 mandelbulber2/deploy/share/mandelbulber2/examples/chromatic_aberration.fract

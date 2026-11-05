@@ -94,7 +94,7 @@ note: this check does not replace the gate, and a difference between builds is n
 | Path | Purpose |
 |---|---|
 | `tests/scenes.txt` | Standard Scene Suite, one path per line. Blank lines and lines starting with `#` are ignored |
-| `tests/formula_sweep_base.fract` | Base scene for the formula sweep |
+| `tests/formula_sweep_base.fract` | Base scene for the formula sweep, a hybrid that runs each formula first and `mandelbulb` second |
 | `tests/formula_exclusions.txt` | One excluded formula per line, as `name reason`. Blank lines and lines starting with `#` are ignored |
 | `tests/outputs/` | Working output. Failed items are kept here, and passing items are removed |
 | `tests/references/<target>/` | [Reference set](reference-set.md) |

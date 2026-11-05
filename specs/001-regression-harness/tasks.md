@@ -48,21 +48,30 @@ Development uses two builds of one commit on one computer. The playbook's Local 
 
 - [X] T001 Add `tests/outputs/` to the build directories section of `.gitignore`
 - [X] T002 [P] Create `tests/scenes.txt` with the comment `# Standard Scene Suite`, then the lines `mandelbulber2/deploy/share/mandelbulber2/examples/IFS_001.fract` and `mandelbulber2/deploy/share/mandelbulber2/examples/Makin3D-Julia_001.fract`
-- [X] T003 [P] Create `tests/formula_sweep_base.fract` with exactly the content below, which rendered all 461 swept formulas without failures on 2026-11-04. Version 2.35 files have no `formula_1` parameter, so the sweep selects each formula with `fractal1_formula=<id>`
+- [X] T003 [P] Create `tests/formula_sweep_base.fract` with exactly the content below, which rendered all 461 swept formulas without failures on 2026-11-05. It runs each formula first in a hybrid with `mandelbulb`, because 188 of the 461 render one flat value alone (R6 in `research.md`). Version 2.35 files have no `formula_1` parameter, so the sweep selects each formula with `fractal1_formula=<id>`. The `node_` lines make the hybrid: a version 2.35 file takes its tree from them, and `hybrid_fractal_enable` alone has no effect. `tests/test_regression_runner.py` checks those lines and the iteration counts
 
   ```text
   # Mandelbulber settings file
   # version 2.35
   # only modified parameters
   [main_parameters]
-  camera 3 -6 2;
-  camera_distance_to_target 7;
+  camera 3.3 -6.6 2.2;
+  camera_distance_to_target 7.7;
   camera_rotation 26.565 -16.60154 0;
   camera_top -0.1277753 0.2555506 0.958314;
+  hybrid_fractal_enable true;
   target 0 0 0;
   N 50;
   detail_level 1;
   mat1_is_defined true;
+  node_0001_definition hybrid 1,1,10,0,100;
+  node_0002_definition mandelbulb 2,2,1,1,1;
+  node_0003_definition mandelbulb 3,3,1,1,2;
+  [fractal_1]
+  formula_iterations 3;
+  [fractal_2]
+  formula 2;
+  formula_iterations 2;
   ```
 
 - [X] T004 [P] Create `tests/formula_exclusions.txt` with a comment explaining the `name reason` format, then the line `custom Custom OpenCL formula has an empty CPU implementation`. This formula exists only in the OpenCL build, which is the build the harness expects
@@ -321,7 +330,7 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
 
 **Purpose**: Complete the scene suite and confirm the feature's limits
 
-- [X] T091 [P] Create `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract` with exactly the content below, which cover the beam light and HDR blur paths that no example scene uses
+- [X] T091 [P] Create `tests/scenes/beam_light.fract`, `tests/scenes/hdr_blur.fract`, and `tests/scenes/jos_kleinian.fract` with exactly the content below. The first two cover the beam light and HDR blur paths that no example scene uses. The third covers the single-fractal Jos Kleinian distance estimate, which the hybrid sweep does not reach. It uses the camera from the example `jos_kleinian 001.fract`, which takes 15 seconds because of its Monte Carlo and fog settings
 
   `tests/scenes/beam_light.fract`:
 
@@ -364,7 +373,29 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
   hdr_blur_enabled true;
   ```
 
-- [X] T092 Expand `tests/scenes.txt` to about 25 scenes, adding `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract`, with a total capped render time of about 90 seconds on 32 threads: about 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. `chromatic_aberration.fract` takes about 13 seconds, and it stays because no other scene has Monte Carlo chromatic aberration. The suite must exercise every path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, and each added scene must be timed and pass the checks in `load_scenes()`
+  `tests/scenes/jos_kleinian.fract`:
+
+  ```text
+  # Mandelbulber settings file
+  # version 2.35
+  # only modified parameters
+  [main_parameters]
+  camera 0.40508297661735 0.364125853518411 1.38711401912418;
+  camera_distance_to_target 1.37585622024537;
+  camera_rotation 79.1034435923945 -73.1964135652798 79.6896954198399;
+  camera_top 0.0177362175718606 0.998503006872265 0.0517413940021869;
+  DE_factor 0.316228;
+  target 0.0145057133875124 0.43931483464225 0.070004928215871;
+  view_distance_max 14.4806958344627;
+  mat1_is_defined true;
+  [fractal_1]
+  formula 122;
+  analyticDE_tweak_005 0.281385;
+  transf_folding_value 1.9;
+  transf_offset 0.073043;
+  ```
+
+- [X] T092 Expand `tests/scenes.txt` to about 26 scenes, adding `tests/scenes/beam_light.fract`, `tests/scenes/hdr_blur.fract`, and `tests/scenes/jos_kleinian.fract`, with a total capped render time of about 90 seconds on 32 threads: about 20 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. `chromatic_aberration.fract` takes about 13 seconds, and it stays because no other scene has Monte Carlo chromatic aberration. The suite must exercise every path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, and each added scene must be timed and pass the checks in `load_scenes()`
 - [X] T093 Review `tests/test_regression_runner.py` against the requirements in `specs/001-regression-harness/spec.md`, and add a test for any failure condition without one, so SC-001 and SC-002 are covered
 - [X] T094 Format `mandelbulber2/src/verification_export.hpp`, `mandelbulber2/src/verification_export.cpp`, and the changed lines in `mandelbulber2/src/command_line_interface.cpp`, `mandelbulber2/src/command_line_interface.hpp`, `mandelbulber2/src/headless.cpp`, and `mandelbulber2/src/headless.h` to match `.clang-format`
 - [ ] T095 Run `python3 tests/test_regression_runner.py` in WSL and `python tests/test_regression_runner.py` on Windows, then run all scenarios in `specs/001-regression-harness/quickstart.md`, and record any result that differs from what the guide expects. Now that the suite is complete, time Scenario 8 against SC-012 and the Scenario 9 pipeline run against SC-014
