@@ -320,7 +320,7 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
 - [X] T087 [US8] Confirm the failure paths on a throwaway branch that is never merged, using the `#ifdef _WIN32` change in Scenario 9: `cross-check` fails and the run summary names the formula and the build. Then break the Windows build on purpose and confirm that `linux-qmake` still finishes and `cross-check` names the missing collection (FR-050, FR-051, SC-016)
 - [X] T088 [US8] Confirm that the existing `C++ CI Build (Qt6)` workflow still passes on the same commit, and that a newer push cancels a run still going for an older commit (FR-052, SC-015)
 - [X] T089 [US8] Record the measured job times in R17 of `specs/001-regression-harness/research.md`, replacing the estimates. T095 checks the total on the full suite. Compare each harness command in the workflow with its local form, and confirm that only paths and the Python launcher differ (SC-017)
-- [ ] T090 [US8] Confirm that the pipeline is not a required check, and state in the pull request that it does not replace the parity gate from playbook Phase 4 (FR-054)
+- [X] T090 [US8] Confirm that the pipeline is not a required check, and state in the pull request that it does not replace the parity gate from playbook Phase 4 (FR-054)
 
 **Checkpoint**: The cross-check runs in all three environments, and nothing existing changed
 
@@ -399,7 +399,7 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
 - [X] T093 Review `tests/test_regression_runner.py` against the requirements in `specs/001-regression-harness/spec.md`, and add a test for any failure condition without one, so SC-001 and SC-002 are covered
 - [X] T094 Format `mandelbulber2/src/verification_export.hpp`, `mandelbulber2/src/verification_export.cpp`, and the changed lines in `mandelbulber2/src/command_line_interface.cpp`, `mandelbulber2/src/command_line_interface.hpp`, `mandelbulber2/src/headless.cpp`, and `mandelbulber2/src/headless.h` to match `.clang-format`
 - [X] T095 Run `python3 tests/test_regression_runner.py` in WSL and `python tests/test_regression_runner.py` on Windows, then run all scenarios in `specs/001-regression-harness/quickstart.md`, and record any result that differs from what the guide expects. Now that the suite is complete, time Scenario 8 against SC-012 and the Scenario 9 pipeline run against SC-014
-- [ ] T096 Check the feature's limits with `git diff --stat master`: the only changed C++ files are the six listed in T094, nothing changed in the render path, no existing CI file changed, and `tests/references/` does not exist. State in the pull request that the C++ changes close part of KD-4 and have no expected effect on output, as the constitution requires
+- [X] T096 Check the feature's limits with `git diff --stat master`: the only changed C++ files are the six listed in T094, nothing changed in the render path, no existing CI file changed, and `tests/references/` does not exist. State in the pull request that the C++ changes close part of KD-4 and have no expected effect on output, as the constitution requires
 
 ---
 
