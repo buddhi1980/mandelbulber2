@@ -12,6 +12,7 @@ import os
 import re
 import shutil
 import stat
+import struct
 import sys
 import tempfile
 import unittest
@@ -1826,11 +1827,24 @@ class CrossCheckResultTests(CrossCheckTestCase):
         for name, code, output in self.both_ways("blank"):
             with self.subTest(build=name):
                 self.assertEqual(code, regression_runner.EXIT_PARITY, output)
-                self.assertIn(f"[-] scene alpha: final image holds one value on {name} only", output)
+                self.assertIn(f"[-] scene alpha: final image holds one pixel value on {name} only", output)
 
     def test_single_value_image_on_both_builds_passes(self):
         self.set_mode("blank", self.binary)
         self.set_mode("blank", self.second)
+        self.collect_both()
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+
+    def test_single_color_image_on_one_build_fails(self):
+        for name, code, output in self.both_ways("blank-color"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertIn(f"[-] scene alpha: final image holds one pixel value on {name} only", output)
+
+    def test_single_color_image_on_both_builds_passes(self):
+        self.set_mode("blank-color", self.binary)
+        self.set_mode("blank-color", self.second)
         self.collect_both()
         code, output = self.cross_check()
         self.assertEqual(code, regression_runner.EXIT_PASSED, output)
@@ -1852,6 +1866,27 @@ class CrossCheckResultTests(CrossCheckTestCase):
         self.assertEqual(code, regression_runner.EXIT_PASSED, output)
         self.assertEqual(len([line for line in output.splitlines() if "scene alpha statistics" in line]), 1)
         self.assertEqual(len(self.details().splitlines()), 24)
+
+
+class SingleValueTests(unittest.TestCase):
+    """T097: one value means one pixel value, whatever its three channels hold."""
+
+    def holds_one_value(self, *pixels):
+        final_image = b"".join(struct.pack("<3H", *pixel) for pixel in pixels)
+        export = regression_runner.Export(len(pixels), 1, "", "", {"final_image": final_image}, {}, b"", b"")
+        return regression_runner.holds_one_value(export)
+
+    def test_one_gray_pixel_value(self):
+        self.assertTrue(self.holds_one_value((7, 7, 7), (7, 7, 7), (7, 7, 7)))
+
+    def test_one_colored_pixel_value(self):
+        self.assertTrue(self.holds_one_value((1, 2, 3), (1, 2, 3), (1, 2, 3)))
+
+    def test_one_differing_channel(self):
+        self.assertFalse(self.holds_one_value((1, 2, 3), (1, 2, 3), (1, 2, 4)))
+
+    def test_channels_that_rotate_between_pixels(self):
+        self.assertFalse(self.holds_one_value((1, 2, 3), (2, 3, 1), (3, 1, 2)))
 
 
 class CrossCheckSetupTests(CrossCheckTestCase):

@@ -93,6 +93,7 @@ EXPECTED_BUFFERS = (
     ("normal", "f32", 3),
     ("normal_world", "f32", 3),
 )
+FINAL_PIXEL_BYTES = 3 * SAMPLE_BYTES["u16"]
 EXPORT_HEADER = "mandelbulber-verification-export"
 FORMULA_LIST_HEADER = "mandelbulber-formula-list 1"
 HISTOGRAMS = ("iteration_histogram", "step_histogram")
@@ -1306,9 +1307,9 @@ def check_collections_match(first, second):
 
 
 def holds_one_value(export):
-    """Whether every sample of the final image is the same."""
+    """Whether every pixel of the final image is the same, whatever its three channels hold."""
     final = export.buffers["final_image"]
-    return final == final[:2] * (len(final) // 2)
+    return final == final[:FINAL_PIXEL_BYTES] * (len(final) // FINAL_PIXEL_BYTES)
 
 
 def functional_disagreement(first, second):
@@ -1321,7 +1322,7 @@ def functional_disagreement(first, second):
         names = [name for name, one, other in differing if "missing" in (one, other)]
         return f"statistic names differ: {', '.join(names)}"
     if holds_one_value(first) != holds_one_value(second):
-        return f"final image holds one value on {'first' if holds_one_value(first) else 'second'} only"
+        return f"final image holds one pixel value on {'first' if holds_one_value(first) else 'second'} only"
     return None
 
 

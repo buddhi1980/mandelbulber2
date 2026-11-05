@@ -47,6 +47,7 @@ item behaves as "same". The modes are:
   list-exit-3              --list-formulas exits with status 3.
   list-hang                --list-formulas sleeps 30 seconds and then exits.
   blank                    Every final_image sample holds one value.
+  blank-color              Every final_image pixel holds one color, whose R, G, and B differ.
   other-version            --version prints a different version.
   no-version               --version prints no version line.
   other-histogram-size     The iteration histogram has one more bucket.
@@ -217,6 +218,8 @@ def build_buffers(seed, width, height, mode, count):
             data[0] ^= 0x01
         if name == "blank" and buffer == "final_image":
             data = bytearray(b"\x34\x12" * (len(data) // 2))
+        if name == "blank-color" and buffer == "final_image":
+            data = bytearray(struct.pack("<3H", 0x1000, 0x2000, 0x3000) * (len(data) // 6))
         buffers[buffer] = data
     return buffers
 
