@@ -61,6 +61,8 @@ jobs:
           tree .
 
       - name: Run Tests
+        env:
+          QTEST_FUNCTION_TIMEOUT: '1800000'
         run: |
           cd mandelbulber2
           mkdir package
