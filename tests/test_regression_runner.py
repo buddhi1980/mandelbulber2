@@ -234,14 +234,14 @@ class FormulaListTests(HarnessTestCase):
             regression_runner.load_formulas(missing)
 
     def test_list_problems_name_the_binary(self):
-        for mode in ("no-list-end", "no-list-start", "empty-list", "exit-3"):
+        for mode in ("no-list-end", "no-list-start", "empty-list", "list-exit-3"):
             with self.subTest(mode=mode):
                 self.set_mode(mode)
                 with self.assertRaisesRegex(regression_runner.SetupError, self.binary.name):
                     regression_runner.load_formulas(self.binary)
 
     def test_timeout_names_the_binary(self):
-        self.set_mode("hang")
+        self.set_mode("list-hang")
         with mock.patch.object(regression_runner, "FORMULA_TIMEOUT", 1):
             with self.assertRaisesRegex(regression_runner.SetupError, self.binary.name):
                 regression_runner.load_formulas(self.binary)
@@ -1481,6 +1481,468 @@ class CompareReportTests(CompareTestCase):
         self.assertEqual(code, regression_runner.EXIT_PASSED, output)
         self.assertIn("not gate-valid", output)
         self.assertIn("result: passed", output)
+
+
+class EnvironmentTests(ModeTestCase):
+    """T070: every run works out where it is."""
+
+    def detect(self, variables, name):
+        with mock.patch.dict(os.environ, variables):
+            for variable in ("GITHUB_ACTIONS", "WSL_DISTRO_NAME"):
+                if variable not in variables:
+                    os.environ.pop(variable, None)
+            with mock.patch.object(regression_runner.os, "name", name):
+                return regression_runner.detect_environment()
+
+    def test_detection_order(self):
+        self.assertEqual(self.detect({"GITHUB_ACTIONS": "true", "WSL_DISTRO_NAME": "x"}, "nt"), "github-actions")
+        self.assertEqual(self.detect({"GITHUB_ACTIONS": "false"}, "nt"), "windows")
+        self.assertEqual(self.detect({"WSL_DISTRO_NAME": "x"}, "nt"), "windows")
+        self.assertEqual(self.detect({"WSL_DISTRO_NAME": "Ubuntu-24.04"}, "posix"), "wsl")
+        self.assertEqual(self.detect({}, "posix"), "linux")
+
+    def test_default_binary(self):
+        with mock.patch.object(regression_runner.os, "name", "nt"):
+            windows = regression_runner.default_binary()
+        with mock.patch.object(regression_runner.os, "name", "posix"):
+            linux = regression_runner.default_binary()
+        self.assertEqual(windows, "build-win/Release/x64/mandelbulber2.exe")
+        self.assertEqual(linux, "mandelbulber2/build/appdir/usr/bin/mandelbulber2")
+
+    def test_binary_variable_overrides_the_default(self):
+        with mock.patch.dict(os.environ, {"MANDELBULBER_BINARY": "somewhere/else"}):
+            self.assertEqual(regression_runner.binary_path(), Path("somewhere/else"))
+        with mock.patch.dict(os.environ):
+            del os.environ["MANDELBULBER_BINARY"]
+            self.assertEqual(regression_runner.binary_path(), Path(regression_runner.default_binary()))
+
+    def test_every_mode_names_the_environment(self):
+        self.use_one_formula()
+        modes = (
+            (),
+            ("--self-parity",),
+            ("--capture",),
+            ("--compare", str(self.binary)),
+            ("--collect", str(self.root / "collection")),
+            ("--cross-check", str(self.root / "one"), str(self.root / "two")),
+        )
+        for arguments in modes:
+            with self.subTest(arguments=arguments):
+                with mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true"}):
+                    _, output = self.run_main(*arguments)
+                self.assertIn("environment: github-actions", output)
+                self.assertIn("environment: github-actions", self.report_text())
+
+
+class SourceStateTests(unittest.TestCase):
+    """T074: the source state comes from git, and a failure stops the run."""
+
+    def test_source_state_reads_git(self):
+        outputs = {
+            ("rev-parse", "HEAD"): "abc123\n",
+            ("log", "-1", "--format=%ct"): "1700000000\n",
+            ("status", "--porcelain", "--", "mandelbulber2", "tests"): " M tests/scenes.txt\n",
+        }
+
+        def fake_run(command, **options):
+            self.assertEqual(command[0], "git")
+            return mock.Mock(stdout=outputs[tuple(command[1:])])
+
+        with mock.patch.object(regression_runner.subprocess, "run", fake_run):
+            self.assertEqual(regression_runner.source_state(), ("abc123", 1700000000, True))
+
+    def test_clean_tree(self):
+        def fake_run(command, **options):
+            return mock.Mock(stdout="" if command[1] == "status" else "1\n")
+
+        with mock.patch.object(regression_runner.subprocess, "run", fake_run):
+            self.assertFalse(regression_runner.source_state()[2])
+
+    def test_git_failure_is_a_setup_failure(self):
+        with mock.patch.object(regression_runner.subprocess, "run", side_effect=OSError("no git")):
+            with self.assertRaisesRegex(regression_runner.SetupError, "git"):
+                regression_runner.source_state()
+
+
+class CollectTests(ModeTestCase):
+    """T071: a collection records one build's results for every item."""
+
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.path = self.root / "collection"
+
+    def collect(self):
+        return self.run_main("--collect", str(self.path))
+
+    def listing(self):
+        return (self.path / "collection.txt").read_bytes().decode("utf-8").split("\n")
+
+    def test_writes_a_complete_collection(self):
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        lines = self.listing()
+        self.assertEqual(
+            lines[:13],
+            [
+                "mandelbulber-collection 1",
+                f"environment {regression_runner.detect_environment()}",
+                "isolated true",
+                f"source_commit {FIXED_COMMIT}",
+                "source_dirty false",
+                "binary_older_than_commit false",
+                "application Mandelbulber 2.35-test",
+                "compiler gcc 13.3.0",
+                "math_library glibc 2.39",
+                "export_format 1",
+                f"scene_resolution {regression_runner.SCENE_RESOLUTION}",
+                f"formula_resolution {regression_runner.FORMULA_RESOLUTION}",
+                f"overrides {regression_runner.RENDER_OVERRIDES}",
+            ],
+        )
+        self.assertEqual(lines[-2:], ["end", ""])
+        self.assertEqual(
+            lines[13:-2],
+            ["item\tscene\talpha\tpassed", "item\tscene\tbeta scene\tpassed", "item\tformula\tmandelbulb\tpassed"],
+        )
+        for reference in ("scenes/alpha.zip", "scenes/beta scene.zip", "formulas/mandelbulb.zip"):
+            export = regression_runner.read_reference(self.path / reference)
+            self.assertEqual(export.compiler, "gcc 13.3.0")
+
+    def test_renders_each_item_once(self):
+        self.collect()
+        calls = self.render_calls()
+        self.assertEqual(len(calls), 3)
+        for call in calls:
+            arguments = call["args"]
+            self.assertTrue(arguments[arguments.index("--override") + 1].startswith(regression_runner.RENDER_OVERRIDES))
+            self.assertIn("--verification-export", arguments)
+
+    def test_failed_item_is_recorded_and_the_collection_completes(self):
+        self.set_mode("only:alpha:exit-3")
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        lines = self.listing()
+        self.assertEqual(lines[-2:], ["end", ""])
+        failed = [line for line in lines if line.startswith("item\tscene\talpha\t")]
+        self.assertEqual(len(failed), 1)
+        fields = failed[0].split("\t")
+        self.assertEqual(fields[3], "failed")
+        self.assertIn("exit status 3", fields[4])
+        self.assertFalse((self.path / "scenes" / "alpha.zip").exists())
+        self.assertTrue((self.path / "scenes" / "beta scene.zip").exists())
+        renders = self.tests_dir / "outputs" / "renders"
+        self.assertTrue((renders / "scenes" / "alpha").exists())
+        self.assertFalse((renders / "scenes" / "beta scene").exists())
+
+    def test_space_in_a_name_survives(self):
+        self.collect()
+        collection = regression_runner.read_collection(self.path)
+        self.assertIn("scene beta scene", collection.items)
+
+    def test_second_run_replaces_the_first(self):
+        self.collect()
+        (self.path / "scenes" / "old.zip").write_bytes(b"old")
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertFalse((self.path / "scenes" / "old.zip").exists())
+
+    def test_interrupted_run_is_replaced(self):
+        (self.path / "scenes").mkdir(parents=True)
+        (self.path / "scenes" / "partial.zip").write_bytes(b"partial")
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertFalse((self.path / "scenes" / "partial.zip").exists())
+
+    def test_missing_parent_folder_is_created(self):
+        self.path = self.root / "a" / "b" / "collection"
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertTrue((self.path / "collection.txt").exists())
+
+    def test_other_file_refuses_the_folder(self):
+        self.path.mkdir()
+        (self.path / "notes.txt").write_text("mine", encoding="utf-8")
+        (self.path / "scenes").mkdir()
+        (self.path / "scenes" / "kept.zip").write_bytes(b"kept")
+        before = self.tree_bytes(self.path)
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("notes.txt", output)
+        self.assertEqual(self.tree_bytes(self.path), before)
+        self.assertEqual(self.render_calls(), [])
+
+    def test_missing_binary_leaves_the_folder_unchanged(self):
+        self.collect()
+        before = self.tree_bytes(self.path)
+        missing = str(self.root / "nowhere" / "mandelbulber2")
+        with mock.patch.dict(os.environ, {"MANDELBULBER_BINARY": missing}):
+            code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("nowhere", output)
+        self.assertEqual(self.tree_bytes(self.path), before)
+
+    def test_unisolated_run_completes(self):
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("isolated false", self.listing())
+
+    def test_old_binary_is_noted(self):
+        newer = (FIXED_COMMIT, self.binary.stat().st_mtime + 1000, False)
+        with mock.patch.object(regression_runner, "source_state", return_value=newer):
+            code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("binary_older_than_commit true", self.listing())
+        self.assertIn("older than", output)
+
+    def test_report_and_references(self):
+        folder = self.tests_dir / "references" / "test-target"
+        folder.mkdir(parents=True)
+        (folder / "toolchain.txt").write_text("broken", encoding="utf-8")
+        before = self.tree_bytes(self.tests_dir / "references")
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("does not replace the gate", output)
+        self.assertEqual(self.tree_bytes(self.tests_dir / "references"), before)
+
+    def test_all_items_failed_records_unknown_toolchain(self):
+        self.set_mode("exit-3")
+        code, output = self.collect()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        lines = self.listing()
+        self.assertIn("compiler unknown", lines)
+        self.assertIn("math_library unknown", lines)
+
+
+class CrossCheckTestCase(ModeTestCase):
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        self.second = self.make_launcher("second")
+        self.first_path = self.root / "collection-first"
+        self.second_path = self.root / "collection-second"
+
+    def collect(self, binary, path):
+        with mock.patch.dict(os.environ, {"MANDELBULBER_BINARY": str(binary)}):
+            return self.run_main("--collect", str(path))
+
+    def collect_both(self):
+        self.collect(self.binary, self.first_path)
+        self.collect(self.second, self.second_path)
+
+    def cross_check(self):
+        return self.run_main("--cross-check", str(self.first_path), str(self.second_path))
+
+    def details(self):
+        return (self.tests_dir / "outputs" / "cross-check-details.txt").read_text(encoding="utf-8")
+
+    def edit_header(self, path, old, new):
+        listing = path / "collection.txt"
+        text = listing.read_text(encoding="utf-8")
+        self.assertIn(old, text)
+        listing.write_text(text.replace(old, new), encoding="utf-8", newline="\n")
+
+
+class CrossCheckResultTests(CrossCheckTestCase):
+    """T072: functional facts fail the check, and output differences are only recorded."""
+
+    def both_ways(self, mode):
+        """Seeds a mode on each build in turn, and yields the result and the build's name."""
+        for binary, name in ((self.binary, "first"), (self.second, "second")):
+            self.set_mode("same", self.binary)
+            self.set_mode("same", self.second)
+            self.set_mode(mode, binary)
+            self.collect_both()
+            yield name, *self.cross_check()
+
+    def test_identical_output_passes(self):
+        self.collect_both()
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("[+] scene alpha: both builds agree", output)
+        self.assertIn("[+] formula mandelbulb: both builds agree", output)
+        self.assertIn("identical: 3 of 3 items matched exactly in every buffer and statistic", output)
+        self.assertIn("result: functional agreement", output)
+        self.assertEqual(self.details(), "")
+        self.assertEqual(len(self.render_calls()), 3)
+
+    def test_flipped_bit_is_recorded_without_failing(self):
+        for name, code, output in self.both_ways("flip-bit:depth"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+                self.assertRegex(output, r"\[~\] scene alpha depth: 1 of \d+ samples differ")
+                self.assertIn("identical: 0 of 3 items", output)
+
+    def test_changed_statistic_is_recorded_without_failing(self):
+        for name, code, output in self.both_ways("stat-plus-one:missed_de"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+                self.assertRegex(output, r"\[~\] scene alpha statistics: 1 of \d+ values differ, first missed_de \d+ vs \d+")
+                lines = self.details().splitlines()
+                self.assertEqual(len(lines), 3)
+                fields = lines[0].split("\t")
+                self.assertEqual(fields[:3], ["scene", "alpha", "missed_de"])
+                self.assertEqual(len(fields), 5)
+
+    def test_failed_item_fails_and_names_the_build(self):
+        for name, code, output in self.both_ways("only:alpha:exit-3"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, rf"\[-\] scene alpha: failed on {name}: .*exit status 3")
+                self.assertIn("result: functional disagreement", output)
+
+    def test_formula_on_one_build_fails_and_names_it(self):
+        for name, code, output in self.both_ways("extra-formula"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertIn(f"[-] formula stubExtra: offered by {name} only", output)
+        exclusions = self.tests_dir / "formula_exclusions.txt"
+        exclusions.write_text("custom reason\nmandelbulbPower2 reason\n", encoding="utf-8")
+        for name, code, output in self.both_ways("missing-formula"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                other = "second" if name == "first" else "first"
+                self.assertIn(f"[-] formula aexion: offered by {other} only", output)
+
+    def test_renumbered_formulas_match_by_name(self):
+        for name, code, output in self.both_ways("renumber-formulas"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+
+    def test_layout_and_names_and_version_fail(self):
+        for mode, pattern in (
+            ("resize", r"\[-\] scene alpha: image size differs: \d+x\d+ on first, \d+x\d+ on second"),
+            ("other-histogram-size", r"\[-\] scene alpha: statistic names differ: "),
+            ("other-version", r"\[-\] application version: Mandelbulber 2\.35-\w+ on first, Mandelbulber 2\.35-\w+ on second"),
+        ):
+            for name, code, output in self.both_ways(mode):
+                with self.subTest(mode=mode, build=name):
+                    self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                    self.assertRegex(output, pattern)
+
+    def test_single_value_image_on_one_build_fails(self):
+        for name, code, output in self.both_ways("blank"):
+            with self.subTest(build=name):
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertIn(f"[-] scene alpha: final image holds one value on {name} only", output)
+
+    def test_single_value_image_on_both_builds_passes(self):
+        self.set_mode("blank", self.binary)
+        self.set_mode("blank", self.second)
+        self.collect_both()
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+
+    def test_unisolated_collection_can_pass_and_is_labeled(self):
+        self.collect(self.binary, self.first_path)
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            self.collect(self.second, self.second_path)
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertRegex(output, r"first: \S+, isolated, gcc 13\.3\.0, glibc 2\.39")
+        self.assertRegex(output, r"second: \S+, not isolated, gcc 13\.3\.0, glibc 2\.39")
+
+    def test_console_stays_small(self):
+        names = [f"step_histogram.{bucket}" for bucket in range(8)]
+        self.set_mode("stat-plus-one:" + ",".join(names), self.second)
+        self.collect_both()
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(len([line for line in output.splitlines() if "scene alpha statistics" in line]), 1)
+        self.assertEqual(len(self.details().splitlines()), 24)
+
+
+class CrossCheckSetupTests(CrossCheckTestCase):
+    """T073: a check that cannot be trusted exits 3 and names the cause."""
+
+    def setUp(self):
+        super().setUp()
+        self.collect_both()
+
+    def assert_setup_failure(self, cause):
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn(cause, output)
+        self.assertIn("does not replace the gate", output)
+
+    def test_missing_folder(self):
+        shutil.rmtree(self.second_path)
+        self.assert_setup_failure(self.second_path.name)
+
+    def test_no_end_line(self):
+        self.edit_header(self.first_path, "\nend\n", "\n")
+        self.assert_setup_failure("no end line")
+
+    def test_unknown_format_version(self):
+        self.edit_header(self.second_path, "mandelbulber-collection 1", "mandelbulber-collection 2")
+        self.assert_setup_failure("unknown format")
+
+    def test_passed_item_with_no_zip(self):
+        (self.first_path / "scenes" / "alpha.zip").unlink()
+        self.assert_setup_failure("alpha.zip")
+
+    def test_corrupted_zip_entry(self):
+        path = self.second_path / "scenes" / "alpha.zip"
+        data = bytearray(path.read_bytes())
+        with zipfile.ZipFile(path) as archive:
+            info = archive.getinfo("raw_render.planes")
+        start = info.header_offset + 30 + len(info.filename) + len(info.extra)
+        data[start + info.compress_size // 2] ^= 0xFF
+        path.write_bytes(data)
+        self.assert_setup_failure("alpha.zip")
+
+    def test_differing_source_commit(self):
+        self.edit_header(self.second_path, FIXED_COMMIT, "f" * 40)
+        self.assert_setup_failure("source commits differ")
+
+    def test_uncommitted_changes(self):
+        self.edit_header(self.first_path, "source_dirty false", "source_dirty true")
+        self.assert_setup_failure("uncommitted changes")
+
+    def test_differing_settings(self):
+        for name, old, new in (
+            ("export_format", "export_format 1", "export_format 2"),
+            ("scene_resolution", "scene_resolution 8x6", "scene_resolution 16x12"),
+            ("formula_resolution", "formula_resolution 4x3", "formula_resolution 8x6"),
+            ("overrides", "#DOF_min_samples=4", "#DOF_min_samples=5"),
+        ):
+            with self.subTest(name=name):
+                self.edit_header(self.second_path, old, new)
+                self.assert_setup_failure(name)
+                self.edit_header(self.second_path, new, old)
+
+    def test_starts_no_build(self):
+        missing = str(self.root / "nowhere" / "mandelbulber2")
+        before = len(self.calls()) + len(self.calls(self.second))
+        with mock.patch.dict(os.environ, {"MANDELBULBER_BINARY": missing}):
+            code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(len(self.calls()) + len(self.calls(self.second)), before)
+
+    def test_one_compiler_is_noted(self):
+        code, output = self.cross_check()
+        self.assertIn("note: both collections used one compiler", output)
+
+    def test_old_binary_is_noted(self):
+        self.edit_header(self.second_path, "binary_older_than_commit false", "binary_older_than_commit true")
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("note: the second binary is older than its commit", output)
+
+    def test_report_states_it_does_not_replace_the_gate(self):
+        code, output = self.cross_check()
+        self.assertIn("does not replace the gate", output)
+        self.assertLess(output.index("result:"), output.index("does not replace the gate"))
+        self.assertIn(f"source: {FIXED_COMMIT[:9]} on both", output)
+
+    def test_references_stay_unchanged(self):
+        folder = self.tests_dir / "references" / "test-target"
+        folder.mkdir(parents=True)
+        (folder / "toolchain.txt").write_text("broken", encoding="utf-8")
+        before = self.tree_bytes(self.tests_dir / "references")
+        self.cross_check()
+        self.assertEqual(self.tree_bytes(self.tests_dir / "references"), before)
 
 
 class ExportSourceTests(unittest.TestCase):

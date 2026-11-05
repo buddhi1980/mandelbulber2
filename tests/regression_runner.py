@@ -41,6 +41,7 @@ FORMULA_BASE = Path("tests/formula_sweep_base.fract")
 FORMULA_EXCLUSIONS = Path("tests/formula_exclusions.txt")
 REF_ROOT = Path("tests/references")
 OUT_DIR = Path("tests/outputs")
+CROSS_CHECK_DETAILS = OUT_DIR / "cross-check-details.txt"
 SCENE_RESOLUTION = "320x240"
 FORMULA_RESOLUTION = "32x24"
 RENDER_OVERRIDES = "opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4"
@@ -98,6 +99,21 @@ NOT_ISOLATED_REASON = "the application ignores a redirected home folder on this 
 
 # A fixed timestamp keeps a recapture of unchanged data byte-identical.
 REFERENCE_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
+COLLECTION_HEADER = "mandelbulber-collection 1"
+COLLECTION_LISTING = "collection.txt"
+COLLECTION_TEMPORARY = "collection.txt.tmp"
+COLLECTION_CONTENTS = {COLLECTION_LISTING, COLLECTION_TEMPORARY, "scenes", "formulas"}
+COLLECTION_SETTINGS = ("export_format", "scene_resolution", "formula_resolution", "overrides")
+COLLECTION_FIELDS = (
+    "environment",
+    "isolated",
+    "source_commit",
+    "source_dirty",
+    "binary_older_than_commit",
+    "application",
+    "compiler",
+    "math_library",
+) + COLLECTION_SETTINGS
 REFERENCE_ENTRIES = ("manifest.txt", "statistics.txt") + tuple(f"{name}.planes" for name, _, _ in EXPECTED_BUFFERS)
 TOOLCHAIN_PACKAGES = ("gcc-[0-9]*", "g++-[0-9]*", "libc6", "libstdc++6", "libgcc-s1", "libgomp1")
 
@@ -140,6 +156,32 @@ class Export:
     statistics_bytes: bytes
 
 
+@dataclass(frozen=True)
+class CollectedItem:
+    """One line of a collection's item list."""
+
+    kind: str
+    name: str
+    outcome: str
+    cause: str
+
+    @property
+    def label(self):
+        return f"{self.kind} {self.name}"
+
+
+@dataclass
+class Collection:
+    """One build's results, read from a collection folder."""
+
+    path: Path
+    header: dict
+    items: dict
+
+    def reference_path(self, item):
+        return self.path / f"{item.kind}s" / f"{item.name}.zip"
+
+
 @dataclass
 class ReferenceSet:
     """The folder of one target's references, and the toolchain that made them."""
@@ -167,6 +209,8 @@ class Report:
         self.toolchain_note = None
         self.item_results = {}
         self.overall_result = None
+        self.closing_note = None
+        self.causes = {}
         self.item_count = 0
         self.parity_failures = set()
         self.setup_failures = set()
@@ -221,6 +265,7 @@ class Report:
         with self.lock:
             self.item_results[label] = "failed"
             self.failures(category).add(label)
+            self.causes.setdefault(label, text)
         self.line(f"[-] {label}: {text}")
 
     def failures(self, category):
@@ -286,6 +331,8 @@ class Report:
         self.overall_result = self.result_name()
         detail = f" ({failed} of {total} items failed)" if total else ""
         self.line(f"result: {self.overall_result}{detail}")
+        if self.closing_note:
+            self.note(self.closing_note)
         code = self.exit_code()
         self.close()
         return code
@@ -318,12 +365,16 @@ def detect_environment():
     return "linux"
 
 
+def default_binary():
+    """The installed binary of the build system on this platform (FR-040)."""
+    if os.name == "nt":
+        return "build-win/Release/x64/mandelbulber2.exe"
+    return "mandelbulber2/build/appdir/usr/bin/mandelbulber2"
+
+
 def binary_path():
     """The binary under test, read from the environment at call time."""
-    default = "mandelbulber2/build/appdir/usr/bin/mandelbulber2"
-    if os.name == "nt":
-        default = "build-win/Release/x64/mandelbulber2.exe"
-    return Path(os.environ.get("MANDELBULBER_BINARY", default))
+    return Path(os.environ.get("MANDELBULBER_BINARY", default_binary()))
 
 
 def parity_target():
@@ -695,15 +746,22 @@ def count_differing_samples(first, second, sample):
     return sum(map(operator.ne, memoryview(first).cast(code), memoryview(second).cast(code)))
 
 
+def differing_statistics(first, second):
+    """Returns the name and both values of each statistic that differs."""
+    names = list(first) + [name for name in second if name not in first]
+    return [
+        (name, first.get(name, "missing"), second.get(name, "missing"))
+        for name in names
+        if first.get(name) != second.get(name)
+    ]
+
+
 def compare_statistics(first, second):
     """Compares two statistics records exactly, naming each statistic and both values (FR-028)."""
-    names = list(first) + [name for name in second if name not in first]
-    differences = []
-    for name in names:
-        if first.get(name) != second.get(name):
-            one, other = first.get(name, "missing"), second.get(name, "missing")
-            differences.append(Difference("statistics", f"{name} {one} vs {other}"))
-    return differences
+    return [
+        Difference("statistics", f"{name} {one} vs {other}")
+        for name, one, other in differing_statistics(first, second)
+    ]
 
 
 def compare_exports(first, second):
@@ -1095,6 +1153,250 @@ def run_compare(options, report):
     compare_builds(shared, first, second, second_formulas, report)
 
 
+def run_git(*arguments):
+    result = subprocess.run(
+        ["git", *arguments], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, encoding="utf-8", check=True
+    )
+    return result.stdout.strip()
+
+
+def source_state():
+    """Returns the commit, its time, and whether mandelbulber2/ or tests/ have uncommitted changes."""
+    try:
+        commit = run_git("rev-parse", "HEAD")
+        commit_time = int(run_git("log", "-1", "--format=%ct"))
+        dirty = bool(run_git("status", "--porcelain", "--", "mandelbulber2", "tests"))
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        raise SetupError(f"cannot read the source state with git: {error}") from None
+    return commit, commit_time, dirty
+
+
+def application_version(binary):
+    """Returns the first output line of --version that names the application."""
+    for line in run_query(binary, "--version").splitlines():
+        if line.startswith("Mandelbulber "):
+            return line.strip()
+    raise SetupError(f"{binary} --version printed no version line")
+
+
+def prepare_collection(path):
+    """Clears a folder for a new collection, and refuses a folder that holds anything else."""
+    path.mkdir(parents=True, exist_ok=True)
+    others = sorted(child.name for child in path.iterdir() if child.name not in COLLECTION_CONTENTS)
+    if others:
+        raise SetupError(f"{path} is neither empty nor a collection: it holds {', '.join(others)}")
+    # The listing goes first, so a run that stops here cannot leave a collection that looks complete.
+    (path / COLLECTION_LISTING).unlink(missing_ok=True)
+    (path / COLLECTION_TEMPORARY).unlink(missing_ok=True)
+    for name in ("scenes", "formulas"):
+        remove_tree(path / name)
+
+
+def write_collection(path, header, results, causes):
+    """Writes one zip per passed item, then the listing last, because it proves completeness."""
+    lines = [COLLECTION_HEADER] + [f"{name} {header[name]}" for name in COLLECTION_FIELDS]
+    for item, export in results:
+        if export is None:
+            cause = " ".join(causes.get(item.label, "failed").split())
+            lines.append(f"item\t{item.kind}\t{item.name}\tfailed\t{cause}")
+        else:
+            write_reference(path / f"{item.kind}s" / f"{item.name}.zip", export)
+            lines.append(f"item\t{item.kind}\t{item.name}\tpassed")
+    lines.append("end")
+    temporary = path / COLLECTION_TEMPORARY
+    write_lines(temporary, lines)
+    os.replace(temporary, path / COLLECTION_LISTING)
+
+
+def run_collect(options, report):
+    """Renders every item once with one build, and records the results (FR-041, FR-042)."""
+    report.closing_note = "this run does not replace the gate"
+    isolated = gate_valid()
+    report.line(f"isolated: {'true' if isolated else f'false, because {NOT_ISOLATED_REASON}'}")
+    binary = binary_path()
+    items = build_work_items(binary)
+    application = application_version(binary)
+    commit, commit_time, dirty = source_state()
+    path = Path(options.collect)
+    prepare_collection(path)
+    report.item_count = len(items)
+    results = []
+    first_export = None
+    for item in items:
+        export = render_and_validate(item, binary, item_folder(item) / "collect", report)
+        results.append((item, export))
+        if export is not None and first_export is None:
+            first_export = export
+            report.show_toolchain(export)
+    older = binary.stat().st_mtime < commit_time
+    if older:
+        report.note("the binary is older than the commit")
+    header = {
+        "environment": report.environment,
+        "isolated": "true" if isolated else "false",
+        "source_commit": commit,
+        "source_dirty": "true" if dirty else "false",
+        "binary_older_than_commit": "true" if older else "false",
+        "application": application,
+        "compiler": first_export.compiler if first_export else "unknown",
+        "math_library": first_export.math_library if first_export else "unknown",
+        "export_format": EXPORT_VERSION,
+        "scene_resolution": SCENE_RESOLUTION,
+        "formula_resolution": FORMULA_RESOLUTION,
+        "overrides": RENDER_OVERRIDES,
+    }
+    write_collection(path, header, results, report.causes)
+    for item in items:
+        finish_item(item, report, "collected")
+
+
+def read_collection(path):
+    """Reads a collection's listing, and fails if the collection is not complete and usable."""
+    path = Path(path)
+    listing = path / COLLECTION_LISTING
+    if not listing.is_file():
+        raise SetupError(f"no complete collection at {path}: {listing} is missing")
+    lines = listing.read_bytes().decode("utf-8", errors="replace").split("\n")
+    if not lines[0].startswith("mandelbulber-collection "):
+        raise SetupError(f"{listing} is not a collection listing")
+    if lines[0] != COLLECTION_HEADER:
+        raise SetupError(f"{listing} has an unknown format: {lines[0]}")
+    if lines[-2:] != ["end", ""]:
+        raise SetupError(f"{listing} has no end line, so the collection is incomplete")
+    header = {}
+    items = {}
+    for line in lines[1:-2]:
+        if line.startswith("item\t"):
+            fields = line.split("\t")
+            if len(fields) < 4 or fields[3] not in ("passed", "failed"):
+                raise SetupError(f"{listing} has a bad item line: {line}")
+            item = CollectedItem(fields[1], fields[2], fields[3], fields[4] if len(fields) > 4 else "")
+            items[item.label] = item
+        else:
+            name, _, value = line.partition(" ")
+            header[name] = value
+    missing = [name for name in COLLECTION_FIELDS if name not in header]
+    if missing:
+        raise SetupError(f"{listing} has no {', '.join(missing)} line")
+    collection = Collection(path, header, items)
+    for item in items.values():
+        if item.outcome == "passed" and not collection.reference_path(item).is_file():
+            raise SetupError(f"{path}: {item.label} passed, but {collection.reference_path(item)} is missing")
+    return collection
+
+
+def check_collections_match(first, second):
+    """Raises a setup failure if two collections cannot be compared (FR-046)."""
+    if first.header["source_commit"] != second.header["source_commit"]:
+        raise SetupError(
+            f"source commits differ: {first.header['source_commit']} and {second.header['source_commit']}"
+        )
+    for name, collection in (("first", first), ("second", second)):
+        if collection.header["source_dirty"] != "false":
+            raise SetupError(f"the {name} collection was made with uncommitted changes")
+    for setting in COLLECTION_SETTINGS:
+        if first.header[setting] != second.header[setting]:
+            raise SetupError(f"{setting} differs: {first.header[setting]} and {second.header[setting]}")
+
+
+def holds_one_value(export):
+    """Whether every sample of the final image is the same."""
+    final = export.buffers["final_image"]
+    return final == final[:2] * (len(final) // 2)
+
+
+def functional_disagreement(first, second):
+    """Returns the cause if two renders of one item disagree on a fact, or None (FR-044)."""
+    sizes = (f"{first.width}x{first.height}", f"{second.width}x{second.height}")
+    if sizes[0] != sizes[1]:
+        return f"image size differs: {sizes[0]} on first, {sizes[1]} on second"
+    if list(first.statistics) != list(second.statistics):
+        differing = differing_statistics(first.statistics, second.statistics)
+        names = [name for name, one, other in differing if "missing" in (one, other)]
+        return f"statistic names differ: {', '.join(names)}"
+    if holds_one_value(first) != holds_one_value(second):
+        return f"final image holds one value on {'first' if holds_one_value(first) else 'second'} only"
+    return None
+
+
+def cross_check_item(label, first, second, report, details):
+    """Compares one item's two renders. Returns whether every buffer and statistic matched."""
+    one = read_reference(first.reference_path(first.items[label]))
+    other = read_reference(second.reference_path(second.items[label]))
+    disagreement = functional_disagreement(one, other)
+    if disagreement:
+        report.failed(label, disagreement)
+    else:
+        report.passed(label, "both builds agree")
+    if (one.width, one.height) != (other.width, other.height):
+        return False
+    differences = compare_exports(one, other)
+    for difference in differences:
+        if difference.name != "statistics":
+            report.recorded(f"{label} {difference.name}", difference.text)
+    statistics = [difference for difference in differences if difference.name == "statistics"]
+    if statistics:
+        values = max(len(one.statistics), len(other.statistics))
+        report.recorded(
+            f"{label} statistics", f"{len(statistics)} of {values} values differ, first {statistics[0].text}"
+        )
+        kind, _, name = label.partition(" ")
+        for statistic, value, other_value in differing_statistics(one.statistics, other.statistics):
+            details.append(f"{kind}\t{name}\t{statistic}\t{value}\t{other_value}")
+    return not differences
+
+
+def cross_check(first, second, report):
+    """Compares two collections. Facts can fail the check, and values are only recorded (FR-045)."""
+    labels = list(first.items) + [label for label in second.items if label not in first.items]
+    report.item_count = len(labels)
+    if first.header["application"] != second.header["application"]:
+        report.failed(
+            "application version",
+            f"{first.header['application']} on first, {second.header['application']} on second",
+        )
+    details = []
+    identical = 0
+    for label in labels:
+        one = first.items.get(label)
+        other = second.items.get(label)
+        if one is None or other is None:
+            report.failed(label, f"offered by {'first' if other is None else 'second'} only")
+            continue
+        failures = [(name, item) for name, item in (("first", one), ("second", other)) if item.outcome == "failed"]
+        for name, item in failures:
+            report.failed(label, f"failed on {name}: {item.cause}")
+        if not failures and cross_check_item(label, first, second, report, details):
+            identical += 1
+    if details:
+        write_lines(CROSS_CHECK_DETAILS, details)
+    report.line(f"identical: {identical} of {len(labels)} items matched exactly in every buffer and statistic")
+
+
+def describe_collection(collection):
+    header = collection.header
+    isolation = "isolated" if header["isolated"] == "true" else "not isolated"
+    return f"{header['environment']}, {isolation}, {header['compiler']}, {header['math_library']}"
+
+
+def run_cross_check(options, report):
+    """Compares two collections from their files alone. It starts no build (FR-043)."""
+    report.closing_note = "this check does not replace the gate, and a difference between builds is not drift"
+    CROSS_CHECK_DETAILS.write_bytes(b"")
+    first = read_collection(options.cross_check[0])
+    second = read_collection(options.cross_check[1])
+    report.line(f"first: {describe_collection(first)}")
+    report.line(f"second: {describe_collection(second)}")
+    check_collections_match(first, second)
+    report.line(f"source: {first.header['source_commit'][:9]} on both")
+    cross_check(first, second, report)
+    if first.header["compiler"] == second.header["compiler"]:
+        report.note("both collections used one compiler")
+    for name, collection in (("first", first), ("second", second)):
+        if collection.header["binary_older_than_commit"] == "true":
+            report.note(f"the {name} binary is older than its commit")
+
+
 def build_parser():
     parser = argparse.ArgumentParser(description="Regression harness for the Mandelbulber CPU renderer.")
     group = parser.add_mutually_exclusive_group()
@@ -1127,8 +1429,10 @@ def run_mode(options, report):
         run_capture(report)
     elif options.compare:
         run_compare(options, report)
-    elif options.collect or options.cross_check:
-        raise SetupError("this mode is not implemented yet")
+    elif options.collect:
+        run_collect(options, report)
+    elif options.cross_check:
+        run_cross_check(options, report)
     else:
         run_gate(report)
 
@@ -1153,7 +1457,7 @@ def main(argv=None):
         report = Report(mode, detect_environment(), target)
         run_mode(options, report)
         return report.finish()
-    except SetupError as error:
+    except (SetupError, RenderError) as error:
         return stop_run(report, str(error))
     except Exception as error:  # An unexpected error must never look like a parity failure.
         return stop_run(report, f"unexpected harness error: {type(error).__name__}: {error}")

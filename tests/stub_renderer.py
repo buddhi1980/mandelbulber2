@@ -44,6 +44,8 @@ item behaves as "same". The modes are:
   no-list-end              The formula list has no end line.
   no-list-start            The formula list has no first line.
   empty-list               The formula list has no entries.
+  list-exit-3              --list-formulas exits with status 3.
+  list-hang                --list-formulas sleeps 30 seconds and then exits.
   blank                    Every final_image sample holds one value.
   other-version            --version prints a different version.
   other-histogram-size     The iteration histogram has one more bucket.
@@ -149,9 +151,9 @@ def formula_table(mode):
 
 
 def print_formulas(mode):
-    if mode == "exit-3":
+    if mode == "list-exit-3":
         return 3
-    if mode == "hang":
+    if mode == "list-hang":
         time.sleep(30)
     print("cannot move folder /home/settings to /home/mandelbulber/settings!")
     if mode != "no-list-start":
