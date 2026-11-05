@@ -221,6 +221,8 @@ claude -c "/speckit-specify Close KD-1 from the constitution by making CPU rende
 
 Once the thread control exists, enable the second thread count in the runner. Until then, `--self-parity` cannot report a pass and `--capture` is refused.
 
+Fill in `total_iterations` in this change too. The current CPU path in `calculate_distance.cpp` sets `out->iters` but not `out->totalIters`, so `--stats` and the verification export both report 0. The fix changes the statistics record, not the image.
+
 ### 2. Lock Floating-Point Behavior (KD-2, KD-3)
 Specify this as a separate change:
 ```bash
