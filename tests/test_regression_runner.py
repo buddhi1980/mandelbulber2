@@ -430,6 +430,9 @@ class ExportValidationTests(RenderTestCase):
     def test_extra_buffer(self):
         self.assert_invalid("extra-buffer", "unexpected buffer specular")
 
+    def test_buffer_file_the_manifest_leaves_out(self):
+        self.assert_invalid("unlisted-buffer", "unexpected buffer file specular.bin")
+
     def test_bad_statistics(self):
         self.assert_invalid("bad-statistics", "whole number")
 
@@ -1102,6 +1105,12 @@ class GateCoverageTests(GateTestCase):
         code, output = self.run_main()
         self.assertEqual(code, regression_runner.EXIT_SETUP, output)
         self.assertIn("unexpected buffer specular", output)
+
+    def test_buffer_file_the_manifest_leaves_out_fails(self):
+        self.set_mode("unlisted-buffer")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("unexpected buffer file specular.bin", output)
 
     def test_drift_in_one_formula_fails_on_that_formula_alone(self):
         self.set_mode("only:2:flip-bit:normal")

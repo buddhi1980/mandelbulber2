@@ -619,6 +619,14 @@ def check_buffer_list(path, listed):
             raise RenderError(f"{path} lists buffer {entry[0]} as {' '.join(entry[1:])}")
 
 
+def check_buffer_files(directory):
+    """Fails on a buffer file the manifest leaves out, because nothing would compare it (FR-011)."""
+    expected = {f"{name}.bin" for name, _, _ in EXPECTED_BUFFERS}
+    unexpected = sorted(path.name for path in directory.glob("*.bin") if path.name not in expected)
+    if unexpected:
+        raise RenderError(f"{directory} holds unexpected buffer file {', '.join(unexpected)}")
+
+
 def parse_statistics(text):
     """Parses a statistics record, and requires the contract's exact names, order, and values."""
     lines = text.split("\n")
@@ -666,6 +674,7 @@ def read_export(directory):
         raise RenderError(f"no manifest in {directory}, so the export is incomplete")
     manifest_bytes = manifest_path.read_bytes()
     fields = parse_manifest(manifest_bytes, manifest_path)
+    check_buffer_files(directory)
     width = int(fields["width"])
     height = int(fields["height"])
     buffers = {}

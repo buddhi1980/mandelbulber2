@@ -23,6 +23,7 @@ item behaves as "same". The modes are:
   wrong-type:<buffer>      The manifest names the wrong sample type for the buffer.
   missing-buffer:<buffer>  The buffer is left out of the manifest and the folder.
   extra-buffer             The export has an unexpected buffer.
+  unlisted-buffer          The export has an unexpected buffer file that the manifest leaves out.
   bad-statistics           A statistic is not a whole number.
   no-statistics            The statistics file is missing.
   bad-settings-text        Prints the failed load message and writes no export.
@@ -272,6 +273,8 @@ def write_export(directory, width, height, buffers, statistics, mode):
     if name == "extra-buffer":
         (directory / "specular.bin").write_bytes(bytes(width * height * 12))
         manifest.append("buffer specular f32 3")
+    if name == "unlisted-buffer":
+        (directory / "specular.bin").write_bytes(bytes(width * height * 12))
     if name != "no-statistics":
         text = "".join(f"{key} {value}\n" for key, value in statistics)
         if name == "bad-statistics":
