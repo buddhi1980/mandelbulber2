@@ -1,3 +1,31 @@
 # Standard Scene Suite
+# Every stochastic CPU path in FR-039 is covered. See R13 in specs/001-regression-harness/research.md.
+
+# Ordinary scenes
 mandelbulber2/deploy/share/mandelbulber2/examples/IFS_001.fract
 mandelbulber2/deploy/share/mandelbulber2/examples/Makin3D-Julia_001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/IFS_002.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/amazing_surf 002.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/EXR example.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/benchmark-GPU.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/menger octo 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/clouds 005.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/gradients - specular highlights.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/hybrid007.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/hybrid008 - collatz.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/mandelbox_menger.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/mandelbulb_eye.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/menger cross mod1 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/menger prism shape2 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/pseudo kleinian std de 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/voxel_export_with_Bristorbrot4D.fract
+tests/scenes/beam_light.fract
+tests/scenes/hdr_blur.fract
+
+# Monte Carlo scenes
+mandelbulber2/deploy/share/mandelbulber2/examples/chromatic_aberration.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/difs_tree.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/hex grid 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/mandelnest pow 5.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/monte carlo DOF 001.fract
+mandelbulber2/deploy/share/mandelbulber2/examples/riemann_sphere_msltoe_001.fract

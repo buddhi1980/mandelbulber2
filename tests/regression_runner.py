@@ -68,6 +68,9 @@ SETUP = "setup error"
 # Scene files must not reach outside the repository, and nebula mode changes the render path.
 ASSET_PATTERN = re.compile(r'^[A-Za-z0-9_]*(file|texture)[A-Za-z0-9_]* +"?(https?://|/|[A-Za-z]:[/\\])', re.MULTILINE)
 NEBULA_PATTERN = re.compile(r"^nebula_mode true", re.MULTILINE)
+KNOWN_STATISTIC_PATTERN = re.compile(
+    r"(total_iterations|raymarch_count|missed_de|(iteration|step)_histogram\.(size|[0-9]+))"
+)
 
 # The application reports these only as text, and it still exits 0 (FR-008).
 FAILURE_MARKERS = (
@@ -636,7 +639,7 @@ def parse_statistics(text):
             raise RenderError(f"the statistics record is incomplete: {expected} is missing")
         name, value = values[position]
         if name != expected:
-            if re.fullmatch(r"(total_iterations|raymarch_count|missed_de|(iteration|step)_histogram\.(size|[0-9]+))", name):
+            if KNOWN_STATISTIC_PATTERN.fullmatch(name):
                 raise RenderError(f"the statistics record has {name} where {expected} belongs")
             raise RenderError(f"the statistics record has unknown statistic {name}")
         statistics[name] = value
@@ -811,8 +814,9 @@ def render_series(item, binary, thread_args, report, first=None):
     Returns that first export, or None if the item never produced one.
     """
     count = thread_args[1] if thread_args else "default"
+    threads = "1 thread" if count == "1" else f"{count} threads"
     for run in range(1, SELF_PARITY_RUNS + 1):
-        context = f"run {run} with {count} threads"
+        context = f"run {run} with {threads}"
         output_dir = item_folder(item) / f"threads-{count}-run-{run}"
         export = render_and_validate(item, binary, output_dir, report, thread_args, context=context)
         if export is None:
@@ -1440,12 +1444,15 @@ def run_mode(options, report):
 
 
 def stop_run(report, cause):
-    """Ends a run that could not finish. Without a report, the cause goes to the console."""
-    if report is None:
-        print(f"setup error: {cause}", flush=True)
-        return EXIT_SETUP
-    report.setup_error(cause)
-    return report.finish()
+    """Ends a run that could not finish. If the report cannot be written, the console still says why."""
+    if report is not None:
+        try:
+            report.setup_error(cause)
+            return report.finish()
+        except (OSError, ValueError):
+            pass
+    print(f"setup error: {cause}", flush=True)
+    return EXIT_SETUP
 
 
 def main(argv=None):
