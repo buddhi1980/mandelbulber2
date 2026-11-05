@@ -19,6 +19,9 @@
 - Q: Failed scene loads are detected by matching error text, which is translatable and could be reworded. Should the verification export be written only after a successful load and render? → A: Yes. The export's presence proves success, and text checks stay as a second layer.
 - Q: The constitution says a difference between Reference Targets is not drift. What should the gate do when the toolchain differs from the references? → A: Matching output passes with a note. Differing output is a Reference Target mismatch, which needs a Baseline Change.
 - Q: Can compare mode pass on a platform where renders cannot be fully isolated? → A: Yes, labeled as not gate-valid, because both builds see the same state. The gate and self-parity cannot pass there.
+- Q: Which builds are used for local development? → A: Two builds of the same commit on one Windows computer: qmake in WSL Ubuntu 24.04, which matches the CI toolchain, and MSVC Release, which adds a second compiler.
+- Q: The two builds use different compilers, the constitution bans tolerances, and it says a difference between targets is not drift. What can a cross-check between them fail on? → A: Exact functional facts only, such as whether every item rendered on both builds. Output values are compared exactly and recorded, and a difference in them never fails the check.
+- Q: How should CI run the two builds, given that the existing workflows must keep working? → A: A separate pipeline in its own workflow file, added beside the existing ones, running the same commands as local development.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -141,6 +144,50 @@ An engine developer compares their branch against master on their own machine, b
 
 ---
 
+### User Story 7 - Cross-Check Two Build Systems on One Computer (Priority: P3)
+
+An engine developer builds one commit with qmake in WSL and with MSVC on Windows, then confirms that both builds work on every scene and formula. The builds use different compilers, so their output is not expected to match. This check finds a change that works on only one build system.
+
+**Why this priority**: It catches build-system-specific breakage early, and it works before renders reproduce, because it does not need equal output. The gate remains the authority for drift.
+
+**Independent Test**: Collect from two stand-in builds and cross-check the results. A failed item on one build fails the check, and a flipped bit is recorded without failing it. No references are needed.
+
+**Acceptance Scenarios**:
+
+1. **Given** complete collections from one commit in which every item rendered on both builds, **When** the cross-check runs, **Then** it passes, even if output differs, and it reports how many items were identical.
+2. **Given** an item that failed on one build, **When** the cross-check runs, **Then** it fails and names the item, the build, and the cause.
+3. **Given** a formula offered by only one build, **When** the cross-check runs, **Then** it fails and names the formula and the build.
+4. **Given** an item whose image dimensions, buffers, sample types, or statistic names differ between builds, **When** the cross-check runs, **Then** it fails and reports the layout difference.
+5. **Given** an item whose final image holds a single value on one build only, **When** the cross-check runs, **Then** it fails and names the item and the build.
+6. **Given** one flipped bit in one sample, or a change of 1 in one statistic, on one build, **When** the cross-check runs, **Then** it still passes, and the report records that difference by item and by buffer or statistic.
+7. **Given** two collections from different commits, or one made with uncommitted changes under `mandelbulber2/` or `tests/`, **When** the cross-check runs, **Then** it reports a setup failure and names the reason.
+8. **Given** an incomplete collection, or two collections with different render settings, **When** the cross-check runs, **Then** it reports a setup failure and names the collection.
+9. **Given** a collection made on a platform where renders cannot be isolated, **When** it is cross-checked, **Then** the report labels that side as not isolated, and the check can still pass.
+10. **Given** any cross-check result, **When** the report is shown, **Then** it states that the check does not replace the gate, and it claims equality only for items where every buffer and statistic matched exactly.
+
+---
+
+### User Story 8 - Run the Cross-Check in a Separate CI Pipeline (Priority: P3)
+
+A developer pushes a branch, and GitHub Actions builds the commit with both build systems, tests each build, and cross-checks them. The pipeline sits beside the existing workflows and changes none of them, and it uses the same commands as local development.
+
+**Why this priority**: It brings the local cross-check to every pull request, on clean machines. It also adds coverage the project lacks today, because no CI job runs the Windows binary.
+
+**Independent Test**: Push a branch that adds the pipeline, and confirm that all three jobs pass and that the existing workflows are unchanged. Then seed a failure on a throwaway branch, and confirm that the run summary names it.
+
+**Acceptance Scenarios**:
+
+1. **Given** a pull request, a push to `master` or an `upgrade/` branch, or a manual start, **When** the pipeline runs, **Then** it builds that commit with both build systems, tests each build, collects from each, and cross-checks them.
+2. **Given** a build that fails on one build system, **When** the pipeline runs, **Then** that build job fails, the other build job still finishes, and the cross-check job fails and names the missing collection.
+3. **Given** the application's `--test` suite fails on one build, **When** the pipeline runs, **Then** that build job fails and its collection stays available to the cross-check job.
+4. **Given** a functional disagreement between the builds, **When** the cross-check job runs, **Then** it fails, and the run summary names the item and the build.
+5. **Given** two builds that agree but whose output differs, **When** the cross-check job runs, **Then** it passes, and the run summary shows how many items were identical.
+6. **Given** any pipeline run, **When** it finishes, **Then** the existing workflows are unchanged, the pipeline has published no release, and no reference was read or written.
+7. **Given** a failed run, **When** a developer repeats the same commands on that commit in WSL or on Windows, **Then** the commands work unchanged apart from paths and the Python launcher.
+8. **Given** a newer push to the same branch, **When** a run for an older commit is still going, **Then** the older run is cancelled.
+
+---
+
 ### Edge Cases
 
 - **Comment-only scene list**: It is treated as empty and fails.
@@ -157,6 +204,11 @@ An engine developer compares their branch against master on their own machine, b
 - **System data folder**: If the application finds no data folder beside the binary, it falls back to `/usr/share/mandelbulber2`. That is outside the repository and build output, so the harness fails the render.
 - **Missing binary**: A binary that does not exist or will not start fails the run as a setup error and names the path.
 - **Two-pass stereo scenes**: Statistics and every buffer except the final image describe the last eye only, because the application resets statistics on each pass and mixes only the final image. The final image holds both eyes, so drift in the first eye still fails there.
+- **Line endings across two checkouts**: A Windows checkout has CRLF files and a WSL clone has LF, but Git stores both as the same content, so collections from both still count as one commit.
+- **Cross-check before playbook Phase 3**: Renders do not reproduce yet, so almost every value differs between builds. The cross-check can still pass, and its recorded differences mean nothing until both builds pass Self-Parity.
+- **Reused collection folder**: Collect mode replaces an earlier collection, and it refuses a folder that holds anything else, so it can never delete unrelated files.
+- **Two collections from one build system**: The cross-check still runs, and the report notes that both sides used the same compiler.
+- **Missing runtime library on a clean Windows machine**: A clean MSVC build does not put `OpenCL.dll` beside the binary, and it runs here only because a GPU driver supplies that library. A hosted runner has no GPU driver, so the pipeline copies the library from the restored package.
 
 ## Requirements *(mandatory)*
 
@@ -171,7 +223,7 @@ An engine developer compares their branch against master on their own machine, b
 
 - **FR-003**: Every render MUST run headlessly through the application's `--nogui` mode on the CPU engine, at one fixed resolution and one fixed Monte Carlo sample cap, both the same in all modes and for all scenes.
 - **FR-004**: Every render MUST be isolated from per-user settings, caches, the host locale, and environment variables that affect rendering.
-- **FR-005**: On a platform where FR-004 cannot be met, the harness MAY run for debugging, but it MUST label the results as not gate-valid. The gate and self-parity MUST NOT report a pass there, and capture MUST refuse. Compare mode MAY report a pass, because both builds see the same state.
+- **FR-005**: On a platform where FR-004 cannot be met, the harness MAY run for debugging, but it MUST label the results as not gate-valid. The gate and self-parity MUST NOT report a pass there, and capture MUST refuse. Compare mode MAY report a pass, because both builds see the same state, and collect mode MAY complete, labeled as not isolated.
 - **FR-006**: The harness MUST remove earlier output for a render before starting it.
 - **FR-007**: Each render MUST have a time limit, and exceeding it MUST fail that scene.
 
@@ -193,7 +245,7 @@ An engine developer compares their branch against master on their own machine, b
 
 **Modes**
 
-- **FR-015**: The harness MUST provide gate, self-parity, capture, and compare modes, one per run, with gate as the default.
+- **FR-015**: The harness MUST provide gate, self-parity, capture, compare, collect, and cross-check modes, one per run, with gate as the default.
 - **FR-016**: Self-parity MUST perform three consecutive renders of each scene at each of at least two thread counts, one of them 1, and compare every buffer and statistics record with the first.
 - **FR-017**: Without a working headless thread control, self-parity MUST NOT report a pass and MUST state that thread coverage is incomplete.
 - **FR-018**: Capture MUST pass self-parity in the same run before it writes anything, and MUST replace the target's reference set completely or not at all.
@@ -237,6 +289,27 @@ An engine developer compares their branch against master on their own machine, b
 - **FR-038**: Capture MUST refuse to run outside CI, because references must come from a CI build.
 - **FR-039**: The Standard Scene Suite MUST exercise each stochastic CPU path: raymarch step jitter; Monte Carlo depth of field, antialiasing, global illumination, soft shadows, and chromatic aberration; rough surfaces; specular roughness; post-effect depth of field; multi-ray ambient occlusion; random screen-space ambient occlusion; volumetric rendering; beam lights; and the seeded paths, which are random lights, Perlin noise on materials, and clouds. It MUST also exercise HDR blur, which is not random but runs on several threads, and which playbook Phase 3 audits for thread-order effects.
 
+**Environments and cross-check**
+
+- **FR-040**: The harness MUST run unchanged in three environments: WSL on Ubuntu 24.04 with the qmake build, Windows with the MSVC Release build, and GitHub Actions with both. It MUST choose the default binary for the platform it runs on, and every report MUST name the environment.
+- **FR-041**: Collect mode MUST render every listed scene and sweep formula once with one build, with the same fixed settings, failure detection, and isolation as the gate. It MUST write a collection holding each item's outcome, buffers, and statistics, plus the environment, toolchain, application version, and source commit. A collection MUST count as complete only after its final line is written.
+- **FR-042**: Collect mode MUST write a complete collection even when items fail, and it MUST then report failure, so a cross-check can still name those items. It MUST refuse a folder that is neither empty nor a collection.
+- **FR-043**: Cross-check mode MUST compare two collections from their files alone, without running either build, so it can run on any machine that can read both.
+- **FR-044**: Cross-check mode MUST fail if an item failed on either build, if an item exists in only one collection, if the application versions differ, if an item's image dimensions, buffers, sample types, or statistic names differ, or if an item's final image holds a single value on one build only. Formulas MUST be matched by name.
+- **FR-045**: Cross-check mode MUST compare every buffer and statistic exactly and report each difference, but a difference in values MUST NOT fail the run, because a difference between two targets is recorded and is not drift. It MUST NOT use tolerances, thresholds, or perceptual metrics.
+- **FR-046**: Cross-check mode MUST report a setup failure if either collection is incomplete, if their source commits or render settings differ, or if either was made with uncommitted changes under `mandelbulber2/` or `tests/`.
+- **FR-047**: Collect and cross-check modes MUST NOT read or modify references. Their reports MUST state that they do not replace the gate. A cross-check report MUST state how many items were identical across the two builds, and it MUST claim equality only for items where every buffer and statistic matched exactly.
+
+**Cross-Build Check pipeline**
+
+- **FR-048**: The project MUST add a GitHub Actions pipeline named Cross-Build Check in its own workflow file. It MUST be additive: existing workflows and CI configurations MUST stay byte-identical and keep working.
+- **FR-049**: The pipeline MUST build one commit with both build systems, using the same build commands as local development: qmake on Ubuntu 24.04, as the existing Linux workflow does, and MSVC Release on Windows with Visual Studio 2026, following the restore and build steps in `.appveyor.yml`.
+- **FR-050**: Each build job MUST run the harness's stand-in tests, the application's `--test` suite, and collect mode, and it MUST keep its collection available to the cross-check job even when a step fails.
+- **FR-051**: A third job MUST run cross-check mode on the two collections without building anything. It MUST run after both build jobs end, unless the run was cancelled, and a missing collection MUST fail it by name. Its report MUST appear in the run summary.
+- **FR-052**: The pipeline MUST run on pull requests, on pushes to `master` and to `upgrade/` branches, and on manual request. A newer push to the same branch MUST cancel a run still going for an older commit.
+- **FR-053**: The pipeline MUST run with read-only repository access. It MUST NOT publish releases, use secrets, or read or write references.
+- **FR-054**: The pipeline MUST NOT count as the parity gate, and it MUST stay separate from the `parity-gate` and `capture-baseline` workflows. It MUST NOT be a required check unless a maintainer chooses to make it one.
+
 ### Decisions
 
 **Compared data: export the engine's buffers directly.**
@@ -264,6 +337,16 @@ An engine developer compares their branch against master on their own machine, b
 - **Why**: Playbook Phase 5 refactors the formula code, and only formulas that get rendered are protected. The 791 example scenes reach 315 of the 462 formulas, and the best 25 scenes reach about 76.
 - **Cost**: All 462 formulas rendered in 34 seconds on 32 threads, or an estimated 2 to 5 minutes on a CI runner, plus about 21 MB of references before compression.
 
+**Cross-check: fail on facts, record values.**
+
+- **Why**: The constitution bans tolerances, thresholds, and perceptual metrics, and it says a difference between two targets is recorded and is not drift. So the check fails only on exact functional facts, such as whether every item rendered on both builds. It compares output exactly as well, but only to report it. Equality between the builds can then be claimed where it was actually shown, as the constitution allows.
+- **Two steps**: A build records its results, then a second step compares two records. The builds run on different operating systems, and on different machines in CI, so no single run can start both.
+
+**Pipeline: add one, and change none.**
+
+- **Why**: The existing workflow also publishes the `continuous` release, and other CI systems build the same code, so changing any of them risks that work. A separate workflow can fail or be removed without touching them.
+- **Same commands everywhere**: The pipeline runs the commands a developer runs locally, so a failure in CI can be repeated in WSL or on Windows.
+
 ### Key Entities *(include if feature involves data)*
 
 - **Scene List**: The version-controlled Standard Scene Suite, an ordered list of `.fract` files.
@@ -275,6 +358,10 @@ An engine developer compares their branch against master on their own machine, b
 - **Reference Set**: All engine buffers and statistics records for one Reference Target, plus the toolchain identity.
 - **Toolchain Identity**: The compiler and math library versions of the build that produced a reference set, plus installed toolchain package versions where available.
 - **Run Report**: The per-scene and per-buffer verdicts and the overall result of one run.
+- **Environment**: Where a run happens: WSL, Windows, plain Linux, or GitHub Actions.
+- **Collection**: One build's results for every work item, with the environment, toolchain, application version, and source commit.
+- **Cross-Check Result**: The functional verdict for two collections, plus the recorded output differences between them.
+- **Pipeline Run**: One run of Cross-Build Check for one commit: two build jobs and one cross-check job.
 
 ## Success Criteria *(mandatory)*
 
@@ -290,6 +377,13 @@ An engine developer compares their branch against master on their own machine, b
 - **SC-008**: One target's stored reference set, including the formula sweep, stays under 100 MB.
 - **SC-009**: The gate covers 100% of the formulas the application offers, apart from any listed exclusions.
 - **SC-010**: After playbook Phase 3, compare mode reports zero differences between two builds of the same source on one machine, and it reports a deliberate change to one formula against that formula.
+- **SC-011**: Each functional disagreement in FR-044, seeded one at a time on either build, fails the cross-check and names the item and the build in 100% of trials.
+- **SC-012**: With both builds ready on one computer, collecting from each and cross-checking them finishes in under 15 minutes.
+- **SC-013**: Before playbook Phase 3, when no output is expected to match, a qmake build and an MSVC build of one commit pass the cross-check.
+- **SC-014**: A full pipeline run finishes in under 90 minutes on standard GitHub-hosted runners.
+- **SC-015**: After the pipeline is added, every existing workflow and CI configuration file is byte-identical to before, and the existing Linux workflow still passes.
+- **SC-016**: A functional break seeded on one build fails the pipeline, and the run summary names the item and the build, in 100% of trials.
+- **SC-017**: Every harness command the pipeline runs also runs in WSL and on Windows, unchanged apart from paths and the Python launcher.
 
 ## Assumptions
 
@@ -299,19 +393,22 @@ An engine developer compares their branch against master on their own machine, b
 - **Two thread counts need a new control.** `limit_CPU_cores` showed no effect under `--nogui`, so self-parity cannot pass until playbook Phase 3 adds a working control (FR-017).
 - **FR-012 and SC-007 cannot be confirmed until renders reproduce.**
 - **Compare mode needs reproducible builds.** Until playbook Phase 3, every render differs from the last, so compare mode will report differences even between two builds of the same source.
+- **The cross-check does not.** It can pass before playbook Phase 3, but its recorded differences mean nothing until both builds pass Self-Parity.
 
 **Scope**
 
 - This feature covers still renders on the CPU engine. OpenCL, animation, voxel export, and network rendering are out of scope.
-- Engine determinism fixes, floating-point flag changes, CI jobs, and Baseline 1 are out of scope. They belong to Phases 3 and 4 of the playbook.
+- Engine determinism fixes, floating-point flag changes, the gate and capture CI jobs, and Baseline 1 are out of scope. They belong to Phases 3 and 4 of the playbook. The only CI this feature adds is the separate Cross-Build Check pipeline.
 - Selecting the full Standard Scene Suite is an implementation task, and `research.md` lists a candidate scene for each path in FR-039. No example scene uses a beam light or HDR blur, so those paths need purpose-built scenes.
 - This feature expects the OpenCL build, which is the one CI compiles. The `custom` formula exists only in that build, so its exclusion fails on a build without OpenCL.
 
 **Environment and defaults**
 
-- The first Reference Target is the Linux x86-64 GCC build on GitHub-hosted `ubuntu-24.04` runners. Windows runs are not gate-valid, because the application ignores a redirected home folder there, so they serve debugging and compare mode's local check.
+- The first Reference Target is the Linux x86-64 GCC build on GitHub-hosted `ubuntu-24.04` runners. Windows runs are not gate-valid, because the application ignores a redirected home folder there, so they serve debugging, compare mode's local check, and the cross-check.
+- Local development uses a qmake build in the WSL `Ubuntu-24.04` distro and an MSVC Release build on Windows, both from the same commit. On 2026-11-04 each built from a clean clone and passed all 8 tests in the application's own `--test` suite.
 - The fixed resolution is 320x240, which keeps runs short while still exercising each render path.
 - The fixed Monte Carlo cap is a maximum of 8 samples per pixel with a minimum of 4, so both the sampling loop and its early-stop check still run. Images are noisier than authored, but they are still exact. Changing the cap is a Baseline Change.
 - The formula sweep renders at 32x24. It has not been measured in CI.
+- The pipeline's Windows job has not been run yet, so its time on a hosted runner is an estimate, and its behavior there is unproven until the first run. AppVeyor's Release build of the same solution took about 52 minutes.
 - References are stored as full buffers in the repository.
-- Application behavior described here was observed on a Windows Release build from July 2026 and read from the current source. It has not yet been confirmed on a Linux build.
+- Application behavior described here was observed on a Windows Release build from July 2026 and read from the current source. A fresh Linux build confirmed headless rendering, `HOME` isolation, the data folder lookup, and the failure behavior on 2026-11-04. Other behavior has not yet been confirmed on Linux.

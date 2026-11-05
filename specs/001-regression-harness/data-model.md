@@ -107,12 +107,73 @@ All references for one Reference Target.
 
 | Field | Description |
 |---|---|
-| Mode | Gate, self-parity, capture, or compare |
+| Mode | Gate, self-parity, capture, compare, collect, or cross-check |
+| Environment | `wsl`, `windows`, `linux`, or `github-actions` |
 | Target | Reference Target in use |
 | Gate validity | Whether isolation could be guaranteed |
 | Toolchain note | Any difference from recorded versions |
 | Item results | Verdict per item, with per-buffer and per-statistic detail |
 | Overall result | Passed, parity failure, Reference Target mismatch, or setup error |
+
+## Environment
+
+Where a run happens. The harness works this out for itself, in this order:
+
+| Value | Detected by |
+|---|---|
+| `github-actions` | `GITHUB_ACTIONS` is `true` |
+| `windows` | The platform is Windows |
+| `wsl` | `WSL_DISTRO_NAME` is set |
+| `linux` | Anything else |
+
+## Collection
+
+One build's results for every work item. [contracts/collection.md](contracts/collection.md) defines the files.
+
+| Field | Description |
+|---|---|
+| Environment | Where it was collected |
+| Isolated | Whether each render had its own home folder (FR-004) |
+| Source commit | The commit the harness ran from |
+| Source dirty | Whether `mandelbulber2/` or `tests/` had uncommitted changes |
+| Application version | The first `Mandelbulber` line of `--version` |
+| Compiler, math library | Toolchain identity, from the exports |
+| Render settings | As in the reference set |
+| Item results | Kind, name, outcome, and any failure cause, for every work item |
+| Item data | One zip per item that rendered, in the reference format |
+
+**Rules**
+
+- A collection is complete only when `collection.txt` exists and ends with its `end` line (FR-041).
+- A failed item stays in the collection, with its cause and no zip (FR-042).
+- Collect mode replaces an earlier collection, and it refuses a folder that holds anything else (FR-042).
+
+## Cross-Check Result
+
+| Field | Description |
+|---|---|
+| First, second | Each collection's environment, compiler, math library, and isolation |
+| Source commit | The commit both collections came from |
+| Item verdicts | For each item, whether the builds agree, and the reason if not |
+| Recorded differences | For each item, each differing buffer's sample count, and each differing statistic's two values |
+| Identical items | How many items matched exactly in every buffer and statistic |
+| Overall result | Functional agreement, functional disagreement, or setup error |
+
+**Rules**
+
+- Functional disagreement comes only from the conditions in FR-044.
+- Recorded differences never change the overall result (FR-045).
+- Equality is claimed only for identical items (FR-047).
+
+## Pipeline Run
+
+One run of Cross-Build Check for one commit. [contracts/ci-pipeline.md](contracts/ci-pipeline.md) defines it.
+
+| Job | Produces | Fails when |
+|---|---|---|
+| `linux-qmake` | The `collection-qmake` artifact | The build, the stand-in tests, `--test`, or collect mode fails |
+| `windows-msvc` | The `collection-msvc` artifact | The build, the stand-in tests, `--test`, or collect mode fails |
+| `cross-check` | The run summary and the `cross-check-report` artifact | A collection is missing, or the cross-check fails |
 
 ## State Transitions
 
@@ -136,3 +197,13 @@ self-parity running → staged → promoted to tests/references/
 ```
 
 Nothing reaches `tests/references/` before the final step, which moves any existing set aside, moves the new set into place, and then deletes the old set.
+
+**Collection**
+
+```text
+folder prepared → rendering items → complete (collection.txt written)
+                        ↓
+                setup error (no collection.txt, so it can never be cross-checked)
+```
+
+A failed item does not stop a collection. It is recorded and the run continues.

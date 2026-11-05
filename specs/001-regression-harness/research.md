@@ -1,6 +1,6 @@
 # Research: Regression Harness
 
-Resolved decisions for the implementation plan. Measurements were taken on 2026-11-04 with a July 2026 Windows Release build on 32 threads, unless stated otherwise. That build came from `mandelbulber2/msvc/mandelbulber2.sln` with MSVC 14.51, `/fp:precise`, and `/std:c++20`, not from the qmake and GCC build the gate uses. Its numbers are estimates for the gate's build and say nothing about bit-for-bit results there. Linux behavior comes from reading the current source and has not been run.
+Resolved decisions for the implementation plan. Measurements were taken on 2026-11-04 with a July 2026 Windows Release build on 32 threads, unless stated otherwise. That build came from `mandelbulber2/msvc/mandelbulber2.sln` with MSVC 14.51, `/fp:precise`, and `/std:c++20`, not from the qmake and GCC build the gate uses. Its numbers are estimates for the gate's build and say nothing about bit-for-bit results there. On the same day, a fresh qmake build in WSL Ubuntu 24.04 (GCC 13.3.0, Qt 6.4.2, glibc 2.39) confirmed the Linux results noted in R9 and R10, and fresh builds of both kinds gave the results in R15. Other Linux behavior still comes from reading the current source.
 
 ## R1. Verification export layout
 
@@ -48,7 +48,7 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 
 ## R5. Fitting the gate and capture into CI
 
-- **Decision**: Run the gate and capture on GitHub-hosted `ubuntu-24.04` runners. The gate runs on every pull request and every push to `master`. Capture is one manually started job in its own workflow, and its single-thread renders run in parallel across items.
+- **Decision**: Run the gate and capture on GitHub-hosted `ubuntu-24.04` runners. The gate runs on every pull request and every push to `master`. Capture is one manually started job in its own workflow, and its single-thread renders run in parallel across items. Cross-Build Check is a separate workflow (R17).
 - **Rationale**: The repository is public, so [standard runners are free, with 4 vCPU and 16 GB of RAM](https://docs.github.com/en/actions/reference/runners/github-hosted-runners), and [a job can run for 6 hours](https://docs.github.com/en/actions/reference/limits). The existing Linux workflow already builds on this runner in 4.5 to 7.5 minutes, and `nproc` reports the real CPU count, so `make -j$(nproc)` is safe.
 - **Capture time**: Each item renders 7 times: 3 at each thread count, plus 1 neutral render. With about 15 minutes of render time in a gate, the 3 all-thread runs and the neutral render take about 1 hour. Run one after another, the 3 single-thread runs would add about 3 hours, because each takes about 4 times as long. Rendering 4 items at once brings that down to about 45 minutes, for a total of about 2 hours (estimated). An item's own runs stay consecutive, as the constitution requires.
 - **Runner image**: The `ubuntu-24.04` label fixes the OS, but [GitHub typically updates the software weekly](https://github.com/actions/runner-images). The [October 2026 image](https://raw.githubusercontent.com/actions/runner-images/main/images/ubuntu/Ubuntu2404-Readme.md) has GCC 13.3.0 and glibc 2.39. A patch update can therefore reach the gate with no commit. The gate reports this against the recorded toolchain (FR-023), and if output changes, that needs a Baseline Change.
@@ -90,13 +90,15 @@ That table covers the first five buffers. Alpha and world normal came later (R14
 
 - **Decision**: Each render gets a new temporary `HOME` and a clean environment built from an allowlist, with `LC_ALL=C.UTF-8`.
 - **Rationale**: `CreateDefaultFolders` only creates folders and copies a few small files, so a new home per render stays cheap. An allowlist meets the constitution's rule on environment variables. It leaves out `LD_LIBRARY_PATH`, because that can select a different math library. `setlocale(LC_ALL, "")` and `QLocale::system()` affect number parsing, and a fixed locale also keeps application messages in English for the text checks.
-- **Windows**: The app ignores a redirected home folder, so Windows runs are labeled not gate-valid (FR-005). The gate and self-parity cannot pass there, and capture is refused. Compare mode can still pass, because both builds read the same per-user state, which keeps a local check available on Windows.
+- **Windows**: The app ignores a redirected home folder, so Windows runs are labeled not gate-valid (FR-005). The gate and self-parity cannot pass there, and capture is refused. Compare mode can still pass, because both builds read the same per-user state, which keeps a local check available on Windows. Collect mode completes there, labeled as not isolated, because the cross-check is not a parity claim (R16).
+- **Linux**: Confirmed on the fresh build. A render succeeds with no display and only `HOME`, `PATH`, and `LC_ALL` set, stays inside the temporary `HOME`, and leaves about 200 KB there. Each new `HOME` also prints five `cannot move folder` lines at startup, because the app tries to migrate old data folders and finds none. These lines are not failures.
 - **Alternatives considered**: One shared home per run. This is slightly faster, but a state leak between renders would be harder to find.
 
 ## R10. Failure detection
 
 - **Decision**: Three layers. Check scenes before rendering. Require a complete, valid export. Scan the output text for known failure messages.
-- **Rationale**: The export proves that the load and render succeeded. Text checks remain because a missing texture does not change those results: the render still exits 0 and saves an image. `Decode` also tolerates up to 3 bad lines and still returns true, so a partly loaded scene would otherwise get a valid export. The scan looks for `Can't load texture`, `Looking for the file at`, `not valid Mandelbulber settings file`, `No materials defined`, `Error in settings file`, and `Too many errors in settings file`. Healthy renders, including a `$SHARED_DIR` texture scene and all 462 sweep renders, printed none of these, while `hybrid002.fract` prints the settings error. The scan also looks for `Trying to use /usr/share/mandelbulber2`, which `system.cpp` prints on Linux when it finds no data folder beside the binary. That folder is outside the repository and build output, so the constitution forbids reading it. This case comes from reading the source and has not been run.
+- **Rationale**: The export proves that the load and render succeeded. Text checks remain because a missing texture does not change those results: the render still exits 0 and saves an image. `Decode` also tolerates up to 3 bad lines and still returns true, so a partly loaded scene would otherwise get a valid export. The scan looks for `Can't load texture`, `Looking for the file at`, `not valid Mandelbulber settings file`, `No materials defined`, `Error in settings file`, and `Too many errors in settings file`. Healthy renders, including a `$SHARED_DIR` texture scene and all 462 sweep renders, printed none of these, while `hybrid002.fract` prints the settings error. The scan also looks for `Trying to use /usr/share/mandelbulber2`, which `system.cpp` prints on Linux when it finds no data folder beside the binary. That folder is outside the repository and build output, so the constitution forbids reading it.
+- **Linux**: Confirmed on the fresh build. A missing scene, a bad settings file, and a missing texture all exit 0 and print the messages above, and a failed load saves a black image. A binary left in the build folder prints `Trying to use /usr/share/mandelbulber2`, exits 0, and saves an image. A missing target folder prints `Image saved to:` but writes no file and prints none of these messages, so the harness must check for the file itself. `No materials defined`, `Error in settings file`, and `Too many errors in settings file` were not triggered.
 - **Static asset check**: A parameter whose name contains `file` or `texture` and whose value starts with a URL or absolute path fails the run. This matches 54 of the 791 example scenes.
 
 ## R11. Neutral render
@@ -161,3 +163,67 @@ The HDR blur effect is far larger than the noise, so that path runs. The beam li
 - **Not compared**: Specular, diffuse, world position, shadow, global illumination, and not-denoised are written only when enabled. They are application settings, and no example scene sets them. Opacity and object color are working inputs to SSAO, and no image format can save them, so they are not channels.
 - **If the FIXME is fixed**: The engine would stop writing world normal, so every render would fail export validation. A change to that behavior therefore cannot pass unnoticed.
 - **Size**: 60 bytes per pixel in total. The reference set stays under the 100 MB limit (R4).
+
+## R15. Local development environments
+
+- **Decision**: Develop on two builds of one commit on one Windows computer: qmake in the WSL `Ubuntu-24.04` distro, and MSVC Release from `mandelbulber2/msvc/mandelbulber2.sln`.
+- **Rationale**: The WSL build has the same compiler, Qt, and glibc versions as the CI runner, so it stands in for the gate's toolchain locally. The MSVC build adds a second compiler, Visual Studio debugging, and the only Windows coverage. Having both on one computer finds build-system-specific problems before a push.
+
+Both were built from clean clones and run on 2026-11-04:
+
+| | WSL, qmake | Windows, MSVC |
+|---|---|---|
+| Toolchain | GCC 13.3.0, Qt 6.4.2, glibc 2.39 | MSVC 14.51, toolset v145, Qt 6.11.1 |
+| Language level | gnu++17, the GCC default, with no `-std` flag | `/std:c++20` |
+| Floating point | `-ffast-math` | `/fp:precise` |
+| Build on 32 threads | 53 seconds, 811 compile lines | 116 to 188 seconds, 916 compile lines |
+| Warnings | 2 | 6 |
+| `--test` | 8 of 8 passed, 165 seconds | 8 of 8 passed, about 200 seconds |
+| Headless render | Passed | Passed |
+
+Both `--test` runs tried the same 791 example scenes. Two identical renders of `IFS_001.fract` differed in 27.3% of the samples of an 8-bit TIFF on the WSL build and 27.4% on the MSVC build, which matches KD-1.
+
+- **Source flow**: The Windows checkout is the working copy. Git stores LF, and `core.autocrlf=true` writes CRLF to disk there, so the WSL build uses its own clone. A commit reaches it with `git fetch /mnt/c/GIT/mandelbulber2 <branch>`, then `git checkout --detach FETCH_HEAD`. This was tested: the fetch worked from a shallow clone, and the fetched files have LF endings.
+- **Commit first**: WSL can only see commits, so uncommitted Windows edits do not reach the WSL build. The cross-check enforces this (FR-046).
+- **qmake**: `qmake6` expands the source wildcards when it runs, so it must run again after a source file is added.
+- **MSVC**: Use Release, because Debug uses `/fp:fast` (KD-2). The `Build-Package` step deletes `build-win\<configuration>\x64` on every build, so nothing kept there survives. The project also compiles every `build-win\*.cpp`, so start from an empty `build-win` the first time, or generated files from older source are compiled too.
+- **Package restore**: `nuget restore` installed all 26 packages from nuget.org alone in 38 seconds, with no user config and no cached copies. A user-level `openclnuget` source on this machine points at a folder with no packages, so nothing depends on it.
+- **`--test` on Windows**: Windows has no redirected home folder, so the suite uses the real data folder. Two runs each added one autosave file to `history`, and they changed and removed nothing else. With no console attached, Qt sends test results to the debugger stream, so set `QT_FORCE_STDERR_LOGGING=1` to capture them. The exit status is the number of failed tests either way.
+- **Alternatives considered**:
+  - Building from `/mnt/c`: the shell scripts have CRLF endings there, and `UI_DIR` would write generated Linux headers into the Windows checkout.
+  - The default `Ubuntu` distro: it is 26.04, with GCC 15.2 and Qt 6.10.2, so its results would not carry over to the gate.
+  - CMake: [the project calls it beta and not feature complete](../../mandelbulber2/deploy/README), and no CI job uses it.
+
+## R16. Cross-checking two build systems
+
+- **Decision**: Two steps. `--collect <dir>` records one build's results, and `--cross-check <first> <second>` compares two collections. The check fails only on exact functional facts (FR-044) and records every difference in output values (FR-045).
+- **Rationale**: The constitution rules out tolerances, thresholds, and perceptual metrics, and it says a difference between two targets is recorded and is not drift. It also allows equality to be claimed only where the harness has demonstrated it. So the check fails on what must be true of two working builds, compares output exactly, and reports the result without judging it.
+- **Why two steps**: The builds run on different operating systems, and on different machines in CI, so no single process can start both. A collection is just files, so the second step works anywhere, including on a machine with neither build.
+- **Single-value image check**: A failed load saves a black image (R10), so an item whose final image holds one value on one build only is a functional failure. This is an exact fact, not a threshold, and it also passes when both builds agree.
+- **Before playbook Phase 3**: The check can pass, because it does not need equal output. Its recorded differences mean nothing until both builds pass Self-Parity.
+- **After playbook Phase 3**: The strict floating-point work removes `-ffast-math`, so the two builds may match on many items. The report then demonstrates equality item by item, as the constitution allows.
+- **Alternatives considered**:
+  - Extending `--compare`: it requires equal output, and it starts both binaries on one operating system, so it cannot work across CI jobs.
+  - An image similarity score: the constitution rules it out, and renders differ too much between runs to set a meaningful limit. Any limit would only measure noise.
+  - A separate script: it would repeat the harness's isolation, failure detection, and comparison code.
+  - Comparing `--test` results only: that suite renders examples at 5x5 pixels and compares nothing between builds.
+
+## R17. Cross-Build Check pipeline
+
+- **Decision**: One new workflow, `.github/workflows/cross-build-check.yml`, with jobs `linux-qmake`, `windows-msvc`, and `cross-check`, plus two reusable actions that hold the build commands. [contracts/ci-pipeline.md](contracts/ci-pipeline.md) has the details.
+- **Rationale**: A new file leaves `github-actions-ci.yml` and `codeql.yml` untouched. That existing workflow runs on every branch and replaces the `continuous` release, so it must not change, and the new one must never publish. The reusable actions keep the build commands in one place, and the later `compile-engine` action can add its flag check to `build-linux`.
+- **Build steps**: `.appveyor.yml` already defines the MSVC CI build, so `build-windows` follows it: `nuget restore` from `before_build`, then `msbuild` with `/m` from `build_script`, on a Visual Studio 2026 image. `build-linux` follows the package lists and `qmake6` steps in `github-actions-ci.yml`. [AppVeyor build 7386](https://ci.appveyor.com/project/buddhi1980/mandelbulber2) on 2026-11-01 shows those steps working, with the same MSVC 14.51.36231 used locally. The pipeline leaves out AppVeyor's remote desktop `init` step, its `/logger` option, its zip and artifact steps, and its `Debug` configuration, which AppVeyor keeps covering.
+- **Installer step**: The solution runs Inno Setup after linking whenever `ISCC.exe` exists at its default path. This machine has none, so local builds make no installer. AppVeyor has it, and so does the runner image, so the Windows job should build an installer that nothing uses. It took 105 seconds on AppVeyor. The step cannot be turned off from the command line, because its only condition is that path.
+- **Linux runner**: `ubuntu-24.04`, the same label as the gate. It is also what `ubuntu-latest` means today, but a pinned label won't move on its own.
+- **Windows runner**: [`windows-2025-vs2026`](https://github.com/actions/runner-images). The [image from October 2026](https://raw.githubusercontent.com/actions/runner-images/main/images/windows/Windows2025-VS2026-Readme.md) has Visual Studio 2026 18.11, NuGet 7.9, and Python 3.12.10. The project sets toolset v145, so a runner with only Visual Studio 2022 would need an override, as `azure-pipelines.yml` does. `windows-latest` points at the same image today, but it can move.
+- **`OpenCL.dll`**: The binary links to it, and a clean build does not put it beside the binary. The project looks in the repository's top-level `packages` folder, while NuGet restores into `mandelbulber2/msvc/packages`. It runs on this computer only because a GPU driver put a copy in `System32`, and the image's documentation does not list one. AppVeyor's file listing has no `OpenCL.dll` either, which nothing notices because AppVeyor never runs the binary. `build-windows` therefore copies the library from the restored `opencl-nuget-msvc-x64` package. The wildcard in that step selected exactly one file, and the binary ran with that copy beside it.
+- **Why Windows `--test` is new**: AppVeyor and Azure Pipelines build the solution but do not run it, because AppVeyor has `test: off` and Azure has no test step. So no CI configuration here runs the Windows binary, and only the pipeline's first run can prove it works on a hosted runner.
+- **Keeping collections through failures**: GitHub skips later steps after a failure, so a failed `--test` would otherwise stop the collection. The `Collect` step therefore runs whenever the build itself succeeded, each build job uploads with `if: always()`, and `cross-check` runs under `if: ${{ !cancelled() }}`. One build's failure still produces a report from the other.
+- **Action versions**: As of November 2026 the latest releases are `actions/checkout` v7, `actions/upload-artifact` v7, `actions/download-artifact` v8, `actions/setup-python` v7, and `microsoft/setup-msbuild` v3. The existing workflow uses `actions/checkout@v4`, whose Node.js 20 runtime GitHub now warns about, so the new one does not copy that.
+- **Time estimate**: Linux about 25 minutes: 4.5 to 7.5 to build, 2 to 4 for `--test`, and up to 15 to collect. Windows up to about 75 minutes: 1 to restore, up to 52 to build, 4 for `--test`, and up to 15 to collect. The whole run takes as long as the slower build job plus the cross-check, so SC-014 allows 90 minutes.
+- **Measured Windows build**: AppVeyor's Release job took 53.8 minutes on 2026-11-01. `nuget restore` took 36 seconds, and `msbuild` took 51.5 minutes: about 45 to compile, 4 to link, and 2 for the installer. That is far slower than the 8 times used in R13, which would predict about 25 minutes. A hosted GitHub runner has 4 vCPU, and AppVeyor's core count is not in its log, so the real figure is unknown until the first run. T089 replaces this estimate.
+- **Not included**: The flag check, because it fails until playbook Phase 3 closes KD-2. References, because none exist. macOS, because the request names two build systems and CircleCI already builds it.
+- **Alternatives considered**:
+  - Adding jobs to `github-actions-ci.yml`: this would change an existing workflow, and a failure there could stop the AppImage upload.
+  - One Windows and Linux matrix job: their steps share almost nothing, so a matrix would hide the difference behind conditions.
+  - Caching NuGet packages: restore takes under a minute, so a cache would add little.

@@ -34,10 +34,13 @@ description: "Task list for the regression harness"
 
 ## Build Environments
 
-- Harness tasks use the stand-in renderer and need no application build.
-- Real binary tasks (T018, T044, T064, T069, and T074) need a fresh build with the C++ changes. The July 2026 binary in `build-win/` does not have them. T071 only times scenes, so that binary is enough for it.
-- Windows: build with the existing Visual Studio project. This covers Scenario 7, but the other real binary scenarios need Linux, and a Windows gate or self-parity run cannot pass.
-- Linux: use a Linux machine or WSL with the playbook's packages, ideally Ubuntu 24.04 to match the runner. The current WSL distro has no Qt, so its packages must be installed first. Pushing the branch also compiles Linux through `.github/workflows/github-actions-ci.yml`, but that does not run the harness.
+Development uses two builds of one commit on one computer. The playbook's Local Development section has the exact commands.
+
+- Harness tasks use the stand-in renderer and need no application build. They run in WSL and on Windows.
+- Real binary tasks (T018, T044, T064, T069, T081, T092, and T095) need a fresh build of the current source with the C++ changes. No task relies on an existing binary.
+- WSL: use the `Ubuntu-24.04` distro, which has the playbook's packages, with GCC 13.3.0 and Qt 6.4.2 to match the runner. The default `Ubuntu` distro is 26.04 and has no Qt, so name the distro with `wsl -d Ubuntu-24.04`. Build from a Linux clone, not `/mnt/c`, because the Windows checkout has CRLF line endings. A commit reaches that clone with `git fetch /mnt/c/GIT/mandelbulber2 <branch>`.
+- Windows: run `nuget restore` on `mandelbulber2/msvc/mandelbulber2.sln`, then build it with MSBuild as Release x64. This covers Scenario 7 and half of Scenario 8, but the other real binary scenarios need Linux, and a Windows gate or self-parity run cannot pass.
+- GitHub Actions: T086 to T089 need the branch pushed. The Cross-Build Check pipeline from User Story 8 runs the harness on both builds. The existing `.github/workflows/github-actions-ci.yml` does not run the harness, and it must not change.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
@@ -64,8 +67,8 @@ description: "Task list for the regression harness"
   ```
 
 - [ ] T004 [P] Create `tests/formula_exclusions.txt` with a comment explaining the `name reason` format, then the line `custom Custom OpenCL formula has an empty CPU implementation`. This formula exists only in the OpenCL build, which is the build the harness expects
-- [ ] T005 Create the skeleton of `tests/regression_runner.py` with a shebang, a docstring listing the four modes, `EXIT_PASSED = 0`, `EXIT_PARITY = 1`, `EXIT_SETUP = 3`, `SetupError` and `RenderError` exceptions, and `main(argv=None)` using `argparse` with a mutually exclusive group of `--self-parity`, `--capture`, and `--compare BINARY`, each returning `EXIT_SETUP` until implemented. `main` catches `SetupError` and any unexpected exception, prints the cause, and returns `EXIT_SETUP`, so exit 1 only ever means a parity failure
-- [ ] T006 Add constants to `tests/regression_runner.py`: `SCENE_LIST`, `FORMULA_BASE`, `FORMULA_EXCLUSIONS`, `REF_ROOT = tests/references`, `OUT_DIR = tests/outputs`, `SCENE_RESOLUTION = "320x240"`, `FORMULA_RESOLUTION = "32x24"`, `RENDER_OVERRIDES = "opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4"`, `SCENE_TIMEOUT = 1800`, `FORMULA_TIMEOUT = 120`, `SELF_PARITY_RUNS = 3`, `MAX_REFERENCE_BYTES = 100 * 1024 * 1024`, `EXPORT_VERSION = 1`, and `THREAD_OPTION = None` with a comment that playbook Phase 3 sets it, plus functions that read `MANDELBULBER_BINARY` (default `mandelbulber2/build/appdir/usr/bin/mandelbulber2`) and `PARITY_TARGET` (default `linux-x86_64-gcc`) from the environment at call time
+- [ ] T005 Create the skeleton of `tests/regression_runner.py` with a shebang, a docstring listing the six modes, `EXIT_PASSED = 0`, `EXIT_PARITY = 1`, `EXIT_SETUP = 3`, `SetupError` and `RenderError` exceptions, and `main(argv=None)` using `argparse` with a mutually exclusive group of `--self-parity`, `--capture`, `--compare BINARY`, `--collect DIR`, and `--cross-check FIRST SECOND`, each returning `EXIT_SETUP` until implemented. `main` catches `SetupError` and any unexpected exception, prints the cause, and returns `EXIT_SETUP`, so exit 1 only ever means a parity failure
+- [ ] T006 Add constants to `tests/regression_runner.py`: `SCENE_LIST`, `FORMULA_BASE`, `FORMULA_EXCLUSIONS`, `REF_ROOT = tests/references`, `OUT_DIR = tests/outputs`, `SCENE_RESOLUTION = "320x240"`, `FORMULA_RESOLUTION = "32x24"`, `RENDER_OVERRIDES = "opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4"`, `SCENE_TIMEOUT = 1800`, `FORMULA_TIMEOUT = 120`, `SELF_PARITY_RUNS = 3`, `MAX_REFERENCE_BYTES = 100 * 1024 * 1024`, `EXPORT_VERSION = 1`, and `THREAD_OPTION = None` with a comment that playbook Phase 3 sets it, plus functions that read `MANDELBULBER_BINARY` (default `mandelbulber2/build/appdir/usr/bin/mandelbulber2` on Linux and `build-win/Release/x64/mandelbulber2.exe` on Windows) and `PARITY_TARGET` (default `linux-x86_64-gcc`) from the environment at call time
 
 ---
 
@@ -94,9 +97,9 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 ### Harness: shared code
 
-- [ ] T019 [P] Create `tests/stub_renderer.py`, an executable stand-in that implements `contracts/application-cli.md`. It reads its mode from `stub_mode.txt` in its working directory, because the runner's clean environment removes unknown variables, and defaults to `same`. It appends each call's arguments and environment to `stub_calls.jsonl` in that folder, accepts and ignores `--threads N`, handles `--list-formulas`, writes a complete export for `--verification-export` from fixed sample data, and writes a 16-bit deflate TIFF to `<output>.tiff` without that option, so the neutral render can match `final_image.bin`. A mode written as `only:<item>:<mode>` applies to one scene name or formula ID, and every other item behaves as `same`. Modes: `same`, `flip-bit:<buffer>`, `flip-mantissa:<buffer>`, `stat-plus-one:<name>`, `unstable` (using a counter file), `unstable:<buffer>`, `unstable-stat:<name>`, `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `wrong-type:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, `no-statistics`, `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `print:<text>` (prints the text and otherwise behaves as `same`), `exit-3`, `hang`, `neutral-differs`, `no-neutral-image`, `resize`, `other-toolchain`, `other-toolchain-drift`, `extra-formula`, `missing-formula`, `renumber-formulas`, `no-list-end`
-- [ ] T020 [P] Create the scaffolding in `tests/test_regression_runner.py`: a `unittest` base class that builds a temporary root with a `tests/` folder, a scene list, a base scene, and exclusions, copies or wraps `tests/stub_renderer.py` as a launcher in its own folder (a `.cmd` wrapper on Windows), writes `stub_mode.txt`, changes into the temporary root, sets `MANDELBULBER_BINARY`, patches `gate_valid` to return true and sets `CI=true` unless a test overrides them, patches the time limits to a few seconds, and calls `regression_runner.main([...])` in-process
-- [ ] T021 Add a `Report` class to `tests/regression_runner.py` with the fields in `data-model.md`: "Mode", "Target", "Gate validity", "Toolchain note", "Item results", and "Overall result". It writes each line to the console with `flush=True` and to `tests/outputs/report.txt`, in the format in `contracts/runner-cli.md`, guarded by a `threading.Lock` because self-parity uses worker threads. It tracks parity failures, setup failures, and Reference Target mismatches separately, and follows the exit code rules in that contract
+- [ ] T019 [P] Create `tests/stub_renderer.py`, an executable stand-in that implements `contracts/application-cli.md`. It reads its mode from `stub_mode.txt` in its working directory, because the runner's clean environment removes unknown variables, and defaults to `same`. It appends each call's arguments and environment to `stub_calls.jsonl` in that folder, accepts and ignores `--threads N`, handles `--list-formulas` and `--version`, printing `Mandelbulber 2.35-test` for the latter, writes a complete export for `--verification-export` from fixed sample data, and writes a 16-bit deflate TIFF to `<output>.tiff` without that option, so the neutral render can match `final_image.bin`. A mode written as `only:<item>:<mode>` applies to one scene name or formula ID, and every other item behaves as `same`. Modes: `same`, `flip-bit:<buffer>`, `flip-mantissa:<buffer>`, `stat-plus-one:<name>`, `unstable` (using a counter file), `unstable:<buffer>`, `unstable-stat:<name>`, `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `wrong-type:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, `no-statistics`, `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `print:<text>` (prints the text and otherwise behaves as `same`), `exit-3`, `hang`, `neutral-differs`, `no-neutral-image`, `resize`, `other-toolchain`, `other-toolchain-drift`, `extra-formula`, `missing-formula`, `renumber-formulas`, `no-list-end`, `blank` (every `final_image` sample holds one value), `other-version` (prints a different `--version` line)
+- [ ] T020 [P] Create the scaffolding in `tests/test_regression_runner.py`: a `unittest` base class that builds a temporary root with a `tests/` folder, a scene list, a base scene, and exclusions, copies or wraps `tests/stub_renderer.py` as a launcher in its own folder (a `.cmd` wrapper on Windows), writes `stub_mode.txt`, changes into the temporary root, sets `MANDELBULBER_BINARY`, patches `gate_valid` to return true and sets `CI=true` unless a test overrides them, patches `source_state` to a fixed commit with no uncommitted changes, patches the time limits to a few seconds, and calls `regression_runner.main([...])` in-process
+- [ ] T021 Add a `Report` class to `tests/regression_runner.py` with the fields in `data-model.md`: "Mode", "Environment", "Target", "Gate validity", "Toolchain note", "Item results", and "Overall result". It writes each line to the console with `flush=True` and to `tests/outputs/report.txt`, in the format in `contracts/runner-cli.md`, guarded by a `threading.Lock` because self-parity uses worker threads. It tracks parity failures, setup failures, and Reference Target mismatches separately, and follows the exit code rules in that contract
 - [ ] T022 Add `clean_environment(home)` and `gate_valid()` to `tests/regression_runner.py`: build the environment from an allowlist of `PATH`, `SYSTEMROOT`, `TEMP`, `TMP`, and `TMPDIR`, then set `HOME`, `LC_ALL=C.UTF-8`, and `LANG=C.UTF-8`. Leave out `LD_LIBRARY_PATH`, because it can select a different math library. `gate_valid()` returns false on Windows, because the application ignores a redirected home folder there (FR-004, FR-005)
 
 **Checkpoint**: The application contract is in place and the harness can drive a stand-in renderer
@@ -254,15 +257,72 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 - [ ] T068 [US6] Wire `--compare BINARY` into `main` in `tests/regression_runner.py`: build the formula list from both binaries, report a formula offered by only one as a difference, print both toolchains and the local-check statement, keep outputs of failing items, and do not read or modify references (FR-037). Where the run is not gate-valid, label the result and still allow a pass (FR-005)
 - [ ] T069 [US6] Run Scenario 6 in `specs/001-regression-harness/quickstart.md` against the real binary, and confirm that it reports differences until renders reproduce
 
-**Checkpoint**: All four modes work
+**Checkpoint**: The gate, self-parity, capture, and compare modes all work
 
 ---
 
-## Phase 9: Polish & Cross-Cutting Concerns
+## Phase 9: User Story 7 - Cross-Check Two Build Systems on One Computer (Priority: P3)
+
+**Goal**: `--collect DIR` records one build's results, and `--cross-check FIRST SECOND` compares two collections. It fails on functional disagreements and records output differences.
+
+**Independent Test**: Collect from two stand-in builds and cross-check the results. A failed item on one build fails the check, and a flipped bit is recorded without failing it.
+
+### Tests for User Story 7
+
+> **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
+
+- [ ] T070 [US7] Add environment tests to `tests/test_regression_runner.py`: with the platform and variables patched, `detect_environment()` returns `github-actions` when `GITHUB_ACTIONS` is `true`, then `windows` on Windows, then `wsl` when `WSL_DISTRO_NAME` is set, and `linux` otherwise. The default binary is the Linux or Windows path in T006, `MANDELBULBER_BINARY` overrides both, and every mode's report names the environment
+- [ ] T071 [US7] Add collect tests to `tests/test_regression_runner.py`: `--collect` renders each item once with `RENDER_OVERRIDES`, and writes a `collection.txt` that matches `contracts/collection.md` and ends with `end`, plus one zip per item that `read_reference` can read. With `only:<item>:exit-3` it still writes a complete collection, records that item with its cause and no zip, and exits 3. A scene name containing a space survives the tab-separated `item` line. A second run replaces the first. A folder holding any other file is refused with exit 3 and left unchanged. A missing binary exits 3 and leaves no `collection.txt`. With `gate_valid` returning false, the run completes and records `isolated false`. Every reference file stays unchanged
+- [ ] T072 [US7] Add cross-check result tests to `tests/test_regression_runner.py`, collecting from two stand-in launchers in separate folders. Identical output exits 0 and reports every item as identical. `flip-bit:<buffer>` and `stat-plus-one:<name>` on one build still exit 0, and the report records the item, the buffer or statistic, and both statistic values. `only:<item>:exit-3` on either build exits 1 and names the item, the build, and the cause. `extra-formula` and `missing-formula` exit 1 and name the formula and the build. `renumber-formulas` exits 0, because formulas match by name. `resize` and `other-version` exit 1. `blank` on one build exits 1, and `blank` on both exits 0
+- [ ] T073 [US7] Add cross-check setup tests to `tests/test_regression_runner.py`: a missing folder, a `collection.txt` with no `end` line, a corrupted zip entry, differing `source_commit`, `source_dirty true`, and differing `overrides` each exit 3 and name the cause. A run with `MANDELBULBER_BINARY` pointing at a missing file still works, which proves the cross-check starts no build. Two collections with one compiler add a note. Every report states that the check does not replace the gate, and every reference file stays unchanged
+
+### Implementation for User Story 7
+
+- [ ] T074 [US7] Add `detect_environment()` and `source_state()` to `tests/regression_runner.py`. `detect_environment()` follows the order in `data-model.md`. `source_state()` returns the output of `git rev-parse HEAD`, and whether `git status --porcelain -- mandelbulber2 tests` printed anything, raising a setup failure if git cannot run. Pass the environment to `Report`, so every mode prints it (FR-040)
+- [ ] T075 [US7] Add `application_version(binary)` to `tests/regression_runner.py`: run the binary with `--version` in a temporary home, with `clean_environment`, the binary's folder as the working directory, and `FORMULA_TIMEOUT` as the time limit, and return the first output line that starts with `Mandelbulber `. Raise a setup failure if there is no such line, because startup messages can come first
+- [ ] T076 [US7] Implement `prepare_collection(path)` and `write_collection(path, header, results)` in `tests/regression_runner.py`, following `contracts/collection.md`. `prepare_collection` refuses a folder that holds anything other than a collection, then deletes any earlier collection with `collection.txt` first. `write_collection` writes one zip per passed item with `write_reference`, then writes `collection.txt` last with LF line endings, tab-separated `item` lines, and a temporary file moved into place (FR-041, FR-042)
+- [ ] T077 [US7] Implement `read_collection(path)` in `tests/regression_runner.py`: read `collection.txt` as UTF-8, require the `mandelbulber-collection 1` first line and the final `end` line, parse the header and `item` lines, and raise a setup failure that names the path if any of these fail or if a passed item has no zip
+- [ ] T078 [US7] Implement `cross_check(first, second)` in `tests/regression_runner.py`, following the three lists under Cross-Checking in `contracts/collection.md`. Raise a setup failure for the setup conditions (FR-046). Match items by kind and name, read each pair with `read_reference`, and record a functional disagreement for the conditions in FR-044, naming the item, the build, and the cause. Call `compare_exports` for every pair, and record its differences without counting them as failures (FR-045). An item's final image holds one value when every `final_image` sample is the same. Count items with no difference as identical, and claim equality only for them (FR-047)
+- [ ] T079 [US7] Wire `--collect DIR` into `main` in `tests/regression_runner.py`: build the work items, call `prepare_collection`, read `application_version` and `source_state`, render each item once with `render_and_validate`, and call `write_collection`. Report the environment and whether the run is isolated, and record `isolated false` where `gate_valid()` is false. Exit 3 if any item failed, and never read or write references (FR-041, FR-042, FR-047)
+- [ ] T080 [US7] Wire `--cross-check FIRST SECOND` into `main` in `tests/regression_runner.py`: call `read_collection` for both, call `cross_check`, print both environments and toolchains and the shared commit, use `[~]` for recorded differences as in `contracts/runner-cli.md`, and state that the check does not replace the gate. Add a note when both sides used one compiler. Exit 0 on functional agreement, 1 on functional disagreement, and 3 on a setup failure. Do not start a binary, and do not read or write references (FR-043, FR-047)
+- [ ] T081 [US7] Run Scenario 8 in `specs/001-regression-harness/quickstart.md` with both real builds of one commit, confirm the expected report, time the whole scenario against SC-012, and record the result against SC-013
+
+**Checkpoint**: All six modes work, and both builds pass the cross-check on one computer
+
+---
+
+## Phase 10: User Story 8 - Run the Cross-Check in a Separate CI Pipeline (Priority: P3)
+
+**Goal**: Every pull request builds one commit with both build systems, tests each build, and cross-checks them, with no change to any existing workflow.
+
+**Independent Test**: Push a branch that adds the pipeline, and confirm that all three jobs pass and the existing workflows are unchanged. Then seed a failure on a throwaway branch, and confirm that the run summary names it.
+
+See `contracts/ci-pipeline.md`, which has the exact content of all three files.
+
+### Implementation for User Story 8
+
+- [ ] T082 [P] [US8] Create `.github/actions/build-linux/action.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [ ] T083 [P] [US8] Create `.github/actions/build-windows/action.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [ ] T084 [US8] Create `.github/workflows/cross-build-check.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [ ] T085 [US8] Check the three files before pushing: parse each one as YAML, and confirm that every composite `run` step has a `shell`, that every `steps.<id>` reference exists, that `Collect` depends only on the build step, and that `cross-check` reads the folders the two artifacts unpack to. Then confirm that `git diff --exit-code master -- .github/workflows/github-actions-ci.yml .github/workflows/codeql.yml .circleci .appveyor.yml azure-pipelines.yml .travis.yml` prints nothing (FR-048, SC-015)
+
+### Validation for User Story 8
+
+- [ ] T086 [US8] Push the branch and run Scenario 9 in `specs/001-regression-harness/quickstart.md`: confirm that all three jobs pass, that the run summary shows the report, that the three artifacts exist, and that the workflow's token is read-only. This is the first run of the Windows binary on a hosted runner, so check that `--test` passes on both jobs, that the `OpenCL.dll` copy works, and that the Inno Setup step does not fail the build (FR-049 to FR-053)
+- [ ] T087 [US8] Confirm the failure paths on a throwaway branch that is never merged, using the `#ifdef _WIN32` change in Scenario 9: `cross-check` fails and the run summary names the formula and the build. Then break the Windows build on purpose and confirm that `linux-qmake` still finishes and `cross-check` names the missing collection (FR-050, FR-051, SC-016)
+- [ ] T088 [US8] Confirm that the existing `C++ CI Build (Qt6)` workflow still passes on the same commit, and that a newer push cancels a run still going for an older commit (FR-052, SC-015)
+- [ ] T089 [US8] Record the measured job times in R17 of `specs/001-regression-harness/research.md`, replacing the estimates, and check the total against SC-014. Compare each harness command in the workflow with its local form, and confirm that only paths and the Python launcher differ (SC-017)
+- [ ] T090 [US8] Confirm that the pipeline is not a required check, and state in the pull request that it does not replace the parity gate from playbook Phase 4 (FR-054)
+
+**Checkpoint**: The cross-check runs in all three environments, and nothing existing changed
+
+---
+
+## Phase 11: Polish & Cross-Cutting Concerns
 
 **Purpose**: Complete the scene suite and confirm the feature's limits
 
-- [ ] T070 [P] Create `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract` with exactly the content below, which cover the beam light and HDR blur paths that no example scene uses
+- [ ] T091 [P] Create `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract` with exactly the content below, which cover the beam light and HDR blur paths that no example scene uses
 
   `tests/scenes/beam_light.fract`:
 
@@ -307,11 +367,11 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
   hdr_blur_enabled true;
   ```
 
-- [ ] T071 Expand `tests/scenes.txt` to about 25 scenes, adding `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract`, with a total capped render time of about 90 seconds on 32 threads: about 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. `chromatic_aberration.fract` takes about 13 seconds, and it stays because no other scene has Monte Carlo chromatic aberration. The suite must exercise every path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, and each added scene must be timed and pass the checks in `load_scenes()`
-- [ ] T072 Review `tests/test_regression_runner.py` against the requirements in `specs/001-regression-harness/spec.md`, and add a test for any failure condition without one, so SC-001 and SC-002 are covered
-- [ ] T073 Format `mandelbulber2/src/verification_export.hpp`, `mandelbulber2/src/verification_export.cpp`, and the changed lines in `mandelbulber2/src/command_line_interface.cpp`, `mandelbulber2/src/command_line_interface.hpp`, `mandelbulber2/src/headless.cpp`, and `mandelbulber2/src/headless.h` to match `.clang-format`
-- [ ] T074 Run `python3 tests/test_regression_runner.py` and all scenarios in `specs/001-regression-harness/quickstart.md`, and record any result that differs from what the guide expects
-- [ ] T075 Check the feature's limits with `git diff --stat master`: the only changed C++ files are the six listed in T073, nothing changed in the render path, and `tests/references/` does not exist. State in the pull request that the C++ changes close part of KD-4 and have no expected effect on output, as the constitution requires
+- [ ] T092 Expand `tests/scenes.txt` to about 25 scenes, adding `tests/scenes/beam_light.fract` and `tests/scenes/hdr_blur.fract`, with a total capped render time of about 90 seconds on 32 threads: about 19 ordinary scenes at up to 2 seconds and 6 Monte Carlo scenes at up to 10 seconds. `chromatic_aberration.fract` takes about 13 seconds, and it stays because no other scene has Monte Carlo chromatic aberration. The suite must exercise every path in FR-039, using the candidates in the table under R13 in `specs/001-regression-harness/research.md`, and each added scene must be timed and pass the checks in `load_scenes()`
+- [ ] T093 Review `tests/test_regression_runner.py` against the requirements in `specs/001-regression-harness/spec.md`, and add a test for any failure condition without one, so SC-001 and SC-002 are covered
+- [ ] T094 Format `mandelbulber2/src/verification_export.hpp`, `mandelbulber2/src/verification_export.cpp`, and the changed lines in `mandelbulber2/src/command_line_interface.cpp`, `mandelbulber2/src/command_line_interface.hpp`, `mandelbulber2/src/headless.cpp`, and `mandelbulber2/src/headless.h` to match `.clang-format`
+- [ ] T095 Run `python3 tests/test_regression_runner.py` in WSL and `python tests/test_regression_runner.py` on Windows, then run all scenarios in `specs/001-regression-harness/quickstart.md`, and record any result that differs from what the guide expects
+- [ ] T096 Check the feature's limits with `git diff --stat master`: the only changed C++ files are the six listed in T094, nothing changed in the render path, no existing CI file changed, and `tests/references/` does not exist. State in the pull request that the C++ changes close part of KD-4 and have no expected effect on output, as the constitution requires
 
 ---
 
@@ -321,32 +381,45 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 |---|---|
 | FR-001, FR-002 | T002, T023, T028 |
 | FR-003, FR-004 | T006, T022, T027, T031 |
-| FR-005 | T022, T038, T043, T052, T058, T060, T063, T066, T068 |
+| FR-005 | T022, T038, T043, T052, T058, T060, T063, T066, T068, T071, T079 |
 | FR-006, FR-007 | T025, T031 |
 | FR-008, FR-009 | T025, T026, T032, T033, T034 |
 | FR-010 to FR-012 | T008, T026, T033, T037, T040 |
 | FR-013, FR-014 | T026, T035, T039, T050 |
-| FR-015 to FR-020 | T005, T035, T036, T041 to T043, T057, T058, T061 to T063 |
+| FR-015 to FR-020 | T005, T035, T036, T041 to T043, T057, T058, T061 to T063, T079, T080 |
 | FR-021 to FR-023 | T006, T021, T035, T052, T055, T056, T058, T061 |
 | FR-024 to FR-028 | T008, T009, T010, T012, T014, T016, T045 to T048, T050 |
-| FR-029 to FR-031 | T021, T035, T043, T075 |
+| FR-029 to FR-031 | T021, T035, T043, T096 |
 | FR-032 to FR-034 | T003, T004, T024, T029, T030, T051 |
 | FR-035 to FR-037 | T065 to T068 |
 | FR-038 | T060, T063 |
-| FR-039 | T070, T071 |
+| FR-039 | T091, T092 |
+| FR-040 | T006, T020, T021, T070, T074 |
+| FR-041, FR-042 | T071, T075, T076, T079 |
+| FR-043 to FR-047 | T072, T073, T077, T078, T080 |
+| FR-048 | T082 to T085 |
+| FR-049 to FR-053 | T082 to T084, T086 to T088 |
+| FR-054 | T090 |
 
 | Success criterion | Tasks | Can close in this feature |
 |---|---|---|
-| SC-001 | T023 to T027, T072 | Yes |
+| SC-001 | T023 to T027, T093 | Yes |
 | SC-002 | T035, T045, T050 | Yes |
 | SC-003 | T044 | First half only. The rest needs playbook Phase 3 |
-| SC-004 | T071 | No. It needs the CI gate from playbook Phase 4 |
+| SC-004 | T092 | No. It needs the CI gate from playbook Phase 4 |
 | SC-005 | T021, T050 | Yes |
 | SC-006 | T060 | Yes |
 | SC-007 | T037 | Logic only. Real results need playbook Phase 3 |
 | SC-008 | T060, T062 | Enforced here, measured in playbook Phase 4 |
 | SC-009 | T030, T051 | Yes |
 | SC-010 | T065, T069 | Logic only. Real results need playbook Phase 3 |
+| SC-011 | T072 | Yes |
+| SC-012 | T081 | Yes |
+| SC-013 | T081 | Yes |
+| SC-014 | T089 | Yes |
+| SC-015 | T085, T088 | Yes |
+| SC-016 | T087 | Yes |
+| SC-017 | T089 | Yes |
 
 ---
 
@@ -356,8 +429,8 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 - **Setup (Phase 1)**: No dependencies
 - **Foundational (Phase 2)**: Depends on Setup. Blocks all user stories, except that T018 blocks only the real binary tasks
-- **User Stories (Phases 3 to 8)**: Depend on Foundational
-- **Polish (Phase 9)**: Depends on every story being complete
+- **User Stories (Phases 3 to 10)**: Depend on Foundational
+- **Polish (Phase 11)**: Depends on every story being complete
 
 ### User Story Dependencies
 
@@ -367,6 +440,8 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 - **User Story 3 (P2)**: Depends on US1, and on `compare_exports` and `compare_statistics` from T039 and T047
 - **User Story 4 (P2)**: Depends on US2 and on the reference format from US3
 - **User Story 6 (P3)**: Depends on US1, and on `compare_exports` and `compare_statistics` from T039 and T047
+- **User Story 7 (P3)**: Depends on US1, on `compare_exports` and `compare_statistics` from T039 and T047, and on `write_reference` and `read_reference` from T054
+- **User Story 8 (P3)**: Depends on US7, because the pipeline calls `--collect` and `--cross-check`
 
 ### Within Each User Story
 
@@ -379,8 +454,9 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 - **Phase 1**: T002, T003, and T004
 - **Phase 2**: T007 can run with T019 and T020. The C++ tasks (T007 to T018) and the shared harness tasks (T019 to T022) are separate tracks, and one person can work on each
 - **After US5**: US3 and US6 are independent of each other, but they edit the same files, so run them one at a time unless working on separate branches
-- **Phase 9**: T070 can run alongside other Polish work, because it creates new files
-- **Within a story**: There are no `[P]` tasks, because every story edits `tests/regression_runner.py` and `tests/test_regression_runner.py`
+- **Phase 10**: T082 and T083, because each creates its own new file
+- **Phase 11**: T091 can run alongside other Polish work, because it creates new files
+- **Within a story**: Stories 1 to 7 have no `[P]` tasks, because each one edits `tests/regression_runner.py` and `tests/test_regression_runner.py`
 
 ---
 
@@ -418,12 +494,15 @@ This is the smallest useful result, and it is what playbook Phase 3 needs, becau
 1. Add User Story 3, so the gate works against test references
 2. Add User Story 4, so capture is ready for playbook Phase 4
 3. Add User Story 6, so developers have a local check for playbook Phase 5
+4. Add User Story 7, so both local builds can be cross-checked on one computer
+5. Add User Story 8, so GitHub Actions runs the same cross-check
 
 ---
 
 ## Notes
 
 - Commit after each task or logical group, and after each checkpoint at the latest
-- `--self-parity`, the gate, and compare mode are expected to report differences on real builds until playbook Phase 3 is done. That is a correct result, not a bug in the harness
+- `--self-parity`, the gate, and compare mode are expected to report differences on real builds until playbook Phase 3 is done. That is a correct result, not a bug in the harness. The cross-check can pass before then, because it does not need equal output
 - Keep the C++ commits separate from the harness commits, so the application change is easy to review
-- Do not add CI workflows here. They belong to playbook Phases 3 and 4
+- Cross-Build Check is the only CI this feature adds. The `parity-gate` and `capture-baseline` workflows belong to playbook Phases 3 and 4
+- Never change an existing workflow or CI configuration in this feature
