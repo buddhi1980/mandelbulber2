@@ -165,7 +165,7 @@ mandelbulber2/src/
 | `--collect` | Yes | Yes, labeled not isolated | Both build jobs |
 | `--cross-check` | Yes | Yes | Its own job |
 | `--compare` | Yes | Yes, labeled not gate-valid | Not used |
-| `--self-parity` | Yes | Runs, cannot pass | `parity-gate` (playbook Phase 4) |
+| `--self-parity` | Yes | Runs, cannot pass | Inside `--capture` on Linux (playbook Phase 4) |
 | Gate | Yes | Runs, cannot pass | `parity-gate` (playbook Phase 4) |
 | `--capture` | Refused | Refused | `capture-baseline` on Linux only (playbook Phase 4) |
 

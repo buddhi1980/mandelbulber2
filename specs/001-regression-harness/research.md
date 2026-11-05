@@ -167,7 +167,7 @@ The HDR blur effect is far larger than the noise, so that path runs. The beam li
 ## R15. Local development environments
 
 - **Decision**: Develop on two builds of one commit on one Windows computer: qmake in the WSL `Ubuntu-24.04` distro, and MSVC Release from `mandelbulber2/msvc/mandelbulber2.sln`.
-- **Rationale**: The WSL build has the same compiler, Qt, and glibc versions as the CI runner, so it stands in for the gate's toolchain locally. The MSVC build adds a second compiler, Visual Studio debugging, and the only Windows coverage. Having both on one computer finds build-system-specific problems before a push.
+- **Rationale**: The WSL build has the same compiler, Qt, and glibc versions as the CI runner, so it stands in for the gate's toolchain locally. The MSVC build adds a second compiler, Visual Studio debugging, and a way to run the Windows binary, which no CI job does yet. Having both on one computer finds build-system-specific problems before a push.
 
 Both were built from clean clones and run on 2026-11-04:
 

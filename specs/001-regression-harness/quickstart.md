@@ -157,7 +157,7 @@ python tests/regression_runner.py --cross-check tests/outputs/collection/qmake t
 - It states that it does not replace the gate.
 - `tests/outputs/cross-check-details.txt` lists every differing statistic.
 
-Repeat the same `--collect` commands to see a problem on one build: a scene that fails on one build exits 3 there, and the cross-check then exits 1 and names the item and the build.
+If a scene fails on one build, that `--collect` exits 3, and the cross-check then exits 1 and names the item and the build.
 
 ## Scenario 9: Cross-Build Check in GitHub Actions
 
