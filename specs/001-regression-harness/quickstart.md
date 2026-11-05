@@ -180,7 +180,11 @@ git diff --exit-code master -- .github/workflows/github-actions-ci.yml .github/w
 
 To see a failure, use a throwaway branch and never merge it. In `printFormulasAndExit`, skip `mandelbulbPower2` under `#ifdef _WIN32`, then push.
 
-**Expected**: `windows-msvc` still builds, `cross-check` fails, and the run summary states that `mandelbulbPower2` is offered by the first collection only.
+**Expected**: `windows-msvc` still builds, `cross-check` exits 1, and the run summary states that `mandelbulb_power2` is offered by the first collection only.
+
+Then add an `#error` line under `#ifdef _WIN32` on another throwaway branch, and push.
+
+**Expected**: `linux-qmake` still finishes, `cross-check` exits 3, and the run summary states that there is no complete collection at `tests/outputs/collection/msvc`.
 
 ## After Playbook Phase 3
 
