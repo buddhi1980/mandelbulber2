@@ -1,0 +1,22 @@
+name: Build Linux
+description: Install dependencies, then build and install the release binary with qmake.
+runs:
+  using: composite
+  steps:
+    - name: Install Build Dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential mesa-common-dev libgl1-mesa-dev \
+          libpng-dev libgsl-dev libgomp1 liblzo2-dev libtiff-dev libsndfile1-dev \
+          opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev \
+          qt6-base-dev qt6-tools-dev qt6-multimedia-dev qt6-svg-dev \
+          qt6-tools-dev-tools qt6-declarative-dev
+    - name: Build and Install to a Local Tree
+      shell: bash
+      run: |
+        mkdir -p mandelbulber2/build
+        cd mandelbulber2/build
+        qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
+        make -j$(nproc)
+        make INSTALL_ROOT=appdir install

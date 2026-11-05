@@ -61,7 +61,8 @@ public:
 		ansiWhite = 7
 	};
 
-	void RenderStillImage(QString filename, QString imageFileFormat);
+	void RenderStillImage(
+		QString filename, QString imageFileFormat, QString verificationExportDir, bool settingsLoaded);
 	[[noreturn]] static void RenderQueue();
 	void RenderVoxel(QString voxelFormat);
 	void RenderFlightAnimation();

@@ -1,0 +1,2 @@
+# Formulas left out of the sweep, one per line, as: name reason
+custom Custom OpenCL formula has an empty CPU implementation

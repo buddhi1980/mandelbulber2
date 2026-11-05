@@ -1,0 +1,21 @@
+# Mandelbulber settings file
+# version 2.35
+# only modified parameters
+[main_parameters]
+camera 3.3 -6.6 2.2;
+camera_distance_to_target 7.7;
+camera_rotation 26.565 -16.60154 0;
+camera_top -0.1277753 0.2555506 0.958314;
+hybrid_fractal_enable true;
+target 0 0 0;
+N 50;
+detail_level 1;
+mat1_is_defined true;
+node_0001_definition hybrid 1,1,10,0,100;
+node_0002_definition mandelbulb 2,2,1,1,1;
+node_0003_definition mandelbulb 3,3,1,1,2;
+[fractal_1]
+formula_iterations 3;
+[fractal_2]
+formula 2;
+formula_iterations 2;
