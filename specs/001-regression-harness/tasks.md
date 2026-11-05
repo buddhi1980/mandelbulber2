@@ -534,3 +534,13 @@ This is the smallest useful result, and it is what playbook Phase 3 needs, becau
 - Keep the C++ commits separate from the harness commits, so the application change is easy to review
 - Cross-Build Check is the only CI this feature adds. The `parity-gate` and `capture-baseline` workflows belong to playbook Phases 3 and 4
 - Never change an existing workflow or CI configuration in this feature
+
+---
+
+## Phase 12: Convergence
+
+- [ ] T097 Change `holds_one_value` in `tests/regression_runner.py` to compare whole pixels of `final_image`, so an image that repeats one RGB value counts as a single value even when its R, G, and B differ. Add a `blank-color` mode to `tests/stub_renderer.py`, add cross-check tests in `tests/test_regression_runner.py` that seed it on each build and on both builds, and change "holds one value" to "holds one pixel value" in `specs/001-regression-harness/contracts/collection.md` per FR-044 (partial)
+- [ ] T098 Name the build in the `statistic names differ` failure from `functional_disagreement` in `tests/regression_runner.py`, listing each name with the build that has it, and make `test_layout_and_names_and_version_fail` in `tests/test_regression_runner.py` require the build when seeded on each side per SC-011 (partial)
+- [ ] T099 Make `read_export` in `tests/regression_runner.py` fail when the export folder holds a `.bin` file outside the seven expected buffers, naming the file, even if the manifest does not list it. Add an `unlisted-buffer` mode to `tests/stub_renderer.py` and a test in `tests/test_regression_runner.py` per FR-011 (partial)
+- [ ] T100 State under Edge Cases in `specs/001-regression-harness/spec.md` and under Functional disagreements in `specs/001-regression-harness/contracts/collection.md` that FR-044 takes precedence over US7/AC6 for an image that holds one value on both builds: one flipped bit in its `final_image` leaves it flat on one build only, so the cross-check fails, as it does for `transf_de_controls`. Add a test for this in `tests/test_regression_runner.py` per FR-044 (contradicts)
+- [ ] T101 Replace the statements that are out of date: in `specs/001-regression-harness/spec.md`, "It has not been measured in CI" and "The pipeline's Windows job has not been run yet", using the hosted results in R17 of `specs/001-regression-harness/research.md`, and in R17, "keeps the 5-minute limit", stating that commit `d7919fa53` raised it to 30 minutes in its own change after this feature merged per SC-015 (partial)
