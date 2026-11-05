@@ -128,6 +128,7 @@ jobs:
           name: collection-qmake
           path: tests/outputs/collection/qmake
           if-no-files-found: warn
+          overwrite: true
           retention-days: 7
 
   windows-msvc:
@@ -158,6 +159,7 @@ jobs:
           name: collection-msvc
           path: tests/outputs/collection/msvc
           if-no-files-found: warn
+          overwrite: true
           retention-days: 7
 
   cross-check:
@@ -188,6 +190,7 @@ jobs:
             tests/outputs/report.txt
             tests/outputs/cross-check-details.txt
           if-no-files-found: warn
+          overwrite: true
           retention-days: 7
 ```
 
@@ -200,4 +203,4 @@ jobs:
 - **Missing collection**: If a build failed, its artifact is missing, and `--cross-check` exits 3 and names it.
 - **Status**: This is not the parity gate, and it is not a required check unless a maintainer makes it one (FR-054). The flag check is not included, because it fails until playbook Phase 3 closes KD-2.
 - **Run summary**: GitHub limits a summary to 1 MiB per step. The report stays well under that, and every differing statistic is in the `cross-check-report` artifact instead (research R16). Each line is indented four spaces, so it shows as code.
-- **Artifacts**: `collection-qmake`, `collection-msvc`, and `cross-check-report`, kept for 7 days. Each collection is about the size of a reference set, about 77 MB.
+- **Artifacts**: `collection-qmake`, `collection-msvc`, and `cross-check-report`, kept for 7 days. Each collection is about the size of a reference set, about 77 MB. Each upload sets `overwrite: true`, so rerunning a failed job cannot clash with its earlier artifact.

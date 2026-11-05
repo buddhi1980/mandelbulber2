@@ -47,7 +47,7 @@ If a run has both parity failures and a code 3 condition that did not stop it, i
 
 ## Report
 
-Output goes to the console and to `tests/outputs/report.txt`.
+Output goes to the console and to `tests/outputs/report.txt`. Every line goes to the file. The console shows at most the first 5 statistic differences per item and comparison, followed by a count of the rest, because a histogram has about 1,000 values and renders do not reproduce yet.
 
 ```text
 mode: gate
@@ -68,7 +68,7 @@ mode: cross-check
 environment: wsl
 first: wsl, isolated, gcc 13.3.0, glibc 2.39
 second: windows, not isolated, msvc 195136231, unknown
-source: 8d93bf50e on both
+source: 012345678 on both
 [+] scene IFS_001: both builds agree
 [~] scene IFS_001 raw_render: 230400 of 230400 samples differ
 [~] scene IFS_001 statistics: 412 of 1290 values differ, first total_iterations 316706000 vs 270312000
@@ -99,3 +99,4 @@ note: this check does not replace the gate, and a difference between builds is n
 | `tests/outputs/` | Working output. Failed items are kept here, and passing items are removed |
 | `tests/references/<target>/` | [Reference set](reference-set.md) |
 | `tests/outputs/collection/` | The usual place for collections, which are not version-controlled |
+| `tests/outputs/cross-check-details.txt` | Every statistic that differed in the last cross-check, as described in [collection.md](collection.md) |

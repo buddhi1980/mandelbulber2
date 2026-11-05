@@ -23,7 +23,7 @@ Written last, so its final `end` line proves the collection is complete. The fil
 mandelbulber-collection 1
 environment wsl
 isolated true
-source_commit 8d93bf50e0a1c7d2b3f4e5d6c7b8a9f0e1d2c3b4
+source_commit 0123456789abcdef0123456789abcdef01234567
 source_dirty false
 binary_older_than_commit false
 application Mandelbulber 2.35-dev
@@ -86,7 +86,7 @@ The harness reads both collections and starts neither build.
 
 - Each buffer that differs, with its count of differing samples, in the report.
 - For each item, the number of statistics that differ and the first one with both values, in the report.
-- Each statistic that differs, with both values, in `tests/outputs/cross-check-details.txt`. Each line holds the kind, the name, the statistic, and the two values, separated by tabs.
+- Each statistic that differs, with both values, in `tests/outputs/cross-check-details.txt`. Each line holds the kind, the name, the statistic, and the two values, separated by tabs. The file is always written, and it is empty when no statistic differs.
 - The number of items that matched exactly in every buffer and statistic.
 - A note for either side where `binary_older_than_commit` is `true`.
 
