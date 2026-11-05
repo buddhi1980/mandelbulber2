@@ -25,6 +25,7 @@ environment wsl
 isolated true
 source_commit 8d93bf50e0a1c7d2b3f4e5d6c7b8a9f0e1d2c3b4
 source_dirty false
+binary_older_than_commit false
 application Mandelbulber 2.35-dev
 compiler gcc 13.3.0
 math_library glibc 2.39
@@ -46,19 +47,20 @@ end
 - `isolated` is `false` where the application ignores a redirected home folder (FR-005).
 - `source_commit` is the output of `git rev-parse HEAD`.
 - `source_dirty` is `true` if `git status --porcelain -- mandelbulber2 tests` prints anything.
+- `binary_older_than_commit` is `true` if the binary's modified time is before `git log -1 --format=%ct`.
 - `application` is the first output line of `--version` that starts with `Mandelbulber `. Earlier lines can be startup messages.
 - `compiler` and `math_library` come from the first passed item's manifest, or are `unknown` if no item passed.
 - Items keep the order of the work item list.
 
 ## Collecting
 
-1. If `DIR` holds anything other than a collection, refuse it, exit 3, and change nothing.
+1. Create `DIR` and its parents if they do not exist. A folder counts as a collection if it holds nothing except `collection.txt`, `scenes/`, and `formulas/`, so a run that stopped part way can be replaced. If `DIR` holds anything else, refuse it, exit 3, and change nothing.
 2. Delete any earlier collection in `DIR`, removing `collection.txt` first.
-3. Render every work item once, with the gate's settings, isolation, and failure detection. A failed item is recorded, and the run continues.
+3. Render every work item once, with the gate's settings and failure detection, and the gate's isolation where the platform allows it. A failed item is recorded, and the run continues.
 4. Write `collection.txt` last.
 5. Exit 0 if every item passed, or 3 if any item failed.
 
-A setup error before rendering stops the run and leaves no `collection.txt`, so a cross-check can never read a partial collection.
+A setup error before rendering stops the run and leaves no `collection.txt`, so a cross-check can never read a partial collection. If the binary is older than the commit, the report says so, and the run continues.
 
 ## Cross-Checking
 
@@ -82,8 +84,10 @@ The harness reads both collections and starts neither build.
 
 **Recorded, never a failure**
 
-- Each buffer that differs, with its count of differing samples.
-- Each statistic that differs, with both values.
+- Each buffer that differs, with its count of differing samples, in the report.
+- For each item, the number of statistics that differ and the first one with both values, in the report.
+- Each statistic that differs, with both values, in `tests/outputs/cross-check-details.txt`. Each line holds the kind, the name, the statistic, and the two values, separated by tabs.
 - The number of items that matched exactly in every buffer and statistic.
+- A note for either side where `binary_older_than_commit` is `true`.
 
-Values are compared bit for bit, as in every other mode. There is no tolerance, threshold, or perceptual metric (FR-045).
+Values are compared bit for bit, as in every other mode. There is no tolerance, threshold, or perceptual metric (FR-045). The report stays small enough for a CI run summary, and the details file has no such limit.

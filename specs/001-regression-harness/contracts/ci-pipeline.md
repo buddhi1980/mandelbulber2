@@ -84,7 +84,7 @@ runs:
       run: Copy-Item mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/OpenCL.dll build-win/Release/x64/
 ```
 
-A clean build does not put `OpenCL.dll` beside the binary, and a hosted runner has no GPU driver to supply it (research R17).
+A clean build does not put `OpenCL.dll` beside the binary, and a hosted runner may not have a copy in `System32` (research R17).
 
 ## `.github/workflows/cross-build-check.yml`
 
@@ -146,6 +146,7 @@ jobs:
         working-directory: build-win/Release/x64
         env:
           QT_FORCE_STDERR_LOGGING: '1'
+          QTEST_FUNCTION_TIMEOUT: '1800000'
         run: .\mandelbulber2.exe --test
       - name: Collect
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
@@ -176,14 +177,16 @@ jobs:
         if: ${{ always() }}
         run: |
           if [ -f tests/outputs/report.txt ]; then
-            cat tests/outputs/report.txt >> "$GITHUB_STEP_SUMMARY"
+            sed 's/^/    /' tests/outputs/report.txt >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Upload the Report
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
           name: cross-check-report
-          path: tests/outputs/report.txt
+          path: |
+            tests/outputs/report.txt
+            tests/outputs/cross-check-details.txt
           if-no-files-found: warn
           retention-days: 7
 ```
@@ -196,4 +199,5 @@ jobs:
 - **Failure handling**: A failed `--test` still lets `Collect` run, because that step depends only on the build. Each collection uploads even after a failure, and `cross-check` runs unless the run was cancelled.
 - **Missing collection**: If a build failed, its artifact is missing, and `--cross-check` exits 3 and names it.
 - **Status**: This is not the parity gate, and it is not a required check unless a maintainer makes it one (FR-054). The flag check is not included, because it fails until playbook Phase 3 closes KD-2.
+- **Run summary**: GitHub limits a summary to 1 MiB per step. The report stays well under that, and every differing statistic is in the `cross-check-report` artifact instead (research R16). Each line is indented four spaces, so it shows as code.
 - **Artifacts**: `collection-qmake`, `collection-msvc`, and `cross-check-report`, kept for 7 days. Each collection is about the size of a reference set, about 77 MB.

@@ -159,7 +159,7 @@ An engine developer builds one commit with qmake in WSL and with MSVC on Windows
 3. **Given** a formula offered by only one build, **When** the cross-check runs, **Then** it fails and names the formula and the build.
 4. **Given** an item whose image dimensions, buffers, sample types, or statistic names differ between builds, **When** the cross-check runs, **Then** it fails and reports the layout difference.
 5. **Given** an item whose final image holds a single value on one build only, **When** the cross-check runs, **Then** it fails and names the item and the build.
-6. **Given** one flipped bit in one sample, or a change of 1 in one statistic, on one build, **When** the cross-check runs, **Then** it still passes, and the report records that difference by item and by buffer or statistic.
+6. **Given** one flipped bit in one sample, or a change of 1 in one statistic, on one build, **When** the cross-check runs, **Then** it still passes, and that difference is recorded by item and by buffer or statistic.
 7. **Given** two collections from different commits, or one made with uncommitted changes under `mandelbulber2/` or `tests/`, **When** the cross-check runs, **Then** it reports a setup failure and names the reason.
 8. **Given** an incomplete collection, or two collections with different render settings, **When** the cross-check runs, **Then** it reports a setup failure and names the collection.
 9. **Given** a collection made on a platform where renders cannot be isolated, **When** it is cross-checked, **Then** the report labels that side as not isolated, and the check can still pass.
@@ -208,7 +208,9 @@ A developer pushes a branch, and GitHub Actions builds the commit with both buil
 - **Cross-check before playbook Phase 3**: Renders do not reproduce yet, so almost every value differs between builds. The cross-check can still pass, and its recorded differences mean nothing until both builds pass Self-Parity.
 - **Reused collection folder**: Collect mode replaces an earlier collection, and it refuses a folder that holds anything else, so it can never delete unrelated files.
 - **Two collections from one build system**: The cross-check still runs, and the report notes that both sides used the same compiler.
-- **Missing runtime library on a clean Windows machine**: A clean MSVC build does not put `OpenCL.dll` beside the binary, and it runs here only because a GPU driver supplies that library. A hosted runner has no GPU driver, so the pipeline copies the library from the restored package.
+- **Missing runtime library on a clean Windows machine**: A clean MSVC build does not put `OpenCL.dll` beside the binary. It runs on the development computer because `System32` has a copy, and a hosted runner may not, so the pipeline copies the library from the restored package.
+- **Large cross-check reports**: Before playbook Phase 3 most values differ on every item, and a run summary has a size limit. So the report counts differing statistics per item, and a details file lists each one.
+- **Binary older than the commit**: A binary does not record its own source, so a stale build could be collected under a newer commit. Collect mode compares the times and notes it, and the cross-check repeats that note. It stays a note, because a documentation-only commit leaves a correct binary older than the commit.
 
 ## Requirements *(mandatory)*
 
@@ -292,11 +294,11 @@ A developer pushes a branch, and GitHub Actions builds the commit with both buil
 **Environments and cross-check**
 
 - **FR-040**: The harness MUST run unchanged in three environments: WSL on Ubuntu 24.04 with the qmake build, Windows with the MSVC Release build, and GitHub Actions with both. It MUST choose the default binary for the platform it runs on, and every report MUST name the environment.
-- **FR-041**: Collect mode MUST render every listed scene and sweep formula once with one build, with the same fixed settings, failure detection, and isolation as the gate. It MUST write a collection holding each item's outcome, buffers, and statistics, plus the environment, toolchain, application version, and source commit. A collection MUST count as complete only after its final line is written.
+- **FR-041**: Collect mode MUST render every listed scene and sweep formula once with one build, with the same fixed settings and failure detection as the gate, and the same isolation where the platform allows it. It MUST write a collection holding each item's outcome, buffers, and statistics, plus the environment, toolchain, application version, and source commit. It MUST note when the binary is older than that commit. A collection MUST count as complete only after its final line is written.
 - **FR-042**: Collect mode MUST write a complete collection even when items fail, and it MUST then report failure, so a cross-check can still name those items. It MUST refuse a folder that is neither empty nor a collection.
 - **FR-043**: Cross-check mode MUST compare two collections from their files alone, without running either build, so it can run on any machine that can read both.
 - **FR-044**: Cross-check mode MUST fail if an item failed on either build, if an item exists in only one collection, if the application versions differ, if an item's image dimensions, buffers, sample types, or statistic names differ, or if an item's final image holds a single value on one build only. Formulas MUST be matched by name.
-- **FR-045**: Cross-check mode MUST compare every buffer and statistic exactly and report each difference, but a difference in values MUST NOT fail the run, because a difference between two targets is recorded and is not drift. It MUST NOT use tolerances, thresholds, or perceptual metrics.
+- **FR-045**: Cross-check mode MUST compare every buffer and statistic exactly and record each difference, but a difference in values MUST NOT fail the run, because a difference between two targets is recorded and is not drift. It MUST NOT use tolerances, thresholds, or perceptual metrics.
 - **FR-046**: Cross-check mode MUST report a setup failure if either collection is incomplete, if their source commits or render settings differ, or if either was made with uncommitted changes under `mandelbulber2/` or `tests/`.
 - **FR-047**: Collect and cross-check modes MUST NOT read or modify references. Their reports MUST state that they do not replace the gate. A cross-check report MUST state how many items were identical across the two builds, and it MUST claim equality only for items where every buffer and statistic matched exactly.
 

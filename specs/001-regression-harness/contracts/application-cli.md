@@ -43,3 +43,7 @@ end
 - Each entry is the numeric ID, a tab, and the internal name.
 - The list comes from `newFractalList`, without the `none` entry.
 - A reader must fail if the `end` line is missing.
+
+## `--version`
+
+This option already exists and does not change. The harness reads it to record the application version. Startup messages may appear first, so readers take the first line that starts with `Mandelbulber `.

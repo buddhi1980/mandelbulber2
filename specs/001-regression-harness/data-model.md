@@ -109,11 +109,11 @@ All references for one Reference Target.
 |---|---|
 | Mode | Gate, self-parity, capture, compare, collect, or cross-check |
 | Environment | `wsl`, `windows`, `linux`, or `github-actions` |
-| Target | Reference Target in use |
+| Target | Reference Target in use. Collect and cross-check runs have none |
 | Gate validity | Whether isolation could be guaranteed |
 | Toolchain note | Any difference from recorded versions |
 | Item results | Verdict per item, with per-buffer and per-statistic detail |
-| Overall result | Passed, parity failure, Reference Target mismatch, or setup error |
+| Overall result | Passed, parity failure, Reference Target mismatch, or setup error. A cross-check reports functional agreement or functional disagreement in place of passed or parity failure |
 
 ## Environment
 
@@ -136,6 +136,7 @@ One build's results for every work item. [contracts/collection.md](contracts/col
 | Isolated | Whether each render had its own home folder (FR-004) |
 | Source commit | The commit the harness ran from |
 | Source dirty | Whether `mandelbulber2/` or `tests/` had uncommitted changes |
+| Binary older than commit | Whether the binary's modified time is before the commit time |
 | Application version | The first `Mandelbulber` line of `--version` |
 | Compiler, math library | Toolchain identity, from the exports |
 | Render settings | As in the reference set |
@@ -155,7 +156,7 @@ One build's results for every work item. [contracts/collection.md](contracts/col
 | First, second | Each collection's environment, compiler, math library, and isolation |
 | Source commit | The commit both collections came from |
 | Item verdicts | For each item, whether the builds agree, and the reason if not |
-| Recorded differences | For each item, each differing buffer's sample count, and each differing statistic's two values |
+| Recorded differences | For each item, each differing buffer's sample count, plus a count of differing statistics. The details file holds each differing statistic's two values |
 | Identical items | How many items matched exactly in every buffer and statistic |
 | Overall result | Functional agreement, functional disagreement, or setup error |
 

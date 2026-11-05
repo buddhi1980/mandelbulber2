@@ -60,7 +60,7 @@ wsl -d Ubuntu-24.04 -- sudo apt-get update
 wsl -d Ubuntu-24.04 -- sudo apt-get install -y build-essential mesa-common-dev libgl1-mesa-dev libpng-dev libgsl-dev libgomp1 liblzo2-2 liblzo2-dev libtiff-dev libsndfile1-dev tree wget opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev qt6-base-dev qt6-tools-dev qt6-multimedia-dev qt6-svg-dev qt6-tools-dev-tools qt6-declarative-dev git python3
 ```
 
-Then, inside WSL, make the Linux clone and configure the build. Keep it out of `/mnt/c`, because the Windows checkout has CRLF line endings, and `qmake6` would write generated headers into it:
+Then, inside WSL, make the Linux clone and configure the build. Keep it out of `/mnt/c`, because the Windows checkout has CRLF line endings, and the build would write generated headers into it. These commands use the current branch, so replace `upgrade/regression-harness` with yours:
 ```bash
 git clone --depth 1 --branch upgrade/regression-harness https://github.com/Coastrnaut/mandelbulber2.git ~/mandelbulber2
 mkdir -p ~/mandelbulber2/mandelbulber2/build && cd ~/mandelbulber2/mandelbulber2/build
@@ -84,7 +84,7 @@ nuget restore mandelbulber2/msvc/mandelbulber2.sln
 & "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" mandelbulber2/msvc/mandelbulber2.sln /m /p:Configuration=Release /p:Platform=x64
 ```
 
-Delete `build-win` before the first build, because the project compiles every `.cpp` file in that folder, including generated files from older source. Use Release, because Debug uses `/fp:fast` (KD-2). Each build deletes `build-win/Release/x64` first, so don't keep anything there.
+Delete `build-win` before the first build, because the project compiles every `.cpp` file in that folder, including generated files from older source. Use Release, because Debug uses `/fp:fast` (KD-2). Each build deletes `build-win/Release/x64` first, so don't keep anything there. If the binary won't start because `OpenCL.dll` is missing, copy it there from `mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/`. A clean build doesn't put it beside the binary, and this computer has a copy in `System32`.
 
 ### 3. Run the Application Tests on Both
 The existing suite is still required, and it does not replace the parity gate. In WSL, from the clone's root:

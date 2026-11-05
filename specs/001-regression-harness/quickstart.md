@@ -129,7 +129,7 @@ python tests/regression_runner.py --self-parity
 
 ## Scenario 8: Cross-Check Two Builds on One Computer
 
-Commit your work on Windows, because WSL can only see commits. Then bring that commit into the WSL clone and build it:
+Commit your work on Windows, because WSL can only see commits. Then bring that commit into the WSL clone and build it, replacing `upgrade/regression-harness` with your branch:
 
 ```bash
 cd ~/mandelbulber2
@@ -155,6 +155,7 @@ python tests/regression_runner.py --cross-check tests/outputs/collection/qmake t
 - The cross-check exits 0 with `result: functional agreement`.
 - It reports that 0 items matched exactly, because renders do not reproduce yet.
 - It states that it does not replace the gate.
+- `tests/outputs/cross-check-details.txt` lists every differing statistic.
 
 Repeat the same `--collect` commands to see a problem on one build: a scene that fails on one build exits 3 there, and the cross-check then exits 1 and names the item and the build.
 
@@ -166,7 +167,7 @@ Push the branch, then open the **Cross-Build Check** run in the repository's **A
 
 - `linux-qmake`, `windows-msvc`, and `cross-check` all pass.
 - The run summary shows the cross-check report, and the report names the commit and both toolchains.
-- The `collection-qmake`, `collection-msvc`, and `cross-check-report` artifacts exist.
+- The `collection-qmake`, `collection-msvc`, and `cross-check-report` artifacts exist, and the last one holds the report and the details file.
 - The pipeline's Application Tests step passes on both jobs, with 8 tests passing on each.
 
 Then confirm that the pipeline changed nothing else:

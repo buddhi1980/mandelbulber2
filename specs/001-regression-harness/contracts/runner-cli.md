@@ -28,7 +28,7 @@ Self-Parity uses 1 thread and the machine's CPU count, or 2 threads on a single-
 | Variable | Default | Meaning |
 |---|---|---|
 | `MANDELBULBER_BINARY` | `mandelbulber2/build/appdir/usr/bin/mandelbulber2` on Linux, `build-win/Release/x64/mandelbulber2.exe` on Windows | Binary under test |
-| `PARITY_TARGET` | `linux-x86_64-gcc` | Reference Target |
+| `PARITY_TARGET` | `linux-x86_64-gcc` on Linux, `windows-x86_64-msvc` on Windows | Reference Target. No references exist for Windows, so a gate run there reports a missing reference set |
 
 Every render runs with the binary's own folder as its working directory, because the Windows build finds its data there.
 
@@ -71,7 +71,7 @@ second: windows, not isolated, msvc 195136231, unknown
 source: 8d93bf50e on both
 [+] scene IFS_001: both builds agree
 [~] scene IFS_001 raw_render: 230400 of 230400 samples differ
-[~] scene IFS_001 statistics: total_iterations 316706000 vs 270312000
+[~] scene IFS_001 statistics: 412 of 1290 values differ, first total_iterations 316706000 vs 270312000
 [-] formula mandelbulbPower2: offered by first only
 identical: 0 of 487 items matched exactly in every buffer and statistic
 result: functional disagreement (1 of 487 items failed)
@@ -85,7 +85,9 @@ note: this check does not replace the gate, and a difference between builds is n
 - In gate mode, a toolchain difference with matching output appears as a note and the run passes. With differing output, the result is `reference target mismatch`.
 - Compare mode prints both toolchains and states that it is a local check that does not replace the gate.
 - On platforms without isolation, the report states that the run is not gate-valid. Compare mode can still pass there, and collect mode can still complete.
-- A cross-check report names the build in every failure, and it states that the check does not replace the gate. It claims equality only for items that matched exactly in every buffer and statistic. If both sides used the same compiler, it adds a note.
+- A collect report states that the run does not replace the gate, and it notes a binary older than the commit.
+- A cross-check report names the build in every failure, and it states that the check does not replace the gate. It claims equality only for items that matched exactly in every buffer and statistic. It adds a note if both sides used the same compiler, and if either binary was older than its commit.
+- A cross-check report has one `[~]` line per differing buffer and one per item's statistics. Every differing statistic is in `tests/outputs/cross-check-details.txt`, which is described in [collection.md](collection.md).
 
 ## Files
 
