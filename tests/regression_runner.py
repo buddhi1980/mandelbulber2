@@ -15,6 +15,7 @@ See specs/001-regression-harness/contracts/runner-cli.md.
 
 import argparse
 import contextlib
+import operator
 import os
 import re
 import shutil
@@ -24,6 +25,7 @@ import sys
 import tempfile
 import threading
 import zlib
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -89,6 +91,8 @@ EXPORT_HEADER = "mandelbulber-verification-export"
 FORMULA_LIST_HEADER = "mandelbulber-formula-list 1"
 HISTOGRAMS = ("iteration_histogram", "step_histogram")
 PLAIN_STATISTICS = ("total_iterations", "raymarch_count", "missed_de")
+SAMPLE_CODES = {"f32": "I", "u16": "H"}
+NOT_ISOLATED_REASON = "the application ignores a redirected home folder on this platform"
 
 
 class SetupError(Exception):
@@ -127,6 +131,14 @@ class Export:
     statistics: dict
     manifest_bytes: bytes
     statistics_bytes: bytes
+
+
+@dataclass(frozen=True)
+class Difference:
+    """One difference from a comparison. The name is a buffer, statistics, or layout."""
+
+    name: str
+    text: str
 
 
 class Report:
@@ -269,6 +281,17 @@ def clean_environment(home):
 def gate_valid():
     """Whether renders can be isolated here. The application ignores HOME on Windows (FR-005)."""
     return os.name != "nt"
+
+
+def detect_environment():
+    """Works out where this run happens, in the order the data model gives (FR-040)."""
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        return "github-actions"
+    if os.name == "nt":
+        return "windows"
+    if "WSL_DISTRO_NAME" in os.environ:
+        return "wsl"
+    return "linux"
 
 
 def binary_path():
@@ -642,6 +665,129 @@ def render_and_validate(item, binary, output_dir, report, thread_args=(), neutra
         return None
 
 
+def count_differing_samples(first, second, sample):
+    """Counts differing samples, comparing the bits of each sample rather than its value."""
+    code = SAMPLE_CODES[sample]
+    return sum(map(operator.ne, memoryview(first).cast(code), memoryview(second).cast(code)))
+
+
+def compare_exports(first, second):
+    """Compares two exports exactly, and returns a list of differences (FR-013, FR-014).
+
+    The compiler and math library lines identify a build, so they are never compared.
+    """
+    if (first.width, first.height) != (second.width, second.height):
+        return [Difference("layout", f"{first.width}x{first.height} vs {second.width}x{second.height}")]
+    differences = []
+    for name, sample, _ in EXPECTED_BUFFERS:
+        if first.buffers[name] != second.buffers[name]:
+            count = count_differing_samples(first.buffers[name], second.buffers[name], sample)
+            total = len(first.buffers[name]) // SAMPLE_BYTES[sample]
+            differences.append(Difference(name, f"{count} of {total} samples differ"))
+    return differences
+
+
+def compare_neutral(export, tiff_path):
+    """Compares a saved 16-bit image with the final image buffer (FR-012)."""
+    (width, height, bits, channels, _, order), samples = read_tiff(tiff_path)
+    if (width, height) != (export.width, export.height) or channels != 3 or set(bits) != {16} or order != "<":
+        layout = f"{width}x{height}, {channels} channels of {bits[0]} bits"
+        return [Difference("layout", f"{layout} vs {export.width}x{export.height}, 3 channels of 16 bits")]
+    if samples == export.buffers["final_image"]:
+        return []
+    count = count_differing_samples(export.buffers["final_image"], samples, "u16")
+    return [Difference("final_image", f"{count} of {len(samples) // 2} samples differ")]
+
+
+def thread_settings():
+    """Returns the thread arguments of each render series, and whether coverage is complete (FR-017)."""
+    if THREAD_OPTION is None:
+        return [()], False
+    cpus = os.cpu_count() or 1
+    return [(THREAD_OPTION, "1"), (THREAD_OPTION, str(cpus if cpus > 1 else 2))], True
+
+
+def item_folder(item):
+    return OUT_DIR / "renders" / f"{item.kind}s" / item.name
+
+
+def render_series(item, binary, thread_args, report, first=None):
+    """Renders one item SELF_PARITY_RUNS times, comparing each run with its first export (FR-016).
+
+    Returns that first export, or None if the item never produced one.
+    """
+    count = thread_args[1] if thread_args else "default"
+    for run in range(1, SELF_PARITY_RUNS + 1):
+        context = f"run {run} with {count} threads"
+        output_dir = item_folder(item) / f"threads-{count}-run-{run}"
+        export = render_and_validate(item, binary, output_dir, report, thread_args, context=context)
+        if export is None:
+            break
+        if first is None:
+            first = export
+        else:
+            report.differences(item.label, compare_exports(first, export), context=context)
+    return first
+
+
+def check_self_parity(items, binary, report):
+    """Runs Self-Parity, and returns each item's first export by label.
+
+    All-thread and neutral renders run one item at a time. Single-thread renders then run for
+    several items at once, one worker per CPU, and each item's own runs stay consecutive.
+    """
+    settings, _ = thread_settings()
+    all_threads, single_thread = settings[-1], settings[:-1]
+    firsts = {}
+    for item in items:
+        first = render_series(item, binary, all_threads, report)
+        firsts[item.label] = first
+        if first is None:
+            continue
+        context = "neutral render"
+        output_dir = item_folder(item) / "neutral"
+        image = render_and_validate(item, binary, output_dir, report, all_threads, neutral=True, context=context)
+        if image is not None:
+            report.differences(item.label, compare_neutral(first, image), context=context)
+    if single_thread:
+        remaining = [item for item in items if firsts[item.label] is not None]
+        with ThreadPoolExecutor(max_workers=os.cpu_count() or 1) as pool:
+            series = [
+                pool.submit(render_series, item, binary, single_thread[0], report, firsts[item.label])
+                for item in remaining
+            ]
+            for future in series:
+                future.result()
+    return firsts
+
+
+def finish_items(items, report):
+    """Gives every item that did not fail its verdict, and removes the outputs of passing items."""
+    for item in items:
+        report.passed(item.label)
+        if report.item_results[item.label] == "passed":
+            shutil.rmtree(item_folder(item), ignore_errors=True)
+
+
+def require_gate_validity(report):
+    """States whether renders are isolated, and blocks a pass if they are not (FR-005)."""
+    valid = gate_valid()
+    report.set_gate_validity(valid, NOT_ISOLATED_REASON)
+    if not valid:
+        report.cannot_pass("this run is not gate-valid, so it cannot pass")
+
+
+def run_self_parity(report):
+    require_gate_validity(report)
+    if not thread_settings()[1]:
+        report.cannot_pass("thread coverage is incomplete, because there is no working headless thread control yet")
+    binary = binary_path()
+    items = build_work_items(binary)
+    report.item_count = len(items)
+    check_self_parity(items, binary, report)
+    finish_items(items, report)
+
+
 def build_parser():
     parser = argparse.ArgumentParser(description="Regression harness for the Mandelbulber CPU renderer.")
     group = parser.add_mutually_exclusive_group()
@@ -653,20 +799,54 @@ def build_parser():
     return parser
 
 
-def run_mode(options):
-    raise SetupError("this mode is not implemented yet")
+def mode_name(options):
+    if options.self_parity:
+        return "self-parity"
+    if options.capture:
+        return "capture"
+    if options.compare:
+        return "compare"
+    if options.collect:
+        return "collect"
+    if options.cross_check:
+        return "cross-check"
+    return "gate"
+
+
+def run_mode(options, report):
+    if options.self_parity:
+        run_self_parity(report)
+    else:
+        raise SetupError("this mode is not implemented yet")
+
+
+def stop_run(report, cause):
+    """Ends a run that could not finish. Without a report, the cause goes to the console."""
+    if report is None:
+        print(f"setup error: {cause}", flush=True)
+        return EXIT_SETUP
+    report.setup_error(cause)
+    return report.finish()
 
 
 def main(argv=None):
     options = build_parser().parse_args(argv)
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")  # A log line must not stop a run on a narrow console.
+    mode = mode_name(options)
+    target = None if mode in ("collect", "cross-check") else parity_target()
+    report = None
     try:
-        return run_mode(options)
+        report = Report(mode, detect_environment(), target)
+        run_mode(options, report)
+        return report.finish()
     except SetupError as error:
-        print(f"setup error: {error}", flush=True)
-        return EXIT_SETUP
+        return stop_run(report, str(error))
     except Exception as error:  # An unexpected error must never look like a parity failure.
-        print(f"unexpected harness error: {type(error).__name__}: {error}", flush=True)
-        return EXIT_SETUP
+        return stop_run(report, f"unexpected harness error: {type(error).__name__}: {error}")
+    finally:
+        if report is not None:
+            report.close()
 
 
 if __name__ == "__main__":

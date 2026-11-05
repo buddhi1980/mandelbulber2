@@ -290,7 +290,8 @@ class RenderTestCase(HarnessTestCase):
         return regression_runner.OUT_DIR / "renders" / name
 
     def new_report(self):
-        report = regression_runner.Report("test", "linux")
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("test", "linux")
         self.addCleanup(report.close)
         return report
 
@@ -538,6 +539,276 @@ class CommandTests(RenderTestCase):
         leftover.write_text("old", encoding="utf-8")
         self.render()
         self.assertFalse(leftover.exists())
+
+
+class ModeTestCase(HarnessTestCase):
+    """Helpers for tests that run a whole mode."""
+
+    def enable_threads(self):
+        patcher = mock.patch.object(regression_runner, "THREAD_OPTION", "--threads")
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def thread_counts(self):
+        count = os.cpu_count() or 1
+        return ("1", str(count if count > 1 else 2))
+
+    def calls_by_item(self, binary=None):
+        """Groups render calls by scene name or formula ID."""
+        groups = {}
+        for call in self.render_calls(binary):
+            arguments = call["args"]
+            overrides = arguments[arguments.index("--override") + 1].split("#")
+            formula = [part.partition("=")[2] for part in overrides if part.startswith("formula_1=")]
+            key = formula[0] if formula else Path(arguments[-1]).stem
+            groups.setdefault(key, []).append(call)
+        return groups
+
+
+class SelfParityTests(ModeTestCase):
+    """T035: repeated renders must match each other."""
+
+    def test_identical_output_passes(self):
+        self.enable_threads()
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("[+] scene alpha: exact match", output)
+        self.assertIn("[+] formula mandelbulb: exact match", output)
+        self.assertIn("result: passed", output)
+        groups = self.calls_by_item()
+        self.assertEqual(sorted(groups), sorted(["alpha", "beta scene", "2", "3", "19"]))
+        one, many = self.thread_counts()
+        for key, calls in groups.items():
+            exported = [call["args"] for call in calls if "--verification-export" in call["args"]]
+            threads = [arguments[arguments.index("--threads") + 1] for arguments in exported]
+            self.assertEqual(threads.count(one), 3, key)
+            self.assertEqual(threads.count(many), 3, key)
+            self.assertEqual(len(calls), 7, key)
+
+    def test_each_items_runs_stay_consecutive(self):
+        self.enable_threads()
+        self.write_scenes("alpha")
+        self.run_main("--self-parity")
+        one, _ = self.thread_counts()
+        order = [
+            call["args"][-1] + call["args"][call["args"].index("--override") + 1]
+            for call in self.render_calls()
+            if call["args"][call["args"].index("--threads") + 1] == one and "--verification-export" in call["args"]
+        ]
+        self.assertEqual(len(order), 12)
+        with mock.patch.object(regression_runner.os, "cpu_count", return_value=1):
+            self.calls_path = self.binary.parent / "stub_calls.jsonl"
+            self.calls_path.unlink()
+            self.run_main("--self-parity")
+        order = [
+            call["args"][-1] + call["args"][call["args"].index("--override") + 1]
+            for call in self.render_calls()
+            if call["args"][call["args"].index("--threads") + 1] == "1" and "--verification-export" in call["args"]
+        ]
+        self.assertEqual(order[:3], [order[0]] * 3)
+        self.assertEqual(order[3:6], [order[3]] * 3)
+        self.assertNotEqual(order[0], order[3])
+
+    def test_unstable_output_fails_per_item_and_buffer(self):
+        self.enable_threads()
+        self.set_mode("unstable")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        for buffer in BUFFER_NAMES:
+            self.assertRegex(output, rf"\[-\] scene alpha {buffer}: [12] of \d+ samples differ")
+            self.assertRegex(output, rf"\[-\] formula mandelbulb {buffer}: [12] of \d+ samples differ")
+        self.assertIn("result: parity failure (5 of 5 items failed)", output)
+
+    def test_every_buffer_is_compared(self):
+        self.enable_threads()
+        for buffer in BUFFER_NAMES:
+            with self.subTest(buffer=buffer):
+                self.set_mode(f"unstable:{buffer}")
+                code, output = self.run_main("--self-parity")
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, rf"\[-\] scene alpha {buffer}: [12] of \d+ samples differ")
+
+    def test_references_stay_unchanged(self):
+        self.enable_threads()
+        reference = self.tests_dir / "references" / "test-target"
+        reference.mkdir(parents=True)
+        (reference / "toolchain.txt").write_text("compiler gcc\n", encoding="utf-8")
+        before = self.tree_bytes(self.tests_dir / "references")
+        self.run_main("--self-parity")
+        self.assertEqual(self.tree_bytes(self.tests_dir / "references"), before)
+
+    def test_failing_outputs_stay_and_passing_outputs_go(self):
+        self.enable_threads()
+        self.set_mode("only:alpha:unstable")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        renders = self.tests_dir / "outputs" / "renders"
+        self.assertTrue((renders / "scenes" / "alpha").exists())
+        self.assertFalse((renders / "scenes" / "beta scene").exists())
+        self.assertFalse((renders / "formulas" / "mandelbulb").exists())
+
+    def test_report_names_the_target_and_reaches_the_file(self):
+        self.enable_threads()
+        code, output = self.run_main("--self-parity")
+        self.assertIn("target: test-target", output)
+        report = self.report_text()
+        self.assertIn("mode: self-parity", report)
+        self.assertIn("target: test-target", report)
+        self.assertIn("[+] scene alpha: exact match", report)
+        self.assertIn("result: passed", report)
+
+    def test_render_failure_exits_three_and_the_rest_still_run(self):
+        self.enable_threads()
+        self.set_mode("only:alpha:exit-3")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("scene alpha", output)
+        self.assertIn("[+] scene beta scene: exact match", output)
+        self.assertIn("result: setup error (1 of 5 items failed)", output)
+
+    def test_parity_failure_wins_over_a_render_failure(self):
+        self.enable_threads()
+        self.set_mode("only:alpha:unstable")
+        real = regression_runner.render_item
+
+        def fail_one(item, *arguments, **options):
+            if item.name == "mandelbulb":
+                raise regression_runner.RenderError("seeded failure")
+            return real(item, *arguments, **options)
+
+        with mock.patch.object(regression_runner, "render_item", fail_one):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("seeded failure", output)
+
+
+class ThreadCoverageTests(ModeTestCase):
+    """T036: a run without a thread control cannot pass."""
+
+    def test_identical_output_exits_three(self):
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("thread coverage is incomplete", output)
+        self.assertIn("[+] scene alpha: exact match", output)
+        self.assertEqual(len(self.calls_by_item()["alpha"]), 4)
+
+    def test_differing_output_exits_one_and_reports_both(self):
+        self.set_mode("unstable")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("thread coverage is incomplete", output)
+        self.assertIn("samples differ", output)
+
+    def test_missing_binary_exits_three(self):
+        missing = str(self.root / "nowhere" / "mandelbulber2")
+        with mock.patch.dict(os.environ, {"MANDELBULBER_BINARY": missing}):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("nowhere", output)
+        self.assertIn("result: setup error", output)
+
+    def test_two_modes_exit_two(self):
+        code, output = self.run_main("--self-parity", "--capture")
+        self.assertEqual(code, 2, output)
+
+    def test_unexpected_error_exits_three(self):
+        with mock.patch.object(regression_runner, "build_work_items", side_effect=ValueError("boom")):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("unexpected harness error", output)
+        self.assertIn("boom", output)
+
+    def test_thread_settings_on_one_cpu(self):
+        with mock.patch.object(regression_runner, "THREAD_OPTION", "--threads"):
+            with mock.patch.object(regression_runner.os, "cpu_count", return_value=1):
+                settings, complete = regression_runner.thread_settings()
+        self.assertEqual(settings, [("--threads", "1"), ("--threads", "2")])
+        self.assertTrue(complete)
+
+    def test_thread_settings_with_many_cpus(self):
+        with mock.patch.object(regression_runner, "THREAD_OPTION", "--threads"):
+            with mock.patch.object(regression_runner.os, "cpu_count", return_value=8):
+                settings, complete = regression_runner.thread_settings()
+        self.assertEqual(settings, [("--threads", "1"), ("--threads", "8")])
+        self.assertTrue(complete)
+
+    def test_thread_settings_without_a_control(self):
+        settings, complete = regression_runner.thread_settings()
+        self.assertEqual(settings, [()])
+        self.assertFalse(complete)
+
+
+class NeutralRenderTests(ModeTestCase):
+    """T037: the options must not change the final image (FR-012)."""
+
+    def neutral_calls(self):
+        return [call for call in self.render_calls() if "--verification-export" not in call["args"]]
+
+    def test_matching_neutral_image_passes(self):
+        self.enable_threads()
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertEqual(len(self.neutral_calls()), 5)
+
+    def test_neutral_settings(self):
+        self.enable_threads()
+        self.run_main("--self-parity")
+        for call in self.neutral_calls():
+            arguments = call["args"]
+            overrides = arguments[arguments.index("--override") + 1].split("#")
+            self.assertNotIn("normal_enabled=1", overrides)
+            self.assertIn("color_quality=1", overrides)
+            self.assertIn("opencl_enabled=0", overrides)
+            self.assertIn("DOF_samples=8", overrides)
+            self.assertNotIn("--verification-export", arguments)
+
+    def test_differing_neutral_image_fails(self):
+        self.enable_threads()
+        self.set_mode("only:alpha:neutral-differs")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertRegex(output, r"\[-\] scene alpha final_image: 1 of \d+ samples differ.*neutral")
+        self.assertIn("[+] scene beta scene: exact match", output)
+
+    def test_missing_neutral_image_fails(self):
+        self.enable_threads()
+        self.set_mode("only:alpha:no-neutral-image")
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("scene alpha", output)
+        self.assertIn("no image", output)
+
+    def test_undecodable_neutral_image_fails(self):
+        item = regression_runner.WorkItem("scene", "alpha", Path("tests/scenes/alpha.fract"), None, "8x6", 20)
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("test", "linux")
+        self.addCleanup(report.close)
+        real = regression_runner.render_item
+
+        def corrupt(item, binary, output_dir, thread_args=(), neutral=False):
+            outcome = real(item, binary, output_dir, thread_args, neutral)
+            (output_dir / "image.tiff").write_bytes(b"II*\0broken")
+            return outcome
+
+        with mock.patch.object(regression_runner, "render_item", corrupt):
+            with contextlib.redirect_stdout(io.StringIO()):
+                image = regression_runner.render_and_validate(
+                    item, self.binary, regression_runner.OUT_DIR / "x", report, neutral=True
+                )
+        self.assertIsNone(image)
+        self.assertEqual(report.item_results, {"scene alpha": "failed"})
+
+
+class PlatformTests(ModeTestCase):
+    """T038: without isolation, a self-parity run cannot pass."""
+
+    def test_not_gate_valid(self):
+        self.enable_threads()
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("not gate-valid", output)
+        self.assertIn("[+] scene alpha: exact match", output)
 
 
 if __name__ == "__main__":
