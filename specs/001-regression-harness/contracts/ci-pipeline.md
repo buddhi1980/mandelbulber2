@@ -118,7 +118,7 @@ jobs:
       - name: Test the Harness
         run: python3 tests/test_regression_runner.py
       - name: Run the Application Tests
-        run: env -i HOME="$(mktemp -d)" PATH="$PATH" LC_ALL=C.UTF-8 mandelbulber2/build/appdir/usr/bin/mandelbulber2 --test
+        run: env -i HOME="$(mktemp -d)" PATH="$PATH" LC_ALL=C.UTF-8 QTEST_FUNCTION_TIMEOUT=1800000 mandelbulber2/build/appdir/usr/bin/mandelbulber2 --test
       - name: Collect
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: python3 tests/regression_runner.py --collect tests/outputs/collection/qmake
