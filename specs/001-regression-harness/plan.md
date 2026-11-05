@@ -14,7 +14,7 @@ No references are created in this feature. Renders do not reproduce yet (KD-1), 
 
 ## Technical Context
 
-**Language/Version**: Python 3.10 or later for the harness (3.12 on Ubuntu 24.04, 3.10 on the local Windows machine). C++14 for the application changes, because qmake builds Linux with `CONFIG += c++14`.
+**Language/Version**: Python 3.10 or later for the harness (3.12 on Ubuntu 24.04, 3.10 on the local Windows machine). C++17 for the application changes, because Qt 6 headers reject anything older. `CONFIG += c++14` in `common.pri` has no effect under Qt 6.
 
 **Primary Dependencies**: Python standard library only. The application changes use Qt Core, which is already a dependency.
 

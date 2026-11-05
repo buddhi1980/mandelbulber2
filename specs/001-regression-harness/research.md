@@ -1,6 +1,6 @@
 # Research: Regression Harness
 
-Resolved decisions for the implementation plan. Measurements were taken on 2026-11-04 with a July 2026 Windows Release build on 32 threads, unless stated otherwise. Linux behavior comes from reading the current source and has not been run.
+Resolved decisions for the implementation plan. Measurements were taken on 2026-11-04 with a July 2026 Windows Release build on 32 threads, unless stated otherwise. That build came from `mandelbulber2/msvc/mandelbulber2.sln` with MSVC 14.51, `/fp:precise`, and `/std:c++20`, not from the qmake and GCC build the gate uses. Its numbers are estimates for the gate's build and say nothing about bit-for-bit results there. Linux behavior comes from reading the current source and has not been run.
 
 ## R1. Verification export layout
 

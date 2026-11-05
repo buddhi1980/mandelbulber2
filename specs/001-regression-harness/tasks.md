@@ -20,7 +20,7 @@ description: "Task list for the regression harness"
 - The export is written only after a successful settings load and render.
 - Do not capture, create, or commit references. Test fixtures live in temporary directories, and `tests/references/` must not exist when this feature is finished.
 - Python uses the standard library only and runs on Python 3.10 or later.
-- New C++ must compile as C++14, because qmake sets `CONFIG += c++14` on Linux.
+- New C++ must compile as C++17, the lowest standard Qt 6 accepts. `CONFIG += c++14` in `common.pri` has no effect under Qt 6.
 
 ## Format: `[ID] [P?] [Story] Description`
 
