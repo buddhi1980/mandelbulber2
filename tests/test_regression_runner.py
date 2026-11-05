@@ -23,6 +23,7 @@ TESTS_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(TESTS_DIR))
 
 import regression_runner  # noqa: E402
+import stub_renderer  # noqa: E402
 
 BUFFER_NAMES = ("raw_render", "post_effect", "final_image", "alpha", "depth", "normal", "normal_world")
 FLOAT_BUFFERS = ("raw_render", "post_effect", "depth", "normal", "normal_world")
@@ -1943,6 +1944,203 @@ class CrossCheckSetupTests(CrossCheckTestCase):
         before = self.tree_bytes(self.tests_dir / "references")
         self.cross_check()
         self.assertEqual(self.tree_bytes(self.tests_dir / "references"), before)
+
+
+class RemainingFailureTests(CrossCheckTestCase):
+    """T093: the failure conditions that no story's tests reach."""
+
+    def test_missing_scene_list(self):
+        (self.tests_dir / "scenes.txt").unlink()
+        with self.assertRaisesRegex(regression_runner.SetupError, "scenes.txt"):
+            regression_runner.load_scenes()
+
+    def test_missing_exclusions_file(self):
+        (self.tests_dir / "formula_exclusions.txt").unlink()
+        with self.assertRaisesRegex(regression_runner.SetupError, "formula_exclusions.txt"):
+            regression_runner.build_work_items(self.binary)
+
+    def test_binary_that_cannot_start(self):
+        fake = self.root / "broken" / "mandelbulber2.exe"
+        fake.parent.mkdir()
+        fake.write_text("not a program", encoding="utf-8")
+        with self.assertRaisesRegex(regression_runner.SetupError, "cannot start"):
+            regression_runner.load_formulas(fake)
+
+    def test_render_that_cannot_start_stops_the_run(self):
+        real = regression_runner.subprocess.run
+
+        def fail_on_render(command, **options):
+            if "--nogui" in command:
+                raise OSError("seeded failure")
+            return real(command, **options)
+
+        with mock.patch.object(regression_runner.subprocess, "run", fail_on_render):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("cannot start", output)
+
+    def test_report_that_cannot_be_opened_exits_three(self):
+        with mock.patch.object(regression_runner, "Report", side_effect=OSError("seeded failure")):
+            code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("seeded failure", output)
+
+    def test_earlier_output_that_cannot_be_removed_fails_the_item(self):
+        with mock.patch.object(regression_runner.shutil, "rmtree"):
+            folder = regression_runner.OUT_DIR / "stuck"
+            folder.mkdir(parents=True)
+            with self.assertRaisesRegex(regression_runner.RenderError, "stuck"):
+                regression_runner.remove_tree(folder)
+
+    def test_incomplete_reference_set(self):
+        for name in ("toolchain.txt", "settings.txt"):
+            with self.subTest(name=name):
+                folder = regression_runner.REF_ROOT / "test-target"
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / "toolchain.txt").write_text("compiler x\n", encoding="utf-8")
+                (folder / "settings.txt").write_text("export_format 1\n", encoding="utf-8")
+                (folder / name).unlink()
+                code, output = self.run_main()
+                self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+                self.assertIn(name, output)
+
+    def test_extra_setting_in_a_reference_set(self):
+        folder = regression_runner.REF_ROOT / "test-target"
+        folder.mkdir(parents=True)
+        (folder / "toolchain.txt").write_text("compiler x\n", encoding="utf-8")
+        lines = regression_runner.settings_lines() + ["new_setting 1"]
+        (folder / "settings.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("render settings differ", output)
+
+    def test_missing_version_line_leaves_the_collection_folder_unchanged(self):
+        self.collect(self.binary, self.first_path)
+        before = self.tree_bytes(self.first_path)
+        self.set_mode("no-version")
+        code, output = self.collect(self.binary, self.first_path)
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("no version line", output)
+        self.assertEqual(self.tree_bytes(self.first_path), before)
+
+    def test_collection_path_that_is_a_file(self):
+        self.first_path.write_text("a file", encoding="utf-8")
+        code, output = self.collect(self.binary, self.first_path)
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("is a file", output)
+        self.assertNotIn("unexpected harness error", output)
+
+    def test_git_failure_stops_a_collection_before_it_starts(self):
+        self.collect(self.binary, self.first_path)
+        before = self.tree_bytes(self.first_path)
+        failure = regression_runner.SetupError("cannot read the source state with git")
+        with mock.patch.object(regression_runner, "source_state", side_effect=failure):
+            code, output = self.collect(self.binary, self.first_path)
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("git", output)
+        self.assertEqual(self.tree_bytes(self.first_path), before)
+
+    def test_unisolated_collect_says_so(self):
+        with mock.patch.object(regression_runner, "gate_valid", return_value=False):
+            code, output = self.collect(self.binary, self.first_path)
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("isolated: false", output)
+
+    def test_bad_item_line_in_a_collection(self):
+        self.collect_both()
+        self.edit_header(self.first_path, "\tscene\talpha\tpassed", "\tscene\talpha\tmaybe")
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("bad item line", output)
+
+    def test_missing_header_line_in_a_collection(self):
+        self.collect_both()
+        self.edit_header(self.first_path, "isolated true\n", "")
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("isolated", output)
+
+    def test_item_failed_on_both_builds_names_both(self):
+        self.set_mode("only:alpha:exit-3", self.binary)
+        self.set_mode("only:alpha:exit-3", self.second)
+        self.collect_both()
+        code, output = self.cross_check()
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        self.assertIn("failed on first", output)
+        self.assertIn("failed on second", output)
+
+    def test_report_exit_code_order(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("gate", "linux")
+            self.addCleanup(report.close)
+            report.passed("scene one")
+            self.assertEqual(report.exit_code(), regression_runner.EXIT_PASSED)
+            report.cannot_pass("no thread control")
+            self.assertEqual(report.exit_code(), regression_runner.EXIT_SETUP)
+            report.failed("scene two", "seeded", regression_runner.MISMATCH)
+            self.assertEqual(report.exit_code(), regression_runner.EXIT_SETUP)
+            self.assertEqual(report.result_name(), regression_runner.MISMATCH)
+            report.failed("scene three", "seeded", regression_runner.PARITY)
+            self.assertEqual(report.exit_code(), regression_runner.EXIT_PARITY)
+            self.assertEqual(report.result_name(), regression_runner.PARITY)
+
+    def test_run_with_no_results_cannot_pass(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = regression_runner.Report("gate", "linux")
+            self.addCleanup(report.close)
+        self.assertEqual(report.exit_code(), regression_runner.EXIT_SETUP)
+
+
+class TiffTests(unittest.TestCase):
+    """T093: the neutral image reader refuses what it cannot decode exactly."""
+
+    def setUp(self):
+        self.folder = Path(tempfile.mkdtemp(prefix="mandelbulber-test-"))
+        self.addCleanup(shutil.rmtree, self.folder, ignore_errors=True)
+        self.path = self.folder / "image.tiff"
+        self.samples = bytes(range(48))
+        stub_renderer.write_tiff(self.path, 4, 2, self.samples)
+
+    def export(self, width=4, height=2, samples=None):
+        buffers = {"final_image": samples if samples is not None else self.samples}
+        return regression_runner.Export(width, height, "gcc", "glibc", buffers, {}, b"", b"")
+
+    def test_samples_decode_exactly(self):
+        layout, samples = regression_runner.read_tiff(self.path)
+        self.assertEqual(samples, self.samples)
+        self.assertEqual(layout[:4], (4, 2, (16, 16, 16), 3))
+
+    def test_matching_image(self):
+        self.assertEqual(regression_runner.compare_neutral(self.export(), self.path), [])
+
+    def test_differing_sample(self):
+        samples = bytearray(self.samples)
+        samples[5] ^= 1
+        differences = regression_runner.compare_neutral(self.export(samples=bytes(samples)), self.path)
+        self.assertEqual(differences[0].name, "final_image")
+        self.assertIn("1 of 24 samples differ", differences[0].text)
+
+    def test_layout_difference(self):
+        differences = regression_runner.compare_neutral(self.export(width=8, height=1), self.path)
+        self.assertEqual(differences[0].name, "layout")
+
+    def test_not_a_tiff(self):
+        self.path.write_bytes(b"PNG not a tiff")
+        with self.assertRaisesRegex(regression_runner.RenderError, "not a classic TIFF"):
+            regression_runner.read_tiff(self.path)
+
+    def test_decoded_size_must_match_the_layout(self):
+        stub_renderer.write_tiff(self.path, 4, 2, self.samples[:-2])
+        with self.assertRaisesRegex(regression_runner.RenderError, "decoded size"):
+            regression_runner.read_tiff(self.path)
+
+    def test_unsupported_compression(self):
+        data = bytearray(self.path.read_bytes())
+        # Entry 3 of the directory is tag 259, whose value sits 8 bytes into the entry.
+        data[8 + 2 + 3 * 12 + 8] = 5
+        self.path.write_bytes(data)
+        with self.assertRaisesRegex(regression_runner.RenderError, "compression"):
+            regression_runner.read_tiff(self.path)
 
 
 class ExportSourceTests(unittest.TestCase):

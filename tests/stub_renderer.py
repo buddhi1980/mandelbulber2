@@ -48,6 +48,7 @@ item behaves as "same". The modes are:
   list-hang                --list-formulas sleeps 30 seconds and then exits.
   blank                    Every final_image sample holds one value.
   other-version            --version prints a different version.
+  no-version               --version prints no version line.
   other-histogram-size     The iteration histogram has one more bucket.
 """
 
@@ -168,7 +169,8 @@ def print_formulas(mode):
 
 def print_version(mode):
     print("cannot move folder /home/settings to /home/mandelbulber/settings!")
-    print("Mandelbulber 2.35-other" if mode == "other-version" else VERSION)
+    if mode != "no-version":
+        print("Mandelbulber 2.35-other" if mode == "other-version" else VERSION)
 
 
 def identify_item(options, global_mode):

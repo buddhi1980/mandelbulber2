@@ -1,0 +1,18 @@
+# Mandelbulber settings file
+# version 2.35
+# only modified parameters
+[main_parameters]
+camera 3 -6 2;
+camera_distance_to_target 7;
+camera_rotation 26.565 -16.60154 0;
+camera_top -0.1277753 0.2555506 0.958314;
+target 0 0 0;
+N 50;
+detail_level 1;
+mat1_is_defined true;
+light1_is_defined true;
+light1_enabled true;
+light1_type 4;
+light1_position -2 -3 2;
+light1_target 2 -3 2;
+light1_intensity 2;

@@ -1181,6 +1181,8 @@ def application_version(binary):
 
 def prepare_collection(path):
     """Clears a folder for a new collection, and refuses a folder that holds anything else."""
+    if path.exists() and not path.is_dir():
+        raise SetupError(f"{path} is a file, not a collection folder")
     path.mkdir(parents=True, exist_ok=True)
     others = sorted(child.name for child in path.iterdir() if child.name not in COLLECTION_CONTENTS)
     if others:
