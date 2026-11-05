@@ -172,7 +172,7 @@ def print_version(mode):
 def identify_item(options, global_mode):
     """Returns the identity a mode can name, and the name its fixed data comes from."""
     for part in options.get("--override", "").split("#"):
-        if part.startswith("formula_1="):
+        if part.startswith("fractal1_formula="):
             number = part.partition("=")[2]
             names = dict(formula_table(global_mode))
             return number, names.get(int(number), number)

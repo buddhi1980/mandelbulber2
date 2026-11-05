@@ -446,7 +446,7 @@ def render_overrides(item, neutral):
         overrides.remove("normal_enabled=1")
         overrides.append("color_quality=1")
     if item.formula_id is not None:
-        overrides.append(f"formula_1={item.formula_id}")
+        overrides.append(f"fractal1_formula={item.formula_id}")
     return "#".join(overrides)
 
 
@@ -671,20 +671,32 @@ def count_differing_samples(first, second, sample):
     return sum(map(operator.ne, memoryview(first).cast(code), memoryview(second).cast(code)))
 
 
+def compare_statistics(first, second):
+    """Compares two statistics records exactly, naming each statistic and both values (FR-028)."""
+    names = list(first) + [name for name in second if name not in first]
+    differences = []
+    for name in names:
+        if first.get(name) != second.get(name):
+            one, other = first.get(name, "missing"), second.get(name, "missing")
+            differences.append(Difference("statistics", f"{name} {one} vs {other}"))
+    return differences
+
+
 def compare_exports(first, second):
     """Compares two exports exactly, and returns a list of differences (FR-013, FR-014).
 
     The compiler and math library lines identify a build, so they are never compared.
     """
-    if (first.width, first.height) != (second.width, second.height):
-        return [Difference("layout", f"{first.width}x{first.height} vs {second.width}x{second.height}")]
     differences = []
-    for name, sample, _ in EXPECTED_BUFFERS:
-        if first.buffers[name] != second.buffers[name]:
-            count = count_differing_samples(first.buffers[name], second.buffers[name], sample)
-            total = len(first.buffers[name]) // SAMPLE_BYTES[sample]
-            differences.append(Difference(name, f"{count} of {total} samples differ"))
-    return differences
+    if (first.width, first.height) != (second.width, second.height):
+        differences.append(Difference("layout", f"{first.width}x{first.height} vs {second.width}x{second.height}"))
+    else:
+        for name, sample, _ in EXPECTED_BUFFERS:
+            if first.buffers[name] != second.buffers[name]:
+                count = count_differing_samples(first.buffers[name], second.buffers[name], sample)
+                total = len(first.buffers[name]) // SAMPLE_BYTES[sample]
+                differences.append(Difference(name, f"{count} of {total} samples differ"))
+    return differences + compare_statistics(first.statistics, second.statistics)
 
 
 def compare_neutral(export, tiff_path):

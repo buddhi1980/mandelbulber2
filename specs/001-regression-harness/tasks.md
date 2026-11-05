@@ -48,7 +48,7 @@ Development uses two builds of one commit on one computer. The playbook's Local 
 
 - [X] T001 Add `tests/outputs/` to the build directories section of `.gitignore`
 - [X] T002 [P] Create `tests/scenes.txt` with the comment `# Standard Scene Suite`, then the lines `mandelbulber2/deploy/share/mandelbulber2/examples/IFS_001.fract` and `mandelbulber2/deploy/share/mandelbulber2/examples/Makin3D-Julia_001.fract`
-- [X] T003 [P] Create `tests/formula_sweep_base.fract` with exactly the content below, which rendered all 462 formulas without failures
+- [X] T003 [P] Create `tests/formula_sweep_base.fract` with exactly the content below, which rendered all 461 swept formulas without failures on 2026-11-04. Version 2.35 files have no `formula_1` parameter, so the sweep selects each formula with `fractal1_formula=<id>`
 
   ```text
   # Mandelbulber settings file
@@ -62,7 +62,6 @@ Development uses two builds of one commit on one computer. The playbook's Local 
   target 0 0 0;
   N 50;
   detail_level 1;
-  formula_1 2;
   mat1_is_defined true;
   ```
 
@@ -120,13 +119,13 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 - [X] T024 [US1] Add formula list tests to `tests/test_regression_runner.py`: a missing binary raises a setup failure that names the path, `no-list-end` fails, an exclusion with no reason fails, an exclusion that names a formula the binary does not offer fails, and excluded formulas do not become work items
 - [X] T025 [US1] Add render failure tests to `tests/test_regression_runner.py` using the modes `bad-settings-text`, `settings-line-error`, `texture-error`, `alternate-lookup`, `system-data-dir`, `exit-3`, and `hang`, confirming that each fails that item, names the cause, and that a stale export from an earlier run cannot satisfy the check. Also use `print:<text>` with each failure message in T032, so a mistyped message cannot go unnoticed
 - [X] T026 [US1] Add export validation tests to `tests/test_regression_runner.py` using the modes `no-export`, `no-end`, `bad-version`, `wrong-size:<buffer>`, `wrong-type:<buffer>`, `missing-buffer:<buffer>`, `extra-buffer`, `bad-statistics`, and `no-statistics`, confirming that each fails that item, and with `only:<item>:<mode>`, that the remaining items still run and pass
-- [X] T027 [US1] Add command and isolation tests to `tests/test_regression_runner.py`, reading `stub_calls.jsonl`: scene and formula renders use `--nogui`, the fixed resolution, and `RENDER_OVERRIDES` in one `--override` option, formula renders add `formula_1=<id>`, every path is absolute, the output folder exists before the render starts, each render gets a different `HOME`, `LC_ALL` is `C.UTF-8`, and variables outside the allowlist, including `LD_LIBRARY_PATH` and `OMP_NUM_THREADS`, do not reach the render. The `--list-formulas` call gets the same environment rules
+- [X] T027 [US1] Add command and isolation tests to `tests/test_regression_runner.py`, reading `stub_calls.jsonl`: scene and formula renders use `--nogui`, the fixed resolution, and `RENDER_OVERRIDES` in one `--override` option, formula renders add `fractal1_formula=<id>`, every path is absolute, the output folder exists before the render starts, each render gets a different `HOME`, `LC_ALL` is `C.UTF-8`, and variables outside the allowlist, including `LD_LIBRARY_PATH` and `OMP_NUM_THREADS`, do not reach the render. The `--list-formulas` call gets the same environment rules
 
 ### Implementation for User Story 1
 
 - [X] T028 [US1] Implement `load_scenes()` in `tests/regression_runner.py`, enforcing: "Names are unique within their kind. Two scenes with the same file name fail the run (FR-002).", "The scene list must not be empty, and every listed file must exist (FR-002).", "A scene must not reference an asset by URL or absolute path (FR-002).", and "A scene must not enable nebula mode (FR-002)." Ignore blank lines and lines starting with `#`, detect assets with the tested pattern `^[A-Za-z0-9_]*(file|texture)[A-Za-z0-9_]* +"?(https?://|/|[A-Za-z]:[/\\])`, and detect nebula mode with `^nebula_mode true`
 - [X] T029 [US1] Implement `load_formulas(binary)` in `tests/regression_runner.py`: run the binary with `--list-formulas` in a temporary home, with `clean_environment`, the binary's folder as the working directory, and `FORMULA_TIMEOUT` as the time limit. Decode its output as UTF-8 with `errors="replace"`, because Windows output may not be UTF-8. Read the lines between `mandelbulber-formula-list 1` and `end`, and raise a setup failure that names the binary if it cannot start, times out, or exits non-zero, if either marker is missing, or if the list is empty
-- [X] T030 [US1] Implement `load_exclusions()` and `build_work_items(binary)` in `tests/regression_runner.py`, with a Work Item of kind, name, source, formula ID, resolution, and time limit, enforcing: "Every formula from `--list-formulas` is a work item unless it is listed in `tests/formula_exclusions.txt` (FR-034)." and "An exclusion needs a reason and must name a formula the binary offers." Ignore blank lines and lines starting with `#` in the exclusions file. Scenes use `SCENE_RESOLUTION` and `SCENE_TIMEOUT`, and formulas use `FORMULA_BASE`, `FORMULA_RESOLUTION`, `FORMULA_TIMEOUT`, and `formula_1=<id>` added to the overrides
+- [X] T030 [US1] Implement `load_exclusions()` and `build_work_items(binary)` in `tests/regression_runner.py`, with a Work Item of kind, name, source, formula ID, resolution, and time limit, enforcing: "Every formula from `--list-formulas` is a work item unless it is listed in `tests/formula_exclusions.txt` (FR-034)." and "An exclusion needs a reason and must name a formula the binary offers." Ignore blank lines and lines starting with `#` in the exclusions file. Scenes use `SCENE_RESOLUTION` and `SCENE_TIMEOUT`, and formulas use `FORMULA_BASE`, `FORMULA_RESOLUTION`, `FORMULA_TIMEOUT`, and `fractal1_formula=<id>` added to the overrides
 - [X] T031 [US1] Implement `render_item(item, binary, output_dir, thread_args=(), neutral=False)` in `tests/regression_runner.py`: remove earlier output, create `output_dir` before rendering because the app reports success when the folder is missing, create a temporary home for this render, build the command from `contracts/application-cli.md` with absolute paths, because the working directory changes, and run it with `clean_environment`, the item's time limit, and the binary's folder as the working directory. Save its output to a log file. A neutral render leaves out `normal_enabled=1` and `--verification-export`, and adds `color_quality=1`
 - [X] T032 [US1] Implement output checks in `tests/regression_runner.py`: read the log as UTF-8 with `errors="replace"`, then treat a non-zero exit, a timeout, and any of `not valid Mandelbulber settings file`, `No materials defined`, `Error in settings file`, `Too many errors in settings file`, `Can't load texture`, `Looking for the file at`, or `Trying to use /usr/share/mandelbulber2` as a render failure that names the item and points to its log. A zero exit status alone is never success (FR-008)
 - [X] T033 [US1] Implement `read_export(directory)` in `tests/regression_runner.py`, returning width, height, compiler, math library, buffers, and statistics, and enforcing: "The manifest exists and ends with its `end` line. This proves completeness (FR-008).", "The format version is one the harness understands.", "Exactly the seven expected buffers are present (FR-011).", "Each buffer file is exactly `width × height × channels × sample size` bytes.", and "The statistics record is complete and contains only whole numbers." The expected buffers are `raw_render` f32 3, `post_effect` f32 3, `final_image` u16 3, `alpha` u16 1, `depth` f32 1, `normal` f32 3, and `normal_world` f32 3. An unexpected buffer is named in the failure, and so is a statistic name that `contracts/verification-export.md` does not list
@@ -174,13 +173,13 @@ See `contracts/verification-export.md` and `contracts/application-cli.md`.
 
 > **NOTE: Write these tests FIRST, and confirm they FAIL before implementation**
 
-- [ ] T045 [US5] Add statistics comparison tests to `tests/test_regression_runner.py`: `unstable-stat:<name>` fails self-parity for `total_iterations`, `raymarch_count`, `missed_de`, a normal bucket, and the overflow bucket of each histogram, and each failure names the statistic and both values. With more than 5 differing statistics on one item, the console shows 5 and a count of the rest, and `tests/outputs/report.txt` holds them all
-- [ ] T046 [US5] Add statistics format tests to `tests/test_regression_runner.py`: the stand-in record parses into a fixed order, and a value that is not a whole number or a record with time-based names is rejected
+- [X] T045 [US5] Add statistics comparison tests to `tests/test_regression_runner.py`: `unstable-stat:<name>` fails self-parity for `total_iterations`, `raymarch_count`, `missed_de`, a normal bucket, and the overflow bucket of each histogram, and each failure names the statistic and both values. With more than 5 differing statistics on one item, the console shows 5 and a count of the rest, and `tests/outputs/report.txt` holds them all
+- [X] T046 [US5] Add statistics format tests to `tests/test_regression_runner.py`: the stand-in record parses into a fixed order, and a value that is not a whole number or a record with time-based names is rejected
 
 ### Implementation for User Story 5
 
-- [ ] T047 [US5] Add `compare_statistics(first, second)` to `tests/regression_runner.py` and call it from `compare_exports`, so every mode compares statistics exactly and each difference names the statistic and both values (FR-028)
-- [ ] T048 [US5] Confirm that `mandelbulber2/src/verification_export.cpp` writes only the fields in `contracts/verification-export.md`, excluding `time`, `totalNoise`, `maskedPixels`, `tilesDone`, and every rate (FR-026)
+- [X] T047 [US5] Add `compare_statistics(first, second)` to `tests/regression_runner.py` and call it from `compare_exports`, so every mode compares statistics exactly and each difference names the statistic and both values (FR-028)
+- [X] T048 [US5] Confirm that `mandelbulber2/src/verification_export.cpp` writes only the fields in `contracts/verification-export.md`, excluding `time`, `totalNoise`, `maskedPixels`, `tilesDone`, and every rate (FR-026)
 
 **Checkpoint**: Self-parity compares buffers and statistics. Real builds are expected to differ until playbook Phase 3 fixes the shared counters
 
@@ -338,7 +337,6 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
   target 0 0 0;
   N 50;
   detail_level 1;
-  formula_1 2;
   mat1_is_defined true;
   light1_is_defined true;
   light1_enabled true;
@@ -362,7 +360,6 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
   target 0 0 0;
   N 50;
   detail_level 1;
-  formula_1 2;
   mat1_is_defined true;
   hdr_blur_enabled true;
   ```

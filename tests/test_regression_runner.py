@@ -9,6 +9,7 @@ import contextlib
 import io
 import json
 import os
+import re
 import shutil
 import stat
 import sys
@@ -95,6 +96,12 @@ class HarnessTestCase(unittest.TestCase):
             path.write_text(SCENE_TEXT, encoding="utf-8")
             lines.append(f"tests/scenes/{name}.fract")
         (self.tests_dir / "scenes.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    def use_one_formula(self):
+        """Excludes all but one formula, for tests that only need one of each kind of item."""
+        (self.tests_dir / "formula_exclusions.txt").write_text(
+            "custom reason\nmandelbulbPower2 reason\naexion reason\n", encoding="utf-8"
+        )
 
     def set_mode(self, mode, binary=None):
         """Sets the stand-in's mode for one binary."""
@@ -486,7 +493,7 @@ class CommandTests(RenderTestCase):
         self.render(formula)
         call = self.render_calls()[-1]
         self.assertEqual(self.option(call, "--res"), regression_runner.FORMULA_RESOLUTION)
-        self.assertEqual(self.option(call, "--override"), regression_runner.RENDER_OVERRIDES + "#formula_1=2")
+        self.assertEqual(self.option(call, "--override"), regression_runner.RENDER_OVERRIDES + "#fractal1_formula=2")
         self.assertEqual(call["args"].count("--override"), 1)
 
     def test_every_path_is_absolute(self):
@@ -559,7 +566,7 @@ class ModeTestCase(HarnessTestCase):
         for call in self.render_calls(binary):
             arguments = call["args"]
             overrides = arguments[arguments.index("--override") + 1].split("#")
-            formula = [part.partition("=")[2] for part in overrides if part.startswith("formula_1=")]
+            formula = [part.partition("=")[2] for part in overrides if part.startswith("fractal1_formula=")]
             key = formula[0] if formula else Path(arguments[-1]).stem
             groups.setdefault(key, []).append(call)
         return groups
@@ -809,6 +816,112 @@ class PlatformTests(ModeTestCase):
         self.assertEqual(code, regression_runner.EXIT_SETUP, output)
         self.assertIn("not gate-valid", output)
         self.assertIn("[+] scene alpha: exact match", output)
+
+
+class StatisticsComparisonTests(ModeTestCase):
+    """T045: a change of 1 in any statistic fails, and names the statistic and both values."""
+
+    NAMES = (
+        "total_iterations",
+        "raymarch_count",
+        "missed_de",
+        "iteration_histogram.7",
+        "iteration_histogram.50",
+        "step_histogram.7",
+        "step_histogram.1000",
+    )
+
+    def setUp(self):
+        super().setUp()
+        self.write_scenes("alpha")
+        self.use_one_formula()
+
+    def test_every_statistic_is_compared(self):
+        for name in self.NAMES:
+            with self.subTest(name=name):
+                self.set_mode(f"unstable-stat:{name}")
+                code, output = self.run_main("--self-parity")
+                self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+                self.assertRegex(output, rf"\[-\] scene alpha statistics: {re.escape(name)} \d+ vs \d+")
+
+    def test_console_shows_five_and_counts_the_rest(self):
+        names = [f"step_histogram.{bucket}" for bucket in range(8)]
+        self.set_mode("only:alpha:unstable-stat:" + ",".join(names))
+        code, output = self.run_main("--self-parity")
+        self.assertEqual(code, regression_runner.EXIT_PARITY, output)
+        lines = [line for line in output.splitlines() if "alpha statistics" in line and "run 2 " in line]
+        self.assertEqual(len(lines), 6, output)
+        self.assertIn("3 more differ", lines[-1])
+        kept = [line for line in self.report_text().splitlines() if "alpha statistics" in line and "run 2 " in line]
+        self.assertEqual(len(kept), 8)
+        self.assertNotIn("more differ", self.report_text())
+
+
+class StatisticsFormatTests(unittest.TestCase):
+    """T046: the record has one fixed order, and only whole numbers."""
+
+    def record(self, iteration_size=1, step_size=1):
+        lines = ["total_iterations 1", "raymarch_count 2", "missed_de 3"]
+        for histogram, size in (("iteration_histogram", iteration_size), ("step_histogram", step_size)):
+            lines.append(f"{histogram}.size {size}")
+            lines += [f"{histogram}.{bucket} {bucket}" for bucket in range(size + 1)]
+        return "\n".join(lines) + "\n"
+
+    def test_record_parses_in_a_fixed_order(self):
+        statistics = regression_runner.parse_statistics(self.record())
+        self.assertEqual(
+            list(statistics),
+            [
+                "total_iterations",
+                "raymarch_count",
+                "missed_de",
+                "iteration_histogram.size",
+                "iteration_histogram.0",
+                "iteration_histogram.1",
+                "step_histogram.size",
+                "step_histogram.0",
+                "step_histogram.1",
+            ],
+        )
+        self.assertEqual(statistics["step_histogram.1"], 1)
+
+    def assert_rejected(self, text, pattern):
+        with self.assertRaisesRegex(regression_runner.RenderError, pattern):
+            regression_runner.parse_statistics(text)
+
+    def test_values_must_be_whole_numbers(self):
+        for value in ("1.5", "3.16706e+08", "1,000", "-1", "", "0x10", "nan"):
+            with self.subTest(value=value):
+                self.assert_rejected(self.record().replace("missed_de 3", f"missed_de {value}"), "whole number")
+
+    def test_time_based_names_are_rejected(self):
+        self.assert_rejected(self.record() + "time 12\n", "unknown statistic time")
+        self.assert_rejected(self.record().replace("missed_de 3", "seconds 3"), "unknown statistic seconds")
+
+    def test_reordered_record_is_rejected(self):
+        text = self.record().replace("total_iterations 1\nraymarch_count 2", "raymarch_count 2\ntotal_iterations 1")
+        self.assert_rejected(text, "where total_iterations belongs")
+
+    def test_incomplete_record_is_rejected(self):
+        self.assert_rejected(self.record().replace("step_histogram.1 1\n", ""), "step_histogram.1 is missing")
+
+    def test_record_must_end_with_a_line_break(self):
+        self.assert_rejected(self.record()[:-1], "line break")
+
+    def test_empty_histogram_buckets_follow_the_size(self):
+        statistics = regression_runner.parse_statistics(self.record(iteration_size=3))
+        self.assertEqual(statistics["iteration_histogram.3"], 3)
+
+
+class ExportSourceTests(unittest.TestCase):
+    """T048: the export writes only the values the contract lists."""
+
+    def test_no_excluded_statistics_are_read(self):
+        source = (TESTS_DIR.parent / "mandelbulber2" / "src" / "verification_export.cpp").read_text(encoding="utf-8")
+        for name in ("statistics.time", "totalNoise", "maskedPixels", "tilesDone", "GetNumberOf", "GetTotalNumberOf"):
+            self.assertNotIn(name, source)
+        for name in ("totalNumberOfIterations", "numberOfRaymarchings", "missedDE"):
+            self.assertIn(f"statistics.{name}", source)
 
 
 if __name__ == "__main__":
