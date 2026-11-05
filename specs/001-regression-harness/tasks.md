@@ -300,10 +300,10 @@ See `contracts/ci-pipeline.md`, which has the exact content of all three files.
 
 ### Implementation for User Story 8
 
-- [ ] T082 [P] [US8] Create `.github/actions/build-linux/action.yml` with exactly the content in `contracts/ci-pipeline.md`
-- [ ] T083 [P] [US8] Create `.github/actions/build-windows/action.yml` with exactly the content in `contracts/ci-pipeline.md`
-- [ ] T084 [US8] Create `.github/workflows/cross-build-check.yml` with exactly the content in `contracts/ci-pipeline.md`
-- [ ] T085 [US8] Check the three files before pushing: parse each one as YAML, and confirm that every composite `run` step has a `shell`, that every `steps.<id>` reference exists, that `Collect` depends only on the build step, and that `cross-check` reads the folders the two artifacts unpack to. Then confirm that `git diff --exit-code master -- .github/workflows/github-actions-ci.yml .github/workflows/codeql.yml .circleci .appveyor.yml azure-pipelines.yml .travis.yml` prints nothing (FR-048, SC-015)
+- [X] T082 [P] [US8] Create `.github/actions/build-linux/action.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [X] T083 [P] [US8] Create `.github/actions/build-windows/action.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [X] T084 [US8] Create `.github/workflows/cross-build-check.yml` with exactly the content in `contracts/ci-pipeline.md`
+- [X] T085 [US8] Check the three files before pushing: parse each one as YAML, and confirm that every composite `run` step has a `shell`, that every `steps.<id>` reference exists, that `Collect` depends only on the build step, and that `cross-check` reads the folders the two artifacts unpack to. Then confirm that `git diff --exit-code master -- .github/workflows/github-actions-ci.yml .github/workflows/codeql.yml .circleci .appveyor.yml azure-pipelines.yml .travis.yml` prints nothing (FR-048, SC-015)
 
 ### Validation for User Story 8
 

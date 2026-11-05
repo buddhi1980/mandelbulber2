@@ -1,0 +1,16 @@
+name: Build Windows
+description: Restore packages, then build the Release binary with MSVC.
+runs:
+  using: composite
+  steps:
+    - name: Add MSBuild to the Path
+      uses: microsoft/setup-msbuild@v3
+    - name: Restore Packages
+      shell: pwsh
+      run: nuget restore mandelbulber2/msvc/mandelbulber2.sln
+    - name: Build
+      shell: pwsh
+      run: msbuild mandelbulber2/msvc/mandelbulber2.sln /m /p:Configuration=Release /p:Platform=x64
+    - name: Copy OpenCL.dll Beside the Binary
+      shell: pwsh
+      run: Copy-Item mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/OpenCL.dll build-win/Release/x64/

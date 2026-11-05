@@ -1,0 +1,103 @@
+name: Cross-Build Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - 'upgrade/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cross-build-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux-qmake:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+      - id: build
+        uses: ./.github/actions/build-linux
+      - name: Test the Harness
+        run: python3 tests/test_regression_runner.py
+      - name: Run the Application Tests
+        run: env -i HOME="$(mktemp -d)" PATH="$PATH" LC_ALL=C.UTF-8 mandelbulber2/build/appdir/usr/bin/mandelbulber2 --test
+      - name: Collect
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 tests/regression_runner.py --collect tests/outputs/collection/qmake
+      - name: Upload Collection
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: collection-qmake
+          path: tests/outputs/collection/qmake
+          if-no-files-found: warn
+          overwrite: true
+          retention-days: 7
+
+  windows-msvc:
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - id: build
+        uses: ./.github/actions/build-windows
+      - name: Test the Harness
+        run: python tests/test_regression_runner.py
+      - name: Run the Application Tests
+        working-directory: build-win/Release/x64
+        env:
+          QT_FORCE_STDERR_LOGGING: '1'
+          QTEST_FUNCTION_TIMEOUT: '1800000'
+        run: .\mandelbulber2.exe --test
+      - name: Collect
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python tests/regression_runner.py --collect tests/outputs/collection/msvc
+      - name: Upload Collection
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: collection-msvc
+          path: tests/outputs/collection/msvc
+          if-no-files-found: warn
+          overwrite: true
+          retention-days: 7
+
+  cross-check:
+    needs: [linux-qmake, windows-msvc]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download Collections
+        uses: actions/download-artifact@v8
+        with:
+          path: tests/outputs/collection
+      - name: Cross-Check
+        run: python3 tests/regression_runner.py --cross-check tests/outputs/collection/collection-qmake tests/outputs/collection/collection-msvc
+      - name: Publish the Report
+        if: ${{ always() }}
+        run: |
+          if [ -f tests/outputs/report.txt ]; then
+            sed 's/^/    /' tests/outputs/report.txt >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload the Report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: cross-check-report
+          path: |
+            tests/outputs/report.txt
+            tests/outputs/cross-check-details.txt
+          if-no-files-found: warn
+          overwrite: true
+          retention-days: 7

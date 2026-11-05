@@ -9,6 +9,7 @@ A separate GitHub Actions pipeline that builds one commit with both build system
 | `.github/actions/build-linux/action.yml` | New |
 | `.github/actions/build-windows/action.yml` | New |
 | `.github/workflows/cross-build-check.yml` | New |
+| `.gitignore` | Gains `!.github/actions/build-*/`, because `build-*/` would otherwise ignore both action folders |
 | `.github/workflows/github-actions-ci.yml` | Must stay byte-identical |
 | `.github/workflows/codeql.yml` | Must stay byte-identical |
 | `.circleci/config.yml`, `.appveyor.yml`, `azure-pipelines.yml`, `.travis.yml` | Must stay byte-identical |
