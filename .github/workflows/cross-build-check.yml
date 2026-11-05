@@ -78,12 +78,20 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
-      - name: Download Collections
+      - name: Download the qmake Collection
         uses: actions/download-artifact@v8
+        continue-on-error: true
         with:
-          path: tests/outputs/collection
+          name: collection-qmake
+          path: tests/outputs/collection/qmake
+      - name: Download the MSVC Collection
+        uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: collection-msvc
+          path: tests/outputs/collection/msvc
       - name: Cross-Check
-        run: python3 tests/regression_runner.py --cross-check tests/outputs/collection/collection-qmake tests/outputs/collection/collection-msvc
+        run: python3 tests/regression_runner.py --cross-check tests/outputs/collection/qmake tests/outputs/collection/msvc
       - name: Publish the Report
         if: ${{ always() }}
         run: |
