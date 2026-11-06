@@ -8,6 +8,16 @@
 
 **Input**: User description: "Close KD-1 from the constitution by making CPU renders reproducible. First confirm the cause, because it is not yet proven: render threads share the unsynchronized global gRandomSeed in common_math.cpp, and Random() runs on every raymarch step. Replace that shared state so each random value derives only from a seed fixed in the scene or harness and from the pixel and sample position. Cover every CPU caller of Random(): render_worker, dof, light, ssao_worker, shader_ambient_occlusion, shader_aux_shadow, shader_global_illumination, shader_specular_highlight, and shader_volumetric. Audit the OpenMP regions in dof and post_effect_hdr_blur for order-dependent results. Make the render statistics exact: all render threads update one shared statistics object with no synchronization, and identical renders reported total iterations that differed by about 30 percent. Total iterations, raymarch count, missed DE, and both histograms must give the same values at every thread count, without changing rendered output. Give --nogui a working thread-count control that also governs those OpenMP regions, because limit_CPU_cores is only applied by the GUI startup path and the queue. Success means --self-parity passes for all engine buffers and statistics at one thread and at all available threads."
 
+## Clarifications
+
+### Session 2026-11-06
+
+- Q: Should each animation frame get its own noise? → A: Yes. The frame number joins each random value's position, so noise changes between frames as it does today, rendering one frame again gives the same pixels, and a still render counts as frame 0.
+- Q: Where should the render seed live? → A: In one scene setting with a fixed default. No scene or harness edit is needed, plain and gated renders use the same seed, and the GUI does not change.
+- Q: What limit should the noise quality check use? → A: Noise may rise by at most 5%. A drop passes, but a drop above 5% needs a written reason in the pull request.
+- Q: Where should `--threads` apply? → A: In every headless CPU render mode, where it beats `limit_CPU_cores` in the queue. It is refused in the GUI, with `--gpu` or `--gpuall`, and with options that render nothing.
+- Q: How much of its parallel speed must the depth of field fix keep? → A: None for now. The blend runs on one thread, and a parallel version with the same order can follow Baseline 1 as an ordinary change.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Terms such as Standard Scene Suite, Reference Target, Self-Parity, and Baseline Change are defined in the project constitution. KD numbers refer to its Known Deviations. The harness modes, the formula sweep, and the verification export come from `specs/001-regression-harness`. An item is one scene or one swept formula. There are 487 today: 26 scenes and 461 formulas.
@@ -26,8 +36,9 @@ A developer starts a headless render with a chosen number of threads, and every 
 2. **Given** `--nogui --threads 4`, **When** the same scene renders, **Then** each of those stages uses up to 4 threads, whatever the computer's CPU count.
 3. **Given** no thread option, **When** a scene renders, **Then** it uses every logical CPU, as it does today.
 4. **Given** a thread count of 0, a negative number, or text, **When** the application starts, **Then** it exits with a non-zero status before rendering and names the option.
-5. **Given** the option is used where it cannot take effect, such as outside `--nogui`, **When** the application starts, **Then** it refuses the option and does not ignore it.
+5. **Given** the option is used in the GUI, with `--gpu` or `--gpuall`, or with an option that renders nothing, **When** the application starts, **Then** it refuses the option and does not ignore it.
 6. **Given** the GUI, **When** a user sets `limit_CPU_cores` in preferences, **Then** it works as it does today.
+7. **Given** any other headless CPU render mode, such as an animation or the queue, **When** it runs with `--threads 2`, **Then** it uses 2 threads, whatever `limit_CPU_cores` says.
 
 ---
 
@@ -116,11 +127,12 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Acceptance Scenarios**:
 
-1. **Given** the Monte Carlo scenes, **When** they render before and after this change, **Then** the noise level holds and no new pattern appears.
+1. **Given** the Monte Carlo scenes, **When** they render before and after this change, **Then** noise rises by no more than SC-010 allows, and no new pattern appears.
 2. **Given** fresh qmake and MSVC builds, **When** the application's `--test` suite runs, **Then** it passes on both.
 3. **Given** a pull request, **When** Cross-Build Check runs, **Then** it passes.
 4. **Given** the OpenCL build, **When** it compiles, **Then** OpenCL rendering and its depth of field work as they do today.
 5. **Given** render time on the Standard Scene Suite, **When** it is measured before and after, **Then** the cost is recorded.
+6. **Given** a Monte Carlo scene in an animation, **When** two frames render, **Then** their noise differs, and rendering either frame again gives the same pixels.
 
 ### Edge Cases
 
@@ -129,7 +141,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **More threads than CPUs**: `--threads` accepts any count of at least 1, because the harness asks for 2 threads on a one-CPU computer.
 - **Optional outputs**: Turning the normal buffer or the verification export on or off must not shift any random value. The harness's neutral render checks this.
 - **Two-pass stereo**: Statistics still describe the second pass only, the limit `specs/001-regression-harness` documents, and they must still be exact.
-- **Animation**: Every frame uses the same seed, so Monte Carlo noise no longer changes from frame to frame unless the seed setting is animated. Rendering one frame twice gives the same pixels. Animation stays out of the gate.
+- **Animation**: Each frame gets its own noise from its frame number, as it does today, and rendering one frame twice gives the same pixels. Animation stays out of the gate.
 - **A render cut short**: A render stopped by a time limit or a stop request depends on time, so it is not covered. Gated renders set no time limit.
 - **GUI and network rendering**: Progressive rendering and network clients hand out pixels differently from a headless render. Neither is gated, and both must keep working.
 - **Two builds**: Random values match on every build, but pixels can still differ, because compilers, math libraries, and the shuffle behind Perlin noise differ. That difference is recorded and is not drift.
@@ -140,11 +152,11 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Thread control**
 
-- **FR-001**: Headless renders MUST accept `--threads N`, with N a whole number of at least 1 given as the next argument.
-- **FR-002**: `--threads` MUST set the thread count of every parallel stage a CPU render can reach: the render workers, screen-space ambient occlusion, and the OpenMP regions in post-effect depth of field and HDR blur. `OMP_NUM_THREADS` in the environment MUST NOT override it.
+- **FR-001**: Every headless CPU render mode MUST accept `--threads N`, with N a whole number of at least 1 given as the next argument. These modes are still renders, keyframe and flight animations, the queue, voxel export, network rendering, `--test`, and `--benchmark`.
+- **FR-002**: `--threads` MUST set the thread count of every parallel stage a CPU render can reach: the render workers, screen-space ambient occlusion, the OpenMP regions in post-effect depth of field and HDR blur, and the OpenMP regions in voxel export. `OMP_NUM_THREADS` in the environment MUST NOT override it.
 - **FR-003**: `--threads` MUST accept and use counts above the number of logical CPUs.
-- **FR-004**: Without `--threads`, a render MUST use every logical CPU, as it does today. `limit_CPU_cores` MUST keep working as it does today in the GUI and the queue.
-- **FR-005**: An invalid count MUST stop the application before rendering, with a non-zero exit status and a message that names the option. Where the option cannot take effect, the application MUST refuse it and MUST NOT ignore it.
+- **FR-004**: Without `--threads`, a render MUST use every logical CPU, as it does today. `limit_CPU_cores` MUST keep working as it does today in the GUI and the queue, and in the queue `--threads` MUST take precedence over it.
+- **FR-005**: An invalid count MUST stop the application before rendering, with a non-zero exit status and a message that names the option. In the GUI, with `--gpu` or `--gpuall`, and with options that render nothing, such as `--list` and `--touch`, the application MUST refuse the option the same way and MUST NOT ignore it.
 - **FR-006**: `--help` MUST describe `--threads`.
 
 **Confirming the cause**
@@ -157,7 +169,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Random values**
 
-- **FR-012**: Every random value in a gated CPU render MUST derive only from the render seed and that value's position in the render. In the render workers, the position is the pixel, the sample within that pixel, and the value's place in that sample's sequence. In a post effect, it is the effect's own position, such as the pixel and ray for screen-space ambient occlusion, or the pass and entry for depth of field.
+- **FR-012**: Every random value in a gated CPU render MUST derive only from the render seed and that value's position in the render. In the render workers, the position is the pixel, the sample within that pixel, and the value's place in that sample's sequence. In a post effect, it is the effect's own position, such as the pixel and ray for screen-space ambient occlusion, or the pass and entry for depth of field. In an animation, the frame number is part of the position, and a still render counts as frame 0.
 - **FR-013**: FR-012 MUST cover all 27 CPU calls to `Random()`, in `render_worker`, `dof`, `light`, `ssao_worker`, `shader_ambient_occlusion`, `shader_aux_shadow`, `shader_global_illumination`, `shader_specular_highlight`, and `shader_volumetric`.
 - **FR-014**: Thread identity, thread count, line order, wall-clock time, process IDs, and memory addresses MUST NOT feed any random value.
 - **FR-015**: The shared `gRandomSeed` MUST be removed, so no code can reach it. The two callers outside the gated path, OpenCL depth of field and the GUI's view reset in `interface.cpp`, MUST keep working with their own local state.
@@ -170,7 +182,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 **Order-dependent stages**
 
 - **FR-021**: The work MUST audit each OpenMP region a CPU render can reach, and it MUST record for each one whether its result depends on thread order, with a suite scene that reaches it. There are three today: two in `dof` and one in `post_effect_hdr_blur`.
-- **FR-022**: A region whose result depends on order MUST give the same result at every thread count, and two threads MUST NOT update one pixel at the same time.
+- **FR-022**: A region whose result depends on order MUST give the same result at every thread count, and two threads MUST NOT update one pixel at the same time. The blend in post-effect depth of field MUST do this by running on one thread, in one fixed order. A region whose result does not depend on order MUST stay parallel.
 - **FR-023**: Any other dependence on thread count, scheduling, or elapsed time that Self-Parity exposes MUST be found, fixed, and recorded. Tolerances, exclusions, and skip lists MUST NOT be used to hide a difference.
 
 **Statistics**
@@ -196,7 +208,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **FR-036**: Apart from the thread control, the random values, the order-dependent stages, the statistics, and anything FR-023 exposes, this feature MUST NOT change engine behavior. Formulas, shading math, default settings, and compile flags stay as they are.
 - **FR-037**: Every build that compiles the engine today MUST still compile, with and without OpenCL, and the application's `--test` suite MUST keep passing on the qmake and MSVC builds.
 - **FR-038**: This feature MUST NOT add or change a workflow. Cross-Build Check and the workflows that pass today MUST keep passing.
-- **FR-039**: CPU render time on the Standard Scene Suite MUST be measured before and after this change and recorded with it, and a full gate run MUST stay within SC-004 of `specs/001-regression-harness`.
+- **FR-039**: CPU render time on the Standard Scene Suite MUST be measured before and after this change and recorded with it, and a full gate run MUST stay within SC-004 of `specs/001-regression-harness`. The time of the depth of field stage on `IFS_002.fract` at 1920x1080 MUST be recorded the same way.
 
 ### Decisions
 
@@ -210,16 +222,22 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **Why**: The constitution requires a seed fixed in the scene file or the harness. A scene setting meets that the way `clouds_random_seed` and `random_lights_random_seed` do, existing scenes load with no edit, and a plain `--nogui` render gives the same pixels as a gated one. Where a scene names no seed, the default is part of the binary, which Principle II already counts as an input.
 - **Not chosen**: A seed that only the harness passes. It needs a harness change that SC-003 of `specs/001-regression-harness` rules out, and ungated renders would use a different seed from gated ones.
 
-**Animation: the same seed for every frame.**
+**Animation: the frame number is part of each value's position.**
 
-- **Why**: The request says values derive only from the seed and the position, so the frame number stays out.
-- **Effect**: Monte Carlo noise stays still from frame to frame, where today it changes. Animating the seed setting changes that, as it does for `clouds_random_seed`.
+- **Why**: Noise changes from frame to frame today, and FR-036 keeps other behavior as it is. Pinning the noise in place over a moving image would be a visible change for animators. The frame number comes from the animation and not from time, so one frame still reproduces exactly, and a still render is unaffected.
+- **Not chosen**: The same seed for every frame, which is the request's literal wording. Noise would stay still, and only a hand-edited settings file could change that, because the GUI adds a setting to an animation through its control and the seed has none.
+
+**Depth of field blend: one thread for now.**
+
+- **Why**: One thread gives the fixed order with the smallest engine change before Baseline 1. A parallel version with the same order gives identical pixels, so it can follow as an ordinary change that the gate proves.
+- **Effect**: The measured times are under Assumptions. With the scene's own blur, the stage gets faster on the 32-thread computer measured. At 4 to 16 threads it gets slower, most of all with a large blur.
+- **Not chosen**: Keeping the blend parallel in this change, which adds new engine code to the stage this change makes exact.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Thread Count**: The number of threads a render uses at every parallel stage, set by `--threads` or defaulting to every logical CPU.
 - **Render Seed**: The fixed number every random value in a render derives from. It is a scene setting with one default.
-- **Random Position**: What identifies one random value within a render: the pixel, sample, and place in sequence, or a post effect's own position.
+- **Random Position**: What identifies one random value within a render: the pixel, sample, and place in sequence, or a post effect's own position, along with the frame number in an animation.
 - **Cause Evidence**: The record of what differed between renders before the fix, and why, per tested scene.
 - **Order Audit**: One verdict per OpenMP region on whether its result depends on thread order, with the scene that reaches it.
 - **Render Statistics**: The exact values of a finished render: total iterations, raymarch count, missed DE, and the two histograms.
@@ -232,16 +250,16 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-002**: At 2, 3, 4, and 7 threads, and at twice the CPU count, every item's buffers and statistics match its one-thread render.
 - **SC-003**: Every item reports total iterations above 0, and the value matches at every thread count.
 - **SC-004**: Compare mode reports 0 buffer differences across all items between fresh builds from before and after the statistics work.
-- **SC-005**: With `--threads 1`, CPU time stays within 110% of elapsed time on a scene that spends most of its time in each parallel stage.
-- **SC-006**: Each invalid `--threads` value fails before rendering in 100% of trials.
+- **SC-005**: With `--threads 1`, CPU time stays within 110% of elapsed time on a scene that spends most of its time in each parallel stage, and in each headless CPU render mode.
+- **SC-006**: Each invalid `--threads` value, and each use of the option where FR-005 refuses it, fails before rendering in 100% of trials.
 - **SC-007**: The evidence names a cause for every difference seen before the fix, and none is left unexplained.
 - **SC-008**: Every audited region has a recorded verdict and a suite scene that reaches it.
-- **SC-009**: On all 6 Monte Carlo scenes, two different seeds give different output, and each seed reproduces its own output exactly.
-- **SC-010**: On all 6 Monte Carlo scenes, noise stays within 5% of its level before this change, and a reviewer finds no new pattern in the final images. Noise is the average difference between two renders of a scene: two runs before this change, and two seeds after it.
+- **SC-009**: On all 6 Monte Carlo scenes, two different seeds give different output, two different frame numbers give different output, and each seed and frame number reproduces its own output exactly.
+- **SC-010**: On all 6 Monte Carlo scenes, noise rises by at most 5% from its level before this change, the pull request explains any drop above 5%, and a reviewer finds no new pattern in the final images. Noise is the average absolute difference between the final images of two renders of a scene: two runs before this change, and two seeds after it.
 - **SC-011**: The harness's own tests pass, and a one-bit difference seeded in any buffer still fails.
 - **SC-012**: All 8 `--test` tests pass on fresh qmake and MSVC builds, and Cross-Build Check passes.
 - **SC-013**: A `--self-parity` run on a fresh MSVC build reports 0 differences, although the harness cannot call it a pass there.
-- **SC-014**: The render time of the Standard Scene Suite before and after is recorded, and a full gate run stays under 30 minutes on a 4-vCPU CI runner.
+- **SC-014**: The render time of the Standard Scene Suite and the depth of field time of `IFS_002.fract` at 1920x1080 are recorded before and after, and a full gate run stays under 30 minutes on a 4-vCPU CI runner.
 - **SC-015**: A search of the source finds no remaining use of the shared seed.
 - **SC-016**: The constitution shows KD-1 closed at version 1.0.1, and no file exists under `tests/references/`.
 
@@ -276,6 +294,6 @@ None of these has been measured. User Story 2 and the audit must confirm or corr
 - Self-Parity can only report a pass on Linux, because the application ignores a redirected home folder on Windows. The local proof is a fresh qmake build in the WSL `Ubuntu-24.04` distro on 32 threads.
 - No workflow runs Self-Parity until Phase 4, so hosted runners do not prove it here. SC-002 includes 4 threads, the count those runners have.
 - A gate cannot run until references exist, so the Collect step of Cross-Build Check, which renders the same items, stands in for the gate time in SC-014. It took 3.8 to 6.1 minutes before this change.
-- Fixing the depth of field blend order may slow that stage, because threads can no longer blend overlapping pixels freely. FR-039 records the cost.
-- The 5% limit in SC-010 is a one-time quality check of this change. It is not a parity comparison, so the constitution's ban on tolerances does not apply to it.
+- Moving the depth of field blend to one thread changes that stage's speed. On 2026-11-06, a fresh WSL build timed the whole stage on `IFS_002.fract` at 1920x1080, with `OMP_NUM_THREADS` standing in for the missing thread control. At the scene's own blur radius of 19.72, it took 2.9 seconds on 1 thread, 1.0 on 4, 0.8 on 16, and 24.8 on all 32. At radius 100, it took 34.3, 10.2, 4.3, and 25.0. The one-thread times are an upper limit for this fix, because phase I stays parallel. Nothing explains the 32-thread times yet, and this feature does not set out to fix them. FR-039 records the result.
+- The 5% limit in SC-010 is a one-time quality check of this change. It is not a parity comparison, so the constitution's ban on tolerances does not apply to it. On 2026-11-06, a fresh WSL build at 32 threads rendered each Monte Carlo scene 6 times, and the highest of the 15 pairs measured 0.6% to 1.4% above the lowest, so 5% does not fail at random.
 - The default seed value is chosen during planning.
