@@ -93,6 +93,7 @@ EXPECTED_BUFFERS = (
     ("normal", "f32", 3),
     ("normal_world", "f32", 3),
 )
+FINAL_PIXEL_BYTES = 3 * SAMPLE_BYTES["u16"]
 EXPORT_HEADER = "mandelbulber-verification-export"
 FORMULA_LIST_HEADER = "mandelbulber-formula-list 1"
 HISTOGRAMS = ("iteration_histogram", "step_histogram")
@@ -618,6 +619,14 @@ def check_buffer_list(path, listed):
             raise RenderError(f"{path} lists buffer {entry[0]} as {' '.join(entry[1:])}")
 
 
+def check_buffer_files(directory):
+    """Fails on a buffer file the manifest leaves out, because nothing would compare it (FR-011)."""
+    expected = {f"{name}.bin" for name, _, _ in EXPECTED_BUFFERS}
+    unexpected = sorted(path.name for path in directory.glob("*.bin") if path.name not in expected)
+    if unexpected:
+        raise RenderError(f"{directory} holds unexpected buffer file {', '.join(unexpected)}")
+
+
 def parse_statistics(text):
     """Parses a statistics record, and requires the contract's exact names, order, and values."""
     lines = text.split("\n")
@@ -665,6 +674,7 @@ def read_export(directory):
         raise RenderError(f"no manifest in {directory}, so the export is incomplete")
     manifest_bytes = manifest_path.read_bytes()
     fields = parse_manifest(manifest_bytes, manifest_path)
+    check_buffer_files(directory)
     width = int(fields["width"])
     height = int(fields["height"])
     buffers = {}
@@ -1306,9 +1316,18 @@ def check_collections_match(first, second):
 
 
 def holds_one_value(export):
-    """Whether every sample of the final image is the same."""
+    """Whether every pixel of the final image is the same, whatever its three channels hold."""
     final = export.buffers["final_image"]
-    return final == final[:2] * (len(final) // 2)
+    return final == final[:FINAL_PIXEL_BYTES] * (len(final) // FINAL_PIXEL_BYTES)
+
+
+def names_on_one_build(first, second):
+    """Lists the statistic names only one build has, each with that build (SC-011)."""
+    differing = differing_statistics(first, second)
+    only_first = [name for name, _, other in differing if other == "missing"]
+    only_second = [name for name, one, _ in differing if one == "missing"]
+    sides = ((only_first, "first"), (only_second, "second"))
+    return "; ".join(f"{', '.join(names)} on {build} only" for names, build in sides if names)
 
 
 def functional_disagreement(first, second):
@@ -1317,11 +1336,9 @@ def functional_disagreement(first, second):
     if sizes[0] != sizes[1]:
         return f"image size differs: {sizes[0]} on first, {sizes[1]} on second"
     if list(first.statistics) != list(second.statistics):
-        differing = differing_statistics(first.statistics, second.statistics)
-        names = [name for name, one, other in differing if "missing" in (one, other)]
-        return f"statistic names differ: {', '.join(names)}"
+        return f"statistic names differ: {names_on_one_build(first.statistics, second.statistics)}"
     if holds_one_value(first) != holds_one_value(second):
-        return f"final image holds one value on {'first' if holds_one_value(first) else 'second'} only"
+        return f"final image holds one pixel value on {'first' if holds_one_value(first) else 'second'} only"
     return None
 
 

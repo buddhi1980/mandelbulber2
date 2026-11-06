@@ -23,6 +23,7 @@ item behaves as "same". The modes are:
   wrong-type:<buffer>      The manifest names the wrong sample type for the buffer.
   missing-buffer:<buffer>  The buffer is left out of the manifest and the folder.
   extra-buffer             The export has an unexpected buffer.
+  unlisted-buffer          The export has an unexpected buffer file that the manifest leaves out.
   bad-statistics           A statistic is not a whole number.
   no-statistics            The statistics file is missing.
   bad-settings-text        Prints the failed load message and writes no export.
@@ -47,6 +48,8 @@ item behaves as "same". The modes are:
   list-exit-3              --list-formulas exits with status 3.
   list-hang                --list-formulas sleeps 30 seconds and then exits.
   blank                    Every final_image sample holds one value.
+  blank-color              Every final_image pixel holds one color, whose R, G, and B differ.
+  blank-flip-bit           As blank, with one bit flipped in one final_image sample.
   other-version            --version prints a different version.
   no-version               --version prints no version line.
   other-histogram-size     The iteration histogram has one more bucket.
@@ -215,8 +218,12 @@ def build_buffers(seed, width, height, mode, count):
             data[:4] = struct.pack("<I", count)
         if name == "other-toolchain-drift" and buffer == "raw_render":
             data[0] ^= 0x01
-        if name == "blank" and buffer == "final_image":
+        if name in ("blank", "blank-flip-bit") and buffer == "final_image":
             data = bytearray(b"\x34\x12" * (len(data) // 2))
+        if name == "blank-flip-bit" and buffer == "final_image":
+            data[0] ^= 0x01
+        if name == "blank-color" and buffer == "final_image":
+            data = bytearray(struct.pack("<3H", 0x1000, 0x2000, 0x3000) * (len(data) // 6))
         buffers[buffer] = data
     return buffers
 
@@ -269,6 +276,8 @@ def write_export(directory, width, height, buffers, statistics, mode):
     if name == "extra-buffer":
         (directory / "specular.bin").write_bytes(bytes(width * height * 12))
         manifest.append("buffer specular f32 3")
+    if name == "unlisted-buffer":
+        (directory / "specular.bin").write_bytes(bytes(width * height * 12))
     if name != "no-statistics":
         text = "".join(f"{key} {value}\n" for key, value in statistics)
         if name == "bad-statistics":
