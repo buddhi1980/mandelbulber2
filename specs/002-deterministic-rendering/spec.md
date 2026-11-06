@@ -156,7 +156,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **FR-002**: `--threads` MUST set the thread count of every parallel stage a CPU render can reach: the render workers, screen-space ambient occlusion, the OpenMP regions in post-effect depth of field and HDR blur, and the OpenMP regions in voxel export. `OMP_NUM_THREADS` in the environment MUST NOT override it.
 - **FR-003**: `--threads` MUST accept and use counts above the number of logical CPUs.
 - **FR-004**: Without `--threads`, a render MUST use every logical CPU, as it does today. `limit_CPU_cores` MUST keep working as it does today in the GUI and the queue, and in the queue `--threads` MUST take precedence over it.
-- **FR-005**: An invalid count MUST stop the application before rendering, with a non-zero exit status and a message that names the option. In the GUI, with `--gpu` or `--gpuall`, and with options that render nothing, such as `--list` and `--touch`, the application MUST refuse the option the same way and MUST NOT ignore it.
+- **FR-005**: An invalid count MUST stop the application before rendering, with a non-zero exit status and a message that names the option. In the GUI, with `--gpu` or `--gpuall`, and with options that render nothing, such as `--list` and `--touch`, the application MUST refuse the option the same way and MUST NOT ignore it. `--help` and `--version` still print and exit 0, because Qt handles them before the application reads any option.
 - **FR-006**: `--help` MUST describe `--threads`.
 
 **Confirming the cause**
@@ -169,10 +169,10 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Random values**
 
-- **FR-012**: Every random value in a gated CPU render MUST derive only from the render seed and that value's position in the render. In the render workers, the position is the pixel, the sample within that pixel, and the value's place in that sample's sequence. In a post effect, it is the effect's own position, such as the pixel and ray for screen-space ambient occlusion, or the pass and entry for depth of field. In an animation, the frame number is part of the position, and a still render counts as frame 0.
+- **FR-012**: Every random value in a gated CPU render MUST derive only from the render seed and that value's position in the render. In the render workers, the position is the pixel, the sample within that pixel, and the value's place in that sample's sequence. In a post effect, it is the effect's own position, such as the pixel and ray for screen-space ambient occlusion, or the pass and entry for depth of field. In an animation, the frame number is part of the position, and a still render counts as frame 0. In a two-pass stereo render, the eye is part of the position too, because the second pass renders the same pixels again.
 - **FR-013**: FR-012 MUST cover all 27 CPU calls to `Random()`, in `render_worker`, `dof`, `light`, `ssao_worker`, `shader_ambient_occlusion`, `shader_aux_shadow`, `shader_global_illumination`, `shader_specular_highlight`, and `shader_volumetric`.
-- **FR-014**: Thread identity, thread count, line order, wall-clock time, process IDs, and memory addresses MUST NOT feed any random value.
-- **FR-015**: The shared `gRandomSeed` MUST be removed, so no code can reach it. The two callers outside the gated path, OpenCL depth of field and the GUI's view reset in `interface.cpp`, MUST keep working with their own local state.
+- **FR-014**: Thread identity, thread count, line order, wall-clock time, process IDs, and memory addresses MUST NOT feed any random value in a CPU render.
+- **FR-015**: The shared `gRandomSeed` MUST be removed, so no code can reach it. The callers outside the gated path, which are OpenCL depth of field, the GUI's view reset in `interface.cpp`, the gradient editor, and the thumbnail widget's timers, MUST keep working with their own local state.
 - **FR-016**: The render seed MUST be a scene setting with one fixed default. A scene that names no seed MUST use that default, with no edit to the scene file and no new harness override.
 - **FR-017**: Each caller MUST keep the range of values it uses today, so shading math does not change.
 - **FR-018**: The same seed and position MUST give the same random value on every build, so a difference between builds never starts in the random values.
@@ -230,14 +230,14 @@ A user or developer sees no loss from this change: images look as they did, and 
 **Depth of field blend: one thread for now.**
 
 - **Why**: One thread gives the fixed order with the smallest engine change before Baseline 1. A parallel version with the same order gives identical pixels, so it can follow as an ordinary change that the gate proves.
-- **Effect**: The measured times are under Assumptions. With the scene's own blur, the stage gets faster on the 32-thread computer measured. At 4 to 16 threads it gets slower, most of all with a large blur.
+- **Effect**: The measured times are under Assumptions. With the scene's own blur, the stage gets faster on the 32-thread computer measured. At 4 to 16 threads it gets slower, and with a large blur it gets slower at every count above 1.
 - **Not chosen**: Keeping the blend parallel in this change, which adds new engine code to the stage this change makes exact.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Thread Count**: The number of threads a render uses at every parallel stage, set by `--threads` or defaulting to every logical CPU.
 - **Render Seed**: The fixed number every random value in a render derives from. It is a scene setting with one default.
-- **Random Position**: What identifies one random value within a render: the pixel, sample, and place in sequence, or a post effect's own position, along with the frame number in an animation.
+- **Random Position**: What identifies one random value within a render: the pixel, sample, and place in sequence, or a post effect's own position, along with the frame number in an animation and the eye in a two-pass stereo render.
 - **Cause Evidence**: The record of what differed between renders before the fix, and why, per tested scene.
 - **Order Audit**: One verdict per OpenMP region on whether its result depends on thread order, with the scene that reaches it.
 - **Render Statistics**: The exact values of a finished render: total iterations, raymarch count, missed DE, and the two histograms.
@@ -257,7 +257,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-009**: On all 6 Monte Carlo scenes, two different seeds give different output, two different frame numbers give different output, and each seed and frame number reproduces its own output exactly.
 - **SC-010**: On all 6 Monte Carlo scenes, noise rises by at most 5% from its level before this change, the pull request explains any drop above 5%, and a reviewer finds no new pattern in the final images. Noise is the average absolute difference between the final images of two renders of a scene: two runs before this change, and two seeds after it.
 - **SC-011**: The harness's own tests pass, and a one-bit difference seeded in any buffer still fails.
-- **SC-012**: All 8 `--test` tests pass on fresh qmake and MSVC builds, and Cross-Build Check passes.
+- **SC-012**: Every `--test` test passes on fresh qmake and MSVC builds, including a new test of FR-018, and Cross-Build Check passes.
 - **SC-013**: A `--self-parity` run on a fresh MSVC build reports 0 differences, although the harness cannot call it a pass there.
 - **SC-014**: The render time of the Standard Scene Suite and the depth of field time of `IFS_002.fract` at 1920x1080 are recorded before and after, and a full gate run stays under 30 minutes on a 4-vCPU CI runner.
 - **SC-015**: A search of the source finds no remaining use of the shared seed.
@@ -272,6 +272,7 @@ None of these has been measured. User Story 2 and the audit must confirm or corr
 - **Post-effect depth of field blends in thread order.** The OpenMP region in phase II blends overlapping discs into the shared image. A blend gives a different result in a different order, and two threads can update one pixel at once, so the result depends on scheduling. Any scene with post-effect depth of field reaches it, including `IFS_002.fract` in the suite.
 - **The other two regions look safe.** Phase I of depth of field and HDR blur each read pixels that do not change during the region and write only their own pixel, so neither is expected to depend on order.
 - **Two threads can render one line.** Each thread claims its start line with no lock and no check. A thread that starts late takes that line from whoever holds it, even if it is finished, so the line's pixels render and count twice. When threads outnumber lines, each thread's start line is the first line. Statistics can therefore differ even with no lost updates.
+- **The limit box exit leaves the iteration count unset.** When a point is outside the limit box, `CalculateDistanceFromObjectsTree` returns without setting `out->iters`, so the histogram and the step buffer read an old stack value. No suite scene turns on `limits_enabled`, so Self-Parity can't show it.
 - **The 30 percent figure cannot be repeated on the current source.** The request says identical renders reported total iterations about 30 percent apart. That figure entered the playbook on 2026-11-04, probably from the July 2026 build used for most measurements that day. On builds with the verification export, total iterations read 0 for the three scenes measured that day. The spread measured was in raymarch counts: for `IFS_001.fract`, a 76,800-pixel image, 76,675 and 76,733 on the WSL build and 76,469 on the MSVC build. FR-009 records the real spread.
 
 **Dependencies**
@@ -294,6 +295,6 @@ None of these has been measured. User Story 2 and the audit must confirm or corr
 - Self-Parity can only report a pass on Linux, because the application ignores a redirected home folder on Windows. The local proof is a fresh qmake build in the WSL `Ubuntu-24.04` distro on 32 threads.
 - No workflow runs Self-Parity until Phase 4, so hosted runners do not prove it here. SC-002 includes 4 threads, the count those runners have.
 - A gate cannot run until references exist, so the Collect step of Cross-Build Check, which renders the same items, stands in for the gate time in SC-014. It took 3.8 to 6.1 minutes before this change.
-- Moving the depth of field blend to one thread changes that stage's speed. On 2026-11-06, a fresh WSL build timed the whole stage on `IFS_002.fract` at 1920x1080, with `OMP_NUM_THREADS` standing in for the missing thread control. At the scene's own blur radius of 19.72, it took 2.9 seconds on 1 thread, 1.0 on 4, 0.8 on 16, and 24.8 on all 32. At radius 100, it took 34.3, 10.2, 4.3, and 25.0. The one-thread times are an upper limit for this fix, because phase I stays parallel. Nothing explains the 32-thread times yet, and this feature does not set out to fix them. FR-039 records the result.
+- Moving the depth of field blend to one thread changes that stage's speed. On 2026-11-06, a fresh WSL build timed the whole stage on `IFS_002.fract` at 1920x1080, with `OMP_NUM_THREADS` standing in for the missing thread control. At the scene's own blur radius of 19.72, it took 2.9 seconds on 1 thread, 1.0 on 4, 0.8 on 16, and 24.8 on all 32. With only the blend moved to one thread, it took 2.4, 1.7, 1.5, and 10.0. At radius 100, it took 34.3, 10.2, 4.3, and 25.0, and with the blend moved, 33.7, 22.4, 20.3, and 27.5. Nothing explains the 32-thread times yet, and this feature does not set out to fix them. FR-039 records the result.
 - The 5% limit in SC-010 is a one-time quality check of this change. It is not a parity comparison, so the constitution's ban on tolerances does not apply to it. On 2026-11-06, a fresh WSL build at 32 threads rendered each Monte Carlo scene 6 times, and the highest of the 15 pairs measured 0.6% to 1.4% above the lowest, so 5% does not fail at random.
 - The default seed value is chosen during planning.
