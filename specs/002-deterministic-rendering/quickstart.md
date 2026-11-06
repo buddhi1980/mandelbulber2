@@ -115,6 +115,8 @@ Seeds and frames (SC-009): a scratch script renders each of the 6 Monte Carlo sc
 
 Check one real animation too (User Story 6). Render frames 0 and 1 of `keyframe_anim_mandelbulb.fract` twice with `DOF_monte_carlo=true` added to `--override`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
 
+Check two-pass stereo. Render `amazing_surf 002.fract` with `stereo_enabled=true#stereo_mode=2` added to the harness's overrides, three times at one thread and three times at all threads. Red-cyan stereo with screen-space ambient occlusion takes two passes. All six renders match in every buffer and statistic.
+
 ## 4. Exact statistics (User Story 4)
 
 Every item reports `total_iterations` above 0, and the value matches at every thread count (SC-003). A scratch script reads `statistics.txt` from each export of the SC-002 run.
@@ -128,6 +130,8 @@ python3 tests/regression_runner.py --compare <binary from before the statistics 
 The report shows 0 differences in any buffer. Statistics do differ, because total iterations changes from 0 to the real count.
 
 Watch a render with `--stats`, and confirm the values change while it runs. In the GUI, confirm the statistics dock updates during a render (FR-029).
+
+Check for colliding updates (FR-027). In a throwaway clone, build with `QMAKE_CXXFLAGS+=-fsanitize=thread QMAKE_LFLAGS+=-fsanitize=thread` added to the `qmake6` line, then render `IFS_001.fract` and `chromatic_aberration.fract` at the harness's resolution with `--threads 4`. No report names `cStatistics`, `cHistogram`, or `cPositionRandom`. Libgomp isn't built for ThreadSanitizer, so reports from inside OpenMP regions can be false, and `cScheduler`'s unlocked reads of line owners are expected. This build never leaves the clone.
 
 ## 5. Nothing else broke (User Story 6)
 

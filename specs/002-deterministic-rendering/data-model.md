@@ -54,6 +54,7 @@ A new class in `mandelbulber2/src/position_random.hpp`. It is header-only, becau
 
 | Member | Meaning |
 |---|---|
+| `cPositionRandom()` | Builds an empty generator, for a member that gets its key later |
 | `cPositionRandom(seed, frame, eye, stage)` | Builds the key |
 | `SetPosition(a, b, c)` | Restarts the sequence for one position |
 | `Random(max)` | Returns the next value, from 0 to `max` |
@@ -62,7 +63,7 @@ A new class in `mandelbulber2/src/position_random.hpp`. It is header-only, becau
 
 | Owner | Lifetime | Thread |
 |---|---|---|
-| `cRenderWorker` | One worker | Its own thread only. The member is `mutable`, like `objectStack`, because most shaders are `const`. |
+| `cRenderWorker` | One worker | Its own thread only. The member is `mutable`, like `objectStack`, because most shaders are `const`. `doWork` gives it its key, because `cRenderWorker` is also built for OpenCL with no parameters. |
 | `cSSAOWorker::doWork` | One worker | Its own thread only |
 | `cPostRenderingDOF::Render` | One call | The calling thread, because the shuffle is sequential |
 | `cOpenClEngineRenderDOF` shuffle loop | One loop entry | One OpenMP thread |
@@ -113,7 +114,7 @@ No instance is shared between threads.
 - When a line finishes, the worker adds its values to the shared object under the mutex, then clears them. This is what keeps the GUI's dock and `--stats` updating (FR-029).
 - When a worker gives up on a line, it clears its values without adding them (FR-025).
 - `cRenderer` copies the shared object under the mutex before it emits `updateStatistics`.
-- `cStatistics::Add` sums every value. Integer sums do not depend on order, which is why the totals match at every thread count (FR-024).
+- `cStatistics::Add` sums every value in the table above. It leaves `time`, `maskedPixels`, and `tilesDone` alone, because no worker sets them. Integer sums do not depend on order, which is why the totals match at every thread count (FR-024).
 - `cStatistics::Reset` also clears `totalNoise`, which it misses today.
 
 ## Iteration count

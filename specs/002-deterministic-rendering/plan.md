@@ -97,7 +97,7 @@ mandelbulber2/src/
 ├── position_random.hpp             # New: the generator
 ├── common_math.h, .cpp             # gRandomSeed, RandomInt, and Random removed
 ├── command_line_interface.hpp, .cpp # --threads, its checks, and removal before QTest
-├── system_data.hpp, system.cpp     # threadsFromCommandLine, GetOpenMpThreads
+├── system_data.hpp, .cpp           # threadsFromCommandLine, GetOpenMpThreads
 ├── queue.cpp                       # --threads beats limit_CPU_cores
 ├── initparameters.cpp              # render_random_seed
 ├── fractparams.hpp, .cpp           # renderRandomSeed
@@ -112,11 +112,11 @@ mandelbulber2/src/
 ├── shader_light_shading.cpp        # Passes the generator to the light
 ├── shader_specular_highlight.cpp   # Own generator
 ├── shader_volumetric.cpp           # Own generator, and passes it to the light
-├── ssao_worker.cpp                 # Local generator per pixel
-├── dof.h, .cpp                     # Generator per entry, thread clause, blend on one thread
+├── ssao_worker.cpp                 # Local generator, with a position per pixel
+├── dof.hpp, .cpp                   # Generator per entry, thread clause, blend on one thread
 ├── render_image.cpp                # Builds the generator, copies statistics under the lock
 ├── render_job.cpp                  # Builds the generator on the OpenCL fallback path
-├── opencl_engine_render_dof.cpp    # Local generators
+├── opencl_engine_render_dof.cpp    # Thread clause and local generators
 ├── post_effect_hdr_blur.cpp        # Thread clause
 ├── voxel_export.cpp                # Thread clause, buffers sized to match
 ├── marchingcubes.cpp               # Thread clause, buffers sized to match

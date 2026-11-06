@@ -76,7 +76,7 @@ Every decision below comes from reading the code on 2026-11-06, and from measure
 | `marchingcubes.cpp:267` | Scene data | Its own voxel cells | No, mesh export replaces the render |
 | `audio_track.cpp:302` | Audio samples | Its own frame's entry, and two shared maximums with no lock | Only while loading a scene with audio tracks |
 
-- **Rationale**: FR-021's three regions are the first three rows. The other three get the thread clause (FR-002, SC-005), and they are outside the gate. `opencl_engine_render_dof.cpp:177` runs only on the OpenCL path. The audio region's shared maximums can lose an update, which could only reach a render through an audio-driven animation. No suite scene has audio tracks, and FR-036 leaves it as it is.
+- **Rationale**: FR-021's three regions are the first three rows. The other three get the thread clause (FR-002, SC-005), and they are outside the gate. `opencl_engine_render_dof.cpp:177` runs only on the OpenCL path, and it gets the clause too, so the rule has no exception and a search can check it. The audio region's shared maximums can lose an update, which could only reach a render through an audio-driven animation. No suite scene has audio tracks, and FR-036 leaves it as it is.
 
 ## R8. Exact statistics
 

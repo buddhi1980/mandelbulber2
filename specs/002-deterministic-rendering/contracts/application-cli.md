@@ -38,6 +38,7 @@ Every headless CPU render mode accepts it (FR-001).
 | Depth of field phase II | The OpenMP default | One thread, always (FR-022) |
 | Voxel export and mesh export | The OpenMP default | `N` |
 | Audio analysis in an animation | The OpenMP default | `N` |
+| The shuffle in OpenCL depth of field | The OpenMP default | `N` |
 
 `OMP_NUM_THREADS` does not override `N` (FR-002), because each OpenMP region carries its own `num_threads` clause.
 

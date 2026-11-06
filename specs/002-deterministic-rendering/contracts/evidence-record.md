@@ -96,3 +96,14 @@ One entry for anything else Self-Parity exposes (FR-023), with the same fields a
 | Depth of field stage time on `IFS_002.fract` at 1920x1080, before and after | FR-039, SC-014 |
 | Noise on the 6 Monte Carlo scenes, before and after | SC-010 |
 | Collect step time in Cross-Build Check | SC-014 |
+
+## Success criteria
+
+One row per success criterion, filled in when its check runs, so a reviewer can read every result in one place.
+
+| Field | Content |
+|---|---|
+| Criterion | The SC number |
+| Result | The measured result, in numbers where there are numbers |
+| Commit | The commit of the fresh build that gave it |
+| Not covered | Anything the check could not reach, or none |
