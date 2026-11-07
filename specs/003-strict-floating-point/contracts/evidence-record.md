@@ -14,7 +14,7 @@ States the date, the computer, the environment, the toolchain, the thread counts
 | After | The final commit | Output and time after this change |
 | Before, host-tuned | `8fd49ba59`, built with `CXXFLAGS=-march=native` | What users of the setup scripts lose (FR-027) |
 | Diagnostic | The final commit, plus a local patch that counts guard hits | Which items reach each guard (FR-020) |
-| Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change (FR-020) |
+| Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change, and where (FR-020) |
 | No contraction option | The final commit, plus a local patch that removes the `gcc` block | Whether `-ffp-contract=off` changes anything (FR-022) |
 | MSVC before and MSVC after | `8fd49ba59` and the final commit, Release x64 | The comparison images, and the MSVC checks |
 

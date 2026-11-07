@@ -161,11 +161,11 @@ python3 tests/regression_runner.py --compare "$DIAG"
 
 It exits 0 on all 487 items. Then `~/verify/kd2/guard_counts.py` renders every item with `$DIAG` and writes the Guards table.
 
-Build `guards_off.patch` the same way, and run the same `--compare`. Every difference it lists is the guards' own effect, and an item it doesn't list changed only through strict arithmetic.
+Build `guards_off.patch` the same way, and run the same `--compare`. Every difference it lists is the guards' own effect, and an item it doesn't list changed only through strict arithmetic. Then run `--collect ~/verify/kd2/collect-guards-off` from `~/mandelbulber2-diag`, because `--compare` deletes its renders, and the review needs to see where the guards change pixels.
 
 Build `no_contract_off.patch` the same way, and run the same `--compare`. It exits 0 on all 487 items, because the plain x86-64 target has no fused instruction for the option to prevent.
 
-`~/verify/kd2/review_images.py` writes the before, after, and difference images for the 26 scenes and the 20 formulas. A person reviews them, and the evidence names each visible change and its cause (SC-006). A visible change can be seen in the before and after panels at normal brightness. The difference panel is amplified, and it only shows where to look.
+`~/verify/kd2/review_images.py` writes the before, after, difference, and guards' area images for the 26 scenes and the 20 formulas. A person reviews them, and the evidence names each visible change and its cause (SC-006). A visible change can be seen in the before and after panels at normal brightness. The difference panel is amplified, and it only shows where to look.
 
 ## 6. What it costs (User Story 6)
 

@@ -116,6 +116,7 @@ The final commit with `IsNotANumber()` returning `false`, which is what `-ffast-
 **Rules**
 
 - A difference between it and the after build is the guards' own effect.
+- Its collection keeps the images, because `--compare` deletes each render once it has compared it, and the review marks the guards' area from them.
 - A change that doesn't show there is strict arithmetic: arithmetic order, vector math, and signed zero together, which this feature doesn't separate.
 - It is never committed.
 

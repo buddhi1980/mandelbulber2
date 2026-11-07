@@ -72,7 +72,7 @@ Every item's pixels may change. The compiler stops reordering arithmetic and ass
 - **KD-4 (partly closed)**: Baseline 1 and the gate arrive in playbook Phase 4. This feature adds `parity-gate`, and creates no references.
 - **KD-5 (new)**: This feature records it and doesn't close it. It stays open until Phase 4 settles the math path before Baseline 1 is captured.
 
-**Expected effect on output** (FR-022): The compiler stops reordering arithmetic and assuming finite values, so every item's pixels and statistics may change. `ssao_worker` moves from vector `sin` and `cos` to the ordinary math library. Images should look the same apart from small differences, except where a NaN guard now acts. An orbit that overflows to infinity now keeps its last finite value, as it does on MSVC Release, so its distance estimate changes, and it counts as inside on the 2 items that use iteration threshold mode. `-ffp-contract=off` has no effect on the gated build, and MSVC Release output does not change.
+**Expected effect on output** (FR-022): The compiler stops reordering arithmetic and assuming finite values, so every item's pixels and statistics may change. `ssao_worker` moves from vector `sin` and `cos` to the ordinary math library. Images should look the same apart from small differences, except where a NaN guard now acts. An orbit that overflows to infinity now keeps its last finite value, as it does on MSVC Release, so its distance estimate changes, and it can count as inside only on the 2 items that use iteration threshold mode. `-ffp-contract=off` has no effect on the gated build, and MSVC Release output does not change.
 
 **Post-design re-check**: Pass, with KD-5 recorded by amendment. The design adds no violations. The math path is not a result of this feature, and it stays open until Phase 4 settles it. Research corrected the spec, and the changes are listed at the end of [research.md](research.md). None of them weakens a requirement.
 
@@ -126,7 +126,7 @@ MIGRATION_PLAYBOOK.md                      # Corrections, and a Phase 4 step
 
 1. Build MSVC Debug x64 fresh on `8fd49ba59`. Nothing has shown that it compiles today (R14). If it fails, FR-033 doesn't bind it, and the evidence says so.
 2. Build the before state fresh, with `build_fresh.sh` in WSL, and in a clean MSVC clone.
-3. Run `--collect` on the MSVC build. The WSL collection comes from the timing runs in step 5.
+3. Run `--collect` on the MSVC build. The WSL collections come from step 5's output work.
 
 ### 2. Flags
 
@@ -157,14 +157,14 @@ Run every local seed in [flag-check.md](contracts/flag-check.md) with the commit
 
 1. **Self-Parity**: Three full passes on a fresh build of the final commit (SC-005). A failure goes to FR-018.
 2. **Output**: `--collect` on both builds, `--compare`, then the scratch comparison and `output-record.tsv` (R10).
-3. **Guards**: One throwaway patch counts each site, and `--compare` shows it changes nothing. A second turns the guards off, and `--compare` shows exactly what they change (R11).
+3. **Guards**: One throwaway patch counts each site, and `--compare` shows it changes nothing. A second turns the guards off: `--compare` shows exactly what they change, and its collection shows where (R11).
 4. **Contraction**: A throwaway patch removes `-ffp-contract=off`, and `--compare` shows the option changes nothing on the gated build (R19).
 5. **Review**: A person reviews the 26 scenes and 20 formulas, and the evidence names each visible change's cause (R12).
 6. **Time**: The timed `--collect` in both orders, then on one CPU, then on the host-tuned build, with nothing else from this feature running (R9).
 7. **Other builds**: Each row of R14, and `--test` on qmake and MSVC.
 8. **MSVC**: The final commit's MSVC collection against the before one finds all 487 identical, and `--cross-check` against the qmake collection gives SC-009's line (R13).
 
-If anything in this step fails, the cause joins this work (FR-018), the final commit moves, and the checks from that commit repeat. A visible change from a guard isn't a failure, once its cause is recorded (FR-023).
+If anything in this step fails, the cause joins this work (FR-018), the final commit moves, and the checks from that commit repeat. A visible change from a guard or from strict arithmetic isn't a failure, once its cause is recorded (FR-023).
 
 ### 6. Closing
 
