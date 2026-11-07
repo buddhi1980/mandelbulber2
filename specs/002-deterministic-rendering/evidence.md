@@ -316,6 +316,23 @@ Each region is one a gated render can reach. The proof for each comes from commi
 
 The last frame of a `--nogui --keyframe` render can go missing or be cut off. `animation_keyframes.cpp` saves each frame on a background thread, and nothing waits for that thread before the program exits. In 3 two-frame renders on each of `8bcf4460a` and `ec238daf1`, with all CPUs busy, the second frame was never whole, and one run on `8bcf4460a` aborted with status 134. This feature doesn't change that code, so the problem stays, and T081 renders one extra frame.
 
+## Measurements
+
+### Noise
+
+Noise is the average absolute difference between the `final_image` buffers of two renders, whose samples run from 0 to 65,535. Before is two runs of `8bcf4460a` with no thread option. After is seeds 1 and 2 of `ec238daf1` at all 32 threads.
+
+| Scene | Before | After | Change |
+|---|---|---|---|
+| `chromatic_aberration` | 6,655.03 | 6,672.14 | +0.26% |
+| `difs_tree` | 3,174.00 | 3,206.58 | +1.03% |
+| `hex grid 001` | 4,981.08 | 4,952.81 | -0.57% |
+| `mandelnest pow 5` | 7,658.83 | 7,640.35 | -0.24% |
+| `monte carlo DOF 001` | 11,036.81 | 11,015.29 | -0.19% |
+| `riemann_sphere_msltoe_001` | 1,660.04 | 1,665.99 | +0.36% |
+
+The noise image of each scene follows the scene's own shapes, and shows no lines, grids, or repeated shapes that the scene doesn't have. The honeycomb in `hex grid 001` and the rows of bumps in `riemann_sphere_msltoe_001` are in the scene itself.
+
 ## Success criteria
 
 | Criterion | Result | Commit | Not covered |
@@ -330,3 +347,4 @@ The last frame of a `--nogui --keyframe` render can go missing or be cut off. `a
 | SC-011 | `tests/test_regression_runner.py` passed all 224 tests in WSL and on Windows. They include a one-bit difference seeded in every buffer, and `test_thread_control_is_enabled` shows thread coverage no longer stops `--capture`. | `ec238daf1` | None |
 | SC-012 | `--test` passed all 9 test functions on a fresh qmake build in 191 seconds and on a fresh MSVC build in 318 seconds. They include `testPositionRandom`, whose fixed known answers hold on both. The local cross-check passed too. | `ec238daf1` | Cross-Build Check on GitHub, in T091 |
 | SC-013 | `--self-parity` on a fresh MSVC build reported 487 exact matches and 0 differences, at 1 thread and at all 32, in 701 seconds. It exits 3, because the harness can't call a Windows run a pass: the application ignores a redirected home folder there. | `ec238daf1` | None |
+| SC-010 | Noise rose by at most 1.03%, on `difs_tree`, and fell by at most 0.57%, so no drop needs explaining. The before, after, and noise images show no new lines, grids, or repeated shapes. | `ec238daf1` | A person's review of the images, which were shown to the user on 2026-11-07 |
