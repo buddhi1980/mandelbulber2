@@ -51,7 +51,7 @@ sRGBAFloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 	if (params->DOFMonteCarlo)
 	{
-		int randomSample = Random(AOVectorsCount - 1);
+		int randomSample = random.Random(AOVectorsCount - 1);
 		start = randomSample;
 		end = randomSample;
 	}
@@ -72,7 +72,7 @@ sRGBAFloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point2, input.distThresh, false);
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
-			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+			statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			float dist_thresh;
 			if (params->iterFogEnabled) // there was  || params->volumetricLightEnabled[0]

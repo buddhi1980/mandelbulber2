@@ -397,6 +397,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 						objectId = node.internalObjectId;
 						sequenceIndex = seqIndex;
 						leafIters = nodeOut.iters;
+						out->totalIters += nodeOut.totalIters;
 					}
 					else
 					{
@@ -473,6 +474,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 					sequenceIndex = seqIndex;
 					objectId = seq->internalObjectId;
 					leafIters = nodeOut.iters;
+					out->totalIters += nodeOut.totalIters;
 					if (objectId >= 0)
 					{
 						double reduceDisplacement = 1.0;

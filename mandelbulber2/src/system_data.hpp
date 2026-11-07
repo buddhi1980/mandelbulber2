@@ -75,6 +75,7 @@ struct sSystem
 	}
 	void SetLogfileName(QString logfileNameInput) { logfileName = std::move(logfileNameInput); }
 	QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
+	int GetOpenMpThreads() const;
 
 	int getPreferredCustomFormulaFontSize() const { return preferredCustomFormulaFontSize; }
 	void setPreferredCustomFormulaFontSize(int _preferredCustomFormulaFontSize)
@@ -89,6 +90,7 @@ struct sSystem
 	QString lastGradientFile;
 	QHash<QString, QString> supportedLanguages;
 	int numberOfThreads;
+	int threadsFromCommandLine = 0;
 	bool noGui;
 	bool silent;
 	QString decimalPoint;

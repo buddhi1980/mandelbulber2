@@ -63,7 +63,7 @@ sRGBAFloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVect
 
 	if (roughness > 0.0f)
 	{
-		shade2 *= (1.0 + Random(1000) / 1000.0f * roughness);
+		shade2 *= (1.0 + random.Random(1000) / 1000.0f * roughness);
 	}
 	if (shade2 > 15.0f) shade2 = 15.0f;
 	specular.R = shade2 * input.material->specularColor.R * (input.texDiffuse.R * 0.5f + 0.5f);

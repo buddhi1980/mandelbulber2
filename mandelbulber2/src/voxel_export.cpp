@@ -54,6 +54,7 @@
 #include "opencl_global.h"
 #include "progress_text.hpp"
 #include "render_data.hpp"
+#include "system_data.hpp"
 #include "write_log.hpp"
 
 // needed for per-thread traversal stack buffer indexing in the
@@ -225,7 +226,7 @@ void cVoxelExport::ProcessVolume()
 			// before the OpenMP-parallel voxelizing loop so that no dynamic
 			// allocation happens inside CalculateDistance.
 #ifdef _OPENMP
-			const int nThreads = omp_get_max_threads();
+			const int nThreads = systemData.GetOpenMpThreads();
 #else
 			const int nThreads = 1;
 #endif
@@ -236,8 +237,8 @@ void cVoxelExport::ProcessVolume()
 				stack.resize(depth);
 			}
 
-#pragma omp parallel for schedule( \
-		dynamic, 1) // long long is used because size_t doesn't work with msvc and OpenMP
+			// long long is used because size_t doesn't work with msvc and OpenMP
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 			for (long long x = 0; x < w; x++)
 			{
 				CVector3 point;

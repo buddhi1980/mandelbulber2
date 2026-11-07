@@ -52,26 +52,26 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 		CVector3 deltaX(delta, 0.0, 0.0);
 		sDistanceIn distanceIn1(input.point + deltaX, input.distThresh, true);
 		sx1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn2(input.point - deltaX, input.distThresh, true);
 		sx2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaY(0.0, delta, 0.0);
 		sDistanceIn distanceIn3(input.point + deltaY, input.distThresh, true);
 		sy1 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn4(input.point - deltaY, input.distThresh, true);
 		sy2 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaZ(0.0, 0.0, delta);
 		sDistanceIn distanceIn5(input.point + deltaZ, input.distThresh, true);
 		sz1 = CalculateDistance(*params, *fractal, distanceIn5, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 		sDistanceIn distanceIn6(input.point - deltaZ, input.distThresh, true);
 		sz2 = CalculateDistance(*params, *fractal, distanceIn6, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		normal.x = sx1 - sx2;
 		normal.y = sy1 - sy2;
@@ -101,7 +101,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 					Compute<fractal::calcModeNormal>(
 						data->hybridFractalSequences.GetSequence(input.seqIndex), fractIn, &fractOut);
 					double pseudoDistance = 1 + params->N - fractOut.iters;
-					data->statistics.totalNumberOfIterations += fractOut.iters;
+					statistics.totalNumberOfIterations += fractOut.iters;
 					normal += point2 * pseudoDistance;
 				}
 			}

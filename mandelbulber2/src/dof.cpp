@@ -48,7 +48,8 @@ using std::min;
 cPostRenderingDOF::cPostRenderingDOF(std::shared_ptr<cImage> _image) : QObject(), image(_image) {}
 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
-	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest)
+	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest,
+	cPositionRandom random)
 {
 	quint64 imageWidth = image->GetWidth();
 	quint64 imageHeight = image->GetHeight();
@@ -98,7 +99,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		{
 			if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 
 			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
@@ -225,6 +226,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			for (qint64 i = qint64(sortBufferSize) - 1; i >= 0; i--)
 			{
+				random.SetPosition(pass, int(i), 0);
 				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 				sSortZ<float> temp;
 				temp = temp_sort[i];
@@ -237,7 +239,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 				qint64 ii;
 				do
 				{
-					ii = i - Random(int(randomStep));
+					ii = i - random.Random(int(randomStep));
 					if (ii <= 0) ii = 0;
 					sSortZ<float> temp2 = temp_sort[ii];
 					float z2 = temp2.z;
@@ -257,7 +259,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 						int intDiff = int((1.0f - sizeCompare) * 500);
 						intDiff *= intDiff;
-						if (intDiff < Random(10000))
+						if (intDiff < random.Random(10000))
 						{
 							done = true;
 						}
@@ -281,7 +283,6 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 			for (int i = 0; i < screenRegion.width; i++)
 			{
 				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
-#pragma omp parallel for schedule(dynamic, 1)
 				for (int j = 0; j < screenRegion.height; j++)
 				{
 					quint64 index = quint64(i) * quint64(screenRegion.height) + quint64(j);

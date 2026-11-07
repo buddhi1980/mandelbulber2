@@ -45,6 +45,7 @@
 #include "parameters.hpp"
 #include "progress_text.hpp"
 #include "render_data.hpp"
+#include "system_data.hpp"
 #include "write_log.hpp"
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
@@ -120,7 +121,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		dof.Render(screenRegion,
 			paramRender->DOFRadius * (screenRegion.width + screenRegion.height) / 2000.0,
 			paramRender->DOFFocus, paramRender->DOFNumberOfPasses, paramRender->DOFBlurOpacity,
-			paramRender->DOFMaxRadius, stopRequest);
+			paramRender->DOFMaxRadius, stopRequest,
+			cPositionRandom(
+				paramRender->renderRandomSeed, paramRender->frameNo, 0, cPositionRandom::stageDOF));
 
 		// refresh image at end
 		WriteLog("image->CompileImage()", 2);
@@ -174,9 +177,13 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
 // Randomize Z-buffer
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{
+			cPositionRandom random(
+				paramRender->renderRandomSeed, paramRender->frameNo, 0, cPositionRandom::stageDOF);
+			random.SetPosition(pass, int(i), 0);
+
 			cPostRenderingDOF::sSortZ<float> temp;
 			temp = tempSort[i];
 			float z1 = temp.z;
@@ -188,7 +195,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			qint64 ii;
 			do
 			{
-				ii = i - Random(randomStep);
+				ii = i - random.Random(randomStep);
 				if (ii <= 0) ii = 0;
 				cPostRenderingDOF::sSortZ<float> temp2 = tempSort[ii];
 				float z2 = temp2.z;
@@ -208,7 +215,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 					int intDiff = int((1.0f - sizeCompare) * 500);
 					intDiff *= intDiff;
-					if (intDiff < Random(10000))
+					if (intDiff < random.Random(10000))
 					{
 						done = true;
 					}

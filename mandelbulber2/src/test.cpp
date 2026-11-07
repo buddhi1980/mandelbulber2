@@ -48,6 +48,7 @@
 #include "netrender.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
+#include "position_random.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
@@ -252,6 +253,49 @@ void Test::renderExamples() const
 			testPar->PrintListOfParameters();
 		}
 	}
+}
+
+// Known answers from specs/002-deterministic-rendering/contracts/random-values.md. A difference
+// between builds never starts in the random values, because each build must give these.
+void Test::testPositionRandom() const
+{
+	if (IsBenchmarking()) return; // the answers do not depend on the computer
+
+	struct sKnownAnswer
+	{
+		int stage, seed, frame, eye, a, b, c;
+		int draws[4];
+	};
+	const sKnownAnswer answers[] = {
+		{1, 1, 0, 0, 0, 0, 0, {390, 845, 14177, 1529457532}},
+		{1, 1, 0, 0, 1, 0, 0, {339, 248, 50895, 334660501}},
+		{1, 1, 0, 0, 0, 1, 0, {352, 735, 26035, 1005037598}},
+		{1, 1, 0, 0, 0, 0, 1, {620, 118, 33057, 1233439096}},
+		{1, 2, 0, 0, 0, 0, 0, {774, 588, 16964, 183562170}},
+		{1, 1, 1, 0, 0, 0, 0, {307, 134, 6, 679786783}},
+		{1, 1, 0, 2, 0, 0, 0, {98, 450, 20952, 965693168}},
+		{2, 1, 0, 0, 0, 0, 0, {6, 204, 55716, 330138314}},
+		{3, 1, 0, 0, 0, 0, 0, {647, 39, 35239, 1092441823}},
+	};
+	const int maxValues[4] = {1000, 1000, 65536, 2147483646};
+
+	for (const sKnownAnswer &answer : answers)
+	{
+		cPositionRandom random(answer.seed, answer.frame, answer.eye, answer.stage);
+		random.SetPosition(answer.a, answer.b, answer.c);
+		for (int i = 0; i < 4; i++)
+		{
+			QCOMPARE(random.Random(maxValues[i]), answer.draws[i]);
+		}
+	}
+
+	// setting a position again restarts its sequence
+	cPositionRandom random(1, 0, 0, cPositionRandom::stageRender);
+	random.SetPosition(0, 0, 0);
+	const int first = random.Random(1000);
+	random.Random(1000);
+	random.SetPosition(0, 0, 0);
+	QCOMPARE(random.Random(1000), first);
 }
 
 void Test::netrender()

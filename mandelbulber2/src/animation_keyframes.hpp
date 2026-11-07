@@ -45,6 +45,7 @@
 
 #include <memory>
 
+#include <QPointer>
 #include <QThread>
 
 #include "error_message.hpp"
@@ -183,6 +184,7 @@ private:
 	double GetCameraSpeed(const cAnimationFrames::sAnimationFrame &frame,
 		const cAnimationFrames::sAnimationFrame &previousFrame);
 	void updateFrameIndexLabel(int frameIndex);
+	void WaitForFrameSaving();
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
@@ -206,6 +208,7 @@ private:
 	const int minFramesForNetRender = 10;
 	bool animationStopRequest = false;
 	bool animationIsRendered = false;
+	QList<QPointer<QThread>> frameSavingThreads; // frames still being written to disk
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

@@ -60,6 +60,7 @@
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
+#include "position_random.hpp"
 #include "post_effect_hdr_blur.h"
 #include "queue.hpp"
 #include "random.hpp"
@@ -1081,12 +1082,15 @@ void cInterface::ResetView(QWidget *navigationWidget,
 	}
 #endif
 
+	cPositionRandom random(1, 0, 0, cPositionRandom::stageOutsideRender);
+	random.SetPosition(0, 0, 0);
+
 	for (int i = 0; i < 100; i++)
 	{
 		cProgressText::ProgressStatusText(QObject::tr("Resetting view"),
 			QObject::tr("Fractal size calculation"), i / 50.0, cProgressText::progress_IMAGE);
 		CVector3 direction(
-			Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0);
+			random.Random(1000) / 500.0 - 1.0, random.Random(1000) / 500.0 - 1.0, random.Random(1000) / 500.0 - 1.0);
 		direction.Normalize();
 		double distStep;
 		double scan;

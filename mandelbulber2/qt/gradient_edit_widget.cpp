@@ -612,9 +612,12 @@ void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 
 void cGradientEditWidget::pressedButtonRandomColors()
 {
+	cRandom random;
+	random.Initialize(QTime::currentTime().msec());
+
 	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
 	{
-		sRGB color(Random(255), Random(255), Random(255));
+		sRGB color(random.Random(255), random.Random(255), random.Random(255));
 		gradient.ModifyColor(i, color);
 		if (i == 1) gradient.ModifyColor(0, color);
 	}
@@ -631,7 +634,7 @@ void cGradientEditWidget::pressedButtonRandomColorsAndPositions()
 	for (int i = 0; i < numberOfColors; i++)
 	{
 		sRGB color(random.Random(255), random.Random(255), random.Random(255));
-		float position = Random(10000) / 10000.0f;
+		float position = random.Random(10000) / 10000.0f;
 		if (i == 0)
 		{
 			gradient.AddColor(color, 0.0f);

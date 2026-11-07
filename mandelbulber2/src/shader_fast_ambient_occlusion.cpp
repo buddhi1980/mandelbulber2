@@ -56,7 +56,7 @@ sRGBAFloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) co
 			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 		if (dist > lastDist * 2) dist = lastDist * 2.0;
 		lastDist = dist;
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 		aoTemp +=
 			1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
 	}

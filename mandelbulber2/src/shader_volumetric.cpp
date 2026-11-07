@@ -144,7 +144,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 			step = (min(distance, lastCloudDistance) - 0.5 * input2.distThresh) * params->DEFactor
 						 * params->volumetricLightDEFactor;
 
-			step *= (1.0 - Random(1000) / 10000.0);
+			step *= (1.0 - random.Random(1000) / 10000.0);
 
 			if (params->advancedQuality)
 			{
@@ -407,7 +407,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 					{
 						double distanceLight = 0.0;
 						CVector3 lightVectorTemp = light->CalculateLightVector(
-							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight, &random);
 
 						float lightIntensity;
 						if (light->type == cLight::lightDirectional)
@@ -589,7 +589,7 @@ sRGBAFloat cRenderWorker::VolumetricShader(
 					double lastMiniSteps = -1.0;
 					double miniStep;
 
-					CVector3 lightPosition = light->CalculateBeam(light->position, light->target);
+					CVector3 lightPosition = light->CalculateBeam(light->position, light->target, &random);
 
 					for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 					{

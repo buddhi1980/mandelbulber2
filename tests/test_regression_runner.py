@@ -699,7 +699,8 @@ class ThreadCoverageTests(ModeTestCase):
     """T036: a run without a thread control cannot pass."""
 
     def test_identical_output_exits_three(self):
-        code, output = self.run_main("--self-parity")
+        with mock.patch.object(regression_runner, "THREAD_OPTION", None):
+            code, output = self.run_main("--self-parity")
         self.assertEqual(code, regression_runner.EXIT_SETUP, output)
         self.assertIn("thread coverage is incomplete", output)
         self.assertIn("[+] scene alpha: exact match", output)
@@ -707,7 +708,8 @@ class ThreadCoverageTests(ModeTestCase):
 
     def test_differing_output_exits_one_and_reports_both(self):
         self.set_mode("unstable")
-        code, output = self.run_main("--self-parity")
+        with mock.patch.object(regression_runner, "THREAD_OPTION", None):
+            code, output = self.run_main("--self-parity")
         self.assertEqual(code, regression_runner.EXIT_PARITY, output)
         self.assertIn("thread coverage is incomplete", output)
         self.assertIn("samples differ", output)
@@ -746,9 +748,13 @@ class ThreadCoverageTests(ModeTestCase):
         self.assertTrue(complete)
 
     def test_thread_settings_without_a_control(self):
-        settings, complete = regression_runner.thread_settings()
+        with mock.patch.object(regression_runner, "THREAD_OPTION", None):
+            settings, complete = regression_runner.thread_settings()
         self.assertEqual(settings, [()])
         self.assertFalse(complete)
+
+    def test_thread_control_is_enabled(self):
+        self.assertEqual(regression_runner.THREAD_OPTION, "--threads")
 
 
 class NeutralRenderTests(ModeTestCase):
@@ -853,7 +859,8 @@ class StatisticsComparisonTests(ModeTestCase):
     def test_console_shows_five_and_counts_the_rest(self):
         names = [f"step_histogram.{bucket}" for bucket in range(8)]
         self.set_mode("only:alpha:unstable-stat:" + ",".join(names))
-        code, output = self.run_main("--self-parity")
+        with mock.patch.object(regression_runner, "THREAD_OPTION", None):
+            code, output = self.run_main("--self-parity")
         self.assertEqual(code, regression_runner.EXIT_PARITY, output)
         lines = [line for line in output.splitlines() if "alpha statistics" in line and "run 2 " in line]
         self.assertEqual(len(lines), 6, output)

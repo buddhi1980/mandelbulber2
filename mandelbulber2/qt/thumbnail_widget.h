@@ -47,6 +47,8 @@
 #include <QElapsedTimer>
 #include <QWidget>
 
+#include "src/position_random.hpp"
+
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
@@ -93,6 +95,7 @@ public slots:
 	void slotRender();
 
 private:
+	cPositionRandom timerRandom;
 	std::shared_ptr<cImage> image;
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractal;

@@ -104,7 +104,7 @@ MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsCo
 	// runs inside the parallel voxel sampling loop - never allocates memory.
 	{
 #ifdef _OPENMP
-		const int nThreads = omp_get_max_threads();
+		const int nThreads = systemData.GetOpenMpThreads();
 #else
 		const int nThreads = 1;
 #endif
@@ -264,7 +264,7 @@ void MarchingCubes::calculateVoxelPlane(int i)
 #pragma offload target(mic) inout(voxelBuffer) inout(colorBuffer) nocopy(f)
 #endif // USE_OFFLOAD
 
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 			for (long long kk = 0; kk < numzb;
 				++kk) // long long is used because size_t doesn't work with msvc and OpenMP
 			{

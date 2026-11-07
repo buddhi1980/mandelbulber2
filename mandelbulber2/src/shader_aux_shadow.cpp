@@ -78,10 +78,10 @@ sRGBAFloat cRenderWorker::AuxShadow(
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
 	{
 		CVector3 randomVector;
-		randomVector.x = Random(10000) / 5000.0 - 1.0;
-		randomVector.y = Random(10000) / 5000.0 - 1.0;
-		randomVector.z = Random(10000) / 5000.0 - 1.0;
-		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
+		randomVector.x = random.Random(10000) / 5000.0 - 1.0;
+		randomVector.y = random.Random(10000) / 5000.0 - 1.0;
+		randomVector.z = random.Random(10000) / 5000.0 - 1.0;
+		double randomSphereRadius = pow(random.Random(10000) / 10000.0, 1.0 / 3.0);
 		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
 		lightVector += randomSphere;
 		lightVector.Normalize();
@@ -108,7 +108,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		sDistanceIn distanceIn(point2, input.distThresh, false);
 		double dist =
 			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		// Apply per-object detailLevelMultiplier to dist_thresh dynamically
 		if (distanceOut.detailLevelMultiplier > 0.0)
