@@ -229,7 +229,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **Closing KD-2 and KD-3**
 
-- **FR-028**: Closing KD-2 and KD-3 MUST mark them closed in the constitution, and the same amendment MUST record the CPU math path as a new Known Deviation, KD-5. Adding a deviation is more than a PATCH covers, so the amendment is MINOR, version 1.1.0, stating the reason, as Governance requires. This MUST come after `parity-gate` has passed and FR-015 is recorded. KD-4 and KD-5 stay open.
+- **FR-028**: Closing KD-2 and KD-3 MUST mark them closed in the constitution, and the same amendment MUST record the CPU math path as a new Known Deviation, KD-5, citing the evidence record. Adding a deviation is more than a PATCH covers, so the amendment is MINOR, version 1.1.0, stating the reason, as Governance requires. This MUST come after `parity-gate` has passed and FR-015 is recorded. KD-4 and KD-5 stay open.
 - **FR-029**: Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected. These include its reason for using the MSVC Release build, its flag check and `parity-gate` listings, which must match what is committed, and its statement that guards in `math_utilities.h` may take effect, because `CheckNAN` has no callers. The playbook MUST also gain a Phase 4 step that settles the math library's CPU-chosen code path before Baseline 1 is captured.
 
 **Boundaries**

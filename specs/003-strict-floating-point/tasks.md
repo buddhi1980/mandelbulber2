@@ -238,7 +238,7 @@ description: "Task list for strict floating-point builds"
 
 **Independent Test**: Read the constitution's table and the evidence it cites.
 
-- [ ] T056 [US8] Finish `specs/003-strict-floating-point/evidence.md`: complete the Success criteria table with one row per criterion, with anything not covered named plainly. Read it alone, and confirm every visible change has a cause (SC-006), and that no recorded time overlaps another render (SC-007)
+- [ ] T056 [US8] Finish `specs/003-strict-floating-point/evidence.md`: complete the Success criteria table with one row per criterion, with anything not covered named plainly. Add its CPU math path section: build and run the test program research R18 describes, on this computer, and record each function's result, because KD-5 cites it (FR-028). Read the record alone, and confirm every visible change has a cause (SC-006), and that no recorded time overlaps another render (SC-007)
 - [ ] T057 [US8] In `.specify/memory/constitution.md`, end the "Closed when" cell of the KD-2 and KD-3 rows the way the KD-1 row ends: the bold words "Closed" and the closing date, then ", see", then `specs/003-strict-floating-point/evidence.md` in code format. Add the KD-5 row from research R18 to the same table. Set Version to 1.1.0 and Last Amended to the closing date, and leave Ratified alone. KD-4 and KD-5 stay open. This needs T051 and T052 first (FR-028, SC-012)
 - [ ] T058 [US8] In `MIGRATION_PLAYBOOK.md`, make the corrections in research R16 (FR-029, SC-012):
   - Line 87: change "Use Release, because Debug uses `/fp:fast` (KD-2)." to "Use Release, because that is the binary the harness finds."
@@ -303,7 +303,7 @@ description: "Task list for strict floating-point builds"
 | FR-025 | T039, T040 |
 | FR-026 | T053 |
 | FR-027 | T038, T040 |
-| FR-028 | T057 |
+| FR-028 | T056, T057 |
 | FR-029 | T058 |
 | FR-030 | T060 |
 | FR-031 | T060 |

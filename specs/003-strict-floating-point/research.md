@@ -164,9 +164,10 @@ MSVC Debug is the gap. AppVeyor lists Debug, but it is not among the checks on t
 - **Decision**: This feature's amendment adds this row to the Known Deviations table, and the version becomes 1.1.0:
 
 ```text
-| KD-5 | Renders depend on the CPU. glibc picks its math code path from the CPU's features at run time. On 2026-11-07, one binary gave different `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, and `pow` results with its FMA and AVX2 paths turned off. | glibc's math library | II | Playbook Phase 4 settles the path before Baseline 1 is captured, and records the result with the references |
+| KD-5 | Renders depend on the CPU. glibc picks its math code path from the CPU's features at run time. On 2026-11-07, one binary gave different `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, and `pow` results with its FMA and AVX2 paths turned off, see `specs/003-strict-floating-point/evidence.md`. | glibc's math library | II | Playbook Phase 4 settles the path before Baseline 1 is captured, and records the result with the references |
 ```
 
+- **Method**: A small C++ program, built with `-O2 -ffp-contract=off`, hashes the bits of each result of `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, `pow`, and `sqrt` over 4 million values. It runs once as it is, and once with `GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4,-AVX2_Usable,-FMA_Usable`, which turns off glibc's FMA and AVX2 paths. A function whose hash differs depends on the CPU. `sqrt` is the control, because the processor computes it directly. T056 runs it again and records the result in the evidence, because the planning run lived in a scratch folder.
 - **Rationale**: Principle II leaves the CPU out of what a render may depend on, and Governance permits non-compliance only as a Known Deviation. The clarification keeps the work itself in Phase 4, and this only records it.
 - **Version**: PATCH covers clarifications, wording fixes, and closing a Known Deviation, not adding one. MINOR covers materially expanded guidance, which a new recorded exception is. One amendment closes two deviations and adds one, so it takes the higher of the two.
 - **Alternatives considered**:

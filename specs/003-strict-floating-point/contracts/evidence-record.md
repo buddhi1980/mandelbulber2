@@ -150,6 +150,17 @@ One row per build in [research.md](../research.md) R14.
 | MSVC before against MSVC after | 487 of 487 items identical, from the scratch script, because `--cross-check` refuses two commits |
 | qmake after against MSVC after | The `identical` line of `--cross-check` (SC-009) |
 
+## CPU math path
+
+The record behind KD-5. [research.md](../research.md) R18 describes the test program and how it runs.
+
+| Function | Same or different with glibc's FMA and AVX2 paths turned off |
+|---|---|
+| `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, `pow` | One row each |
+| `sqrt` | The control, expected to be the same |
+
+A note gives the CPU, the glibc version, and the date.
+
 ## Success criteria
 
 One row per success criterion, filled in when its check runs.
