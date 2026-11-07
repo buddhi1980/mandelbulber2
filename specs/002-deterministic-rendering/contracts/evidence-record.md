@@ -81,7 +81,7 @@ One entry per OpenMP region a gated render can reach (FR-021, SC-008). A note re
 | Writes | What it writes, and whether two threads can reach the same place |
 | Verdict | Depends on order, or does not |
 | Scene | The suite scene that reaches it |
-| Proof | The Self-Parity result for that scene once random values are fixed |
+| Proof | The comparison of every buffer for that scene, at one thread and at all threads, once random values are fixed |
 | Result | Stays parallel, or moves to one thread |
 
 ## Other dependence

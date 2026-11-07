@@ -36,7 +36,7 @@ What identifies one random value. [random-values.md](contracts/random-values.md)
 
 | Part | Source | Meaning |
 |---|---|---|
-| Stage | The caller | Render workers, screen-space ambient occlusion, or depth of field |
+| Stage | The caller | Render workers, screen-space ambient occlusion, depth of field, or outside a render |
 | Seed | `renderRandomSeed` | The Render Seed |
 | Frame | `sParamRender::frameNo` | The animation frame, or 0 for a still render |
 | Eye | `cStereo::GetForcedEye()` | Which pass of a two-pass stereo render, or 0 for any other render |
@@ -64,10 +64,12 @@ A new class in `mandelbulber2/src/position_random.hpp`. It is header-only, becau
 
 | Owner | Lifetime | Thread |
 |---|---|---|
-| `cRenderWorker` | One worker | Its own thread only. The member is `mutable`, like `objectStack`, because most shaders are `const`. `doWork` gives it its key, because `cRenderWorker` is also built for OpenCL with no parameters. |
+| `cRenderWorker` | One worker | Its own thread only. The member is `mutable`, like `objectStack`, because most shaders are `const`. `doWork` gives it its key, because the OpenCL path also builds a `cRenderWorker` and never renders with it. |
 | `cSSAOWorker::doWork` | One worker | Its own thread only |
 | `cPostRenderingDOF::Render` | One call | The calling thread, because the shuffle is sequential |
 | `cOpenClEngineRenderDOF` shuffle loop | One loop entry | One OpenMP thread |
+| `cInterface::ResetView` | One call | The calling thread |
+| `cThumbnailWidget` | One widget | The GUI thread |
 
 No instance is shared between threads.
 
@@ -111,7 +113,7 @@ No instance is shared between threads.
 
 **Rules**
 
-- A worker resizes its histograms to match the shared ones when `doWork` starts. `cRenderWorker` is also built for OpenCL with no thread data, so the constructor can't do it.
+- A worker resizes its histograms to match the shared ones when `doWork` starts, because the OpenCL path also builds a `cRenderWorker` and never renders with it.
 - When a line finishes, the worker adds its values to the shared object under the mutex, then clears them. This is what keeps the GUI's dock and `--stats` updating (FR-029).
 - When a worker gives up on a line, it clears its values without adding them (FR-025).
 - `cRenderer` copies the shared object under the mutex before it emits `updateStatistics`.

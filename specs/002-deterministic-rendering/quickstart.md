@@ -64,6 +64,8 @@ VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
 
 Each animation run gets a new output folder, because a rerun into the same folder stops to ask about deleting frames. The path ends in `/`, because the application joins the frame's file name straight onto it. Neither queue scene has an OpenMP stage, so `limit_CPU_cores` governs all of their work.
 
+The queue never exits, because it waits for more work after its last item, so `/usr/bin/time` can't measure it. Run it through a scratch script that gives it a new temporary `HOME`, samples its CPU time from `/proc/<pid>/stat` once a second, and stops it when `Queue is empty` appears in its output. At `--threads 1`, no sample is above 1.1 CPUs (SC-005).
+
 Set `QTEST_FUNCTION_TIMEOUT=1800000` for the test suite, as CI does. QtTest stops a function after 5 minutes by default, and one function renders all 791 examples.
 
 Check `OMP_NUM_THREADS` and a count above the CPU count:
@@ -100,7 +102,7 @@ Check each refusal (SC-006). Each command prints an error that names `--threads`
 
 Check network rendering by running a server and a client on one computer, with `--threads 2` on the client. The server's log shows 2 workers for that client.
 
-Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client keeps running after the job, so `/usr/bin/time` can't measure it. Sample its CPU time from `/proc/<pid>/stat` once a second while it renders. No sample is above 1.1 CPUs (SC-005).
+Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client never exits either, so sample it the same way as the queue, until the server exits. No sample is above 1.1 CPUs (SC-005). Start the client within 5 seconds of the server each time, because the server only waits that long for clients.
 
 ## 2. Evidence (User Story 2)
 

@@ -173,7 +173,7 @@ MIGRATION_PLAYBOOK.md               # Statements this feature makes out of date
 
 ### 4. Order-dependent stages
 
-Remove the `pragma` on depth of field phase II. Record each region's verdict in `evidence.md` once Self-Parity can prove it (FR-021).
+Remove the `pragma` on depth of field phase II. Record each region's verdict in `evidence.md` once every buffer reproduces at one thread and at all threads (FR-021).
 
 ### 5. Exact statistics
 
