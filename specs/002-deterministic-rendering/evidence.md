@@ -1,6 +1,6 @@
 # Evidence: Deterministic CPU Rendering
 
-This record says why CPU renders differed, and how each OpenMP region behaves. [contracts/evidence-record.md](contracts/evidence-record.md) defines it. Every number here comes from a fresh build of the commit named beside it.
+This record says why CPU renders differed, and how each OpenMP region behaves. [contracts/evidence-record.md](contracts/evidence-record.md) defines it. Every number here comes from a fresh build of the commit named beside it. Source lines are those of commit `0bd701a04`.
 
 ## Header
 
@@ -284,7 +284,7 @@ Each buffer count is the most samples that differed between the first render and
 | All threads share one random state. `RandomInt` reads and writes `gRandomSeed` at `common_math.cpp:47` with no lock, and every worker draws from it, including the raymarch step jitter at `render_worker.cpp:822` and `:826`. | All 13, at all threads | Every buffer except sometimes `alpha`: up to all 230,400 samples of `raw_render` | Every scene differs on the thread control build. With constant values, 10 of the 13 match in every buffer, and the other 3 differ only in the buffers the next cause explains. | FR-012 to FR-015 |
 | The depth of field blend runs in thread order. The parallel loop at `dof.cpp:284` blends overlapping discs into the shared image, and a blend gives a different result in a different order. | `IFS_002`, `amazing_surf 002`, `menger octo 001`, at all threads | `post_effect`, `final_image`, and `alpha` | These 3 scenes still differ with constant values, and no scene differs in any buffer once that `pragma` is removed. | FR-022 |
 | All threads update one statistics object with no synchronization, at `render_worker.cpp:803`, `:810`, `:918`, `:954`, and `:961` and in the shaders. Updates get lost. | All 13, at all threads | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | Statistics match at one thread, and still differ when no random value and no blend depends on thread order. At all threads the raymarch count falls below the exact one-thread count: `IFS_001` reads 76,609 to 76,651 against 76,800, and `beam_light` 61,888 to 62,220 against 76,800. | FR-024, FR-027 |
-| Two threads can render one line, because `cScheduler::InitFirstLine` claims a line with no lock and no check. | Not isolated by these runs | The statistics of that line count twice | These runs can't separate it from lost updates, which pull the counts the other way. A ThreadSanitizer run at 32x24 on 2026-11-07 reported races in `cImage::PutPixelImage`, which only happen when two threads write one pixel. The statistics work must prove it gone. | FR-025 |
+| Two threads can render one line, because `cScheduler::InitFirstLine` claims a line with no lock and no check. | All 461 formula items at 32x24, at all threads. Not isolated in the 13 scenes. | The line renders twice, and its statistics count twice | The 13 scenes can't separate it from lost updates, which pull the counts the other way. A formula item needs exactly 768 raymarches, and `8bcf4460a` counted more on 459 of 461 items, up to 1,001, and 391,578 against 354,048 in all. Only a line rendered twice can do that. A ThreadSanitizer run at 32x24 on 2026-11-07 reported races in `cImage::PutPixelImage`, which only happen when two threads write one pixel. `76316fd0f` counted exactly 768 on all 461. | FR-025 |
 | Total iterations stays at 0. `CalculateDistanceFromObjectsTree` passes a local `nodeOut` to `CalculateDistanceSimple` and copies only `nodeOut.iters`. | All 13, at both thread counts | `total_iterations` reads 0, so it hides any difference | The value is 0 in every render of every scene and build. | FR-026 |
 
 Every difference in Results traces to one of these causes. The limit box exit in the spec's Assumptions stays unmeasured, because no suite scene turns on `limits_enabled`.
@@ -299,7 +299,7 @@ Each region is one a gated render can reach. The proof for each comes from commi
 | `dof.cpp:284`, depth of field phase II | The post-effect image, which it changes | Neighboring pixels of the post-effect image and alpha, which two threads can reach at once | Depends on order | `IFS_002.fract` | It differed at all threads with constant values, and every buffer matched once the loop ran on one thread | Moves to one thread |
 | `post_effect_hdr_blur.cpp:78`, HDR blur | A snapshot of the post-effect image in `tempImage`, which does not change during the region | Its own pixel, which no other thread reaches | Does not depend on order | `tests/scenes/hdr_blur.fract` | Every buffer matched at 1 thread and at all threads | Stays parallel |
 
-`audio_track.cpp:302` is outside the gate, because it needs a scene with audio tracks, and no suite scene has them.
+`audio_track.cpp:303` is outside the gate, because it needs a scene with audio tracks, and no suite scene has them. A gated render can't reach the other three regions either: `voxel_export.cpp:241` and `marchingcubes.cpp:267` run only in voxel and mesh export, and `opencl_engine_render_dof.cpp:178` runs only on OpenCL.
 
 ## Other checks
 
@@ -341,6 +341,41 @@ Before changes from one pass to the next, because `8bcf4460a` doesn't reproduce.
 
 The noise image of each scene follows the scene's own shapes, and shows no lines, grids, or repeated shapes that the scene doesn't have. The honeycomb in `hex grid 001` and the rows of bumps in `riemann_sphere_msltoe_001` are in the scene itself. The after and noise images of `76316fd0f` are byte-identical to those of `ec238daf1`.
 
+### Time
+
+Times are in seconds, on the monotonic clock, on the computer above. Before is `8bcf4460a`, and after is `76316fd0f`. A process check every 5 or 10 seconds saw nothing else rendering during these runs, except where a paragraph says so. A first pass overlapped another render, so it was repeated and is not recorded.
+
+`--collect` rendered all 487 items at all 32 threads, each build from its own clone with the harness from its own commit.
+
+| Order | Before | After | Change |
+|---|---|---|---|
+| Before build first | 86.3 | 59.1 | -31.5% |
+| After build first | 105.5 | 71.4 | -32.3% |
+
+The depth of field stage on `IFS_002.fract` at 1920x1080 is the render's time minus the same render with `DOF_enabled=0`. Thread counts came from `OMP_NUM_THREADS` before and `--threads` after. `OMP_NUM_THREADS` doesn't limit the render workers of `8bcf4460a`, so its renders stay near 8 seconds, and only the stage compares between builds.
+
+| Threads | Before render | Before without depth of field | Before stage | After render | After without depth of field | After stage |
+|---|---|---|---|---|---|---|
+| 1 | 10.53 | 8.22 | 2.31 | 138.89 | 135.33 | 3.55 |
+| 4 | 9.01 | 8.23 | 0.78 | 37.44 | 35.85 | 1.59 |
+| 16 | 8.64 | 8.12 | 0.52 | 13.09 | 11.35 | 1.74 |
+| 32 | 32.28 | 8.18 | 24.10 | 15.89 | 7.47 | 8.42 |
+
+Three more stages at 32 threads took 26.46, 28.77, and 26.81 seconds before, and 8.55, 10.42, and 10.31 after. So the stage is faster at all 32 threads and slower at 4 and 16, as the spec expects. The 1-thread row after subtracts two renders of over 2 minutes, so it is the least exact. Nothing explains why 32 threads cost so much more than 16 in both builds.
+
+The cost of the one-thread blend grows with the image. At 3840x2160, one pass of each gave these stages. The render without depth of field took 52.60 seconds after at 16 threads, so the stage adds about 60% there.
+
+| Threads | Before stage | After stage |
+|---|---|---|
+| 16 | 2.31 | 31.72 |
+| 32 | 53.66 | 47.38 |
+
+`IFS_001.fract` at 240x135, on one CPU with `taskset -c 4`, took 9.42, 9.73, and 9.58 seconds before, and 10.00, 9.96, and 9.47 after, so one CPU shows no gain.
+
+The suite's gain is nearly all in the 26 scenes. Two more `--collect` runs of each build timed every render, with another job running for about 3 of their 5 minutes, so they show the split and not exact times. Scene renders took 62.6 and 63.6 seconds before, and 34.6 and 36.4 after. Formula renders took 18.3 and 17.0 before, and 15.8 and 16.7 after. `hybrid007`, `IFS_002`, `amazing_surf 002`, and `menger octo 001`, which use post-effect depth of field, each saved 2.6 to 3.1 seconds, about 40% of the scenes' gain. That is the 32-thread stage above. The rest isn't explained. This change didn't set out to make renders faster. Threads no longer writing to shared data is the likely reason, because one CPU shows no gain, but no run here proves it.
+
+The Collect step in Cross-Build Check is measured on the pull request, in T091.
+
 ## Success criteria
 
 | Criterion | Result | Commit | Not covered |
@@ -357,3 +392,7 @@ The noise image of each scene follows the scene's own shapes, and shows no lines
 | SC-013 | `--self-parity` on a fresh MSVC build reported 487 exact matches and 0 differences, at 1 thread and at all 32, in 664 seconds. It exits 3, because the harness can't call a Windows run a pass: the application ignores a redirected home folder there. | `76316fd0f` | None |
 | SC-010 | Noise changed by -0.52% to -0.01%, and by -0.57% to +1.03% in a first pass against other runs of `8bcf4460a`, so it stayed within 5%, and no drop needs explaining. The before, after, and noise images show no new lines, grids, or repeated shapes. | `76316fd0f` | A person's review of the images, which were shown to the user on 2026-11-07 |
 | SC-017 | In 20 two-frame headless keyframe renders on a quiet computer and 10 with every CPU busy, every run exited 0 with both frames whole. On `ec238daf1`, the second frame was never whole in the same 30 renders, and one run aborted. Frames 0 and 1 were byte-identical between the two builds. 5 renders on the MSVC build gave the same before and after. | `76316fd0f` | None |
+| SC-007 | Causes names 5 causes, and every difference in Results traces to one of them. A later check exposed one other dependence, recorded under Other dependence. | `0bd701a04` | The limit box exit in the spec's Assumptions, because no suite scene turns on `limits_enabled` |
+| SC-008 | All 3 audited regions have a verdict and a suite scene. `dof.cpp:101` and `post_effect_hdr_blur.cpp:78` don't depend on order and stay parallel. `dof.cpp:284` does, and moved to one thread. | `8ce2ec0b7` | The 4 regions a gated render can't reach, named under Order audit |
+| SC-014 | `--collect` took 86.3 seconds before and 59.1 after, and 105.5 and 71.4 in the other order. The depth of field stage at 1920x1080 took 2.31, 0.78, 0.52, and 24.10 seconds before at 1, 4, 16, and 32 threads, and 3.55, 1.59, 1.74, and 8.42 after. | `76316fd0f` | The Collect step on a 4-vCPU runner, in T091 |
+| SC-015 | A search of `mandelbulber2/src`, `mandelbulber2/qt`, and `mandelbulber2/formula` for `gRandomSeed` and `RandomInt` found nothing. | `76316fd0f` | None |
