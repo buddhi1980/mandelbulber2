@@ -74,9 +74,8 @@ Every decision here comes from reading the code and from small tests on 2026-11-
 
 - **Decision**: KD-1's method, from its scripts in `~/verify/kd1`, copied to `~/verify/kd2`.
   - `--collect` renders all 487 items, each build from its own clone, once with the before build first and once with the after build first.
-  - Times come from the monotonic clock, through `cpu_rate.py`.
-  - A second pass times each render, to report scenes and formulas apart.
-  - One CPU: the same `--collect` under `taskset -c 4`, once per build.
+  - A scratch script runs `--collect` through the harness and wraps `render_item`, so one run gives the whole time, and scenes and formulas apart, from the monotonic clock. KD-1 needed a second pass for that split.
+  - One CPU: the same run under `taskset -c 4`, once per build.
   - `-march=native`: a third clone of `8fd49ba59`, built by `CXXFLAGS=-march=native build_fresh.sh`, because qmake imports that variable.
 - **Quiet computer**: Wait until `pgrep -f FractalEvaluator` has been empty for a minute, sample it every 5 seconds during each run, and log it against the monotonic clock. Repeat any run that overlaps. On 2026-11-07 that job was running through this planning, with up to 29 processes, so timing must wait for it. It must never be stopped.
 - **Rationale**: Matching KD-1 keeps the numbers comparable. One CPU matters here because KD-1 found that all-thread times can move for reasons unrelated to arithmetic: `--collect` got 32% faster at all threads, while `IFS_001.fract` on one CPU showed no gain.
@@ -86,7 +85,7 @@ Every decision here comes from reading the code and from small tests on 2026-11-
 
 - **Decision**: Two tools.
   - `--compare <before binary>` meets FR-019 directly. It lists each item's differing buffers and statistics, and exits 1.
-  - A scratch script reads the collections from the timing runs, using the harness's own `read_collection`, `read_reference`, `compare_exports`, and `holds_one_value`. It writes the record, counts the identical items, reports any final image that holds a single value on one side only, adds the average absolute difference of `final_image`, and ranks the swept formulas to choose FR-021's 20.
+  - A scratch script reads the two builds' collections, using the harness's own `read_collection`, `read_reference`, `compare_exports`, and `holds_one_value`. It writes the record, counts the identical items, reports any final image that holds a single value on one side only, adds the average absolute difference of `final_image`, and ranks the swept formulas to choose FR-021's 20.
 - **Format**: One row per item in `specs/003-strict-floating-point/output-record.tsv`, with the summary in `evidence.md`. [evidence-record.md](contracts/evidence-record.md) defines both.
 - **Alternatives considered**:
   - `--cross-check` of the two collections: `check_collections_match` refuses collections from different commits, and FR-034 keeps the harness as it is.
@@ -131,9 +130,9 @@ MSVC Debug is the gap. AppVeyor lists Debug, but it is not among the checks on t
 
 ## R15. Commits, the pull request, and the final commit
 
-- **Decision**: One branch and one pull request into `ministic-regression`, in this order: build flags, setup scripts, the action and workflow, the evidence, then the closing work.
+- **Decision**: One branch and one pull request into `ministic-regression`, in this order: build flags, setup scripts, the action and workflow, the local checks, the pull request and GitHub Actions proof, then the closing work.
 - **Final commit**: "After" means the last commit that changes what compiles. CI files and documents can't change a binary, so they don't move it, and they don't repeat the final checks. A fix under FR-018 does move it.
-- **Rationale**: The flag changes are one commit so that no commit has a half-strict build. Constitution rule 1 asks that this lands as its own reviewed change, and nothing here is a refactor, so rule 4 doesn't split it.
+- **Rationale**: The flag changes are one commit so that no commit has a half-strict build. The local checks come before the first push, because a fix under FR-018 would otherwise repeat every CI run. The constitution amendment comes last, because it needs `parity-gate` to pass. Constitution rule 1 asks that this lands as its own reviewed change, and nothing here is a refactor, so rule 4 doesn't split it.
 
 ## R16. The closing edits
 

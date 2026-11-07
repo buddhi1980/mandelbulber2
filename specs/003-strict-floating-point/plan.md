@@ -13,9 +13,9 @@ Six steps, in order:
 1. **Before state**: Fresh before builds, their collections, and the first look at whether MSVC Debug compiles today.
 2. **Flags**: `-ffast-math` leaves qmake and CMake, a `gcc` scope adds `-ffp-contract=off`, MSVC Debug moves to `/fp:precise`, and the scripts lose `-march=native`.
 3. **The check**: A new `compile-engine` action and `parity-gate` workflow run one script that searches the build files, then reads the gated build's real flags.
-4. **Proof**: Seeded failures prove the check, locally and in GitHub Actions.
+4. **Local proof**: Seeded failures prove the check on this computer.
 5. **Measurement**: Self-Parity, the output record, the guard counts, the image review, the render times, and the other builds.
-6. **Closing**: The constitution moves to 1.0.2 with KD-2 and KD-3 closed, and the playbook is corrected, with a new Phase 4 step for the CPU math path.
+6. **Closing**: The pull request and seeded failures in GitHub Actions, then the constitution moves to 1.0.2 with KD-2 and KD-3 closed, and the playbook is corrected, with a new Phase 4 step for the CPU math path.
 
 Every item's pixels may change. The compiler stops reordering arithmetic and assuming finite values, four vector math functions give way to the ordinary math library, and NaN guards that are compiled away today start to act. No references exist yet, so this is not drift. Baseline 1 follows in playbook Phase 4.
 
@@ -146,21 +146,19 @@ After step 2, the final commit exists, unless FR-018 moves it.
 
 The repository's default workflow token is `write`, so that setting matters (R17).
 
-### 4. Proof
+### 4. Local proof
 
-1. Run every local seed in [flag-check.md](contracts/flag-check.md) with the committed script, and record them.
-2. With the user's go-ahead, push the branch and open the pull request. `parity-gate` passes (SC-001).
-3. With the user's go-ahead, run the two seeded GitHub Actions runs on a throwaway branch (R8), then close and delete it, and cancel the other runs it started.
+Run every local seed in [flag-check.md](contracts/flag-check.md) with the committed script, and record them.
 
 ### 5. Measurement
 
-[evidence-record.md](contracts/evidence-record.md) is the contract. Output work can run while FractalEvaluator runs. Timing can't.
+[evidence-record.md](contracts/evidence-record.md) is the contract. Output work can run while FractalEvaluator runs. Timing can't. All of this comes before the first push, because a fix would move the final commit and repeat every CI run.
 
 1. **Self-Parity**: Three full passes on a fresh build of the final commit (SC-005). A failure goes to FR-018.
-2. **Time**: `--collect` in both orders, then each render timed, then one CPU, then the host-tuned build (R9). These runs also give the collections.
-3. **Output**: `--compare`, then the scratch comparison, then `output-record.tsv` (R10).
-4. **Guards**: A throwaway patch counts each site, and `--compare` shows it changes nothing (R11).
-5. **Review**: A person reviews the 26 scenes and 20 formulas, and the evidence names each visible change's cause (R12).
+2. **Output**: `--collect` on both builds, `--compare`, then the scratch comparison and `output-record.tsv` (R10).
+3. **Guards**: A throwaway patch counts each site, and `--compare` shows it changes nothing (R11).
+4. **Review**: A person reviews the 26 scenes and 20 formulas, and the evidence names each visible change's cause (R12).
+5. **Time**: The timed `--collect` in both orders, then on one CPU, then on the host-tuned build (R9).
 6. **Other builds**: Each row of R14, and `--test` on qmake and MSVC.
 7. **MSVC**: The final commit's MSVC collection against the before one finds all 487 identical, and `--cross-check` against the qmake collection gives SC-009's line (R13).
 
@@ -168,10 +166,12 @@ If anything in this step fails, the cause joins this work (FR-018), the final co
 
 ### 6. Closing
 
-1. State the expected effect on output in the pull request, then what was measured (FR-022).
-2. Read the Collect step on the pull request (SC-008), and confirm Cross-Build Check and CircleCI pass (SC-009, SC-010).
-3. Mark KD-2 and KD-3 closed in the constitution, at version 1.0.2 (FR-028). This comes after `parity-gate` passes and the seeds are recorded.
-4. Correct the playbook, as R16 lists, including the new Phase 4 step (FR-029).
+1. With the user's go-ahead, push the branch and open a draft pull request. It states the expected effect on output, then what was measured (FR-022). `parity-gate` passes (SC-001).
+2. With the user's go-ahead, run the two seeded GitHub Actions runs on a throwaway branch (R8), then close and delete it, and cancel the other runs it started.
+3. Read the Collect step on the pull request (SC-008), and confirm Cross-Build Check and CircleCI pass (SC-009, SC-010).
+4. Mark KD-2 and KD-3 closed in the constitution, at version 1.0.2 (FR-028). This comes after `parity-gate` passes and the seeds are recorded.
+5. Correct the playbook, as R16 lists, including the new Phase 4 step (FR-029).
+6. With the user's go-ahead, push the closing commit, and mark the pull request ready.
 
 **Commits**: One branch and one pull request into `ministic-regression`. CI files and documents can't change a binary, so they don't move the final commit.
 

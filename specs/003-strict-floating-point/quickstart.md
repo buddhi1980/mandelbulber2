@@ -109,7 +109,7 @@ It prints `passed`.
 
 Run every seed in [flag-check.md](contracts/flag-check.md) with the committed script (SC-002). `~/verify/kd2/seed_check.sh` copies the generated Makefile for each `flags` seed, runs `qmake6` in temporary folders for the environment seeds, and uses a throwaway clone for the `search` seeds. Each row matches its expected exit code and name.
 
-On the pull request, `parity-gate` passes (SC-001). Then prove it in GitHub Actions (SC-003), as [research.md](research.md) R8 describes. Pushing needs the user's go-ahead. After both seeded runs, close the draft pull request unmerged, delete the branch, and cancel any other runs it started. Confirm nothing reached `ministic-regression`:
+The local checks in sections 4 to 7 come before any push, because a fix would move the final commit and repeat CI. Then, on the pull request, `parity-gate` passes (SC-001). Prove it in GitHub Actions (SC-003), as [research.md](research.md) R8 describes. Pushing needs the user's go-ahead. After both seeded runs, close the draft pull request unmerged, delete the branch, and cancel any other runs it started. Confirm nothing reached `ministic-regression`:
 
 ```bash
 git log --oneline ministic-regression..origin/upgrade/strict-floating-point
@@ -135,7 +135,7 @@ It exits 0 and reports 487 items passed. Run it three times in a row (SC-005). A
 
 ## 5. What changed in the output (User Story 5)
 
-Collect each build from its own clone, with the harness from its own commit. The runs in section 6 give these collections, so this needs no extra renders:
+Collect each build from its own clone, with the harness from its own commit. This doesn't need a quiet computer, because only the timed runs in section 6 do:
 
 ```bash
 python3 tests/regression_runner.py --collect ~/verify/kd2/collect-after
@@ -171,13 +171,12 @@ Before timing, wait until `pgrep -f FractalEvaluator` has been empty for a minut
 
 | Run | Command, from each build's own clone |
 |---|---|
-| All threads, before build first | `--collect` on before, then on after |
-| All threads, after build first | `--collect` on after, then on before |
-| Each render timed | KD-1's `timing2.py`, on both builds, for scenes and formulas apart |
-| One CPU | `taskset -c 4 python3 tests/regression_runner.py --collect <dir>`, on both builds |
-| Host-tuned | `--collect` on `$NATIVE` at all threads |
+| All threads, before build first | `timed_collect.py <dir>` on before, then on after |
+| All threads, after build first | `timed_collect.py <dir>` on after, then on before |
+| One CPU | `taskset -c 4 python3 ~/verify/kd2/timed_collect.py <dir>`, on both builds |
+| Host-tuned | `timed_collect.py <dir>` on `$NATIVE` at all threads |
 
-Time each with `cpu_rate.py`, which reads the monotonic clock. The WSL wall clock steps back by about 0.85 seconds every 32 seconds. The evidence records every time (SC-007).
+`~/verify/kd2/timed_collect.py` runs the harness's `--collect`, wrapping `render_item` so one run gives the whole time, and scenes and formulas apart. It reads the monotonic clock, because the WSL wall clock steps back by about 0.85 seconds every 32 seconds. The evidence records every time (SC-007).
 
 On the pull request, read the Collect step of Cross-Build Check's `linux-qmake` job. It stays under 30 minutes (SC-008). It took 4.4 minutes on the last KD-1 pull request.
 
