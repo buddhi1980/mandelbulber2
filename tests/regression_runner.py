@@ -51,8 +51,8 @@ SELF_PARITY_RUNS = 3
 MAX_REFERENCE_BYTES = 100 * 1024 * 1024
 EXPORT_VERSION = 1
 
-# Playbook Phase 3 adds a working headless thread control and sets this to its option name.
-THREAD_OPTION = None
+# The application's option for the number of render threads.
+THREAD_OPTION = "--threads"
 
 # Variables a render may inherit. LD_LIBRARY_PATH stays out, because it can select another math library.
 ALLOWED_VARIABLES = ("PATH", "SYSTEMROOT", "TEMP", "TMP", "TMPDIR")

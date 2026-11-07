@@ -44,6 +44,10 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 QString sSystem::GetIniFile() const
 {
 	double version = MANDELBULBER_VERSION;
@@ -118,6 +122,18 @@ QString sSystem::GetImageFileNameSuggestion()
 bool sSystem::IsUpgraded() const
 {
 	return QFileInfo::exists(systemDirectories.dataDirectoryPublic + "settings");
+}
+
+// The number of threads for an OpenMP region. --threads sets it exactly. Without the option a
+// region keeps the OpenMP default, which limit_CPU_cores does not change.
+int sSystem::GetOpenMpThreads() const
+{
+	if (threadsFromCommandLine > 0) return threadsFromCommandLine;
+#ifdef _OPENMP
+	return omp_get_max_threads();
+#else
+	return 1;
+#endif
 }
 
 QThread::Priority sSystem::GetQThreadPriority(enumRenderingThreadPriority priority)

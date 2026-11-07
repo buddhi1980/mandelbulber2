@@ -51,6 +51,7 @@
 #include "audio_fft_data.h"
 #include "files.h"
 #include "netrender.hpp"
+#include "system_data.hpp"
 #include "write_log.hpp"
 
 // custom includes
@@ -299,7 +300,7 @@ void cAudioTrack::calculateFFT()
 
 		const int overSample = int(sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2);
 
-#pragma omp parallel for
+#pragma omp parallel for num_threads(systemData.GetOpenMpThreads())
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
 			cAudioFFTData fftFrame;

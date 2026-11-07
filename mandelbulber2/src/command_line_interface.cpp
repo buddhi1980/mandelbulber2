@@ -203,6 +203,11 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 		QStringList({"help-examples"}), QCoreApplication::translate("main", "Shows example commands."));
 	const QCommandLineOption helpOpenClOption(QStringList({"help-opencl"}),
 		QCoreApplication::translate("main", "Shows commands regarding OpenCL."));
+	const QCommandLineOption threadsOption(QStringList({"threads"}),
+		QCoreApplication::translate("main",
+			"Sets the number of threads for a headless CPU render. The default is every logical "
+			"CPU. Takes precedence over limit_CPU_cores and OMP_NUM_THREADS."),
+		QCoreApplication::translate("main", "N"));
 
 	parser.addPositionalArgument("settings_file",
 		QCoreApplication::translate("main",
@@ -241,6 +246,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(helpInputOption);
 	parser.addOption(helpExamplesOption);
 	parser.addOption(helpOpenClOption);
+	parser.addOption(threadsOption);
 
 	// Process the actual command line arguments given by the user
 	parser.process(*qApplication);
@@ -297,6 +303,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	if (cliData.test) cliData.nogui = true;
 	if (cliData.benchmark) cliData.nogui = true;
 	cliOperationalMode = modeBootOnly;
+
+	// checked here, before QApplication exists, so a refusal can never open a message box
+	if (parser.isSet(threadsOption)) handleThreads(parser.value(threadsOption));
 }
 
 cCommandLineInterface::~cCommandLineInterface() = default;
@@ -693,6 +702,7 @@ void cCommandLineInterface::runTestCasesAndExit()
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--test"));
 	arguments.removeOne(QString("-t"));
+	removeThreadsOption(arguments);
 
 	QStringList outputStrings({"-o", "--output", "--logfilepath"});
 	for (int i = 0; i < outputStrings.size(); i++)
@@ -720,6 +730,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--benchmark"));
 	arguments.removeOne(QString("-b"));
+	removeThreadsOption(arguments);
 	int difficulty = 10;
 	QString exampleOutputPath = "";
 
@@ -1232,6 +1243,58 @@ void cCommandLineInterface::handleVoxel()
 	cliOperationalMode = modeVoxel;
 	cliData.nogui = true;
 	systemData.noGui = true;
+}
+
+void cCommandLineInterface::handleThreads(const QString &threadsText)
+{
+	bool checkParse = false;
+	const int threads = threadsText.toInt(&checkParse);
+	if (!checkParse || threads < 1)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("--threads needs a whole number of at least 1"), cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorThreadsInvalid);
+	}
+
+	// OpenCL renders and options that render nothing have no CPU thread count to set
+	const bool cpuRender = !cliData.gpu && !cliData.gpuAll && !cliData.listParameters
+											 && !cliData.listFormulas && !cliData.touch && !cliData.showInputHelp
+											 && !cliData.showExampleHelp && !cliData.showOpenCLHelp;
+
+	// the same test as handleArgs: anything but one plain settings file is a queue
+	const bool oneFile = args.size() == 1 && QFileInfo(args[0]).suffix() != QString("fractlist")
+										 && !QDir(args[0]).exists();
+	const bool queueArguments = args.size() > 0 && !oneFile;
+
+	const bool headless = cliData.nogui || cliData.keyframe || cliData.flight || cliData.voxel
+										|| cliData.server || cliData.host != "" || queueArguments;
+
+	if (!cpuRender || !headless)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("--threads needs a headless CPU render"), cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorThreadsNotAllowed);
+	}
+
+	systemData.numberOfThreads = threads;
+	systemData.threadsFromCommandLine = threads;
+}
+
+// QTest stops on options it does not know, so --threads must not reach it
+void cCommandLineInterface::removeThreadsOption(QStringList &arguments)
+{
+	for (int i = arguments.size() - 1; i >= 0; i--)
+	{
+		if (arguments[i] == QString("--threads"))
+		{
+			arguments.removeAt(i);
+			if (i < arguments.size()) arguments.removeAt(i);
+		}
+		else if (arguments[i].startsWith(QString("--threads=")))
+		{
+			arguments.removeAt(i);
+		}
+	}
 }
 
 void cCommandLineInterface::handleGpu()

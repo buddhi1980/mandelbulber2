@@ -45,6 +45,7 @@
 #include "parameters.hpp"
 #include "progress_text.hpp"
 #include "render_data.hpp"
+#include "system_data.hpp"
 #include "write_log.hpp"
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
@@ -174,7 +175,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
 // Randomize Z-buffer
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{
 			cPostRenderingDOF::sSortZ<float> temp;

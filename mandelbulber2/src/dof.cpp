@@ -98,7 +98,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		{
 			if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 
 			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
@@ -281,7 +281,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 			for (int i = 0; i < screenRegion.width; i++)
 			{
 				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
-#pragma omp parallel for schedule(dynamic, 1)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(systemData.GetOpenMpThreads())
 				for (int j = 0; j < screenRegion.height; j++)
 				{
 					quint64 index = quint64(i) * quint64(screenRegion.height) + quint64(j);

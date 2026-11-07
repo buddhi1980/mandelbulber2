@@ -86,7 +86,10 @@ public:
 		cliErrorOpenClNoPlatform = -71,
 		cliErrorOpenClNoDevice = -72,
 
-		cliErrorVerificationExportMode = -80
+		cliErrorVerificationExportMode = -80,
+
+		cliErrorThreadsInvalid = -81,
+		cliErrorThreadsNotAllowed = -82
 	};
 
 	void ReadCLI();
@@ -120,6 +123,8 @@ private:
 	void handleVoxel();
 	void handleGpu();
 	void handleGpuAll();
+	void handleThreads(const QString &threadsText);
+	static void removeThreadsOption(QStringList &arguments);
 
 	struct sCliData
 	{

@@ -75,7 +75,7 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 	{
 		if (*stopRequest || systemData.globalStopRequest) break;
 
-#pragma omp parallel for
+#pragma omp parallel for num_threads(systemData.GetOpenMpThreads())
 		for (qint64 x = 0; x < qint64(image->GetWidth()); x++)
 		{
 			double weight = 0;

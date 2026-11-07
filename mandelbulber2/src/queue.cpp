@@ -570,7 +570,10 @@ void cQueue::RenderQueue() const
 
 	// this is needed to get settings from main parameter container.
 	// Further will be used only local container
-	systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
+	if (systemData.threadsFromCommandLine == 0)
+	{
+		systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
+	}
 	systemData.threadsPriority = enumRenderingThreadPriority(gPar->Get<int>("threads_priority"));
 
 	thread->start();
