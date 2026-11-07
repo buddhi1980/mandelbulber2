@@ -44,18 +44,25 @@ OVERRIDES='opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4'
 | Post-effect depth of field | `IFS_002.fract` | `DOF_enabled=false` | `DOF_radius` |
 | HDR blur | `tests/scenes/hdr_blur.fract` | `hdr_blur_enabled=false` | `hdr_blur_radius` |
 
-Each scene must spend most of its one-thread time in its stage (SC-005), because a stage under about 9% of a run could ignore `--threads` and still stay within 110%. Time each post effect's scene at `--threads 1` with the stage on and with it off, using `--override`. Its share is the difference divided by the time with it on. If the share is 50% or less, raise the setting in the table until it is above 50%.
+Each scene must spend most of its one-thread time in its stage (SC-005), because a stage under about 9% of a run could ignore `--threads` and still stay within 110%. Time each post effect's scene at `--threads 1` with the stage on and with it off, using `--override`. Its share is the difference divided by the time with it on. If the share is 50% or less, raise the setting in the table until it is above 50%, and keep that setting for every later run of that scene in this section. `amazing_surf 002.fract` also has post-effect depth of field, so add `DOF_enabled=false` to every run of it.
 
 Repeat with the other headless modes:
 
+```bash
+VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
+```
+
 | Mode | Command, after `$BIN --threads 1` |
 |---|---|
-| Keyframe animation | `--nogui --keyframe -s 0 -e 2 "$EXAMPLES/keyframe_anim_mandelbulb.fract"` |
-| Flight animation | `--nogui --flight -s 0 -e 2 "$EXAMPLES/flight_anim_menger sponge_3.fract"` |
-| Voxel export | `--nogui --voxel slice <scene>` |
-| Queue | `--nogui <two scenes>` |
+| Keyframe animation | `--nogui --keyframe -s 0 -e 2 --output "$(mktemp -d)/" "$EXAMPLES/keyframe_anim_mandelbulb.fract"` |
+| Flight animation | `--nogui --flight -s 0 -e 2 --output "$(mktemp -d)/" "$EXAMPLES/flight_anim_menger sponge_3.fract"` |
+| Voxel export | `--nogui --voxel slice --override "$VOXEL" "$EXAMPLES/voxel_export_with_Bristorbrot4D.fract"` |
+| Mesh export | `--nogui --voxel ply --override "$VOXEL" "$EXAMPLES/voxel_export_with_Bristorbrot4D.fract"` |
+| Queue | `--nogui "$EXAMPLES/IFS_001.fract" "$EXAMPLES/Makin3D-Julia_001.fract"` |
 | Test suite | `--test` |
 | Benchmark | `--benchmark 1` |
+
+Each animation run gets a new output folder, because a rerun into the same folder stops to ask about deleting frames. The path ends in `/`, because the application joins the frame's file name straight onto it. Neither queue scene has an OpenMP stage, so `limit_CPU_cores` governs all of their work.
 
 Set `QTEST_FUNCTION_TIMEOUT=1800000` for the test suite, as CI does. QtTest stops a function after 5 minutes by default, and one function renders all 791 examples.
 
@@ -69,7 +76,7 @@ OMP_NUM_THREADS=8 /usr/bin/time -f '%e elapsed, %U user, %S system' $BIN --threa
 $BIN --threads 64 --nogui --res 32x24 --format tiff --output /tmp/t3 "$EXAMPLES/IFS_001.fract"
 ```
 
-Check each refusal (SC-006). Each command prints an error that names `--threads`, exits non-zero, and renders nothing. Run them with no display, so a message box would show up as a failure.
+Check each refusal (SC-006). Each command prints an error that names `--threads`, exits non-zero, and renders nothing. Run them with no display, so a message box would show up as a failure. `scene.fract` stands for `$EXAMPLES/IFS_001.fract`.
 
 | Arguments | Expected status on Linux |
 |---|---|
@@ -124,7 +131,7 @@ Seeds and frames (SC-009): a scratch script renders each of the 6 Monte Carlo sc
 | `render_random_seed=2` | Different | Identical |
 | `frame_no=1` | Different | Identical |
 
-Check one real animation too (User Story 6). Make a scratch copy of `keyframe_anim_mandelbulb.fract` in which every row of `[keyframes]` repeats the values of keyframe 0, so frames 0 and 1 differ only in their frame number. Its own frames can't show this, because the fractal power and light change between them. Render frames 0 and 1 twice with `--keyframe -s 0 -e 2`, `--format tiff`, and `DOF_monte_carlo=true` added to `--override`. Give each render a new empty output folder, because an animation skips frames that already exist. Decode the images with the harness's `read_tiff`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
+Check one real animation too (User Story 6). Make a scratch copy of `keyframe_anim_mandelbulb.fract` in which every row of `[keyframes]` repeats the values of keyframe 0, so frames 0 and 1 differ only in their frame number. Its own frames can't show this, because the fractal power and light change between them. Render frames 0 and 1 twice with `--keyframe -s 0 -e 2`, `--format tiff`, and `DOF_monte_carlo=true` added to `--override`. Give each render a new empty `--output` folder whose path ends in `/`, for the reasons in section 1. Decode the images with the harness's `read_tiff`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
 
 Compare two builds of one source (SC-010 of `specs/001-regression-harness`). Build the final commit a second time in another folder, then run `--compare` with that binary. It exits 0 on all 487 items. Change one formula that no suite scene uses in a third build of the same commit, and run `--compare` again. It exits 1, and the report names only that formula.
 

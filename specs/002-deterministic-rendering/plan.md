@@ -203,7 +203,7 @@ The verification export doesn't change (FR-030).
 |---|---|---|---|
 | `--self-parity` | Passes (SC-001) | Runs, reports 0 differences (SC-013) | Not used until Phase 4 |
 | Other thread counts (SC-002) | Yes | Not needed | Not used |
-| `--compare` around the statistics work (SC-004) | Yes | Not needed | Not used |
+| `--compare` around the statistics work (SC-004), and on two builds of the final commit | Yes | Not needed | Not used |
 | `--test`, with the known-answer test | Yes | Yes | Both build jobs |
 | Harness tests | Yes | Yes | Both build jobs |
 | Cross-Build Check | Local `--collect` and `--cross-check` | Local `--collect` | On the pull request (SC-012) |
