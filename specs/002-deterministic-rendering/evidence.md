@@ -64,6 +64,8 @@ The record covers these scenes at the harness's resolution and overrides.
 | Constant values, one-thread blend | All | 0 of 13 | 13 of 13 |
 | Random values, commit `539efacad` | 1 | 0 of 13 | 0 of 13 |
 | Random values, commit `539efacad` | All | 3 of 13: `IFS_002`, `amazing_surf 002`, `menger octo 001` | 13 of 13 |
+| One-thread blend, commit `8ce2ec0b7`, all 26 scenes | 1 | 0 of 26 | 0 of 26 |
+| One-thread blend, commit `8ce2ec0b7`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 26 of 26 |
 
 **One-thread renders reproduced before the fix.** All 13 scenes matched in every buffer and statistic across three renders, on both builds.
 
@@ -166,6 +168,58 @@ Each buffer count is the most samples that differed between the first render and
 | clouds 005 | Random values | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 76,270 to 76,319; missed DE 0; iteration histogram total 2,570,678 to 2,571,360; step histogram total 76,788 to 76,793 |
 | beam_light | Random values | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 60,248 to 60,445; missed DE 0; iteration histogram total 1,126,856 to 1,138,940; step histogram total 74,503 to 74,582 |
 | hdr_blur | Random values | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 63,279 to 63,952; missed DE 0; iteration histogram total 846,354 to 906,917; step histogram total 76,368 to 76,409 |
+| IFS_001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 2,151,595; step histogram total 76,800 |
+| Makin3D-Julia_001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 19,473; iteration histogram total 19,880,974; step histogram total 76,800 |
+| IFS_002 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 1,910,173; step histogram total 76,800 |
+| amazing_surf 002 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 88,048; missed DE 97; iteration histogram total 6,702,645; step histogram total 88,048 |
+| EXR example | One-thread blend | 1 | none | none | total iterations 0; raymarch count 843,698; missed DE 0; iteration histogram total 26,206,011; step histogram total 843,698 |
+| benchmark-GPU | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 19,905; iteration histogram total 24,472,742; step histogram total 76,800 |
+| menger octo 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 1,839,817; step histogram total 76,800 |
+| clouds 005 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 2,583,511; step histogram total 76,800 |
+| gradients - specular highlights | One-thread blend | 1 | none | none | total iterations 0; raymarch count 82,154; missed DE 0; iteration histogram total 1,547,857; step histogram total 82,154 |
+| hybrid007 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 229; iteration histogram total 3,334,627; step histogram total 76,800 |
+| hybrid008 - collatz | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 140; iteration histogram total 3,343,467; step histogram total 76,800 |
+| mandelbox_menger | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 39; iteration histogram total 2,575,645; step histogram total 76,800 |
+| mandelbulb_eye | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 14,627; iteration histogram total 3,096,687; step histogram total 76,800 |
+| menger cross mod1 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 9,042; iteration histogram total 1,596,727; step histogram total 76,800 |
+| menger prism shape2 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 822; iteration histogram total 2,001,895; step histogram total 76,800 |
+| pseudo kleinian std de 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 5,388,951; step histogram total 76,800 |
+| voxel_export_with_Bristorbrot4D | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 2; iteration histogram total 2,823,286; step histogram total 76,800 |
+| beam_light | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| hdr_blur | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| jos_kleinian | One-thread blend | 1 | none | none | total iterations 0; raymarch count 76,800; missed DE 16; iteration histogram total 7,137,329; step histogram total 76,800 |
+| chromatic_aberration | One-thread blend | 1 | none | none | total iterations 0; raymarch count 2,875,502; missed DE 80,952; iteration histogram total 142,123,742; step histogram total 2,875,502 |
+| difs_tree | One-thread blend | 1 | none | none | total iterations 0; raymarch count 545,089; missed DE 84,678; iteration histogram total 44,330,525; step histogram total 545,089 |
+| hex grid 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 595,846; missed DE 5,066; iteration histogram total 64,417,166; step histogram total 595,846 |
+| mandelnest pow 5 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 580,904; missed DE 100; iteration histogram total 16,312,243; step histogram total 580,904 |
+| monte carlo DOF 001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 609,015; missed DE 0; iteration histogram total 12,282,022; step histogram total 609,015 |
+| riemann_sphere_msltoe_001 | One-thread blend | 1 | none | none | total iterations 0; raymarch count 539,928; missed DE 1,702; iteration histogram total 63,152,683; step histogram total 539,928 |
+| IFS_001 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 76,714 to 76,732; missed DE 0; iteration histogram total 2,150,148 to 2,150,353; step histogram total 76,795 to 76,799 |
+| Makin3D-Julia_001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 75,796 to 75,934; missed DE 19,370 to 19,379; iteration histogram total 17,840,554 to 17,921,344; step histogram total 76,798 to 76,799 |
+| IFS_002 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 73,861 to 74,077; missed DE 0; iteration histogram total 1,870,734 to 1,873,657; step histogram total 76,714 to 76,721 |
+| amazing_surf 002 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 87,723 to 87,757; missed DE 97; iteration histogram total 6,694,878 to 6,695,684; step histogram total 88,041 to 88,045 |
+| EXR example | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 821,291 to 828,014; missed DE 0; iteration histogram total 25,647,801 to 25,853,845; step histogram total 842,779 to 842,815 |
+| benchmark-GPU | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram` | total iterations 0; raymarch count 76,583 to 76,612; missed DE 19,890 to 19,894; iteration histogram total 24,340,053 to 24,340,786; step histogram total 76,800 |
+| menger octo 001 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 76,529 to 76,586; missed DE 0; iteration histogram total 1,836,422 to 1,836,886; step histogram total 76,795 to 76,797 |
+| clouds 005 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 76,287 to 76,330; missed DE 0; iteration histogram total 2,570,250 to 2,571,333; step histogram total 76,791 to 76,795 |
+| gradients - specular highlights | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 75,351 to 75,587; missed DE 0; iteration histogram total 1,492,655 to 1,503,904; step histogram total 81,346 to 81,387 |
+| hybrid007 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 73,915 to 74,244; missed DE 229; iteration histogram total 3,258,750 to 3,263,805; step histogram total 76,663 to 76,677 |
+| hybrid008 - collatz | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 75,416 to 75,463; missed DE 140; iteration histogram total 3,326,263 to 3,327,962; step histogram total 76,778 to 76,787 |
+| mandelbox_menger | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 72,394 to 73,400; missed DE 39; iteration histogram total 2,060,991 to 2,121,267; step histogram total 76,762 to 76,768 |
+| mandelbulb_eye | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 67,100 to 67,305; missed DE 14,295 to 14,352; iteration histogram total 2,676,266 to 2,704,934; step histogram total 76,444 to 76,499 |
+| menger cross mod1 001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 75,335 to 75,368; missed DE 9,026 to 9,034; iteration histogram total 1,590,723 to 1,592,056; step histogram total 76,729 to 76,741 |
+| menger prism shape2 001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 73,467 to 73,935; missed DE 821 to 822; iteration histogram total 1,959,865 to 1,963,717; step histogram total 76,519 to 76,578 |
+| pseudo kleinian std de 001 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 74,799 to 74,852; missed DE 0; iteration histogram total 4,932,940 to 4,985,999; step histogram total 76,626 to 76,650 |
+| voxel_export_with_Bristorbrot4D | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 65,833 to 66,027; missed DE 2; iteration histogram total 2,390,611 to 2,493,886; step histogram total 76,651 to 76,675 |
+| beam_light | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 59,820 to 60,345; missed DE 0; iteration histogram total 1,111,425 to 1,132,267; step histogram total 74,383 to 74,596 |
+| hdr_blur | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 63,412 to 64,813; missed DE 0; iteration histogram total 846,816 to 854,795; step histogram total 76,360 to 76,394 |
+| jos_kleinian | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 72,365 to 72,520; missed DE 16; iteration histogram total 6,426,602 to 6,501,472; step histogram total 76,781 to 76,785 |
+| chromatic_aberration | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 2,784,000 to 2,793,169; missed DE 80,853 to 80,868; iteration histogram total 135,431,945 to 136,173,622; step histogram total 2,873,245 to 2,873,293 |
+| difs_tree | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 542,672 to 542,769; missed DE 84,626 to 84,636; iteration histogram total 42,670,030 to 42,735,388; step histogram total 545,045 to 545,055 |
+| hex grid 001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 589,216 to 589,572; missed DE 5,064 to 5,066; iteration histogram total 61,058,905 to 61,358,866; step histogram total 595,825 to 595,835 |
+| mandelnest pow 5 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 576,305 to 576,631; missed DE 100; iteration histogram total 16,178,139 to 16,205,071; step histogram total 580,847 to 580,861 |
+| monte carlo DOF 001 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 558,744 to 564,635; missed DE 0; iteration histogram total 11,942,603 to 12,017,579; step histogram total 604,407 to 604,736 |
+| riemann_sphere_msltoe_001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 536,702 to 537,534; missed DE 1,701 to 1,702; iteration histogram total 59,850,789 to 60,229,524; step histogram total 539,875 to 539,885 |
 
 ## Causes
 
@@ -178,6 +232,18 @@ Each buffer count is the most samples that differed between the first render and
 | Total iterations stays at 0. `CalculateDistanceFromObjectsTree` passes a local `nodeOut` to `CalculateDistanceSimple` and copies only `nodeOut.iters`. | All 13, at both thread counts | `total_iterations` reads 0, so it hides any difference | The value is 0 in every render of every scene and build. | FR-026 |
 
 Every difference in Results traces to one of these causes. The limit box exit in the spec's Assumptions stays unmeasured, because no suite scene turns on `limits_enabled`.
+
+## Order audit
+
+Each region is one a gated render can reach. The proof for each comes from commit `8ce2ec0b7`, where all 26 scenes matched in every buffer across three renders at each thread count, and between 1 thread and all 32.
+
+| Region | Reads | Writes | Verdict | Scene | Proof | Result |
+|---|---|---|---|---|---|---|
+| `dof.cpp:101`, depth of field phase I | The post-effect image and the z-buffer, which do not change during the region | Its own entry of `temp_image`, which no other thread reaches | Does not depend on order | `IFS_002.fract` | Every buffer matched at 1 thread and at all threads | Stays parallel |
+| `dof.cpp:284`, depth of field phase II | The post-effect image, which it changes | Neighboring pixels of the post-effect image and alpha, which two threads can reach at once | Depends on order | `IFS_002.fract` | It differed at all threads with constant values, and every buffer matched once the loop ran on one thread | Moves to one thread |
+| `post_effect_hdr_blur.cpp:78`, HDR blur | A snapshot of the post-effect image in `tempImage`, which does not change during the region | Its own pixel, which no other thread reaches | Does not depend on order | `tests/scenes/hdr_blur.fract` | Every buffer matched at 1 thread and at all threads | Stays parallel |
+
+`audio_track.cpp:302` is outside the gate, because it needs a scene with audio tracks, and no suite scene has them.
 
 ## Success criteria
 
