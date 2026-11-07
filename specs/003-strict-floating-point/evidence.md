@@ -33,7 +33,77 @@ The local patches stayed in the throwaway clone `~/mandelbulber2-diag` and were 
 
 ## Flag check
 
-Pending, T026. One row per seed in [contracts/flag-check.md](contracts/flag-check.md), with its exit code and the option it named.
+Every seed in [contracts/flag-check.md](contracts/flag-check.md) ran the committed script, `.github/actions/compile-engine/check-flags.sh` at `49f25a38f`, from a fresh WSL build of that commit, through `~/verify/kd2/seed_flags.sh` and `~/verify/kd2/seed_search.sh`. Each row checked the exit code, every message, and the number of failures reported. All 33 `flags` cases and all 23 `search` checks gave the expected result. The logs are `~/verify/kd2/results/seed_flags.txt` and `seed_search.txt`.
+
+### `flags`
+
+Each fault went into a copy of the Makefile that `qmake6` generated from `49f25a38f`, which passes. Each named exactly one failure, apart from `CPPFLAGS`, which named the two lines it reaches.
+
+| Seed | Exit | Named |
+|---|---|---|
+| `-ffast-math` added to `CXXFLAGS` | 1 | `-ffast-math in CXXFLAGS` |
+| `-Ofast` added to `CXXFLAGS` | 1 | `-Ofast in CXXFLAGS` |
+| `-funsafe-math-optimizations` added to `CXXFLAGS` | 1 | `-funsafe-math-optimizations in CXXFLAGS` |
+| `-ffinite-math-only` added to `CXXFLAGS` | 1 | `-ffinite-math-only in CXXFLAGS` |
+| `-fassociative-math` added to `CXXFLAGS` | 1 | `-fassociative-math in CXXFLAGS` |
+| `-freciprocal-math` added to `CXXFLAGS` | 1 | `-freciprocal-math in CXXFLAGS` |
+| `-fno-signed-zeros` added to `CXXFLAGS` | 1 | `-fno-signed-zeros in CXXFLAGS` |
+| `-ffp-model=fast` added to `CXXFLAGS` | 1 | `-ffp-model=fast in CXXFLAGS` |
+| `-march=native` added to `CXXFLAGS` | 1 | `-march=native in CXXFLAGS` |
+| `-mtune=native` added to `CXXFLAGS` | 1 | `-mtune=native in CXXFLAGS` |
+| `-mcpu=native` added to `CXXFLAGS` | 1 | `-mcpu=native in CXXFLAGS` |
+| `-ffast-math` added to `CFLAGS` | 1 | `-ffast-math in CFLAGS` |
+| `-ffast-math` added to `LFLAGS` | 1 | `-ffast-math in LFLAGS` |
+| `-ffast-math` added to `LIBS` | 1 | `-ffast-math in LIBS` |
+| `-ffast-math` added to `CXX` | 1 | `-ffast-math in CXX` |
+| `-Ofast` added to `LINK` | 1 | `-Ofast in LINK` |
+| `-ffp-contract=fast` after `-ffp-contract=off` in `CXXFLAGS` | 1 | `-ffp-contract=fast in CXXFLAGS` |
+| `-ffp-contract=on` added to `CFLAGS` | 1 | `-ffp-contract=on in CFLAGS` |
+| `-ffp-contract=off` removed from `CXXFLAGS` | 1 | `-ffp-contract=off missing from CXXFLAGS` |
+| `-ffp-contract=off` removed from `CFLAGS` | 1 | `-ffp-contract=off missing from CFLAGS` |
+| `qmake6` run with `CXXFLAGS=-march=native` | 1 | `-march=native in CXXFLAGS` |
+| `qmake6` run with `CFLAGS=-march=native` | 1 | `-march=native in CFLAGS` |
+| `qmake6` run with `CPPFLAGS=-Ofast` | 1 | `-Ofast in CFLAGS` and `-Ofast in CXXFLAGS` |
+| `qmake6` run with `LDFLAGS=-ffast-math` | 1 | `-ffast-math in LFLAGS` |
+| The clean Makefile | 0 | `passed` |
+| `-fno-fast-math` added | 0 | `passed` |
+| `-march=x86-64` added | 0 | `passed` |
+| `-L/opt/x-ffast-math/lib` added to `LIBS` | 0 | `passed` |
+| Missing Makefile | 2 | `cannot read missing.mk` |
+| Empty Makefile | 2 | `cannot read empty.mk, because it is empty` |
+| Makefile with no `LIBS` line | 2 | `nolibs.mk has no LIBS line` |
+| No arguments | 2 | The usage line |
+| `search` outside a git checkout | 2 | `no build files found, because /tmp is not in a git checkout` |
+
+### `search`
+
+A throwaway clone under `/tmp` started at `8fd49ba59` with the script copied in, then checked out `49f25a38f`. Each seed went on a new last line of its file, and the file was restored before the next row. Each fault named exactly one failure, with its file and line.
+
+| Tree or file | Seed | Exit | Named |
+|---|---|---|---|
+| `8fd49ba59`, which searched 72 files | None | 1 | Exactly the 9 lines this feature removes: `-ffast-math` at `mandelbulber2/qmake/common.pri:127`, `:128`, `:129`, and `:130`, and `mandelbulber2/cmake/CMakeLists.txt:63`, `-march=native` at `mandelbulber2/tools/prepare_for_dev_ubuntu.sh:12`, `mandelbulber2/tools/prepare_for_dev_debian_testing.sh:12`, and `mandelbulber2/deploy/linux/install:13`, and `FloatingPointModel Fast` at `mandelbulber2/msvc/mandelbulber2.vcxproj:97` |
+| `49f25a38f`, which searched 73 files | None | 0 | `passed` |
+| `mandelbulber2/qmake/common.pri` | `-ffast-math` | 1 | `-ffast-math in mandelbulber2/qmake/common.pri:179` |
+| `mandelbulber2/qmake/common.pri` | `-ffp-contract=fast-honor-pragmas` | 1 | `-ffp-contract=fast-honor-pragmas in mandelbulber2/qmake/common.pri:179` |
+| `mandelbulber2/qmake/mandelbulber.pro` | `-Ofast` | 1 | `-Ofast in mandelbulber2/qmake/mandelbulber.pro:6` |
+| `mandelbulber2/cmake/CMakeLists.txt` | `-ffinite-math-only` | 1 | `-ffinite-math-only in mandelbulber2/cmake/CMakeLists.txt:224` |
+| `mandelbulber2/cmake/CMakeLists.txt` | `-ffp-model=fast` | 1 | `-ffp-model=fast in mandelbulber2/cmake/CMakeLists.txt:224` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `<FloatingPointModel>Fast</FloatingPointModel>` | 1 | `FloatingPointModel Fast in mandelbulber2/msvc/mandelbulber2.vcxproj:372` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:fast` | 1 | `/fp:fast in mandelbulber2/msvc/mandelbulber2.vcxproj:372` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:contract` | 1 | `/fp:contract in mandelbulber2/msvc/mandelbulber2.vcxproj:372` |
+| `mandelbulber2/tools/prepare_for_dev_ubuntu.sh` | `-march=native` | 1 | `-march=native in mandelbulber2/tools/prepare_for_dev_ubuntu.sh:100` |
+| `mandelbulber2/deploy/linux/install` | `-mtune=native` | 1 | `-mtune=native in mandelbulber2/deploy/linux/install:39` |
+| `mandelbulber2/make-package.sh` | `-mcpu=native` | 1 | `-mcpu=native in mandelbulber2/make-package.sh:116` |
+| `mandelbulber2/tools/DOE/build.bot.sh` | `-fno-signed-zeros` | 1 | `-fno-signed-zeros in mandelbulber2/tools/DOE/build.bot.sh:88` |
+| `azure-pipelines.yml` | `-ffp-contract=fast` | 1 | `-ffp-contract=fast in azure-pipelines.yml:39` |
+| `.circleci/config.yml` | `-freciprocal-math` | 1 | `-freciprocal-math in .circleci/config.yml:115` |
+| `.travis.yml` | `-fassociative-math` | 1 | `-fassociative-math in .travis.yml:129` |
+| `Dockerfile` | `-funsafe-math-optimizations` | 1 | `-funsafe-math-optimizations in Dockerfile:73` |
+| A new tracked script, `new-build.sh` | `-funsafe-math-optimizations` | 1 | `-funsafe-math-optimizations in new-build.sh:1`, with 74 files searched |
+| The same script, untracked | `-funsafe-math-optimizations` | 0 | `passed`, with 73 files searched |
+| `mandelbulber2/deploy/NEWS`, which is not a build file | `-ffast-math` | 0 | `passed` |
+| `mandelbulber2/tools/DOE/NaNtester.sh`, which already holds 5 lines with `-ffast-math` | `-ffast-math` | 0 | `passed` |
+| `.github/actions/compile-engine/check-flags.sh` | Its own list, at `49f25a38f` | 0 | `passed` |
 
 ## GitHub Actions
 
@@ -154,9 +224,9 @@ Pending, T056. The record behind KD-5. [research.md](research.md) R18 describes 
 | Criterion | Result | Commit | Not covered |
 |---|---|---|---|
 | SC-001 | Pending, T051 | | |
-| SC-002 | Pending, T026 | | |
+| SC-002 | Every seed failed as expected, in one trial each: 33 of 33 `flags` cases and 23 of 23 `search` checks gave the expected exit code and named the option, or its file and line. The unseeded Makefile and the unseeded tree both pass | `49f25a38f` | None |
 | SC-003 | Pending, T052 | | |
-| SC-004 | Pending, T026 and T060 | | |
+| SC-004 | Partly done, and T060 runs the repository search. `search` passes on 73 tracked files. The generated qmake flags hold `-ffp-contract=off` in `CFLAGS` and `CXXFLAGS`, as the contract expects, with no prohibited option on the `CFLAGS`, `CXXFLAGS`, `LFLAGS`, or `LIBS` lines, and the binary no longer needs `libmvec`. The CMake build holds `-fopenmp -ffp-contract=off` in `CXX_FLAGS`, sets it in `CMAKE_C_FLAGS`, and has nothing prohibited in `link.txt`. The pragma search finds only the six `diagnostic` lines in `mandelbulber2/src/radiance_hdr.cpp`. The setup scripts hold no `march=`, `mtune=`, or `mcpu=`, pass `sh -n` and `bash -n`, and `qmake6` with `CXXFLAGS=-msse2` or `CXXFLAGS=-DKD2_OWN_FLAG` passes that value to `CXXFLAGS` | `0383be876` for the flags, `49f25a38f` for the search and the scripts, which hold `9ded2b0ae`'s scripts unchanged | The macOS and Apple Silicon qmake flags are not read here: CircleCI is the only macOS proof (T054), and nothing builds `mandelbulber-opencl-m1.pro`. The compile path of `install` needs a packaged layout and `sudo`, so its one-line diff is the proof |
 | SC-005 | Pending, T028 | | |
 | SC-006 | Pending, T037 | | |
 | SC-007 | Pending, T041 | | |
