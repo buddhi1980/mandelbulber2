@@ -198,7 +198,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 - **FR-009**: The repository MUST gain `.github/actions/compile-engine/action.yml`, which builds through the existing `build-linux` action and then runs the flag check, and `.github/workflows/parity-gate.yml`, whose `parity-gate` job runs that action on `ubuntu-24.04`. Apart from the search in FR-035, the job does nothing else at this stage, because Phase 4 adds the gate steps.
 - **FR-010**: `parity-gate` MUST run on every pull request and on every push to `ministic-regression`. It MUST have read-only repository access and use no secrets, as Cross-Build Check does.
-- **FR-011**: The check MUST read the flags of the gated build it just compiled, from that build's generated files, so it sees what the compiler was really told. It MUST cover the C flags, the C++ flags, and the whole link command, including the library list.
+- **FR-011**: The check MUST read the flags of the gated build it just compiled, from that build's generated files, so it sees what the compiler was really told. It MUST cover the compiler and linker commands, the C flags, the C++ flags, and the link flags, including the library list.
 - **FR-012**: The check MUST fail if any of these options is present: `-ffast-math`, `-Ofast`, `-funsafe-math-optimizations`, `-ffinite-math-only`, `-fassociative-math`, `-freciprocal-math`, `-march=native`, `-mtune=native`, or `-mcpu=native`.
 - **FR-013**: The check MUST fail unless `-ffp-contract=off` is in the C flags and the C++ flags. It MUST also fail if either holds any other `-ffp-contract` value.
 - **FR-014**: Each failure MUST name the option and, for a missing option, the flags it is missing from. A missing or empty build file MUST fail the check and MUST NOT count as a pass.
@@ -322,7 +322,7 @@ None of these has been measured. Line numbers are those of `8fd49ba59`.
 - **The first guard can change what counts as inside the fractal.** It tests `std::isfinite`, so it catches infinity as well as NaN, and it runs at line 316, before the escape test at line 325. An orbit that overflows to infinity then counts as inside, at its last finite value. Today's Linux build skips the guard, so the escape test counts that orbit as escaped.
 - **MSVC Release already runs the guards.** It uses `/fp:precise`, so this change moves the Linux build toward the logic the Windows build has today. A before image from MSVC can show whether a visible change comes from the guards.
 - **Other text that matches a prohibited option stays.** `tools/DOE/NaNtester.sh` compiles a small test program of its own, not the engine, to study NaN checks under `-ffast-math`. `deploy/NEWS` is history.
-- **Stale build paths stay.** CMake's Intel branch sets no flags, and the `tools/DOE` build scripts pair the Intel compiler with Qt 5.7, which the CMake file no longer accepts. `mandelbulber-opencl-win64.pro` sets `/fp:precise`, and CMake's `/GL /Ox` path on Windows gets it by default. No CI job uses any of these.
+- **Stale build paths stay.** CMake's Intel branch sets no flags, and the `tools/DOE` build scripts pair the Intel compiler with Qt 5.7, which the CMake file no longer accepts. `mandelbulber-opencl-win64.pro` sets `/fp:precise`, and CMake's `/GL /Ox` path on Windows gets it by default. The `qmake` line in `deploy/cross-compile-windows.sh` is commented out. No CI job uses any of these.
 
 **Dependencies**
 
@@ -342,7 +342,7 @@ None of these has been measured. Line numbers are those of `8fd49ba59`.
 - Every measurement comes from a fresh build of the commit being tested. No task may rely on an existing binary.
 - Self-Parity can only report a pass on Linux, because the application ignores a redirected home folder on Windows. The local proof is a fresh qmake build in the WSL `Ubuntu-24.04` distro on 32 threads.
 - Clang is not installed in WSL, and no Mac is available here. CircleCI's macOS build is the only proof that `-ffp-contract=off` compiles with Clang. No job or script builds `mandelbulber-opencl-m1.pro`, so that profile is changed by reading alone.
-- No CI job builds with CMake, so FR-033 needs a fresh local build. AppVeyor builds MSVC Debug but allows it to fail, so FR-033 needs that job's result read, or a fresh local build.
-- No references exist, so the Collect step of Cross-Build Check stands in for the gate time in SC-008, as it did for KD-1. It took 3.8 to 6.1 minutes before KD-1.
+- No CI job builds with CMake or MSVC Debug, so FR-033 needs a fresh local build of each. AppVeyor lists Debug, but it does not run on this repository, and nothing has shown yet that MSVC Debug compiles today.
+- No references exist, so the Collect step of Cross-Build Check stands in for the gate time in SC-008, as it did for KD-1. It took 4.4 minutes on the Linux job of the last KD-1 pull request.
 - Another job on this computer renders in bursts with no warning, so a check made only at the start of a timing run is not enough (FR-025).
 - The 20 formulas in FR-021 limit a review. They are not a parity comparison, so the constitution's ban on tolerances does not apply.

@@ -36,10 +36,12 @@
 - **Named files and options**: The spec names build files, compiler options, harness modes, and CI jobs, because the request and the constitution's closing conditions are written in those terms. They are what this feature changes, not choices of how to build it. The same reasoning covers the two items above about implementation details and technology-agnostic criteria.
 - **Audience**: This is an internal engineering change, so its stakeholders are engine developers, packagers, and maintainers. Terms such as NaN, subnormal number, and fused instruction are part of their everyday language.
 - **Deviations from the playbook**:
-  - The flag check differs from the listing in the playbook. It also rejects `-mcpu=native` and other `-ffp-contract` values, reads the library list, and names each failure, because a test of the listing found those gaps (FR-011 to FR-014).
-  - `parity-gate` gets read-only access, as Cross-Build Check has (FR-010).
+  - The flag check differs from the listing in the playbook. It also rejects `-mcpu=native` and other `-ffp-contract` values, reads the compiler and linker commands and the library list, and names each failure, because a test of the listing found those gaps (FR-011 to FR-014). The plan also moves it from an inline step to a script beside the action, so the seeds run the file CI runs.
+  - `parity-gate` also searches tracked build files before it builds (FR-035). `/speckit-clarify` added this, because Principle III covers every build and the flag check reads only the gated one.
+  - `parity-gate` gets read-only access, as Cross-Build Check has (FR-010). This repository's default workflow token is `write`.
   - The playbook says guards in `math_utilities.h` may take effect. `CheckNAN` has no callers, so FR-029 corrects that statement.
-- **Choices the request left open**: The spec covers these under Decisions: what the flag check covers, keeping qmake's environment import, `/fp:precise` for MSVC Debug, leaving the NaN guards alone, no slowdown limit beyond the gate's 30 minutes, and closing KD-2 and KD-3 here. `-msse2` stays in the setup scripts (FR-006).
+  - Playbook Phase 4 gains a step for the CPU math path (FR-029).
+- **Choices the request left open**: The spec covers these under Decisions: what the flag check covers, keeping qmake's environment import, `/fp:precise` for MSVC Debug, leaving the NaN guards alone, no slowdown limit beyond the gate's 30 minutes, and closing KD-2 and KD-3 here. `-msse2` stays in the setup scripts (FR-006). `/speckit-clarify` confirmed the guards, the import, and the slowdown, and it added the build-file search and the Phase 4 step.
 - **Added beyond the request**:
   - Self-Parity on the final commit (FR-017, SC-005), which Phase 3 requires. Three full runs match the bar KD-1 set.
   - Fixing what removing the options exposes (FR-018).
@@ -48,4 +50,4 @@
   - Seeded failures (FR-015), because KD-3 closes when the check rejects host-tuned flags, and a check that only ever passes does not show that.
   - One-CPU times (FR-024) and the cost of losing `-march=native` (FR-027), because the harness builds would not show either.
   - The constitution amendment and playbook corrections (FR-028, FR-029), which Governance requires.
-- **Risk outside this feature**: The math library picks its code path from the CPU at run time, so identical flags can still give different results on different CPUs. The spec records this under Scope for Phase 4 to settle before Baseline 1.
+- **Risk outside this feature**: The math library picks its code path from the CPU at run time, so identical flags can still give different results on different CPUs. The spec records this under Scope, and FR-029 adds a Phase 4 step to settle it before Baseline 1 is captured.
