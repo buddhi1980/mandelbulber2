@@ -35,7 +35,7 @@ Every scene's pixels change, because raymarch step jitter applies to every scene
 
 **Performance Goals**: A full gate run under 30 minutes on a 4-vCPU runner (SC-014). Render time should not get worse overall. One random draw takes 1.09 ns, against 2.72 ns today, and removing shared counters and the shared seed from the hottest path should speed up all-thread renders. Both are measured and recorded (FR-039).
 
-**Constraints**: No new compile flags, because KD-2 and KD-3 belong to `upgrade/strict-floating-point`. No workflow changes (FR-038). No references. No GUI control for the seed. The statistics work must not change a buffer (FR-028). Diagnostic changes are never committed (FR-011).
+**Constraints**: No new compile flags, because KD-2 and KD-3 belong to `upgrade/strict-floating-point`. No workflow changes (FR-038). No references. No GUI control for the seed. The statistics work must not change a buffer on a suite item (FR-028). Diagnostic changes are never committed (FR-011).
 
 **Scale/Scope**: 487 items and seven buffers. 27 random calls in the gated path and 14 outside it. About 45 C++ files change, most of them by a few lines.
 
@@ -48,7 +48,7 @@ Every scene's pixels change, because raymarch step jitter applies to every scene
 | Principle I: can this change affect gated output, and which scenes cover it? | Yes, on purpose | Every scene's pixels change, and total iterations changes from 0 to the real count. All 487 items cover it. This is not drift, because no references exist (KD-4). The change is allowed because it closes KD-1, and Baseline 1 comes after. |
 | Principle I: exact comparison | Pass | The harness comparison doesn't change (FR-031). A seeded one-bit difference must still fail (SC-011). The 5% noise limit is a one-time quality check, not a parity comparison. |
 | Principle II: does it add randomness, timing, threading, or external state? | It removes them | Random values depend only on the seed, frame, eye, and position. Thread identity, line order, time, and addresses can't reach them (FR-014). The shared seed is gone (SC-015). `OMP_NUM_THREADS` can't override `--threads`, and the harness strips it from the environment anyway. |
-| Principle II: every random value derives from a fixed seed | Pass | The seed is a scene setting with a default in the binary, which Principle II counts as an input. The frame number comes from the animation, and a still render uses 0. |
+| Principle II: every random value derives from a fixed seed | Needs the amendment | The seed is a scene setting, but no suite scene names it, so its value comes from the default in the binary. The principle says a seed fixed in the scene file or the harness, and its words don't cover a default. The closing amendment clarifies that a seed setting a scene file doesn't name counts as fixed in the scene file at its default, so the feature can't merge without it. The frame number comes from the animation, and a still render uses 0. |
 | Principle II: Self-Parity | This feature's success criterion | Three runs at each of two thread counts, one of them 1, in three full passes (SC-001). This plan does not report it as passing. |
 | Principle III: does it touch build flags, compilers, math libraries, or arithmetic order? | No flags or libraries | The generator is integer-only, so it can't bring in a floating-point difference (FR-018). The blend's order becomes fixed: it is the order one thread already uses. |
 | Reference Targets | Pass | A difference between builds stays recorded and is not drift. Identical random values on both builds narrow what the cross-check can report. |
@@ -58,7 +58,7 @@ Every scene's pixels change, because raymarch step jitter applies to every scene
 | Workflow 4: refactors and output changes stay separate | Pass | Nothing here is a refactor. Each change fixes a behavior KD-1 needs fixed, and separate commits let SC-004 prove the statistics work leaves buffers alone. |
 | Workflow 6: `--test` remains required | Pass | It runs on both builds, with one new test. |
 | Baseline Change rules | Pass | No references change. |
-| Governance: amendments | Planned | The pull request closes KD-1 as a PATCH amendment to 1.0.1, states the reason, updates the dates, and names the affected plans and gates. A maintainer approves it. |
+| Governance: amendments | Planned | The pull request closes KD-1 and clarifies the seed rule as one PATCH amendment to 1.0.1. It states the reason for both, updates the dates, and names the affected plans and gates. A maintainer approves it. |
 
 **Known Deviations**: These are not reported as passing.
 
@@ -68,7 +68,7 @@ Every scene's pixels change, because raymarch step jitter applies to every scene
 
 **Expected effect on output** (FR-035): Every scene's pixels change, because raymarch step jitter applies to every scene. Images should look the same apart from noise. Scenes with post-effect depth of field reproduce the order of a one-thread run. Total iterations changes from 0 to the real count.
 
-**Post-design re-check**: Pass. The design adds no violations. Research corrected the spec, and the changes are listed at the end of [research.md](research.md). None of them weakens a requirement.
+**Post-design re-check**: Pass, with the Principle II amendment above. The design adds no other violations. Research corrected the spec, and the changes are listed at the end of [research.md](research.md). None of them weakens a requirement.
 
 ## Project Structure
 
@@ -115,7 +115,7 @@ mandelbulber2/src/
 ├── ssao_worker.cpp                 # Local generator, with a position per pixel
 ├── dof.hpp, .cpp                   # Generator per entry, thread clause, blend on one thread
 ├── render_image.cpp                # Builds the generator, copies statistics under the lock
-├── render_job.cpp                  # Builds the generator on the OpenCL fallback path
+├── render_job.cpp                  # Builds the generator for a post-effects refresh
 ├── opencl_engine_render_dof.cpp    # Thread clause and local generators
 ├── post_effect_hdr_blur.cpp        # Thread clause
 ├── voxel_export.cpp                # Thread clause, buffers sized to match
@@ -183,15 +183,15 @@ Remove the `pragma` on depth of field phase II. Record each region's verdict in 
 4. `cRenderWorker` gets a `mutable cStatistics statistics`, sizes its histograms in `doWork`, and uses it wherever the worker and its shaders used `data->statistics`.
 5. At the end of each line, the worker adds its counts under the lock and clears them. If it gave up on the line, it only clears them.
 6. `cRenderer` copies the shared object under the lock before it emits `updateStatistics`.
-7. `sDistanceOut` starts `iters` and `totalIters` at 0, and the object tree adds each node's `totalIters` (FR-026).
+7. `sDistanceOut` starts `iters` and `totalIters` at 0, and the object tree adds each node's `totalIters` (FR-026). On the limit box exit, `iters` changes from an old stack value to 0, the one case outside the suite in FR-028.
 
 The verification export doesn't change (FR-030).
 
 ### 6. Closing
 
-1. Run the checks in [quickstart.md](quickstart.md), on fresh builds of the final commit (FR-032).
+1. Run the checks in [quickstart.md](quickstart.md), on fresh builds of the final commit (FR-032). The evidence builds in section 2 and the comparison around the statistics work in section 4 use the commits those checks name.
 2. Record the time and noise results in `evidence.md`.
-3. Mark KD-1 closed in the constitution, at version 1.0.1 (FR-034).
+3. Mark KD-1 closed in the constitution and add the seed clarification, at version 1.0.1 (FR-034).
 4. Correct the playbook: the Phase 3 text about enabling the thread count and filling in `total_iterations`, and the Phase 4 line that removes KD-1 through KD-4.
 5. State the expected effect on output in the pull request (FR-035), along with any noise drop above 5% (SC-010).
 

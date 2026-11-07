@@ -37,12 +37,14 @@ OVERRIDES='opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4'
 /usr/bin/time -f '%e elapsed, %U user, %S system' $BIN --threads 1 --nogui --format tiff --override "$OVERRIDES" --output /tmp/t1 "$EXAMPLES/IFS_002.fract"
 ```
 
-| Stage | Scene |
-|---|---|
-| Render workers | `IFS_001.fract` |
-| Screen-space ambient occlusion | `amazing_surf 002.fract` |
-| Post-effect depth of field | `IFS_002.fract` |
-| HDR blur | `tests/scenes/hdr_blur.fract` |
+| Stage | Scene | Turned off with | Raised with |
+|---|---|---|---|
+| Render workers | `IFS_001.fract` | - | - |
+| Screen-space ambient occlusion | `amazing_surf 002.fract` | `ambient_occlusion_enabled=false` | `ambient_occlusion_quality` |
+| Post-effect depth of field | `IFS_002.fract` | `DOF_enabled=false` | `DOF_radius` |
+| HDR blur | `tests/scenes/hdr_blur.fract` | `hdr_blur_enabled=false` | `hdr_blur_radius` |
+
+Each scene must spend most of its one-thread time in its stage (SC-005), because a stage under about 9% of a run could ignore `--threads` and still stay within 110%. Time each post effect's scene at `--threads 1` with the stage on and with it off, using `--override`. Its share is the difference divided by the time with it on. If the share is 50% or less, raise the setting in the table until it is above 50%.
 
 Repeat with the other headless modes:
 
@@ -54,6 +56,8 @@ Repeat with the other headless modes:
 | Queue | `--nogui <two scenes>` |
 | Test suite | `--test` |
 | Benchmark | `--benchmark 1` |
+
+Set `QTEST_FUNCTION_TIMEOUT=1800000` for the test suite, as CI does. QtTest stops a function after 5 minutes by default, and one function renders all 791 examples.
 
 Check `OMP_NUM_THREADS` and a count above the CPU count:
 
@@ -74,6 +78,8 @@ Check each refusal (SC-006). Each command prints an error that names `--threads`
 | `--threads abc --nogui scene.fract` | 175 |
 | `--threads 1.5 --nogui scene.fract` | 175 |
 | `--threads 99999999999 --nogui scene.fract` | 175 |
+| `--threads "" --nogui scene.fract` | 175 |
+| `--threads=0 --nogui scene.fract` | 175 |
 | `--nogui scene.fract --threads` | 1 |
 | `--threads 4 scene.fract` | 174 |
 | `--threads 4 --gpu --nogui scene.fract` | 174 |
@@ -81,9 +87,13 @@ Check each refusal (SC-006). Each command prints an error that names `--threads`
 | `--threads 4 --list` | 174 |
 | `--threads 4 --list-formulas` | 174 |
 | `--threads 4 --touch scene.fract` | 174 |
+| `--threads 4 --help-input` | 174 |
+| `--threads 4 --help-examples` | 174 |
 | `--threads 4 --help-opencl` | 174 |
 
 Check network rendering by running a server and a client on one computer, with `--threads 2` on the client. The server's log shows 2 workers for that client.
+
+Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client keeps running after the job, so `/usr/bin/time` can't measure it. Sample its CPU time from `/proc/<pid>/stat` once a second while it renders. No sample is above 1.1 CPUs (SC-005).
 
 ## 2. Evidence (User Story 2)
 
@@ -110,10 +120,13 @@ Seeds and frames (SC-009): a scratch script renders each of the 6 Monte Carlo sc
 | Override | Compared with the default | Compared with itself |
 |---|---|---|
 | None | - | Identical |
+| `render_random_seed=1` | Identical | Identical |
 | `render_random_seed=2` | Different | Identical |
 | `frame_no=1` | Different | Identical |
 
-Check one real animation too (User Story 6). Render frames 0 and 1 of `keyframe_anim_mandelbulb.fract` twice with `DOF_monte_carlo=true` added to `--override`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
+Check one real animation too (User Story 6). Make a scratch copy of `keyframe_anim_mandelbulb.fract` in which every row of `[keyframes]` repeats the values of keyframe 0, so frames 0 and 1 differ only in their frame number. Its own frames can't show this, because the fractal power and light change between them. Render frames 0 and 1 twice with `--keyframe -s 0 -e 2`, `--format tiff`, and `DOF_monte_carlo=true` added to `--override`. Give each render a new empty output folder, because an animation skips frames that already exist. Decode the images with the harness's `read_tiff`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
+
+Compare two builds of one source (SC-010 of `specs/001-regression-harness`). Build the final commit a second time in another folder, then run `--compare` with that binary. It exits 0 on all 487 items. Change one formula that no suite scene uses in a third build of the same commit, and run `--compare` again. It exits 1, and the report names only that formula.
 
 Check two-pass stereo. Render `amazing_surf 002.fract` with `stereo_enabled=true#stereo_mode=2` added to the harness's overrides, three times at one thread and three times at all threads. Red-cyan stereo with screen-space ambient occlusion takes two passes. All six renders match in every buffer and statistic.
 
@@ -163,7 +176,7 @@ grep -rnE 'gRandomSeed|RandomInt' mandelbulber2/src mandelbulber2/qt mandelbulbe
 
 ## 6. KD-1 closes (User Story 5)
 
-The constitution shows version 1.0.1 and KD-1 closed, and nothing exists under `tests/references/` (SC-016):
+The constitution shows version 1.0.1, KD-1 closed, and the seed clarification, and nothing exists under `tests/references/` (SC-016):
 
 ```bash
 ls tests/references

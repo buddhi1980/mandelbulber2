@@ -72,7 +72,7 @@ Every difference in Results must trace to a cause. If one-thread renders differ,
 
 ## Order audit
 
-One entry per OpenMP region a still render can reach (FR-021, SC-008).
+One entry per OpenMP region a gated render can reach (FR-021, SC-008). A note records `audio_track.cpp:302` as outside the gate, because it needs a scene with audio tracks, which the suite does not have.
 
 | Field | Content |
 |---|---|

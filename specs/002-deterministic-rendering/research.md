@@ -44,6 +44,7 @@ Every decision below comes from reading the code on 2026-11-06, and from measure
 
 - **Decision**: `render_random_seed`, default 1, range 0 to 2147483647, `morphNone`, `paramStandard`.
 - **Rationale**: The name follows `clouds_random_seed` and `random_lights_random_seed`. 1 is the value `gRandomSeed` starts from today, and the choice doesn't matter otherwise. `paramStandard` sends it to network clients with the rest of the scene, so every client draws the same values. `morphNone` keeps it from interpolating, and the frame number already varies noise between frames.
+- **Principle II**: Its seed rule names the scene file or the harness. No suite scene names this seed, so FR-034 adds a clarification that a setting's default counts as fixed in the scene file. `clouds_random_seed` and `random_lights_random_seed` already depend on the same reading.
 - **Frame number**: `frame_no` already reaches `sParamRender::frameNo`. Every animation path sets it, it is never saved in a scene file, and still renders stay at 0. `--override frame_no=5` sets it on a still render, which gives tests a simple way to render a frame's noise.
 
 ## R6. The depth of field blend
@@ -95,8 +96,8 @@ Every decision below comes from reading the code on 2026-11-06, and from measure
 ## R9. Total iterations
 
 - **Decision**: Default-initialize `sDistanceOut::iters` and `totalIters`, and add `nodeOut.totalIters` to `out->totalIters` in the fractal and hybrid node cases of `CalculateDistanceFromObjectsTree`.
-- **Rationale**: `CalculateDistanceSimple` adds each fractal evaluation to `out->totalIters`, but the object tree passes it a local `nodeOut` and copies only `nodeOut.iters`, and that is why every total reads 0. `totalIters` has no initial value, so the local must start at 0 first. Delta DE then counts four evaluations per distance, which is the real count (FR-026). Nothing reads `totalIters` except the statistics, so no buffer can change (FR-028).
-- **A second problem found**: The limit box exit at `calculate_distance.cpp:305` never sets `out->iters`, and its callers put that value in the histogram and in `stepBuff`. That reads an old stack value, which can depend on what the thread rendered before. No suite scene turns on `limits_enabled`, so Self-Parity can't show it. The default initializer closes it.
+- **Rationale**: `CalculateDistanceSimple` adds each fractal evaluation to `out->totalIters`, but the object tree passes it a local `nodeOut` and copies only `nodeOut.iters`, and that is why every total reads 0. `totalIters` has no initial value, so the local must start at 0 first. Delta DE then counts four evaluations per distance, which is the real count (FR-026). Nothing reads `totalIters` except the statistics, so that change can't reach a buffer.
+- **A second problem found**: The limit box exit at `calculate_distance.cpp:305` never sets `out->iters`, and its callers put that value in the histogram and in `stepBuff`. That reads an old stack value, which can depend on what the thread rendered before. No suite scene turns on `limits_enabled`, so Self-Parity can't show it. The default initializer closes it. Iteration fog reads that value too, so a scene with both can change, which is the one case outside the suite in FR-028.
 
 ## R10. The evidence step
 

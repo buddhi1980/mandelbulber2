@@ -28,6 +28,7 @@ The number of threads a render uses at every parallel stage.
 - The setting is `morphNone`, so it does not interpolate between keyframes.
 - It is `paramStandard`, so it reaches network clients with the rest of the scene.
 - `clouds_random_seed`, `random_lights_random_seed`, and `coloring_random_seed` stay separate (FR-020).
+- No suite scene names it, so a gated render uses the default. The amendment that closes KD-1 clarifies that this counts as fixed in the scene file (FR-034).
 
 ## Random Position
 
@@ -130,7 +131,7 @@ No instance is shared between threads.
 
 - `CalculateDistanceSimple` already adds each fractal evaluation to its own `out->totalIters`. The object tree passes it a local `nodeOut`, so the count stops there. The fix adds `nodeOut.totalIters` to `out->totalIters` in the fractal and hybrid node cases.
 - Nothing else reads `totalIters`, so the fix can't reach a buffer (FR-028).
-- Reading `iters` on the limit box exit reads an old stack value today. No suite scene turns on `limits_enabled`, so Self-Parity can't show it, and the fix closes it for the scenes that do.
+- Reading `iters` on the limit box exit reads an old stack value today. No suite scene turns on `limits_enabled`, so Self-Parity can't show it, and the fix closes it for the scenes that do. Iteration fog reads that value too, so a scene with both can change, which is the one case outside the suite in FR-028.
 
 ## Cause Evidence and Order Audit
 

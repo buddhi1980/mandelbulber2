@@ -17,7 +17,7 @@ description: "Task list for deterministic CPU rendering"
 
 - Every result comes from a fresh build of the commit being tested. No task may use an existing binary, including the one already installed in the WSL clone.
 - WSL can only see commits, so each step commits first and then builds. A fix that a check calls for is a new commit on top of that step, before the next step starts.
-- Each step of the plan gets its own commit, so SC-004 can compare builds on either side of the statistics work. T014, T029, T047, T051, T061, and T087 are those commits. Every commit must compile. Stage only the files the step changed.
+- Each step of the plan gets its own commit, so SC-004 can compare builds on either side of the statistics work. T014, T029, T047, T051, T061, and T088 are those commits. Every commit must compile. Stage only the files the step changed.
 - Commit messages and the pull request carry no `Co-Authored-By` line, no other co-author statement, and no "Generated with" line. Pushing needs the user's go-ahead.
 - Change nothing outside the plan: no compile flags, no workflows, no GUI control for the seed, and no change to formulas, shading math, or default settings (FR-036, FR-038).
 - Diagnostic changes stay in a throwaway clone and never reach the repository (FR-011).
@@ -41,15 +41,15 @@ description: "Task list for deterministic CPU rendering"
 ## Build Environments
 
 - **WSL**: the `Ubuntu-24.04` distro, with GCC 13.3.0, Qt 6.4.2, and 32 logical CPUs. The main clone is `~/mandelbulber2`. `~/mandelbulber2-before`, `~/mandelbulber2-master`, and `~/mandelbulber2-diag` hold builds to compare with, and only `~/mandelbulber2-diag` may hold diagnostic changes. Use `wsl -d Ubuntu-24.04`, because the default distro has no Qt. `valgrind` and `cmake` are not installed yet.
-- **Windows**: the MSVC Release build from the playbook's Local Development section. Delete `build-win` before the first build, because the project compiles every `.cpp` file in that folder. A Windows run can't pass `--self-parity`, because the application ignores a redirected home folder there.
-- **GitHub Actions**: T090 needs the branch pushed. No workflow changes, and no workflow runs Self-Parity until playbook Phase 4.
+- **Windows**: the MSVC Release build from the playbook's Local Development section, in a new clone at `C:\GIT\mb2-kd1-<first 9 characters of the commit>`. Every Windows check on that build runs from the clone's root. A new clone has no `build-win`. The checkout's own `build-win` holds generated files from older source, and the project compiles every `.cpp` file in that folder, so using it would need a permanent delete of 17 GB, which only the user may approve. The clones stay until the user clears them. A Windows run can't pass `--self-parity`, because the application ignores a redirected home folder there.
+- **GitHub Actions**: T091 needs the branch pushed. No workflow changes, and no workflow runs Self-Parity until playbook Phase 4.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
 **Purpose**: Confirm the starting point, and make fresh builds repeatable
 
 - [ ] T001 Confirm the starting point from the repository root: the branch is `upgrade/deterministic-rendering`, `git status --short` prints nothing, `tests/references` does not exist, and `python3 tests/test_regression_runner.py` passes all 223 tests
-- [ ] T002 In WSL, write `~/verify/kd1/build_fresh.sh <clone> <ref> [patch] [qmake arguments]`. It clones `/mnt/c/GIT/mandelbulber2` if `<clone>` is missing, fetches every branch from `file:///mnt/c/GIT/mandelbulber2` into `refs/remotes/windows/`, checks out `<ref>` detached, and applies `[patch]` unless it is `-`. It then runs the build steps from `specs/002-deterministic-rendering/quickstart.md`, including `qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release` with any extra arguments, `make clean`, `make -j$(nproc)`, and `make INSTALL_ROOT=appdir install`. It prints the commit and the binary's path. Every fresh WSL build below uses it
+- [ ] T002 In WSL, write `~/verify/kd1/build_fresh.sh <clone> <ref> [patch] [qmake arguments]`. It clones `/mnt/c/GIT/mandelbulber2` if `<clone>` is missing, fetches every branch from `file:///mnt/c/GIT/mandelbulber2` into `refs/remotes/windows/`, discards any earlier patch with `git reset --hard`, checks out `<ref>` detached, and applies `[patch]` unless it is `-`. It then runs the build steps from `specs/002-deterministic-rendering/quickstart.md`, including `qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release` with any extra arguments, `make clean`, `make -j$(nproc)`, and `make INSTALL_ROOT=appdir install`. It prints the commit and the binary's path. Every fresh WSL build below uses it
 
 ---
 
@@ -63,7 +63,7 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 **Goal**: `--threads N` sets the thread count of every parallel stage of a headless CPU render (plan step 1).
 
-**Independent Test**: Render a scene that reaches screen-space ambient occlusion, post-effect depth of field, and HDR blur at one thread, then at four. The first uses about one CPU's worth of time, and the second uses more.
+**Independent Test**: Render one scene for each of screen-space ambient occlusion, post-effect depth of field, and HDR blur at one thread, then at four. The first uses about one CPU's worth of time, and the second uses more.
 
 ### Implementation for User Story 1
 
@@ -83,11 +83,11 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 ### Checks for User Story 1
 
 - [ ] T015 [US1] Build T014's commit with `build_fresh.sh ~/mandelbulber2 windows/upgrade/deterministic-rendering`. Confirm `--help` describes `--threads` with the text in `specs/002-deterministic-rendering/contracts/application-cli.md` (FR-006), and that `--threads 4 --help` and `--threads 4 --version` still exit 0 (FR-005)
-- [ ] T016 [US1] Run both tables in section 1 of `specs/002-deterministic-rendering/quickstart.md` under `/usr/bin/time`, one scene for each parallel stage and then each headless mode, at `--threads 1` and `--threads 4`. At one thread, user plus system time stays within 110% of elapsed time (SC-005, FR-001, FR-002). At four threads, it is above the one-thread figure and within 110% of four times elapsed time. Keep the numbers for T025
+- [ ] T016 [US1] Run both tables in section 1 of `specs/002-deterministic-rendering/quickstart.md` under `/usr/bin/time`, one scene for each parallel stage and then each headless mode, at `--threads 1` and `--threads 4`. First confirm each post effect's scene spends most of its time in that stage, as section 1 describes. At one thread, user plus system time stays within 110% of elapsed time (SC-005, FR-001, FR-002). At four threads, user plus system time divided by elapsed time is above the one-thread ratio and at most 4.4. Keep the numbers for T025
 - [ ] T017 [US1] Run the two remaining checks at the end of section 1 of `specs/002-deterministic-rendering/quickstart.md`: `OMP_NUM_THREADS=8` with `--threads 1` still uses one CPU's worth of time (FR-002), and `--threads 64` renders at the harness's formula resolution, above the CPU count, with no crash (FR-003). Repeat `--threads 64` with `--voxel slice` and with `--voxel ply`, which use the buffers from T010. Keep the numbers for T025
 - [ ] T018 [US1] Run every row of the refusal table in section 1 of `specs/002-deterministic-rendering/quickstart.md` through `env -u DISPLAY -u WAYLAND_DISPLAY`, because WSL has a display and a message box must not be able to open. Each row exits with the listed status, prints an error that names `--threads`, and writes no image (SC-006, FR-005). Keep the results for T025
 - [ ] T019 [US1] Confirm the defaults in `specs/002-deterministic-rendering/contracts/application-cli.md` (FR-004). With no `--threads`, `IFS_001.fract` uses every logical CPU. A queue of two scenes with `limit_CPU_cores=2` set through `--override` uses about 2 CPUs' worth of time, and the same queue with `--threads 3` uses about 3. Keep the numbers for T025
-- [ ] T020 [US1] Run the network check in section 1 of `specs/002-deterministic-rendering/quickstart.md`: a server and a client on one computer, with `--threads 2` on the client and each with its own temporary `HOME`. The server's log shows 2 workers for that client (FR-001). Keep the result for T025
+- [ ] T020 [US1] Run the network check in section 1 of `specs/002-deterministic-rendering/quickstart.md`: a server and a client on one computer, each with its own temporary `HOME`. With `--threads 2` on the client, the server's log shows 2 workers for that client (FR-001). With `--threads 1` on both, no one-second sample of the client's CPU time is above 1.1 CPUs (SC-005). Keep the results for T025
 
 **Checkpoint**: Every parallel stage obeys `--threads`, every refusal works, and the behavior without the option has not changed. KD-1 is still open, so `--self-parity` now fails on real differences.
 
@@ -102,7 +102,7 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 - [ ] T021 [US2] Write `~/verify/kd1/evidence.py`, run from a clone's root with that clone's `tests/regression_runner.py` on the path. It takes a binary, a label, a list of thread counts, a run count, and a scene list that defaults to the 13 scenes in `specs/002-deterministic-rendering/contracts/evidence-record.md`. It finds each scene in `build_work_items(binary)`, renders it with `render_item(item, binary, folder, ("--threads", str(count)))`, reads each result with `read_export`, and compares the first run with each later run using `compare_exports`. It records every differing buffer and statistic, and the lowest and highest value of each statistic, in `~/verify/kd1/results/<label>.json`. It stops on a failed render. `--self-parity` can't do this, because it compares single-thread runs with the first all-thread run (research R10)
 - [ ] T022 [US2] With T015's binary, run `evidence.py` at 1 thread and at all threads, 3 renders of each, with the label `thread-control` (FR-007, FR-008)
 - [ ] T023 [US2] Write `~/verify/kd1/constant_values.patch`, which makes `Random(max)` in `mandelbulber2/src/common_math.cpp` return `max / 2`. Build it with `build_fresh.sh ~/mandelbulber2-diag <T014's commit> ~/verify/kd1/constant_values.patch`, then run `evidence.py` at 1 thread and at all threads, 3 renders of each, with the label `constant-values` (FR-007, FR-011)
-- [ ] T024 [US2] Write `~/verify/kd1/one_thread_blend.patch`, which also removes the depth of field phase II pragma from `mandelbulber2/src/dof.cpp`. Build it the same way in `~/mandelbulber2-diag`, then run `evidence.py` at all threads, 3 renders of each, with the label `constant-values-one-thread-blend` (FR-007, FR-011)
+- [ ] T024 [US2] Write `~/verify/kd1/one_thread_blend.patch`, which holds the change from `constant_values.patch` and also removes the depth of field phase II pragma from `mandelbulber2/src/dof.cpp`. Build it the same way in `~/mandelbulber2-diag`, then run `evidence.py` at all threads, 3 renders of each, with the label `constant-values-one-thread-blend` (FR-007, FR-011)
 - [ ] T025 [US2] Create `specs/002-deterministic-rendering/evidence.md` from `specs/002-deterministic-rendering/contracts/evidence-record.md`, with the header, builds, scenes, runs, and one Results row per scene, build, and thread count, including the spread of each statistic (FR-008, FR-009). Describe the local changes in words. Add the results of T016 to T020 to the Success criteria table
 - [ ] T026 [US2] In `specs/002-deterministic-rendering/evidence.md`, write one Causes entry per cause found, with the code's file and line, the scenes that show it, the buffers and statistics it reaches, the comparison that isolates it, and the requirement that removes it (FR-009, SC-007). Say whether one-thread renders reproduced before the fix, and whether the 30 percent figure in the request repeats. The spec's Assumptions list the candidates, and the record states only what was measured
 - [ ] T027 [US2] If one-thread renders differ, or a difference in `specs/002-deterministic-rendering/evidence.md` has no cause, find the cause before going on (FR-010, FR-023). A ThreadSanitizer build lists data races, and `valgrind` finds reads of uninitialized values (research R10). Add any new work to this file as new tasks. The shared seed is still replaced, because Principle II forbids it either way
@@ -136,7 +136,7 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 - [ ] T039 [US3] In `cSSAOWorker::doWork` in `mandelbulber2/src/ssao_worker.cpp`, include `position_random.hpp` and build a local `cPositionRandom random(params->renderRandomSeed, params->frameNo, int(data->stereo.GetForcedEye()) + 1, cPositionRandom::stageSSAO);` before the `y` loop. As the first statement of the `x` loop, call `random.SetPosition(x, y, 0)`. Change the 2 `Random(` calls to `random.Random(` (FR-012, FR-013)
 - [ ] T040 [US3] In `mandelbulber2/src/dof.hpp`, include `position_random.hpp`, and add a last parameter `cPositionRandom random`, passed by value, to `cPostRenderingDOF::Render`. In `mandelbulber2/src/dof.cpp`, call `random.SetPosition(pass, int(i), 0)` as the first statement of the shuffle's `for i` loop, and change its 2 `Random(` calls to `random.Random(`, keeping the `int(randomStep)` cast (FR-012, FR-013)
 - [ ] T041 [US3] Pass a generator with stage `stageDOF` to all 5 `dof.Render` calls. In `cRenderer::RenderDOF` in `mandelbulber2/src/render_image.cpp` (lines 328, 333, and 339), build one at the top with the seed, frame, and eye expression from T036. Both regions of a left-right stereo render start from it, and that is fine, because each region is its own shuffle and the values only set blend order. In `cRenderJob::RefreshPostEffects` in `mandelbulber2/src/render_job.cpp:1325`, use `params.renderRandomSeed`, `params.frameNo`, and eye 0. In `cOpenClEngineRenderDOF::RenderDOF` in `mandelbulber2/src/opencl_engine_render_dof.cpp:120`, use `paramRender->renderRandomSeed`, `paramRender->frameNo`, and eye 0
-- [ ] T042 [US3] In the parallel shuffle loop in `mandelbulber2/src/opencl_engine_render_dof.cpp:177`, give each loop entry its own generator with stage `stageDOF`, call `SetPosition(pass, int(i), 0)` on it, and change the 2 `Random(` calls to use it (FR-015). The loop stays parallel, because OpenCL is not gated
+- [ ] T042 [US3] In the parallel shuffle loop in `mandelbulber2/src/opencl_engine_render_dof.cpp:177`, give each loop entry its own generator with stage `stageDOF`, built from `paramRender->renderRandomSeed`, `paramRender->frameNo`, and eye 0, call `SetPosition(pass, int(i), 0)` on it, and change the 2 `Random(` calls to use it (FR-015). The loop stays parallel, because OpenCL is not gated
 - [ ] T043 [P] [US3] In `cInterface::ResetView` in `mandelbulber2/src/interface.cpp:1089`, build `cPositionRandom random(1, 0, 0, cPositionRandom::stageOutsideRender);` and call `random.SetPosition(0, 0, 0)` before the `for i` loop, then change the 3 `Random(` calls to `random.Random(` (FR-015)
 - [ ] T044 [P] [US3] In `cGradientEditWidget::pressedButtonRandomColors` in `mandelbulber2/qt/gradient_edit_widget.cpp:617`, add the time-seeded local `cRandom` that `pressedButtonRandomColorsAndPositions` already uses, and use it for the 3 calls. In `pressedButtonRandomColorsAndPositions`, change the remaining `Random(10000)` at line 634 to `random.Random(10000)` (FR-015)
 - [ ] T045 [P] [US3] In `mandelbulber2/qt/thumbnail_widget.h`, include `src/position_random.hpp` and add a private `cPositionRandom timerRandom;`. In `cThumbnailWidget::Init` in `mandelbulber2/qt/thumbnail_widget.cpp`, after `instanceIndex` is set, assign it `cPositionRandom(1, 0, 0, cPositionRandom::stageOutsideRender)` and call `timerRandom.SetPosition(instanceIndex, 0, 0)`. Change the 5 `Random(` calls to `timerRandom.Random(` (FR-015)
@@ -150,7 +150,7 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 - [ ] T050 [US3] In `cPostRenderingDOF::Render` in `mandelbulber2/src/dof.cpp`, remove the `#pragma omp parallel for` line above the phase II `for j` loop. Change nothing else, so the blend runs in `temp_sort` order, which is the order a one-thread run uses today (FR-022, research R6). Phase I keeps its region
 - [ ] T051 [US3] Commit step 4 with the message `fix: blend depth of field in one fixed order`, staging `mandelbulber2/src/dof.cpp`
 - [ ] T052 [US3] Build T051's commit fresh in `~/mandelbulber2`, then run `evidence.py` on all 26 scenes at 1 thread and at all threads, 3 renders of each, with the label `one-thread-blend`. No buffer differs in any scene, in any run (FR-012, FR-014, FR-022). Statistics may still differ until User Story 4
-- [ ] T053 [US3] In `specs/002-deterministic-rendering/evidence.md`, add the Results rows, then write the Order audit: one entry each for `dof.cpp:101`, the phase II loop, and `post_effect_hdr_blur.cpp:78`, with what each reads and writes, its verdict, the scene that reaches it, the proof from T052 for `IFS_002.fract` and `tests/scenes/hdr_blur.fract`, and its result (FR-021, SC-008). Commit it with the message `docs: record the order audit`
+- [ ] T053 [US3] In `specs/002-deterministic-rendering/evidence.md`, add the Results rows, then write the Order audit: one entry each for `dof.cpp:101`, the phase II loop, and `post_effect_hdr_blur.cpp:78`, with what each reads and writes, its verdict, the scene that reaches it, the proof from T052 for `IFS_002.fract` and `tests/scenes/hdr_blur.fract`, and its result (FR-021, SC-008). Add a note that `audio_track.cpp:302` is outside the gate, because no suite scene has audio tracks. Commit it with the message `docs: record the order audit`
 
 **Checkpoint**: Every buffer of every scene reproduces at one thread and at all threads. Statistics do not yet, so `--self-parity` still fails.
 
@@ -168,7 +168,7 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 - [ ] T057 [US4] In `mandelbulber2/src/render_worker.hpp`, include `statistics.h` and add `mutable cStatistics statistics;` beside `random`. In `cRenderWorker::doWork` in `mandelbulber2/src/render_worker.cpp`, before the main loop, call `Resize` on its two histograms with the sizes of the ones in `data->statistics`. Change the 10 uses of `data->statistics` at lines 478, 479, 523, 803, 804, 810, 918, 919, 954, and 961 to `statistics`. After the `xs` loop, still inside the `ys` loop: if `lastLineWasBroken` is false, take `data->statisticsMutex` and call `data->statistics.Add(statistics)`. Then call `statistics.Reset()` either way (FR-025, FR-027, FR-029)
 - [ ] T058 [US4] Change `data->statistics` to `statistics` in `mandelbulber2/src/shader_aux_shadow.cpp:111`, `mandelbulber2/src/shader_calculate_normals.cpp` (7 uses), `mandelbulber2/src/shader_ambient_occlusion.cpp:75`, and `mandelbulber2/src/shader_fast_ambient_occlusion.cpp:59`. A search for `data->statistics` in `render_worker.cpp` and `shader_*.cpp` then finds only the lines from T057 (FR-027)
 - [ ] T059 [US4] In `mandelbulber2/src/render_image.cpp`, add one file-local helper that copies `data->statistics` under `data->statisticsMutex`, and use its result for the `updateStatistics` signals at lines 167, 440, and 546. `data->statistics.time` stays as it is, because only `cRenderer` writes it and `Add` does not touch it. The `updateStatistics` in `render_job.cpp:582` needs no change, because no worker exists yet at that point (FR-027, FR-029)
-- [ ] T060 [P] [US4] In `sDistanceOut` in `mandelbulber2/src/calculate_distance.hpp`, change the two fields to `int iters = 0;` and `int totalIters = 0;`. In `CalculateDistanceFromObjectsTree` in `mandelbulber2/src/calculate_distance.cpp`, add `out->totalIters += nodeOut.totalIters;` after `leafIters = nodeOut.iters;` in the fractal and hybrid node cases (lines 399 and 475). Nothing else reads `totalIters`, so no buffer can change (FR-026, FR-028)
+- [ ] T060 [P] [US4] In `sDistanceOut` in `mandelbulber2/src/calculate_distance.hpp`, change the two fields to `int iters = 0;` and `int totalIters = 0;`. In `CalculateDistanceFromObjectsTree` in `mandelbulber2/src/calculate_distance.cpp`, add `out->totalIters += nodeOut.totalIters;` after `leafIters = nodeOut.iters;` in the fractal and hybrid node cases (lines 399 and 475). Nothing else reads `totalIters`, so that change can't reach a buffer. The `iters` default can reach one only on the limit box exit, the one case outside the suite in FR-028 (FR-024, FR-026, FR-028)
 - [ ] T061 [US4] Commit step 5 with the message `fix: make render statistics exact`, staging the files changed in T054 to T060 under `mandelbulber2/src/`
 - [ ] T062 [US4] Build T061's commit fresh in `~/mandelbulber2`, and T053's commit fresh in `~/mandelbulber2-before`. From `~/mandelbulber2`, run `python3 tests/regression_runner.py --compare ~/mandelbulber2-before/mandelbulber2/build/appdir/usr/bin/mandelbulber2`. The report shows 0 differences in any buffer across all items (SC-004, FR-028). It still exits 1, because total iterations changes from 0 to the real count. Record the result in `specs/002-deterministic-rendering/evidence.md`
 - [ ] T063 [US4] Run `evidence.py` on all 26 scenes at 1 thread and at all threads, 3 renders of each, with the label `exact-statistics`. No buffer or statistic differs, and `total_iterations` is above 0 in every scene (FR-024, FR-026). Add the Results rows to `specs/002-deterministic-rendering/evidence.md`
@@ -185,12 +185,13 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 **Independent Test**: Build the branch fresh on Linux and run `--self-parity`.
 
-- [ ] T066 [US5] Find the final engine commit with `git log -1 --format=%H -- mandelbulber2 tests`, and build it fresh in `~/mandelbulber2`. Every check in Phases 7 and 8 uses this commit. If a check calls for an engine change, commit the fix, record it under Other dependence in `specs/002-deterministic-rendering/evidence.md` (FR-023), and start again from this task
+- [ ] T066 [US5] Find the final engine commit with `git log -1 --format=%H -- mandelbulber2 tests`, and build it fresh in `~/mandelbulber2`. Every check in Phases 7 and 8 uses this commit. If a check calls for an engine change, commit the fix, record it under Other dependence in `specs/002-deterministic-rendering/evidence.md` (FR-023), repeat T063 to T065 on it, and start again from this task
 - [ ] T067 [US5] In `~/mandelbulber2`, run `python3 tests/regression_runner.py --self-parity` three times in a row. Each run exits 0, reports 487 items passed, and says nothing about thread coverage (SC-001, FR-032). Run it in the background, and keep the three reports. Record the result in `specs/002-deterministic-rendering/evidence.md`
 - [ ] T068 [US5] Write `~/verify/kd1/thread_sweep.py`, which renders every item at 1, 2, 3, 4, and 7 threads and at twice the CPU count, compares each export with the one-thread export using `compare_exports`, and reads `total_iterations` from each. It reports 0 differences (SC-002, FR-024, FR-025), and `total_iterations` is above 0 on every item and the same at every count (SC-003, FR-026). The formula sweep has 24 lines, so twice the CPU count also covers more threads than image lines. Record the result in `specs/002-deterministic-rendering/evidence.md`
 - [ ] T069 [P] [US5] Write `~/verify/kd1/seeds.py`, which renders each of the 6 Monte Carlo scenes twice with each of these added to the harness's overrides: nothing, `render_random_seed=1`, `render_random_seed=2`, and `frame_no=1`. Each render matches its own second render. `render_random_seed=1` matches the render with nothing added, so a scene that names no seed uses the default. `render_random_seed=2` and `frame_no=1` each differ from it (SC-009, FR-016). Record the result in `specs/002-deterministic-rendering/evidence.md`
 - [ ] T070 [P] [US5] Run the two-pass stereo check in section 3 of `specs/002-deterministic-rendering/quickstart.md`: all six renders match in every buffer and statistic (FR-012). Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T071 [US5] Run `python3 tests/test_regression_runner.py` in WSL and on Windows. All tests pass, including the seeded one-bit difference in every buffer (SC-011) and the capture tests, which now pass thread coverage with the real setting and write only to temporary folders. Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T071 [US5] Run `python3 tests/test_regression_runner.py` in WSL and on Windows. All tests pass, including the seeded one-bit difference in every buffer (SC-011) and the capture tests, which run with `--threads` as the option and write only to temporary folders. With `test_thread_control_is_enabled`, they show thread coverage no longer stops `--capture`. Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T072 [US5] Confirm SC-010 of `specs/001-regression-harness`, which User Story 5 says this feature makes true. Build T066's commit fresh in `~/mandelbulber2-before`, then from `~/mandelbulber2` run `python3 tests/regression_runner.py --compare ~/mandelbulber2-before/mandelbulber2/build/appdir/usr/bin/mandelbulber2`. It exits 0 on all 487 items. Write `~/verify/kd1/one_formula.patch`, which changes `.9` to `.91` on the `z.x` line of `FormulaCode` in `mandelbulber2/formula/definition/fractal_ides.cpp`, a formula no suite scene uses. Build it with `build_fresh.sh ~/mandelbulber2-diag <T066's commit> ~/verify/kd1/one_formula.patch`, and run the same command with that binary. It exits 1, and the report names only `ides`. Record both results in `specs/002-deterministic-rendering/evidence.md`
 
 **Checkpoint**: Self-Parity passes on all 487 items. KD-1's closing condition is met, and the closing edit waits for Phase 9.
 
@@ -202,18 +203,18 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 **Independent Test**: Compare Monte Carlo renders from before and after this change, and run the application's own tests and Cross-Build Check.
 
-- [ ] T072 [US6] On T066's build, run `--test` with the `env -i` command from T048. Every test passes (SC-012, FR-018, FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T073 [US6] Build T066's commit fresh with MSVC, from the playbook's Local Development section: delete `build-win`, run `nuget restore`, then build Release x64 with MSBuild. Run `--test` from `build-win/Release/x64` with `QT_FORCE_STDERR_LOGGING=1`, then `python tests/test_regression_runner.py`. All tests pass, and `testPositionRandom` gives the same answers as qmake (SC-012, FR-018, FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T074 [US6] On T073's build, run `python tests/regression_runner.py --self-parity`. It reports 0 differences, although it can't call that a pass on Windows (SC-013). Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T075 [US6] Run Cross-Build Check locally, from section 4 of the playbook's Local Development section: `--collect` on the T066 and T073 builds, then `--cross-check` on both collections. It passes. Any difference it records between the builds is recorded and is not drift. Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T076 [US6] Confirm the other builds compile from fresh, on `master` and on T066's commit: `mandelbulber2/qmake/mandelbulber.pro`, which has no OpenCL, and `mandelbulber2/cmake/CMakeLists.txt`. `cmake` is not installed in WSL, so install it with `sudo apt-get install -y cmake`, or ask the user to if `sudo` needs a password. If a build fails on `master` too, record that, and this feature only has to fail the same way (FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T077 [P] [US6] Build `master` fresh in `~/mandelbulber2-master`. Write `~/verify/kd1/noise.py`, which finds the average absolute difference between the `final_image` buffers of two renders of each of the 6 Monte Carlo scenes: two runs of the `master` build with no thread arguments, because `master` has no `--threads`, then seeds 1 and 2 on T066's build at all threads. Noise rises by at most 5% on every scene. Note any drop above 5% with its reason, for the pull request (SC-010, FR-019). Record the numbers under Measurements in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T078 [US6] Using the renders from T077, write a before image, an after image, and a noise image for each of the 6 Monte Carlo scenes to `~/verify/kd1/patterns/` as PNG files. The noise image shows the difference between seeds 1 and 2, amplified so any structure can be seen. Look at each one for lines, grids, or repeated shapes, then show them to the user, because SC-010 needs a reviewer. Record the outcome in `specs/002-deterministic-rendering/evidence.md` (FR-019)
-- [ ] T079 [US6] With nothing else running, record the time of `--collect` on the `master` and T066 builds, each run from its own clone, because `master`'s runner does not pass `--threads`. Record the depth of field stage too, on `IFS_002.fract` at 1920x1080 at 1, 4, 16, and 32 threads. Take the stage time as the render's time minus the same render with `DOF_enabled=false`, and set threads with `OMP_NUM_THREADS` on `master` and `--threads` on T066's build (FR-039, SC-014). Record both under Measurements in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T080 [P] [US6] Run the animation check in section 3 of `specs/002-deterministic-rendering/quickstart.md`: frames 0 and 1 of `keyframe_anim_mandelbulb.fract` differ from each other, and each frame matches its own second render. Record the result in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T081 [US6] Check OpenCL on T073's build. If `--help-opencl` lists a device, render `IFS_002.fract` with `opencl_enabled=true#opencl_mode=full`, and confirm it finishes with depth of field applied. If it lists none, the compile checks are all this feature can show, so record that as Not covered in `specs/002-deterministic-rendering/evidence.md`
-- [ ] T082 [US6] Check the GUI on T073's build. This needs a person at the screen, or computer use if the user allows it. Confirm the statistics dock updates during a render (FR-029), `limit_CPU_cores` in Preferences still limits the render workers (FR-004), and the view reset, both random buttons in the gradient editor, and thumbnails all still work (FR-015). Record the result in `specs/002-deterministic-rendering/evidence.md`, or Not covered if nobody could run it
-- [ ] T083 [US6] Repeat T020 on T066's build, so network rendering is checked on the final code (FR-001). Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T073 [US6] On T066's build, run `--test` with the `env -i` command from T048. Every test passes (SC-012, FR-018, FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T074 [US6] Build T066's commit fresh with MSVC, from the playbook's Local Development section, in the new clone that Build Environments describes: clone the repository, check out the commit detached, run `nuget restore`, then build Release x64 with MSBuild. Run `--test` from `build-win/Release/x64` with `QT_FORCE_STDERR_LOGGING=1`, then `python tests/test_regression_runner.py`. All tests pass, and `testPositionRandom` gives the same answers as qmake (SC-012, FR-018, FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T075 [US6] On T074's build, run `python tests/regression_runner.py --self-parity`. It reports 0 differences, although it can't call that a pass on Windows (SC-013). Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T076 [US6] Run Cross-Build Check locally, from section 4 of the playbook's Local Development section, with T074's clone in place of the Windows checkout: `--collect` on the T066 and T074 builds, then `--cross-check` on both collections. It passes. Any difference it records between the builds is recorded and is not drift. Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T077 [US6] Confirm the other builds compile from fresh, on `windows/master` and on T066's commit: `mandelbulber2/qmake/mandelbulber.pro`, which has no OpenCL, and `mandelbulber2/cmake/CMakeLists.txt`. Build them in `~/mandelbulber2-diag`, never in `~/mandelbulber2`, because later checks use the T066 binary there. Follow `build_fresh.sh` by hand, because it only builds `mandelbulber-opencl.pro`. `cmake` is not installed in WSL, so install it with `sudo apt-get install -y cmake`, or ask the user to if `sudo` needs a password. If a build fails on `master` too, record that, and this feature only has to fail the same way (FR-037). Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T078 [P] [US6] Build `windows/master` fresh in `~/mandelbulber2-master`. Write `~/verify/kd1/noise.py`, which finds the average absolute difference between the `final_image` buffers of two renders of each of the 6 Monte Carlo scenes: two runs of the `master` build with no thread arguments, because `master` has no `--threads`, then seeds 1 and 2 on T066's build at all threads. Noise rises by at most 5% on every scene. Note any drop above 5% with its reason, for the pull request (SC-010, FR-019). Record the numbers under Measurements in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T079 [US6] Using the renders from T078, write a before image, an after image, and a noise image for each of the 6 Monte Carlo scenes to `~/verify/kd1/patterns/` as PNG files. The noise image shows the difference between seeds 1 and 2, amplified so any structure can be seen. Look at each one for lines, grids, or repeated shapes, then show them to the user, because SC-010 needs a reviewer. Record the outcome in `specs/002-deterministic-rendering/evidence.md` (FR-019)
+- [ ] T080 [US6] With nothing else running, record the time of `--collect` on the `master` and T066 builds, each run from its own clone, so each build runs with the harness from its own commit. Record the depth of field stage too, on `IFS_002.fract` at 1920x1080 at 1, 4, 16, and 32 threads. Take the stage time as the render's time minus the same render with `DOF_enabled=false`, and set threads with `OMP_NUM_THREADS` on `master` and `--threads` on T066's build (FR-039, SC-014). Record both under Measurements in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T081 [P] [US6] Run the animation check in section 3 of `specs/002-deterministic-rendering/quickstart.md`: frames 0 and 1 of `keyframe_anim_mandelbulb.fract` differ from each other, and each frame matches its own second render. Record the result in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T082 [US6] Check OpenCL on T074's build. If `--help-opencl` lists a device, render `IFS_002.fract` with `opencl_enabled=true#opencl_mode=full`, and confirm it finishes with depth of field applied. If it lists none, the compile checks are all this feature can show, so record that as Not covered in `specs/002-deterministic-rendering/evidence.md`
+- [ ] T083 [US6] Check the GUI on T074's build. This needs a person at the screen, or computer use if the user allows it. Confirm the statistics dock updates during a render (FR-029), `limit_CPU_cores` in Preferences still limits the render workers (FR-004), and the view reset, both random buttons in the gradient editor, and thumbnails all still work (FR-015). Record the result in `specs/002-deterministic-rendering/evidence.md`, or Not covered if nobody could run it
+- [ ] T084 [US6] Repeat T016 to T020 on T066's build, so the thread control and network rendering are checked on the final code (SC-005, SC-006, FR-001 to FR-005). Record the results in `specs/002-deterministic-rendering/evidence.md`
 
 **Checkpoint**: Quality, builds, tests, and other modes all hold on the final engine commit.
 
@@ -223,13 +224,13 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 **Purpose**: Finish the record, close KD-1, and open the one pull request (plan step 6). This comes last because closing depends on Phases 7 and 8.
 
-- [ ] T084 Finish `specs/002-deterministic-rendering/evidence.md`: complete Measurements, Other dependence, and the Success criteria table, with anything not covered named plainly. Read it alone and confirm every difference has a cause (SC-007), and every audited region has a verdict and a scene (SC-008)
-- [ ] T085 In `.specify/memory/constitution.md`, mark KD-1 closed in the Known Deviations table, with the date and a pointer to `specs/002-deterministic-rendering/evidence.md`. Set Version to 1.0.1 and Last Amended to the closing date. Leave Ratified alone. This is a PATCH amendment (FR-034, SC-016)
-- [ ] T086 In `MIGRATION_PLAYBOOK.md`, correct what this feature makes out of date (FR-034): line 222, which says to enable the second thread count; line 224, which says to fill in `total_iterations`; and line 370, which removes KD-1 through KD-4, so it closes only what is still open by then. Search the file for `KD-1`, `thread control`, and `total_iterations`, and correct anything else that is now wrong
-- [ ] T087 Commit step 6 with the message `docs: close KD-1`, staging `specs/002-deterministic-rendering/evidence.md`, `.specify/memory/constitution.md`, and `MIGRATION_PLAYBOOK.md`
-- [ ] T088 Check the whole branch against `master`. `git diff --stat master...HEAD -- .github mandelbulber2/qmake mandelbulber2/cmake mandelbulber2/msvc mandelbulber2/formula` prints nothing (FR-036, FR-038). `mandelbulber2/src/verification_export.cpp`, `mandelbulber2/src/lights.cpp`, `mandelbulber2/src/random.cpp`, and the Perlin noise files are unchanged (FR-020, FR-030). The SC-015 search prints nothing. `tests/references` does not exist (FR-033, SC-016). No commit message on the branch has an attribution line
-- [ ] T089 Ask the user for the go-ahead to push, then push `upgrade/deterministic-rendering` and open one pull request against `master` with `gh pr create --repo Coastrnaut/mandelbulber2 --base master`. The body states the expected effect on output in the words of FR-035, explains any noise drop above 5% (SC-010), links `specs/002-deterministic-rendering/evidence.md`, and gives what the amendment needs: the reason, the version change from 1.0.0 to 1.0.1, the dates, and the affected plans and gates. It lists anything not covered, and it has no attribution lines
-- [ ] T090 Confirm `.github/workflows/cross-build-check.yml` and the workflows that pass today pass on the pull request, and that its Collect step stays under 30 minutes (SC-012, SC-014, FR-038). A maintainer approves the amendment before it merges. Do not enable auto-merge
+- [ ] T085 Finish `specs/002-deterministic-rendering/evidence.md`: complete Measurements, Other dependence, and the Success criteria table, with anything not covered named plainly. Read it alone and confirm every difference has a cause (SC-007), and every audited region has a verdict and a scene (SC-008)
+- [ ] T086 In `.specify/memory/constitution.md`, mark KD-1 closed in the Known Deviations table, with the date and a pointer to `specs/002-deterministic-rendering/evidence.md`. In Principle II, add this sentence after the seed rule's first sentence: "A seed setting that a scene file does not name takes its default value, which counts as fixed in the scene file." Set Version to 1.0.1 and Last Amended to the closing date. Leave Ratified alone. Both changes are one PATCH amendment (FR-034, SC-016)
+- [ ] T087 In `MIGRATION_PLAYBOOK.md`, correct what this feature makes out of date (FR-034): line 222, which says to enable the second thread count; line 224, which says to fill in `total_iterations`; and line 370, which removes KD-1 through KD-4, so it closes only what is still open by then. Search the file for `KD-1`, `thread control`, and `total_iterations`, and correct anything else that is now wrong
+- [ ] T088 Commit step 6 with the message `docs: close KD-1`, staging `specs/002-deterministic-rendering/evidence.md`, `.specify/memory/constitution.md`, and `MIGRATION_PLAYBOOK.md`
+- [ ] T089 Check the whole branch against `master`. `git diff --stat master...HEAD -- .github mandelbulber2/qmake mandelbulber2/cmake mandelbulber2/msvc mandelbulber2/formula` prints nothing (FR-036, FR-038). `mandelbulber2/src/verification_export.cpp`, `mandelbulber2/src/lights.cpp`, `mandelbulber2/src/material.cpp`, `mandelbulber2/src/random.cpp`, and the Perlin noise files are unchanged (FR-020, FR-030). The SC-015 search prints nothing. `tests/references` does not exist (FR-033, SC-016). No commit message on the branch has an attribution line
+- [ ] T090 Ask the user for the go-ahead to push, then push `upgrade/deterministic-rendering` and open one pull request against `master` with `gh pr create --repo Coastrnaut/mandelbulber2 --base master`. The body states the expected effect on output in the words of FR-035, explains any noise drop above 5% (SC-010), links `specs/002-deterministic-rendering/evidence.md`, and gives what the amendment needs: the reason for both changes, the version change from 1.0.0 to 1.0.1, the dates, and the affected plans and gates. It lists anything not covered, and it has no attribution lines
+- [ ] T091 Confirm `.github/workflows/cross-build-check.yml` and the workflows that pass today pass on the pull request, and that its Collect step stays under 30 minutes (SC-012, SC-014, FR-038). A maintainer approves the amendment before it merges. Do not enable auto-merge
 
 ---
 
@@ -237,11 +238,11 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 | Requirement | Tasks |
 |---|---|
-| FR-001 | T005, T006, T016, T020, T083 |
-| FR-002 | T009, T016, T017 |
-| FR-003 | T006, T010, T017 |
-| FR-004 | T003, T008, T019, T082 |
-| FR-005 | T006, T015, T018 |
+| FR-001 | T005, T006, T016, T020, T084 |
+| FR-002 | T009, T016, T017, T084 |
+| FR-003 | T006, T010, T017, T084 |
+| FR-004 | T003, T008, T019, T083, T084 |
+| FR-005 | T006, T015, T018, T084 |
 | FR-006 | T005, T015 |
 | FR-007 | T021, T022, T023, T024 |
 | FR-008 | T021, T022, T025 |
@@ -251,47 +252,47 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 | FR-012 | T030, T036, T039, T040, T052, T070 |
 | FR-013 | T036, T037, T038, T039, T040, T046 |
 | FR-014 | T030, T052 |
-| FR-015 | T042, T043, T044, T045, T046, T082 |
+| FR-015 | T042, T043, T044, T045, T046, T083 |
 | FR-016 | T033, T034, T069 |
 | FR-017 | T030, T036, T037 |
-| FR-018 | T030, T031, T032, T072, T073 |
-| FR-019 | T077, T078 |
-| FR-020 | T046, T088 |
+| FR-018 | T030, T031, T032, T073, T074 |
+| FR-019 | T078, T079 |
+| FR-020 | T046, T089 |
 | FR-021 | T053 |
 | FR-022 | T050, T052 |
 | FR-023 | T027, T049, T066 |
-| FR-024 | T054, T063, T068 |
+| FR-024 | T054, T060, T063, T068 |
 | FR-025 | T056, T057, T068 |
 | FR-026 | T060, T063, T068 |
 | FR-027 | T055, T057, T058, T059, T065 |
 | FR-028 | T060, T062 |
-| FR-029 | T057, T059, T064, T082 |
-| FR-030 | T088 |
+| FR-029 | T057, T059, T064, T083 |
+| FR-030 | T089 |
 | FR-031 | T011, T012, T013 |
 | FR-032 | T067 |
-| FR-033 | T088 |
-| FR-034 | T085, T086 |
-| FR-035 | T089 |
-| FR-036 | T088 |
-| FR-037 | T072, T073, T076 |
-| FR-038 | T088, T090 |
-| FR-039 | T079 |
+| FR-033 | T089 |
+| FR-034 | T086, T087 |
+| FR-035 | T090 |
+| FR-036 | T089 |
+| FR-037 | T073, T074, T077 |
+| FR-038 | T089, T091 |
+| FR-039 | T080 |
 | SC-001 | T067 |
 | SC-002 | T068 |
 | SC-003 | T068 |
 | SC-004 | T062 |
-| SC-005 | T016 |
-| SC-006 | T018 |
-| SC-007 | T026, T084 |
-| SC-008 | T053, T084 |
+| SC-005 | T016, T020, T084 |
+| SC-006 | T018, T084 |
+| SC-007 | T026, T085 |
+| SC-008 | T053, T085 |
 | SC-009 | T069 |
-| SC-010 | T077, T078, T089 |
+| SC-010 | T078, T079, T090 |
 | SC-011 | T071 |
-| SC-012 | T032, T072, T073, T090 |
-| SC-013 | T074 |
-| SC-014 | T079, T090 |
-| SC-015 | T048, T088 |
-| SC-016 | T085, T088 |
+| SC-012 | T032, T073, T074, T091 |
+| SC-013 | T075 |
+| SC-014 | T080, T091 |
+| SC-015 | T048, T089 |
+| SC-016 | T086, T089 |
 
 ---
 
@@ -305,8 +306,8 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 - **User Story 3 (Phase 5)**: Depends on User Story 2, because the cause must be recorded before the seed is replaced (FR-007).
 - **User Story 4 (Phase 6)**: Depends on User Story 3, because FR-028 can only be proved once renders reproduce.
 - **User Story 5 (Phase 7)**: Depends on User Stories 1, 3, and 4, because Self-Parity needs all of them.
-- **User Story 6 (Phase 8)**: Depends on the final engine commit from T066. It can run alongside User Story 5, apart from T079, which needs a quiet computer.
-- **Closing (Phase 9)**: Depends on everything above. T085 must not run until T067 has passed.
+- **User Story 6 (Phase 8)**: Depends on the final engine commit from T066. It can run alongside User Story 5, apart from T080, which needs a quiet computer.
+- **Closing (Phase 9)**: Depends on everything above. T086 must not run until T067 has passed.
 
 ### Within Each Phase
 
@@ -327,7 +328,7 @@ There is little to run in parallel, because the steps are ordered and most of th
 - T033, T034, and T035
 - T043, T044, and T045
 - T054, T055, T056, and T060
-- T069, T070, T077, and T080, which are checks on one build, as long as nothing is being timed
+- T069, T070, T078, and T081, which are checks on one build, as long as nothing is being timed
 
 ## Parallel Example: Callers Outside the Render
 

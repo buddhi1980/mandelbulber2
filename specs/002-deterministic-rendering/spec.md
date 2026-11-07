@@ -28,7 +28,7 @@ A developer starts a headless render with a chosen number of threads, and every 
 
 **Why this priority**: The rest of this feature needs it. The cause cannot be confirmed without one-thread renders, and Self-Parity needs two thread counts. Today `limit_CPU_cores` has no effect under `--nogui`, because only the GUI startup path and the queue apply it, and nothing in the engine sets the OpenMP thread count.
 
-**Independent Test**: Render a scene that reaches screen-space ambient occlusion, post-effect depth of field, and HDR blur at one thread, then at four. The first uses about one CPU's worth of time, and the second uses more.
+**Independent Test**: Render one scene for each of screen-space ambient occlusion, post-effect depth of field, and HDR blur at one thread, then at four. The first uses about one CPU's worth of time, and the second uses more.
 
 **Acceptance Scenarios**:
 
@@ -114,6 +114,7 @@ A developer runs `--self-parity` on a fresh build, and it passes.
 3. **Given** the harness's thread setting is enabled, **When** `--capture` runs, **Then** thread coverage no longer stops it, and this feature still creates no references.
 4. **Given** a seeded difference in one sample of one buffer, **When** the harness compares it, **Then** it still fails, so passing did not come from a weaker comparison.
 5. **Given** Self-Parity passes, **When** this feature merges, **Then** the constitution shows KD-1 closed.
+6. **Given** two fresh builds of the same source, **When** compare mode runs, **Then** it reports no differences, and a deliberate change to one formula is reported against that formula.
 
 ---
 
@@ -152,7 +153,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Thread control**
 
-- **FR-001**: Every headless CPU render mode MUST accept `--threads N`, with N a whole number of at least 1 given as the next argument. These modes are still renders, keyframe and flight animations, the queue, voxel export, network rendering, `--test`, and `--benchmark`.
+- **FR-001**: Every headless CPU render mode MUST accept `--threads N`, with N a whole number of at least 1 given as the next argument or as `--threads=N`. These modes are still renders, keyframe and flight animations, the queue, voxel export, network rendering, `--test`, and `--benchmark`.
 - **FR-002**: `--threads` MUST set the thread count of every parallel stage a CPU render can reach: the render workers, screen-space ambient occlusion, the OpenMP regions in post-effect depth of field and HDR blur, and the OpenMP regions in voxel export. `OMP_NUM_THREADS` in the environment MUST NOT override it.
 - **FR-003**: `--threads` MUST accept and use counts above the number of logical CPUs.
 - **FR-004**: Without `--threads`, a render MUST use every logical CPU, as it does today. `limit_CPU_cores` MUST keep working as it does today in the GUI and the queue, and in the queue `--threads` MUST take precedence over it.
@@ -181,7 +182,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Order-dependent stages**
 
-- **FR-021**: The work MUST audit each OpenMP region a CPU render can reach, and it MUST record for each one whether its result depends on thread order, with a suite scene that reaches it. There are three today: two in `dof` and one in `post_effect_hdr_blur`.
+- **FR-021**: The work MUST audit each OpenMP region a gated render can reach, and it MUST record for each one whether its result depends on thread order, with a suite scene that reaches it. There are three today: two in `dof` and one in `post_effect_hdr_blur`. The region in `audio_track` needs a scene with audio tracks, which the suite does not have, so the audit records it as outside the gate.
 - **FR-022**: A region whose result depends on order MUST give the same result at every thread count, and two threads MUST NOT update one pixel at the same time. The blend in post-effect depth of field MUST do this by running on one thread, in one fixed order. A region whose result does not depend on order MUST stay parallel.
 - **FR-023**: Any other dependence on thread count, scheduling, or elapsed time that Self-Parity exposes MUST be found, fixed, and recorded. Tolerances, exclusions, and skip lists MUST NOT be used to hide a difference.
 
@@ -191,7 +192,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **FR-025**: Each pixel MUST count exactly once in those values, however lines reach threads, including a line that one thread abandons or a second thread renders again.
 - **FR-026**: Total iterations MUST report the real count on the current CPU path, where it reads 0 today. Playbook Phase 3 places this fix in this change.
 - **FR-027**: Two threads MUST NOT update one statistics counter at the same time. This includes rendered pixels, Monte Carlo repeats, and noise, which the verification export does not record.
-- **FR-028**: The statistics work MUST NOT change any buffer.
+- **FR-028**: The statistics work MUST NOT change any buffer on a suite item. The one case outside the suite is the limit box exit, where the iteration count changes from an old stack value to 0, and iteration fog can read it.
 - **FR-029**: The GUI's statistics dock and `--stats` MUST keep updating during a render. Only the values of a finished render need to be exact.
 - **FR-030**: The verification export's format MUST NOT change.
 
@@ -200,7 +201,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **FR-031**: The harness's thread setting MUST be set to `--threads`. That MUST be the only change to how the harness behaves, and its own tests MUST keep covering the case with no thread control.
 - **FR-032**: Self-Parity MUST pass for every item, every buffer, and every statistic, at one thread and at all available threads, on a fresh Linux build.
 - **FR-033**: This feature MUST NOT create or commit references. Baseline 1 belongs to playbook Phase 4.
-- **FR-034**: Closing KD-1 MUST mark it closed in the constitution as a PATCH amendment, version 1.0.1, stating the reason, as Governance requires. Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected.
+- **FR-034**: Closing KD-1 MUST mark it closed in the constitution as a PATCH amendment, version 1.0.1, stating the reason, as Governance requires. The same amendment MUST clarify Principle II's seed rule, so that a seed setting a scene file does not name counts as fixed in the scene file at its default. Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected.
 
 **Boundaries**
 
@@ -219,7 +220,8 @@ A user or developer sees no loss from this change: images look as they did, and 
 
 **Seed: one scene setting with a fixed default.**
 
-- **Why**: The constitution requires a seed fixed in the scene file or the harness. A scene setting meets that the way `clouds_random_seed` and `random_lights_random_seed` do, existing scenes load with no edit, and a plain `--nogui` render gives the same pixels as a gated one. Where a scene names no seed, the default is part of the binary, which Principle II already counts as an input.
+- **Why**: The constitution requires a seed fixed in the scene file or the harness. A scene setting follows `clouds_random_seed` and `random_lights_random_seed`, existing scenes load with no edit, and a plain `--nogui` render gives the same pixels as a gated one.
+- **Constitution**: No suite scene names this seed, so its value comes from the setting's default in the binary, and Principle II's words do not cover a default. FR-034 adds that clarification in the amendment that closes KD-1, as a PATCH. The existing seed settings already depend on it.
 - **Not chosen**: A seed that only the harness passes. It needs a harness change that SC-003 of `specs/001-regression-harness` rules out, and ungated renders would use a different seed from gated ones.
 
 **Animation: the frame number is part of each value's position.**
@@ -261,7 +263,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-013**: A `--self-parity` run on a fresh MSVC build reports 0 differences, although the harness cannot call it a pass there.
 - **SC-014**: The render time of the Standard Scene Suite and the depth of field time of `IFS_002.fract` at 1920x1080 are recorded before and after, and a full gate run stays under 30 minutes on a 4-vCPU CI runner.
 - **SC-015**: A search of the source finds no remaining use of the shared seed.
-- **SC-016**: The constitution shows KD-1 closed at version 1.0.1, and no file exists under `tests/references/`.
+- **SC-016**: The constitution shows KD-1 closed and the seed clarification at version 1.0.1, and no file exists under `tests/references/`.
 
 ## Assumptions
 
