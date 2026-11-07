@@ -149,8 +149,8 @@ No tasks. User Story 1 is the foundation: the spec's order of work needs the thr
 
 ### Order-dependent stages (plan step 4)
 
-- [ ] T050 [US3] In `cPostRenderingDOF::Render` in `mandelbulber2/src/dof.cpp`, remove the `#pragma omp parallel for` line above the phase II `for j` loop. Change nothing else, so the blend runs in `temp_sort` order, which is the order a one-thread run uses today (FR-022, research R6). Phase I keeps its region
-- [ ] T051 [US3] Commit step 4 with the message `fix: blend depth of field in one fixed order`, staging `mandelbulber2/src/dof.cpp`
+- [X] T050 [US3] In `cPostRenderingDOF::Render` in `mandelbulber2/src/dof.cpp`, remove the `#pragma omp parallel for` line above the phase II `for j` loop. Change nothing else, so the blend runs in `temp_sort` order, which is the order a one-thread run uses today (FR-022, research R6). Phase I keeps its region
+- [X] T051 [US3] Commit step 4 with the message `fix: blend depth of field in one fixed order`, staging `mandelbulber2/src/dof.cpp`
 - [ ] T052 [US3] Build T051's commit fresh in `~/mandelbulber2`, then run `evidence.py` on all 26 scenes at 1 thread and at all threads, 3 renders of each, with the label `one-thread-blend`. No buffer differs in any scene, in any run (FR-012, FR-014, FR-022). Statistics may still differ until User Story 4
 - [ ] T053 [US3] In `specs/002-deterministic-rendering/evidence.md`, add the Results rows, then write the Order audit: one entry each for `dof.cpp:101`, the phase II loop, and `post_effect_hdr_blur.cpp:78`, with what each reads and writes, its verdict, the scene that reaches it, the proof from T052 for `IFS_002.fract` and `tests/scenes/hdr_blur.fract`, and its result (FR-021, SC-008). Add a note that `audio_track.cpp:302` is outside the gate, because no suite scene has audio tracks. Commit it with the message `docs: record the order audit`
 
