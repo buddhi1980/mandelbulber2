@@ -108,10 +108,10 @@ description: "Task list for strict floating-point builds"
 
 ### Implementation for User Story 2
 
-- [ ] T014 [P] [US2] In `mandelbulber2/tools/prepare_for_dev_ubuntu.sh:12`, change `export CXXFLAGS="-march=native -msse2"` to `export CXXFLAGS="-msse2"`. `-msse2` stays, because it "names part of the plain x86-64 target and does not depend on the build computer" (FR-006)
-- [ ] T015 [P] [US2] Make the same change in `mandelbulber2/tools/prepare_for_dev_debian_testing.sh:12` (FR-006)
-- [ ] T016 [P] [US2] In `mandelbulber2/deploy/linux/install:13`, delete the line `export CXXFLAGS="-march=native"`. Leave the rest of the script alone (FR-007)
-- [ ] T017 [US2] Commit with the message `build: remove -march=native from the setup scripts`, staging the files from T014 to T016 and this file
+- [X] T014 [P] [US2] In `mandelbulber2/tools/prepare_for_dev_ubuntu.sh:12`, change `export CXXFLAGS="-march=native -msse2"` to `export CXXFLAGS="-msse2"`. `-msse2` stays, because it "names part of the plain x86-64 target and does not depend on the build computer" (FR-006)
+- [X] T015 [P] [US2] Make the same change in `mandelbulber2/tools/prepare_for_dev_debian_testing.sh:12` (FR-006)
+- [X] T016 [P] [US2] In `mandelbulber2/deploy/linux/install:13`, delete the line `export CXXFLAGS="-march=native"`. Leave the rest of the script alone (FR-007)
+- [X] T017 [US2] Commit with the message `build: remove -march=native from the setup scripts`, staging the files from T014 to T016 and this file
 
 ### Checks for User Story 2
 

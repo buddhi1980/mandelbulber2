@@ -9,7 +9,7 @@ This script will ask about root password to perform installation of system packa
 
 To update the program do not remove already downloaded files. This script will pull only the latest changes."
 
-export CXXFLAGS="-march=native -msse2"
+export CXXFLAGS="-msse2"
 MANDELBULBER_SHARE="/usr/share/mandelbulber2"
 
 set -e # if any of the commands fail the script will exit immediately
