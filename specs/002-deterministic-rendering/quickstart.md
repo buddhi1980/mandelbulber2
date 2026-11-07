@@ -38,12 +38,12 @@ Time each stage at one thread and then at four. With `--threads 1`, no sample is
 EXAMPLES=mandelbulber2/deploy/share/mandelbulber2/examples
 SCENE=tests/scenes/hdr_blur.fract
 RATE="python3 $HOME/verify/kd1/cpu_rate.py"
-$RATE $BIN --threads 1 --nogui --format tiff --output /tmp/t1 "$EXAMPLES/IFS_001.fract"
+$RATE $BIN --threads 1 --nogui --format tiff --output /tmp/t1 --res 480x270 "$EXAMPLES/IFS_001.fract"
 ```
 
 | Stage | Arguments, after `--output /tmp/t1` | Turned off with |
 |---|---|---|
-| Render workers | `"$EXAMPLES/IFS_001.fract"` | - |
+| Render workers | `--res 480x270 "$EXAMPLES/IFS_001.fract"` | - |
 | Screen-space ambient occlusion | `--res 1920x1080 --override 'hdr_blur_enabled=0#ambient_occlusion_enabled=1#ambient_occlusion_mode=2#ambient_occlusion_quality=10' "$SCENE"` | `ambient_occlusion_enabled=0` |
 | Post-effect depth of field | `--override 'hdr_blur_enabled=0#DOF_enabled=1#DOF_radius=50' "$SCENE"` | `DOF_enabled=0` |
 | HDR blur | `--override 'hdr_blur_radius=20' "$SCENE"` | `hdr_blur_enabled=0` |
@@ -62,7 +62,7 @@ VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
 | Flight animation | `--nogui --flight -s 0 -e 2 --output "$(mktemp -d)/" "$EXAMPLES/flight_anim_menger sponge_3.fract"` |
 | Voxel export | `--nogui --voxel slice --override "$VOXEL" "$EXAMPLES/voxel_export_with_Bristorbrot4D.fract"` |
 | Mesh export | `--nogui --voxel ply --override "$VOXEL" "$EXAMPLES/voxel_export_with_Bristorbrot4D.fract"` |
-| Queue | `--nogui "$EXAMPLES/IFS_001.fract" "$EXAMPLES/Makin3D-Julia_001.fract"` |
+| Queue | `--nogui tests/scenes/jos_kleinian.fract tests/scenes/beam_light.fract` |
 | Test suite | `--test` |
 | Benchmark | `--benchmark 1` |
 
