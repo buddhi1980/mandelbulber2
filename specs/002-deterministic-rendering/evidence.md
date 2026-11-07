@@ -66,6 +66,8 @@ The record covers these scenes at the harness's resolution and overrides.
 | Random values, commit `539efacad` | All | 3 of 13: `IFS_002`, `amazing_surf 002`, `menger octo 001` | 13 of 13 |
 | One-thread blend, commit `8ce2ec0b7`, all 26 scenes | 1 | 0 of 26 | 0 of 26 |
 | One-thread blend, commit `8ce2ec0b7`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 26 of 26 |
+| Exact statistics, commit `ec238daf1`, all 26 scenes | 1 | 0 of 26 | 0 of 26 |
+| Exact statistics, commit `ec238daf1`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 0 of 26, and 0 of 26 between 1 thread and all threads |
 
 **One-thread renders reproduced before the fix.** All 13 scenes matched in every buffer and statistic across three renders, on both builds.
 
@@ -220,6 +222,58 @@ Each buffer count is the most samples that differed between the first render and
 | mandelnest pow 5 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 576,305 to 576,631; missed DE 100; iteration histogram total 16,178,139 to 16,205,071; step histogram total 580,847 to 580,861 |
 | monte carlo DOF 001 | One-thread blend | All | none | `raymarch_count`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 558,744 to 564,635; missed DE 0; iteration histogram total 11,942,603 to 12,017,579; step histogram total 604,407 to 604,736 |
 | riemann_sphere_msltoe_001 | One-thread blend | All | none | `raymarch_count`, `missed_de`, `iteration_histogram`, `step_histogram` | total iterations 0; raymarch count 536,702 to 537,534; missed DE 1,701 to 1,702; iteration histogram total 59,850,789 to 60,229,524; step histogram total 539,875 to 539,885 |
+| IFS_001 | Exact statistics | 1 | none | none | total iterations 776,608,889; raymarch count 76,800; missed DE 0; iteration histogram total 2,151,595; step histogram total 76,800 |
+| Makin3D-Julia_001 | Exact statistics | 1 | none | none | total iterations 192,226,038; raymarch count 76,800; missed DE 19,473; iteration histogram total 19,880,974; step histogram total 76,800 |
+| IFS_002 | Exact statistics | 1 | none | none | total iterations 120,032,867; raymarch count 76,800; missed DE 0; iteration histogram total 1,910,173; step histogram total 76,800 |
+| amazing_surf 002 | Exact statistics | 1 | none | none | total iterations 548,994,432; raymarch count 88,048; missed DE 97; iteration histogram total 6,702,645; step histogram total 88,048 |
+| EXR example | Exact statistics | 1 | none | none | total iterations 346,917,048; raymarch count 843,698; missed DE 0; iteration histogram total 26,206,011; step histogram total 843,698 |
+| benchmark-GPU | Exact statistics | 1 | none | none | total iterations 1,528,427,187; raymarch count 76,800; missed DE 19,905; iteration histogram total 24,472,742; step histogram total 76,800 |
+| menger octo 001 | Exact statistics | 1 | none | none | total iterations 187,424,425; raymarch count 76,800; missed DE 0; iteration histogram total 1,839,817; step histogram total 76,800 |
+| clouds 005 | Exact statistics | 1 | none | none | total iterations 12,867,858; raymarch count 76,800; missed DE 0; iteration histogram total 2,583,511; step histogram total 76,800 |
+| gradients - specular highlights | Exact statistics | 1 | none | none | total iterations 15,149,503; raymarch count 82,154; missed DE 0; iteration histogram total 1,547,857; step histogram total 82,154 |
+| hybrid007 | Exact statistics | 1 | none | none | total iterations 67,875,780; raymarch count 76,800; missed DE 229; iteration histogram total 3,334,627; step histogram total 76,800 |
+| hybrid008 - collatz | Exact statistics | 1 | none | none | total iterations 251,672,458; raymarch count 76,800; missed DE 140; iteration histogram total 3,343,467; step histogram total 76,800 |
+| mandelbox_menger | Exact statistics | 1 | none | none | total iterations 20,613,096; raymarch count 76,800; missed DE 39; iteration histogram total 2,575,645; step histogram total 76,800 |
+| mandelbulb_eye | Exact statistics | 1 | none | none | total iterations 10,810,976; raymarch count 76,800; missed DE 14,627; iteration histogram total 3,096,687; step histogram total 76,800 |
+| menger cross mod1 001 | Exact statistics | 1 | none | none | total iterations 184,331,872; raymarch count 76,800; missed DE 9,042; iteration histogram total 1,596,727; step histogram total 76,800 |
+| menger prism shape2 001 | Exact statistics | 1 | none | none | total iterations 25,315,362; raymarch count 76,800; missed DE 822; iteration histogram total 2,001,895; step histogram total 76,800 |
+| pseudo kleinian std de 001 | Exact statistics | 1 | none | none | total iterations 154,552,620; raymarch count 76,800; missed DE 0; iteration histogram total 5,388,951; step histogram total 76,800 |
+| voxel_export_with_Bristorbrot4D | Exact statistics | 1 | none | none | total iterations 17,801,010; raymarch count 76,800; missed DE 2; iteration histogram total 2,823,286; step histogram total 76,800 |
+| beam_light | Exact statistics | 1 | none | none | total iterations 1,705,711; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| hdr_blur | Exact statistics | 1 | none | none | total iterations 1,632,271; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| jos_kleinian | Exact statistics | 1 | none | none | total iterations 34,280,567; raymarch count 76,800; missed DE 16; iteration histogram total 7,137,329; step histogram total 76,800 |
+| chromatic_aberration | Exact statistics | 1 | none | none | total iterations 4,192,032,600; raymarch count 2,875,502; missed DE 80,952; iteration histogram total 142,123,742; step histogram total 2,875,502 |
+| difs_tree | Exact statistics | 1 | none | none | total iterations 169,820,519; raymarch count 545,089; missed DE 84,678; iteration histogram total 44,330,525; step histogram total 545,089 |
+| hex grid 001 | Exact statistics | 1 | none | none | total iterations 908,958,716; raymarch count 595,846; missed DE 5,066; iteration histogram total 64,417,166; step histogram total 595,846 |
+| mandelnest pow 5 | Exact statistics | 1 | none | none | total iterations 277,045,196; raymarch count 580,904; missed DE 100; iteration histogram total 16,312,243; step histogram total 580,904 |
+| monte carlo DOF 001 | Exact statistics | 1 | none | none | total iterations 159,662,705; raymarch count 609,015; missed DE 0; iteration histogram total 12,282,022; step histogram total 609,015 |
+| riemann_sphere_msltoe_001 | Exact statistics | 1 | none | none | total iterations 641,217,000; raymarch count 539,928; missed DE 1,702; iteration histogram total 63,152,683; step histogram total 539,928 |
+| IFS_001 | Exact statistics | All | none | none | total iterations 776,608,889; raymarch count 76,800; missed DE 0; iteration histogram total 2,151,595; step histogram total 76,800 |
+| Makin3D-Julia_001 | Exact statistics | All | none | none | total iterations 192,226,038; raymarch count 76,800; missed DE 19,473; iteration histogram total 19,880,974; step histogram total 76,800 |
+| IFS_002 | Exact statistics | All | none | none | total iterations 120,032,867; raymarch count 76,800; missed DE 0; iteration histogram total 1,910,173; step histogram total 76,800 |
+| amazing_surf 002 | Exact statistics | All | none | none | total iterations 548,994,432; raymarch count 88,048; missed DE 97; iteration histogram total 6,702,645; step histogram total 88,048 |
+| EXR example | Exact statistics | All | none | none | total iterations 346,917,048; raymarch count 843,698; missed DE 0; iteration histogram total 26,206,011; step histogram total 843,698 |
+| benchmark-GPU | Exact statistics | All | none | none | total iterations 1,528,427,187; raymarch count 76,800; missed DE 19,905; iteration histogram total 24,472,742; step histogram total 76,800 |
+| menger octo 001 | Exact statistics | All | none | none | total iterations 187,424,425; raymarch count 76,800; missed DE 0; iteration histogram total 1,839,817; step histogram total 76,800 |
+| clouds 005 | Exact statistics | All | none | none | total iterations 12,867,858; raymarch count 76,800; missed DE 0; iteration histogram total 2,583,511; step histogram total 76,800 |
+| gradients - specular highlights | Exact statistics | All | none | none | total iterations 15,149,503; raymarch count 82,154; missed DE 0; iteration histogram total 1,547,857; step histogram total 82,154 |
+| hybrid007 | Exact statistics | All | none | none | total iterations 67,875,780; raymarch count 76,800; missed DE 229; iteration histogram total 3,334,627; step histogram total 76,800 |
+| hybrid008 - collatz | Exact statistics | All | none | none | total iterations 251,672,458; raymarch count 76,800; missed DE 140; iteration histogram total 3,343,467; step histogram total 76,800 |
+| mandelbox_menger | Exact statistics | All | none | none | total iterations 20,613,096; raymarch count 76,800; missed DE 39; iteration histogram total 2,575,645; step histogram total 76,800 |
+| mandelbulb_eye | Exact statistics | All | none | none | total iterations 10,810,976; raymarch count 76,800; missed DE 14,627; iteration histogram total 3,096,687; step histogram total 76,800 |
+| menger cross mod1 001 | Exact statistics | All | none | none | total iterations 184,331,872; raymarch count 76,800; missed DE 9,042; iteration histogram total 1,596,727; step histogram total 76,800 |
+| menger prism shape2 001 | Exact statistics | All | none | none | total iterations 25,315,362; raymarch count 76,800; missed DE 822; iteration histogram total 2,001,895; step histogram total 76,800 |
+| pseudo kleinian std de 001 | Exact statistics | All | none | none | total iterations 154,552,620; raymarch count 76,800; missed DE 0; iteration histogram total 5,388,951; step histogram total 76,800 |
+| voxel_export_with_Bristorbrot4D | Exact statistics | All | none | none | total iterations 17,801,010; raymarch count 76,800; missed DE 2; iteration histogram total 2,823,286; step histogram total 76,800 |
+| beam_light | Exact statistics | All | none | none | total iterations 1,705,711; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| hdr_blur | Exact statistics | All | none | none | total iterations 1,632,271; raymarch count 76,800; missed DE 0; iteration histogram total 1,478,359; step histogram total 76,800 |
+| jos_kleinian | Exact statistics | All | none | none | total iterations 34,280,567; raymarch count 76,800; missed DE 16; iteration histogram total 7,137,329; step histogram total 76,800 |
+| chromatic_aberration | Exact statistics | All | none | none | total iterations 4,192,032,600; raymarch count 2,875,502; missed DE 80,952; iteration histogram total 142,123,742; step histogram total 2,875,502 |
+| difs_tree | Exact statistics | All | none | none | total iterations 169,820,519; raymarch count 545,089; missed DE 84,678; iteration histogram total 44,330,525; step histogram total 545,089 |
+| hex grid 001 | Exact statistics | All | none | none | total iterations 908,958,716; raymarch count 595,846; missed DE 5,066; iteration histogram total 64,417,166; step histogram total 595,846 |
+| mandelnest pow 5 | Exact statistics | All | none | none | total iterations 277,045,196; raymarch count 580,904; missed DE 100; iteration histogram total 16,312,243; step histogram total 580,904 |
+| monte carlo DOF 001 | Exact statistics | All | none | none | total iterations 159,662,705; raymarch count 609,015; missed DE 0; iteration histogram total 12,282,022; step histogram total 609,015 |
+| riemann_sphere_msltoe_001 | Exact statistics | All | none | none | total iterations 641,217,000; raymarch count 539,928; missed DE 1,702; iteration histogram total 63,152,683; step histogram total 539,928 |
 
 ## Causes
 
@@ -245,9 +299,17 @@ Each region is one a gated render can reach. The proof for each comes from commi
 
 `audio_track.cpp:302` is outside the gate, because it needs a scene with audio tracks, and no suite scene has them.
 
+## Other checks
+
+| Check | Result | Commit |
+|---|---|---|
+| `--stats` keeps updating during a render (FR-029) | A 1920x1080 render of `IFS_001.fract` printed 43 different totals, from 144,771,000 to 27,265,100,000 iterations | `ec238daf1` |
+| Colliding updates (FR-027) | ThreadSanitizer gave 7 reports on `IFS_001.fract` and 1 on `chromatic_aberration.fract`, at 32x24 with `--threads 4`. None names `cStatistics`, `cHistogram`, or `cPositionRandom`. Six are inside Qt, which isn't built for ThreadSanitizer, and two are the scheduler's unlocked reads of `lineDone`, which the plan expects. | `ec238daf1` |
+
 ## Success criteria
 
 | Criterion | Result | Commit | Not covered |
 |---|---|---|---|
 | SC-005 | At `--threads 1`, the highest one-second sample was 0.97 to 0.99 CPUs in every row: render workers, ambient occlusion, depth of field, HDR blur, keyframe, flight, voxel, mesh, queue, `--test`, and `--benchmark`. The post effects added 2.84, 9.15, and 3.00 seconds of CPU time. At `--threads 4`, each stage peaked between 3.73 and 3.89 CPUs. A network client ran one `RenderWorker` thread and never more. | `0bd701a04` | Repeated on the final commit in T084 |
 | SC-006 | All 17 refusal rows exited with the listed status, named `--threads`, and wrote no image | `0bd701a04` | Repeated on the final commit in T084 |
+| SC-004 | `--compare` between `71a20a6da` and `ec238daf1` reported 5,126 differences across all 487 items, all of them statistics, and 0 in any buffer. It exits 1, because total iterations changes from 0 to the real count. | `ec238daf1` | None |
