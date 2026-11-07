@@ -25,9 +25,7 @@ Fresh WSL builds, from `~/verify/kd2`. `build_fresh.sh` fetches the Windows repo
 CXXFLAGS=-march=native ./build_fresh.sh ~/mandelbulber2-native 8fd49ba59
 ```
 
-```bash
-./build_fresh.sh ~/mandelbulber2-diag windows/upgrade/strict-floating-point guard_counts.patch
-```
+`~/mandelbulber2-diag` holds one throwaway patch at a time, and section 5 builds each.
 
 The binaries the sections below use:
 
@@ -155,7 +153,7 @@ python3 ~/verify/kd2/output_record.py ~/verify/kd2/collect-before ~/verify/kd2/c
 
 It writes `output-record.tsv`, as [evidence-record.md](contracts/evidence-record.md) defines, prints how many items are identical, names any final image that holds one value on one side only, and ranks the swept formulas.
 
-Prove the diagnostic build leaves renders alone:
+Build each throwaway patch on the final commit with `./build_fresh.sh ~/mandelbulber2-diag <final commit> <patch>`. Start with `guard_counts.patch`, and prove it leaves renders alone:
 
 ```bash
 python3 tests/regression_runner.py --compare "$DIAG"
@@ -163,11 +161,15 @@ python3 tests/regression_runner.py --compare "$DIAG"
 
 It exits 0 on all 487 items. Then `~/verify/kd2/guard_counts.py` renders every item with `$DIAG` and writes the Guards table.
 
-`~/verify/kd2/review_images.py` writes the before, after, and difference images for the 26 scenes and the 20 formulas. A person reviews them, and the evidence names each visible change and its cause (SC-006).
+Build `guards_off.patch` the same way, and run the same `--compare`. Every difference it lists is the guards' own effect, and an item it doesn't list changed only through strict arithmetic.
+
+Build `no_contract_off.patch` the same way, and run the same `--compare`. It exits 0 on all 487 items, because the plain x86-64 target has no fused instruction for the option to prevent.
+
+`~/verify/kd2/review_images.py` writes the before, after, and difference images for the 26 scenes and the 20 formulas. A person reviews them, and the evidence names each visible change and its cause (SC-006). A visible change can be seen in the before and after panels at normal brightness. The difference panel is amplified, and it only shows where to look.
 
 ## 6. What it costs (User Story 6)
 
-Before timing, wait until `pgrep -f FractalEvaluator` has been empty for a minute. During each run, sample it every 5 seconds and log the time from `/proc/uptime`, as KD-1's `run_quiet.sh` does. Repeat any run that overlaps. A check made only at the start isn't enough, and the harness prints its result lines at the end, so check in the background.
+Run nothing else from this feature during timing, because the process check can't see a compile. Before timing, wait until `pgrep -f FractalEvaluator` has been empty for a minute. During each run, sample it every 5 seconds and log the time from `/proc/uptime`, as KD-1's `run_quiet.sh` does. Repeat any run that overlaps. A check made only at the start isn't enough, and the harness prints its result lines at the end, so check in the background.
 
 | Run | Command, from each build's own clone |
 |---|---|
@@ -194,8 +196,7 @@ Build each configuration in [research.md](research.md) R14 from a fresh tree (SC
 
 | Build | Command |
 |---|---|
-| qmake without OpenCL | `qmake6 ../qmake/mandelbulber.pro CONFIG+=release`, then `make` |
-| CMake | `cmake --build /tmp/cmake-kd2 -j"$(nproc)"` |
+| qmake without OpenCL, and CMake | `~/verify/kd2/run_t077.sh <final commit>`, which builds both on `8fd49ba59` and on that commit |
 | MSVC Release | The playbook's `nuget restore` and `MSBuild.exe` lines |
 | MSVC Debug | The same lines with `/p:Configuration=Debug`. Its `cl` lines hold `/fp:precise` |
 | macOS | CircleCI on the pull request |
@@ -218,7 +219,7 @@ git diff --stat 8fd49ba59 -- .github/workflows/cross-build-check.yml .github/wor
 
 ## 8. KD-2 and KD-3 close (User Story 8)
 
-The constitution shows version 1.0.2, with KD-2 and KD-3 closed and KD-4 open, and nothing exists under `tests/references/` (SC-012):
+The constitution shows version 1.1.0, with KD-2 and KD-3 closed, and KD-4 and KD-5 open, and nothing exists under `tests/references/` (SC-012):
 
 ```bash
 grep -nE '^\| KD-|^\*\*Version' .specify/memory/constitution.md

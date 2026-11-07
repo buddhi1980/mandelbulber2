@@ -27,7 +27,8 @@ Both commands use one list (FR-012):
 
 ```text
 -ffast-math  -Ofast  -funsafe-math-optimizations  -ffinite-math-only
--fassociative-math  -freciprocal-math  -march=native  -mtune=native  -mcpu=native
+-fassociative-math  -freciprocal-math  -fno-signed-zeros  -ffp-model=fast
+-march=native  -mtune=native  -mcpu=native
 ```
 
 An option matches only as a whole option. So `-fno-fast-math`, `-march=x86-64`, and a path such as `-L/opt/x-ffast-math/lib` do not match.
@@ -54,12 +55,12 @@ Searches tracked files of these kinds with `git grep`, so an untracked file is i
 *.sh  *.bat  *.yml  *.yaml  Dockerfile  mandelbulber2/deploy/linux/install
 ```
 
-It leaves out `.github/actions/compile-engine`, `mandelbulber2/tools/DOE`, `specs`, `.specify`, and `.claude`.
+It leaves out `.github/actions/compile-engine`, `mandelbulber2/tools/DOE/NaNtester.sh`, `specs`, `.specify`, and `.claude`.
 
 | Rule | Failure |
 |---|---|
 | No file holds an option from the list | `FAILED: -ffast-math in mandelbulber2/qmake/common.pri:127` |
-| No file holds `-ffp-contract=fast` or `-ffp-contract=on` | `FAILED: -ffp-contract=fast in <file>:<line>` |
+| No file holds an `-ffp-contract` value other than `off` | `FAILED: -ffp-contract=fast in <file>:<line>` |
 | No file holds `/fp:fast` | `FAILED: /fp:fast in <file>:<line>` |
 | No file holds `/fp:contract` | `FAILED: /fp:contract in <file>:<line>` |
 | No file sets `<FloatingPointModel>` to `Fast` | `FAILED: FloatingPointModel Fast in <file>:<line>` |
@@ -74,7 +75,7 @@ FR-015's local proof. Each row runs once, on a copy of a clean generated Makefil
 
 | Seed | Expected |
 |---|---|
-| Each of the 9 options added to `CXXFLAGS` | Exit 1, names the option and `CXXFLAGS` |
+| Each of the 11 options added to `CXXFLAGS` | Exit 1, names the option and `CXXFLAGS` |
 | `-ffast-math` added to `CFLAGS` | Exit 1, names it |
 | `-ffast-math` added to `LFLAGS` | Exit 1, names it |
 | `-ffast-math` added to `LIBS` | Exit 1, names it |
@@ -120,14 +121,17 @@ Each row adds one line to a tracked file in a throwaway clone with this feature'
 | File | Seed | Expected |
 |---|---|---|
 | `mandelbulber2/qmake/common.pri` | `-ffast-math` | Exit 1, names the file and line |
+| `mandelbulber2/qmake/common.pri` | `-ffp-contract=fast-honor-pragmas` | Exit 1, names them |
 | `mandelbulber2/qmake/mandelbulber.pro` | `-Ofast` | Exit 1, names them |
 | `mandelbulber2/cmake/CMakeLists.txt` | `-ffinite-math-only` | Exit 1, names them |
+| `mandelbulber2/cmake/CMakeLists.txt` | `-ffp-model=fast` | Exit 1, names them |
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `<FloatingPointModel>Fast` | Exit 1, names them |
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:fast` | Exit 1, names them |
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:contract` | Exit 1, names them |
 | `mandelbulber2/tools/prepare_for_dev_ubuntu.sh` | `-march=native` | Exit 1, names them |
 | `mandelbulber2/deploy/linux/install` | `-mtune=native` | Exit 1, names them |
 | `mandelbulber2/make-package.sh` | `-mcpu=native` | Exit 1, names them |
+| `mandelbulber2/tools/DOE/build.bot.sh` | `-fno-signed-zeros` | Exit 1, names them |
 | `azure-pipelines.yml` | `-ffp-contract=fast` | Exit 1, names them |
 | `.circleci/config.yml` | `-freciprocal-math` | Exit 1, names them |
 | `.travis.yml` | `-fassociative-math` | Exit 1, names them |

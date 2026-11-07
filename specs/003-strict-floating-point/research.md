@@ -37,8 +37,9 @@ Every decision here comes from reading the code and from small tests on 2026-11-
   - One list serves both commands, so they can't drift apart.
   - It stays out of `tests/`, so the harness doesn't change (FR-034).
   - The playbook's check is already shell, and it needs nothing installed.
+- **The list**: The constitution's 6 value-changing options, 3 host-tuned options, and 2 more that change values: `-fno-signed-zeros`, a part of `-ffast-math`, and `-ffp-model=fast`, Clang's short form of it. No list can be complete, so Phase 4's gate still catches what this one misses.
 - **What it reads**: The `CC`, `CXX`, `LINK`, `CFLAGS`, `CXXFLAGS`, `LFLAGS`, and `LIBS` lines of the generated Makefile. `build-linux` runs `make` with no overrides, so those lines are what the compiler and linker receive. It matches whole options, so `-fno-fast-math`, `-march=x86-64`, and a path that holds the text do not match.
-- **Tested**: A prototype handled every case in [flag-check.md](contracts/flag-check.md). All 22 seeded faults in a Makefile failed and named the option, including all 4 environment variables through real `qmake6` runs. A clean Makefile and 3 look-alikes passed. All 5 cases where the check can't run exited 2, including a run outside a checkout. In a throwaway clone with this feature's edits, the search passed, and all 14 seeds in build files failed and named the file and line.
+- **Tested**: A prototype handled every case in [flag-check.md](contracts/flag-check.md). All 24 seeded faults in a Makefile failed and named the option, including all 4 environment variables through real `qmake6` runs. A clean Makefile and 3 look-alikes passed. All 5 cases where the check can't run exited 2, including a run outside a checkout. In a throwaway clone with this feature's edits, the search passed, all 17 seeds in build files failed and named the file and line, and the 3 cases it must ignore passed.
 - **Alternatives considered**:
   - Inline in the action, as the playbook lists it: it can't run outside CI.
   - Reading `make -n` output: it prints all 800 or so compile lines, and they are built from the same variables.
@@ -47,8 +48,9 @@ Every decision here comes from reading the code and from small tests on 2026-11-
 
 ## R6. What the build-file search covers
 
-- **Decision**: `git grep` over tracked files by kind: `*.pro`, `*.pri`, `CMakeLists.txt`, `*.cmake`, `*.vcxproj`, `*.props`, `*.targets`, `*.sln`, `*.sh`, `*.bat`, `*.yml`, `*.yaml`, `Dockerfile`, and `mandelbulber2/deploy/linux/install`. It leaves out `.github/actions/compile-engine`, `mandelbulber2/tools/DOE`, `specs`, `.specify`, and `.claude`.
-- **Rationale**: Matching by kind means a new script joins the search by itself, which a list of names would miss. That is 57 files today. On `8fd49ba59` it reports the 9 lines this feature removes and nothing else: 4 in `common.pri`, 1 each in `CMakeLists.txt`, `install`, and the MSVC project, and 2 in the setup scripts.
+- **Decision**: `git grep` over tracked files by kind: `*.pro`, `*.pri`, `CMakeLists.txt`, `*.cmake`, `*.vcxproj`, `*.props`, `*.targets`, `*.sln`, `*.sh`, `*.bat`, `*.yml`, `*.yaml`, `Dockerfile`, and `mandelbulber2/deploy/linux/install`. It leaves out `.github/actions/compile-engine`, `mandelbulber2/tools/DOE/NaNtester.sh`, `specs`, `.specify`, and `.claude`.
+- **Rationale**: Matching by kind means a new script joins the search by itself, which a list of names would miss. That is 72 files today. On `8fd49ba59` it reports the 9 lines this feature removes and nothing else: 4 in `common.pri`, 1 each in `CMakeLists.txt`, `install`, and the MSVC project, and 2 in the setup scripts.
+- **Contraction values**: It lists every `-ffp-contract` value it finds and rejects all but `off`. A pattern for `fast` and `on` let Clang's `-ffp-contract=fast-honor-pragmas` through in a test.
 - **Failing closed**: `git grep` exits 0 on a match, 1 on no match, and 128 on an error, so a broken search can't pass. The search also stops if the file list is empty.
 - **Comments count**: A prohibited option in a comment fails the search. This is why FR-001 cleans the commented-out macOS line. Upstream still has that line, so a merge that brings it back fails too, which is the safe direction.
 - **Alternatives considered**:
@@ -77,7 +79,7 @@ Every decision here comes from reading the code and from small tests on 2026-11-
   - A scratch script runs `--collect` through the harness and wraps `render_item`, so one run gives the whole time, and scenes and formulas apart, from the monotonic clock. KD-1 needed a second pass for that split.
   - One CPU: the same run under `taskset -c 4`, once per build.
   - `-march=native`: a third clone of `8fd49ba59`, built by `CXXFLAGS=-march=native build_fresh.sh`, because qmake imports that variable.
-- **Quiet computer**: Wait until `pgrep -f FractalEvaluator` has been empty for a minute, sample it every 5 seconds during each run, and log it against the monotonic clock. Repeat any run that overlaps. On 2026-11-07 that job was running through this planning, with up to 29 processes, so timing must wait for it. It must never be stopped.
+- **Quiet computer**: Wait until `pgrep -f FractalEvaluator` has been empty for a minute, sample it every 5 seconds during each run, and log it against the monotonic clock. Repeat any run that overlaps. Nothing else from this feature runs during a timing run, because the process check can't see a compile. On 2026-11-07 that job was running through this planning, with up to 29 processes, so timing must wait for it. It must never be stopped.
 - **Rationale**: Matching KD-1 keeps the numbers comparable. One CPU matters here because KD-1 found that all-thread times can move for reasons unrelated to arithmetic: `--collect` got 32% faster at all threads, while `IFS_001.fract` on one CPU showed no gain.
 - **Alternatives considered**: Timing only at all threads: scheduling could hide or exaggerate the cost of the flags.
 
@@ -91,17 +93,18 @@ Every decision here comes from reading the code and from small tests on 2026-11-
   - `--cross-check` of the two collections: `check_collections_match` refuses collections from different commits, and FR-034 keeps the harness as it is.
   - Putting 487 rows in `evidence.md`: it would bury the summary.
 
-## R11. Counting guard hits
+## R11. Counting guard hits and isolating their effect
 
-- **Decision**: A throwaway patch on the final commit counts each of the four `IsNotANumber()` sites when the test is true. It splits infinite values from NaN values, and writes the counts at exit to a file named after the render's process. A scratch script matches those files to items. The patch is never committed (FR-020).
-- **Proof that it changes nothing**: `--compare` between the diagnostic build and the after build reports 0 differences.
-- **Rationale**: An infinite `z` at line 316 is the case that flips an orbit from escaped to inside, so the split says whether that happens anywhere in the suite. Without the count, a reviewer could not tell a guard's effect from rounding.
+- **Decision**: Two throwaway patches on the final commit, neither ever committed (FR-020).
+  - One counts each of the four `IsNotANumber()` sites when the test is true, splitting infinite values from NaN values, and writes the counts at exit to a file named after the render's process. A scratch script matches those files to items. `--compare` against the after build must report 0 differences, or the counts mean nothing.
+  - One makes `IsNotANumber()` return `false`, which is what `-ffast-math` does today. `--compare` against the after build then lists exactly what the guards change, item by item. Everything else is strict arithmetic.
+- **Rationale**: A hit only shows that a guard fired, and not that it changed an image. The guards-off build shows that directly, so a reviewer can name a cause. An infinite `z` at line 316 is the case the escape test used to catch, so the split says whether that happens anywhere in the suite. It changes the distance estimate. `calculate_distance.cpp:607` drops the iteration limit mark unless iteration threshold mode is on, so the point counts as inside only there, or in interior mode. 2 of the 487 items use the first, and none use the second.
 - **Found**: `compute_fractal.cpp:316` breaks out of the loop on the same test as line 500, so line 500 can only fire if something between them changes `z`. The count will show whether it ever does.
 - **Alternatives considered**: Comparing against MSVC alone: it shows the same logic, but compilers and math libraries differ too, so it can't isolate the guards.
 
 ## R12. The image review
 
-- **Decision**: A scratch script based on KD-1's `noise.py` writes three images for each of the 26 scenes and the 20 formulas: before, after, and an amplified difference. Where a shape appears or vanishes, it adds the MSVC before image, to show whether the Windows logic already gives that result. A person reviews them, as on KD-1, and the evidence names each cause.
+- **Decision**: A scratch script based on KD-1's `noise.py` writes three images for each of the 26 scenes and the 20 formulas: before, after, and an amplified difference. Where a shape appears or vanishes, it adds the MSVC before image, to show whether the Windows logic already gives that result. A person reviews them, as on KD-1, and the evidence names each cause, using R11's guards-off comparison as its proof. A visible change is one that can be seen in the before and after panels at normal brightness, because the difference panel is amplified and nearly every sample is expected to change.
 - **Rationale**: Exact comparison shows that everything changed, which can't separate a rounding shift from a new shape. The difference image shows where the change sits, and the first clarification accepts a guard's effect once its cause is named.
 
 ## R13. MSVC
@@ -117,14 +120,14 @@ Every decision here comes from reading the code and from small tests on 2026-11-
 | Build | Today | After this change |
 |---|---|---|
 | qmake with OpenCL | Compiles in CI and locally | Same, and it is the gated build |
-| qmake without OpenCL | Compiled on `76316fd0f` in KD-1's T077 | A fresh local build |
-| CMake | Compiled on `76316fd0f` in KD-1's T077 | A fresh local build, with `flags.make` and `link.txt` read to confirm the flags |
+| qmake without OpenCL | A fresh local build of `8fd49ba59` | A fresh local build |
+| CMake | A fresh local build of `8fd49ba59` | A fresh local build, with `flags.make` and `link.txt` read to confirm the flags |
 | MSVC Release | Compiles in CI and locally | Same |
 | MSVC Debug | **Unknown** | A fresh local build, with its `cl` lines read for `/fp:precise` |
 | macOS, `mandelbulber-opencl-mac.pro` | CircleCI builds it | CircleCI on the pull request. It uses LLVM Clang |
 | macOS, `mandelbulber-opencl-m1.pro` | Nothing builds it | Changed by reading alone |
 
-No compiled file changed between `76316fd0f` and `8fd49ba59`, so T077's proof still holds for the before state.
+KD-1's T077 built both of these on `76316fd0f`, but every result here comes from a fresh build of the commit being tested, so they build again.
 
 MSVC Debug is the gap. AppVeyor lists Debug, but it is not among the checks on this repository: pull request 6 ran the two GitHub workflows, Azure Pipelines, and CircleCI, and Azure and Cross-Build Check build Release only. So the first task builds Debug on `8fd49ba59`. If that fails, Debug does not compile today, FR-033 does not bind it, and the evidence says so.
 
@@ -136,24 +139,46 @@ MSVC Debug is the gap. AppVeyor lists Debug, but it is not among the checks on t
 
 ## R16. The closing edits
 
-- **Constitution**: The KD-2 and KD-3 rows gain `**Closed <date>**, see specs/003-strict-floating-point/evidence.md`. The version becomes 1.0.2, and Last Amended changes. KD-4 stays open.
+- **Constitution**: The KD-2 and KD-3 rows gain `**Closed <date>**, see specs/003-strict-floating-point/evidence.md`. A new KD-5 row records the CPU math path (R18). The version becomes 1.1.0, and Last Amended changes. KD-4 and KD-5 stay open.
 - **Playbook** (FR-029):
 
 | Line | Statement | Correction |
 |---|---|---|
 | 87 | "Use Release, because Debug uses `/fp:fast` (KD-2)." | Keep Release, for the reason that remains: it is the binary the harness finds |
 | 230 | The `/speckit-specify` prompt | Stays, as a record of the request |
-| 233 | Guards in `algebra.hpp` and `math_utilities.h` may take effect | Name `IsNotANumber()`, drop `math_utilities.h`, and say the guard catches infinity too |
+| 207 | "It is not the parity gate, which arrives in Phase 4 as its own workflow." | Say the workflow arrives in Phase 3, and its gate steps in Phase 4 |
+| 233 | Guards in `algebra.hpp` and `math_utilities.h` may take effect | Name `IsNotANumber()`, drop `math_utilities.h`, and say the guards catch infinity too, so an overflow keeps its last finite value |
 | 235 to 259 | The check's description and the `compile-engine` listing | Match what is committed, and point to `check-flags.sh` |
 | 263 to 279 | The `parity-gate.yml` listing | Add `permissions: contents: read` |
 | 296 to 323 | The Phase 4 `parity-gate.yml` listing | Add `permissions: contents: read` |
-| 352 | Phase 4 has no step for the math path | A new step before capture, so the later steps renumber. No other document cites those step numbers |
-| 370 | "whichever of KD-2, KD-3, and KD-4 are still open" | KD-4 only, and record that KD-2 and KD-3 closed in 1.0.2 |
+| 352 | Phase 4 has no step for the math path | A new step before capture, which closes KD-5, so the later steps renumber. No other document cites those step numbers |
+| 370 | "whichever of KD-2, KD-3, and KD-4 are still open" | KD-4 and KD-5, and record that KD-2 and KD-3 closed in 1.1.0 |
 
 ## R17. Why `parity-gate` needs an explicit read-only setting
 
 - **Decision**: `permissions: contents: read` at the top of `parity-gate.yml`.
 - **Rationale**: This repository's default workflow token is `write`, so a workflow with no setting gets write access. The playbook's listing has no setting. Cross-Build Check already sets this.
+
+## R18. Recording the CPU math path
+
+- **Decision**: This feature's amendment adds this row to the Known Deviations table, and the version becomes 1.1.0:
+
+```text
+| KD-5 | Renders depend on the CPU. glibc picks its math code path from the CPU's features at run time. On 2026-11-07, one binary gave different `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, and `pow` results with its FMA and AVX2 paths turned off. | glibc's math library | II | Playbook Phase 4 settles the path before Baseline 1 is captured, and records the result with the references |
+```
+
+- **Rationale**: Principle II leaves the CPU out of what a render may depend on, and Governance permits non-compliance only as a Known Deviation. The clarification keeps the work itself in Phase 4, and this only records it.
+- **Version**: PATCH covers clarifications, wording fixes, and closing a Known Deviation, not adding one. MINOR covers materially expanded guidance, which a new recorded exception is. One amendment closes two deviations and adds one, so it takes the higher of the two.
+- **Alternatives considered**:
+  - An open gate in the plan: Governance doesn't allow one, and the Complexity Tracking table can't waive a principle.
+  - A separate amendment: it adds a second pull request for one row.
+  - Naming CPU features in the Reference Target now: that decides what Phase 4 is meant to settle.
+
+## R19. Proving `-ffp-contract=off` changes nothing
+
+- **Decision**: A throwaway patch on the final commit removes the `gcc` block from `common.pri`, and `--compare` against the after build reports 0 differences.
+- **Rationale**: FR-022 tells reviewers the option has no effect on the gated build, and the test behind that was one line of arithmetic. All 487 items prove it on the engine, for one more build.
+- **Alternatives considered**: Adding the option to the before build: it would prove the point on a build with `-ffast-math`, and not on the build this feature ships.
 
 ## Spec changes from this plan
 

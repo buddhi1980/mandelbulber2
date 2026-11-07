@@ -14,9 +14,11 @@ States the date, the computer, the environment, the toolchain, the thread counts
 | After | The final commit | Output and time after this change |
 | Before, host-tuned | `8fd49ba59`, built with `CXXFLAGS=-march=native` | What users of the setup scripts lose (FR-027) |
 | Diagnostic | The final commit, plus a local patch that counts guard hits | Which items reach each guard (FR-020) |
+| Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change (FR-020) |
+| No contraction option | The final commit, plus a local patch that removes the `gcc` block | Whether `-ffp-contract=off` changes anything (FR-022) |
 | MSVC before and MSVC after | `8fd49ba59` and the final commit, Release x64 | The comparison images, and the MSVC checks |
 
-The local patch is never committed (FR-020). The record describes it in words. "Final commit" means the last commit that changes what compiles.
+The local patches are never committed (FR-020). The record describes them in words. "Final commit" means the last commit that changes what compiles.
 
 ## Flag check
 
@@ -42,6 +44,8 @@ One row for the passing `parity-gate` on the pull request, and one for each seed
 | Items with any difference | Count, of 487 |
 | Items identical in every buffer and statistic | Count |
 | Items whose final image holds one value on one side only | Count, which should be 0 |
+| Items the guards change | Count, from the guards-off comparison |
+| `-ffp-contract=off` | The exit status of `--compare` against the build without it. 0 is expected |
 | Exit status of `--compare` | 1 is expected |
 | Each buffer | Items that differ |
 | Each statistic | Items that differ |
@@ -56,8 +60,9 @@ One row for each of the 26 scenes.
 | Samples changed | In `final_image`, of the total |
 | Average change | The average absolute difference in `final_image`, whose samples run from 0 to 65,535 |
 | Guards | Hits at each site, with infinite and NaN values apart |
-| Review | No visible change, or the visible change |
-| Cause | Rounding, a guard, vector math, or another named cause |
+| Review | No visible change, or the visible change. A visible change can be seen in the before and after images at normal brightness |
+| Cause | A guard, strict arithmetic, or another named cause |
+| Proof | The guards-off comparison, or whatever else isolates the cause |
 
 ### Formulas
 
@@ -71,6 +76,8 @@ The same fields, for the 20 swept formulas whose final image changed most. A not
 | `compute_fractal.cpp:500` | | | |
 | `render_worker.cpp:776` | | | |
 | `shader_calculate_normals.cpp:120` | | | |
+
+A note names the items with infinite hits at line 316 that use iteration threshold mode, because only there does the point count as inside.
 
 ### Failures found
 

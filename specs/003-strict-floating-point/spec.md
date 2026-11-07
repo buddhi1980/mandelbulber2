@@ -24,7 +24,7 @@ Terms such as Standard Scene Suite, Reference Target, Self-Parity, and Baseline 
 
 - A **gated build** is a build of a Reference Target. There is one today: the qmake release build of `mandelbulber-opencl.pro` on Linux x86-64 with GCC, which the `build-linux` action makes.
 - A **prohibited option** is one that FR-012 lists.
-- **Before** is a fresh build of `ministic-regression` at `8fd49ba59`, where this branch starts. **After** is a fresh build of the final commit.
+- **Before** is a fresh build of `ministic-regression` at `8fd49ba59`, where this branch starts. **After** is a fresh build of the final commit, the last commit that changes what compiles. A CI or document commit doesn't move it.
 
 ### User Story 1 - Use Strict Rules in Every Build (Priority: P1)
 
@@ -107,9 +107,10 @@ A reviewer reads a record of how output changed, and can see that each visible c
 
 1. **Given** fresh before and after builds, **When** compare mode runs, **Then** the record says which buffers and statistics changed on each item, and by how much.
 2. **Given** a diagnostic build, **When** the suite renders, **Then** the record says which items reach each NaN guard with a non-finite value.
-3. **Given** the 26 scenes and the 20 most-changed formulas, **When** a reviewer compares their before and after final images, **Then** each visible change has a named cause.
-4. **Given** an item that stops rendering anything, **When** Cross-Build Check compares it with the MSVC build, **Then** the check fails.
-5. **Given** the pull request, **When** a reviewer reads it, **Then** it states the expected effect on output and what was measured.
+3. **Given** a diagnostic build with the guards turned off, **When** compare mode runs it against the after build, **Then** the record says which items the guards change.
+4. **Given** the 26 scenes and the 20 most-changed formulas, **When** a reviewer compares their before and after final images, **Then** each visible change has a named cause.
+5. **Given** an item that stops rendering anything, **When** Cross-Build Check compares it with the MSVC build, **Then** the check fails.
+6. **Given** the pull request, **When** a reviewer reads it, **Then** it states the expected effect on output and what was measured.
 
 ---
 
@@ -159,13 +160,13 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **Acceptance Scenarios**:
 
-1. **Given** `parity-gate` passes and the seeded failures are recorded, **When** this feature merges, **Then** the constitution shows KD-2 and KD-3 closed at version 1.0.2.
+1. **Given** `parity-gate` passes and the seeded failures are recorded, **When** this feature merges, **Then** the constitution shows KD-2 and KD-3 closed at version 1.1.0, and KD-5 recorded as open.
 2. **Given** the closed deviations, **When** a reader checks the playbook, **Then** it agrees with what was built.
-3. **Given** this feature, **When** it merges, **Then** KD-4 stays open, and no file exists under `tests/references/`.
+3. **Given** this feature, **When** it merges, **Then** KD-4 and KD-5 stay open, and no file exists under `tests/references/`.
 
 ### Edge Cases
 
-- **An orbit that overflows in one step**: The first NaN guard runs before the escape test, and it catches infinity as well as NaN. Such an orbit will count as inside the fractal, where today's Linux build lets the escape test catch it. Shapes could appear or vanish, so the review looks for that and not only for rounding.
+- **An orbit that overflows in one step**: The first NaN guard runs before the escape test, and it catches infinity as well as NaN. Such an orbit goes back to its last finite value and is marked as reaching the iteration limit, where today's Linux build lets the escape test catch it. Its distance estimate then comes from that finite value, so surfaces can move, and the review looks for shapes that appear or vanish as well as for rounding. The point counts as inside only with iteration threshold mode or interior mode on. 2 of the 487 items use the first, and none use the second.
 - **A ray or normal that turns NaN**: A ray now stops as a dead calculation instead of marching on, and a NaN normal becomes `(1, 0, 0)`.
 - **Signed zero**: `-ffast-math` lets the compiler ignore the sign of zero. After this change the sign is kept, so a formula can change on an exact symmetry plane, where a coordinate is exactly 0.
 - **A comparison with NaN**: Once the compiler stops assuming finite values, a comparison with NaN can take the other branch, so a loop that ended before might not. FR-018 covers a hang, and the sweep reaches every formula.
@@ -199,7 +200,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **FR-009**: The repository MUST gain `.github/actions/compile-engine/action.yml`, which builds through the existing `build-linux` action and then runs the flag check, and `.github/workflows/parity-gate.yml`, whose `parity-gate` job runs that action on `ubuntu-24.04`. Apart from the search in FR-035, the job does nothing else at this stage, because Phase 4 adds the gate steps.
 - **FR-010**: `parity-gate` MUST run on every pull request and on every push to `ministic-regression`. It MUST have read-only repository access and use no secrets, as Cross-Build Check does.
 - **FR-011**: The check MUST read the flags of the gated build it just compiled, from that build's generated files, so it sees what the compiler was really told. It MUST cover the compiler and linker commands, the C flags, the C++ flags, and the link flags, including the library list.
-- **FR-012**: The check MUST fail if any of these options is present: `-ffast-math`, `-Ofast`, `-funsafe-math-optimizations`, `-ffinite-math-only`, `-fassociative-math`, `-freciprocal-math`, `-march=native`, `-mtune=native`, or `-mcpu=native`.
+- **FR-012**: The check MUST fail if any of these options is present: `-ffast-math`, `-Ofast`, `-funsafe-math-optimizations`, `-ffinite-math-only`, `-fassociative-math`, `-freciprocal-math`, `-fno-signed-zeros`, `-ffp-model=fast`, `-march=native`, `-mtune=native`, or `-mcpu=native`.
 - **FR-013**: The check MUST fail unless `-ffp-contract=off` is in the C flags and the C++ flags. It MUST also fail if either holds any other `-ffp-contract` value.
 - **FR-014**: Each failure MUST name the option and, for a missing option, the flags it is missing from. A missing or empty build file MUST fail the check and MUST NOT count as a pass.
 - **FR-015**: Seeded failures MUST prove the check. Each option in FR-012 and each case in FR-013 and FR-014 is seeded one at a time, each of `CXXFLAGS`, `CFLAGS`, `CPPFLAGS`, and `LDFLAGS` carries a prohibited option at least once, and so does each kind of file in FR-035. At least one seeded failure MUST fail `parity-gate` in GitHub Actions. No seeded change may be merged.
@@ -214,21 +215,21 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 **Effect on output**
 
 - **FR-019**: Compare mode MUST run between the before and after builds, and the evidence MUST record which buffers and statistics changed on each item, and by how much. It is expected to exit 1, because output is expected to change.
-- **FR-020**: The evidence MUST say which items reach each NaN guard with a non-finite value, using a diagnostic build that MUST NOT be merged. The guards are the calls to `IsNotANumber()` in `compute_fractal.cpp`, `render_worker.cpp`, and `shader_calculate_normals.cpp`.
-- **FR-021**: A reviewer MUST compare the before and after final images of all 26 scenes and of the 20 swept formulas whose final image changed most, and the evidence MUST name the cause of each visible change.
+- **FR-020**: The evidence MUST say which items reach each NaN guard with a non-finite value, and which items the guards change, using two diagnostic builds that MUST NOT be merged: one counts guard hits, and one turns the guards off. The guards are the calls to `IsNotANumber()` in `compute_fractal.cpp`, `render_worker.cpp`, and `shader_calculate_normals.cpp`. Whatever else changes is strict arithmetic: arithmetic order, vector math, and signed zero together, which this feature doesn't separate.
+- **FR-021**: A reviewer MUST compare the before and after final images of all 26 scenes and of the 20 swept formulas whose final image changed most, and the evidence MUST name the cause of each visible change. A visible change is one a reviewer can see in the before and after images at normal brightness. An amplified difference only shows where to look.
 - **FR-022**: The pull request MUST state the expected effect on output, as the constitution requires of every change before Baseline 1. The compiler stops reordering arithmetic and assuming finite values, and four vector math functions give way to the ordinary math library, so every item's pixels and statistics may change. Images should look the same apart from small differences, except where a NaN guard now acts. `-ffp-contract=off` has no effect on the gated build, and MSVC Release output does not change. The pull request MUST then say what was measured.
-- **FR-023**: The NaN guards MUST stay as they are, and a visible change they cause is accepted once FR-021 records it. FR-018 still applies to any failure they cause.
+- **FR-023**: The NaN guards MUST stay as they are. A visible change they cause, or one strict arithmetic causes, is accepted once FR-021 records it. FR-018 still applies to any failure.
 
 **Cost**
 
 - **FR-024**: CPU render time on the Standard Scene Suite MUST be measured on the before and after builds and recorded with this change. The measurements MUST cover all 487 items, with scenes and formulas reported apart, at all available threads in both build orders, and on one CPU.
-- **FR-025**: Timing MUST run with nothing else rendering. A process check during each run MUST confirm that, and a run that overlaps another render MUST be repeated and not recorded.
+- **FR-025**: Timing MUST run with nothing else rendering or compiling. A process check during each run MUST confirm that nothing else is rendering, and a run that overlaps another render MUST be repeated and not recorded.
 - **FR-026**: A full gate run MUST stay within SC-004 of `specs/001-regression-harness`.
 - **FR-027**: The evidence MUST also record what the loss of `-march=native` costs, from a fresh build of the before source made with that option. The harness builds do not use it, so FR-024 cannot show what users of the setup scripts lose.
 
 **Closing KD-2 and KD-3**
 
-- **FR-028**: Closing KD-2 and KD-3 MUST mark them closed in the constitution as a PATCH amendment, version 1.0.2, stating the reason, as Governance requires. This MUST come after `parity-gate` has passed and FR-015 is recorded. KD-4 stays open.
+- **FR-028**: Closing KD-2 and KD-3 MUST mark them closed in the constitution, and the same amendment MUST record the CPU math path as a new Known Deviation, KD-5. Adding a deviation is more than a PATCH covers, so the amendment is MINOR, version 1.1.0, stating the reason, as Governance requires. This MUST come after `parity-gate` has passed and FR-015 is recorded. KD-4 and KD-5 stay open.
 - **FR-029**: Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected. These include its reason for using the MSVC Release build, its flag check and `parity-gate` listings, which must match what is committed, and its statement that guards in `math_utilities.h` may take effect, because `CheckNAN` has no callers. The playbook MUST also gain a Phase 4 step that settles the math library's CPU-chosen code path before Baseline 1 is captured.
 
 **Boundaries**
@@ -243,7 +244,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **Flag check: the gated build's real flags, plus a search of the build files.**
 
-- **Why**: KD-2 and KD-3 both close on gated builds, and reading generated build files shows what the compiler was really told. Fixes to the playbook's version close gaps a test found: `-mcpu=native`, other `-ffp-contract` values, the library list, and failures with no message. Principle III covers every build, so the search also stops a flag coming back on a build that nothing else reads, at a cost of seconds.
+- **Why**: KD-2 and KD-3 both close on gated builds, and reading generated build files shows what the compiler was really told. Fixes to the playbook's version close gaps a test found: `-mcpu=native`, other `-ffp-contract` values, the library list, and failures with no message. Principle III covers every build, so the search also stops a flag coming back on a build that nothing else reads, at a cost of seconds. The list also holds two options the constitution doesn't name: `-fno-signed-zeros`, a part of `-ffast-math` that changes values, and `-ffp-model=fast`, Clang's short form of it.
 - **Not chosen**: Reading the real flags of the MSVC and macOS CI builds, which changes Cross-Build Check and CircleCI, against FR-016, and leaves CMake with no CI job. The gated build alone, as the playbook lists it, which leaves the other builds unguarded.
 
 **Environment flags: keep the import.**
@@ -271,6 +272,11 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **Why**: KD-1 closed in its own feature, and both closing conditions are met on this pull request. Playbook Phase 4 closes only what is still open.
 - **Not chosen**: Leaving them open until Phase 4, which would report finished work as open.
 
+**The CPU math path: record it as KD-5.**
+
+- **Why**: Principle II says a gated render depends only on the binary, the scene file, the seeds, and the resolution, and the math library's CPU-chosen path breaks that. Governance permits non-compliance only as a Known Deviation, and a new one only by amendment. This feature doesn't fix it, and Phase 4 settles it.
+- **Not chosen**: Leaving it as an open gate in the plan, which Governance doesn't allow. A separate amendment, which adds a second pull request for one table row.
+
 ### Key Entities *(include if feature involves data)*
 
 - **Gated Build**: A build of a Reference Target, and the build the flag check reads.
@@ -279,6 +285,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **Build-File Search**: The CI step that searches tracked build files and setup scripts for prohibited options, for every build, before anything compiles.
 - **Seeded Failure**: A deliberate fault placed in a build's flags to prove that the check fails.
 - **NaN Guard**: A call to `IsNotANumber()` in the engine. Today's Linux build compiles its test away.
+- **Guards-Off Build**: A diagnostic build of the final commit whose guards never fire, which isolates what they change.
 - **Output Record**: The per-item result of comparing the before and after builds, with the reviewer's causes.
 - **Cost Record**: The render times of the before and after builds, with the conditions of each run.
 
@@ -291,13 +298,13 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **SC-003**: At least one seeded failure fails `parity-gate` in GitHub Actions.
 - **SC-004**: A search of the tracked build files and scripts finds no prohibited option and no MSVC fast floating-point setting, apart from the check's own files, `tools/DOE/NaNtester.sh`, and the history in `deploy/NEWS`. Every GCC and Clang build definition sets `-ffp-contract=off`, and a search of engine code finds no forbidden pragma or attribute.
 - **SC-005**: `--self-parity` passes for all 487 items, across all seven buffers and all statistics, at one thread and at all available threads, on a fresh Linux build, in three full runs in a row.
-- **SC-006**: The evidence covers all 487 items and says which reach each NaN guard, a reviewer has compared all 26 scenes and the 20 most-changed formulas, and every visible change has a named cause, with none left unexplained.
+- **SC-006**: The evidence covers all 487 items, and says which reach each NaN guard and which the guards change, a reviewer has compared all 26 scenes and the 20 most-changed formulas, and every visible change has a named cause, with none left unexplained.
 - **SC-007**: Render times before and after are recorded for all 487 items at all available threads in both build orders and on one CPU, along with the `-march=native` build, and no recorded run overlaps another render.
 - **SC-008**: A full gate run stays under 30 minutes on a 4-vCPU CI runner.
 - **SC-009**: Every `--test` test passes on fresh qmake and MSVC builds, Cross-Build Check passes, and the number of items that match exactly between the two builds is recorded.
 - **SC-010**: Each build in FR-033 compiles from a fresh tree.
 - **SC-011**: Every file FR-016 names is byte-identical to `8fd49ba59`. Apart from anything FR-018 requires, no file under `mandelbulber2/src`, `mandelbulber2/qt`, or `mandelbulber2/formula` changes, and the build files differ only by what FR-001 to FR-007 require.
-- **SC-012**: The constitution shows KD-2 and KD-3 closed at version 1.0.2 and KD-4 open, the playbook's listings match the committed flag check and workflow, its Phase 4 holds the math path step, and no file exists under `tests/references/`.
+- **SC-012**: The constitution shows KD-2 and KD-3 closed at version 1.1.0, with KD-4 open and KD-5 recorded as open, the playbook's listings match the committed flag check and workflow, its Phase 4 holds the math path step, and no file exists under `tests/references/`.
 
 ## Assumptions
 
@@ -319,8 +326,8 @@ These come from one-file compiles and `qmake6` runs with the WSL toolchain, GCC 
 None of these has been measured. Line numbers are those of `8fd49ba59`.
 
 - **The guards.** `IsNotANumber()` is called at `compute_fractal.cpp:316` and `:500`, `render_worker.cpp:776`, and `shader_calculate_normals.cpp:120`. `CheckNAN` in `math_utilities.h`, which the playbook also names, has no callers, so it cannot change anything.
-- **The first guard can change what counts as inside the fractal.** It tests `std::isfinite`, so it catches infinity as well as NaN, and it runs at line 316, before the escape test at line 325. An orbit that overflows to infinity then counts as inside, at its last finite value. Today's Linux build skips the guard, so the escape test counts that orbit as escaped.
-- **MSVC Release already runs the guards.** It uses `/fp:precise`, so this change moves the Linux build toward the logic the Windows build has today. A before image from MSVC can show whether a visible change comes from the guards.
+- **The first guard changes what the escape test sees.** It tests `std::isfinite`, so it catches infinity as well as NaN, and it runs at line 316, before the escape test at line 325. An orbit that overflows to infinity goes back to its last finite value and is marked as reaching the iteration limit. Today's Linux build skips the guard, so the escape test counts that orbit as escaped. `calculate_distance.cpp:607` drops the mark unless iteration threshold mode is on, and interior mode reads it at line 623, so the point counts as inside only in those modes. `Makin3D-Julia_001.fract` and `benchmark-GPU.fract` use the first, and no item uses the second. On the other 485 items, the change is in the distance estimate, which now comes from the last finite value.
+- **MSVC Release already runs the guards.** It uses `/fp:precise`, so this change moves the Linux build toward the logic the Windows build has today. A before image from MSVC shows what that logic gives with another compiler.
 - **Other text that matches a prohibited option stays.** `tools/DOE/NaNtester.sh` compiles a small test program of its own, not the engine, to study NaN checks under `-ffast-math`. `deploy/NEWS` is history.
 - **Stale build paths stay.** CMake's Intel branch sets no flags, and the `tools/DOE` build scripts pair the Intel compiler with Qt 5.7, which the CMake file no longer accepts. `mandelbulber-opencl-win64.pro` sets `/fp:precise`, and CMake's `/GL /Ox` path on Windows gets it by default. The `qmake` line in `deploy/cross-compile-windows.sh` is commented out. No CI job uses any of these.
 
@@ -335,7 +342,7 @@ None of these has been measured. Line numbers are those of `8fd49ba59`.
 
 - The gated scope stays the CPU engine on the First Reference Target. OpenCL, animation, voxel export, and network rendering stay outside it.
 - The flag check reads only the gated build. This change brings the MSVC, CMake, and macOS builds into line with Principle III, and the build-file search then guards their tracked files, but nothing reads the flags those builds really use. An option that reaches one through its environment or command line stays unseen.
-- This feature locks compile flags, not the CPU's math paths. The constitution's Reference Target names the math library, but not the CPU features that choose its code path. Hosted x86-64 runners are expected to have FMA and AVX2, so they should take one path, but this feature does not prove that. The references would depend on it, so FR-029 adds a Phase 4 step to settle it before Baseline 1 is captured.
+- This feature locks compile flags, not the CPU's math paths. The constitution's Reference Target names the math library, but not the CPU features that choose its code path. Hosted x86-64 runners are expected to have FMA and AVX2, so they should take one path, but this feature does not prove that. The references would depend on it, so FR-028 records it as KD-5, and FR-029 adds a Phase 4 step to settle it before Baseline 1 is captured.
 
 **Environment and defaults**
 

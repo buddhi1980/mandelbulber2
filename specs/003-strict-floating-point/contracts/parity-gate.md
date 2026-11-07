@@ -4,7 +4,7 @@ The new workflow and reusable action. At this stage `parity-gate` compiles the e
 
 ## `.github/actions/compile-engine/action.yml`
 
-A composite action. Its steps, in order:
+A composite action, named `Compile Engine`, with a `description`, which GitHub's action metadata requires. Its steps, in order:
 
 | Step | What it does | On failure |
 |---|---|---|
