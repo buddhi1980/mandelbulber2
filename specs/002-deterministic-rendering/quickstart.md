@@ -37,7 +37,7 @@ Time each stage at one thread and then at four. With `--threads 1`, no sample is
 ```bash
 EXAMPLES=mandelbulber2/deploy/share/mandelbulber2/examples
 SCENE=tests/scenes/hdr_blur.fract
-RATE='python3 ~/verify/kd1/cpu_rate.py'
+RATE="python3 $HOME/verify/kd1/cpu_rate.py"
 $RATE $BIN --threads 1 --nogui --format tiff --output /tmp/t1 "$EXAMPLES/IFS_001.fract"
 ```
 
@@ -106,7 +106,7 @@ Check each refusal (SC-006). Each command prints an error that names `--threads`
 
 Check network rendering by running a server and a client on one computer, with `--threads 2` on the client. The server's log shows 2 workers for that client.
 
-Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client never exits either, so run it through `cpu_rate.py` until the server exits. No sample is above 1.1 CPUs (SC-005). Start the client within 5 seconds of the server each time, because the server only waits that long for clients.
+Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client also sends its finished lines from the main thread, so its CPU use can rise above one CPU. Read `/proc/<pid>/task/*/comm` once a second until the server exits instead. One thread is named `RenderWorker` while it renders, and never more (SC-005). Start the client within 5 seconds of the server each time, because the server only waits that long for clients.
 
 ## 2. Evidence (User Story 2)
 

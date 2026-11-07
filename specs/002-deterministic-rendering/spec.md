@@ -252,7 +252,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-002**: At 2, 3, 4, and 7 threads, and at twice the CPU count, every item's buffers and statistics match its one-thread render.
 - **SC-003**: Every item reports total iterations above 0, and the value matches at every thread count.
 - **SC-004**: Compare mode reports 0 buffer differences across all items between fresh builds from before and after the statistics work.
-- **SC-005**: With `--threads 1`, no one-second sample of CPU use rises above 1.1 CPUs on a render where each parallel stage adds at least 2 seconds of CPU time, or in any headless CPU render mode.
+- **SC-005**: With `--threads 1`, no one-second sample of CPU use rises above 1.1 CPUs on a render for each parallel stage, where that stage adds at least 2 seconds of CPU time, or in any headless CPU render mode. A network client also sends finished lines from its main thread, so it passes by running one render worker.
 - **SC-006**: Each invalid `--threads` value, and each use of the option where FR-005 refuses it, fails before rendering in 100% of trials.
 - **SC-007**: The evidence names a cause for every difference seen before the fix, and none is left unexplained.
 - **SC-008**: Every audited region has a recorded verdict and a suite scene that reaches it.
