@@ -21,7 +21,7 @@ A build of a Reference Target, and the build the flag check reads.
 
 ## Prohibited Option
 
-A compile or link option that Principle III forbids on the gated compiler.
+A compile or link option the build-file search and the flag check reject, because it can change a floating-point result or tune a build to its computer.
 
 | Field | Meaning |
 |---|---|
@@ -103,6 +103,7 @@ One row per item and site, from the diagnostic build.
 | Site | One of the four above |
 | Infinite | Hits where a value was infinite |
 | NaN | Hits where no value was infinite, and at least one was NaN |
+| Mode | Whether the item's scene turns on iteration threshold mode or interior mode |
 
 **Rules**
 

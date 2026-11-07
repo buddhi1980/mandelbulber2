@@ -77,7 +77,7 @@ The same fields, for the 20 swept formulas whose final image changed most. A not
 | `render_worker.cpp:776` | | | |
 | `shader_calculate_normals.cpp:120` | | | |
 
-A note names the items with infinite hits at line 316 that use iteration threshold mode, because only there does the point count as inside.
+A note names the items with infinite hits at line 316 that use iteration threshold mode or interior mode, because only there does the point count as inside.
 
 ### Failures found
 

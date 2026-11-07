@@ -104,7 +104,7 @@ Every decision here comes from reading the code and from small tests on 2026-11-
 
 ## R12. The image review
 
-- **Decision**: A scratch script based on KD-1's `noise.py` writes three images for each of the 26 scenes and the 20 formulas: before, after, and an amplified difference. Where a shape appears or vanishes, it adds the MSVC before image, to show whether the Windows logic already gives that result. A person reviews them, as on KD-1, and the evidence names each cause, using R11's guards-off build as its proof: one panel marks where that build differs from the after build. A visible change is one that can be seen in the before and after panels at normal brightness, because the difference panel is amplified and nearly every sample is expected to change.
+- **Decision**: A scratch script based on KD-1's `noise.py` writes four panels for each of the 26 scenes and the 20 formulas: before, after, an amplified difference, and the guards' area. Where a shape appears or vanishes, it adds the MSVC before image, to show whether the Windows logic already gives that result. A person reviews them, as on KD-1, and the evidence names each cause, using R11's guards-off build as its proof: one panel marks where that build differs from the after build. A visible change is one that can be seen in the before and after panels at normal brightness, because the difference panel is amplified and nearly every sample is expected to change.
 - **Rationale**: Exact comparison shows that everything changed, which can't separate a rounding shift from a new shape. The difference image shows where the change sits, and the first clarification accepts a guard's effect once its cause is named.
 
 ## R13. MSVC
@@ -145,8 +145,8 @@ MSVC Debug is the gap. AppVeyor lists Debug, but it is not among the checks on t
 | Line | Statement | Correction |
 |---|---|---|
 | 87 | "Use Release, because Debug uses `/fp:fast` (KD-2)." | Keep Release, for the reason that remains: it is the binary the harness finds |
-| 230 | The `/speckit-specify` prompt | Stays, as a record of the request |
 | 207 | "It is not the parity gate, which arrives in Phase 4 as its own workflow." | Say the workflow arrives in Phase 3, and its gate steps in Phase 4 |
+| 230 | The `/speckit-specify` prompt | Stays, as a record of the request |
 | 233 | Guards in `algebra.hpp` and `math_utilities.h` may take effect | Name `IsNotANumber()`, drop `math_utilities.h`, and say the guards catch infinity too, so an overflow keeps its last finite value |
 | 235 to 259 | The check's description and the `compile-engine` listing | Match what is committed, and point to `check-flags.sh` |
 | 263 to 279 | The `parity-gate.yml` listing | Add `permissions: contents: read` |

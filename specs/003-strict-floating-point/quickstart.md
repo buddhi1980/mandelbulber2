@@ -91,7 +91,7 @@ Each `prepare_for_dev_*.sh` script still exports `-msse2`. The script's compile 
 
 ## 3. The flag check (User Story 3)
 
-On the final commit, from the clone's root:
+On the branch tip, from the clone's root. The final commit can come before the check's own commit, so it may not hold the script:
 
 ```bash
 bash .github/actions/compile-engine/check-flags.sh search
@@ -105,7 +105,7 @@ bash .github/actions/compile-engine/check-flags.sh flags mandelbulber2/build/Mak
 
 It prints `passed`.
 
-Run every seed in [flag-check.md](contracts/flag-check.md) with the committed script (SC-002). `~/verify/kd2/seed_check.sh` copies the generated Makefile for each `flags` seed, runs `qmake6` in temporary folders for the environment seeds, and uses a throwaway clone for the `search` seeds. Each row matches its expected exit code and name.
+Run every seed in [flag-check.md](contracts/flag-check.md) with the committed script (SC-002). `~/verify/kd2/seed_flags.sh` copies the generated Makefile for each `flags` seed, and runs `qmake6` in temporary folders for the environment seeds. `~/verify/kd2/seed_search.sh` uses a throwaway clone for the `search` seeds. Each row matches its expected exit code and name.
 
 The local checks in sections 4 to 7 come before any push, because a fix would move the final commit and repeat CI. Then, on the pull request, `parity-gate` passes (SC-001). Prove it in GitHub Actions (SC-003), as [research.md](research.md) R8 describes. Pushing needs the user's go-ahead. After both seeded runs, close the draft pull request unmerged, delete the branch, and cancel any other runs it started. Confirm nothing reached `ministic-regression`:
 
@@ -118,7 +118,7 @@ No seed commit appears.
 A search of the repository (SC-004) finds only what [flag-check.md](contracts/flag-check.md) leaves out, and the history in `deploy/NEWS`:
 
 ```bash
-git grep -nIE -e '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-march=native|-mtune=native|-mcpu=native|/fp:fast|FloatingPointModel>Fast' -- . ':!specs' ':!MIGRATION_PLAYBOOK.md' ':!.specify'
+git grep -nIE -e '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-fno-signed-zeros|-ffp-model=fast|-march=native|-mtune=native|-mcpu=native|-ffp-contract=(fast|on)|/fp:fast|/fp:contract|FloatingPointModel>Fast' -- . ':!specs' ':!MIGRATION_PLAYBOOK.md' ':!.specify'
 ```
 
 ## 4. Renders reproduce (User Story 4)
