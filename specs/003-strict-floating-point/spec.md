@@ -204,7 +204,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **FR-013**: The check MUST fail unless `-ffp-contract=off` is in the C flags and the C++ flags. It MUST also fail if either holds any other `-ffp-contract` value.
 - **FR-014**: Each failure MUST name the option and, for a missing option, the flags it is missing from. A missing or empty build file MUST fail the check and MUST NOT count as a pass.
 - **FR-015**: Seeded failures MUST prove the check. Each option in FR-012 and each case in FR-013 and FR-014 is seeded one at a time, each of `CXXFLAGS`, `CFLAGS`, `CPPFLAGS`, and `LDFLAGS` carries a prohibited option at least once, and so does each kind of file in FR-035. At least one seeded failure MUST fail `parity-gate` in GitHub Actions. No seeded change may be merged.
-- **FR-016**: The workflows that exist today, the `build-linux` action, `.appveyor.yml`, `azure-pipelines.yml`, and `.circleci/config.yml` MUST NOT change.
+- **FR-016**: Every CI file that exists today MUST NOT change: the three workflows in `.github/workflows`, the `build-linux` and `build-windows` actions, `.appveyor.yml`, `azure-pipelines.yml`, `.circleci/config.yml`, and `.travis.yml`.
 - **FR-035**: Before it builds, `parity-gate` MUST search every tracked file that can set a compiler flag on a build of the engine: the qmake, CMake, and MSVC build files, the setup, install, and packaging scripts, and the CI configuration files. It MUST fail, and name the file and the option, if it finds a prohibited option, an `-ffp-contract` value other than `off`, an MSVC fast floating-point setting, or `/fp:contract`. The check's own files and `tools/DOE/NaNtester.sh`, which does not build the engine, are outside the search.
 
 **Reproducibility**

@@ -214,7 +214,7 @@ git diff --stat 8fd49ba59 -- mandelbulber2/src mandelbulber2/qt mandelbulber2/fo
 ```
 
 ```bash
-git diff --stat 8fd49ba59 -- .github/workflows/cross-build-check.yml .github/workflows/github-actions-ci.yml .github/workflows/codeql.yml .github/actions/build-linux .github/actions/build-windows .appveyor.yml azure-pipelines.yml .circleci
+git diff --stat 8fd49ba59 -- .github/workflows/cross-build-check.yml .github/workflows/github-actions-ci.yml .github/workflows/codeql.yml .github/actions/build-linux .github/actions/build-windows .appveyor.yml azure-pipelines.yml .circleci .travis.yml
 ```
 
 ## 8. KD-2 and KD-3 close (User Story 8)
