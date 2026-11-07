@@ -86,7 +86,7 @@ public:
 	void StoreImageInBuffer(std::shared_ptr<cImage> image);
 	void MixImages(std::shared_ptr<cImage> image) const;
 	void ForceEye(enumEye eye);
-	enumEye GetForcedEye() { return forceEye; }
+	enumEye GetForcedEye() const { return forceEye; }
 	void SwapEyes() { swapped = true; }
 	bool AreSwapped() const { return swapped; }
 

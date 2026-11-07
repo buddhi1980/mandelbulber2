@@ -199,6 +199,7 @@ struct sParamRender
 	int cloudsIterations;
 	int cloudsRandomSeed;
 	int frameNo;
+	int renderRandomSeed;
 	int imageHeight; // image height
 	int imageWidth;	 // image width
 	int minN;				 // minimum number of iterations

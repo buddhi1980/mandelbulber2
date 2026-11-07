@@ -45,7 +45,7 @@ sRGBAFloat cRenderWorker::LightShading(sShaderInputData &input, sRGBAFloat surfa
 
 	double distance = 0.0;
 	CVector3 lightVector = light->CalculateLightVector(
-		input.point, input.delta, params->resolution, params->viewDistanceMax, distance);
+		input.point, input.delta, params->resolution, params->viewDistanceMax, distance, &random);
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where number of light was always 24

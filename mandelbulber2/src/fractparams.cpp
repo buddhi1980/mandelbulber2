@@ -144,6 +144,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
 	fov = CalcFOV(container->Get<double>("fov"), perspectiveType);
 	frameNo = container->Get<int>("frame_no");
+	renderRandomSeed = container->Get<int>("render_random_seed");
 	glowColor1 = toRGBFloat(container->Get<sRGB>("glow_color", 1));
 	glowColor2 = toRGBFloat(container->Get<sRGB>("glow_color", 2));
 	glowEnabled = container->Get<bool>("glow_enabled");

@@ -79,6 +79,7 @@ private slots:
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
+	void testPositionRandom() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

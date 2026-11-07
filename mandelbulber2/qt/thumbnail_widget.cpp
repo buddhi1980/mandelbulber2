@@ -98,6 +98,8 @@ void cThumbnailWidget::Init(QWidget *parent)
 
 	instanceIndex = instanceCount;
 	instanceCount++;
+	timerRandom = cPositionRandom(1, 0, 0, cPositionRandom::stageOutsideRender);
+	timerRandom.SetPosition(instanceIndex, 0, 0);
 	// qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
 
@@ -291,7 +293,7 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 					// render thumbnail after random time. It forces rendering of widgets when they are not
 					// visible. It makes rendering of widgets when they are idle.
 
-					timer->start(Random(360000) + 3000);
+					timer->start(timerRandom.Random(360000) + 3000);
 				}
 			}
 		}
@@ -314,7 +316,7 @@ void cThumbnailWidget::slotRender()
 		}
 
 		// random wait to not generate to many events at exactly the same time
-		Wait(Random(100) + 50);
+		Wait(timerRandom.Random(100) + 50);
 
 		if ((!disableTimer)
 				&& ((!params->Get<bool>("opencl_enabled")
@@ -326,11 +328,11 @@ void cThumbnailWidget::slotRender()
 			// try again after some random time
 			if (visibleRegion().isEmpty())
 			{
-				timer->start(Random(60000) + 1);
+				timer->start(timerRandom.Random(60000) + 1);
 			}
 			else
 			{
-				timer->start(Random(1000) + 1);
+				timer->start(timerRandom.Random(1000) + 1);
 			}
 			return;
 		}
@@ -404,7 +406,7 @@ void cThumbnailWidget::slotRandomRender()
 	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads * 2)
 	{
 		// if it's to busy, render later
-		timer->start(Random(1000) * 10 + 1);
+		timer->start(timerRandom.Random(1000) * 10 + 1);
 	}
 	else
 	{

@@ -47,11 +47,7 @@
 
 #include "algebra.hpp"
 
-extern unsigned int gRandomSeed;
-
 // int abs(int v);
-int RandomInt();
-int Random(int max);
 
 // ---------------------------------------------------------------------------
 // Reflection / refraction — declared here, defined in common_math.cpp

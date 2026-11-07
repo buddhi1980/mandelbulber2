@@ -314,6 +314,9 @@ void cRenderer::RenderSSAO()
 
 void cRenderer::RenderDOF()
 {
+	const cPositionRandom random(params->renderRandomSeed, params->frameNo,
+		int(data->stereo.GetForcedEye()) + 1, cPositionRandom::stageDOF);
+
 	cPostRenderingDOF dof(image);
 	connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -327,18 +330,19 @@ void cRenderer::RenderDOF()
 			CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 		dof.Render(region, params->DOFRadius * (region.width + region.height) / 2000.0,
 			params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity, params->DOFMaxRadius,
-			data->stopRequest);
+			data->stopRequest, random);
 		region = data->stereo.GetRegion(
 			CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 		dof.Render(region, params->DOFRadius * (region.width + region.height) / 2000.0,
 			params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity, params->DOFMaxRadius,
-			data->stopRequest);
+			data->stopRequest, random);
 	}
 	else
 	{
 		dof.Render(data->screenRegion,
 			params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus,
-			params->DOFNumberOfPasses, params->DOFBlurOpacity, params->DOFMaxRadius, data->stopRequest);
+			params->DOFNumberOfPasses, params->DOFBlurOpacity, params->DOFMaxRadius, data->stopRequest,
+			random);
 	}
 }
 

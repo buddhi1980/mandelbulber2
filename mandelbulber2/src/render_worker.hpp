@@ -43,6 +43,7 @@
 #include "algebra.hpp"
 #include "calculate_distance.hpp"
 #include "color_structures.hpp"
+#include "position_random.hpp"
 #include "texture_enums.hpp"
 
 // forward declarations
@@ -309,6 +310,9 @@ private:
 	// match the scene object tree nesting depth. Mutable because it is
 	// passed from const shading/ray-marching methods as working memory.
 	mutable std::vector<ObjectTreeStackFrame> objectStack;
+	// Per-thread generator for every random value of the render. Its values depend
+	// only on the seed and position. Mutable because const shaders draw from it.
+	mutable cPositionRandom random;
 
 public slots:
 	void doWork();

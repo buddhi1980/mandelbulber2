@@ -38,6 +38,7 @@
 #include <memory>
 
 #include "cimage.hpp"
+#include "position_random.hpp"
 #include "region.hpp"
 
 class cPostRenderingDOF : public QObject
@@ -54,7 +55,7 @@ public:
 	cPostRenderingDOF(std::shared_ptr<cImage> _image);
 
 	void Render(cRegion<int> screenRegion, float deep, float neutral, int numberOfPasses,
-		float blurOpacity, float maxRadius, bool *stopRequest);
+		float blurOpacity, float maxRadius, bool *stopRequest, cPositionRandom random);
 	template <class T>
 	static void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
 

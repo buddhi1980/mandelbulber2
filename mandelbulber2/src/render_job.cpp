@@ -1324,7 +1324,8 @@ void cRenderJob::RefreshPostEffects()
 				cRegion<int> screenRegion(0, 0, image->GetWidth(), image->GetHeight());
 				dof.Render(screenRegion,
 					params.DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params.DOFFocus,
-					params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius, stopRequest);
+					params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius, stopRequest,
+					cPositionRandom(params.renderRandomSeed, params.frameNo, 0, cPositionRandom::stageDOF));
 			}
 		}
 

@@ -274,6 +274,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("clouds_enable", false, morphLinear, paramStandard);
 	par->addParam("clouds_noise_iterations", 5, 1, 150, morphLinear, paramStandard);
 	par->addParam("clouds_random_seed", 12345, 0, 1000000, morphLinear, paramStandard);
+	par->addParam("render_random_seed", 1, 0, 2147483647, morphNone, paramStandard);
 	par->addParam("clouds_opacity", 10.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_density", 0.25, 0.0, 1.0, morphLinear, paramStandard);
 	par->addParam("clouds_period", 1.0, 1e-15, 1e15, morphLinear, paramStandard);

@@ -121,6 +121,10 @@ void cRenderWorker::doWork()
 
 	scheduler->InitFirstLine(threadData->id, threadData->startLine);
 
+	// the eye keeps the two passes of a two-pass stereo render apart: 0 with no forced eye
+	random = cPositionRandom(params->renderRandomSeed, params->frameNo,
+		int(data->stereo.GetForcedEye()) + 1, cPositionRandom::stageRender);
+
 	bool lastLineWasBroken = false;
 
 	// main loop for y — rows are distributed across threads by the scheduler
@@ -205,6 +209,7 @@ void cRenderWorker::doWork()
 			// Sample accumulation loop: AA sub-pixel positions, MC DOF samples, or stereo eye passes.
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
+				random.SetPosition(xs, ys, repeat);
 
 				CVector3 viewVector;
 				CVector3 startRay;
@@ -228,9 +233,9 @@ void cRenderWorker::doWork()
 						// MC anti-aliasing: random jitter within the pixel (same as AA but stochastic).
 						imagePoint.x =
 							originalImagePoint.x
-							+ (double(Random(1000)) / 1000.0 - 0.5) / image->GetWidth() * aspectRatio;
+							+ (double(random.Random(1000)) / 1000.0 - 0.5) / image->GetWidth() * aspectRatio;
 						imagePoint.y =
-							originalImagePoint.y + (double(Random(1000)) / 1000.0 - 0.5) / image->GetHeight();
+							originalImagePoint.y + (double(random.Random(1000)) / 1000.0 - 0.5) / image->GetHeight();
 					}
 
 					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
@@ -255,7 +260,7 @@ void cRenderWorker::doWork()
 				sRGBFloat rgbFromHsv;
 				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
-					actualHue = Random(3600) / 10.0;
+					actualHue = random.Random(3600) / 10.0;
 					rgbFromHsv = Hsv2rgb(fmodf(360.0f + float(actualHue) - 60.0f, 360.0f), 1.0f, 2.0f);
 					CVector3 randVector(
 						0.0, actualHue / 20000.0f * params->DOFMonteCarloCACameraDispersion, 0.0);
@@ -819,11 +824,11 @@ void cRenderWorker::RayMarching(
 		// Random jitter prevents regular patterns in the step sizes.
 		if (params->interiorMode)
 		{
-			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
+			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - random.Random(1000) / 10000.0);
 		}
 		else
 		{
-			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
+			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - random.Random(1000) / 10000.0);
 		}
 
 		// Apply advanced quality clamps to the step size.
@@ -1098,11 +1103,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (shaderInputData.material->roughSurface)
 				{
 					vn.x += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0f - 1.0f);
+									* (random.Random(20000) / 10000.0f - 1.0f);
 					vn.y += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0f - 1.0f);
+									* (random.Random(20000) / 10000.0f - 1.0f);
 					vn.z += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0f - 1.0f);
+									* (random.Random(20000) / 10000.0f - 1.0f);
 					vn.Normalize();
 				}
 				shaderInputData.normal = vn;
@@ -1738,7 +1743,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							{
 								double distanceLight = 0.0;
 								CVector3 lightVectorTemp = light->CalculateLightVector(input2.point, input2.delta,
-									params->resolution, params->viewDistanceMax, distanceLight);
+									params->resolution, params->viewDistanceMax, distanceLight, &random);
 
 								float intensity;
 								if (light->type == cLight::lightDirectional)
@@ -1844,8 +1849,8 @@ void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) cons
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
-		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
-		double randAngle = Random(65536);
+		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(random.Random(65536) / 65536.0);
+		double randAngle = random.Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
 		CVector3 viewVectorTemp = *viewVector;
@@ -1856,8 +1861,8 @@ void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) cons
 	else
 	{
 		CVector3 viewVectorTemp = *viewVector;
-		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
-		double randAngle = Random(65536);
+		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(random.Random(65536) / 65536.0);
+		double randAngle = random.Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 
 		CVector3 side = viewVectorTemp.Cross(params->topVector);

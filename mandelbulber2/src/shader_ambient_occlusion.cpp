@@ -51,7 +51,7 @@ sRGBAFloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 	if (params->DOFMonteCarlo)
 	{
-		int randomSample = Random(AOVectorsCount - 1);
+		int randomSample = random.Random(AOVectorsCount - 1);
 		start = randomSample;
 		end = randomSample;
 	}

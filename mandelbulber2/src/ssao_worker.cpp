@@ -44,6 +44,7 @@
 #include "color_structures.hpp"
 #include "common_math.h"
 #include "fractparams.hpp"
+#include "position_random.hpp"
 #include "render_data.hpp"
 
 cSSAOWorker::cSSAOWorker(const sParamRender *_params, sThreadData *_threadData,
@@ -96,6 +97,9 @@ void cSSAOWorker::doWork()
 	int step = threadData->progressive;
 	if (step == 0) step = 1;
 
+	cPositionRandom random(params->renderRandomSeed, params->frameNo,
+		int(data->stereo.GetForcedEye()) + 1, cPositionRandom::stageSSAO);
+
 	for (int y = startLineInit; y < endLine; y += threadData->noOfThreads)
 	{
 		if (!threadData->list.isEmpty())
@@ -115,6 +119,8 @@ void cSSAOWorker::doWork()
 		}
 		for (int x = startX; x < endX; x += step)
 		{
+			random.SetPosition(x, y, 0);
+
 			double z = double(image->GetPixelZBuffer(x, y));
 			unsigned short opacity16 = image->GetPixelOpacity(x, y);
 			float opacity = opacity16 / 65535.0f;
@@ -154,7 +160,7 @@ void cSSAOWorker::doWork()
 				int maxRandom = 62831 / quality;
 				double rRandom = 1.0;
 
-				if (params->SSAO_random_mode) rRandom = 0.5 + Random(65536) / 65536.0;
+				if (params->SSAO_random_mode) rRandom = 0.5 + random.Random(65536) / 65536.0;
 
 				int rayCount = 0;
 
@@ -164,7 +170,7 @@ void cSSAOWorker::doWork()
 					double angle = angleIndex;
 					if (params->SSAO_random_mode)
 					{
-						angle = angleStep * angleIndex + Random(maxRandom) / 10000.0;
+						angle = angleStep * angleIndex + random.Random(maxRandom) / 10000.0;
 						ca = cos(angle);
 						sa = sin(angle);
 					}

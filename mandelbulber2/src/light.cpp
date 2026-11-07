@@ -37,6 +37,7 @@
 #include "camera_target.hpp"
 #include "common_math.h"
 #include "parameters.hpp"
+#include "position_random.hpp"
 
 cLight::cLight()
 {
@@ -275,7 +276,7 @@ float cLight::CalculateCone(CVector3 point, const CVector3 &lightVector, sRGBFlo
 }
 
 CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, double resolution,
-	double viewDistanceMax, double &outDistance) const
+	double viewDistanceMax, double &outDistance, cPositionRandom *random) const
 {
 	CVector3 lightVector;
 	if (type == cLight::lightDirectional)
@@ -292,7 +293,7 @@ CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, doubl
 	}
 	else
 	{
-		CVector3 d = CalculateBeam(position, target) - point;
+		CVector3 d = CalculateBeam(position, target, random) - point;
 		lightVector = d;
 		lightVector.Normalize();
 		outDistance = d.Length();
@@ -301,12 +302,13 @@ CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, doubl
 	return lightVector;
 }
 
-CVector3 cLight::CalculateBeam(const CVector3 &point1, const CVector3 &point2) const
+CVector3 cLight::CalculateBeam(
+	const CVector3 &point1, const CVector3 &point2, cPositionRandom *random) const
 {
 	if (type == cLight::lightBeam)
 	{
 		CVector3 direction = point2 - point1;
-		return point1 + direction * Random(10000) / 10000.0;
+		return point1 + direction * random->Random(10000) / 10000.0;
 	}
 	else
 	{

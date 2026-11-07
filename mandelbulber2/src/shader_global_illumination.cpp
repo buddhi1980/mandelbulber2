@@ -58,9 +58,9 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 	for (int rayDepth = 0; rayDepth < maxDepth; rayDepth++)
 	{
 		CVector3 reflectedDirection = inputCopy.normal;
-		double randomX = (Random(20000) - 10000) / 10000.0;
-		double randomY = (Random(20000) - 10000) / 10000.0;
-		double randomZ = (Random(20000) - 10000) / 10000.0;
+		double randomX = (random.Random(20000) - 10000) / 10000.0;
+		double randomY = (random.Random(20000) - 10000) / 10000.0;
+		double randomZ = (random.Random(20000) - 10000) / 10000.0;
 		CVector3 randomVector(randomX * 1.2, randomY * 1.2, randomZ * 1.2);
 		CVector3 randomizedDirection = reflectedDirection + randomVector;
 		randomizedDirection.Normalize();
