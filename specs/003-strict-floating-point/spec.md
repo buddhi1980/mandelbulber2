@@ -281,9 +281,9 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 - **Gated Build**: A build of a Reference Target, and the build the flag check reads.
 - **Prohibited Option**: A compile or link option the flag check rejects.
-- **Flag Check**: The CI step that reads a gated build's flags and fails on a prohibited option or on a missing `-ffp-contract=off`.
-- **Build-File Search**: The CI step that searches tracked build files and setup scripts for prohibited options, for every build, before anything compiles.
-- **Seeded Failure**: A deliberate fault placed in a build's flags to prove that the check fails.
+- **Flag Check**: The CI step that reads a gated build's flags and fails on a prohibited option, on any `-ffp-contract` value other than `off`, or on a missing `-ffp-contract=off`.
+- **Build-File Search**: The CI step that searches tracked build files, scripts, and CI configuration for prohibited options, other `-ffp-contract` values, and MSVC fast settings, for every build, before anything compiles.
+- **Seeded Failure**: A deliberate fault placed in a build's flags or in a build file, to prove that the flag check or the build-file search fails.
 - **NaN Guard**: A call to `IsNotANumber()` in the engine. Today's Linux build compiles its test away.
 - **Guards-Off Build**: A diagnostic build of the final commit whose guards never fire, which isolates what they change.
 - **Output Record**: The per-item result of comparing the before and after builds, with the reviewer's causes.
@@ -296,7 +296,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **SC-001**: On the pull request, `parity-gate` passes on a fresh gated build with no prohibited option in its compile or link flags.
 - **SC-002**: Every seeded failure in FR-015 fails the flag check or the build-file search in 100% of trials and names the option, and an unseeded build passes both.
 - **SC-003**: At least one seeded failure fails `parity-gate` in GitHub Actions.
-- **SC-004**: A search of the tracked build files and scripts finds no prohibited option and no MSVC fast floating-point setting, apart from the check's own files, `tools/DOE/NaNtester.sh`, and the history in `deploy/NEWS`. Every GCC and Clang build definition sets `-ffp-contract=off`, and a search of engine code finds no forbidden pragma or attribute.
+- **SC-004**: A search of the tracked build files and scripts finds no prohibited option, no `-ffp-contract` value other than `off`, no MSVC fast floating-point setting, and no `/fp:contract`, apart from the check's own files, `tools/DOE/NaNtester.sh`, and the history in `deploy/NEWS`. Every GCC and Clang build definition sets `-ffp-contract=off`, and a search of engine code finds no forbidden pragma or attribute.
 - **SC-005**: `--self-parity` passes for all 487 items, across all seven buffers and all statistics, at one thread and at all available threads, on a fresh Linux build, in three full runs in a row.
 - **SC-006**: The evidence covers all 487 items, and says which reach each NaN guard and which the guards change, a reviewer has compared all 26 scenes and the 20 most-changed formulas, and every visible change has a named cause, with none left unexplained.
 - **SC-007**: Render times before and after are recorded for all 487 items at all available threads in both build orders and on one CPU, along with the `-march=native` build, and no recorded run overlaps another render.
