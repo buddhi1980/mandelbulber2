@@ -305,6 +305,10 @@ Each region is one a gated render can reach. The proof for each comes from commi
 |---|---|---|
 | `--stats` keeps updating during a render (FR-029) | A 1920x1080 render of `IFS_001.fract` printed 43 different totals, from 144,771,000 to 27,265,100,000 iterations | `ec238daf1` |
 | Colliding updates (FR-027) | ThreadSanitizer gave 7 reports on `IFS_001.fract` and 1 on `chromatic_aberration.fract`, at 32x24 with `--threads 4`. None names `cStatistics`, `cHistogram`, or `cPositionRandom`. Six are inside Qt, which isn't built for ThreadSanitizer, and two are the scheduler's unlocked reads of `lineDone`, which the plan expects. | `ec238daf1` |
+| Thread counts (FR-024, FR-025, FR-026) | `phase7.py sweep` rendered all 487 items at 2, 3, 4, 7, and 64 threads, and every export matched the one-thread export. 64 is twice the CPU count, and more threads than the 24 lines of a formula render. | `ec238daf1` |
+| Seeds and frames (FR-016) | `phase7.py seeds` rendered the 6 Monte Carlo scenes twice each with nothing added, `render_random_seed=1`, `render_random_seed=2`, and `frame_no=1`, at all 32 threads. Each render matched its own second render, and seed 1 matched the render with nothing added. | `ec238daf1` |
+| Two-pass stereo (FR-012) | Three runs of `amazing_surf 002` at 1 thread and three at 32 matched in every buffer and statistic. Their raymarch count was 133,366, against 88,048 for the plain render. | `ec238daf1` |
+| Comparing two builds (SC-010 of `specs/001-regression-harness`) | `--compare` with a second fresh build of the same commit exited 0, with 0 of 487 items failed. With `.9` changed to `.91` in `fractal_ides.cpp`, it exited 1, with 1 of 487 items failed, and the report named only `ides`. | `ec238daf1` |
 
 ## Success criteria
 
@@ -314,3 +318,8 @@ Each region is one a gated render can reach. The proof for each comes from commi
 | SC-006 | All 17 refusal rows exited with the listed status, named `--threads`, and wrote no image | `0bd701a04` | Repeated on the final commit in T084 |
 | SC-001 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 515, 532, and 530 seconds, and none mentioned thread coverage. | `ec238daf1` | None |
 | SC-004 | `--compare` between `71a20a6da` and `ec238daf1` reported 5,126 differences across all 487 items, all of them statistics, and 0 in any buffer. It exits 1, because total iterations changes from 0 to the real count. | `ec238daf1` | None |
+| SC-002 | All 487 items at 2, 3, 4, 7, and 64 threads matched their one-thread render in every buffer and statistic, with 0 differences. | `ec238daf1` | None |
+| SC-003 | Every item's total iterations was above 0, the lowest being 14,342 on `coastalbrot`, and it matched at every thread count. | `ec238daf1` | None |
+| SC-009 | On all 6 Monte Carlo scenes, each seed and frame number reproduced its own output exactly. Against the default, seed 2 changed 95.7% to 99.8% of the final image's samples, and frame 1 changed 96.2% to 99.8%. | `ec238daf1` | None |
+| SC-011 | `tests/test_regression_runner.py` passed all 224 tests in WSL and on Windows. They include a one-bit difference seeded in every buffer, and `test_thread_control_is_enabled` shows thread coverage no longer stops `--capture`. | `ec238daf1` | None |
+| SC-012 | `--test` passed all 9 test functions on a fresh qmake build in 191 seconds and on a fresh MSVC build in 318 seconds. They include `testPositionRandom`, whose fixed known answers hold on both. | `ec238daf1` | Cross-Build Check, in T076 and T091 |
