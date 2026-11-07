@@ -8,6 +8,16 @@
 
 **Input**: User description: "Close KD-2 and KD-3 from the constitution. Remove -ffast-math from mandelbulber2/qmake/common.pri and mandelbulber2/cmake/CMakeLists.txt, replace /fp:fast in the Debug x64 configuration of mandelbulber2/msvc/mandelbulber2.vcxproj, add -ffp-contract=off to GCC and Clang builds, remove -march=native from mandelbulber2/tools/prepare_for_dev_*.sh and mandelbulber2/deploy/linux/install, and add the GitHub Actions flag check from this playbook. Measure CPU render time on the Standard Scene Suite before and after, and record the cost."
 
+## Clarifications
+
+### Session 2026-11-07
+
+- Q: Should a visible image change caused by the NaN guards be accepted? → A: Yes, once the evidence names its cause. The guards stay, Linux follows the logic MSVC Release already runs, and a Baseline Change can fix a guard that proves wrong.
+- Q: Should the CI flag check cover more than the gated Linux build? → A: Yes. `parity-gate` also searches the tracked build files and setup scripts before it builds, so a flag coming back on CMake, macOS, or MSVC fails CI. It reads a build's real flags only on the gated build.
+- Q: What should this feature do about the math library choosing its code path from the CPU? → A: Stay with compile flags, and add a step to Phase 4 of the playbook that settles this before Baseline 1 is captured.
+- Q: What should happen to qmake's import of flags from the environment? → A: Keep it. Packagers' flags still work, and the CI check catches anything it brings into a gated build.
+- Q: How should the slowdown be handled? → A: Record it, with no limit beyond the 30-minute gate and nothing kept from `-ffast-math`. An option such as `-fno-math-errno` can follow Baseline 1 as an ordinary change that the gate proves.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Terms such as Standard Scene Suite, Reference Target, Self-Parity, and Baseline Change are defined in the project constitution. KD numbers refer to its Known Deviations. The harness modes and the formula sweep come from `specs/001-regression-harness`, and `--threads` comes from `specs/002-deterministic-rendering`. An item is one scene or one swept formula. There are 487 today: 26 scenes and 461 formulas.
@@ -52,11 +62,11 @@ A developer or user runs a setup or install script and gets a build that does no
 
 ### User Story 3 - Reject a Prohibited Option in CI (Priority: P1)
 
-A contributor opens a pull request, and CI fails it if the gated build holds a prohibited option, wherever the option came from.
+A contributor opens a pull request, and CI fails it if the gated build holds a prohibited option, wherever the option came from, or if a tracked build file sets one for any build.
 
 **Why this priority**: KD-2 and KD-3 both close on this check. Without it, a merge from upstream, where these flags still exist, or one environment variable could bring them back with no sign.
 
-**Independent Test**: Seed each prohibited option into a gated build's flags, one at a time, and confirm that the check fails and names it.
+**Independent Test**: Seed each prohibited option into a gated build's flags, one at a time, and confirm that the check fails and names it. Then seed one into each kind of build file, and confirm that the search fails and names the file.
 
 **Acceptance Scenarios**:
 
@@ -66,6 +76,7 @@ A contributor opens a pull request, and CI fails it if the gated build holds a p
 4. **Given** `-ffp-contract=off` is missing from the C or C++ flags, or another `-ffp-contract` value is present, **When** the check reads the build, **Then** it fails and says which.
 5. **Given** a missing or empty build file, **When** the check runs, **Then** it fails.
 6. **Given** a push to `ministic-regression`, **When** it lands, **Then** `parity-gate` runs.
+7. **Given** a prohibited option or an MSVC fast floating-point setting in a tracked build file or setup script, for a build that is not gated, **When** `parity-gate` runs, **Then** it fails before building, and names the file and the option.
 
 ---
 
@@ -161,7 +172,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **Subnormal numbers**: The gated build does not flush them to zero, before or after this change. CMake builds with GCC do today, and will not after it.
 - **Two `-ffp-contract` values**: The compiler honors the last one, so finding `-ffp-contract=off` is not enough.
 - **A bare `-Xpreprocessor`**: The Apple Silicon line in `common.pri` ends in `-Xpreprocessor`, which takes the next option as its own. `-ffp-contract=off` must not land right after it, or it will not reach the compiler as a compile option.
-- **A merge from upstream**: Upstream still sets `-ffast-math`, so a merge into `ministic-regression` can bring it back. The check catches that on the gated build.
+- **A merge from upstream**: Upstream still sets `-ffast-math`, so a merge into `ministic-regression` can bring it back. The build-file search catches that in any tracked build file, and the flag check catches it on the gated build.
 - **A developer's own environment**: A local `CXXFLAGS=-march=native` still reaches a local build, as it does today. The check runs only in CI.
 - **Debug builds**: `debug.pro` and `debug-opencl.pro` read `common.pri`, so they change too. They are not gated.
 
@@ -185,14 +196,15 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **Flag check**
 
-- **FR-009**: The repository MUST gain `.github/actions/compile-engine/action.yml`, which builds through the existing `build-linux` action and then runs the flag check, and `.github/workflows/parity-gate.yml`, whose `parity-gate` job runs that action on `ubuntu-24.04`. At this stage the job does nothing else, because Phase 4 adds the gate steps.
+- **FR-009**: The repository MUST gain `.github/actions/compile-engine/action.yml`, which builds through the existing `build-linux` action and then runs the flag check, and `.github/workflows/parity-gate.yml`, whose `parity-gate` job runs that action on `ubuntu-24.04`. Apart from the search in FR-035, the job does nothing else at this stage, because Phase 4 adds the gate steps.
 - **FR-010**: `parity-gate` MUST run on every pull request and on every push to `ministic-regression`. It MUST have read-only repository access and use no secrets, as Cross-Build Check does.
 - **FR-011**: The check MUST read the flags of the gated build it just compiled, from that build's generated files, so it sees what the compiler was really told. It MUST cover the C flags, the C++ flags, and the whole link command, including the library list.
 - **FR-012**: The check MUST fail if any of these options is present: `-ffast-math`, `-Ofast`, `-funsafe-math-optimizations`, `-ffinite-math-only`, `-fassociative-math`, `-freciprocal-math`, `-march=native`, `-mtune=native`, or `-mcpu=native`.
 - **FR-013**: The check MUST fail unless `-ffp-contract=off` is in the C flags and the C++ flags. It MUST also fail if either holds any other `-ffp-contract` value.
 - **FR-014**: Each failure MUST name the option and, for a missing option, the flags it is missing from. A missing or empty build file MUST fail the check and MUST NOT count as a pass.
-- **FR-015**: Seeded failures MUST prove the check. Each option in FR-012 and each case in FR-013 and FR-014 is seeded one at a time, and each of `CXXFLAGS`, `CFLAGS`, `CPPFLAGS`, and `LDFLAGS` carries a prohibited option at least once. At least one seeded failure MUST fail `parity-gate` in GitHub Actions. No seeded change may be merged.
+- **FR-015**: Seeded failures MUST prove the check. Each option in FR-012 and each case in FR-013 and FR-014 is seeded one at a time, each of `CXXFLAGS`, `CFLAGS`, `CPPFLAGS`, and `LDFLAGS` carries a prohibited option at least once, and so does each kind of file in FR-035. At least one seeded failure MUST fail `parity-gate` in GitHub Actions. No seeded change may be merged.
 - **FR-016**: The workflows that exist today, the `build-linux` action, `.appveyor.yml`, `azure-pipelines.yml`, and `.circleci/config.yml` MUST NOT change.
+- **FR-035**: Before it builds, `parity-gate` MUST search every tracked file that can set a compiler flag on a build of the engine: the qmake, CMake, and MSVC build files, the setup, install, and packaging scripts, and the CI configuration files. It MUST fail, and name the file and the option, if it finds a prohibited option, an `-ffp-contract` value other than `off`, an MSVC fast floating-point setting, or `/fp:contract`. The check's own files and `tools/DOE/NaNtester.sh`, which does not build the engine, are outside the search.
 
 **Reproducibility**
 
@@ -217,7 +229,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 **Closing KD-2 and KD-3**
 
 - **FR-028**: Closing KD-2 and KD-3 MUST mark them closed in the constitution as a PATCH amendment, version 1.0.2, stating the reason, as Governance requires. This MUST come after `parity-gate` has passed and FR-015 is recorded. KD-4 stays open.
-- **FR-029**: Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected. These include its reason for using the MSVC Release build, its flag check and `parity-gate` listings, which must match what is committed, and its statement that guards in `math_utilities.h` may take effect, because `CheckNAN` has no callers.
+- **FR-029**: Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected. These include its reason for using the MSVC Release build, its flag check and `parity-gate` listings, which must match what is committed, and its statement that guards in `math_utilities.h` may take effect, because `CheckNAN` has no callers. The playbook MUST also gain a Phase 4 step that settles the math library's CPU-chosen code path before Baseline 1 is captured.
 
 **Boundaries**
 
@@ -229,10 +241,10 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 ### Decisions
 
-**Flag check: the gated build, with fixes to the playbook's version.**
+**Flag check: the gated build's real flags, plus a search of the build files.**
 
-- **Why**: KD-2 and KD-3 both close on gated builds, and reading generated build files shows what the compiler was really told. The fixes close gaps a test found: `-mcpu=native`, other `-ffp-contract` values, the library list, and failures with no message.
-- **Not chosen**: A search of every build file for prohibited options. It would catch a flag coming back on a build that nothing else checks, because Principle III covers every build, but the request asks for the playbook's check.
+- **Why**: KD-2 and KD-3 both close on gated builds, and reading generated build files shows what the compiler was really told. Fixes to the playbook's version close gaps a test found: `-mcpu=native`, other `-ffp-contract` values, the library list, and failures with no message. Principle III covers every build, so the search also stops a flag coming back on a build that nothing else reads, at a cost of seconds.
+- **Not chosen**: Reading the real flags of the MSVC and macOS CI builds, which changes Cross-Build Check and CircleCI, against FR-016, and leaves CMake with no CI job. The gated build alone, as the playbook lists it, which leaves the other builds unguarded.
 
 **Environment flags: keep the import.**
 
@@ -246,13 +258,13 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **NaN guards: leave them, and accept what they change.**
 
-- **Why**: They are the code's stated intent, MSVC Release already runs them, and the constitution and the playbook both expect output to change. Baseline 1 comes after this change, so the new output becomes the reference.
+- **Why**: They are the code's stated intent, MSVC Release already runs them, and the constitution and the playbook both expect output to change. Baseline 1 comes after this change, so the new output becomes the reference, and a Baseline Change can fix a guard that proves wrong.
 - **Not chosen**: Changing the guards to keep today's Linux images. That preserves a side effect of `-ffast-math`, moves Linux further from Windows, and is an engine change that closes no Known Deviation.
 
 **Cost: record it, with no limit beyond the gate's 30 minutes.**
 
 - **Why**: Principle III is non-negotiable, so a slowdown limit could not stop this change, and the request asks for a record.
-- **Not chosen**: Keeping `-fno-math-errno` or another part of `-ffast-math` that leaves values alone. It may win back speed, but it is an optimization with no baseline to prove it yet. It can follow Baseline 1 as an ordinary change that the gate proves.
+- **Not chosen**: Keeping `-fno-math-errno` or another part of `-ffast-math` that leaves values alone. It may win back speed, but before Baseline 1 the constitution allows only changes that close a Known Deviation, and this one is not needed to close one. It can follow Baseline 1 as an ordinary change that the gate proves.
 
 **KD-2 and KD-3 close in this feature.**
 
@@ -264,6 +276,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **Gated Build**: A build of a Reference Target, and the build the flag check reads.
 - **Prohibited Option**: A compile or link option the flag check rejects.
 - **Flag Check**: The CI step that reads a gated build's flags and fails on a prohibited option or on a missing `-ffp-contract=off`.
+- **Build-File Search**: The CI step that searches tracked build files and setup scripts for prohibited options, for every build, before anything compiles.
 - **Seeded Failure**: A deliberate fault placed in a build's flags to prove that the check fails.
 - **NaN Guard**: A call to `IsNotANumber()` in the engine. Today's Linux build compiles its test away.
 - **Output Record**: The per-item result of comparing the before and after builds, with the reviewer's causes.
@@ -274,9 +287,9 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 ### Measurable Outcomes
 
 - **SC-001**: On the pull request, `parity-gate` passes on a fresh gated build with no prohibited option in its compile or link flags.
-- **SC-002**: Every seeded failure in FR-015 fails the check in 100% of trials and names the option, and an unseeded build passes.
+- **SC-002**: Every seeded failure in FR-015 fails the flag check or the build-file search in 100% of trials and names the option, and an unseeded build passes both.
 - **SC-003**: At least one seeded failure fails `parity-gate` in GitHub Actions.
-- **SC-004**: A search of the tracked build files and scripts finds no prohibited option and no MSVC fast floating-point setting, apart from the flag check itself, `tools/DOE/NaNtester.sh`, and the history in `deploy/NEWS`. Every GCC and Clang build definition sets `-ffp-contract=off`, and a search of engine code finds no forbidden pragma or attribute.
+- **SC-004**: A search of the tracked build files and scripts finds no prohibited option and no MSVC fast floating-point setting, apart from the check's own files, `tools/DOE/NaNtester.sh`, and the history in `deploy/NEWS`. Every GCC and Clang build definition sets `-ffp-contract=off`, and a search of engine code finds no forbidden pragma or attribute.
 - **SC-005**: `--self-parity` passes for all 487 items, across all seven buffers and all statistics, at one thread and at all available threads, on a fresh Linux build, in three full runs in a row.
 - **SC-006**: The evidence covers all 487 items and says which reach each NaN guard, a reviewer has compared all 26 scenes and the 20 most-changed formulas, and every visible change has a named cause, with none left unexplained.
 - **SC-007**: Render times before and after are recorded for all 487 items at all available threads in both build orders and on one CPU, along with the `-march=native` build, and no recorded run overlaps another render.
@@ -284,7 +297,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **SC-009**: Every `--test` test passes on fresh qmake and MSVC builds, Cross-Build Check passes, and the number of items that match exactly between the two builds is recorded.
 - **SC-010**: Each build in FR-033 compiles from a fresh tree.
 - **SC-011**: Every file FR-016 names is byte-identical to `8fd49ba59`. Apart from anything FR-018 requires, no file under `mandelbulber2/src`, `mandelbulber2/qt`, or `mandelbulber2/formula` changes, and the build files differ only by what FR-001 to FR-007 require.
-- **SC-012**: The constitution shows KD-2 and KD-3 closed at version 1.0.2 and KD-4 open, the playbook's listings match the committed flag check and workflow, and no file exists under `tests/references/`.
+- **SC-012**: The constitution shows KD-2 and KD-3 closed at version 1.0.2 and KD-4 open, the playbook's listings match the committed flag check and workflow, its Phase 4 holds the math path step, and no file exists under `tests/references/`.
 
 ## Assumptions
 
@@ -321,8 +334,8 @@ None of these has been measured. Line numbers are those of `8fd49ba59`.
 **Scope**
 
 - The gated scope stays the CPU engine on the First Reference Target. OpenCL, animation, voxel export, and network rendering stay outside it.
-- The flag check reads only the gated build. This change brings the MSVC, CMake, and macOS builds into line with Principle III, but nothing checks them afterward.
-- This feature locks compile flags, not the CPU's math paths. The constitution's Reference Target names the math library, but not the CPU features that choose its code path. Hosted x86-64 runners are expected to have FMA and AVX2, so they should take one path, but this feature does not prove that. Phase 4 should settle this before Baseline 1, because the references would depend on it.
+- The flag check reads only the gated build. This change brings the MSVC, CMake, and macOS builds into line with Principle III, and the build-file search then guards their tracked files, but nothing reads the flags those builds really use. An option that reaches one through its environment or command line stays unseen.
+- This feature locks compile flags, not the CPU's math paths. The constitution's Reference Target names the math library, but not the CPU features that choose its code path. Hosted x86-64 runners are expected to have FMA and AVX2, so they should take one path, but this feature does not prove that. The references would depend on it, so FR-029 adds a Phase 4 step to settle it before Baseline 1 is captured.
 
 **Environment and defaults**
 
