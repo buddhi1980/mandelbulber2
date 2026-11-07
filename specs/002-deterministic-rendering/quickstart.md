@@ -7,6 +7,7 @@ Runnable checks that prove each user story. [plan.md](plan.md) says how the work
 - Every result comes from a fresh build of the commit being tested. No check may use an existing binary.
 - The Linux checks run in the WSL `Ubuntu-24.04` clone at `~/mandelbulber2`, and the Windows checks use the MSVC Release build. The [playbook](../../MIGRATION_PLAYBOOK.md) lists both setups.
 - Scratch scripts in these checks import `tests/regression_runner.py` for its isolation and comparison. They stay out of the repository.
+- `--override` reads a boolean as a number, so use `=1` and `=0`. `=true` reads as 0, which silently turns the setting off.
 
 Fresh WSL build of the current branch, from the WSL clone:
 
@@ -29,22 +30,25 @@ BIN=$PWD/mandelbulber2/build/appdir/usr/bin/mandelbulber2
 
 ## 1. Thread control (User Story 1)
 
-Time one scene for each stage, at one thread and then at four. With `--threads 1`, user plus system time stays within 110% of elapsed time (SC-005).
+The WSL wall clock steps back by about 0.85 seconds every 32 seconds, so `/usr/bin/time` can't be trusted here: one 1.35-second render read as 0.77. Time every run in this section with a scratch script, `~/verify/kd1/cpu_rate.py`. It starts a command with a new temporary `HOME`, reads the command's CPU time from `/proc/<pid>/stat` once a second against the monotonic clock, and prints the elapsed time, the total CPU time, and the highest one-second sample. Given a line of text, it stops the command when that text appears in its output.
+
+Time each stage at one thread and then at four. With `--threads 1`, no sample is above 1.1 CPUs (SC-005).
 
 ```bash
 EXAMPLES=mandelbulber2/deploy/share/mandelbulber2/examples
-OVERRIDES='opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4'
-/usr/bin/time -f '%e elapsed, %U user, %S system' $BIN --threads 1 --nogui --format tiff --override "$OVERRIDES" --output /tmp/t1 "$EXAMPLES/IFS_002.fract"
+SCENE=tests/scenes/hdr_blur.fract
+RATE='python3 ~/verify/kd1/cpu_rate.py'
+$RATE $BIN --threads 1 --nogui --format tiff --output /tmp/t1 "$EXAMPLES/IFS_001.fract"
 ```
 
-| Stage | Scene | Turned off with | Raised with |
-|---|---|---|---|
-| Render workers | `IFS_001.fract` | - | - |
-| Screen-space ambient occlusion | `amazing_surf 002.fract` | `ambient_occlusion_enabled=false` | `ambient_occlusion_quality` |
-| Post-effect depth of field | `IFS_002.fract` | `DOF_enabled=false` | `DOF_radius` |
-| HDR blur | `tests/scenes/hdr_blur.fract` | `hdr_blur_enabled=false` | `hdr_blur_radius` |
+| Stage | Arguments, after `--output /tmp/t1` | Turned off with |
+|---|---|---|
+| Render workers | `"$EXAMPLES/IFS_001.fract"` | - |
+| Screen-space ambient occlusion | `--res 1920x1080 --override 'hdr_blur_enabled=0#ambient_occlusion_enabled=1#ambient_occlusion_mode=2#ambient_occlusion_quality=10' "$SCENE"` | `ambient_occlusion_enabled=0` |
+| Post-effect depth of field | `--override 'hdr_blur_enabled=0#DOF_enabled=1#DOF_radius=50' "$SCENE"` | `DOF_enabled=0` |
+| HDR blur | `--override 'hdr_blur_radius=20' "$SCENE"` | `hdr_blur_enabled=0` |
 
-Each scene must spend most of its one-thread time in its stage (SC-005), because a stage under about 9% of a run could ignore `--threads` and still stay within 110%. Time each post effect's scene at `--threads 1` with the stage on and with it off, using `--override`. Its share is the difference divided by the time with it on. If the share is 50% or less, raise the setting in the table until it is above 50%, and keep that setting for every later run of that scene in this section. `amazing_surf 002.fract` also has post-effect depth of field, so add `DOF_enabled=false` to every run of it.
+Each post effect must add at least 2 seconds of CPU time at one thread, so a stage that ignored `--threads` would show in a sample (SC-005). Confirm this by timing its row again with the stage turned off. On 2026-11-07, one CPU spent about 3 more seconds on ambient occlusion, 9 on depth of field, and 3 on HDR blur.
 
 Repeat with the other headless modes:
 
@@ -52,7 +56,7 @@ Repeat with the other headless modes:
 VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
 ```
 
-| Mode | Command, after `$BIN --threads 1` |
+| Mode | Arguments, after `$RATE $BIN --threads 1` |
 |---|---|
 | Keyframe animation | `--nogui --keyframe -s 0 -e 2 --output "$(mktemp -d)/" "$EXAMPLES/keyframe_anim_mandelbulb.fract"` |
 | Flight animation | `--nogui --flight -s 0 -e 2 --output "$(mktemp -d)/" "$EXAMPLES/flight_anim_menger sponge_3.fract"` |
@@ -64,14 +68,14 @@ VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
 
 Each animation run gets a new output folder, because a rerun into the same folder stops to ask about deleting frames. The path ends in `/`, because the application joins the frame's file name straight onto it. Neither queue scene has an OpenMP stage, so `limit_CPU_cores` governs all of their work.
 
-The queue never exits, because it waits for more work after its last item, so `/usr/bin/time` can't measure it. Run it through a scratch script that gives it a new temporary `HOME`, samples its CPU time from `/proc/<pid>/stat` once a second, and stops it when `Queue is empty` appears in its output. At `--threads 1`, no sample is above 1.1 CPUs (SC-005).
+The queue never exits, because it waits for more work after its last item, so tell `cpu_rate.py` to stop it when `Queue is empty` appears in its output.
 
 Set `QTEST_FUNCTION_TIMEOUT=1800000` for the test suite, as CI does. QtTest stops a function after 5 minutes by default, and one function renders all 791 examples.
 
 Check `OMP_NUM_THREADS` and a count above the CPU count:
 
 ```bash
-OMP_NUM_THREADS=8 /usr/bin/time -f '%e elapsed, %U user, %S system' $BIN --threads 1 --nogui --format tiff --output /tmp/t2 "$EXAMPLES/IFS_002.fract"
+OMP_NUM_THREADS=8 $RATE $BIN --threads 1 --nogui --format tiff --output /tmp/t2 --override 'hdr_blur_enabled=0#DOF_enabled=1#DOF_radius=50' "$SCENE"
 ```
 
 ```bash
@@ -102,7 +106,7 @@ Check each refusal (SC-006). Each command prints an error that names `--threads`
 
 Check network rendering by running a server and a client on one computer, with `--threads 2` on the client. The server's log shows 2 workers for that client.
 
-Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client never exits either, so sample it the same way as the queue, until the server exits. No sample is above 1.1 CPUs (SC-005). Start the client within 5 seconds of the server each time, because the server only waits that long for clients.
+Then use `--threads 1` on both, with a render that lasts at least 30 seconds. The client never exits either, so run it through `cpu_rate.py` until the server exits. No sample is above 1.1 CPUs (SC-005). Start the client within 5 seconds of the server each time, because the server only waits that long for clients.
 
 ## 2. Evidence (User Story 2)
 
@@ -133,11 +137,11 @@ Seeds and frames (SC-009): a scratch script renders each of the 6 Monte Carlo sc
 | `render_random_seed=2` | Different | Identical |
 | `frame_no=1` | Different | Identical |
 
-Check one real animation too (User Story 6). Make a scratch copy of `keyframe_anim_mandelbulb.fract` in which every row of `[keyframes]` repeats the values of keyframe 0, so frames 0 and 1 differ only in their frame number. Its own frames can't show this, because the fractal power and light change between them. Render frames 0 and 1 twice with `--keyframe -s 0 -e 2`, `--format tiff`, and `DOF_monte_carlo=true` added to `--override`. Give each render a new empty `--output` folder whose path ends in `/`, for the reasons in section 1. Decode the images with the harness's `read_tiff`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
+Check one real animation too (User Story 6). Make a scratch copy of `keyframe_anim_mandelbulb.fract` in which every row of `[keyframes]` repeats the values of keyframe 0, so frames 0 and 1 differ only in their frame number. Its own frames can't show this, because the fractal power and light change between them. Render frames 0 and 1 twice with `--keyframe -s 0 -e 2`, `--format tiff`, and `DOF_enabled=1#DOF_monte_carlo=1#color_quality=1` added to `--override`, which gives 16-bit images. Give each render a new empty `--output` folder whose path ends in `/`, for the reasons in section 1. Decode the images with the harness's `read_tiff`. Frames 0 and 1 differ from each other, and each frame matches its own second render.
 
 Compare two builds of one source (SC-010 of `specs/001-regression-harness`). Build the final commit a second time in another folder, then run `--compare` with that binary. It exits 0 on all 487 items. Change one formula that no suite scene uses in a third build of the same commit, and run `--compare` again. It exits 1, and the report names only that formula.
 
-Check two-pass stereo. Render `amazing_surf 002.fract` with `stereo_enabled=true#stereo_mode=2` added to the harness's overrides, three times at one thread and three times at all threads. Red-cyan stereo with screen-space ambient occlusion takes two passes. All six renders match in every buffer and statistic.
+Check two-pass stereo. Render `amazing_surf 002.fract` with `stereo_enabled=1#stereo_mode=2` added to the harness's overrides, three times at one thread and three times at all threads. Red-cyan stereo with screen-space ambient occlusion takes two passes. All six renders match in every buffer and statistic. Their raymarch count is above the plain render's, which shows stereo really ran.
 
 ## 4. Exact statistics (User Story 4)
 
@@ -153,7 +157,7 @@ The report shows 0 differences in any buffer. Statistics do differ, because tota
 
 Watch a render with `--stats`, and confirm the values change while it runs. In the GUI, confirm the statistics dock updates during a render (FR-029).
 
-Check for colliding updates (FR-027). In a throwaway clone, build with `QMAKE_CXXFLAGS+=-fsanitize=thread QMAKE_LFLAGS+=-fsanitize=thread` added to the `qmake6` line, then render `IFS_001.fract` and `chromatic_aberration.fract` at the harness's resolution with `--threads 4`. No report names `cStatistics`, `cHistogram`, or `cPositionRandom`. Libgomp isn't built for ThreadSanitizer, so reports from inside OpenMP regions can be false, and `cScheduler`'s unlocked reads of line owners are expected. This build never leaves the clone.
+Check for colliding updates (FR-027). In a throwaway clone, build with `QMAKE_CXXFLAGS+=-fsanitize=thread QMAKE_LFLAGS+=-fsanitize=thread` added to the `qmake6` line, then render `IFS_001.fract` and `chromatic_aberration.fract` at the harness's resolution with `--threads 4`. Run them under `setarch "$(uname -m)" -R`, because in this distro a ThreadSanitizer binary stops at startup with `unexpected memory mapping` while address randomization is on. No report names `cStatistics`, `cHistogram`, or `cPositionRandom`. Libgomp isn't built for ThreadSanitizer, so reports from inside OpenMP regions can be false, and `cScheduler`'s unlocked reads of line owners are expected. This build never leaves the clone.
 
 ## 5. Nothing else broke (User Story 6)
 
@@ -175,7 +179,7 @@ A one-bit difference seeded in any buffer still fails, which the harness's own t
 
 Noise (SC-010): a scratch script finds the average absolute difference between the final images of two runs on a fresh build of `master`, then between seeds 1 and 2 on this branch, for each of the 6 Monte Carlo scenes. Noise rises by at most 5%. Then a reviewer looks at the final images for patterns.
 
-Time (SC-014): record the time of `--collect` on `master` and on this branch, and the depth of field stage on `IFS_002.fract` at 1920x1080. The Collect step of Cross-Build Check stands in for a gate run, and it stays under 30 minutes.
+Time (SC-014): use `cpu_rate.py` to record the time of `--collect` on `master` and on this branch, and the depth of field stage on `IFS_002.fract` at 1920x1080. The Collect step of Cross-Build Check stands in for a gate run, and it stays under 30 minutes.
 
 Search the source (SC-015). This prints nothing, and any call left to the old `Random()` would stop the build:
 

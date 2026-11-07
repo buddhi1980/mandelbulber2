@@ -252,7 +252,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-002**: At 2, 3, 4, and 7 threads, and at twice the CPU count, every item's buffers and statistics match its one-thread render.
 - **SC-003**: Every item reports total iterations above 0, and the value matches at every thread count.
 - **SC-004**: Compare mode reports 0 buffer differences across all items between fresh builds from before and after the statistics work.
-- **SC-005**: With `--threads 1`, CPU time stays within 110% of elapsed time on a scene that spends most of its time in each parallel stage, and in each headless CPU render mode.
+- **SC-005**: With `--threads 1`, no one-second sample of CPU use rises above 1.1 CPUs on a render where each parallel stage adds at least 2 seconds of CPU time, or in any headless CPU render mode.
 - **SC-006**: Each invalid `--threads` value, and each use of the option where FR-005 refuses it, fails before rendering in 100% of trials.
 - **SC-007**: The evidence names a cause for every difference seen before the fix, and none is left unexplained.
 - **SC-008**: Every audited region has a recorded verdict and a suite scene that reaches it.
@@ -300,3 +300,4 @@ None of these has been measured. User Story 2 and the audit must confirm or corr
 - Moving the depth of field blend to one thread changes that stage's speed. On 2026-11-06, a fresh WSL build timed the whole stage on `IFS_002.fract` at 1920x1080, with `OMP_NUM_THREADS` standing in for the missing thread control. At the scene's own blur radius of 19.72, it took 2.9 seconds on 1 thread, 1.0 on 4, 0.8 on 16, and 24.8 on all 32. With only the blend moved to one thread, it took 2.4, 1.7, 1.5, and 10.0. At radius 100, it took 34.3, 10.2, 4.3, and 25.0, and with the blend moved, 33.7, 22.4, 20.3, and 27.5. Nothing explains the 32-thread times yet, and this feature does not set out to fix them. FR-039 records the result.
 - The 5% limit in SC-010 is a one-time quality check of this change. It is not a parity comparison, so the constitution's ban on tolerances does not apply to it. On 2026-11-06, a fresh WSL build at 32 threads rendered each Monte Carlo scene 6 times, and the highest of the 15 pairs measured 0.6% to 1.4% above the lowest, so 5% does not fail at random.
 - The default seed value is 1, the value `gRandomSeed` starts from today.
+- On 2026-11-07, the WSL wall clock stepped back by about 0.85 seconds every 32 seconds, so time checks in WSL read the monotonic clock and not `/usr/bin/time`.
