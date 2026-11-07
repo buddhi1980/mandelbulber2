@@ -53,7 +53,7 @@ Each post effect must add at least 2 seconds of CPU time at one thread, so a sta
 Repeat with the other headless modes:
 
 ```bash
-VOXEL='voxel_samples_x=100#voxel_samples_y=100#voxel_samples_z=100'
+VOXEL='voxel_samples_x=400#voxel_samples_y=400#voxel_samples_z=400'
 ```
 
 | Mode | Arguments, after `$RATE $BIN --threads 1` |
