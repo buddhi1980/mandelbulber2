@@ -1147,6 +1147,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				savingThread->moveToThread(thread);
 				thread->start();
+				frameSavingThreads.append(thread);
 			}
 
 			renderedFramesCount++;
@@ -1163,6 +1164,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 		//--------------------------------------------------------------------
 
+		WaitForFrameSaving();
+
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_IMAGE);
 		emit updateProgressHide();
@@ -1171,6 +1174,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 	catch (bool ex)
 	{
+		WaitForFrameSaving();
+
 		if (gNetRender->IsServer())
 		{
 			emit NetRenderStopAllClients();
@@ -1211,6 +1216,20 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	animationIsRendered = false;
 	return true;
+}
+
+void cKeyframeAnimation::WaitForFrameSaving()
+{
+	// a saving thread only stops when this thread handles its quit() call, so a plain wait() would
+	// never return
+	for (const QPointer<QThread> &thread : frameSavingThreads)
+	{
+		while (thread && !thread->wait(10))
+		{
+			gApplication->processEvents();
+		}
+	}
+	frameSavingThreads.clear();
 }
 
 void cKeyframeAnimation::RefreshTable()

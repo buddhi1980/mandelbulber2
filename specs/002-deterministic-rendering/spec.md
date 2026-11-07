@@ -18,6 +18,10 @@
 - Q: Where should `--threads` apply? → A: In every headless CPU render mode, where it beats `limit_CPU_cores` in the queue. It is refused in the GUI, with `--gpu` or `--gpuall`, and with options that render nothing.
 - Q: How much of its parallel speed must the depth of field fix keep? → A: None for now. The blend runs on one thread, and a parallel version with the same order can follow Baseline 1 as an ordinary change.
 
+### Session 2026-11-07
+
+- Q: Should this feature fix the cut-off last frame of a headless keyframe render, which the animation check found? → A: Yes, on this branch, because whether the frame survives depends on scheduling. The fix moves the final engine commit, so the final checks repeat on the new commit.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Terms such as Standard Scene Suite, Reference Target, Self-Parity, and Baseline Change are defined in the project constitution. KD numbers refer to its Known Deviations. The harness modes, the formula sweep, and the verification export come from `specs/001-regression-harness`. An item is one scene or one swept formula. There are 487 today: 26 scenes and 461 formulas.
@@ -134,6 +138,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 4. **Given** the OpenCL build, **When** it compiles, **Then** OpenCL rendering and its depth of field work as they do today.
 5. **Given** render time on the Standard Scene Suite, **When** it is measured before and after, **Then** the cost is recorded.
 6. **Given** a Monte Carlo scene in an animation, **When** two frames render, **Then** their noise differs, and rendering either frame again gives the same pixels.
+7. **Given** a headless keyframe render, **When** it finishes, **Then** every frame it rendered is whole on disk, including the last one.
 
 ### Edge Cases
 
@@ -206,10 +211,11 @@ A user or developer sees no loss from this change: images look as they did, and 
 **Boundaries**
 
 - **FR-035**: The pull request MUST state the expected effect on output, as the constitution requires of every change before Baseline 1: every scene's pixels change, because raymarch step jitter applies to every scene; images should look the same apart from noise; and total iterations changes from 0 to the real count.
-- **FR-036**: Apart from the thread control, the random values, the order-dependent stages, the statistics, and anything FR-023 exposes, this feature MUST NOT change engine behavior. Formulas, shading math, default settings, and compile flags stay as they are.
+- **FR-036**: Apart from the thread control, the random values, the order-dependent stages, the statistics, the saving of keyframe frames, and anything FR-023 exposes, this feature MUST NOT change engine behavior. Formulas, shading math, default settings, and compile flags stay as they are.
 - **FR-037**: Every build that compiles the engine today MUST still compile, with and without OpenCL, and the application's `--test` suite MUST keep passing on the qmake and MSVC builds.
 - **FR-038**: This feature MUST NOT add or change a workflow. Cross-Build Check and the workflows that pass today MUST keep passing.
 - **FR-039**: CPU render time on the Standard Scene Suite MUST be measured before and after this change and recorded with it, and a full gate run MUST stay within SC-004 of `specs/001-regression-harness`. The time of the depth of field stage on `IFS_002.fract` at 1920x1080 MUST be recorded the same way.
+- **FR-040**: A keyframe animation render MUST wait until every frame it rendered has reached the disk, after the last frame and when a render is stopped, before it reports that it has finished. Frames are saved on background threads, and nothing waited for them, so whether the last frame of a headless render survived depended on scheduling. This is the kind of dependence FR-023 covers, although an animation check found it, because the harness renders only still images.
 
 ### Decisions
 
@@ -264,6 +270,7 @@ A user or developer sees no loss from this change: images look as they did, and 
 - **SC-014**: The render time of the Standard Scene Suite and the depth of field time of `IFS_002.fract` at 1920x1080 are recorded before and after, and a full gate run stays under 30 minutes on a 4-vCPU CI runner.
 - **SC-015**: A search of the source finds no remaining use of the shared seed.
 - **SC-016**: The constitution shows KD-1 closed and the seed clarification at version 1.0.1, and no file exists under `tests/references/`.
+- **SC-017**: In repeated two-frame headless keyframe renders, on a quiet computer and with every CPU busy, every run exits 0 and leaves both frames whole, and the frames match the ones rendered before the fix.
 
 ## Assumptions
 

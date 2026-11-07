@@ -126,6 +126,7 @@ mandelbulber2/src/
 ├── render_data.hpp                 # statisticsMutex
 ├── calculate_distance.hpp, .cpp    # Iteration count
 ├── interface.cpp                   # Local generator in the view reset
+├── animation_keyframes.hpp, .cpp   # Waits for the threads that save frames
 └── test.hpp, .cpp                  # Known-answer test
 
 mandelbulber2/qt/
@@ -207,6 +208,10 @@ The verification export doesn't change (FR-030).
 | `--test`, with the known-answer test | Yes | Yes | Both build jobs |
 | Harness tests | Yes | Yes | Both build jobs |
 | Cross-Build Check | Local `--collect` and `--cross-check` | Local `--collect` | On the pull request (SC-012) |
+
+### Added during the final checks: saving keyframe frames
+
+`RenderKeyframes` saves each frame on its own background thread, and nothing waited for those threads, so a headless render could exit during the last save. It now keeps a list of those threads, and waits for them after the last frame and when a render stops. A saving thread only stops when the rendering thread handles its `quit()` call, so the wait keeps processing events, because a plain `wait()` would never return. This moves the final engine commit, so T066 starts the final checks again.
 
 ## Follow-ups Outside This Feature
 

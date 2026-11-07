@@ -312,9 +312,13 @@ Each region is one a gated render can reach. The proof for each comes from commi
 | OpenCL (T082) | On the MSVC build, `--help-opencl` listed one device, the NVIDIA RTX A6000. `IFS_002.fract` rendered with `--gpu` and `opencl_mode=3` at 640x360 and finished in 2.6 seconds, with both depth of field phases running on the device. It differed from the same render with `DOF_enabled=0` in 306,781 of 691,200 image bytes. OpenCL isn't gated, so this shows only that it still works. | `ec238daf1` |
 | Local cross-check (T076) | `--cross-check` on the qmake and MSVC collections of one commit exited 0, with 0 of 487 items failed. 429 items matched exactly in every buffer and statistic. The other 58 gave 200 recorded differences, which are differences between builds and not drift. | `ec238daf1` |
 | Other builds (T077) | `mandelbulber.pro`, which has no OpenCL, and `cmake/CMakeLists.txt` each compiled from fresh on `8bcf4460a` and on `ec238daf1`. No line of the `mandelbulber.pro` build log has `USE_OPENCL`. | `ec238daf1` |
-| Animation (T081) | A copy of `keyframe_anim_mandelbulb.fract` with every keyframe set to keyframe 0 rendered frames 0 to 2 twice. Frames 0 and 1 differed in 393,496 of 460,800 image bytes, and each matched its own second render. Frame 2 is left out, for the reason below. | `ec238daf1` |
+| Animation (T081) | A copy of `keyframe_anim_mandelbulb.fract` with every keyframe set to keyframe 0 rendered frames 0 to 2 twice. Frames 0 and 1 differed in 393,496 of 460,800 image bytes, and each matched its own second render. This run rendered one extra frame, because of the cut-off last frame under Other dependence. | `ec238daf1` |
 
-The last frame of a `--nogui --keyframe` render can go missing or be cut off. `animation_keyframes.cpp` saves each frame on a background thread, and nothing waits for that thread before the program exits. In 3 two-frame renders on each of `8bcf4460a` and `ec238daf1`, with all CPUs busy, the second frame was never whole, and one run on `8bcf4460a` aborted with status 134. This feature doesn't change that code, so the problem stays, and T081 renders one extra frame.
+## Other dependence
+
+| Cause | Scenes | Effect | Proof | Fix |
+|---|---|---|---|---|
+| `RenderKeyframes` saves each frame on a background thread at `animation_keyframes.cpp:1135`, and nothing waits for that thread, so a headless render can exit during the last save. | `keyframe_anim_mandelbulb.fract`, and any headless keyframe render. No suite scene shows it, because the harness renders only still images. | The last frame goes missing or is cut off. One run on `8bcf4460a` aborted with status 134. | In 3 two-frame renders on each of `8bcf4460a` and `ec238daf1`, with all CPUs busy, the second frame was never whole. | FR-040 |
 
 ## Measurements
 
