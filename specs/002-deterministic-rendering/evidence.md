@@ -337,8 +337,8 @@ The noise image of each scene follows the scene's own shapes, and shows no lines
 
 | Criterion | Result | Commit | Not covered |
 |---|---|---|---|
-| SC-005 | At `--threads 1`, the highest one-second sample was 0.97 to 0.99 CPUs in every row: render workers, ambient occlusion, depth of field, HDR blur, keyframe, flight, voxel, mesh, queue, `--test`, and `--benchmark`. The post effects added 2.84, 9.15, and 3.00 seconds of CPU time. At `--threads 4`, each stage peaked between 3.73 and 3.89 CPUs. A network client ran one `RenderWorker` thread and never more. | `0bd701a04` | Repeated on the final commit in T084 |
-| SC-006 | All 17 refusal rows exited with the listed status, named `--threads`, and wrote no image | `0bd701a04` | Repeated on the final commit in T084 |
+| SC-005 | At `--threads 1`, the highest one-second sample was 0.96 to 0.98 CPUs in every row: render workers, ambient occlusion, depth of field, HDR blur, keyframe, flight, voxel, mesh, queue, `--test`, and `--benchmark`. The post effects added 2.83, 9.22, and 2.99 seconds of CPU time. At `--threads 4`, each stage peaked between 3.70 and 3.87 CPUs. A network client ran one `RenderWorker` thread and never more, in 24 samples over 33.1 seconds. `0bd701a04` gave the same result. | `ec238daf1` | None |
+| SC-006 | All 17 refusal rows exited with the listed status, named `--threads`, and wrote no image, on `0bd701a04` and again on the final commit | `ec238daf1` | None |
 | SC-001 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 515, 532, and 530 seconds, and none mentioned thread coverage. | `ec238daf1` | None |
 | SC-004 | `--compare` between `71a20a6da` and `ec238daf1` reported 5,126 differences across all 487 items, all of them statistics, and 0 in any buffer. It exits 1, because total iterations changes from 0 to the real count. | `ec238daf1` | None |
 | SC-002 | All 487 items at 2, 3, 4, 7, and 64 threads matched their one-thread render in every buffer and statistic, with 0 differences. | `ec238daf1` | None |
