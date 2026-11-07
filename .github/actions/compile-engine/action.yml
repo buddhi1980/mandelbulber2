@@ -1,0 +1,13 @@
+name: Compile Engine
+description: Search the build files, build and install the release binary, then reject prohibited compile flags.
+runs:
+  using: composite
+  steps:
+    - name: Search the Build Files
+      shell: bash
+      run: bash "$GITHUB_ACTION_PATH/check-flags.sh" search
+    - name: Build and Install to a Local Tree
+      uses: ./.github/actions/build-linux
+    - name: Reject Prohibited Compile Flags
+      shell: bash
+      run: bash "$GITHUB_ACTION_PATH/check-flags.sh" flags mandelbulber2/build/Makefile
