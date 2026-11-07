@@ -25,8 +25,9 @@ A gated render MUST be a pure function of the binary, the scene file, the record
 resolution. Running it again MUST produce identical output.
 
 - Gated renders MUST run headless, with no GUI, display, or operator input.
-- Every random value MUST derive from a seed fixed in the scene file or the harness. Wall-clock
-  time, process IDs, and unseeded generators MUST NOT be seed sources.
+- Every random value MUST derive from a seed fixed in the scene file or the harness. A seed setting
+  that a scene file does not name takes its default value, which counts as fixed in the scene file.
+  Wall-clock time, process IDs, and unseeded generators MUST NOT be seed sources.
 - Thread count, core count, thread scheduling, and elapsed time MUST NOT be able to change any
   output value. Random values MUST NOT depend on shared mutable state whose order of access varies
   with scheduling.
@@ -110,7 +111,7 @@ passing. New deviations MUST NOT be added except by amendment.
 
 | ID | Deviation | Location | Principle | Closed when |
 |----|-----------|----------|-----------|-------------|
-| KD-1 | Renders do not reproduce. On 2026-11-04 a Windows Release build rendered `IFS_001.fract` 6 times and `Makin3D-Julia_001.fract` 4 times at 240x180 on 32 threads. All 10 outputs were distinct, and 90-99% of pixels differed between runs. Render threads share the unsynchronized global `gRandomSeed`, the leading suspect; the cause is not yet proven. `limit_CPU_cores` showed no effect under `--nogui`. | `mandelbulber2/src/common_math.cpp`, `mandelbulber2/src/render_worker.cpp` | II | Self-Parity passes on the Standard Scene Suite |
+| KD-1 | Renders do not reproduce. On 2026-11-04 a Windows Release build rendered `IFS_001.fract` 6 times and `Makin3D-Julia_001.fract` 4 times at 240x180 on 32 threads. All 10 outputs were distinct, and 90-99% of pixels differed between runs. Render threads share the unsynchronized global `gRandomSeed`, the leading suspect; the cause is not yet proven. `limit_CPU_cores` showed no effect under `--nogui`. | `mandelbulber2/src/common_math.cpp`, `mandelbulber2/src/render_worker.cpp` | II | Self-Parity passes on the Standard Scene Suite. **Closed 2026-11-07**, see `specs/002-deterministic-rendering/evidence.md` |
 | KD-2 | Default Linux and macOS builds enable `-ffast-math`; the MSVC Debug x64 configuration uses `/fp:fast`. | `mandelbulber2/qmake/common.pri`, `mandelbulber2/cmake/CMakeLists.txt`, `mandelbulber2/msvc/mandelbulber2.vcxproj` | III | The CI flag check passes on all gated builds |
 | KD-3 | Install and setup scripts export `-march=native`, and qmake imports environment flags into the build. | `mandelbulber2/tools/prepare_for_dev_*.sh`, `mandelbulber2/deploy/linux/install`, `mandelbulber2/qmake/common.pri` | III | The CI flag check rejects host-tuned flags on gated builds |
 | KD-4 | No regression harness, Standard Scene Suite, references, or CI parity gate exists. | `tests/` does not exist | I | Baseline 1 is merged |
@@ -133,4 +134,4 @@ with this constitution, this constitution applies and the playbook MUST be corre
 - **Waivers**: the Complexity Tracking table in a plan MUST NOT waive a principle. Non-compliance is
   permitted only as a Known Deviation, and expected output changes only through a Baseline Change.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-04 | **Last Amended**: 2026-11-04
+**Version**: 1.0.1 | **Ratified**: 2026-11-04 | **Last Amended**: 2026-11-07

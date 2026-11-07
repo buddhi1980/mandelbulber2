@@ -219,9 +219,9 @@ git checkout -b upgrade/deterministic-rendering
 claude -c "/speckit-specify Close KD-1 from the constitution by making CPU renders reproducible. First confirm the cause, because it is not yet proven: render threads share the unsynchronized global gRandomSeed in common_math.cpp, and Random() runs on every raymarch step. Replace that shared state so each random value derives only from a seed fixed in the scene or harness and from the pixel and sample position. Cover every CPU caller of Random(): render_worker, dof, light, ssao_worker, shader_ambient_occlusion, shader_aux_shadow, shader_global_illumination, shader_specular_highlight, and shader_volumetric. Audit the OpenMP regions in dof and post_effect_hdr_blur for order-dependent results. Make the render statistics exact: all render threads update one shared statistics object with no synchronization, and identical renders reported total iterations that differed by about 30 percent. Total iterations, raymarch count, missed DE, and both histograms must give the same values at every thread count, without changing rendered output. Give --nogui a working thread-count control that also governs those OpenMP regions, because limit_CPU_cores is only applied by the GUI startup path and the queue. Success means --self-parity passes for all engine buffers and statistics at one thread and at all available threads."
 ```
 
-Once the thread control exists, enable the second thread count in the runner. Until then, `--self-parity` cannot report a pass and `--capture` is refused.
+This change added `--threads` and made it the runner's thread option, so `--self-parity` can report a pass, and missing thread coverage no longer stops `--capture`.
 
-Fill in `total_iterations` in this change too. The current CPU path in `calculate_distance.cpp` sets `out->iters` but not `out->totalIters`, so `--stats` and the verification export both report 0. The fix changes the statistics record, not the image.
+This change also filled in `total_iterations`. The CPU path in `calculate_distance.cpp` used to copy only `iters` back from its local result, so `--stats` and the verification export both reported 0. The fix changes the statistics record, not the image.
 
 ### 2. Lock Floating-Point Behavior (KD-2, KD-3)
 Specify this as a separate change:
@@ -267,7 +267,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - ministic-regression
 
 jobs:
   parity-gate:
@@ -300,7 +300,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - ministic-regression
 
 jobs:
   parity-gate:
@@ -359,7 +359,7 @@ git push origin baseline/1
 In the repository's **Actions** tab, open **Capture Baseline**, choose **Run workflow**, and select `baseline/1`. When it finishes, download the `baseline-references` artifact from the run page, unpack it into `tests/references/`, and push the files to the same branch. Then open the pull request. `parity-gate` passes once the references are present. The pull request description must state that no earlier references exist, which replaces the usual before-and-after evidence, and link the passing Self-Parity run.
 
 ### 3. Require the Gate
-In the GitHub branch protection rules for `master`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
+In the GitHub branch protection rules for `ministic-regression`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
 
 ### 4. Prove the Gate Catches Drift
 ```bash
@@ -367,7 +367,7 @@ claude -c "On a throwaway branch, change one constant in a formula that no scene
 ```
 
 ### 5. Close the Known Deviations
-Amend the constitution to remove KD-1 through KD-4, which is a PATCH version bump. Engine refactors can now begin.
+Amend the constitution to close whichever of KD-2, KD-3, and KD-4 are still open, which is a PATCH version bump. KD-1 closed in version 1.0.1. Engine refactors can now begin.
 
 ---
 
@@ -396,14 +396,14 @@ claude -c "/speckit-implement Implement the Qt6 abstraction interfaces and type 
 ```
 
 ### Step 4: Run the Parity Gatekeeper
-Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `master` build on the same machine. This is a local check, and the GitHub Actions gate stays the authority.
+Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `ministic-regression` build on the same machine. This is a local check, and the GitHub Actions gate stays the authority. `ministic-regression` is the base for regression features, and `master` follows upstream.
 
-Build `master` once in a separate worktree:
+Build `ministic-regression` once in a separate worktree:
 ```bash
-git worktree add ../mandelbulber2-master master
+git worktree add ../mandelbulber2-base ministic-regression
 (
-  mkdir -p ../mandelbulber2-master/mandelbulber2/build
-  cd ../mandelbulber2-master/mandelbulber2/build
+  mkdir -p ../mandelbulber2-base/mandelbulber2/build
+  cd ../mandelbulber2-base/mandelbulber2/build
   qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
   make -j$(nproc)
   make INSTALL_ROOT=appdir install
@@ -417,7 +417,7 @@ qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
 make -j$(nproc)
 make INSTALL_ROOT=appdir install
 cd ../..
-python3 tests/regression_runner.py --compare ../mandelbulber2-master/mandelbulber2/build/appdir/usr/bin/mandelbulber2
+python3 tests/regression_runner.py --compare ../mandelbulber2-base/mandelbulber2/build/appdir/usr/bin/mandelbulber2
 ```
 
 Then cross-check your branch on both builds, as described under Local Development, so a change that breaks only one build system shows up before you push.
@@ -450,14 +450,14 @@ This project uses **GitHub Actions** alongside a custom differential testing fra
 The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit.
 
 ### Locally Testing Parity
-Before committing changes to feature branches, compare your branch with a `master` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
+Before committing changes to feature branches, compare your branch with a `ministic-regression` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
 make -j$(nproc)
 make INSTALL_ROOT=appdir install
 cd ../..
-python3 tests/regression_runner.py --compare <path to a master build's installed binary>
+python3 tests/regression_runner.py --compare <path to a ministic-regression build's installed binary>
 ```
 
 ### Cross-Checking Two Build Systems
