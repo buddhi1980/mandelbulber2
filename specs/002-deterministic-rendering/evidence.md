@@ -309,6 +309,7 @@ Each region is one a gated render can reach. The proof for each comes from commi
 | Seeds and frames (FR-016) | `phase7.py seeds` rendered the 6 Monte Carlo scenes twice each with nothing added, `render_random_seed=1`, `render_random_seed=2`, and `frame_no=1`, at all 32 threads. Each render matched its own second render, and seed 1 matched the render with nothing added. | `ec238daf1` |
 | Two-pass stereo (FR-012) | Three runs of `amazing_surf 002` at 1 thread and three at 32 matched in every buffer and statistic. Their raymarch count was 133,366, against 88,048 for the plain render. | `ec238daf1` |
 | Comparing two builds (SC-010 of `specs/001-regression-harness`) | `--compare` with a second fresh build of the same commit exited 0, with 0 of 487 items failed. With `.9` changed to `.91` in `fractal_ides.cpp`, it exited 1, with 1 of 487 items failed, and the report named only `ides`. | `ec238daf1` |
+| OpenCL (T082) | On the MSVC build, `--help-opencl` listed one device, the NVIDIA RTX A6000. `IFS_002.fract` rendered with `--gpu` and `opencl_mode=3` at 640x360 and finished in 2.6 seconds, with both depth of field phases running on the device. It differed from the same render with `DOF_enabled=0` in 306,781 of 691,200 image bytes. OpenCL isn't gated, so this shows only that it still works. | `ec238daf1` |
 
 ## Success criteria
 
