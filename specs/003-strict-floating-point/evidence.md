@@ -11,7 +11,7 @@ A cell that reads "Pending" names the task that fills it.
 | Date | 2026-11-07 |
 | Computer | Intel Core i9-14900K, 32 logical CPUs. `/proc/cpuinfo` lists `fma` and `avx2` |
 | Environment | WSL `Ubuntu-24.04`, kernel 6.18.54.1, for the Linux builds. Windows 11 Pro for the MSVC builds |
-| Toolchain | GCC 13.3.0, glibc 2.39, Qt 6.4.2, and CMake 3.28.3 in WSL, with `mandelbulber-opencl.pro` in release mode. MSVC from Visual Studio 18 Community on Windows |
+| Toolchain | GCC 13.3.0, glibc 2.39, Qt 6.4.2, and CMake 3.28.3 in WSL, with `mandelbulber-opencl.pro` in release mode. MSVC 19.51.36260, toolset v145, from Visual Studio 18 Community on Windows |
 | Thread counts | 1, and all 32 |
 | Base commit | `8fd49ba594ce46091a3d4d7165f1fb202b1b788c`, the tip of `ministic-regression` |
 | Final commit | Pending, T027 |
@@ -20,13 +20,13 @@ A cell that reads "Pending" names the task that fills it.
 
 | Name | Source | Purpose | Result |
 |---|---|---|---|
-| Before | `8fd49ba59` | Output and time before this change | Pending, T004 |
+| Before | `8fd49ba59` | Output and time before this change | Compiled in `~/mandelbulber2-before` with `build_fresh.sh`. `CXXFLAGS = -pipe -ffast-math -fopenmp -O3 -D_REENTRANT -fPIC -Wall -Wextra $(DEFINES)`, and `readelf -d` finds `libmvec` among the binary's needed libraries |
 | After | The final commit | Output and time after this change | Pending, T027 |
 | Before, host-tuned | `8fd49ba59`, built with `CXXFLAGS=-march=native` | What users of the setup scripts lose (FR-027) | Pending, T038 |
 | Diagnostic | The final commit, plus a local patch that counts guard hits | Which items reach each guard (FR-020) | Pending, T032 |
 | Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change, and where (FR-020) | Pending, T034 |
 | No contraction option | The final commit, plus a local patch that removes the `gcc` block | Whether `-ffp-contract=off` changes anything (FR-022) | Pending, T035 |
-| MSVC before | `8fd49ba59`, Release x64 | The comparison images, and the MSVC checks | Pending, T005 |
+| MSVC before | `8fd49ba59`, Release x64 | The comparison images, and the MSVC checks | Compiled in the new clone `C:\GIT\mb2-kd2-8fd49ba59` with toolset v145, compiler version 19.51.36260, and its `cl` line holds `/fp:precise`. `--collect tests/outputs/collection/msvc` exited 0 with 487 of 487 items collected, and recorded no uncommitted changes |
 | MSVC after | The final commit, Release x64 | The MSVC checks | Pending, T043 |
 
 The local patches stayed in the throwaway clone `~/mandelbulber2-diag` and were never committed (FR-020).
@@ -119,7 +119,7 @@ One row per build in [research.md](research.md) R14.
 
 | Build | Before | After | Proof | Flags read |
 |---|---|---|---|---|
-| MSVC Debug x64 | Pending, T006 | Pending, T047 | | |
+| MSVC Debug x64 | Compiled on `8fd49ba59`, in the new clone `C:\GIT\mb2-kd2-debug-8fd49ba59`, so FR-033 binds it | Pending, T047 | `nuget restore`, then MSBuild with `/p:Configuration=Debug /p:Platform=x64` | Before: `/fp:fast` and `/arch:AVX2` |
 | qmake without OpenCL, `mandelbulber.pro` | Pending, T046 | Pending, T046 | | |
 | CMake | Pending, T046 | Pending, T046 | | |
 | macOS, CircleCI | Pending, T054 | Pending, T054 | | |
