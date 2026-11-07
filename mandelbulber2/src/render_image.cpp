@@ -54,6 +54,13 @@
 #include "wait.hpp"
 #include "write_log.hpp"
 
+// Workers add to the shared statistics while an image renders, so it is copied under their lock
+static cStatistics CopyStatistics(sRenderData *data)
+{
+	QMutexLocker locker(&data->statisticsMutex);
+	return data->statistics;
+}
+
 cRenderer::cRenderer(std::shared_ptr<const sParamRender> _params,
 	std::shared_ptr<const cHybridFractalSequences> _fractal, std::shared_ptr<sRenderData> _renderData,
 	std::shared_ptr<cImage> _image)
@@ -164,7 +171,7 @@ double cRenderer::PeriodicUpdateStatusAndProgressBar(QString &statusText, QStrin
 	if (timerProgressRefresh.elapsed() > 1000)
 	{
 		updateProgressAndStatus(statusText, progressTxt, percentDone);
-		updateStatistics(data->statistics);
+		updateStatistics(CopyStatistics(data.get()));
 		timerProgressRefresh.restart();
 	}
 	return percentDone;
@@ -441,7 +448,7 @@ bool cRenderer::RenderImage()
 						timerRefresh.restart();
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-						emit updateStatistics(data->statistics);
+						emit updateStatistics(CopyStatistics(data.get()));
 
 						QSet<int> set_listToRefresh = UpdateImageDuringRendering(listToRefresh, listToSend);
 
@@ -547,7 +554,7 @@ bool cRenderer::RenderImage()
 
 		// update histograms
 		data->statistics.time = progressText.getTime();
-		emit updateStatistics(data->statistics);
+		emit updateStatistics(CopyStatistics(data.get()));
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 		emit signalTotalRenderTime(progressText.getTime());
 

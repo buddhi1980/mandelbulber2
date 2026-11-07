@@ -88,8 +88,8 @@ struct sDistanceOut
 {
 	double distance;
 	double colorIndex;
-	int iters;
-	int totalIters;
+	int iters = 0;
+	int totalIters = 0;
 	int objectId;
 	bool maxiter;
 	int seqIndex;

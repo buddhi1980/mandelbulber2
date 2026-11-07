@@ -56,9 +56,30 @@ void cStatistics::Reset()
 	numberOfRaymarchings = 0;
 	numberOfRenderedPixels = 0;
 	totalNumberOfDOFRepeats = 0;
+	totalNoise = 0;
 	time = 0.0;
 	tilesDone = 0.0;
 	maskedPixels = 0.0;
 	histogramIterations.Clear();
 	histogramStepCount.Clear();
+}
+
+void cStatistics::Add(const cStatistics &other)
+{
+	totalNumberOfIterations += other.totalNumberOfIterations;
+	numberOfRaymarchings += other.numberOfRaymarchings;
+	missedDE += other.missedDE;
+	numberOfRenderedPixels += other.numberOfRenderedPixels;
+	totalNumberOfDOFRepeats += other.totalNumberOfDOFRepeats;
+	totalNoise += other.totalNoise;
+
+	// from 0 through GetSize(), because the last bin is the overflow bin
+	for (int i = 0; i <= other.histogramIterations.GetSize(); i++)
+	{
+		histogramIterations.AddWeighted(i, other.histogramIterations.GetHist(i));
+	}
+	for (int i = 0; i <= other.histogramStepCount.GetSize(); i++)
+	{
+		histogramStepCount.AddWeighted(i, other.histogramStepCount.GetHist(i));
+	}
 }

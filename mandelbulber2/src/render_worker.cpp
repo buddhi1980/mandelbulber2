@@ -125,6 +125,10 @@ void cRenderWorker::doWork()
 	random = cPositionRandom(params->renderRandomSeed, params->frameNo,
 		int(data->stereo.GetForcedEye()) + 1, cPositionRandom::stageRender);
 
+	// must match the shared histograms, which these counts join line by line
+	statistics.histogramIterations.Resize(data->statistics.histogramIterations.GetSize());
+	statistics.histogramStepCount.Resize(data->statistics.histogramStepCount.GetSize());
+
 	bool lastLineWasBroken = false;
 
 	// main loop for y — rows are distributed across threads by the scheduler
@@ -480,8 +484,8 @@ void cRenderWorker::doWork()
 					giChannel.G = giChannel.G / repeats;
 					giChannel.B = giChannel.B / repeats;
 				}
-				data->statistics.totalNumberOfDOFRepeats += repeats;
-				data->statistics.totalNoise += monteCarloNoise;
+				statistics.totalNumberOfDOFRepeats += repeats;
+				statistics.totalNoise += monteCarloNoise;
 			}
 			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 			{
@@ -525,9 +529,18 @@ void cRenderWorker::doWork()
 				}
 			}
 
-			data->statistics.numberOfRenderedPixels++;
+			statistics.numberOfRenderedPixels++;
 
 		} // next xs
+
+		// A finished line joins the shared statistics, and a line this thread gave up on counts
+		// nothing, so each pixel counts once however lines reach threads.
+		if (!lastLineWasBroken)
+		{
+			QMutexLocker locker(&data->statisticsMutex);
+			data->statistics.Add(statistics);
+		}
+		statistics.Reset();
 	} // next ys
 
 	// emit signal to main thread when finished
@@ -805,14 +818,14 @@ void cRenderWorker::RayMarching(
 		inOut->stepBuff[i].iters = distanceOut.iters;
 		inOut->stepBuff[i].distThresh = distThresh;
 
-		data->statistics.histogramIterations.Add(distanceOut.iters);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		statistics.histogramIterations.Add(distanceOut.iters);
+		statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		// Surface hit: the SDF distance is less than the threshold.
 		if (dist < distThresh)
 		{
 			// Track how often the DE underestimates significantly (potential artifacts).
-			if (dist < 0.1 * distThresh) data->statistics.missedDE++;
+			if (dist < 0.1 * distThresh) statistics.missedDE++;
 			found = true;
 			break;
 		}
@@ -920,8 +933,8 @@ void cRenderWorker::RayMarching(
 			out->transformedPoint = distanceOut.transformedPoint;
 			out->hasTransformedPoint = distanceOut.hasTransformedPoint;
 
-			data->statistics.histogramIterations.Add(distanceOut.iters);
-			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+			statistics.histogramIterations.Add(distanceOut.iters);
+			statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			step *= 0.5;
 		}
@@ -956,14 +969,14 @@ void cRenderWorker::RayMarching(
 
 	//---------- 7.19605us for binary searching ---------------
 
-	data->statistics.histogramStepCount.Add(counter);
+	statistics.histogramStepCount.Add(counter);
 
 	out->found = found;
 	out->lastDist = dist;
 	out->depth = scan;
 	out->distThresh = distThresh;
 	out->point = point;
-	data->statistics.numberOfRaymarchings++;
+	statistics.numberOfRaymarchings++;
 }
 
 // Trace a pixel's primary ray and all reflection/refraction bounces.

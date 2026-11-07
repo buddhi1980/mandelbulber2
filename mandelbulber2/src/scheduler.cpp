@@ -229,7 +229,11 @@ int cScheduler::FindBiggestGap() const
 
 void cScheduler::InitFirstLine(int threadId, int firstLine)
 {
-	linePendingThreadId[firstLine] = threadId;
+	// A thread that finds its first line taken gives up at its first pixel and asks NextLine
+	// for a free line, so each line has one owner.
+	mutex.lock();
+	if (linePendingThreadId[firstLine] == 0) linePendingThreadId[firstLine] = threadId;
+	mutex.unlock();
 }
 
 QList<int> cScheduler::GetLastRenderedLines()

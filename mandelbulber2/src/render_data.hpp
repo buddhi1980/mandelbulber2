@@ -39,6 +39,7 @@
 #include <vector>
 
 #include <QDebug>
+#include <QMutex>
 
 #include "hybrid_fractal_sequences.h"
 #include "lights.hpp"
@@ -80,6 +81,7 @@ struct sRenderData
 	double lastPercentage{1.0};
 	double reduceDetail{1.0};
 	cStatistics statistics;
+	QMutex statisticsMutex;
 	QVector<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;
 

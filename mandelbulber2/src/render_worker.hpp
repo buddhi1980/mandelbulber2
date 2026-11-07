@@ -44,6 +44,7 @@
 #include "calculate_distance.hpp"
 #include "color_structures.hpp"
 #include "position_random.hpp"
+#include "statistics.h"
 #include "texture_enums.hpp"
 
 // forward declarations
@@ -313,6 +314,9 @@ private:
 	// Per-thread generator for every random value of the render. Its values depend
 	// only on the seed and position. Mutable because const shaders draw from it.
 	mutable cPositionRandom random;
+	// Per-thread counts for the line being rendered. doWork adds them to the shared
+	// statistics when the line finishes. Mutable because const shaders update them.
+	mutable cStatistics statistics;
 
 public slots:
 	void doWork();

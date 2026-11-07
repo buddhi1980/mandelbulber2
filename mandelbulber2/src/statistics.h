@@ -69,6 +69,7 @@ public:
 	}
 	double GetAverageDOFNoise() const { return totalNoise / numberOfRenderedPixels; }
 	void Reset();
+	void Add(const cStatistics &other);
 
 	double getMaskedPixels() const { return maskedPixels; }
 	double getTilesDone() const { return tilesDone; }
