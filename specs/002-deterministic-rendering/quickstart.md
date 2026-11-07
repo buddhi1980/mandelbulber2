@@ -113,7 +113,7 @@ Then use `--threads 1` on both, with a render that lasts at least 30 seconds. Th
 Follow [contracts/evidence-record.md](contracts/evidence-record.md), then read `evidence.md` alone. It names a cause for every difference (SC-007), and it says whether one-thread renders reproduced before the fix. Confirm no diagnostic change reached the branch:
 
 ```bash
-git diff --stat master -- mandelbulber2/src/common_math.cpp
+git diff --stat ministic-regression -- mandelbulber2/src/common_math.cpp
 ```
 
 The only change in that file is the removal of the shared generator.
@@ -177,9 +177,9 @@ On a fresh MSVC build, `--self-parity` reports 0 differences, although it can't 
 
 A one-bit difference seeded in any buffer still fails, which the harness's own tests cover (SC-011).
 
-Noise (SC-010): a scratch script finds the average absolute difference between the final images of two runs on a fresh build of `master`, then between seeds 1 and 2 on this branch, for each of the 6 Monte Carlo scenes. Noise rises by at most 5%. Then a reviewer looks at the final images for patterns.
+Noise (SC-010): a scratch script finds the average absolute difference between the final images of two runs on a fresh build of `ministic-regression`, then between seeds 1 and 2 on this branch, for each of the 6 Monte Carlo scenes. Noise rises by at most 5%. Then a reviewer looks at the final images for patterns.
 
-Time (SC-014): use `cpu_rate.py` to record the time of `--collect` on `master` and on this branch, and the depth of field stage on `IFS_002.fract` at 1920x1080. The Collect step of Cross-Build Check stands in for a gate run, and it stays under 30 minutes.
+Time (SC-014): use `cpu_rate.py` to record the time of `--collect` on `ministic-regression` and on this branch, and the depth of field stage on `IFS_002.fract` at 1920x1080. The Collect step of Cross-Build Check stands in for a gate run, and it stays under 30 minutes.
 
 Search the source (SC-015). This prints nothing, and any call left to the old `Random()` would stop the build:
 
