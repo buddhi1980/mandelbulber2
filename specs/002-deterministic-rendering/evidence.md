@@ -68,6 +68,8 @@ The record covers these scenes at the harness's resolution and overrides.
 | One-thread blend, commit `8ce2ec0b7`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 26 of 26 |
 | Exact statistics, commit `ec238daf1`, all 26 scenes | 1 | 0 of 26 | 0 of 26 |
 | Exact statistics, commit `ec238daf1`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 0 of 26, and 0 of 26 between 1 thread and all threads |
+| Final engine commit `76316fd0f`, all 26 scenes | 1 | 0 of 26 | 0 of 26 |
+| Final engine commit `76316fd0f`, all 26 scenes | All | 0 of 26, and 0 of 26 between 1 thread and all threads | 0 of 26, and 0 of 26 between 1 thread and all threads |
 
 **One-thread renders reproduced before the fix.** All 13 scenes matched in every buffer and statistic across three renders, on both builds.
 
@@ -303,15 +305,15 @@ Each region is one a gated render can reach. The proof for each comes from commi
 
 | Check | Result | Commit |
 |---|---|---|
-| `--stats` keeps updating during a render (FR-029) | A 1920x1080 render of `IFS_001.fract` printed 43 different totals, from 144,771,000 to 27,265,100,000 iterations | `ec238daf1` |
-| Colliding updates (FR-027) | ThreadSanitizer gave 7 reports on `IFS_001.fract` and 1 on `chromatic_aberration.fract`, at 32x24 with `--threads 4`. None names `cStatistics`, `cHistogram`, or `cPositionRandom`. Six are inside Qt, which isn't built for ThreadSanitizer, and two are the scheduler's unlocked reads of `lineDone`, which the plan expects. | `ec238daf1` |
-| Thread counts (FR-024, FR-025, FR-026) | `phase7.py sweep` rendered all 487 items at 2, 3, 4, 7, and 64 threads, and every export matched the one-thread export. 64 is twice the CPU count, and more threads than the 24 lines of a formula render. | `ec238daf1` |
-| Seeds and frames (FR-016) | `phase7.py seeds` rendered the 6 Monte Carlo scenes twice each with nothing added, `render_random_seed=1`, `render_random_seed=2`, and `frame_no=1`, at all 32 threads. Each render matched its own second render, and seed 1 matched the render with nothing added. | `ec238daf1` |
-| Two-pass stereo (FR-012) | Three runs of `amazing_surf 002` at 1 thread and three at 32 matched in every buffer and statistic. Their raymarch count was 133,366, against 88,048 for the plain render. | `ec238daf1` |
-| Comparing two builds (SC-010 of `specs/001-regression-harness`) | `--compare` with a second fresh build of the same commit exited 0, with 0 of 487 items failed. With `.9` changed to `.91` in `fractal_ides.cpp`, it exited 1, with 1 of 487 items failed, and the report named only `ides`. | `ec238daf1` |
-| OpenCL (T082) | On the MSVC build, `--help-opencl` listed one device, the NVIDIA RTX A6000. `IFS_002.fract` rendered with `--gpu` and `opencl_mode=3` at 640x360 and finished in 2.6 seconds, with both depth of field phases running on the device. It differed from the same render with `DOF_enabled=0` in 306,781 of 691,200 image bytes. OpenCL isn't gated, so this shows only that it still works. | `ec238daf1` |
-| Local cross-check (T076) | `--cross-check` on the qmake and MSVC collections of one commit exited 0, with 0 of 487 items failed. 429 items matched exactly in every buffer and statistic. The other 58 gave 200 recorded differences, which are differences between builds and not drift. | `ec238daf1` |
-| Other builds (T077) | `mandelbulber.pro`, which has no OpenCL, and `cmake/CMakeLists.txt` each compiled from fresh on `8bcf4460a` and on `ec238daf1`. No line of the `mandelbulber.pro` build log has `USE_OPENCL`. | `ec238daf1` |
+| `--stats` keeps updating during a render (FR-029) | A 1920x1080 render of `IFS_001.fract` printed 48 different totals, from 21,610,500 to 27,265,100,000 iterations | `76316fd0f` |
+| Colliding updates (FR-027) | ThreadSanitizer gave 7 reports on `IFS_001.fract` and 5 on `chromatic_aberration.fract`, at 32x24 with `--threads 4`. None names `cStatistics`, `cHistogram`, or `cPositionRandom`. Ten are inside Qt and glib, which aren't built for ThreadSanitizer, and two are the scheduler's unlocked reads of `lineDone` and `linePendingThreadId` in `ThereIsStillSomethingToDo`, which decide only when a thread stops looking for work. | `76316fd0f` |
+| Thread counts (FR-024, FR-025, FR-026) | `phase7.py sweep` rendered all 487 items at 2, 3, 4, 7, and 64 threads, and every export matched the one-thread export. 64 is twice the CPU count, and more threads than the 24 lines of a formula render. | `76316fd0f` |
+| Seeds and frames (FR-016) | `phase7.py seeds` rendered the 6 Monte Carlo scenes twice each with nothing added, `render_random_seed=1`, `render_random_seed=2`, and `frame_no=1`, at all 32 threads. Each render matched its own second render, and seed 1 matched the render with nothing added. | `76316fd0f` |
+| Two-pass stereo (FR-012) | Three runs of `amazing_surf 002` at 1 thread and three at 32 matched in every buffer and statistic. Their raymarch count was 133,366, against 88,048 for the plain render. | `76316fd0f` |
+| Comparing two builds (SC-010 of `specs/001-regression-harness`) | `--compare` with a second fresh build of the same commit exited 0, with 0 of 487 items failed. With `.9` changed to `.91` in `fractal_ides.cpp`, it exited 1, with 1 of 487 items failed, and the report named only `ides`. | `76316fd0f` |
+| OpenCL (T082) | On the MSVC build, `--help-opencl` listed one device, the NVIDIA RTX A6000. `IFS_002.fract` rendered with `--gpu` and `opencl_mode=3` at 640x360 and finished in 0.5 seconds, with both depth of field phases running on the device. It differed from the same render with `DOF_enabled=0` in 306,625 of 691,200 image bytes. OpenCL isn't gated, so this shows only that it still works. | `76316fd0f` |
+| Local cross-check (T076) | `--cross-check` on the qmake and MSVC collections of one commit exited 0, with 0 of 487 items failed. 429 items matched exactly in every buffer and statistic. The other 58 gave 200 recorded differences, which are differences between builds and not drift. | `76316fd0f` |
+| Other builds (T077) | `mandelbulber.pro`, which has no OpenCL, and `cmake/CMakeLists.txt` each compiled from fresh on `8bcf4460a` and on `76316fd0f`. No line of the `mandelbulber.pro` build log has `USE_OPENCL`. | `76316fd0f` |
 | Animation (T081) | A copy of `keyframe_anim_mandelbulb.fract` with every keyframe set to keyframe 0 rendered frames 0 and 1 twice. The frames differed in 393,496 of 460,800 image bytes, and each matched its own second render. | `76316fd0f` |
 
 ## Other dependence
@@ -324,18 +326,20 @@ Each region is one a gated render can reach. The proof for each comes from commi
 
 ### Noise
 
-Noise is the average absolute difference between the `final_image` buffers of two renders, whose samples run from 0 to 65,535. Before is two runs of `8bcf4460a` with no thread option. After is seeds 1 and 2 of `ec238daf1` at all 32 threads.
+Noise is the average absolute difference between the `final_image` buffers of two renders, whose samples run from 0 to 65,535. Before is two runs of `8bcf4460a` with no thread option. After is seeds 1 and 2 of `76316fd0f` at all 32 threads.
 
 | Scene | Before | After | Change |
 |---|---|---|---|
-| `chromatic_aberration` | 6,655.03 | 6,672.14 | +0.26% |
-| `difs_tree` | 3,174.00 | 3,206.58 | +1.03% |
-| `hex grid 001` | 4,981.08 | 4,952.81 | -0.57% |
-| `mandelnest pow 5` | 7,658.83 | 7,640.35 | -0.24% |
-| `monte carlo DOF 001` | 11,036.81 | 11,015.29 | -0.19% |
-| `riemann_sphere_msltoe_001` | 1,660.04 | 1,665.99 | +0.36% |
+| `chromatic_aberration` | 6,675.57 | 6,672.14 | -0.05% |
+| `difs_tree` | 3,210.80 | 3,206.58 | -0.13% |
+| `hex grid 001` | 4,968.55 | 4,952.81 | -0.32% |
+| `mandelnest pow 5` | 7,644.05 | 7,640.35 | -0.05% |
+| `monte carlo DOF 001` | 11,016.68 | 11,015.29 | -0.01% |
+| `riemann_sphere_msltoe_001` | 1,674.65 | 1,665.99 | -0.52% |
 
-The noise image of each scene follows the scene's own shapes, and shows no lines, grids, or repeated shapes that the scene doesn't have. The honeycomb in `hex grid 001` and the rows of bumps in `riemann_sphere_msltoe_001` are in the scene itself.
+Before changes from one pass to the next, because `8bcf4460a` doesn't reproduce. A first pass on `ec238daf1` had before values 0.2% to 1.2% away from these, and its changes ran from -0.57% to +1.03%, on `difs_tree`. After didn't change.
+
+The noise image of each scene follows the scene's own shapes, and shows no lines, grids, or repeated shapes that the scene doesn't have. The honeycomb in `hex grid 001` and the rows of bumps in `riemann_sphere_msltoe_001` are in the scene itself. The after and noise images of `76316fd0f` are byte-identical to those of `ec238daf1`.
 
 ## Success criteria
 
@@ -343,13 +347,13 @@ The noise image of each scene follows the scene's own shapes, and shows no lines
 |---|---|---|---|
 | SC-005 | At `--threads 1`, the highest one-second sample was 0.96 to 0.98 CPUs in every row: render workers, ambient occlusion, depth of field, HDR blur, keyframe, flight, voxel, mesh, queue, `--test`, and `--benchmark`. The post effects added 2.83, 9.22, and 2.99 seconds of CPU time. At `--threads 4`, each stage peaked between 3.70 and 3.87 CPUs. A network client ran one `RenderWorker` thread and never more, in 24 samples over 33.1 seconds. `0bd701a04` gave the same result. | `ec238daf1` | None |
 | SC-006 | All 17 refusal rows exited with the listed status, named `--threads`, and wrote no image, on `0bd701a04` and again on the final commit | `ec238daf1` | None |
-| SC-001 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 515, 532, and 530 seconds, and none mentioned thread coverage. | `ec238daf1` | None |
+| SC-001 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 681, 576, and 518 seconds, and none mentioned thread coverage. | `76316fd0f` | None |
 | SC-004 | `--compare` between `71a20a6da` and `ec238daf1` reported 5,126 differences across all 487 items, all of them statistics, and 0 in any buffer. It exits 1, because total iterations changes from 0 to the real count. | `ec238daf1` | None |
-| SC-002 | All 487 items at 2, 3, 4, 7, and 64 threads matched their one-thread render in every buffer and statistic, with 0 differences. | `ec238daf1` | None |
-| SC-003 | Every item's total iterations was above 0, the lowest being 14,342 on `coastalbrot`, and it matched at every thread count. | `ec238daf1` | None |
-| SC-009 | On all 6 Monte Carlo scenes, each seed and frame number reproduced its own output exactly. Against the default, seed 2 changed 95.7% to 99.8% of the final image's samples, and frame 1 changed 96.2% to 99.8%. | `ec238daf1` | None |
-| SC-011 | `tests/test_regression_runner.py` passed all 224 tests in WSL and on Windows. They include a one-bit difference seeded in every buffer, and `test_thread_control_is_enabled` shows thread coverage no longer stops `--capture`. | `ec238daf1` | None |
-| SC-012 | `--test` passed all 9 test functions on a fresh qmake build in 191 seconds and on a fresh MSVC build in 318 seconds. They include `testPositionRandom`, whose fixed known answers hold on both. The local cross-check passed too. | `ec238daf1` | Cross-Build Check on GitHub, in T091 |
-| SC-013 | `--self-parity` on a fresh MSVC build reported 487 exact matches and 0 differences, at 1 thread and at all 32, in 701 seconds. It exits 3, because the harness can't call a Windows run a pass: the application ignores a redirected home folder there. | `ec238daf1` | None |
-| SC-010 | Noise rose by at most 1.03%, on `difs_tree`, and fell by at most 0.57%, so no drop needs explaining. The before, after, and noise images show no new lines, grids, or repeated shapes. | `ec238daf1` | A person's review of the images, which were shown to the user on 2026-11-07 |
-| SC-017 | In 20 two-frame headless keyframe renders on a quiet computer and 10 with every CPU busy, every run exited 0 with both frames whole. On `ec238daf1`, the second frame was never whole in the same 30 renders, and one run aborted. Frames 0 and 1 were byte-identical between the two builds. | `76316fd0f` | None |
+| SC-002 | All 487 items at 2, 3, 4, 7, and 64 threads matched their one-thread render in every buffer and statistic, with 0 differences. | `76316fd0f` | None |
+| SC-003 | Every item's total iterations was above 0, the lowest being 14,342 on `coastalbrot`, and it matched at every thread count. | `76316fd0f` | None |
+| SC-009 | On all 6 Monte Carlo scenes, each seed and frame number reproduced its own output exactly. Against the default, seed 2 changed 95.7% to 99.8% of the final image's samples, and frame 1 changed 96.2% to 99.8%. | `76316fd0f` | None |
+| SC-011 | `tests/test_regression_runner.py` passed all 224 tests in WSL and on Windows. They include a one-bit difference seeded in every buffer, and `test_thread_control_is_enabled` shows thread coverage no longer stops `--capture`. | `76316fd0f` | None |
+| SC-012 | `--test` passed all 9 test functions on a fresh qmake build in 214 seconds and on a fresh MSVC build in 227 seconds. They include `testPositionRandom`, whose fixed known answers hold on both. The local cross-check passed too. | `76316fd0f` | Cross-Build Check on GitHub, in T091 |
+| SC-013 | `--self-parity` on a fresh MSVC build reported 487 exact matches and 0 differences, at 1 thread and at all 32, in 664 seconds. It exits 3, because the harness can't call a Windows run a pass: the application ignores a redirected home folder there. | `76316fd0f` | None |
+| SC-010 | Noise changed by -0.52% to -0.01%, and by -0.57% to +1.03% in a first pass against other runs of `8bcf4460a`, so it stayed within 5%, and no drop needs explaining. The before, after, and noise images show no new lines, grids, or repeated shapes. | `76316fd0f` | A person's review of the images, which were shown to the user on 2026-11-07 |
+| SC-017 | In 20 two-frame headless keyframe renders on a quiet computer and 10 with every CPU busy, every run exited 0 with both frames whole. On `ec238daf1`, the second frame was never whole in the same 30 renders, and one run aborted. Frames 0 and 1 were byte-identical between the two builds. 5 renders on the MSVC build gave the same before and after. | `76316fd0f` | None |
