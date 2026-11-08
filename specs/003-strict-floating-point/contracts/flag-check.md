@@ -63,6 +63,7 @@ It leaves out `.github/actions/compile-engine`, `mandelbulber2/tools/DOE/NaNtest
 | No file holds an `-ffp-contract` value other than `off` | `FAILED: -ffp-contract=fast in <file>:<line>` |
 | No file holds `/fp:fast` | `FAILED: /fp:fast in <file>:<line>` |
 | No file holds `/fp:contract` | `FAILED: /fp:contract in <file>:<line>` |
+| No file holds `-fp:fast` or `-fp:contract`, the dash spellings `cl.exe` also takes | `FAILED: -fp:fast in <file>:<line>` |
 | No file sets `<FloatingPointModel>` to `Fast` | `FAILED: FloatingPointModel Fast in <file>:<line>` |
 
 A comment counts as a match. A pass prints how many files it searched, then `passed`.
@@ -128,6 +129,9 @@ Each row adds one line to a tracked file in a throwaway clone with this feature'
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `<FloatingPointModel>Fast` | Exit 1, names them |
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:fast` | Exit 1, names them |
 | `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:contract` | Exit 1, names them |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:fast` | Exit 1, names them |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:contract` | Exit 1, names them |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:precise` | Exit 0 |
 | `mandelbulber2/tools/prepare_for_dev_ubuntu.sh` | `-march=native` | Exit 1, names them |
 | `mandelbulber2/deploy/linux/install` | `-mtune=native` | Exit 1, names them |
 | `mandelbulber2/make-package.sh` | `-mcpu=native` | Exit 1, names them |

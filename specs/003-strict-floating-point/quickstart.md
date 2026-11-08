@@ -118,7 +118,7 @@ No seed commit appears.
 A search of the repository (SC-004) finds only what [flag-check.md](contracts/flag-check.md) leaves out, and the history in `deploy/NEWS`:
 
 ```bash
-git grep -nIE -e '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-fno-signed-zeros|-ffp-model=fast|-march=native|-mtune=native|-mcpu=native|-ffp-contract=(fast|on)|/fp:fast|/fp:contract|FloatingPointModel>Fast' -- . ':!specs' ':!MIGRATION_PLAYBOOK.md' ':!.specify'
+git grep -nIE -e '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-fno-signed-zeros|-ffp-model=fast|-march=native|-mtune=native|-mcpu=native|-ffp-contract=(fast|on)|[/-]fp:fast|[/-]fp:contract|FloatingPointModel>Fast' -- . ':!specs' ':!MIGRATION_PLAYBOOK.md' ':!.specify'
 ```
 
 ## 4. Renders reproduce (User Story 4)

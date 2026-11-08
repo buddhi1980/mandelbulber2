@@ -103,6 +103,17 @@ A throwaway clone under `/tmp` started at `8fd49ba59` with the script copied in,
 | `mandelbulber2/tools/DOE/NaNtester.sh`, which already holds 5 lines with `-ffast-math` | `-ffast-math` | 0 | `passed` |
 | `.github/actions/compile-engine/check-flags.sh` | Its own list, at `49f25a38f` | 0 | `passed` |
 
+**T063, 2026-11-08**: The search now also rejects `-fp:fast` and `-fp:contract`, the dash spellings `cl.exe` takes like `/fp:fast` and `/fp:contract`. Convergence found that before this fix, both passed the search. The seeds ran in the main checkout, on `b0458852e` plus the fix, because a scratch worktree on Windows can't hold the example scenes' long file names. Each seed went on a new last line of the project file, and `git checkout` restored the file after each. The unseeded tree passed, with 73 files searched.
+
+| Tree or file | Seed | Exit | Named |
+|---|---|---|---|
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:fast` | 1 | `/fp:fast in mandelbulber2/msvc/mandelbulber2.vcxproj:371` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:fast` | 1 | `-fp:fast in mandelbulber2/msvc/mandelbulber2.vcxproj:371` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `/fp:contract` | 1 | `/fp:contract in mandelbulber2/msvc/mandelbulber2.vcxproj:371` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:contract` | 1 | `-fp:contract in mandelbulber2/msvc/mandelbulber2.vcxproj:371` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `<AdditionalOptions>-fp:fast %(AdditionalOptions)</AdditionalOptions>` | 1 | `-fp:fast in mandelbulber2/msvc/mandelbulber2.vcxproj:371` |
+| `mandelbulber2/msvc/mandelbulber2.vcxproj` | `-fp:precise` | 0 | `passed` |
+
 ## GitHub Actions
 
 | Run | Commit | Seed | Result |

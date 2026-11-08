@@ -422,4 +422,4 @@ Stop at each checkpoint. If a check fails, fix it in a new commit on that step b
 
 ## Phase 13: Convergence
 
-- [ ] T063 Make `search` in `.github/actions/compile-engine/check-flags.sh` reject the dash spellings of the MSVC options too, `-fp:fast` and `-fp:contract`, which `cl.exe` accepts like `/fp:fast` and `/fp:contract`. Add a `search` seed row for each to `contracts/flag-check.md`, run both seeds on a scratch checkout, and record them in `evidence.md` per FR-035 (partial)
+- [x] T063 Make `search` in `.github/actions/compile-engine/check-flags.sh` reject the dash spellings of the MSVC options too, `-fp:fast` and `-fp:contract`, which `cl.exe` accepts like `/fp:fast` and `/fp:contract`. Add a `search` seed row for each to `contracts/flag-check.md`, run both seeds on a scratch checkout, and record them in `evidence.md` per FR-035 (partial)

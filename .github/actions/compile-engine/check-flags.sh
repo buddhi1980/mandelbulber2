@@ -85,8 +85,11 @@ search_build_files() {
 		search_for "$option" "$BEFORE$option$AFTER"
 	done
 	search_contraction
+	# cl.exe takes its options with a slash or a dash, so both spellings count.
 	search_for "/fp:fast" "/fp:fast"
+	search_for "-fp:fast" "$BEFORE-fp:fast"
 	search_for "/fp:contract" "/fp:contract"
+	search_for "-fp:contract" "$BEFORE-fp:contract"
 	search_for "FloatingPointModel Fast" "<FloatingPointModel>[[:space:]]*Fast"
 	echo "searched $count build files"
 }
