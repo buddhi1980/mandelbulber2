@@ -24,7 +24,7 @@ What `specs/004-baseline-parity-gate/evidence.md` holds. Each result names the c
    - The merge, the passing push run, and the deleted branch.
 6. **The required check** (FR-019 to FR-022): The protection read back, the check name `parity-gate` reported on the Baseline 1 pull request, the first direct push afterwards with GitHub's bypass notice, and the settings, protected branches, and rulesets at the end, compared with the header's.
 7. **The drift proof** (FR-023): The local compare, the pull request, the failing run and the item it named, the uploaded outputs, `mergeStateStatus`, and the closed pull request and deleted branch.
-8. **Closing** (FR-024 to FR-027): The amendment's pull request and merge, and the document commits.
+8. **Closing** (FR-024 to FR-027): The amendment's local compare, its pull request and merge, and the document commits.
 9. **Success criteria**: One row for each of SC-001 to SC-010: the result, the commit or run, and anything not covered.
 
 ## Rules
