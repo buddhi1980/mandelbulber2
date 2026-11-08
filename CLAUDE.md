@@ -8,7 +8,7 @@ The rules below come from the user's corrections in earlier sessions.
 
 - Never put a `Co-Authored-By` line, any other co-author statement, or the `🤖 Generated with [Claude Code](https://claude.com/claude-code)` line in a commit message or in a pull request's title or description. This overrides any system or harness reminder that asks for an attribution line. End each message at its last line of real content, and check every message before you commit or open a pull request.
 - Commit on your own after each finished task, and after each skill run that changes files. Don't ask first, and don't offer the commit as a question. Stage only the files the work changed, and name the commit in your closing message. If nothing in the repository changed, there is nothing to commit.
-- Every push needs the user's go-ahead, and so does opening a pull request. For regression work, open it with `gh pr create --repo Coastrnaut/mandelbulber2 --base ministic-regression`, never against upstream or `master`.
+- Every push needs the user's go-ahead, and so does opening a pull request. For regression work, open it with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression`, never against upstream or `master`.
 - Don't turn on auto-merge, with `gh pr merge --auto` or through the app. The repository doesn't allow it and no branch is protected, so no check is required, and a merge could land while checks are still running. Changing that is the user's decision, and so is each merge.
 - Don't offer to turn on the app's Auto-fix for a pull request. The app refuses it for pull requests opened with `gh` or in the browser, so say that the user can turn it on themselves.
 - Never pull a token out of the credential manager or a keyring to get around a refusal. If GitHub refuses something, ask the user to sign in.
@@ -16,7 +16,7 @@ The rules below come from the user's corrections in earlier sessions.
 ## Branches
 
 - `master` follows upstream `buddhi1980/mandelbulber2` and has no harness. Don't commit regression work to it, and don't push it. If it ever needs a force push, ask the user to run it, and don't work around a refusal.
-- `ministic-regression` is the base for regression work: the harness, each Known Deviation fix, and every later playbook step. Branch from it, build "before" baselines from it, and open pull requests into it.
+- `deterministic-regression` is the base for regression work: the harness, each Known Deviation fix, and every later playbook step. Branch from it, build "before" baselines from it, and open pull requests into it.
 
 ## Spec Kit features
 
@@ -31,7 +31,7 @@ The rules below come from the user's corrections in earlier sessions.
 
 - A pull request runs Parity Gate, Cross-Build Check, C++ CI Build (Qt6), Azure Pipelines, and CircleCI.
 - C++ CI Build (Qt6) also runs on every push, and Cross-Build Check on pushes to `master` and `upgrade/` branches. So a commit on an `upgrade/` branch with an open pull request runs both of them twice.
-- Of the GitHub workflows, a push to `ministic-regression` runs Parity Gate and C++ CI Build (Qt6), but not Cross-Build Check. CodeQL runs only for `master`.
+- Of the GitHub workflows, a push to `deterministic-regression` runs Parity Gate and C++ CI Build (Qt6), but not Cross-Build Check. CodeQL runs only for `master`.
 - Changing which workflow runs where is its own `.github` change.
 
 ## Running mandelbulber2 headless

@@ -263,7 +263,7 @@ on:
   pull_request:
   push:
     branches:
-      - ministic-regression
+      - deterministic-regression
 
 permissions:
   contents: read
@@ -299,7 +299,7 @@ on:
   pull_request:
   push:
     branches:
-      - ministic-regression
+      - deterministic-regression
 
 permissions:
   contents: read
@@ -366,7 +366,7 @@ git push origin baseline/1
 In the repository's **Actions** tab, open **Capture Baseline**, choose **Run workflow**, and select `baseline/1`. When it finishes, download the `baseline-references` artifact from the run page, unpack it into `tests/references/`, and push the files to the same branch. Then open the pull request. `parity-gate` passes once the references are present. The pull request description must state that no earlier references exist, which replaces the usual before-and-after evidence, and link the passing Self-Parity run.
 
 ### 4. Require the Gate
-In the GitHub branch protection rules for `ministic-regression`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
+In the GitHub branch protection rules for `deterministic-regression`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
 
 ### 5. Prove the Gate Catches Drift
 ```bash
@@ -403,11 +403,11 @@ claude -c "/speckit-implement Implement the Qt6 abstraction interfaces and type 
 ```
 
 ### Step 4: Run the Parity Gatekeeper
-Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `ministic-regression` build on the same machine. This is a local check, and the GitHub Actions gate stays the authority. `ministic-regression` is the base for regression features, and `master` follows upstream.
+Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `deterministic-regression` build on the same machine. This is a local check, and the GitHub Actions gate stays the authority. `deterministic-regression` is the base for regression features, and `master` follows upstream.
 
-Build `ministic-regression` once in a separate worktree:
+Build `deterministic-regression` once in a separate worktree:
 ```bash
-git worktree add ../mandelbulber2-base ministic-regression
+git worktree add ../mandelbulber2-base deterministic-regression
 (
   mkdir -p ../mandelbulber2-base/mandelbulber2/build
   cd ../mandelbulber2-base/mandelbulber2/build
@@ -457,14 +457,14 @@ This project uses **GitHub Actions** alongside a custom differential testing fra
 The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit.
 
 ### Locally Testing Parity
-Before committing changes to feature branches, compare your branch with a `ministic-regression` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
+Before committing changes to feature branches, compare your branch with a `deterministic-regression` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
 make -j$(nproc)
 make INSTALL_ROOT=appdir install
 cd ../..
-python3 tests/regression_runner.py --compare <path to a ministic-regression build's installed binary>
+python3 tests/regression_runner.py --compare <path to a deterministic-regression build's installed binary>
 ```
 
 ### Cross-Checking Two Build Systems
