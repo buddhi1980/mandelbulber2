@@ -22,7 +22,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 
 ## Technical Context
 
-**Language/Version**: Python 3.12 for the harness, GitHub Actions YAML, and Markdown. No C++ changes. The drift proof's one-line C++ change is never merged.
+**Language/Version**: Python 3.12 for the harness, GitHub Actions YAML, and Markdown. No C++ changes, unless capture turns up a fix that FR-010 needs. The drift proof's one-line C++ change is never merged.
 
 **Primary Dependencies**: glibc 2.39 and its tunables, the existing harness, the `compile-engine` and `build-linux` actions, `actions/checkout@v7`, `actions/upload-artifact@v7`, and `gh`. Nothing new is installed.
 
@@ -49,7 +49,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 
 **Constraints**:
 
-- **Files**: No change to the engine, its build files, the scene list, the formula sweep, or the render settings (FR-028). Only the two workflows change among CI files (FR-029).
+- **Files**: No change to the engine apart from a fix FR-010 needs, and none to its build files, the scene list, the formula sweep, or the render resolutions and overrides (FR-028). Only the two workflows change among CI files (FR-029).
 - **Branches**: Direct pushes to `deterministic-regression`, apart from three pull requests, each from a branch deleted afterwards (FR-030).
 - **Go-aheads**: Every push, every pull request, the protection change, and each merge need the maintainer's go-ahead. Auto-merge is never used.
 - **Quiet computer**: Not needed, because every local check here measures output, not time.

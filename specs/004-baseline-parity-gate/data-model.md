@@ -48,7 +48,8 @@ The check in [contracts/math-path.md](contracts/math-path.md), run on Linux at t
 | Missed a path | A forced result isn't plain, and differs from the hidden result | Setup error, exit 3, before anything renders |
 | Plain results changed | A forced result isn't plain, and matches the hidden result | Setup error, exit 3, with the new results |
 | Can't run | The child process fails or prints something else | Setup error, exit 3 |
-| Not Linux | The harness runs on Windows | No probe. The gate runs only for debugging, says the path isn't forced, and can't pass |
+| Not x86-64 | The harness runs on Linux on another CPU architecture | Setup error, exit 3, before anything renders |
+| Not Linux | The harness runs on another system, such as Windows | No probe. The gate runs only for debugging, says the path isn't forced, and can't pass |
 
 The CPU's own path is the probe's result with no setting: `fma` when every result is the FMA one, `plain` when every result is the plain one, and `unknown` otherwise.
 

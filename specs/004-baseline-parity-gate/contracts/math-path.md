@@ -48,6 +48,7 @@ GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX,-AVX2,-FMA,-FMA4,-SSE3,-SSSE3,-SSE4_1,-SSE4
 | Missed a path | `setup error: the forced math path did not take effect: sin gave 3fe10e8ae531c9f8, and with every optional feature hidden it gives 3fe10e8ae531c9f9` | 3 |
 | Plain results changed | `setup error: glibc's plain math results changed: sin gives <bits> with the forcing and with every optional feature hidden, and the probe expects 3fe10e8ae531c9f9` | 3 |
 | Can't run | `setup error: cannot run the math path probe: <cause>` | 3 |
+| Not x86-64 | `setup error: the forced math path needs an x86-64 CPU` | 3 |
 | Not Linux | `math path: not forced, because this isn't Linux` | The gate goes on for debugging, and can't pass |
 
 The forced line goes to the console and to `tests/outputs/report.txt`, so the evidence can quote the CPU of every CI run. A failure names the first function that differs.
@@ -86,6 +87,7 @@ math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
 | The gate stops first | With a failing probe, the gate exits 3 and the stand-in renderer never runs |
 | Capture stops first | With a failing probe, capture exits 3, renders nothing, and leaves the reference set as it was |
 | The gate on Windows | With no probe, the gate prints the not-forced line, runs for debugging, and can't pass |
+| Another CPU architecture | On Linux with a machine that isn't `x86_64`, the gate and capture exit 3 before any render |
 | The settings line | `settings.txt` from capture holds the `math_path` line |
 | Old and other sets | The gate refuses a set whose `settings.txt` lacks the line or holds another setting |
 | Collections | A collection's listing has the same fields as before, and cross-check of two collections still passes |

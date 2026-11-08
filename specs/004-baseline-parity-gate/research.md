@@ -16,7 +16,7 @@ Each item gives a decision, the reason, and what else was considered. "Tested on
 ## R2. Where the harness sets it
 
 - **Decision**: `clean_environment()` adds the setting on Linux, so every render and every query the harness runs gets it: Self-Parity, capture, the gate, compare, and collect. Nothing changes on Windows.
-- **Why**: Every render and query already takes its whole environment from that function, which builds it from scratch, so one change covers every mode, and nothing in CI or a user's shell can bypass it. Windows uses the C runtime's math library, where the setting means nothing. On a Linux computer that isn't x86-64, glibc ignores names it doesn't know, and the check in R3 then refuses to gate or capture.
+- **Why**: Every render and query already takes its whole environment from that function, which builds it from scratch, so one change covers every mode, and nothing in CI or a user's shell can bypass it. Windows uses the C runtime's math library, where the setting means nothing. On a Linux computer that isn't x86-64, glibc ignores names it doesn't know, and the check in R3 refuses to gate or capture there, because the forced path exists only for x86-64.
 - **Not chosen**: Setting it in the workflows, which `clean_environment()` would strip, and which would leave local runs on another path. Setting it only for the gate and capture, which would leave compare and collect on another path than the references, so a local compare wouldn't predict the gate.
 
 ## R3. Confirming the forced path

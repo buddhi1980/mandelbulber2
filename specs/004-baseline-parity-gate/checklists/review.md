@@ -10,66 +10,66 @@
 
 ## Requirement Completeness
 
-- [ ] CHK001 Is recovery defined for a failing gate on the Baseline 1 pull request, including whether the gate steps stay on `deterministic-regression` while capture repeats, and how long FR-013's "nothing else may land" then lasts? [Gap, Recovery, Spec §FR-013, Spec §Edge Cases]
-- [ ] CHK002 Does the spec say how capture repeats after a failure, by rerunning the job or by pushing a new `baseline/<number>` branch, and how either fits FR-007's "and only then"? [Gap, Recovery, Spec §FR-007, Spec §FR-010]
-- [ ] CHK003 Are requirements defined for a probe failure on the first CI capture, such as a runner glibc whose plain results differ from the values found on this computer? [Gap, Exception Flow, Spec §FR-002, Plan R3]
-- [ ] CHK004 Is a way back defined if the required check blocks pull requests it shouldn't, such as a check name that never reports, and does it say who may remove the protection? [Gap, Recovery, Spec §FR-019, Spec §Edge Cases]
-- [ ] CHK005 Does SC-008's list of files that may change cover every harness file FR-004's tests may need, such as `tests/stub_renderer.py`? [Completeness, Spec §SC-008, Spec §FR-004]
-- [ ] CHK006 Does the spec or plan name the "affected plans and gates" that FR-024's amendment must list? [Gap, Spec §FR-024]
-- [ ] CHK007 Is the capture artifact's retention period specified, since the edge case relies on committing the references "soon after capture"? [Gap, Spec §Edge Cases]
+- [x] CHK001 Is recovery defined for a failing gate on the Baseline 1 pull request, including whether the gate steps stay on `deterministic-regression` while capture repeats, and how long FR-013's "nothing else may land" then lasts? [Gap, Recovery, Spec §FR-013, Spec §Edge Cases] Fixed: FR-013 reverts the gate steps at once, and capture repeats.
+- [x] CHK002 Does the spec say how capture repeats after a failure, by rerunning the job or by pushing a new `baseline/<number>` branch, and how either fits FR-007's "and only then"? [Gap, Recovery, Spec §FR-007, Spec §FR-010] Fixed: FR-007 allows a rerun for runner faults, and otherwise a branch pushed again.
+- [x] CHK003 Are requirements defined for a probe failure on the first CI capture, such as a runner glibc whose plain results differ from the values found on this computer? [Gap, Exception Flow, Spec §FR-002, Plan R3] Fixed: FR-002 names both failures, and FR-010 handles new glibc values.
+- [x] CHK004 Is a way back defined if the required check blocks pull requests it shouldn't, such as a check name that never reports, and does it say who may remove the protection? [Gap, Recovery, Spec §FR-019, Spec §Edge Cases] Fixed: FR-019, and the contract's "Undoing it".
+- [x] CHK005 Does SC-008's list of files that may change cover every harness file FR-004's tests may need, such as `tests/stub_renderer.py`? [Completeness, Spec §SC-008, Spec §FR-004] Fixed: SC-008 names the two harness files, and the stand-in renderer stays as it is.
+- [x] CHK006 Does the spec or plan name the "affected plans and gates" that FR-024's amendment must list? [Gap, Spec §FR-024] Fixed: FR-024 names the plans of features 001 to 004, Workflow 2, and Principles I and II.
+- [x] CHK007 Is the capture artifact's retention period specified, since the edge case relies on committing the references "soon after capture"? [Gap, Spec §Edge Cases] Fixed: FR-006 keeps it 90 days.
 
 ## Requirement Clarity
 
-- [ ] CHK008 Is "its own reviewed change" in FR-010 defined under the direct-push rule, as a pull request or as a direct push with the maintainer's go-ahead? [Ambiguity, Spec §FR-010, Constitution Workflow 1]
-- [ ] CHK009 Is "glibc's plain x86-64 math path" defined precisely enough to check, for example as the results glibc gives with every optional CPU feature hidden? [Clarity, Spec §FR-001, Spec §SC-004]
-- [ ] CHK010 Does FR-003 say what happens to a reference set recorded with a different forced setting, not only to one recorded without any? [Clarity, Spec §FR-003, Plan R4]
-- [ ] CHK011 Is "a full gate run" in FR-014 defined as the gate step or as the whole job, in step with SC-003 and with SC-004 of `specs/001-regression-harness`? [Ambiguity, Spec §FR-014, Spec §SC-003]
-- [ ] CHK012 Is it stated that anyone without bypass can change `deterministic-regression` only through a pull request, because the gate runs only on pull requests and on pushes to that branch? [Clarity, Spec §FR-020]
-- [ ] CHK013 Does FR-021 say what may land before a failing direct push is dealt with, the fix or the revert alone, and who chooses between them? [Clarity, Spec §FR-021]
-- [ ] CHK014 Is "the math features glibc saw" in FR-005 defined as the CPU's flags, as the path the probe finds, or as both? [Clarity, Spec §FR-005, Contract math-path.md]
-- [ ] CHK015 Is it clear whether FR-025 covers Phase 5's feature-branch steps, which the direct-push rule makes out of date more than this feature does? [Ambiguity, Spec §FR-025, Plan R12]
-- [ ] CHK016 Is "corrected to match what was built" in FR-027 specific enough to review, beyond the one change research R12 names? [Clarity, Spec §FR-027, Plan R12]
+- [x] CHK008 Is "its own reviewed change" in FR-010 defined under the direct-push rule, as a pull request or as a direct push with the maintainer's go-ahead? [Ambiguity, Spec §FR-010, Constitution Workflow 1] Fixed: FR-010 and R13 make it one direct push the maintainer reads first.
+- [x] CHK009 Is "glibc's plain x86-64 math path" defined precisely enough to check, for example as the results glibc gives with every optional CPU feature hidden? [Clarity, Spec §FR-001, Spec §SC-004] Fixed: the definition of the forced path.
+- [x] CHK010 Does FR-003 say what happens to a reference set recorded with a different forced setting, not only to one recorded without any? [Clarity, Spec §FR-003, Plan R4] Fixed: FR-003 refuses a set with no setting or another one.
+- [x] CHK011 Is "a full gate run" in FR-014 defined as the gate step or as the whole job, in step with SC-003 and with SC-004 of `specs/001-regression-harness`? [Ambiguity, Spec §FR-014, Spec §SC-003] Fixed: FR-014 means the `Run Parity Gate` step.
+- [x] CHK012 Is it stated that anyone without bypass can change `deterministic-regression` only through a pull request, because the gate runs only on pull requests and on pushes to that branch? [Clarity, Spec §FR-020] Fixed: FR-020.
+- [x] CHK013 Does FR-021 say what may land before a failing direct push is dealt with, the fix or the revert alone, and who chooses between them? [Clarity, Spec §FR-021] Fixed: the next commit fixes or reverts it, and the maintainer chooses.
+- [x] CHK014 Is "the math features glibc saw" in FR-005 defined as the CPU's flags, as the path the probe finds, or as both? [Clarity, Spec §FR-005, Contract math-path.md] Fixed: FR-005 asks for both.
+- [x] CHK015 Is it clear whether FR-025 covers Phase 5's feature-branch steps, which the direct-push rule makes out of date more than this feature does? [Ambiguity, Spec §FR-025, Plan R12] Fixed: FR-025 includes them.
+- [x] CHK016 Is "corrected to match what was built" in FR-027 specific enough to review, beyond the one change research R12 names? [Clarity, Spec §FR-027, Plan R12] Fixed: FR-027 lists the three statements the section must make true.
 
 ## Requirement Consistency
 
-- [ ] CHK017 Do the "A new glibc" edge case, which ends in a reference target mismatch, and research R3's limit, which ends in a setup error until the probe's values are found again, describe the same outcome for a glibc update? [Conflict, Spec §Edge Cases, Plan R3]
-- [ ] CHK018 Is the gate's refusal on Windows, "the forced math path needs Linux", consistent with FR-005 of `specs/001-regression-harness`, which lets the gate run there for debugging? [Consistency, Contract math-path.md]
-- [ ] CHK019 Is research R5's fallback, an empty commit on the Baseline 1 branch, consistent with FR-015 and with the constitution's rule that a Baseline Change contains no other change? [Conflict, Spec §FR-015, Plan R5]
-- [ ] CHK020 Is FR-007's branch name, `baseline/<number>`, consistent with the plan's trigger, which matches any branch under `baseline/`, and does the spec cover a branch there that isn't for a baseline? [Consistency, Spec §FR-007, Plan R5]
-- [ ] CHK021 Does FR-022's "no other repository setting may change" allow for the limits on force pushes and deletion that GitHub adds to every protected branch, which research R9 notes? [Consistency, Spec §FR-022, Plan R9]
-- [ ] CHK022 Is the 100 MB limit stated in one unit across the spec, the data model, and the contracts, which also give 104,857,600 bytes? [Consistency, Spec §FR-008, Spec §SC-001]
-- [ ] CHK023 Are the capture workflow's extra steps in the plan, the harness's tests and the failure outputs, reflected in FR-006, or left to the plan on purpose? [Consistency, Spec §FR-006, Plan R6]
+- [x] CHK017 Do the "A new glibc" edge case, which ends in a reference target mismatch, and research R3's limit, which ends in a setup error until the probe's values are found again, describe the same outcome for a glibc update? [Conflict, Spec §Edge Cases, Plan R3] Fixed: both now describe the check's two failures and the mismatch otherwise.
+- [x] CHK018 Is the gate's refusal on Windows, "the forced math path needs Linux", consistent with FR-005 of `specs/001-regression-harness`, which lets the gate run there for debugging? [Consistency, Contract math-path.md] Fixed: FR-002 keeps debugging runs, which say the path isn't forced and can't pass.
+- [x] CHK019 Is research R5's fallback, an empty commit on the Baseline 1 branch, consistent with FR-015 and with the constitution's rule that a Baseline Change contains no other change? [Conflict, Spec §FR-015, Plan R5] Fixed: FR-015 allows the one empty commit, which changes no file.
+- [x] CHK020 Is FR-007's branch name, `baseline/<number>`, consistent with the plan's trigger, which matches any branch under `baseline/`, and does the spec cover a branch there that isn't for a baseline? [Consistency, Spec §FR-007, Plan R5] Fixed: FR-007 makes no other branch under `baseline/`.
+- [x] CHK021 Does FR-022's "no other repository setting may change" allow for the limits on force pushes and deletion that GitHub adds to every protected branch, which research R9 notes? [Consistency, Spec §FR-022, Plan R9] Fixed: FR-022 accepts them.
+- [x] CHK022 Is the 100 MB limit stated in one unit across the spec, the data model, and the contracts, which also give 104,857,600 bytes? [Consistency, Spec §FR-008, Spec §SC-001] Fixed: the spec gives 104,857,600 bytes throughout.
+- [x] CHK023 Are the capture workflow's extra steps in the plan, the harness's tests and the failure outputs, reflected in FR-006, or left to the plan on purpose? [Consistency, Spec §FR-006, Plan R6] Fixed: FR-006 names both.
 
 ## Acceptance Criteria Quality
 
-- [ ] CHK024 Is "every optional x86-64 feature" in SC-004 a fixed list, so the criterion can be repeated exactly? [Measurability, Spec §SC-004, Plan R1]
-- [ ] CHK025 Does any success criterion show that the required check's name matches the check `parity-gate` reports, as the edge case about a wrong name needs? [Acceptance Criteria, Spec §FR-019, Spec §SC-006]
-- [ ] CHK026 Is there a recorded "before" state of the repository's settings, so SC-006's "no other repository setting changed" can be measured? [Measurability, Spec §SC-006]
-- [ ] CHK027 Is the local collect and cross-check that FR-004 requires tied to a measurable outcome in the success criteria? [Acceptance Criteria, Spec §FR-004, Spec §SC-008]
-- [ ] CHK028 Is the capture run's time limit quantified in the spec, not only in the capture contract? [Measurability, Spec §SC-003, Contract capture-baseline.md]
-- [ ] CHK029 Is the 30-minute bound in SC-003 stated for one run or for every run, given that two runners' Collect steps differed by about two times? [Clarity, Spec §SC-003, Spec §Assumptions]
+- [x] CHK024 Is "every optional x86-64 feature" in SC-004 a fixed list, so the criterion can be repeated exactly? [Measurability, Spec §SC-004, Plan R1] Fixed: R1 and the math path contract record the hidden setting.
+- [x] CHK025 Does any success criterion show that the required check's name matches the check `parity-gate` reports, as the edge case about a wrong name needs? [Acceptance Criteria, Spec §FR-019, Spec §SC-006] Fixed: SC-006.
+- [x] CHK026 Is there a recorded "before" state of the repository's settings, so SC-006's "no other repository setting changed" can be measured? [Measurability, Spec §SC-006] Fixed: FR-022 records settings, protected branches, and rulesets before and after.
+- [x] CHK027 Is the local collect and cross-check that FR-004 requires tied to a measurable outcome in the success criteria? [Acceptance Criteria, Spec §FR-004, Spec §SC-008] Fixed: SC-010.
+- [x] CHK028 Is the capture run's time limit quantified in the spec, not only in the capture contract? [Measurability, Spec §SC-003, Contract capture-baseline.md] Fixed: FR-006 and SC-003 give 350 minutes.
+- [x] CHK029 Is the 30-minute bound in SC-003 stated for one run or for every run, given that two runners' Collect steps differed by about two times? [Clarity, Spec §SC-003, Spec §Assumptions] Fixed: every recorded gate run.
 
 ## Scenario Coverage
 
-- [ ] CHK030 Are requirements defined for the push run after Baseline 1's merge failing although the pull request's run passed, for example after a runner image update in between? [Coverage, Exception Flow, Spec §FR-017]
-- [ ] CHK031 Does the spec say whether modes other than the gate and capture, such as compare and collect, must confirm the forced path or may run without the probe? [Coverage, Spec §FR-002]
-- [ ] CHK032 Are requirements stated for the other checks failing on the drift proof's or the amendment's pull request, such as Cross-Build Check, and for whether anything waits for them? [Coverage, Spec §FR-023, Spec §FR-024]
+- [x] CHK030 Are requirements defined for the push run after Baseline 1's merge failing although the pull request's run passed, for example after a runner image update in between? [Coverage, Exception Flow, Spec §FR-017] Fixed: FR-017.
+- [x] CHK031 Does the spec say whether modes other than the gate and capture, such as compare and collect, must confirm the forced path or may run without the probe? [Coverage, Spec §FR-002] Fixed: FR-002 says they run without it.
+- [x] CHK032 Are requirements stated for the other checks failing on the drift proof's or the amendment's pull request, such as Cross-Build Check, and for whether anything waits for them? [Coverage, Spec §FR-023, Spec §FR-024] Fixed: nothing waits on the drift proof, and every check passes on the amendment.
 
 ## Edge Case Coverage
 
-- [ ] CHK033 Are requirements stated for two captures at once, for example two `baseline/` branches pushed close together? [Edge Case, Gap, Spec §FR-007]
+- [x] CHK033 Are requirements stated for two captures at once, for example two `baseline/` branches pushed close together? [Edge Case, Gap, Spec §FR-007] Fixed: the edge case "Two captures at once".
 
 ## Non-Functional Requirements
 
-- [ ] CHK034 Is it stated who may start a capture, given that anyone with write access can push a `baseline/` branch, while FR-007 says the maintainer starts it? [Security, Gap, Spec §FR-007]
-- [ ] CHK035 Is the repository's growth from each reference set, about 83 MB or 79% of the harness's limit for Baseline 1, addressed by a requirement or recorded as accepted where later Baseline Changes will find it? [Non-Functional, Plan R8, Plan §Follow-ups]
+- [x] CHK034 Is it stated who may start a capture, given that anyone with write access can push a `baseline/` branch, while FR-007 says the maintainer starts it? [Security, Gap, Spec §FR-007] Fixed: the edge case "Who can start a capture", and the collaborator assumption.
+- [x] CHK035 Is the repository's growth from each reference set, about 83 MB or 79% of the harness's limit for Baseline 1, addressed by a requirement or recorded as accepted where later Baseline Changes will find it? [Non-Functional, Plan R8, Plan §Follow-ups] Fixed: the size assumption accepts it.
 
 ## Dependencies & Assumptions
 
-- [ ] CHK036 Is the assumption that a push which only creates a branch starts a workflow recorded in the spec, or only in the plan's research, given that capture depends on it? [Assumption, Plan R5]
-- [ ] CHK037 Is the dependency on the maintainer's go-aheads and merge reflected in the order of work, given that FR-013's window lasts until the maintainer merges? [Dependency, Spec §FR-013, Spec §Assumptions]
-- [ ] CHK038 Is the assumption that the maintainer's merge counts as the constitution's maintainer approval stated for both the Baseline Change and the amendment? [Assumption, Spec §FR-018, Spec §FR-024, Spec §Dependencies]
-- [ ] CHK039 Is the assumption that glibc's math library is the only CPU-chosen code that reaches a gated render backed by evidence, or marked as unverified? [Assumption, Spec §Scope]
+- [x] CHK036 Is the assumption that a push which only creates a branch starts a workflow recorded in the spec, or only in the plan's research, given that capture depends on it? [Assumption, Plan R5] Fixed: the spec's assumptions, and FR-007's empty commit.
+- [x] CHK037 Is the dependency on the maintainer's go-aheads and merge reflected in the order of work, given that FR-013's window lasts until the maintainer merges? [Dependency, Spec §FR-013, Spec §Assumptions] Fixed: the gate steps wait for a sitting that can finish the merge.
+- [x] CHK038 Is the assumption that the maintainer's merge counts as the constitution's maintainer approval stated for both the Baseline Change and the amendment? [Assumption, Spec §FR-018, Spec §FR-024, Spec §Dependencies] Fixed: FR-024 and the dependencies name both.
+- [x] CHK039 Is the assumption that glibc's math library is the only CPU-chosen code that reaches a gated render backed by evidence, or marked as unverified? [Assumption, Spec §Scope] Fixed: the scope marks it unverified and says what would show it.
 
 ## Notes
 
@@ -82,3 +82,4 @@
 - Items are numbered sequentially for easy reference
 - **Scope**: The whole feature, at standard depth, for the maintainer to review before `/speckit-tasks`. Within each section, items run from the highest risk to the lowest.
 - **References**: `Spec §` names a requirement, success criterion, or section of [spec.md](../spec.md). `Plan R` names an item of [research.md](../research.md), and `Contract` names a file in [contracts/](../contracts/).
+- **Evaluation**: At the maintainer's request on 2026-11-08, Claude evaluated all 39 items. Each one pointed at a real gap, and each was fixed in the spec, the plan, or a contract before it was marked. A second pass over the fixed text found five gaps that the fixes had opened, and fixed those too. The maintainer may unmark any item on review.
