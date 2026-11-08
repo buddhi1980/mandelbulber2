@@ -33,7 +33,7 @@ math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
 
 ## Math Path Probe
 
-The check in [contracts/math-path.md](contracts/math-path.md), run at the start of every gate and capture run.
+The check in [contracts/math-path.md](contracts/math-path.md), run on Linux at the start of every gate and capture run.
 
 | Field | Meaning |
 |---|---|
@@ -44,9 +44,11 @@ The check in [contracts/math-path.md](contracts/math-path.md), run at the start 
 
 | Outcome | When | Effect |
 |---|---|---|
-| Forced | Every result under the setting is the plain result | The run goes on, and its report names the CPU's own path |
-| Not forced | Any result under the setting differs from the plain result | Setup error, exit 3, before anything renders |
+| Forced | Every result under the forced setting is the plain result | The run goes on, and its report names the CPU's own path |
+| Missed a path | A forced result isn't plain, and differs from the hidden result | Setup error, exit 3, before anything renders |
+| Plain results changed | A forced result isn't plain, and matches the hidden result | Setup error, exit 3, with the new results |
 | Can't run | The child process fails or prints something else | Setup error, exit 3 |
+| Not Linux | The harness runs on Windows | No probe. The gate runs only for debugging, says the path isn't forced, and can't pass |
 
 The CPU's own path is the probe's result with no setting: `fma` when every result is the FMA one, `plain` when every result is the plain one, and `unknown` otherwise.
 
@@ -61,8 +63,10 @@ One run of `.github/workflows/capture-baseline.yml`.
 | Building | The build-file search, the build, and the flag check pass, or the job fails |
 | Rendering | The probe passes, and Self-Parity passes at one thread and at four, or the job fails and writes nothing |
 | Written | 487 references, `toolchain.txt`, and `settings.txt` are in `tests/references/linux-x86_64-gcc/` |
-| Uploaded | The `baseline-references` artifact holds the set |
+| Uploaded | The `baseline-references` artifact holds the set, kept for 90 days |
 | Failed | `capture-failure-outputs` holds `tests/outputs`, kept for 7 days |
+
+A run that failed outside the source may be rerun from GitHub. Any other repeat deletes the branch and pushes it again (FR-007).
 
 ## Gate Run
 
@@ -80,7 +84,7 @@ One `parity-gate` job, on a pull request or a push to `deterministic-regression`
 |---|---|
 | Head | `baseline/1` |
 | Base | `deterministic-regression` |
-| Files | Only `tests/references/linux-x86_64-gcc/**`, 489 files |
+| Files | Only `tests/references/linux-x86_64-gcc/**`, 489 files, and at most one empty commit (FR-007) |
 | Description | What [contracts/baseline-change.md](contracts/baseline-change.md) lists |
 | Checks | `parity-gate` passes on 487 of 487 items, and the others run as usual |
 | Merge | By the maintainer, never by auto-merge |
@@ -96,6 +100,7 @@ One `parity-gate` job, on a pull request or a push to `deterministic-regression`
 | Applies to admins | No, so the maintainer's direct pushes land |
 | Required reviews | None |
 | Push restrictions | None |
+| Changed by | The maintainer alone, who also corrects or removes it if it blocks wrongly |
 
 ## Drift Proof
 
@@ -120,7 +125,7 @@ One `parity-gate` job, on a pull request or a push to `deterministic-regression`
 | S5 | The merge of the amendment, version 1.1.1 | Passes |
 | S6 | Direct pushes of the playbook, `CLAUDE.md`, and `README.md` corrections | Passes |
 
-Nothing else lands between S2 and S3 (FR-013).
+Nothing else lands between S2 and S3 (FR-013), except a revert of the gate steps if the Baseline 1 pull request's gate fails. That returns the branch to S1 until capture repeats.
 
 ## Evidence Record
 

@@ -5,7 +5,7 @@ The Baseline Change that brings the first references, for FR-013 and FR-015 to F
 ## Order
 
 1. `baseline/1` holds the commit of 489 reference files, pushed and checked as [capture-baseline.md](capture-baseline.md) says.
-2. With the go-ahead, the gate steps land on `deterministic-regression` by direct push. Their push run fails for lack of references, as expected.
+2. When the maintainer can review and merge the pull request in the same sitting, and with the go-ahead, the gate steps land on `deterministic-regression` by direct push. Their push run fails for lack of references, as expected.
 3. The pull request opens straight away:
 
 ```text
@@ -14,15 +14,18 @@ gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression --h
 
 4. Its `parity-gate` run must pass on 487 of 487 items.
 5. The maintainer merges it. Auto-merge is never turned on.
-6. The push run of `parity-gate` on the merge commit must pass, and `baseline/1` is deleted on GitHub.
+6. The push run of `parity-gate` on the merge commit must pass, and `baseline/1` is deleted on GitHub. If it fails although the pull request's run passed, its cause is found and recorded before anything else lands (FR-017).
 
 Nothing else lands on `deterministic-regression` between steps 2 and 5. After step 6, the evidence records the failing push run from step 2 and how long the window lasted.
+
+**If the gate fails in step 4**: Revert the gate steps at once by direct push, which is the one commit allowed in the window, and close the pull request. Once the cause is found and recorded, capture repeats as [capture-baseline.md](capture-baseline.md) says, and the order starts again from step 1 (FR-013).
 
 ## Files
 
 - Only the 489 files under `tests/references/linux-x86_64-gcc/`: 26 scene zips, 461 formula zips, `toolchain.txt`, and `settings.txt`.
 - Each one is byte-identical to the artifact's copy, which the blob ID check in [capture-baseline.md](capture-baseline.md) proves.
 - No other file. The gate steps reach the base by direct push, not through this pull request.
+- At most one empty commit under the references, if capture had to be started again with one (FR-007). It changes no file.
 
 ## Description
 

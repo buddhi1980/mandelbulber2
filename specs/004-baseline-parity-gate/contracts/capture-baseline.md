@@ -33,6 +33,7 @@ jobs:
           name: baseline-references
           path: tests/references
           if-no-files-found: error
+          retention-days: 90
       - name: Upload Failed Outputs
         if: failure()
         uses: actions/upload-artifact@v7
@@ -44,12 +45,14 @@ jobs:
 
 **Rules**
 
-- **Start**: Only a push that creates a `baseline/<number>` branch runs the job. Every later push to that branch runs the workflow with the job skipped (FR-007).
+- **Start**: Only a push that creates a branch under `baseline/` runs the job, so the only branches made there are `baseline/<number>`. Every later push to that branch runs the workflow with the job skipped (FR-007). Only the maintainer pushes them, and a capture makes only an artifact.
+- **Repeats**: A run that failed outside the source, such as a runner fault, may be rerun from its page on GitHub, which repeats the same push event. Any other repeat deletes the branch on GitHub and pushes it again at the commit to capture. Captures on different branches are independent.
 - **Access**: Read-only, with no secrets (FR-006).
 - **Build**: Through `compile-engine`, so the build-file search and the flag check run before any render.
 - **Harness rules**: Capture refuses outside CI, without thread control, or where renders can't be isolated. It runs the math path probe, passes Self-Parity at one thread and at four, and writes a whole set or nothing (FR-008).
-- **Nothing written**: When Self-Parity fails, the capture step fails, so the references aren't uploaded, and the job keeps the report in `capture-failure-outputs` (FR-010).
+- **Nothing written**: When Self-Parity or the probe fails, the capture step fails, so the references aren't uploaded, and the job keeps the report in `capture-failure-outputs` (FR-010).
 - **Time**: Self-Parity renders each item 7 times. The playbook expects about 2 hours, inside the 350-minute limit.
+- **Lifetime**: The references artifact is kept for 90 days, the longest GitHub allows for a public repository.
 
 ## Starting Baseline 1
 

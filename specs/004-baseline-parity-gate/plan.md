@@ -70,7 +70,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 | Principle III: does it touch build flags, compilers, math libraries, or arithmetic order? | The math library's path, yes. Flags, no | A run-time setting picks one of glibc's code paths. No build flag changes, and the build-file search and the flag check run in both workflows through `compile-engine`. |
 | Reference Targets: the First Reference Target's compiler and math library versions are recorded with Baseline 1 | Pass | `toolchain.txt` holds them (FR-009). |
 | Baseline Change rules | Pass | Baseline 1 has its own pull request, which holds only references and states why output changes. Its statement that no earlier references exist replaces the before-and-after evidence. It comes from a CI build that passes Self-Parity, and the maintainer approves it (FR-015 to FR-018). |
-| Workflow 1: before Baseline 1, engine changes only to close a Known Deviation | Pass | No engine change lands. The harness change closes KD-5, and the drift proof's seed is never merged. |
+| Workflow 1: before Baseline 1, engine changes only to close a Known Deviation | Pass | No engine change lands. The harness change closes KD-5, and the drift proof's seed is never merged. An engine fix that capture turns out to need lands as its own reviewed direct push (FR-010, R13). |
 | Workflow 2: after Baseline 1, every pull request passes the gate before it merges | Pass | The required check blocks a merge until `parity-gate` passes (FR-019). A direct push isn't a pull request. Its push run checks it after it lands, and a failure is a defect to fix at once (FR-021). |
 | Workflow 3: no regenerating references to clear a failure | Pass | FR-021. |
 | Workflow 4: refactors and output changes stay apart | Pass | Nothing here is a refactor. |
@@ -85,7 +85,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 
 **Expected effect on output**: On Linux, every render the harness runs takes glibc's plain math path. On 2026-11-08, 648 of 1.8 million sample results differed from the FMA path this computer takes by itself, and each of the 16 printed differed only in its last bit. Fractal iteration can amplify that, so FR-005 measures what it means for the 487 items. Outside the harness, the binary renders exactly as before, and MSVC output doesn't change.
 
-**Post-design re-check**: Pass. The design adds no violations. The probe and the settings line confirm and record the forced path without touching the engine. The required check lets the maintainer's direct pushes through, which Workflow 2 permits, because it governs pull requests. FR-021 covers what that leaves open. Research changed nothing in the spec.
+**Post-design re-check**: Pass. The design adds no violations. The probe and the settings line confirm and record the forced path without touching the engine. The required check lets the maintainer's direct pushes through, which Workflow 2 permits, because it governs pull requests. FR-021 covers what that leaves open. Research changed nothing in the spec. The review checklist's fixes then added recovery paths, records, and clearer terms to the spec and this plan, with no new violation.
 
 ## Project Structure
 
@@ -134,7 +134,7 @@ README.md                       # The regression section
 
 ### 1. The forced path
 
-[math-path.md](contracts/math-path.md) is the contract.
+[math-path.md](contracts/math-path.md) is the contract. First, save the repository's settings, protected branches, and rulesets, as [parity-gate.md](contracts/parity-gate.md) says, so FR-022's comparison has a starting point.
 
 1. Add the setting to `clean_environment()` on Linux, the probe to the gate and capture, and the `math_path` line to `settings_lines()`.
 2. Add the tests the contract lists. The shared stand-in setup replaces the probe with one that passes, so existing tests stay as they are.
@@ -152,10 +152,12 @@ README.md                       # The regression section
 
 [baseline-change.md](contracts/baseline-change.md) is the contract.
 
-1. With the go-ahead, push the gate steps to `deterministic-regression`, state S2. The push run fails for lack of references.
+1. When the maintainer can review and merge in the same sitting, and with the go-ahead, push the gate steps to `deterministic-regression`, state S2. The push run fails for lack of references.
 2. Open the pull request at once. `parity-gate` passes on 487 of 487 items, and Cross-Build Check passes.
 3. The maintainer merges it, state S3. The push run passes, and `baseline/1` is deleted on GitHub.
 4. Record the window, the times, and each run's CPU line.
+
+If the pull request's gate fails, the gate steps are reverted at once, the branch returns to S1, and capture repeats once the cause is known (FR-013).
 
 ### 4. The required check
 
@@ -187,7 +189,7 @@ If any step fails, its cause joins this work, and the steps after it wait. A cap
 | Check | WSL, qmake build | Windows, MSVC build | GitHub Actions |
 |---|---|---|---|
 | The harness's tests | Yes | Yes | Cross-Build Check, capture, and `parity-gate` |
-| The probe | Yes, through a gate run with no references | Not run, because the gate refuses outside Linux | Capture and `parity-gate` |
+| The probe | Yes, through a gate run with no references | Not run: the gate runs there only for debugging, says the path isn't forced, and can't pass | Capture and `parity-gate` |
 | Forced, hidden, and natural collections | Yes | Not needed | Not used |
 | Collect and cross-check | Collect | Collect and cross-check | Cross-Build Check on each pull request |
 | Capture | Refuses, because it isn't CI | Refuses | `capture-baseline` on the push of `baseline/1` |

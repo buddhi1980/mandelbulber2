@@ -42,7 +42,7 @@ jobs:
 - **The gate**: The harness's default mode runs the probe, refuses a reference set with other settings, renders every item once, and compares every buffer and statistic exactly (FR-012).
 - **Outcomes**: Exit 0 passes the job. Exit 1, a parity failure, and exit 3, a reference target mismatch or a setup error, fail it.
 - **Before Baseline 1**: No references exist, so the gate fails as a setup error. The gate steps therefore land only right before Baseline 1's pull request opens (FR-013).
-- **Time**: The gate step must take under 30 minutes on the hosted 4-vCPU runner. The evidence takes the step's and the job's times from the job's step list (FR-014).
+- **Time**: The gate step must take under 30 minutes on the hosted 4-vCPU runner in every gate run the evidence records. The evidence takes each run's step and job times from the job's step list (FR-014).
 
 ## The required check
 
@@ -65,12 +65,26 @@ gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/p
 |---|---|
 | A pull request can't merge until `parity-gate` passes on it | Anyone who can't bypass the rule |
 | A direct push lands, and its push run checks it afterwards | The maintainer, who bypasses as an admin |
-| A direct push is refused unless its commit has passed `parity-gate` | Anyone else with write access |
+| A direct push is refused unless its commit has passed `parity-gate`, which only a pull request can show, so others change the branch through pull requests | Anyone else with write access |
 | Force pushes to the branch and deleting it are refused | Anyone who can't bypass, as on every protected branch |
 
 Reading the protection back must show `parity-gate` as the only required check, `strict` false, and `enforce_admins` false (SC-006). The first direct push afterwards must land. GitHub then reports the rule it bypassed, which the evidence quotes.
 
-**A failing direct push**: A push run that fails is a defect in that push. It is fixed or reverted before anything else lands, and references are never regenerated to clear it (FR-021).
+**Records**: Before the first change of this feature, the evidence saves the repository's settings, its protected branches, and its rulesets. It saves them again at the end, so a reader can see that only this protection changed (FR-022):
+
+```text
+gh api repos/Coastrnaut/mandelbulber2
+gh api repos/Coastrnaut/mandelbulber2/branches?protected=true
+gh api repos/Coastrnaut/mandelbulber2/rulesets
+```
+
+**Undoing it**: Only the maintainer changes the protection. If it blocks pull requests it shouldn't, such as when the name it requires never reports, the maintainer corrects it with the same call, or removes it, and the evidence records why (FR-019):
+
+```text
+gh api -X DELETE repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection
+```
+
+**A failing direct push**: A push run that fails is a defect in that push. The next commit to land fixes or reverts it, the maintainer chooses which, and references are never regenerated to clear it (FR-021).
 
 ## The drift proof
 
