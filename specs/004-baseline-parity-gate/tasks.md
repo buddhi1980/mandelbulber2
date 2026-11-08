@@ -11,7 +11,7 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Tests**: FR-004 asks for harness tests of the forced path, so T005 writes them before T006 builds it. Every other check is a run whose result goes in `evidence.md`, through [quickstart.md](quickstart.md).
 
-**Organization**: Tasks are grouped by user story, in the plan's order of work. User Story 3's gate steps are written in Phase 5 but pushed in Phase 6, right before Baseline 1's pull request opens, so the gate fails for minutes, not hours (FR-013).
+**Organization**: Tasks are grouped by user story, in the plan's order of work. User Story 3's gate steps are written in Phase 5 but pushed in Phase 6, right before Baseline 1's pull request opens, so the gate fails for minutes, not hours (FR-013). The user is the maintainer the spec names.
 
 ## Rules for Every Task
 
@@ -24,6 +24,8 @@ description: "Task list for Baseline 1 and the parity gate"
 - **Messages**: Commit messages and pull requests carry no `Co-Authored-By` line, no other co-author statement, and no "Generated with" line.
 - **Go-aheads**: Every push, every pull request, the protection change, and every branch deletion on GitHub need the user's go-ahead. The user merges each pull request, or tells Claude to. Auto-merge is never turned on, with `gh pr merge --auto` or through the app.
 - **Waiting on CI**: Wait for a run to finish before reading its result with `gh run view`, and don't poll it in a loop.
+- **Gate times**: Record the "Run Parity Gate" step's time of every full gate run the evidence mentions (FR-014, SC-003).
+- **A failing push after S4**: If a push run fails once the gate is required, the next commit to land fixes or reverts it, the user chooses which, and references are never regenerated to clear it (FR-021).
 - **Scope**: Change nothing outside the plan:
   - No engine source, apart from a fix FR-010 needs, which lands as its own reviewed direct push.
   - No build file, scene list, formula sweep, formula exclusion, render resolution, or render override.
@@ -54,7 +56,7 @@ description: "Task list for Baseline 1 and the parity gate"
 - **WSL**: The `Ubuntu-24.04` distro, with GCC 13.3.0, glibc `2.39-0ubuntu8.9`, Python 3.12.3, Qt 6.4.2, and 32 logical CPUs.
   - **Running scripts**: Use `MSYS_NO_PATHCONV=1 wsl -d Ubuntu-24.04 -- bash /mnt/c/path/to/script.sh`, after stripping carriage returns, because `wsl.exe` expands `$` too early in an inline command.
   - **No installs**: `sudo` needs a password, so only the user can install anything.
-- **WSL clones**: `~/mandelbulber2` holds the current builds. `~/mandelbulber2-seed` holds the drift proof's seeded build, and it is the only clone that may hold a patch. `~/verify/kd5/build_fresh.sh <clone> <ref> [patch]` fetches every branch of `C:\GIT\mandelbulber2` into `refs/remotes/windows/`, creates a clone that is missing, and builds from clean.
+- **WSL clones**: `~/mandelbulber2` holds the current builds. `~/mandelbulber2-seed` holds the drift proof's seeded build, and it is the only clone that may hold a patch. `~/mandelbulber2-amend` holds the amendment's build, for T035's local pass. `~/verify/kd5/build_fresh.sh <clone> <ref> [patch]` fetches every branch of `C:\GIT\mandelbulber2` into `refs/remotes/windows/`, creates a clone that is missing, and builds from clean.
 - **Windows**: The MSVC Release build goes in a new clone, `C:\GIT\mb2-kd5-<first 9 characters of the commit>`, checked out detached.
   - **Build**: Run `nuget restore mandelbulber2/msvc/mandelbulber2.sln`, then `"C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" mandelbulber2/msvc/mandelbulber2.sln /m /p:Configuration=Release /p:Platform=x64`.
   - **OpenCL**: If the binary won't start because `OpenCL.dll` is missing, copy it from `mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/` beside the binary.
@@ -135,7 +137,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - `~/verify/kd5/runner-unforced.py` into `~/verify/kd5/collect-natural`.
 
   Write `~/verify/kd5/compare_collections.py`. It imports `read_collection`, `read_reference`, and `compare_exports` from `tests/regression_runner.py`, and lists each item and buffer or statistic that differs between two collections. The forced and hidden collections must match for 487 of 487 items (SC-004). List what differs between the natural and forced collections (FR-005), and record both results in `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T012 [P] [US1] On Windows, build T007's commit fresh in the new clone `C:\GIT\mb2-kd5-<first 9 characters>`, as Build Environments says, then work in that clone:
+- [ ] T012 [US1] On Windows, build T007's commit fresh in the new clone `C:\GIT\mb2-kd5-<first 9 characters>`, as Build Environments says, then work in that clone:
   - Run `python tests/test_regression_runner.py`, and run `python tests/regression_runner.py --collect tests/outputs/collection/msvc`.
   - Copy `\\wsl.localhost\Ubuntu-24.04\home\rpanc\verify\kd5\collect-forced` into `tests/outputs/collection/qmake`.
   - Run `python tests/regression_runner.py --cross-check tests/outputs/collection/qmake tests/outputs/collection/msvc`. It must exit 0 with functional agreement.
@@ -159,15 +161,16 @@ description: "Task list for Baseline 1 and the parity gate"
 - [ ] T017 [US2] Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
   - **No run**: With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`. Make a local `baseline/1` at the same commit with one commit from `git commit --allow-empty -m "test: start the Baseline 1 capture"`, push it, and confirm the run (FR-007).
   - Record which start worked, for `specs/004-baseline-parity-gate/evidence.md`.
-- [ ] T018 [US2] When the run finishes, its job must have passed in under 350 minutes. Its log must show the forced math path line and "wrote 487 references to tests/references/linux-x86_64-gcc", and Self-Parity must have passed at one thread and at four. Record the CPU line, the CPU's own path, the step times, and the job's time for section 4 of `specs/004-baseline-parity-gate/evidence.md` (FR-005, FR-014, SC-003).
+- [ ] T018 [US2] When the run finishes, its job must have passed in under 350 minutes. Its log must show the forced math path line and "wrote 487 references to tests/references/linux-x86_64-gcc", and Self-Parity must have passed at one thread and at four. Its `Search the Build Files` and `Reject Prohibited Compile Flags` steps must have passed too, so capture's build was checked (User Story 2, scenario 2). Record the CPU line, the CPU's own path, the step times, and the job's time for section 4 of `specs/004-baseline-parity-gate/evidence.md` (FR-005, FR-014, SC-003).
   - **If it failed**: Download `capture-failure-outputs`, find the cause, record it, and stop to tell the user (FR-010).
   - **Repeating**: A runner fault may be rerun from the run's page. Any other repeat deletes `baseline/1` on GitHub and pushes it again at the commit to capture.
 - [ ] T019 [US2] Download the artifact to a new folder outside the repository with `gh run download <run ID> --repo Coastrnaut/mandelbulber2 -n baseline-references -D C:\GIT\mb2-kd5-baseline-1-artifact`.
   - The folder must hold exactly what the checking table in `specs/004-baseline-parity-gate/contracts/capture-baseline.md` lists, with "math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4" as the fifth line of `settings.txt`.
+  - `toolchain.txt` must hold a `compiler` line, a `math_library` line, and a `package` line for the installed `gcc` and `g++` and for `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` (FR-009).
   - Its total must be under 104,857,600 bytes.
   - Record the counts and the size (FR-008, FR-009, SC-001).
 - [ ] T020 [US2] Commit the references on `baseline/1`:
-  1. Run `git fetch origin baseline/1` and `git switch -c baseline/1 origin/baseline/1` in `C:\GIT\mandelbulber2`.
+  1. Run `git fetch origin baseline/1` in `C:\GIT\mandelbulber2`, then `git switch -c baseline/1 origin/baseline/1`, or `git switch baseline/1` if T017's fallback already made the branch here.
   2. Copy the artifact's `linux-x86_64-gcc` folder into `tests/references/`, and stage it.
   3. `git diff --cached --stat` must list 489 files, all under `tests/references/linux-x86_64-gcc/`. Commit them with the message `test: add Baseline 1 for linux-x86_64-gcc`.
   4. For every file, the blob ID in `git ls-tree -r HEAD tests/references` must equal `git hash-object --no-filters` of the downloaded copy (FR-015).
@@ -195,9 +198,9 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Goal**: The references reach `deterministic-regression` through one pull request that holds only them, and the gate passes on it and on the push after it (FR-013 to FR-018).
 
-**Independent Test**: The pull request changes only the 489 files, its description holds the eight parts, `parity-gate` passes on 487 of 487 items, and the push run after the merge passes.
+**Independent Test**: The pull request changes only the 489 files, its description holds the nine parts, `parity-gate` passes on 487 of 487 items, and the push run after the merge passes.
 
-- [ ] T023 [US4] Write the pull request's description in `C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`, outside the repository. It has the eight parts in `specs/004-baseline-parity-gate/contracts/baseline-change.md`, in order, with no attribution lines. Take the capture run's link, CPU line, and size from T018 and T019, the lines of `toolchain.txt` and the `math_path` line from the artifact, and the blob ID check from T020
+- [ ] T023 [US4] Write the pull request's description in `C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`, outside the repository. It has the nine parts in `specs/004-baseline-parity-gate/contracts/baseline-change.md`, in order, with no attribution lines. The before-and-after part takes FR-005's comparison from T011. Take the capture run's link, CPU line, and size from T018 and T019, the lines of `toolchain.txt` and the `math_path` line from the artifact, and the blob ID check from T020
 - [ ] T024 [US4] When the user can review and merge the pull request in the same sitting, ask for the go-ahead, then push `deterministic-regression`, which reaches S2. Its Parity Gate run must fail at "Run Parity Gate", as a setup error because no reference set exists. Note the run ID and the push time for section 5 of `specs/004-baseline-parity-gate/evidence.md`, which T027 fills in
 - [ ] T025 [US4] Straight away, open the pull request with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression --head baseline/1 --title "Add Baseline 1 for linux-x86_64-gcc" --body-file C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`.
   - **Files**: `gh pr view <number> --json files` must list only the 489 files under `tests/references/linux-x86_64-gcc/`.
@@ -209,6 +212,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - The pull request, its gate step's time, its job's time, its CPU line, and the check name.
   - Cross-Build Check's result and count of identical items.
   - The merge commit, the passing push run, and the deleted branch.
+  - That nothing else landed in the window: `git log --first-parent --format=%H <T022's commit>..<merge commit>` lists only the merge commit (SC-002).
 
   Commit it with this file, with the message `docs: record Baseline 1`. Don't push yet, because T029 uses this commit
 
@@ -228,7 +232,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - Read it back with `gh api repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection`. The required checks must be `parity-gate` alone, the name T025 recorded, with `strict` false, `enforce_admins` false, no required reviews, and no restrictions. This reaches S4.
 
   Record the result in `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T029 [US5] Ask for the go-ahead, then push `deterministic-regression`, which carries T027's commit. The push must land, and GitHub must report the rule it bypassed. Save that output, and its Parity Gate push run must pass. Fill in section 6 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the required check` (FR-020, SC-006)
+- [ ] T029 [US5] Ask for the go-ahead, then push `deterministic-regression`, which carries T027's commit. The push must land, and GitHub must report the rule it bypassed. Save that output. Its Parity Gate push run must pass, and its gate step's time is recorded. Fill in section 6 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the required check` (FR-020, SC-006)
 
 **Checkpoint**: The gate is required, and direct pushes still work.
 
@@ -249,7 +253,7 @@ description: "Task list for Baseline 1 and the parity gate"
 - [ ] T031 [US6] Open the drift proof's pull request:
   1. In `C:\GIT\mandelbulber2`, run `git switch -c seed/drift-proof`, and make the same one-line change in `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`.
   2. Commit it with the message `test: change one constant in bristorbrot to prove the gate`.
-  3. Ask for the go-ahead, push the branch, and open a pull request into `deterministic-regression`, titled "Do not merge: drift proof for the parity gate". Its body says it exists to fail the gate and must never merge, with no attribution lines.
+  3. Ask for the go-ahead, push the branch, and open a pull request into `deterministic-regression`, titled "Do not merge: drift proof for the parity gate". Its body says it exists to show the gate rejecting drift, which is how it confirms compliance with the constitution, and that it must never merge, with no attribution lines (FR-023).
   4. Run `git switch deterministic-regression`.
 - [ ] T032 [US6] When `parity-gate` finishes on that pull request, it must have failed with exit 1 on `formula bristorbrot` alone, and uploaded `render-regression-snapshots`. `gh pr view <number> --repo Coastrnaut/mandelbulber2 --json mergeStateStatus` must give `BLOCKED`. Other checks may fail too, and nothing waits for them. Record the run, the gate step's time, and the merge state in `specs/004-baseline-parity-gate/evidence.md` (SC-003, SC-005)
 - [ ] T033 [US6] With the go-ahead, close the pull request unmerged with `gh pr close <number> --repo Coastrnaut/mandelbulber2`, delete `seed/drift-proof` on GitHub with `git push origin --delete seed/drift-proof`, and delete it locally. Fill in section 7 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the drift proof`
@@ -262,23 +266,24 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Goal**: The constitution closes both deviations at version 1.1.1, and the playbook, `CLAUDE.md`, and `README.md` match what was built (FR-024 to FR-027).
 
-**Independent Test**: The constitution's table shows KD-4 and KD-5 closed at 1.1.1. The playbook's two workflow listings are byte-identical to the committed files.
+**Independent Test**: The constitution's table shows KD-4 and KD-5 closed at 1.1.1. The playbook's Phase 4 listings of the two workflows are byte-identical to the committed files.
 
 - [ ] T034 [US7] Ask for the go-ahead, then push `deterministic-regression` with T029's and T033's commits, so the amendment can link `specs/004-baseline-parity-gate/evidence.md` as it stands on its base
 - [ ] T035 [US7] Open the amendment:
   1. In `C:\GIT\mandelbulber2`, run `git switch -c amend/kd-4-kd-5`.
   2. In `.specify/memory/constitution.md`, add "**Closed <date>**, see `specs/004-baseline-parity-gate/evidence.md`" to the closing cells of KD-4 and KD-5, as KD-1 to KD-3 have. Set the version to 1.1.1 and the last amended date to the date.
   3. `git diff --stat` must list only the constitution. Commit it with the message `docs: close KD-4 and KD-5`.
-  4. Ask for the go-ahead, push the branch, and open a pull request into `deterministic-regression`.
-  5. Run `git switch deterministic-regression`.
+  4. Pass the harness locally, as Workflow 2 requires. Build fresh with `~/verify/kd5/build_fresh.sh ~/mandelbulber2-amend windows/amend/kd-4-kd-5` and `~/verify/kd5/build_fresh.sh ~/mandelbulber2 windows/deterministic-regression`. Then, in `~/mandelbulber2`, `python3 tests/regression_runner.py --compare ~/mandelbulber2-amend/mandelbulber2/build/appdir/usr/bin/mandelbulber2` must exit 0.
+  5. Ask for the go-ahead, push the branch, and open a pull request into `deterministic-regression`.
+  6. Run `git switch deterministic-regression`.
 
   The pull request's body states the reason, the version change from 1.1.0 to 1.1.1, and the dates. It names the affected plans, those of features 001 to 004, and the affected gates, Workflow 2 and Principles I and II. It links the evidence, confirms the constitution's gates hold, and has no attribution lines (FR-024)
-- [ ] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record the pull request and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
+- [ ] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record the pull request, its gate step's time, and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
 - [ ] T037 [P] [US7] Correct `MIGRATION_PLAYBOOK.md` as research R12 lists:
-  - Phase 4's steps 1 to 6, with both workflow listings as committed.
+  - Phase 4's steps 1 to 6, with both workflow listings as committed. Phase 3's listing of `parity-gate.yml` stays as Phase 3 built it.
   - Phase 5's steps 1, 4, and 5, which say that work lands on `deterministic-regression` by direct push.
 
-  Then extract both listings from the playbook with a short script, and diff each against `.github/workflows/parity-gate.yml` and `.github/workflows/capture-baseline.yml`. Both must be identical (FR-025, SC-007)
+  Then extract Phase 4's two listings from the playbook with a short script, and diff each against `.github/workflows/parity-gate.yml` and `.github/workflows/capture-baseline.yml`. Both must be identical (FR-025, SC-007)
 - [ ] T038 [P] [US7] Correct `CLAUDE.md` (FR-026):
   - The auto-merge rule loses "no branch is protected, so no check is required". It says instead that `parity-gate` is the required check on `deterministic-regression`, which the user's direct pushes bypass, and that auto-merge stays off.
   - The CI section adds that a push which creates a `baseline/` branch runs Capture Baseline.
@@ -328,7 +333,7 @@ description: "Task list for Baseline 1 and the parity gate"
 | FR-018 | T026 |
 | FR-019 | T028 |
 | FR-020 | T028, T029 |
-| FR-021 | T029 |
+| FR-021 | Rules for Every Task, T029 |
 | FR-022 | T002, T028, T041 |
 | FR-023 | T030, T031, T032, T033 |
 | FR-024 | T034, T035, T036 |
@@ -341,7 +346,7 @@ description: "Task list for Baseline 1 and the parity gate"
 | SC-001 | T019, T020, T026 |
 | SC-002 | T025, T026, T027 |
 | SC-003 | T018, T025, T026, T032 |
-| SC-004 | T009, T010, T011 |
+| SC-004 | T009, T010, T011, T018, T027 |
 | SC-005 | T032, T033 |
 | SC-006 | T028, T029, T041 |
 | SC-007 | T036, T037, T038, T039 |

@@ -33,7 +33,7 @@ math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
 
 ## Math Path Probe
 
-The check in [contracts/math-path.md](contracts/math-path.md), run on Linux at the start of every gate and capture run.
+The check FR-002 requires, which the plan and its contracts call the probe. [contracts/math-path.md](contracts/math-path.md) defines it, and it runs on Linux at the start of every gate and capture run.
 
 | Field | Meaning |
 |---|---|

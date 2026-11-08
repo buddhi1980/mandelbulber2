@@ -88,9 +88,9 @@ Follow the drift proof in [parity-gate.md](contracts/parity-gate.md): first the 
 
 ## 8. Close KD-4 and KD-5 (User Story 7)
 
-1. With the go-ahead, open the amendment's pull request from a branch made for it. It edits only `.specify/memory/constitution.md`: KD-4 and KD-5 closed, with the evidence linked, version 1.1.1, and the last amended date.
+1. Compare fresh WSL builds of the amendment's branch and of `deterministic-regression`. The compare must find no difference, which is Workflow 2's local pass. Then, with the go-ahead, open the amendment's pull request from that branch. It edits only `.specify/memory/constitution.md`: KD-4 and KD-5 closed, with the evidence linked, version 1.1.1, and the last amended date.
 2. `parity-gate` must pass on it. The maintainer merges it, and the branch is deleted on GitHub.
-3. Push the corrections to `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, and `README.md` that [research.md](research.md) R12 lists. Both workflow listings in the playbook must match the committed files byte for byte.
+3. Push the corrections to `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, and `README.md` that [research.md](research.md) R12 lists. Phase 4's two workflow listings in the playbook must match the committed files byte for byte.
 
 ## 9. Final checks
 

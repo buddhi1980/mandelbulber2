@@ -33,12 +33,13 @@ In this order, with no attribution lines:
 
 1. **What this is**: Baseline 1, the first reference set for the First Reference Target.
 2. **Why output is recorded**: KD-1, KD-2, and KD-3 are closed, so renders reproduce and floating-point behavior is locked. Baseline 1 records what the gated build renders now, so later changes can be compared with it.
-3. **No earlier references**: None exist, which replaces the usual before-and-after evidence.
+3. **Before and after**: No earlier references exist. The before-and-after evidence is FR-005's comparison of the natural and forced paths: which items and buffers the forcing changed, and by how much.
 4. **The capture**: A link to the capture run, which passed Self-Parity at one thread and at four, the run's CPU line, and the size of the set.
 5. **The toolchain**: The lines of `toolchain.txt`.
 6. **The math path**: The `math_path` line, and the fact that every Linux render takes glibc's plain x86-64 path, so the runner's CPU doesn't change the results.
 7. **The check**: How the files were shown to match the artifact.
-8. **Not covered**: Anything the evidence leaves out, including KD-4 and KD-5, which close in the amendment that follows.
+8. **Compliance**: The constitution's gates hold: Principle I, because no references exist yet, so nothing drifts; each Baseline Change rule in turn; and Workflow 1, because no engine change lands.
+9. **Not covered**: Anything the evidence leaves out, including KD-4 and KD-5, which close in the amendment that follows.
 
 ## Approval
 

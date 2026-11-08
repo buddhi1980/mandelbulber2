@@ -69,13 +69,14 @@ Pixels change only where the forced path gives other math results than glibc's F
 | Principle II: a render is a pure function of the binary, scene, seeds, and resolution | KD-5, closed by this feature | The harness fixes the math path for every Linux render, so the runner's CPU stops mattering. KD-5 isn't reported as passing until the amendment closes it. |
 | Principle III: does it touch build flags, compilers, math libraries, or arithmetic order? | The math library's path, yes. Flags, no | A run-time setting picks one of glibc's code paths. No build flag changes, and the build-file search and the flag check run in both workflows through `compile-engine`. |
 | Reference Targets: the First Reference Target's compiler and math library versions are recorded with Baseline 1 | Pass | `toolchain.txt` holds them (FR-009). |
-| Baseline Change rules | Pass | Baseline 1 has its own pull request, which holds only references and states why output changes. Its statement that no earlier references exist replaces the before-and-after evidence. It comes from a CI build that passes Self-Parity, and the maintainer approves it (FR-015 to FR-018). |
+| Baseline Change rules | Pass | Baseline 1 has its own pull request, which holds only references and states why output changes. No earlier references exist, so its before-and-after evidence is FR-005's comparison of the natural and forced paths. It comes from a CI build that passes Self-Parity, and the maintainer approves it (FR-015 to FR-018). |
 | Workflow 1: before Baseline 1, engine changes only to close a Known Deviation | Pass | No engine change lands. The harness change closes KD-5, and the drift proof's seed is never merged. An engine fix that capture turns out to need lands as its own reviewed direct push (FR-010, R13). |
-| Workflow 2: after Baseline 1, every pull request passes the gate before it merges | Pass | The required check blocks a merge until `parity-gate` passes (FR-019). A direct push isn't a pull request. Its push run checks it after it lands, and a failure is a defect to fix at once (FR-021). |
+| Workflow 2: after Baseline 1, every pull request passes the gate before it merges | Pass | The required check blocks a merge until `parity-gate` passes (FR-019). A direct push isn't a pull request. Its push run checks it after it lands, and a failure is a defect to fix at once (FR-021). The amendment's pull request passes the harness locally before it opens (FR-024). |
 | Workflow 3: no regenerating references to clear a failure | Pass | FR-021. |
 | Workflow 4: refactors and output changes stay apart | Pass | Nothing here is a refactor. |
 | Workflow 6: `--test` remains required | Pass | C++ CI Build (Qt6) and Cross-Build Check still run it. |
 | Governance: amendments | Planned | One PATCH amendment, version 1.1.1, closes KD-4 and KD-5 in its own pull request. It states the reason, updates the dates, and names the affected plans and gates, and the maintainer approves it (FR-024). |
+| Governance: compliance | Pass | Every pull request's description confirms that the constitution's gates hold: Baseline 1's (FR-016), the drift proof's (FR-023), and the amendment's (FR-024). |
 
 **Known Deviations**: These are not reported as passing.
 
@@ -174,7 +175,7 @@ If the pull request's gate fails, the gate steps are reverted at once, the branc
 
 ### 6. The amendment
 
-With the go-ahead, open a pull request from `amend/kd-4-kd-5` that edits only the constitution. `parity-gate` passes on it. The maintainer merges it, state S5, and the branch is deleted on GitHub.
+Compare fresh WSL builds of `amend/kd-4-kd-5` and `deterministic-regression`, which must find no difference, as Workflow 2 requires. Then, with the go-ahead, open a pull request from `amend/kd-4-kd-5` that edits only the constitution. `parity-gate` passes on it. The maintainer merges it, state S5, and the branch is deleted on GitHub.
 
 ### 7. Documents
 

@@ -108,7 +108,7 @@ gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/p
 - **Decision**:
   - **The constitution** (FR-024): KD-4 and KD-5 are marked closed, with the date and a link to `specs/004-baseline-parity-gate/evidence.md`. The version becomes 1.1.1, and the last amended date updates. The amendment names the plans of features 001 to 004, which list KD-4 or KD-5 as open, and the gates Workflow 2 and Principles I and II. Its pull request edits only this file.
   - **The playbook** (FR-025):
-    - Phase 4's step 1 gets both workflow listings as committed, and says the gate steps land after capture.
+    - Phase 4's step 1 gets both workflow listings as committed, and says the gate steps land after capture. Phase 3's listing of `parity-gate.yml` stays as Phase 3 built it.
     - Step 2 records the forced path, its probe, and its settings line.
     - Step 3 starts capture with the push of `baseline/1`, then downloads, checks, and commits the references, pushes the gate steps, and opens the pull request.
     - Step 4 says the maintainer's direct pushes bypass the required check, and that a red push run is a defect to fix at once.
