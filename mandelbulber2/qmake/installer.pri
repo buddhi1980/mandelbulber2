@@ -30,6 +30,11 @@ unix {
 	openclfiles.path = $$PREFIX/share/mandelbulber2
 	INSTALLS += openclfiles
 	
+	# compiled translations (*.qm); the program loads them from share/mandelbulber2/language
+	languagefiles.files = $$files($$ROOT/language/*.qm, false)
+	languagefiles.path = $$PREFIX/share/mandelbulber2/language
+	INSTALLS += languagefiles
+	
 	documentation.files = $$ROOT/deploy/doc/Mandelbulber_Manual.pdf
 	documentation.files += $$ROOT/deploy/doc/index.html
 	documentation.files += $$ROOT/deploy/doc/css
