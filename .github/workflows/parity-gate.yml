@@ -1,0 +1,18 @@
+name: Parity Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - ministic-regression
+
+permissions:
+  contents: read
+
+jobs:
+  parity-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/compile-engine

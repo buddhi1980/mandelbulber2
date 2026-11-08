@@ -124,10 +124,14 @@ QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
 # compiler build flags
-unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-#macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
-macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
+gcc {
+	QMAKE_CFLAGS += -ffp-contract=off
+	QMAKE_CXXFLAGS += -ffp-contract=off
+}
+unix:!macx:QMAKE_CXXFLAGS += -fopenmp
+macx:!m1:QMAKE_CXXFLAGS += -fopenmp
+#macx:m1:QMAKE_CXXFLAGS += -Xpreprocessor -fopenmp
+macx:m1:QMAKE_CXXFLAGS += -Xpreprocessor
 
 # GCC 15+ introduced -Wsfinae-incomplete; Qt 6 headers trigger hundreds of these
 # warnings inside system includes, which project code cannot influence. Silence the
