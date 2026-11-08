@@ -23,9 +23,9 @@ A cell that reads "Pending" names the task that fills it.
 | Before | `8fd49ba59` | Output and time before this change | Compiled in `~/mandelbulber2-before` with `build_fresh.sh`. `CXXFLAGS = -pipe -ffast-math -fopenmp -O3 -D_REENTRANT -fPIC -Wall -Wextra $(DEFINES)`, and `readelf -d` finds `libmvec` among the binary's needed libraries |
 | After | The final commit | Output and time after this change | Compiled in `~/mandelbulber2` with `build_fresh.sh`. `CFLAGS = -pipe -ffp-contract=off -O2 -D_REENTRANT -fPIC -Wall -Wextra $(DEFINES)`, `CXXFLAGS = -pipe -ffp-contract=off -fopenmp -O3 -D_REENTRANT -fPIC -Wall -Wextra $(DEFINES)`, and the binary no longer needs `libmvec` |
 | Before, host-tuned | `8fd49ba59`, built with `CXXFLAGS=-march=native` | What users of the setup scripts lose (FR-027) | Compiled in `~/mandelbulber2-native` with `CXXFLAGS=-march=native build_fresh.sh`, so qmake imported it: `CXXFLAGS = -pipe -march=native -ffast-math -fopenmp -O3 -D_REENTRANT -fPIC -Wall -Wextra $(DEFINES)` |
-| Diagnostic | The final commit, plus a local patch that counts guard hits | Which items reach each guard (FR-020) | Pending, T032 |
-| Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change, and where (FR-020) | Pending, T034 |
-| No contraction option | The final commit, plus a local patch that removes the `gcc` block | Whether `-ffp-contract=off` changes anything (FR-022) | Pending, T035 |
+| Diagnostic | The final commit, plus a local patch that counts guard hits | Which items reach each guard (FR-020) | Compiled in `~/mandelbulber2-diag`. The patch adds `mandelbulber2/src/guard_counts.hpp`, one call inside each guard before it changes the value, and a static object that writes the counts on exit. `--compare` against the after build exited 0 with 0 of 487 items failed, so it renders exactly as the after build does |
+| Guards off | The final commit, plus a local patch that makes `IsNotANumber()` return `false` | What the guards change, and where (FR-020) | Compiled in `~/mandelbulber2-diag`, with both `IsNotANumber()` methods in `mandelbulber2/src/algebra.hpp` returning `false`. `--compare` against the after build exited 0 with 0 of 487 items failed. `--collect` gave 487 of 487 items, and recorded the patch as an uncommitted change |
+| No contraction option | The final commit, plus a local patch that removes the `gcc` block | Whether `-ffp-contract=off` changes anything (FR-022) | Compiled in `~/mandelbulber2-diag`, with no `-ffp-contract` in `CFLAGS` or `CXXFLAGS`. `--compare` against the after build exited 0 with 0 of 487 items failed |
 | MSVC before | `8fd49ba59`, Release x64 | The comparison images, and the MSVC checks | Compiled in the new clone `C:\GIT\mb2-kd2-8fd49ba59` with toolset v145, compiler version 19.51.36260, and its `cl` line holds `/fp:precise`. `--collect tests/outputs/collection/msvc` exited 0 with 487 of 487 items collected, and recorded no uncommitted changes |
 | MSVC after | The final commit, Release x64 | The MSVC checks | Compiled in the new clone `C:\GIT\mb2-kd2-0383be876`, and its `cl` line holds `/fp:precise`. `--test` passed 9 of 9 tests in 334 seconds, `tests/test_regression_runner.py` passed 224 tests, and `--collect tests/outputs/collection/msvc` exited 0 with 487 of 487 items collected and no uncommitted changes |
 
@@ -117,30 +117,71 @@ A throwaway clone under `/tmp` started at `8fd49ba59` with the script copied in,
 
 ### Summary
 
-Pending, T037.
+From fresh WSL builds of `8fd49ba59` and `0383be876`. Each was collected from its own clone with the harness from its own commit, and both collections hold 487 of 487 items with no uncommitted changes. `~/verify/kd2/output_record.py` compared them with the harness's own functions, because `--cross-check` refuses two commits. `output-record.tsv` beside this file holds one row per item.
 
 | Measure | Value |
 |---|---|
-| Items with any difference | |
-| Items identical in every buffer and statistic | |
-| Items whose final image holds one value on one side only | |
-| Items the guards change | |
-| `-ffp-contract=off` | |
-| Exit status of `--compare` | |
+| Items with any difference | 58 of 487: 25 of the 26 scenes, and 33 of the 461 swept formulas |
+| Items identical in every buffer and statistic | 429 |
+| Items whose final image holds one value on one side only | 0 |
+| Items the guards change | 0. `--compare` against the guards-off build exited 0 with 0 of 487 items failed, so it names no item |
+| `-ffp-contract=off` | `--compare` against the build without it exited 0, with 0 of 487 items failed |
+| Exit status of `--compare` | 1, as expected: "parity failure (58 of 487 items failed)" |
+| Each buffer | Items that differ: `raw_render` 28, `post_effect` 28, `final_image` 28, `alpha` 9, `depth` 10, `normal` 23, `normal_world` 46 |
+| Each statistic | Items that differ: `total_iterations` 27, `raymarch_count` 2, `missed_de` 2, `iteration_histogram` 22, `step_histogram` 10 |
+
+The final image changed on 28 items: 24 scenes and 4 formulas. On 23 of them, no pixel changed by more than 1% of the range. Five scenes have pixels that changed by more than 10%: `difs_tree` 1,669, `riemann_sphere_msltoe_001` 481, `hybrid007` 471, `menger cross mod1 001` 142, and `chromatic_aberration` 2. One formula, `transf_spherical_coord_invs`, has one such pixel.
+
+The guards never act, and the guards-off build renders every item exactly as the after build does. Nothing but the compile options differs between the two builds. So every change below comes from strict arithmetic: arithmetic order, vector math, and signed zero together, which this feature doesn't separate (FR-020).
 
 ### Scenes
 
-Pending, T037. One row for each of the 26 scenes.
+Samples changed counts `final_image` samples, of 230,400. Average change is the average absolute difference over all of them, with samples running from 0 to 65,535. Guards gives the hits at the four sites, which are 0 for every scene, so the column reads 0. The proof for every changed scene is the guards-off comparison, which shows the guards change nothing on any item.
 
 | Scene | Samples changed | Average change | Guards | Review | Cause | Proof |
 |---|---|---|---|---|---|---|
+| `IFS_001` | 131 | 0.0006 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `Makin3D-Julia_001` | 404 | 0.0067 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `IFS_002` | 173 | 0.0010 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `amazing_surf 002` | 147 | 0.0006 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `EXR example` | 708 | 0.0057 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `benchmark-GPU` | 5 | Below 0.0001 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `menger octo 001` | 216 | 0.0010 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `clouds 005` | 99 | 0.0005 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `gradients - specular highlights` | 72 | 0.0003 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `hybrid007` | 20,251 | 94.7603 | 0 | No visible change. 471 pixels changed by more than 10%, the largest by 32,299, as single pixels along the edges of the small flower shapes. A crop enlarged 4 times shows no difference a viewer can pick out | Strict arithmetic | Guards-off comparison |
+| `hybrid008 - collatz` | 5,952 | 0.1101 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `mandelbox_menger` | 4,487 | 0.0834 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `mandelbulb_eye` | 30 | 0.0001 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `menger cross mod1 001` | 8,104 | 38.7849 | 0 | No visible change. 142 pixels changed by more than 10%, the largest by 51,547, as isolated pixels in dark detail. A 4 times crop shows no difference a viewer can pick out | Strict arithmetic | Guards-off comparison |
+| `menger prism shape2 001` | 65 | 0.0003 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `pseudo kleinian std de 001` | 493 | 0.0472 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `voxel_export_with_Bristorbrot4D` | 106 | 0.0009 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `beam_light` | 47 | 0.0002 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `hdr_blur` | 0 | 0 | 0 | No change in any buffer or statistic | None | None |
+| `jos_kleinian` | 0 | 0 | 0 | No change in the final image. Only `normal_world` differs, in 22,145 samples | Strict arithmetic | Guards-off comparison |
+| `chromatic_aberration` | 14,485 | 1.7386 | 0 | No visible change. 2 pixels changed by more than 10%, in the Monte Carlo grain of the crystal | Strict arithmetic | Guards-off comparison |
+| `difs_tree` | 42,049 | 309.6822 | 0 | No visible change. 1,669 pixels changed by more than 10%, the largest by 43,748: the Monte Carlo grain on the tree lands on different pixels, and the tree looks the same, at full size and in a 4 times crop | Strict arithmetic | Guards-off comparison |
+| `hex grid 001` | 65 | 0.0007 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `mandelnest pow 5` | 248 | 0.0011 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `monte carlo DOF 001` | 48 | 0.0002 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `riemann_sphere_msltoe_001` | 48,210 | 147.5060 | 0 | No visible change. 481 pixels changed by more than 10%, the largest by 23,539, in the grain on the floor of the bowl. A 4 times crop shows no difference a viewer can pick out | Strict arithmetic | Guards-off comparison |
 
 ### Formulas
 
-Pending, T037. The 20 swept formulas whose final image changed most.
+The rule: rank the swept formulas by the average absolute change in `final_image`, with ties by name, and take the first 20. Only 4 of the 461 changed in the final image at all, so the other 16 are the first formulas by name, and their final images are byte-identical. Samples changed is of 2,304. The review showed each formula enlarged 10 times. 33 formulas differ in some buffer or statistic, most of them in `normal_world` only.
 
 | Formula | Samples changed | Average change | Guards | Review | Cause | Proof |
 |---|---|---|---|---|---|---|
+| `transf_spherical_coord_invs` | 3 | 83.5152 | 0 | **Visible**: one pixel, at column 4, row 4, changed from near-white `[63446, 64575, 65396]` to near-black `[303, 330, 365]`, so one isolated bright pixel vanished. `missed_de` rose from 58 to 59 | Strict arithmetic | The guards-off build gives the near-black value too. Both MSVC builds give the near-white value, which is the before value, so here GCC now differs from MSVC |
+| `scator_power2` | 555 | 6.9839 | 0 | No visible change. The changes are in near-black pixels, the largest by 269 | Strict arithmetic | Guards-off comparison |
+| `riemann_sphere_msltoe` | 6 | 0.0161 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `transf_inv_cylindrical` | 3 | 0.0078 | 0 | No visible change | Strict arithmetic | Guards-off comparison |
+| `abox4d`, `abox_donut4d`, `abox_donut4d_v2`, `abox_klein`, `abox_mb3d1`, `abox_mod1`, `abox_mod11`, `abox_mod12`, `abox_mod13`, `abox_mod14`, `abox_mod15`, `abox_mod2`, `abox_mod_kali`, `abox_mod_kali_eiffie`, `abox_mod_kali_v2`, and `abox_mod_kali_v3` | 0 | 0 | 0 | No change: the final images are byte-identical | None | None |
+
+The one visible change has a named cause, so FR-023 accepts it once it is recorded here.
+
+**Review**: Claude looked at every image of the 26 scenes and 20 formulas at full size, then at 4 times crops of the 80 by 60 region with the most large changes in each of the five scenes with pixels changed by more than 10%. The user reviewed the same images and crops on 2026-11-07, and agreed that the only visible change is the one pixel in `transf_spherical_coord_invs`. The images are in `~/verify/kd2/review/` in WSL, and they were never committed.
 
 ### Guards
 
@@ -157,7 +198,7 @@ No item reaches any guard with a non-finite value, so no point counts as inside 
 
 ### Failures found
 
-Pending, T037.
+None. Every item rendered and collected on both builds, Self-Parity passed three times on the after build, and no final image became a single value (FR-018).
 
 ## Measurements
 
@@ -194,8 +235,8 @@ One row per build in [research.md](research.md) R14.
 | qmake with OpenCL, `mandelbulber-opencl.pro`, the gated build | Compiled on `8fd49ba59` | Compiled on `0383be876` | `build_fresh.sh` in WSL | Before: `-ffast-math -fopenmp` in `CXXFLAGS`. After: `-ffp-contract=off -fopenmp` in `CXXFLAGS`, and `-ffp-contract=off` in `CFLAGS` |
 | MSVC Release x64 | Compiled on `8fd49ba59` | Compiled on `0383be876` | `nuget restore`, then MSBuild with `/p:Configuration=Release /p:Platform=x64` | `/fp:precise` both times |
 | MSVC Debug x64 | Compiled on `8fd49ba59`, in the new clone `C:\GIT\mb2-kd2-debug-8fd49ba59`, so FR-033 binds it | Compiled on `0383be876`, in the new clone `C:\GIT\mb2-kd2-debug-0383be876` | `nuget restore`, then MSBuild with `/p:Configuration=Debug /p:Platform=x64`, with no errors either time | Before: `/fp:fast` and `/arch:AVX2`. After: `/fp:precise` and `/arch:AVX2`, and no `/fp:fast` |
-| qmake without OpenCL, `mandelbulber.pro` | Pending, T046 | Pending, T046 | | |
-| CMake | Pending, T046 | Pending, T046 | | |
+| qmake without OpenCL, `mandelbulber.pro` | Compiled on `8fd49ba59` | Compiled on `0383be876` | `~/verify/kd2/run_t077.sh` in `~/mandelbulber2-diag`, from a clean tree each time | No compile line holds `USE_OPENCL` |
+| CMake | Compiled on `8fd49ba59` | Compiled on `0383be876` | `~/verify/kd2/run_t077.sh`, from a clean build folder each time | After: `CXX_FLAGS` holds `-fopenmp -ffp-contract=off`, and `link.txt` holds neither `-ffast-math` nor `-Ofast` |
 | macOS, CircleCI | Pending, T054 | Pending, T054 | | |
 | Apple Silicon, `mandelbulber-opencl-m1.pro` | Not known | Pending, T054 | | |
 
@@ -206,7 +247,7 @@ One row per build in [research.md](research.md) R14.
 | Check | Result |
 |---|---|
 | MSVC before against MSVC after | 487 of 487 items identical in every buffer and statistic, from `output_record.py` on the `8fd49ba59` and `0383be876` collections, because `--cross-check` refuses two commits. Neither the Release flags nor the sources changed, as FR-022 says |
-| qmake after against MSVC after | Pending, T045 |
+| qmake after against MSVC after | `--cross-check` on the qmake and MSVC collections of `0383be876` exited 0: "identical: 448 of 487 items matched exactly in every buffer and statistic", with functional agreement and 0 of 487 items failed. The other 39 items differ, which is not drift, because the two builds are different targets. The same check on the two collections of `8fd49ba59` found 429 of 487, so 19 more items now match MSVC exactly |
 
 ## CPU math path
 
@@ -234,10 +275,10 @@ Pending, T056. The record behind KD-5. [research.md](research.md) R18 describes 
 | SC-003 | Pending, T052 | | |
 | SC-004 | Partly done, and T060 runs the repository search. `search` passes on 73 tracked files. The generated qmake flags hold `-ffp-contract=off` in `CFLAGS` and `CXXFLAGS`, as the contract expects, with no prohibited option on the `CFLAGS`, `CXXFLAGS`, `LFLAGS`, or `LIBS` lines, and the binary no longer needs `libmvec`. The CMake build holds `-fopenmp -ffp-contract=off` in `CXX_FLAGS`, sets it in `CMAKE_C_FLAGS`, and has nothing prohibited in `link.txt`. The pragma search finds only the six `diagnostic` lines in `mandelbulber2/src/radiance_hdr.cpp`. The setup scripts hold no `march=`, `mtune=`, or `mcpu=`, pass `sh -n` and `bash -n`, and `qmake6` with `CXXFLAGS=-msse2` or `CXXFLAGS=-DKD2_OWN_FLAG` passes that value to `CXXFLAGS` | `0383be876` for the flags, `49f25a38f` for the search and the scripts, which hold `9ded2b0ae`'s scripts unchanged | The macOS and Apple Silicon qmake flags are not read here: CircleCI is the only macOS proof (T054), and nothing builds `mandelbulber-opencl-m1.pro`. The compile path of `install` needs a packaged layout and `sudo`, so its one-line diff is the proof |
 | SC-005 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 487 exact matches and 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 721, 566, and 528 seconds, while other work from this feature shared the computer, and none mentioned thread coverage | `0383be876` | None |
-| SC-006 | Pending, T037 | | |
+| SC-006 | `output-record.tsv` covers all 487 items. No item reaches a NaN guard, from the guard-count build, and the guards change no item, from the guards-off comparison. Claude and the user reviewed all 26 scenes and the 20 most-changed formulas. The one visible change, one pixel in `transf_spherical_coord_invs`, has a named cause, strict arithmetic, and no visible change is left unexplained | `0383be876` | None |
 | SC-007 | Pending, T041 | | |
 | SC-008 | Pending, T053 | | |
-| SC-009 | Pending, T042 to T045 and T054 | | |
-| SC-010 | Pending, T046, T047, and T054 | | |
+| SC-009 | Locally: `--test` passed 9 of 9 tests on the fresh qmake build in 151 seconds, and 9 of 9 on the fresh MSVC build in 334 seconds. `tests/test_regression_runner.py` passed 224 tests on both. `--cross-check` of the two collections of the final commit exited 0 with functional agreement and 448 of 487 items identical. Cross-Build Check on the pull request is pending, T054 | `0383be876` | Pending, T054 |
+| SC-010 | Locally, each compiled from a fresh tree on `8fd49ba59` and on `0383be876`: the gated qmake build, qmake without OpenCL, CMake, MSVC Release, and MSVC Debug. The macOS build is pending, T054 | `0383be876` | Pending, T054 |
 | SC-011 | Pending, T060 | | |
 | SC-012 | Pending, T057 and T058 | | |
