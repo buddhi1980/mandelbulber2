@@ -109,9 +109,11 @@ A throwaway clone under `/tmp` started at `8fd49ba59` with the script copied in,
 
 | Run | Commit | Seed | Result |
 |---|---|---|---|
-| Pending, T051 | | None | |
-| Pending, T052 | | `-ffast-math` on the CMake line | |
-| Pending, T052 | | A job-level `CXXFLAGS` that resolves to `-march=native` | |
+| [42462487815](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42462487815), on [pull request 7](https://github.com/Coastrnaut/mandelbulber2/pull/7) | `f1b5e0e5b`, which compiles as `0383be876` does | None | Passed in 5 minutes 23 seconds, on a fresh gated build. `Search the Build Files` printed "searched 73 build files" and "passed" before the build started, and `Reject Prohibited Compile Flags` printed "passed" after it. The token held `Contents: read` and `Metadata: read`. All 812 compile lines held `-ffp-contract=off`, and none held `-ffast-math` |
+| [42490224807](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42490224807), on the throwaway [pull request 8](https://github.com/Coastrnaut/mandelbulber2/pull/8) into `upgrade/strict-floating-point` | `02ba3574a`, on the branch `seed/flag-check` | `-ffast-math` on the CMake line | Failed in 12 seconds. `Search the Build Files` printed "FAILED: -ffast-math in mandelbulber2/cmake/CMakeLists.txt:63" and "1 check(s) failed", and the build never started |
+| [42490318167](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42490318167), on the same throwaway pull request | `a809b805a`, which reverts the first seed and adds `CXXFLAGS: "-march=${{ 'native' }}"` to the job | A job-level `CXXFLAGS` that resolves to `-march=native` | Failed after the build, in 8 minutes 13 seconds. The job's environment showed `CXXFLAGS: -march=native`. `Search the Build Files` printed "searched 73 build files" and "passed", because the file never holds the option as text. The build ran, and all 812 compile lines held `-march=native`. Then `Reject Prohibited Compile Flags` printed "FAILED: -march=native in CXXFLAGS" and "1 check(s) failed" |
+
+Each push to the throwaway branch also started `C++ CI Build (Qt6)` and Cross-Build Check, and all six of those runs were cancelled at once, before any reached its release step. Pull request 8 was closed unmerged, `seed/flag-check` was deleted on GitHub and locally, and its worktree was removed. No commit on `upgrade/strict-floating-point` is a seed.
 
 ## Output
 
@@ -228,7 +230,7 @@ All times are seconds on the monotonic clock, from `~/verify/kd2/timed_collect.p
 
 | Stand-in for the gate | Minutes |
 |---|---|
-| Collect step on the pull request, on the 4-vCPU runner | Pending, T053 |
+| Collect step on the pull request, on the 4-vCPU runner | 10.5: 10 minutes 28 seconds in the `linux-qmake` job of Cross-Build Check run [42462487710](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42462487710), on `f1b5e0e5b`. The push run of the same commit, at the same time, took 5 minutes 34 seconds, and its `--test` step took half as long, so the runners differ by about twice. Both stay under 30 minutes. The last KD-1 pull request's Collect step took 4.4 |
 
 ### Other builds
 
@@ -241,8 +243,8 @@ One row per build in [research.md](research.md) R14. Every build that can be bui
 | MSVC Debug x64 | Compiled on `8fd49ba59`, in the new clone `C:\GIT\mb2-kd2-debug-8fd49ba59`, so FR-033 binds it | Compiled on `0383be876`, in the new clone `C:\GIT\mb2-kd2-debug-0383be876` | `nuget restore`, then MSBuild with `/p:Configuration=Debug /p:Platform=x64`, with no errors either time | Before: `/fp:fast` and `/arch:AVX2`. After: `/fp:precise` and `/arch:AVX2`, and no `/fp:fast` |
 | qmake without OpenCL, `mandelbulber.pro` | Compiled on `8fd49ba59` | Compiled on `0383be876` | `~/verify/kd2/run_t077.sh` in `~/mandelbulber2-diag`, from a clean tree each time | No compile line holds `USE_OPENCL` |
 | CMake | Compiled on `8fd49ba59` | Compiled on `0383be876` | `~/verify/kd2/run_t077.sh`, from a clean build folder each time | After: `CXX_FLAGS` holds `-fopenmp -ffp-contract=off`, and `link.txt` holds neither `-ffast-math` nor `-Ofast` |
-| macOS, CircleCI | Pending, T054 | Pending, T054 | | |
-| Apple Silicon, `mandelbulber-opencl-m1.pro` | Not known | Pending, T054 | | |
+| macOS, CircleCI, `mandelbulber-opencl-mac.pro` | Compiled in CircleCI's `build-and-pack` on KD-1's pull request, whose head `bb7d00936` merged as `8fd49ba59` | Compiled in `build-and-pack` on pull request 7, commit `f1b5e0e5b`, in 4.5 minutes | CircleCI job 70, read through CircleCI's public API, which cuts the step's output at 400,000 characters | All 122 compile lines in the readable part use LLVM `clang++` for `-arch arm64`, with `-ffp-contract=off -fopenmp`, and none holds `-ffast-math`. So the `gcc` scope reaches Clang |
+| Apple Silicon, `mandelbulber-opencl-m1.pro` | Not known | Not built, because nothing builds it | Read alone: the `gcc` block sits above the `macx:m1` line, so `-Xpreprocessor` keeps taking `-I/opt/homebrew/include` and never takes `-ffp-contract=off` | Not covered |
 
 **OpenCL**: On the MSVC Release build of `0383be876`, `--help-opencl` lists one device, an NVIDIA RTX A6000. `IFS_002.fract` rendered with `--gpu --res 320x240 --override opencl_mode=3` finished with exit 0, and the log reads "Use NVIDIA RTX A6000 for OpenCL rendering". The same render with `--override opencl_mode=3#DOF_enabled=0` also finished, and its image differs, with the foreground sharp where depth of field had blurred it. WSL has no OpenCL device, so the Linux OpenCL host code is not covered. OpenCL's build options in `mandelbulber2/src/opencl_engine.cpp` did not change (FR-032).
 
@@ -252,37 +254,40 @@ One row per build in [research.md](research.md) R14. Every build that can be bui
 |---|---|
 | MSVC before against MSVC after | 487 of 487 items identical in every buffer and statistic, from `output_record.py` on the `8fd49ba59` and `0383be876` collections, because `--cross-check` refuses two commits. Neither the Release flags nor the sources changed, as FR-022 says |
 | qmake after against MSVC after | `--cross-check` on the qmake and MSVC collections of `0383be876` exited 0: "identical: 448 of 487 items matched exactly in every buffer and statistic", with functional agreement and 0 of 487 items failed. The other 39 items differ, which is not drift, because the two builds are different targets. The same check on the two collections of `8fd49ba59` found 429 of 487, so 19 more items now match MSVC exactly |
+| Cross-Build Check on pull request 7 | Both runs on `f1b5e0e5b`, for the push and for the pull request, passed `linux-qmake`, `windows-msvc`, and `cross-check`, and the cross-check reported "identical: 448 of 487 items matched exactly in every buffer and statistic" with functional agreement, the same as the local check |
 
 ## CPU math path
 
-Pending, T056. The record behind KD-5. [research.md](research.md) R18 describes the test program and how it runs.
+The record behind KD-5. [research.md](research.md) R18 describes the test program and how it runs. `~/verify/kd2/cpu_math_path.cpp`, built with `g++ -O2 -ffp-contract=off`, computed each function over the same 4 million values twice: once as it is, and once with `GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4,-AVX2_Usable,-FMA_Usable`, which turns off glibc's FMA and AVX2 paths. It compared the hash of each function's result bits, and counted the values whose bits differ.
 
 | Function | Same or different with glibc's FMA and AVX2 paths turned off |
 |---|---|
-| `sin` | |
-| `cos` | |
-| `tan` | |
-| `atan` | |
-| `atan2` | |
-| `asin` | |
-| `exp` | |
-| `log` | |
-| `pow` | |
-| `sqrt`, the control | |
+| `sin` | Different: 2,816 of 4,000,000 values |
+| `cos` | Different: 2,661 |
+| `tan` | Different: 35 |
+| `atan` | Different: 211 |
+| `atan2` | Different: 251 |
+| `asin` | Different: 2,548 |
+| `exp` | Different: 2,766 |
+| `log` | Different: 35 |
+| `pow` | Different: 2,775 |
+| `sqrt`, the control | The same, in all 4,000,000 values |
+
+Run on 2026-11-08 in WSL on the Intel Core i9-14900K, whose `/proc/cpuinfo` lists `fma` and `avx2`, with GCC 13.3.0 and glibc 2.39. It repeats the planning run of 2026-11-07, which the KD-5 row cites, and which found the same nine functions different and `sqrt` the same. One binary gives different results for nine math functions depending on which path glibc picks from the CPU, so no compile flag can make two computers agree if their CPUs take different paths.
 
 ## Success criteria
 
 | Criterion | Result | Commit | Not covered |
 |---|---|---|---|
-| SC-001 | Pending, T051 | | |
+| SC-001 | `parity-gate` passed on pull request 7, run 42462487815, on a fresh gated build. The search passed before the build, the flag check printed "passed" after it, and all 812 compile lines held `-ffp-contract=off` with no prohibited option | `f1b5e0e5b` | The push to `ministic-regression` after a merge, which the user is told about (FR-010) |
 | SC-002 | Every seed failed as expected, in one trial each: 33 of 33 `flags` cases and 23 of 23 `search` checks gave the expected exit code and named the option, or its file and line. The unseeded Makefile and the unseeded tree both pass | `49f25a38f` | None |
-| SC-003 | Pending, T052 | | |
+| SC-003 | Both seeded runs failed `parity-gate` in GitHub Actions: `-ffast-math` on the CMake line stopped the search before the build, and a job-level `CXXFLAGS` that resolved to `-march=native` made the flag check fail after a real gated build | `02ba3574a` and `a809b805a`, on the throwaway branch | None |
 | SC-004 | Partly done, and T060 runs the repository search. `search` passes on 73 tracked files. The generated qmake flags hold `-ffp-contract=off` in `CFLAGS` and `CXXFLAGS`, as the contract expects, with no prohibited option on the `CFLAGS`, `CXXFLAGS`, `LFLAGS`, or `LIBS` lines, and the binary no longer needs `libmvec`. The CMake build holds `-fopenmp -ffp-contract=off` in `CXX_FLAGS`, sets it in `CMAKE_C_FLAGS`, and has nothing prohibited in `link.txt`. The pragma search finds only the six `diagnostic` lines in `mandelbulber2/src/radiance_hdr.cpp`. The setup scripts hold no `march=`, `mtune=`, or `mcpu=`, pass `sh -n` and `bash -n`, and `qmake6` with `CXXFLAGS=-msse2` or `CXXFLAGS=-DKD2_OWN_FLAG` passes that value to `CXXFLAGS` | `0383be876` for the flags, `49f25a38f` for the search and the scripts, which hold `9ded2b0ae`'s scripts unchanged | The macOS and Apple Silicon qmake flags are not read here: CircleCI is the only macOS proof (T054), and nothing builds `mandelbulber-opencl-m1.pro`. The compile path of `install` needs a packaged layout and `sudo`, so its one-line diff is the proof |
 | SC-005 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 487 exact matches and 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 721, 566, and 528 seconds, while other work from this feature shared the computer, and none mentioned thread coverage | `0383be876` | None |
 | SC-006 | `output-record.tsv` covers all 487 items. No item reaches a NaN guard, from the guard-count build, and the guards change no item, from the guards-off comparison. The user reviewed all 26 scenes and the 20 most-changed formulas. The one visible change, one pixel in `transf_spherical_coord_invs`, has a named cause, strict arithmetic, and no visible change is left unexplained | `0383be876` | None |
 | SC-007 | Render times for all 487 items are recorded at all 32 threads in both build orders, on one CPU, and for the `-march=native` build. The after build took 1.8% longer and 1.2% less in the two orders, and 0.7% longer on one CPU. The watcher saw 0 FractalEvaluator samples during every recorded run | `8fd49ba59` and `0383be876` | The two orders ran a day apart, in two WSL sessions. Each pair ran back to back |
-| SC-008 | Pending, T053 | | |
-| SC-009 | Locally: `--test` passed 9 of 9 tests on the fresh qmake build in 151 seconds, and 9 of 9 on the fresh MSVC build in 334 seconds. `tests/test_regression_runner.py` passed 224 tests on both. `--cross-check` of the two collections of the final commit exited 0 with functional agreement and 448 of 487 items identical. Cross-Build Check on the pull request is pending, T054 | `0383be876` | Pending, T054 |
-| SC-010 | Locally, each compiled from a fresh tree on `8fd49ba59` and on `0383be876`: the gated qmake build, qmake without OpenCL, CMake, MSVC Release, and MSVC Debug. The macOS build is pending, T054 | `0383be876` | Pending, T054 |
+| SC-008 | The Collect step of `linux-qmake` on pull request 7 took 10 minutes 28 seconds, and 5 minutes 34 seconds on the push run of the same commit, both under 30 minutes. No references exist yet, so this stands in for a gate run | `f1b5e0e5b` | A real gate run, which needs Baseline 1 |
+| SC-009 | Locally: `--test` passed 9 of 9 tests on the fresh qmake build in 151 seconds, and 9 of 9 on the fresh MSVC build in 334 seconds. `tests/test_regression_runner.py` passed 224 tests on both. `--cross-check` of the two collections of the final commit exited 0 with functional agreement and 448 of 487 items identical. On pull request 7, Cross-Build Check passed both runs, with `--test` in both build jobs and "identical: 448 of 487" in `cross-check`, and `C++ CI Build (Qt6)` passed, with its own `--test` | `0383be876`, and `f1b5e0e5b` in CI | None |
+| SC-010 | Locally, each compiled from a fresh tree on `8fd49ba59` and on `0383be876`: the gated qmake build, qmake without OpenCL, CMake, MSVC Release, and MSVC Debug. On pull request 7, CircleCI's macOS build and Azure Pipelines passed | `0383be876`, and `f1b5e0e5b` in CI | `mandelbulber-opencl-m1.pro`, which nothing builds |
 | SC-011 | Pending, T060 | | |
 | SC-012 | Pending, T057 and T058 | | |
