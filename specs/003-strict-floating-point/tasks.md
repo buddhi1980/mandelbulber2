@@ -238,9 +238,9 @@ description: "Task list for strict floating-point builds"
 
 **Independent Test**: Read the constitution's table and the evidence it cites.
 
-- [ ] T056 [US8] Finish `specs/003-strict-floating-point/evidence.md`: complete the Success criteria table with one row per criterion, with anything not covered named plainly. Add its CPU math path section: build and run the test program research R18 describes, on this computer, and record each function's result, because KD-5 cites it (FR-028). Read the record alone, and confirm every visible change has a cause (SC-006), and that no recorded time overlaps another render (SC-007)
-- [ ] T057 [US8] In `.specify/memory/constitution.md`, end the "Closed when" cell of the KD-2 and KD-3 rows the way the KD-1 row ends: the bold words "Closed" and the closing date, then ", see", then `specs/003-strict-floating-point/evidence.md` in code format. Add the KD-5 row from research R18 to the same table. Set Version to 1.1.0 and Last Amended to the closing date, and leave Ratified alone. KD-4 and KD-5 stay open. This needs T051 and T052 first (FR-028, SC-012)
-- [ ] T058 [US8] In `MIGRATION_PLAYBOOK.md`, make the corrections in research R16 (FR-029, SC-012):
+- [X] T056 [US8] Finish `specs/003-strict-floating-point/evidence.md`: complete the Success criteria table with one row per criterion, with anything not covered named plainly. Add its CPU math path section: build and run the test program research R18 describes, on this computer, and record each function's result, because KD-5 cites it (FR-028). Read the record alone, and confirm every visible change has a cause (SC-006), and that no recorded time overlaps another render (SC-007)
+- [X] T057 [US8] In `.specify/memory/constitution.md`, end the "Closed when" cell of the KD-2 and KD-3 rows the way the KD-1 row ends: the bold words "Closed" and the closing date, then ", see", then `specs/003-strict-floating-point/evidence.md` in code format. Add the KD-5 row from research R18 to the same table. Set Version to 1.1.0 and Last Amended to the closing date, and leave Ratified alone. KD-4 and KD-5 stay open. This needs T051 and T052 first (FR-028, SC-012)
+- [X] T058 [US8] In `MIGRATION_PLAYBOOK.md`, make the corrections in research R16 (FR-029, SC-012):
   - Line 87: change "Use Release, because Debug uses `/fp:fast` (KD-2)." to "Use Release, because that is the binary the harness finds."
   - Line 207: change "It is not the parity gate, which arrives in Phase 4 as its own workflow." to "It is not the parity gate, whose workflow arrives in Phase 3 and whose gate steps arrive in Phase 4."
   - Line 233: name the `IsNotANumber()` guards in `compute_fractal.cpp`, `render_worker.cpp`, and `shader_calculate_normals.cpp`, drop `math_utilities.h`, because `CheckNAN` has no callers, and say the guards catch infinity too, so an orbit that overflows keeps its last finite value, as it already does on MSVC Release.
@@ -251,7 +251,7 @@ description: "Task list for strict floating-point builds"
   - Line 370: close KD-4 and KD-5, and say KD-1 closed in version 1.0.1, and KD-2 and KD-3 closed in version 1.1.0.
 
   Then search the file for `/fp:fast`, `math_utilities`, `KD-2`, and `KD-3`, and correct anything else that is now wrong. The `/speckit-specify` prompt on line 230 stays, as a record of the request
-- [ ] T059 [US8] Commit with the message `docs: close KD-2 and KD-3`, staging `specs/003-strict-floating-point/evidence.md`, `.specify/memory/constitution.md`, `MIGRATION_PLAYBOOK.md`, and this file
+- [X] T059 [US8] Commit with the message `docs: close KD-2 and KD-3`, staging `specs/003-strict-floating-point/evidence.md`, `.specify/memory/constitution.md`, `MIGRATION_PLAYBOOK.md`, and this file
 
 **Checkpoint**: KD-2 and KD-3 are closed on the branch, and KD-5 is on record. KD-4 and KD-5 stay open for Phase 4.
 

@@ -11,7 +11,7 @@ The [project constitution](.specify/memory/constitution.md) governs this process
 | 1. Setup | Spec Kit and the constitution are in place | None | Done |
 | 2. Harness | The regression runner, verification export, and Cross-Build Check pipeline exist, with no references yet | Part of KD-4 | The runner's failure checks pass, and Cross-Build Check passes in GitHub Actions |
 | 3. Determinism Foundation | Renders reproduce and floating-point flags are locked | KD-1, KD-2, KD-3 | `--self-parity` passes at two thread counts and the CI flag check passes |
-| 4. Baseline 1 and Gate | References and the CI parity gate are live | KD-4 | Baseline 1 is merged and the gate is required |
+| 4. Baseline 1 and Gate | References and the CI parity gate are live | KD-4, KD-5 | Baseline 1 is merged and the gate is required |
 | 5. Upgrades | Refactoring can begin | None | Repeats for each upgrade |
 
 The order matters. Renders do not reproduce today, and the Phase 3 changes alter pixels, so references captured before Phase 3 would be useless. KD numbers refer to the Known Deviations in the constitution.
@@ -84,7 +84,7 @@ nuget restore mandelbulber2/msvc/mandelbulber2.sln
 & "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" mandelbulber2/msvc/mandelbulber2.sln /m /p:Configuration=Release /p:Platform=x64
 ```
 
-Delete `build-win` before the first build, because the project compiles every `.cpp` file in that folder, including generated files from older source. Use Release, because Debug uses `/fp:fast` (KD-2). Each build deletes `build-win/Release/x64` first, so don't keep anything there. If the binary won't start because `OpenCL.dll` is missing, copy it there from `mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/`. A clean build doesn't put it beside the binary, and this computer has a copy in `System32`.
+Delete `build-win` before the first build, because the project compiles every `.cpp` file in that folder, including generated files from older source. Use Release, because that is the binary the harness finds. Each build deletes `build-win/Release/x64` first, so don't keep anything there. If the binary won't start because `OpenCL.dll` is missing, copy it there from `mandelbulber2/msvc/packages/opencl-nuget-msvc-x64.*/build/native/bin/`. A clean build doesn't put it beside the binary, and this computer has a copy in `System32`.
 
 ### 3. Run the Application Tests on Both
 The existing suite is still required, and it does not replace the parity gate. In WSL, from the clone's root:
@@ -204,7 +204,7 @@ This is User Story 8 in the task list, and it comes after the cross-check works 
 | `windows-msvc` | `windows-2025-vs2026` | Build, stand-in tests, `--test`, collect, upload the collection |
 | `cross-check` | `ubuntu-24.04` | Download both collections, run `--cross-check`, publish the report to the run summary |
 
-The build steps come from what already works in CI: `.appveyor.yml` for MSVC, and `github-actions-ci.yml` for qmake. The pipeline has read-only access, uses no secrets, and never publishes a release. It is not the parity gate, which arrives in Phase 4 as its own workflow. This is also the first CI run of the Windows binary, because AppVeyor and Azure Pipelines only build it, so treat the first run as a test of the design. Expect the Windows job to take up to about 75 minutes, because AppVeyor's Release build alone takes about 52.
+The build steps come from what already works in CI: `.appveyor.yml` for MSVC, and `github-actions-ci.yml` for qmake. The pipeline has read-only access, uses no secrets, and never publishes a release. It is not the parity gate, whose workflow arrives in Phase 3 and whose gate steps arrive in Phase 4. This is also the first CI run of the Windows binary, because AppVeyor and Azure Pipelines only build it, so treat the first run as a test of the design. Expect the Windows job to take up to about 75 minutes, because AppVeyor's Release build alone takes about 52.
 
 ---
 
@@ -230,33 +230,29 @@ git checkout -b upgrade/strict-floating-point
 claude -c "/speckit-specify Close KD-2 and KD-3 from the constitution. Remove -ffast-math from mandelbulber2/qmake/common.pri and mandelbulber2/cmake/CMakeLists.txt, replace /fp:fast in the Debug x64 configuration of mandelbulber2/msvc/mandelbulber2.vcxproj, add -ffp-contract=off to GCC and Clang builds, remove -march=native from mandelbulber2/tools/prepare_for_dev_*.sh and mandelbulber2/deploy/linux/install, and add the GitHub Actions flag check from this playbook. Measure CPU render time on the Standard Scene Suite before and after, and record the cost."
 ```
 
-Expect output to change. `-ffast-math` lets the compiler treat values as always finite, so the `std::isfinite` guards in `algebra.hpp` and `math_utilities.h` may start taking effect once it is removed.
+Expect output to change. `-ffast-math` lets the compiler treat values as always finite, so it compiles away the `IsNotANumber()` guards in `compute_fractal.cpp`, `render_worker.cpp`, and `shader_calculate_normals.cpp`, and they take effect once it is removed. They catch infinity as well as NaN, so an orbit that overflows keeps its last finite value, as it already does on MSVC Release. None of them fires on the Standard Scene Suite, and `specs/003-strict-floating-point/evidence.md` records what changed.
 
-Add the flag check as a reusable action and a new workflow. It reads the link flags as well as the compile flags, because GCC's `-ffast-math` also changes floating-point behavior when it is used at link time. The existing `.circleci/config.yml` only packages macOS builds and is not part of this process, so leave it as it is.
+Add the flag check as a reusable action and a new workflow. A script beside the action, `check-flags.sh`, holds the only list of prohibited options. It searches the tracked build files, scripts, and CI files before the build, then reads the gated build's compile and link flags, because GCC's `-ffast-math` also changes floating-point behavior when it is used at link time. The existing `.circleci/config.yml` only packages macOS builds and is not part of this process, so leave it as it is.
 
 Create `.github/actions/compile-engine/action.yml`. It reuses the `build-linux` action from Phase 2, so the build commands live in one place:
 
 ```yaml
 name: Compile Engine
-description: Build and install the release binary, then reject prohibited compile flags.
+description: Search the build files, build and install the release binary, then reject prohibited compile flags.
 runs:
   using: composite
   steps:
+    - name: Search the Build Files
+      shell: bash
+      run: bash "$GITHUB_ACTION_PATH/check-flags.sh" search
     - name: Build and Install to a Local Tree
       uses: ./.github/actions/build-linux
     - name: Reject Prohibited Compile Flags
       shell: bash
-      run: |
-        MAKEFILE=mandelbulber2/build/Makefile
-        FLAGS=$(grep -E '^(CFLAGS|CXXFLAGS|LFLAGS)[[:space:]]*=' "$MAKEFILE")
-        if echo "$FLAGS" | grep -E -- '-ffast-math|-Ofast|-funsafe-math-optimizations|-ffinite-math-only|-fassociative-math|-freciprocal-math|-march=native|-mtune=native'; then
-          echo "Prohibited compile flag found"
-          exit 1
-        fi
-        for VARIABLE in CFLAGS CXXFLAGS; do
-          grep -E "^$VARIABLE[[:space:]]*=" "$MAKEFILE" | grep -q -- '-ffp-contract=off'
-        done
+      run: bash "$GITHUB_ACTION_PATH/check-flags.sh" flags mandelbulber2/build/Makefile
 ```
+
+`.github/actions/compile-engine/check-flags.sh` holds the list and both commands, and `specs/003-strict-floating-point/contracts/flag-check.md` gives its rules, messages, and exit codes.
 
 Create `.github/workflows/parity-gate.yml`:
 
@@ -268,6 +264,9 @@ on:
   push:
     branches:
       - ministic-regression
+
+permissions:
+  contents: read
 
 jobs:
   parity-gate:
@@ -301,6 +300,9 @@ on:
   push:
     branches:
       - ministic-regression
+
+permissions:
+  contents: read
 
 jobs:
   parity-gate:
@@ -349,7 +351,12 @@ jobs:
 
 Capture renders every scene and formula 7 times and is expected to take about 2 hours, within GitHub's 6-hour job limit.
 
-### 2. Capture Baseline 1
+### 2. Settle the CPU Math Path
+glibc picks its math code path from the CPU at run time, so one binary can give different results on two computers whose CPUs have different features. On 2026-11-07, one binary gave different `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, and `pow` results, over 4 million values each, when the library's FMA and AVX2 paths were turned off, and the same `sqrt` results. `specs/003-strict-floating-point/evidence.md` records the test. No compile flag changes this, so hosted runners with different CPUs could disagree with the references.
+
+Before capture, decide how the gate handles this, and record the decision with the references. Finishing this step closes KD-5. A Reference Target that names CPU features is a constitution amendment.
+
+### 3. Capture Baseline 1
 Baseline 1 is a Baseline Change, so its pull request contains only reference files. References must come from CI rather than a development machine. Create the branch:
 ```bash
 git checkout -b baseline/1
@@ -358,16 +365,16 @@ git push origin baseline/1
 
 In the repository's **Actions** tab, open **Capture Baseline**, choose **Run workflow**, and select `baseline/1`. When it finishes, download the `baseline-references` artifact from the run page, unpack it into `tests/references/`, and push the files to the same branch. Then open the pull request. `parity-gate` passes once the references are present. The pull request description must state that no earlier references exist, which replaces the usual before-and-after evidence, and link the passing Self-Parity run.
 
-### 3. Require the Gate
+### 4. Require the Gate
 In the GitHub branch protection rules for `ministic-regression`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
 
-### 4. Prove the Gate Catches Drift
+### 5. Prove the Gate Catches Drift
 ```bash
 claude -c "On a throwaway branch, change one constant in a formula that no scene in tests/scenes.txt uses, confirm that the parity-gate job fails on that formula in the sweep, then delete the branch without merging it."
 ```
 
-### 5. Close the Known Deviations
-Amend the constitution to close whichever of KD-2, KD-3, and KD-4 are still open, which is a PATCH version bump. KD-1 closed in version 1.0.1. Engine refactors can now begin.
+### 6. Close the Known Deviations
+Amend the constitution to close KD-4 and KD-5, which is a PATCH version bump. KD-1 closed in version 1.0.1, and KD-2 and KD-3 closed in version 1.1.0. Engine refactors can now begin.
 
 ---
 
