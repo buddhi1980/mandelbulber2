@@ -181,7 +181,7 @@ The rule: rank the swept formulas by the average absolute change in `final_image
 
 The one visible change has a named cause, so FR-023 accepts it once it is recorded here.
 
-**Review**: Claude looked at every image of the 26 scenes and 20 formulas at full size, then at 4 times crops of the 80 by 60 region with the most large changes in each of the five scenes with pixels changed by more than 10%. The user reviewed the same images and crops on 2026-11-07, and agreed that the only visible change is the one pixel in `transf_spherical_coord_invs`. The images are in `~/verify/kd2/review/` in WSL, and they were never committed.
+**Review**: Every image of the 26 scenes and 20 formulas was examined at full size, and so was a 4 times crop of the 80 by 60 region with the most large changes in each of the five scenes with pixels changed by more than 10%. The user reviewed the same images and crops on 2026-11-07, and agreed that the only visible change is the one pixel in `transf_spherical_coord_invs`. The images are in `~/verify/kd2/review/` in WSL, and they were never committed.
 
 ### Guards
 
@@ -204,23 +204,27 @@ None. Every item rendered and collected on both builds, Self-Parity passed three
 
 ### Time
 
-Pending, T041. All times are seconds on the monotonic clock.
+All times are seconds on the monotonic clock, from `~/verify/kd2/timed_collect.py`, which runs the harness's `--collect` and adds up the render time of scenes and of formulas apart. All threads means 32. Each figure is one run.
+
+**How quiet each run was**: Before each group of runs, the script waited until no FractalEvaluator or other `mandelbulber2` process had run for 60 seconds. During every run, a watcher sampled `pgrep -f FractalEvaluator` every 5 seconds and logged the uptime. A group with a sample inside any of its runs was repeated whole and not recorded, and nothing else from this feature ran during timing. The first attempt overlapped FractalEvaluator in 4 of its 5 runs, so none of it is recorded. In the second, the "before build first" group ran clean on 2026-11-07. The "after build first" group overlapped once, and WSL restarted while it waited, so it and the remaining groups ran on 2026-11-08 in a new WSL session, where the watcher saw FractalEvaluator 0 times. No recorded run overlapped another render.
 
 | Run | Build | First or second | All threads | Scenes | Formulas |
 |---|---|---|---|---|---|
-| Before build first | Before | First | | | |
-| Before build first | After | Second | | | |
-| After build first | After | First | | | |
-| After build first | Before | Second | | | |
+| Before build first, 2026-11-07 | Before | First | 59.73 | 31.20 | 18.84 |
+| Before build first, 2026-11-07 | After | Second | 60.83 | 30.15 | 21.05 |
+| After build first, 2026-11-08 | After | First | 51.16 | 25.51 | 16.17 |
+| After build first, 2026-11-08 | Before | Second | 51.77 | 26.83 | 15.89 |
 
-| Run | One CPU |
-|---|---|
-| Before | |
-| After | |
+| Run | One CPU | Scenes | Formulas |
+|---|---|---|---|
+| Before | 455.97 | 416.15 | 30.53 |
+| After | 459.23 | 419.82 | 30.13 |
 
 | Run | All threads | Compared with before |
 |---|---|---|
-| Before, host-tuned | | |
+| Before, host-tuned | 54.28, with scenes 28.43 and formulas 16.47 | 2.51 seconds, or 4.8%, slower than the before build's 51.77 in the same session |
+
+**The cost**: At all threads, the after build took 1.8% longer than the before build when it ran second, and 1.2% less when it ran first. The order moves the time more than the change does, so no cost shows above the spread between runs. The two pairs ran a day apart, and differ by about 8 seconds in level. On one CPU, where arithmetic dominates, the after build took 3.26 seconds, or 0.7%, longer: scenes took 0.9% longer and formulas 1.3% less. The host-tuned build was no faster than the before build at all threads, so users of the setup scripts lose no speed this suite can measure. With one run per figure, a difference of a few percent is within what the runs can show.
 
 | Stand-in for the gate | Minutes |
 |---|---|
@@ -275,8 +279,8 @@ Pending, T056. The record behind KD-5. [research.md](research.md) R18 describes 
 | SC-003 | Pending, T052 | | |
 | SC-004 | Partly done, and T060 runs the repository search. `search` passes on 73 tracked files. The generated qmake flags hold `-ffp-contract=off` in `CFLAGS` and `CXXFLAGS`, as the contract expects, with no prohibited option on the `CFLAGS`, `CXXFLAGS`, `LFLAGS`, or `LIBS` lines, and the binary no longer needs `libmvec`. The CMake build holds `-fopenmp -ffp-contract=off` in `CXX_FLAGS`, sets it in `CMAKE_C_FLAGS`, and has nothing prohibited in `link.txt`. The pragma search finds only the six `diagnostic` lines in `mandelbulber2/src/radiance_hdr.cpp`. The setup scripts hold no `march=`, `mtune=`, or `mcpu=`, pass `sh -n` and `bash -n`, and `qmake6` with `CXXFLAGS=-msse2` or `CXXFLAGS=-DKD2_OWN_FLAG` passes that value to `CXXFLAGS` | `0383be876` for the flags, `49f25a38f` for the search and the scripts, which hold `9ded2b0ae`'s scripts unchanged | The macOS and Apple Silicon qmake flags are not read here: CircleCI is the only macOS proof (T054), and nothing builds `mandelbulber-opencl-m1.pro`. The compile path of `install` needs a packaged layout and `sudo`, so its one-line diff is the proof |
 | SC-005 | Three `--self-parity` runs in a row on a fresh build each exited 0, with 487 exact matches and 0 of 487 items failed across all seven buffers and all statistics, at 1 thread and at all 32. They took 721, 566, and 528 seconds, while other work from this feature shared the computer, and none mentioned thread coverage | `0383be876` | None |
-| SC-006 | `output-record.tsv` covers all 487 items. No item reaches a NaN guard, from the guard-count build, and the guards change no item, from the guards-off comparison. Claude and the user reviewed all 26 scenes and the 20 most-changed formulas. The one visible change, one pixel in `transf_spherical_coord_invs`, has a named cause, strict arithmetic, and no visible change is left unexplained | `0383be876` | None |
-| SC-007 | Pending, T041 | | |
+| SC-006 | `output-record.tsv` covers all 487 items. No item reaches a NaN guard, from the guard-count build, and the guards change no item, from the guards-off comparison. The user reviewed all 26 scenes and the 20 most-changed formulas. The one visible change, one pixel in `transf_spherical_coord_invs`, has a named cause, strict arithmetic, and no visible change is left unexplained | `0383be876` | None |
+| SC-007 | Render times for all 487 items are recorded at all 32 threads in both build orders, on one CPU, and for the `-march=native` build. The after build took 1.8% longer and 1.2% less in the two orders, and 0.7% longer on one CPU. The watcher saw 0 FractalEvaluator samples during every recorded run | `8fd49ba59` and `0383be876` | The two orders ran a day apart, in two WSL sessions. Each pair ran back to back |
 | SC-008 | Pending, T053 | | |
 | SC-009 | Locally: `--test` passed 9 of 9 tests on the fresh qmake build in 151 seconds, and 9 of 9 on the fresh MSVC build in 334 seconds. `tests/test_regression_runner.py` passed 224 tests on both. `--cross-check` of the two collections of the final commit exited 0 with functional agreement and 448 of 487 items identical. Cross-Build Check on the pull request is pending, T054 | `0383be876` | Pending, T054 |
 | SC-010 | Locally, each compiled from a fresh tree on `8fd49ba59` and on `0383be876`: the gated qmake build, qmake without OpenCL, CMake, MSVC Release, and MSVC Debug. The macOS build is pending, T054 | `0383be876` | Pending, T054 |
