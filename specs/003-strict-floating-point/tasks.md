@@ -261,7 +261,7 @@ description: "Task list for strict floating-point builds"
 
 **Purpose**: Check the whole branch, then make the pull request ready
 
-- [ ] T060 Check the whole branch against `8fd49ba59` (SC-011):
+- [X] T060 Check the whole branch against `8fd49ba59` (SC-011):
   - The two `git diff --stat` commands in section 7 of `specs/003-strict-floating-point/quickstart.md` print nothing, apart from anything FR-018 required (FR-016, FR-030, FR-034).
   - `git diff 8fd49ba59 -- mandelbulber2/qmake mandelbulber2/cmake mandelbulber2/msvc mandelbulber2/tools mandelbulber2/deploy/linux/install` shows only what `specs/003-strict-floating-point/contracts/build-flags.md` lists, and no `-fno-math-errno` or other new option (FR-001, FR-002, FR-003, FR-031).
   - OpenCL's build options live in `mandelbulber2/src/opencl_engine.cpp`, which the first `git diff` covers, so they did not change (FR-032).
