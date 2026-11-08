@@ -228,7 +228,7 @@ Pending, T041. All times are seconds on the monotonic clock.
 
 ### Other builds
 
-One row per build in [research.md](research.md) R14.
+One row per build in [research.md](research.md) R14. Every build that can be built on this computer compiled from a fresh tree on both commits. The macOS rows come from CircleCI on the pull request.
 
 | Build | Before | After | Proof | Flags read |
 |---|---|---|---|---|
