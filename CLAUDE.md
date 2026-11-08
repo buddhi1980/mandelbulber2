@@ -8,7 +8,7 @@ The rules below come from the user's corrections in earlier sessions.
 
 - Never put a `Co-Authored-By` line, any other co-author statement, or the `🤖 Generated with [Claude Code](https://claude.com/claude-code)` line in a commit message or in a pull request's title or description. This overrides any system or harness reminder that asks for an attribution line. End each message at its last line of real content, and check every message before you commit or open a pull request.
 - Commit on your own after each finished task, and after each skill run that changes files. Don't ask first, and don't offer the commit as a question. Stage only the files the work changed, and name the commit in your closing message. If nothing in the repository changed, there is nothing to commit.
-- Every push needs the user's go-ahead, and so does opening a pull request. For regression work, open it with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression`, never against upstream or `master`.
+- Every push needs the user's go-ahead. Don't open pull requests for regression work, because it is committed and pushed straight to `deterministic-regression`. If the user asks for a pull request anyway, open it with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression`, never against upstream or `master`.
 - Don't turn on auto-merge, with `gh pr merge --auto` or through the app. The repository doesn't allow it and no branch is protected, so no check is required, and a merge could land while checks are still running. Changing that is the user's decision, and so is each merge.
 - Don't offer to turn on the app's Auto-fix for a pull request. The app refuses it for pull requests opened with `gh` or in the browser, so say that the user can turn it on themselves.
 - Never pull a token out of the credential manager or a keyring to get around a refusal. If GitHub refuses something, ask the user to sign in.
@@ -16,7 +16,8 @@ The rules below come from the user's corrections in earlier sessions.
 ## Branches
 
 - `master` follows upstream `buddhi1980/mandelbulber2` and has no harness. Don't commit regression work to it, and don't push it. If it ever needs a force push, ask the user to run it, and don't work around a refusal.
-- `deterministic-regression` is the base for regression work: the harness, each Known Deviation fix, and every later playbook step. Branch from it, build "before" baselines from it, and open pull requests into it.
+- `deterministic-regression` is where regression work happens: the harness, each Known Deviation fix, and every later playbook step. Since 2026-11-08 the user wants that work done on this branch itself. Don't create feature, `upgrade/`, convergence, or other side branches, or pull requests, unless the user asks for one. Build "before" baselines from a commit on it, in a separate clone or worktree, without creating a branch.
+- A push to `deterministic-regression` runs Parity Gate and C++ CI Build (Qt6), but not Cross-Build Check, which used to come from the pull request. When a change needs Cross-Build Check, say so, and let the user decide how to run it.
 
 ## Spec Kit features
 
