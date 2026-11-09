@@ -26,7 +26,7 @@ The results of feature 004, in the sections [contracts/evidence-record.md](contr
 | State | Commit |
 |---|---|
 | S0 | `d505cee69` |
-| S1 | Not reached yet |
+| S1 | `4b60fcdf9` |
 | S2 | Not reached yet |
 | S3 | Not reached yet |
 | S4 | Not reached yet |
@@ -65,11 +65,38 @@ FractalEvaluator ran 0 processes during these checks.
 
 ## 3. Landing S1
 
-Not run yet.
+S1 is `4b60fcdf9`, pushed on 2026-11-09. Its runs both passed:
+
+| Run | Result | Time |
+|---|---|---|
+| Parity Gate, [42546386319](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42546386319) | Passed: the build-file search and the flag check | 6 minutes 22 seconds |
+| C++ CI Build (Qt6), [42546386321](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42546386321) | Passed | 13 minutes 41 seconds |
 
 ## 4. Capture
 
-Not run yet.
+**The start**: `git push origin deterministic-regression:refs/heads/baseline/1`, at `4b60fcdf9`, started Capture Baseline run [42549364843](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42549364843) with its job running. So a push that only creates a branch does start a workflow, and the empty-commit fallback wasn't needed.
+
+**The run** passed in 31 minutes 9 seconds, far inside its 350-minute limit (SC-003):
+
+| Step | Result | Time |
+|---|---|---|
+| Compile Engine | The search printed "searched 74 build files" and "passed", and the flag check printed "passed" after the build | 4 minutes 44 seconds |
+| Test the Harness | "Ran 242 tests", OK | 1 minute 19 seconds |
+| Capture References | Self-Parity passed, then "note: wrote 487 references to tests/references/linux-x86_64-gcc" and "result: passed (0 of 487 items failed)" | 24 minutes 48 seconds |
+| Upload References | `baseline-references` uploaded | 3 seconds |
+
+The probe's line in the run: "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 9V45 96-Core Processor, flags fma avx2" (FR-005). The run's toolchain line: "toolchain: gcc 13.3.0, glibc 2.39".
+
+**The artifact**, downloaded to `C:\GIT\mb2-kd5-baseline-1-artifact`:
+
+| Check | Result |
+|---|---|
+| Files | 26 scene zips, 461 formula zips, `toolchain.txt`, and `settings.txt`: 489 files, and nothing else |
+| Size | 83,059,454 bytes, under the harness's limit of 104,857,600 bytes (SC-001) |
+| `settings.txt` | Five lines, the fifth `math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4` (FR-003) |
+| `toolchain.txt` | `compiler gcc 13.3.0`, `math_library glibc 2.39`, and package lines for the installed `gcc-12`, `gcc-13`, `gcc-14`, `g++-12`, `g++-13`, and `g++-14` packages, `libc6 2.39-0ubuntu8.9`, `libstdc++6`, `libgcc-s1`, and `libgomp1` `14.2.0-4ubuntu2~24.04.1` (FR-009). The runner's glibc is the same build as WSL's |
+
+**The commit**: `465dc07a3` on `baseline/1`, "test: add Baseline 1 for linux-x86_64-gcc", holds exactly those 489 files. For every one, the blob ID in `git ls-tree` equals `git hash-object --no-filters` of the downloaded copy: 489 checked, 0 different (FR-015). Its push started Capture Baseline run 42552875153 with its job skipped (FR-007).
 
 ## 5. Baseline 1
 

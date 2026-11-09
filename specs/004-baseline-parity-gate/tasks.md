@@ -157,26 +157,26 @@ description: "Task list for Baseline 1 and the parity gate"
 
 - [X] T014 [US2] Create `.github/workflows/capture-baseline.yml` with exactly the listing in `specs/004-baseline-parity-gate/contracts/capture-baseline.md`, and compare the two byte for byte
 - [X] T015 [US2] Commit `.github/workflows/capture-baseline.yml` and this file with the message `ci: add the Capture Baseline workflow`
-- [ ] T016 [US2] Ask the user for the go-ahead, then push `deterministic-regression`, which reaches S1. Parity Gate and C++ CI Build (Qt6) must pass on the push. Record their run IDs for section 3 of `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T017 [US2] Confirm with `git fetch origin` and `git status -sb` that `deterministic-regression` is even with `origin/deterministic-regression`, so `baseline/1` carries no unpushed commit. Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
+- [X] T016 [US2] Ask the user for the go-ahead, then push `deterministic-regression`, which reaches S1. Parity Gate and C++ CI Build (Qt6) must pass on the push. Record their run IDs for section 3 of `specs/004-baseline-parity-gate/evidence.md`
+- [X] T017 [US2] Confirm with `git fetch origin` and `git status -sb` that `deterministic-regression` is even with `origin/deterministic-regression`, so `baseline/1` carries no unpushed commit. Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
   - **No run**: With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`. Run `git switch -c baseline/1`, then `git commit --allow-empty -m "test: start the Baseline 1 capture"` and `git push -u origin baseline/1`, confirm the run, and run `git switch deterministic-regression` (FR-007).
   - Record which start worked, for `specs/004-baseline-parity-gate/evidence.md`.
-- [ ] T018 [US2] When the run finishes, its job must have passed in under 350 minutes. Its log must show the forced math path line and "wrote 487 references to tests/references/linux-x86_64-gcc", and Self-Parity must have passed at one thread and at all of the runner's threads, four on today's hosted runner. Its `Search the Build Files` and `Reject Prohibited Compile Flags` steps must have passed too, so capture's build was checked (User Story 2, scenario 2). Record the CPU line, the CPU's own path, the step times, and the job's time for section 4 of `specs/004-baseline-parity-gate/evidence.md` (FR-005, FR-014, SC-003).
+- [X] T018 [US2] When the run finishes, its job must have passed in under 350 minutes. Its log must show the forced math path line and "wrote 487 references to tests/references/linux-x86_64-gcc", and Self-Parity must have passed at one thread and at all of the runner's threads, four on today's hosted runner. Its `Search the Build Files` and `Reject Prohibited Compile Flags` steps must have passed too, so capture's build was checked (User Story 2, scenario 2). Record the CPU line, the CPU's own path, the step times, and the job's time for section 4 of `specs/004-baseline-parity-gate/evidence.md` (FR-005, FR-014, SC-003).
   - **If it failed**: Download `capture-failure-outputs`, find the cause, record it, and stop to tell the user (FR-010).
   - **Repeating**: With the go-ahead, a runner fault may be rerun from the run's page. Any other repeat deletes `baseline/1` on GitHub and pushes it again at the commit to capture.
-- [ ] T019 [US2] Download the artifact to a new folder outside the repository with `gh run download <run ID> --repo Coastrnaut/mandelbulber2 -n baseline-references -D C:\GIT\mb2-kd5-baseline-1-artifact`.
+- [X] T019 [US2] Download the artifact to a new folder outside the repository with `gh run download <run ID> --repo Coastrnaut/mandelbulber2 -n baseline-references -D C:\GIT\mb2-kd5-baseline-1-artifact`.
   - The folder must hold exactly what the checking table in `specs/004-baseline-parity-gate/contracts/capture-baseline.md` lists, with "math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4" as the fifth line of `settings.txt`.
   - `toolchain.txt` must hold a `compiler` line, a `math_library` line, at least one `package` line for an installed `gcc-*` and for a `g++-*` package, and one each for `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` (FR-009).
   - Its total must be under 104,857,600 bytes.
   - Record the counts and the size (FR-008, FR-009, SC-001).
-- [ ] T020 [US2] Commit the references on `baseline/1`:
+- [X] T020 [US2] Commit the references on `baseline/1`:
   1. Run `git fetch origin baseline/1` in `C:\GIT\mandelbulber2`, then `git switch -c baseline/1 origin/baseline/1`, or `git switch baseline/1` if T017's fallback already made the branch here.
   2. Copy the artifact's `linux-x86_64-gcc` folder into `tests/references/`, and stage it.
   3. `git diff --cached --stat` must list 489 files, all under `tests/references/linux-x86_64-gcc/`. Commit them with the message `test: add Baseline 1 for linux-x86_64-gcc`.
   4. For every file, the blob ID in `git ls-tree -r HEAD tests/references` must equal `git hash-object --no-filters` of the downloaded copy (FR-015).
   5. Ask for the go-ahead, and push `baseline/1`. The Capture Baseline run for this push must show its job as skipped (FR-007).
   6. Run `git switch deterministic-regression`.
-- [ ] T021 [US2] Fill in sections 3 and 4 of `specs/004-baseline-parity-gate/evidence.md` from T016 to T020, and commit it with this file, with the message `docs: record the Baseline 1 capture`. Ask for the go-ahead, and push `deterministic-regression`
+- [X] T021 [US2] Fill in sections 3 and 4 of `specs/004-baseline-parity-gate/evidence.md` from T016 to T020, and commit it with this file, with the message `docs: record the Baseline 1 capture`. Ask for the go-ahead, and push `deterministic-regression`
 
 **Checkpoint**: `baseline/1` holds Baseline 1, byte-identical to the artifact, and the gate still only checks flags.
 
