@@ -87,6 +87,7 @@ math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
 | The gate stops first | With a failing probe, the gate exits 3 and the stand-in renderer never runs |
 | Capture stops first | With a failing probe, capture exits 3, renders nothing, and leaves the reference set as it was |
 | The gate on Windows | With no probe, the gate prints the not-forced line, runs for debugging, and can't pass |
+| Other modes | Self-Parity, compare, and collect never call the probe, and their renders still get the setting on Linux |
 | Another CPU architecture | On Linux with a machine that isn't `x86_64`, the gate and capture exit 3 before any render |
 | The settings line | `settings.txt` from capture holds the `math_path` line |
 | Old and other sets | The gate refuses a set whose `settings.txt` lacks the line or holds another setting |

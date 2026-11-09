@@ -73,10 +73,12 @@ Reading the protection back must show `parity-gate` as the only required check, 
 **Records**: Before the first change of this feature, the evidence saves the repository's settings, its protected branches, and its rulesets. It saves them again at the end, so a reader can see that only this protection changed (FR-022):
 
 ```text
-gh api repos/Coastrnaut/mandelbulber2
-gh api repos/Coastrnaut/mandelbulber2/branches?protected=true
+gh api repos/Coastrnaut/mandelbulber2 --jq 'del(.temp_clone_token)'
+gh api "repos/Coastrnaut/mandelbulber2/branches?protected=true"
 gh api repos/Coastrnaut/mandelbulber2/rulesets
 ```
+
+Each is written from Git Bash with `>`, so the files are UTF-8, and no token is saved.
 
 **Undoing it**: Only the maintainer changes the protection. If it blocks pull requests it shouldn't, such as when the name it requires never reports, the maintainer corrects it with the same call, or removes it, and the evidence records why (FR-019):
 

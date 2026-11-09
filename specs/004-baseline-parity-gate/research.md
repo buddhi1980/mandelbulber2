@@ -45,7 +45,7 @@ Each item gives a decision, the reason, and what else was considered. "Tested on
 
 ## R5. How capture starts
 
-- **Decision**: `capture-baseline.yml` runs on a push to `baseline/**`, and its job runs only when that push created the branch, `if: github.event.created`. Baseline 1 starts with `git push origin deterministic-regression:refs/heads/baseline/1`.
+- **Decision**: `capture-baseline.yml` runs on a push to `baseline/**`, and its job runs only when that push created the branch, `if: github.event.created`. Baseline 1 starts with `git push origin deterministic-regression:refs/heads/baseline/1`, from a local branch that is even with `origin/deterministic-regression`, so the Baseline Change carries no unpushed commit.
 - **Why**: FR-007 asks for capture on the push that makes the branch and on nothing later. The push event's `created` field says exactly that, with no path filter. Every later push to the branch, such as the references commit, starts a run whose job is skipped.
 - **Risk**: GitHub's Actions documentation doesn't say whether a push that only creates a branch, with no new commit, starts a workflow, although the push event includes such a push with `created` set. The quickstart checks that a capture run started. If none did, delete the branch on GitHub and push it again with one empty commit on top. That push both creates the branch and carries a commit.
 - **Repeats**: A run that failed outside the source, such as a runner fault, can be rerun from its page on GitHub. A rerun repeats the same push event, so `created` still holds. Any other repeat deletes the branch on GitHub and pushes it again at the commit to capture. Captures on different branches are independent, and only the maintainer pushes `baseline/` branches.
@@ -53,7 +53,7 @@ Each item gives a decision, the reason, and what else was considered. "Tested on
 
 ## R6. The capture workflow's steps
 
-- **Decision**: Checkout, `compile-engine`, the harness's own tests, capture, an upload of `tests/references` as `baseline-references`, kept for 90 days, the longest GitHub allows for a public repository, with `if-no-files-found: error`, and an upload of `tests/outputs` as `capture-failure-outputs` when the job fails, kept for 7 days. Read-only access and a 350-minute limit, as the playbook lists.
+- **Decision**: Checkout, `compile-engine`, the harness's own tests, capture, an upload of `tests/references` as `baseline-references`, kept for 90 days, the longest GitHub allows for a public repository, with `if-no-files-found: error`, and an upload of `tests/outputs` as `capture-failure-outputs` when the job fails, kept for 7 days. A 350-minute limit, as the playbook lists, and read-only access, which the playbook's listing lacks and FR-006 requires.
 - **Why**: The harness's tests fail in about a minute, not after hours of rendering. The failure outputs keep the run's report, which FR-010 needs to find a cause.
 - **Not chosen**: The playbook's listing as it stands, which has neither step.
 

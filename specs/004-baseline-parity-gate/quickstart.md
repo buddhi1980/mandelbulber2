@@ -101,4 +101,4 @@ git ls-remote --heads origin
 
 The first must list only the two workflows, the two harness files, the constitution, the playbook, `CLAUDE.md`, `README.md`, and any fix FR-010 needed (SC-008). The second must list no `baseline/`, `seed/`, or amendment branch (SC-009).
 
-Then save the repository's settings, protected branches, and rulesets again, and compare them with the records from before the first change (SC-006).
+Then save the repository's settings, protected branches, and rulesets again, and compare them with the records from before the first change, leaving out timestamps, counts, and commit IDs. Only the protection on `deterministic-regression` may differ (SC-006).
