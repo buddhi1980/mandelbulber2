@@ -9,7 +9,7 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
 
-**Tests**: FR-004 asks for harness tests of the forced path, so T005 writes them before T006 builds it. Every other check is a run whose result goes in `evidence.md`, through [quickstart.md](quickstart.md).
+**Tests**: FR-004 asks for harness tests of the forced path, so T005 writes them before T006 builds it. Every other check is a run whose result goes in `evidence.md`, through [quickstart.md](quickstart.md). Three acceptance scenarios rest on tests the harness already has, which every run of `tests/test_regression_runner.py` here repeats: User Story 2's scenarios 4 and 5, through `test_unstable_build_writes_nothing` and `test_oversized_set_exits_three`, and User Story 3's scenario 5, through `test_other_toolchain_with_drift_is_a_mismatch` and `test_other_toolchain_with_matching_output_passes_with_a_note`.
 
 **Organization**: Tasks are grouped by user story, in the plan's order of work. User Story 3's gate steps are written in Phase 5 but pushed in Phase 6, right before Baseline 1's pull request opens, so the gate fails for minutes, not hours (FR-013). The user is the maintainer the spec names.
 
