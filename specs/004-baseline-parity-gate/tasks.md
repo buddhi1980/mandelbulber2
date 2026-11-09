@@ -250,13 +250,13 @@ description: "Task list for Baseline 1 and the parity gate"
   3. In `~/mandelbulber2`, run `python3 tests/regression_runner.py --compare ~/mandelbulber2-seed/mandelbulber2/build/appdir/usr/bin/mandelbulber2`. It must exit 1, with `formula bristorbrot` the only item that differs.
 
   Record it in `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T031 [US6] Open the drift proof's pull request:
+- [X] T031 [US6] Open the drift proof's pull request:
   1. In `C:\GIT\mandelbulber2`, run `git fetch origin` and `git switch -c seed/drift-proof origin/deterministic-regression`, so the branch holds none of the unpushed records, and make the same one-line change in `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`.
   2. Commit it with the message `test: change one constant in bristorbrot to prove the gate`.
   3. Ask for the go-ahead, push the branch, and open a pull request into `deterministic-regression`, titled "Do not merge: drift proof for the parity gate". Its body says it exists to show the gate rejecting drift, which is how it confirms compliance with the constitution, and that it must never merge, with no attribution lines (FR-023). `gh pr view <number> --repo Coastrnaut/mandelbulber2 --json files` must list only that formula file.
   4. Run `git switch deterministic-regression`.
-- [ ] T032 [US6] When `parity-gate` finishes on that pull request, it must have failed with exit 1 on `formula bristorbrot` alone, and uploaded `render-regression-snapshots`. `gh pr view <number> --repo Coastrnaut/mandelbulber2 --json mergeStateStatus` must give `BLOCKED`. Other checks may fail too, and nothing waits for them. Record the run, the gate step's time, and the merge state in `specs/004-baseline-parity-gate/evidence.md` (SC-003, SC-005)
-- [ ] T033 [US6] With the go-ahead, close the pull request unmerged with `gh pr close <number> --repo Coastrnaut/mandelbulber2`, delete `seed/drift-proof` on GitHub with `git push origin --delete seed/drift-proof`, and delete it locally. Fill in section 7 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the drift proof`
+- [X] T032 [US6] When `parity-gate` finishes on that pull request, it must have failed with exit 1 on `formula bristorbrot` alone, and uploaded `render-regression-snapshots`. `gh pr view <number> --repo Coastrnaut/mandelbulber2 --json mergeStateStatus` must give `BLOCKED`. Other checks may fail too, and nothing waits for them. Record the run, the gate step's time, and the merge state in `specs/004-baseline-parity-gate/evidence.md` (SC-003, SC-005)
+- [X] T033 [US6] With the go-ahead, close the pull request unmerged with `gh pr close <number> --repo Coastrnaut/mandelbulber2`, delete `seed/drift-proof` on GitHub with `git push origin --delete seed/drift-proof`, and delete it locally. Fill in section 7 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the drift proof`
 
 **Checkpoint**: The gate is proven to catch drift, and no seeded change reached `deterministic-regression`.
 

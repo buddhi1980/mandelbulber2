@@ -144,6 +144,17 @@ The settings, protected branches, and rulesets at the end, compared with the hea
 
 **The local check** (T030): fresh WSL builds of `2ba3b8021`, one as it is in `~/mandelbulber2` and one in `~/mandelbulber2-seed` with `drift.patch`, which changes `2.0 * z.x - z.z` to `2.001 * z.x - z.z` on line 36 of `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`. `git diff --stat` in the seeded tree listed that one file, "1 insertion(+), 1 deletion(-)". `--compare` of the seeded binary exited 1 with "result: parity failure (1 of 487 items failed)", and every differing line names `formula bristorbrot`: `raw_render`, `post_effect`, and `final_image` 3 of 2,304 samples, `alpha` 1 of 768, `depth` 61 of 768, `normal` and `normal_world` 183 of 2,304, and 5 statistics values, the first `total_iterations` 17541 against 17481.
 
+**The pull request**: [Coastrnaut/mandelbulber2#10](https://github.com/Coastrnaut/mandelbulber2/pull/10), "Do not merge: drift proof for the parity gate", from `seed/drift-proof` at `faadf9a1f`, one commit on `16401caa6`, "test: change one constant in bristorbrot to prove the gate". `gh pr view 10 --json files` listed only `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`, with 1 addition and 1 deletion.
+
+| Check | Result |
+|---|---|
+| `parity-gate`, [42557683515](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42557683515) | Failed at "Run Parity Gate" with "result: parity failure (1 of 487 items failed)" and "Process completed with exit code 1", after "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 9V74 80-Core Processor, flags fma avx2". All 13 differing lines name `formula bristorbrot`. The gate step took 5 minutes 33 seconds and the job 16 minutes 10 seconds |
+| Uploaded outputs | `render-regression-snapshots`, artifact 13648960746, 29,163 bytes |
+| `mergeStateStatus` | `BLOCKED` (SC-005) |
+| Other checks | CircleCI and one C++ CI Build (Qt6) job had passed. Cross-Build Check, Azure Pipelines, and the pull request's C++ CI Build (Qt6) run were still running when it closed, and nothing waited for them |
+
+**The close**: `gh pr close 10` closed it unmerged at 03:57:17 UTC, `git push origin --delete seed/drift-proof` deleted the branch on GitHub, and `git branch -D seed/drift-proof` deleted it locally. The seeded change never reached `deterministic-regression` (FR-023).
+
 ## 8. Closing
 
 Not run yet.
