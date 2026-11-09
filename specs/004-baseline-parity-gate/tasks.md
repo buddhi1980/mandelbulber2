@@ -299,14 +299,14 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Purpose**: Check the whole feature, and close the evidence
 
-- [ ] T041 Run the final checks in section 9 of `specs/004-baseline-parity-gate/quickstart.md`:
+- [X] T041 Run the final checks in section 9 of `specs/004-baseline-parity-gate/quickstart.md`:
   - **Files**: `git diff --stat <S0> deterministic-regression -- . ':!specs' ':!tests/references'` lists only the two workflows, the two harness files, the constitution, `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, and `README.md`, plus any fix FR-010 needed (SC-008).
   - **Master**: `git rev-parse origin/master` still equals T001's value.
   - **Branches**: `git ls-remote --heads origin` lists no `baseline/`, `seed/`, or `amend/` branch (SC-009).
   - **Settings**: Save T002's three records again, the same way, into `specs/004-baseline-parity-gate/settings/after/`, and compare them with `settings/before/`, leaving out timestamps, counts, and commit IDs. Only the protection on `deterministic-regression` may differ: it joins the list of protected branches, and nothing else changes (FR-022, SC-006).
   - **Messages**: `git log <S0>.. --format=%B` holds no attribution line.
   - **Tests**: `python tests/test_regression_runner.py` passes.
-- [ ] T042 Fill in sections 8 and 9 of `specs/004-baseline-parity-gate/evidence.md`, with one row for each of SC-001 to SC-010. Commit T041's records, the evidence, and this file with the message `docs: close the Baseline 1 evidence`. Ask for the go-ahead, and push `deterministic-regression`
+- [X] T042 Fill in sections 8 and 9 of `specs/004-baseline-parity-gate/evidence.md`, with one row for each of SC-001 to SC-010. Commit T041's records, the evidence, and this file with the message `docs: close the Baseline 1 evidence`. Ask for the go-ahead, and push `deterministic-regression`
 
 ---
 

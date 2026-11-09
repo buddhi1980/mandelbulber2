@@ -31,7 +31,7 @@ The results of feature 004, in the sections [contracts/evidence-record.md](contr
 | S3 | `2ba3b8021` |
 | S4 | Protection set at 03:39 UTC on 2026-11-09, on `2ba3b8021` |
 | S5 | `60beeac34` |
-| S6 | Not reached yet |
+| S6 | `5a2888039` |
 
 ## 2. The forced path, locally
 
@@ -183,4 +183,26 @@ The settings, protected branches, and rulesets at the end, compared with the hea
 
 ## 9. Success criteria
 
-Not filled in yet.
+**The final checks** (T041), on `5a2888039`:
+
+| Check | Result |
+|---|---|
+| Files | `git diff --stat d505cee69 deterministic-regression -- . ':!specs' ':!tests/references'` lists 8 files: the two workflows, `tests/regression_runner.py`, `tests/test_regression_runner.py`, the constitution, `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, and `README.md`. No FR-010 fix was needed |
+| Master | `origin/master` is still `33965a498cd8a046b87d0cc5c417432fa79c81db`, T001's value |
+| Branches | `git ls-remote --heads origin` lists no `baseline/`, `seed/`, or `amend/` branch |
+| Settings | Saved again into [settings/after/](settings/after/). Leaving out timestamps, counts, and commit IDs, `repository.json` and `rulesets.json` are the same as in `settings/before/`. `protected-branches.json` goes from none to `deterministic-regression` alone, requiring `parity-gate`, with `enforcement_level` `non_admins` |
+| Messages | `git log d505cee69.. --format=%B` holds no attribution line |
+| Tests | `python tests/test_regression_runner.py` on Windows: "Ran 242 tests in 276.605s", OK |
+
+| Criterion | Result | Source | Not covered |
+|---|---|---|---|
+| SC-001 | Met. Baseline 1 holds 487 references, `toolchain.txt`, and `settings.txt` with the `math_path` line, 83,059,454 bytes, under 104,857,600. All 489 blob IDs match the artifact of capture run 42549364843, whose Self-Parity passed at one thread and at all of the runner's threads | Section 4, `465dc07a3`, `2ba3b8021` | |
+| SC-002 | Met. Pull request #9 changed only the 489 files under `tests/references/linux-x86_64-gcc/`, and its description has the nine parts. Its gate run 42553024969 and the merge's push run 42556244528 passed on 487 of 487 items. The first-parent log from `2679e892a` to `2ba3b8021` holds only the merge | Section 5 | |
+| SC-003 | Met. Gate steps: 5 minutes 25 seconds on pull request #9, 4 minutes 29 seconds on the merge's push run, 5 minutes 25 seconds on the first push after protection, 5 minutes 33 seconds on the drift proof, and 5 minutes 27 seconds on the amendment, all under 30 minutes. The capture run took 31 minutes 9 seconds, within 350 | Sections 4 to 8 | The runners were hosted 4-vCPU `ubuntu-24.04` machines with AMD EPYC 7763, 9V45, and 9V74 CPUs |
+| SC-004 | Met. Forced and hidden renders matched for 487 of 487 items on this computer, and scratch harnesses whose forcing didn't take effect stopped with exit 3 before any render. The capture run's CPU was an AMD EPYC 9V45 and the Baseline 1 gate run's an AMD EPYC 7763, each with "flags fma avx2" and its own path `fma`. Five items differ between glibc's FMA path and the forced path | Sections 2, 4, and 5 | |
+| SC-005 | Met. Pull request #10's `parity-gate` run 42557683515 failed with "result: parity failure (1 of 487 items failed)" on `formula bristorbrot`, uploaded `render-regression-snapshots`, and showed `BLOCKED`. It was closed unmerged | Section 7 | |
+| SC-006 | Met. The protection requires `parity-gate` alone, the name pull request #9 reported. The maintainer's direct pushes after it landed with GitHub's bypass notice. The settings records show no other change, and pull requests #9, #10, and #11 used no auto-merge | Sections 6 and 9 | |
+| SC-007 | Met. The constitution shows KD-4 and KD-5 closed at 1.1.1. The playbook's Phase 4 matches what was built, and its two listings are identical to the committed workflows. `CLAUDE.md` names the required check and the three pull request exceptions, and `README.md` holds the regression section | Section 8, `60beeac34`, `5a2888039` | |
+| SC-008 | Met. Only the files listed above changed, besides `specs/` and the references, and `master` is unchanged. Both workflows set `contents: read` and use no secrets. Every harness test passes, and Cross-Build Check passed on pull request #9 | Sections 5 and 9 | |
+| SC-009 | Met. `baseline/1`, `seed/drift-proof`, and `amend/kd-4-kd-5` are deleted on GitHub and locally | Sections 5, 7, and 8 | |
+| SC-010 | Met. Before the harness change landed, 242 tests passed on WSL and on Windows, and the cross-check of fresh WSL and MSVC collections of `72a898b75` exited 0 with functional agreement, 448 of 487 items identical | Section 2 | |
