@@ -71,18 +71,18 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Purpose**: Record the starting point and the repository's settings, and start the evidence
 
-- [ ] T001 From `C:\GIT\mandelbulber2`, confirm the starting point:
+- [X] T001 From `C:\GIT\mandelbulber2`, confirm the starting point:
   - The branch is `deterministic-regression`, and `git status --short` prints nothing.
   - `tests/references` does not exist, and `.specify/feature.json` names `specs/004-baseline-parity-gate`.
   - `python tests/test_regression_runner.py` passes every test.
 
   Record `git rev-parse HEAD` as S0, `git rev-parse origin/master`, and the test count, for `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T002 Save the repository's settings before the first change (FR-022) into `specs/004-baseline-parity-gate/settings/before/`, writing each from Git Bash with `>`, so the files are UTF-8:
+- [X] T002 Save the repository's settings before the first change (FR-022) into `specs/004-baseline-parity-gate/settings/before/`, writing each from Git Bash with `>`, so the files are UTF-8:
   - `repository.json` from `gh api repos/Coastrnaut/mandelbulber2 --jq 'del(.temp_clone_token)'`, so no token is saved.
   - `protected-branches.json` from `gh api "repos/Coastrnaut/mandelbulber2/branches?protected=true"`.
   - `rulesets.json` from `gh api repos/Coastrnaut/mandelbulber2/rulesets`.
-- [ ] T003 [P] In WSL, create `~/verify/kd5/` and copy `~/verify/kd1/build_fresh.sh` into it. Use `~/verify/kd5/build_fresh.sh <clone> <ref> [patch]` for every fresh WSL build below. Every scratch script and collection of this feature stays in `~/verify/kd5/`, and nothing there joins the repository
-- [ ] T004 Create `specs/004-baseline-parity-gate/evidence.md` from `specs/004-baseline-parity-gate/contracts/evidence-record.md`, with every section, and fill in the Header:
+- [X] T003 [P] In WSL, create `~/verify/kd5/` and copy `~/verify/kd1/build_fresh.sh` into it. Use `~/verify/kd5/build_fresh.sh <clone> <ref> [patch]` for every fresh WSL build below. Every scratch script and collection of this feature stays in `~/verify/kd5/`, and nothing there joins the repository
+- [X] T004 Create `specs/004-baseline-parity-gate/evidence.md` from `specs/004-baseline-parity-gate/contracts/evidence-record.md`, with every section, and fill in the Header:
   - The date, the computer, and the WSL toolchain from Build Environments.
   - S0, `origin/master`, and the test count from T001, and the paths of T002's records.
   - A note that every local result checks output, so it may run while FractalEvaluator renders.
