@@ -123,27 +123,27 @@ description: "Task list for Baseline 1 and the parity gate"
 
   `python tests/test_regression_runner.py` on Windows then passes every test
 - [X] T007 [US1] Commit `tests/regression_runner.py`, `tests/test_regression_runner.py`, and this file with the message `test: force glibc's plain math path in every Linux render`. Don't push yet, because FR-004's local cross-check comes first
-- [ ] T008 [US1] In WSL, build the commit fresh with `~/verify/kd5/build_fresh.sh ~/mandelbulber2 windows/deterministic-regression`, then run `python3 tests/test_regression_runner.py` in `~/mandelbulber2`. Every test passes. Record both systems' counts in `specs/004-baseline-parity-gate/evidence.md` (SC-010)
-- [ ] T009 [US1] In `~/mandelbulber2`, run `python3 tests/regression_runner.py`. It prints the forced math path line, with this computer's CPU, flags, and own path, and then stops with a setup error because no reference set exists, with exit 3. Record the line in `specs/004-baseline-parity-gate/evidence.md` (FR-005, quickstart section 1)
-- [ ] T010 [US1] In `~/verify/kd5/`, make three scratch copies of `~/mandelbulber2/tests/regression_runner.py`, each with one change:
+- [X] T008 [US1] In WSL, build the commit fresh with `~/verify/kd5/build_fresh.sh ~/mandelbulber2 windows/deterministic-regression`, then run `python3 tests/test_regression_runner.py` in `~/mandelbulber2`. Every test passes. Record both systems' counts in `specs/004-baseline-parity-gate/evidence.md` (SC-010)
+- [X] T009 [US1] In `~/mandelbulber2`, run `python3 tests/regression_runner.py`. It prints the forced math path line, with this computer's CPU, flags, and own path, and then stops with a setup error because no reference set exists, with exit 3. Record the line in `specs/004-baseline-parity-gate/evidence.md` (FR-005, quickstart section 1)
+- [X] T010 [US1] In `~/verify/kd5/`, make three scratch copies of `~/mandelbulber2/tests/regression_runner.py`, each with one change:
   - `runner-unforced.py` leaves the setting out of `clean_environment()`.
   - `runner-misspelled.py` writes the tunable's name as `glibc.cpu.hwcap`.
   - `runner-changed.py` changes the last hexadecimal digit of the `sin` row's plain bits.
 
   From the root of `~/mandelbulber2`, run each in gate mode. The first two must stop with "the forced math path did not take effect", and the third with "glibc's plain math results changed". Each exits 3 and renders nothing. Record all three in `specs/004-baseline-parity-gate/evidence.md` (FR-002, SC-004)
-- [ ] T011 [US1] Collect three times from the root of `~/mandelbulber2`:
+- [X] T011 [US1] Collect three times from the root of `~/mandelbulber2`:
   - The committed harness into `~/verify/kd5/collect-forced`.
   - `~/verify/kd5/runner-hidden.py`, a copy whose forced setting is replaced by the hidden setting, into `~/verify/kd5/collect-hidden`.
   - `~/verify/kd5/runner-unforced.py` into `~/verify/kd5/collect-natural`.
 
   Write `~/verify/kd5/compare_collections.py`. It imports `read_collection`, `read_reference`, and `compare_exports` from `tests/regression_runner.py`, and lists each item and buffer or statistic that differs between two collections. The forced and hidden collections must match for 487 of 487 items (SC-004). List what differs between the natural and forced collections (FR-005), and record both results in `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T012 [US1] On Windows, build T007's commit fresh in the new clone `C:\GIT\mb2-kd5-<first 9 characters>`, as Build Environments says, then work in that clone:
+- [X] T012 [US1] On Windows, build T007's commit fresh in the new clone `C:\GIT\mb2-kd5-<first 9 characters>`, as Build Environments says, then work in that clone:
   - Run `python tests/test_regression_runner.py`, and run `python tests/regression_runner.py --collect tests/outputs/collection/msvc`.
   - Copy `\\wsl.localhost\Ubuntu-24.04\home\rpanc\verify\kd5\collect-forced` into `tests/outputs/collection/qmake`.
   - Run `python tests/regression_runner.py --cross-check tests/outputs/collection/qmake tests/outputs/collection/msvc`. It must exit 0 with functional agreement.
 
   Record the result and the count of identical items in `specs/004-baseline-parity-gate/evidence.md` (FR-004, SC-010). T011's forced collection must exist first
-- [ ] T013 [US1] Fill in section 2 of `specs/004-baseline-parity-gate/evidence.md` from T008 to T012, and commit it with this file, with the message `docs: record the forced math path locally`
+- [X] T013 [US1] Fill in section 2 of `specs/004-baseline-parity-gate/evidence.md` from T008 to T012, and commit it with this file, with the message `docs: record the forced math path locally`
 
 **Checkpoint**: The forced path is proven on this computer, and Linux and MSVC collections still cross-check. Nothing is pushed yet.
 
