@@ -22,7 +22,7 @@ Terms such as Standard Scene Suite, Reference Target, First Reference Target, Se
 - The **gated build** is the qmake release build of `mandelbulber-opencl.pro` on Linux x86-64 with GCC, which `compile-engine` makes. It belongs to the First Reference Target, whose references go in `tests/references/linux-x86_64-gcc/`.
 - The **math path** is the code that glibc's math library picks, from the features of the CPU it runs on, for functions such as `sin`, `exp`, and `pow` (KD-5). The **forced path** is glibc's plain x86-64 math path, the code it runs on a CPU that offers none of its optional features. It gives the same results as hiding every optional feature from glibc, and FR-001 makes every Linux render take it.
 - A **direct push** is a push straight to `deterministic-regression`, with no pull request.
-- The **maintainer** is the repository owner, `Coastrnaut`.
+- The **maintainer** is the repository owner, `Coastrnaut`. A push, a pull request, or a merge made at the maintainer's explicit request counts as the maintainer's.
 
 ### User Story 1 - Settle the CPU Math Path (Priority: P1)
 
@@ -143,7 +143,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 1. **Given** Baseline 1 is merged, the gate is required, and the drift proof is recorded, **When** the amendment merges, **Then** the constitution shows KD-4 and KD-5 closed, at version 1.1.1.
 2. **Given** the playbook, **When** a reader checks Phase 4, **Then** it matches what was built, including how capture starts and Phase 4's two workflow listings.
-3. **Given** `CLAUDE.md` and `README.md`, **When** a reader checks them, **Then** `CLAUDE.md` no longer says that no branch is protected, and `README.md` explains the gate to contributors.
+3. **Given** `CLAUDE.md` and `README.md`, **When** a reader checks them, **Then** `CLAUDE.md` no longer says that no branch is protected, it names the pull requests that a Baseline Change, an amendment, and a drift proof need, and `README.md` explains the gate to contributors.
 
 ### Edge Cases
 
@@ -211,7 +211,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 - **FR-024**: After FR-017, FR-019, and FR-023 are recorded, an amendment MUST close KD-4 and KD-5 in the constitution, citing the evidence. It is a PATCH, version 1.1.1, as the playbook says, because forcing the path leaves the Reference Target's definition as it is. It MUST state the reason, update the dates, and name the affected plans and gates. The plans are those of `specs/001-regression-harness`, `specs/002-deterministic-rendering`, and `specs/003-strict-floating-point`, which list KD-4 or KD-5 as open, and this one. The gates are Workflow 2, which Baseline 1 makes active, and Principles I and II, which then have no open Known Deviation. It lands as its own pull request that edits only the constitution. Before it opens, the harness passes locally on it, as Workflow 2 requires of every pull request after Baseline 1: a compare of fresh builds of the branch and of `deterministic-regression` finds no difference. Every check on it passes, its description confirms that the constitution's gates hold, and the maintainer approves it as FR-018 says of Baseline 1.
 - **FR-025**: Statements in `MIGRATION_PLAYBOOK.md` that this feature makes out of date MUST be corrected. These include how capture starts, Phase 4's listings of the two workflows, which must match the committed files byte for byte, while Phase 3's listing stays as Phase 3 built it, the math path step, the order of the gate steps and Baseline 1, and how direct pushes meet the required gate, including Phase 5's steps that put work on feature branches.
-- **FR-026**: `CLAUDE.md` MUST no longer say that no branch is protected and no check is required.
+- **FR-026**: `CLAUDE.md` MUST no longer say that no branch is protected and no check is required. Its rules against pull requests and side branches MUST name the ones this feature shows are needed: a Baseline Change, an amendment, and a drift proof, each from a branch deleted once its pull request closes or merges.
 - **FR-027**: Once the gate is required, `README.md` MUST gain the section on continuous integration and regression testing from the playbook's appendix. Each of its statements MUST be true of what this feature builds: the gate runs on pull requests and on pushes to `deterministic-regression`, it is required, and a contributor compares a change with a `deterministic-regression` build before pushing it, not before committing to a feature branch.
 
 **Boundaries**
@@ -256,7 +256,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 ### Key Entities *(include if feature involves data)*
 
-- **Reference Set**: `tests/references/linux-x86_64-gcc/`, with one zip per item, `toolchain.txt`, `settings.txt`, and the math path record.
+- **Reference Set**: `tests/references/linux-x86_64-gcc/`, with one zip per item, `toolchain.txt`, and `settings.txt`, whose fifth line is the math path record.
 - **Capture Run**: One run of the capture workflow, started by a push of its branch, and the artifact it uploads.
 - **Gate Run**: One `parity-gate` job that runs the full gate.
 - **Math Path**: The code glibc's math library picks from the CPU's features. The harness forces the plain x86-64 path.
@@ -274,7 +274,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 - **SC-004**: On this computer, renders with every optional x86-64 feature hidden from glibc, by one fixed setting the plan records, match the forced renders exactly for all 487 items, and a run whose forced path doesn't take effect never passes. The evidence records the CPU model and math features of the capture run and the Baseline 1 gate run, and which items differ between glibc's FMA path and the forced path.
 - **SC-005**: The drift proof fails `parity-gate` on exactly 1 of 487 items, the seeded formula, its failed outputs are uploaded, and its merge shows as blocked. It is closed unmerged, and no seeded change reaches `deterministic-regression`.
 - **SC-006**: `parity-gate` is the only required check on `deterministic-regression`, under the name `parity-gate` reports on the Baseline 1 pull request, and a direct push by the maintainer after it becomes required still lands. The before and after records show that no other repository setting changed, and no pull request used auto-merge.
-- **SC-007**: The constitution shows KD-4 and KD-5 closed at the version FR-024 gives. The playbook's Phase 4 matches what was built, with Phase 4's two workflow listings byte-identical to the committed files. `CLAUDE.md` no longer says no branch is protected, and `README.md` holds the regression section.
+- **SC-007**: The constitution shows KD-4 and KD-5 closed at the version FR-024 gives. The playbook's Phase 4 matches what was built, with Phase 4's two workflow listings byte-identical to the committed files. `CLAUDE.md` no longer says no branch is protected, and it names the pull requests FR-026 lists. `README.md` holds the regression section.
 - **SC-008**: Apart from the two workflows, `tests/regression_runner.py` and `tests/test_regression_runner.py` for FR-001 to FR-004, the reference set, the constitution, `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, `README.md`, `specs/`, and any fix FR-010 needs, no file changes, and `master` doesn't change. Both workflows have read-only repository access and use no secrets, every harness test passes, and Cross-Build Check passes on the Baseline 1 pull request.
 - **SC-009**: Every branch this feature pushes to GitHub is deleted once its pull request closes or merges.
 - **SC-010**: Before the harness change lands, the harness's tests pass on WSL and on Windows, and a local collect of fresh WSL and MSVC builds, then cross-check, exits 0 with functional agreement. The count of identical items is recorded.
@@ -293,7 +293,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 **Found by reading the harness on 2026-11-08**
 
 - **Capture** runs only when `CI` is `true`, needs a working thread control, and refuses on a platform where renders can't be isolated. Its Self-Parity renders each item 7 times: three times at all threads, once as a neutral render, and three times at one thread, where several items run at once, one per CPU. It writes the whole set or nothing, and refuses a set of 104,857,600 bytes or more. The playbook expects about 2 hours.
-- **The reference set** holds one zip per item, `toolchain.txt`, and `settings.txt`. `toolchain.txt` lists the compiler, the math library, and the installed versions of `gcc`, `g++`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1`. `settings.txt` lists the export format, both resolutions, and the render overrides, and the gate refuses a set whose settings differ.
+- **The reference set** holds one zip per item, `toolchain.txt`, and `settings.txt`. `toolchain.txt` lists the compiler, the math library, and the installed versions of `gcc`, `g++`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1`. Today, `settings.txt` lists the export format, both resolutions, and the render overrides, and the gate refuses a set whose settings differ.
 - **The gate** renders each item once and compares it exactly. A missing reference set is a setup error. When the toolchain differs from the record, the gate says so, and a difference in output then counts as a reference target mismatch, exit 3, instead of a parity failure, exit 1. The Collect step, which also renders each item once, took 5 minutes 34 seconds and 10 minutes 28 seconds on two 4-vCPU runners in `specs/003-strict-floating-point`.
 - **Renders get a clean environment**: `PATH`, `SYSTEMROOT`, `TEMP`, `TMP`, and `TMPDIR`, plus `HOME`, `LC_ALL`, and `LANG`. So a `GLIBC_TUNABLES` setting in CI never reaches a render today, and choosing a math path from the harness is a harness change.
 - **The math path test** in `specs/003-strict-floating-point` used `GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4,-AVX2_Usable,-FMA_Usable` to turn off glibc's FMA and AVX2 paths. Nine functions gave different results, and `sqrt` gave the same.

@@ -51,7 +51,7 @@ GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX,-AVX2,-FMA,-FMA4,-SSE3,-SSSE3,-SSE4_1,-SSE4
 | Not x86-64 | `setup error: the forced math path needs an x86-64 CPU` | 3 |
 | Not Linux | `math path: not forced, because this isn't Linux` | The gate goes on for debugging, and can't pass |
 
-The forced line goes to the console and to `tests/outputs/report.txt`, so the evidence can quote the CPU of every CI run. A failure names the first function that differs.
+The forced line goes to the console and to `tests/outputs/report.txt`, so the evidence can quote the CPU of every CI run. A failure names the first function that differs. When glibc's plain results changed, the report also lists all six functions' new results, so FR-010's new values come from one run.
 
 ## The record
 
@@ -81,7 +81,7 @@ math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
 | The environment on Windows | `clean_environment()` holds no `GLIBC_TUNABLES` |
 | A forced probe | A child that prints the plain results passes, and the report names the CPU's own path |
 | A forcing that missed a path | A child that prints an FMA result under the forcing and the plain one when hidden fails as a setup error that says the forcing missed a path and names the function |
-| Changed plain results | A child that prints the same unexpected result under the forcing and when hidden fails as a setup error that says glibc's plain results changed |
+| Changed plain results | A child that prints the same unexpected result under the forcing and when hidden fails as a setup error that says glibc's plain results changed, and lists the six new results |
 | A probe that can't run | A child that exits non-zero or prints the wrong number of lines fails as a setup error |
 | The CPU's own path | All FMA gives `fma`, all plain gives `plain`, and a mix gives `unknown` |
 | The gate stops first | With a failing probe, the gate exits 3 and the stand-in renderer never runs |

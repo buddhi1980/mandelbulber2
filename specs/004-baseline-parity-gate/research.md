@@ -115,7 +115,7 @@ gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/p
     - Step 5 names the drift proof's formula.
     - Step 6 says 1.1.1, and that the amendment's pull request edits only the constitution.
     - Phase 5's steps 1, 4, and 5 say that work lands on `deterministic-regression` by direct push, which the push run of the required gate checks.
-  - **`CLAUDE.md`** (FR-026): Its auto-merge rule loses "no branch is protected, so no check is required", and its CI section names Capture Baseline and the required check.
+  - **`CLAUDE.md`** (FR-026): Its auto-merge rule loses "no branch is protected, so no check is required", and its CI section names Capture Baseline and the required check. Its rules against pull requests and side branches name the three this feature needs: a Baseline Change, an amendment, and a drift proof.
   - **`README.md`** (FR-027): It gains the playbook appendix's section. The section says that the gate runs on pull requests and on pushes to `deterministic-regression` and is required, and "Before committing changes to feature branches" becomes a comparison before each push.
 - **Why**: Each of these statements describes what this feature changes, so each would be wrong once it lands.
 
