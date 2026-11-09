@@ -80,6 +80,7 @@
 #include <jxl/encode.h>
 #include <jxl/thread_parallel_runner.h>
 #include <jxl/types.h>
+#include <jxl/version.h>
 #include <cmath>
 #include <cstring>
 #include <vector>
@@ -948,11 +949,15 @@ bool ImageFileSaveJXL::EncodeJxl(const QString &fullFilename, uint64_t width, ui
 			JxlEncoderSetFrameLossless(settings, JXL_TRUE);
 		else
 			JxlEncoderSetFrameDistance(settings, float(gPar->Get<double>("jxl_distance")));
+#if JPEGXL_NUMERIC_VERSION >= JPEGXL_COMPUTE_NUMERIC_VERSION(0, 8, 0)
+		// JxlEncoderSetExtraChannelDistance arrived in libjxl 0.8; older versions (such as 0.7 on
+		// Ubuntu 24.04) encode alpha at the frame distance
 		if (alphaPresent && !gPar->Get<bool>("jxl_lossless"))
 		{
 			// alpha is a mask, keep it free of lossy artifacts
 			JxlEncoderSetExtraChannelDistance(settings, 0, 0.0f);
 		}
+#endif
 	}
 
 	if (ok)
