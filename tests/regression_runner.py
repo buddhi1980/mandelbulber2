@@ -392,14 +392,22 @@ def clean_environment(home):
     return environment
 
 
-def math_probe_results(setting):
-    """Runs the probe's child with one GLIBC_TUNABLES value, or with none, and returns its result bits."""
+RENDER_SETTING = object()
+
+
+def math_probe_results(setting=RENDER_SETTING):
+    """Runs the probe's child and returns its result bits.
+
+    By default the child gets exactly a render's environment, so the probe tests what renders get.
+    Another setting replaces its GLIBC_TUNABLES value, and None removes it.
+    """
     arguments = [part for name, bits, _, _ in MATH_PROBES for part in (name, bits)]
     with temporary_folder() as home:
         environment = clean_environment(home)
-        environment.pop("GLIBC_TUNABLES", None)
-        if setting is not None:
-            environment["GLIBC_TUNABLES"] = setting
+        if setting is not RENDER_SETTING:
+            environment.pop("GLIBC_TUNABLES", None)
+            if setting is not None:
+                environment["GLIBC_TUNABLES"] = setting
         try:
             result = subprocess.run(
                 [sys.executable, "-c", MATH_PROBE_CODE, *arguments],
@@ -455,7 +463,7 @@ def confirm_math_path(report, capture=False):
     if platform.machine() != "x86_64":
         raise SetupError("the forced math path needs an x86-64 CPU")
     expected = [plain for _, _, plain, _ in MATH_PROBES]
-    forced = math_probe_results(FORCED_MATH_SETTING)
+    forced = math_probe_results()
     if forced != expected:
         hidden = math_probe_results(HIDDEN_MATH_SETTING)
         if forced == hidden:

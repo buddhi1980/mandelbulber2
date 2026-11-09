@@ -2323,10 +2323,11 @@ class MathPathTestCase(GateTestCase):
             self.addCleanup(patcher.stop)
         self.probe_table()
 
-    def probe_table(self, forced=PLAIN_BITS, hidden=PLAIN_BITS, natural=FMA_BITS, exit_code=0):
+    def probe_table(self, forced=PLAIN_BITS, hidden=PLAIN_BITS, natural=FMA_BITS, exit_code=0, extra=None):
         """Makes the probe's child print chosen bits for each GLIBC_TUNABLES value it can get."""
         table_path = self.root / "probe_table.json"
         table = {FORCED_SETTING: list(forced), HIDDEN_SETTING: list(hidden), "": list(natural), "exit": exit_code}
+        table.update(extra or {})
         table_path.write_text(json.dumps(table), encoding="utf-8")
         code = (
             "import json, os, sys\n"
@@ -2399,6 +2400,31 @@ class MathProbeTests(MathPathTestCase):
             "sin 3fe10e8ae531c9fa, cos bfed8b7b0b14170a, exp 3e227b3381e9a676, "
             "log 3fc528a95565bf3c, atan bff7faa774776c93, asin bff535bf4d1dfedb",
             output.getvalue(),
+        )
+
+    def test_probe_tests_the_setting_renders_get(self):
+        misspelled = "glibc.cpu.hwcap=-AVX2,-FMA,-FMA4"
+        self.probe_table(extra={misspelled: FMA_BITS})
+        with mock.patch.object(regression_runner, "FORCED_MATH_SETTING", misspelled):
+            with self.assertRaises(regression_runner.SetupError) as raised:
+                self.confirm()
+        self.assertTrue(str(raised.exception).startswith("the forced math path did not take effect: "), raised.exception)
+
+    def test_probe_fails_when_renders_get_no_setting(self):
+        real = regression_runner.clean_environment
+
+        def unforced(home):
+            environment = real(home)
+            environment.pop("GLIBC_TUNABLES", None)
+            return environment
+
+        with mock.patch.object(regression_runner, "clean_environment", unforced):
+            with self.assertRaises(regression_runner.SetupError) as raised:
+                self.confirm()
+        self.assertEqual(
+            str(raised.exception),
+            "the forced math path did not take effect: sin gave 3fe10e8ae531c9f8, "
+            "and with every optional feature hidden it gives 3fe10e8ae531c9f9",
         )
 
     def test_probe_that_fails_cannot_run(self):
