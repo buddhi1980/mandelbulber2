@@ -1,38 +1,543 @@
 #!/bin/bash
+#
+# Mandelbulber v2 - Linux build and installation script
+#
+# What it does:
+#   1. Detects the distribution (Debian, Ubuntu, Linux Mint -> apt; Fedora -> dnf)
+#      and automatically installs every missing build dependency.
+#   2. Compiles the program (OpenCL build preferred, automatic fallback to CPU-only).
+#   3. Installs the whole application (binary + data that normally live in
+#      /usr/share) into the prefix given as argument, or into the default
+#      system location (/usr) when no prefix is given.
+#
+# The compiled binary is relocatable: when SHARED_DIR is not baked in at
+# compile time, the program looks for its data in "<binary dir>/../share",
+# which matches the layout created by this script for any prefix.
+#
+# Usage:  ./install [options] [prefix]
+#
 
-if [ -f makefiles/mandelbulber2 ] ; then
-  cp makefiles/mandelbulber2 usr/bin/mandelbulber2
-elif [ -f usr/bin/mandelbulber2 ] ; then
-  echo Program already compiled
+set -u
+
+# --------------------------------------------------------------------------
+# Global defaults
+# --------------------------------------------------------------------------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+
+PREFIX="/usr"
+BUILD_DIR=""            # default: $PROJECT_ROOT/build-install
+JOBS="$(nproc 2>/dev/null || echo 4)"
+WANT_DEPS=1             # install missing packages automatically
+FORCE_CPU=0             # --cpu: never try the OpenCL build
+REQUIRE_OPENCL=0        # --opencl: fail instead of falling back to CPU build
+DO_CLEAN=0              # --clean: remove the build directory first
+DO_COMPILE=1
+DO_INSTALL=1
+PREFIX_GIVEN=""
+
+# --------------------------------------------------------------------------
+# Console output helpers (clear English messages)
+# --------------------------------------------------------------------------
+if [ -t 1 ]; then
+	C_RESET=$'\033[0m'; C_GREEN=$'\033[1;32m'; C_YELLOW=$'\033[1;33m'
+	C_RED=$'\033[1;31m'; C_BLUE=$'\033[1;34m'
 else
-  echo Executable file not found. Program not compilled.
-  echo To compile the program you need Qt development packages installed in your system
-  echo Do you want to compile program now? [y/n]
-  read answer
-  if [ "$answer" = "y" ] ; then
-    cd makefiles/
-		qmake mandelbulber.pro
-		make -j4
-		make clean
-		cd ..
-		mv makefiles/mandelbulber2 usr/bin/mandelbulber2
-  fi
+	C_RESET=""; C_GREEN=""; C_YELLOW=""; C_RED=""; C_BLUE=""
 fi
 
-if [ -f usr/bin/mandelbulber2 ] ; then
-	echo The program will be installed. There could be needed superuser password
+info()  { printf '%s\n' "${C_BLUE}==>${C_RESET} $*"; }
+ok()    { printf '%s\n' "${C_GREEN}[OK]${C_RESET} $*"; }
+warn()  { printf '%s\n' "${C_YELLOW}[WARNING]${C_RESET} $*" >&2; }
+error() { printf '%s\n' "${C_RED}[ERROR]${C_RESET} $*" >&2; }
+die()   { error "$*"; exit 1; }
 
-	echo Installing program file
-	sudo install usr/bin/mandelbulber2 /usr/bin
+step()  { printf '\n%s\n' "${C_BLUE}=== $*${C_RESET}"; }
 
-	echo Copying files
-	sudo cp -ra usr/share/ /usr/
+usage() {
+	cat <<'EOF'
+Usage: ./install [options] [prefix]
 
-	echo Installing menu shortcut
-	sudo desktop-file-install mandelbulber2.desktop
+Builds Mandelbulber v2 from this source tree and installs it.
 
-	echo Installation finished 
-	echo To run application please type \"mandelbulber2\" or select from system menu
+Arguments:
+  prefix               Installation prefix (default: /usr). Everything is
+                       placed under it: PREFIX/bin/mandelbulber2,
+                       PREFIX/share/mandelbulber2, PREFIX/share/doc/... .
+
+Options:
+  --prefix DIR        Same as the positional argument above.
+  --no-deps           Do not install missing packages (just check them).
+  --deps-only         Only install the dependencies, do not build or install.
+  --cpu               Force the CPU-only build (no OpenCL).
+  --opencl            Require the OpenCL build; abort instead of CPU fallback.
+  --clean             Remove the build directory before compiling.
+  --no-install        Compile only, do not install.
+  --build-dir DIR     Build directory (default: <sources>/build-install).
+  --jobs N            Parallel make jobs (default: number of CPUs).
+  -h, --help          Show this help.
+
+Supported distributions: Debian, Ubuntu, Linux Mint (apt), Fedora (dnf).
+EOF
+}
+
+# --------------------------------------------------------------------------
+# Command line parsing
+# --------------------------------------------------------------------------
+while [ $# -gt 0 ]; do
+	case "$1" in
+		--prefix)      [ $# -ge 2 ] || die "--prefix requires a directory"; PREFIX="$2"; shift ;;
+		--prefix=*)    PREFIX="${1#*=}" ;;
+		--build-dir)   [ $# -ge 2 ] || die "--build-dir requires a directory"; BUILD_DIR="$2"; shift ;;
+		--build-dir=*) BUILD_DIR="${1#*=}" ;;
+		--jobs)        [ $# -ge 2 ] || die "--jobs requires a number"; JOBS="$2"; shift ;;
+		--jobs=*)      JOBS="${1#*=}" ;;
+		--no-deps)     WANT_DEPS=0 ;;
+		--deps-only)   DO_COMPILE=0; DO_INSTALL=0 ;;
+		--cpu)         FORCE_CPU=1 ;;
+		--opencl)      REQUIRE_OPENCL=1 ;;
+		--clean)       DO_CLEAN=1 ;;
+		--no-install)  DO_INSTALL=0 ;;
+		-h|--help)     usage; exit 0 ;;
+		-*)            die "Unknown option: $1 (see --help)" ;;
+		*)
+			[ -z "$PREFIX_GIVEN" ] || die "Installation prefix already given; pass it only once"
+			PREFIX="$1"; PREFIX_GIVEN=1
+			;;
+	esac
+	shift
+done
+
+[ -n "$BUILD_DIR" ] || BUILD_DIR="$PROJECT_ROOT/build-install"
+
+case "$PREFIX" in
+	/*) ;;
+	*) die "Installation prefix must be an absolute path (got: '$PREFIX')" ;;
+esac
+case "$JOBS" in
+	''|*[!0-9]*) die "--jobs must be a positive integer (got: '$JOBS')" ;;
+esac
+
+info "Mandelbulber v2 Linux installer"
+info "Source tree:  $PROJECT_ROOT"
+info "Build dir:    $BUILD_DIR"
+info "Prefix:       $PREFIX"
+
+[ -f "$PROJECT_ROOT/qmake/mandelbulber-opencl.pro" ] ||
+	die "This does not look like a Mandelbulber source tree (qmake/mandelbulber-opencl.pro not found in $PROJECT_ROOT). Run the script from the deploy/linux directory of the unpacked sources."
+
+# --------------------------------------------------------------------------
+# Privileges (sudo)
+# --------------------------------------------------------------------------
+SUDO=()
+if [ "$(id -u)" -ne 0 ]; then
+	if command -v sudo >/dev/null 2>&1; then
+		SUDO=(sudo)
+	fi
+fi
+
+# Runs a command as root (through sudo when not already root).
+as_root() {
+	if [ "${#SUDO[@]}" -gt 0 ]; then
+		"${SUDO[@]}" "$@"
+	else
+		"$@"
+	fi
+}
+
+require_root_tools() {
+	if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
+		die "Administrator privileges are required but 'sudo' was not found. Re-run this script as root."
+	fi
+}
+
+# --------------------------------------------------------------------------
+# Distribution detection
+# --------------------------------------------------------------------------
+PKG=""          # apt | dnf
+DISTRO_NAME=""
+
+detect_distro() {
+	local id="" like=""
+	if [ -r /etc/os-release ]; then
+		id=$(. /etc/os-release; echo "$ID")
+		like=$(. /etc/os-release; echo "${ID_LIKE:-}")
+	fi
+	DISTRO_NAME="${PRETTY_NAME:-$id}"
+	case " $id $like " in
+		*ubuntu*|*debian*|*mint*)  PKG="apt" ;;
+		*fedora*|*rhel*)           PKG="dnf" ;;
+		*)                         PKG="" ;;
+	esac
+}
+
+detect_distro
+if [ -n "$PKG" ]; then
+	info "Detected distribution: ${DISTRO_NAME:-unknown} (package manager: $PKG)"
+elif [ "$WANT_DEPS" -eq 1 ]; then
+	warn "Unsupported distribution (${DISTRO_NAME:-unknown}). Automatic dependency installation is not available."
+	warn "Please install the Qt6 development packages, libpng, GSL, lzo2 (and optionally OpenCL, TIFF, sndfile, OpenEXR, JPEG XL) by hand, then re-run with --no-deps."
+	exit 1
 else
-	echo Executable file does not exist. Probably the program was not compiled properly.
+	warn "Unsupported distribution (${DISTRO_NAME:-unknown}); continuing without dependency checks (--no-deps given)."
+fi
+
+# --------------------------------------------------------------------------
+# Dependency tables. Each entry is a group: alternatives separated by '|'.
+# A group is satisfied when any member is already installed; otherwise the
+# first member available in the repositories is queued for installation.
+# Required groups that cannot be satisfied abort the script; optional ones
+# only produce warnings (the related feature is then compiled out or lost).
+# --------------------------------------------------------------------------
+REQUIRED_APT=(
+	"build-essential"
+	"make"
+	"pkg-config"
+	"qt6-base-dev"
+	"qt6-base-dev-tools"
+	"qt6-declarative-dev"
+	"qt6-multimedia-dev|qtmultimedia6-dev"
+	"qt6-l10n-tools|qt6-tools-dev-tools"
+	"libpng-dev"
+	"libgsl-dev"
+	"liblzo2-dev"
+)
+OPTIONAL_APT=(
+	"libtiff-dev"
+	"libsndfile1-dev"
+	"libopenexr-dev"
+	"libjxl-dev"
+	"ocl-icd-opencl-dev|opencl-headers"
+	"opencl-clhpp-headers"
+)
+REQUIRED_DNF=(
+	"gcc-c++"
+	"make"
+	"pkgconf-pkg-config"
+	"qt6-qtbase-devel"
+	"qt6-qtdeclarative-devel"
+	"qt6-qtmultimedia-devel"
+	"qt6-qttools-devel"
+	"libpng-devel"
+	"gsl-devel"
+	"lzo-devel"
+)
+OPTIONAL_DNF=(
+	"libtiff-devel"
+	"libsndfile-devel"
+	"openexr-libs-devel|openexr-devel"
+	"libjxl-devel"
+	"OpenCL-ICD-Loader-devel|ocl-icd-devel"
+	"opencl-headers"
+)
+
+pkg_installed_apt() {
+	dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q "install ok installed"
+}
+pkg_installed_dnf() {
+	rpm -q "$1" >/dev/null 2>&1
+}
+pkg_available_apt() {
+	apt-cache show "$1" >/dev/null 2>&1
+}
+pkg_available_dnf() {
+	dnf -q list available "$1" >/dev/null 2>&1
+}
+
+pkg_installed() {
+	case "$PKG" in
+		apt) pkg_installed_apt "$1" ;;
+		dnf) pkg_installed_dnf "$1" ;;
+		*)   return 1 ;;
+	esac
+}
+pkg_available() {
+	case "$PKG" in
+		apt) pkg_available_apt "$1" ;;
+		dnf) pkg_available_dnf "$1" ;;
+		*)   return 1 ;;
+	esac
+}
+
+# Resolves a group of alternatives; prints the package to install, or nothing
+# when the group is already satisfied. Returns 2 when no member is available.
+resolve_group() {
+	local group="$1" member
+	IFS='|' read -ra members <<< "$group"
+	for member in "${members[@]}"; do
+		if pkg_installed "$member"; then
+			return 0
+		fi
+	done
+	for member in "${members[@]}"; do
+		if pkg_available "$member"; then
+			printf '%s\n' "$member"
+			return 0
+		fi
+	done
+	return 2
+}
+
+# Walks over a dependency group array ($1: REQ_GROUPS or OPT_GROUPS),
+# installs what is missing and records unsatisfiable required groups.
+install_dependencies() {
+	local -n groups_ref="$1"
+	local label="$2"
+	local missing=() group result
+
+	step "Checking $label dependencies"
+	for group in "${groups_ref[@]}"; do
+		if result="$(resolve_group "$group")"; then
+			[ -n "$result" ] && missing+=("$result")
+		else
+			if [ "$label" = "required" ]; then
+				ERROR_GROUPS+=("$group")
+			else
+				warn "Optional package(s) not available: $group (the feature will be skipped)"
+			fi
+		fi
+	done
+
+	if [ "${#missing[@]}" -gt 0 ]; then
+		info "Packages to install: ${missing[*]}"
+		require_root_tools
+		if [ "$PKG" = "apt" ]; then
+			as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "${missing[@]}" ||
+				die "Package installation failed. Check the messages above."
+		else
+			as_root dnf install -y "${missing[@]}" ||
+				die "Package installation failed. Check the messages above."
+		fi
+		ok "Packages installed"
+	else
+		ok "All $label packages are already present"
+	fi
+}
+
+if [ "$PKG" = "apt" ]; then
+	REQ_GROUPS=("${REQUIRED_APT[@]}"); OPT_GROUPS=("${OPTIONAL_APT[@]}")
+elif [ "$PKG" = "dnf" ]; then
+	REQ_GROUPS=("${REQUIRED_DNF[@]}"); OPT_GROUPS=("${OPTIONAL_DNF[@]}")
+else
+	REQ_GROUPS=(); OPT_GROUPS=()
+fi
+
+ERROR_GROUPS=()
+
+if [ "$WANT_DEPS" -eq 1 ] && [ -n "$PKG" ]; then
+	# Refresh the package index first, otherwise availability checks are stale.
+	if [ "${#REQ_GROUPS[@]}" -gt 0 ]; then
+		info "Refreshing the package index..."
+		if [ "$PKG" = "apt" ]; then
+			as_root env DEBIAN_FRONTEND=noninteractive apt-get update -qq ||
+				warn "'apt-get update' failed; continuing with the cached package index"
+		else
+			"$PKG" -q makecache --timer || warn "Metadata refresh failed; continuing"
+		fi
+	fi
+	install_dependencies REQ_GROUPS required
+	install_dependencies OPT_GROUPS optional
+	if [ "${#ERROR_GROUPS[@]}" -gt 0 ]; then
+		error "The following required packages are not installed and not available in the repositories:"
+		for g in "${ERROR_GROUPS[@]}"; do error "  - $g"; done
+		die "Install them manually and run this script again."
+	fi
+fi
+
+# --------------------------------------------------------------------------
+# Toolchain sanity checks (also useful with --no-deps)
+# --------------------------------------------------------------------------
+step "Checking the build tools"
+
+find_qmake() {
+	local candidate
+	for candidate in "${QMAKE:-}" qmake6 /usr/lib/qt6/bin/qmake /usr/lib64/qt6/bin/qmake qmake; do
+		[ -n "$candidate" ] || continue
+		local path
+		if path="$(command -v "$candidate" 2>/dev/null)" || [ -x "$candidate" ]; then
+			[ -n "$path" ] || path="$candidate"
+			if "$path" -v 2>/dev/null | grep -q "Qt version 6"; then
+				printf '%s\n' "$path"
+				return 0
+			fi
+		fi
+	done
+	return 1
+}
+
+CC_BIN="${CC:-$(command -v gcc || true)}"
+CXX_BIN="${CXX:-$(command -v g++ || true)}"
+[ -n "$CXX_BIN" ] || die "No C++ compiler found. Install build tools (e.g. build-essential or gcc-c++) and re-run."
+command -v make >/dev/null 2>&1 || die "GNU make not found. Install it (package 'make') and re-run."
+QMAKE_PATH="$(find_qmake || true)"
+[ -n "$QMAKE_PATH" ] || die "qmake for Qt 6 not found (looked for: \$QMAKE, qmake6, /usr/lib/qt6/bin/qmake, qmake). Install the Qt6 development packages."
+ok "Compiler:  $CXX_BIN"
+ok "qmake:     $QMAKE_PATH ($("$QMAKE_PATH" -v 2>/dev/null | tail -1))"
+
+# --------------------------------------------------------------------------
+# Build variant selection (OpenCL preferred, CPU-only fallback)
+# --------------------------------------------------------------------------
+opencl_dev_available() {
+	local dir hdr found=0
+	for dir in /usr/include /usr/include/x86_64-linux-gnu /usr/local/include; do
+		for hdr in opencl.hpp cl2.hpp cl.hpp; do
+			[ -e "$dir/CL/$hdr" ] && found=1
+		done
+	done
+	[ "$found" -eq 1 ] || return 1
+	if ldconfig -p 2>/dev/null | grep -q 'libOpenCL\.so'; then
+		return 0
+	fi
+	local libdir
+	for libdir in /usr/lib /usr/lib64 /usr/lib/x86_64-linux-gnu; do
+		[ -e "$libdir/libOpenCL.so" ] && return 0
+	done
+	return 1
+}
+
+PRO_FILE="mandelbulber-opencl.pro"
+BUILD_KIND="OpenCL"
+if [ "$FORCE_CPU" -eq 1 ]; then
+	PRO_FILE="mandelbulber.pro"; BUILD_KIND="CPU-only (requested with --cpu)"
+elif opencl_dev_available; then
+	: # keep OpenCL build
+elif [ "$REQUIRE_OPENCL" -eq 1 ]; then
+	die "OpenCL development files (CL C++ headers and libOpenCL) are missing and --opencl was requested. Install them (see optional packages) or drop --opencl."
+else
+	PRO_FILE="mandelbulber.pro"
+	BUILD_KIND="CPU-only (OpenCL development packages not found)"
+	warn "OpenCL development files not found - falling back to the CPU-only build."
+	warn "To get GPU support install the OpenCL SDK packages and re-run the script."
+fi
+info "Build variant: $BUILD_KIND ($PRO_FILE)"
+
+# --------------------------------------------------------------------------
+# Compile
+# --------------------------------------------------------------------------
+MAKE="${MAKE:-make}"
+
+do_build() {
+	local pro="$1"
+	rm -f "$BUILD_DIR/Makefile"
+	(
+		cd "$BUILD_DIR" || exit 1
+		info "Running qmake..."
+		"$QMAKE_PATH" -o Makefile "$PROJECT_ROOT/qmake/$pro" PREFIX="$PREFIX" CONFIG+=release || exit 1
+		info "Compiling with $JOBS parallel jobs (this can take a while)..."
+		"$MAKE" -j"$JOBS" || exit 1
+	)
+}
+
+if [ "$DO_COMPILE" -eq 1 ]; then
+	step "Compiling Mandelbulber"
+	mkdir -p "$BUILD_DIR" || die "Cannot create build directory $BUILD_DIR"
+	if [ "$DO_CLEAN" -eq 1 ]; then
+		info "Cleaning the build directory"
+		rm -rf "${BUILD_DIR:?}"/*
+	fi
+	if ! do_build "$PRO_FILE"; then
+		if [ "$PRO_FILE" = "mandelbulber-opencl.pro" ] && [ "$REQUIRE_OPENCL" -eq 0 ]; then
+			warn "The OpenCL build failed. Falling back to the CPU-only build."
+			PRO_FILE="mandelbulber.pro"; BUILD_KIND="CPU-only (OpenCL build failed)"
+			rm -rf "${BUILD_DIR:?}"/*
+			do_build "$PRO_FILE" || die "Compilation failed. Check the compiler messages above."
+		else
+			die "Compilation failed. Check the compiler messages above."
+		fi
+	fi
+	ok "Compilation finished"
+fi
+
+# --------------------------------------------------------------------------
+# Install
+# --------------------------------------------------------------------------
+if [ "$DO_INSTALL" -eq 1 ]; then
+	[ -f "$BUILD_DIR/mandelbulber2" ] || die "Nothing to install: the binary was not built ($BUILD_DIR/mandelbulber2 missing). Run without --no-deps/--deps-only to compile first."
+
+	step "Installing into $PREFIX"
+
+	# Elevated privileges are needed only when the prefix is not writable
+	# by the current user (typical for system locations such as /usr).
+	NEED_ROOT=0
+	if [ "$(id -u)" -ne 0 ]; then
+		mkdir -p "$PREFIX/bin" 2>/dev/null
+		if [ ! -w "$PREFIX/bin" ]; then
+			require_root_tools
+			NEED_ROOT=1
+			as_root mkdir -p "$PREFIX/bin" || die "Cannot create $PREFIX/bin"
+		fi
+	fi
+
+	install_as_root() {
+		if [ "$NEED_ROOT" -eq 1 ]; then
+			as_root "$@"
+		else
+			"$@"
+		fi
+	}
+
+	info "Copying files with 'make install'..."
+	( cd "$BUILD_DIR" && install_as_root "$MAKE" install ) || die "Installation failed (make install)."
+
+	# Extras that the qmake INSTALLS rules do not cover.
+	# Translations: 'make install' now places the committed *.qm from the source
+	# tree; overwrite them with the freshly built ones (generated from current
+	# *.ts by lrelease) when they exist, so translations match this build.
+	if compgen -G "$BUILD_DIR/*.qm" >/dev/null; then
+		install_as_root mkdir -p "$PREFIX/share/mandelbulber2/language"
+		install_as_root cp -f "$BUILD_DIR"/*.qm "$PREFIX/share/mandelbulber2/language/"
+	fi
+
+	# AppStream metadata (software centers).
+	install_as_root mkdir -p "$PREFIX/share/metainfo"
+	install_as_root cp -f "$PROJECT_ROOT/deploy/linux/com.github.buddhi1980.mandelbulber2.metainfo.xml" \
+		"$PREFIX/share/metainfo/" || warn "Could not install the metainfo file"
+
+	# Icon theme aliases so that the desktop entry (Icon=mandelbulber2) resolves.
+	install_as_root mkdir -p "$PREFIX/share/icons/hicolor/256x256/apps" "$PREFIX/share/icons/hicolor/128x128/apps"
+	install_as_root cp -f "$PROJECT_ROOT/deploy/share/mandelbulber2/icons/mandelbulber.png" \
+		"$PREFIX/share/icons/hicolor/256x256/apps/mandelbulber2.png" || true
+	install_as_root cp -f "$PROJECT_ROOT/deploy/share/mandelbulber2/icons/mandelbulber128.png" \
+		"$PREFIX/share/icons/hicolor/128x128/apps/mandelbulber2.png" 2>/dev/null || true
+
+	# For non-standard prefixes the menu entry must point at the full path.
+	if [ "$PREFIX" != "/usr" ] && [ "$PREFIX" != "/usr/local" ]; then
+		desktop="$PREFIX/share/applications/mandelbulber2.desktop"
+		if [ -f "$desktop" ]; then
+			install_as_root sed -i "s|^Exec=mandelbulber2$|Exec=$PREFIX/bin/mandelbulber2|" "$desktop" ||
+				warn "Could not adjust Exec= in the desktop entry"
+		fi
+	fi
+
+	# Refresh desktop/icon caches (best effort, harmless on failures).
+	command -v update-desktop-database >/dev/null 2>&1 &&
+		install_as_root update-desktop-database "$PREFIX/share/applications" 2>/dev/null || true
+	command -v gtk-update-icon-cache >/dev/null 2>&1 &&
+		install_as_root gtk-update-icon-cache -qtf "$PREFIX/share/icons/hicolor" 2>/dev/null || true
+
+	ok "Installation finished"
+fi
+
+# --------------------------------------------------------------------------
+# Summary
+# --------------------------------------------------------------------------
+step "Done"
+ok "Binary:  $PREFIX/bin/mandelbulber2"
+ok "Data:    $PREFIX/share/mandelbulber2"
+ok "Docs:    $PREFIX/share/doc/mandelbulber2"
+echo
+if [ "$DO_INSTALL" -eq 1 ]; then
+	echo "To start Mandelbulber type:"
+	echo
+	echo "    $PREFIX/bin/mandelbulber2"
+	echo
+	if [ "$PREFIX" != "/usr" ] && [ "$PREFIX" != "/usr/local" ]; then
+		echo "For a convenient shell integration you may want to add the prefix to your environment:"
+		echo
+		echo "    export PATH=\"$PREFIX/bin:\$PATH\""
+		echo "    export XDG_DATA_DIRS=\"$PREFIX/share:\${XDG_DATA_DIRS:-/usr/local/share:/usr/share}\""
+		echo
+	fi
+else
+	echo "Compilation only - nothing was installed."
 fi

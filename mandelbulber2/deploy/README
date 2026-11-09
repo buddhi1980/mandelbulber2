@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.34
+                               MANDELBULBER 2.35
 
 1. What is Mandelbulber
 -----------------------
@@ -25,17 +25,16 @@ PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
 CONTACT:         buddhi1980@gmail.com
 DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
 DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
-COMMUNITY:       http://www.fractalforums.com/mandelbulber/
+COMMUNITY:       https://fractalforums.org/
                  https://www.facebook.com/groups/mandelbulber/
-FANSITE:         http://www.mandelbulber.com
-                 http://www.mandelbulber.org
+FANSITE:         https://www.mandelbulber.com
 
 LICENCE:         GNU GPL v3.0
 
 3. REQUIREMENTS
 ---------------
 
-- Linux OS with installed Qt 6 libraries (Qt >= 6.4, tested with 6.8)
+- Linux OS with installed Qt 6 libraries (Qt >= 6.4, tested with 6.10)
 - very fast CPU (recommended 3GHz, 4 cores)
 - 4GB RAM
 
@@ -96,6 +95,7 @@ sudo apt-get install extra-cmake-modules
 TIFF:     install libtiff-dev to have TIFF format support
 EXR:      install libopenexr-dev to have EXR format support
 JXL:      install libjxl-dev to have JPEG XL format support
+HDR:      Radiance HDR (.hdr) output is built in, no extra package needed
 QGAMEPAD: for gamepad support the Qt Gamepad module is required; a Qt 6
           Gamepad package is not available in the Debian/Ubuntu archives,
           in that case gamepad support is silently disabled at build time
@@ -173,24 +173,25 @@ make install
 6. TESTED ON
 ------------
 
-- Debian Trixie x64
-- Ubuntu 24
+- Debian Trixie x64 (newer sid also used)
+- Ubuntu 24.04
 
-- gcc 14.2
-- clang 19.1.7
+- gcc 14.2 - 16.2
+- clang 19.1 - 21.1
 - msvc19
-- Qt 6.8.2
+- Qt 6.8.2 - 6.10.2
 
 7. USAGE
 --------
 
-The main documentation is the PDF file  Mandelbulber_Manual.pdf,  which you can
-find in this very folder.
-Also you can open it from Mandelbulber under: [Menu > Help > User Manual]
+The main documentation is the HTML user manual, stored in the "doc" subfolder
+of this directory (open doc/index.html in a browser).
+You can also open it from Mandelbulber under: [Menu > Help > User Manual]
+(or with the Ctrl+H shortcut).
+A legacy PDF copy (Mandelbulber_Manual.pdf) is kept in the same "doc" folder
+as an offline fallback.
 A lot of useful information you can find  in the tooltips.  Just hover with the
 mouse pointer over the edit fields.
-More useful material can be found in the wiki documentation for old
-Mandelbulber (v1) here: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 8. COMMAND LINE INTERFACE
 -------------------------
@@ -202,7 +203,8 @@ completely.
 Usage: ./mandelbulber2 [options] settings_file
 
 Options:
-  -h, --help             Displays this help.
+  -h, --help             Displays help on commandline options.
+  --help-all             Displays help, including generic Qt options.
   -v, --version          Displays version information.
   -n, --nogui            Starts the program without a GUI.
   -o, --output <N>       Saves rendered image(s) to this file / folder.
@@ -220,6 +222,9 @@ Options:
                           png  - PNG format
                           exr  - EXR format
                           tiff - TIFF format
+                          jxl  - JPEG XL format (8/16/32 bit, HDR via
+                                 jxl_hdr_mode)
+                          hdr  - Radiance HDR format (scene linear RGBE)
                          Legacy formats for still frames:
                           png16 - 16-bit PNG format
                           png16alpha - 16-bit PNG with alpha channel format
@@ -264,7 +269,7 @@ Options:
 
 Arguments:
   settings_file          file with fractal settings (program also tries
-                         to find file in ./mandelbulber/settings directory)
+                         to find file in ~/.mandelbulber/settings directory)
                          When settings_file is put as a command line argument
                          then program will start in noGUI mode<settings_file>
                          can also be specified as a list, see all options with

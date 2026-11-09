@@ -1,18 +1,64 @@
 Version history
 
-v2.35 (September 2025)
+v2.35 (under development)
 
 - Added new fractal formulas
+   aboxMb3d1
+   chebyshevBulb
+   dualPowerMandelbox
    mandelbarV3
-
+   mandelbulbPow2V4
+   pseudoKleinianTrig, pseudoKleinianTrigV2, pseudoKleinianTrigV3
 
 - modified fractal formulas
    mengerMod1, added aux.color
    msltoeSym3Mod6, added aux.color
-	 transfAbsSym3, add cPixel, add color
-	 transfJuliabox, update color
-	 transfAddSphericalInvert, fix DE
+   pseudoKleinian, added "flip z.w" option (usable with 4D)
+   transfAbsSym3, add cPixel, add color
+   transfAddSphericalInvert, fix DE (missing fabs)
+   transfJuliabox, update color
 
+- Objects Tree: new hierarchical object manager, replaces the "nine fractals"
+  positioning system (works in CPU and OpenCL render paths)
+	* tree view in the Objects dock with World root node: fractals, primitives
+	  and groups can be added, deleted, duplicated, renamed, enabled/disabled
+	* drag & drop reordering, context menu for changing boolean operator
+	* position, rotation, scale, repeat and material accumulate along the
+	  hierarchy using 4x4 transform matrices
+	* removed the limit of nine fractals - now number of objects is unlimited
+	* per-object detail level multiplier, group material override, mini
+	  material editor and object id columns inside the tree widget
+	* automatic conversion of old settings files (v2.32 and newer) to the
+	  objects tree structure
+	* viewport helpers: origin crosses with orientation cube, primitive
+	  previews, selected object highlighting, click-to-place target combo
+	* animation morphing of node position/rotation/scale/repeat now uses
+	  Akima spline interpolation
+- Image formats: added JPEG XL saving (8/16/32 bit, HDR, alpha) and Radiance
+  HDR (*.hdr, RGBE) saving; new -f jxl and -f hdr formats in CLI
+- Rendering: increased default stop iteration from 250 to 9999; improved
+  visualization of Monte Carlo noise with a toggle option; faster rendering
+  due to optimizations in MC pixel level optimization
+- Nebula: fixed headless rendering, NaN brightness, wrong formula switching
+  in hybrid mode; migrated to dynamic buffers
+- OpenCL: custom formulas supported in the objects tree (hybrid) path; fixed
+  data structures alignment for NVidia OpenCL 3.0; fixed reflections, clouds,
+  perlin noise displacement, iterFog and fake lights in the full engine;
+  for debugging, the merged kernel source is saved as the file
+  openclKernelCombined.cl in the ~/.mandelbulber directory
+- UI: added tabs in the Rendering Engine dock; new "UI Layout Spacing" setting
+  in Preferences; render statistics shown for OpenCL rendering; many new and
+  corrected tooltips (rich text), Polish translations completed
+- UI: fixed crash at startup, crashes caused by slider popup with Qt > 6.8,
+  objects tree not syncing parameters after undo, empty thumbnails for old
+  format files, missing formula names in the Thumbnail Browser
+- Settings browser: shows the list of used effects; keyframes section moved
+- Documentation: HTML user manual integrated into the program (Help menu,
+  Ctrl+H, (?) buttons); added chapter describing the Objects Tree manager
+- Build: rewritten Linux install/uninstall scripts (prefix-aware, dependency
+  detection); Windows Qt6 based installer package; eliminated all compiler
+  warnings; added GitHub Actions CI and CodeQL analysis
+- Examples: added rendering examples by Jorge Abalo (batjorge)
 
 
 
