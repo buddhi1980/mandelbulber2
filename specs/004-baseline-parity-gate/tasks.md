@@ -166,7 +166,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - **Repeating**: With the go-ahead, a runner fault may be rerun from the run's page. Any other repeat deletes `baseline/1` on GitHub and pushes it again at the commit to capture.
 - [ ] T019 [US2] Download the artifact to a new folder outside the repository with `gh run download <run ID> --repo Coastrnaut/mandelbulber2 -n baseline-references -D C:\GIT\mb2-kd5-baseline-1-artifact`.
   - The folder must hold exactly what the checking table in `specs/004-baseline-parity-gate/contracts/capture-baseline.md` lists, with "math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4" as the fifth line of `settings.txt`.
-  - `toolchain.txt` must hold a `compiler` line, a `math_library` line, and a `package` line for the installed `gcc` and `g++` and for `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` (FR-009).
+  - `toolchain.txt` must hold a `compiler` line, a `math_library` line, at least one `package` line for an installed `gcc-*` and for a `g++-*` package, and one each for `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` (FR-009).
   - Its total must be under 104,857,600 bytes.
   - Record the counts and the size (FR-008, FR-009, SC-001).
 - [ ] T020 [US2] Commit the references on `baseline/1`:

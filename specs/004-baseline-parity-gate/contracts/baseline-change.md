@@ -38,9 +38,9 @@ In this order, with no attribution lines:
 5. **The toolchain**: The lines of `toolchain.txt`.
 6. **The math path**: The `math_path` line, and the fact that every Linux render takes glibc's plain x86-64 path, so the runner's CPU doesn't change the results.
 7. **The check**: How the files were shown to match the artifact.
-8. **Compliance**: The constitution's gates hold: Principle I, because no references exist yet, so nothing drifts; each Baseline Change rule in turn; and Workflow 1, because no engine change lands.
+8. **Compliance**: The constitution's gates hold: Principle I, because no references exist yet, so nothing drifts; each Baseline Change rule in turn; and Workflow 1, because no engine change lands, apart from any fix FR-010 needed, which landed as its own reviewed change.
 9. **Not covered**: Anything the evidence leaves out, including KD-4 and KD-5, which close in the amendment that follows.
 
 ## Approval
 
-GitHub doesn't let a pull request's author approve it, so the maintainer's merge is the approval, as for pull request 7. Nobody else merges it, and no bypass is used to merge it while a check fails.
+GitHub doesn't let a pull request's author approve it, so the maintainer's merge, or the maintainer's explicit request for one, is the approval, as for pull request 7 (FR-018). Nothing else merges it, and no bypass is used to merge it while a check fails.

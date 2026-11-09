@@ -125,7 +125,7 @@ tests/
 
 .specify/memory/constitution.md # KD-4 and KD-5 closed at 1.1.1, through its own pull request
 MIGRATION_PLAYBOOK.md           # Phase 4 and Phase 5 corrections
-CLAUDE.md                       # The required check
+CLAUDE.md                       # The required check, and the pull requests this feature needs
 README.md                       # The regression section
 ```
 
@@ -139,7 +139,7 @@ README.md                       # The regression section
 
 1. Add the setting to `clean_environment()` on Linux, the probe to the gate and capture, and the `math_path` line to `settings_lines()`.
 2. Add the tests the contract lists. The shared stand-in setup replaces the probe with one that passes, so existing tests stay as they are.
-3. Prove it locally on a fresh build: the harness's tests on WSL and Windows, the probe and its two failing scratch copies, the forced and hidden collections that must match, the natural collection that shows the cost, and collect and cross-check across WSL and MSVC (R11, FR-004).
+3. Prove it locally on a fresh build: the harness's tests on WSL and Windows, the probe and its three failing scratch copies, the forced and hidden collections that must match, the natural collection that shows the cost, and collect and cross-check across WSL and MSVC (R11, FR-004).
 
 ### 2. Capture
 
@@ -183,7 +183,7 @@ Push the corrections that R12 lists, state S6. Then run the final checks in [qui
 
 If any step fails, its cause joins this work, and the steps after it wait. A capture that fails Self-Parity stops the feature until its fix lands as its own reviewed change (FR-010).
 
-**Commits**: Every commit lands on `deterministic-regression` by direct push, except three. The references commit is on `baseline/1`, the seed on `seed/drift-proof`, and the amendment on `amend/kd-4-kd-5`.
+**Commits**: Every commit lands on `deterministic-regression` by direct push, except three. The references commit is on `baseline/1`, with the empty commit FR-007 allows if capture needed it, the seed on `seed/drift-proof`, and the amendment on `amend/kd-4-kd-5`.
 
 **Modes by environment**
 
@@ -194,13 +194,13 @@ If any step fails, its cause joins this work, and the steps after it wait. A cap
 | Forced, hidden, and natural collections | Yes | Not needed | Not used |
 | Collect and cross-check | Collect | Collect and cross-check | Cross-Build Check on each pull request |
 | Capture | Refuses, because it isn't CI | Refuses | `capture-baseline` on the push of `baseline/1` |
-| The gate | Setup error, because no references exist | Refuses | `parity-gate` |
+| The gate | Setup error, because no references exist | Runs only for debugging, and can't pass | `parity-gate` |
 | The drift proof's compare | Yes | Not needed | The drift proof's pull request |
 
 ## Follow-ups Outside This Feature
 
 - **Old branches**: GitHub still holds branches of earlier, merged pull requests, such as `upgrade/regression-harness` and `upgrade/deterministic-rendering`. SC-009 covers only this feature's branches.
-- **A new glibc**: The probe's values belong to glibc 2.39. A runner image with another glibc fails the probe until they are found again, and that toolchain needs a Baseline Change anyway.
+- **A new glibc**: The probe's values belong to glibc 2.39. A runner image whose glibc changes its plain results fails the probe until they are found again. Any glibc change shows in the toolchain record, and that toolchain needs a Baseline Change anyway.
 - **The repository's size**: Each reference set adds about 83 MB to the history. Git LFS or another store is a later decision.
 - **Other builds' math**: MSVC and macOS renders don't take a forced path. They have no references, and Cross-Build Check compares only their agreement.
 - **Phase 5**: Engine refactors can begin once the amendment merges.

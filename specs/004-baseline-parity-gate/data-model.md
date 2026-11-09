@@ -10,7 +10,7 @@ The folder `tests/references/linux-x86_64-gcc/`, written whole by capture and ch
 |---|---|---|
 | `scenes/<name>.zip` | One scene's seven buffers and statistics, in the harness's export format | 26 |
 | `formulas/<name>.zip` | One swept formula's seven buffers and statistics | 461 |
-| `toolchain.txt` | `compiler`, `math_library`, and one `package` line for each of `gcc`, `g++`, `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` | 1 |
+| `toolchain.txt` | `compiler`, `math_library`, and a `package` line for each installed `gcc-*` and `g++-*` package, and for `libc6`, `libstdc++6`, `libgcc-s1`, and `libgomp1` | 1 |
 | `settings.txt` | The render settings the set depends on | 1 |
 
 `settings.txt` after this feature, with LF line endings:
@@ -88,7 +88,7 @@ One `parity-gate` job, on a pull request or a push to `deterministic-regression`
 | Files | Only `tests/references/linux-x86_64-gcc/**`, 489 files, and at most one empty commit (FR-007) |
 | Description | What [contracts/baseline-change.md](contracts/baseline-change.md) lists |
 | Checks | `parity-gate` passes on 487 of 487 items, and the others run as usual |
-| Merge | By the maintainer, never by auto-merge |
+| Merge | By the maintainer, or at the maintainer's explicit request, never by auto-merge |
 | After merge | The push run passes, and `baseline/1` is deleted on GitHub |
 
 ## Required Check
