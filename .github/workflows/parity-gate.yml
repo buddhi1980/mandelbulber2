@@ -16,3 +16,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/compile-engine
+      - name: Test the Harness
+        run: python3 tests/test_regression_runner.py
+      - name: Run Parity Gate
+        run: python3 tests/regression_runner.py
+      - name: Upload Failed Outputs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: render-regression-snapshots
+          path: tests/outputs
+          retention-days: 7

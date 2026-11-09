@@ -188,7 +188,7 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The gate passes on the Baseline 1 pull request in Phase 6, and fails on the drift proof in Phase 8.
 
-- [ ] T022 [US3] Add the three steps to `.github/workflows/parity-gate.yml`, so the file is exactly the listing in `specs/004-baseline-parity-gate/contracts/parity-gate.md`, and compare the two byte for byte. Commit it with this file, with the message `ci: add the gate steps to Parity Gate`. Don't push it, because T024 does that right before the pull request opens (FR-013)
+- [X] T022 [US3] Add the three steps to `.github/workflows/parity-gate.yml`, so the file is exactly the listing in `specs/004-baseline-parity-gate/contracts/parity-gate.md`, and compare the two byte for byte. Commit it with this file, with the message `ci: add the gate steps to Parity Gate`. Don't push it, because T024 does that right before the pull request opens (FR-013)
 
 **Checkpoint**: The gate steps are committed and waiting for Baseline 1.
 
