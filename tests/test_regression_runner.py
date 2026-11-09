@@ -26,6 +26,9 @@ sys.path.insert(0, str(TESTS_DIR))
 import regression_runner  # noqa: E402
 import stub_renderer  # noqa: E402
 
+# The shared setup replaces the probe with one that passes, so the forced path's tests keep the real one.
+REAL_CONFIRM_MATH_PATH = getattr(regression_runner, "confirm_math_path", None)
+
 BUFFER_NAMES = ("raw_render", "post_effect", "final_image", "alpha", "depth", "normal", "normal_world")
 FLOAT_BUFFERS = ("raw_render", "post_effect", "depth", "normal", "normal_world")
 SCENE_TEXT = "# Mandelbulber settings file\n# version 2.35\n[main_parameters]\nN 50;\nmat1_is_defined true;\n"
@@ -70,6 +73,8 @@ class HarnessTestCase(unittest.TestCase):
                 return_value=(FIXED_COMMIT, FIXED_COMMIT_TIME, False),
                 create=True,
             ),
+            # The probe asks the real math library, so every other test replaces it with one that passes.
+            mock.patch.object(regression_runner, "confirm_math_path", return_value=None, create=True),
         )
         for patcher in patchers:
             patcher.start()
@@ -2263,6 +2268,253 @@ class ExportSourceTests(unittest.TestCase):
             self.assertNotIn(name, source)
         for name in ("totalNumberOfIterations", "numberOfRaymarchings", "missedDE"):
             self.assertIn(f"statistics.{name}", source)
+
+
+# The forced math path, from specs/004-baseline-parity-gate/contracts/math-path.md.
+FORCED_SETTING = "glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4"
+HIDDEN_SETTING = (
+    "glibc.cpu.hwcaps=-AVX,-AVX2,-FMA,-FMA4,-SSE3,-SSSE3,-SSE4_1,-SSE4_2,-POPCNT,-LZCNT,-MOVBE,"
+    "-BMI1,-BMI2,-F16C,-AVX512F,-AVX512CD,-AVX512BW,-AVX512DQ,-AVX512VL,-ERMS,-XSAVE,-XSAVEC"
+)
+PLAIN_BITS = [
+    "3fe10e8ae531c9f9",
+    "bfed8b7b0b14170a",
+    "3e227b3381e9a676",
+    "3fc528a95565bf3c",
+    "bff7faa774776c93",
+    "bff535bf4d1dfedb",
+]
+FMA_BITS = [
+    "3fe10e8ae531c9f8",
+    "bfed8b7b0b14170b",
+    "3e227b3381e9a677",
+    "3fc528a95565bf3b",
+    "bff7faa774776c94",
+    "bff535bf4d1dfedc",
+]
+COLLECTION_HEADER_NAMES = [
+    "environment",
+    "isolated",
+    "source_commit",
+    "source_dirty",
+    "binary_older_than_commit",
+    "application",
+    "compiler",
+    "math_library",
+    "export_format",
+    "scene_resolution",
+    "formula_resolution",
+    "overrides",
+]
+
+
+class MathPathTestCase(GateTestCase):
+    """Feature 004: the real probe, on a pretend Linux x86-64 computer, with a stand-in child."""
+
+    def setUp(self):
+        super().setUp()
+        self.use_one_formula()
+        for patcher in (
+            mock.patch.object(regression_runner, "confirm_math_path", REAL_CONFIRM_MATH_PATH),
+            mock.patch.object(regression_runner, "on_linux", return_value=True, create=True),
+            mock.patch("platform.machine", return_value="x86_64"),
+        ):
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.probe_table()
+
+    def probe_table(self, forced=PLAIN_BITS, hidden=PLAIN_BITS, natural=FMA_BITS, exit_code=0):
+        """Makes the probe's child print chosen bits for each GLIBC_TUNABLES value it can get."""
+        table_path = self.root / "probe_table.json"
+        table = {FORCED_SETTING: list(forced), HIDDEN_SETTING: list(hidden), "": list(natural), "exit": exit_code}
+        table_path.write_text(json.dumps(table), encoding="utf-8")
+        code = (
+            "import json, os, sys\n"
+            f"table = json.load(open({str(table_path)!r}, encoding='utf-8'))\n"
+            "print('\\n'.join(table[os.environ.get('GLIBC_TUNABLES', '')]))\n"
+            "sys.exit(table['exit'])\n"
+        )
+        patcher = mock.patch.object(regression_runner, "MATH_PROBE_CODE", code, create=True)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def confirm(self):
+        """Runs the probe once, and returns its report's console output, or raises its setup error."""
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            report = regression_runner.Report("test", "linux")
+            self.addCleanup(report.close)
+            regression_runner.confirm_math_path(report)
+        return report, output.getvalue()
+
+
+class MathPathEnvironmentTests(MathPathTestCase):
+    """Every render and query on Linux gets the forced setting, and nothing else can set it."""
+
+    def environment(self):
+        with mock.patch.dict(os.environ, {"GLIBC_TUNABLES": "glibc.cpu.hwcaps=-SSE2"}):
+            with regression_runner.temporary_folder() as home:
+                return regression_runner.clean_environment(home)
+
+    def test_linux_environment_holds_the_forced_setting(self):
+        self.assertEqual(self.environment()["GLIBC_TUNABLES"], FORCED_SETTING)
+
+    def test_windows_environment_holds_no_setting(self):
+        with mock.patch.object(regression_runner, "on_linux", return_value=False):
+            self.assertNotIn("GLIBC_TUNABLES", self.environment())
+
+
+class MathProbeTests(MathPathTestCase):
+    """The probe passes only on the plain path, and says which way it failed."""
+
+    def test_forced_probe_passes_and_names_the_own_path(self):
+        report, output = self.confirm()
+        self.assertIn(f"math path: forced, {FORCED_SETTING}; this CPU's own path: fma; CPU: ", output)
+        self.assertEqual(report.run_problems, [])
+
+    def test_forcing_that_missed_a_path(self):
+        self.probe_table(forced=FMA_BITS[:1] + PLAIN_BITS[1:])
+        with self.assertRaises(regression_runner.SetupError) as raised:
+            self.confirm()
+        self.assertEqual(
+            str(raised.exception),
+            "the forced math path did not take effect: sin gave 3fe10e8ae531c9f8, "
+            "and with every optional feature hidden it gives 3fe10e8ae531c9f9",
+        )
+
+    def test_changed_plain_results(self):
+        changed = ["3fe10e8ae531c9fa"] + PLAIN_BITS[1:]
+        self.probe_table(forced=changed, hidden=changed)
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output), self.assertRaises(regression_runner.SetupError) as raised:
+            report = regression_runner.Report("test", "linux")
+            self.addCleanup(report.close)
+            regression_runner.confirm_math_path(report)
+        self.assertEqual(
+            str(raised.exception),
+            "glibc's plain math results changed: sin gives 3fe10e8ae531c9fa with the forcing "
+            "and with every optional feature hidden, and the probe expects 3fe10e8ae531c9f9",
+        )
+        self.assertIn(
+            "sin 3fe10e8ae531c9fa, cos bfed8b7b0b14170a, exp 3e227b3381e9a676, "
+            "log 3fc528a95565bf3c, atan bff7faa774776c93, asin bff535bf4d1dfedb",
+            output.getvalue(),
+        )
+
+    def test_probe_that_fails_cannot_run(self):
+        self.probe_table(exit_code=1)
+        with self.assertRaises(regression_runner.SetupError) as raised:
+            self.confirm()
+        self.assertTrue(str(raised.exception).startswith("cannot run the math path probe: "), raised.exception)
+
+    def test_probe_with_too_few_results_cannot_run(self):
+        self.probe_table(forced=PLAIN_BITS[:5])
+        with self.assertRaises(regression_runner.SetupError) as raised:
+            self.confirm()
+        self.assertTrue(str(raised.exception).startswith("cannot run the math path probe: "), raised.exception)
+
+    def test_own_path(self):
+        self.assertEqual(regression_runner.own_math_path(PLAIN_BITS), "plain")
+        self.assertEqual(regression_runner.own_math_path(FMA_BITS), "fma")
+        self.assertEqual(regression_runner.own_math_path(PLAIN_BITS[:3] + FMA_BITS[3:]), "unknown")
+
+
+class MathPathModeTests(MathPathTestCase):
+    """Gate and capture stop before any render when the path isn't forced, and only they run the probe."""
+
+    def missed_path(self):
+        self.probe_table(forced=FMA_BITS[:1] + PLAIN_BITS[1:])
+
+    def test_gate_stops_before_any_render(self):
+        self.make_references()
+        self.missed_path()
+        before = len(self.render_calls())
+        code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("setup error: the forced math path did not take effect", output)
+        self.assertEqual(len(self.render_calls()), before)
+
+    def test_capture_stops_before_any_render_and_keeps_the_set(self):
+        self.enable_threads()
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        folder = regression_runner.REF_ROOT / "test-target"
+        before_tree = self.tree_bytes(folder)
+        before_calls = len(self.render_calls())
+        self.missed_path()
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("setup error: the forced math path did not take effect", output)
+        self.assertEqual(len(self.render_calls()), before_calls)
+        self.assertEqual(self.tree_bytes(folder), before_tree)
+
+    def test_gate_on_windows_runs_for_debugging_and_cannot_pass(self):
+        self.make_references()
+        with mock.patch.object(regression_runner, "on_linux", return_value=False):
+            code, output = self.run_main()
+        self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+        self.assertIn("math path: not forced, because this isn't Linux", output)
+        self.assertIn("[+] scene alpha: exact match", output)
+
+    def test_another_architecture_refuses(self):
+        self.make_references()
+        self.enable_threads()
+        before = len(self.render_calls())
+        with mock.patch("platform.machine", return_value="aarch64"):
+            for arguments in ((), ("--capture",)):
+                with self.subTest(arguments=arguments):
+                    code, output = self.run_main(*arguments)
+                    self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+                    self.assertIn("setup error: the forced math path needs an x86-64 CPU", output)
+        self.assertEqual(len(self.render_calls()), before)
+
+    def test_capture_records_the_forced_setting(self):
+        self.enable_threads()
+        code, output = self.run_main("--capture")
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn(f"math path: forced, {FORCED_SETTING}", output)
+        settings = (regression_runner.REF_ROOT / "test-target" / "settings.txt").read_text(encoding="utf-8")
+        self.assertEqual(settings.splitlines()[4:], [f"math_path {FORCED_SETTING}"])
+
+    def test_gate_refuses_old_and_other_sets(self):
+        folder = self.make_references()
+        settings = folder / "settings.txt"
+        lines = settings.read_text(encoding="utf-8").splitlines()
+        for edited in (lines[:4], lines[:4] + ["math_path glibc.cpu.hwcaps=-AVX2"]):
+            with self.subTest(last=edited[-1]):
+                settings.write_text("\n".join(edited) + "\n", encoding="utf-8", newline="\n")
+                code, output = self.run_main()
+                self.assertEqual(code, regression_runner.EXIT_SETUP, output)
+                self.assertIn("render settings differ from the reference set", output)
+
+    def test_other_modes_never_run_the_probe_and_renders_get_the_setting(self):
+        self.enable_threads()
+        second = self.make_launcher("second")
+        probe = mock.Mock(side_effect=AssertionError("the probe ran"))
+        runs = (("--self-parity",), ("--collect", str(self.root / "collection")), ("--compare", str(second)))
+        with mock.patch.object(regression_runner, "confirm_math_path", probe):
+            for arguments in runs:
+                with self.subTest(mode=arguments[0]):
+                    code, output = self.run_main(*arguments)
+                    self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        probe.assert_not_called()
+        environments = [call["env"] for call in self.render_calls() + self.render_calls(second)]
+        self.assertTrue(environments)
+        for environment in environments:
+            self.assertEqual(environment.get("GLIBC_TUNABLES"), FORCED_SETTING)
+
+    def test_collections_keep_their_fields(self):
+        first, second = self.root / "collection-first", self.root / "collection-second"
+        for path in (first, second):
+            code, output = self.run_main("--collect", str(path))
+            self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        listing = (first / "collection.txt").read_text(encoding="utf-8")
+        names = [line.split(" ", 1)[0] for line in listing.splitlines()[1 : 1 + len(COLLECTION_HEADER_NAMES)]]
+        self.assertEqual(names, COLLECTION_HEADER_NAMES)
+        self.assertNotIn("math_path", listing)
+        code, output = self.run_main("--cross-check", str(first), str(second))
+        self.assertEqual(code, regression_runner.EXIT_PASSED, output)
+        self.assertIn("result: functional agreement", output)
 
 
 if __name__ == "__main__":

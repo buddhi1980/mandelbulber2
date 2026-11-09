@@ -18,6 +18,7 @@ import contextlib
 import functools
 import operator
 import os
+import platform
 import re
 import shutil
 import struct
@@ -56,6 +57,34 @@ THREAD_OPTION = "--threads"
 
 # Variables a render may inherit. LD_LIBRARY_PATH stays out, because it can select another math library.
 ALLOWED_VARIABLES = ("PATH", "SYSTEMROOT", "TEMP", "TMP", "TMPDIR")
+
+# glibc picks its math code from the CPU's features at run time (KD-5). Every Linux render turns off the
+# paths that can differ, so every x86-64 CPU takes glibc's plain path. The probe below confirms it before
+# the gate or capture renders anything. See specs/004-baseline-parity-gate/contracts/math-path.md.
+FORCED_MATH_SETTING = "glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4"
+# Hides every optional x86-64 feature, to tell a missed path from a change in glibc's plain results.
+HIDDEN_MATH_SETTING = (
+    "glibc.cpu.hwcaps=-AVX,-AVX2,-FMA,-FMA4,-SSE3,-SSSE3,-SSE4_1,-SSE4_2,-POPCNT,-LZCNT,-MOVBE,"
+    "-BMI1,-BMI2,-F16C,-AVX512F,-AVX512CD,-AVX512BW,-AVX512DQ,-AVX512VL,-ERMS,-XSAVE,-XSAVEC"
+)
+# Inputs where glibc 2.39's FMA and plain paths give different results, as big-endian bits:
+# function, input, plain result, FMA result.
+MATH_PROBES = (
+    ("sin", "c023f95182a9930c", "3fe10e8ae531c9f9", "3fe10e8ae531c9f8"),
+    ("cos", "c023a35a858793de", "bfed8b7b0b14170a", "bfed8b7b0b14170b"),
+    ("exp", "c033f504816f0069", "3e227b3381e9a676", "3e227b3381e9a677"),
+    ("log", "3ff2e042927c0e01", "3fc528a95565bf3c", "3fc528a95565bf3b"),
+    ("atan", "c02bb0cb295e9e1b", "bff7faa774776c93", "bff7faa774776c94"),
+    ("asin", "bfef0b04ab606b7b", "bff535bf4d1dfedb", "bff535bf4d1dfedc"),
+)
+# The probe's child: Python's math functions call glibc's, so it sees the path a render would take.
+MATH_PROBE_CODE = (
+    "import math, struct, sys\n"
+    "for name, bits in zip(sys.argv[1::2], sys.argv[2::2]):\n"
+    "    value = struct.unpack('>d', bytes.fromhex(bits))[0]\n"
+    "    print(struct.pack('>d', getattr(math, name)(value)).hex())\n"
+)
+MATH_PROBE_TIMEOUT = 60
 
 # The console shows this many statistic differences per item and comparison. A histogram has about
 # 1,000 values, and report.txt keeps them all.
@@ -346,11 +375,104 @@ class Report:
             self.file.close()
 
 
+def on_linux():
+    """Whether glibc is the math library, so that the forced math path applies."""
+    return sys.platform.startswith("linux")
+
+
 def clean_environment(home):
-    """Builds a render's whole environment, so nothing from the host can affect it (FR-004)."""
+    """Builds a render's whole environment, so nothing from the host can affect it (FR-004).
+
+    On Linux it also forces glibc's plain math path, so the CPU can't pick another one.
+    """
     environment = {name: os.environ[name] for name in ALLOWED_VARIABLES if name in os.environ}
     environment.update(HOME=str(home), LC_ALL="C.UTF-8", LANG="C.UTF-8")
+    if on_linux():
+        environment["GLIBC_TUNABLES"] = FORCED_MATH_SETTING
     return environment
+
+
+def math_probe_results(setting):
+    """Runs the probe's child with one GLIBC_TUNABLES value, or with none, and returns its result bits."""
+    arguments = [part for name, bits, _, _ in MATH_PROBES for part in (name, bits)]
+    with temporary_folder() as home:
+        environment = clean_environment(home)
+        environment.pop("GLIBC_TUNABLES", None)
+        if setting is not None:
+            environment["GLIBC_TUNABLES"] = setting
+        try:
+            result = subprocess.run(
+                [sys.executable, "-c", MATH_PROBE_CODE, *arguments],
+                cwd=home,
+                env=environment,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                encoding="utf-8",
+                errors="replace",
+                timeout=MATH_PROBE_TIMEOUT,
+            )
+        except (OSError, subprocess.TimeoutExpired) as error:
+            raise SetupError(f"cannot run the math path probe: {error}") from None
+    results = result.stdout.split()
+    if result.returncode != 0:
+        raise SetupError(f"cannot run the math path probe: its child exited with status {result.returncode}")
+    if len(results) != len(MATH_PROBES) or not all(re.fullmatch(r"[0-9a-f]{16}", bits) for bits in results):
+        raise SetupError(f"cannot run the math path probe: it printed {result.stdout.strip()!r}")
+    return results
+
+
+def own_math_path(results):
+    """Names the path the CPU takes by itself, from the probe's results with no setting."""
+    if results == [plain for _, _, plain, _ in MATH_PROBES]:
+        return "plain"
+    if results == [fma for _, _, _, fma in MATH_PROBES]:
+        return "fma"
+    return "unknown"
+
+
+def cpu_description():
+    """The CPU's model name, and which of the fma, fma4, and avx2 flags it has."""
+    try:
+        text = Path("/proc/cpuinfo").read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return "unknown, because /proc/cpuinfo can't be read"
+    model = re.search(r"^model name\s*:\s*(.+)$", text, re.MULTILINE)
+    flags = re.search(r"^flags\s*:\s*(.+)$", text, re.MULTILINE)
+    present = [flag for flag in ("fma", "fma4", "avx2") if flags and flag in flags.group(1).split()]
+    name = model.group(1).strip() if model else "unknown model"
+    return f"{name}, flags {' '.join(present) if present else 'none of fma, fma4, and avx2'}"
+
+
+def confirm_math_path(report, capture=False):
+    """Confirms that renders take the forced math path, or stops the run before it renders (FR-002)."""
+    if not on_linux():
+        if capture:
+            raise SetupError("capture refuses to run, because the forced math path needs Linux")
+        report.line("math path: not forced, because this isn't Linux")
+        report.cannot_pass("this run can't pass, because its math path isn't forced")
+        return
+    if platform.machine() != "x86_64":
+        raise SetupError("the forced math path needs an x86-64 CPU")
+    expected = [plain for _, _, plain, _ in MATH_PROBES]
+    forced = math_probe_results(FORCED_MATH_SETTING)
+    if forced != expected:
+        hidden = math_probe_results(HIDDEN_MATH_SETTING)
+        if forced == hidden:
+            index = next(i for i, (got, want) in enumerate(zip(forced, expected)) if got != want)
+            results = ", ".join(f"{probe[0]} {bits}" for probe, bits in zip(MATH_PROBES, forced))
+            report.line(f"math path: glibc's plain results are now {results}")
+            raise SetupError(
+                f"glibc's plain math results changed: {MATH_PROBES[index][0]} gives {forced[index]} with the "
+                f"forcing and with every optional feature hidden, and the probe expects {expected[index]}"
+            )
+        index = next(i for i, (got, plain) in enumerate(zip(forced, hidden)) if got != plain)
+        raise SetupError(
+            f"the forced math path did not take effect: {MATH_PROBES[index][0]} gave {forced[index]}, "
+            f"and with every optional feature hidden it gives {hidden[index]}"
+        )
+    own = own_math_path(math_probe_results(None))
+    report.line(f"math path: forced, {FORCED_MATH_SETTING}; this CPU's own path: {own}; CPU: {cpu_description()}")
 
 
 def gate_valid():
@@ -963,6 +1085,7 @@ def settings_lines():
         f"scene_resolution {SCENE_RESOLUTION}",
         f"formula_resolution {FORMULA_RESOLUTION}",
         f"overrides {RENDER_OVERRIDES}",
+        f"math_path {FORCED_MATH_SETTING}",
     ]
 
 
@@ -1048,6 +1171,7 @@ def run_self_parity(report):
 def run_gate(report):
     """The default mode. It reads references and never writes them (FR-020)."""
     require_gate_validity(report)
+    confirm_math_path(report)
     binary = binary_path()
     items = build_work_items(binary)
     reference_set = load_reference_set(parity_target())
@@ -1109,6 +1233,7 @@ def run_capture(report):
     report.set_gate_validity(gate_valid(), NOT_ISOLATED_REASON)
     if not report.gate_validity:
         raise SetupError("capture refuses to run, because this run is not gate-valid")
+    confirm_math_path(report, capture=True)
     binary = binary_path()
     items = build_work_items(binary)
     report.item_count = len(items)

@@ -107,14 +107,14 @@ description: "Task list for Baseline 1 and the parity gate"
 
 ### Tests for User Story 1
 
-- [ ] T005 [US1] Write the tests first, in `tests/test_regression_runner.py`:
+- [X] T005 [US1] Write the tests first, in `tests/test_regression_runner.py`:
   - Add every row of the Tests table in `specs/004-baseline-parity-gate/contracts/math-path.md`. They use the real probe function, with a stand-in child process that prints chosen bits, and patches for Linux, Windows, and a machine that isn't `x86_64`.
   - Change the shared setup for the stand-in renderer, so it replaces the probe with one that passes, and every existing test keeps its meaning. `tests/stub_renderer.py` doesn't change.
   - Run `python tests/test_regression_runner.py` on Windows: the new tests fail, and every existing test passes.
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Build the forced path in `tests/regression_runner.py`, as `specs/004-baseline-parity-gate/contracts/math-path.md` says:
+- [X] T006 [US1] Build the forced path in `tests/regression_runner.py`, as `specs/004-baseline-parity-gate/contracts/math-path.md` says:
   - **Constants**: The forced setting `glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4`, the hidden setting exactly as the contract lists it, and the six probe rows with their input, plain, and FMA bits, copied verbatim.
   - **Environment**: `clean_environment()` adds `GLIBC_TUNABLES` with the forced setting on Linux, and adds nothing on other systems.
   - **Probe**: A child `sys.executable` process, with the render environment and a temporary home, prints one result per function. On a mismatch it runs again with the hidden setting, and it runs once with no setting to find the CPU's own path. The CPU's model and its `fma`, `fma4`, and `avx2` flags come from `/proc/cpuinfo`. Each outcome prints the line in the contract's Messages table.
@@ -122,7 +122,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - **Settings**: `settings_lines()` gains the fifth line `math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4`. `COLLECTION_FIELDS` and `COLLECTION_SETTINGS` don't change.
 
   `python tests/test_regression_runner.py` on Windows then passes every test
-- [ ] T007 [US1] Commit `tests/regression_runner.py`, `tests/test_regression_runner.py`, and this file with the message `test: force glibc's plain math path in every Linux render`. Don't push yet, because FR-004's local cross-check comes first
+- [X] T007 [US1] Commit `tests/regression_runner.py`, `tests/test_regression_runner.py`, and this file with the message `test: force glibc's plain math path in every Linux render`. Don't push yet, because FR-004's local cross-check comes first
 - [ ] T008 [US1] In WSL, build the commit fresh with `~/verify/kd5/build_fresh.sh ~/mandelbulber2 windows/deterministic-regression`, then run `python3 tests/test_regression_runner.py` in `~/mandelbulber2`. Every test passes. Record both systems' counts in `specs/004-baseline-parity-gate/evidence.md` (SC-010)
 - [ ] T009 [US1] In `~/mandelbulber2`, run `python3 tests/regression_runner.py`. It prints the forced math path line, with this computer's CPU, flags, and own path, and then stops with a setup error because no reference set exists, with exit 3. Record the line in `specs/004-baseline-parity-gate/evidence.md` (FR-005, quickstart section 1)
 - [ ] T010 [US1] In `~/verify/kd5/`, make three scratch copies of `~/mandelbulber2/tests/regression_runner.py`, each with one change:
