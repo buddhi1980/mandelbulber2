@@ -1,0 +1,5 @@
+export_format 1
+scene_resolution 320x240
+formula_resolution 32x24
+overrides opencl_enabled=0#normal_enabled=1#DOF_samples=8#DOF_min_samples=4
+math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4
