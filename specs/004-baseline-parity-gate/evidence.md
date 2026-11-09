@@ -27,8 +27,8 @@ The results of feature 004, in the sections [contracts/evidence-record.md](contr
 |---|---|
 | S0 | `d505cee69` |
 | S1 | `4b60fcdf9` |
-| S2 | Not reached yet |
-| S3 | Not reached yet |
+| S2 | `2679e892a` |
+| S3 | `2ba3b8021` |
 | S4 | Not reached yet |
 | S5 | Not reached yet |
 | S6 | Not reached yet |
@@ -100,7 +100,20 @@ The probe's line in the run: "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FM
 
 ## 5. Baseline 1
 
-Not run yet.
+**The window**: S2 is `2679e892a`, "ci: add the gate steps to Parity Gate", pushed at 02:49:17 UTC on 2026-11-09. Its Parity Gate run, [42553013294](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42553013294), failed at "Run Parity Gate" as a setup error, as planned: "setup error: no reference set for linux-x86_64-gcc: tests/references/linux-x86_64-gcc does not exist", then "result: setup error". Its probe line was "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 7763 64-Core Processor, flags fma avx2". The job took 11 minutes 15 seconds. Its C++ CI Build (Qt6) run, 42553013223, passed. The window lasted 35 minutes 17 seconds, from that push to the merge at 03:24:34 UTC. Nothing was reverted.
+
+**The pull request**: [Coastrnaut/mandelbulber2#9](https://github.com/Coastrnaut/mandelbulber2/pull/9), "Add Baseline 1 for linux-x86_64-gcc", opened at 02:49:22 UTC from `baseline/1` into `deterministic-regression`. `gh pr view 9 --json files` listed the 489 files under `tests/references/linux-x86_64-gcc/` and nothing else.
+
+| Check | Result | Time |
+|---|---|---|
+| `parity-gate`, [42553024969](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42553024969) | "result: passed (0 of 487 items failed)", after the probe line "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 7763 64-Core Processor, flags fma avx2". The check reported as `parity-gate` | "Run Parity Gate" 5 minutes 25 seconds, under the 30-minute limit. The job 16 minutes 25 seconds |
+| Cross-Build Check, 42553025001 | `cross-check`: "identical: 448 of 487 items matched exactly in every buffer and statistic" and "result: functional agreement (0 of 487 items failed)". `linux-qmake` and `windows-msvc` passed, each "result: passed (0 of 487 items failed)" | `linux-qmake` 20 minutes 31 seconds, `windows-msvc` 28 minutes 53 seconds, `cross-check` 20 seconds |
+| C++ CI Build (Qt6) | Both `Build & Test (Linux)` jobs passed | 14 minutes 4 seconds and 8 minutes 38 seconds |
+| Azure Pipelines, `Coastrnaut.mandelbulber2` | Passed | 35 minutes 41 seconds |
+| CircleCI, `ci/circleci: build-and-pack` | Passed | |
+| Capture Baseline | Skipped, because the push didn't create the branch (FR-007) | |
+
+**The merge**: Pull request #9 merged with a merge commit at 03:24:34 UTC, as `2ba3b8021`, which is S3. `git log --first-parent --format=%H 2679e892a..2ba3b8021` lists only `2ba3b80218a95d600acc54d19d40caffb8c191f5`, so nothing else landed in the window (SC-002). Its Parity Gate push run, [42556244528](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42556244528), passed: "result: passed (0 of 487 items failed)", after the probe line "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 9V74 80-Core Processor, flags fma avx2". "Run Parity Gate" took 4 minutes 29 seconds and the job 12 minutes 46 seconds. Its C++ CI Build (Qt6) run, 42556244605, passed. `baseline/1` is deleted on GitHub with `git push origin --delete baseline/1`, and locally.
 
 ## 6. The required check
 
@@ -108,7 +121,7 @@ Not run yet.
 
 ## 7. The drift proof
 
-Not run yet.
+**The local check** (T030): fresh WSL builds of `2ba3b8021`, one as it is in `~/mandelbulber2` and one in `~/mandelbulber2-seed` with `drift.patch`, which changes `2.0 * z.x - z.z` to `2.001 * z.x - z.z` on line 36 of `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`. `git diff --stat` in the seeded tree listed that one file, "1 insertion(+), 1 deletion(-)". `--compare` of the seeded binary exited 1 with "result: parity failure (1 of 487 items failed)", and every differing line names `formula bristorbrot`: `raw_render`, `post_effect`, and `final_image` 3 of 2,304 samples, `alpha` 1 of 768, `depth` 61 of 768, `normal` and `normal_world` 183 of 2,304, and 5 statistics values, the first `total_iterations` 17541 against 17481.
 
 ## 8. Closing
 

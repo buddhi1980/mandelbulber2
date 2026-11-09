@@ -200,14 +200,14 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The pull request changes only the 489 files, its description holds the nine parts, `parity-gate` passes on 487 of 487 items, and the push run after the merge passes.
 
-- [ ] T023 [US4] Write the pull request's description in `C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`, outside the repository. It has the nine parts in `specs/004-baseline-parity-gate/contracts/baseline-change.md`, in order, with no attribution lines. The before-and-after part takes FR-005's comparison from T011. Take the capture run's link, CPU line, and size from T018 and T019, the lines of `toolchain.txt` and the `math_path` line from the artifact, and the blob ID check from T020
-- [ ] T024 [US4] When the user can review and merge the pull request in the same sitting, ask for the go-ahead to push the gate steps and open the pull request, then push `deterministic-regression`, which reaches S2. Its Parity Gate run must fail at "Run Parity Gate", as a setup error because no reference set exists. Note the run ID and the push time for section 5 of `specs/004-baseline-parity-gate/evidence.md`, which T027 fills in
-- [ ] T025 [US4] Straight away, open the pull request with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression --head baseline/1 --title "Add Baseline 1 for linux-x86_64-gcc" --body-file C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`.
+- [X] T023 [US4] Write the pull request's description in `C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`, outside the repository. It has the nine parts in `specs/004-baseline-parity-gate/contracts/baseline-change.md`, in order, with no attribution lines. The before-and-after part takes FR-005's comparison from T011. Take the capture run's link, CPU line, and size from T018 and T019, the lines of `toolchain.txt` and the `math_path` line from the artifact, and the blob ID check from T020
+- [X] T024 [US4] When the user can review and merge the pull request in the same sitting, ask for the go-ahead to push the gate steps and open the pull request, then push `deterministic-regression`, which reaches S2. Its Parity Gate run must fail at "Run Parity Gate", as a setup error because no reference set exists. Note the run ID and the push time for section 5 of `specs/004-baseline-parity-gate/evidence.md`, which T027 fills in
+- [X] T025 [US4] Straight away, open the pull request with `gh pr create --repo Coastrnaut/mandelbulber2 --base deterministic-regression --head baseline/1 --title "Add Baseline 1 for linux-x86_64-gcc" --body-file C:\GIT\mb2-kd5-baseline-1-artifact\pr-body.md`.
   - **Files**: `gh pr view <number> --json files` must list only the 489 files under `tests/references/linux-x86_64-gcc/`.
   - **Checks**: `parity-gate` must pass on 487 of 487 items, with the "Run Parity Gate" step under 30 minutes, and the check's name must be `parity-gate`. Cross-Build Check, C++ CI Build (Qt6), Azure Pipelines, and CircleCI must pass.
   - **If `parity-gate` fails**: With the go-ahead, revert T022's commit on `deterministic-regression` by direct push, and close the pull request. Find and record the cause, then repeat from T017, with `baseline/1` deleted on GitHub and pushed again (FR-013).
-- [ ] T026 [US4] The user merges the pull request, or tells Claude to, with a merge commit. The push run of `parity-gate` on the merge commit must pass on 487 of 487 items. If it fails, find and record its cause before anything else lands (FR-017). With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`, and delete it locally. This reaches S3
-- [ ] T027 [US4] Fill in section 5 of `specs/004-baseline-parity-gate/evidence.md`:
+- [X] T026 [US4] The user merges the pull request, or tells Claude to, with a merge commit. The push run of `parity-gate` on the merge commit must pass on 487 of 487 items. If it fails, find and record its cause before anything else lands (FR-017). With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`, and delete it locally. This reaches S3
+- [X] T027 [US4] Fill in section 5 of `specs/004-baseline-parity-gate/evidence.md`:
   - The failing run from T024, and how long the window lasted, from that push to the merge.
   - The pull request, its gate step's time, its job's time, its CPU line, and the check name.
   - Cross-Build Check's result and count of identical items.
@@ -244,7 +244,7 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The gate run on the seeded pull request fails on `formula bristorbrot` alone, and the merge state is `BLOCKED`.
 
-- [ ] T030 [P] [US6] Do the drift proof's local check in WSL:
+- [X] T030 [P] [US6] Do the drift proof's local check in WSL:
   1. Write `~/verify/kd5/drift.patch`, which changes `2.0 * z.x - z.z` to `2.001 * z.x - z.z` on line 36 of `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`.
   2. Build fresh with `~/verify/kd5/build_fresh.sh ~/mandelbulber2 windows/deterministic-regression` and `~/verify/kd5/build_fresh.sh ~/mandelbulber2-seed windows/deterministic-regression ~/verify/kd5/drift.patch`.
   3. In `~/mandelbulber2`, run `python3 tests/regression_runner.py --compare ~/mandelbulber2-seed/mandelbulber2/build/appdir/usr/bin/mandelbulber2`. It must exit 1, with `formula bristorbrot` the only item that differs.
