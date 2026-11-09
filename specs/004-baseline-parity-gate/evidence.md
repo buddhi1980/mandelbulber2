@@ -117,7 +117,28 @@ The probe's line in the run: "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FM
 
 ## 6. The required check
 
-Not run yet.
+**The protection** (T028): `gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection --input protection.json`, with the JSON in [contracts/parity-gate.md](contracts/parity-gate.md), set classic branch protection at 03:39 UTC on 2026-11-09. This reached S4. Reading it back gave:
+
+| Field | Value |
+|---|---|
+| `required_status_checks.contexts` | `["parity-gate"]`, the name pull request #9 reported |
+| `required_status_checks.strict` | `false` |
+| `enforce_admins.enabled` | `false` |
+| `required_pull_request_reviews` | none |
+| `restrictions` | none |
+| `allow_force_pushes.enabled`, `allow_deletions.enabled` | `false`, `false` |
+
+**The first direct push** (T029): `git push origin deterministic-regression` at 03:40:01 UTC landed `2ba3b8021..16401caa6`, which carries T027's commit, and GitHub reported the rule it bypassed:
+
+```text
+remote: Bypassed rule violations for refs/heads/deterministic-regression:
+remote:
+remote: - Required status check "parity-gate" is expected.
+```
+
+Its Parity Gate push run, [42557650628](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42557650628), passed: "result: passed (0 of 487 items failed)", after "math path: forced, glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4; this CPU's own path: fma; CPU: AMD EPYC 7763 64-Core Processor, flags fma avx2". "Run Parity Gate" took 5 minutes 25 seconds and the job 16 minutes 25 seconds (FR-020, SC-006).
+
+The settings, protected branches, and rulesets at the end, compared with the header's, are in section 9.
 
 ## 7. The drift proof
 

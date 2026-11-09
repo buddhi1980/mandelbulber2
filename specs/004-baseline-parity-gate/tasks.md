@@ -226,13 +226,13 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The protection reads back as `parity-gate` alone, with `strict` and `enforce_admins` false, and a direct push lands with GitHub's bypass notice.
 
-- [ ] T028 [US5] Ask for the go-ahead, then set the protection:
+- [X] T028 [US5] Ask for the go-ahead, then set the protection:
   - Write `C:\GIT\mb2-kd5-baseline-1-artifact\protection.json` with the JSON in `specs/004-baseline-parity-gate/contracts/parity-gate.md`.
   - Run `gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection --input C:\GIT\mb2-kd5-baseline-1-artifact\protection.json`.
   - Read it back with `gh api repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection`. The required checks must be `parity-gate` alone, the name T025 recorded, with `strict` false, `enforce_admins` false, no required reviews, and no restrictions. This reaches S4.
 
   Record the result in `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T029 [US5] Ask for the go-ahead, then push `deterministic-regression`, which carries T027's commit. The push must land, and GitHub must report the rule it bypassed. Save that output. Its Parity Gate push run must pass, and its gate step's time is recorded. Fill in section 6 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the required check` (FR-020, SC-006)
+- [X] T029 [US5] Ask for the go-ahead, then push `deterministic-regression`, which carries T027's commit. The push must land, and GitHub must report the rule it bypassed. Save that output. Its Parity Gate push run must pass, and its gate step's time is recorded. Fill in section 6 of `specs/004-baseline-parity-gate/evidence.md`, and commit it with this file, with the message `docs: record the required check` (FR-020, SC-006)
 
 **Checkpoint**: The gate is required, and direct pushes still work.
 
