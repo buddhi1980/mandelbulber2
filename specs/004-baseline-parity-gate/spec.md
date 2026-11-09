@@ -313,7 +313,7 @@ A maintainer reads the constitution and sees both deviations closed, with the ev
 
 **Environment and defaults**
 
-- Every push needs the maintainer's go-ahead, and so does each repository setting this feature changes.
+- Every push, pull request, merge, branch deletion on GitHub, and workflow rerun needs the maintainer's go-ahead, and so does each repository setting this feature changes.
 - Every local measurement comes from a fresh build of the commit being tested. No task may rely on an existing binary.
 - Capture refuses outside CI, so Baseline 1 can only come from a hosted runner.
 - The local measurement in FR-005 runs in the WSL `Ubuntu-24.04` distro on the Intel Core i9-14900K, whose CPU offers FMA and AVX2. It checks output, not time, so it can run while FractalEvaluator renders. The times this feature records come from CI.

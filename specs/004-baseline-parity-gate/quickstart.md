@@ -12,7 +12,7 @@ Runnable checks that prove this feature works end to end. The contracts hold the
 ./build_fresh.sh ~/mandelbulber2 windows/deterministic-regression
 ```
 
-- **Go-aheads**: Every push, every pull request, the protection change, and each merge need the maintainer's go-ahead.
+- **Go-aheads**: Every push, every pull request, the protection change, every branch deletion on GitHub, every rerun of a workflow, and each merge need the maintainer's go-ahead.
 - **Records**: Before the first change, save the repository's settings, protected branches, and rulesets, with the three `gh api` calls in [parity-gate.md](contracts/parity-gate.md).
 
 ## 1. The forced path (User Story 1)
@@ -61,7 +61,7 @@ The cross-check must exit 0 with functional agreement, and the evidence records 
 ## 4. Capture Baseline 1 (User Story 2)
 
 1. With the go-ahead, push the harness change and the capture workflow to `deterministic-regression`. Parity Gate and C++ CI Build (Qt6) must pass on the push.
-2. Start capture and confirm that the run started, as [capture-baseline.md](contracts/capture-baseline.md) says. If it didn't, restart it with the empty commit. If it fails for a reason outside the source, rerun it from its page.
+2. Start capture and confirm that the run started, as [capture-baseline.md](contracts/capture-baseline.md) says. If it didn't, restart it with the empty commit. If it fails for a reason outside the source, rerun it from its page, with the go-ahead.
 3. Wait for the run without polling. It must pass, its log must show the forced math path line and "wrote 487 references", and it must upload `baseline-references`.
 4. Download the artifact, check its contents and size, commit it on `baseline/1`, compare the blob IDs, and push the branch.
 

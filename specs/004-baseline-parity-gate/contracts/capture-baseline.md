@@ -56,7 +56,7 @@ jobs:
 
 ## Starting Baseline 1
 
-With the maintainer's go-ahead, from a clean checkout of `deterministic-regression` at the commit to capture:
+With the maintainer's go-ahead, from a clean checkout of `deterministic-regression` that is even with `origin/deterministic-regression`, so the branch carries no unpushed commit:
 
 ```text
 git push origin deterministic-regression:refs/heads/baseline/1

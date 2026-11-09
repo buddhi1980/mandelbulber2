@@ -107,7 +107,7 @@ One `parity-gate` job, on a pull request or a push to `deterministic-regression`
 
 | Field | Value |
 |---|---|
-| Branch | `seed/drift-proof`, from the tip of `deterministic-regression` |
+| Branch | `seed/drift-proof`, from `origin/deterministic-regression`, so it holds no unpushed record |
 | Seed | Line 36 of `fractal_bristorbrot.cpp`, `2.0 * z.x - z.z` changed to `2.001 * z.x - z.z` |
 | Local check | `--compare` of fresh builds finds `formula bristorbrot` alone |
 | CI result | `parity-gate` fails on `formula bristorbrot` alone, and uploads its outputs |

@@ -77,7 +77,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - `python tests/test_regression_runner.py` passes every test.
 
   Record `git rev-parse HEAD` as S0, `git rev-parse origin/master`, and the test count, for `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T002 Save the repository's settings before the first change (FR-022) into `specs/004-baseline-parity-gate/settings/before/`:
+- [ ] T002 Save the repository's settings before the first change (FR-022) into `specs/004-baseline-parity-gate/settings/before/`, writing each from Git Bash with `>`, so the files are UTF-8:
   - `repository.json` from `gh api repos/Coastrnaut/mandelbulber2 --jq 'del(.temp_clone_token)'`, so no token is saved.
   - `protected-branches.json` from `gh api "repos/Coastrnaut/mandelbulber2/branches?protected=true"`.
   - `rulesets.json` from `gh api repos/Coastrnaut/mandelbulber2/rulesets`.
@@ -158,8 +158,8 @@ description: "Task list for Baseline 1 and the parity gate"
 - [ ] T014 [US2] Create `.github/workflows/capture-baseline.yml` with exactly the listing in `specs/004-baseline-parity-gate/contracts/capture-baseline.md`, and compare the two byte for byte
 - [ ] T015 [US2] Commit `.github/workflows/capture-baseline.yml` and this file with the message `ci: add the Capture Baseline workflow`
 - [ ] T016 [US2] Ask the user for the go-ahead, then push `deterministic-regression`, which reaches S1. Parity Gate and C++ CI Build (Qt6) must pass on the push. Record their run IDs for section 3 of `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T017 [US2] Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
-  - **No run**: With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`. Make a local `baseline/1` at the same commit with one commit from `git commit --allow-empty -m "test: start the Baseline 1 capture"`, push it, and confirm the run (FR-007).
+- [ ] T017 [US2] Confirm with `git fetch origin` and `git status -sb` that `deterministic-regression` is even with `origin/deterministic-regression`, so `baseline/1` carries no unpushed commit. Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
+  - **No run**: With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`. Run `git switch -c baseline/1`, then `git commit --allow-empty -m "test: start the Baseline 1 capture"` and `git push -u origin baseline/1`, confirm the run, and run `git switch deterministic-regression` (FR-007).
   - Record which start worked, for `specs/004-baseline-parity-gate/evidence.md`.
 - [ ] T018 [US2] When the run finishes, its job must have passed in under 350 minutes. Its log must show the forced math path line and "wrote 487 references to tests/references/linux-x86_64-gcc", and Self-Parity must have passed at one thread and at four. Its `Search the Build Files` and `Reject Prohibited Compile Flags` steps must have passed too, so capture's build was checked (User Story 2, scenario 2). Record the CPU line, the CPU's own path, the step times, and the job's time for section 4 of `specs/004-baseline-parity-gate/evidence.md` (FR-005, FR-014, SC-003).
   - **If it failed**: Download `capture-failure-outputs`, find the cause, record it, and stop to tell the user (FR-010).
@@ -303,7 +303,7 @@ description: "Task list for Baseline 1 and the parity gate"
   - **Files**: `git diff --stat <S0> deterministic-regression -- . ':!specs' ':!tests/references'` lists only the two workflows, the two harness files, the constitution, `MIGRATION_PLAYBOOK.md`, `CLAUDE.md`, and `README.md`, plus any fix FR-010 needed (SC-008).
   - **Master**: `git rev-parse origin/master` still equals T001's value.
   - **Branches**: `git ls-remote --heads origin` lists no `baseline/`, `seed/`, or `amend/` branch (SC-009).
-  - **Settings**: Save T002's three records again into `specs/004-baseline-parity-gate/settings/after/`, and compare them with `settings/before/`, leaving out timestamps, counts, and commit IDs. Only the protection on `deterministic-regression` may differ: it joins the list of protected branches, and nothing else changes (FR-022, SC-006).
+  - **Settings**: Save T002's three records again, the same way, into `specs/004-baseline-parity-gate/settings/after/`, and compare them with `settings/before/`, leaving out timestamps, counts, and commit IDs. Only the protection on `deterministic-regression` may differ: it joins the list of protected branches, and nothing else changes (FR-022, SC-006).
   - **Messages**: `git log <S0>.. --format=%B` holds no attribution line.
   - **Tests**: `python tests/test_regression_runner.py` passes.
 - [ ] T042 Fill in sections 8 and 9 of `specs/004-baseline-parity-gate/evidence.md`, with one row for each of SC-001 to SC-010. Commit T041's records, the evidence, and this file with the message `docs: close the Baseline 1 evidence`. Ask for the go-ahead, and push `deterministic-regression`
