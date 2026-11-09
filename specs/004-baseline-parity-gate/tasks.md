@@ -268,8 +268,8 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The constitution's table shows KD-4 and KD-5 closed at 1.1.1. The playbook's Phase 4 listings of the two workflows are byte-identical to the committed files.
 
-- [ ] T034 [US7] Ask for the go-ahead, then push `deterministic-regression` with T029's and T033's commits, so the amendment can link `specs/004-baseline-parity-gate/evidence.md` as it stands on its base
-- [ ] T035 [US7] Open the amendment:
+- [X] T034 [US7] Ask for the go-ahead, then push `deterministic-regression` with T029's and T033's commits, so the amendment can link `specs/004-baseline-parity-gate/evidence.md` as it stands on its base
+- [X] T035 [US7] Open the amendment:
   1. In `C:\GIT\mandelbulber2`, run `git fetch origin` and `git switch -c amend/kd-4-kd-5 origin/deterministic-regression`.
   2. In `.specify/memory/constitution.md`, add "**Closed <date>**, see `specs/004-baseline-parity-gate/evidence.md`" to the closing cells of KD-4 and KD-5, as KD-1 to KD-3 have. Set the version to 1.1.1 and the last amended date to the date.
   3. `git diff --stat` must list only the constitution. Commit it with the message `docs: close KD-4 and KD-5`.
@@ -278,18 +278,18 @@ description: "Task list for Baseline 1 and the parity gate"
   6. Run `git switch deterministic-regression`.
 
   The pull request's body states the reason, the version change from 1.1.0 to 1.1.1, and the dates. It names the affected plans, those of features 001 to 004, and the affected gates, Workflow 2 and Principles I and II. It links the evidence, confirms the constitution's gates hold, and has no attribution lines (FR-024)
-- [ ] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record T035's local compare, the pull request, its gate step's time, and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
-- [ ] T037 [P] [US7] Correct `MIGRATION_PLAYBOOK.md` as research R12 lists:
+- [X] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record T035's local compare, the pull request, its gate step's time, and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
+- [X] T037 [P] [US7] Correct `MIGRATION_PLAYBOOK.md` as research R12 lists:
   - Phase 4's steps 1 to 6, with both workflow listings as committed. Phase 3's listing of `parity-gate.yml` stays as Phase 3 built it.
   - Phase 5's steps 1, 4, and 5, which say that work lands on `deterministic-regression` by direct push.
 
   Then extract Phase 4's two listings from the playbook with a short script, and diff each against `.github/workflows/parity-gate.yml` and `.github/workflows/capture-baseline.yml`. Both must be identical (FR-025, SC-007)
-- [ ] T038 [P] [US7] Correct `CLAUDE.md` (FR-026):
+- [X] T038 [P] [US7] Correct `CLAUDE.md` (FR-026):
   - The auto-merge rule loses "no branch is protected, so no check is required". It says instead that `parity-gate` is the required check on `deterministic-regression`, which the user's direct pushes bypass, and that auto-merge stays off.
   - The CI section adds that a push which creates a `baseline/` branch runs Capture Baseline.
   - The rules against pull requests and side branches name the exceptions FR-026 lists: a Baseline Change, an amendment, and a drift proof, each from a branch deleted once its pull request closes or merges.
-- [ ] T039 [P] [US7] Add the playbook appendix's section on continuous integration and regression testing to `README.md`. Make each statement true of what this feature built: the gate runs on pull requests and on pushes to `deterministic-regression`, it is required, and a contributor compares a change with a `deterministic-regression` build before pushing it, not before committing to a feature branch (FR-027)
-- [ ] T040 [US7] Commit T036 to T039's changes with this file, with the message `docs: correct the playbook, CLAUDE.md, and README for the parity gate`. Ask for the go-ahead, and push `deterministic-regression`, which reaches S6
+- [X] T039 [P] [US7] Add the playbook appendix's section on continuous integration and regression testing to `README.md`. Make each statement true of what this feature built: the gate runs on pull requests and on pushes to `deterministic-regression`, it is required, and a contributor compares a change with a `deterministic-regression` build before pushing it, not before committing to a feature branch (FR-027)
+- [X] T040 [US7] Commit T036 to T039's changes with this file, with the message `docs: correct the playbook, CLAUDE.md, and README for the parity gate`. Ask for the go-ahead, and push `deterministic-regression`, which reaches S6
 
 **Checkpoint**: KD-4 and KD-5 are closed, and every document matches what was built.
 

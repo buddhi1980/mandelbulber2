@@ -29,8 +29,8 @@ The results of feature 004, in the sections [contracts/evidence-record.md](contr
 | S1 | `4b60fcdf9` |
 | S2 | `2679e892a` |
 | S3 | `2ba3b8021` |
-| S4 | Not reached yet |
-| S5 | Not reached yet |
+| S4 | Protection set at 03:39 UTC on 2026-11-09, on `2ba3b8021` |
+| S5 | `60beeac34` |
 | S6 | Not reached yet |
 
 ## 2. The forced path, locally
@@ -157,7 +157,29 @@ The settings, protected branches, and rulesets at the end, compared with the hea
 
 ## 8. Closing
 
-Not run yet.
+**The base** (T034): `git push origin deterministic-regression` landed `16401caa6..bf78f8b7f`, which carries T029's and T033's commits, with the same bypass notice as section 6.
+
+**The amendment** (T035): `amend/kd-4-kd-5`, from `bf78f8b7f`, holds one commit, `c9996ba58`, "docs: close KD-4 and KD-5". It edits only `.specify/memory/constitution.md`, 3 insertions and 3 deletions: KD-4's and KD-5's closing cells gain "**Closed 2026-11-09**, see `specs/004-baseline-parity-gate/evidence.md`", and the version line becomes "**Version**: 1.1.1 | **Ratified**: 2026-11-04 | **Last Amended**: 2026-11-09".
+
+**The local compare** (Workflow 2): fresh WSL builds of `c9996ba58` in `~/mandelbulber2-amend` and `bf78f8b7f` in `~/mandelbulber2`. `--compare` exited 0, "result: passed (0 of 487 items failed)". The branch was pushed before this compare ran, out of T035's order, and the pull request was opened only after it passed.
+
+**The pull request**: [Coastrnaut/mandelbulber2#11](https://github.com/Coastrnaut/mandelbulber2/pull/11), "Close KD-4 and KD-5 (constitution 1.1.1)", opened at 04:02:05 UTC. Its body states the reason, the version change, and the dates, names the plans of features 001 to 004 and the gates Workflow 2 and Principles I and II, links this evidence, and confirms compliance (FR-024).
+
+| Check | Result | Time |
+|---|---|---|
+| `parity-gate`, [42559545224](https://github.com/Coastrnaut/mandelbulber2/actions/runs/42559545224) | Passed | "Run Parity Gate" 5 minutes 27 seconds, the job 16 minutes 34 seconds |
+| Cross-Build Check | `linux-qmake`, `windows-msvc`, and `cross-check` passed | 20 minutes 24 seconds, 27 minutes 9 seconds, and 25 seconds |
+| C++ CI Build (Qt6) | Both `Build & Test (Linux)` jobs passed | 8 minutes 57 seconds and 10 minutes 37 seconds |
+| CircleCI | Passed | |
+| Azure Pipelines | Still pending at the merge. On 2026-11-09 the maintainer said not to wait for it any more, so it was left out | |
+
+**The merge**: Pull request #11 merged with a merge commit at 05:20:42 UTC, as `60beeac34`, which is S5. `amend/kd-4-kd-5` is deleted on GitHub and locally.
+
+**The documents** (T037 to T039), in the commit "docs: correct the playbook, CLAUDE.md, and README for the parity gate", which is S6:
+
+- `MIGRATION_PLAYBOOK.md`: Phase 4's six steps describe what this feature built, and Phase 5's steps 1, 4, and 5 land work on `deterministic-regression` by direct push. A script extracted Phase 4's two listings and compared them with `.github/workflows/parity-gate.yml` and `.github/workflows/capture-baseline.yml`: both are identical (FR-025, SC-007). The appendix matches the README's new section.
+- `CLAUDE.md`: the auto-merge rule names the required check, the CI section names Capture Baseline and the required check, and the rules against pull requests and side branches name the Baseline Change, amendment, and drift proof exceptions (FR-026). It also gains the maintainer's rule not to wait for Azure Pipelines.
+- `README.md`: it gains the section on continuous integration and regression testing. It says the gate runs on pull requests and on pushes to `deterministic-regression` and is required, and that a contributor compares a change before each push (FR-027).
 
 ## 9. Success criteria
 

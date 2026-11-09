@@ -103,6 +103,32 @@ In addition, there exists an MSVC Solution located in this git package. The solu
 
 The system requires the QT5 framework in conjunction with LZO for real-time data compression and GSL for scientific resources.
 
+## 🔄 Continuous Integration & Regression Testing
+
+This project uses **GitHub Actions** alongside a custom differential testing framework to guarantee **Zero Behavioral Drift** across core fractal calculation models and rendering loops during upgrades or optimizations.
+
+The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit. Its `parity-gate` job runs on every pull request and on every push to `deterministic-regression`, and it is the required check on `deterministic-regression`: a pull request can't merge until it passes. On Linux, every render takes glibc's plain math path, so the runner's CPU doesn't change the results.
+
+### Locally Testing Parity
+Before each push, compare your change with a build of the `deterministic-regression` commit it starts from, on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
+```bash
+mkdir -p mandelbulber2/build && cd mandelbulber2/build
+qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
+make -j$(nproc)
+make INSTALL_ROOT=appdir install
+cd ../..
+python3 tests/regression_runner.py --compare <path to a deterministic-regression build's installed binary>
+```
+
+### Cross-Checking Two Build Systems
+The Cross-Build Check workflow builds every pull request with `qmake6` on Linux and MSVC on Windows, tests each build, and confirms that both work on every scene and formula. You can run the same check locally, with a qmake build in WSL and an MSVC build on Windows:
+```bash
+python3 tests/regression_runner.py --collect <folder for the qmake results>
+python tests/regression_runner.py --collect <folder for the MSVC results>
+python tests/regression_runner.py --cross-check <qmake folder> <MSVC folder>
+```
+Run the first command in WSL and the other two on Windows. This check does not replace the parity gate.
+
 ## Official partners
 
 [I-love-chaos](http://ilc.fractalforums.com)

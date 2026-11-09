@@ -288,9 +288,9 @@ Phase 3 is complete when `--self-parity` passes at two thread counts with both c
 To ensure that no code mutations skip verification, this phase captures the first references and turns on the gate.
 
 ### 1. Add the Gate and Capture Workflows
-Add the gate steps to `.github/workflows/parity-gate.yml`, and add a manually started capture workflow. `parity-gate` stays red until references exist, so merge this pull request immediately before the Baseline 1 pull request in the next step.
+Add `.github/workflows/capture-baseline.yml` first, and the gate steps in `.github/workflows/parity-gate.yml` after capture, since `parity-gate` stays red until references exist. The repository's default branch is `master`, which follows upstream and holds no harness, so a manually started workflow can't run here. Capture starts instead when a push creates a `baseline/` branch.
 
-Update `.github/workflows/parity-gate.yml`:
+`.github/workflows/parity-gate.yml`, with the gate steps:
 
 ```yaml
 name: Parity Gate
@@ -324,21 +324,29 @@ jobs:
           retention-days: 7
 ```
 
-Create `.github/workflows/capture-baseline.yml`:
+`.github/workflows/capture-baseline.yml`:
 
 ```yaml
 name: Capture Baseline
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - 'baseline/**'
+
+permissions:
+  contents: read
 
 jobs:
   capture-baseline:
+    if: github.event.created
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/compile-engine
+      - name: Test the Harness
+        run: python3 tests/test_regression_runner.py
       - name: Capture References
         run: python3 tests/regression_runner.py --capture
       - name: Upload References
@@ -347,34 +355,43 @@ jobs:
           name: baseline-references
           path: tests/references
           if-no-files-found: error
+          retention-days: 90
+      - name: Upload Failed Outputs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: capture-failure-outputs
+          path: tests/outputs
+          retention-days: 7
 ```
 
-Capture renders every scene and formula 7 times and is expected to take about 2 hours, within GitHub's 6-hour job limit.
+Capture tests the harness, passes Self-Parity at one thread and at all of the runner's threads, then writes the references. Baseline 1's capture took 31 minutes 9 seconds, far inside the 350-minute limit.
 
 ### 2. Settle the CPU Math Path
 glibc picks its math code path from the CPU at run time, so one binary can give different results on two computers whose CPUs have different features. On 2026-11-07, one binary gave different `sin`, `cos`, `tan`, `atan`, `atan2`, `asin`, `exp`, `log`, and `pow` results, over 4 million values each, when the library's FMA and AVX2 paths were turned off, and the same `sqrt` results. `specs/003-strict-floating-point/evidence.md` records the test. No compile flag changes this, so hosted runners with different CPUs could disagree with the references.
 
-Before capture, decide how the gate handles this, and record the decision with the references. Finishing this step closes KD-5. A Reference Target that names CPU features is a constitution amendment.
+The harness settles it by forcing glibc's plain x86-64 path for every Linux render, with `GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4`. Before any render, a probe checks six known answers, for `sin`, `cos`, `exp`, `log`, `atan`, and `asin`, in the render environment. It stops with a setup error if the forcing didn't take effect or if glibc's plain results changed, and it prints a line naming the forced setting, the CPU's own path, and the CPU. Each reference set records the setting as the last line of its `settings.txt`, `math_path glibc.cpu.hwcaps=-AVX2,-FMA,-FMA4`, and the gate refuses a set made without it. Forced renders match renders with every optional CPU feature hidden from glibc, for every item. `specs/004-baseline-parity-gate/evidence.md` records the checks. This closed KD-5.
 
 ### 3. Capture Baseline 1
-Baseline 1 is a Baseline Change, so its pull request contains only reference files. References must come from CI rather than a development machine. Create the branch:
+Baseline 1 is a Baseline Change, so its pull request contains only reference files. References must come from CI rather than a development machine. Start capture by creating the branch on GitHub, at the commit with the capture workflow:
 ```bash
-git checkout -b baseline/1
-git push origin baseline/1
+git push origin deterministic-regression:refs/heads/baseline/1
 ```
 
-In the repository's **Actions** tab, open **Capture Baseline**, choose **Run workflow**, and select `baseline/1`. When it finishes, download the `baseline-references` artifact from the run page, unpack it into `tests/references/`, and push the files to the same branch. Then open the pull request. `parity-gate` passes once the references are present. The pull request description must state that no earlier references exist, which replaces the usual before-and-after evidence, and link the passing Self-Parity run.
+When the run finishes, download its `baseline-references` artifact, unpack it into `tests/references/`, and check that every file's blob ID matches the downloaded copy. Commit the files on `baseline/1` and push it, which doesn't start capture again. Then push the gate steps to `deterministic-regression`, whose push run fails as a setup error because no reference set exists yet, and open the pull request straight away. Its description gives the before-and-after evidence, the comparison of glibc's FMA path with the forced path, and links the capture run that passed Self-Parity. `parity-gate` passes once the references are present. Merge it with a merge commit, and delete `baseline/1`.
 
 ### 4. Require the Gate
-In the GitHub branch protection rules for `deterministic-regression`, mark `parity-gate` as a required status check. A CI job does not block a merge by itself.
+Mark `parity-gate` as the required status check on `deterministic-regression`, with classic branch protection:
+```bash
+gh api -X PUT repos/Coastrnaut/mandelbulber2/branches/deterministic-regression/protection --input protection.json
+```
+`protection.json` requires `parity-gate` alone, with `strict` and `enforce_admins` false, and no required reviews or restrictions. A pull request can't merge until `parity-gate` passes on it. The maintainer's direct pushes bypass the required check, and GitHub reports the rule each one bypassed. Each push run then checks the push afterwards, and a red push run is a defect to fix at once, by the next commit, never by regenerating references.
 
 ### 5. Prove the Gate Catches Drift
-```bash
-claude -c "On a throwaway branch, change one constant in a formula that no scene in tests/scenes.txt uses, confirm that the parity-gate job fails on that formula in the sweep, then delete the branch without merging it."
-```
+On a throwaway branch, `seed/drift-proof`, change `2.0 * z.x - z.z` to `2.001 * z.x - z.z` on line 36 of `mandelbulber2/formula/definition/fractal_bristorbrot.cpp`, a formula no scene uses. Open a pull request into `deterministic-regression`. `parity-gate` must fail on `formula bristorbrot` alone and upload `render-regression-snapshots`, and the merge state must be `BLOCKED`. Then close the pull request unmerged and delete the branch.
 
 ### 6. Close the Known Deviations
-Amend the constitution to close KD-4 and KD-5, which is a PATCH version bump. KD-1 closed in version 1.0.1, and KD-2 and KD-3 closed in version 1.1.0. Engine refactors can now begin.
+Amend the constitution to close KD-4 and KD-5, which is a PATCH version bump, to 1.1.1. The amendment's pull request edits only the constitution. KD-1 closed in version 1.0.1, and KD-2 and KD-3 closed in version 1.1.0. Engine refactors can now begin.
 
 ---
 
@@ -383,9 +400,9 @@ Amend the constitution to close KD-4 and KD-5, which is a PATCH version bump. KD
 Once Baseline 1 is merged and the gate is required, use this 5-step operational loop to isolate UI/Framework dependencies from your core math and business logic.
 
 ### Step 1: Specify the Abstraction Scope
-Open a distinct feature branch for the abstraction task and specify the architectural boundary goals:
+Work on `deterministic-regression` itself, where the work lands by direct push, and specify the architectural boundary goals:
 ```bash
-git checkout -b upgrade/qt6-abstraction-layer
+git switch deterministic-regression
 claude -c "/speckit-specify Create a software specification to design a clean API abstraction layer between Qt6 and the core rendering engine. The objective is to decouple UI types, custom Qt container wrappers (like QString, QVector, QPoint), and Qt event loops from the mathematical formulas and engine pipelines, substituting them with pure standard library types (std::string, std::vector) without modifying rendering behavior or data structures."
 ```
 
@@ -403,11 +420,11 @@ claude -c "/speckit-implement Implement the Qt6 abstraction interfaces and type 
 ```
 
 ### Step 4: Run the Parity Gatekeeper
-Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your branch against a `deterministic-regression` build on the same machine. This is a local check, and the GitHub Actions gate stays the authority. `deterministic-regression` is the base for regression features, and `master` follows upstream.
+Verify that changes compile cleanly and yield identical output before pushing. References come from CI and may not match your local toolchain, so compare your change against a build of the `deterministic-regression` commit it starts from, on the same machine. This is a local check, and the GitHub Actions gate stays the authority. `deterministic-regression` is the base for regression features, and `master` follows upstream.
 
-Build `deterministic-regression` once in a separate worktree:
+Build that commit once in a separate worktree, without creating a branch:
 ```bash
-git worktree add ../mandelbulber2-base deterministic-regression
+git worktree add --detach ../mandelbulber2-base origin/deterministic-regression
 (
   mkdir -p ../mandelbulber2-base/mandelbulber2/build
   cd ../mandelbulber2-base/mandelbulber2/build
@@ -417,7 +434,7 @@ git worktree add ../mandelbulber2-base deterministic-regression
 )
 ```
 
-Then build your branch and compare it with that build:
+Then build your change and compare it with that build:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
@@ -427,7 +444,7 @@ cd ../..
 python3 tests/regression_runner.py --compare ../mandelbulber2-base/mandelbulber2/build/appdir/usr/bin/mandelbulber2
 ```
 
-Then cross-check your branch on both builds, as described under Local Development, so a change that breaks only one build system shows up before you push.
+Then cross-check your change on both builds, as described under Local Development, so a change that breaks only one build system shows up before you push.
 
 *If convergence parameters require adjustment:*
 ```bash
@@ -437,11 +454,11 @@ claude -c "/speckit-converge Audit the decoupled abstraction code, verify that n
 A parity failure is a defect in the change. Do not regenerate references to clear it.
 
 ### Step 5: Merge and Push to GitHub Actions Verification Gating
-When compare mode reports **no differences**, push your changes so the `parity-gate` job can verify them on the Reference Target:
+When compare mode reports **no differences**, push your changes to `deterministic-regression` directly. The push bypasses the required check, and its push run of `parity-gate` verifies it on the Reference Target afterwards. A red push run is a defect to fix at once with the next commit:
 ```bash
 git add mandelbulber2 specs
 git commit -m "refactor(core): implemented abstract interface layer to decouple engine from Qt6 types"
-git push origin upgrade/qt6-abstraction-layer
+git push origin deterministic-regression
 ```
 
 ---
@@ -454,10 +471,10 @@ After Phase 4, add this structural snippet to the main project workspace documen
 
 This project uses **GitHub Actions** alongside a custom differential testing framework to guarantee **Zero Behavioral Drift** across core fractal calculation models and rendering loops during upgrades or optimizations.
 
-The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit.
+The regression gate builds the codebase with `qmake6`, headlessly renders a fixed scene list and every fractal formula, and compares the application's raw image buffers and render statistics against per-platform references, bit for bit. Its `parity-gate` job runs on every pull request and on every push to `deterministic-regression`, and it is the required check on `deterministic-regression`: a pull request can't merge until it passes. On Linux, every render takes glibc's plain math path, so the runner's CPU doesn't change the results.
 
 ### Locally Testing Parity
-Before committing changes to feature branches, compare your branch with a `deterministic-regression` build on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
+Before each push, compare your change with a build of the `deterministic-regression` commit it starts from, on the same machine. This works with any toolchain, and the GitHub Actions gate stays the authority. On Linux:
 ```bash
 mkdir -p mandelbulber2/build && cd mandelbulber2/build
 qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
