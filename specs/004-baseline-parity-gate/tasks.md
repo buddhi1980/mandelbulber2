@@ -155,8 +155,8 @@ description: "Task list for Baseline 1 and the parity gate"
 
 **Independent Test**: The capture run passes, and its artifact holds 26 scene zips, 461 formula zips, `toolchain.txt`, and a `settings.txt` whose fifth line is the `math_path` line, under 104,857,600 bytes.
 
-- [ ] T014 [US2] Create `.github/workflows/capture-baseline.yml` with exactly the listing in `specs/004-baseline-parity-gate/contracts/capture-baseline.md`, and compare the two byte for byte
-- [ ] T015 [US2] Commit `.github/workflows/capture-baseline.yml` and this file with the message `ci: add the Capture Baseline workflow`
+- [X] T014 [US2] Create `.github/workflows/capture-baseline.yml` with exactly the listing in `specs/004-baseline-parity-gate/contracts/capture-baseline.md`, and compare the two byte for byte
+- [X] T015 [US2] Commit `.github/workflows/capture-baseline.yml` and this file with the message `ci: add the Capture Baseline workflow`
 - [ ] T016 [US2] Ask the user for the go-ahead, then push `deterministic-regression`, which reaches S1. Parity Gate and C++ CI Build (Qt6) must pass on the push. Record their run IDs for section 3 of `specs/004-baseline-parity-gate/evidence.md`
 - [ ] T017 [US2] Confirm with `git fetch origin` and `git status -sb` that `deterministic-regression` is even with `origin/deterministic-regression`, so `baseline/1` carries no unpushed commit. Ask for the go-ahead, then run `git push origin deterministic-regression:refs/heads/baseline/1`. Within 2 minutes, `gh run list --repo Coastrnaut/mandelbulber2 --workflow capture-baseline.yml --branch baseline/1` must show a run whose job is running.
   - **No run**: With the go-ahead, delete `baseline/1` on GitHub with `git push origin --delete baseline/1`. Run `git switch -c baseline/1`, then `git commit --allow-empty -m "test: start the Baseline 1 capture"` and `git push -u origin baseline/1`, confirm the run, and run `git switch deterministic-regression` (FR-007).

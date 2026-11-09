@@ -1,0 +1,36 @@
+name: Capture Baseline
+
+on:
+  push:
+    branches:
+      - 'baseline/**'
+
+permissions:
+  contents: read
+
+jobs:
+  capture-baseline:
+    if: github.event.created
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/compile-engine
+      - name: Test the Harness
+        run: python3 tests/test_regression_runner.py
+      - name: Capture References
+        run: python3 tests/regression_runner.py --capture
+      - name: Upload References
+        uses: actions/upload-artifact@v7
+        with:
+          name: baseline-references
+          path: tests/references
+          if-no-files-found: error
+          retention-days: 90
+      - name: Upload Failed Outputs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: capture-failure-outputs
+          path: tests/outputs
+          retention-days: 7
