@@ -62,7 +62,7 @@ One run of `.github/workflows/capture-baseline.yml`.
 | Not started | A push that creates `baseline/<number>` starts the job. Any other push to that branch skips it |
 | Testing | The harness's own tests pass, or the job fails |
 | Building | The build-file search, the build, and the flag check pass, or the job fails |
-| Rendering | The probe passes, and Self-Parity passes at one thread and at four, or the job fails and writes nothing |
+| Rendering | The probe passes, and Self-Parity passes at one thread and at all of the runner's threads, or the job fails and writes nothing |
 | Written | 487 references, `toolchain.txt`, and `settings.txt` are in `tests/references/linux-x86_64-gcc/` |
 | Uploaded | The `baseline-references` artifact holds the set, kept for 90 days |
 | Failed | `capture-failure-outputs` holds `tests/outputs`, kept for 7 days |

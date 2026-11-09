@@ -65,7 +65,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 | Principle I: can this change affect gated output, and which scenes cover it? | Yes, on purpose | The forced path changes some math results in their last bit, and fractal iteration can amplify that in what Linux renders produce. Baseline 1 records that output. No references exist before it, so this is not drift. All 487 items cover it. |
 | Principle I: exact comparison | Pass | The gate compares every buffer and statistic exactly, with no tolerance (FR-012). |
 | Principle I: expected output changes only through a Baseline Change | Pass | Baseline 1 is a Baseline Change (FR-015). |
-| Principle II: does it add randomness, timing, threading, or external state? | No, it removes one | The CPU's features stop choosing glibc's math path for gated renders (FR-001). The `GLIBC_TUNABLES` value comes from the harness, which is in the repository, and nothing from the host's environment reaches a render, as Principle II requires. Capture runs Self-Parity at one thread and at four. |
+| Principle II: does it add randomness, timing, threading, or external state? | No, it removes one | The CPU's features stop choosing glibc's math path for gated renders (FR-001). The `GLIBC_TUNABLES` value comes from the harness, which is in the repository, and nothing from the host's environment reaches a render, as Principle II requires. Capture runs Self-Parity at one thread and at all of the runner's threads. |
 | Principle II: a render is a pure function of the binary, scene, seeds, and resolution | KD-5, closed by this feature | The harness fixes the math path for every Linux render, so the runner's CPU stops mattering. KD-5 isn't reported as passing until the amendment closes it. |
 | Principle III: does it touch build flags, compilers, math libraries, or arithmetic order? | The math library's path, yes. Flags, no | A run-time setting picks one of glibc's code paths. No build flag changes, and the build-file search and the flag check run in both workflows through `compile-engine`. |
 | Reference Targets: the First Reference Target's compiler and math library versions are recorded with Baseline 1 | Pass | `toolchain.txt` holds them (FR-009). |
@@ -80,7 +80,7 @@ Pixels change only where the forced path gives other math results than glibc's F
 
 **Known Deviations**: These are not reported as passing.
 
-- **KD-1, KD-2, and KD-3 (closed)**: They closed in 1.0.1 and 1.1.0. Capture's Self-Parity proves KD-1 again, on the hosted runner, at one thread and at four.
+- **KD-1, KD-2, and KD-3 (closed)**: They closed in 1.0.1 and 1.1.0. Capture's Self-Parity proves KD-1 again, on the hosted runner, at one thread and at all of its threads.
 - **KD-4 (open)**: It closes when Baseline 1 merges, and the amendment records that.
 - **KD-5 (open)**: It closes when the forced path lands and Baseline 1 records it, and the amendment records that.
 

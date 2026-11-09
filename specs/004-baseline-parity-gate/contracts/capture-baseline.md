@@ -49,7 +49,7 @@ jobs:
 - **Repeats**: A run that failed outside the source, such as a runner fault, may be rerun from its page on GitHub, which repeats the same push event. Any other repeat deletes the branch on GitHub and pushes it again at the commit to capture. Captures on different branches are independent.
 - **Access**: Read-only, with no secrets (FR-006).
 - **Build**: Through `compile-engine`, so the build-file search and the flag check run before any render.
-- **Harness rules**: Capture refuses outside CI, without thread control, or where renders can't be isolated. It runs the math path probe, passes Self-Parity at one thread and at four, and writes a whole set or nothing (FR-008).
+- **Harness rules**: Capture refuses outside CI, without thread control, or where renders can't be isolated. It runs the math path probe, passes Self-Parity at one thread and at all of the runner's threads, four on today's hosted runner, and writes a whole set or nothing (FR-008).
 - **Nothing written**: When Self-Parity or the probe fails, the capture step fails, so the references aren't uploaded, and the job keeps the report in `capture-failure-outputs` (FR-010).
 - **Time**: Self-Parity renders each item 7 times. The playbook expects about 2 hours, inside the 350-minute limit.
 - **Lifetime**: The references artifact is kept for 90 days, the longest GitHub allows for a public repository.
