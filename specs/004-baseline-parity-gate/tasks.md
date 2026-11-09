@@ -278,7 +278,7 @@ description: "Task list for Baseline 1 and the parity gate"
   6. Run `git switch deterministic-regression`.
 
   The pull request's body states the reason, the version change from 1.1.0 to 1.1.1, and the dates. It names the affected plans, those of features 001 to 004, and the affected gates, Workflow 2 and Principles I and II. It links the evidence, confirms the constitution's gates hold, and has no attribution lines (FR-024)
-- [ ] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record the pull request, its gate step's time, and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
+- [ ] T036 [US7] Every check on the amendment's pull request must pass, `parity-gate` included. The user merges it, which reaches S5. With the go-ahead, delete `amend/kd-4-kd-5` on GitHub and locally. Record T035's local compare, the pull request, its gate step's time, and the merge in section 8 of `specs/004-baseline-parity-gate/evidence.md`
 - [ ] T037 [P] [US7] Correct `MIGRATION_PLAYBOOK.md` as research R12 lists:
   - Phase 4's steps 1 to 6, with both workflow listings as committed. Phase 3's listing of `parity-gate.yml` stays as Phase 3 built it.
   - Phase 5's steps 1, 4, and 5, which say that work lands on `deterministic-regression` by direct push.
