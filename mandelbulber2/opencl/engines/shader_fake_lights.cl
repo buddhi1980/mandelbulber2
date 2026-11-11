@@ -43,13 +43,31 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	if (consts->params.common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
 	if (consts->params.common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
 
+	// The orbit trap is evaluated in the object local space (the space in which the
+	// distance calculation iterates the fractal orbit). Using the world space point
+	// makes the light ignore the object tree transform: the light stays in place when
+	// the object is moved or rotated and only the primary copy of a repeated object
+	// gets lit.
+	float3 lightPoint = GetFractalPoint(input);
+
+	// Finite differences for the light normal are taken along the local axes, so the
+	// shading normal has to be rotated into the same space (same convention as texture
+	// mapping). The step is also converted to local units by the object scale.
+	float delta = input->distThresh * consts->params.smoothness;
+	float3 shadingNormal = input->normal;
+	if (input->hasTransformedPoint && input->objectId >= 0
+			&& input->objectId < renderData->numberOfObjects)
+	{
+		__global sObjectDataCl *objectData = &renderData->objectsData[input->objectId];
+		if (objectData->absScale > 0.0f) delta /= objectData->absScale;
+		shadingNormal = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), input->normal);
+	}
+
 	for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 	{
-		float delta = input->distThresh * consts->params.smoothness;
-
 		calcParams->orbitTrapIndex = fakeLightLoop;
 		formulaOut outF;
-		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1, renderData, 0,
+		outF = Fractal(consts, lightPoint, calcParams, calcModeOrbitTrap, NULL, -1, renderData, 0,
 			input->transformedPoint, input->hasTransformedPoint);
 		float rr = outF.orbitTrapR;
 		float r = 1.0f / (rr + 1e-20f);
@@ -61,17 +79,17 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		calcParams->detailSize = input->delta;
 
 		outF =
-			Fractal(consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap,
+			Fractal(consts, lightPoint + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap,
 				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		outF =
-			Fractal(consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap,
+			Fractal(consts, lightPoint + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap,
 				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 		outF =
-			Fractal(consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap,
+			Fractal(consts, lightPoint + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap,
 				NULL, -1, renderData, 0, input->transformedPoint, input->hasTransformedPoint);
 		float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
@@ -82,7 +100,7 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		fakeLightNormal = normalize(fakeLightNormal);
 
-		float fakeLight2 = fakeLight * dot(input->normal, fakeLightNormal);
+		float fakeLight2 = fakeLight * dot(shadingNormal, fakeLightNormal);
 		if (fakeLight2 < 0.0f) fakeLight2 = 0.0f;
 
 		float3 color;

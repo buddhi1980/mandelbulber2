@@ -34,6 +34,7 @@
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "hybrid_fractal_sequences.h"
+#include "object_data.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
@@ -48,6 +49,30 @@ sRGBAFloat cRenderWorker::FakeLights(
 	if (params->common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
 	if (params->common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
 
+	// The orbit trap is evaluated in the object local space (the space in which the
+	// distance calculation iterates the fractal orbit). Passing the world space point
+	// instead makes the light ignore the object tree transform: the light stays in
+	// place when the object is moved or rotated, and only the primary copy of a
+	// repeated object gets lit (every repeated copy is rendered from the same local
+	// point, so the light now tiles together with the fractal).
+	const CVector3 lightPoint = input.GetFractalPoint();
+
+	// Finite differences for the light normal are taken along the local axes, so the
+	// shading normal has to be rotated into the same space (same convention as texture
+	// mapping). The step is also converted to local units by the object scale.
+	const cObjectData *hitObjectData = nullptr;
+	if (input.objectId >= 0 && input.objectId < static_cast<int>(data->objectData.size()))
+	{
+		hitObjectData = &data->objectData[input.objectId];
+	}
+	double delta = input.distThresh * params->smoothness;
+	CVector3 shadingNormal = input.normal;
+	if (input.hasTransformedPoint && hitObjectData != nullptr)
+	{
+		if (hitObjectData->absScale > 0.0) delta /= hitObjectData->absScale;
+		shadingNormal = hitObjectData->rotationMatrix.Transpose().RotateVector(input.normal);
+	}
+
 	for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 	{
 		sRGBAFloat fakeLightAccum(0.0, 0.0, 0.0, 0.0);
@@ -57,10 +82,8 @@ sRGBAFloat cRenderWorker::FakeLights(
 			const auto *seq = data->hybridFractalSequences.GetSequence(s);
 			if (!seq) continue;
 
-			double delta = input.distThresh * params->smoothness;
-
 			sFractalIn fractIn(
-				input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+				lightPoint, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
 			double rr = fractOut.orbitTrapR;
@@ -72,15 +95,15 @@ sRGBAFloat cRenderWorker::FakeLights(
 			CVector3 deltaY(0.0, delta, 0.0);
 			CVector3 deltaZ(0.0, 0.0, delta);
 
-			fractIn.point = input.point + deltaX;
+			fractIn.point = lightPoint + deltaX;
 			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
 			double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
-			fractIn.point = input.point + deltaY;
+			fractIn.point = lightPoint + deltaY;
 			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
 			double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
-			fractIn.point = input.point + deltaZ;
+			fractIn.point = lightPoint + deltaZ;
 			Compute<fractal::calcModeOrbitTrap>(seq, fractIn, &fractOut);
 			double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
@@ -98,7 +121,7 @@ sRGBAFloat cRenderWorker::FakeLights(
 			{
 				fakeLightNormal.Normalize();
 			}
-			float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
+			float fakeLight2 = fakeLight * shadingNormal.Dot(fakeLightNormal);
 			if (fakeLight2 < 0) fakeLight2 = 0;
 
 			sRGBFloat color;
