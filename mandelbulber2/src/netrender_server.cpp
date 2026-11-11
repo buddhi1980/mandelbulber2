@@ -286,6 +286,16 @@ bool cNetRenderServer::WaitForAllClientsReady(double timeout)
 	return false;
 }
 
+/**
+ * Check if the server still receives image files produced by the clients.
+ * A client confirms a rendered frame before its files are transferred, so the confirmation of
+ * the last frame does not mean that all images are already on the server.
+ */
+bool cNetRenderServer::IsReceivingFiles() const
+{
+	return fileReceiver->IsReceiving();
+}
+
 void cNetRenderServer::SetCurrentJob(std::shared_ptr<const cParameterContainer> settings,
 	std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures)
 {

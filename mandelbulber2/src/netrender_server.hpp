@@ -75,6 +75,8 @@ public:
 	const sClient &GetClient(int index);
 	// in cli mode this method enables waiting for the clients before start of rendering
 	bool WaitForAllClientsReady(double timeout);
+	// true while image files sent by the clients are still being received
+	bool IsReceivingFiles() const;
 	// send parameters and textures to all clients and start rendering
 	void SetCurrentJob(std::shared_ptr<const cParameterContainer> settings,
 		std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures);

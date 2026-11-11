@@ -48,6 +48,9 @@ public:
 	cNetRenderFileReceiver(QObject *parent = nullptr);
 	~cNetRenderFileReceiver() override;
 
+	// true while a file sent by any client is still being received
+	bool IsReceiving() const;
+
 public slots:
 	void ReceiveHeader(int clientIndex, qint64 size, QString fileName);
 	void ReceiveChunk(int clientIndex, int chunkIndex, QByteArray data);

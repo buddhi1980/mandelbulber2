@@ -1140,6 +1140,15 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			gApplication->processEvents();
 		}
 
+		// The server usually finishes its own frames before the clients deliver theirs, so it
+		// has to wait for the confirmations and for the image files of the clients. Without this
+		// the last frames would be lost when the application exits just after the animation
+		// (which happens in noGui mode).
+		if (gNetRender->IsServer())
+		{
+			gNetRender->WaitForClientsFinished(alreadyRenderedFrames, stopRequest);
+		}
+
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_IMAGE);
 		emit notifyRenderFlightRenderStatus(
@@ -1155,6 +1164,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 		if (gNetRender->IsClient())
 		{
+			// the server may exit as soon as all frames are done, so the pending images have to
+			// be transferred before announcing that this client is ready
+			gNetRender->WaitForFilesSent(stopRequest);
 			gNetRender->SetStatus(netRenderSts_READY);
 			emit NetRenderNotifyClientStatus();
 		}
@@ -1183,6 +1195,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	if (gNetRender->IsClient())
 	{
+		// the server may exit as soon as all frames are done, so the pending images have to be
+		// transferred before announcing that this client is ready
+		gNetRender->WaitForFilesSent(stopRequest);
 		gNetRender->SetStatus(netRenderSts_READY);
 		emit NetRenderNotifyClientStatus();
 	}
@@ -1728,7 +1743,12 @@ void cFligtAnimRenderThread::startAnimationRender()
 	cSettings parSettings(cSettings::formatFullText);
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromString(settingsText);
-	parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr);
+	// A failed decode leaves the containers only partially filled (the animation frames are at
+	// the end of the text), so the client would silently render nothing. Always report it.
+	if (!parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr))
+	{
+		WriteLog("NetRender - failed to decode animation settings received from the server", 1);
+	}
 	gNetRender->SetAnimation(true);
 	gFlightAnimation->RenderFlight(&gMainInterface->stopRequest);
 	emit renderingFinished();

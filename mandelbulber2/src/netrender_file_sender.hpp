@@ -51,6 +51,11 @@ public:
 	~cNetRenderFileSender() override;
 	void ClearState();
 
+	// true while a file is being transferred or is still waiting in the queue
+	bool IsSending() const { return sendingInProgress || !fileQueue.isEmpty(); }
+	// number of files that are still queued or being transferred
+	int PendingFiles() const { return fileQueue.size() + (sendingInProgress ? 1 : 0); }
+
 public slots:
 	void AddFileToQueue(QString filename);
 	void AcknowledgeReceived();

@@ -35,6 +35,8 @@
 #include "netrender.hpp"
 
 #include <QAbstractSocket>
+#include <QApplication>
+#include <QElapsedTimer>
 #include <QHostInfo>
 
 #include "error_message.hpp"
@@ -48,6 +50,7 @@
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "texture.hpp"
+#include "wait.hpp"
 #include "write_log.hpp"
 
 cNetRender *gNetRender = nullptr;
@@ -177,6 +180,123 @@ void cNetRender::KickAndKillClient(int clientIndex)
 void cNetRender::SendFramesToDoList(int clientIndex, QList<int> frameNumbers)
 {
 	netRenderServer->SendFramesToDoList(clientIndex, frameNumbers);
+}
+
+bool cNetRender::IsReceivingFiles() const
+{
+	if (!netRenderServer) return false;
+	return netRenderServer->IsReceivingFiles();
+}
+
+/**
+ * Wait until every frame is done and all image files produced by the clients are received.
+ * The server finishes its own frames usually first, so without this wait the last frames could
+ * be lost when the application terminates right after the animation is over (noGui mode).
+ * A client confirms a frame before sending its files, so the frames alone are not enough: the
+ * clients have to become ready too.
+ * The timeout counts from the last observed progress, so a slow client is not cut off, while a
+ * dead one does not block the server forever. The event loop is pumped while waiting, so the
+ * incoming data from the clients is processed.
+ */
+bool cNetRender::WaitForClientsFinished(
+	const QVector<bool> &framesStatus, const bool *stopRequest, int timeoutMs)
+{
+	if (!IsServer()) return true;
+
+	auto countPendingFrames = [&framesStatus]()
+	{
+		int pending = 0;
+		for (bool done : framesStatus)
+		{
+			if (!done) pending++;
+		}
+		return pending;
+	};
+
+	int lastPending = countPendingFrames();
+	bool lastReceiving = IsReceivingFiles();
+	int lastClients = GetClientCount();
+
+	QElapsedTimer timer;
+	timer.start();
+	while (true)
+	{
+		const int pending = countPendingFrames();
+		const bool receiving = IsReceivingFiles();
+		bool clientIsBusy = false;
+		for (int i = 0; i < GetClientCount(); i++)
+		{
+			// a client reports READY only after all its frames were transferred
+			if (GetClientStatus(i) != netRenderSts_READY) clientIsBusy = true;
+		}
+
+		if (pending == 0 && !receiving && !clientIsBusy) return true;
+
+		// no client left to do the work: waiting would be endless
+		if (GetClientCount() == 0 && (pending > 0 || receiving))
+		{
+			WriteLog(
+				QString("NetRender - %1 frame(s) were not rendered, no client is connected").arg(pending),
+				1);
+			return false;
+		}
+
+		// a change of the state or a client that is still working restarts the timeout, so a
+		// slow machine is not cut off while rendering a single long frame
+		if (lastClients != GetClientCount() || lastPending != pending || lastReceiving != receiving
+				|| clientIsBusy)
+		{
+			lastClients = GetClientCount();
+			lastPending = pending;
+			lastReceiving = receiving;
+			timer.restart();
+		}
+
+		if (stopRequest && *stopRequest) return false;
+		if (systemData.globalStopRequest) return false;
+		if (timer.elapsed() > timeoutMs)
+		{
+			WriteLog("NetRender - timeout while waiting for the clients to send their frames", 1);
+			return false;
+		}
+		QApplication::processEvents();
+		Wait(50);
+	}
+}
+
+/**
+ * Wait (client side) until all images queued for the server have been transferred.
+ * The timeout counts from the last transferred file, so a slow connection does not abort a
+ * healthy transfer. The event loop is pumped while waiting, so the acknowledgments sent by the
+ * server are processed.
+ */
+bool cNetRender::WaitForFilesSent(const bool *stopRequest, int timeoutMs)
+{
+	if (!IsClient()) return true;
+
+	int lastPending = netRenderClient->FilesToSend();
+	QElapsedTimer timer;
+	timer.start();
+	while (netRenderClient->IsSendingFiles())
+	{
+		const int pending = netRenderClient->FilesToSend();
+		if (pending != lastPending)
+		{
+			lastPending = pending;
+			timer.restart();
+		}
+
+		if (stopRequest && *stopRequest) return false;
+		if (systemData.globalStopRequest) return false;
+		if (timer.elapsed() > timeoutMs)
+		{
+			WriteLog("NetRender - timeout while sending the rendered frames to the server", 1);
+			return false;
+		}
+		QApplication::processEvents();
+		Wait(50);
+	}
+	return true;
 }
 
 // send rendered lines

@@ -1009,6 +1009,30 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
 }
 
 /**
+ * Check if a parameter name is one of the temporary legacy names created by the
+ * InjectTemporaryLegacy*Params() helpers (per-fractal indexed variants used by the migration
+ * of settings files older than v2.35). Such names carry no meaning on their own: they are only
+ * valid while an old file is being migrated (when they are injected into the container), and
+ * must be ignored otherwise.
+ */
+static bool isTemporaryLegacyParamName(const QString &name)
+{
+	if (name == "boolean_operators") return true;
+
+	static const QStringList prefixes = {"initial_waxis_", "julia_mode_", "julia_c_",
+		"fractal_constant_factor_", "formula_maxiter_", "boolean_operator_", "dont_add_c_constant_"};
+
+	for (const QString &prefix : prefixes)
+	{
+		if (!name.startsWith(prefix)) continue;
+		bool ok = false;
+		const int index = name.mid(prefix.length()).toInt(&ok);
+		if (ok && index >= 1 && index <= 9) return true;
+	}
+	return false;
+}
+
+/**
  * Parse a single settings line and set the corresponding parameter value.
  * Handles parameter name/value extraction, quote stripping, compatibility transformations,
  * lazy initialization of primitives/materials/lights/nodes, and script attachment.
@@ -1191,6 +1215,15 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	{
 		return true;
 	}
+
+	// Ignore temporary legacy parameters leaked into settings files by the development builds
+	// of the objects-tree migration (before v2.35). Those names were injected by
+	// InjectTemporaryLegacy*Params() while reading old files and some of them were not removed
+	// afterwards, so they got saved into .fract files and into the settings text sent to
+	// NetRender clients. They are not valid parameters in files declaring v2.35 or newer, and
+	// counting them as decoding errors would abort the whole load (the [keyframes] section is
+	// stored at the end of the text, so it would be silently dropped).
+	if (isTemporaryLegacyParamName(parameterName) && !par->IfExists(parameterName)) return true;
 
 	// Validate parameter type and set value
 	enumVarType varType = par->GetVarType(parameterName);
@@ -2572,7 +2605,15 @@ void cSettings::CopyPrimitiveTransform(
 	if (par->IfExists(primitiveFullName + "_rotation"))
 		par->Set(prefix + "rotation", par->Get<CVector3>(primitiveFullName + "_rotation"));
 	if (par->IfExists(primitiveFullName + "_scale"))
-		par->Set(prefix + "scale", par->Get<CVector3>(primitiveFullName + "_scale"));
+	{
+		// The legacy per-primitive scale is a vector (one factor per axis), while the node
+		// parameter "node_XXXX_scale" is a single value. Copying the vector as-is would store a
+		// 3-component value in a double parameter: it is written to the settings text as
+		// "node_XXXX_scale 1 0 0" and another instance (NetRender client, queue worker) cannot
+		// parse it back, which leaves the node scale at 0 and renders a black image.
+		// The node model supports only a uniform scale, so the first component is used.
+		par->Set(prefix + "scale", par->Get<CVector3>(primitiveFullName + "_scale").x);
+	}
 	if (par->IfExists(primitiveFullName + "_repeat"))
 		par->Set(prefix + "repeat", par->Get<CVector3>(primitiveFullName + "_repeat"));
 }
@@ -3879,9 +3920,14 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 
 void cSettings::DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par)
 {
-	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor, and
-	// formula_maxiter params. The formula_maxiter_N params are created by the v2.29 migration
-	// for boolean mode files and need to be cleaned up after being migrated to fractal containers.
+	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor,
+	// formula_maxiter and initial_waxis params. These are injected by
+	// InjectTemporaryLegacyFractalParams() when reading files older than v2.35 and must not
+	// survive the migration: leftover copies would be written back into the settings text and
+	// make other instances (NetRender clients, queue workers) fail to decode the text, because
+	// the parameter names are unknown to them. The formula_maxiter_N params are created by the
+	// v2.29 migration for boolean mode files and need to be cleaned up after being migrated to
+	// fractal containers.
 	const int maxLegacyFractals = 9;
 	for (int i = 1; i <= maxLegacyFractals; i++)
 	{
@@ -3893,7 +3939,7 @@ void cSettings::DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterCon
 		if (par->IfExists(name)) par->DeleteParameter(name);
 		name = QString("formula_maxiter_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
-		name = QString("finitial_waxis_%1").arg(i);
+		name = QString("initial_waxis_%1").arg(i);
 		if (par->IfExists(name)) par->DeleteParameter(name);
 	}
 }

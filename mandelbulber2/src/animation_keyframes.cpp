@@ -1125,6 +1125,15 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 			}
+			else if (systemData.noGui)
+			{
+				// Headless mode: the application may quit as soon as the animation is finished,
+				// so frames are written synchronously. Delegating them to a worker thread could
+				// lose the images that were still being saved when the process terminated.
+				const ImageFileSave::enumImageFileType fileType =
+					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
+				SaveImage(filename, fileType, image, nullptr);
+			}
 			else
 			{
 				std::shared_ptr<cImage> imageCopy(new cImage(*image.get()));
@@ -1163,6 +1172,15 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 		//--------------------------------------------------------------------
 
+		// The server usually finishes its own frames before the clients deliver theirs, so it
+		// has to wait for the confirmations and for the image files of the clients. Without this
+		// the last frames would be lost when the application exits just after the animation
+		// (which happens in noGui mode).
+		if (gNetRender->IsServer())
+		{
+			gNetRender->WaitForClientsFinished(alreadyRenderedFrames, stopRequest);
+		}
+
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_IMAGE);
 		emit updateProgressHide();
@@ -1178,6 +1196,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		if (gNetRender->IsClient())
 		{
+			// the server may exit as soon as all frames are done, so the pending images have to
+			// be transferred before announcing that this client is ready
+			gNetRender->WaitForFilesSent(stopRequest);
 			gNetRender->SetStatus(netRenderSts_READY);
 			emit NetRenderNotifyClientStatus();
 		}
@@ -1205,6 +1226,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	if (gNetRender->IsClient())
 	{
+		// the server may exit as soon as all frames are done, so the pending images have to be
+		// transferred before announcing that this client is ready
+		gNetRender->WaitForFilesSent(stopRequest);
 		gNetRender->SetStatus(netRenderSts_READY);
 		emit NetRenderNotifyClientStatus();
 	}
@@ -2579,7 +2603,12 @@ void cKeyframeRenderThread::startAnimationRender()
 	cSettings parSettings(cSettings::formatFullText);
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromString(settingsText);
-	parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
+	// A failed decode leaves the containers half initialized (the [keyframes] section is at the
+	// end of the text), so the client would silently render nothing. Always report the failure.
+	if (!parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes))
+	{
+		WriteLog("NetRender - failed to decode animation settings received from the server", 1);
+	}
 	gNetRender->SetAnimation(true);
 	gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 	emit renderingFinished();

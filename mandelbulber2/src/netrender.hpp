@@ -110,6 +110,13 @@ public:
 	{
 		return netRenderServer->WaitForAllClientsReady(timeout);
 	}
+	// wait until the clients confirmed all their frames and sent all their image files;
+	// framesStatus holds the per-frame "done" flags, timeoutMs limits the wait when a client
+	// hangs; returns false when the wait was interrupted by a stop request or by the timeout
+	bool WaitForClientsFinished(
+		const QVector<bool> &framesStatus, const bool *stopRequest, int timeoutMs = 60000);
+	// true while the server is still receiving image files from the clients
+	bool IsReceivingFiles() const;
 	void SetAnimation(bool isAnim) { isAnimation = isAnim; }
 	bool IsAnimation() { return isAnimation; }
 
@@ -123,6 +130,8 @@ public:
 	{
 		return netRenderClient->GetTexture(textureName, frameNo);
 	}
+	// wait until all rendered images were sent to the server; returns false on stop or timeout
+	bool WaitForFilesSent(const bool *stopRequest, int timeoutMs = 60000);
 
 	// setting status test
 	static QString GetStatusText(netRenderStatus displayStatus);

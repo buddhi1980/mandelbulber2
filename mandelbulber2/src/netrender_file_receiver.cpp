@@ -44,6 +44,20 @@ cNetRenderFileReceiver::cNetRenderFileReceiver(QObject *parent) : QObject(parent
 
 cNetRenderFileReceiver::~cNetRenderFileReceiver() = default;
 
+/**
+ * Check if any file sent by a client is still being received.
+ * Used by the server to know that the animation is not really finished yet: the clients
+ * confirm a rendered frame before its image files have been transferred completely.
+ */
+bool cNetRenderFileReceiver::IsReceiving() const
+{
+	for (auto it = fileInfos.constBegin(); it != fileInfos.constEnd(); ++it)
+	{
+		if (it.value().receivingStarted) return true;
+	}
+	return false;
+}
+
 void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, qint64 _size, QString _fileName)
 {
 	if (!fileInfos.contains(clientIndex)) fileInfos.insert(clientIndex, sFileInfo());

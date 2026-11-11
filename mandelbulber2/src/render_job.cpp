@@ -395,6 +395,11 @@ bool cRenderJob::Execute()
 				objectsTree.CreateNodeDataFromParameters(paramsContainer);
 				renderData->nodesDataForRendering = objectsTree.GetNodeDataListForRendering();
 
+				// sParamRender appends one entry per node, so the list has to be rebuilt from
+				// scratch on every frame of an animation; otherwise the objects of all previous
+				// frames would stay in the scene
+				renderData->objectData.clear();
+
 				// move parameters from containers to structures
 				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer,
 					&renderData->objectData, &renderData->nodesDataForRendering, fractalContainer));
@@ -405,7 +410,7 @@ bool cRenderJob::Execute()
 
 				// Print node data now that internalObjectId and primitiveIdx have been populated
 				// by the sParamRender constructor (fractals) and cPrimitives (primitives).
-				//cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
+				// cObjectsTree::DebugPrintNodes(renderData->nodesDataForRendering);
 
 				if (params->objectsTreeEnable)
 				{
@@ -518,6 +523,9 @@ bool cRenderJob::Execute()
 				cObjectsTree objectsTreeOCL;
 				objectsTreeOCL.CreateNodeDataFromParameters(paramsContainer);
 				renderData->nodesDataForRendering = objectsTreeOCL.GetNodeDataListForRendering();
+
+				// the object list is rebuilt from the node data on every frame, see the CPU branch
+				renderData->objectData.clear();
 
 				// move parameters from containers to structures
 				// pass &renderData->nodesDataForRendering so sParamRender can set

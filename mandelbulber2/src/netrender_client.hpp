@@ -67,6 +67,10 @@ public:
 	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
 	// request for file from server
 	void RequestFileFromServer(QString filename, int frameIndex);
+	// true while rendered images are still being sent to the server
+	bool IsSendingFiles() const;
+	// number of images that are still queued or being transferred to the server
+	int FilesToSend() const;
 
 private slots:
 	// try to connect to server

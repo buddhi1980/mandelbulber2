@@ -363,7 +363,12 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 
 		gInterfaceReadyForSynchronization = false;
 		parSettings.LoadFromString(settingsText);
-		parSettings.Decode(gPar, gParFractal);
+		// A failed decode leaves the containers only partially filled (the decoding is aborted
+		// after too many errors), so the client would render something wrong or nothing at all.
+		if (!parSettings.Decode(gPar, gParFractal))
+		{
+			WriteLog("NetRender - failed to decode settings received from the server", 1);
+		}
 
 		WriteLog("NetRender - ProcessData(), command JOB, starting rendering", 2);
 
@@ -682,6 +687,24 @@ void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
 				.arg(QString::number(actualId), QString::number(inMsg->id)),
 			1);
 	}
+}
+
+/**
+ * Check if the client still has image files to deliver to the server.
+ * Used at the end of an animation: the client must not report itself as ready before all its
+ * frames have been transferred, otherwise the server may quit and lose them.
+ */
+bool CNetRenderClient::IsSendingFiles() const
+{
+	return fileSender->IsSending();
+}
+
+/**
+ * Number of images that the client still has to deliver to the server.
+ */
+int CNetRenderClient::FilesToSend() const
+{
+	return fileSender->PendingFiles();
 }
 
 void CNetRenderClient::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
