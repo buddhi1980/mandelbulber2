@@ -55,11 +55,17 @@ step() { printf '\n=== %s\n' "$*"; }
 step "Building for $ARCH, macOS $MACOSX_DEPLOYMENT_TARGET and newer, with Qt $(qmake -query QT_VERSION)"
 rm -rf "${BUILD:?}"/*
 cd "$BUILD"
+EXTRA_CXXFLAGS=""
+if [ "$ARCH" = "arm64" ]; then
+	# Qt 6.7's qyieldcpu.h calls __yield() without including the header that
+	# declares it, which newer Apple compilers reject
+	EXTRA_CXXFLAGS="-include arm_acle.h"
+fi
 qmake "$SUPPORT/qmake/mandelbulber-opencl-mac.pro" \
 	CONFIG+=macdeps MAC_DEPS="$DEPS" \
 	QMAKE_APPLE_DEVICE_ARCHS="$ARCH" \
 	QMAKE_MACOSX_DEPLOYMENT_TARGET="$MACOSX_DEPLOYMENT_TARGET" \
-	QMAKE_CXXFLAGS+="-DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120" \
+	QMAKE_CXXFLAGS+="-DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120 $EXTRA_CXXFLAGS" \
 	QMAKE_CFLAGS+="-DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120"
 make -j"$(sysctl -n hw.ncpu)"
 
