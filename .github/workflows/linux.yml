@@ -75,58 +75,19 @@ jobs:
           QTEST_FUNCTION_TIMEOUT: '1800000'
         run: mandelbulber2 --test
 
-      # Regression test: build the commit before this change as well, render the
-      # regression scenes with both builds and compare them. The images and the
-      # report are uploaded as the artifact regression-images. It is skipped,
-      # with a notice, when there is no base commit, when the base has no
-      # regression test yet, or when the base does not build.
-      - name: Find Regression Base
-        id: regression
-        run: |
-          base="${{ github.event.pull_request.base.sha || github.event.before }}"
-          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
-            echo "::notice::Regression comparison skipped: this run has no base commit"
-            echo "ready=0" >> "$GITHUB_OUTPUT"
-          elif ! git fetch --depth 1 origin "$base"; then
-            echo "::notice::Regression comparison skipped: base commit $base cannot be fetched"
-            echo "ready=0" >> "$GITHUB_OUTPUT"
-          elif ! git cat-file -e "$base:mandelbulber2/src/regression_test.cpp"; then
-            echo "::notice::Regression comparison skipped: base commit $base has no regression test"
-            echo "ready=0" >> "$GITHUB_OUTPUT"
-          else
-            echo "base=$base" >> "$GITHUB_OUTPUT"
-            echo "ready=1" >> "$GITHUB_OUTPUT"
-          fi
-
-      # the base is compiled with its own install script, but not installed
-      - name: Build Regression Base
-        id: regression_base
-        if: steps.regression.outputs.ready == '1'
-        run: |
-          git worktree add --detach ../regression-base "${{ steps.regression.outputs.base }}"
-          cd ../regression-base/mandelbulber2
-          if ./deploy/linux/install --opencl --no-deps --no-install --build-dir "$PWD/build" --jobs "$(nproc)"; then
-            echo "ready=1" >> "$GITHUB_OUTPUT"
-          else
-            echo "::notice::Regression comparison skipped: the base commit does not build"
-            echo "ready=0" >> "$GITHUB_OUTPUT"
-          fi
-
-      # both builds read the scenes that the install step put into /usr/share
-      - name: Compare Renders With Base
-        if: steps.regression_base.outputs.ready == '1'
-        run: |
-          mkdir -p regression
-          ../regression-base/mandelbulber2/build/mandelbulber2 --nogui --regression-render regression/before || true
-          mandelbulber2 --nogui --regression-render regression/after || true
-          mandelbulber2 --nogui --regression-compare regression/before regression/after --output regression/comparison
+      # Regression test: builds the commit before this change as well, renders
+      # the regression scenes with both builds and compares them; see
+      # .github/scripts/regression-compare.sh
+      - name: Regression Test
+        run: .github/scripts/regression-compare.sh mandelbulber2 "${{ github.event.pull_request.base.sha || github.event.before }}"
 
       - name: Upload Regression Images
-        if: always() && steps.regression_base.outputs.ready == '1'
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: regression-images
+          name: regression-linux-x86_64
           path: regression/
+          if-no-files-found: ignore
 
       - name: Build & Upload AppImage (Qt6 Compatible)
         env:

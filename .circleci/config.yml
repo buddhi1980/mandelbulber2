@@ -12,6 +12,10 @@ version: 2.1
 # source for an older macOS and installs Qt's official build. The result is
 # cached and only rebuilt when build_deps.sh changes.
 #
+# Every job also runs the regression test of .github/scripts/regression-compare.*:
+# it builds the previous commit as well, renders the regression scenes with
+# both builds and compares them (on Windows in the Release job only).
+#
 # Job names are <system>-<architecture>, with the configuration added on
 # Windows: macos-arm64, macos-x86_64, linux-x86_64, windows-x64-Release,
 # windows-x64-Debug and windows-x64-AnalysisRelease.
@@ -53,6 +57,16 @@ jobs:
               mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1
       - store_artifacts:
           path: ~/mandelbulber2/build/artifacts/
+      - run:
+          name: Regression Test
+          no_output_timeout: 60m
+          command: |
+            DEPS=~/mac-deps .github/scripts/regression-compare.sh \
+              ~/mandelbulber2/build/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
+              "<< pipeline.git.base_revision >>"
+      - store_artifacts:
+          path: ~/mandelbulber2/regression/
+          destination: regression
 
   # Linux: the same steps as .github/workflows/linux.yml. The
   # AppImage is kept as an artifact here; the GitHub workflow is the one that
@@ -114,6 +128,13 @@ jobs:
           name: Run Tests
           no_output_timeout: 30m
           command: mandelbulber2 --test
+      - run:
+          name: Regression Test
+          no_output_timeout: 30m
+          command: .github/scripts/regression-compare.sh mandelbulber2 "<< pipeline.git.base_revision >>"
+      - store_artifacts:
+          path: ~/mandelbulber2/regression/
+          destination: regression
       - run:
           name: Build AppImage
           command: |
@@ -242,6 +263,21 @@ jobs:
           path: artifacts
       - store_artifacts:
           path: build-logs
+      # the Debug build renders too slowly, and AnalysisRelease is for the code analysis
+      - when:
+          condition:
+            equal: [Release, << parameters.configuration >>]
+          steps:
+            - run:
+                name: Regression Test
+                no_output_timeout: 120m
+                command: |
+                  .\.github\scripts\regression-compare.ps1 -Base "<< pipeline.git.base_revision >>" `
+                    -Configuration $env:CONFIGURATION -Platform $env:PLATFORM
+                  exit $LASTEXITCODE
+            - store_artifacts:
+                path: regression
+                destination: regression
 
 # TODO: Build App Store version on CI
 
