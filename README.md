@@ -9,11 +9,13 @@
     <td><a href="https://scan.coverity.com/projects/mandelbulber-v2">
         <img alt="Coverity Scan" src="https://scan.coverity.com/projects/4723/badge.svg?flat=1"></a></td>
     <td>
-        Linux: <a href="https://travis-ci.com/github/buddhi1980/mandelbulber2">
-                <img alt="Build Status Linux" src="https://app.travis-ci.com/buddhi1980/mandelbulber2.svg?token=qcG1fmxoCFwBfsQ6A6PF&branch=master"></a></br>
+        Linux: <a href="https://github.com/buddhi1980/mandelbulber2/actions/workflows/github-actions-ci.yml">
+                <img alt="Build Status Linux" src="https://github.com/buddhi1980/mandelbulber2/actions/workflows/github-actions-ci.yml/badge.svg?branch=master"></a></br>
         Windows: <a href="https://github.com/buddhi1980/mandelbulber2/actions/workflows/windows-msvc.yml">
                 <img alt="Build Status Windows" src="https://github.com/buddhi1980/mandelbulber2/actions/workflows/windows-msvc.yml/badge.svg?branch=master"></a></br>
-        OSX: <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
+        macOS: <a href="https://github.com/buddhi1980/mandelbulber2/actions/workflows/macos.yml">
+                <img alt="Build Status macOS" src="https://github.com/buddhi1980/mandelbulber2/actions/workflows/macos.yml/badge.svg?branch=master"></a></br>
+        macOS (CircleCI): <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
                 <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/buddhi1980/mandelbulber2.svg?style=shield">
 </a></br>
 
