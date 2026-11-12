@@ -25,6 +25,7 @@ jobs:
           sudo apt-get -qq update
           sudo apt-get install -y \
             build-essential \
+            pkg-config \
             mesa-common-dev \
             libgl1-mesa-dev \
             libpng-dev \
@@ -33,10 +34,13 @@ jobs:
             liblzo2-2 \
             liblzo2-dev \
             libtiff-dev \
+            libopenexr-dev \
+            libjxl-dev \
             libsndfile1-dev \
             tree \
             wget \
             opencl-headers \
+            opencl-clhpp-headers \
             ocl-icd-libopencl1 \
             ocl-icd-opencl-dev
 
@@ -50,25 +54,17 @@ jobs:
             qt6-tools-dev-tools \
             qt6-declarative-dev
 
-      - name: Build Application
-        run: |
-          mkdir -p mandelbulber2/build
-          cd mandelbulber2/build
-          
-          # Native qmake6 tool invocation replaces the legacy environment script wrapper
-          qmake6 ../qmake/mandelbulber-opencl.pro CONFIG+=release
-          make -j$(nproc)
-          tree .
-
-      - name: Run Tests
+      # deploy/linux/install is the script users build and install with. It
+      # compiles the OpenCL variant into mandelbulber2/build and installs it to
+      # /usr, so the tests run on the installed program and the AppImage step
+      # reuses the same build.
+      - name: Build & Install Application
         run: |
           cd mandelbulber2
-          mkdir package
-          ./make-package.sh test package
-          cp build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
-          cd package/mandelbulber2-test
-          ./install
-          mandelbulber2 --test
+          ./deploy/linux/install --opencl --build-dir "$PWD/build" --jobs "$(nproc)"
+
+      - name: Run Tests
+        run: mandelbulber2 --test
 
       - name: Build & Upload AppImage (Qt6 Compatible)
         env:
