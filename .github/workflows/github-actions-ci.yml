@@ -63,7 +63,11 @@ jobs:
           cd mandelbulber2
           ./deploy/linux/install --opencl --build-dir "$PWD/build" --jobs "$(nproc)"
 
+      # QtTest stops a test after 5 minutes by default, which the example
+      # renders alone nearly use up on a hosted runner; allow 30 minutes
       - name: Run Tests
+        env:
+          QTEST_FUNCTION_TIMEOUT: '1800000'
         run: mandelbulber2 --test
 
       - name: Build & Upload AppImage (Qt6 Compatible)
