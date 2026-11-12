@@ -22,8 +22,8 @@ if (-not (Test-Path $log)) {
 }
 
 $rootPrefix = if ($Root) { $Root.TrimEnd('\') + '\' } else { $null }
-$positioned = '^\s*(?:\d+>)?(?<file>.+?)\((?<line>\d+)(?:,(?<col>\d+))?[^)]*\)\s*:\s*warning\s+(?<code>[A-Za-z]+\d+)\s*:\s*(?<msg>.*?)(?:\s+\[[^\]]+\])?\s*$'
-$plain = '^\s*(?:\d+>)?(?<file>.+?)\s*:\s*warning\s+(?<code>[A-Za-z]+\d+)\s*:\s*(?<msg>.*?)(?:\s+\[[^\]]+\])?\s*$'
+$positioned = '^\s*(?:[\d:]+>)?(?<file>.+?)\((?<line>\d+)(?:,(?<col>\d+))?[^)]*\)\s*:\s*warning\s+(?<code>[A-Za-z]+\d+)\s*:\s*(?<msg>.*?)(?:\s+\[[^\]]+\])?\s*$'
+$plain = '^\s*(?:[\d:]+>)?(?<file>.+?)\s*:\s*warning\s+(?<code>[A-Za-z]+\d+)\s*:\s*(?<msg>.*?)(?:\s+\[[^\]]+\])?\s*$'
 
 $seen = @{}
 $findings = foreach ($text in Get-Content $log -Encoding UTF8) {
