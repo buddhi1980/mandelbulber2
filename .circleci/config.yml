@@ -174,15 +174,19 @@ jobs:
           name: Install Visual Studio 2026 Build Tools
           no_output_timeout: 60m
           command: |
-            $ErrorActionPreference = 'Stop'
-            $ProgressPreference = 'SilentlyContinue'
-            Invoke-WebRequest https://aka.ms/vs/18/stable/vs_BuildTools.exe -OutFile "$env:TEMP\vs_BuildTools.exe"
-            $install = Start-Process "$env:TEMP\vs_BuildTools.exe" -Wait -PassThru -ArgumentList `
-              '--quiet', '--wait', '--norestart', '--nocache', `
-              '--add', 'Microsoft.VisualStudio.Workload.VCTools', '--includeRecommended'
-            Write-Host "Installer exit code: $($install.ExitCode)"
+            choco install visualstudio2026buildtools --no-progress -y `
+              --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --locale en-US"
+            $result = $LASTEXITCODE
+            Write-Host "Installer exit code: $result"
             # 3010 means installed, restart wanted
-            if ($install.ExitCode -ne 0 -and $install.ExitCode -ne 3010) { exit $install.ExitCode }
+            if ($result -ne 0 -and $result -ne 3010) {
+              # the Visual Studio installer explains a failure only in its own logs
+              Get-ChildItem "$env:TEMP\dd_*.log" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime | Select-Object -Last 4 | ForEach-Object {
+                Write-Host "===== $($_.Name)"
+                Get-Content $_.FullName -Tail 60
+              }
+              exit $result
+            }
             $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
             $msbuild = & $vswhere -products * -version '[18.0,19.0)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1
             if (-not $msbuild) { Write-Error 'MSBuild of Visual Studio 2026 not found'; exit 1 }
