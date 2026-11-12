@@ -1,4 +1,7 @@
-name: C++ CI Build (Qt6)
+name: Linux
+
+# Linux build with Qt 6: build and install through deploy/linux/install, run
+# mandelbulber2 --test, and publish the AppImage as the continuous release.
 
 on:
   push:
@@ -11,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: Build & Test (Linux)
+    name: 'x86_64: build, test, AppImage'
     runs-on: ubuntu-24.04
     env:
       CONFIG: release

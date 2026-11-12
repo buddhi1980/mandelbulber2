@@ -93,7 +93,7 @@ Optimize png images
 - add to package
   - mandelbulber2/deploy/cross-compile-windows.sh
 - add to ci and check compilation
-  - .github/workflows/windows-msvc.yml
-  - .github/workflows/github-actions-ci.yml
+  - .github/workflows/linux.yml
+  - .github/workflows/windows.yml
   - .github/workflows/macos.yml
   - .circleci/config.yml

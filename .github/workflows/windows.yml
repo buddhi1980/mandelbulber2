@@ -1,4 +1,4 @@
-name: Windows Build (MSVC)
+name: Windows
 
 # Windows build, package and installer. Replaces the former AppVeyor build
 # (.appveyor.yml): same solution, same Release/Debug x64 matrix, same
@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: windows-msvc-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: windows-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   build:
-    name: Build ${{ matrix.configuration }} ${{ matrix.platform }} (Windows)
+    name: '${{ matrix.platform }} ${{ matrix.configuration }}: ${{ matrix.produces }}'
     # Visual Studio 2026 image: the projects use the v145 platform toolset
     runs-on: windows-2025-vs2026
     timeout-minutes: 240
@@ -39,6 +39,14 @@ jobs:
       matrix:
         platform: [x64]
         configuration: [Release, Debug, AnalysisRelease]
+        # what the job name says the configuration is for
+        include:
+          - configuration: Release
+            produces: build + installer
+          - configuration: Debug
+            produces: build + installer (may fail)
+          - configuration: AnalysisRelease
+            produces: code analysis + installer (may fail)
     env:
       SOLUTION: mandelbulber2\msvc\mandelbulber2.sln
       BUILD_DIR: build-win\${{ matrix.configuration }}\${{ matrix.platform }}

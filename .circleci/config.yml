@@ -11,12 +11,23 @@ version: 2.1
 # No Homebrew: mandelbulber2/mac/build_deps.sh builds the libraries from
 # source for an older macOS and installs Qt's official build. The result is
 # cached and only rebuilt when build_deps.sh changes.
-commands:
-  build-and-pack-steps:
+#
+# Job names are <system>-<architecture>, with the configuration added on
+# Windows: macos-arm64, macos-x86_64, linux-x86_64, windows-x64-Release,
+# windows-x64-Debug and windows-x64-AnalysisRelease.
+jobs:
+  # macOS app bundle and disk image: arm64 for Apple Silicon Macs, x86_64 for Intel Macs
+  macos:
     parameters:
       arch:
         type: enum
         enum: [arm64, x86_64]
+    macos:
+      xcode: 27.0
+    working_directory: ~/mandelbulber2/
+    environment:
+      ARCH: << parameters.arch >>
+      MACOSX_DEPLOYMENT_TARGET: "11.0"
     steps:
       - checkout
       - restore_cache:
@@ -43,34 +54,10 @@ commands:
       - store_artifacts:
           path: ~/mandelbulber2/build/artifacts/
 
-jobs:
-  # Apple Silicon Macs
-  build-and-pack:
-    macos:
-      xcode: 27.0
-    working_directory: ~/mandelbulber2/
-    environment:
-      ARCH: arm64
-      MACOSX_DEPLOYMENT_TARGET: "11.0"
-    steps:
-      - build-and-pack-steps:
-          arch: arm64
-  # Intel Macs
-  build-and-pack-intel:
-    macos:
-      xcode: 27.0
-    working_directory: ~/mandelbulber2/
-    environment:
-      ARCH: x86_64
-      MACOSX_DEPLOYMENT_TARGET: "11.0"
-    steps:
-      - build-and-pack-steps:
-          arch: x86_64
-
-  # Linux: the same steps as .github/workflows/github-actions-ci.yml. The
+  # Linux: the same steps as .github/workflows/linux.yml. The
   # AppImage is kept as an artifact here; the GitHub workflow is the one that
   # publishes it as the continuous release.
-  linux-build-and-test:
+  linux-x86_64:
     machine:
       image: ubuntu-2404:current
     resource_class: large
@@ -152,11 +139,11 @@ jobs:
       - store_artifacts:
           path: ~/mandelbulber2/artifacts/
 
-  # Windows: the same steps as .github/workflows/windows-msvc.yml, once per
+  # Windows: the same steps as .github/workflows/windows.yml, once per
   # configuration. CircleCI's Windows machines come with Visual Studio 2022,
   # and the projects use the v145 toolset, so the job first installs the
   # Visual Studio 2026 Build Tools.
-  windows-build:
+  windows-x64:
     parameters:
       configuration:
         type: enum
@@ -260,12 +247,16 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  build:
     jobs:
-      - build-and-pack
-      - build-and-pack-intel
-      - linux-build-and-test
-      - windows-build:
+      - macos:
+          name: macos-<< matrix.arch >>
+          matrix:
+            parameters:
+              arch: [arm64, x86_64]
+      - linux-x86_64
+      - windows-x64:
+          name: windows-x64-<< matrix.configuration >>
           matrix:
             parameters:
               configuration: [Release, Debug, AnalysisRelease]

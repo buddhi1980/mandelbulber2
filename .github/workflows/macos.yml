@@ -1,7 +1,7 @@
-name: macOS Build
+name: macOS
 
-# macOS build and package, without Homebrew. Like the CircleCI build-and-pack
-# jobs (.circleci/config.yml) it builds mandelbulber-opencl-mac.pro, packs the
+# macOS build and package, without Homebrew. Like the CircleCI macos jobs
+# (.circleci/config.yml) it builds mandelbulber-opencl-mac.pro, packs the
 # app bundle with macdeployqt and keeps the zipped bundle and the disk image
 # as artifacts.
 #
@@ -34,8 +34,8 @@ env:
   MACOSX_DEPLOYMENT_TARGET: '11.0'
 
 jobs:
-  build-and-pack:
-    name: Build & Pack (${{ matrix.hardware }})
+  build:
+    name: '${{ matrix.arch }} (${{ matrix.hardware }}): app + dmg'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
