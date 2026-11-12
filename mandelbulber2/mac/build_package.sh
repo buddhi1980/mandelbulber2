@@ -44,8 +44,9 @@ QT_DIR="$(ls -d "$DEPS"/qt/*/macos | head -n 1)"
 
 # Qt 6.7 still links OpenGL programs against Apple's AGL framework, which
 # newer macOS SDKs no longer contain and which nothing here uses
-find "$QT_DIR/mkspecs" "$QT_DIR/lib" -type f \( -name '*.conf' -o -name '*.pri' -o -name '*.prl' \) \
-	-exec grep -l -e '-framework AGL' {} + 2>/dev/null | while IFS= read -r file; do
+# (grep finds nothing in a Qt that was already cleaned, which is not an error)
+{ find "$QT_DIR/mkspecs" "$QT_DIR/lib" -type f \( -name '*.conf' -o -name '*.pri' -o -name '*.prl' \) \
+	-exec grep -l -e '-framework AGL' {} + 2>/dev/null || true; } | while IFS= read -r file; do
 	echo "Removing the AGL framework from $file"
 	sed -i '' 's/ *-framework AGL//g' "$file"
 done
