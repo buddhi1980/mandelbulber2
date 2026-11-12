@@ -1,0 +1,170 @@
+name: macOS Build
+
+# macOS build and package. Does what the CircleCI build-and-pack job does
+# (.circleci/config.yml): install the Homebrew dependencies, build
+# mandelbulber-opencl-mac.pro, pack the app bundle with macdeployqt and keep
+# the zipped bundle and the disk image as artifacts.
+#
+# One job per kind of Mac hardware: Apple Silicon (arm64) and Intel (x86_64).
+# The libraries come from Homebrew, which builds them for the macOS version of
+# the runner, so a package runs on that macOS version and newer ones. The
+# macOS 15 jobs therefore give the packages with the widest reach; the macOS 26
+# jobs check the build on the current system.
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'continuous*'
+      - 'Continuous*'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: macos-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-pack:
+    name: Build & Pack (${{ matrix.hardware }}, macOS ${{ matrix.macos }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-15
+            hardware: Apple Silicon
+            arch: arm64
+            macos: 15
+          - os: macos-15-intel
+            hardware: Intel
+            arch: x86_64
+            macos: 15
+          - os: macos-26
+            hardware: Apple Silicon
+            arch: arm64
+            macos: 26
+          - os: macos-26-intel
+            hardware: Intel
+            arch: x86_64
+            macos: 26
+    env:
+      SRC: ${{ github.workspace }}
+      BUILD: ${{ github.workspace }}/build
+      PACKAGE: mandelbulber2-macOS${{ matrix.macos }}-${{ matrix.arch }}-${{ github.sha }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Dependencies
+        run: |
+          sw_vers
+          uname -m
+          brew update
+          brew install llvm qt gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
+          # The qmake project takes the compiler from /usr/local/opt/llvm, where
+          # Homebrew puts it on Intel. On Apple Silicon Homebrew is in
+          # /opt/homebrew, so link its LLVM to the expected place.
+          if [ "$(brew --prefix)" != "/usr/local" ]; then
+            sudo mkdir -p /usr/local/opt
+            sudo ln -sfn "$(brew --prefix)/opt/llvm" /usr/local/opt/llvm
+          fi
+          # Clean and recreate build directory structure
+          rm -rf "$BUILD"
+          mkdir -p "$BUILD"
+          # OpenCL C++ headers in the OpenCL folder the Mac build includes from
+          CLONE_DIR="$BUILD/OpenCL-CLHPP-Repo"
+          git clone --depth 1 https://github.com/KhronosGroup/OpenCL-CLHPP.git "$CLONE_DIR"
+          mkdir -p "$BUILD/OpenCL"
+          cp -vfr "$CLONE_DIR/include/CL/"* "$BUILD/OpenCL/"
+          cp -vf "$BUILD/OpenCL/opencl.hpp" "$BUILD/OpenCL/cl.hpp"
+
+      - name: Build
+        run: |
+          cd "$BUILD"
+          qmake "$SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro" \
+            QMAKE_CXXFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120" \
+            QMAKE_CFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120"
+          make -j"$(sysctl -n hw.ncpu)"
+          # binary requirement
+          binary="$BUILD/mandelbulber2.app/Contents/MacOS/mandelbulber2"
+          if [ ! -f "$binary" ]; then
+            echo "Error Building $binary"
+            exit 1
+          fi
+          echo "$binary found"
+          # the binary must be for the hardware this job is named after
+          built="$(lipo -archs "$binary")"
+          echo "Architecture: $built"
+          if [ "$built" != "${{ matrix.arch }}" ]; then
+            echo "Expected ${{ matrix.arch }}"
+            exit 1
+          fi
+
+      - name: Pack
+        run: |
+          SUPPORT="$SRC/mandelbulber2"
+          PACK="$BUILD/mandelbulber2.app"
+          RESOURCES="$PACK/Contents/Resources"
+          mkdir -p "$RESOURCES"
+          # copying source files
+          cp -vr "$SUPPORT/src" "$PACK/"
+          cp -vr "$SUPPORT/qt" "$PACK/"
+          # copying makefiles into Apple standard Resources subfolders
+          mkdir -vp "$RESOURCES/makefiles"
+          cp -v "$SUPPORT/qmake/mandelbulber.pro" "$RESOURCES/makefiles/"
+          cp -v "$SUPPORT/qmake/mandelbulber-opencl-mac.pro" "$RESOURCES/makefiles/"
+          cp -v "$SUPPORT/qmake/common.pri" "$RESOURCES/makefiles/"
+          # copying documentation files into standard Resources subfolders
+          mkdir -vp "$RESOURCES/doc"
+          cp -v "$SUPPORT/deploy/NEWS" "$RESOURCES/doc/"
+          DOCFILE="$(curl -s https://api.github.com/repos/mandelbulber/mandelbulber2/releases/latest | grep browser_download_url | grep -i '\.pdf' | head -n 1 | cut -d '"' -f 4 || true)"
+          echo "Downloading manual from: $DOCFILE"
+          if [ -n "$DOCFILE" ]; then
+            wget -O "$RESOURCES/doc/Mandelbulber_Manual.pdf" "$DOCFILE" || echo "PDF manual download failed, continuing"
+          else
+            echo "No PDF manual found in latest release, skipping download"
+          fi
+          # c++abi copy (files may not exist on macOS 12+ due to dyld shared cache)
+          mkdir -p "$PACK/Contents/Frameworks/"
+          if [ -f "/usr/lib/libc++abi.dylib" ]; then
+            cp "/usr/lib/libc++abi.dylib" "$PACK/Contents/Frameworks/"
+          fi
+          if [ -f "/usr/lib/libc++abi.1.dylib" ]; then
+            cp "/usr/lib/libc++abi.1.dylib" "$PACK/Contents/Frameworks/"
+          fi
+          if [ -f "$PACK/Contents/Frameworks/libc++abi.dylib" ]; then
+            cp "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
+          fi
+          cd "$BUILD"
+          macdeployqt mandelbulber2.app -dmg -verbose=3
+          # artifacts
+          mkdir -p "$BUILD/artifacts"
+          7z a "artifacts/$PACKAGE.zip" mandelbulber2.app
+          mv "$BUILD/mandelbulber2.dmg" "$BUILD/artifacts/$PACKAGE.dmg"
+          tree -L 3 "$BUILD/artifacts" "$BUILD/mandelbulber2.app"
+          # oldest macOS the packaged program and libraries accept
+          for file in "$PACK/Contents/MacOS/mandelbulber2" "$PACK"/Contents/Frameworks/*.dylib; do
+            echo "$(basename "$file"): macOS $(vtool -show-build "$file" 2>/dev/null | awk '/minos/ {print $2; exit}')"
+          done
+
+      # archive: false uploads the file itself rather than a zip around it
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v7
+        with:
+          path: build/artifacts/${{ env.PACKAGE }}.zip
+          archive: false
+          if-no-files-found: error
+
+      - name: Upload Disk Image
+        uses: actions/upload-artifact@v7
+        with:
+          path: build/artifacts/${{ env.PACKAGE }}.dmg
+          archive: false
+          if-no-files-found: error
