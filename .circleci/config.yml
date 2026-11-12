@@ -1,7 +1,10 @@
 # https://circleci.com/docs/2.0/
 version: 2.1
 
-# One job per kind of Mac hardware. CircleCI's Macs are Apple Silicon, so the
+# Builds for macOS, Linux and Windows. The Linux and Windows jobs mirror the
+# GitHub Actions workflows in .github/workflows; keep the two in step.
+#
+# macOS: one job per kind of Mac hardware. CircleCI's Macs are Apple Silicon, so the
 # arm64 job builds natively and the x86_64 job builds for Intel Macs under
 # Rosetta 2.
 #
@@ -64,6 +67,191 @@ jobs:
       - build-and-pack-steps:
           arch: x86_64
 
+  # Linux: the same steps as .github/workflows/github-actions-ci.yml. The
+  # AppImage is kept as an artifact here; the GitHub workflow is the one that
+  # publishes it as the continuous release.
+  linux-build-and-test:
+    machine:
+      image: ubuntu-2404:current
+    resource_class: large
+    working_directory: ~/mandelbulber2/
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+      # QtTest stops a test after 5 minutes by default; allow 30 minutes
+      QTEST_FUNCTION_TIMEOUT: "1800000"
+      # the AppImage tools run without FUSE
+      APPIMAGE_EXTRACT_AND_RUN: "1"
+    steps:
+      - checkout
+      - run:
+          name: Install System Dependencies
+          command: |
+            sudo apt-get -qq update
+            sudo apt-get install -y \
+              build-essential \
+              pkg-config \
+              mesa-common-dev \
+              libgl1-mesa-dev \
+              libpng-dev \
+              libgsl-dev \
+              libgomp1 \
+              liblzo2-2 \
+              liblzo2-dev \
+              libtiff-dev \
+              libopenexr-dev \
+              libjxl-dev \
+              libsndfile1-dev \
+              tree \
+              wget \
+              opencl-headers \
+              opencl-clhpp-headers \
+              ocl-icd-libopencl1 \
+              ocl-icd-opencl-dev
+      - run:
+          name: Install Qt6 Components
+          command: |
+            sudo apt-get install -y \
+              qt6-base-dev \
+              qt6-tools-dev \
+              qt6-multimedia-dev \
+              qt6-svg-dev \
+              qt6-tools-dev-tools \
+              qt6-declarative-dev
+      - run:
+          name: Build and Install Application
+          no_output_timeout: 30m
+          command: |
+            cd ~/mandelbulber2/mandelbulber2
+            ./deploy/linux/install --opencl --build-dir "$PWD/build" --jobs "$(nproc)"
+      - run:
+          name: Run Tests
+          no_output_timeout: 30m
+          command: mandelbulber2 --test
+      - run:
+          name: Build AppImage
+          command: |
+            cd ~/mandelbulber2/mandelbulber2/build
+            make INSTALL_ROOT=appdir -j$(nproc) install
+            find appdir/
+            cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true
+            cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/mandelbulber.png
+            wget -c -nv "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
+            chmod a+x linuxdeploy-x86_64.AppImage
+            wget -c -nv "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
+            chmod a+x linuxdeploy-plugin-qt-x86_64.AppImage
+            unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+            export QMAKE=/usr/bin/qmake6
+            ./linuxdeploy-x86_64.AppImage --appimage-extract-and-run \
+              --appdir appdir \
+              --plugin qt \
+              --output appimage \
+              --desktop-file appdir/usr/share/applications/*.desktop
+            mkdir -p ~/mandelbulber2/artifacts
+            cp Mandelbulber*.AppImage* ~/mandelbulber2/artifacts/
+            ls -lh ~/mandelbulber2/artifacts
+      - store_artifacts:
+          path: ~/mandelbulber2/artifacts/
+
+  # Windows: the same steps as .github/workflows/windows-msvc.yml, once per
+  # configuration. CircleCI's Windows machines come with Visual Studio 2022,
+  # and the projects use the v145 toolset, so the job first installs the
+  # Visual Studio 2026 Build Tools.
+  windows-build:
+    parameters:
+      configuration:
+        type: enum
+        enum: [Release, Debug, AnalysisRelease]
+    machine:
+      image: windows-server-2022-gui:current
+      resource_class: windows.medium
+      shell: powershell.exe -ExecutionPolicy Bypass
+    environment:
+      CONFIGURATION: << parameters.configuration >>
+      PLATFORM: x64
+    steps:
+      - checkout
+      - run:
+          name: Install Visual Studio 2026 Build Tools
+          no_output_timeout: 60m
+          command: |
+            $ErrorActionPreference = 'Stop'
+            $ProgressPreference = 'SilentlyContinue'
+            Invoke-WebRequest https://aka.ms/vs/18/stable/vs_BuildTools.exe -OutFile "$env:TEMP\vs_BuildTools.exe"
+            $install = Start-Process "$env:TEMP\vs_BuildTools.exe" -Wait -PassThru -ArgumentList `
+              '--quiet', '--wait', '--norestart', '--nocache', `
+              '--add', 'Microsoft.VisualStudio.Workload.VCTools', '--includeRecommended'
+            Write-Host "Installer exit code: $($install.ExitCode)"
+            # 3010 means installed, restart wanted
+            if ($install.ExitCode -ne 0 -and $install.ExitCode -ne 3010) { exit $install.ExitCode }
+            $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+            $msbuild = & $vswhere -products * -version '[18.0,19.0)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1
+            if (-not $msbuild) { Write-Error 'MSBuild of Visual Studio 2026 not found'; exit 1 }
+            & $msbuild -version
+      - run:
+          name: Install Inno Setup and NuGet
+          command: |
+            # mandelbulber2.vcxproj builds the installer when Inno Setup 6 is at its usual place
+            choco install innosetup nuget.commandline --no-progress -y
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            if (-not (Test-Path 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe')) { Write-Error 'Inno Setup compiler not found'; exit 1 }
+      - restore_cache:
+          keys:
+            - nuget-msvc-v1-{{ checksum "mandelbulber2/msvc/packages.config" }}
+      - run:
+          name: Restore NuGet Packages
+          command: |
+            nuget restore mandelbulber2\msvc\mandelbulber2.sln
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - save_cache:
+          key: nuget-msvc-v1-{{ checksum "mandelbulber2/msvc/packages.config" }}
+          paths:
+            - mandelbulber2/msvc/packages
+      - run:
+          name: Build Application and Installer
+          no_output_timeout: 120m
+          command: |
+            Write-Host "BUILD $env:CONFIGURATION $env:PLATFORM"
+            $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+            $msbuild = & $vswhere -products * -version '[18.0,19.0)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1
+            New-Item -ItemType Directory -Force build-logs | Out-Null
+            & $msbuild mandelbulber2\msvc\mandelbulber2.sln /m "/p:Configuration=$env:CONFIGURATION" "/p:Platform=$env:PLATFORM" `
+              "/flp:LogFile=build-logs\msbuild.log;Verbosity=normal;Encoding=UTF-8" `
+              "/flp1:LogFile=build-logs\msbuild-warnings.log;WarningsOnly;Encoding=UTF-8" `
+              "/flp2:LogFile=build-logs\msbuild-errors.log;ErrorsOnly;Encoding=UTF-8"
+            $result = $LASTEXITCODE
+            # the findings of the build, by rule and by file; the full list is findings.csv
+            .\.github\scripts\summarize-msvc-warnings.ps1 -LogDir build-logs -Title "$env:CONFIGURATION $env:PLATFORM" `
+              -ArtifactName 'build-logs' -Root (Get-Location).Path -SummaryFile build-logs\summary.md
+            if ($result -ne 0) {
+              Write-Host 'TRY AND TRY AGAIN'
+              if ($env:CONFIGURATION -ne 'Release') {
+                # as on AppVeyor, a Debug or AnalysisRelease failure does not fail the build
+                Write-Host "$env:CONFIGURATION failed to build; this configuration is allowed to fail"
+                New-Item -ItemType File -Force build-logs\allowed-failure.txt | Out-Null
+                exit 0
+              }
+              exit $result
+            }
+            Write-Host 'BUILD VICTORY'
+      - run:
+          name: Check Installer and Zip Build Archive
+          command: |
+            if (Test-Path build-logs\allowed-failure.txt) { Write-Host 'Nothing to pack: the build failed'; exit 0 }
+            $buildDir = "build-win\$env:CONFIGURATION\$env:PLATFORM"
+            $setup = @(Get-ChildItem -Path "build-win\Setup\$env:CONFIGURATION\$env:PLATFORM" -Filter '*-Setup.exe' -ErrorAction SilentlyContinue)
+            if ($setup.Count -ne 1) { Write-Error "Expected one installer, found $($setup.Count)"; exit 1 }
+            New-Item -ItemType Directory -Force artifacts | Out-Null
+            $suffix = ''
+            if ($env:CONFIGURATION -ne 'Release') { $suffix = "-$env:CONFIGURATION" }
+            Copy-Item $setup[0].FullName "artifacts\$($setup[0].BaseName)$suffix.exe"
+            tree /F $buildDir | Out-File build-logs\build-tree.txt -Encoding utf8
+            Compress-Archive -Path $buildDir -DestinationPath "artifacts\mandelbulber-$env:CONFIGURATION-$env:PLATFORM-$env:CIRCLE_SHA1.zip"
+            Get-ChildItem artifacts | Format-Table Name, Length
+      - store_artifacts:
+          path: artifacts
+      - store_artifacts:
+          path: build-logs
+
 # TODO: Build App Store version on CI
 
 workflows:
@@ -72,3 +260,8 @@ workflows:
     jobs:
       - build-and-pack
       - build-and-pack-intel
+      - linux-build-and-test
+      - windows-build:
+          matrix:
+            parameters:
+              configuration: [Release, Debug, AnalysisRelease]
