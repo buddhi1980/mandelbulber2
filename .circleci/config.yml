@@ -3,7 +3,11 @@ version: 2.1
 
 # One job per kind of Mac hardware. CircleCI's Macs are Apple Silicon, so the
 # arm64 job builds natively and the x86_64 job builds for Intel Macs under
-# Rosetta 2, with a second, Intel Homebrew in /usr/local.
+# Rosetta 2.
+#
+# No Homebrew: mandelbulber2/mac/build_deps.sh builds the libraries from
+# source for an older macOS and installs Qt's official build. The result is
+# cached and only rebuilt when build_deps.sh changes.
 commands:
   build-and-pack-steps:
     parameters:
@@ -12,119 +16,27 @@ commands:
         enum: [arm64, x86_64]
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - mac-deps-v1-<< parameters.arch >>-{{ checksum "mandelbulber2/mac/build_deps.sh" }}
       - run:
           name: Dependencies
           command: |
-            SRC=~/mandelbulber2/
-            BUILD=$SRC/build/
-            PACKAGES="llvm qt gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget"
             if [ "<< parameters.arch >>" = "x86_64" ]; then
-              # Rosetta 2 runs the Intel tools on the Apple Silicon machine
+              # Rosetta 2 runs the Intel build on the Apple Silicon machine
               softwareupdate --install-rosetta --agree-to-license || true
-              # Intel Homebrew lives in /usr/local, beside the native one in /opt/homebrew
-              if [ ! -x /usr/local/bin/brew ]; then
-                curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install-homebrew.sh
-                NONINTERACTIVE=1 arch -x86_64 /bin/bash /tmp/install-homebrew.sh
-              fi
-              arch -x86_64 /usr/local/bin/brew update
-              arch -x86_64 /usr/local/bin/brew install $PACKAGES
-              # later steps take qmake, macdeployqt and the other tools from the Intel Homebrew
-              echo 'export PATH="/usr/local/bin:/usr/local/opt/qt/bin:$PATH"' >> "$BASH_ENV"
-            else
-              brew update
-              brew install $PACKAGES
-              # Create the expected directory structure if it doesn't exist
-              sudo mkdir -p /usr/local/opt
-              # Symlink Apple Silicon Homebrew's LLVM path to the expected Intel location
-              sudo ln -s /opt/homebrew/opt/llvm /usr/local/opt/llvm
             fi
-            # Clean and recreate build directory structure
-            rm -rf "$BUILD"
-            mkdir -p "$BUILD"
-            # 1. Clone the repository into a clean local directory
-            CLONE_DIR="$BUILD/OpenCL-CLHPP-Repo"
-            git clone https://github.com/KhronosGroup/OpenCL-CLHPP.git "$CLONE_DIR"
-            # 2. Build the exact OpenCL folder structure required by Mandelbulber Mac profiles
-            mkdir -p "$BUILD/OpenCL"
-            # 3. Copy the base contents safely into the folder
-            cp -vfr "$CLONE_DIR/include/CL/"* "$BUILD/OpenCL/"
-            # 4. Generate the missing cl.hpp file name mapping using the universal source base
-            cp -vf "$BUILD/OpenCL/opencl.hpp" "$BUILD/OpenCL/cl.hpp"
+            # does nothing when the cache already holds a finished build
+            ~/mandelbulber2/mandelbulber2/mac/build_deps.sh ~/mac-deps
+      - save_cache:
+          key: mac-deps-v1-<< parameters.arch >>-{{ checksum "mandelbulber2/mac/build_deps.sh" }}
+          paths:
+            - ~/mac-deps
       - run:
-          name: Build
+          name: Build and Pack
           command: |
-            SRC=~/mandelbulber2/
-            BUILD=$SRC/build/
-            # build operation
-            cd $BUILD && arch -<< parameters.arch >> qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro \
-            QMAKE_CXXFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120" \
-            QMAKE_CFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120"
-            cd $BUILD && arch -<< parameters.arch >> make -j8
-            # binary requirement
-            binary=$BUILD/mandelbulber2.app/Contents/MacOS/mandelbulber2
-            if [ -f $binary ];
-            then
-            echo "$binary found"
-            else
-            echo "Error Building $binary"
-            exit 1
-            fi
-            # the binary must be for the hardware this job builds for
-            built="$(lipo -archs $binary)"
-            echo "Architecture: $built"
-            if [ "$built" != "<< parameters.arch >>" ]; then
-            echo "Expected << parameters.arch >>"
-            exit 1
-            fi
-      - run:
-          name: Pack
-          command: |
-            SRC=~/mandelbulber2/
-            BUILD=$SRC/build/
-            #macOS build package
-            SUPPORT=$SRC/mandelbulber2
-            PACK=$BUILD/mandelbulber2.app
-            #Correct macOS bundle architecture pathing
-            RESOURCES="$PACK/Contents/Resources"
-            #making directories
-            #mkdir -vp "$PACK"
-            mkdir -p "$RESOURCES"
-            #copying source files
-            cp -vr "$SUPPORT/src" "$PACK/"
-            cp -vr "$SUPPORT/qt" "$PACK/"
-            #cp -vr "$SUPPORT/opencl" "$PACK/"
-            # copying makefiles into Apple standard Resources subfolders
-            mkdir -vp "$RESOURCES/makefiles"
-            cp -v "$SUPPORT/qmake/mandelbulber.pro" "$RESOURCES/makefiles/"
-            cp -v "$SUPPORT/qmake/mandelbulber-opencl-mac.pro" "$RESOURCES/makefiles/"
-            cp -v "$SUPPORT/qmake/common.pri" "$RESOURCES/makefiles/"
-            # copying documentation files into standard Resources subfolders
-            mkdir -vp "$RESOURCES/doc"
-            cp -v "$SUPPORT/deploy/NEWS" "$RESOURCES/doc/"
-            DOCFILE="$(curl -s https://api.github.com/repos/mandelbulber/mandelbulber2/releases/latest | grep browser_download_url | grep -i '\.pdf' | head -n 1 | cut -d '"' -f 4 || true)"
-            echo "Downloading manual from: $DOCFILE"
-            if [ -n "$DOCFILE" ]; then
-              wget -O "$RESOURCES/doc/Mandelbulber_Manual.pdf" "$DOCFILE" || echo "PDF manual download failed, continuing"
-            else
-              echo "No PDF manual found in latest release, skipping download"
-            fi
-            # c++abicopy (files may not exist on macOS 12+ due to dyld shared cache)
-            mkdir -p "$PACK/Contents/Frameworks/"
-            if [ -f "/usr/lib/libc++abi.dylib" ]; then
-              cp "/usr/lib/libc++abi.dylib" "$PACK/Contents/Frameworks/"
-            fi
-            if [ -f "/usr/lib/libc++abi.1.dylib" ]; then
-              cp "/usr/lib/libc++abi.1.dylib" "$PACK/Contents/Frameworks/"
-            fi
-            if [ -f "$PACK/Contents/Frameworks/libc++abi.dylib" ]; then
-              cp "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
-            fi
-            cd $BUILD && arch -<< parameters.arch >> macdeployqt mandelbulber2.app -dmg -verbose=3
-            #artifacts
-            mkdir -p ~/mandelbulber2/build/artifacts/
-            cd ~/mandelbulber2/build/ && 7z a artifacts/mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1.zip mandelbulber2.app
-            mv ~/mandelbulber2/build/mandelbulber2.dmg ~/mandelbulber2/build/artifacts/mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1.dmg
-            cd ~/mandelbulber2/build/ && tree .
+            ~/mandelbulber2/mandelbulber2/mac/build_package.sh ~/mac-deps ~/mandelbulber2/build \
+              mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1
       - store_artifacts:
           path: ~/mandelbulber2/build/artifacts/
 
@@ -134,6 +46,9 @@ jobs:
     macos:
       xcode: 27.0
     working_directory: ~/mandelbulber2/
+    environment:
+      ARCH: arm64
+      MACOSX_DEPLOYMENT_TARGET: "11.0"
     steps:
       - build-and-pack-steps:
           arch: arm64
@@ -142,6 +57,9 @@ jobs:
     macos:
       xcode: 27.0
     working_directory: ~/mandelbulber2/
+    environment:
+      ARCH: x86_64
+      MACOSX_DEPLOYMENT_TARGET: "11.0"
     steps:
       - build-and-pack-steps:
           arch: x86_64

@@ -5,7 +5,8 @@ macx:QT += svg
 CONFIG += link_pkgconfig
 
 unix:!macx:CONFIG += c++14
-macx:!m1:CONFIG += c++14
+macx:!m1:!macdeps:CONFIG += c++14
+macx:macdeps:CONFIG += c++17
 macx:m1:CONFIG += c++17
 
 # Prevent std::byte from conflicting with Windows SDK byte type
@@ -125,7 +126,7 @@ QMAKE_LFLAGS_RELEASE -= -O1
 
 # compiler build flags
 unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
+macx:!m1:!macdeps:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 #macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
 macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
@@ -148,7 +149,7 @@ m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 
 # library linking
 unix:!macx:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
-macx:!m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
+macx:!m1:!macdeps:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
 #macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -lomp
 macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
 
@@ -156,17 +157,29 @@ macx:!m1:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
 
 # mac specific options
-macx:!m1:QMAKE_CC=/usr/local/opt/llvm/bin/clang
-macx:!m1:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
-macx:!m1:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
-macx:!m1:INCLUDEPATH += /usr/local/opt/llvm/include/
-macx:!m1:LIBS += -L/usr/local/opt/llvm/lib/
-macx:LIBS += -L/opt/homebrew/lib/
+macx:!m1:!macdeps:QMAKE_CC=/usr/local/opt/llvm/bin/clang
+macx:!m1:!macdeps:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
+macx:!m1:!macdeps:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
+macx:!m1:!macdeps:INCLUDEPATH += /usr/local/opt/llvm/include/
+macx:!m1:!macdeps:LIBS += -L/usr/local/opt/llvm/lib/
+macx:!macdeps:LIBS += -L/opt/homebrew/lib/
 macx:ICON = $$ROOT/mac/mandelbulber2.icns
 
+# macOS build without Homebrew: Apple's compiler and the static libraries
+# that mac/build_deps.sh builds from source into the MAC_DEPS folder
+# (qmake CONFIG+=macdeps MAC_DEPS=<folder>)
+macx:macdeps {
+	isEmpty(MAC_DEPS): error("CONFIG+=macdeps needs MAC_DEPS=<folder made by mac/build_deps.sh>")
+	INCLUDEPATH += $$MAC_DEPS/include
+	# Apple's compiler takes OpenMP only through the preprocessor option;
+	# the runtime is the static libomp from MAC_DEPS
+	QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
+	LIBS += -L$$MAC_DEPS/lib -lpng -lgsl -lgslcblas -llzo2 -lomp -lz
+}
+
 # gsl png osx absolute path
-macx:!m1:INCLUDEPATH += /usr/local/include/
-macx:!m1:LIBS += -L/usr/local/lib/
+macx:!m1:!macdeps:INCLUDEPATH += /usr/local/include/
+macx:!m1:!macdeps:LIBS += -L/usr/local/lib/
 
 
 

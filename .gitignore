@@ -175,3 +175,6 @@ mandelbulber2/tools/cmake_install.cmake
 # Temporary formula files
 # =========================
 mandelbulber2/formula/mb3dTemporaryFormulas/
+
+# macOS dependencies built by mandelbulber2/mac/build_deps.sh
+mac-deps/
