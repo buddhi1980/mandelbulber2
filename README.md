@@ -11,8 +11,8 @@
     <td>
         Linux: <a href="https://travis-ci.com/github/buddhi1980/mandelbulber2">
                 <img alt="Build Status Linux" src="https://app.travis-ci.com/buddhi1980/mandelbulber2.svg?token=qcG1fmxoCFwBfsQ6A6PF&branch=master"></a></br>
-        Windows: <a href="https://ci.appveyor.com/project/buddhi1980/mandelbulber2">
-                <img alt="Build Status Windows" src="https://ci.appveyor.com/api/projects/status/urd2h30tu7reg4mp?svg=true"></a></br>
+        Windows: <a href="https://github.com/buddhi1980/mandelbulber2/actions/workflows/windows-msvc.yml">
+                <img alt="Build Status Windows" src="https://github.com/buddhi1980/mandelbulber2/actions/workflows/windows-msvc.yml/badge.svg?branch=master"></a></br>
         OSX: <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
                 <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/buddhi1980/mandelbulber2.svg?style=shield">
 </a></br>

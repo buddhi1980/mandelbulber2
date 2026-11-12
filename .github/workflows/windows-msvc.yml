@@ -1,0 +1,141 @@
+name: Windows Build (MSVC)
+
+# Windows build, package and installer. Replaces the former AppVeyor build
+# (.appveyor.yml): same solution, same Release/Debug x64 matrix, same
+# artifacts (zipped build folder and the Inno Setup installer).
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'continuous*'
+      - 'Continuous*'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: windows-msvc-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.configuration }} ${{ matrix.platform }} (Windows)
+    # Visual Studio 2026 image: the projects use the v145 platform toolset
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 240
+    # as on AppVeyor, a Debug failure does not fail the build
+    continue-on-error: ${{ matrix.configuration == 'Debug' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [x64]
+        configuration: [Release, Debug]
+        # configuration: [Release, Debug, AnalysisRelease]
+    env:
+      SOLUTION: mandelbulber2\msvc\mandelbulber2.sln
+      BUILD_DIR: build-win\${{ matrix.configuration }}\${{ matrix.platform }}
+      SETUP_DIR: build-win\Setup\${{ matrix.configuration }}\${{ matrix.platform }}
+      ZIP_NAME: mandelbulber-${{ matrix.configuration }}-${{ matrix.platform }}-${{ github.sha }}.zip
+      INNO_SETUP_COMPILER: C:\Program Files (x86)\Inno Setup 6\ISCC.exe
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Show Build Environment
+        shell: pwsh
+        run: |
+          Write-Host "BUILD ${{ matrix.configuration }} ${{ matrix.platform }}"
+          Write-Host "Repository:  $env:GITHUB_REPOSITORY"
+          Write-Host "Event:       $env:GITHUB_EVENT_NAME"
+          Write-Host "Ref:         $env:GITHUB_REF"
+          Write-Host "Commit:      $env:GITHUB_SHA"
+          Write-Host "Run:         $env:GITHUB_RUN_ID / $env:GITHUB_RUN_NUMBER (attempt $env:GITHUB_RUN_ATTEMPT)"
+          Write-Host "Workspace:   $env:GITHUB_WORKSPACE"
+          Write-Host "Runner:      $env:RUNNER_NAME ($env:ImageOS $env:ImageVersion)"
+          Write-Host "Processors:  $env:NUMBER_OF_PROCESSORS"
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      # mandelbulber2.vcxproj builds the installer after the link step, but only
+      # when the Inno Setup compiler is at this path, and skips it silently
+      # otherwise. The runner image ships Inno Setup 6; install it if it is gone.
+      - name: Ensure Inno Setup
+        shell: pwsh
+        run: |
+          if (-not (Test-Path $env:INNO_SETUP_COMPILER)) {
+            Write-Host "Inno Setup not found on the image, installing it"
+            choco install innosetup --no-progress -y
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          if (-not (Test-Path $env:INNO_SETUP_COMPILER)) {
+            Write-Error "Inno Setup compiler not found at $env:INNO_SETUP_COMPILER"
+            exit 1
+          }
+          (Get-Item $env:INNO_SETUP_COMPILER).VersionInfo | Format-List FileName, ProductVersion
+
+      - name: Cache NuGet Packages
+        uses: actions/cache@v4
+        with:
+          path: mandelbulber2\msvc\packages
+          key: nuget-msvc-${{ hashFiles('mandelbulber2/msvc/packages.config') }}
+
+      - name: Restore NuGet Packages
+        shell: pwsh
+        run: nuget restore $env:SOLUTION
+
+      - name: Build Application and Installer
+        shell: pwsh
+        run: msbuild $env:SOLUTION /m "/p:Configuration=${{ matrix.configuration }}" "/p:Platform=${{ matrix.platform }}"
+
+      - name: Check Installer
+        shell: pwsh
+        run: |
+          $setup = @(Get-ChildItem -Path $env:SETUP_DIR -Filter '*-Setup.exe' -ErrorAction SilentlyContinue)
+          if ($setup.Count -ne 1) {
+            Write-Error "Expected one installer in $env:SETUP_DIR, found $($setup.Count)"
+            exit 1
+          }
+          $setup | Format-Table Name, Length
+          $file = $setup[0].FullName
+          # The installer has the same file name in every configuration and an
+          # unarchived artifact is named after its file, so only the Release
+          # installer keeps its name; the others get the configuration appended.
+          if ("${{ matrix.configuration }}" -ne "Release") {
+            $file = Join-Path $env:RUNNER_TEMP "$($setup[0].BaseName)-${{ matrix.configuration }}.exe"
+            Copy-Item $setup[0].FullName $file
+          }
+          "SETUP_FILE=$file" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Zip Build Archive
+        shell: cmd
+        run: |
+          tree /F "%BUILD_DIR%"
+          7z a "%ZIP_NAME%" "%BUILD_DIR%"
+
+      # archive: false uploads the file itself, so the download is the zip or
+      # the installer rather than a zip wrapped around it
+      - name: Upload Build Archive
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ env.ZIP_NAME }}
+          archive: false
+          if-no-files-found: error
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ env.SETUP_FILE }}
+          archive: false
+          if-no-files-found: error
+
+      - name: Report Result
+        if: always()
+        shell: pwsh
+        run: |
+          if ("${{ job.status }}" -eq "success") { Write-Host "BUILD VICTORY" } else { Write-Host "TRY AND TRY AGAIN" }
