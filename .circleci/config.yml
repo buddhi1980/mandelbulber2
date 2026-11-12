@@ -1,10 +1,15 @@
 # https://circleci.com/docs/2.0/
 version: 2.1
-jobs:
-  build-and-pack:
-    macos:
-      xcode: 27.0
-    working_directory: ~/mandelbulber2/
+
+# One job per kind of Mac hardware. CircleCI's Macs are Apple Silicon, so the
+# arm64 job builds natively and the x86_64 job builds for Intel Macs under
+# Rosetta 2, with a second, Intel Homebrew in /usr/local.
+commands:
+  build-and-pack-steps:
+    parameters:
+      arch:
+        type: enum
+        enum: [arm64, x86_64]
     steps:
       - checkout
       - run:
@@ -12,12 +17,27 @@ jobs:
           command: |
             SRC=~/mandelbulber2/
             BUILD=$SRC/build/
-            brew update
-            brew install llvm qt gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
-            # Create the expected directory structure if it doesn't exist
-            sudo mkdir -p /usr/local/opt
-            # Symlink Apple Silicon Homebrew's LLVM path to the expected Intel location
-            sudo ln -s /opt/homebrew/opt/llvm /usr/local/opt/llvm
+            PACKAGES="llvm qt gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget"
+            if [ "<< parameters.arch >>" = "x86_64" ]; then
+              # Rosetta 2 runs the Intel tools on the Apple Silicon machine
+              softwareupdate --install-rosetta --agree-to-license || true
+              # Intel Homebrew lives in /usr/local, beside the native one in /opt/homebrew
+              if [ ! -x /usr/local/bin/brew ]; then
+                curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install-homebrew.sh
+                NONINTERACTIVE=1 arch -x86_64 /bin/bash /tmp/install-homebrew.sh
+              fi
+              arch -x86_64 /usr/local/bin/brew update
+              arch -x86_64 /usr/local/bin/brew install $PACKAGES
+              # later steps take qmake, macdeployqt and the other tools from the Intel Homebrew
+              echo 'export PATH="/usr/local/bin:/usr/local/opt/qt/bin:$PATH"' >> "$BASH_ENV"
+            else
+              brew update
+              brew install $PACKAGES
+              # Create the expected directory structure if it doesn't exist
+              sudo mkdir -p /usr/local/opt
+              # Symlink Apple Silicon Homebrew's LLVM path to the expected Intel location
+              sudo ln -s /opt/homebrew/opt/llvm /usr/local/opt/llvm
+            fi
             # Clean and recreate build directory structure
             rm -rf "$BUILD"
             mkdir -p "$BUILD"
@@ -36,10 +56,10 @@ jobs:
             SRC=~/mandelbulber2/
             BUILD=$SRC/build/
             # build operation
-            cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro \
+            cd $BUILD && arch -<< parameters.arch >> qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro \
             QMAKE_CXXFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120" \
             QMAKE_CFLAGS+="-I$BUILD -DCL_SILENCE_DEPRECATION -DCL_TARGET_OPENCL_VERSION=120"
-            cd $BUILD && make -j8
+            cd $BUILD && arch -<< parameters.arch >> make -j8
             # binary requirement
             binary=$BUILD/mandelbulber2.app/Contents/MacOS/mandelbulber2
             if [ -f $binary ];
@@ -47,7 +67,14 @@ jobs:
             echo "$binary found"
             else
             echo "Error Building $binary"
-            exit
+            exit 1
+            fi
+            # the binary must be for the hardware this job builds for
+            built="$(lipo -archs $binary)"
+            echo "Architecture: $built"
+            if [ "$built" != "<< parameters.arch >>" ]; then
+            echo "Expected << parameters.arch >>"
+            exit 1
             fi
       - run:
           name: Pack
@@ -62,7 +89,7 @@ jobs:
             #making directories
             #mkdir -vp "$PACK"
             mkdir -p "$RESOURCES"
-            #copying source files	
+            #copying source files
             cp -vr "$SUPPORT/src" "$PACK/"
             cp -vr "$SUPPORT/qt" "$PACK/"
             #cp -vr "$SUPPORT/opencl" "$PACK/"
@@ -92,14 +119,32 @@ jobs:
             if [ -f "$PACK/Contents/Frameworks/libc++abi.dylib" ]; then
               cp "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
             fi
-            cd $BUILD && macdeployqt mandelbulber2.app -dmg -verbose=3
+            cd $BUILD && arch -<< parameters.arch >> macdeployqt mandelbulber2.app -dmg -verbose=3
             #artifacts
             mkdir -p ~/mandelbulber2/build/artifacts/
-            cd ~/mandelbulber2/build/ && 7z a artifacts/mandelbulber2-macOS-$CIRCLE_SHA1.zip mandelbulber2.app
-            mv ~/mandelbulber2/build/mandelbulber2.dmg ~/mandelbulber2/build/artifacts/mandelbulber2-macOS-$CIRCLE_SHA1.dmg
+            cd ~/mandelbulber2/build/ && 7z a artifacts/mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1.zip mandelbulber2.app
+            mv ~/mandelbulber2/build/mandelbulber2.dmg ~/mandelbulber2/build/artifacts/mandelbulber2-macOS-<< parameters.arch >>-$CIRCLE_SHA1.dmg
             cd ~/mandelbulber2/build/ && tree .
       - store_artifacts:
           path: ~/mandelbulber2/build/artifacts/
+
+jobs:
+  # Apple Silicon Macs
+  build-and-pack:
+    macos:
+      xcode: 27.0
+    working_directory: ~/mandelbulber2/
+    steps:
+      - build-and-pack-steps:
+          arch: arm64
+  # Intel Macs
+  build-and-pack-intel:
+    macos:
+      xcode: 27.0
+    working_directory: ~/mandelbulber2/
+    steps:
+      - build-and-pack-steps:
+          arch: x86_64
 
 # TODO: Build App Store version on CI
 
@@ -108,6 +153,4 @@ workflows:
   build-and-deploy:
     jobs:
       - build-and-pack
-
-
-
+      - build-and-pack-intel
