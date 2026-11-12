@@ -42,6 +42,14 @@ grep -q "arch=$ARCH " "$DEPS/.built" || { echo "$DEPS was built for another arch
 QT_DIR="$(ls -d "$DEPS"/qt/*/macos | head -n 1)"
 [ -x "$QT_DIR/bin/qmake" ] || { echo "no Qt in $DEPS/qt" >&2; exit 1; }
 
+# Qt 6.7 still links OpenGL programs against Apple's AGL framework, which
+# newer macOS SDKs no longer contain and which nothing here uses
+find "$QT_DIR/mkspecs" "$QT_DIR/lib" -type f \( -name '*.conf' -o -name '*.pri' -o -name '*.prl' \) \
+	-exec grep -l -e '-framework AGL' {} + 2>/dev/null | while IFS= read -r file; do
+	echo "Removing the AGL framework from $file"
+	sed -i '' 's/ *-framework AGL//g' "$file"
+done
+
 export PATH="$QT_DIR/bin:$PATH"
 # keep qmake's pkg-config lookups away from a Homebrew that happens to be installed
 export PKG_CONFIG_LIBDIR="$DEPS/lib/pkgconfig"
