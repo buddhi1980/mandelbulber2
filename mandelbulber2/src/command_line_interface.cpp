@@ -643,6 +643,10 @@ void cCommandLineInterface::printParametersAndExit()
 
 void cCommandLineInterface::runTestCasesAndExit()
 {
+	// the test cases together take longer than the 5 minutes QtTest allows by default
+	if (!qEnvironmentVariableIsSet("QTEST_FUNCTION_TIMEOUT"))
+		qputenv("QTEST_FUNCTION_TIMEOUT", QByteArray("1800000"));
+
 	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--test"));
