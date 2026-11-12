@@ -16,7 +16,6 @@
         OSX: <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
                 <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/buddhi1980/mandelbulber2.svg?style=shield">
 </a></br>
-Azure: <a href="https://dev.azure.com/buddhi19800328/Mandelbulber/_build?definitionId=1"><img alt="Build status Azure" src="https://dev.azure.com/buddhi19800328/Mandelbulber/_apis/build/status/buddhi1980.mandelbulber2?branchName=master"></a>
 
 </td>
     </td>
