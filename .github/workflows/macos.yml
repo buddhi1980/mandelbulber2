@@ -34,8 +34,9 @@ env:
   MACOSX_DEPLOYMENT_TARGET: '11.0'
 
 jobs:
-  build:
-    name: '${{ matrix.arch }} (${{ matrix.hardware }}): app + dmg'
+  # job names match the CircleCI jobs: <system>-<architecture>
+  macos:
+    name: macos-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:

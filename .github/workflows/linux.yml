@@ -13,8 +13,9 @@ on:
   pull_request:
 
 jobs:
-  build:
-    name: 'x86_64: build, test, AppImage'
+  # job names match the CircleCI jobs: <system>-<architecture>
+  linux-x86_64:
+    name: linux-x86_64
     runs-on: ubuntu-24.04
     env:
       CONFIG: release
