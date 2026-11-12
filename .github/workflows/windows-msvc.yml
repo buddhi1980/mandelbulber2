@@ -3,6 +3,11 @@ name: Windows Build (MSVC)
 # Windows build, package and installer. Replaces the former AppVeyor build
 # (.appveyor.yml): same solution, same Release/Debug x64 matrix, same
 # artifacts (zipped build folder and the Inno Setup installer).
+#
+# The AnalysisRelease configuration also runs here. It compiles with MSVC code
+# analysis and the C++ Core Guidelines checker at warning level 4. Its findings
+# are on the run's summary page, and the complete list and the build logs are
+# in the build-logs-AnalysisRelease-x64 artifact.
 
 on:
   push:
@@ -27,19 +32,19 @@ jobs:
     # Visual Studio 2026 image: the projects use the v145 platform toolset
     runs-on: windows-2025-vs2026
     timeout-minutes: 240
-    # as on AppVeyor, a Debug failure does not fail the build
-    continue-on-error: ${{ matrix.configuration == 'Debug' }}
+    # as on AppVeyor, a Debug or AnalysisRelease failure does not fail the build
+    continue-on-error: ${{ matrix.configuration != 'Release' }}
     strategy:
       fail-fast: false
       matrix:
         platform: [x64]
-        configuration: [Release, Debug]
-        # configuration: [Release, Debug, AnalysisRelease]
+        configuration: [Release, Debug, AnalysisRelease]
     env:
       SOLUTION: mandelbulber2\msvc\mandelbulber2.sln
       BUILD_DIR: build-win\${{ matrix.configuration }}\${{ matrix.platform }}
       SETUP_DIR: build-win\Setup\${{ matrix.configuration }}\${{ matrix.platform }}
       ZIP_NAME: mandelbulber-${{ matrix.configuration }}-${{ matrix.platform }}-${{ github.sha }}.zip
+      LOG_DIR: build-logs
       INNO_SETUP_COMPILER: C:\Program Files (x86)\Inno Setup 6\ISCC.exe
 
     steps:
@@ -91,7 +96,32 @@ jobs:
 
       - name: Build Application and Installer
         shell: pwsh
-        run: msbuild $env:SOLUTION /m "/p:Configuration=${{ matrix.configuration }}" "/p:Platform=${{ matrix.platform }}"
+        run: |
+          New-Item -ItemType Directory -Force $env:LOG_DIR | Out-Null
+          msbuild $env:SOLUTION /m "/p:Configuration=${{ matrix.configuration }}" "/p:Platform=${{ matrix.platform }}" `
+            "/flp:LogFile=$env:LOG_DIR\msbuild.log;Verbosity=normal;Encoding=UTF-8" `
+            "/flp1:LogFile=$env:LOG_DIR\msbuild-warnings.log;WarningsOnly;Encoding=UTF-8" `
+            "/flp2:LogFile=$env:LOG_DIR\msbuild-errors.log;ErrorsOnly;Encoding=UTF-8"
+          exit $LASTEXITCODE
+
+      # Puts every compiler, linker and code analysis finding of the build on
+      # the run's summary page; see summarize-msvc-warnings.ps1
+      - name: Summarize Warnings and Analysis Findings
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: >
+          ./.github/scripts/summarize-msvc-warnings.ps1
+          -LogDir $env:LOG_DIR
+          -Title "${{ matrix.configuration }} ${{ matrix.platform }}"
+          -ArtifactName "build-logs-${{ matrix.configuration }}-${{ matrix.platform }}"
+
+      - name: Upload Build Logs and Findings
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-logs-${{ matrix.configuration }}-${{ matrix.platform }}
+          path: ${{ env.LOG_DIR }}
+          if-no-files-found: ignore
 
       - name: Check Installer
         shell: pwsh
