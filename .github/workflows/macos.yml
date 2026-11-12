@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Show Build Environment
         run: |
@@ -65,7 +65,7 @@ jobs:
 
       - name: Cache Dependencies
         id: deps-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: mac-deps
           key: mac-deps-${{ matrix.arch }}-macos${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ hashFiles('mandelbulber2/mac/build_deps.sh') }}

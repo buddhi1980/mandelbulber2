@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Show Build Environment
         shell: pwsh
@@ -65,7 +65,7 @@ jobs:
           Write-Host "Processors:  $env:NUMBER_OF_PROCESSORS"
 
       - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       # mandelbulber2.vcxproj builds the installer after the link step, but only
       # when the Inno Setup compiler is at this path, and skips it silently
@@ -85,7 +85,7 @@ jobs:
           (Get-Item $env:INNO_SETUP_COMPILER).VersionInfo | Format-List FileName, ProductVersion
 
       - name: Cache NuGet Packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: mandelbulber2\msvc\packages
           key: nuget-msvc-${{ hashFiles('mandelbulber2/msvc/packages.config') }}
