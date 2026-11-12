@@ -45,9 +45,11 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "keyframes.hpp"
+#include "image_comparison.hpp"
 #include "netrender.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
+#include "regression_test.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
@@ -620,5 +622,34 @@ void Test::renderImageSave() const
 				SaveImage(folderName + QDir::separator() + "out", fileType, image, nullptr);
 			}
 		}
+	}
+}
+
+void Test::regressionScenesWrapper() const
+{
+	if (IsBenchmarking()) return; // comparing renders is not a benchmark
+	regressionScenes();
+}
+
+void Test::regressionScenes() const
+{
+	// this renders the regression scenes and checks that every image is a valid render.
+	// To compare them with the renders of another build use --regression-render
+	// and --regression-compare
+	const QList<sRegressionScene> scenes = cRegressionTest::Scenes();
+	for (const sRegressionScene &scene : scenes)
+	{
+		WriteLogCout("regression scene: " + scene.name + "\n", 1);
+		QImage image;
+		QString error;
+		const bool rendered = cRegressionTest::RenderScene(scene, &image, &error);
+		QVERIFY2(rendered, qPrintable(QString("regression scene %1: %2").arg(scene.name, error)));
+
+		const sImageValidity validity = imageComparison::Validate(image, scene.fillsFrame);
+		QVERIFY2(validity.valid,
+			qPrintable(
+				QString("regression scene %1 is not a valid render: %2").arg(scene.name, validity.reason)));
+
+		image.save(testFolder() + QDir::separator() + scene.name + ".png", "PNG");
 	}
 }
