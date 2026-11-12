@@ -50,6 +50,7 @@ QT_VERSION="${QT_VERSION:-6.7.3}"
 
 CMAKE_VERSION=3.31.6
 AQT_VERSION=3.3.0
+SEVENZIP_VERSION=2301
 LIBPNG_VERSION=1.6.44
 TIFF_VERSION=4.7.0
 LZO_VERSION=2.10
@@ -201,9 +202,16 @@ cp "$PREFIX/include/OpenCL/opencl.hpp" "$PREFIX/include/OpenCL/cl.hpp"
 # Qt (official universal build; its libraries carry their own deployment target)
 # --------------------------------------------------------------------------
 step "Qt $QT_VERSION"
+# Qt's archives are 7z files. The installer's own 7z module does not load on
+# every Python version, so give it 7-Zip's universal command line program.
+fetch "https://www.7-zip.org/a/7z$SEVENZIP_VERSION-mac.tar.xz" \
+	343eae9ccbbd8f68320adaaa3c87e0244cf39fad0fbec6b9d2cd3e5b0f8a5fbf
+mkdir -p "$PREFIX/tools/7zip"
+tar -xf "$ARCHIVE" -C "$PREFIX/tools/7zip"
 python3 -m venv "$PREFIX/tools/venv"
 "$PREFIX/tools/venv/bin/pip" install --quiet "aqtinstall==$AQT_VERSION"
-"$PREFIX/tools/venv/bin/aqt" install-qt mac desktop "$QT_VERSION" clang_64 -m qtmultimedia -O "$PREFIX/qt"
+"$PREFIX/tools/venv/bin/aqt" install-qt mac desktop "$QT_VERSION" clang_64 -m qtmultimedia \
+	-O "$PREFIX/qt" --external "$PREFIX/tools/7zip/7zz"
 QT_DIR="$PREFIX/qt/$QT_VERSION/macos"
 "$QT_DIR/bin/qmake" -query QT_VERSION
 
