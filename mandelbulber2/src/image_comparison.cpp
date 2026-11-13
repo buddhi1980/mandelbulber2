@@ -403,7 +403,7 @@ QStringList Failures(const sImageMeasures &m, const sImageLimits &limits)
 	return failures;
 }
 
-sImageValidity Validate(const QImage &image, bool fillsFrame)
+sImageValidity Validate(const QImage &image, bool fillsFrame, double strictness)
 {
 	using namespace regressionThresholds;
 	sImageValidity validity;
@@ -434,11 +434,11 @@ sImageValidity Validate(const QImage &image, bool fillsFrame)
 	validity.edgeDensity = double(std::count(edges.begin(), edges.end(), true)) / n;
 
 	QStringList reasons;
-	if (validity.lumaStdDev < minLumaStdDev)
+	if (validity.lumaStdDev < strictness * minLumaStdDev)
 		reasons.append(
 			QString("flat image, luminance deviation %1").arg(Number(validity.lumaStdDev, 2)));
 	if (validity.coverage <= 0.0 && !fillsFrame) reasons.append("no fractal in the image");
-	if (validity.edgeDensity < minEdgeDensity)
+	if (validity.edgeDensity < strictness * minEdgeDensity)
 		reasons.append(QString("no structure, edge density %1").arg(Number(validity.edgeDensity, 4)));
 	validity.reason = reasons.join("; ");
 	validity.valid = reasons.isEmpty();

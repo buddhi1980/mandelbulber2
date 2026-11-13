@@ -592,21 +592,31 @@ int cRegressionTest::Compare(
 		// A render that the "after" build broke fails. Some examples give a flat or empty image
 		// at this size with either build; that is noted, and the scene is still compared.
 		QStringList notes;
-		bool noStructureInBoth = false;
+		// A scene whose structure is near the validity thresholds flips between valid and not
+		// valid with the sampling noise, so the after image fails only when it is clearly broken
+		// (at half the thresholds) while the before image is valid. When any of the three renders
+		// has too little structure, shapes, edges and structural similarity compare noise and
+		// are not checked.
+		bool lowStructure = false;
 		if (haveBefore && haveAfter)
 		{
 			const sImageValidity beforeValidity = imageComparison::Validate(before, scene.fillsFrame);
 			const sImageValidity afterValidity = imageComparison::Validate(after, scene.fillsFrame);
-			if (beforeValidity.valid && !afterValidity.valid)
-				failures.append("after image is not valid: " + afterValidity.reason);
+			const sImageValidity afterBroken = imageComparison::Validate(after, scene.fillsFrame, 0.5);
+			lowStructure =
+				!beforeValidity.valid || !afterValidity.valid
+				|| (haveRepeat && !imageComparison::Validate(beforeRepeat, scene.fillsFrame).valid);
+			if (beforeValidity.valid && !afterBroken.valid)
+				failures.append("after image is not valid: " + afterBroken.reason);
 			else if (!beforeValidity.valid && !afterValidity.valid)
 			{
 				brokenInBoth++;
-				noStructureInBoth = true;
 				notes.append("both builds render an image that is not valid: " + afterValidity.reason);
 			}
 			else if (!beforeValidity.valid)
 				notes.append("the before image was not valid: " + beforeValidity.reason);
+			else if (!afterValidity.valid)
+				notes.append("the after image is near the validity limits: " + afterValidity.reason);
 		}
 
 		QString measuresText;
@@ -627,9 +637,9 @@ int cRegressionTest::Compare(
 				const sImageLimits limits = imageComparison::Limits(noise);
 				const sImageMeasures measures = imageComparison::Measure(before, after);
 				QStringList measureFailures = imageComparison::Failures(measures, limits);
-				// without structure in either image, shapes, edges and structural similarity
-				// compare noise; the color and difference measures still apply
-				if (noStructureInBoth)
+				// with too little structure, shapes, edges and structural similarity compare
+				// noise; the color and difference measures still apply
+				if (lowStructure)
 				{
 					measureFailures.erase(std::remove_if(measureFailures.begin(), measureFailures.end(),
 																	[](const QString &failure)

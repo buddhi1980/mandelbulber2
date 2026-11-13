@@ -133,8 +133,9 @@ sImageLimits Limits(const sImageMeasures &noise);
 // names every measure outside its limit, such as "ssim4x 0.912 < 0.950"; empty when all pass
 QStringList Failures(const sImageMeasures &measures, const sImageLimits &limits);
 
-// checks one image on its own; fillsFrame allows a render with no background
-sImageValidity Validate(const QImage &image, bool fillsFrame);
+// checks one image on its own; fillsFrame allows a render with no background; strictness scales
+// the luminance and edge thresholds, so 0.5 only rejects an image that is clearly broken
+sImageValidity Validate(const QImage &image, bool fillsFrame, double strictness = 1.0);
 
 // gray shows how much every pixel differs; red marks the 4x4 blocks whose mean difference is
 // large, which is where the image really changed and not only its sampling noise
