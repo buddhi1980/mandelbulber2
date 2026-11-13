@@ -13,6 +13,11 @@ on:
       - 'Continuous*'
   pull_request:
 
+# a newer push to the same branch or pull request replaces a run in progress
+concurrency:
+  group: linux-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # job names match the CircleCI jobs: <system>-<architecture>
   linux-x86_64:
