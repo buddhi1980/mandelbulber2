@@ -1,10 +1,10 @@
 name: Rerun Cancelled
 
-# Reruns a cancelled run of the build and regression workflows once, when the
+# Reruns a cancelled run of the build and regression workflows, up to 3 times, when the
 # commit it ran on is still the latest commit of its branch. A run that a newer
 # push replaced (the workflows cancel runs in progress on a new push) is not
 # rerun, because the newer commit gets its own run. A run cancelled for another
-# reason, such as a lost runner, gets one more attempt.
+# reason, such as a lost runner, is retried up to 3 times (4 attempts in all).
 #
 # Only runs started by a push are considered; a pull request gets a new run
 # with every push to it.
@@ -24,7 +24,7 @@ jobs:
     if: >-
       github.event.workflow_run.conclusion == 'cancelled' &&
       github.event.workflow_run.event == 'push' &&
-      github.event.workflow_run.run_attempt < 2
+      github.event.workflow_run.run_attempt <= 3
     runs-on: ubuntu-24.04
     steps:
       - name: Rerun If Still the Latest Commit
@@ -41,5 +41,5 @@ jobs:
             echo "$RUN_NAME run $RUN_ID on $BRANCH is for ${RUN_SHA:0:9}, but the branch is at ${latest:0:9}: a newer push replaced it, so it is not rerun"
             exit 0
           fi
-          echo "$RUN_NAME run $RUN_ID on $BRANCH was cancelled on the latest commit ${RUN_SHA:0:9}; rerunning it"
+          echo "$RUN_NAME run $RUN_ID on $BRANCH was cancelled on the latest commit ${RUN_SHA:0:9}; retry ${{ github.event.workflow_run.run_attempt }} of 3"
           gh run rerun "$RUN_ID" --repo "$REPO"
