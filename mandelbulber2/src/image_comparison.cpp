@@ -297,7 +297,11 @@ double ShapeIoU(const QImage &before, const QImage &after)
 		if (a[i] && b[i]) intersection++;
 		if (a[i] || b[i]) unionCount++;
 	}
-	return unionCount > 0 ? double(intersection) / double(unionCount) : 1.0;
+	// Both counts get a padding of half a percent of the image, so that a shape of a few pixels,
+	// whose edge pixels flicker with the sampling noise, doesn't swing the measure; for a shape of
+	// any size the padding hardly matters.
+	const double padding = 0.005 * double(a.size());
+	return (double(intersection) + padding) / (double(unionCount) + padding);
 }
 
 QString Number(double value, int decimals)

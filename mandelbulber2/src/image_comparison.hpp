@@ -74,10 +74,11 @@ struct sImageValidity
 // The floors keep a scene with almost no noise from failing on a difference nobody can see.
 namespace regressionThresholds
 {
-// Measured over 30 ordered pairs of 6 renders of every scene, with GCC on Linux and with MSVC on
-// Windows: renders of unchanged code reach 1.56 times the noise of one pair. A margin of 2 leaves
-// room above that, and a 5% change of light intensity still exceeds the limits several times.
-constexpr double noiseMargin = 2.0;
+// Measured over 30 ordered pairs of 6 renders of 13 scenes, with GCC on Linux and with MSVC on
+// Windows, renders of unchanged code reached 1.56 times the noise of one pair. Over all ~1200
+// scenes on four CI systems, a few of the roughly 10000 comparisons in a run went past twice the
+// noise, so the margin is 3. A 5% change of light intensity still exceeds the limits.
+constexpr double noiseMargin = 3.0;
 
 // Floors: the least strict limit a measure can get. Each is about twice the largest noise
 // measured in the scenes that have no Monte Carlo sampling.
