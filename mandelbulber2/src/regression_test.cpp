@@ -305,10 +305,12 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 		}
 	}
 
-	// Monte Carlo scenes render at a smaller size, because they are much slower
+	// Monte Carlo scenes and formula scenes render at a smaller size
 	const bool monteCarlo = par->Get<bool>("DOF_monte_carlo");
-	const QSize size = RenderSize(par->Get<int>("image_width"), par->Get<int>("image_height"),
-		monteCarlo ? monteCarloLongSide : renderLongSide);
+	const int longSide =
+		scene.formulaId != 0 ? formulaLongSide : (monteCarlo ? monteCarloLongSide : renderLongSide);
+	const QSize size =
+		RenderSize(par->Get<int>("image_width"), par->Get<int>("image_height"), longSide);
 	const int width = size.width();
 	const int height = size.height();
 	par->Set("image_width", width);
@@ -371,9 +373,10 @@ int cRegressionTest::RenderAll(const QString &folder, bool repeat)
 	info += QString("host: %1\n").arg(QSysInfo::machineHostName());
 	info += QString("cpu: %1\n").arg(CpuName());
 	info += QString("date: %1\n").arg(QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
-	info += QString("long side: %1, with Monte Carlo sampling %2\n")
+	info += QString("long side: %1, with Monte Carlo sampling %2, formula scenes %3\n")
 						.arg(renderLongSide)
-						.arg(monteCarloLongSide);
+						.arg(monteCarloLongSide)
+						.arg(formulaLongSide);
 
 	info += QString("shard: %1/%2\n").arg(shardIndex).arg(shardCount);
 

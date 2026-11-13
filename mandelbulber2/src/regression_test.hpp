@@ -77,11 +77,14 @@ public:
 	static constexpr int renderLongSide = 320;
 	// the longer side for scenes with Monte Carlo sampling, which are much slower to render
 	static constexpr int monteCarloLongSide = 160;
+	// the longer side for the formula scenes: they are there to run every formula's code, which
+	// a small image does as well, and a few formulas render very slowly in the default scene
+	static constexpr int formulaLongSide = 160;
 
 	// renders one scene on the CPU into an 8-bit RGBA image (A is the alpha buffer), with the
-	// longer side renderLongSide pixels (monteCarloLongSide with Monte Carlo sampling) and Monte
-	// Carlo sampling reduced; returns false and sets error when the scene cannot be loaded or
-	// rendered
+	// longer side renderLongSide pixels (monteCarloLongSide with Monte Carlo sampling,
+	// formulaLongSide for a formula scene) and Monte Carlo sampling reduced; returns false and sets
+	// error when the scene cannot be loaded or rendered
 	static bool RenderScene(const sRegressionScene &scene, QImage *result, QString *error);
 
 	// renders every scene twice into the folder (<name>.png and <name>.repeat.png), or once
