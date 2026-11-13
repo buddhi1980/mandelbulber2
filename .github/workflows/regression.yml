@@ -38,11 +38,12 @@ permissions:
   contents: read
 
 env:
-  # Shards per comparison, so that every shard job ends well within an hour. In a run
-  # with 64 shards, rendering with both builds took 634 minutes over all shards, and the
-  # slowest shard took 2.9 times the average (29 of 10 minutes). With 40 shards the
-  # slowest renders for about 46 minutes, plus a minute of setup.
-  LINUX_SHARDS: 40
+  # Shards per comparison. GitHub runs about 19 jobs of this repository at once, so the
+  # whole workflow is fastest when the shard jobs of both comparisons about fill one round
+  # of runners. Simulated with every scene's render time from a CI run on 2026-11-13: 14
+  # shards finish the workflow in about 70 minutes with 28 shard jobs, the slowest about
+  # 45 minutes long; 40 shards took about 100 minutes with 80 jobs.
+  LINUX_SHARDS: 14
 
 jobs:
   prepare:

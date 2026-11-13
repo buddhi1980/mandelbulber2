@@ -192,72 +192,173 @@ int cRegressionTest::shardCount = 1;
 
 QList<sRegressionScene> cRegressionTest::Scenes()
 {
-	// Examples that take far longer than the rest even at the regression test's size: each needs
-	// more than 20 seconds for its two renders on 32 threads, about 10 minutes on a 4-core CI
-	// machine. Measured on 2026-11-13 with GCC 13.3 on an Intel Core i9-14900K; the times of
-	// Monte Carlo scenes were measured at 320 pixels and divided by 4 for their 160 pixels.
+	// Examples that take far longer than the rest even at the regression test's size, so that
+	// one of them can't hold up a whole CI shard. Measured on 2026-11-13:
+	// - more than 20 seconds for two renders on 32 threads of an Intel Core i9-14900K (Monte
+	//   Carlo scenes at 320 pixels, divided by 4 for their 160 pixels), or
+	// - more than 60 seconds for two renders on a 4-core GitHub runner.
+	// The formula scenes are never skipped, so that every formula's code runs.
 	const QStringList slowExamples = {
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/Jos Leys Kleinian v3 "
 		"SphereGrid.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/Scator Spikey Imaginary "
+		"Pow2.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/SphereInvBoxMenger.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS AmazIfs torus.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Tri_Grid "
 		"asurf.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aBox 4D.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/aboxMod15cpixelInvert.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVary.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod1_add.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/amazingIFS hex.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/amazingIFS "
+		"hexprsm2_a.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/amazing_surf_m3d "
+		"DE_LinearCube.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_bermarte "
+		"boxwrap.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
 		"pow-4.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
 		"pow-4a.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
+		"pow2.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudo kleinian "
 		"abox13.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
 		"4.0)/pseudoKleinianMod2_boxBulb2.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/pseudoKleinianMod3_DIFS.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/pseudoKleinianMod3_torusTwist.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudoKleinianMod5.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudo_kleinian_mod6.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/sphere_invert_pseudoKleinian.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/transfSphereInvV3_abxTetra_OT.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transfSphericalFoldSmooth "
+		"Octo Menger.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/xenodreambuieV2  pow -7 "
 		"julia.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Goingtothemagicparty-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Nemos Spell-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Primal environment-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Quilates-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Rusticalia-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/The fall-fractal-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Una de setas a la-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/cuentos-batjorge.fract",
+		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/hidroponia-batjorge.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 25.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 26.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 27.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 33.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion04.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion05.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion06.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/blockify.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 007.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 2_v2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 2_v3.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/colored orbit trap menger "
+		"sponge.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid20.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid21.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid24.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid25.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid26.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid31.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid34.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid38.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hypercomplex 01.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hypercomplex 02.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hypercomplex v2 001.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/ifs-gen.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 005.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 008.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 010.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 4.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/light circle.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/lightning tower.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox15 - "
+		"rotations.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox20 - "
+		"rotations.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox27.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox33 - "
+		"spiral.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox36.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox40_2.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox45.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox46.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox47.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox59.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox60.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox61.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox62.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb powe 6 - "
 		"circle.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - iter "
 		"fog 02.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - iter "
+		"fog 03.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - iter "
 		"fog 04.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - "
 		"monte carlo.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - "
 		"slice 6.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 4 - "
+		"water.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8 - 5 - "
+		"interior.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelnest.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/menger sponge 003_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/modified mandelbulb "
 		"001.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/monte carlo DOF 005.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/msltoe donuts 001.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/planet.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/reflections 003.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/volumetricLight002.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/winter (sss).fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/winter.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/xenodreambuie.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/xenodreambuie3.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/box-deuce-deuce.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/icoastahedron.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/menger-fatbackstrokin.fract",
+		"Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/hybrid 03 - christmas "
+		"ornaments.fract",
 		"Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/pseudo kleinian std de "
 		"001 plus mandelbox.fract",
 		"amazing_surf 001.fract",
 		"benchmark-GPU 2.fract",
+		"clouds 006.fract",
+		"diFS square grid.fract",
+		"gannjondal - newton- license Creative Commons (CC-BY "
+		"4.0)/newtonPow3-PolyFoldSym-delta-gnj-016e.fract",
+		"gannjondal - newton- license Creative Commons (CC-BY "
+		"4.0)/newtonPow3-PolyFoldSym-delta-gnj-017b.fract",
 		"glow.fract",
+		"hybrid003.fract",
 		"hybrid006.fract",
 		"iteration fog.fract",
+		"lkmitch001.fract",
 		"mandelbox_menger_with_textures.fract",
+		"mandelbox_vary_scale_4D_001.fract",
+		"mandelbulb - 256iters.fract",
 		"mandelbulb_bermarte 001.fract",
 		"mandelbulb_power_2_001.fract",
 		"monte carlo global illumination - cube scene.fract",
 		"msltoe toroidal multi 001.fract",
 		"msltoe_julia_bulb_mod3_001.fract",
+		"msltoesym3_mod_001.fract",
+		"random lights.fract",
 		"subsurface scattering 001.fract",
 		"texture transparency alpha.fract",
 		"transparent001.fract",
