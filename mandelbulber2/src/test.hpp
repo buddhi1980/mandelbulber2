@@ -69,6 +69,7 @@ private:
 	void testKeyframe() const;
 	void renderSimple() const;
 	void renderImageSave() const;
+	void regressionScenes() const;
 
 private slots:
 	static void init();
@@ -79,6 +80,7 @@ private slots:
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
+	void regressionScenesWrapper() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

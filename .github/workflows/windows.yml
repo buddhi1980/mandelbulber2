@@ -165,6 +165,26 @@ jobs:
           archive: false
           if-no-files-found: error
 
+      # Regression test: builds the commit before this change as well, renders
+      # the regression scenes with both builds and compares them; see
+      # .github/scripts/regression-compare.ps1. Release only: the Debug build
+      # renders too slowly, and AnalysisRelease is for the code analysis.
+      - name: Regression Test
+        if: matrix.configuration == 'Release'
+        shell: pwsh
+        run: >
+          ./.github/scripts/regression-compare.ps1
+          -Base "${{ github.event.pull_request.base.sha || github.event.before }}"
+          -Configuration ${{ matrix.configuration }} -Platform ${{ matrix.platform }}
+
+      - name: Upload Regression Images
+        if: ${{ !cancelled() && matrix.configuration == 'Release' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: regression-windows-${{ matrix.platform }}-${{ matrix.configuration }}
+          path: regression/
+          if-no-files-found: ignore
+
       - name: Report Result
         if: always()
         shell: pwsh

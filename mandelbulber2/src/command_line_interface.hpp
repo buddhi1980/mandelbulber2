@@ -100,6 +100,8 @@ private:
 	[[noreturn]] static void printParametersAndExit();
 	[[noreturn]] static void runTestCasesAndExit();
 	[[noreturn]] void runBenchmarksAndExit();
+	[[noreturn]] void runRegressionRenderAndExit();
+	[[noreturn]] void runRegressionCompareAndExit();
 
 	// argument handling methods
 	void handleServer();
@@ -147,6 +149,8 @@ private:
 		QString outputText;
 		QString voxelFormat;
 		QString logFilepathText;
+		QString regressionRenderText;
+		QString regressionCompareText;
 	} cliData;
 
 	QCommandLineParser parser;

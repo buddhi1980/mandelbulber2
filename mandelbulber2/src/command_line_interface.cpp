@@ -53,6 +53,7 @@
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "queue.hpp"
+#include "regression_test.hpp"
 #include "settings.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
@@ -166,6 +167,19 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
 			" When [output] option is set to a folder, the example-test images will be stored there."));
 
+	const QCommandLineOption regressionRenderOption(QStringList({"regression-render"}),
+		QCoreApplication::translate("main",
+			"Renders the regression test scenes into the folder <FOLDER>, to compare them later"
+			" with the renders of another build."),
+		QCoreApplication::translate("main", "FOLDER"));
+
+	const QCommandLineOption regressionCompareOption(QStringList({"regression-compare"}),
+		QCoreApplication::translate("main",
+			"Compares the regression renders in folder <BEFORE> with those in the folder given as"
+			" argument. Writes before, after and difference images and report.txt to the"
+			" [output] folder. Exits with 1 when any scene differs too much."),
+		QCoreApplication::translate("main", "BEFORE"));
+
 	const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
 		QCoreApplication::translate(
 			"main", "Runs the program in opencl mode and selects first available gpu device."));
@@ -221,6 +235,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
 	parser.addOption(benchmarkOption);
+	parser.addOption(regressionRenderOption);
+	parser.addOption(regressionCompareOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
@@ -263,6 +279,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	cliData.voxelFormat = parser.value(voxelOption);
 	cliData.test = parser.isSet(testOption);
 	cliData.benchmark = parser.isSet(benchmarkOption);
+	cliData.regressionRenderText = parser.value(regressionRenderOption);
+	cliData.regressionCompareText = parser.value(regressionCompareOption);
 	cliData.touch = parser.isSet(touchOption);
 	cliData.gpu = parser.isSet(gpuOption);
 	cliData.gpuAll = parser.isSet(gpuAllOption);
@@ -282,6 +300,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	if (cliData.queue) cliData.nogui = true;
 	if (cliData.test) cliData.nogui = true;
 	if (cliData.benchmark) cliData.nogui = true;
+	if (cliData.regressionRenderText != "") cliData.nogui = true;
+	if (cliData.regressionCompareText != "") cliData.nogui = true;
 	cliOperationalMode = modeBootOnly;
 }
 
@@ -308,6 +328,9 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.test) runTestCasesAndExit();
 	// run benchmarks
 	if (cliData.benchmark) runBenchmarksAndExit();
+	// render or compare the regression scenes
+	if (cliData.regressionRenderText != "") runRegressionRenderAndExit();
+	if (cliData.regressionCompareText != "") runRegressionCompareAndExit();
 
 	// check netrender server / client
 	if (cliData.server)
@@ -643,6 +666,10 @@ void cCommandLineInterface::printParametersAndExit()
 
 void cCommandLineInterface::runTestCasesAndExit()
 {
+	// the test cases together take longer than the 5 minutes QtTest allows by default
+	if (!qEnvironmentVariableIsSet("QTEST_FUNCTION_TIMEOUT"))
+		qputenv("QTEST_FUNCTION_TIMEOUT", QByteArray("1800000"));
+
 	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--test"));
@@ -663,6 +690,28 @@ void cCommandLineInterface::runTestCasesAndExit()
 	Test test(Test::simpleTestMode);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
+}
+
+void cCommandLineInterface::runRegressionRenderAndExit()
+{
+	systemData.noGui = true;
+	exit(cRegressionTest::RenderAll(cliData.regressionRenderText));
+}
+
+void cCommandLineInterface::runRegressionCompareAndExit()
+{
+	systemData.noGui = true;
+	if (args.size() < 1 || args[0] == "")
+	{
+		QTextStream out(stdout);
+		out << "Usage: --regression-compare <before folder> <after folder> [--output <folder>]"
+				<< Qt::endl;
+		exit(2);
+	}
+	const QString afterFolder = args[0];
+	const QString outputFolder =
+		cliData.outputText != "" ? cliData.outputText : QDir(afterFolder).filePath("comparison");
+	exit(cRegressionTest::Compare(cliData.regressionCompareText, afterFolder, outputFolder));
 }
 
 void cCommandLineInterface::runBenchmarksAndExit()
