@@ -281,10 +281,12 @@ QList<sRegressionScene> cRegressionTest::Scenes()
 		scenes.append(scene);
 	}
 
-	// every fractal formula in the default scene, so that every formula's code runs
+	// every fractal formula in the default scene, so that every formula's code runs; the custom
+	// formula is written in OpenCL by the user and has no code on the CPU
 	for (const cAbstractFractal *formula : newFractalList)
 	{
-		if (formula->getInternalId() == fractal::none) continue;
+		if (formula->getInternalId() == fractal::none || formula->getInternalId() == fractal::custom)
+			continue;
 		sRegressionScene scene;
 		scene.name = "formula__" + SceneName(QString::fromStdString(formula->getInternalName()));
 		scene.formulaId = int(formula->getInternalId());
@@ -590,6 +592,7 @@ int cRegressionTest::Compare(
 		// A render that the "after" build broke fails. Some examples give a flat or empty image
 		// at this size with either build; that is noted, and the scene is still compared.
 		QStringList notes;
+		bool noStructureInBoth = false;
 		if (haveBefore && haveAfter)
 		{
 			const sImageValidity beforeValidity = imageComparison::Validate(before, scene.fillsFrame);
@@ -599,6 +602,7 @@ int cRegressionTest::Compare(
 			else if (!beforeValidity.valid && !afterValidity.valid)
 			{
 				brokenInBoth++;
+				noStructureInBoth = true;
 				notes.append("both builds render an image that is not valid: " + afterValidity.reason);
 			}
 			else if (!beforeValidity.valid)
@@ -622,7 +626,21 @@ int cRegressionTest::Compare(
 				const sImageMeasures noise = imageComparison::Measure(before, beforeRepeat);
 				const sImageLimits limits = imageComparison::Limits(noise);
 				const sImageMeasures measures = imageComparison::Measure(before, after);
-				failures.append(imageComparison::Failures(measures, limits));
+				QStringList measureFailures = imageComparison::Failures(measures, limits);
+				// without structure in either image, shapes, edges and structural similarity
+				// compare noise; the color and difference measures still apply
+				if (noStructureInBoth)
+				{
+					measureFailures.erase(std::remove_if(measureFailures.begin(), measureFailures.end(),
+																	[](const QString &failure)
+																	{
+																		return failure.startsWith("shapeIoU")
+																					 || failure.startsWith("edgeF1")
+																					 || failure.startsWith("ssim");
+																	}),
+						measureFailures.end());
+				}
+				failures.append(measureFailures);
 				measuresText = imageComparison::FormatMeasures(measures, limits) + "\n";
 				imageComparison::DifferenceImage(before, after)
 					.save(QDir(outputFolder).filePath(scene.name + "-diff.png"), "PNG");
