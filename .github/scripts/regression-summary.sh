@@ -1,6 +1,7 @@
 #!/bin/bash
-# Prints a Markdown summary of the regression shard reports in the given folder
-# (one subfolder report-<family>-<shard> per shard, each with report.txt).
+# Prints a Markdown summary of the regression shard reports in the given folder: one
+# subfolder report-<family>-<shard> per shard, with <comparison>/comparison/report.txt
+# for each comparison.
 set -u
 reports="$1"
 
@@ -13,7 +14,7 @@ echo "|---|---|---|---|---|---|"
 for family in linux-x86_64; do
 for comparison in previous back10; do
 	shards=0 compared=0 failed=0 broken=0
-	for f in "$reports"/report-"$family"-"$comparison"-*/report.txt; do
+	for f in "$reports"/report-"$family"-*/"$comparison"/comparison/report.txt; do
 		[ -f "$f" ] || continue
 		shards=$((shards + 1))
 		pass=$(grep -c '^\[PASS\]' "$f")
@@ -31,9 +32,10 @@ echo
 echo "### Failed scenes"
 echo
 found=0
-for f in "$reports"/report-*/report.txt; do
+for f in "$reports"/report-*/*/comparison/report.txt; do
 	[ -f "$f" ] || continue
-	family="$(basename "$(dirname "$f")")"
+	comparison="$(basename "$(dirname "$(dirname "$f")")")"
+	family="$(basename "$(dirname "$(dirname "$(dirname "$f")")")")-$comparison"
 	awk -v family="$family" '/^\[FAIL\]/ {scene=$2} /failures:/ && scene {sub(/^ *failures: */, ""); printf "- `%s` %s: %s\n", family, scene, $0; scene=""}' "$f"
 	grep -q '^\[FAIL\]' "$f" && found=1
 done

@@ -84,9 +84,11 @@ public:
 	// rendered
 	static bool RenderScene(const sRegressionScene &scene, QImage *result, QString *error);
 
-	// renders every scene twice into the folder (<name>.png and <name>.repeat.png);
-	// returns 0 when all rendered, 1 when any failed, 2 when the folder cannot be created
-	static int RenderAll(const QString &folder);
+	// renders every scene twice into the folder (<name>.png and <name>.repeat.png), or once
+	// (<name>.png) when repeat is false: the build under test needs only one render, because
+	// the noise comes from the two renders of the build it is compared with; returns 0 when all
+	// rendered, 1 when any failed, 2 when the folder cannot be created
+	static int RenderAll(const QString &folder, bool repeat = true);
 
 	// compares two folders written by RenderAll. The two "before" renders of a scene give its
 	// noise, and the "after" render must stay within limits derived from that noise. Writes

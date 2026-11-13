@@ -152,6 +152,7 @@ private:
 		QString regressionRenderText;
 		QString regressionCompareText;
 		QString regressionShardText;
+		bool regressionOnce;
 	} cliData;
 
 	QCommandLineParser parser;

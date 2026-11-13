@@ -186,6 +186,11 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 			" equal parts of the regression scenes, so that several machines can share the work."),
 		QCoreApplication::translate("main", "K/N"));
 
+	const QCommandLineOption regressionOnceOption(QStringList({"regression-once"}),
+		QCoreApplication::translate("main",
+			"Makes --regression-render render every scene once instead of twice, for the build that"
+			" is compared with another one: the noise comes from the two renders of the other build."));
+
 	const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
 		QCoreApplication::translate(
 			"main", "Runs the program in opencl mode and selects first available gpu device."));
@@ -244,6 +249,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(regressionRenderOption);
 	parser.addOption(regressionCompareOption);
 	parser.addOption(regressionShardOption);
+	parser.addOption(regressionOnceOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
@@ -289,6 +295,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	cliData.regressionRenderText = parser.value(regressionRenderOption);
 	cliData.regressionCompareText = parser.value(regressionCompareOption);
 	cliData.regressionShardText = parser.value(regressionShardOption);
+	cliData.regressionOnce = parser.isSet(regressionOnceOption);
 	cliData.touch = parser.isSet(touchOption);
 	cliData.gpu = parser.isSet(gpuOption);
 	cliData.gpuAll = parser.isSet(gpuAllOption);
@@ -719,7 +726,7 @@ void cCommandLineInterface::runRegressionRenderAndExit()
 {
 	systemData.noGui = true;
 	applyRegressionShard(cliData.regressionShardText);
-	exit(cRegressionTest::RenderAll(cliData.regressionRenderText));
+	exit(cRegressionTest::RenderAll(cliData.regressionRenderText, !cliData.regressionOnce));
 }
 
 void cCommandLineInterface::runRegressionCompareAndExit()

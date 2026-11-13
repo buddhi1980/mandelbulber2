@@ -11,9 +11,10 @@ name: Regression
 #             up over several commits
 #
 # It runs on Linux (GCC): the three commits are built once each, then the scenes
-# are split over a matrix of shard jobs (--regression-shard K/N) for each
-# comparison, which run in parallel. Every shard uploads its report, and the
-# images when a scene fails; the summary job lists the result of every shard.
+# are split over a matrix of shard jobs (--regression-shard K/N), which run in
+# parallel. Each shard renders its scenes once with the head build and twice with
+# each older build, and compares head with both. Every shard uploads its reports,
+# and the images when a scene fails; the summary job lists every result.
 # Windows and macOS took longer for the same work (macOS runners also run only
 # 5 jobs at once), so they only build and test in windows.yml and macos.yml.
 #
@@ -139,17 +140,19 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  # One job per shard renders the shard's scenes once with the head build, and twice with each
+  # older build (the two renders give each scene's noise), then compares head with each.
   linux-shard:
-    name: linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
+    name: linux-x86_64-${{ matrix.shard }}
     needs: [prepare, linux-build]
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        comparison: ${{ fromJSON(needs.prepare.outputs.comparisons) }}
         shard: ${{ fromJSON(needs.prepare.outputs.linux) }}
     env:
       SHARD_INDEX: ${{ matrix.shard }}
+      COMPARISONS: ${{ join(fromJSON(needs.prepare.outputs.comparisons), ' ') }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
@@ -166,29 +169,30 @@ jobs:
       # each program finds the scenes in ../share/mandelbulber2 beside it
       - name: Render and Compare
         run: |
-          for side in ${{ matrix.comparison }} head; do
+          pairs=()
+          for side in head $COMPARISONS; do
             mkdir -p "run-$side/bin" "run-$side/share"
             cp "programs/program-linux-x86_64-$side/mandelbulber2" "run-$side/bin/"
             chmod +x "run-$side/bin/mandelbulber2"
             ln -s "$PWD/mandelbulber2/deploy/share/mandelbulber2" "run-$side/share/mandelbulber2"
+            [ "$side" = head ] || pairs+=("$side=run-$side/bin/mandelbulber2")
           done
-          ./.github/scripts/regression-shard.sh \
-            run-${{ matrix.comparison }}/bin/mandelbulber2 run-head/bin/mandelbulber2 \
-            "$SHARD_INDEX/$LINUX_SHARDS" regression
+          ./.github/scripts/regression-shard.sh run-head/bin/mandelbulber2 \
+            "$SHARD_INDEX/$LINUX_SHARDS" regression "${pairs[@]}"
 
-      - name: Upload Report
+      - name: Upload Reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: report-linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
-          path: regression/comparison/report.txt
+          name: report-linux-x86_64-${{ matrix.shard }}
+          path: regression/*/comparison/report.txt
           if-no-files-found: ignore
 
       - name: Upload Images
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: images-linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
+          name: images-linux-x86_64-${{ matrix.shard }}
           path: regression/
           if-no-files-found: ignore
 

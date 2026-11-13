@@ -356,7 +356,7 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 	return true;
 }
 
-int cRegressionTest::RenderAll(const QString &folder)
+int cRegressionTest::RenderAll(const QString &folder, bool repeat)
 {
 	QTextStream out(stdout);
 	if (!QDir().mkpath(folder))
@@ -385,15 +385,17 @@ int cRegressionTest::RenderAll(const QString &folder)
 		QFile::remove(SceneRepeatPng(folder, scene.name));
 		QFile::remove(SceneFailure(folder, scene.name));
 
-		// every scene is rendered twice: the difference between the two renders is its noise
+		// a scene is rendered twice for the "before" side: the difference between the two
+		// renders is its noise
 		QElapsedTimer timer;
 		timer.start();
-		QImage image, repeat;
+		QImage image, repeatImage;
 		QString error;
-		bool ok = RenderScene(scene, &image, &error) && RenderScene(scene, &repeat, &error);
+		bool ok =
+			RenderScene(scene, &image, &error) && (!repeat || RenderScene(scene, &repeatImage, &error));
 		if (ok
 				&& !(image.save(ScenePng(folder, scene.name), "PNG")
-						 && repeat.save(SceneRepeatPng(folder, scene.name), "PNG")))
+						 && (!repeat || repeatImage.save(SceneRepeatPng(folder, scene.name), "PNG"))))
 		{
 			ok = false;
 			error = "image cannot be saved";
