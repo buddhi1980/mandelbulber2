@@ -901,7 +901,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[objectsItemIndex].itemOffset = totalDataOffset;
 
-	cl_int numberOfObjects = objectData->size();
+	cl_int numberOfObjects = cl_int(objectData->size());
 	data.append(reinterpret_cast<char *>(&numberOfObjects), sizeof(numberOfObjects));
 	totalDataOffset += sizeof(numberOfObjects);
 
@@ -965,7 +965,7 @@ void cOpenClDynamicData::BuildNodesData(
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;
 
-	cl_int numberOfNodes = nodesData->size();
+	cl_int numberOfNodes = cl_int(nodesData->size());
 	data.append(reinterpret_cast<char *>(&numberOfNodes), sizeof(numberOfNodes));
 	totalDataOffset += sizeof(numberOfNodes);
 

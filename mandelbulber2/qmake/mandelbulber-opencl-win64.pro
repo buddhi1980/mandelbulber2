@@ -32,6 +32,7 @@ TEMPLATE = app
 CONFIG += qt thread
 
 SOURCES +=  $$files($$ROOT/src/*.cpp, false)
+SOURCES +=  $$files($$ROOT/src/*.c, false)
 SOURCES +=  $$files($$ROOT/qt/*.cpp, false)
 SOURCES +=  $$files($$ROOT/formula/definition/*.cpp, false)
 

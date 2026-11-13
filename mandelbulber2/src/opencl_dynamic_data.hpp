@@ -46,7 +46,7 @@ struct sVectorsAround;
 class cLights;
 class cPrimitives;
 class cObjectData;
-class sParamRender;
+struct sParamRender;
 class cHybridFractalSequences;
 
 #ifdef USE_OPENCL

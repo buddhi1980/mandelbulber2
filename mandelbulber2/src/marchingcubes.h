@@ -135,50 +135,50 @@ private:
 	}
 
 	inline void mc_add_vertex(double x1, double y1, double z1, double c2, int axis, double f1,
-		double f2, double isovalue, std::vector<double> *vertices, double colorIndex_1,
-		double colorIndex_2, std::vector<double> *colorIndices)
+		double f2, double isovalue, std::vector<double> *vertexList, double colorIndex_1,
+		double colorIndex_2, std::vector<double> *colorIndexList)
 	{
 		switch (axis)
 		{
 			case 0:
 			{
 				double x = mc_isovalue_interpolation(isovalue, f1, f2, x1, c2);
-				vertices->push_back(x);
-				vertices->push_back(y1);
-				vertices->push_back(z1);
+				vertexList->push_back(x);
+				vertexList->push_back(y1);
+				vertexList->push_back(z1);
 
 				// double f = (x - x1) / (c2 - x1);
 				double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1,
 					colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
-				colorIndices->push_back(colorIndex);
+				colorIndexList->push_back(colorIndex);
 
 				return;
 			}
 			case 1:
 			{
 				double y = mc_isovalue_interpolation(isovalue, f1, f2, y1, c2);
-				vertices->push_back(x1);
-				vertices->push_back(y);
-				vertices->push_back(z1);
+				vertexList->push_back(x1);
+				vertexList->push_back(y);
+				vertexList->push_back(z1);
 
 				// double f = (y - y1) / (c2 - y1);
 				double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1,
 					colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
-				colorIndices->push_back(colorIndex);
+				colorIndexList->push_back(colorIndex);
 
 				return;
 			}
 			case 2:
 			{
 				double z = mc_isovalue_interpolation(isovalue, f1, f2, z1, c2);
-				vertices->push_back(x1);
-				vertices->push_back(y1);
-				vertices->push_back(z);
+				vertexList->push_back(x1);
+				vertexList->push_back(y1);
+				vertexList->push_back(z);
 
 				// double f = (z - z1) / (c2 - z1);
 				double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1,
 					colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
-				colorIndices->push_back(colorIndex);
+				colorIndexList->push_back(colorIndex);
 
 				return;
 			}

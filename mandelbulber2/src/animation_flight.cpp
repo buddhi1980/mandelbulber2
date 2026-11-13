@@ -910,7 +910,7 @@ void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 	for (int i = 0; i < gNetRender->GetClientCount(); i++)
 	{
 		QList<int> startingFrames;
-		for (int i = 0; i < numberOfFramesForNetRender; i++)
+		for (int frame = 0; frame < numberOfFramesForNetRender; frame++)
 		{
 			// looking for next unrendered frame
 			bool notFound = false;
@@ -1117,8 +1117,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			renderJob->UpdateParameters(params, fractalParams);
 			renderJob->renderContext =
 				QString("flight frame %1/%2").arg(index + 1).arg(frameRanges.totalFrames);
-			const int result = renderJob->Execute();
-			if (!result) throw false;
+			const int executeResult = renderJob->Execute();
+			if (!executeResult) throw false;
 
 			// save frame
 			QStringList listOfSavedFiles;

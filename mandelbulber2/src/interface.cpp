@@ -274,7 +274,7 @@ void cInterface::ShowUi()
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
 		gPar->Get<bool>("opencl_enabled"));
 
-	if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
+	if (gPar->Get<bool>("opencl_enabled") && gPar->Get<int>("opencl_mode") > 0)
 		mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
 #endif
 
@@ -923,7 +923,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	}
 #endif
 
-	double dist;
+	double dist = 0.0;
 	if (openClEnabled)
 	{
 #ifdef USE_OPENCL
@@ -1097,7 +1097,7 @@ void cInterface::ResetView(QWidget *navigationWidget,
 			sDistanceIn in(point, 0, false);
 			sDistanceOut out;
 
-			double dist;
+			double dist = 0.0;
 			if (openClEnabled)
 			{
 #ifdef USE_OPENCL

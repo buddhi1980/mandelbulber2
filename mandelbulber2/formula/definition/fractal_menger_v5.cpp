@@ -38,9 +38,9 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 				+ fractal->transformCommon.angleDegA;
 		double cosA = cos(ang);
 		double sinB = sin(ang);
-		double t = z.x;
+		double tRot = z.x;
 		z.x = z.x * cosA - z.y * sinB;
-		z.y = t * sinB + z.y * cosA;
+		z.y = tRot * sinB + z.y * cosA;
 		aux.DE = aux.DE + fractal->analyticDE.offset1;
 	}
 

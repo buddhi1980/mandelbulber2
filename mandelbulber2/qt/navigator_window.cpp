@@ -164,10 +164,10 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 		QList<QWidget *> childWidgets =
 			leftWidget->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
 
-		for (auto widget : childWidgets)
+		for (auto child : childWidgets)
 		{
-			cInterface::ColorizeGroupBoxes(widget, gPar->Get<int>("ui_colorize_random_seed"));
-			cInterface::AdjustLayoutSpacing(widget, gPar->Get<int>("ui_layout_spacing"));
+			cInterface::ColorizeGroupBoxes(child, gPar->Get<int>("ui_colorize_random_seed"));
+			cInterface::AdjustLayoutSpacing(child, gPar->Get<int>("ui_layout_spacing"));
 		}
 
 		cDockEffects *dockEffects = dynamic_cast<cDockEffects *>(leftWidget);

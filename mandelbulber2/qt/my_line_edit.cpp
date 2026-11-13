@@ -470,9 +470,9 @@ void MyLineEdit::slotSliderMoved(int sliderPosition)
 
 	int iDiff = sliderPosition - 500;
 
-	enumSliderPrecision precision = slider->precision();
+	enumSliderPrecision sliderPrecision = slider->precision();
 	double dPrecision = 1.0;
-	switch (precision)
+	switch (sliderPrecision)
 	{
 		case enumSliderPrecision::precisionSuperFine: dPrecision = 3.0; break;
 		case enumSliderPrecision::precisionVeryFine: dPrecision = 2.0; break;

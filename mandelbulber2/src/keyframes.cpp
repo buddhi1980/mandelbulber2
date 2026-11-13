@@ -301,7 +301,7 @@ void cKeyframes::UpdateFramesIndexesTable()
 
 int cKeyframes::GetTotalNumberOfFrames() const
 {
-	return keyframesIndexesTable.size();
+	return int(keyframesIndexesTable.size());
 }
 
 int cKeyframes::GetFramesPerKeyframe(int keyframeIndex) const

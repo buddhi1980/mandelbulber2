@@ -44,8 +44,10 @@
 #include <QRegularExpression>
 
 #include "cimage.hpp"
+#include "crt_portable.hpp"
 #include "error_message.hpp"
 #include "initparameters.hpp"
+#include "png_calls.h"
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "write_log.hpp"
@@ -68,15 +70,15 @@ string logfileName;
 // out:	fullname - file name with added number
 std::string IndexFilename(const char *filename, const char *extension, int number)
 {
-	char tmp[10];
-	sprintf(tmp, "%.5i", number);
+	char tmp[16];
+	snprintf(tmp, sizeof(tmp), "%.5i", number);
 	return std::string(filename) + tmp + "." + extension;
 }
 
 bool FileIfExists(const char *filename)
 {
 	FILE *file;
-	file = fopen(filename, "r");
+	file = OpenFile(filename, "r");
 	if (file)
 	{
 		fclose(file);
@@ -95,7 +97,7 @@ int fcopy(const char *source, const char *dest)
 	std::vector<char> buffer;
 	size_t result;
 
-	pFile = fopen(source, "rb");
+	pFile = OpenFile(source, "rb");
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open source file for copying: " << source;
@@ -131,7 +133,7 @@ int fcopy(const char *source, const char *dest)
 
 	// ----- file writing
 
-	pFile = fopen(dest, "wb");
+	pFile = OpenFile(dest, "wb");
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest;
@@ -149,7 +151,7 @@ int fcopy(const QString &source, const QString &dest)
 
 	std::vector<char> buffer;
 
-	FILE *pFile = fopen(source.toLocal8Bit().constData(), "rb");
+	FILE *pFile = OpenFile(source.toLocal8Bit().constData(), "rb");
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open source file for copying: " << source;
@@ -187,7 +189,7 @@ int fcopy(const QString &source, const QString &dest)
 
 	// ----- file writing
 
-	pFile = fopen(dest.toLocal8Bit().constData(), "wb");
+	pFile = OpenFile(dest.toLocal8Bit().constData(), "wb");
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest;
@@ -336,7 +338,7 @@ std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight)
 	int color_type, interlace_type;
 	FILE *fp;
 
-	if ((fp = fopen(filename.toLocal8Bit().constData(), "rb")) == nullptr)
+	if ((fp = OpenFile(filename.toLocal8Bit().constData(), "rb")) == nullptr)
 		return std::vector<sRGBA16>();
 
 	png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
@@ -373,19 +375,12 @@ std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight)
 		return std::vector<sRGBA16>();
 	}
 
-	if (setjmp(png_jmpbuf(png_ptr)))
+	if (!PngReadImage(png_ptr, info_ptr, fp, int(sig_read)))
 	{
 		png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 		fclose(fp);
 		return std::vector<sRGBA16>();
 	}
-
-	png_init_io(png_ptr, fp);
-
-	png_set_sig_bytes(png_ptr, sig_read);
-
-	png_read_png(png_ptr, info_ptr,
-		PNG_TRANSFORM_PACKING | PNG_TRANSFORM_EXPAND | PNG_TRANSFORM_SWAP_ENDIAN, nullptr);
 
 	png_uint_32 width, height;
 	int bit_depth;
@@ -577,6 +572,21 @@ QString FilePathHelperDoc(const QString &fileName)
 		if (FileExists(path)) return path;
 	}
 	return fileName;
+}
+
+// removes the characters that are not 7-bit ASCII, which some OpenCL compilers reject
+QByteArray StripNonAscii(const QByteArray &data)
+{
+	QByteArray result;
+	result.reserve(data.size());
+	for (char c : data)
+	{
+		if (static_cast<unsigned char>(c) < 128)
+		{
+			result.append(c);
+		}
+	}
+	return result;
 }
 
 QByteArray LoadUtf8TextFromFile(const QString &fileName)

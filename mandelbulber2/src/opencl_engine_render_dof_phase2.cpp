@@ -46,20 +46,6 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
-static QByteArray StripNonAscii(const QByteArray &data)
-{
-	QByteArray result;
-	result.reserve(data.size());
-	for (char c : data)
-	{
-		if (static_cast<unsigned char>(c) < 128)
-		{
-			result.append(c);
-		}
-	}
-	return result;
-}
-
 cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {

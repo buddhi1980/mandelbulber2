@@ -306,7 +306,7 @@ cHybridFractalSequences::sSequence cHybridFractalSequences::CreateSequence(sSequ
 		return seq;
 	}
 
-	int numberOfFormulas = formulaIndices.size();
+	int numberOfFormulas = int(formulaIndices.size());
 	seq.numberOfFractalsInTheSequence = numberOfFormulas;
 
 	int repeatFrom = generalPar->Get<int>("repeat_from");

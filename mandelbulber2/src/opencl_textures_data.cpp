@@ -310,8 +310,8 @@ void cOpenClTexturesData::BuildTextureData(
 		for (size_t i = 0; i < numberOfPixels; i++)
 		{
 			// greyscale 16bit texture is coded using first two bytes
-			int x = i % textureWidth;
-			int y = i / textureWidth;
+			int x = int(i % textureWidth);
+			int y = int(i / textureWidth);
 			sRGBFloat pixel = texture->FastPixel(x, y);
 			int brightness = clamp(int(pixel.R * 65535.0), 0, 65535);
 			cl_uchar4 clpixel = {{cl_uchar(brightness / 256), cl_uchar(brightness % 256), 0, 0}};
@@ -319,7 +319,7 @@ void cOpenClTexturesData::BuildTextureData(
 		}
 	}
 
-	totalDataOffset += sizeof(cl_uchar4) * numberOfPixels;
+	totalDataOffset += cl_int(sizeof(cl_uchar4) * numberOfPixels);
 
 	// replace arrayOffset:
 	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),

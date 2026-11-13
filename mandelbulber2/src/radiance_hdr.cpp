@@ -39,24 +39,14 @@
 
 #include <cstdio>
 
+#include "crt_portable.hpp"
+
 // custom includes
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_HDR
-// stb_image.h is a vendored third-party single-header library; its own diagnostics
-// are suppressed locally instead of modifying the upstream source
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter"
-#elif defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
+// only the JPEG loader uses SIMD, and it is left out
+#define STBI_NO_SIMD
 #include "third-party/stb/stb_image.h"
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#elif defined(__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
 cRadianceHDR::cRadianceHDR()
 {
@@ -140,8 +130,8 @@ void cRadianceHDR::LoadToQPixmap(QPixmap *pixmap)
 		image8[i] = sRGB8(R, G, B);
 	}
 
-	const QImage qImage(reinterpret_cast<const uchar *>(image8.data()), imageWidth, imageHeight,
-		imageWidth * sizeof(sRGB8), QImage::Format_RGB888);
+	const QImage qImage(reinterpret_cast<const uchar *>(image8.data()), int(imageWidth),
+		int(imageHeight), qsizetype(imageWidth * sizeof(sRGB8)), QImage::Format_RGB888);
 
 	pixmap->convertFromImage(qImage);
 }
@@ -218,7 +208,7 @@ bool cRadianceHDR::SaveRGBE(const QString &filename, uint64_t width, uint64_t he
 {
 	if (!width || !height || rgb.size() < width * height) return false;
 
-	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
+	FILE *fp = OpenFile(filename.toLocal8Bit().constData(), "wb");
 	if (!fp) return false;
 
 	bool ok = true;

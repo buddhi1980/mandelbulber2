@@ -137,7 +137,7 @@ const std::shared_ptr<cParameterContainer> cFractalContainer::at(int index) cons
 
 int cFractalContainer::size() const
 {
-	return fractals.size();
+	return int(fractals.size());
 }
 
 void cFractalContainer::resize(int newSize)

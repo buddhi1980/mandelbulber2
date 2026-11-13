@@ -128,7 +128,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 		if (found)
 		{
-			sRGBAFloat objectColor;
+			sRGBAFloat hitObjectColor;
 			sRGBAFloat specular;
 			sRGBFloat iridescence;
 			sRGBAFloat outShadow;
@@ -166,10 +166,10 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			PerlinNoiseForShaders(&inputCopy, inputCopy.point);
 
 			sGradientsCollection gradients;
-			sRGBAFloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,
+			sRGBAFloat objectShader = ObjectShader(inputCopy, &hitObjectColor, &specular, &iridescence,
 				&outShadow, &outLuminosityEmissive, &gradients);
 
-			newColor = objectColor;
+			newColor = hitObjectColor;
 			resultShader.R = objectShader.R + specular.R;
 			resultShader.G = objectShader.G + specular.G;
 			resultShader.B = objectShader.B + specular.B;

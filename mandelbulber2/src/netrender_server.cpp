@@ -416,8 +416,8 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-		qint32 frameIndex;
-		qint32 sizeOfListToDo;
+		qint32 frameIndex = 0;
+		qint32 sizeOfListToDo = 0;
 
 		while (!stream.atEnd())
 		{
@@ -659,10 +659,10 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 			QFile file(fileName);
 			if (file.open(QIODevice::ReadOnly))
 			{
-				QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
-				stream << qint64(file.size());
+				QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
+				outStream << qint64(file.size());
 				QByteArray fileData = file.readAll();
-				stream.writeRawData(fileData.data(), fileData.size());
+				outStream.writeRawData(fileData.data(), fileData.size());
 				file.close();
 				cNetRenderTransport::SendData(GetClient(index).socket, outMsg, actualId);
 			}
@@ -680,8 +680,8 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 
 		if (failure)
 		{
-			QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
-			stream << qint64(-1); // -1 means that file coudn't be loaded
+			QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
+			outStream << qint64(-1); // -1 means that file coudn't be loaded
 			cNetRenderTransport::SendData(GetClient(index).socket, outMsg, actualId);
 		}
 	}

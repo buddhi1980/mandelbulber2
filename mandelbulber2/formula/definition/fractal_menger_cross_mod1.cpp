@@ -83,13 +83,13 @@ void cFractalMengerCrossMod1::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
 		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5);
-		double t = 1.0 * max(0.0, dot1);
-		z.x -= t * -SQRT_3;
+		double t2 = 1.0 * max(0.0, dot1);
+		z.x -= t2 * -SQRT_3;
 		if (fractal->transformCommon.functionEnabledXFalse)
-			z.y = fabs(z.y) - t;
+			z.y = fabs(z.y) - t2;
 		else
 		{
-			z.y = fabs(z.y - t);
+			z.y = fabs(z.y - t2);
 		}
 		z.x -= SQRT_3_4;
 

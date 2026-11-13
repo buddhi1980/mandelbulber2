@@ -92,7 +92,7 @@ void cMyTextEdit::keyPressEvent(QKeyEvent *e)
 				if (cursor.block().text().size() > 0
 						&& cursor.block().text().at(cursor.positionInBlock()) == ' ')
 				{
-					for (int i = 0; i < 4; ++i)
+					for (int k = 0; k < 4; ++k)
 					{
 						cursor.deleteChar();
 						if (cursor.positionInBlock() % 4 == 0) break;

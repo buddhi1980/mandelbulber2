@@ -370,7 +370,7 @@ public:
 		isStereoLeftRight = isStereoLeftRightInput;
 	}
 	void GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_ptr<cImage> right);
-	void setMeta(QMap<QString, QString> meta) { this->meta = meta; }
+	void setMeta(QMap<QString, QString> newMeta) { this->meta = newMeta; }
 	QMap<QString, QString> &getMeta() { return meta; }
 	int progressiveFactor;
 	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);

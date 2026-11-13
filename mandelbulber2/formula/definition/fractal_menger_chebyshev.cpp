@@ -115,14 +115,14 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA) // box offset
 	{
-		CVector4 temp = z;
+		CVector4 zCopy = z;
 		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
-			double tempL = temp.Length();
+			double tempL = zCopy.Length();
 			// if (tempL < 1e-21) tempL = 1e-21;
 			double avgScale = z.Length() / tempL;
 			aux.DE = aux.DE * avgScale + 1.0;

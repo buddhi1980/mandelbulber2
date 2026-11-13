@@ -110,7 +110,7 @@ public:
 
 	QList<int> getSelectedDevicesIndices() { return selectedDevicesIndices; }
 	bool ContextCreated() const { return contextReady; }
-	int getNumberOfPlatforms() { return clPlatforms.size(); }
+	int getNumberOfPlatforms() { return int(clPlatforms.size()); }
 
 	bool IsNVidia() const { return isNVidia; }
 	bool IsAMD() const { return isAMD; }

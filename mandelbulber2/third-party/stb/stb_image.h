@@ -7344,6 +7344,8 @@ static int stbi__info_main(stbi__context *s, int *x, int *y, int *comp)
 
 static int stbi__is_16_main(stbi__context *s)
 {
+   STBI_NOTUSED(s); // when no loader of 16-bit images is compiled in
+
    #ifndef STBI_NO_PNG
    if (stbi__png_is16(s))  return 1;
    #endif

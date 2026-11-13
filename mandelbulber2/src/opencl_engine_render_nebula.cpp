@@ -29,20 +29,6 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
-static QByteArray StripNonAscii(const QByteArray &data)
-{
-	QByteArray result;
-	result.reserve(data.size());
-	for (char c : data)
-	{
-		if (static_cast<unsigned char>(c) < 128)
-		{
-			result.append(c);
-		}
-	}
-	return result;
-}
-
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
@@ -272,7 +258,7 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 			int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
 			if (placeholderPos >= 0)
 			{
-				int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+				int placeholderLen = int(strlen("// PLACEHOLDER_FOR_FORMULA_ITER"));
 				programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
 			}
 		}

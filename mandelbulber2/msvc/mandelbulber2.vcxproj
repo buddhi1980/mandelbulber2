@@ -42,7 +42,7 @@
     <IntDir>$(SourceDir)build-win\mandelbulber2.dir\$(Configuration)\$(Platform)\</IntDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
-    <PreProcs>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;_HAS_STD_BYTE=1;_USE_MATH_DEFINES;USE_SNDFILE;USE_TIFF;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;QT_TESTCASE_BUILDDIR="../../build-win";QT_NO_DEPRECATED_WARNINGS</PreProcs>
+    <PreProcs>WIN32;_WINDOWS;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT=1;_HAS_STD_BYTE=1;_USE_MATH_DEFINES;USE_SNDFILE;USE_TIFF;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;QT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
     <TargetName>mandelbulber2</TargetName>
     <PreProcsE>$(PreProcs);USE_EXR</PreProcsE>
     <PreProcsO>$(PreProcsE);USE_OPENCL=1</PreProcsO>
@@ -85,7 +85,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
@@ -95,7 +95,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <DisableSpecificWarnings>4996;4267;4305;4834;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -116,13 +116,13 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;netapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -150,7 +150,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4996;4267;4305;4834;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -171,7 +171,7 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;netapi32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>No</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRTD.lib;LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
@@ -205,7 +205,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>true</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499;26412;4996;4267;4305;4834;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -226,7 +226,7 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;netapi32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>No</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRTD.lib;LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
@@ -249,6 +249,9 @@
     <ClInclude Include="$(SourceDir)mandelbulber2\src\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\src\*.hpp" />
     <ClCompile Include="$(SourceDir)mandelbulber2\src\*.cpp" />
+    <ClCompile Include="$(SourceDir)mandelbulber2\src\*.c">
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
     <ClInclude Include="$(SourceDir)mandelbulber2\qt\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\qt\*.hpp" />
     <ClCompile Include="$(SourceDir)mandelbulber2\qt\*.cpp" />

@@ -615,32 +615,32 @@ void cObjectsTreeWidget::ensureNodeParamsExist(int nodeId)
 // Adds or updates a string parameter in 'params'.
 // Using addParam when the key is missing avoids an assertion in cParameterContainer::Set().
 void cObjectsTreeWidget::addOrSetParam(
-	std::shared_ptr<cParameterContainer> params, const QString &name, const QString &value)
+	std::shared_ptr<cParameterContainer> paramContainer, const QString &name, const QString &value)
 {
-	if (params->IfExists(name))
-		params->Set(name, value);
+	if (paramContainer->IfExists(name))
+		paramContainer->Set(name, value);
 	else
-		params->addParam(name, value, morphNone, paramStandard);
+		paramContainer->addParam(name, value, morphNone, paramStandard);
 }
 
 // Overload for CVector3 values – same add-or-update semantics as the string variant.
 void cObjectsTreeWidget::addOrSetParam(
-	std::shared_ptr<cParameterContainer> params, const QString &name, const CVector3 &value)
+	std::shared_ptr<cParameterContainer> paramContainer, const QString &name, const CVector3 &value)
 {
-	if (params->IfExists(name))
-		params->Set(name, value);
+	if (paramContainer->IfExists(name))
+		paramContainer->Set(name, value);
 	else
-		params->addParam(name, value, morphNone, paramStandard);
+		paramContainer->addParam(name, value, morphNone, paramStandard);
 }
 
 // Overload for double values – same add-or-update semantics as the string variant.
 void cObjectsTreeWidget::addOrSetParam(
-	std::shared_ptr<cParameterContainer> params, const QString &name, double value)
+	std::shared_ptr<cParameterContainer> paramContainer, const QString &name, double value)
 {
-	if (params->IfExists(name))
-		params->Set(name, value);
+	if (paramContainer->IfExists(name))
+		paramContainer->Set(name, value);
 	else
-		params->addParam(name, value, morphNone, paramStandard);
+		paramContainer->addParam(name, value, morphNone, paramStandard);
 }
 
 // Inserts 'prefix' into every child widget name of 'parent' immediately after the first '_',
@@ -679,7 +679,7 @@ QString cObjectsTreeWidget::nodeTypeToString(enumNodeType type)
 // Rebuilds the tree widget from scratch using the current contents of 'params'.
 // Called on startup, after a file load, or when the user presses the Refresh button.
 void cObjectsTreeWidget::UpdateTree(
-	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
+	std::shared_ptr<cParameterContainer> paramContainer, std::shared_ptr<cFractalContainer> fractalContainer)
 {
 	QList<QTreeWidgetItem *> selectedBeforeRefresh = ui->treeWidget_objects->selectedItems();
 	if (!selectedBeforeRefresh.isEmpty())
@@ -699,14 +699,14 @@ void cObjectsTreeWidget::UpdateTree(
 		{"Icon", "Name", "Type", "Material", "Enable", "ID", "Object ID"});
 
 	cObjectsTree objectsTree;
-	objectsTree.CreateNodeDataFromParameters(params);
+	objectsTree.CreateNodeDataFromParameters(paramContainer);
 	const auto sortedList = objectsTree.GetSortedNodeDataList();
 
 	QMap<int, QTreeWidgetItem *> nodeItems;
 
 	// Retrieve the full list of primitives so we can attach the primitive type name
 	// to each primitive tree item via Qt::UserRole on column 3
-	QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(params);
+	QList<sPrimitiveItem> primitiveList = cPrimitives::GetListOfPrimitives(paramContainer);
 
 	// First pass: create all items without yet wiring up the parent-child relationships
 	for (const auto &nodeData : sortedList)
@@ -742,9 +742,9 @@ void cObjectsTreeWidget::UpdateTree(
 			if (nodeData.type == enumNodeType::fractal)
 			{
 				int objectId = nodeData.objectId;
-				if (objectId > 0 && objectId <= fractalParams->size())
+				if (objectId > 0 && objectId <= fractalContainer->size())
 				{
-					int formulaEnum = fractalParams->at(objectId - 1)->Get<int>("formula");
+					int formulaEnum = fractalContainer->at(objectId - 1)->Get<int>("formula");
 					for (cAbstractFractal *fractal : newFractalList)
 					{
 						if (int(fractal->getInternalId()) == formulaEnum)
@@ -850,9 +850,9 @@ void cObjectsTreeWidget::UpdateTree(
 		int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
 		int currentType = item->data(treeData::nodeType, Qt::UserRole).toInt();
 		ui->treeWidget_objects->setItemWidget(item, treeCol::type, buildTypeLabel(currentType));
-		attachMaterialWidget(item, nodeId, params);
+		attachMaterialWidget(item, nodeId, paramContainer);
 		QString enabledParam = QString("node_%1_enabled").arg(nodeId, 4, 10, QChar('0'));
-		bool isChecked = params->Get<bool>(enabledParam);
+		bool isChecked = paramContainer->Get<bool>(enabledParam);
 		attachEnableCheckbox(item, nodeId, isChecked);
 	}
 
@@ -862,7 +862,7 @@ void cObjectsTreeWidget::UpdateTree(
 	// (Re)schedule the preview auto-refresh poll after the tree is (re)built
 	if (autoRefreshTimer)
 	{
-		autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
+		autoRefreshTimer->start(int(paramContainer->Get<double>("auto_refresh_period") * 1000.0));
 	}
 }
 
@@ -880,10 +880,10 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 // all items that do exist.
 
 void cObjectsTreeWidget::StoreTreeToParams(
-	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams)
+	std::shared_ptr<cParameterContainer> paramContainer, std::shared_ptr<cFractalContainer> fractalContainer)
 {
 	// per-fractal containers are updated elsewhere; only general params are written here
-	Q_UNUSED(fractalParams);
+	Q_UNUSED(fractalContainer);
 	const auto allItems = collectAllTreeItems();
 
 	// Build the set of node IDs currently visible in the tree
@@ -892,7 +892,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 		treeNodeIds.insert(item->data(treeData::nodeId, Qt::UserRole).toInt());
 
 	// Remove stale node_ parameters
-	QList<QString> list = params->GetListOfParameters();
+	QList<QString> list = paramContainer->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
 		if (parameterName.left(5) == "node_")
@@ -901,7 +901,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 			int nodeId = parameterName.section('_', 1, 1).toInt(&ok);
 			if (ok && !treeNodeIds.contains(nodeId))
 			{
-				params->DeleteParameter(parameterName);
+				paramContainer->DeleteParameter(parameterName);
 			}
 		}
 	}
@@ -922,7 +922,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 		QString prefix = QString("node_%1").arg(nodeId, 4, 10, QChar('0'));
 		QString defParam = prefix + "_definition";
 
-		addOrSetParam(params, defParam,
+		addOrSetParam(paramContainer, defParam,
 			QString("%1,%2,%3,%4,%5,%6")
 				.arg(name)
 				.arg(nodeId)
@@ -937,7 +937,7 @@ void cObjectsTreeWidget::StoreTreeToParams(
 			QCheckBox *check = qobject_cast<QCheckBox *>(enableWidget);
 			if (check)
 			{
-				addOrSetParam(params, prefix + "_enabled", check->isChecked());
+				addOrSetParam(paramContainer, prefix + "_enabled", check->isChecked());
 			}
 		}
 		displayOrder++;
@@ -958,7 +958,7 @@ void cObjectsTreeWidget::refreshMouseClickCombo()
 	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 void cObjectsTreeWidget::attachMaterialWidget(
-	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> params)
+	QTreeWidgetItem *item, int nodeId, std::shared_ptr<cParameterContainer> paramContainer)
 {
 	if (item->parent())
 	{
@@ -966,11 +966,11 @@ void cObjectsTreeWidget::attachMaterialWidget(
 		if (enumNodeType(parentType) == enumNodeType::hybrid) return;
 	}
 	// materialId -1 means "no material": no miniature is shown at all (empty column)
-	int materialId = params->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	int materialId = paramContainer->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
 	if (materialId < 0) return;
 	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
-	matWidget->AssignMaterial(params, materialId, nullptr);
+	matWidget->AssignMaterial(paramContainer, materialId, nullptr);
 	ui->treeWidget_objects->setItemWidget(item, treeCol::material, matWidget);
 
 	// Left clicking the miniature opens the material manager (same behaviour as
@@ -2065,14 +2065,14 @@ void cObjectsTreeWidget::slotAutoRefresh()
 void cObjectsTreeWidget::SynchronizeEditorWidget(QWidget *widget, qInterface::enumReadWrite mode)
 {
 	if (!widget) return;
-	for (auto &[subWidget, params] : editorSyncTargets)
+	for (auto &[subWidget, targetParams] : editorSyncTargets)
 	{
-		if (subWidget) SynchronizeInterfaceWindow(subWidget, params, mode);
+		if (subWidget) SynchronizeInterfaceWindow(subWidget, targetParams, mode);
 	}
 }
 
-void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> params,
-	std::shared_ptr<cFractalContainer> fractalParams, qInterface::enumReadWrite mode)
+void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContainer> paramContainer,
+	std::shared_ptr<cFractalContainer> fractalContainer, qInterface::enumReadWrite mode)
 {
 	if (!treeSyncBlocked)
 	{
@@ -2084,7 +2084,7 @@ void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContaine
 		// Block itemSelectionChanged to prevent the editor from being destroyed and
 		// recreated during tree reconstruction, which causes blinking and focus loss.
 		ui->treeWidget_objects->blockSignals(true);
-		UpdateTree(params, fractalParams);
+		UpdateTree(paramContainer, fractalContainer);
 		ui->treeWidget_objects->blockSignals(false);
 
 		// Re-populate the existing editor widgets with the updated parameter values
@@ -2093,7 +2093,7 @@ void cObjectsTreeWidget::SynchronizeInterface(std::shared_ptr<cParameterContaine
 	}
 	else
 	{
-		StoreTreeToParams(params, fractalParams);
+		StoreTreeToParams(paramContainer, fractalContainer);
 	}
 }
 
@@ -2405,9 +2405,9 @@ void cObjectsTreeWidget::syncMouseClickComboForSelectedNode()
 
 		for (int i = 0; i < mouseFunctionComboWidget->count(); ++i)
 		{
-			QList<QVariant> data = mouseFunctionComboWidget->itemData(i).toList();
-			if (data.size() >= 2 && data[0].toInt() == int(RenderedImage::clickPlaceObject)
-					&& data[1].toInt() == lastSelectedNodeId)
+			QList<QVariant> comboData = mouseFunctionComboWidget->itemData(i).toList();
+			if (comboData.size() >= 2 && comboData[0].toInt() == int(RenderedImage::clickPlaceObject)
+					&& comboData[1].toInt() == lastSelectedNodeId)
 			{
 				if (mouseFunctionComboWidget->currentIndex() != i)
 				{
@@ -2421,10 +2421,10 @@ void cObjectsTreeWidget::syncMouseClickComboForSelectedNode()
 	{
 		for (int i = 0; i < mouseFunctionComboWidget->count(); ++i)
 		{
-			QList<QVariant> data = mouseFunctionComboWidget->itemData(i).toList();
-			if (data.size() >= 1 && data[0].toInt() == int(RenderedImage::clickPlaceObject))
+			QList<QVariant> comboData = mouseFunctionComboWidget->itemData(i).toList();
+			if (comboData.size() >= 1 && comboData[0].toInt() == int(RenderedImage::clickPlaceObject))
 			{
-				int nodeId = data.size() >= 2 ? data[1].toInt() : -1;
+				int nodeId = comboData.size() >= 2 ? comboData[1].toInt() : -1;
 				if (nodeId == lastSelectedNodeId)
 				{
 					if (mouseFunctionComboWidget->currentIndex() != i)

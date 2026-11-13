@@ -223,10 +223,10 @@ void cFractalTesting4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		double x2 = z.x * z.x;
 		double y2 = z.y * z.y;
 		double z2 = z.z * z.z;
-		double temp = 1.0 - z2 / (x2 + y2);
+		double factor = 1.0 - z2 / (x2 + y2);
 		CVector4 zTemp;
-		zTemp.x = (x2 - y2) * temp;
-		zTemp.y = 2.0 * z.x * z.y * temp;
+		zTemp.x = (x2 - y2) * factor;
+		zTemp.y = 2.0 * z.x * z.y * factor;
 		zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
 		zTemp.w = z.w;
 		z = zTemp;

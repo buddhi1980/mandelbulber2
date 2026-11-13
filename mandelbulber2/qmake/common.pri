@@ -86,6 +86,7 @@ TEMPLATE = app
 CONFIG += qt thread
 
 SOURCES +=  $$ROOT/src/*.cpp
+SOURCES +=  $$ROOT/src/*.c
 SOURCES +=  $$ROOT/qt/*.cpp
 SOURCES +=  $$ROOT/formula/definition/*.cpp
 
