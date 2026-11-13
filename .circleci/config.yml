@@ -17,8 +17,12 @@ version: 2.1
 # both builds and compares them (on Windows in the Release job only).
 #
 # Job names are <system>-<architecture>, with the configuration added on
-# Windows: macos-arm64, macos-x86_64, linux-x86_64, windows-x64-Release,
-# windows-x64-Debug and windows-x64-AnalysisRelease.
+# Windows: macos-arm64, macos-x86_64, linux-x86_64, windows-x64-Release and
+# windows-x64-Debug.
+#
+# The AnalysisRelease configuration builds only on GitHub Actions
+# (.github/workflows/windows.yml): on CircleCI's windows.medium machine its
+# code analysis build runs past the job time limit.
 jobs:
   # macOS app bundle and disk image: arm64 for Apple Silicon Macs, x86_64 for Intel Macs
   macos:
@@ -295,4 +299,5 @@ workflows:
           name: windows-x64-<< matrix.configuration >>
           matrix:
             parameters:
-              configuration: [Release, Debug, AnalysisRelease]
+              # AnalysisRelease times out here; GitHub Actions builds it
+              configuration: [Release, Debug]
