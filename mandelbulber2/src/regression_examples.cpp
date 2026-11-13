@@ -40,8 +40,9 @@ QStringList cRegressionTest::ExampleFiles()
 	// an example here after measuring its render time. These are the examples in the examples
 	// folder on 2026-11-13, sorted by path, without the slowest: those that took more than 20
 	// seconds for two renders on 32 threads of an Intel Core i9-14900K (Monte Carlo scenes at 320
-	// pixels, divided by 4 for their 160 pixels), or more than 60 seconds on a 4-core GitHub
-	// runner. A listed example that is missing from the examples folder fails its scene.
+	// pixels, divided by 4 for their 160 pixels), more than 60 seconds on a 4-core GitHub runner,
+	// or more than 40 seconds for one render on a runner in two of seven CI runs. A listed example
+	// that is missing from the examples folder fails its scene.
 	return {
 		"EXR example.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Box DiagV1 complex "
@@ -212,7 +213,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_donut4d_aa1.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_donut4d_aa2.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_donut4d_abs.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_klein.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotBox.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVaryV1.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v2 aa1.fract",
@@ -313,17 +313,12 @@ QStringList cRegressionTest::ExampleFiles()
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_eye 001.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_kali_p8.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_plusZ.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pow2V3 "
-		"tglad.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
-		"pow6.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
 		"4.0)/mandelbulb_sin_cos_v2.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_sin_cos_v3 "
 		"hairy.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
 		"4.0)/mandelbulb_sin_cos_v3.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_tails.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelnest.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelnest4D "
 		"IQbulbV2.fract",
@@ -342,8 +337,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulbRiemannV2.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulbSinCos "
 		"DifsSphGrd3.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
-		"4.0)/mbulbTailsV2_TaddSphericalInvert;.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulb_noC_rotateFold.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/menger - DE linear "
 		"cube.fract",
@@ -432,8 +425,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
 		"4.0)/sphere_invert_menger_sponge.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretreeV4 aaa1.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretreeV4 aaa2.fract",
-		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretreeV4 aaa3.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretreeV5 aaa5.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretreeV5 fjb1.fract",
 		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/spheretree_1.fract",
@@ -523,7 +514,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Matrix-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Mengerorbs-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Nebula1-batjorge.fract",
-		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Origins-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Out of Eden-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Perfidious-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Pollen-batjorge.fract",
@@ -534,7 +524,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Station34-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/TheGame-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Vitreus-batjorge.fract",
-		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/Voyager-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/amrand-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/bajopuente-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/defiance-batjorge.fract",
@@ -546,7 +535,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/outofreach-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/parkarea-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/perlinggrass-batjorge.fract",
-		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/tubular bulbs-batjorge.fract",
 		"Jorge Abalo - license Creative Commons (CC-BY-NC-SA 4.0)/upsidedown-batjorge.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/Bristorbrot.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/Construct by Ectoplaz "
@@ -584,7 +572,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/blockify 2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/box fold bulb v4.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/bristorbrot01.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/bug.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/cayley2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 006.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/constant factor 2.0  - "
@@ -622,7 +609,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iridescence.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 002_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 004.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 006.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 007.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 009.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 1.fract",
@@ -630,7 +616,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/jos_kleinian 002.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/light beam.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/luminosity.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandalay.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox 22.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox10.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox11 - "
@@ -658,7 +643,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox37_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox38_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox41_2.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox44_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox48.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox49.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox50 - "
@@ -681,17 +665,10 @@ QStringList cRegressionTest::ExampleFiles()
 		"slice 4.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - "
 		"slice 5.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 3.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8 - "
-		"3_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8 - "
 		"4_2.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8 - 7 - "
-		"volmetric fog.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 8 - "
 		"8.fract",
-		"Krzysztof Marczak collection - license Creative Commons (CC-BY "
-		"4.0)/mandelbulb_multi_001.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/menger sponge 001.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/menger sponge 002_2.fract",
 		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/menger sponge 004_2.fract",
@@ -725,7 +702,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/IFS31_anim.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/RoadToExascale.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/coastalbrot_bear.fract",
-		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/coastalbrot_smilin.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/continuum.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/hybrid77-stereo.fract",
 		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/hybrid77.fract",
@@ -793,8 +769,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"fabs_box_mod1_001.fract",
 		"flight_anim_menger sponge_3.fract",
 		"gannjondal - newton- license Creative Commons (CC-BY "
-		"4.0)/newtonPow3-PolyFoldSym-delta-gnj-016d.fract",
-		"gannjondal - newton- license Creative Commons (CC-BY "
 		"4.0)/newtonPow3-ScaleRot-delta-gnj-007d.fract",
 		"gannjondal - newton- license Creative Commons (CC-BY 4.0)/newtonPow3-delta-gnj-001b.fract",
 		"gannjondal - newton- license Creative Commons (CC-BY 4.0)/newtonPow3-delta-gnj-002h.fract",
@@ -808,7 +782,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"hex grid 002.fract",
 		"hybrid001.fract",
 		"hybrid002.fract",
-		"hybrid004.fract",
 		"hybrid005.fract",
 		"hybrid007.fract",
 		"hybrid008 - collatz.fract",
@@ -833,7 +806,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"mandelbulb3_001.fract",
 		"mandelbulb4_001.fract",
 		"mandelbulb_eye.fract",
-		"mandelbulb_kali 001.fract",
 		"mandelbulb_kali_multi 001.fract",
 		"mandelbulb_vary_power_001.fract",
 		"mandelnest pow 5.fract",
@@ -858,8 +830,6 @@ QStringList cRegressionTest::ExampleFiles()
 		"monte carlo global illumination.fract",
 		"msltoe toroidal bulb 001.fract",
 		"msltoe_donut_001.fract",
-		"msltoe_julia_bulb_eiffie_001.fract",
-		"msltoe_julia_bulb_mod2_001.fract",
 		"msltoe_sym4_mod 001.fract",
 		"msltoesym2_mod_001.fract",
 		"msltoesym2_mod_002.fract",
@@ -885,11 +855,9 @@ QStringList cRegressionTest::ExampleFiles()
 		"quick-dudley_001.fract",
 		"quick-dudley_mod_001.fract",
 		"riemann bulb msltoe mod2 001.fract",
-		"riemann sphere 001.fract",
 		"riemann_sphere_msltoe_001.fract",
 		"riemann_sphere_msltoe_v1_001.fract",
 		"sierpinski 3D 002.fract",
-		"smooth_mandelbox_001.fract",
 		"stereoscopic 001.fract",
 		"stereoscopic 002.fract",
 		"stereoscopic 003.fract",

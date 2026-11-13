@@ -62,8 +62,13 @@ public:
 	// folder (regression_examples.cpp)
 	static QStringList ExampleFiles();
 
-	// the scenes of this run: all of Scenes(), or one shard of them (see SetShard)
+	// the scenes of this run: all of Scenes(), or the named ones (see SetSceneNames), or one
+	// shard of them (see SetShard)
 	static QList<sRegressionScene> SelectedScenes();
+
+	// selects only the scenes with these names (an empty list selects every scene), so that a
+	// scheduler can give each machine a set of scenes that take about the same time to render
+	static void SetSceneNames(const QStringList &names);
 
 	// splits the scenes into count shards and selects shard index (1..count): scene i belongs
 	// to shard (i mod count) + 1, so slow scenes spread over the shards; returns false when the
@@ -104,6 +109,7 @@ private:
 	static QString ReadRenderInfoValue(const QString &folder, const QString &key);
 	static int shardIndex;
 	static int shardCount;
+	static QStringList sceneNames;
 };
 
 #endif /* MANDELBULBER2_SRC_REGRESSION_TEST_HPP_ */

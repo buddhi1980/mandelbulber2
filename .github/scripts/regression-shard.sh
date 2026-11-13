@@ -3,8 +3,11 @@
 # Renders one shard of the regression scenes with the build under test (head) once, and with
 # each older build twice, and compares head with each older build.
 #
-# Usage:  regression-shard.sh <head program> <K/N> <output folder> <name>=<program>...
+# Usage:  regression-shard.sh <head program> <shard> <output folder> <name>=<program>...
 #
+#   shard          a file with the names of the shard's scenes, one per line
+#                  (--regression-scenes), K/N for shard K of N in turn (--regression-shard),
+#                  or all for every scene
 #   name=program   an older build to compare with, such as previous=run-previous/bin/mandelbulber2
 #
 # Writes <output folder>/head, and <output folder>/<name>/before and <name>/comparison (with
@@ -28,20 +31,28 @@ render() {
 }
 head_program="$1"
 shard="$2"
+if [ "$shard" = all ]; then
+	selection=()
+elif [ -f "$shard" ]; then
+	selection=(--regression-scenes "$shard")
+	echo "Shard of $(grep -c . "$shard") scenes from $shard"
+else
+	selection=(--regression-shard "$shard")
+fi
 out="$(mkdir -p "$3" && cd "$3" && pwd)"
 shift 3
 
-echo "Shard $shard: rendering with the head build"
-render "$head_program" --nogui --regression-shard "$shard" --regression-once --regression-render "$out/head"
+echo "Shard ${shard##*/}: rendering with the head build"
+render "$head_program" --nogui "${selection[@]}" --regression-once --regression-render "$out/head"
 
 status=0
 for pair in "$@"; do
 	name="${pair%%=*}"
 	program="${pair#*=}"
-	echo "Shard $shard: rendering with the $name build"
-	render "$program" --nogui --regression-shard "$shard" --regression-render "$out/$name/before"
-	echo "Shard $shard: comparing with the $name build"
-	"$head_program" --nogui --regression-shard "$shard" \
+	echo "Shard ${shard##*/}: rendering with the $name build"
+	render "$program" --nogui "${selection[@]}" --regression-render "$out/$name/before"
+	echo "Shard ${shard##*/}: comparing with the $name build"
+	"$head_program" --nogui "${selection[@]}" \
 		--regression-compare "$out/$name/before" "$out/head" --output "$out/$name/comparison" || status=1
 done
 exit $status

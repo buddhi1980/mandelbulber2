@@ -100,6 +100,7 @@ private:
 	[[noreturn]] static void printParametersAndExit();
 	[[noreturn]] static void runTestCasesAndExit();
 	[[noreturn]] void runBenchmarksAndExit();
+	[[noreturn]] static void runRegressionListAndExit();
 	[[noreturn]] void runRegressionRenderAndExit();
 	[[noreturn]] void runRegressionCompareAndExit();
 
@@ -152,7 +153,9 @@ private:
 		QString regressionRenderText;
 		QString regressionCompareText;
 		QString regressionShardText;
+		QString regressionScenesText;
 		bool regressionOnce;
+		bool regressionList;
 	} cliData;
 
 	QCommandLineParser parser;

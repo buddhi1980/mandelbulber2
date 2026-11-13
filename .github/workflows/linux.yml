@@ -25,6 +25,9 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       CONFIG: release
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_BASEDIR: ${{ github.workspace }}
+      CCACHE_MAXSIZE: 1G
 
     steps:
       - name: Checkout Code
@@ -52,7 +55,8 @@ jobs:
             opencl-headers \
             opencl-clhpp-headers \
             ocl-icd-libopencl1 \
-            ocl-icd-opencl-dev
+            ocl-icd-opencl-dev \
+            ccache
 
       - name: Install Qt6 Components
         run: |
@@ -67,11 +71,28 @@ jobs:
       # deploy/linux/install is the script users build and install with. It
       # compiles the OpenCL variant into mandelbulber2/build and installs it to
       # /usr, so the tests run on the installed program and the AppImage step
-      # reuses the same build.
+      # reuses the same build. It compiles with the objects of earlier builds
+      # (ccache), so only the files a commit changed are compiled again;
+      # regression.yml builds with the same options and shares the cache.
+      - name: Restore Compiler Cache
+        uses: actions/cache/restore@v6
+        with:
+          path: .ccache
+          key: ccache-linux-x86_64-${{ github.sha }}
+          restore-keys: ccache-linux-x86_64-
+
       - name: Build & Install Application
         run: |
+          ccache -z
           cd mandelbulber2
-          ./deploy/linux/install --opencl --build-dir "$PWD/build" --jobs "$(nproc)"
+          PATH="/usr/lib/ccache:$PATH" ./deploy/linux/install --opencl --build-dir "$PWD/build" --jobs "$(nproc)"
+          ccache -s
+
+      - name: Save Compiler Cache
+        uses: actions/cache/save@v6
+        with:
+          path: .ccache
+          key: ccache-linux-x86_64-${{ github.sha }}
 
       # QtTest stops a test after 5 minutes by default, which the example
       # renders alone nearly use up on a hosted runner; allow 30 minutes

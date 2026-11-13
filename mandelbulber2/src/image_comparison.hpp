@@ -86,9 +86,10 @@ constexpr double floorMeanShift = 0.5; // of 255; noise there is below 0.3
 
 // The mean shift between two renders of unchanged code is the mean of their pixel noise, so it
 // shrinks with the square root of the number of pixels. Its limit is never stricter than
-// meanShiftNoiseFactor * meanAbsDiff / sqrt(pixels). The largest factor measured was 10.3,
-// for a Monte Carlo scene at 160x90 pixels on a CI runner.
-constexpr double meanShiftNoiseFactor = 20.0;
+// meanShiftNoiseFactor * meanAbsDiff / sqrt(pixels). The largest factor measured was 21.8,
+// for formula__scator_power2 at 160x120 pixels on a CI runner, so the factor is about twice
+// that.
+constexpr double meanShiftNoiseFactor = 40.0;
 constexpr double floorMeanAbsDiff = 1.0;		// of 255
 constexpr double floorMeanAbsDiff4x = 0.5;	// of 255
 constexpr double floorBigDiffShare = 0.005; // half a percent of the pixels

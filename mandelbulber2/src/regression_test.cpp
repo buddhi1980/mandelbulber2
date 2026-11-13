@@ -189,6 +189,7 @@ bool LoadRender(const QString &folder, const QString &name, const QString &role,
 
 int cRegressionTest::shardIndex = 1;
 int cRegressionTest::shardCount = 1;
+QStringList cRegressionTest::sceneNames;
 
 QList<sRegressionScene> cRegressionTest::Scenes()
 {
@@ -202,10 +203,14 @@ QList<sRegressionScene> cRegressionTest::Scenes()
 	}
 
 	// every fractal formula in the default scene, so that every formula's code runs; the custom
-	// formula is written in OpenCL by the user and has no code on the CPU
+	// formula is written in OpenCL by the user and has no code on the CPU. spheretreeV4 and
+	// spheretreeV5 took up to 150 and 190 seconds in the default scene on a CI runner, and their
+	// examples run their code.
 	for (const cAbstractFractal *formula : newFractalList)
 	{
-		if (formula->getInternalId() == fractal::none || formula->getInternalId() == fractal::custom)
+		if (formula->getInternalId() == fractal::none || formula->getInternalId() == fractal::custom
+				|| formula->getInternalId() == fractal::spheretreeV4
+				|| formula->getInternalId() == fractal::spheretreeV5)
 			continue;
 		sRegressionScene scene;
 		scene.name = "formula__" + SceneName(QString::fromStdString(formula->getInternalName()));
@@ -223,9 +228,25 @@ bool cRegressionTest::SetShard(int index, int count)
 	return true;
 }
 
+void cRegressionTest::SetSceneNames(const QStringList &names)
+{
+	sceneNames = names;
+}
+
 QList<sRegressionScene> cRegressionTest::SelectedScenes()
 {
-	const QList<sRegressionScene> all = Scenes();
+	QList<sRegressionScene> all = Scenes();
+	if (!sceneNames.isEmpty())
+	{
+		// a name this build doesn't know is skipped: when it is a new scene of the build under
+		// test, the comparison reports it as new
+		QList<sRegressionScene> named;
+		for (const sRegressionScene &scene : all)
+		{
+			if (sceneNames.contains(scene.name)) named.append(scene);
+		}
+		all = named;
+	}
 	if (shardCount == 1) return all;
 	QList<sRegressionScene> selected;
 	for (int i = shardIndex - 1; i < all.size(); i += shardCount)

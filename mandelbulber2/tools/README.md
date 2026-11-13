@@ -27,6 +27,10 @@ When a new version is prepared for release, the following steps should be taken:
   - Add test cases for new introduced features
   - Run `mandelbulber --test` with valgrind and check for memory leaks
   - Run `mandelbulber --benchmark` and check for performance regressions 
+  - Run `mandelbulber2/tools/regression_test.sh <before program> <after program>` to compare the
+    renders of every regression scene between a build without a change and one with it (Linux and
+    macOS; about an hour on 8 cores). The regression workflow on GitHub does the same, split
+    over several machines.
 - 6. Tag current point in master as release
 
 from here on only working on the tag:

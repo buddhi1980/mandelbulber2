@@ -191,6 +191,17 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 			"Makes --regression-render render every scene once instead of twice, for the build that"
 			" is compared with another one: the noise comes from the two renders of the other build."));
 
+	const QCommandLineOption regressionScenesOption(QStringList({"regression-scenes"}),
+		QCoreApplication::translate("main",
+			"Makes --regression-render and --regression-compare handle only the regression scenes"
+			" named in <FILE>, one name per line, so that a scheduler can give several machines"
+			" sets of scenes that take about the same time."),
+		QCoreApplication::translate("main", "FILE"));
+
+	const QCommandLineOption regressionListOption(QStringList({"regression-list"}),
+		QCoreApplication::translate(
+			"main", "Prints a line \"scene: <name>\" for every regression scene, and exits."));
+
 	const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
 		QCoreApplication::translate(
 			"main", "Runs the program in opencl mode and selects first available gpu device."));
@@ -250,6 +261,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(regressionCompareOption);
 	parser.addOption(regressionShardOption);
 	parser.addOption(regressionOnceOption);
+	parser.addOption(regressionScenesOption);
+	parser.addOption(regressionListOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
@@ -296,6 +309,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	cliData.regressionCompareText = parser.value(regressionCompareOption);
 	cliData.regressionShardText = parser.value(regressionShardOption);
 	cliData.regressionOnce = parser.isSet(regressionOnceOption);
+	cliData.regressionScenesText = parser.value(regressionScenesOption);
+	cliData.regressionList = parser.isSet(regressionListOption);
 	cliData.touch = parser.isSet(touchOption);
 	cliData.gpu = parser.isSet(gpuOption);
 	cliData.gpuAll = parser.isSet(gpuAllOption);
@@ -317,6 +332,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	if (cliData.benchmark) cliData.nogui = true;
 	if (cliData.regressionRenderText != "") cliData.nogui = true;
 	if (cliData.regressionCompareText != "") cliData.nogui = true;
+	if (cliData.regressionList) cliData.nogui = true;
 	cliOperationalMode = modeBootOnly;
 }
 
@@ -343,7 +359,8 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.test) runTestCasesAndExit();
 	// run benchmarks
 	if (cliData.benchmark) runBenchmarksAndExit();
-	// render or compare the regression scenes
+	// list, render or compare the regression scenes
+	if (cliData.regressionList) runRegressionListAndExit();
 	if (cliData.regressionRenderText != "") runRegressionRenderAndExit();
 	if (cliData.regressionCompareText != "") runRegressionCompareAndExit();
 
@@ -722,10 +739,43 @@ static void applyRegressionShard(const QString &text)
 	}
 }
 
+// applies --regression-scenes; exits with 2 when the file cannot be read or names no scene
+static void applyRegressionScenes(const QString &fileName)
+{
+	if (fileName.isEmpty()) return;
+	QFile file(fileName);
+	QStringList names;
+	if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		for (const QString &line : QString::fromUtf8(file.readAll()).split('\n'))
+		{
+			if (!line.trimmed().isEmpty()) names.append(line.trimmed());
+		}
+	}
+	if (names.isEmpty())
+	{
+		QTextStream out(stdout);
+		out << "--regression-scenes needs a file with one scene name per line: " << fileName
+				<< Qt::endl;
+		exit(2);
+	}
+	cRegressionTest::SetSceneNames(names);
+}
+
+void cCommandLineInterface::runRegressionListAndExit()
+{
+	QTextStream out(stdout);
+	for (const sRegressionScene &scene : cRegressionTest::Scenes())
+		out << "scene: " << scene.name << "\n";
+	out.flush();
+	exit(0);
+}
+
 void cCommandLineInterface::runRegressionRenderAndExit()
 {
 	systemData.noGui = true;
 	applyRegressionShard(cliData.regressionShardText);
+	applyRegressionScenes(cliData.regressionScenesText);
 	exit(cRegressionTest::RenderAll(cliData.regressionRenderText, !cliData.regressionOnce));
 }
 
@@ -733,6 +783,7 @@ void cCommandLineInterface::runRegressionCompareAndExit()
 {
 	systemData.noGui = true;
 	applyRegressionShard(cliData.regressionShardText);
+	applyRegressionScenes(cliData.regressionScenesText);
 	if (args.size() < 1 || args[0] == "")
 	{
 		QTextStream out(stdout);

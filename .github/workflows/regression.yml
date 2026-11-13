@@ -41,12 +41,14 @@ permissions:
   contents: read
 
 env:
-  # Shards. GitHub runs about 19 jobs of this repository at once, and the other workflows
-  # take a few, so the shard jobs finish soonest when they all start in one round. Simulated
-  # with every scene's render time from the CI runs of 2026-11-13 (each shard renders its
-  # scenes once with head and twice with each of the two older builds): 16 shards finish the
-  # whole workflow in about 42 minutes, the slowest shard about 31 minutes long.
-  LINUX_SHARDS: 16
+  # Shards. The scenes take about 4400 seconds to render once (regression-times.txt), split
+  # evenly over the shards, so each of 13 shards renders for about 28 minutes on an average
+  # runner with both older builds (head once, each older build twice). Runners differ in
+  # speed, and some render a few scenes several times slower, so a shard can take half as long
+  # again. GitHub runs 20 jobs of this repository at once, and the Linux, Windows and macOS
+  # build workflows of the same push hold 7 of them, so 13 shards all start at once: with 16,
+  # three waited up to 15 minutes for a runner and the run took just over an hour.
+  LINUX_SHARDS: 13
 
 jobs:
   prepare:
@@ -62,8 +64,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
+        # head~10 is 12 commits deep from a pull request's merge commit; older commits are
+        # fetched when needed
         with:
-          fetch-depth: 0
+          fetch-depth: 12
 
       - name: Find Comparison Commits
         id: base
@@ -77,29 +81,65 @@ jobs:
 
           # A commit can be compared when it renders a shard of the scenes, skips the custom
           # formula (it has no CPU code, and older builds hang on it), and renders the formula
-          # scenes at the same size as head.
-          usable() {
-            [ -n "$1" ] || return 1
-            git cat-file -e "$1^{commit}" 2>/dev/null || git fetch -q origin "$1" || return 1
-            local source
+          # scenes at the same size as head. unusable prints why a commit can't be compared,
+          # and nothing when it can.
+          unusable() {
+            if [ -z "$1" ]; then
+              echo "there is no such commit"
+              return
+            fi
+            if ! git cat-file -e "$1^{commit}" 2>/dev/null && ! git fetch -q --depth=1 origin "$1"; then
+              echo "commit $1 can't be fetched"
+              return
+            fi
+            local source short
+            short="$(git rev-parse --short "$1")"
             source="$(git show "$1:mandelbulber2/src/regression_test.cpp" 2>/dev/null)"
-            grep -q SetShard <<< "$source" && grep -q "fractal::custom" <<< "$source" &&
-              grep -q formulaLongSide <<< "$source"
+            if [ -z "$source" ]; then
+              echo "commit $short has no regression test"
+            elif ! grep -q SetShard <<< "$source"; then
+              echo "commit $short can't render a shard of the scenes"
+            elif ! grep -q "fractal::custom" <<< "$source"; then
+              echo "commit $short doesn't skip the custom formula, which hangs its build"
+            elif ! grep -q formulaLongSide <<< "$source"; then
+              echo "commit $short renders the formula scenes at another size than head"
+            fi
           }
           comparisons=""
-          if usable "$previous"; then
+          reason="$(unusable "$previous")"
+          if [ -z "$reason" ]; then
             echo "previous: $(git log -1 --format='%h %s' "$previous")"
             echo "previous=$previous" >> "$GITHUB_OUTPUT"
             comparisons="$comparisons,\"previous\""
           else
-            echo "::notice::Comparison with the previous commit skipped: ${previous:-there is none} can't render a shard of the scenes yet"
+            echo "::notice::Comparison with the previous commit skipped: $reason"
           fi
-          if usable "$back10"; then
+          # back10 is the commit 10 before head. When that commit can't be compared, or can't
+          # render a list of scenes (then every shard falls back to scenes in turn, which are
+          # not balanced), the oldest commit since then that can do both is compared instead,
+          # so the long comparison continues after a change to how the scenes are rendered.
+          lists() {
+            git show "$1:mandelbulber2/src/command_line_interface.cpp" 2>/dev/null |
+              grep -q regression-scenes
+          }
+          reason="$(unusable "$back10")"
+          if [ -n "$reason" ] || ! lists "$back10"; then
+            for n in 9 8 7 6 5 4 3 2; do
+              candidate="$(git rev-parse -q --verify "$head~$n" || true)"
+              if [ -n "$candidate" ] && [ -z "$(unusable "$candidate")" ] && lists "$candidate"; then
+                echo "::notice::Comparison with the commit 10 before head uses the commit $n before head, $(git rev-parse --short "$candidate"): ${reason:-the commit 10 before head cannot render a list of scenes}"
+                back10="$candidate"
+                reason=""
+                break
+              fi
+            done
+          fi
+          if [ -z "$reason" ]; then
             echo "back10: $(git log -1 --format='%h %s' "$back10")"
             echo "back10=$back10" >> "$GITHUB_OUTPUT"
             comparisons="$comparisons,\"back10\""
           else
-            echo "::notice::Comparison with the commit 10 before head skipped: ${back10:-there is none} can't render a shard of the scenes"
+            echo "::notice::Comparison with the commit 10 before head skipped: $reason"
           fi
           comparisons="${comparisons#,}"
           if [ -z "$comparisons" ]; then
@@ -116,6 +156,10 @@ jobs:
           echo "linux=$(seq -s, 1 "$LINUX_SHARDS" | sed 's/.*/[&]/')" >> "$GITHUB_OUTPUT"
 
   # ---------------------------------------------------------------- Linux
+  # Builds each commit. A commit is built once: its program is kept in the cache, so a later
+  # run that compares with it (the next commit's "previous", or "back10" ten commits later)
+  # takes it from there. A build that is needed reuses the compiled objects of earlier builds
+  # (ccache), so only the files a commit changed are compiled again.
   linux-build:
     name: linux-x86_64-build-${{ matrix.side }}
     needs: prepare
@@ -125,25 +169,78 @@ jobs:
       fail-fast: false
       matrix:
         side: ${{ fromJSON(needs.prepare.outputs.sides) }}
+    env:
+      COMMIT: ${{ matrix.side == 'previous' && needs.prepare.outputs.previous || matrix.side == 'back10' && needs.prepare.outputs.back10 || github.sha }}
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_BASEDIR: ${{ github.workspace }}
+      CCACHE_MAXSIZE: 1G
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          ref: ${{ matrix.side == 'previous' && needs.prepare.outputs.previous || matrix.side == 'back10' && needs.prepare.outputs.back10 || github.sha }}
+          ref: ${{ env.COMMIT }}
+
+      - name: Restore Program
+        id: program
+        uses: actions/cache/restore@v6
+        with:
+          path: program
+          key: regression-program-linux-x86_64-${{ env.COMMIT }}
 
       - name: Install Dependencies
-        run: ./.github/scripts/regression-linux-deps.sh
-
-      - name: Build Application
+        if: steps.program.outputs.cache-hit != 'true'
         run: |
+          ./.github/scripts/regression-linux-deps.sh
+          sudo apt-get install -y ccache
+
+      - name: Restore Compiler Cache
+        if: steps.program.outputs.cache-hit != 'true'
+        uses: actions/cache/restore@v6
+        with:
+          path: .ccache
+          key: ccache-linux-x86_64-${{ env.COMMIT }}
+          restore-keys: ccache-linux-x86_64-
+
+      # program/packages.txt lists the packages the program links against, which the shard
+      # jobs install to run it, and program/scenes.txt the names of its regression scenes (when
+      # it can list them), which the shard jobs split into shards
+      - name: Build Application
+        if: steps.program.outputs.cache-hit != 'true'
+        run: |
+          ccache -z
           cd mandelbulber2
-          ./deploy/linux/install --opencl --no-deps --no-install --build-dir "$PWD/build" --jobs "$(nproc)"
+          PATH="/usr/lib/ccache:$PATH" ./deploy/linux/install --opencl --no-deps --no-install \
+            --build-dir "$PWD/build" --jobs "$(nproc)"
+          ccache -s
+          cd ..
+          mkdir -p program
+          cp mandelbulber2/build/mandelbulber2 program/
+          ldd program/mandelbulber2 | awk '/=> \//{print $3}' | while read -r library; do
+            dpkg -S "*/$(basename "$library")" | grep -v "^diversion" | cut -d: -f1 | tr "," " "
+          done | xargs -n1 | sort -u > program/packages.txt
+          cat program/packages.txt
+          program/mandelbulber2 --nogui --regression-list | sed -n "s/^scene: //p" > program/scenes.txt
+          echo "$(grep -c . program/scenes.txt) regression scenes"
+
+      - name: Save Compiler Cache
+        if: steps.program.outputs.cache-hit != 'true' && matrix.side == 'head'
+        uses: actions/cache/save@v6
+        with:
+          path: .ccache
+          key: ccache-linux-x86_64-${{ env.COMMIT }}
+
+      - name: Save Program
+        if: steps.program.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: program
+          key: regression-program-linux-x86_64-${{ env.COMMIT }}
 
       - name: Upload Program
         uses: actions/upload-artifact@v7
         with:
           name: program-linux-x86_64-${{ matrix.side }}
-          path: mandelbulber2/build/mandelbulber2
+          path: program/
           if-no-files-found: error
           retention-days: 1
 
@@ -161,11 +258,13 @@ jobs:
       SHARD_INDEX: ${{ matrix.shard }}
       COMPARISONS: ${{ join(fromJSON(needs.prepare.outputs.comparisons), ' ') }}
     steps:
+      # the scenes and the scripts
       - name: Checkout Code
         uses: actions/checkout@v7
-
-      - name: Install Dependencies
-        run: ./.github/scripts/regression-linux-deps.sh
+        with:
+          sparse-checkout: |
+            .github
+            mandelbulber2/deploy/share
 
       - name: Download Programs
         uses: actions/download-artifact@v8
@@ -173,19 +272,39 @@ jobs:
           pattern: program-linux-x86_64-*
           path: programs
 
-      # each program finds the scenes in ../share/mandelbulber2 beside it
+      # only the libraries the programs run with, not the build tools
+      - name: Install Dependencies
+        run: |
+          sudo apt-get -qq update
+          sort -u programs/*/packages.txt |
+            xargs sudo apt-get install -y -qq --no-install-recommends --no-upgrade
+
+      # Each program finds the scenes in ../share/mandelbulber2 beside it. The shards hold
+      # scenes of about equal render time (regression-balance.sh with regression-times.txt)
+      # when every program can render a list of scenes; older programs split the scenes in
+      # turn (scene i in shard i mod N + 1).
       - name: Render and Compare
         run: |
           pairs=()
+          balanced=1
           for side in head $COMPARISONS; do
             mkdir -p "run-$side/bin" "run-$side/share"
             cp "programs/program-linux-x86_64-$side/mandelbulber2" "run-$side/bin/"
             chmod +x "run-$side/bin/mandelbulber2"
             ln -s "$PWD/mandelbulber2/deploy/share/mandelbulber2" "run-$side/share/mandelbulber2"
             [ "$side" = head ] || pairs+=("$side=run-$side/bin/mandelbulber2")
+            grep -qa -- regression-scenes "run-$side/bin/mandelbulber2" || balanced=0
           done
+          selection="$SHARD_INDEX/$LINUX_SHARDS"
+          if [ "$balanced" = 1 ] && [ -s programs/program-linux-x86_64-head/scenes.txt ]; then
+            ./.github/scripts/regression-balance.sh programs/program-linux-x86_64-head/scenes.txt \
+              .github/regression-times.txt "$LINUX_SHARDS" "$SHARD_INDEX" > shard-scenes.txt
+            selection="$PWD/shard-scenes.txt"
+          else
+            echo "An older program can't render a list of scenes, so the scenes are split in turn"
+          fi
           ./.github/scripts/regression-shard.sh run-head/bin/mandelbulber2 \
-            "$SHARD_INDEX/$LINUX_SHARDS" regression "${pairs[@]}"
+            "$selection" regression "${pairs[@]}"
 
       - name: Upload Reports
         if: ${{ !cancelled() }}
