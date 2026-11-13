@@ -1,0 +1,380 @@
+name: Regression
+
+# Regression test: renders every bundled example (without a few very slow ones)
+# and the default scene with every fractal formula, with a build of the commit
+# before this change and a build of this commit, and compares the two
+# (mandelbulber2 --regression-render and --regression-compare).
+#
+# Each system family builds both commits once, then splits the scenes over a
+# matrix of shard jobs (--regression-shard K/N) that run in parallel. The
+# families are Linux (GCC), Windows (MSVC), and macOS on Apple Silicon and on
+# Intel. Every shard uploads its report, and the images when a scene fails;
+# the summary job lists the result of every shard.
+#
+# The base is the pull request's base, or the previous commit of a push, or
+# else the parent commit. The test is skipped, with a notice, when the base
+# can't render a shard of the scenes yet.
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'continuous*'
+      - 'Continuous*'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: regression-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # shards per system family; together they finish in about the time of one build
+  LINUX_SHARDS: 32
+  WINDOWS_SHARDS: 16
+  MACOS_SHARDS: 8
+  MACOSX_DEPLOYMENT_TARGET: '11.0'
+
+jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-24.04
+    outputs:
+      base: ${{ steps.base.outputs.base }}
+      ready: ${{ steps.base.outputs.ready }}
+      linux: ${{ steps.shards.outputs.linux }}
+      windows: ${{ steps.shards.outputs.windows }}
+      macos: ${{ steps.shards.outputs.macos }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      - name: Find Base Commit
+        id: base
+        run: |
+          base="${{ github.event.pull_request.base.sha || github.event.before }}"
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git rev-parse -q --verify HEAD^ || true)"
+          fi
+          if [ -z "$base" ]; then
+            echo "::notice::Regression test skipped: this run has no base commit"
+            echo "ready=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git cat-file -e "$base^{commit}" 2>/dev/null || git fetch -q --depth 1 origin "$base" || true
+          if ! git show "$base:mandelbulber2/src/regression_test.cpp" 2>/dev/null | grep -q SetShard; then
+            echo "::notice::Regression test skipped: base commit $base can't render a shard of the scenes yet"
+            echo "ready=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Base commit: $(git log -1 --format='%h %s' "$base")"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "ready=1" >> "$GITHUB_OUTPUT"
+
+      - name: List Shards
+        id: shards
+        run: |
+          echo "linux=$(seq -s, 1 "$LINUX_SHARDS" | sed 's/.*/[&]/')" >> "$GITHUB_OUTPUT"
+          echo "windows=$(seq -s, 1 "$WINDOWS_SHARDS" | sed 's/.*/[&]/')" >> "$GITHUB_OUTPUT"
+          echo "macos=$(seq -s, 1 "$MACOS_SHARDS" | sed 's/.*/[&]/')" >> "$GITHUB_OUTPUT"
+
+  # ---------------------------------------------------------------- Linux
+  linux-build:
+    name: linux-x86_64-build-${{ matrix.side }}
+    needs: prepare
+    if: needs.prepare.outputs.ready == '1'
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        side: [base, head]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+
+      - name: Install Dependencies
+        run: ./.github/scripts/regression-linux-deps.sh
+
+      - name: Build Application
+        run: |
+          cd mandelbulber2
+          ./deploy/linux/install --opencl --no-deps --no-install --build-dir "$PWD/build" --jobs "$(nproc)"
+
+      - name: Upload Program
+        uses: actions/upload-artifact@v7
+        with:
+          name: program-linux-x86_64-${{ matrix.side }}
+          path: mandelbulber2/build/mandelbulber2
+          if-no-files-found: error
+          retention-days: 1
+
+  linux-shard:
+    name: linux-x86_64-${{ matrix.shard }}
+    needs: [prepare, linux-build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.prepare.outputs.linux) }}
+    env:
+      SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Install Dependencies
+        run: ./.github/scripts/regression-linux-deps.sh
+
+      - name: Download Programs
+        uses: actions/download-artifact@v8
+        with:
+          pattern: program-linux-x86_64-*
+          path: programs
+
+      # each program finds the scenes in ../share/mandelbulber2 beside it
+      - name: Render and Compare
+        run: |
+          for side in base head; do
+            mkdir -p "run-$side/bin" "run-$side/share"
+            cp "programs/program-linux-x86_64-$side/mandelbulber2" "run-$side/bin/"
+            chmod +x "run-$side/bin/mandelbulber2"
+            ln -s "$PWD/mandelbulber2/deploy/share/mandelbulber2" "run-$side/share/mandelbulber2"
+          done
+          ./.github/scripts/regression-shard.sh run-base/bin/mandelbulber2 run-head/bin/mandelbulber2             "$SHARD_INDEX/$LINUX_SHARDS" regression
+
+      - name: Upload Report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: report-linux-x86_64-${{ matrix.shard }}
+          path: regression/comparison/report.txt
+          if-no-files-found: ignore
+
+      - name: Upload Images
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: images-linux-x86_64-${{ matrix.shard }}
+          path: regression/
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------- Windows
+  windows-build:
+    name: windows-x64-build-${{ matrix.side }}
+    needs: prepare
+    if: needs.prepare.outputs.ready == '1'
+    runs-on: windows-2025-vs2026
+    strategy:
+      fail-fast: false
+      matrix:
+        side: [base, head]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Cache NuGet Packages
+        uses: actions/cache@v6
+        with:
+          path: mandelbulber2\msvc\packages
+          key: nuget-msvc-${{ hashFiles('mandelbulber2/msvc/packages.config') }}
+
+      - name: Build Application
+        shell: pwsh
+        run: |
+          nuget restore mandelbulber2\msvc\mandelbulber2.sln
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          msbuild mandelbulber2\msvc\mandelbulber2.sln /m /p:Configuration=Release /p:Platform=x64 /v:minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          # the build folder holds the program, its libraries and the examples
+          7z a program.zip .\build-win\Release\x64\*
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Upload Program
+        uses: actions/upload-artifact@v7
+        with:
+          name: program-windows-x64-${{ matrix.side }}
+          path: program.zip
+          if-no-files-found: error
+          retention-days: 1
+
+  windows-shard:
+    name: windows-x64-${{ matrix.shard }}
+    needs: [prepare, windows-build]
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.prepare.outputs.windows) }}
+    env:
+      SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Download Programs
+        uses: actions/download-artifact@v8
+        with:
+          pattern: program-windows-x64-*
+          path: programs
+
+      - name: Render and Compare
+        shell: pwsh
+        run: |
+          foreach ($side in 'base', 'head') {
+            7z x "programs\program-windows-x64-$side\program.zip" "-orun-$side" -y | Out-Null
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          ./.github/scripts/regression-shard.ps1 -Base run-base -Head run-head `
+            -Shard "$env:SHARD_INDEX/$env:WINDOWS_SHARDS" -Out regression
+          exit $LASTEXITCODE
+
+      - name: Upload Report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: report-windows-x64-${{ matrix.shard }}
+          path: regression/comparison/report.txt
+          if-no-files-found: ignore
+
+      - name: Upload Images
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: images-windows-x64-${{ matrix.shard }}
+          path: regression/
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------- macOS
+  macos-build:
+    name: macos-${{ matrix.arch }}-build-${{ matrix.side }}
+    needs: prepare
+    if: needs.prepare.outputs.ready == '1'
+    runs-on: ${{ matrix.arch == 'arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x86_64]
+        side: [base, head]
+    env:
+      ARCH: ${{ matrix.arch }}
+      DEPS: ${{ github.workspace }}/mac-deps
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+
+      - name: Cache Dependencies
+        id: deps-cache
+        uses: actions/cache@v6
+        with:
+          path: mac-deps
+          key: mac-deps-${{ matrix.arch }}-macos${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ hashFiles('mandelbulber2/mac/build_deps.sh') }}
+
+      - name: Dependencies
+        if: steps.deps-cache.outputs.cache-hit != 'true'
+        run: mandelbulber2/mac/build_deps.sh "$DEPS"
+
+      # the app bundle holds the program, its libraries and the examples
+      - name: Build Application
+        run: |
+          mandelbulber2/mac/build_package.sh "$DEPS" build regression
+          ditto -c -k --keepParent build/mandelbulber2.app program.zip
+
+      - name: Upload Program
+        uses: actions/upload-artifact@v7
+        with:
+          name: program-macos-${{ matrix.arch }}-${{ matrix.side }}
+          path: program.zip
+          if-no-files-found: error
+          retention-days: 1
+
+  macos-shard:
+    name: macos-${{ matrix.arch }}-${{ matrix.shard }}
+    needs: [prepare, macos-build]
+    runs-on: ${{ matrix.arch == 'arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x86_64]
+        shard: ${{ fromJSON(needs.prepare.outputs.macos) }}
+    env:
+      SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Download Programs
+        uses: actions/download-artifact@v8
+        with:
+          pattern: program-macos-${{ matrix.arch }}-*
+          path: programs
+
+      - name: Render and Compare
+        run: |
+          for side in base head; do
+            ditto -x -k "programs/program-macos-${{ matrix.arch }}-$side/program.zip" "run-$side"
+          done
+          ./.github/scripts/regression-shard.sh \
+            run-base/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
+            run-head/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
+            "$SHARD_INDEX/$MACOS_SHARDS" regression
+
+      - name: Upload Report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: report-macos-${{ matrix.arch }}-${{ matrix.shard }}
+          path: regression/comparison/report.txt
+          if-no-files-found: ignore
+
+      - name: Upload Images
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: images-macos-${{ matrix.arch }}-${{ matrix.shard }}
+          path: regression/
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------- summary
+  summary:
+    name: summary
+    needs: [prepare, linux-shard, windows-shard, macos-shard]
+    if: ${{ always() && needs.prepare.outputs.ready == '1' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Download Reports
+        uses: actions/download-artifact@v8
+        with:
+          pattern: report-*
+          path: reports
+
+      - name: Summarize
+        run: ./.github/scripts/regression-summary.sh reports >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check Result
+        run: |
+          echo "linux: ${{ needs.linux-shard.result }}, windows: ${{ needs.windows-shard.result }}, macos: ${{ needs.macos-shard.result }}"
+          [ "${{ needs.linux-shard.result }}" = success ] &&
+            [ "${{ needs.windows-shard.result }}" = success ] &&
+            [ "${{ needs.macos-shard.result }}" = success ]

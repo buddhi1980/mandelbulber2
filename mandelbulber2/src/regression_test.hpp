@@ -40,29 +40,44 @@
 #include <QMap>
 #include <QString>
 
-// one scene of the regression set: one of the bundled example files
+// one scene of the regression set: a bundled example file, or the default scene with one
+// fractal formula
 struct sRegressionScene
 {
-	QString name;						 // id used in file names, made from the file's path
-	QString fileName;				 // path relative to the examples folder
+	QString name;						 // id used in file names
+	QString fileName;				 // example: path relative to the examples folder; empty for a formula
+	int formulaId = 0;			 // formula scene: the fractal::enumFractalFormula to render
 	bool fillsFrame = false; // the fractal covers the whole frame, so no background is valid
 };
 
 class cRegressionTest
 {
 public:
-	// every bundled example file, in the examples folder and its subfolders, sorted by path
+	// every bundled example file in the examples folder and its subfolders, sorted by path and
+	// without the few that take far longer than the rest, followed by one scene for every fractal
+	// formula: the default scene with that formula
 	static QList<sRegressionScene> Scenes();
+
+	// the scenes of this run: all of Scenes(), or one shard of them (see SetShard)
+	static QList<sRegressionScene> SelectedScenes();
+
+	// splits the scenes into count shards and selects shard index (1..count): scene i belongs
+	// to shard (i mod count) + 1, so slow scenes spread over the shards; returns false when the
+	// numbers are out of range
+	static bool SetShard(int index, int count);
 
 	// a few examples that cover the main rendering features, for the --test case
 	static QList<sRegressionScene> CoreScenes();
 
 	// the longer side of every render in pixels; the other side follows the scene's aspect ratio
 	static constexpr int renderLongSide = 320;
+	// the longer side for scenes with Monte Carlo sampling, which are much slower to render
+	static constexpr int monteCarloLongSide = 160;
 
 	// renders one scene on the CPU into an 8-bit RGBA image (A is the alpha buffer), with the
-	// longer side renderLongSide pixels and Monte Carlo sampling reduced; returns false and sets
-	// error when the scene cannot be loaded or rendered
+	// longer side renderLongSide pixels (monteCarloLongSide with Monte Carlo sampling) and Monte
+	// Carlo sampling reduced; returns false and sets error when the scene cannot be loaded or
+	// rendered
 	static bool RenderScene(const sRegressionScene &scene, QImage *result, QString *error);
 
 	// renders every scene twice into the folder (<name>.png and <name>.repeat.png);
@@ -78,6 +93,8 @@ public:
 
 private:
 	static QString ReadRenderInfoValue(const QString &folder, const QString &key);
+	static int shardIndex;
+	static int shardCount;
 };
 
 #endif /* MANDELBULBER2_SRC_REGRESSION_TEST_HPP_ */

@@ -78,23 +78,6 @@ jobs:
       - name: Build & Pack
         run: mandelbulber2/mac/build_package.sh "$DEPS" build "$PACKAGE"
 
-      # Regression test: builds the commit before this change as well, renders
-      # the regression scenes with both builds and compares them; see
-      # .github/scripts/regression-compare.sh
-      - name: Regression Test
-        run: >
-          .github/scripts/regression-compare.sh
-          "$PWD/build/mandelbulber2.app/Contents/MacOS/mandelbulber2"
-          "${{ github.event.pull_request.base.sha || github.event.before }}"
-
-      - name: Upload Regression Images
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: regression-macos-${{ matrix.arch }}
-          path: regression/
-          if-no-files-found: ignore
-
       # archive: false uploads the file itself rather than a zip around it
       - name: Upload App Bundle
         uses: actions/upload-artifact@v7

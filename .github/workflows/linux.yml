@@ -1,8 +1,8 @@
 name: Linux
 
 # Linux build with Qt 6: build and install through deploy/linux/install, run
-# mandelbulber2 --test, compare the regression renders with the base commit,
-# and publish the AppImage as the continuous release.
+# mandelbulber2 --test, and publish the AppImage as the continuous release.
+# The regression test runs in its own workflow, regression.yml.
 
 on:
   push:
@@ -74,20 +74,6 @@ jobs:
         env:
           QTEST_FUNCTION_TIMEOUT: '1800000'
         run: mandelbulber2 --test
-
-      # Regression test: builds the commit before this change as well, renders
-      # the regression scenes with both builds and compares them; see
-      # .github/scripts/regression-compare.sh
-      - name: Regression Test
-        run: .github/scripts/regression-compare.sh mandelbulber2 "${{ github.event.pull_request.base.sha || github.event.before }}"
-
-      - name: Upload Regression Images
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: regression-linux-x86_64
-          path: regression/
-          if-no-files-found: ignore
 
       - name: Build & Upload AppImage (Qt6 Compatible)
         env:

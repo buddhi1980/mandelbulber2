@@ -47,6 +47,7 @@
 #include <QSysInfo>
 #include <QTextStream>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "fractal_container.hpp"
@@ -186,8 +187,82 @@ bool LoadRender(const QString &folder, const QString &name, const QString &role,
 }
 } // namespace
 
+int cRegressionTest::shardIndex = 1;
+int cRegressionTest::shardCount = 1;
+
 QList<sRegressionScene> cRegressionTest::Scenes()
 {
+	// Examples that take far longer than the rest even at the regression test's size: each needs
+	// more than 20 seconds for its two renders on 32 threads, about 10 minutes on a 4-core CI
+	// machine. Measured on 2026-11-13 with GCC 13.3 on an Intel Core i9-14900K; the times of
+	// Monte Carlo scenes were measured at 320 pixels and divided by 4 for their 160 pixels.
+	const QStringList slowExamples = {
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/Jos Leys Kleinian v3 "
+		"SphereGrid.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/SphereInvBoxMenger.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Tri_Grid "
+		"asurf.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
+		"pow-4.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_pupuku "
+		"pow-4a.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudo kleinian "
+		"abox13.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY "
+		"4.0)/pseudoKleinianMod2_boxBulb2.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudoKleinianMod5.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudo_kleinian_mod6.fract",
+		"Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/xenodreambuieV2  pow -7 "
+		"julia.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 27.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/IFS 33.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion04.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion06.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 2_v2.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/clouds 2_v3.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid21.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid26.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hypercomplex 01.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 008.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/iter fog 4.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/light circle.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox36.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox46.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb powe 6 - "
+		"circle.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - iter "
+		"fog 02.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - iter "
+		"fog 04.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - "
+		"monte carlo.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbulb power 2 - "
+		"slice 6.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/modified mandelbulb "
+		"001.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/planet.fract",
+		"Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/winter (sss).fract",
+		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/box-deuce-deuce.fract",
+		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/icoastahedron.fract",
+		"Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/menger-fatbackstrokin.fract",
+		"Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/pseudo kleinian std de "
+		"001 plus mandelbox.fract",
+		"amazing_surf 001.fract",
+		"benchmark-GPU 2.fract",
+		"glow.fract",
+		"hybrid006.fract",
+		"iteration fog.fract",
+		"mandelbox_menger_with_textures.fract",
+		"mandelbulb_bermarte 001.fract",
+		"mandelbulb_power_2_001.fract",
+		"monte carlo global illumination - cube scene.fract",
+		"msltoe toroidal multi 001.fract",
+		"msltoe_julia_bulb_mod3_001.fract",
+		"subsurface scattering 001.fract",
+		"texture transparency alpha.fract",
+		"transparent001.fract",
+	};
+
 	const QDir examples(ExamplesFolder());
 	QStringList files;
 	QDirIterator it(
@@ -199,12 +274,41 @@ QList<sRegressionScene> cRegressionTest::Scenes()
 	QList<sRegressionScene> scenes;
 	for (const QString &file : files)
 	{
+		if (slowExamples.contains(file)) continue;
 		sRegressionScene scene;
 		scene.name = SceneName(file);
 		scene.fileName = file;
 		scenes.append(scene);
 	}
+
+	// every fractal formula in the default scene, so that every formula's code runs
+	for (const cAbstractFractal *formula : newFractalList)
+	{
+		if (formula->getInternalId() == fractal::none) continue;
+		sRegressionScene scene;
+		scene.name = "formula__" + SceneName(QString::fromStdString(formula->getInternalName()));
+		scene.formulaId = int(formula->getInternalId());
+		scenes.append(scene);
+	}
 	return scenes;
+}
+
+bool cRegressionTest::SetShard(int index, int count)
+{
+	if (count < 1 || index < 1 || index > count) return false;
+	shardIndex = index;
+	shardCount = count;
+	return true;
+}
+
+QList<sRegressionScene> cRegressionTest::SelectedScenes()
+{
+	const QList<sRegressionScene> all = Scenes();
+	if (shardCount == 1) return all;
+	QList<sRegressionScene> selected;
+	for (int i = shardIndex - 1; i < all.size(); i += shardCount)
+		selected.append(all.at(i));
+	return selected;
 }
 
 QList<sRegressionScene> cRegressionTest::CoreScenes()
@@ -240,7 +344,7 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 {
 	const QString fileName =
 		QDir::toNativeSeparators(ExamplesFolder() + QDir::separator() + scene.fileName);
-	if (!QFileInfo::exists(fileName))
+	if (scene.formulaId == 0 && !QFileInfo::exists(fileName))
 	{
 		*error = QString("scene file not found: %1").arg(fileName);
 		return false;
@@ -262,17 +366,27 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 		InitFractalParams(parFractal->at(i));
 	}
 
-	cSettings parSettings(cSettings::formatFullText);
-	parSettings.BeQuiet(true);
-	if (!parSettings.LoadFromFile(fileName)
-			|| !parSettings.Decode(par, parFractal, animFrames, keyframes))
+	if (scene.formulaId != 0)
 	{
-		*error = QString("scene file cannot be loaded: %1").arg(fileName);
-		return false;
+		// the default scene, with this formula instead of the default one
+		parFractal->at(0)->Set("formula", scene.formulaId);
+	}
+	else
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		if (!parSettings.LoadFromFile(fileName)
+				|| !parSettings.Decode(par, parFractal, animFrames, keyframes))
+		{
+			*error = QString("scene file cannot be loaded: %1").arg(fileName);
+			return false;
+		}
 	}
 
-	const QSize size =
-		RenderSize(par->Get<int>("image_width"), par->Get<int>("image_height"), renderLongSide);
+	// Monte Carlo scenes render at a smaller size, because they are much slower
+	const bool monteCarlo = par->Get<bool>("DOF_monte_carlo");
+	const QSize size = RenderSize(par->Get<int>("image_width"), par->Get<int>("image_height"),
+		monteCarlo ? monteCarloLongSide : renderLongSide);
 	const int width = size.width();
 	const int height = size.height();
 	par->Set("image_width", width);
@@ -298,22 +412,16 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 		return false;
 	}
 
-	if (int(image->GetWidth()) != width || int(image->GetHeight()) != height)
-	{
-		*error = QString("rendered %1x%2 instead of %3x%4")
-							 .arg(image->GetWidth())
-							 .arg(image->GetHeight())
-							 .arg(width)
-							 .arg(height);
-		return false;
-	}
+	// a stereo scene renders both views into one image, which is wider or taller than asked for
+	const int imageWidth = int(image->GetWidth());
+	const int imageHeight = int(image->GetHeight());
 
 	image->ConvertTo8bitChar();
-	QImage rendered(width, height, QImage::Format_RGBA8888);
-	for (int y = 0; y < height; y++)
+	QImage rendered(imageWidth, imageHeight, QImage::Format_RGBA8888);
+	for (int y = 0; y < imageHeight; y++)
 	{
 		uchar *line = rendered.scanLine(y);
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < imageWidth; x++)
 		{
 			const sRGB8 pixel = image->GetPixelImage8(x, y);
 			line[4 * x + 0] = pixel.R;
@@ -341,10 +449,14 @@ int cRegressionTest::RenderAll(const QString &folder)
 	info += QString("host: %1\n").arg(QSysInfo::machineHostName());
 	info += QString("cpu: %1\n").arg(CpuName());
 	info += QString("date: %1\n").arg(QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
-	info += QString("long side: %1\n").arg(renderLongSide);
+	info += QString("long side: %1, with Monte Carlo sampling %2\n")
+						.arg(renderLongSide)
+						.arg(monteCarloLongSide);
+
+	info += QString("shard: %1/%2\n").arg(shardIndex).arg(shardCount);
 
 	int failed = 0;
-	const QList<sRegressionScene> scenes = Scenes();
+	const QList<sRegressionScene> scenes = SelectedScenes();
 	for (const sRegressionScene &scene : scenes)
 	{
 		QFile::remove(ScenePng(folder, scene.name));
@@ -449,7 +561,7 @@ int cRegressionTest::Compare(
 	int failed = 0;
 	int added = 0;
 	int brokenInBoth = 0;
-	const QList<sRegressionScene> scenes = Scenes();
+	const QList<sRegressionScene> scenes = SelectedScenes();
 	for (const sRegressionScene &scene : scenes)
 	{
 		if (haveBeforeInfo && !beforeScenes.contains(scene.name))

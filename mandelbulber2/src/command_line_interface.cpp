@@ -180,6 +180,12 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 			" [output] folder. Exits with 1 when any scene differs too much."),
 		QCoreApplication::translate("main", "BEFORE"));
 
+	const QCommandLineOption regressionShardOption(QStringList({"regression-shard"}),
+		QCoreApplication::translate("main",
+			"Makes --regression-render and --regression-compare handle only shard <K> of <N>"
+			" equal parts of the regression scenes, so that several machines can share the work."),
+		QCoreApplication::translate("main", "K/N"));
+
 	const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
 		QCoreApplication::translate(
 			"main", "Runs the program in opencl mode and selects first available gpu device."));
@@ -237,6 +243,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	parser.addOption(benchmarkOption);
 	parser.addOption(regressionRenderOption);
 	parser.addOption(regressionCompareOption);
+	parser.addOption(regressionShardOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
@@ -281,6 +288,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 	cliData.benchmark = parser.isSet(benchmarkOption);
 	cliData.regressionRenderText = parser.value(regressionRenderOption);
 	cliData.regressionCompareText = parser.value(regressionCompareOption);
+	cliData.regressionShardText = parser.value(regressionShardOption);
 	cliData.touch = parser.isSet(touchOption);
 	cliData.gpu = parser.isSet(gpuOption);
 	cliData.gpuAll = parser.isSet(gpuAllOption);
@@ -692,15 +700,32 @@ void cCommandLineInterface::runTestCasesAndExit()
 	exit(status);
 }
 
+// applies --regression-shard; exits with 2 when its value is not K/N with 1 <= K <= N
+static void applyRegressionShard(const QString &text)
+{
+	if (text.isEmpty()) return;
+	bool okIndex = false, okCount = false;
+	const int index = text.section('/', 0, 0).toInt(&okIndex);
+	const int count = text.section('/', 1, 1).toInt(&okCount);
+	if (!okIndex || !okCount || !cRegressionTest::SetShard(index, count))
+	{
+		QTextStream out(stdout);
+		out << "--regression-shard needs K/N with 1 <= K <= N, not " << text << Qt::endl;
+		exit(2);
+	}
+}
+
 void cCommandLineInterface::runRegressionRenderAndExit()
 {
 	systemData.noGui = true;
+	applyRegressionShard(cliData.regressionShardText);
 	exit(cRegressionTest::RenderAll(cliData.regressionRenderText));
 }
 
 void cCommandLineInterface::runRegressionCompareAndExit()
 {
 	systemData.noGui = true;
+	applyRegressionShard(cliData.regressionShardText);
 	if (args.size() < 1 || args[0] == "")
 	{
 		QTextStream out(stdout);

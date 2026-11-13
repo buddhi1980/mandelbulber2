@@ -151,6 +151,7 @@ private:
 		QString logFilepathText;
 		QString regressionRenderText;
 		QString regressionCompareText;
+		QString regressionShardText;
 	} cliData;
 
 	QCommandLineParser parser;
