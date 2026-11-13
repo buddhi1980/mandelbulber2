@@ -15,13 +15,11 @@ openSharedFiles.files = $$SHARED/examples $$SHARED/materials $$SHARED/icons $$SH
 openSharedFiles.path = Contents/Resources
 QMAKE_BUNDLE_DATA += openSharedFiles
 
-docFiles.files = $$ROOT/deploy/doc
-docFiles.path = Contents/Resources
+# one rule fills Contents/Resources/doc: with a second rule for NEWS, a parallel
+# make could create the folder in both rules at once, and one of the copies failed
+docFiles.files = $$files($$ROOT/deploy/doc/*) $$ROOT/deploy/NEWS
+docFiles.path = Contents/Resources/doc
 QMAKE_BUNDLE_DATA += docFiles
-
-newsFiles.files = $$ROOT/deploy/NEWS
-newsFiles.path = Contents/Resources/doc
-QMAKE_BUNDLE_DATA += newsFiles
 
 languageFiles.files = $$ROOT/language
 languageFiles.path = Contents/Resources
