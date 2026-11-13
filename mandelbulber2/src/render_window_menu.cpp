@@ -575,7 +575,9 @@ void RenderWindow::slotMenuResetDocksPositions()
 	ui->dockWidget_queue_dock->hide();
 	ui->dockWidget_animation->hide();
 	ui->dockWidget_measurement->hide();
-	ui->dockWidget_gamepad_dock->hide();
+	// the gamepad dock is deleted (pointer set to nullptr) in builds without QtGamepad,
+	// so it must not be used unconditionally (see interface.cpp)
+	if (ui->dockWidget_gamepad_dock != nullptr) ui->dockWidget_gamepad_dock->hide();
 
 	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
 	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
@@ -593,9 +595,7 @@ void RenderWindow::slotMenuAnimationDocksPositions()
 	ui->dockWidget_info->hide();
 	ui->dockWidget_animation->show();
 	ui->toolBar->hide();
-#ifdef USE_GAMEPAD
-	ui->dockWidget_gamepad_dock->hide();
-#endif
+	if (ui->dockWidget_gamepad_dock != nullptr) ui->dockWidget_gamepad_dock->hide();
 	ui->dockWidget_queue_dock->hide();
 
 	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
