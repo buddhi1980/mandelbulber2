@@ -33,10 +33,14 @@ permissions:
   contents: read
 
 env:
-  # shards per system family; together they finish in about the time of one build
-  LINUX_SHARDS: 32
-  WINDOWS_SHARDS: 16
-  MACOS_SHARDS: 8
+  # Shards per system family, so that every shard job ends within an hour. One build
+  # renders all scenes twice in about 47 minutes on 32 threads of a desktop CPU; hosted
+  # runners render 14 (Apple Silicon) to 25 (Windows, Monte Carlo) times slower, a shard
+  # renders with two builds, and shards differ by up to 20%. With these counts a shard
+  # renders for about 40 minutes at most.
+  LINUX_SHARDS: 64
+  WINDOWS_SHARDS: 64
+  MACOS_SHARDS: 48
   MACOSX_DEPLOYMENT_TARGET: '11.0'
 
 jobs:
@@ -120,7 +124,7 @@ jobs:
     name: linux-x86_64-${{ matrix.shard }}
     needs: [prepare, linux-build]
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -215,7 +219,7 @@ jobs:
     name: windows-x64-${{ matrix.shard }}
     needs: [prepare, windows-build]
     runs-on: windows-2025-vs2026
-    timeout-minutes: 120
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -309,7 +313,7 @@ jobs:
     name: macos-${{ matrix.arch }}-${{ matrix.shard }}
     needs: [prepare, macos-build]
     runs-on: ${{ matrix.arch == 'arm64' && 'macos-15' || 'macos-15-intel' }}
-    timeout-minutes: 120
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
