@@ -6,11 +6,14 @@ reports="$1"
 
 echo "## Regression test"
 echo
-echo "| Family | Shards | Scenes compared | Failed | Not valid in either build |"
-echo "|---|---|---|---|---|"
+echo "previous: compared with the previous commit; back10: compared with the commit 10 before head"
+echo
+echo "| Family | Compared with | Shards | Scenes compared | Failed | Not valid in either build |"
+echo "|---|---|---|---|---|---|"
 for family in linux-x86_64 windows-x64 macos-arm64 macos-x86_64; do
+for comparison in previous back10; do
 	shards=0 compared=0 failed=0 broken=0
-	for f in "$reports"/report-"$family"-*/report.txt; do
+	for f in "$reports"/report-"$family"-"$comparison"-*/report.txt; do
 		[ -f "$f" ] || continue
 		shards=$((shards + 1))
 		pass=$(grep -c '^\[PASS\]' "$f")
@@ -19,7 +22,9 @@ for family in linux-x86_64 windows-x64 macos-arm64 macos-x86_64; do
 		failed=$((failed + fail))
 		broken=$((broken + $(grep -c 'not valid in either build\|both builds render an image that is not valid' "$f")))
 	done
-	echo "| $family | $shards | $compared | $failed | $broken |"
+	[ "$shards" -gt 0 ] || continue
+	echo "| $family | $comparison | $shards | $compared | $failed | $broken |"
+done
 done
 
 echo

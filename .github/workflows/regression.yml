@@ -1,19 +1,23 @@
 name: Regression
 
 # Regression test: renders every bundled example (without a few very slow ones)
-# and the default scene with every fractal formula, with a build of the commit
-# before this change and a build of this commit, and compares the two
-# (mandelbulber2 --regression-render and --regression-compare).
+# and the default scene with every fractal formula with a build of this commit
+# (head), and compares the renders with those of two older commits
+# (mandelbulber2 --regression-render and --regression-compare):
 #
-# Each system family builds both commits once, then splits the scenes over a
-# matrix of shard jobs (--regression-shard K/N) that run in parallel. The
-# families are Linux (GCC), Windows (MSVC), and macOS on Apple Silicon and on
-# Intel. Every shard uploads its report, and the images when a scene fails;
-# the summary job lists the result of every shard.
+#   previous  the pull request's base, or the previous commit of a push, or
+#             else the parent commit
+#   back10    the commit 10 commits before head, to catch a change that builds
+#             up over several commits
 #
-# The base is the pull request's base, or the previous commit of a push, or
-# else the parent commit. The test is skipped, with a notice, when the base
-# can't render a shard of the scenes yet.
+# Each system family builds the three commits once, then splits the scenes over
+# a matrix of shard jobs (--regression-shard K/N) for each comparison, which run
+# in parallel. The families are Linux (GCC), Windows (MSVC), and macOS on Apple
+# Silicon and on Intel. Every shard uploads its report, and the images when a
+# scene fails; the summary job lists the result of every shard.
+#
+# A comparison is skipped, with a notice, when its commit doesn't exist or can't
+# render a shard of the scenes yet.
 
 on:
   push:
@@ -48,8 +52,11 @@ jobs:
     name: prepare
     runs-on: ubuntu-24.04
     outputs:
-      base: ${{ steps.base.outputs.base }}
       ready: ${{ steps.base.outputs.ready }}
+      previous: ${{ steps.base.outputs.previous }}
+      back10: ${{ steps.base.outputs.back10 }}
+      comparisons: ${{ steps.base.outputs.comparisons }}
+      sides: ${{ steps.base.outputs.sides }}
       linux: ${{ steps.shards.outputs.linux }}
       windows: ${{ steps.shards.outputs.windows }}
       macos: ${{ steps.shards.outputs.macos }}
@@ -57,28 +64,46 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
-      - name: Find Base Commit
+      - name: Find Comparison Commits
         id: base
         run: |
-          base="${{ github.event.pull_request.base.sha || github.event.before }}"
-          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
-            base="$(git rev-parse -q --verify HEAD^ || true)"
+          head="${{ github.event.pull_request.head.sha || github.sha }}"
+          previous="${{ github.event.pull_request.base.sha || github.event.before }}"
+          if [ -z "$previous" ] || [ "$previous" = "0000000000000000000000000000000000000000" ]; then
+            previous="$(git rev-parse -q --verify "$head^" || true)"
           fi
-          if [ -z "$base" ]; then
-            echo "::notice::Regression test skipped: this run has no base commit"
+          back10="$(git rev-parse -q --verify "$head~10" || true)"
+
+          # a commit can be compared when it renders a shard of the scenes
+          usable() {
+            [ -n "$1" ] || return 1
+            git cat-file -e "$1^{commit}" 2>/dev/null || git fetch -q origin "$1" || return 1
+            git show "$1:mandelbulber2/src/regression_test.cpp" 2>/dev/null | grep -q SetShard
+          }
+          comparisons=""
+          if usable "$previous"; then
+            echo "previous: $(git log -1 --format='%h %s' "$previous")"
+            echo "previous=$previous" >> "$GITHUB_OUTPUT"
+            comparisons="$comparisons,\"previous\""
+          else
+            echo "::notice::Comparison with the previous commit skipped: ${previous:-there is none} can't render a shard of the scenes"
+          fi
+          if usable "$back10"; then
+            echo "back10: $(git log -1 --format='%h %s' "$back10")"
+            echo "back10=$back10" >> "$GITHUB_OUTPUT"
+            comparisons="$comparisons,\"back10\""
+          else
+            echo "::notice::Comparison with the commit 10 before head skipped: ${back10:-there is none} can't render a shard of the scenes"
+          fi
+          comparisons="${comparisons#,}"
+          if [ -z "$comparisons" ]; then
             echo "ready=0" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git cat-file -e "$base^{commit}" 2>/dev/null || git fetch -q --depth 1 origin "$base" || true
-          if ! git show "$base:mandelbulber2/src/regression_test.cpp" 2>/dev/null | grep -q SetShard; then
-            echo "::notice::Regression test skipped: base commit $base can't render a shard of the scenes yet"
-            echo "ready=0" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          echo "Base commit: $(git log -1 --format='%h %s' "$base")"
-          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "comparisons=[$comparisons]" >> "$GITHUB_OUTPUT"
+          echo "sides=[$comparisons,\"head\"]" >> "$GITHUB_OUTPUT"
           echo "ready=1" >> "$GITHUB_OUTPUT"
 
       - name: List Shards
@@ -97,12 +122,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        side: [base, head]
+        side: ${{ fromJSON(needs.prepare.outputs.sides) }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+          ref: ${{ matrix.side == 'previous' && needs.prepare.outputs.previous || matrix.side == 'back10' && needs.prepare.outputs.back10 || github.sha }}
 
       - name: Install Dependencies
         run: ./.github/scripts/regression-linux-deps.sh
@@ -121,13 +146,14 @@ jobs:
           retention-days: 1
 
   linux-shard:
-    name: linux-x86_64-${{ matrix.shard }}
+    name: linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
     needs: [prepare, linux-build]
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
+        comparison: ${{ fromJSON(needs.prepare.outputs.comparisons) }}
         shard: ${{ fromJSON(needs.prepare.outputs.linux) }}
     env:
       SHARD_INDEX: ${{ matrix.shard }}
@@ -147,19 +173,21 @@ jobs:
       # each program finds the scenes in ../share/mandelbulber2 beside it
       - name: Render and Compare
         run: |
-          for side in base head; do
+          for side in ${{ matrix.comparison }} head; do
             mkdir -p "run-$side/bin" "run-$side/share"
             cp "programs/program-linux-x86_64-$side/mandelbulber2" "run-$side/bin/"
             chmod +x "run-$side/bin/mandelbulber2"
             ln -s "$PWD/mandelbulber2/deploy/share/mandelbulber2" "run-$side/share/mandelbulber2"
           done
-          ./.github/scripts/regression-shard.sh run-base/bin/mandelbulber2 run-head/bin/mandelbulber2             "$SHARD_INDEX/$LINUX_SHARDS" regression
+          ./.github/scripts/regression-shard.sh \
+            run-${{ matrix.comparison }}/bin/mandelbulber2 run-head/bin/mandelbulber2 \
+            "$SHARD_INDEX/$LINUX_SHARDS" regression
 
       - name: Upload Report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: report-linux-x86_64-${{ matrix.shard }}
+          name: report-linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/comparison/report.txt
           if-no-files-found: ignore
 
@@ -167,7 +195,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: images-linux-x86_64-${{ matrix.shard }}
+          name: images-linux-x86_64-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/
           if-no-files-found: ignore
 
@@ -180,12 +208,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        side: [base, head]
+        side: ${{ fromJSON(needs.prepare.outputs.sides) }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+          ref: ${{ matrix.side == 'previous' && needs.prepare.outputs.previous || matrix.side == 'back10' && needs.prepare.outputs.back10 || github.sha }}
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v3
@@ -216,13 +244,14 @@ jobs:
           retention-days: 1
 
   windows-shard:
-    name: windows-x64-${{ matrix.shard }}
+    name: windows-x64-${{ matrix.comparison }}-${{ matrix.shard }}
     needs: [prepare, windows-build]
     runs-on: windows-2025-vs2026
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
+        comparison: ${{ fromJSON(needs.prepare.outputs.comparisons) }}
         shard: ${{ fromJSON(needs.prepare.outputs.windows) }}
     env:
       SHARD_INDEX: ${{ matrix.shard }}
@@ -239,11 +268,11 @@ jobs:
       - name: Render and Compare
         shell: pwsh
         run: |
-          foreach ($side in 'base', 'head') {
+          foreach ($side in '${{ matrix.comparison }}', 'head') {
             7z x "programs\program-windows-x64-$side\program.zip" "-orun-$side" -y | Out-Null
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
-          ./.github/scripts/regression-shard.ps1 -Base run-base -Head run-head `
+          ./.github/scripts/regression-shard.ps1 -Base run-${{ matrix.comparison }} -Head run-head `
             -Shard "$env:SHARD_INDEX/$env:WINDOWS_SHARDS" -Out regression
           exit $LASTEXITCODE
 
@@ -251,7 +280,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: report-windows-x64-${{ matrix.shard }}
+          name: report-windows-x64-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/comparison/report.txt
           if-no-files-found: ignore
 
@@ -259,7 +288,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: images-windows-x64-${{ matrix.shard }}
+          name: images-windows-x64-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/
           if-no-files-found: ignore
 
@@ -274,7 +303,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [arm64, x86_64]
-        side: [base, head]
+        side: ${{ fromJSON(needs.prepare.outputs.sides) }}
     env:
       ARCH: ${{ matrix.arch }}
       DEPS: ${{ github.workspace }}/mac-deps
@@ -282,7 +311,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          ref: ${{ matrix.side == 'base' && needs.prepare.outputs.base || github.sha }}
+          ref: ${{ matrix.side == 'previous' && needs.prepare.outputs.previous || matrix.side == 'back10' && needs.prepare.outputs.back10 || github.sha }}
 
       - name: Cache Dependencies
         id: deps-cache
@@ -310,7 +339,7 @@ jobs:
           retention-days: 1
 
   macos-shard:
-    name: macos-${{ matrix.arch }}-${{ matrix.shard }}
+    name: macos-${{ matrix.arch }}-${{ matrix.comparison }}-${{ matrix.shard }}
     needs: [prepare, macos-build]
     runs-on: ${{ matrix.arch == 'arm64' && 'macos-15' || 'macos-15-intel' }}
     timeout-minutes: 60
@@ -318,6 +347,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [arm64, x86_64]
+        comparison: ${{ fromJSON(needs.prepare.outputs.comparisons) }}
         shard: ${{ fromJSON(needs.prepare.outputs.macos) }}
     env:
       SHARD_INDEX: ${{ matrix.shard }}
@@ -333,11 +363,11 @@ jobs:
 
       - name: Render and Compare
         run: |
-          for side in base head; do
+          for side in ${{ matrix.comparison }} head; do
             ditto -x -k "programs/program-macos-${{ matrix.arch }}-$side/program.zip" "run-$side"
           done
           ./.github/scripts/regression-shard.sh \
-            run-base/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
+            run-${{ matrix.comparison }}/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
             run-head/mandelbulber2.app/Contents/MacOS/mandelbulber2 \
             "$SHARD_INDEX/$MACOS_SHARDS" regression
 
@@ -345,7 +375,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: report-macos-${{ matrix.arch }}-${{ matrix.shard }}
+          name: report-macos-${{ matrix.arch }}-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/comparison/report.txt
           if-no-files-found: ignore
 
@@ -353,7 +383,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: images-macos-${{ matrix.arch }}-${{ matrix.shard }}
+          name: images-macos-${{ matrix.arch }}-${{ matrix.comparison }}-${{ matrix.shard }}
           path: regression/
           if-no-files-found: ignore
 
