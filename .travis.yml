@@ -1,0 +1,127 @@
+# Travis build configuration
+# https://docs.travis-ci.com/user/customizing-the-build/
+sudo: required
+dist: xenial
+
+language: cpp
+cache: bundler
+
+os:
+  - linux
+
+env:
+  matrix:
+    - CONFIG=release
+
+install:
+ # extra-cmake-modules not present in precise (needed for openexr)
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test;
+      sudo apt-add-repository -y ppa:beineri/opt-qt593-xenial;
+      sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa;
+      sudo apt-get -qq update;
+      sudo apt-get -qq install g++-6 libc6-i386;
+      sudo apt-get install -y mesa-common-dev libgl1-mesa-dev;
+      sudo apt-get install -y qt59base qt59tools qt59multimedia qt59svg;
+      sudo apt-get install -y libpng12-0 libpng12-dev libgsl-dev libgsl2 libgomp1 liblzo2-2 liblzo2-dev;
+      sudo apt-get install -y libqt5svg5;
+      sudo apt-get install -y libtiff5;
+      sudo apt-get install -y libsndfile1-dev tree;
+      sudo apt-get install opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev;
+      sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100;
+      sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 100;
+      sudo update-alternatives --set g++ /usr/bin/g++-6;
+      sudo update-alternatives --set gcc /usr/bin/gcc-6;
+      gcc --version;
+      lsb_release -a;
+      
+    else
+         brew update > /dev/null;
+      brew install qt5 gsl llvm lzo libsndfile tree;
+      export CC=/usr/local/opt/llvm/bin/clang;
+      export CXX=/usr/local/opt/llvm/bin/clang++;
+      export LDFLAGS="-L/usr/local/opt/llvm/lib $LDFLAGS";
+      export CPPFLAGS="-I/usr/local/opt/llvm/include $CPPFLAGS";
+      chmod -R 755 /usr/local/opt/qt5/*;
+      
+    fi
+
+script:
+#build
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         QTDIR="/opt/qt59"
+      && PATH="$QTDIR/bin:$PATH"
+      && qt59-env.sh 
+      ;
+    else
+         QTDIR="/usr/local/opt/qt5"
+      && PATH="$QTDIR/bin:$PATH"
+      && LDFLAGS=-L$QTDIR/lib
+      && CPPFLAGS=-I$QTDIR/include
+      ;
+    fi
+  - mkdir mandelbulber2/build
+  - cd mandelbulber2/build
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         qmake ../qmake/mandelbulber-opencl.pro
+      ;
+    else
+         qmake -spec macx-xcode ../qmake/mandelbulber.pro
+      && qmake -project
+      && qmake -o makefile ../qmake/mandelbulber.pro
+      ;
+    fi
+  - make -j3
+  - tree .
+
+# testing
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      cd ..
+      && mkdir package
+      && ./make-package.sh test package
+      && cp build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
+      && cd package/mandelbulber2-test
+      && ./install
+      && mandelbulber2 --test
+      ;
+    else
+         echo 'TODO test...'
+      ;
+    fi
+
+# AppImage building and uploading
+  - |
+    #if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${TRAVIS_EVENT_TYPE}" = "cron" ]; then
+    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+    
+      cd ../../build
+      
+      make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
+      
+      cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true # https://github.com/buddhi1980/mandelbulber2/issues/453#issuecomment-475412753
+      cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/mandelbulber.png
+      
+      wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+      chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+      
+      unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
+      ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines,imageformats
+      
+      #export UPLOADTOOL_ISPRERELEASE=true
+      wget -c  https://github.com/damirporobic/uploadtool/raw/master/upload.sh
+      
+      export UPLOADTOOL_ISPRERELEASE=true
+      bash upload.sh Mandelbulber*.AppImage*
+    fi
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
+
+notifications:
+  email:
+    - buddhi1980@gmail.com
+    - sebastian.jennen@gmx.de
+    - robertpancoast77@gmail.com
+  webhooks:
+    - https://webhooks.gitter.im/e/045502f8fca741c11771
