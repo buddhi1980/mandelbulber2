@@ -39,6 +39,7 @@
 #include <QList>
 #include <QMap>
 #include <QString>
+#include <QStringList>
 
 // one scene of the regression set: a bundled example file, or the default scene with one
 // fractal formula
@@ -53,10 +54,13 @@ struct sRegressionScene
 class cRegressionTest
 {
 public:
-	// every bundled example file in the examples folder and its subfolders, sorted by path and
-	// without the few that take far longer than the rest, followed by one scene for every fractal
-	// formula: the default scene with that formula
+	// the examples of ExampleFiles(), followed by one scene for every fractal formula: the
+	// default scene with that formula, so that a new formula is tested automatically
 	static QList<sRegressionScene> Scenes();
+
+	// the fixed list of examples the regression test renders, as paths relative to the examples
+	// folder (regression_examples.cpp)
+	static QStringList ExampleFiles();
 
 	// the scenes of this run: all of Scenes(), or one shard of them (see SetShard)
 	static QList<sRegressionScene> SelectedScenes();
