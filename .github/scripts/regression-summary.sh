@@ -10,7 +10,7 @@ echo "previous: compared with the previous commit; back10: compared with the com
 echo
 echo "| Family | Compared with | Shards | Scenes compared | Failed | Not valid in either build |"
 echo "|---|---|---|---|---|---|"
-for family in linux-x86_64 windows-x64 macos-arm64 macos-x86_64; do
+for family in linux-x86_64; do
 for comparison in previous back10; do
 	shards=0 compared=0 failed=0 broken=0
 	for f in "$reports"/report-"$family"-"$comparison"-*/report.txt; do
