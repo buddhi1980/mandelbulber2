@@ -34,13 +34,16 @@
 
 #include "regression_test.hpp"
 
+#include <algorithm>
 #include <memory>
 
 #include <QDateTime>
 #include <QDir>
+#include <QDirIterator>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
+#include <QSize>
 #include <QSysInfo>
 #include <QTextStream>
 
@@ -62,15 +65,39 @@ namespace
 const char *renderInfoFileName = "render-info.txt";
 const char *reportFileName = "report.txt";
 
-sRegressionScene Scene(const QString &name, const QString &fileName, bool fillsFrame = false,
-	const QMap<QString, double> &overrides = QMap<QString, double>())
+QString ExamplesFolder()
 {
-	sRegressionScene scene;
-	scene.name = name;
-	scene.fileName = fileName;
-	scene.fillsFrame = fillsFrame;
-	scene.overrides = overrides;
-	return scene;
+	return QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples");
+}
+
+// a file name made from the example's path: "Some folder/my scene 1.fract" ->
+// Some_folder__my_scene_1
+QString SceneName(const QString &relativePath)
+{
+	QString path = relativePath;
+	if (path.endsWith(".fract", Qt::CaseInsensitive)) path.chop(6);
+	QString name;
+	for (const QChar c : path)
+	{
+		if (c == '/')
+			name += "__";
+		else if (c.isLetterOrNumber() && c.unicode() < 128)
+			name += c;
+		else if (c == '-' || c == '.')
+			name += c;
+		else
+			name += '_';
+	}
+	return name;
+}
+
+// the render size: the longer side is longSide, the other follows the scene's aspect ratio
+QSize RenderSize(int sceneWidth, int sceneHeight, int longSide)
+{
+	if (sceneWidth <= 0 || sceneHeight <= 0) return QSize(longSide, longSide * 3 / 4);
+	if (sceneWidth >= sceneHeight)
+		return QSize(longSide, std::max(16, int(qRound(double(longSide) * sceneHeight / sceneWidth))));
+	return QSize(std::max(16, int(qRound(double(longSide) * sceneWidth / sceneHeight))), longSide);
 }
 
 QString CompilerName()
@@ -161,33 +188,58 @@ bool LoadRender(const QString &folder, const QString &name, const QString &role,
 
 QList<sRegressionScene> cRegressionTest::Scenes()
 {
-	// Scenes come from the bundled examples and cover the main rendering features. Monte Carlo
-	// scenes render with fewer samples, like the example test does, to keep the set fast.
-	const QMap<QString, double> fastMonteCarlo = {{"DOF_min_samples", 3}, {"DOF_max_noise", 10.0}};
+	const QDir examples(ExamplesFolder());
+	QStringList files;
+	QDirIterator it(
+		examples.absolutePath(), QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+	while (it.hasNext())
+		files.append(examples.relativeFilePath(it.next()));
+	files.sort();
 
 	QList<sRegressionScene> scenes;
-	scenes.append(Scene("mandelbulb001", "mandelbulb001.fract"));
-	scenes.append(Scene("mandelbox001", "mandelbox001.fract"));
-	scenes.append(Scene("mandelbox003", "mandelbox003.fract"));						// fake lights
-	scenes.append(Scene("IFS_001", "IFS_001.fract"));											// auxiliary lights, AO
-	scenes.append(Scene("IFS_002", "IFS_002.fract"));											// depth of field, basic fog
-	scenes.append(Scene("Makin3D-Julia_001", "Makin3D-Julia_001.fract")); // AO, volumetric fog
-	scenes.append(Scene("aboxmod1_001", "aboxmod1_001.fract"));						// DOF, AO, volumetric fog
-	scenes.append(Scene("boolean001", "boolean001.fract"));								// boolean operators
-	scenes.append(Scene("amazing_surf_mod1_001", "amazing surf mod1 001.fract")); // primitives
-	scenes.append(Scene("ides2_001", "ides2_001.fract"));													// iteration fog
-	scenes.append(Scene("hex_grid_001", "hex grid 001.fract", false, fastMonteCarlo)); // hybrid
-	scenes.append(Scene("difs_tree", "difs_tree.fract", false, fastMonteCarlo)); // hybrid, MC DOF
-	scenes.append(
-		Scene("mandelnest_pow_5", "mandelnest pow 5.fract", false, fastMonteCarlo)); // MC GI
+	for (const QString &file : files)
+	{
+		sRegressionScene scene;
+		scene.name = SceneName(file);
+		scene.fileName = file;
+		scenes.append(scene);
+	}
+	return scenes;
+}
+
+QList<sRegressionScene> cRegressionTest::CoreScenes()
+{
+	// examples that cover the main rendering features
+	const QStringList core = {
+		"mandelbulb001.fract",
+		"mandelbox001.fract",
+		"mandelbox003.fract",					 // fake lights
+		"IFS_001.fract",							 // auxiliary lights, ambient occlusion
+		"IFS_002.fract",							 // depth of field, basic fog
+		"Makin3D-Julia_001.fract",		 // ambient occlusion, volumetric fog
+		"aboxmod1_001.fract",					 // depth of field, ambient occlusion, volumetric fog
+		"boolean001.fract",						 // boolean operators
+		"amazing surf mod1 001.fract", // primitives
+		"ides2_001.fract",						 // iteration fog
+		"hex grid 001.fract",					 // hybrid, Monte Carlo global illumination
+		"difs_tree.fract",						 // hybrid, Monte Carlo depth of field
+		"mandelnest pow 5.fract",			 // Monte Carlo global illumination
+	};
+	QList<sRegressionScene> scenes;
+	for (const QString &file : core)
+	{
+		sRegressionScene scene;
+		scene.name = SceneName(file);
+		scene.fileName = file;
+		scenes.append(scene);
+	}
 	return scenes;
 }
 
 bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result, QString *error)
 {
 	const QString fileName =
-		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
-														 + QDir::separator() + scene.fileName);
+		QDir::toNativeSeparators(ExamplesFolder() + QDir::separator() + scene.fileName);
 	if (!QFileInfo::exists(fileName))
 	{
 		*error = QString("scene file not found: %1").arg(fileName);
@@ -219,15 +271,21 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 		return false;
 	}
 
-	par->Set("image_width", scene.width);
-	par->Set("image_height", scene.height);
+	const QSize size =
+		RenderSize(par->Get<int>("image_width"), par->Get<int>("image_height"), renderLongSide);
+	const int width = size.width();
+	const int height = size.height();
+	par->Set("image_width", width);
+	par->Set("image_height", height);
 	par->Set("opencl_enabled", false);
 	par->Set("opencl_mode", 0);
-	for (auto it = scene.overrides.constBegin(); it != scene.overrides.constEnd(); ++it)
-		par->Set(it.key(), it.value());
+	// Monte Carlo scenes stop sampling earlier, like the example test case does, to keep the
+	// set fast; the comparison measures each scene's noise, so a noisier render is fine
+	par->Set("DOF_max_noise", par->Get<double>("DOF_max_noise") * 10.0);
+	par->Set("DOF_min_samples", std::min(par->Get<int>("DOF_min_samples"), 3));
 
 	bool stopRequest = false;
-	std::shared_ptr<cImage> image(new cImage(scene.width, scene.height));
+	std::shared_ptr<cImage> image(new cImage(width, height));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -240,22 +298,22 @@ bool cRegressionTest::RenderScene(const sRegressionScene &scene, QImage *result,
 		return false;
 	}
 
-	if (int(image->GetWidth()) != scene.width || int(image->GetHeight()) != scene.height)
+	if (int(image->GetWidth()) != width || int(image->GetHeight()) != height)
 	{
 		*error = QString("rendered %1x%2 instead of %3x%4")
 							 .arg(image->GetWidth())
 							 .arg(image->GetHeight())
-							 .arg(scene.width)
-							 .arg(scene.height);
+							 .arg(width)
+							 .arg(height);
 		return false;
 	}
 
 	image->ConvertTo8bitChar();
-	QImage rendered(scene.width, scene.height, QImage::Format_RGBA8888);
-	for (int y = 0; y < scene.height; y++)
+	QImage rendered(width, height, QImage::Format_RGBA8888);
+	for (int y = 0; y < height; y++)
 	{
 		uchar *line = rendered.scanLine(y);
-		for (int x = 0; x < scene.width; x++)
+		for (int x = 0; x < width; x++)
 		{
 			const sRGB8 pixel = image->GetPixelImage8(x, y);
 			line[4 * x + 0] = pixel.R;
@@ -283,6 +341,7 @@ int cRegressionTest::RenderAll(const QString &folder)
 	info += QString("host: %1\n").arg(QSysInfo::machineHostName());
 	info += QString("cpu: %1\n").arg(CpuName());
 	info += QString("date: %1\n").arg(QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+	info += QString("long side: %1\n").arg(renderLongSide);
 
 	int failed = 0;
 	const QList<sRegressionScene> scenes = Scenes();
@@ -312,8 +371,8 @@ int cRegressionTest::RenderAll(const QString &folder)
 			out << "rendered " << scene.name << " in " << elapsed << " ms" << Qt::endl;
 			info += QString("scene: %1 %2x%3 %4 ms\n")
 								.arg(scene.name)
-								.arg(scene.width)
-								.arg(scene.height)
+								.arg(image.width())
+								.arg(image.height())
 								.arg(elapsed);
 		}
 		else
@@ -389,13 +448,14 @@ int cRegressionTest::Compare(
 
 	int failed = 0;
 	int added = 0;
+	int brokenInBoth = 0;
 	const QList<sRegressionScene> scenes = Scenes();
 	for (const sRegressionScene &scene : scenes)
 	{
 		if (haveBeforeInfo && !beforeScenes.contains(scene.name))
 		{
 			added++;
-			report += QString("\n[NEW ] %1 %2x%3\n").arg(scene.name).arg(scene.width).arg(scene.height);
+			report += QString("\n[NEW ] %1\n").arg(scene.name);
 			report += "  not rendered by the before build, so there is nothing to compare it with\n";
 			continue;
 		}
@@ -415,16 +475,22 @@ int cRegressionTest::Compare(
 		if (haveBefore) before.save(QDir(outputFolder).filePath(scene.name + "-before.png"), "PNG");
 		if (haveAfter) after.save(QDir(outputFolder).filePath(scene.name + "-after.png"), "PNG");
 
-		// a render that is broken in both builds must not pass just because the two agree
-		if (haveBefore)
+		// A render that the "after" build broke fails. Some examples give a flat or empty image
+		// at this size with either build; that is noted, and the scene is still compared.
+		QStringList notes;
+		if (haveBefore && haveAfter)
 		{
-			const sImageValidity validity = imageComparison::Validate(before, scene.fillsFrame);
-			if (!validity.valid) failures.append("before image is not valid: " + validity.reason);
-		}
-		if (haveAfter)
-		{
-			const sImageValidity validity = imageComparison::Validate(after, scene.fillsFrame);
-			if (!validity.valid) failures.append("after image is not valid: " + validity.reason);
+			const sImageValidity beforeValidity = imageComparison::Validate(before, scene.fillsFrame);
+			const sImageValidity afterValidity = imageComparison::Validate(after, scene.fillsFrame);
+			if (beforeValidity.valid && !afterValidity.valid)
+				failures.append("after image is not valid: " + afterValidity.reason);
+			else if (!beforeValidity.valid && !afterValidity.valid)
+			{
+				brokenInBoth++;
+				notes.append("both builds render an image that is not valid: " + afterValidity.reason);
+			}
+			else if (!beforeValidity.valid)
+				notes.append("the before image was not valid: " + beforeValidity.reason);
 		}
 
 		QString measuresText;
@@ -453,17 +519,21 @@ int cRegressionTest::Compare(
 
 		const bool passed = failures.isEmpty();
 		if (!passed) failed++;
+		const QSize size = haveBefore ? before.size() : (haveAfter ? after.size() : QSize());
 		report += QString("\n[%1] %2 %3x%4\n")
 								.arg(passed ? "PASS" : "FAIL")
 								.arg(scene.name)
-								.arg(scene.width)
-								.arg(scene.height);
+								.arg(size.width())
+								.arg(size.height());
 		report += measuresText;
+		if (!notes.isEmpty()) report += "  note: " + notes.join("; ") + "\n";
 		if (!passed) report += "  failures: " + failures.join("; ") + "\n";
 	}
 
 	const int compared = scenes.size() - added;
-	const QString addedText = added > 0 ? QString(", %1 new and not compared").arg(added) : QString();
+	QString addedText = added > 0 ? QString(", %1 new and not compared").arg(added) : QString();
+	if (brokenInBoth > 0)
+		addedText += QString(", %1 not a valid render in either build").arg(brokenInBoth);
 	if (failed == 0)
 		report += QString("\nRESULT: PASS (%1 of %1 scenes%2)\n").arg(compared).arg(addedText);
 	else

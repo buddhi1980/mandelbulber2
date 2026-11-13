@@ -636,7 +636,7 @@ void Test::regressionScenes() const
 	// this renders the regression scenes and checks that every image is a valid render.
 	// To compare them with the renders of another build use --regression-render
 	// and --regression-compare
-	const QList<sRegressionScene> scenes = cRegressionTest::Scenes();
+	const QList<sRegressionScene> scenes = cRegressionTest::CoreScenes();
 	for (const sRegressionScene &scene : scenes)
 	{
 		WriteLogCout("regression scene: " + scene.name + "\n", 1);

@@ -40,25 +40,29 @@
 #include <QMap>
 #include <QString>
 
-// one scene of the regression set
+// one scene of the regression set: one of the bundled example files
 struct sRegressionScene
 {
-	QString name;										 // short id used in file names
-	QString fileName;								 // path relative to the examples folder
-	int width = 160;								 // render width in pixels
-	int height = 120;								 // render height in pixels
-	bool fillsFrame = false;				 // the fractal covers the whole frame, so no background is valid
-	QMap<QString, double> overrides; // parameter values set after the scene file is loaded
+	QString name;						 // id used in file names, made from the file's path
+	QString fileName;				 // path relative to the examples folder
+	bool fillsFrame = false; // the fractal covers the whole frame, so no background is valid
 };
 
 class cRegressionTest
 {
 public:
-	// the fixed set of scenes, taken from the bundled examples
+	// every bundled example file, in the examples folder and its subfolders, sorted by path
 	static QList<sRegressionScene> Scenes();
 
-	// renders one scene on the CPU into an 8-bit RGBA image (A is the alpha buffer);
-	// returns false and sets error when the scene cannot be loaded or rendered
+	// a few examples that cover the main rendering features, for the --test case
+	static QList<sRegressionScene> CoreScenes();
+
+	// the longer side of every render in pixels; the other side follows the scene's aspect ratio
+	static constexpr int renderLongSide = 320;
+
+	// renders one scene on the CPU into an 8-bit RGBA image (A is the alpha buffer), with the
+	// longer side renderLongSide pixels and Monte Carlo sampling reduced; returns false and sets
+	// error when the scene cannot be loaded or rendered
 	static bool RenderScene(const sRegressionScene &scene, QImage *result, QString *error);
 
 	// renders every scene twice into the folder (<name>.png and <name>.repeat.png);
