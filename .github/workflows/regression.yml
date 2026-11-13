@@ -361,7 +361,8 @@ jobs:
   summary:
     name: summary
     needs: [prepare, linux-shard, windows-shard, macos-shard]
-    if: ${{ always() && needs.prepare.outputs.ready == '1' }}
+    # not for a cancelled run, which a newer push replaces
+    if: ${{ !cancelled() && needs.prepare.outputs.ready == '1' }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Code
