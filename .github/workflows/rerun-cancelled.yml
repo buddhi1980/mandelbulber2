@@ -1,6 +1,6 @@
 name: Rerun Cancelled
 
-# Reruns a cancelled run of the build and regression workflows, up to 3 times, when the
+# Reruns a cancelled run of the build, regression and CodeQL workflows, up to 3 times, when the
 # commit it ran on is still the latest commit of its branch. A run that a newer
 # push replaced (the workflows cancel runs in progress on a new push) is not
 # rerun, because the newer commit gets its own run. A run cancelled for another
@@ -11,7 +11,9 @@ name: Rerun Cancelled
 
 on:
   workflow_run:
-    workflows: [Linux, Windows, macOS, Regression]
+    # every workflow that builds Mandelbulber: the Linux, Windows and macOS builds,
+    # the regression test, and the CodeQL analysis
+    workflows: [Linux, Windows, macOS, Regression, CodeQL Advanced]
     types: [completed]
 
 permissions:
