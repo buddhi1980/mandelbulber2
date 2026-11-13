@@ -1,6 +1,6 @@
 name: Regression
 
-# Regression test: renders every bundled example (without a few very slow ones)
+# Regression test: renders a fixed list of bundled examples (regression_examples.cpp)
 # and the default scene with every fractal formula with a build of this commit
 # (head), and compares the renders with those of two older commits
 # (mandelbulber2 --regression-render and --regression-compare):
@@ -18,8 +18,10 @@ name: Regression
 # Windows and macOS took longer for the same work (macOS runners also run only
 # 5 jobs at once), so they only build and test in windows.yml and macos.yml.
 #
-# A comparison is skipped, with a notice, when its commit doesn't exist or can't
-# render a shard of the scenes yet.
+# A comparison is skipped, with a notice, when its commit doesn't exist, can't
+# render a shard of the scenes yet, would hang on the custom formula, or renders
+# the formula scenes at another size than head. After a change to how scenes are
+# rendered, the comparisons therefore resume with the next commits.
 
 on:
   push:
