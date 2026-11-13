@@ -333,6 +333,7 @@ sImageMeasures Measure(const QImage &before, const QImage &after)
 	sImageMeasures measures;
 	const sDiffStats full = DiffStats(a, b);
 	const sDiffStats reduced = DiffStats(a4, b4);
+	measures.pixels = double(a.width()) * double(a.height());
 	measures.meanShift = full.meanShift;
 	measures.meanAbsDiff = full.meanAbsDiff;
 	measures.bigDiffShare = full.bigDiffShare;
@@ -354,9 +355,12 @@ sImageLimits Limits(const sImageMeasures &noise)
 	const double psnrMargin = 20.0 * std::log10(noiseMargin);
 	sImageLimits limits;
 	// the mean shift of one pair is a poor estimate of its own noise, because it is the small
-	// remainder of differences that cancel out. So its limit also follows the pixel noise.
-	limits.maxMeanShift = std::max(
-		{floorMeanShift, noiseMargin * noise.meanShift, meanShiftPerMeanAbsDiff * noise.meanAbsDiff});
+	// remainder of differences that cancel out. So its limit also follows the pixel noise,
+	// which averages out less in a small image.
+	const double shiftFromPixelNoise =
+		noise.pixels > 0.0 ? meanShiftNoiseFactor * noise.meanAbsDiff / std::sqrt(noise.pixels) : 0.0;
+	limits.maxMeanShift =
+		std::max({floorMeanShift, noiseMargin * noise.meanShift, shiftFromPixelNoise});
 	limits.maxMeanAbsDiff = std::max(floorMeanAbsDiff, noiseMargin * noise.meanAbsDiff);
 	limits.maxMeanAbsDiff4x = std::max(floorMeanAbsDiff4x, noiseMargin * noise.meanAbsDiff4x);
 	limits.maxBigDiffShare = std::max(floorBigDiffShare, noiseMargin * noise.bigDiffShare);

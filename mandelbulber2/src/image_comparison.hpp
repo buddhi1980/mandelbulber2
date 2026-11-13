@@ -43,6 +43,7 @@
 // images downscaled 4x with a box filter, which averages Monte Carlo sampling noise away.
 struct sImageMeasures
 {
+	double pixels = 0.0;				// number of pixels compared
 	double meanShift = 0.0;			// largest difference between the two images' mean R, G or B
 	double meanAbsDiff = 0.0;		// mean absolute channel difference, 0..255
 	double meanAbsDiff4x = 0.0; // the same, 4x downscaled
@@ -82,9 +83,11 @@ constexpr double noiseMargin = 2.0;
 // measured in the scenes that have no Monte Carlo sampling.
 constexpr double floorMeanShift = 0.5; // of 255; noise there is below 0.3
 
-// The mean shift between two renders of unchanged code reaches 0.047 times their mean
-// absolute difference, so its limit is never stricter than 0.08 times that difference.
-constexpr double meanShiftPerMeanAbsDiff = 0.08;
+// The mean shift between two renders of unchanged code is the mean of their pixel noise, so it
+// shrinks with the square root of the number of pixels. Its limit is never stricter than
+// meanShiftNoiseFactor * meanAbsDiff / sqrt(pixels). The largest factor measured was 10.3,
+// for a Monte Carlo scene at 160x90 pixels on a CI runner.
+constexpr double meanShiftNoiseFactor = 20.0;
 constexpr double floorMeanAbsDiff = 1.0;		// of 255
 constexpr double floorMeanAbsDiff4x = 0.5;	// of 255
 constexpr double floorBigDiffShare = 0.005; // half a percent of the pixels
