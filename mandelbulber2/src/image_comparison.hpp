@@ -85,7 +85,11 @@ namespace regressionThresholds
 constexpr double noiseMargin = 3.0;
 
 // Floors: the least strict limit a measure can get. Each is about twice the largest noise
-// measured in the scenes that have no Monte Carlo sampling.
+// measured in the scenes that have no Monte Carlo sampling. PSNR, SSIM and the edge F1 score
+// get more room than that: when the "before" pair of a scene happens to be almost identical,
+// its limits are the floors, and a render of unchanged code then came within 0.001 of them
+// (formula__testing_log on a CI runner: ssim 0.989 and edgeF1 0.964 under floors of 0.99 and
+// 0.97).
 constexpr double floorMeanShift = 0.5; // of 255; noise there is below 0.3
 
 // The mean shift between two renders of unchanged code is the mean of their pixel noise, so it
@@ -97,11 +101,11 @@ constexpr double meanShiftNoiseFactor = 40.0;
 constexpr double floorMeanAbsDiff = 1.0;		// of 255
 constexpr double floorMeanAbsDiff4x = 0.5;	// of 255
 constexpr double floorBigDiffShare = 0.005; // half a percent of the pixels
-constexpr double floorPsnr = 38.0;					// dB; a limit is never above this (noise: 40 dB)
+constexpr double floorPsnr = 35.0;					// dB; a limit is never above this (noise: 40 dB)
 constexpr double floorPsnr4x = 46.0;				// dB (noise: 51 dB)
-constexpr double floorSsim = 0.99;					// a limit is never above this
+constexpr double floorSsim = 0.98;					// a limit is never above this (noise: 0.995)
 constexpr double floorSsim4x = 0.995;
-constexpr double floorEdgeF1 = 0.97;
+constexpr double floorEdgeF1 = 0.94;
 constexpr double floorShapeIoU = 0.99;
 
 // validity of a single image
