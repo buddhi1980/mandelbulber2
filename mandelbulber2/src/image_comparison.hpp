@@ -85,11 +85,11 @@ namespace regressionThresholds
 constexpr double noiseMargin = 3.0;
 
 // Floors: the least strict limit a measure can get. Each is about twice the largest noise
-// measured in the scenes that have no Monte Carlo sampling. PSNR, SSIM and the edge F1 score
-// get more room than that: when the "before" pair of a scene happens to be almost identical,
-// its limits are the floors, and a render of unchanged code then came within 0.001 of them
-// (formula__testing_log on a CI runner: ssim 0.989 and edgeF1 0.964 under floors of 0.99 and
-// 0.97).
+// measured in the scenes that have no Monte Carlo sampling. PSNR, SSIM, the edge F1 score and
+// the shape IoU get more room than that: when the "before" pair of a scene happens to be almost
+// identical, its limits are the floors, and renders of unchanged code then fell just below them
+// on CI runners (formula__testing_log: ssim 0.989 and edgeF1 0.964 under floors of 0.99 and
+// 0.97; formula__transf_de_linear_cube: shapeIoU 0.971 to 0.981 under a floor of 0.99).
 constexpr double floorMeanShift = 0.5; // of 255; noise there is below 0.3
 
 // The mean shift between two renders of unchanged code is the mean of their pixel noise, so it
@@ -106,7 +106,7 @@ constexpr double floorPsnr4x = 46.0;				// dB (noise: 51 dB)
 constexpr double floorSsim = 0.98;					// a limit is never above this (noise: 0.995)
 constexpr double floorSsim4x = 0.995;
 constexpr double floorEdgeF1 = 0.94;
-constexpr double floorShapeIoU = 0.99;
+constexpr double floorShapeIoU = 0.96;
 
 // validity of a single image
 constexpr double minLumaStdDev = 2.0;		 // of 255; a flat image is below this
