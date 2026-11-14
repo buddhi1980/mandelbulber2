@@ -380,7 +380,7 @@ QStringList ImageFileSaveJPG::SaveImage()
 				bool constRange = gPar->Get<bool>("zbuffer_constant_range");
 
 				std::vector<unsigned char> zBuffer8Bit(size);
-				float minZ = std::numeric_limits<float>::infinity();
+				float minZ = std::numeric_limits<float>::max();
 				float maxZ = 0.0;
 
 				if (constRange)
@@ -707,7 +707,7 @@ bool ImageFileSaveJXL::SaveJxlChannel(
 			// same normalization rules as the PNG / JPG channels, full range data map
 			std::vector<float> &zbuffer = image->GetZBuffer();
 			uint64_t size = width * height;
-			float minZ = std::numeric_limits<float>::infinity();
+			float minZ = std::numeric_limits<float>::max();
 			float maxZ = 0.0;
 			if (gPar->Get<bool>("zbuffer_constant_range"))
 			{
@@ -1099,7 +1099,7 @@ bool ImageFileSaveHDR::SaveHdrChannel(
 			// same normalization rules as the PNG / JPG channels
 			std::vector<float> &zbuffer = image->GetZBuffer();
 			uint64_t size = width * height;
-			float minZ = std::numeric_limits<float>::infinity();
+			float minZ = std::numeric_limits<float>::max();
 			float maxZ = 0.0;
 			if (gPar->Get<bool>("zbuffer_constant_range"))
 			{
@@ -1353,7 +1353,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 			colorPtr.resize(uint64_t(width) * height * pixelSize);
 
 			// calculate min / max values from zbuffer range
-			float minZ = std::numeric_limits<float>::infinity();
+			float minZ = std::numeric_limits<float>::max();
 			float maxZ = 0.0;
 			if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 			{
@@ -2334,7 +2334,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 	std::vector<char> colorPtr(uint64_t(width) * height * pixelSize);
 
 	// calculate min / max values from zbuffer range
-	float minZ = std::numeric_limits<float>::infinity();
+	float minZ = std::numeric_limits<float>::max();
 	float maxZ = 0.0;
 	float rangeZ = 0.0;
 	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)

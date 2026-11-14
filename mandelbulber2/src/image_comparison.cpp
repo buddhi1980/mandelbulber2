@@ -36,7 +36,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <limits>
 #include <vector>
 
 namespace
@@ -160,7 +159,7 @@ sDiffStats DiffStats(const QImage &before, const QImage &after)
 	stats.bigDiffShare = double(bigCount) / double(std::max<qint64>(pixels, 1));
 	const double mse = sumSquared / samples;
 	stats.psnr =
-		mse > 0.0 ? 10.0 * std::log10(255.0 * 255.0 / mse) : std::numeric_limits<double>::infinity();
+		mse > 0.0 ? std::min(10.0 * std::log10(255.0 * 255.0 / mse), identicalPsnr) : identicalPsnr;
 	return stats;
 }
 
@@ -306,7 +305,7 @@ double ShapeIoU(const QImage &before, const QImage &after)
 
 QString Number(double value, int decimals)
 {
-	if (std::isinf(value)) return QStringLiteral("inf");
+	if (value >= identicalPsnr) return QStringLiteral("inf");
 	return QString::number(value, 'f', decimals);
 }
 

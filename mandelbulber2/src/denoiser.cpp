@@ -55,7 +55,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case light:
 			maxBlurRadius = 5.0;
 			minBlurRadius = 0.4f;
-			maxMedianSize = 1.1f;
+			maxMedianSize = 1;
 			noiseMultiplier = 2500.0;
 			zDepthFilterfactor = 100.0;
 			normalFilterFactor = 10.0;
@@ -63,7 +63,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case medium:
 			maxBlurRadius = 10.0;
 			minBlurRadius = 0.6f;
-			maxMedianSize = 2.0;
+			maxMedianSize = 2;
 			noiseMultiplier = 5000.0;
 			zDepthFilterfactor = 100.0;
 			normalFilterFactor = 10.0;
@@ -71,7 +71,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case strong:
 			maxBlurRadius = 15.0;
 			minBlurRadius = 0.7f;
-			maxMedianSize = 4.0;
+			maxMedianSize = 4;
 			noiseMultiplier = 15000.0;
 			zDepthFilterfactor = 10.0;
 			normalFilterFactor = 3.0;
@@ -79,7 +79,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case extreme:
 			maxBlurRadius = 30.0;
 			minBlurRadius = 1.0;
-			maxMedianSize = 6.0;
+			maxMedianSize = 6;
 			noiseMultiplier = 30000.0;
 			zDepthFilterfactor = 7.0;
 			normalFilterFactor = 3.0;

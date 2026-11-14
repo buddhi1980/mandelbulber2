@@ -48,7 +48,7 @@ struct sImageMeasures
 	double meanAbsDiff = 0.0;		// mean absolute channel difference, 0..255
 	double meanAbsDiff4x = 0.0; // the same, 4x downscaled
 	double bigDiffShare = 0.0;	// share of pixels whose largest channel difference exceeds 32
-	double psnr = 0.0;					// dB, infinity when the images are identical
+	double psnr = 0.0;					// dB, identicalPsnr when the images are identical
 	double psnr4x = 0.0;				// dB, 4x downscaled
 	double ssim = 1.0;					// mean structural similarity of luminance
 	double ssim4x = 1.0;				// the same, 4x downscaled
@@ -65,6 +65,10 @@ struct sImageValidity
 	bool valid = false;
 	QString reason;
 };
+
+// PSNR of two identical images, which is infinite in theory. Builds use -ffast-math, which assumes
+// that no value is infinite, so a finite value far above any real PSNR stands for it.
+constexpr double identicalPsnr = 1000.0; // dB
 
 // Limits. Renders are not reproducible: random sampling makes two renders of one scene by one
 // build differ, by a little in most scenes and by a lot in Monte Carlo scenes. So every scene is

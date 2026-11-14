@@ -436,7 +436,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	cl_int4 randomSeed4 = {std::rand(), std::rand(), std::rand(), std::rand()};
+	cl_int4 randomSeed4 = {{std::rand(), std::rand(), std::rand(), std::rand()}};
 	err = clKernels.at(deviceIndex)->setArg(argIterator++, randomSeed4); // random seed
 	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 	{
@@ -491,7 +491,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		for (quint64 x = 0; x < width; x++)
 		{
 			quint64 i = x + y * width;
-			cl_float4 black = {0.0f, 0.0f, 0.0f, 0.0f};
+			cl_float4 black = {{0.0f, 0.0f, 0.0f, 0.0f}};
 
 			reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[i] =
 				black;
