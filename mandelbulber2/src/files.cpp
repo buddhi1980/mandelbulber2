@@ -491,13 +491,38 @@ bool FileExists(const QString &path)
 	return check_file.exists() && check_file.isFile();
 }
 
+namespace
+{
+// path with a leading "$SHARED_DIR" replaced by the shared data folder
+QString SubstituteSharedDir(const QString &path)
+{
+	QString newPath = path;
+	newPath.replace(QRegularExpression("^\\$SHARED_DIR"), systemDirectories.sharedDir);
+	return newPath;
+}
+
+// other places where FilePathHelperTextures() looks for a texture with this file name
+QStringList TextureAlternatePaths(const QString &fileName)
+{
+	return {fileName,
+		systemDirectories.homeDir + "textures" + QDir::separator() + fileName,
+		systemDirectories.sharedDir + "textures" + QDir::separator() + fileName,
+		systemDirectories.homeDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator()
+			+ fileName,
+		systemDirectories.sharedDir + "mandelbulber2" + QDir::separator() + "textures"
+			+ QDir::separator() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + fileName,
+		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
+}
+} // namespace
+
 QString FilePathHelper(const QString &path, const QStringList &pathList)
 {
 	// Prefer $SHARED_DIR to a file in a directory called "$SHARED_DIR", so that
 	// examples don't depend on the launch directory
 	// For a relative path starting with "$SHARED_DIR", use "./$SHARED_DIR"
-	QString newPath = path;
-	newPath.replace(QRegularExpression("^\\$SHARED_DIR"), systemDirectories.sharedDir);
+	QString newPath = SubstituteSharedDir(path);
 
 	// original file was found
 	if (FileExists(newPath)) return newPath;
@@ -524,20 +549,8 @@ QString FilePathHelperTextures(const QString &path)
 	nativePath = nativePath.replace(QChar('\\'), QChar('/'));
 	nativePath = QDir::toNativeSeparators(nativePath);
 	QFileInfo fi(nativePath);
-	QString fileName = fi.fileName();
 
-	QStringList pathList = {fileName,
-		systemDirectories.homeDir + "textures" + QDir::separator() + fileName,
-		systemDirectories.sharedDir + "textures" + QDir::separator() + fileName,
-		systemDirectories.homeDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator()
-			+ fileName,
-		systemDirectories.sharedDir + "mandelbulber2" + QDir::separator() + "textures"
-			+ QDir::separator() + fileName,
-		systemDirectories.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
-		systemDirectories.GetDataDirectoryUsed() + fileName,
-		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
-
-	return FilePathHelper(nativePath, pathList);
+	return FilePathHelper(nativePath, TextureAlternatePaths(fi.fileName()));
 }
 
 QString FilePathHelperSounds(const QString &path)
@@ -645,41 +658,68 @@ QString AnimatedFileName(
 				}
 			}
 		}
-		else
+		else if (!FileExists(SubstituteSharedDir(outFilename)))
 		{
-			// looking for last file number and make sequence as a loop
-			if (!QFile::exists(outFilename))
+			// The file for this frame doesn't exist: make the sequence which exists a loop. The
+			// sequence doesn't have to start at 0 (issue #830), and it may be in one of the folders
+			// where FilePathHelperTextures() looks for textures.
+			const QString patternFileName = QFileInfo(filenameString).fileName();
+			const int percentInFileName = patternFileName.indexOf('%');
+			if (percentInFileName >= 0)
 			{
-				QFileInfo fileInfo(outFilename);
-				QDir dir = fileInfo.absoluteDir();
+				QStringList patternPaths = {SubstituteSharedDir(filenameString)};
+				patternPaths.append(TextureAlternatePaths(patternFileName));
 
-				QStringList nameFilters;
-				QString nameFilter = QFileInfo(filenameString).fileName();
-				nameFilter = nameFilter.replace(QChar('%'), QChar('?'));
-				nameFilters.append(nameFilter);
-				dir.setNameFilters(nameFilters);
-				QStringList fileList = dir.entryList(QDir::Files, QDir::Name);
-
-				if (fileList.length() > 0)
+				for (int p = 0; p < patternPaths.size(); p++)
 				{
-					QString firstFile = fileList.first();
-					QString minIndexText = firstFile.mid(
-						firstPercent - filenameString.length() + firstFile.length(), numberOfPercents);
-					int minIndex = minIndexText.toInt();
+					QFileInfo patternInfo(patternPaths[p]);
+					QDir dir = patternInfo.absoluteDir();
+					if (!dir.exists()) continue;
 
-					QString lastFile = fileList.last();
-					QString maxIndexText = lastFile.mid(
-						firstPercent - filenameString.length() + lastFile.length(), numberOfPercents);
-					int maxIndex = maxIndexText.toInt();
+					QString nameFilter = patternFileName;
+					nameFilter.replace(QChar('%'), QChar('?'));
+					const QStringList fileList = dir.entryList({nameFilter}, QDir::Files, QDir::Name);
 
-					int frameModulo = (frame % (maxIndex + 1 - minIndex)) + minIndex;
-
-					// correct frame number
-					numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
-					for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+					// '?' matches any character, so only files with a number count
+					int minIndex = -1;
+					int maxIndex = -1;
+					for (const QString &file : fileList)
 					{
-						outFilename[i] = numberString[i - firstPercent];
+						const QString indexText = file.mid(percentInFileName, numberOfPercents);
+						bool onlyDigits = indexText.length() == numberOfPercents;
+						for (const QChar &c : indexText)
+							onlyDigits = onlyDigits && c.isDigit();
+						if (!onlyDigits) continue;
+
+						const int index = indexText.toInt();
+						if (minIndex < 0 || index < minIndex) minIndex = index;
+						if (index > maxIndex) maxIndex = index;
 					}
+					if (minIndex < 0) continue;
+
+					// frames minIndex ... maxIndex use their own files, and the others repeat them
+					const int length = maxIndex + 1 - minIndex;
+					const int frameModulo = minIndex + ((frame - minIndex) % length + length) % length;
+
+					numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
+					if (p == 0)
+					{
+						// keep the path as it was given (relative or with $SHARED_DIR)
+						for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+						{
+							outFilename[i] = numberString[i - firstPercent];
+						}
+					}
+					else
+					{
+						QString fileName = patternFileName;
+						for (int i = 0; i < numberOfPercents; i++)
+						{
+							fileName[percentInFileName + i] = numberString[i];
+						}
+						outFilename = dir.filePath(fileName);
+					}
+					break;
 				}
 			}
 		}

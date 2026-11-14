@@ -653,3 +653,40 @@ void Test::regressionScenes() const
 		image.save(testFolder() + QDir::separator() + scene.name + ".png", "PNG");
 	}
 }
+
+void Test::animatedFileName() const
+{
+	// an animated texture (file name with %) loops over the sequence of files which exists,
+	// also when the numbers don't start at 0 (issue #830)
+	const QString folder = testFolder() + QDir::separator() + "animatedTexture";
+	CreateFolder(folder);
+	for (int i = 1; i <= 3; i++)
+	{
+		QFile file(folder + QDir::separator() + QString("tex%1.png").arg(i, 4, 10, QChar('0')));
+		QVERIFY(file.open(QIODevice::WriteOnly));
+	}
+	// a file which matches the pattern but has no number
+	QFile otherFile(folder + QDir::separator() + "texabcd.png");
+	QVERIFY(otherFile.open(QIODevice::WriteOnly));
+	otherFile.close();
+
+	const QString pattern = folder + QDir::separator() + "tex%%%%.png";
+	const int expected[] = {3, 1, 2, 3, 1, 2, 3, 1};
+	for (int frame = 0; frame < 8; frame++)
+	{
+		const QString expectedName =
+			folder + QDir::separator() + QString("tex%1.png").arg(expected[frame], 4, 10, QChar('0'));
+		QCOMPARE(AnimatedFileName(pattern, frame), expectedName);
+	}
+
+	// a sequence which starts at 0 keeps its numbering
+	QFile zeroFile(folder + QDir::separator() + "tex0000.png");
+	QVERIFY(zeroFile.open(QIODevice::WriteOnly));
+	zeroFile.close();
+	QCOMPARE(AnimatedFileName(pattern, 0), folder + QDir::separator() + "tex0000.png");
+	QCOMPARE(AnimatedFileName(pattern, 5), folder + QDir::separator() + "tex0001.png");
+
+	// a sequence which doesn't exist keeps the frame number
+	QCOMPARE(AnimatedFileName(folder + QDir::separator() + "none%%.png", 7),
+		folder + QDir::separator() + "none07.png");
+}
