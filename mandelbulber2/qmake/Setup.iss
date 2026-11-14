@@ -18,8 +18,8 @@
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
 #define MyAppIcoName "mandelbulber2.ico"
-#define MyBinDir "build\Desktop_Qt_6_8_2_MSVC2022_64bit-Release\bin"
-#define MyQtBinDir "C:\Qt\6.8.2\msvc2022_64\bin\"
+#define MyBinDir "build\Qt_6_8_2_Desktop-Release\bin"
+#define MyQtBinDir "E:\Qt\6.8.2\msvc2022_64\bin\"
 
 [Setup]
 AppId={{82DA50F1-72DF-47FE-9FE8-023FFC5695B1}
@@ -72,18 +72,18 @@ Name: "full"; Description: "Full installation"
 [Components]
 
 [Files]
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\formula\*"; DestDir: "{app}\formula"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\opencl\*"; DestDir: "{app}\opencl"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\doc\*"; DestDir: "{app}\doc"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\share\mandelbulber2\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Git\mandelbulber\mandelbulber2\formula\*"; DestDir: "{app}\formula"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Git\mandelbulber\mandelbulber2\opencl\*"; DestDir: "{app}\opencl"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Git\mandelbulber\mandelbulber2\language\*"; DestDir: "{app}\language"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Git\mandelbulber\mandelbulber2\deploy\doc\*"; DestDir: "{app}\doc"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Git\mandelbulber\mandelbulber2\deploy\share\mandelbulber2\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyBinDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\NEWS"; DestDir: "{app}\doc"; Flags: ignoreversion
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\COPYING"; DestDir: "{app}\doc"; Flags: ignoreversion
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\win64\mandelbulber2.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR__disable.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_enable.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_deprovision.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\deploy\NEWS"; DestDir: "{app}\doc"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\deploy\COPYING"; DestDir: "{app}\doc"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\deploy\win64\mandelbulber2.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\tools\TDR__disable.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\tools\TDR_enable.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Git\mandelbulber\mandelbulber2\tools\TDR_deprovision.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6UiTools.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6Test.dll"; DestDir: "{app}"; Flags: ignoreversion
