@@ -40,6 +40,7 @@
 #include <QList>
 
 #include "animation_frames.hpp"
+#include "crt_portable.hpp"
 #include "error_message.hpp"
 #include "file_image.hpp"
 #include "fractal_container.hpp"
@@ -838,8 +839,9 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		time_t rawTime;
 		char timeBuffer[80];
 		time(&rawTime);
-		struct tm *timeInfo = localtime(&rawTime);
-		strftime(timeBuffer, sizeof(timeBuffer), "%Y-%m-%d-%H-%M-%S", timeInfo);
+		struct tm timeData = {};
+		if (!LocalTime(&rawTime, &timeData)) timeData = {};
+		strftime(timeBuffer, sizeof(timeBuffer), "%Y-%m-%d-%H-%M-%S", &timeData);
 		QString timestamp(timeBuffer);
 		exampleOutputPath += "/" + timestamp;
 

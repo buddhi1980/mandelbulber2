@@ -255,7 +255,7 @@ double CalculateDistanceFromObjectsTree(const sParamRender &params,
 	{
 		const auto &nodes = data->nodesDataForRendering;
 		const auto &primitives = params.primitives.allPrimitives;
-		const int nodeCount = nodes.size();
+		const int nodeCount = int(nodes.size());
 		int totalIters = 0;
 
 		// The traversal stack buffer is owned by the caller (one per rendering

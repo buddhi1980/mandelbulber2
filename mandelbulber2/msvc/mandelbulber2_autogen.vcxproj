@@ -59,7 +59,7 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <SourceDir>$(MSBuildThisFileDirectory)../..//</SourceDir>
     <OutDir>$(SourceDir)build-win\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SourceDir)build-win\mandelbulber2.dir\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(SourceDir)build-win\mandelbulber2_autogen.dir\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

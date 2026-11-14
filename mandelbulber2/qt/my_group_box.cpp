@@ -109,15 +109,15 @@ bool MyGroupBox::GetDefault()
 void MyGroupBox::slotToggled(bool on) const
 {
 	QList<QWidget *> list = findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-	for (auto &widget : list)
+	for (auto &child : list)
 	{
 		if (on)
 		{
-			widget->show();
+			child->show();
 		}
 		else
 		{
-			widget->hide();
+			child->hide();
 		}
 	}
 }
@@ -154,9 +154,9 @@ void MyGroupBox::slotResetAllToDefault()
 {
 	QList<QWidget *> listOfWidgets = findChildren<QWidget *>();
 
-	foreach (QWidget *widget, listOfWidgets)
+	foreach (QWidget *child, listOfWidgets)
 	{
-		CommonMyWidgetWrapper *myWidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
+		CommonMyWidgetWrapper *myWidget = dynamic_cast<CommonMyWidgetWrapper *>(child);
 		if (myWidget)
 		{
 			myWidget->resetToDefault();

@@ -66,7 +66,7 @@ void cTextureCache::AddToCache(cTexture *tex)
 	{
 		cTexture *textureCopy = new cTexture(*tex);
 
-		int cost = tex->GetMemorySize() / 1024;
+		int cost = int(tex->GetMemorySize() / 1024);
 		cache.insert(filename, textureCopy, cost);
 	}
 	mutex.unlock();

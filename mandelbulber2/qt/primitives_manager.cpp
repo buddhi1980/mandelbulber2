@@ -405,8 +405,8 @@ void cPrimitivesManager::slotChangedCurrentTab(int index)
 			item.append(currentPrimitiveItem.id);
 			item.append(currentPrimitiveItem.fullName); // light number
 
-			int index = mouseFunctionComboWidget->findData(item);
-			mouseFunctionComboWidget->setCurrentIndex(index);
+			int itemIndex = mouseFunctionComboWidget->findData(item);
+			mouseFunctionComboWidget->setCurrentIndex(itemIndex);
 			renderedImageWidget->setClickMode(item);
 		}
 	}

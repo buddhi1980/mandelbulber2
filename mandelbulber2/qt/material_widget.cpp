@@ -116,26 +116,26 @@ void cMaterialWidget::InitializeData()
 		QElapsedTimer timerAssignData;
 		timerAssignData.start();
 
-		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
-		std::shared_ptr<cFractalContainer> fractal(new cFractalContainer());
-		fractal->resize(1);
+		std::shared_ptr<cParameterContainer> newParams(new cParameterContainer());
+		std::shared_ptr<cFractalContainer> newFractal(new cFractalContainer());
+		newFractal->resize(1);
 
-		params->SetContainerName("material");
-		InitParams(params);
-		InitNodeParams(1, params);
+		newParams->SetContainerName("material");
+		InitParams(newParams);
+		InitNodeParams(1, newParams);
 
-		for (int i = 0; i < fractal->size(); i++)
+		for (int i = 0; i < newFractal->size(); i++)
 		{
-			fractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
-			InitFractalParams(fractal->at(i));
+			newFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+			InitFractalParams(newFractal->at(i));
 		}
-		InitMaterialParams(1, params);
-		InitLightParams(1, params);
-		params->Set("objects_tree_enable", true);
-		params->Set("node_0001_definition",
+		InitMaterialParams(1, newParams);
+		InitLightParams(1, newParams);
+		newParams->Set("objects_tree_enable", true);
+		newParams->Set("node_0001_definition",
 			QString("fractal preview,1,%1,0,1,0").arg(int(enumNodeType::fractal)));
-		params->Set("node_0001_material", 1);
-		fractal->at(0)->Set("formula", int(fractal::mandelbulb));
+		newParams->Set("node_0001_material", 1);
+		newFractal->at(0)->Set("formula", int(fractal::mandelbulb));
 
 		if (paramsCopy.IfExists(cMaterial::Name("is_defined", actualMaterialIndex)))
 		{
@@ -145,40 +145,40 @@ void cMaterialWidget::InitializeData()
 			{
 				cOneParameter parameter = paramsCopy.GetAsOneParameter(
 					cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
-				params->SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
+				newParams->SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
 			}
 
-			params->Set("camera", CVector3(1.5, -2.5, 0.7));
-			params->Set("raytraced_reflections", true);
-			params->Set("N", 3);
-			params->Set("DE_thresh", 0.1);
-			params->Set("constant_DE_threshold", true);
-			params->Set("node_0001_enabled", true);
-			params->Set("node_0001_formula_maxiter", 3);
-			fractal->at(0)->Set("power", 5);
-			fractal->at(0)->Set("formula_maxiter", 3);
-			params->Set("textured_background", true);
-			params->Set("file_background",
+			newParams->Set("camera", CVector3(1.5, -2.5, 0.7));
+			newParams->Set("raytraced_reflections", true);
+			newParams->Set("N", 3);
+			newParams->Set("DE_thresh", 0.1);
+			newParams->Set("constant_DE_threshold", true);
+			newParams->Set("node_0001_enabled", true);
+			newParams->Set("node_0001_formula_maxiter", 3);
+			newFractal->at(0)->Set("power", 5);
+			newFractal->at(0)->Set("formula_maxiter", 3);
+			newParams->Set("textured_background", true);
+			newParams->Set("file_background",
 				QDir::toNativeSeparators(
 					systemDirectories.sharedDir + "textures" + QDir::separator() + "grid.png"));
-			params->Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
-			params->Set("mat1_displacement_texture_height", 0.01);
-			params->Set("light1_is_defined", true);
+			newParams->Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
+			newParams->Set("mat1_displacement_texture_height", 0.01);
+			newParams->Set("light1_is_defined", true);
 		}
 		else
 		{
-			params->Set("camera", CVector3(1.5, -2.5, 0.7));
-			params->Set("node_0001_enabled", false);
-			params->Set("textured_background", true);
-			params->Set("file_background",
+			newParams->Set("camera", CVector3(1.5, -2.5, 0.7));
+			newParams->Set("node_0001_enabled", false);
+			newParams->Set("textured_background", true);
+			newParams->Set("file_background",
 				QDir::toNativeSeparators(systemDirectories.sharedDir + "textures" + QDir::separator()
 																 + "material is not defined.png"));
-			params->Set("textured_background_map_type", int(params::mapFlat));
+			newParams->Set("textured_background_map_type", int(params::mapFlat));
 		}
 
 		// call parent assignation
 		// maybe disable preview saving, to not pollute hard drive?
-		AssignParameters(params, fractal);
+		AssignParameters(newParams, newFractal);
 		update();
 		timeAssignData = timerAssignData.nsecsElapsed() / 1e9;
 
@@ -233,10 +233,10 @@ void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 {
 	cSettings settings(cSettings::formatCondensedText);
 	settings.LoadFromString(text);
-	std::shared_ptr<cParameterContainer> params(new cParameterContainer);
-	InitMaterialParams(materialIndex, params);
-	settings.Decode(params, nullptr);
-	AssignMaterial(params, materialIndex);
+	std::shared_ptr<cParameterContainer> newParams(new cParameterContainer);
+	InitMaterialParams(materialIndex, newParams);
+	settings.Decode(newParams, nullptr);
+	AssignMaterial(newParams, materialIndex);
 }
 
 void cMaterialWidget::slotMaterialChanged()

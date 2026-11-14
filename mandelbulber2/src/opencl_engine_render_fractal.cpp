@@ -84,20 +84,6 @@
 #include "../opencl/mesh_export_data_cl.h"
 #endif
 
-static QByteArray StripNonAscii(const QByteArray &data)
-{
-	QByteArray result;
-	result.reserve(data.size());
-	for (char c : data)
-	{
-		if (static_cast<unsigned char>(c) < 128)
-		{
-			result.append(c);
-		}
-	}
-	return result;
-}
-
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
@@ -241,7 +227,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
 		if (placeholderPos >= 0)
 		{
-			int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+			int placeholderLen = int(strlen("// PLACEHOLDER_FOR_FORMULA_ITER"));
 			programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
 		}
 	}
@@ -1454,7 +1440,7 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setReservedGpuTime(reservedGpuTime);
 		workers[d]->setFullEngineFlag(bool(renderEngineMode == clRenderEngineTypeFull));
 		workers[d]->setMaxWorkgroupSize(
-			hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize);
+			int(hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize));
 		workers[d]->setSettingsFile(settingsFile);
 		// stating threads
 		workers[d]->moveToThread(threads[d].get());
@@ -1682,7 +1668,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 					// paint pixel with zero contribution
 					if (data.in->useDenoiser)
 					{
-						data.denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
+						data.denoiser->UpdatePixel(int(xx), int(yy), image->GetPixelImage(xx, yy),
 							image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
 					}
 
@@ -1750,7 +1736,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				// update denoiser
 				if (data.in->useDenoiser)
 				{
-					data.denoiser->UpdatePixel(xx, yy, newPixel, zDepth, noise);
+					data.denoiser->UpdatePixel(int(xx), int(yy), newPixel, zDepth, noise);
 				}
 
 				// accumulate noise statistics

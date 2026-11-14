@@ -54,24 +54,24 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 	{
 		case light:
 			maxBlurRadius = 5.0;
-			minBlurRadius = 0.4;
-			maxMedianSize = 1.1f;
+			minBlurRadius = 0.4f;
+			maxMedianSize = 1;
 			noiseMultiplier = 2500.0;
 			zDepthFilterfactor = 100.0;
 			normalFilterFactor = 10.0;
 			break;
 		case medium:
 			maxBlurRadius = 10.0;
-			minBlurRadius = 0.6;
-			maxMedianSize = 2.0;
+			minBlurRadius = 0.6f;
+			maxMedianSize = 2;
 			noiseMultiplier = 5000.0;
 			zDepthFilterfactor = 100.0;
 			normalFilterFactor = 10.0;
 			break;
 		case strong:
 			maxBlurRadius = 15.0;
-			minBlurRadius = 0.7;
-			maxMedianSize = 4.0;
+			minBlurRadius = 0.7f;
+			maxMedianSize = 4;
 			noiseMultiplier = 15000.0;
 			zDepthFilterfactor = 10.0;
 			normalFilterFactor = 3.0;
@@ -79,7 +79,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case extreme:
 			maxBlurRadius = 30.0;
 			minBlurRadius = 1.0;
-			maxMedianSize = 6.0;
+			maxMedianSize = 6;
 			noiseMultiplier = 30000.0;
 			zDepthFilterfactor = 7.0;
 			normalFilterFactor = 3.0;
@@ -163,8 +163,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			{
 				for (int dx = -delta; dx <= delta; dx++)
 				{
-					int fx = xx + dx;
-					int fy = yy + dy;
+					int fx = int(xx) + dx;
+					int fy = int(yy) + dy;
 
 					// check image boundaries
 					if (fx >= 0 && fx < width && fy >= 0 && fy < height)
@@ -325,8 +325,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				{
 					for (int dx = -delta; dx <= delta; dx++)
 					{
-						int fx = xx + dx;
-						int fy = yy + dy;
+						int fx = int(xx) + dx;
+						int fy = int(yy) + dy;
 
 						if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 						{

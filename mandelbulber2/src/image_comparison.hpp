@@ -48,7 +48,7 @@ struct sImageMeasures
 	double meanAbsDiff = 0.0;		// mean absolute channel difference, 0..255
 	double meanAbsDiff4x = 0.0; // the same, 4x downscaled
 	double bigDiffShare = 0.0;	// share of pixels whose largest channel difference exceeds 32
-	double psnr = 0.0;					// dB, infinity when the images are identical
+	double psnr = 0.0;					// dB, identicalPsnr when the images are identical
 	double psnr4x = 0.0;				// dB, 4x downscaled
 	double ssim = 1.0;					// mean structural similarity of luminance
 	double ssim4x = 1.0;				// the same, 4x downscaled
@@ -66,6 +66,10 @@ struct sImageValidity
 	QString reason;
 };
 
+// PSNR of two identical images, which is infinite in theory. Builds use -ffast-math, which assumes
+// that no value is infinite, so a finite value far above any real PSNR stands for it.
+constexpr double identicalPsnr = 1000.0; // dB
+
 // Limits. Renders are not reproducible: random sampling makes two renders of one scene by one
 // build differ, by a little in most scenes and by a lot in Monte Carlo scenes. So every scene is
 // rendered twice by the "before" build, and the measures of that pair are the scene's noise.
@@ -81,7 +85,11 @@ namespace regressionThresholds
 constexpr double noiseMargin = 3.0;
 
 // Floors: the least strict limit a measure can get. Each is about twice the largest noise
-// measured in the scenes that have no Monte Carlo sampling.
+// measured in the scenes that have no Monte Carlo sampling. PSNR, SSIM, the edge F1 score and
+// the shape IoU get more room than that: when the "before" pair of a scene happens to be almost
+// identical, its limits are the floors, and renders of unchanged code then fell just below them
+// on CI runners (formula__testing_log: ssim 0.989 and edgeF1 0.964 under floors of 0.99 and
+// 0.97; formula__transf_de_linear_cube: shapeIoU 0.971 to 0.981 under a floor of 0.99).
 constexpr double floorMeanShift = 0.5; // of 255; noise there is below 0.3
 
 // The mean shift between two renders of unchanged code is the mean of their pixel noise, so it
@@ -93,12 +101,12 @@ constexpr double meanShiftNoiseFactor = 40.0;
 constexpr double floorMeanAbsDiff = 1.0;		// of 255
 constexpr double floorMeanAbsDiff4x = 0.5;	// of 255
 constexpr double floorBigDiffShare = 0.005; // half a percent of the pixels
-constexpr double floorPsnr = 38.0;					// dB; a limit is never above this (noise: 40 dB)
+constexpr double floorPsnr = 35.0;					// dB; a limit is never above this (noise: 40 dB)
 constexpr double floorPsnr4x = 46.0;				// dB (noise: 51 dB)
-constexpr double floorSsim = 0.99;					// a limit is never above this
+constexpr double floorSsim = 0.98;					// a limit is never above this (noise: 0.995)
 constexpr double floorSsim4x = 0.995;
-constexpr double floorEdgeF1 = 0.97;
-constexpr double floorShapeIoU = 0.99;
+constexpr double floorEdgeF1 = 0.94;
+constexpr double floorShapeIoU = 0.96;
 
 // validity of a single image
 constexpr double minLumaStdDev = 2.0;		 // of 255; a flat image is below this

@@ -77,8 +77,8 @@ void cFractalMsltoeSym3Mod4::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		}
 		else
 		{
-			CVector4 temp = z;
-			double tempL = temp.Length();
+			CVector4 zCopy = z;
+			double tempL = zCopy.Length();
 			z *= CVector4(1.0, 2.0, 2.0, 1.0);
 			double avgScale = z.Length() / tempL;
 			aux.DE *= avgScale;

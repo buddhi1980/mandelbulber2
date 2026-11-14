@@ -72,7 +72,7 @@ public:
 	{
 		return allPrimitives[index];
 	}
-	int GetNumberOfPrimivives() const { return allPrimitives.size(); }
+	int GetNumberOfPrimivives() const { return int(allPrimitives.size()); }
 	static QList<sPrimitiveItem> GetListOfPrimitives(const std::shared_ptr<cParameterContainer> par);
 	static QList<QString> GetListOfPrimitiveParams(
 		const sPrimitiveItem &item, const std::shared_ptr<cParameterContainer> par);

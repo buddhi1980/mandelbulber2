@@ -34,8 +34,12 @@
 
 #include "old_settings.hpp"
 
+#include <cctype>
+#include <cstdlib>
+
 #include "camera_target.hpp"
 #include "color_gradient.h"
+#include "crt_portable.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
@@ -82,6 +86,44 @@ bool cOldSettings::LoadSettings(const QString &filename)
 	return LoadSettings2(filename);
 }
 
+namespace
+{
+// Reads the longest run of characters that match the predicate, like fscanf(file, "%[...]", buffer)
+// but limited to the size of the buffer. Leaves the buffer as it was when nothing matches.
+template <typename Predicate>
+bool ReadWhile(FILE *file, char *buffer, size_t bufferSize, Predicate match)
+{
+	size_t length = 0;
+	int ch;
+	while ((ch = getc(file)) != EOF && match(ch))
+	{
+		if (length + 1 < bufferSize) buffer[length++] = char(ch);
+	}
+	if (ch != EOF) ungetc(ch, file);
+	if (length == 0) return false;
+	buffer[length] = '\0';
+	return true;
+}
+
+// Reads a word after any white space, like fscanf(file, "%s", buffer), limited to the buffer
+bool ReadWord(FILE *file, char *buffer, size_t bufferSize)
+{
+	int ch;
+	while ((ch = getc(file)) != EOF && isspace(ch))
+	{
+	}
+	if (ch == EOF) return false;
+	ungetc(ch, file);
+	return ReadWhile(file, buffer, bufferSize, [](int c) { return !isspace(c); });
+}
+
+// Copies a string like strcpy(), cut to the size of the destination
+void CopyString(char *destination, size_t destinationSize, const char *source)
+{
+	snprintf(destination, destinationSize, "%s", source);
+}
+} // namespace
+
 bool cOldSettings::LoadSettings2(const QString &filename)
 {
 	paletteLoadedFromSettingsFile = false;
@@ -90,7 +132,7 @@ bool cOldSettings::LoadSettings2(const QString &filename)
 	char str2[2000];
 
 	FILE *fileSettings;
-	fileSettings = fopen(filename.toLocal8Bit(), "r");
+	fileSettings = OpenFile(filename.toLocal8Bit(), "r");
 
 	// lineCounter tracks progress only; currently not read anywhere
 	[[maybe_unused]] int lineCounter = 0;
@@ -102,14 +144,13 @@ bool cOldSettings::LoadSettings2(const QString &filename)
 		while (!feof(fileSettings))
 		{
 			lineCounter++;
-			int c = fscanf(fileSettings, "%s", str1);
-			if (c > 0)
+			if (ReadWord(fileSettings, str1, sizeof(str1)))
 			{
-				c = fscanf(fileSettings, "%[ ]", str2);
-				c = fscanf(fileSettings, "%[^;]", str2);
+				ReadWhile(fileSettings, str2, sizeof(str2), [](int ch) { return ch == ' '; });
+				ReadWhile(fileSettings, str2, sizeof(str2), [](int ch) { return ch != ';'; });
 
 				LoadOneSetting(str1, str2, oldData);
-				c = fscanf(fileSettings, "%[^\n]", str2);
+				ReadWhile(fileSettings, str2, sizeof(str2), [](int ch) { return ch != '\n'; });
 			}
 		}
 		fclose(fileSettings);
@@ -135,8 +176,7 @@ void cOldSettings::GetPaletteFromString(sRGB *palette, const char *paletteString
 	int index = 0;
 	for (int i = 0; i < 2000; i++)
 	{
-		int colour = 0;
-		sscanf(&paletteString[i], "%x", reinterpret_cast<unsigned int *>(&colour));
+		const int colour = int(strtoul(&paletteString[i], nullptr, 16));
 		sRGB rgbColour;
 		rgbColour.R = colour / 65536;
 		rgbColour.G = (colour / 256) % 256;
@@ -507,55 +547,55 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		{
 			for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 			{
-				sprintf(str3, "IFS_%d_x", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_x", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.direction[i].x = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_y", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_y", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.direction[i].y = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_z", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_z", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.direction[i].z = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_alfa", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_alfa", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.alfa[i] = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_beta", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_beta", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.beta[i] = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_gamma", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_gamma", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.gamma[i] = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_distance", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_distance", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.distance[i] = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_intensity", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_intensity", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.doubles.intensity[i] = atof2(str2);
 					break;
 				}
-				sprintf(str3, "IFS_%d_enabled", i);
+				snprintf(str3, sizeof(str3), "IFS_%d_enabled", i);
 				if (!strcmp(str1, str3))
 				{
 					params->fractal.IFS.enabled[i] = atoi(str2);
@@ -636,7 +676,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			char buf[100];
 			for (int component = 0; component < 3; ++component)
 			{
-				sprintf(buf, "mandelbox_rotation_main_%s", component_names[component]);
+				snprintf(buf, sizeof(buf), "mandelbox_rotation_main_%s", component_names[component]);
 				if (!strcmp(str1, buf))
 				{
 					params->fractal.mandelbox.doubles.rotationMain[component] = atof2(str2) / 180.0 * M_PI;
@@ -651,7 +691,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 				{
 					for (int component = 0; component < 3; ++component)
 					{
-						sprintf(buf, "mandelbox_rotation_%s%d_%s", axis_names[axis], fold + 1,
+						snprintf(buf, sizeof(buf), "mandelbox_rotation_%s%d_%s", axis_names[axis], fold + 1,
 							component_names[component]);
 						if (!strcmp(str1, buf))
 						{
@@ -873,17 +913,17 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "tile_no"))
 		params->tileCount = atoi(str2);
 	else if (!strcmp(str1, "file_destination"))
-		strcpy(params->file_destination, str2);
+		CopyString(params->file_destination, sizeof(params->file_destination), str2);
 	else if (!strcmp(str1, "file_background"))
-		strcpy(params->file_background, str2);
+		CopyString(params->file_background, sizeof(params->file_background), str2);
 	else if (!strcmp(str1, "file_envmap"))
-		strcpy(params->file_envmap, str2);
+		CopyString(params->file_envmap, sizeof(params->file_envmap), str2);
 	else if (!strcmp(str1, "file_lightmap"))
-		strcpy(params->file_lightmap, str2);
+		CopyString(params->file_lightmap, sizeof(params->file_lightmap), str2);
 	else if (!strcmp(str1, "file_animation_path"))
-		strcpy(params->file_path, str2);
+		CopyString(params->file_path, sizeof(params->file_path), str2);
 	else if (!strcmp(str1, "file_keyframes"))
-		strcpy(params->file_keyframes, str2);
+		CopyString(params->file_keyframes, sizeof(params->file_keyframes), str2);
 	else if (!strcmp(str1, "palette"))
 		GetPaletteFromString(params->palette, str2);
 	else
@@ -892,14 +932,14 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		char buf[100];
 		for (int i = 0; i < 5; ++i)
 		{
-			sprintf(buf, "volumetric_light_enabled_%d", i);
+			snprintf(buf, sizeof(buf), "volumetric_light_enabled_%d", i);
 			if (!strcmp(str1, buf))
 			{
 				params->volumetricLightEnabled[i] = atoi(str2);
 				matched = true;
 				break;
 			}
-			sprintf(buf, "volumetric_light_intensity_%d", i);
+			snprintf(buf, sizeof(buf), "volumetric_light_intensity_%d", i);
 			if (!strcmp(str1, buf))
 			{
 				params->doubles.volumetricLightIntensity[i] = atof2(str2);
@@ -910,21 +950,21 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 
 		for (int i = 1; i <= HYBRID_COUNT; ++i)
 		{
-			sprintf(buf, "hybrid_formula_%d", i);
+			snprintf(buf, sizeof(buf), "hybrid_formula_%d", i);
 			if (!strcmp(str1, buf))
 			{
 				params->fractal.hybridFormula[i - 1] = enumOldFractalFormula(atoi(str2));
 				matched = true;
 				break;
 			}
-			sprintf(buf, "hybrid_iterations_%d", i);
+			snprintf(buf, sizeof(buf), "hybrid_iterations_%d", i);
 			if (!strcmp(str1, buf))
 			{
 				params->fractal.hybridIters[i - 1] = atoi(str2);
 				matched = true;
 				break;
 			}
-			sprintf(buf, "hybrid_power_%d", i);
+			snprintf(buf, sizeof(buf), "hybrid_power_%d", i);
 			if (!strcmp(str1, buf))
 			{
 				params->fractal.doubles.hybridPower[i - 1] = atof2(str2);

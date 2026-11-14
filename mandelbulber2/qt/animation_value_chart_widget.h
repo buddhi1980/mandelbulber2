@@ -62,7 +62,7 @@ private:
 	double min = 0.0;
 	double max = 1.0;
 
-	const float margin = 0.1;
+	const float margin = 0.1f;
 
 	QList<sKeyframeButton> keyButtons;
 

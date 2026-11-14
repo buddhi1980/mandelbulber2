@@ -29,20 +29,6 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
-static QByteArray StripNonAscii(const QByteArray &data)
-{
-	QByteArray result;
-	result.reserve(data.size());
-	for (char c : data)
-	{
-		if (static_cast<unsigned char>(c) < 128)
-		{
-			result.append(c);
-		}
-	}
-	return result;
-}
-
 cOpenClEngineRenderNebula::cOpenClEngineRenderNebula(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
@@ -272,7 +258,7 @@ bool cOpenClEngineRenderNebula::LoadSourcesAndCompile(
 			int placeholderPos = programEngine.indexOf("// PLACEHOLDER_FOR_FORMULA_ITER");
 			if (placeholderPos >= 0)
 			{
-				int placeholderLen = strlen("// PLACEHOLDER_FOR_FORMULA_ITER");
+				int placeholderLen = int(strlen("// PLACEHOLDER_FOR_FORMULA_ITER"));
 				programEngine.replace(placeholderPos, placeholderLen, formulaSwitchCode);
 			}
 		}
@@ -450,7 +436,7 @@ bool cOpenClEngineRenderNebula::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	cl_int4 randomSeed4 = {std::rand(), std::rand(), std::rand(), std::rand()};
+	cl_int4 randomSeed4 = {{std::rand(), std::rand(), std::rand(), std::rand()}};
 	err = clKernels.at(deviceIndex)->setArg(argIterator++, randomSeed4); // random seed
 	if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 	{
@@ -505,7 +491,7 @@ bool cOpenClEngineRenderNebula::Render(std::shared_ptr<cImage> image, bool *stop
 		for (quint64 x = 0; x < width; x++)
 		{
 			quint64 i = x + y * width;
-			cl_float4 black = {0.0f, 0.0f, 0.0f, 0.0f};
+			cl_float4 black = {{0.0f, 0.0f, 0.0f, 0.0f}};
 
 			reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][inOutImageBufferIndex].ptr.get())[i] =
 				black;

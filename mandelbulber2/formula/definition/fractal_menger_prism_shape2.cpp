@@ -222,10 +222,10 @@ void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal
 		z.z = fabs(z.z);
 
 		double dot2 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scaleF1;
-		double t = max(0.0, dot2);
+		double t2 = max(0.0, dot2);
 
-		z.x -= t * -SQRT_3;
-		z.y = fabs(z.y - t);
+		z.x -= t2 * -SQRT_3;
+		z.y = fabs(z.y - t2);
 
 		if (z.y > z.z) swap(z.y, z.z);
 

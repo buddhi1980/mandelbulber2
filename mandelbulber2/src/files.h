@@ -64,6 +64,7 @@ QString FilePathHelperTextures(const QString &path);
 QString FilePathHelperSounds(const QString &path);
 QString FilePathHelperDoc(const QString &fileName);
 QByteArray LoadUtf8TextFromFile(const QString &fileName);
+QByteArray StripNonAscii(const QByteArray &data);
 QString AnimatedFileName(
 	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);
 bool fileTouch(const QString &filePath);

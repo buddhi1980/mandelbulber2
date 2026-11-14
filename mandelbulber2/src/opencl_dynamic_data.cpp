@@ -901,7 +901,7 @@ void cOpenClDynamicData::BuildObjectsData(const std::vector<cObjectData> *object
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[objectsItemIndex].itemOffset = totalDataOffset;
 
-	cl_int numberOfObjects = objectData->size();
+	cl_int numberOfObjects = cl_int(objectData->size());
 	data.append(reinterpret_cast<char *>(&numberOfObjects), sizeof(numberOfObjects));
 	totalDataOffset += sizeof(numberOfObjects);
 
@@ -965,7 +965,7 @@ void cOpenClDynamicData::BuildNodesData(
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[nodesItemIndex].itemOffset = totalDataOffset;
 
-	cl_int numberOfNodes = nodesData->size();
+	cl_int numberOfNodes = cl_int(nodesData->size());
 	data.append(reinterpret_cast<char *>(&numberOfNodes), sizeof(numberOfNodes));
 	totalDataOffset += sizeof(numberOfNodes);
 
@@ -1210,12 +1210,12 @@ void cOpenClDynamicData::BuildNebulaSequenceData(const cHybridFractalSequences *
 		seqCl.bailout =
 			static_cast<cl_float>(seq->fractData.size() > 0 ? seq->fractData[0].bailout : 0.0);
 		seqCl.juliaEnabled = seq->juliaEnabled ? 1 : 0;
-		seqCl.juliaConstant = cl_float4{static_cast<cl_float>(seq->juliaConstant.x),
+		seqCl.juliaConstant = cl_float4{{static_cast<cl_float>(seq->juliaConstant.x),
 			static_cast<cl_float>(seq->juliaConstant.y), static_cast<cl_float>(seq->juliaConstant.z),
-			0.0f};
-		seqCl.constantMultiplier = cl_float4{static_cast<cl_float>(seq->constantMultiplier.x),
+			0.0f}};
+		seqCl.constantMultiplier = cl_float4{{static_cast<cl_float>(seq->constantMultiplier.x),
 			static_cast<cl_float>(seq->constantMultiplier.y),
-			static_cast<cl_float>(seq->constantMultiplier.z), 0.0f};
+			static_cast<cl_float>(seq->constantMultiplier.z), 0.0f}};
 		seqCl.initialWAxis = static_cast<cl_float>(seq->initialWAxis);
 		seqCl.useAdditionalBailoutCond =
 			seq->fractData.size() > 0 ? (seq->fractData[0].useAdditionalBailoutCond ? 1 : 0) : 0;

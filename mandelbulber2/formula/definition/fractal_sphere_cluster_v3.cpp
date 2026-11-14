@@ -203,8 +203,8 @@ void cFractalSphereClusterV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 		double m = minr * k;
 		t = 1.0 / m;
-		CVector3 tv = p - mid * l;
-		double dist = tv.Length();
+		CVector3 tvL = p - mid * l;
+		double dist = tvL.Length();
 		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{
 			p -= mid * l;

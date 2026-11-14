@@ -156,10 +156,10 @@ IF(USE_OFFLOAD)
 	add_definitions(-DUSE_OFFLOAD=1)
 ENDIF()
 
-# Check if we are using the Visual Studio compiler on windows,
-# disable CRT warnings for libc functions marked as insecure
+# MSVC: calls of strcpy(), strncpy() and the like with a fixed-size array as the destination
+# use the bounds-checked variants (secure template overloads), as in OpenEXR 2 headers
 IF(WIN32 AND MSVC AND NOT USING_INTEL)
-	add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
+	add_definitions(-D_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1 -D_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT=1)
 ENDIF()
 
 # Installation

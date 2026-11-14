@@ -36,16 +36,6 @@
 #ifndef MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_
 #define MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_
 
-#if defined(_MSC_VER)
-#pragma warning(push)
-// MSVC defines math constants elsewhere, do not warn about the
-// redefinition in math.h
-#pragma warning(disable : 4005) // macro redefinition
-
-// MSVC declares 'clEnqueueTask' deprecated in cl.h/hpp
-#pragma warning(disable : 4996) // declared deprecated
-#endif													// _MSC_VER
-
 // custom includes
 #ifdef USE_OPENCL
 
@@ -92,10 +82,6 @@
 
 // include math header here with opencl
 #include <cmath>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif // _MSC_VER
 
 #if defined(__OPENCL_VERSION__)
 #define ALIGN16 __attribute__((aligned(16)))

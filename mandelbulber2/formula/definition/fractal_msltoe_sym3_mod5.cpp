@@ -96,8 +96,8 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		}
 		else
 		{
-			CVector4 temp = z;
-			double tempL = temp.Length();
+			CVector4 zCopy = z;
+			double tempL = zCopy.Length();
 			z *= CVector4(1.0, 2.0, 2.0, 1.0);
 			// if (tempL < 1e-21)
 			//	tempL = 1e-21;

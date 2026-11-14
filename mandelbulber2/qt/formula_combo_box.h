@@ -55,9 +55,9 @@ class cFormulaComboBox : public QComboBox, public CommonMyWidgetWrapper
 public:
 	explicit cFormulaComboBox(QWidget *parent = nullptr);
 	~cFormulaComboBox() override;
-	void setModel(QAbstractItemModel *model);
+	void setModel(QAbstractItemModel *model) override;
 	void setModelColumn(int visibleColumn);
-	void populateItemsFromFractalList(QList<cAbstractFractal *> fractalList,
+	void populateItemsFromFractalList(QList<cAbstractFractal *> fractals,
 		QList<QPair<int, QString> /* */> insertHeader, int randomSeedForColors);
 
 	void resetToDefault() override;

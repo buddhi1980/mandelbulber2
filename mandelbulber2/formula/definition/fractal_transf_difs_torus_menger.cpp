@@ -199,8 +199,8 @@ void cFractalTransfDIFSTorusMenger::FormulaCode(
 
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
-			double ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0 * M_PI_2x_INV;
-			if (fmod(ang, 2.0) < 1.0) addCol += fractal->foldColor.difs0000.z;
+			double angCol = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0 * M_PI_2x_INV;
+			if (fmod(angCol, 2.0) < 1.0) addCol += fractal->foldColor.difs0000.z;
 			else addCol += fractal->foldColor.difs0000.w;
 		}
 		else

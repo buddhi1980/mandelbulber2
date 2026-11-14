@@ -67,7 +67,7 @@ cLightWidget::cLightWidget(QWidget *parent) : QWidget(parent)
 {
 	size = systemData.GetPreferredThumbnailSize() * 0.7;
 	// SetLightAngle(CVector3(0.0, 0.5, 0.5), sRGBFloat(0.9, 0.4, 0.1));
-	SetLightColor(sRGBFloat(0.9, 0.4, 0.1));
+	SetLightColor(sRGBFloat(0.9f, 0.4f, 0.1f));
 	setMinimumWidth(size);
 	setMinimumHeight(size);
 	updateGeometry();

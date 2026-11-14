@@ -40,6 +40,7 @@
 
 #include <QTextStream>
 
+#include "crt_portable.hpp"
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
@@ -193,7 +194,7 @@ bool InitSystem()
 #else
 	systemData.logfileName = systemDirectories.homeDir + ".mandelbulber_log.txt";
 #endif
-	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
+	FILE *logfile = OpenFile(systemData.logfileName.toLocal8Bit().constData(), "w");
 	if (logfile)
 	{
 		fclose(logfile);

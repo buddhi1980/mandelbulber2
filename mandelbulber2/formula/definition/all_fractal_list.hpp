@@ -106,6 +106,6 @@ extern QList<sFractalDescription> fractalList;
 
 extern QList<cAbstractFractal *> newFractalList;
 
-void DefineFractalList(QList<cAbstractFractal *> *fractalList);
+void DefineFractalList(QList<cAbstractFractal *> *fractals);
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_LIST_HPP_ */

@@ -116,7 +116,7 @@ public:
 		return (seqIndex >= 0 && seqIndex < static_cast<int>(sequences.size())) ? &sequences[seqIndex]
 																																						: nullptr;
 	}
-	int GetNumberOfSequences() const { return sequences.size(); };
+	int GetNumberOfSequences() const { return int(sequences.size()); };
 	static int GetIndexOnFractalListStatic(fractal::enumFractalFormula formula);
 
 private:

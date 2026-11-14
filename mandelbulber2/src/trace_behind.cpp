@@ -118,7 +118,7 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
 		const sDistanceIn in(point, 0, false);
 		sDistanceOut out;
 
-		double distance;
+		double distance = 0.0;
 		if (openClEnabled)
 		{
 #ifdef USE_OPENCL

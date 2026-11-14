@@ -77,10 +77,6 @@ sFractalColoring::sFractalColoring()
 	coloringAlgorithm = fractalColoring_None;
 	iStartValue = 0;
 
-	CVector3 lineDirection;
-	CVector3 xyz000;
-	CVector3 xyzC111;
-
 	addMax = 0.0;
 	addSpread = 0.0;
 	addStartValue = 0.0;

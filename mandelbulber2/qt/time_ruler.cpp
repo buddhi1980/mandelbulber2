@@ -139,7 +139,7 @@ int cTimeRuler::FindKeyAtPosition(int mouseX)
 	{
 		if (mouseX > framesIndexesTable[key] - 2 && mouseX < framesIndexesTable[key] + 2)
 		{
-			return key;
+			return int(key);
 		}
 	}
 	return -1;

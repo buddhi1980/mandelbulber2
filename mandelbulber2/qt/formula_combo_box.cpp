@@ -113,14 +113,14 @@ void cFormulaComboBox::setModel(QAbstractItemModel *model)
 	completer->setModel(pFilterModel);
 }
 
-void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fractalList,
+void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fractals,
 	QList<QPair<int, QString> /* */> insertHeader, int randomSeedForColors)
 {
 	clear();
-	for (int f = 0; f < fractalList.size(); f++)
+	for (int f = 0; f < fractals.size(); f++)
 	{
-		addItem(GetIconFromCache(QString::fromStdString(fractalList[f]->getIconName())),
-			QString::fromStdString(fractalList[f]->getNameInComboBox()), f);
+		addItem(GetIconFromCache(QString::fromStdString(fractals[f]->getIconName())),
+			QString::fromStdString(fractals[f]->getNameInComboBox()), f);
 	}
 
 	// set headings and separator of formulas and transforms
@@ -144,9 +144,9 @@ void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fr
 	{
 		QPair<int, QString> header = insertHeader.at(hIndex);
 		int comboIndex = -1;
-		for (int fIndex = 0; fIndex < fractalList.size(); fIndex++)
+		for (int fIndex = 0; fIndex < fractals.size(); fIndex++)
 		{
-			if (fractalList.at(fIndex)->getInternalId() == header.first)
+			if (fractals.at(fIndex)->getInternalId() == header.first)
 			{
 				// should be fIndex, but every new header inserts two new items, which have to be added
 				comboIndex = fIndex + 2 * hIndex;

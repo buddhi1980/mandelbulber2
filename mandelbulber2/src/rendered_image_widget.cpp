@@ -204,8 +204,8 @@ void RenderedImage::DisplayCoordinates()
 	QBrush brushDarkBlue(QColor(0, 0, 100));
 
 	QString text;
-	enumClickMode clickMode = enumClickMode(clickModeData.at(0).toInt());
-	switch (clickMode)
+	enumClickMode newClickMode = enumClickMode(clickModeData.at(0).toInt());
+	switch (newClickMode)
 	{
 		case clickMoveCamera:
 		{
@@ -267,7 +267,7 @@ void RenderedImage::DisplayCoordinates()
 		case clickWrapLimitsAroundObject: text = tr("Wrap limits\naround object"); break;
 	}
 
-	if (clickMode != clickDoNothing)
+	if (newClickMode != clickDoNothing)
 	{
 		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, text);
 		textRect.setHeight(textRect.height() + 2);
@@ -285,7 +285,7 @@ void RenderedImage::DisplayCoordinates()
 	}
 
 	QString textCoordinates;
-	if (clickMode != clickFlightSpeedControl)
+	if (newClickMode != clickFlightSpeedControl)
 	{
 		textCoordinates += "x: " + QString::number(lastCoordinates.x, 'g', 15);
 		textCoordinates += "\ny: " + QString::number(lastCoordinates.y, 'g', 15);
@@ -1573,17 +1573,17 @@ void RenderedImage::DisplayAllLights()
 
 							line3D(light.position - CVector3(sizeFactor, 0.0, 0.0),
 								light.position + CVector3(sizeFactor, 0.0, 0.0), camera, target, mRotInv,
-								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 20,
 								1);
 
 							line3D(light.position - CVector3(0.0, sizeFactor, 0.0),
 								light.position + CVector3(0.0, sizeFactor, 0.0), camera, target, mRotInv,
-								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 20,
 								1);
 
 							line3D(light.position - CVector3(0.0, 0.0, sizeFactor),
 								light.position + CVector3(0.0, 0.0, sizeFactor), camera, target, mRotInv,
-								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 20,
 								1);
 						}
 
@@ -1597,7 +1597,7 @@ void RenderedImage::DisplayAllLights()
 									sin((s == 0) ? light.coneAngle : light.coneAngle + light.coneSoftAngle);
 
 								sRGBFloat opacity =
-									((s == 0) ? sRGBFloat(0.7, 0.7, 0.7) : sRGBFloat(0.2, 0.2, 0.2));
+									((s == 0) ? sRGBFloat(0.7f, 0.7f, 0.7f) : sRGBFloat(0.2f, 0.2f, 0.2f));
 
 								for (int i = 0; i < 9; i++)
 								{
@@ -1662,24 +1662,24 @@ void RenderedImage::DisplayAllLights()
 								CVector3 point4 = light.position + dx - dy + dz;
 
 								line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height,
-									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 								line3D(point2, point3, camera, target, mRotInv, perspectiveType, fov, width, height,
-									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 								line3D(point3, point4, camera, target, mRotInv, perspectiveType, fov, width, height,
-									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 								line3D(point4, point1, camera, target, mRotInv, perspectiveType, fov, width, height,
-									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 
 								if (i == 8)
 								{
 									line3D(point1, light.position, camera, target, mRotInv, perspectiveType, fov,
-										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 100, 1);
 									line3D(point2, light.position, camera, target, mRotInv, perspectiveType, fov,
-										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 100, 1);
 									line3D(point3, light.position, camera, target, mRotInv, perspectiveType, fov,
-										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 100, 1);
 									line3D(point4, light.position, camera, target, mRotInv, perspectiveType, fov,
-										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										width, height, color, thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 100, 1);
 								}
 
 							} // for i
@@ -1721,7 +1721,7 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 				CVector3 point1 = localToWorld.TransformPoint(p1);
 				CVector3 point2 = localToWorld.TransformPoint(p2);
 				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+					thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 			}
 			{
 				CVector3 p1(x1, y1, tz1);
@@ -1729,7 +1729,7 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 				CVector3 point1 = localToWorld.TransformPoint(p1);
 				CVector3 point2 = localToWorld.TransformPoint(p2);
 				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+					thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 			}
 		}
 	}
@@ -1809,7 +1809,7 @@ void RenderedImage::DisplayAllPrimitives()
 			CVector3 point2 = localToWorld.TransformPoint(line.p2 * primitive->size);
 
 			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
-				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+				thickness, sRGBFloat(0.7f, 0.7f, 0.7f), 10, 1);
 		}
 	}
 }
@@ -1870,7 +1870,7 @@ void RenderedImage::DrawObjectOriginCross(const cObjectsTree::sNodeDataForRender
 			CVector3 p1 = localToWorld.TransformPoint(corners[edges[e][0]]);
 			CVector3 p2 = localToWorld.TransformPoint(corners[edges[e][1]]);
 			line3D(p1, p2, camera, target, mRotInv, perspectiveType, fov, width, height, boxColor,
-				boxThickness, sRGBFloat(0.9, 0.9, 0.9), 10, 1);
+				boxThickness, sRGBFloat(0.9f, 0.9f, 0.9f), 10, 1);
 		}
 	}
 
@@ -1890,7 +1890,7 @@ void RenderedImage::DrawObjectOriginCross(const cObjectsTree::sNodeDataForRender
 		CVector3 p2 = localToWorld.TransformPoint(axisDir[a]);
 
 		line3D(p1, p2, camera, target, mRotInv, perspectiveType, fov, width, height, color, thickness,
-			sRGBFloat(0.9, 0.9, 0.9), 10, 1);
+			sRGBFloat(0.9f, 0.9f, 0.9f), 10, 1);
 	}
 }
 

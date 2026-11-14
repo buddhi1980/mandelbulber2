@@ -70,7 +70,7 @@ void cFractalMengerV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		int k = 0.0;
+		int k = 0;
 		double e = 0.0;
 		double rr = 0.0;
 		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
