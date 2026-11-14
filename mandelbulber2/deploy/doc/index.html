@@ -582,10 +582,13 @@ window.MathJax = {
 </ul>
 </li>
 <li>
-<a href="#8-8">8.8. Keyboard shortcuts</a>
+<a href="#8-8">8.8. Sweet spot angle</a>
 </li>
 <li>
-<a href="#8-9">8.9. Camera rotation in animations</a>
+<a href="#8-9">8.9. Keyboard shortcuts</a>
+</li>
+<li>
+<a href="#8-10">8.10. Camera rotation in animations</a>
 </li>
 </ul>
 </li>
@@ -1574,7 +1577,9 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 	<li><strong>Right mouse button</strong> rotates camera around indicated point by moving camera and target</li>
 	<li><strong>Middle button</strong> rotates camera by changing only the roll angle</li>
 	<li><strong>Left + right buttons</strong> moves camera and target relative to the indicated point</li>
-	<li><strong>Control key + mouse wheel</strong> moves camera forward/backward towards indicated point</li>
+	<li><strong>Mouse wheel</strong> moves the camera forward/backward towards the point under the cursor (when the <em>Mouse function</em> combo box is set to <em>Move the camera</em>, see section <a class="ref-link" href="#linear-camera-and-target-movement-modes-using-the-mouse-pointer">linear-camera-and-target-movement-modes-using-the-mouse-pointer</a>)</li>
+<p>The toolbar above the image contains a group of buttons which redefine these bindings: <em>Multi</em> (the default behaviour described above), <em>Rot</em>, <em>Roll</em>, <em>RotA</em> and <em>Move</em>. When one of the latter is active, dragging with <em>any</em> single mouse button performs the selected action, which is convenient when the button combination required by the default scheme is awkward to use. The <em>P</em> button (<em>precise rotations</em>) divides the size of every drag and wheel movement by ten, which allows fine positioning of the view.</p>
+<p>Dragging renders only a fast preview of the image. For comfortable interactive work enable <em>Auto-refresh</em>, select the <em>fast</em> <em>OpenCL mode</em> (chapter <a class="ref-link" href="#opencl">opencl</a>) and choose a <em>Temporary scale</em> (1/2 …\1/64) in the Navigation dock: the preview is then rendered with width and height divided by the selected factor, roughly  $N^2$  times faster, while the resolution of the saved image remains unchanged.</p>
 <h2 id='8-2'>8.2. Camera and Target movement step</h2><span id="camera-and-target-movement-step"></span>
 <p>The relationship between the camera point and the target point can be altered manually by changing the numbers in the edit fields, or by navigating with distance and rotation ``steps'' defined by the user.</p>
 <p>For rotations, the camera is moved by the parameter <strong>rotation step</strong> (default 15 degrees). For movements of the camera and/or the target in a linear direction, the parameter <strong>step</strong> (default 0.5) is used. There are two modes for its use:</p>
@@ -1590,10 +1595,10 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 <h2 id='8-3'>8.3. Linear camera and target movement modes using the arrow buttons</h2><span id="linear-camera-and-target-movement-modes-using-the-arrow-buttons"></span>
 <p>A user can navigate by operating the arrow buttons on the Navigation dock, with the user defined steps.</p>
 <p>The <em>Camera movement mode</em> parameter controls the relationship between camera and target during arrow key navigation. It has three modes:</p>
-	<li><strong>Fixed distance</strong> move camera and target together (default)</li>
+	<li><strong>Move camera and target</strong> move camera and target together, keeping a constant distance between them (default)</li>
 	<li><strong>Move camera</strong> move only camera</li>
 	<li><strong>Move target</strong> move only target</li>
-<p>These modes are available in the Navigation dock.</p>
+<p>These modes are available in the Navigation dock. The <em>Camera distance to target</em> edit field (next to the movement arrows) shows the current distance and allows to set it directly; in the <em>Move camera and target</em> and <em>Move camera</em> modes changing it moves the camera closer to or further from the target.</p>
 <h3 id='8-3-1'>8.3.1. Move camera and target mode</h3><span id="move-camera-and-target-mode"></span><span class="index-marker" data-index="navigation!camera"></span>
 <p><figure class="manual-figure"><img src="img/manual/media/move_camera_and_target.png" alt="img/manual/media/move_camera_and_target.png" style="max-width:50%; height:auto; display:block; margin:1em auto;" /><figcaption class="figcaption">Figure 8.1: Movement mode - camera and target</figcaption></figure></p>
 <p>Arrows move both the camera and the target by the same distance in the same direction. The angle of camera rotation does not change (figure <a class="ref-link" href="#move_camera_and_target">move_camera_and_target</a>).</p>
@@ -1605,8 +1610,8 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 <p>Moves only the target while maintaining a fixed camera position (figure <a class="ref-link" href="#move_target">move_target</a>). The camera rotates following the target.</p>
 <p><strong>Note:</strong> In Relative Step Mode, the target is moved by a distance related to the distance of target to fractal surface. If the target is inside the fractal (distance = 0), then this option will not work with Relative Step Mode.</p>
 <h2 id='8-4'>8.4. Linear camera and target movement modes using clicks on image</h2><span id="linear-camera-and-target-movement-modes-using-the-mouse-pointer"></span>
-<p>A user can move the camera by selecting a point on the image with the mouse pointer, and then using either left mouse button (move forward) or right button (move backward).</p>
-<p>This feature is controlled by the click mode setting. When click modes are enabled, clicking on the rendered image initiates camera movement toward the clicked point.</p>
+<p>A user can move the camera by selecting a point on the image with the mouse pointer, and then using either left mouse button (move forward) or right button (move backward). The mouse wheel works in the same way: rotating it moves the camera towards or away from the point under the cursor.</p>
+<p>This behaviour is selected by the <em>Mouse function</em> combo box in the toolbar above the image. When it is set to <em>Move the camera</em>, clicking on the rendered image initiates camera movement toward the clicked point. The combo box also offers non-navigation actions (setting fog visibility and depth-of-field focus, sampling the Julia constant and coordinates, placing lights, primitives and objects, wrapping render limits around an object) and the <em>Flight speed control</em> mode used to record flight animations (section <a class="ref-link" href="#flight-animation">flight-animation</a>).</p>
 <h3 id='8-4-1'>8.4.1. Move camera and target mode</h3><span id="move-camera-and-target-mode-1"></span>
 <p>The target is moved to the point selected by the mouse. The camera is moved towards selected point by a user defined step, and rotated.</p>
 <p>In relative step mode, the camera is moved by distance equals to <em>distance_to_indicated_point</em> multiplied by <em>step</em> parameter.</p>
@@ -1626,7 +1631,7 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 <p>Reset View zooms the camera out from the fractal while maintaining the camera's orientation (angles). The target is reset to  $0, 0, 0$  and the camera is positioned along the current forward vector at a distance calculated by scanning the fractal size in multiple random directions.</p>
 <p>If the rotations are changed to zero before using Reset View, the camera will then be zoomed out from the target, and rotated to look down the y axis.</p>
 <h2 id='8-7'>8.7. Calculation of rotation angle modes</h2><span id="calculation-of-rotation-angle-modes"></span>
-<p>The <em>Rotation mode</em> parameter (labeled in the Navigation dock) controls how rotation angles are calculated. It has two options:</p>
+<p>The combo box below the rotation arrows in the <em>Camera rotation</em> group of the Navigation dock controls how rotation angles are calculated. It has two options:</p>
 <h3 id='8-7-1'>8.7.1. Fixed roll angle</h3><span id="fixed-roll-angle"></span>
 <p>In this mode, the angle gamma (roll) is constant. Pan the camera left or right always takes place around the global vertical Z-axis (not the render window vertical axis).</p>
 <p>This mode can be likened to an aircraft's controls, where all turns are relative to the aircraft's axis, not the ground below. Rotate up / down raises / lowers the nose of the aircraft. Rotate left / right turns in the directions of the wings. Tilting the camera buttons</p>
@@ -1635,7 +1640,10 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 <h3 id='8-7-2'>8.7.2. Straight rotation</h3><span id="straight-rotation"></span>
 <p>The camera is rotated around its own local axis (local vertical axis is the render window vertical axis.)</p>
 <p>This mode is a more intuitive way to rotate the camera, e.g., turn the camera left always gives the visual effect of the camera rotating in that direction. The rotation angles are automatically converted so they are appropriate for the selected direction. This mode changes the gamma angle (roll).</p>
-<h2 id='8-8'>8.8. Keyboard shortcuts</h2><span id="keyboard-shortcuts"></span>
+<h2 id='8-8'>8.8. Sweet spot angle</h2><span id="navigation-sweet-spot"></span><span class="index-marker" data-index="navigation!sweet spot"></span>
+<p>By default the camera looks at the point in the centre of the rendered image. The <em>Sweet spot angle</em> group in the Navigation dock (<em>horizontal</em> and <em>vertical</em> fields, in degrees) offsets this main sight direction away from the image centre: the point under the selected angle becomes the forward direction used for rendering and for mouse navigation. The horizontal angle ranges from  $-180^\circ$  to  $180^\circ$ , the vertical one from  $-90^\circ$  to  $90^\circ$ .</p>
+<p>This is mostly useful for fulldome and panorama projections, where the important part of the scene should not fall in the centre of the output image. The sweet spot also moves the crosshair used by the click navigation.</p>
+<h2 id='8-9'>8.9. Keyboard shortcuts</h2><span id="keyboard-shortcuts"></span>
 <p>The following keyboard shortcuts are available for camera navigation (default bindings, configurable in settings):</p>
 	<li><strong>Q</strong> move forward</li>
 	<li><strong>Z</strong> move backward</li>
@@ -1647,7 +1655,7 @@ z.z *= fractal-&gt;foldingIntPow.zFactor;
 	<li><strong>Right arrow</strong> rotate right</li>
 	<li><strong>Up arrow</strong> rotate up</li>
 	<li><strong>Down arrow</strong> rotate down</li>
-<h2 id='8-9'>8.9. Camera rotation in animations</h2><span id="camera-rotation-in-animations"></span><span class="index-marker" data-index="animation!rotation"></span>
+<h2 id='8-10'>8.10. Camera rotation in animations</h2><span id="camera-rotation-in-animations"></span><span class="index-marker" data-index="animation!rotation"></span>
 <p>With animation, the camera point and the target point can move independently following their own trajectories, with the camera always looking towards the target point. It is important to be aware that the rotation angle of the camera is the result of the camera coordinates and the target coordinates.</p>
 <p>There are various ways of animating, depending on the objective.</p>
 <p>The following example is a flight animation, with the camera trajectory approaching a location, with the camera rotating simultaneously so that the location is always observed, (as shown in the figure <a class="ref-link" href="#camera_target_tracking">camera_target_tracking</a>). The camera positions represent three keyframes.</p>
