@@ -22,7 +22,7 @@ jobs:
   # job names match the CircleCI jobs: <system>-<architecture>
   linux-x86_64:
     name: linux-x86_64
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       CONFIG: release
       CCACHE_DIR: ${{ github.workspace }}/.ccache
