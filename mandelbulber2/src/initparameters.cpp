@@ -148,7 +148,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
 	par->addParam("bailout", 1e2, 1.0, 1e15, morphLinear, paramStandard);
-	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 	par->addParam("delta_DE_function", int(fractal::preferredDEFunction), 0,
 		int(fractal::numberOfDEFunctions), morphNone, paramStandard);
 	par->addParam("delta_DE_method", int(fractal::preferredDEMethod), 0, 2, morphNone, paramStandard);

@@ -75,11 +75,11 @@ typedef struct ALIGN16
 {
 	sImageAdjustmentsCl imageAdjustments;
 	sCommonParamsCl common;
-	
+
 	matrix33 mRotBackgroundRotation;
 	matrix33 mRotCloudsRotation;
 	matrix33 mRotAmbientOcclusionLightMapRotation;
-	
+
 	cl_float3 ambientOcclusionLightMapRotation;
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;
@@ -92,7 +92,7 @@ typedef struct ALIGN16
 	cl_float3 camera; // view point
 	cl_float3 viewAngle;
 	cl_float3 topVector;
-		
+
 	// constructor with init
 	cl_float3 ambientOcclusionColor;
 	cl_float3 background_color1; // background colour
@@ -112,7 +112,7 @@ typedef struct ALIGN16
 	cl_float3 volFogColour1;
 	cl_float3 volFogColour2;
 	cl_float3 volFogColour3;
-	
+
 	cl_float absMaxMarchingStep;
 	cl_float absMinMarchingStep;
 	cl_float ambientOcclusion;
@@ -189,7 +189,7 @@ typedef struct ALIGN16
 	cl_float volFogDistanceFactor;
 	cl_float volFogDistanceFromSurface;
 	cl_float volumetricLightDEFactor;
-	
+
 	cl_int antialiasingSize;
 	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
@@ -204,7 +204,6 @@ typedef struct ALIGN16
 	cl_int nebulaMinIteration;
 	cl_int nebulaColorMixing; // 0 - lighten, 1 - darken, 2 - darken by brighness
 	cl_int reflectionsMax;
-	cl_int repeatFrom;
 	cl_int DOFNumberOfPasses;
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
@@ -295,7 +294,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.nebulaMinIteration = source.nebulaMinIteration;
 	target.nebulaColorMixing = source.nebulaColorMixing;
 	target.reflectionsMax = source.reflectionsMax;
-	target.repeatFrom = source.repeatFrom;
 	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;

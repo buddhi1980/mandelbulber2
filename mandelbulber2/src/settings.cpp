@@ -1013,11 +1013,16 @@ bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> 
  * InjectTemporaryLegacy*Params() helpers (per-fractal indexed variants used by the migration
  * of settings files older than v2.35). Such names carry no meaning on their own: they are only
  * valid while an old file is being migrated (when they are injected into the container), and
- * must be ignored otherwise.
+ * must be ignored otherwise. The list also covers parameters removed from InitParameters()
+ * whose values are consumed directly from the raw settings text during migration
+ * (e.g. repeat_from, converted to iteration ranges by MigrateToObjectsTree()).
  */
 static bool isTemporaryLegacyParamName(const QString &name)
 {
 	if (name == "boolean_operators") return true;
+	// legacy hybrid wrap-around slot: not registered anymore, the migration reads the value
+	// from the settings text and emulates it with per-formula start/stop iteration ranges
+	if (name == "repeat_from") return true;
 
 	static const QStringList prefixes = {"initial_waxis_", "julia_mode_", "julia_c_",
 		"fractal_constant_factor_", "formula_maxiter_", "boolean_operator_", "dont_add_c_constant_"};
@@ -2694,6 +2699,87 @@ static int GetHybridRootLegacyMaterial(std::shared_ptr<cFractalContainer> fract)
 	return 1;
 }
 
+// Converts the legacy repeat_from parameter (removed in v2.35) into per-formula iteration
+// ranges. In the old nine-slot hybrid mode the sequence generator wrapped back to slot
+// (repeat_from - 1) after the last slot, e.g. formulas A, B, C in slots 1..3 with repeat_from 2
+// produced the pattern A, B, C, B, C, B, C, ... The compact objects-tree list always wraps back
+// to its first formula, so the same pattern is reproduced by restricting every formula placed
+// before the wrap point to its first-run iteration block: once past that range the sequence
+// builder skips them and the wrap lands on the first formula at or after the legacy wrap slot.
+// If the wrap slot pointed at an empty ('none') slot, the old engine terminated the orbit after
+// the first pass; that is reproduced by restricting all formulas (the -1/none table fallback
+// then ends the sequence). Formulas are identified by their legacy slot order, which is also
+// the order of the compact child list created by MigrateToObjectsTree().
+static void MigrateRepeatFromToIterationRanges(
+	const QString &settingsText, std::shared_ptr<cFractalContainer> fract)
+{
+	// repeat_from is no longer a registered parameter, its value is recovered from the raw
+	// file text (same technique as the boolean_operator_1 detection in MigrateToObjectsTree)
+	const QRegularExpression repeatFromRe("repeat_from\\s+(\\d+)");
+	const QRegularExpressionMatch match = repeatFromRe.match(settingsText);
+	if (!match.hasMatch())
+	{
+		return;
+	}
+	// 0-based legacy slot index to which the old sequence wrapped back
+	const int wrapSlot = match.captured(1).toInt() - 1;
+	if (wrapSlot <= 0)
+	{
+		// wrapping to the first slot is the default behavior of the compact list
+		return;
+	}
+
+	// collect the used formula slots (formula != none) in legacy slot order
+	const int maxLegacyFractals = 9;
+	QList<int> usedSlots;
+	for (int i = 0; i < std::min(fract->size(), maxLegacyFractals); i++)
+	{
+		if (fract->at(i)->IfExists("formula")
+				&& fract->at(i)->Get<int>("formula") != int(fractal::none))
+		{
+			usedSlots.append(i);
+		}
+	}
+
+	// find the first used slot at or after the wrap point: from there the sequence cycles
+	// forever; the fallback value (end of list) means the wrap landed on an empty slot
+	int wrapIndex = usedSlots.size();
+	for (int j = 0; j < usedSlots.size(); j++)
+	{
+		if (usedSlots[j] >= wrapSlot)
+		{
+			wrapIndex = j;
+			break;
+		}
+	}
+	if (wrapIndex == 0)
+	{
+		// nothing is placed before the wrap point, the default wrap to index 0 is equivalent
+		return;
+	}
+
+	// Restrict each formula before the wrap point to its first-run block. The old engine
+	// consumed one table entry per iteration, so formula j occupied iterations
+	// [prefixSum, prefixSum + formula_iterations_j - 1]. The existing (user set) stop value
+	// is never extended: min() keeps the tighter of both restrictions.
+	const int defaultIterations = 1;
+	const int defaultStop = 250;
+	int blockStart = 0;
+	for (int j = 0; j < wrapIndex; j++)
+	{
+		const int slot = usedSlots[j];
+		const int iterations = fract->at(slot)->IfExists("formula_iterations")
+														 ? fract->at(slot)->Get<int>("formula_iterations")
+														 : defaultIterations;
+		const int blockEnd = blockStart + qMax(1, iterations) - 1;
+		const int oldStop = fract->at(slot)->IfExists("formula_stop_iteration")
+													? fract->at(slot)->Get<int>("formula_stop_iteration")
+													: defaultStop;
+		fract->at(slot)->Set("formula_stop_iteration", qMin(oldStop, blockEnd));
+		blockStart = blockEnd + 1;
+	}
+}
+
 void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
 {
@@ -2838,6 +2924,13 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 
 	// Migrate legacy flat fractal params to the new fractal-based structure
 	MigrateLegacyParamsToFractal(par, fract);
+
+	// The old engine used repeat_from only in hybrid mode, so convert it only when a hybrid
+	// sequence will actually be built (boolean mode combined with hybrid shares the same path)
+	if (hybridMode)
+	{
+		MigrateRepeatFromToIterationRanges(settingsText, fract);
+	}
 
 	QList<int> enabledFractals;
 

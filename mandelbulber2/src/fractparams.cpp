@@ -213,7 +213,6 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	reflectionsMax = container->Get<int>("reflections_max");
 	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");
 	relMinMarchingStep = container->Get<double>("rel_min_marching_step");
-	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
