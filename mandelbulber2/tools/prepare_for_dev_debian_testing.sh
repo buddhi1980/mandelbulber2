@@ -20,12 +20,14 @@ installing all needed packages
 "
 
 echo "installing: build-essential qmake6 qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev \
-	libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev"
+	qt6-svg-plugins libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev"
 
 # Qt6 packages: qt6-base-dev provides Core/Gui/Widgets/Network/Test/Concurrent/OpenGLWidgets,
 # qt6-tools-dev provides UiTools on Debian, qt6-declarative-dev provides Qml,
-# qmake6 is the Qt6 qmake binary (/usr/lib/qt6/bin/qmake)
-sudo apt-get -V install build-essential qmake6 qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev
+# qmake6 is the Qt6 qmake binary (/usr/lib/qt6/bin/qmake),
+# qt6-svg-plugins provides the SVG image/icon plugins needed by the *.svg
+# toolbar icons embedded in qt/icons.qrc
+sudo apt-get -V install build-essential qmake6 qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev qt6-svg-plugins libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev
 
 # optional format support (TIFF, EXR, JPEG XL); the build enables each
 # automatically when pkg-config finds the library

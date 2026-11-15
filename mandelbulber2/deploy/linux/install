@@ -204,6 +204,9 @@ REQUIRED_APT=(
 	# and libQt6UiTools.so, required by 'QT += uitools' in common.pri
 	"qt6-tools-dev"
 	"qt6-l10n-tools|qt6-tools-dev-tools"
+	# runtime: SVG image format plugin; toolbar icons embedded in qt/icons.qrc
+	# are *.svg and are rendered only when the qsvg imageformats plugin exists
+	"qt6-svg-plugins"
 	"libpng-dev"
 	"libgsl-dev"
 	"liblzo2-dev"
@@ -224,6 +227,8 @@ REQUIRED_DNF=(
 	"qt6-qtdeclarative-devel"
 	"qt6-qtmultimedia-devel"
 	"qt6-qttools-devel"
+	# runtime: SVG image format plugin for the *.svg icons in qt/icons.qrc
+	"qt6-qtsvg"
 	"libpng-devel"
 	"gsl-devel"
 	"lzo-devel"
