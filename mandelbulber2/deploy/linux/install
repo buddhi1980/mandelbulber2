@@ -23,7 +23,23 @@ set -u
 # Global defaults
 # --------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+
+# Detect the tree layout. The script lives in deploy/linux of a source tree,
+# but release tarballs place it at the package top level next to 'makefiles'
+# and a pre-staged 'usr' directory.
+if [ -d "$SCRIPT_DIR/makefiles" ] || [ -d "$SCRIPT_DIR/qmake" ]; then
+	PROJECT_ROOT="$SCRIPT_DIR"
+else
+	PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+fi
+
+if [ -d "$PROJECT_ROOT/qmake" ]; then
+	LAYOUT="source"; PRO_DIR="qmake"
+elif [ -d "$PROJECT_ROOT/makefiles" ]; then
+	LAYOUT="package"; PRO_DIR="makefiles"
+else
+	LAYOUT="unknown"; PRO_DIR=""
+fi
 
 PREFIX="/usr"
 BUILD_DIR=""            # default: $PROJECT_ROOT/build-install
@@ -126,8 +142,16 @@ info "Source tree:  $PROJECT_ROOT"
 info "Build dir:    $BUILD_DIR"
 info "Prefix:       $PREFIX"
 
-[ -f "$PROJECT_ROOT/qmake/mandelbulber-opencl.pro" ] ||
-	die "This does not look like a Mandelbulber source tree (qmake/mandelbulber-opencl.pro not found in $PROJECT_ROOT). Run the script from the deploy/linux directory of the unpacked sources."
+if [ "$LAYOUT" = "source" ]; then
+	info "Layout:       source tree (qmake/ + deploy/)"
+elif [ "$LAYOUT" = "package" ]; then
+	info "Layout:       release package (makefiles/ + usr/), install will use the packaged data"
+else
+	die "Cannot recognize the Mandelbulber tree layout. Run this script either from the deploy/linux directory of a source tree, or from the top level of an unpacked release package."
+fi
+
+[ -f "$PROJECT_ROOT/$PRO_DIR/mandelbulber-opencl.pro" ] ||
+	die "Build files not found ($PROJECT_ROOT/$PRO_DIR/mandelbulber-opencl.pro). The archive may be incomplete."
 
 # --------------------------------------------------------------------------
 # Privileges (sudo)
@@ -436,7 +460,9 @@ do_build() {
 			export CXXFLAGS="${CXXFLAGS:-} -march=native"
 		fi
 		info "Running qmake..."
-		"$QMAKE_PATH" -o Makefile "$PROJECT_ROOT/qmake/$pro" PREFIX="$PREFIX" CONFIG+=release || exit 1
+		# in the release-package layout there is no <root>/language/*.ts, so
+		# qmake drops the translation rules; the packaged *.qm are used as-is
+		"$QMAKE_PATH" -o Makefile "$PROJECT_ROOT/$PRO_DIR/$pro" PREFIX="$PREFIX" CONFIG+=release || exit 1
 		info "Compiling with $JOBS parallel jobs (this can take a while)..."
 		"$MAKE" -j"$JOBS" || exit 1
 	)
@@ -490,8 +516,27 @@ if [ "$DO_INSTALL" -eq 1 ]; then
 		fi
 	}
 
-	info "Copying files with 'make install'..."
-	( cd "$BUILD_DIR" && install_as_root "$MAKE" install ) || die "Installation failed (make install)."
+	# Choose how files reach the prefix:
+	#  - source tree: the qmake INSTALLS rules ('make install')
+	#  - release package: pre-staged 'usr' directory from the tarball
+	if [ "$LAYOUT" = "source" ]; then
+		info "Copying files with 'make install'..."
+		( cd "$BUILD_DIR" && install_as_root "$MAKE" install ) || die "Installation failed (make install)."
+	else
+		info "Copying the packaged files from $PROJECT_ROOT/usr..."
+		install_as_root cp -f "$BUILD_DIR/mandelbulber2" "$PREFIX/bin/mandelbulber2" ||
+			die "Could not copy the compiled binary."
+		install_as_root chmod 755 "$PREFIX/bin/mandelbulber2"
+		install_as_root mkdir -p "$PREFIX/share"
+		install_as_root cp -auL "$PROJECT_ROOT/usr/share/." "$PREFIX/share/" ||
+			die "Could not copy the packaged data (usr/share)."
+		install_as_root mkdir -p "$PREFIX/share/applications"
+		install_as_root cp -u "$PROJECT_ROOT/mandelbulber2.desktop" "$PREFIX/share/applications/" ||
+			warn "Could not install the desktop entry"
+		# source root for the icon aliases and the language overwrite
+		ICONS_SRC="$PROJECT_ROOT/usr/share/mandelbulber2/icons"
+	fi
+	[ -n "${ICONS_SRC:-}" ] || ICONS_SRC="$PROJECT_ROOT/deploy/share/mandelbulber2/icons"
 
 	# Extras that the qmake INSTALLS rules do not cover.
 	# Translations: 'make install' now places the committed *.qm from the source
@@ -502,16 +547,14 @@ if [ "$DO_INSTALL" -eq 1 ]; then
 		install_as_root cp -f "$BUILD_DIR"/*.qm "$PREFIX/share/mandelbulber2/language/"
 	fi
 
-	# AppStream metadata (software centers).
-	install_as_root mkdir -p "$PREFIX/share/metainfo"
-	install_as_root cp -f "$PROJECT_ROOT/deploy/linux/com.github.buddhi1980.mandelbulber2.metainfo.xml" \
-		"$PREFIX/share/metainfo/" || warn "Could not install the metainfo file"
+	# AppStream metainfo is installed by 'make install' (source layout, via
+	# installer.pri) and by the staged usr/share tree (package layout).
 
 	# Icon theme aliases so that the desktop entry (Icon=mandelbulber2) resolves.
 	install_as_root mkdir -p "$PREFIX/share/icons/hicolor/256x256/apps" "$PREFIX/share/icons/hicolor/128x128/apps"
-	install_as_root cp -f "$PROJECT_ROOT/deploy/share/mandelbulber2/icons/mandelbulber.png" \
+	install_as_root cp -f "$ICONS_SRC/mandelbulber.png" \
 		"$PREFIX/share/icons/hicolor/256x256/apps/mandelbulber2.png" || true
-	install_as_root cp -f "$PROJECT_ROOT/deploy/share/mandelbulber2/icons/mandelbulber128.png" \
+	install_as_root cp -f "$ICONS_SRC/mandelbulber128.png" \
 		"$PREFIX/share/icons/hicolor/128x128/apps/mandelbulber2.png" 2>/dev/null || true
 
 	# For non-standard prefixes the menu entry must point at the full path.

@@ -50,6 +50,10 @@ then
 
 	#copying desktop file
 	cp -vu "$sourceDir/deploy/linux/mandelbulber2.desktop" "$destNameLinux"
+
+	#copying AppStream metainfo (into staged usr/share so package install picks it up)
+	mkdir -vp "$destNameLinux/usr/share/metainfo"
+	cp -vu "$sourceDir/deploy/linux/com.github.buddhi1980.mandelbulber2.metainfo.xml" "$destNameLinux/usr/share/metainfo/"
 	
 	#copying share folder
 	mkdir -vp "$destNameLinux/usr/"
@@ -69,8 +73,6 @@ then
 	cp -vurL "$sourceDir/opencl" "$destNameLinux/usr/share/mandelbulber2/"
 	
 	#copying source files
-	mkdir -vp "$destNameWin/source"
-	
 	cp -vurL "$sourceDir/src/" "$destNameLinux/"
 	
 	cp -vurL "$sourceDir/third-party/" "$destNameLinux/"
@@ -100,6 +102,9 @@ then
 
 	#wget -O "$destNameLinux/usr/share/doc/mandelbulber2/Mandelbulber_Manual.pdf" $DOCFILE
 	cp -v "$sourceDir/deploy/doc/Mandelbulber_Manual.pdf" "$destNameLinux/usr/share/doc/mandelbulber2"
+	#copying the html manual (generated from the mandelbulber_doc repo)
+	cp -vu "$sourceDir/deploy/doc/index.html" "$destNameLinux/usr/share/doc/mandelbulber2"
+	cp -vurL "$sourceDir/deploy/doc/img" "$destNameLinux/usr/share/doc/mandelbulber2/"
 	
 	cp -vu "$sourceDir/deploy/NEWS" "$destNameLinux/usr/share/doc/mandelbulber2"
 	

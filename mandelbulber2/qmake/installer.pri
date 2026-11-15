@@ -49,6 +49,10 @@ unix {
 	desktopfile.path = $$PREFIX/share/applications
 	INSTALLS += desktopfile
 	
+	metainfo.files = $$ROOT/deploy/linux/com.github.buddhi1980.mandelbulber2.metainfo.xml
+	metainfo.path = $$PREFIX/share/metainfo
+	INSTALLS += metainfo
+	
 	iconfile.files = $$ROOT/deploy/share/mandelbulber2/icons/mandelbulber.png
 	iconfile.path = $$PREFIX/share/icons/hicolor/256x256/apps
 	INSTALLS += iconfile

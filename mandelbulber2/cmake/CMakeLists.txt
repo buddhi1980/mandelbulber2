@@ -188,6 +188,8 @@ endif()
 if(UNIX AND NOT APPLE)
 	install(FILES ../deploy/linux/mandelbulber2.desktop
 			DESTINATION share/applications)
+	install(FILES ../deploy/linux/com.github.buddhi1980.mandelbulber2.metainfo.xml
+			DESTINATION share/metainfo)
 	install(FILES ../deploy/share/mandelbulber2/icons/mandelbulber.png
 			DESTINATION share/icons/hicolor/256x256/apps/
 			RENAME mandelbulber2.png)

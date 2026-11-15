@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop">
+<component type="desktop-application">
     <id>com.github.buddhi1980.mandelbulber2</id>
-    <launchable type="desktop-id">com.github.buddhi1980.mandelbulber2.desktop</launchable>
+    <launchable type="desktop-id">mandelbulber2.desktop</launchable>
     <name>Mandelbulber2</name>
     <summary>Free and open source 3D fractals generator</summary>
+    <developer id="com.github.buddhi1980">
+        <name>Krzysztof Marczak</name>
+    </developer>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-3.0</project_license>
     <description>
@@ -13,14 +16,14 @@
             Render with a great palette of customizable materials to create stunning images and videos.
         </p>
 
-        <p>
-            Features:
+        <p>Features:</p>
+        <ul>
             <li>High-Performance computing with multiple graphics accelerator cards (multi-GPU support via OpenCL)</li>
             <li>Mathematical Models and Monte Carlo Algorithms for photo-realistic scenes</li>
             <li>Enlightening Documentation</li>
             <li>Renders trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals</li>
             <li>Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency and refraction, etc.</li>
-            <li>Rich GUI in Qt 5 environment</li>
+            <li>Rich GUI built with Qt 6</li>
             <li>Unlimited image resolution on 64-bit systems</li>
             <li>Program developed for ARM (experimental), x86 and x64 CPUs (Linux, Windows, macOS)</li>
             <li>Simple 3D navigator</li>
@@ -31,7 +34,7 @@
             <li>Exporting of 3D objects</li>
             <li>Rendering queue</li>
             <li>Command line interface for headless systems</li>
-        </p>
+        </ul>
     </description>
     <url type="homepage">https://mandelbulber.com/</url>
     <url type="help">https://fractalforums.org/mandelbulber/14</url>
@@ -49,6 +52,37 @@
     </screenshots>
     <content_rating type="oars-1.1"/>
     <releases>
+        <release version="2.34" date="2025-09-01">
+            <description>
+                <p>New features:</p>
+                <ul>
+                    <li>New rendering mode for nebulas with a dedicated OpenCL engine</li>
+                    <li>New fractal formulas and many updates of aux.color for existing ones</li>
+                    <li>Max Raymarching Steps parameter in advanced quality controls</li>
+                </ul>
+                <p>Enhancements:</p>
+                <ul>
+                    <li>Fixed rendering queue crash in no-gui mode and animation loop crash</li>
+                    <li>Increased iteration limit to 10000; various UI fixes</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.33" date="2025-03-01">
+            <description>
+                <ul>
+                    <li>New fractal formulas (DIFSGreekIfs, transfAbsSym3, DIFSOctahedron and more)</li>
+                    <li>Many fractal formulas updated with aux.color and improved UI controls</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.32" date="2024-08-01">
+            <description>
+                <ul>
+                    <li>New fractal formulas (transfJuliabox, transfDIFSSupershape and more)</li>
+                    <li>aux.color support added to numerous fractals</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.25" date="2021-04-21">
             <description>
                 <p>New features:</p>
@@ -78,7 +112,7 @@
                 </ul>
             </description>
         </release>
-  </releases>
+    </releases>
     <keywords>
         <keyword>fractal generator</keyword>
         <keyword>3d graphics software</keyword>
