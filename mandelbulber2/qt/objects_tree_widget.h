@@ -147,6 +147,15 @@ private:
 	QWidget *buildGeneralObjectParametersEditor(QTreeWidgetItem *item);
 	void hideRepeatFieldsForBooleanGroups(QWidget *widget, int nodeType);
 
+	// Builds a compact horizontally scrollable two-row preview of the hybrid fractal
+	// sequence for the given hybrid group node (row 1: iteration numbers, row 2: small
+	// formula icons). Returns nullptr when no valid sequence can be resolved.
+	QWidget *buildHybridSequencePreview(QTreeWidgetItem *item);
+
+	// Returns a scaled icon of the formula used by the fractal with the given user
+	// objectId, or an empty QIcon when the formula has no icon resource.
+	QIcon getFractalFormulaIcon(int objectId, int iconSize);
+
 	// Inserts 'prefix' into every immediate and nested child widget name of 'parent'
 	// immediately after the first '_', so that SynchronizeInterfaceWindow can map the
 	// widget to the correctly namespaced parameter (e.g. "vect3_position_x" with prefix

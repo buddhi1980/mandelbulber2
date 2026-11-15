@@ -22,6 +22,8 @@
 #include <QMenu>
 #include <QFontMetrics>
 #include <QVBoxLayout>
+#include <QTableWidget>
+#include <QScrollBar>
 #include <QMouseEvent>
 #include <QDrag>
 #include <QMimeData>
@@ -36,6 +38,7 @@
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/objects_tree.h"
+#include "src/hybrid_fractal_sequences.h"
 #include "src/settings.hpp"
 #include "formula/definition/all_fractal_list.hpp"
 #include "fractal_object.h"
@@ -315,6 +318,28 @@ void cObjectsTreeWidget::updateFractalIcon(QTreeWidgetItem *item, int objectId, 
 	{
 		item->setIcon(treeCol::icon, QIcon(scaledPixmap));
 	}
+}
+
+// Returns a scaled icon of the formula used by the fractal with the given user objectId.
+// The formula icon resources are provided by the formula definitions (getIconName), the
+// same mechanism as the tree icons in updateFractalIcon().
+QIcon cObjectsTreeWidget::getFractalFormulaIcon(int objectId, int iconSize)
+{
+	const int fractalIndex = objectId - 1;
+	if (fractalIndex < 0 || fractalIndex >= fractalParams->size()) return QIcon();
+
+	const fractal::enumFractalFormula formula = sFractal(fractalParams->at(fractalIndex)).formula;
+
+	for (cAbstractFractal *fractal : newFractalList)
+	{
+		if (fractal->getInternalId() == formula)
+		{
+			QIcon icon(QString::fromStdString(fractal->getIconName()));
+			if (icon.isNull()) return QIcon();
+			return icon.pixmap(iconSize, iconSize);
+		}
+	}
+	return QIcon();
 }
 int cObjectsTreeWidget::findNextAvailableNodeId() const
 {
@@ -678,8 +703,8 @@ QString cObjectsTreeWidget::nodeTypeToString(enumNodeType type)
 
 // Rebuilds the tree widget from scratch using the current contents of 'params'.
 // Called on startup, after a file load, or when the user presses the Refresh button.
-void cObjectsTreeWidget::UpdateTree(
-	std::shared_ptr<cParameterContainer> paramContainer, std::shared_ptr<cFractalContainer> fractalContainer)
+void cObjectsTreeWidget::UpdateTree(std::shared_ptr<cParameterContainer> paramContainer,
+	std::shared_ptr<cFractalContainer> fractalContainer)
 {
 	QList<QTreeWidgetItem *> selectedBeforeRefresh = ui->treeWidget_objects->selectedItems();
 	if (!selectedBeforeRefresh.isEmpty())
@@ -879,8 +904,8 @@ void cObjectsTreeWidget::onItemChanged(QTreeWidgetItem *item, int column)
 // that no longer have a corresponding tree item and storing updated definitions for
 // all items that do exist.
 
-void cObjectsTreeWidget::StoreTreeToParams(
-	std::shared_ptr<cParameterContainer> paramContainer, std::shared_ptr<cFractalContainer> fractalContainer)
+void cObjectsTreeWidget::StoreTreeToParams(std::shared_ptr<cParameterContainer> paramContainer,
+	std::shared_ptr<cFractalContainer> fractalContainer)
 {
 	// per-fractal containers are updated elsewhere; only general params are written here
 	Q_UNUSED(fractalContainer);
@@ -966,7 +991,8 @@ void cObjectsTreeWidget::attachMaterialWidget(
 		if (enumNodeType(parentType) == enumNodeType::hybrid) return;
 	}
 	// materialId -1 means "no material": no miniature is shown at all (empty column)
-	int materialId = paramContainer->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
+	int materialId =
+		paramContainer->Get<int>(QString("node_%1_material").arg(nodeId, 4, 10, QChar('0')));
 	if (materialId < 0) return;
 	const int miniSize = systemData.GetPreferredThumbnailSize() / 4;
 	cMaterialWidget *matWidget = new cMaterialWidget(miniSize, miniSize, 1, this);
@@ -1915,6 +1941,133 @@ void cObjectsTreeWidget::hideRepeatFieldsForBooleanGroups(QWidget *widget, int n
 	}
 }
 
+// Builds a compact horizontally scrollable preview of the hybrid fractal iteration
+// sequence for the given hybrid group node. The sequence is resolved by reusing the
+// rendering-side cHybridFractalSequences logic (objects tree nodes + per-fractal
+// iteration ranges), so the preview always matches what will actually be rendered.
+// The table has two rows: iteration numbers and a small icon of the formula used at
+// that iteration. Returns nullptr when the node has no resolvable hybrid sequence.
+QWidget *cObjectsTreeWidget::buildHybridSequencePreview(QTreeWidgetItem *item)
+{
+	const int nodeId = item->data(treeData::nodeId, Qt::UserRole).toInt();
+
+	// Resolve the rendering-side identity of this node: sequences are attributed to
+	// hybrid nodes through the internalObjectId assigned by the objects tree
+	cObjectsTree objectsTree;
+	objectsTree.CreateNodeDataFromParameters(params);
+	std::vector<cObjectsTree::sNodeDataForRendering> nodes =
+		objectsTree.GetNodeDataListForRendering();
+
+	int internalObjectId = -1;
+	for (const cObjectsTree::sNodeDataForRendering &node : nodes)
+	{
+		if (node.id == nodeId)
+		{
+			internalObjectId = node.internalObjectId;
+			break;
+		}
+	}
+
+	cHybridFractalSequences sequences;
+	sequences.CreateSequences(params, fractalParams, nodes);
+
+	const cHybridFractalSequences::sSequence *seq = nullptr;
+	for (int s = 0; s < sequences.GetNumberOfSequences(); s++)
+	{
+		const cHybridFractalSequences::sSequence *candidate = sequences.GetSequence(s);
+		if (candidate && candidate->isHybrid && candidate->internalObjectId == internalObjectId)
+		{
+			seq = candidate;
+			break;
+		}
+	}
+	if (!seq || seq->tableLength <= 0 || seq->fractData.empty()) return nullptr;
+
+	// Show only the valid part of the sequence (where at least one formula is within its
+	// iteration range), with a safety cap so the widget stays cheap to build
+	const int maxColumns = 256;
+	const int shownIterations =
+		qBound(1, seq->length > 0 ? seq->length : seq->tableLength, maxColumns);
+	const bool truncated = shownIterations < seq->tableLength;
+
+	QWidget *panel = new QWidget();
+	QVBoxLayout *panelLayout = new QVBoxLayout(panel);
+	panelLayout->setContentsMargins(0, 0, 0, 0);
+
+	QLabel *title = new QLabel(tr("<b>Hybrid sequence:</b> iteration to formula mapping"));
+	title->setContentsMargins(6, 2, 6, 2);
+	panelLayout->addWidget(title);
+
+	const int iconSize = 24;
+	const int columns = shownIterations + (truncated ? 1 : 0);
+	QTableWidget *table = new QTableWidget(2, columns);
+	table->horizontalHeader()->setVisible(false);
+	table->verticalHeader()->setVisible(false);
+	table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	table->setSelectionMode(QAbstractItemView::NoSelection);
+	table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	table->setFocusPolicy(Qt::NoFocus);
+	table->setShowGrid(true);
+	// Strip the default cell padding so the preview columns stay as tight as possible
+	table->setStyleSheet(QStringLiteral("QTableWidget::item { padding: 0px; }"));
+	table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	const int numberRowHeight = 16;
+	table->setRowHeight(0, numberRowHeight);
+	table->setRowHeight(1, iconSize + 4);
+	// Keep the horizontal bar always visible and reserve its height in the fixed table
+	// size: with ScrollBarAsNeeded the bar would overlap the icon row when it pops up
+	table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+	const int barHeight = table->horizontalScrollBar()->sizeHint().height();
+	table->setFixedHeight(numberRowHeight + iconSize + 4 + 4 + barHeight);
+	for (int c = 0; c < columns; c++)
+		table->setColumnWidth(c, iconSize + 2);
+	for (int c = 0; c < columns; c++)
+		table->setColumnWidth(c, iconSize + 2);
+
+	for (int i = 0; i < shownIterations; i++)
+	{
+		const int fractalNo = seq->GetSequence(i);
+		const bool valid = (fractalNo >= 0 && fractalNo < static_cast<int>(seq->fractData.size()));
+
+		QTableWidgetItem *iterItem = new QTableWidgetItem(QString::number(i));
+		iterItem->setTextAlignment(Qt::AlignCenter);
+		table->setItem(0, i, iterItem);
+
+		QTableWidgetItem *iconItem = new QTableWidgetItem();
+		iconItem->setTextAlignment(Qt::AlignCenter);
+		if (valid)
+		{
+			const int objectId = seq->fractData[fractalNo].objectId;
+			iconItem->setIcon(getFractalFormulaIcon(objectId, iconSize));
+			const QString formulaName = QString::fromStdString(
+				seq->fractData[fractalNo].fractalFormulaObject
+					? seq->fractData[fractalNo].fractalFormulaObject->getNameInComboBox()
+					: std::string());
+			iterItem->setToolTip(
+				tr("Iteration %1 uses fractal object %2 (%3)").arg(i).arg(objectId).arg(formulaName));
+		}
+		else
+		{
+			iterItem->setToolTip(tr("Iteration %1: no formula in range (sequence terminates)").arg(i));
+		}
+		table->setItem(1, i, iconItem);
+	}
+
+	// Marker column signalling that the preview was cut off by the display limit
+	if (truncated)
+	{
+		QTableWidgetItem *dots = new QTableWidgetItem(QStringLiteral("..."));
+		dots->setTextAlignment(Qt::AlignCenter);
+		dots->setToolTip(tr("Sequence continues beyond the %1 displayed iterations").arg(maxColumns));
+		table->setItem(0, shownIterations, dots);
+		table->setItem(1, shownIterations, new QTableWidgetItem());
+	}
+
+	panelLayout->addWidget(table);
+	return panel;
+}
+
 // Responds to the user selecting a different item in the object tree.
 // Before tearing down the old editor, the current widget values are read back
 // into gPar (and into gParFractal for fractal nodes) so that any changes the
@@ -1977,6 +2130,14 @@ void cObjectsTreeWidget::slotItemSelectionChanged()
 	else if (type == enumNodeType::hybrid || type == enumNodeType::booleanAdd
 					 || type == enumNodeType::booleanMul || type == enumNodeType::booleanSub)
 	{
+		// Hybrid groups additionally show a compact preview of the iteration-to-formula
+		// sequence just above the general object parameters
+		if (type == enumNodeType::hybrid)
+		{
+			QWidget *sequencePreview = buildHybridSequencePreview(item);
+			if (sequencePreview) containerLayout->addWidget(sequencePreview);
+		}
+
 		QWidget *generalParams = buildGeneralObjectParametersEditor(item);
 		editorSyncTargets.clear();
 		editorSyncTargets.append({generalParams, params});
