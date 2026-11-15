@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-26 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -69,39 +69,49 @@ typedef enum
 
 typedef struct ALIGN16
 {
+	// Doubles (as in OpenCL)
 	cl_float boxLimit; // parameters of TGlad's folding
 	cl_float boxValue;
 	cl_float sphericalOuter;
 	cl_float sphericalInner;
+
+	// Bools (as in OpenCL)
 	cl_int boxEnable;
 	cl_int sphericalEnable;
 } sFractalFoldingsCl;
 
 typedef struct ALIGN16
 {
+	// Nested struct (as in OpenCL)
 	sFractalFoldingsCl foldings;
-	
+
+	// Matrices (as in OpenCL)
 	matrix33 mRotFractalRotation;
 	matrix33 mRotFakeLightsRotation;
-	
+
+	// Vectors (as in OpenCL)
 	cl_float3 fakeLightsOrbitTrap;
 	cl_float3 fakeLightsRotation;
 	cl_float3 fractalPosition;
 	cl_float3 fractalRotation;
 	cl_float3 repeat;
-	
+
+	// Doubles (as in OpenCL)
 	cl_float fakeLightsOrbitTrapSize;
 	cl_float fakeLightsThickness;
 	cl_float linearDEOffset;
-	
+
+	// Bools (as in OpenCL)
 	cl_int iterThreshMode;
 	cl_int fakeLightsRelativeCenter;
 	cl_int fakeLightsColor2Enabled;
 	cl_int fakeLightsColor3Enabled;
 
+	// Ints (as in OpenCL)
 	cl_int fakeLightsMaxIter;
 	cl_int fakeLightsMinIter;
 
+	// Enum (last, as in OpenCL)
 	cl_int fakeLightsOrbitTrapShape;
 } sCommonParamsCl;
 
@@ -121,6 +131,17 @@ inline sFractalFoldingsCl clCopySFractalFoldingsCl(const sFractalFoldings &sourc
 inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 {
 	sCommonParamsCl target;
+	target.foldings = clCopySFractalFoldingsCl(source.foldings);
+	target.mRotFractalRotation = toClMatrix33(source.mRotFractalRotation);
+	target.mRotFakeLightsRotation = toClMatrix33(source.mRotFakeLightsRotation);
+	target.fakeLightsOrbitTrap = toClFloat3(source.fakeLightsOrbitTrap);
+	target.fakeLightsRotation = toClFloat3(source.fakeLightsRotation);
+	target.fractalPosition = toClFloat3(source.fractalPosition);
+	target.fractalRotation = toClFloat3(source.fractalRotation);
+	target.repeat = toClFloat3(source.repeat);
+	target.fakeLightsOrbitTrapSize = source.fakeLightsOrbitTrapSize;
+	target.fakeLightsThickness = source.fakeLightsThickness;
+	target.linearDEOffset = source.linearDEOffset;
 	target.iterThreshMode = source.iterThreshMode;
 	target.fakeLightsRelativeCenter = source.fakeLightsRelativeCenter;
 	target.fakeLightsColor2Enabled = source.fakeLightsColor2Enabled;
@@ -128,17 +149,6 @@ inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 	target.fakeLightsMaxIter = source.fakeLightsMaxIter;
 	target.fakeLightsMinIter = source.fakeLightsMinIter;
 	target.fakeLightsOrbitTrapShape = source.fakeLightsOrbitTrapShape;
-	target.fakeLightsOrbitTrapSize = source.fakeLightsOrbitTrapSize;
-	target.fakeLightsThickness = source.fakeLightsThickness;
-	target.linearDEOffset = source.linearDEOffset;
-	target.fakeLightsOrbitTrap = toClFloat3(source.fakeLightsOrbitTrap);
-	target.fakeLightsRotation = toClFloat3(source.fakeLightsRotation);
-	target.fractalPosition = toClFloat3(source.fractalPosition);
-	target.fractalRotation = toClFloat3(source.fractalRotation);
-	target.repeat = toClFloat3(source.repeat);
-	target.mRotFractalRotation = toClMatrix33(source.mRotFractalRotation);
-	target.mRotFakeLightsRotation = toClMatrix33(source.mRotFakeLightsRotation);
-	target.foldings = clCopySFractalFoldingsCl(source.foldings);
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

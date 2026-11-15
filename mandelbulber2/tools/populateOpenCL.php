@@ -113,7 +113,7 @@ function autogenOpenCLFile($copyFile, &$status)
 		array('find' => '/(\s)[a-zA-Z0-9_]+::[a-zA-Z0-9_]+(\s)/', 'replace' => '$1cl_int$2'), // enums with outer scope (::) get cast to int
 		array('find' => '/cColorGradient[\s\S]*?;/', 'replace' => ""), // remove cColorGradient parameters
 		
-		array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
+		array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct ALIGN16\n$2$3 $1"), // ALIGN16 keeps float4 members 16-byte aligned on host and device
 		array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
 		array('find' => '/const cl_int\s([a-zA-Z0-9_]+)\s=\s([a-zA-Z0-9_]+);/', 'replace' => "#define $1 $2"),
 		array('find' => '/\n#include\s.*/', 'replace' => ''), // remove includes
@@ -163,11 +163,14 @@ function autogenOpenCLFile($copyFile, &$status)
 
 	// add c++ side includes
 	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
-	if (basename($copyFile['pathTarget']) != 'common_params_cl.hpp') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
+	// fractal_cl.h is the base of the include chain, so it must not include common_params_cl.hpp (circular dependency)
+	if (basename($copyFile['pathTarget']) != 'common_params_cl.hpp' && basename($copyFile['pathTarget']) != 'fractal_cl.h') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'fractal_cl.h') $cppIncludes .= '#include "fractal_cl.h"' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'image_adjustments_cl.h') $cppIncludes .= '#include "image_adjustments_cl.h"' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'opencl_algebra.h') $cppIncludes .= '#include "opencl_algebra.h"' . PHP_EOL;
 	$cppIncludes .= PHP_EOL;
+	// the wrapper defines the ALIGN16 macro on the C++ side; needed only in the base header
+	if (basename($copyFile['pathTarget']) == 'fractal_cl.h') $cppIncludes .= '#include "src/include_header_wrapper.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "src/common_params.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "src/fractal.h"' . PHP_EOL;
 	$cppIncludes .= '#include "src/fractal_enums.h"' . PHP_EOL;
@@ -192,7 +195,7 @@ function autogenOpenCLFile($copyFile, &$status)
 	}
 
 	// create copy methods for structs
-	preg_match_all('/typedef struct\n{([\s\S]*?\n)}\s([0-9a-zA-Z_]+);/', $content, $structMatches);
+	preg_match_all('/typedef struct(?: ALIGN16)?\n{([\s\S]*?\n)}\s([0-9a-zA-Z_]+);/', $content, $structMatches);
 
 	$copyStructs = array();
 	foreach ($structMatches[1] as $key => $match) {

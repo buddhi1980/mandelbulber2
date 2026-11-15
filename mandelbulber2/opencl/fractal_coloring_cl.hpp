@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-26 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -70,10 +70,12 @@ typedef enum
 
 typedef struct ALIGN16
 {
+	// Vectors (as in OpenCL)
 	cl_float4 lineDirection;
 	cl_float3 xyz000;
 	cl_float3 xyzC111;
-	
+
+	// Doubles (as in OpenCL)
 	cl_float addMax;
 	cl_float addSpread;
 	cl_float addStartValue;
@@ -95,12 +97,13 @@ typedef struct ALIGN16
 	cl_float parabScale;
 	cl_float parabStartValue;
 	cl_float radDivDeWeight;
-	
+
 	cl_float radWeight;
 	cl_float roundScale;
 	cl_float sphereRadius;
 	cl_float xyzIterScale;
-	
+
+	// Bools (as in OpenCL)
 	cl_int addEnabledFalse;
 	cl_int auxColorFalse;
 	cl_int color4dEnabledFalse;
@@ -133,8 +136,11 @@ typedef struct ALIGN16
 	cl_int xyzZSqrdFalse;
 
 	cl_int tempLimitFalse; // temporary
+
+	// Int (as in OpenCL)
 	cl_int iStartValue;
-	
+
+	// Enum (last, as in OpenCL)
 	enumFractalColoringCl coloringAlgorithm;
 
 } sFractalColoringCl;
@@ -143,6 +149,34 @@ typedef struct ALIGN16
 inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &source)
 {
 	sFractalColoringCl target;
+	target.lineDirection = toClFloat4(source.lineDirection);
+	target.xyz000 = toClFloat3(source.xyz000);
+	target.xyzC111 = toClFloat3(source.xyzC111);
+	target.addMax = source.addMax;
+	target.addSpread = source.addSpread;
+	target.addStartValue = source.addStartValue;
+	target.auxColorHybridWeight = source.auxColorHybridWeight;
+	target.auxColorWeight = source.auxColorWeight;
+	target.cosAdd = source.cosAdd;
+	target.cosPeriod = source.cosPeriod;
+	target.cosStartValue = source.cosStartValue;
+	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
+	target.hybridOrbitTrapScale1 = source.hybridOrbitTrapScale1;
+	target.hybridRadDivDeScale1 = source.hybridRadDivDeScale1;
+	target.icRadWeight = source.icRadWeight;
+	target.initialColorValue = source.initialColorValue;
+	target.iterAddScale = source.iterAddScale;
+	target.iterScale = source.iterScale;
+	target.maxColorValue = source.maxColorValue;
+	target.minColorValue = source.minColorValue;
+	target.orbitTrapWeight = source.orbitTrapWeight;
+	target.parabScale = source.parabScale;
+	target.parabStartValue = source.parabStartValue;
+	target.radDivDeWeight = source.radDivDeWeight;
+	target.radWeight = source.radWeight;
+	target.roundScale = source.roundScale;
+	target.sphereRadius = source.sphereRadius;
+	target.xyzIterScale = source.xyzIterScale;
 	target.addEnabledFalse = source.addEnabledFalse;
 	target.auxColorFalse = source.auxColorFalse;
 	target.color4dEnabledFalse = source.color4dEnabledFalse;
@@ -174,36 +208,8 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.xyzYSqrdFalse = source.xyzYSqrdFalse;
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
 	target.tempLimitFalse = source.tempLimitFalse;
-	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	target.iStartValue = source.iStartValue;
-	target.lineDirection = toClFloat4(source.lineDirection);
-	target.xyz000 = toClFloat3(source.xyz000);
-	target.xyzC111 = toClFloat3(source.xyzC111);
-	target.addMax = source.addMax;
-	target.addSpread = source.addSpread;
-	target.addStartValue = source.addStartValue;
-	target.auxColorHybridWeight = source.auxColorHybridWeight;
-	target.auxColorWeight = source.auxColorWeight;
-	target.cosAdd = source.cosAdd;
-	target.cosPeriod = source.cosPeriod;
-	target.cosStartValue = source.cosStartValue;
-	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
-	target.hybridOrbitTrapScale1 = source.hybridOrbitTrapScale1;
-	target.hybridRadDivDeScale1 = source.hybridRadDivDeScale1;
-	target.icRadWeight = source.icRadWeight;
-	target.initialColorValue = source.initialColorValue;
-	target.iterAddScale = source.iterAddScale;
-	target.iterScale = source.iterScale;
-	target.maxColorValue = source.maxColorValue;
-	target.minColorValue = source.minColorValue;
-	target.orbitTrapWeight = source.orbitTrapWeight;
-	target.parabScale = source.parabScale;
-	target.parabStartValue = source.parabStartValue;
-	target.radDivDeWeight = source.radDivDeWeight;
-	target.radWeight = source.radWeight;
-	target.roundScale = source.roundScale;
-	target.sphereRadius = source.sphereRadius;
-	target.xyzIterScale = source.xyzIterScale;
+	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

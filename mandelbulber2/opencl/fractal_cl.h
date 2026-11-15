@@ -85,10 +85,13 @@ typedef enum
 } enumGeneralizedFoldBoxTypeCl;
 typedef struct ALIGN16
 {
+	// Vectors (as in OpenCL)
 	cl_float4 c;
 	cl_float4 const_c;
 	cl_float4 old_z;
 	// cl_float4 sum_z;
+
+	// Doubles (as in OpenCL)
 	cl_float pos_neg;
 
 	cl_float r;
@@ -104,15 +107,16 @@ typedef struct ALIGN16
 	cl_float colorHybrid;
 
 	cl_float temp1000;
-	
+
+	// Int (last, as in OpenCL)
 	cl_int i;
 } sExtendedAuxCl;
 
 typedef struct ALIGN16
 {
+	cl_float3 factor;
 	cl_float4 factor4D;
 	cl_float4 difs0000;
-	cl_float3 factor;
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
@@ -133,6 +137,7 @@ typedef struct ALIGN16
 
 typedef struct ALIGN16
 {
+	// Vectors (as in OpenCL)
 	cl_float3 Nv_tet[4];
 	cl_float3 Nv_cube[6];
 	cl_float3 Nv_oct[8];
@@ -141,6 +146,8 @@ typedef struct ALIGN16
 	cl_float3 Nv_icosa[20];
 	cl_float3 Nv_box6[8];
 	cl_float3 Nv_box5[7];
+
+	// Ints (as in OpenCL)
 	cl_int sides_tet;
 	cl_int sides_cube;
 	cl_int sides_oct;
@@ -149,21 +156,13 @@ typedef struct ALIGN16
 	cl_int sides_icosa;
 	cl_int sides_box6;
 	cl_int sides_box5;
+
+	// Enum (last, as in OpenCL)
 	enumGeneralizedFoldBoxTypeCl type;
 } sFractalGeneralizedFoldBoxCl;
 
 typedef struct ALIGN16
 {
-	matrix33 mainRot;
-	matrix33 rot[IFS_VECTOR_COUNTCl];
-	cl_float4 direction[IFS_VECTOR_COUNTCl];
-	cl_float3 edge;
-	cl_float4 offset;
-	cl_float3 rotations[IFS_VECTOR_COUNTCl];
-	cl_float3 rotation;
-	cl_float distance[IFS_VECTOR_COUNTCl];
-	cl_float intensity[IFS_VECTOR_COUNTCl];
-	cl_float scale;
 	cl_int absX;
 	cl_int absY;
 	cl_int absZ;
@@ -171,6 +170,16 @@ typedef struct ALIGN16
 	cl_int mengerSpongeMode;
 	cl_int rotationEnabled;
 	cl_int edgeEnabled;
+	matrix33 mainRot;
+	matrix33 rot[IFS_VECTOR_COUNTCl];
+	cl_float4 direction[IFS_VECTOR_COUNTCl];
+	cl_float3 edge;
+	cl_float4 offset;
+	cl_float3 rotations[IFS_VECTOR_COUNTCl];
+	cl_float distance[IFS_VECTOR_COUNTCl];
+	cl_float intensity[IFS_VECTOR_COUNTCl];
+	cl_float3 rotation;
+	cl_float scale;
 } sFractalIFSCl;
 
 typedef struct ALIGN16
@@ -184,13 +193,22 @@ typedef struct ALIGN16
 
 typedef struct ALIGN16
 {
+	// Nested struct (as in OpenCL)
 	sFoldColorCl color;
+
+	// Matrices (as in OpenCL)
 	matrix33 mainRot;
 	matrix33 rot[MANDELBOX_FOLDSCl][3];
 	matrix33 rotinv[MANDELBOX_FOLDSCl][3];
+
+	// Vectors (as in OpenCL)
 	cl_float3 rotationMain;
 	cl_float3 rotation[MANDELBOX_FOLDSCl][3];
+
+	// Vector (as in OpenCL)
 	cl_float4 offset;
+
+	// Doubles (as in OpenCL)
 	cl_float scale;
 	cl_float foldingLimit;
 	cl_float foldingValue;
@@ -199,9 +217,12 @@ typedef struct ALIGN16
 	cl_float sharpness;
 	cl_float solid;
 	cl_float melt;
+
 	cl_float fR2;
 	cl_float mR2;
 	cl_float mboxFactor1;
+
+	// Bools (as in OpenCL)
 	cl_int rotationsEnabled;
 	cl_int mainRotationEnabled;
 } sFractalMandelboxCl;
@@ -218,6 +239,7 @@ typedef struct ALIGN16
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
 	cl_float gammaAngleOffset;
+	cl_float degree;
 } sFractalMandelbulbCl;
 
 typedef struct ALIGN16
@@ -308,7 +330,7 @@ typedef enum
 	multi_OrderOfZYXCl_xzy,
 	multi_OrderOfZYXCl_xyz
 } enumMulti_OrderOfZYXCl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_asinOrAcosCl asinOrAcos;
 	enumMulti_atan2OrAtanCl atan2OrAtan;
@@ -386,7 +408,7 @@ typedef enum
 	multi_combo4Cl_type3,
 	multi_combo4Cl_type4,
 } enumMulti_combo4Cl;
-typedef struct
+typedef struct ALIGN16
 {
 	enumMulti_combo4Cl combo4;
 } sFractalCombo4Cl;
@@ -442,15 +464,6 @@ typedef struct ALIGN16
 // for surfbox types
 typedef struct ALIGN16
 {
-	cl_float4 offset1A111;
-	cl_float4 offset1B111;
-	cl_float4 offset2A111;
-	cl_float4 offset2B111;
-	cl_float4 offset3A111;
-	cl_float4 offset3B111;
-	cl_float4 offset1A222;
-	cl_float4 offset1B222;
-	cl_float scale1Z1;
 	cl_int enabledX1;
 	cl_int enabledY1;
 	cl_int enabledZ1;
@@ -466,11 +479,21 @@ typedef struct ALIGN16
 	cl_int enabledX5False;
 	cl_int enabledY5False;
 	cl_int enabledZ5False;
+	cl_float4 offset1A111;
+	cl_float4 offset1B111;
+	cl_float4 offset2A111;
+	cl_float4 offset2B111;
+	cl_float4 offset3A111;
+	cl_float4 offset3B111;
+	cl_float4 offset1A222;
+	cl_float4 offset1B222;
+	cl_float scale1Z1;
 } sFractalSurfBoxCl;
 
 // for curvilinear
 typedef struct ALIGN16
 {
+	// Doubles (as in OpenCL)
 	cl_float para00;
 	cl_float paraA0;
 	cl_float paraB0;
@@ -483,10 +506,14 @@ typedef struct ALIGN16
 	cl_float parabOffset;
 	cl_float parabSlope;
 	cl_float parabScale;
+
+	// Bools (as in OpenCL)
 	cl_int enabledLinear;
 	cl_int enabledCurves;
 	cl_int enabledParabFalse;
 	cl_int enabledParaAddP0;
+
+	// Ints (as in OpenCL)
 	cl_int iterA;
 	cl_int iterB;
 	cl_int iterC;
@@ -494,13 +521,13 @@ typedef struct ALIGN16
 
 typedef struct ALIGN16
 {
+	cl_int enabled;
+	cl_int enabledFalse;
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-	cl_int enabled;
-	cl_int enabledFalse;
 	cl_int startIterationsA;
 	cl_int stopIterationsA;
 } sFractalAnalyticDECl;
@@ -508,6 +535,7 @@ typedef struct ALIGN16
 // common parameters for transforming formulas
 typedef struct ALIGN16
 {
+	// cl_float4 (as in OpenCL)
 	cl_float4 additionConstant0555;
 	cl_float4 additionConstant0777;
 	cl_float4 additionConstant000;
@@ -517,6 +545,8 @@ typedef struct ALIGN16
 	cl_float4 additionConstantA111;
 	cl_float4 additionConstant222;
 	cl_float4 additionConstantNeg100;
+
+	// cl_float4 (as in OpenCL)
 	cl_float4 constantMultiplier000;
 	cl_float4 constantMultiplier001;
 	cl_float4 constantMultiplier010;
@@ -531,6 +561,8 @@ typedef struct ALIGN16
 	cl_float4 constantMultiplier221;
 	cl_float4 constantMultiplier222;
 	cl_float4 constantMultiplier441;
+
+	// cl_float4 (as in OpenCL)
 	cl_float4 juliaC;
 	cl_float4 offset000;
 	cl_float4 offsetA000;
@@ -551,18 +583,22 @@ typedef struct ALIGN16
 	cl_float4 offset222;
 	cl_float4 offsetA222;
 	cl_float4 offset333;
+
+	// cl_float4 (as in OpenCL)
 	cl_float4 power025;
 	cl_float4 power8;
 	cl_float4 vec111;
-	
-	cl_float3 rotation; // vec3s
+
+	// cl_float3 (as in OpenCL)
+	cl_float3 rotation;
 	cl_float3 rotation2;
 	cl_float3 rotationXYZ;
 	cl_float3 rotation2XYZ;
 	cl_float3 rotationVary;
-	cl_float3 rotation44a; //.........................
-	cl_float3 rotation44b; //..........................
-	
+	cl_float3 rotation44a;
+	cl_float3 rotation44b;
+
+	// cl_float4 (as in OpenCL)
 	cl_float4 scaleP222;
 	cl_float4 scale3D000;
 	cl_float4 scale3D111;
@@ -573,7 +609,8 @@ typedef struct ALIGN16
 	cl_float4 scale3Dd222;
 	cl_float4 scale3D333;
 	cl_float4 scale3D444;
-	
+
+	// cl_float4 (as in OpenCL)
 	cl_float4 additionConstant0000;
 	cl_float4 offset0000;
 	cl_float4 offsetA0000;
@@ -588,14 +625,16 @@ typedef struct ALIGN16
 	cl_float4 constantMultiplier1220;
 	cl_float4 scale0000;
 	cl_float4 scale1111;
-	
+
+	// matrix33 (as in OpenCL)
 	matrix33 rotationMatrix;
 	matrix33 rotationMatrix2;
 	matrix33 rotationMatrixXYZ;
 	matrix33 rotationMatrix2XYZ;
 	matrix33 rotationMatrixVary;
-	// matrix44 rotationMatrix44; //....................
-	
+	// matrix44 rotationMatrix44;
+
+	// Doubles (as in OpenCL)
 	cl_float angle0;
 	cl_float angleDegA;
 	cl_float angleDegB;
@@ -697,6 +736,7 @@ typedef struct ALIGN16
 	cl_float inv0;
 	cl_float inv1;
 
+	// Ints (as in OpenCL)
 	cl_int startIterations;
 	cl_int startIterations250;
 	cl_int stopIterations;
@@ -779,7 +819,8 @@ typedef struct ALIGN16
 	cl_int int8Z;
 	cl_int int16;
 	cl_int int32;
-	
+
+	// Bools (as in OpenCL)
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;
 	cl_int alternateEnabledFalse;
@@ -855,6 +896,8 @@ typedef struct ALIGN16
 
 typedef struct ALIGN16
 {
+
+	// Sub-structs (as in OpenCL)
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -880,25 +923,24 @@ typedef struct ALIGN16
 	sFractalCombo4Cl combo4;
 	sFractalCombo5Cl combo5;
 	sFractalCombo6Cl combo6;
-	
+
+	// Vectors (as in OpenCL)
 	cl_float3 juliaConstant;
 	cl_float3 constantMultiplier;
+
+	// Double (as in OpenCL)
 	cl_float formulaWeight;
 	cl_float initialWAxis;
-	
+
+	// Ints (as in OpenCL)
 	cl_int formula;
-
-	// per-fractal general parameters (moved from InitParams to InitFractalParams)
 	cl_int formulaIterations;
-
 	cl_int formulaStartIteration;
 	cl_int formulaStopIteration;
 	cl_int juliaMode;
-
 	cl_int dontAddCConstant;
 	cl_int checkForBailout;
 	cl_int formulaMaxiter;
-
 
 #ifdef USE_OPENCL
 //	cl_float customParameters[15];
@@ -912,7 +954,6 @@ typedef struct ALIGN16
 inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 {
 	sExtendedAuxCl target;
-	target.i = source.i;
 	target.c = toClFloat4(source.c);
 	target.const_c = toClFloat4(source.const_c);
 	target.old_z = toClFloat4(source.old_z);
@@ -927,6 +968,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.color = source.color;
 	target.colorHybrid = source.colorHybrid;
 	target.temp1000 = source.temp1000;
+	target.i = source.i;
 	return target;
 }
 
@@ -959,7 +1001,6 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 	const sFractalGeneralizedFoldBox &source)
 {
 	sFractalGeneralizedFoldBoxCl target;
-	target.type = enumGeneralizedFoldBoxTypeCl(source.type);
 	for (int i = 0; i < 4; i++)
 	{
 		target.Nv_tet[i] = toClFloat3(source.Nv_tet[i]);
@@ -1000,6 +1041,7 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 	target.sides_icosa = source.sides_icosa;
 	target.sides_box6 = source.sides_box6;
 	target.sides_box5 = source.sides_box5;
+	target.type = enumGeneralizedFoldBoxTypeCl(source.type);
 	return target;
 }
 
@@ -1059,26 +1101,7 @@ inline sFractalMandelboxVary4DCl clCopySFractalMandelboxVary4DCl(
 inline sFractalMandelboxCl clCopySFractalMandelboxCl(const sFractalMandelbox &source)
 {
 	sFractalMandelboxCl target;
-	target.rotationMain = toClFloat3(source.rotationMain);
-	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			target.rotation[i][j] = toClFloat3(source.rotation[i][j]);
-		}
-	}
 	target.color = clCopySFoldColorCl(source.color);
-	target.scale = source.scale;
-	target.foldingLimit = source.foldingLimit;
-	target.foldingValue = source.foldingValue;
-	target.foldingSphericalMin = source.foldingSphericalMin;
-	target.foldingSphericalFixed = source.foldingSphericalFixed;
-	target.sharpness = source.sharpness;
-	target.solid = source.solid;
-	target.melt = source.melt;
-	target.offset = toClFloat4(source.offset);
-	target.rotationsEnabled = source.rotationsEnabled;
-	target.mainRotationEnabled = source.mainRotationEnabled;
 	target.mainRot = toClMatrix33(source.mainRot);
 	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
 	{
@@ -1094,9 +1117,28 @@ inline sFractalMandelboxCl clCopySFractalMandelboxCl(const sFractalMandelbox &so
 			target.rotinv[i][j] = toClMatrix33(source.rotinv[i][j]);
 		}
 	}
+	target.rotationMain = toClFloat3(source.rotationMain);
+	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			target.rotation[i][j] = toClFloat3(source.rotation[i][j]);
+		}
+	}
+	target.offset = toClFloat4(source.offset);
+	target.scale = source.scale;
+	target.foldingLimit = source.foldingLimit;
+	target.foldingValue = source.foldingValue;
+	target.foldingSphericalMin = source.foldingSphericalMin;
+	target.foldingSphericalFixed = source.foldingSphericalFixed;
+	target.sharpness = source.sharpness;
+	target.solid = source.solid;
+	target.melt = source.melt;
 	target.fR2 = source.fR2;
 	target.mR2 = source.mR2;
 	target.mboxFactor1 = source.mboxFactor1;
+	target.rotationsEnabled = source.rotationsEnabled;
+	target.mainRotationEnabled = source.mainRotationEnabled;
 	return target;
 }
 
@@ -1116,6 +1158,7 @@ inline sFractalMandelbulbCl clCopySFractalMandelbulbCl(const sFractalMandelbulb 
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;
 	target.gammaAngleOffset = source.gammaAngleOffset;
+	target.degree = source.degree;
 	return target;
 }
 
@@ -1280,10 +1323,6 @@ inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(const sFractalSurfBox &source)
 inline sFractalCparaCl clCopySFractalCparaCl(const sFractalCpara &source)
 {
 	sFractalCparaCl target;
-	target.enabledLinear = source.enabledLinear;
-	target.enabledCurves = source.enabledCurves;
-	target.enabledParabFalse = source.enabledParabFalse;
-	target.enabledParaAddP0 = source.enabledParaAddP0;
 	target.para00 = source.para00;
 	target.paraA0 = source.paraA0;
 	target.paraB0 = source.paraB0;
@@ -1296,6 +1335,10 @@ inline sFractalCparaCl clCopySFractalCparaCl(const sFractalCpara &source)
 	target.parabOffset = source.parabOffset;
 	target.parabSlope = source.parabSlope;
 	target.parabScale = source.parabScale;
+	target.enabledLinear = source.enabledLinear;
+	target.enabledCurves = source.enabledCurves;
+	target.enabledParabFalse = source.enabledParabFalse;
+	target.enabledParaAddP0 = source.enabledParaAddP0;
 	target.iterA = source.iterA;
 	target.iterB = source.iterB;
 	target.iterC = source.iterC;
@@ -1321,6 +1364,88 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	const sFractalTransformCommon &source)
 {
 	sFractalTransformCommonCl target;
+	target.additionConstant0555 = toClFloat4(source.additionConstant0555);
+	target.additionConstant0777 = toClFloat4(source.additionConstant0777);
+	target.additionConstant000 = toClFloat4(source.additionConstant000);
+	target.additionConstantA000 = toClFloat4(source.additionConstantA000);
+	target.additionConstantP000 = toClFloat4(source.additionConstantP000);
+	target.additionConstant111 = toClFloat4(source.additionConstant111);
+	target.additionConstantA111 = toClFloat4(source.additionConstantA111);
+	target.additionConstant222 = toClFloat4(source.additionConstant222);
+	target.additionConstantNeg100 = toClFloat4(source.additionConstantNeg100);
+	target.constantMultiplier000 = toClFloat4(source.constantMultiplier000);
+	target.constantMultiplier001 = toClFloat4(source.constantMultiplier001);
+	target.constantMultiplier010 = toClFloat4(source.constantMultiplier010);
+	target.constantMultiplier100 = toClFloat4(source.constantMultiplier100);
+	target.constantMultiplierA100 = toClFloat4(source.constantMultiplierA100);
+	target.constantMultiplier111 = toClFloat4(source.constantMultiplier111);
+	target.constantMultiplierA111 = toClFloat4(source.constantMultiplierA111);
+	target.constantMultiplierB111 = toClFloat4(source.constantMultiplierB111);
+	target.constantMultiplierC111 = toClFloat4(source.constantMultiplierC111);
+	target.constantMultiplier121 = toClFloat4(source.constantMultiplier121);
+	target.constantMultiplier122 = toClFloat4(source.constantMultiplier122);
+	target.constantMultiplier221 = toClFloat4(source.constantMultiplier221);
+	target.constantMultiplier222 = toClFloat4(source.constantMultiplier222);
+	target.constantMultiplier441 = toClFloat4(source.constantMultiplier441);
+	target.juliaC = toClFloat4(source.juliaC);
+	target.offset000 = toClFloat4(source.offset000);
+	target.offsetA000 = toClFloat4(source.offsetA000);
+	target.offsetF000 = toClFloat4(source.offsetF000);
+	target.offset001 = toClFloat4(source.offset001);
+	target.offset002 = toClFloat4(source.offset002);
+	target.offset010 = toClFloat4(source.offset010);
+	target.offset100 = toClFloat4(source.offset100);
+	target.offset101 = toClFloat4(source.offset101);
+	target.offset110 = toClFloat4(source.offset110);
+	target.offset1105 = toClFloat4(source.offset1105);
+	target.offset111 = toClFloat4(source.offset111);
+	target.offsetA111 = toClFloat4(source.offsetA111);
+	target.offsetB111 = toClFloat4(source.offsetB111);
+	target.offsetC111 = toClFloat4(source.offsetC111);
+	target.offset200 = toClFloat4(source.offset200);
+	target.offsetA200 = toClFloat4(source.offsetA200);
+	target.offset222 = toClFloat4(source.offset222);
+	target.offsetA222 = toClFloat4(source.offsetA222);
+	target.offset333 = toClFloat4(source.offset333);
+	target.power025 = toClFloat4(source.power025);
+	target.power8 = toClFloat4(source.power8);
+	target.vec111 = toClFloat4(source.vec111);
+	target.rotation = toClFloat3(source.rotation);
+	target.rotation2 = toClFloat3(source.rotation2);
+	target.rotationXYZ = toClFloat3(source.rotationXYZ);
+	target.rotation2XYZ = toClFloat3(source.rotation2XYZ);
+	target.rotationVary = toClFloat3(source.rotationVary);
+	target.rotation44a = toClFloat3(source.rotation44a);
+	target.rotation44b = toClFloat3(source.rotation44b);
+	target.scaleP222 = toClFloat4(source.scaleP222);
+	target.scale3D000 = toClFloat4(source.scale3D000);
+	target.scale3D111 = toClFloat4(source.scale3D111);
+	target.scale3D222 = toClFloat4(source.scale3D222);
+	target.scale3Da222 = toClFloat4(source.scale3Da222);
+	target.scale3Db222 = toClFloat4(source.scale3Db222);
+	target.scale3Dc222 = toClFloat4(source.scale3Dc222);
+	target.scale3Dd222 = toClFloat4(source.scale3Dd222);
+	target.scale3D333 = toClFloat4(source.scale3D333);
+	target.scale3D444 = toClFloat4(source.scale3D444);
+	target.additionConstant0000 = toClFloat4(source.additionConstant0000);
+	target.offset0000 = toClFloat4(source.offset0000);
+	target.offsetA0000 = toClFloat4(source.offsetA0000);
+	target.offsetB0000 = toClFloat4(source.offsetB0000);
+	target.offsetp5555 = toClFloat4(source.offsetp5555);
+	target.offset1111 = toClFloat4(source.offset1111);
+	target.offsetA1111 = toClFloat4(source.offsetA1111);
+	target.offsetB1111 = toClFloat4(source.offsetB1111);
+	target.offsetNeg1111 = toClFloat4(source.offsetNeg1111);
+	target.offset2222 = toClFloat4(source.offset2222);
+	target.additionConstant111d5 = toClFloat4(source.additionConstant111d5);
+	target.constantMultiplier1220 = toClFloat4(source.constantMultiplier1220);
+	target.scale0000 = toClFloat4(source.scale0000);
+	target.scale1111 = toClFloat4(source.scale1111);
+	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
+	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
+	target.rotationMatrixXYZ = toClMatrix33(source.rotationMatrixXYZ);
+	target.rotationMatrix2XYZ = toClMatrix33(source.rotationMatrix2XYZ);
+	target.rotationMatrixVary = toClMatrix33(source.rotationMatrixVary);
 	target.angle0 = source.angle0;
 	target.angleDegA = source.angleDegA;
 	target.angleDegB = source.angleDegB;
@@ -1501,88 +1626,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.int8Z = source.int8Z;
 	target.int16 = source.int16;
 	target.int32 = source.int32;
-	target.additionConstant0555 = toClFloat4(source.additionConstant0555);
-	target.additionConstant0777 = toClFloat4(source.additionConstant0777);
-	target.additionConstant000 = toClFloat4(source.additionConstant000);
-	target.additionConstantA000 = toClFloat4(source.additionConstantA000);
-	target.additionConstantP000 = toClFloat4(source.additionConstantP000);
-	target.additionConstant111 = toClFloat4(source.additionConstant111);
-	target.additionConstantA111 = toClFloat4(source.additionConstantA111);
-	target.additionConstant222 = toClFloat4(source.additionConstant222);
-	target.additionConstantNeg100 = toClFloat4(source.additionConstantNeg100);
-	target.constantMultiplier000 = toClFloat4(source.constantMultiplier000);
-	target.constantMultiplier001 = toClFloat4(source.constantMultiplier001);
-	target.constantMultiplier010 = toClFloat4(source.constantMultiplier010);
-	target.constantMultiplier100 = toClFloat4(source.constantMultiplier100);
-	target.constantMultiplierA100 = toClFloat4(source.constantMultiplierA100);
-	target.constantMultiplier111 = toClFloat4(source.constantMultiplier111);
-	target.constantMultiplierA111 = toClFloat4(source.constantMultiplierA111);
-	target.constantMultiplierB111 = toClFloat4(source.constantMultiplierB111);
-	target.constantMultiplierC111 = toClFloat4(source.constantMultiplierC111);
-	target.constantMultiplier121 = toClFloat4(source.constantMultiplier121);
-	target.constantMultiplier122 = toClFloat4(source.constantMultiplier122);
-	target.constantMultiplier221 = toClFloat4(source.constantMultiplier221);
-	target.constantMultiplier222 = toClFloat4(source.constantMultiplier222);
-	target.constantMultiplier441 = toClFloat4(source.constantMultiplier441);
-	target.juliaC = toClFloat4(source.juliaC);
-	target.offset000 = toClFloat4(source.offset000);
-	target.offsetA000 = toClFloat4(source.offsetA000);
-	target.offsetF000 = toClFloat4(source.offsetF000);
-	target.offset001 = toClFloat4(source.offset001);
-	target.offset002 = toClFloat4(source.offset002);
-	target.offset010 = toClFloat4(source.offset010);
-	target.offset100 = toClFloat4(source.offset100);
-	target.offset101 = toClFloat4(source.offset101);
-	target.offset110 = toClFloat4(source.offset110);
-	target.offset1105 = toClFloat4(source.offset1105);
-	target.offset111 = toClFloat4(source.offset111);
-	target.offsetA111 = toClFloat4(source.offsetA111);
-	target.offsetB111 = toClFloat4(source.offsetB111);
-	target.offsetC111 = toClFloat4(source.offsetC111);
-	target.offset200 = toClFloat4(source.offset200);
-	target.offsetA200 = toClFloat4(source.offsetA200);
-	target.offset222 = toClFloat4(source.offset222);
-	target.offsetA222 = toClFloat4(source.offsetA222);
-	target.offset333 = toClFloat4(source.offset333);
-	target.power025 = toClFloat4(source.power025);
-	target.power8 = toClFloat4(source.power8);
-	target.vec111 = toClFloat4(source.vec111);
-	target.rotation = toClFloat3(source.rotation);
-	target.rotation2 = toClFloat3(source.rotation2);
-	target.rotationXYZ = toClFloat3(source.rotationXYZ);
-	target.rotation2XYZ = toClFloat3(source.rotation2XYZ);
-	target.rotationVary = toClFloat3(source.rotationVary);
-	target.rotation44a = toClFloat3(source.rotation44a);
-	target.rotation44b = toClFloat3(source.rotation44b);
-	target.scaleP222 = toClFloat4(source.scaleP222);
-	target.scale3D000 = toClFloat4(source.scale3D000);
-	target.scale3D111 = toClFloat4(source.scale3D111);
-	target.scale3D222 = toClFloat4(source.scale3D222);
-	target.scale3Da222 = toClFloat4(source.scale3Da222);
-	target.scale3Db222 = toClFloat4(source.scale3Db222);
-	target.scale3Dc222 = toClFloat4(source.scale3Dc222);
-	target.scale3Dd222 = toClFloat4(source.scale3Dd222);
-	target.scale3D333 = toClFloat4(source.scale3D333);
-	target.scale3D444 = toClFloat4(source.scale3D444);
-	target.additionConstant0000 = toClFloat4(source.additionConstant0000);
-	target.offset0000 = toClFloat4(source.offset0000);
-	target.offsetA0000 = toClFloat4(source.offsetA0000);
-	target.offsetB0000 = toClFloat4(source.offsetB0000);
-	target.offsetp5555 = toClFloat4(source.offsetp5555);
-	target.offset1111 = toClFloat4(source.offset1111);
-	target.offsetA1111 = toClFloat4(source.offsetA1111);
-	target.offsetB1111 = toClFloat4(source.offsetB1111);
-	target.offsetNeg1111 = toClFloat4(source.offsetNeg1111);
-	target.offset2222 = toClFloat4(source.offset2222);
-	target.additionConstant111d5 = toClFloat4(source.additionConstant111d5);
-	target.constantMultiplier1220 = toClFloat4(source.constantMultiplier1220);
-	target.scale0000 = toClFloat4(source.scale0000);
-	target.scale1111 = toClFloat4(source.scale1111);
-	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
-	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
-	target.rotationMatrixXYZ = toClMatrix33(source.rotationMatrixXYZ);
-	target.rotationMatrix2XYZ = toClMatrix33(source.rotationMatrix2XYZ);
-	target.rotationMatrixVary = toClMatrix33(source.rotationMatrixVary);
 	target.addCpixelEnabled = source.addCpixelEnabled;
 	target.addCpixelEnabledFalse = source.addCpixelEnabledFalse;
 	target.alternateEnabledFalse = source.alternateEnabledFalse;
@@ -1658,13 +1701,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 inline sFractalCl clCopySFractalCl(const sFractal &source)
 {
 	sFractalCl target;
-	target.formula = source.formula;
-	target.formulaIterations = source.formulaIterations;
-	target.formulaWeight = source.formulaWeight;
-	target.formulaStartIteration = source.formulaStartIteration;
-	target.formulaStopIteration = source.formulaStopIteration;
-	target.dontAddCConstant = source.dontAddCConstant;
-	target.checkForBailout = source.checkForBailout;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);
@@ -1690,6 +1726,18 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.combo4 = clCopySFractalCombo4Cl(source.combo4);
 	target.combo5 = clCopySFractalCombo5Cl(source.combo5);
 	target.combo6 = clCopySFractalCombo6Cl(source.combo6);
+	target.juliaConstant = toClFloat3(source.juliaConstant);
+	target.constantMultiplier = toClFloat3(source.constantMultiplier);
+	target.formulaWeight = source.formulaWeight;
+	target.initialWAxis = source.initialWAxis;
+	target.formula = source.formula;
+	target.formulaIterations = source.formulaIterations;
+	target.formulaStartIteration = source.formulaStartIteration;
+	target.formulaStopIteration = source.formulaStopIteration;
+	target.juliaMode = source.juliaMode;
+	target.dontAddCConstant = source.dontAddCConstant;
+	target.checkForBailout = source.checkForBailout;
+	target.formulaMaxiter = source.formulaMaxiter;
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

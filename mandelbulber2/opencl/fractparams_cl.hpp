@@ -73,13 +73,18 @@ typedef enum
 
 typedef struct ALIGN16
 {
+	// constructor with init
+
+	// Nested structs (as in OpenCL)
 	sImageAdjustmentsCl imageAdjustments;
 	sCommonParamsCl common;
 
+	// Matrices (as in OpenCL)
 	matrix33 mRotBackgroundRotation;
 	matrix33 mRotCloudsRotation;
 	matrix33 mRotAmbientOcclusionLightMapRotation;
 
+	// Vectors (as in OpenCL)
 	cl_float3 ambientOcclusionLightMapRotation;
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;
@@ -93,7 +98,7 @@ typedef struct ALIGN16
 	cl_float3 viewAngle;
 	cl_float3 topVector;
 
-	// constructor with init
+	// Color vectors (as in OpenCL)
 	cl_float3 ambientOcclusionColor;
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
@@ -113,6 +118,7 @@ typedef struct ALIGN16
 	cl_float3 volFogColour2;
 	cl_float3 volFogColour3;
 
+	// Floats (as in OpenCL)
 	cl_float absMaxMarchingStep;
 	cl_float absMinMarchingStep;
 	cl_float ambientOcclusion;
@@ -190,6 +196,7 @@ typedef struct ALIGN16
 	cl_float volFogDistanceFromSurface;
 	cl_float volumetricLightDEFactor;
 
+	// Ints (as in OpenCL)
 	cl_int antialiasingSize;
 	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
@@ -210,12 +217,14 @@ typedef struct ALIGN16
 	cl_int monteCarloDenoiserStrength;
 	cl_int maxRaymarchingSteps;
 
+	// Enums (as in OpenCL)
 	cl_int perspectiveType;
 	cl_int ambientOcclusionMode;
 	cl_int texturedBackgroundMapType;
 	cl_int delta_DE_method;
 	cl_int delta_DE_function;
 
+	// Bools (as in OpenCL)
 	cl_int advancedQuality;
 	cl_int allPrimitivesInvisibleAlpha;
 	cl_int antialiasingEnabled;
@@ -274,93 +283,32 @@ typedef struct ALIGN16
 	cl_int useDefaultBailout;
 	cl_int volFogEnabled;
 
+	// Non-OpenCL types (CPU-only)
+
 } sParamRenderCl;
 
 #ifndef OPENCL_KERNEL_CODE
 inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 {
 	sParamRenderCl target;
-	target.antialiasingSize = source.antialiasingSize;
-	target.antialiasingOclDepth = source.antialiasingOclDepth;
-	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
-	target.cloudsIterations = source.cloudsIterations;
-	target.cloudsRandomSeed = source.cloudsRandomSeed;
-	target.frameNo = source.frameNo;
-	target.imageHeight = source.imageHeight;
-	target.imageWidth = source.imageWidth;
-	target.minN = source.minN;
-	target.N = source.N;
-	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
-	target.nebulaMinIteration = source.nebulaMinIteration;
-	target.nebulaColorMixing = source.nebulaColorMixing;
-	target.reflectionsMax = source.reflectionsMax;
-	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
-	target.DOFSamples = source.DOFSamples;
-	target.DOFMinSamples = source.DOFMinSamples;
-	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
-	target.maxRaymarchingSteps = source.maxRaymarchingSteps;
-	target.perspectiveType = source.perspectiveType;
-	target.ambientOcclusionMode = source.ambientOcclusionMode;
-	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
-	target.delta_DE_method = source.delta_DE_method;
-	target.delta_DE_function = source.delta_DE_function;
-	target.advancedQuality = source.advancedQuality;
-	target.allPrimitivesInvisibleAlpha = source.allPrimitivesInvisibleAlpha;
-	target.antialiasingEnabled = source.antialiasingEnabled;
-	target.antialiasingAdaptive = source.antialiasingAdaptive;
-	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
-	target.background3ColorsEnable = source.background3ColorsEnable;
-	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
-	target.cloudsCastShadows = source.cloudsCastShadows;
-	target.cloudsDistanceMode = source.cloudsDistanceMode;
-	target.cloudsEnable = source.cloudsEnable;
-	target.cloudsPlaneShape = source.cloudsPlaneShape;
-	target.cloudsSharpEdges = source.cloudsSharpEdges;
-	target.constantDEThreshold = source.constantDEThreshold;
-	target.distanceFogShadows = source.distanceFogShadows;
-	target.DOFEnabled = source.DOFEnabled;
-	target.DOFHDRMode = source.DOFHDRMode;
-	target.DOFMonteCarlo = source.DOFMonteCarlo;
-	target.DOFMonteCarloGlobalIllumination = source.DOFMonteCarloGlobalIllumination;
-	target.DOFMonteCarloChromaticAberration = source.DOFMonteCarloChromaticAberration;
-	target.envMappingEnable = source.envMappingEnable;
-	target.fakeLightsEnabled = source.fakeLightsEnabled;
-	target.fogEnabled = source.fogEnabled;
-	target.fogCastShadows = source.fogCastShadows;
-	target.glowEnabled = source.glowEnabled;
-	target.hdrBlurEnabled = source.hdrBlurEnabled;
-	target.hybridFractalEnable = source.hybridFractalEnable;
-	target.interiorMode = source.interiorMode;
-	target.iterThreshMode = source.iterThreshMode;
-	target.iterFogEnabled = source.iterFogEnabled;
-	target.iterFogShadows = source.iterFogShadows;
-	target.legacyCoordinateSystem = source.legacyCoordinateSystem;
-	target.limitsEnabled = source.limitsEnabled;
-	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
-	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
-	target.monteCarloGIUseReflectance = source.monteCarloGIUseReflectance;
-	target.monteCarloGIOfVolumetric = source.monteCarloGIOfVolumetric;
-	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
-	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
-	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
-	target.nebulaConstantBrighness = source.nebulaConstantBrighness;
-	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
-	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
-	target.nebulaXAxisColorsEnabled = source.nebulaXAxisColorsEnabled;
-	target.nebulaYAxisColorsEnabled = source.nebulaYAxisColorsEnabled;
-	target.nebulaZAxisColorsEnabled = source.nebulaZAxisColorsEnabled;
-	target.nebulaIterationsColorsEnabled = source.nebulaIterationsColorsEnabled;
-	target.nebulaGridDomainEnabled = source.nebulaGridDomainEnabled;
-	target.objectsTreeEnable = source.objectsTreeEnable;
-	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
-	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
-	target.raytracedReflections = source.raytracedReflections;
-	target.slowShading = source.slowShading;
-	target.SSAO_random_mode = source.SSAO_random_mode;
-	target.stereoSwapEyes = source.stereoSwapEyes;
-	target.texturedBackground = source.texturedBackground;
-	target.useDefaultBailout = source.useDefaultBailout;
-	target.volFogEnabled = source.volFogEnabled;
+	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
+	target.common = clCopySCommonParamsCl(source.common);
+	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
+	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
+	target.mRotAmbientOcclusionLightMapRotation =
+		toClMatrix33(source.mRotAmbientOcclusionLightMapRotation);
+	target.ambientOcclusionLightMapRotation = toClFloat3(source.ambientOcclusionLightMapRotation);
+	target.backgroundRotation = toClFloat3(source.backgroundRotation);
+	target.cloudsCenter = toClFloat3(source.cloudsCenter);
+	target.cloudsRotation = toClFloat3(source.cloudsRotation);
+	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
+	target.limitMin = toClFloat3(source.limitMin);
+	target.limitMax = toClFloat3(source.limitMax);
+	target.repeat = toClFloat3(source.repeat);
+	target.target = toClFloat3(source.target);
+	target.camera = toClFloat3(source.camera);
+	target.viewAngle = toClFloat3(source.viewAngle);
+	target.topVector = toClFloat3(source.topVector);
 	target.ambientOcclusionColor = toClFloat3(source.ambientOcclusionColor);
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
@@ -455,24 +403,87 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogDistanceFactor = source.volFogDistanceFactor;
 	target.volFogDistanceFromSurface = source.volFogDistanceFromSurface;
 	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
-	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
-	target.ambientOcclusionLightMapRotation = toClFloat3(source.ambientOcclusionLightMapRotation);
-	target.backgroundRotation = toClFloat3(source.backgroundRotation);
-	target.cloudsCenter = toClFloat3(source.cloudsCenter);
-	target.cloudsRotation = toClFloat3(source.cloudsRotation);
-	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
-	target.limitMin = toClFloat3(source.limitMin);
-	target.limitMax = toClFloat3(source.limitMax);
-	target.repeat = toClFloat3(source.repeat);
-	target.target = toClFloat3(source.target);
-	target.camera = toClFloat3(source.camera);
-	target.viewAngle = toClFloat3(source.viewAngle);
-	target.topVector = toClFloat3(source.topVector);
-	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
-	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
-	target.mRotAmbientOcclusionLightMapRotation =
-		toClMatrix33(source.mRotAmbientOcclusionLightMapRotation);
-	target.common = clCopySCommonParamsCl(source.common);
+	target.antialiasingSize = source.antialiasingSize;
+	target.antialiasingOclDepth = source.antialiasingOclDepth;
+	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
+	target.cloudsIterations = source.cloudsIterations;
+	target.cloudsRandomSeed = source.cloudsRandomSeed;
+	target.frameNo = source.frameNo;
+	target.imageHeight = source.imageHeight;
+	target.imageWidth = source.imageWidth;
+	target.minN = source.minN;
+	target.N = source.N;
+	target.nebulaNumberOfSamplesPerPixel = source.nebulaNumberOfSamplesPerPixel;
+	target.nebulaMinIteration = source.nebulaMinIteration;
+	target.nebulaColorMixing = source.nebulaColorMixing;
+	target.reflectionsMax = source.reflectionsMax;
+	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
+	target.DOFSamples = source.DOFSamples;
+	target.DOFMinSamples = source.DOFMinSamples;
+	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
+	target.maxRaymarchingSteps = source.maxRaymarchingSteps;
+	target.perspectiveType = source.perspectiveType;
+	target.ambientOcclusionMode = source.ambientOcclusionMode;
+	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
+	target.delta_DE_method = source.delta_DE_method;
+	target.delta_DE_function = source.delta_DE_function;
+	target.advancedQuality = source.advancedQuality;
+	target.allPrimitivesInvisibleAlpha = source.allPrimitivesInvisibleAlpha;
+	target.antialiasingEnabled = source.antialiasingEnabled;
+	target.antialiasingAdaptive = source.antialiasingAdaptive;
+	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
+	target.background3ColorsEnable = source.background3ColorsEnable;
+	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
+	target.cloudsCastShadows = source.cloudsCastShadows;
+	target.cloudsDistanceMode = source.cloudsDistanceMode;
+	target.cloudsEnable = source.cloudsEnable;
+	target.cloudsPlaneShape = source.cloudsPlaneShape;
+	target.cloudsSharpEdges = source.cloudsSharpEdges;
+	target.constantDEThreshold = source.constantDEThreshold;
+	target.distanceFogShadows = source.distanceFogShadows;
+	target.DOFEnabled = source.DOFEnabled;
+	target.DOFHDRMode = source.DOFHDRMode;
+	target.DOFMonteCarlo = source.DOFMonteCarlo;
+	target.DOFMonteCarloGlobalIllumination = source.DOFMonteCarloGlobalIllumination;
+	target.DOFMonteCarloChromaticAberration = source.DOFMonteCarloChromaticAberration;
+	target.envMappingEnable = source.envMappingEnable;
+	target.fakeLightsEnabled = source.fakeLightsEnabled;
+	target.fogEnabled = source.fogEnabled;
+	target.fogCastShadows = source.fogCastShadows;
+	target.glowEnabled = source.glowEnabled;
+	target.hdrBlurEnabled = source.hdrBlurEnabled;
+	target.hybridFractalEnable = source.hybridFractalEnable;
+	target.interiorMode = source.interiorMode;
+	target.iterThreshMode = source.iterThreshMode;
+	target.iterFogEnabled = source.iterFogEnabled;
+	target.iterFogShadows = source.iterFogShadows;
+	target.legacyCoordinateSystem = source.legacyCoordinateSystem;
+	target.limitsEnabled = source.limitsEnabled;
+	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
+	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
+	target.monteCarloGIUseReflectance = source.monteCarloGIUseReflectance;
+	target.monteCarloGIOfVolumetric = source.monteCarloGIOfVolumetric;
+	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
+	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
+	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
+	target.nebulaConstantBrighness = source.nebulaConstantBrighness;
+	target.nebulaInnerEnabled = source.nebulaInnerEnabled;
+	target.nebulaOuterEnabled = source.nebulaOuterEnabled;
+	target.nebulaXAxisColorsEnabled = source.nebulaXAxisColorsEnabled;
+	target.nebulaYAxisColorsEnabled = source.nebulaYAxisColorsEnabled;
+	target.nebulaZAxisColorsEnabled = source.nebulaZAxisColorsEnabled;
+	target.nebulaIterationsColorsEnabled = source.nebulaIterationsColorsEnabled;
+	target.nebulaGridDomainEnabled = source.nebulaGridDomainEnabled;
+	target.objectsTreeEnable = source.objectsTreeEnable;
+	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
+	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
+	target.raytracedReflections = source.raytracedReflections;
+	target.slowShading = source.slowShading;
+	target.SSAO_random_mode = source.SSAO_random_mode;
+	target.stereoSwapEyes = source.stereoSwapEyes;
+	target.texturedBackground = source.texturedBackground;
+	target.useDefaultBailout = source.useDefaultBailout;
+	target.volFogEnabled = source.volFogEnabled;
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */
