@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -72,13 +72,13 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
 		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f);
-		REAL t = 1.0f * max(0.0f, dot1);
-		z.x -= t * -SQRT_3_F;
+		REAL t2 = 1.0f * max(0.0f, dot1);
+		z.x -= t2 * -SQRT_3_F;
 		if (fractal->transformCommon.functionEnabledXFalse)
-			z.y = fabs(z.y) - t;
+			z.y = fabs(z.y) - t2;
 		else
 		{
-			z.y = fabs(z.y - t);
+			z.y = fabs(z.y - t2);
 		}
 		z.x -= SQRT_3_4_F;
 

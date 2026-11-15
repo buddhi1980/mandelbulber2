@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -58,7 +58,7 @@ REAL4 MengerV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *a
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		int k = 0.0f;
+		int k = 0;
 		REAL e = 0.0f;
 		REAL rr = 0.0f;
 		REAL4 one = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};

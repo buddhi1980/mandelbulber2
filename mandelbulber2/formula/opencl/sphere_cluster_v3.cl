@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -176,8 +176,8 @@ REAL4 SphereClusterV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedA
 
 		REAL m = minr * k;
 		t = 1.0f / m;
-		REAL3 tv = p - mid * l;
-		REAL dist = length(tv);
+		REAL3 tvL = p - mid * l;
+		REAL dist = length(tvL);
 		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{
 			p -= mid * l;

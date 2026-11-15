@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,9 +25,9 @@ REAL4 MengerV5Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *a
 							 + z.z * fractal->transformCommon.scaleB0 + fractal->transformCommon.angleDegA;
 		REAL cosA = native_cos(ang);
 		REAL sinB = native_sin(ang);
-		REAL t = z.x;
+		REAL tRot = z.x;
 		z.x = z.x * cosA - z.y * sinB;
-		z.y = t * sinB + z.y * cosA;
+		z.y = tRot * sinB + z.y * cosA;
 		aux->DE = aux->DE + fractal->analyticDE.offset1;
 	}
 

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2025 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -181,9 +181,9 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __global sFractalCl *fractal, sExt
 
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
-			REAL ang =
+			REAL angCol =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
-			if (fmod(ang, 2.0f) < 1.0f)
+			if (fmod(angCol, 2.0f) < 1.0f)
 				addCol += fractal->foldColor.difs0000.z;
 			else
 				addCol += fractal->foldColor.difs0000.w;

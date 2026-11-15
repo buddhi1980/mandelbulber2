@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -112,14 +112,14 @@ REAL4 MengerChebyshevIteration(REAL4 z, __global sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA) // box offset
 	{
-		REAL4 temp = z;
+		REAL4 zCopy = z;
 		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
-			REAL tempL = length(temp);
+			REAL tempL = length(zCopy);
 			// if (tempL < 1e-21f) tempL = 1e-21f;
 			REAL avgScale = length(z) / tempL;
 			aux->DE = aux->DE * avgScale + 1.0f;

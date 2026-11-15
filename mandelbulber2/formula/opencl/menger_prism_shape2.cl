@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -219,10 +219,10 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __global sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 
 		REAL dot2 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scaleF1;
-		REAL t = max(0.0f, dot2);
+		REAL t2 = max(0.0f, dot2);
 
-		z.x -= t * -SQRT_3_F;
-		z.y = fabs(z.y - t);
+		z.x -= t2 * -SQRT_3_F;
+		z.y = fabs(z.y - t2);
 
 		if (z.y > z.z)
 		{

@@ -50,6 +50,7 @@ bristorbrot,Bristorbrot,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefa
 bristorbrot2,"Bristorbrot V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 bristorbrot4d,"Bristorbrot 4D",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 buffalo,Buffalo,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+chebyshevBulb,"Chebyshev Bulb",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 coastalbrot,Coastalbrot,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 collatz,Collatz,analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionIFS
 collatzMod,"Collatz - Mod",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionIFS
@@ -68,6 +69,7 @@ dIFSMultiV1,"DIFS Multi V1",analyticDEType,customDEFunction,cpixelDisabledByDefa
 dIFSPrism,"DIFS Prism",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 dIFSSphere,"DIFS Sphere",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 dIFSTorus,"DIFS Torus",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+dualPowerMandelbox,"Mandelbox - Dual Power",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 eiffieCar,"Eiffie Car",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 eiffieMsltoe,"Msltoe - Julia Bulb Eiffie",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 foldBoxMod1,"Fold Box - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox

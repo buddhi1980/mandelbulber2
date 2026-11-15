@@ -15,7 +15,7 @@
 
 REAL4 EiffieCarIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(&z);
+	(void)z;
 
 	REAL4 p0 = aux->const_c;
 	REAL4 p = p0;
@@ -103,6 +103,5 @@ REAL4 EiffieCarIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *
 
 		if (aux->dist == zcd) aux->color = 4.0f + fractal->foldColor.difs0000.z;
 	}
-
 	return z;
 }

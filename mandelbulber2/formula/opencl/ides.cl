@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,7 +16,7 @@
 
 REAL4 IdesIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
+	(void)aux;
 
 	if (fabs(z.x) < 2.5f) z.x = z.x * .9f;
 	if (fabs(z.z) < 2.5f) z.z = z.z * .9f;

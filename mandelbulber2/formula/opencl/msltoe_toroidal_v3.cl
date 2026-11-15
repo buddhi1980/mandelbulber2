@@ -118,6 +118,7 @@ REAL4 MsltoeToroidalV3Iteration(REAL4 z, __global sFractalCl *fractal, sExtended
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scale);
 	}
 
+	// snapshot of the distance before DE adjustments; currently not consumed
 	REAL colDist = aux->dist;
 
 	if (fractal->transformCommon.functionEnabledOFalse)

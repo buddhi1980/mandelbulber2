@@ -128,7 +128,11 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Chebyshev Bulb — Mandelbulb with Chebyshev polynomial iteration.&lt;/p&gt;&lt;p&gt;Replaces the standard power operation z^power with the Chebyshev polynomial T_degree(x/|x|) * |x|, where T_n(x) = cos(n * arccos(x)) for |x| ≤ 1. This creates sharp, polygonal-like fractal structures with characteristic Chebyshev oscillation patterns. The degree parameter controls the polynomial order (minimum 2), with higher degrees producing more oscillations and sharper features.&lt;/p&gt;</string>
+         <string notr="true">&lt;p&gt;Chebyshev Bulb — Mandelbulb with Chebyshev polynomial iteration.&lt;br&gt;Replaces z^power with T_degree(z/|z|) * |z| where T_n is the Chebyshev&lt;br&gt;polynomial of degree n. T_n(x) = cos(n * arccos(x)) for |x| &lt;= 1.&lt;br&gt;Creates sharp, polygonal-like fractal structures.&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://www.fractalforums.com/&quot;&gt;https://www.fractalforums.com/&lt;br&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -147,18 +151,85 @@
          <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
         </property>
         <property name="text">
-         <string notr="true">&lt;body style="background-color:#fff5ee"&gt;
-&lt;pre style="color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;"&gt;&lt;span style="color:#2e8b57; font-weight:bold"&gt;void&lt;/span&gt; &lt;span style="color:#00008f"&gt;ChebyshevBulbIteration&lt;/span&gt;&lt;span style="color:#676767"&gt;(&lt;/span&gt;CVector4 &lt;span style="color:#676767"&gt;&amp;amp;&lt;/span&gt;z&lt;span style="color:#676767"&gt;,&lt;/span&gt; &lt;span style="color:#2e8b57; font-weight:bold"&gt;const&lt;/span&gt; sFractal &lt;span style="color:#676767"&gt;*&lt;/span&gt;fractal&lt;span style="color:#676767"&gt;,&lt;/span&gt; sExtendedAux &lt;span style="color:#676767"&gt;&amp;amp;&lt;/span&gt;aux&lt;span style="color:#676767"&gt;)&lt;/span&gt;
-&lt;span style="color:#676767"&gt;{&lt;/span&gt;
-  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; degree = fractal-&gt;bulb.degree;
-  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; r = aux.r;
-  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; tx = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.x / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
-  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; ty = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.y / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
-  &lt;span style="color:#2e8b57; font-weight:bold"&gt;double&lt;/span&gt; tz = cos&lt;span style="color:#676767"&gt;(&lt;/span&gt;degree * acos&lt;span style="color:#676767"&gt;(&lt;/span&gt;z.z / r&lt;span style="color:#676767"&gt;)&lt;/span&gt;&lt;span style="color:#676767"&gt;)&lt;/span&gt; * r;
-  z = CVector4&lt;span style="color:#676767"&gt;(&lt;/span&gt;tx, ty, tz, 0&lt;span style="color:#676767"&gt;)&lt;/span&gt;;
-  aux.DE *= &lt;span style="color:#676767"&gt;(&lt;/span&gt;|T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;x/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;| + |T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;y/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;| + |T'&lt;span style="color:#676767"&gt;(&lt;/span&gt;z/r&lt;span style="color:#676767"&gt;)&lt;/span&gt;|&lt;span style="color:#676767"&gt;)&lt;/span&gt;;
-  z += offset;
-&lt;span style="color:#676767"&gt;}&lt;/span&gt;
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;white-space: pre-wrap;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;ChebyshevBulbIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Chebyshev Bulb: apply T_degree to each coordinate&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// z_new = (T_degree(x/r * r), T_degree(y/r * r), T_degree(z/r * r))&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;//       = (sign(x) * T_degree(x/|x|) * |x|, ...)&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; degree &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;bulb&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;degree&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;degree &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;2.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; degree &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;2.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// Minimum degree 2 for fractal behavior&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; r &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;r &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1e-10&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetA000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;const_c &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;constantMultiplierA111&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;return&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Compute the Chebyshev transform for each coordinate&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// T_n(x) = cos(n * arccos(x)) for |x| &amp;lt;= 1&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// For the fractal, we apply it to each coordinate normalized by r, then scaled back&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; zz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Apply Chebyshev polynomial to each coordinate&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// For the Mandelbulb-style fractal, we use: T_degree(x/r) * r&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// This creates the characteristic &amp;quot;bulb&amp;quot; effect&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; tx &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; ty &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; tz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zz &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// DE computation: chain rule for each coordinate&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// d(T_n(x/r) * r)/dx = T&amp;#39;_n(x/r) * (1/r) * r + T_n(x/r) * 0&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;//                     = T&amp;#39;_n(x/r)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Total DE = sum of |T&amp;#39;_n(coord_i / r)| for i = x, y, z&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; dx &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t_derivative&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; dy &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t_derivative&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; dz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;chebyshev_t_derivative&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zz &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; degree&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; totalDE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;dx&lt;span style=&quot;color:#676767&quot;&gt;) +&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;dy&lt;span style=&quot;color:#676767&quot;&gt;) +&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;dz&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Set new coordinates&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tx&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; ty&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tz&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Apply DE&lt;/span&gt;
+  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; totalDE&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Add constant&lt;/span&gt;
+  z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetA000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;const_c &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;constantMultiplierA111&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Z.z scaling&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Analytic DE&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;enabledFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Optional DE0 distance estimator&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; zLen &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Length&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;();&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zLen &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE0 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.5&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;log&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zLen&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; zLen &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE0 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.01&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// 0.0 artifacts in openCL&lt;/span&gt;
+    
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsO
+        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsO&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE0&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
         </property>

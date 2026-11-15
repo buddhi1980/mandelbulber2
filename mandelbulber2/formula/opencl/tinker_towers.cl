@@ -125,6 +125,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxC
 	// the unit sphere if there are none.
 	// Zc = h * zXYZ
 	REAL w, my_w;
+	// edge tracks which cutting plane was hit; not read in the current result path
 	int edge = -1;
 	REAL3 Zc;
 	// The intersection point is Zc.

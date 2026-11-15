@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2026 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -211,10 +211,10 @@ REAL4 Testing4dIteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *
 		REAL x2 = z.x * z.x;
 		REAL y2 = z.y * z.y;
 		REAL z2 = z.z * z.z;
-		REAL temp = 1.0f - z2 / (x2 + y2);
+		REAL factor = 1.0f - z2 / (x2 + y2);
 		REAL4 zTemp;
-		zTemp.x = (x2 - y2) * temp;
-		zTemp.y = 2.0f * z.x * z.y * temp;
+		zTemp.x = (x2 - y2) * factor;
+		zTemp.y = 2.0f * z.x * z.y * factor;
 		zTemp.z = -2.0f * z.z * native_sqrt(x2 + y2);
 		zTemp.w = z.w;
 		z = zTemp;

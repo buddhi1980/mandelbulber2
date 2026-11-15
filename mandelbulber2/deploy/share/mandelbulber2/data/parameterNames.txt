@@ -28,6 +28,7 @@ bulb.power REAL power
 bulb.alphaAngleOffset REAL alpha_angle_offset
 bulb.betaAngleOffset REAL beta_angle_offset
 bulb.gammaAngleOffset REAL gamma_angle_offset
+bulb.degree REAL degree
 
 mandelbox.scale REAL mandelbox_scale
 mandelbox.foldingLimit REAL mandelbox_folding_limit
