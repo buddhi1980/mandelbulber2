@@ -52,6 +52,22 @@
     </screenshots>
     <content_rating type="oars-1.1"/>
     <releases>
+        <release version="2.35" date="2026-11-17">
+            <description>
+                <p>New features:</p>
+                <ul>
+                    <li>Objects Tree: hierarchical object manager replacing the nine fractals system (CPU and OpenCL)</li>
+                    <li>JPEG XL and Radiance HDR image formats, including command line support</li>
+                    <li>New fractal formulas: aboxMb3d1, chebyshevBulb, dualPowerMandelbox, mandelbarV3, mandelbulbPow2V4, pseudoKleinianTrig family</li>
+                </ul>
+                <p>Enhancements:</p>
+                <ul>
+                    <li>Default stop iteration increased to 9999, faster Monte Carlo rendering</li>
+                    <li>HTML user manual integrated into the program, many new and corrected tooltips</li>
+                    <li>OpenCL fixes: custom formulas in hybrid path, reflections, clouds, NVidia OpenCL 3.0 alignment</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.34" date="2025-09-01">
             <description>
                 <p>New features:</p>

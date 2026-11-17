@@ -32,7 +32,7 @@
  * Nebula dractal renderig kernel
  */
 
-#define MANDELBULBER_VERSION 2.34
+#define MANDELBULBER_VERSION 2.35
 
 float4 DummyIteration(float4 z, __global sFractalCl *fractal, sExtendedAuxCl *aux)
 {

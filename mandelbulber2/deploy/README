@@ -179,7 +179,7 @@ make install
 ------------
 
 - Debian Trixie x64 (newer sid also used)
-- Ubuntu 24.04
+- Ubuntu 24.06, 26.04
 
 - gcc 14.2 - 16.2
 - clang 19.1 - 21.1

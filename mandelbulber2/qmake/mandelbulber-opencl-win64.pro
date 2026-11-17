@@ -17,9 +17,9 @@ CONFIG += c++17
 ROOT = $$PWD/..
 SHARED = $$ROOT/deploy/share/mandelbulber2
 
-QMAKE_FULL_VERSION = 2.34.1
+QMAKE_FULL_VERSION = 2.35
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
-VERSION = 2.34.1
+VERSION = 2.35
 
 RC_ICONS = $$ROOT/deploy/win64/mandelbulber2.ico
 
