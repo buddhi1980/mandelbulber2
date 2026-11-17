@@ -53,6 +53,7 @@
 #include "lights.hpp"
 #include "material.h"
 #include "object_node_type.h"
+#include "objects_tree_migrator.hpp"
 #include "primitives.h"
 #include "projection_3d.hpp"
 #include "system.hpp"
@@ -635,10 +636,10 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	// These allow DecodeOneLine to store values; MigrateToObjectsTree() will consume and delete them.
 	if (fileVersion < 2.35)
 	{
-		InjectTemporaryLegacyBooleanParams(par);
-		InjectTemporaryLegacyFractalParams(par);
-		InjectTemporaryLegacyFormulaTransformParams(fractPar);
-		InjectTemporaryLegacyFormulaMaterialIdParams(par);
+		cObjectsTreeMigrator::InjectTemporaryLegacyBooleanParams(par);
+		cObjectsTreeMigrator::InjectTemporaryLegacyFractalParams(par);
+		cObjectsTreeMigrator::InjectTemporaryLegacyFormulaTransformParams(fractPar);
+		cObjectsTreeMigrator::InjectTemporaryLegacyFormulaMaterialIdParams(par);
 	}
 
 	int errorCount = 0;
@@ -742,7 +743,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 					{
 						std::shared_ptr<cParameterContainer> targetContainer;
 						QString resolvedLine;
-						if (TryResolveLegacyFractalParam(
+						if (cObjectsTreeMigrator::TryResolveLegacyFractalParam(
 									decodeLine, par, fractPar, resolvedLine, targetContainer))
 						{
 							decodeLine = resolvedLine;
@@ -1044,10 +1045,10 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 				// MigrateToObjectsTree() will migrate them to node-based params and delete them.
 				if (fileVersion < 2.35)
 				{
-					InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
+					cObjectsTreeMigrator::InjectTemporaryLegacyPrimitiveTransformParams(par, primitiveIndex);
 					// Inject temporary legacy node params needed during decode for migration.
 					// MigrateToObjectsTree() will migrate them to node-based params and delete them.
-					InjectTemporaryLegacyPrimitiveNodeParams(par, primitiveName);
+					cObjectsTreeMigrator::InjectTemporaryLegacyPrimitiveNodeParams(par, primitiveName);
 				}
 			}
 		}
@@ -1162,7 +1163,9 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	// NetRender clients. They are not valid parameters in files declaring v2.35 or newer, and
 	// counting them as decoding errors would abort the whole load (the [keyframes] section is
 	// stored at the end of the text, so it would be silently dropped).
-	if (IsTemporaryLegacyParamName(parameterName) && !par->IfExists(parameterName)) return true;
+	if (cObjectsTreeMigrator::IsTemporaryLegacyParamName(parameterName)
+			&& !par->IfExists(parameterName))
+		return true;
 
 	// Validate parameter type and set value
 	enumVarType varType = par->GetVarType(parameterName);

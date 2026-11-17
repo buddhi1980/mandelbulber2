@@ -34,16 +34,14 @@
  * cSettings can transpose program internal settings to settings string and vice versa.
  * It has also methods to [load / save] [from / to] [clipboard / string / file]
  *
- * The implementation of this class is split into three translation units:
- *  - settings.cpp                        - text creation, file / clipboard / string I/O,
- *                                          line and frame decoding
- *  - settings_compatibility.cpp          - Compatibility / Compatibility2 / Compatibility3
- *                                          handlers for older settings file versions
- *  - settings_objects_tree_migration.cpp - migration of the legacy flat format (up to v2.34)
- *                                          to the objects tree, including the temporary
- *                                          legacy parameters and the node definition helpers
- * All three implement the same class declared here; the split is organizational only and does
- * not introduce new classes.
+ * The implementation of this class is split into two translation units:
+ *  - settings.cpp               - text creation, file / clipboard / string I/O,
+ *                                 line and frame decoding
+ *  - settings_compatibility.cpp - Compatibility / Compatibility2 / Compatibility3
+ *                                 handlers for older settings file versions
+ * Both implement the same class declared here. The migration of the legacy flat format
+ * to the objects tree is delegated to a separate collaborator: cObjectsTreeMigrator
+ * (objects_tree_migrator.hpp).
  */
 
 #ifndef MANDELBULBER2_SRC_SETTINGS_HPP_
@@ -104,56 +102,12 @@ private:
 	void Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
 		const std::shared_ptr<cParameterContainer> &par,
 		const std::shared_ptr<cFractalContainer> &fractPar);
-	// Recognizes the temporary legacy parameter names created by the InjectTemporaryLegacy*
-	// helpers (settings_objects_tree_migration.cpp). Needed by DecodeOneLine(), so it is a
-	// member although its only definition lives in the migration translation unit.
-	static bool IsTemporaryLegacyParamName(const QString &name);
+	// Migration of the legacy flat format (files up to v2.34) to the objects tree is not
+	// part of this class anymore: it lives in cObjectsTreeMigrator
+	// (objects_tree_migrator.hpp). The handlers above only drive it, feeding it the
+	// containers and a sLegacyMigrationContext built from settingsText / fileVersion.
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
-	static QStringList GetLegacyPrimitiveTypes();
 	static QString ConvertLegacyAnimationParamName(const QString &oldName);
-	void InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
-	void InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par);
-	void InjectTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
-	void InjectTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
-	void InjectTemporaryLegacyPrimitiveTransformParams(
-		std::shared_ptr<cParameterContainer> par, int primitiveIndex);
-	void InjectTemporaryLegacyPrimitiveNodeParams(
-		std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName);
-	bool TryResolveLegacyFractalParam(const QString &decodeLine,
-		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
-		QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer);
-	void MigrateLegacyParamsToFractal(
-		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
-	void MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
-		std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId);
-	void DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par);
-	void DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par);
-	void DeleteTemporaryLegacyFormulaTransformParams(std::shared_ptr<cFractalContainer> fractPar);
-	void DeleteTemporaryLegacyFormulaMaterialIdParams(std::shared_ptr<cParameterContainer> par);
-	void DeleteTemporaryLegacyPrimitiveTransformParams(std::shared_ptr<cParameterContainer> par);
-	void DeleteTemporaryLegacyPrimitiveNodeParams(std::shared_ptr<cParameterContainer> par);
-	static QString GetFormulaName(int formulaEnum);
-	static enumNodeType ToNodeType(int boolOp);
-	static enumNodeType PrimitiveOpToNodeType(int boolOp);
-	static QString MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
-		int parentId, int objectId, int displayOrder = 0);
-	static QString NodePrefix(int nodeId);
-	static QString NodeDefinitionParam(int nodeId);
-	static void SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId);
-	static void CopyFormulaTransform(std::shared_ptr<cParameterContainer> par, const QString &prefix,
-		std::shared_ptr<cParameterContainer> fracPar);
-	static void CopyPrimitiveTransform(std::shared_ptr<cParameterContainer> par,
-		const QString &primitiveFullName, const QString &prefix);
-	static void CopyPrimitiveSmoothDECombine(std::shared_ptr<cParameterContainer> par,
-		const QString &primitiveFullName, const QString &prefix);
-	static void CopyOneFractalParams(
-		std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex);
-	static void CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix);
-	static QList<int> GetEnabledFractals(std::shared_ptr<cFractalContainer> fract);
-	static bool GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
-		std::shared_ptr<cFractalContainer> fract, int fractalIndex);
-	static void FlattenBooleanAddGroups(
-		std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId);
 
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;

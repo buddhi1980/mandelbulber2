@@ -29,15 +29,13 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cSettings class - migration of legacy flat settings to the objects tree
+ * cObjectsTreeMigrator - implementation
  *
- * Implements the objects-tree migration part of cSettings (declared in settings.hpp):
- * MigrateToObjectsTree(), FlattenBooleanAddGroups(), the temporary legacy parameter
- * inject/delete helpers and the node definition helpers. It is a separate translation
- * unit of the same class, not a separate class.
+ * See objects_tree_migrator.hpp for the purpose of the class. Everything which used to be
+ * a private part of cSettings and only served the legacy flat format lives here.
  */
 
-#include "settings.hpp"
+#include "objects_tree_migrator.hpp"
 
 #include <QRegularExpression>
 #include <QSet>
@@ -54,6 +52,14 @@
 #include "formula/definition/all_fractal_list.hpp"
 
 /**
+ * Creates the migrator for one settings file which is being loaded.
+ */
+cObjectsTreeMigrator::cObjectsTreeMigrator(const sLegacyMigrationContext &_context)
+		: context(_context)
+{
+}
+
+/**
  * Check if a parameter name is one of the temporary legacy names created by the
  * InjectTemporaryLegacy*Params() helpers (per-fractal indexed variants used by the migration
  * of settings files older than v2.35). Such names carry no meaning on their own: they are only
@@ -61,10 +67,9 @@
  * must be ignored otherwise. The list also covers parameters removed from InitParameters()
  * whose values are consumed directly from the raw settings text during migration
  * (e.g. repeat_from, converted to iteration ranges by MigrateToObjectsTree()).
- * Declared as a member of cSettings (settings.hpp) because DecodeOneLine() in settings.cpp
- * needs it as well, while the parameters it recognises are owned by this translation unit.
+ * Public because cSettings::DecodeOneLine() needs it as well while decoding a file.
  */
-bool cSettings::IsTemporaryLegacyParamName(const QString &name)
+bool cObjectsTreeMigrator::IsTemporaryLegacyParamName(const QString &name)
 {
 	if (name == "boolean_operators") return true;
 	// legacy hybrid wrap-around slot: not registered anymore, the migration reads the value
@@ -84,7 +89,8 @@ bool cSettings::IsTemporaryLegacyParamName(const QString &name)
 	return false;
 }
 
-void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+void cObjectsTreeMigrator::InjectTemporaryLegacyBooleanParams(
+	std::shared_ptr<cParameterContainer> par)
 {
 	// Injects temporary boolean params from the legacy flat format into the parameter
 	// container. Ensure top-level boolean_operators flag exists
@@ -102,7 +108,8 @@ void cSettings::InjectTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par)
+void cObjectsTreeMigrator::InjectTemporaryLegacyFractalParams(
+	std::shared_ptr<cParameterContainer> par)
 {
 	// Injects temporary per-fractal julia_mode, julia_c, and fractal_constant_factor params
 	// from the legacy flat format into the parameter container.
@@ -130,7 +137,7 @@ void cSettings::InjectTemporaryLegacyFractalParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::InjectTemporaryLegacyFormulaTransformParams(
+void cObjectsTreeMigrator::InjectTemporaryLegacyFormulaTransformParams(
 	std::shared_ptr<cFractalContainer> fractPar)
 {
 	// Injects temporary legacy formula transform params into each fractal container.
@@ -159,7 +166,7 @@ void cSettings::InjectTemporaryLegacyFormulaTransformParams(
 	}
 }
 
-void cSettings::InjectTemporaryLegacyFormulaMaterialIdParams(
+void cObjectsTreeMigrator::InjectTemporaryLegacyFormulaMaterialIdParams(
 	std::shared_ptr<cParameterContainer> par)
 {
 	// Injects a temporary global formula_material_id param into the top-level container.
@@ -172,7 +179,14 @@ void cSettings::InjectTemporaryLegacyFormulaMaterialIdParams(
 	}
 }
 
-void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
+QStringList cObjectsTreeMigrator::GetLegacyPrimitiveTypes()
+{
+	// Returns the list of legacy primitive type names used in old file formats.
+	return {"sphere", "box", "cylinder", "cone", "plane", "torus", "rectangle", "circle", "water",
+		"prism", "ellipsoid"};
+}
+
+void cObjectsTreeMigrator::InjectTemporaryLegacyPrimitiveTransformParams(
 	std::shared_ptr<cParameterContainer> par, int primitiveIndex)
 {
 	// Injects temporary position/rotation/scale params for a legacy primitive into the parameter
@@ -198,7 +212,7 @@ void cSettings::InjectTemporaryLegacyPrimitiveTransformParams(
 	}
 }
 
-void cSettings::InjectTemporaryLegacyPrimitiveNodeParams(
+void cObjectsTreeMigrator::InjectTemporaryLegacyPrimitiveNodeParams(
 	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName)
 {
 	// Injects temporary node-related params for a specific legacy primitive into the parameter
@@ -254,7 +268,7 @@ static const QStringList gLegacyPerFractalParams = {
 	"smooth_de_combine_enable",
 };
 
-bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
+bool cObjectsTreeMigrator::TryResolveLegacyFractalParam(const QString &decodeLine,
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
 	QString &resolvedLine, std::shared_ptr<cParameterContainer> &targetContainer)
 {
@@ -318,7 +332,7 @@ bool cSettings::TryResolveLegacyFractalParam(const QString &decodeLine,
 	return false;
 }
 
-void cSettings::MigrateLegacyParamsToFractal(
+void cObjectsTreeMigrator::MigrateLegacyParamsToFractal(
 	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
 {
 	// Migrates legacy flat params (dont_add_c_constant, fractal_constant_factor, julia_mode, julia_c)
@@ -405,7 +419,7 @@ void cSettings::MigrateLegacyParamsToFractal(
 	}
 }
 
-QString cSettings::GetFormulaName(int formulaEnum)
+QString cObjectsTreeMigrator::GetFormulaName(int formulaEnum)
 {
 	for (cAbstractFractal *f : newFractalList)
 	{
@@ -417,7 +431,7 @@ QString cSettings::GetFormulaName(int formulaEnum)
 	return "fractal";
 }
 
-enumNodeType cSettings::ToNodeType(int boolOp)
+enumNodeType cObjectsTreeMigrator::ToNodeType(int boolOp)
 {
 	switch (boolOp)
 	{
@@ -427,7 +441,7 @@ enumNodeType cSettings::ToNodeType(int boolOp)
 	}
 }
 
-enumNodeType cSettings::PrimitiveOpToNodeType(int boolOp)
+enumNodeType cObjectsTreeMigrator::PrimitiveOpToNodeType(int boolOp)
 {
 	switch (boolOp)
 	{
@@ -438,8 +452,8 @@ enumNodeType cSettings::PrimitiveOpToNodeType(int boolOp)
 	}
 }
 
-QString cSettings::MakeNodeDefinition(const QString &formulaName, int nodeId, enumNodeType type,
-	int parentId, int objectId, int displayOrder)
+QString cObjectsTreeMigrator::MakeNodeDefinition(const QString &formulaName, int nodeId,
+	enumNodeType type, int parentId, int objectId, int displayOrder)
 {
 	return QString("%1 %2,%2,%3,%4,%5,%6")
 		.arg(formulaName)
@@ -450,17 +464,18 @@ QString cSettings::MakeNodeDefinition(const QString &formulaName, int nodeId, en
 		.arg(displayOrder);
 }
 
-QString cSettings::NodePrefix(int nodeId)
+QString cObjectsTreeMigrator::NodePrefix(int nodeId)
 {
 	return QString("node_%1_").arg(nodeId, 4, 10, QChar('0'));
 }
 
-QString cSettings::NodeDefinitionParam(int nodeId)
+QString cObjectsTreeMigrator::NodeDefinitionParam(int nodeId)
 {
 	return NodePrefix(nodeId) + "definition";
 }
 
-void cSettings::SetNodeParent(std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
+void cObjectsTreeMigrator::SetNodeParent(
+	std::shared_ptr<cParameterContainer> par, int nodeId, int parentId)
 {
 	const QString defParam = NodeDefinitionParam(nodeId);
 	if (!par->IfExists(defParam)) return;
@@ -470,7 +485,7 @@ void cSettings::SetNodeParent(std::shared_ptr<cParameterContainer> par, int node
 	par->Set(defParam, parts.join(","));
 }
 
-void cSettings::CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
+void cObjectsTreeMigrator::CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
 	const QString &prefix, std::shared_ptr<cParameterContainer> fracPar)
 {
 	par->Set(prefix + "position", fracPar->Get<CVector3>("formula_position"));
@@ -482,7 +497,7 @@ void cSettings::CopyFormulaTransform(std::shared_ptr<cParameterContainer> par,
 
 // Copy common fractal params (julia_mode, julia_c, etc.) from per-fractal container to node params.
 // Used during migration to populate node-level params from legacy per-fractal params.
-void cSettings::CopyOneFractalParams(
+void cObjectsTreeMigrator::CopyOneFractalParams(
 	std::shared_ptr<cParameterContainer> par, const QString &prefix, int formulaIndex)
 {
 	par->Set(prefix + "julia_mode", par->Get<bool>("julia_mode", formulaIndex));
@@ -493,7 +508,8 @@ void cSettings::CopyOneFractalParams(
 	par->Set(prefix + "formula_maxiter", par->Get<int>("formula_maxiter", formulaIndex));
 }
 
-void cSettings::CopyFractalParams(std::shared_ptr<cParameterContainer> par, const QString &prefix)
+void cObjectsTreeMigrator::CopyFractalParams(
+	std::shared_ptr<cParameterContainer> par, const QString &prefix)
 {
 	par->Set(prefix + "julia_mode", par->Get<bool>("julia_mode"));
 	par->Set(prefix + "julia_c", par->Get<CVector3>("julia_c"));
@@ -502,7 +518,7 @@ void cSettings::CopyFractalParams(std::shared_ptr<cParameterContainer> par, cons
 	par->Set(prefix + "formula_maxiter", par->Get<int>("N"));
 }
 
-void cSettings::CopyPrimitiveTransform(
+void cObjectsTreeMigrator::CopyPrimitiveTransform(
 	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
 {
 	if (par->IfExists(primitiveFullName + "_position"))
@@ -526,7 +542,7 @@ void cSettings::CopyPrimitiveTransform(
 // Migrates the legacy per-primitive smooth distance-estimate combine params
 // (smooth_de_combine_enable / smooth_de_combine_distance) onto the node prefix so
 // the objects tree can apply smooth blending on the primitive leaf node.
-void cSettings::CopyPrimitiveSmoothDECombine(
+void cObjectsTreeMigrator::CopyPrimitiveSmoothDECombine(
 	std::shared_ptr<cParameterContainer> par, const QString &primitiveFullName, const QString &prefix)
 {
 	if (par->IfExists(primitiveFullName + "_smooth_de_combine_enable"))
@@ -541,7 +557,7 @@ void cSettings::CopyPrimitiveSmoothDECombine(
 	}
 }
 
-QList<int> cSettings::GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
+QList<int> cObjectsTreeMigrator::GetEnabledFractals(std::shared_ptr<cFractalContainer> fract)
 {
 	QList<int> enabledFractals;
 	for (int i = 0; i < fract->size(); i++)
@@ -555,7 +571,7 @@ QList<int> cSettings::GetEnabledFractals(std::shared_ptr<cFractalContainer> frac
 	return enabledFractals;
 }
 
-bool cSettings::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
+bool cObjectsTreeMigrator::GetFractalEnableFlag(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fract, int fractalIndex)
 {
 	QString paramName = QString("fractal_enable_%1").arg(fractalIndex);
@@ -680,9 +696,14 @@ static void MigrateRepeatFromToIterationRanges(
 	}
 }
 
-void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
+void cObjectsTreeMigrator::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fract, int &nextGroupObjectId)
 {
+	// Local aliases for the migration context, so that the migration code below reads like
+	// it did when it was still a member of cSettings
+	const QString &settingsText = context.rawSettingsText;
+	const double fileVersion = context.fileVersion;
+
 	// Scan raw settings text to find which primitives had any parameter in the original file.
 	// This is needed because InitPrimitiveParams adds default values during decode,
 	// so IfExists() would always return true. We need the regex to distinguish
@@ -1323,7 +1344,7 @@ void cSettings::MigrateToObjectsTree(std::shared_ptr<cParameterContainer> par,
 // Flattens nested booleanAdd groups: finds each root booleanAdd, collects all its
 // leaf descendants (fractals/primitives), and reparents them directly to a new
 // booleanAdd root. Intermediate booleanAdd groups are reparented to the new root.
-void cSettings::FlattenBooleanAddGroups(
+void cObjectsTreeMigrator::FlattenBooleanAddGroups(
 	std::shared_ptr<cParameterContainer> par, int &nextGroupObjectId)
 {
 	struct sNodeInfo
@@ -1891,7 +1912,8 @@ void cSettings::FlattenBooleanAddGroups(
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterContainer> par)
+void cObjectsTreeMigrator::DeleteTemporaryLegacyBooleanParams(
+	std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary legacy boolean params that were injected during migration.
 	// Remove the top-level boolean_operators flag
@@ -1911,7 +1933,8 @@ void cSettings::DeleteTemporaryLegacyBooleanParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterContainer> par)
+void cObjectsTreeMigrator::DeleteTemporaryLegacyFractalParams(
+	std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary per-fractal julia_mode, julia_c, fractal_constant_factor,
 	// formula_maxiter and initial_waxis params. These are injected by
@@ -1937,7 +1960,7 @@ void cSettings::DeleteTemporaryLegacyFractalParams(std::shared_ptr<cParameterCon
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyFormulaTransformParams(
+void cObjectsTreeMigrator::DeleteTemporaryLegacyFormulaTransformParams(
 	std::shared_ptr<cFractalContainer> fractPar)
 {
 	// Deletes the temporary legacy formula transform params from each fractal container.
@@ -1960,7 +1983,7 @@ void cSettings::DeleteTemporaryLegacyFormulaTransformParams(
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyFormulaMaterialIdParams(
+void cObjectsTreeMigrator::DeleteTemporaryLegacyFormulaMaterialIdParams(
 	std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary global formula_material_id param from the top-level container.
@@ -1975,7 +1998,7 @@ void cSettings::DeleteTemporaryLegacyFormulaMaterialIdParams(
 	// tree, but the top-level copy is still needed by the rendering pipeline.
 }
 
-void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
+void cObjectsTreeMigrator::DeleteTemporaryLegacyPrimitiveTransformParams(
 	std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary legacy primitive transform params (position/rotation/scale) that were
@@ -2014,7 +2037,8 @@ void cSettings::DeleteTemporaryLegacyPrimitiveTransformParams(
 	}
 }
 
-void cSettings::DeleteTemporaryLegacyPrimitiveNodeParams(std::shared_ptr<cParameterContainer> par)
+void cObjectsTreeMigrator::DeleteTemporaryLegacyPrimitiveNodeParams(
+	std::shared_ptr<cParameterContainer> par)
 {
 	// Deletes the temporary legacy primitive node params (enabled, material_id, calculation_order,
 	// boolean_operator, smooth_de_combine_enable, smooth_de_combine_distance) that were injected

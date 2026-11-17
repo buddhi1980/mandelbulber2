@@ -50,6 +50,7 @@
 #include "light.h"
 #include "material.h"
 #include "object_node_type.h"
+#include "objects_tree_migrator.hpp"
 #include "projection_3d.hpp"
 #include "write_log.hpp"
 
@@ -580,11 +581,13 @@ void cSettings::Compatibility2(
 		{
 			DeleteAllNodeParams(par);
 			int nextGroupObjectId = 100;
-			MigrateToObjectsTree(par, fract, nextGroupObjectId);
-			FlattenBooleanAddGroups(par, nextGroupObjectId);
+			// the migration needs the raw file text and the version, see the context struct
+			cObjectsTreeMigrator migrator(sLegacyMigrationContext(settingsText, fileVersion));
+			migrator.MigrateToObjectsTree(par, fract, nextGroupObjectId);
+			cObjectsTreeMigrator::FlattenBooleanAddGroups(par, nextGroupObjectId);
 		}
-		DeleteTemporaryLegacyPrimitiveTransformParams(par);
-		DeleteTemporaryLegacyPrimitiveNodeParams(par);
+		cObjectsTreeMigrator::DeleteTemporaryLegacyPrimitiveTransformParams(par);
+		cObjectsTreeMigrator::DeleteTemporaryLegacyPrimitiveNodeParams(par);
 	}
 }
 
@@ -633,11 +636,4 @@ void cSettings::PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParamet
 		// Set default specular_width value to 1.0 for backward compatibility
 		par->Set(cMaterial::Name("specular_width", matIndex), 1.0);
 	}
-}
-
-QStringList cSettings::GetLegacyPrimitiveTypes()
-{
-	// Returns the list of legacy primitive type names used in old file formats.
-	return {"sphere", "box", "cylinder", "cone", "plane", "torus", "rectangle", "circle", "water",
-		"prism", "ellipsoid"};
 }
