@@ -123,7 +123,6 @@ random_lights_number 80;
 random_lights_random_seed 4985;
 random_lights_size 0,05;
 random_lights_visibility 2;
-repeat_from 2;
 saturation 1,4;
 target -0,60554727467165 0,175096805754945 0,759812223740702;
 use_default_bailout false;
@@ -135,6 +134,7 @@ volumetric_fog_distance_factor 1,96077619196373;
 volumetric_fog_enabled true;
 [fractal_1]
 formula 1155;
+formula_stop_iteration 0;
 mandelbox_offset -0,4 2,3 -1,9;
 power 8;
 transf_addition_constant 0,2 -0,5 -0,2;

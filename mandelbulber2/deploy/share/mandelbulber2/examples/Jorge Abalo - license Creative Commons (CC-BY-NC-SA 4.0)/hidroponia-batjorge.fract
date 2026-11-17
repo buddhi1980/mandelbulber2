@@ -94,7 +94,6 @@ rayleigh_scattering_blue 0,5;
 rayleigh_scattering_red 0,5;
 raytraced_reflections true;
 reflections_max 2;
-repeat_from 3;
 target -0,246126665498149 -14,0322685703348 0,672494293933828;
 use_default_bailout false;
 volumetric_fog_colour_1_distance 0,0665118514281953;
@@ -104,11 +103,13 @@ volumetric_fog_enabled true;
 volumetric_light_DE_Factor 4;
 [fractal_1]
 formula 1053;
+formula_stop_iteration 0;
 transf_function_enabled_false true;
 transf_scaleA_1 0,4;
 transf_scaleC_1 4;
 [fractal_2]
 formula 1063;
+formula_stop_iteration 1;
 transf_addition_constant_0000 0 0,23 0 0;
 transf_addition_constant_111d5 0,7 1 2 0,5;
 transf_offset_000 -0,7 0 0;

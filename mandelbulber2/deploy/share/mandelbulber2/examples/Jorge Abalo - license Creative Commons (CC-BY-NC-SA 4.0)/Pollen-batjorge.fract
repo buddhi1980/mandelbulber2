@@ -78,13 +78,13 @@ node_0004_rotation 3,4 8,78 -66,55;
 primitive_plane_1_enabled true;
 primitive_plane_1_object_id 200;
 raytraced_reflections true;
-repeat_from 2;
 target 1,36438352405464 1,41701086755484 0,639234596621648;
 use_default_bailout false;
 [fractal_1]
 dont_add_c_constant true;
 formula 266;
 formula_iterations 3;
+formula_stop_iteration 2;
 power 4,5;
 transf_function_enabledA_false true;
 transf_function_enabledCz_false true;
