@@ -33,6 +33,17 @@
  *
  * cSettings can transpose program internal settings to settings string and vice versa.
  * It has also methods to [load / save] [from / to] [clipboard / string / file]
+ *
+ * The implementation of this class is split into three translation units:
+ *  - settings.cpp                        - text creation, file / clipboard / string I/O,
+ *                                          line and frame decoding
+ *  - settings_compatibility.cpp          - Compatibility / Compatibility2 / Compatibility3
+ *                                          handlers for older settings file versions
+ *  - settings_objects_tree_migration.cpp - migration of the legacy flat format (up to v2.34)
+ *                                          to the objects tree, including the temporary
+ *                                          legacy parameters and the node definition helpers
+ * All three implement the same class declared here; the split is organizational only and does
+ * not introduce new classes.
  */
 
 #ifndef MANDELBULBER2_SRC_SETTINGS_HPP_
@@ -93,6 +104,10 @@ private:
 	void Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
 		const std::shared_ptr<cParameterContainer> &par,
 		const std::shared_ptr<cFractalContainer> &fractPar);
+	// Recognizes the temporary legacy parameter names created by the InjectTemporaryLegacy*
+	// helpers (settings_objects_tree_migration.cpp). Needed by DecodeOneLine(), so it is a
+	// member although its only definition lives in the migration translation unit.
+	static bool IsTemporaryLegacyParamName(const QString &name);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	static QStringList GetLegacyPrimitiveTypes();
 	static QString ConvertLegacyAnimationParamName(const QString &oldName);
