@@ -690,3 +690,16 @@ void Test::animatedFileName() const
 	QCOMPARE(AnimatedFileName(folder + QDir::separator() + "none%%.png", 7),
 		folder + QDir::separator() + "none07.png");
 }
+
+void Test::ensureFileExtension() const
+{
+	// the mesh export adds .ply when the file name has no such extension (issue #906)
+	QCOMPARE(EnsureFileExtension("mesh", "ply"), QString("mesh.ply"));
+	QCOMPARE(EnsureFileExtension("mesh.ply", "ply"), QString("mesh.ply"));
+	QCOMPARE(EnsureFileExtension("mesh.PLY", "ply"), QString("mesh.PLY"));
+	QCOMPARE(EnsureFileExtension("mesh.", "ply"), QString("mesh.ply"));
+	QCOMPARE(EnsureFileExtension("mesh.v2", "ply"), QString("mesh.v2.ply"));
+	QCOMPARE(EnsureFileExtension("my.ply.d/mesh", "ply"), QString("my.ply.d/mesh.ply"));
+	QCOMPARE(EnsureFileExtension("mesh_ply", "ply"), QString("mesh_ply.ply"));
+	QCOMPARE(EnsureFileExtension("", "ply"), QString(""));
+}

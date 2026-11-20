@@ -751,3 +751,11 @@ bool fileTouch(const QString &filePath)
 	file.resize(size);
 	return true;
 }
+
+QString EnsureFileExtension(const QString &fileName, const QString &extension)
+{
+	if (fileName.isEmpty() || fileName.endsWith("." + extension, Qt::CaseInsensitive))
+		return fileName;
+	if (fileName.endsWith('.')) return fileName + extension;
+	return fileName + "." + extension;
+}

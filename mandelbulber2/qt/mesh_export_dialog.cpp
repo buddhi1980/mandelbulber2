@@ -41,6 +41,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"
 #include "src/file_mesh.hpp"
+#include "src/files.h"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/mesh_export.hpp"
@@ -82,7 +83,10 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 			limitMax = gPar->Get<CVector3>("limit_max");
 		}
 		int maxIter = gPar->Get<int>("voxel_max_iter");
-		QString outputFileName = gPar->Get<QString>("mesh_output_filename");
+		// the mesh is always written in PLY format (issue #906)
+		QString outputFileName = EnsureFileExtension(gPar->Get<QString>("mesh_output_filename"), "ply");
+		gPar->Set("mesh_output_filename", outputFileName);
+		ui->text_mesh_output_filename->setText(outputFileName);
 		int samplesX = gPar->Get<int>("voxel_samples_x");
 		int samplesY = gPar->Get<int>("voxel_samples_y");
 		int samplesZ = gPar->Get<int>("voxel_samples_z");
@@ -146,12 +150,12 @@ void cMeshExportDialog::on_pushButton_stop_render_layers_clicked() const
 
 void cMeshExportDialog::on_pushButton_select_image_path_clicked()
 {
-	QString outputFileName = QFileDialog::getSaveFileName(
-		this, tr("Select path for mesh output"), ui->text_mesh_output_filename->text());
+	QString outputFileName = QFileDialog::getSaveFileName(this, tr("Select path for mesh output"),
+		ui->text_mesh_output_filename->text(), tr("PLY mesh (*.ply)"));
 
 	if (!outputFileName.isEmpty())
 	{
-		ui->text_mesh_output_filename->setText(outputFileName);
+		ui->text_mesh_output_filename->setText(EnsureFileExtension(outputFileName, "ply"));
 	}
 }
 
