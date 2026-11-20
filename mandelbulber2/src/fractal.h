@@ -154,6 +154,22 @@ struct sFractalGeneralizedFoldBox
 
 struct sFractalIFS
 {
+	// Matrices and vectors first (as in OpenCL): MSVC aligns cl_float3/cl_float4 to 4 bytes
+	// only, so they must start at a multiple of 16 for the host and device layouts to match
+	CRotationMatrix mainRot;
+	CRotationMatrix rot[IFS_VECTOR_COUNT];
+	CVector4 direction[IFS_VECTOR_COUNT];
+	CVector3 edge;
+	CVector4 offset;
+	CVector3 rotations[IFS_VECTOR_COUNT];
+	CVector3 rotation;
+
+	// Doubles (as in OpenCL)
+	double distance[IFS_VECTOR_COUNT];
+	double intensity[IFS_VECTOR_COUNT];
+	double scale;
+
+	// Bools (as in OpenCL)
 	bool absX;
 	bool absY;
 	bool absZ;
@@ -161,16 +177,6 @@ struct sFractalIFS
 	bool mengerSpongeMode;
 	bool rotationEnabled;
 	bool edgeEnabled;
-	CRotationMatrix mainRot;
-	CRotationMatrix rot[IFS_VECTOR_COUNT];
-	CVector4 direction[IFS_VECTOR_COUNT];
-	CVector3 edge;
-	CVector4 offset;
-	CVector3 rotations[IFS_VECTOR_COUNT];
-	double distance[IFS_VECTOR_COUNT];
-	double intensity[IFS_VECTOR_COUNT];
-	CVector3 rotation;
-	double scale;
 };
 
 struct sFractalMandelboxVary4D
@@ -455,6 +461,20 @@ struct sFractalCombo
 // for surfbox types
 struct sFractalSurfBox
 {
+	// Vectors first (as in OpenCL), see sFractalIFS
+	CVector4 offset1A111;
+	CVector4 offset1B111;
+	CVector4 offset2A111;
+	CVector4 offset2B111;
+	CVector4 offset3A111;
+	CVector4 offset3B111;
+	CVector4 offset1A222;
+	CVector4 offset1B222;
+
+	// Double (as in OpenCL)
+	double scale1Z1;
+
+	// Bools (as in OpenCL)
 	bool enabledX1;
 	bool enabledY1;
 	bool enabledZ1;
@@ -470,15 +490,6 @@ struct sFractalSurfBox
 	bool enabledX5False;
 	bool enabledY5False;
 	bool enabledZ5False;
-	CVector4 offset1A111;
-	CVector4 offset1B111;
-	CVector4 offset2A111;
-	CVector4 offset2B111;
-	CVector4 offset3A111;
-	CVector4 offset3B111;
-	CVector4 offset1A222;
-	CVector4 offset1B222;
-	double scale1Z1;
 };
 
 // for curvilinear
