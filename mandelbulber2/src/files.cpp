@@ -336,10 +336,8 @@ std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight)
 	png_infop info_ptr;
 	unsigned int sig_read = 8;
 	int color_type, interlace_type;
-	FILE *fp;
-
-	if ((fp = OpenFile(filename.toLocal8Bit().constData(), "rb")) == nullptr)
-		return std::vector<sRGBA16>();
+	FILE *fp = OpenFile(filename.toLocal8Bit().constData(), "rb");
+	if (fp == nullptr) return std::vector<sRGBA16>();
 
 	png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
