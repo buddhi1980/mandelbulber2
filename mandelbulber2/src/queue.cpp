@@ -706,6 +706,10 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 	// update element in row i, column j
 	QTableWidget *table = ui->tableWidget_queue_list;
 	table->blockSignals(true);
+#ifdef _MSC_VER
+// a missing cell is created below, so the cell is never null after this block
+#pragma warning(suppress : 26430)
+#endif
 	QTableWidgetItem *cell = table->item(i, j);
 	if (!cell)
 	{

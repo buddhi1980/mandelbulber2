@@ -868,6 +868,10 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 	{
 		QSet<QString> listOfParameters;
 
+#ifdef _MSC_VER
+// findChildren() returns only existing widgets, so w is never null
+#pragma warning(suppress : 26430)
+#endif
 		foreach (QWidget *w, listChildrenWidgets)
 		{
 			// qDebug() << QString(level, ' ') << "Widget: " << w->objectName();
