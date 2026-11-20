@@ -470,7 +470,7 @@ typedef struct ALIGN16
 // for surfbox types
 typedef struct ALIGN16
 {
-	// Vectors first (as in OpenCL), see sFractalIFS
+	// Vectors first (as in OpenCL), see sFractalIFSCl
 	cl_float4 offset1A111;
 	cl_float4 offset1B111;
 	cl_float4 offset2A111;
@@ -1059,16 +1059,6 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 inline sFractalIFSCl clCopySFractalIFSCl(const sFractalIFS &source)
 {
 	sFractalIFSCl target;
-	target.absX = source.absX;
-	target.absY = source.absY;
-	target.absZ = source.absZ;
-	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
-	{
-		target.enabled[i] = source.enabled[i];
-	}
-	target.mengerSpongeMode = source.mengerSpongeMode;
-	target.rotationEnabled = source.rotationEnabled;
-	target.edgeEnabled = source.edgeEnabled;
 	target.mainRot = toClMatrix33(source.mainRot);
 	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
 	{
@@ -1084,6 +1074,7 @@ inline sFractalIFSCl clCopySFractalIFSCl(const sFractalIFS &source)
 	{
 		target.rotations[i] = toClFloat3(source.rotations[i]);
 	}
+	target.rotation = toClFloat3(source.rotation);
 	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
 	{
 		target.distance[i] = source.distance[i];
@@ -1092,8 +1083,17 @@ inline sFractalIFSCl clCopySFractalIFSCl(const sFractalIFS &source)
 	{
 		target.intensity[i] = source.intensity[i];
 	}
-	target.rotation = toClFloat3(source.rotation);
 	target.scale = source.scale;
+	target.absX = source.absX;
+	target.absY = source.absY;
+	target.absZ = source.absZ;
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.enabled[i] = source.enabled[i];
+	}
+	target.mengerSpongeMode = source.mengerSpongeMode;
+	target.rotationEnabled = source.rotationEnabled;
+	target.edgeEnabled = source.edgeEnabled;
 	return target;
 }
 
@@ -1304,6 +1304,15 @@ inline sFractalComboCl clCopySFractalComboCl(const sFractalCombo &source)
 inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(const sFractalSurfBox &source)
 {
 	sFractalSurfBoxCl target;
+	target.offset1A111 = toClFloat4(source.offset1A111);
+	target.offset1B111 = toClFloat4(source.offset1B111);
+	target.offset2A111 = toClFloat4(source.offset2A111);
+	target.offset2B111 = toClFloat4(source.offset2B111);
+	target.offset3A111 = toClFloat4(source.offset3A111);
+	target.offset3B111 = toClFloat4(source.offset3B111);
+	target.offset1A222 = toClFloat4(source.offset1A222);
+	target.offset1B222 = toClFloat4(source.offset1B222);
+	target.scale1Z1 = source.scale1Z1;
 	target.enabledX1 = source.enabledX1;
 	target.enabledY1 = source.enabledY1;
 	target.enabledZ1 = source.enabledZ1;
@@ -1319,15 +1328,6 @@ inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(const sFractalSurfBox &source)
 	target.enabledX5False = source.enabledX5False;
 	target.enabledY5False = source.enabledY5False;
 	target.enabledZ5False = source.enabledZ5False;
-	target.offset1A111 = toClFloat4(source.offset1A111);
-	target.offset1B111 = toClFloat4(source.offset1B111);
-	target.offset2A111 = toClFloat4(source.offset2A111);
-	target.offset2B111 = toClFloat4(source.offset2B111);
-	target.offset3A111 = toClFloat4(source.offset3A111);
-	target.offset3B111 = toClFloat4(source.offset3B111);
-	target.offset1A222 = toClFloat4(source.offset1A222);
-	target.offset1B222 = toClFloat4(source.offset1B222);
-	target.scale1Z1 = source.scale1Z1;
 	return target;
 }
 
