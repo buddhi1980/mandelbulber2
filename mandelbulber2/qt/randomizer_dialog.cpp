@@ -1027,9 +1027,9 @@ void cRandomizerDialog::slotPreviewRendered()
 	// qDebug() << "Preview finished " << previewNumber;
 
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
-	widget->update();
 	if (widget)
 	{
+		widget->update();
 		std::shared_ptr<cImage> image = widget->GetImage();
 		std::shared_ptr<cImage> actualImage = ui->previewwidget_actual->GetImage();
 		std::shared_ptr<cImage> skyImage = referenceSkyPreview->GetImage();
