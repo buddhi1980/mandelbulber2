@@ -22,11 +22,17 @@ installing all needed packages
 # Qt6 packages: qt6-base-dev provides Core/Gui/Widgets/Network/Test/Concurrent/OpenGLWidgets,
 # qt6-tools-dev provides UiTools, qt6-declarative-dev provides Qml,
 # qmake6 is the Qt6 qmake binary,
-# qt6-svg-plugins provides the SVG image/icon plugins needed by the *.svg
-# toolbar icons embedded in qt/icons.qrc
+# the SVG image/icon plugins needed by the *.svg toolbar icons embedded in
+# qt/icons.qrc are in qt6-svg-plugins, or in libqt6svg6 on Ubuntu 24.04, which
+# has no qt6-svg-plugins package
+if apt-cache show qt6-svg-plugins >/dev/null 2>&1; then
+	svg_plugins=qt6-svg-plugins
+else
+	svg_plugins=libqt6svg6
+fi
 sudo apt-get install build-essential qmake6 qt6-base-dev qt6-base-dev-tools libqt6gui6t64 libqt6widgets6t64 \
 	qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev \
-	qt6-svg-plugins \
+	"$svg_plugins" \
 	libpng16-16t64 libpng-dev libgomp1 libgsl-dev libsndfile1-dev liblzo2-2 liblzo2-dev
 sudo apt-get install qtcreator git
 # OpenCL headers and ICD loader development files are required to build the

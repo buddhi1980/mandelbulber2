@@ -55,7 +55,7 @@ Ubuntu 24.04:
     libqt6core6t64 libqt6gui6t64 libqt6widgets6t64 libqt6network6t64
     libqt6concurrent6t64 libqt6test6t64 libqt6uitools6 libqt6qml6
     libqt6opengl6t64 libqt6openglwidgets6t64 libqt6multimedia6
-    qt6-qpa-plugins qt6-svg-plugins
+    qt6-qpa-plugins libqt6svg6
     libpng16-16t64 libgsl27 liblzo2-2 libgomp1 libsndfile1
 
 Debian 13 (trixie):
@@ -80,6 +80,8 @@ sudo apt-get install build-essential qmake6 qt6-base-dev qt6-base-dev-tools \
 	qt6-tools-dev qt6-multimedia-dev qt6-declarative-dev \
 	qt6-svg-plugins \
 	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev
+(Ubuntu 24.04 has no qt6-svg-plugins package: its SVG plugins come with
+ libqt6svg6, so install libqt6svg6 in its place there)
 
 Compiling from source:
 cd qmake
