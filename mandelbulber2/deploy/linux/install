@@ -229,7 +229,9 @@ REQUIRED_APT=(
 	"qt6-tools-dev"
 	"qt6-l10n-tools|qt6-tools-dev-tools"
 	# runtime: SVG image format plugin; toolbar icons embedded in qt/icons.qrc
-	# are *.svg and are rendered only when the qsvg imageformats plugin exists
+	# are *.svg and are rendered only when the qsvg imageformats plugin exists.
+	# Releases without this package (Ubuntu 24.04) ship the plugins in libqt6svg6,
+	# which replaces it below.
 	"qt6-svg-plugins"
 	"libpng-dev"
 	"libgsl-dev"
@@ -369,6 +371,14 @@ if [ "$WANT_DEPS" -eq 1 ] && [ -n "$PKG" ]; then
 		else
 			"$PKG" -q makecache --timer || warn "Metadata refresh failed; continuing"
 		fi
+	fi
+	# Ubuntu 24.04 has no qt6-svg-plugins package: libqt6svg6 holds the SVG plugins
+	# there. Newer releases moved the plugins out of libqt6svg6, so it is no
+	# alternative where qt6-svg-plugins exists.
+	if [ "$PKG" = "apt" ] && ! pkg_available qt6-svg-plugins; then
+		for i in "${!REQ_GROUPS[@]}"; do
+			if [ "${REQ_GROUPS[$i]}" = "qt6-svg-plugins" ]; then REQ_GROUPS[$i]="libqt6svg6"; fi
+		done
 	fi
 	install_dependencies REQ_GROUPS required
 	install_dependencies OPT_GROUPS optional
