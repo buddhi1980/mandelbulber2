@@ -41,7 +41,9 @@
 
 #include "src/animation_frames.hpp"
 #include "src/audio_track.h"
+#include "src/global_data.hpp"
 #include "src/initparameters.hpp"
+#include "src/parameters.hpp"
 
 cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent)
 {
@@ -68,14 +70,21 @@ void cPushButtonAnimSound::slotUpdateButton()
 		std::shared_ptr<cAudioTrack> audio = animationFrames->GetAudioPtr(parameterName);
 		if (audio && audio->isLoaded())
 		{
+			// bold text only when the animation by sound is enabled, so the state of every row can be
+			// seen in the table without opening the audio selector
+			const QString enableParameter = QString("animsound_enable_%1").arg(parameterName);
+			const bool enabled = gPar->IfExists(enableParameter) && gPar->Get<bool>(enableParameter);
 			setText(tr("Audio loaded"));
-			f.setBold(true);
+			setToolTip(enabled ? tr("Animation by sound is enabled")
+												 : tr("Animation by sound is disabled (audio file is loaded)"));
+			f.setBold(enabled);
 			setFont(f);
 			return;
 		}
 	}
 	f.setBold(false);
 	setText(tr("Anim By Sound"));
+	setToolTip(QString());
 	setFont(f);
 }
 
@@ -89,6 +98,8 @@ void cPushButtonAnimSound::slotLoadAudio()
 	connect(audioSelectorDialog, SIGNAL(audioLoaded()), this, SLOT(slotUpdateButton()));
 	audioSelectorDialog->show();
 
+	// the dialog stores its settings (also the enable checkbox) when it is destroyed
+	connect(audioSelectorDialog, &QWidget::destroyed, this, &cPushButtonAnimSound::slotUpdateButton);
 	connect(audioSelectorDialog, &QWidget::destroyed, this,
 		&cPushButtonAnimSound::signalAudioSelectorClosed);
 }
