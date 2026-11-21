@@ -57,6 +57,7 @@ public:
 	~cLightSourcesManager() override;
 	void Init();
 	void Regenerate();
+	void ResetToDefaultLights();
 
 private:
 	void AddLight(bool init, int indexInParameters);

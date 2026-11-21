@@ -182,6 +182,22 @@ void cLightSourcesManager::Regenerate()
 	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 
+void cLightSourcesManager::ResetToDefaultLights()
+{
+	// remove every light source and start again with the default light #1, as in a new scene
+	DeleteAllLightParams(params);
+	Regenerate();
+	AddLight(true, -1);
+	ui->tabWidget_lightSources->setCurrentIndex(0);
+
+	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
+	if (renderedImageWidget)
+	{
+		renderedImageWidget->SetCurrentLightIndex(lightIndexOnTab.first());
+		renderedImageWidget->update();
+	}
+}
+
 void cLightSourcesManager::slotButtonAddLight()
 {
 	AddLight(true, -1);
