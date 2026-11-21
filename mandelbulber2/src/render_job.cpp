@@ -1327,7 +1327,7 @@ void cRenderJob::RefreshPostEffects()
 				// cRenderingConfiguration config;
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-					this, SIGNAL(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&dof, SIGNAL(updateImage()), imageWidget, SLOT(update()));
 				cRegion<int> screenRegion(0, 0, image->GetWidth(), image->GetHeight());
 				dof.Render(screenRegion,
