@@ -736,6 +736,15 @@ QString AnimatedFileName(
 	return outFilename;
 }
 
+int AnimatedTextureFrame(int frameNo, double speed)
+{
+	// speed 1.0 uses one image of the sequence for each animation frame, 0.5 holds every image for
+	// two frames and 2.0 skips every second image (issue #704). The small epsilon keeps products
+	// such as 0.29 * 100 on 29 instead of 28.999...
+	if (speed == 1.0) return frameNo;
+	return int(floor(frameNo * speed + 1e-9));
+}
+
 bool fileTouch(const QString &filePath)
 {
 	QFile file(filePath);

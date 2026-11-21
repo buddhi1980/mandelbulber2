@@ -34,6 +34,7 @@
 
 #include "material.h"
 
+#include "files.h"
 #include "initparameters.hpp"
 #include "netrender.hpp"
 #include "parameters.hpp"
@@ -319,7 +320,9 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 {
 	id = _id;
 
-	int frameNo = materialParam->Get<int>("frame_no");
+	// frame of animated textures (image sequences)
+	int frameNo = AnimatedTextureFrame(
+		materialParam->Get<int>("frame_no"), materialParam->Get<double>("textures_animation_speed"));
 
 	shading = materialParam->Get<float>(Name("shading", id));
 	specular = materialParam->Get<float>(Name("specular", id));

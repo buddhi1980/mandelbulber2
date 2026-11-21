@@ -703,3 +703,20 @@ void Test::ensureFileExtension() const
 	QCOMPARE(EnsureFileExtension("mesh_ply", "ply"), QString("mesh_ply.ply"));
 	QCOMPARE(EnsureFileExtension("", "ply"), QString(""));
 }
+
+void Test::animatedTextureFrame() const
+{
+	// speed of animated textures (issue #704): 1.0 keeps the animation frame number
+	for (int frame = 0; frame < 1000; frame++)
+		QCOMPARE(AnimatedTextureFrame(frame, 1.0), frame);
+
+	const int half[] = {0, 0, 1, 1, 2, 2, 3, 3};
+	for (int frame = 0; frame < 8; frame++)
+		QCOMPARE(AnimatedTextureFrame(frame, 0.5), half[frame]);
+
+	QCOMPARE(AnimatedTextureFrame(3, 2.0), 6);
+	QCOMPARE(AnimatedTextureFrame(5, 0.0), 0);
+	QCOMPARE(AnimatedTextureFrame(100, 0.29), 29);
+	QCOMPARE(AnimatedTextureFrame(10, 0.1), 1);
+	QCOMPARE(AnimatedTextureFrame(9, 0.1), 0);
+}

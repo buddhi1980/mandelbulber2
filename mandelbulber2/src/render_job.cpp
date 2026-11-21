@@ -42,6 +42,7 @@
 #include "cimage.hpp"
 #include "dof.hpp"
 #include "error_message.hpp"
+#include "files.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "hybrid_fractal_sequences.h"
@@ -323,7 +324,9 @@ void cRenderJob::PrepareData()
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	// gApplication->processEvents();
 
-	int frameNo = paramsContainer->Get<int>("frame_no");
+	// frame of animated textures (image sequences)
+	int frameNo = AnimatedTextureFrame(paramsContainer->Get<int>("frame_no"),
+		paramsContainer->Get<double>("textures_animation_speed"));
 
 	// don't load textures if fast or medium OpenCL mode
 	bool loadTextures = !(

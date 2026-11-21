@@ -76,6 +76,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("flight_last_to_render", 9999999, 0, 9999999, morphNone, paramStandard);
 
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramOnlyForNet);
+	par->addParam("textures_animation_speed", 1.0, 0.0, 1000.0, morphNone, paramStandard);
 	par->addParam("flight_speed", 0.01, -1000.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
 	par->addParam(

@@ -67,6 +67,8 @@ QByteArray LoadUtf8TextFromFile(const QString &fileName);
 QByteArray StripNonAscii(const QByteArray &data);
 QString AnimatedFileName(
 	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);
+// frame of an animated texture (image sequence) for the animation frame, at the given speed
+int AnimatedTextureFrame(int frameNo, double speed);
 bool fileTouch(const QString &filePath);
 // file name with ".extension" appended unless it already ends with it (any letter case)
 QString EnsureFileExtension(const QString &fileName, const QString &extension);

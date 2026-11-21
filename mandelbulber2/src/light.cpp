@@ -36,6 +36,7 @@
 
 #include "camera_target.hpp"
 #include "common_math.h"
+#include "files.h"
 #include "parameters.hpp"
 
 cLight::cLight()
@@ -63,7 +64,9 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 {
 	id = _id;
 
-	int frameNo = lightParam->Get<int>("frame_no");
+	// frame of animated textures (image sequences)
+	int frameNo = AnimatedTextureFrame(
+		lightParam->Get<int>("frame_no"), lightParam->Get<double>("textures_animation_speed"));
 
 	enabled = lightParam->Get<bool>(Name("enabled", id));
 	type = enumLightType(lightParam->Get<int>(Name("type", id)));
