@@ -47,6 +47,7 @@
 #include "ui_dock_animation.h"
 
 #include "animation_frames.hpp"
+#include "animation_render_times.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
 #include "files.h"
@@ -1078,6 +1079,10 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			InitJobsForClients(frameRanges);
 		}
 
+		// optional statistics of frame render times (summary is written when it goes out of scope)
+		cAnimationRenderTimes renderTimes(
+			cAnimationRenderTimes::animFlight, params->Get<QString>("anim_flight_dir"));
+
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
 			// skip already rendered frame
@@ -1118,8 +1123,10 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			renderJob->UpdateParameters(params, fractalParams);
 			renderJob->renderContext =
 				QString("flight frame %1/%2").arg(index + 1).arg(frameRanges.totalFrames);
+			renderTimes.StartFrame();
 			const int executeResult = renderJob->Execute();
 			if (!executeResult) throw false;
+			renderTimes.FinishFrame(index);
 
 			// save frame
 			QStringList listOfSavedFiles;
