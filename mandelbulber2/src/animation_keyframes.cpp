@@ -528,8 +528,10 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 
 	cPushButtonAnimSound *audioSelectorButton = new cPushButtonAnimSound(table);
 	table->setCellWidget(row, animSoundColumn, audioSelectorButton);
+	// queued: the signal comes from the destructor of the audio selector, which is a child of the
+	// button deleted by RefreshTable()
 	connect(audioSelectorButton, &cPushButtonAnimSound::signalAudioSelectorClosed, this,
-		&cKeyframeAnimation::slotRefreshTable);
+		&cKeyframeAnimation::slotAudioSelectorClosed, Qt::QueuedConnection);
 
 	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignParameterName(fullParameterName);
@@ -1646,6 +1648,22 @@ void cKeyframeAnimation::CopyToAllKeyframes(int row, int column)
 void cKeyframeAnimation::slotRefreshTable()
 {
 	RefreshTable();
+}
+
+void cKeyframeAnimation::slotAudioSelectorClosed(bool keyframesModified)
+{
+	if (keyframesModified)
+	{
+		// frames per keyframe were changed on the time ruler: frame numbers and thumbnails are outdated
+		RefreshTable();
+	}
+	else
+	{
+		// audio settings don't change keyframe values or thumbnails, only the animation paths
+		keyframes->RefreshAllAudioTracks(params);
+		UpdateAnimationPathCameraAndLights();
+		UpdateAnimationPathSingleParameter();
+	}
 }
 
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const

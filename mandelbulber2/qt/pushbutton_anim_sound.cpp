@@ -100,6 +100,6 @@ void cPushButtonAnimSound::slotLoadAudio()
 
 	// the dialog stores its settings (also the enable checkbox) when it is destroyed
 	connect(audioSelectorDialog, &QWidget::destroyed, this, &cPushButtonAnimSound::slotUpdateButton);
-	connect(audioSelectorDialog, &QWidget::destroyed, this,
+	connect(audioSelectorDialog, &cAudioSelector::closed, this,
 		&cPushButtonAnimSound::signalAudioSelectorClosed);
 }

@@ -197,6 +197,7 @@ void cTimeRuler::ModifyKeyframePosition(int key, int position)
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key - 1);
 		frame.numberOfSubFrames = framesPerKeyframe;
 		keyframes->ModifyFrame(key - 1, frame);
+		keyframesModified = true;
 
 		keyframes->UpdateFramesIndexesTable();
 

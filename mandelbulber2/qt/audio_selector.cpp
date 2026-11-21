@@ -62,6 +62,9 @@ cAudioSelector::~cAudioSelector()
 {
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 
+	// the keyframes are changed only by dragging them on the time ruler
+	emit closed(ui->timeRuler->AreKeyframesModified());
+
 	if (audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT

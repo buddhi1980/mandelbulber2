@@ -110,6 +110,7 @@ signals:
 	void audioLoaded();
 	void loadingProgress(QString progressText);
 	void playPositionChanged(qint64 milliseconds);
+	void closed(bool keyframesModified);
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */
