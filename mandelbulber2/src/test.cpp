@@ -47,6 +47,7 @@
 #include "keyframes.hpp"
 #include "image_comparison.hpp"
 #include "netrender.hpp"
+#include "netrender_file_receiver.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "regression_test.hpp"
@@ -276,6 +277,45 @@ void Test::netrender()
 
 	QVERIFY2(netRenderServer->GetClientCount() == 1,
 		QString("client not connected to server.").toStdString().c_str());
+}
+
+void Test::netRenderFileDestination() const
+{
+	if (IsBenchmarking()) return;
+	// the frames which NetRender clients send to the server are saved in the output folder of the
+	// animation being rendered, also for a flight animation (issue #755)
+	const QString keyframeDir =
+		testFolder() + QDir::separator() + "netrenderKeyframes" + QDir::separator();
+	const QString flightDir =
+		testFolder() + QDir::separator() + "netrenderFlight" + QDir::separator();
+	CreateFolder(keyframeDir);
+	CreateFolder(flightDir);
+	const QString oldKeyframeDir = gPar->Get<QString>("anim_keyframe_dir");
+	const QString oldFlightDir = gPar->Get<QString>("anim_flight_dir");
+	gPar->Set("anim_keyframe_dir", keyframeDir);
+	gPar->Set("anim_flight_dir", flightDir);
+
+	const QByteArray data("frame data");
+	cNetRenderFileReceiver receiver;
+	auto receive = [&receiver, &data](int clientIndex, const QString &name)
+	{
+		receiver.ReceiveHeader(clientIndex, data.size(), name);
+		receiver.ReceiveChunk(clientIndex, 1, data);
+	};
+
+	receive(0, "1_keyframe00001.png"); // keyframe animation is the default
+	receiver.SetDestinationDirParameter("anim_flight_dir");
+	receive(0, "1_flight00001.png");
+	receive(1, "DIR[alpha]2_flight00002.png"); // optional image channel in a subfolder
+
+	gPar->Set("anim_keyframe_dir", oldKeyframeDir);
+	gPar->Set("anim_flight_dir", oldFlightDir);
+
+	QVERIFY(QFile::exists(keyframeDir + "keyframe00001.png"));
+	QVERIFY(QFile::exists(flightDir + "flight00001.png"));
+	QVERIFY(!QFile::exists(keyframeDir + "flight00001.png"));
+	QVERIFY(QFile::exists(flightDir + "alpha" + QDir::separator() + "flight00002.png"));
+	QVERIFY(!receiver.IsReceiving());
 }
 
 void Test::testFlightWrapper() const
