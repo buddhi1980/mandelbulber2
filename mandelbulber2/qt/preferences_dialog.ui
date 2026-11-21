@@ -2626,13 +2626,13 @@ and will only be present after enabling and re-render.</string>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
-  <tabstop>spinboxInt_png_compression_level</tabstop>
   <tabstop>spinboxInt_jxl_effort</tabstop>
   <tabstop>spinbox_jxl_distance</tabstop>
   <tabstop>comboBox_jxl_hdr_mode</tabstop>
   <tabstop>spinbox_jxl_sdr_white_nits</tabstop>
   <tabstop>checkBox_jxl_lossless</tabstop>
   <tabstop>checkBox_append_alpha_jxl</tabstop>
+  <tabstop>spinboxInt_png_compression_level</tabstop>
   <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>
