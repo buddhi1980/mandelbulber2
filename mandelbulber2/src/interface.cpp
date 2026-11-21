@@ -83,6 +83,7 @@
 #include "qt/detached_window.h"
 #include "qt/dock_effects.h"
 #include "qt/dock_navigation.h"
+#include "qt/light_sources_manager.h"
 #include "qt/material_editor.h"
 #include "qt/my_group_box.h"
 #include "qt/my_progress_bar.h"
@@ -2047,7 +2048,8 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		ResetLocalSettings(widget);
+		// keep the current light sources, so they can receive the values from the file
+		ResetLocalSettings(widget, false);
 
 		for (int i = 0; i < 2; i++) // repeat twice to refresh comboboxes and get new list of widgets
 		{
@@ -2079,8 +2081,20 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 	}
 }
 
-void cInterface::ResetLocalSettings(const QWidget *widget)
+void cInterface::ResetLocalSettings(const QWidget *widget, bool resetLightSources)
 {
+	if (resetLightSources)
+	{
+		// The light sources are a dynamic list: resetting their values alone would leave the added
+		// lights in place (only disabled) and could not bring back a deleted light #1. Restore the
+		// default list first, so the parameter list below is taken from the new light editors.
+		QList<cLightSourcesManager *> lightManagers = widget->findChildren<cLightSourcesManager *>();
+		if (auto *manager = qobject_cast<cLightSourcesManager *>(const_cast<QWidget *>(widget)))
+			lightManagers.append(manager);
+		for (cLightSourcesManager *manager : lightManagers)
+			manager->ResetToDefaultLights();
+	}
+
 	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
 
 	for (QString fullParameterName : listOfParameters)

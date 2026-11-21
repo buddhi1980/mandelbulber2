@@ -117,7 +117,7 @@ public:
 
 	void SaveLocalSettings(const QWidget *widget);
 	void LoadLocalSettings(const QWidget *widget);
-	void ResetLocalSettings(const QWidget *widget);
+	void ResetLocalSettings(const QWidget *widget, bool resetLightSources = true);
 	void RandomizeLocalSettings(const QWidget *widget);
 	QStringList CreateListOfParametersInWidget(const QWidget *widget);
 	bool QuitApplicationDialog();
