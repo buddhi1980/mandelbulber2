@@ -106,10 +106,12 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface,
 			SLOT(slotSelectAnimFlightImageDir()));
 		connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this,
 			SLOT(slotTableCellChanged(int, int)));
-		connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this,
-			SLOT(slotMovedSliderFirstFrame(int)));
-		connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this,
-			SLOT(slotMovedSliderLastFrame(int)));
+		// editingFinished instead of valueChanged, so the other limit isn't changed while a number is
+		// still being typed (same as in keyframe animation, bug #863)
+		connect(ui->spinboxInt_flight_first_to_render, &QSpinBox::editingFinished, this,
+			&cFlightAnimation::slotMovedSliderFirstFrame);
+		connect(ui->spinboxInt_flight_last_to_render, &QSpinBox::editingFinished, this,
+			&cFlightAnimation::slotMovedSliderLastFrame);
 		connect(ui->tableWidget_flightAnimation, SIGNAL(cellDoubleClicked(int, int)), this,
 			SLOT(slotCellDoubleClicked(int, int)));
 		connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this,
@@ -1643,14 +1645,16 @@ void cFlightAnimation::UpdateLimitsForFrameRange() const
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, qInterface::write);
 }
 
-void cFlightAnimation::slotMovedSliderFirstFrame(int value) const
+void cFlightAnimation::slotMovedSliderFirstFrame() const
 {
+	const int value = ui->spinboxInt_flight_first_to_render->value();
 	if (value > ui->spinboxInt_flight_last_to_render->value())
 		ui->spinboxInt_flight_last_to_render->setValue(value);
 }
 
-void cFlightAnimation::slotMovedSliderLastFrame(int value) const
+void cFlightAnimation::slotMovedSliderLastFrame() const
 {
+	const int value = ui->spinboxInt_flight_last_to_render->value();
 	if (value < ui->spinboxInt_flight_first_to_render->value())
 		ui->spinboxInt_flight_first_to_render->setValue(value);
 }
