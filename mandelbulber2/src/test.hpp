@@ -82,6 +82,7 @@ private slots:
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
 	void animatedFileName() const;
+	void ensureFileExtension() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

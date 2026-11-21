@@ -68,5 +68,7 @@ QByteArray StripNonAscii(const QByteArray &data);
 QString AnimatedFileName(
 	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);
 bool fileTouch(const QString &filePath);
+// file name with ".extension" appended unless it already ends with it (any letter case)
+QString EnsureFileExtension(const QString &fileName, const QString &extension);
 
 #endif /* MANDELBULBER2_SRC_FILES_H_ */

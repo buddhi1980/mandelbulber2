@@ -198,7 +198,8 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 		}
 		else if (voxelFormat == "ply")
 		{
-			QString fileString = gPar->Get<QString>("mesh_output_filename");
+			// the mesh is always written in PLY format (issue #906)
+			QString fileString = EnsureFileExtension(gPar->Get<QString>("mesh_output_filename"), "ply");
 			QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
 			if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
 			MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
