@@ -9,8 +9,8 @@ The project should be kept updated and clean with the following steps (when nece
   - `mandelbulber2/tools/code_style_check.py nondry # this applies changes`
   - needs Python 3.6+, git and clang-format; set `CLANG_FORMAT` to its path when it isn't on `PATH`
 - 2. Updating the fractal ui files with code information
-  - `mandelbulber2/tools/populateUiInformation.php # this makes a dry run, check output`
-  - `mandelbulber2/tools/populateUiInformation.php nondry # this applies changes`
+  - `mandelbulber2/tools/populate_ui_information.py # this makes a dry run, check output`
+  - `mandelbulber2/tools/populate_ui_information.py nondry # this applies changes`
 - 3. Updating the opencl files with autogeneration from cpp code
   - `mandelbulber2/tools/populate_opencl.py # this makes a dry run, check output`
   - `mandelbulber2/tools/populate_opencl.py nondry # this applies changes`
