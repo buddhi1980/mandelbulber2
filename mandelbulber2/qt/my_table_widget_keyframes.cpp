@@ -147,7 +147,18 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 		QAction *actionDeleteFrames;
 
 		actionRender = menu->addAction(tr("Render this keyframe"));
-		actionDelete = menu->addAction(tr("Delete this keyframe"));
+		// if the clicked keyframe is part of a multiple selection, delete the whole selection
+		QList<int> keyframesToDelete = gKeyframeAnimation->GetSelectedKeyframes();
+		if (keyframesToDelete.size() > 1
+				&& keyframesToDelete.contains(column - cKeyframeAnimation::reservedColumns))
+		{
+			actionDelete = menu->addAction(tr("Delete selected keyframes"));
+		}
+		else
+		{
+			keyframesToDelete = {column - cKeyframeAnimation::reservedColumns};
+			actionDelete = menu->addAction(tr("Delete this keyframe"));
+		}
 		actionDeleteTo = menu->addAction(tr("Delete all keyframes to here"));
 		actionDeleteFrom = menu->addAction(tr("Delete all keyframes from here"));
 
@@ -168,7 +179,7 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 			}
 			else if (selectedItem == actionDelete)
 			{
-				gKeyframeAnimation->DeleteKeyframe(column - cKeyframeAnimation::reservedColumns);
+				gKeyframeAnimation->DeleteKeyframes(keyframesToDelete);
 			}
 			else if (selectedItem == actionDeleteFrom)
 			{
