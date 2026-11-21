@@ -1024,6 +1024,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	}
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
+	if (params->Get<bool>("nebula_mode")) config.SetNebulaMode(); // as in keyframe animation
 
 	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::flightAnim, config);
