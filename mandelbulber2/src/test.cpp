@@ -404,6 +404,45 @@ void Test::testKeyframe() const
 		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
 }
 
+void Test::settingsAuthorText() const
+{
+	// author text added to the description of saved settings (issue #299)
+	const QDateTime first(QDate(2026, 11, 21), QTime(14, 5));
+	const QDateTime second(QDate(2027, 1, 2), QTime(9, 30));
+	const QString author("by tester %date% %time%");
+
+	QCOMPARE(cSettings::AddAuthorTextToDescription("scene", "", first), QString("scene"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription("scene", "  ", first), QString("scene"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription("", author, first),
+		QString("by tester 2026-11-21 14:05"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription("scene\nmore", author, first),
+		QString("scene\nmore\nby tester 2026-11-21 14:05"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription("scene\n", author, first),
+		QString("scene\nby tester 2026-11-21 14:05"));
+
+	// saving again updates the date of the earlier line instead of adding a second one
+	const QString saved = cSettings::AddAuthorTextToDescription("scene", author, first);
+	QCOMPARE(cSettings::AddAuthorTextToDescription(saved, author, second),
+		QString("scene\nby tester 2027-01-02 09:30"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription(saved, author, first), saved);
+
+	// text without tokens is added once
+	QCOMPARE(
+		cSettings::AddAuthorTextToDescription("by tester", "by tester", first), QString("by tester"));
+	// a line that only contains the author text is not a match
+	QCOMPARE(cSettings::AddAuthorTextToDescription("made by tester", "by tester", first),
+		QString("made by tester\nby tester"));
+	// regular expression characters in the author text are taken literally
+	QCOMPARE(cSettings::AddAuthorTextToDescription("a.b (c)", "a.b (c)", first), QString("a.b (c)"));
+	QCOMPARE(cSettings::AddAuthorTextToDescription("axb (c)", "a.b (c)", first),
+		QString("axb (c)\na.b (c)"));
+
+	// a line looking like a section header would end the description when loading
+	const QString cc = cSettings::AddAuthorTextToDescription("scene", "[CC BY 4.0]", first);
+	QCOMPARE(cc, QString("scene\n[CC BY 4.0] "));
+	QCOMPARE(cSettings::AddAuthorTextToDescription(cc, "[CC BY 4.0]", second), cc);
+}
+
 void Test::renderSimpleWrapper() const
 {
 	if (IsBenchmarking())

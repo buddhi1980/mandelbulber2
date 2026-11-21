@@ -38,6 +38,9 @@
 
 #include "ui_render_window.h"
 
+#include <QDateTime>
+#include <QPlainTextEdit>
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "file_image.hpp"
@@ -786,6 +789,25 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	}
 }
 
+// When enabled in the preferences, adds the author text to the description of the scene, also in
+// the Description tab where it can be edited (issue #299). Only the settings saved by the user
+// from the menu get it, not the autosave, queue, NetRender or command line files.
+// Returns true if the description was changed.
+static bool AddAuthorTextToDescription()
+{
+	if (!gPar->Get<bool>("settings_author_text_enabled")) return false;
+	QString description = gPar->Get<QString>("description");
+	QString newDescription = cSettings::AddAuthorTextToDescription(
+		description, gPar->Get<QString>("settings_author_text"), QDateTime::currentDateTime());
+	if (newDescription == description) return false;
+
+	gPar->Set("description", newDescription);
+	QPlainTextEdit *descriptionEdit =
+		gMainInterface->mainWindow->findChild<QPlainTextEdit *>("text_description");
+	if (descriptionEdit) descriptionEdit->setPlainText(newDescription);
+	return true;
+}
+
 void RenderWindow::slotMenuSaveSettings()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
@@ -808,6 +830,8 @@ void RenderWindow::slotMenuSaveSettings()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
+		if (AddAuthorTextToDescription())
+			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 		parSettings.SaveToFile(filename);
 		systemData.lastSettingsFile = filename;
 		SaveSettingsToRecent(filename);
@@ -824,6 +848,7 @@ void RenderWindow::slotMenuSaveSettingsToClipboard()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	AddAuthorTextToDescription();
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToClipboard();
 	cErrorMessage::showMessage(
