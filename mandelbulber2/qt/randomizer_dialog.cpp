@@ -36,6 +36,11 @@
 
 #include <memory>
 
+#include <QScreen>
+#include <QScrollArea>
+#include <QScrollBar>
+#include <QStyle>
+
 #include "ui_randomizer_dialog.h"
 
 #include "common_my_widget_wrapper.h"
@@ -56,11 +61,6 @@
 #include "src/wait.hpp"
 
 #include "formula/definition/all_fractal_list.hpp"
-
-#include <QScreen>
-#include <QScrollArea>
-#include <QScrollBar>
-#include <QStyle>
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
