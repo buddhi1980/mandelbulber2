@@ -2220,6 +2220,10 @@ void cInterface::RefreshMainImage()
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(gPar, gParFractal, mainImage, 1, &stopRequest, renderedImage));
 	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
+	// show the progress of the post effects (SSAO, DOF) in the main window, as for a render
+	connect(renderJob.get(),
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	renderJob->RefreshPostEffects();
 }
 
