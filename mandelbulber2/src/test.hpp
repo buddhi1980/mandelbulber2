@@ -81,9 +81,9 @@ private slots:
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
+	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
 	void ensureFileExtension() const;
-	void netRenderCacheCleanup() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

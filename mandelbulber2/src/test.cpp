@@ -655,6 +655,43 @@ void Test::regressionScenes() const
 	}
 }
 
+void Test::netRenderCacheCleanup() const
+{
+	// NetRender cache files not used for more than one hour are deleted (issue #766)
+	QString dir = testFolder() + QDir::separator() + "netrender_cache_cleanup";
+	QDir(dir).removeRecursively();
+	QVERIFY(QDir().mkpath(dir));
+	QString oldFile = dir + QDir::separator() + "old.png";
+	QString newFile = dir + QDir::separator() + "new.png";
+	QString reusedFile = dir + QDir::separator() + "reused.png";
+	for (const QString &name : {oldFile, newFile, reusedFile})
+	{
+		QFile file(name);
+		QVERIFY(file.open(QIODevice::WriteOnly));
+		file.write("data");
+		file.close();
+	}
+	QDateTime twoHoursAgo = QDateTime::currentDateTime().addSecs(-7200);
+	for (const QString &name : {oldFile, reusedFile})
+	{
+		QFile file(name);
+		QVERIFY(file.open(QIODevice::ReadWrite));
+		QVERIFY(file.setFileTime(twoHoursAgo, QFileDevice::FileModificationTime));
+		file.close();
+	}
+
+	// reusing a cached file marks it as recently used
+	MarkFileAsUsed(reusedFile);
+	QVERIFY(QFileInfo(reusedFile).lastModified() > QDateTime::currentDateTime().addSecs(-60));
+
+	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 1);
+	QVERIFY(!QFile::exists(oldFile));
+	QVERIFY(QFile::exists(newFile));
+	QVERIFY(QFile::exists(reusedFile));
+	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 0);
+	QDir(dir).removeRecursively();
+}
+
 void Test::animatedFileName() const
 {
 	// an animated texture (file name with %) loops over the sequence of files which exists,
@@ -703,41 +740,4 @@ void Test::ensureFileExtension() const
 	QCOMPARE(EnsureFileExtension("my.ply.d/mesh", "ply"), QString("my.ply.d/mesh.ply"));
 	QCOMPARE(EnsureFileExtension("mesh_ply", "ply"), QString("mesh_ply.ply"));
 	QCOMPARE(EnsureFileExtension("", "ply"), QString(""));
-}
-
-void Test::netRenderCacheCleanup() const
-{
-	// NetRender cache files not used for more than one hour are deleted (issue #766)
-	QString dir = testFolder() + QDir::separator() + "netrender_cache_cleanup";
-	QDir(dir).removeRecursively();
-	QVERIFY(QDir().mkpath(dir));
-	QString oldFile = dir + QDir::separator() + "old.png";
-	QString newFile = dir + QDir::separator() + "new.png";
-	QString reusedFile = dir + QDir::separator() + "reused.png";
-	for (const QString &name : {oldFile, newFile, reusedFile})
-	{
-		QFile file(name);
-		QVERIFY(file.open(QIODevice::WriteOnly));
-		file.write("data");
-		file.close();
-	}
-	QDateTime twoHoursAgo = QDateTime::currentDateTime().addSecs(-7200);
-	for (const QString &name : {oldFile, reusedFile})
-	{
-		QFile file(name);
-		QVERIFY(file.open(QIODevice::ReadWrite));
-		QVERIFY(file.setFileTime(twoHoursAgo, QFileDevice::FileModificationTime));
-		file.close();
-	}
-
-	// reusing a cached file marks it as recently used
-	MarkFileAsUsed(reusedFile);
-	QVERIFY(QFileInfo(reusedFile).lastModified() > QDateTime::currentDateTime().addSecs(-60));
-
-	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 1);
-	QVERIFY(!QFile::exists(oldFile));
-	QVERIFY(QFile::exists(newFile));
-	QVERIFY(QFile::exists(reusedFile));
-	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 0);
-	QDir(dir).removeRecursively();
 }
