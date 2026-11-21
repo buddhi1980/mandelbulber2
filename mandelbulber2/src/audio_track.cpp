@@ -287,6 +287,10 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 	emit loadingFailed();
 }
 
+#ifdef _MSC_VER
+// each OpenMP thread keeps one FFT buffer of 2 * fftSize doubles on its stack
+#pragma warning(suppress : 6262)
+#endif
 void cAudioTrack::calculateFFT()
 {
 	if (loaded && !fftCalculated && length > cAudioFFTData::fftSize)

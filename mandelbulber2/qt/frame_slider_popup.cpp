@@ -38,7 +38,16 @@
 
 #include <QTimer>
 
+#ifdef _MSC_VER
+// uic writes non-ASCII characters of the texts as octal escapes, and a digit after one of them
+// ends the escape (C4125); the header is generated, so the warning is turned off around it
+#pragma warning(push)
+#pragma warning(disable : 4125)
+#endif
 #include "ui_slider_popup.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include "src/system.hpp"
 

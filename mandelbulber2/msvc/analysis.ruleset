@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Code analysis rules of the AnalysisRelease configuration.
+
+  All rules are on, so the native analysis (C6xxx, C28xxx) still reports null pointer
+  dereferences, buffer overruns, format string mismatches and similar bugs. The C++ Core
+  Guidelines checks are kept where they point at real bugs: dangling pointers and references,
+  null pointers tested on some paths only, slicing, unnamed guard objects and missing virtual
+  destructors.
+
+  The checks below are switched off. They ask for a coding style that this project does not use:
+  const everywhere, noexcept, gsl types, brace casts, and smart pointers instead of new/delete
+  for Qt objects, which Qt deletes through their parents. Changing the code for them would make
+  it harder to read without fixing anything, and the fractal formulas must stay plain C, because
+  they are converted to OpenCL automatically.
+-->
+<RuleSet Name="Mandelbulber analysis rules" Description="All rules except the C++ Core Guidelines style checks." ToolsVersion="17.0">
+  <IncludeAll Action="Warning" />
+  <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
+    <!-- Code analysis ignores OpenMP constructs (informational) -->
+    <Rule Id="C6993" Action="None" />
+
+    <!-- Arithmetic: conversions of a result to a wider type -->
+    <Rule Id="C26451" Action="None" />
+
+    <!-- Bounds: gsl::at, span instead of pointer arithmetic, constant array indexes, array decay -->
+    <Rule Id="C26446" Action="None" />
+    <Rule Id="C26459" Action="None" />
+    <Rule Id="C26481" Action="None" />
+    <Rule Id="C26482" Action="None" />
+    <Rule Id="C26483" Action="None" />
+    <Rule Id="C26485" Action="None" />
+
+    <!-- Classes: rule of five, override and virtual specifiers -->
+    <Rule Id="C26432" Action="None" />
+    <Rule Id="C26433" Action="None" />
+    <Rule Id="C26435" Action="None" />
+    <Rule Id="C26443" Action="None" />
+
+    <!-- Const and constexpr -->
+    <Rule Id="C26460" Action="None" />
+    <Rule Id="C26461" Action="None" />
+    <Rule Id="C26462" Action="None" />
+    <Rule Id="C26463" Action="None" />
+    <Rule Id="C26464" Action="None" />
+    <Rule Id="C26496" Action="None" />
+    <Rule Id="C26497" Action="None" />
+    <Rule Id="C26498" Action="None" />
+    <Rule Id="C26814" Action="None" />
+
+    <!-- Declarations: non-constexpr global initializers, copies in range-for and auto -->
+    <Rule Id="C26426" Action="None" />
+    <Rule Id="C26817" Action="None" />
+    <Rule Id="C26820" Action="None" />
+
+    <!-- Enums: prefer enum class -->
+    <Rule Id="C26812" Action="None" />
+
+    <!-- Functions: noexcept -->
+    <Rule Id="C26439" Action="None" />
+    <Rule Id="C26440" Action="None" />
+    <Rule Id="C26447" Action="None" />
+    <Rule Id="C26455" Action="None" />
+
+    <!-- Owner and raw pointers: new and delete, owner<T>, not_null, malloc and free -->
+    <Rule Id="C26400" Action="None" />
+    <Rule Id="C26401" Action="None" />
+    <Rule Id="C26402" Action="None" />
+    <Rule Id="C26403" Action="None" />
+    <Rule Id="C26404" Action="None" />
+    <Rule Id="C26405" Action="None" />
+    <Rule Id="C26406" Action="None" />
+    <Rule Id="C26407" Action="None" />
+    <Rule Id="C26408" Action="None" />
+    <Rule Id="C26409" Action="None" />
+    <Rule Id="C26429" Action="None" />
+
+    <!-- Smart pointer parameters -->
+    <Rule Id="C26410" Action="None" />
+    <Rule Id="C26411" Action="None" />
+    <Rule Id="C26414" Action="None" />
+    <Rule Id="C26415" Action="None" />
+    <Rule Id="C26416" Action="None" />
+    <Rule Id="C26417" Action="None" />
+    <Rule Id="C26418" Action="None" />
+
+    <!-- Style: goto, switch default labels and fallthrough annotations -->
+    <Rule Id="C26438" Action="None" />
+    <Rule Id="C26818" Action="None" />
+    <Rule Id="C26819" Action="None" />
+
+    <!-- Types: casts, initialization of every variable and member, unions, va_arg -->
+    <Rule Id="C26457" Action="None" />
+    <Rule Id="C26465" Action="None" />
+    <Rule Id="C26466" Action="None" />
+    <Rule Id="C26467" Action="None" />
+    <Rule Id="C26471" Action="None" />
+    <Rule Id="C26472" Action="None" />
+    <Rule Id="C26473" Action="None" />
+    <Rule Id="C26474" Action="None" />
+    <Rule Id="C26475" Action="None" />
+    <Rule Id="C26476" Action="None" />
+    <Rule Id="C26477" Action="None" />
+    <Rule Id="C26490" Action="None" />
+    <Rule Id="C26491" Action="None" />
+    <Rule Id="C26492" Action="None" />
+    <Rule Id="C26493" Action="None" />
+    <Rule Id="C26494" Action="None" />
+    <Rule Id="C26495" Action="None" />
+    <Rule Id="C26826" Action="None" />
+  </Rules>
+</RuleSet>

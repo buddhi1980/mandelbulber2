@@ -544,6 +544,10 @@ void SynchronizeInterfaceQComboBox(
 					if (par->GetVarType(props.paramName) == typeString)
 					{
 						QString text = par->Get<QString>(props.paramName);
+#ifdef _MSC_VER
+// comboBox is not null here; the null check above was for the result of dynamic_cast
+#pragma warning(suppress : 28182)
+#endif
 						for (int i = 0; i < comboBox->count(); i++)
 						{
 							if (comboBox->itemText(i) == text)

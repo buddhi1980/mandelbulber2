@@ -551,7 +551,7 @@ quint8 *cImage::CreatePreview(
 {
 	previewMutex.lock();
 
-	dpiScale = widget->devicePixelRatioF();
+	if (widget) dpiScale = widget->devicePixelRatioF();
 
 	quint64 w = quint64(width * scale * dpiScale);
 	quint64 h = quint64(height * scale * dpiScale);

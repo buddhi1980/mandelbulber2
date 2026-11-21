@@ -463,20 +463,20 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 			break;
 		case QtWarningMsg:
 			if (systemData.enableConsoleOutput)
-				fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+				fprintf(stderr, "Warning: %s\n(%s:%d, %s)\n\n", localMsg.constData(), context.file,
 					context.line, context.function);
 			text = QString("Warning: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;
 			break;
 		case QtCriticalMsg:
 			if (systemData.enableConsoleOutput)
-				fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+				fprintf(stderr, "Critical: %s\n(%s:%d, %s)\n\n", localMsg.constData(), context.file,
 					context.line, context.function);
 			text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;
 			break;
 		case QtFatalMsg:
-			fprintf(stderr, "Fatal: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+			fprintf(stderr, "Fatal: %s\n(%s:%d, %s)\n\n", localMsg.constData(), context.file,
 				context.line, context.function);
 			text = QString("Fatal: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;

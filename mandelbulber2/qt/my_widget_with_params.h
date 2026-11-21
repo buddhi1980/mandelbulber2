@@ -46,7 +46,7 @@ class cMyWidgetWithParams
 {
 public:
 	cMyWidgetWithParams();
-	~cMyWidgetWithParams() = default;
+	virtual ~cMyWidgetWithParams() = default;
 
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);

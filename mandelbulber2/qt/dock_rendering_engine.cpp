@@ -230,6 +230,10 @@ void cDockRenderingEngine::slotNetRenderClientListUpdateCell(int i, int j) const
 	// update element in row i, column j
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
 
+#ifdef _MSC_VER
+// a missing cell is created below, so the cell is never null after this block
+#pragma warning(suppress : 26430)
+#endif
 	QTableWidgetItem *cell = table->item(i, j);
 	if (!cell)
 	{
