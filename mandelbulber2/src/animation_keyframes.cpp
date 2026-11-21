@@ -333,8 +333,10 @@ void cKeyframeAnimation::DeleteKeyframes(QList<int> indexes) const
 
 QList<int> cKeyframeAnimation::GetSelectedKeyframes() const
 {
+	// only whole selected columns count: selecting along a row (a row header, Ctrl+A or a drag)
+	// touches cells of many keyframes and must not select them all for deletion
 	QList<int> indexes;
-	for (const QModelIndex &modelIndex : table->selectionModel()->selectedIndexes())
+	for (const QModelIndex &modelIndex : table->selectionModel()->selectedColumns())
 	{
 		const int index = modelIndex.column() - reservedColumns;
 		if (index >= 0 && !indexes.contains(index)) indexes.append(index);
