@@ -42,6 +42,7 @@
 #include "preview_file_dialog.h"
 
 #include "src/automated_widgets.hpp"
+#include "src/camera_target.hpp"
 #include "src/common_math.h"
 #include "src/fractal_coloring.hpp"
 #include "src/fractal_container.hpp"
@@ -83,6 +84,8 @@ void cMaterialEditor::ConnectSignals()
 
 	connect(ui->pushButton_local_navi, &QPushButton::clicked, this,
 		&cMaterialEditor::slotPressedButtonNavi);
+	connect(ui->pushButton_fractal_coloring_ic_align_rotation, &QPushButton::clicked, this,
+		&cMaterialEditor::slotPressedButtonAlignIcRotation);
 }
 
 void cMaterialEditor::AssignMaterial(std::shared_ptr<cParameterContainer> params, int index)
@@ -147,4 +150,20 @@ void cMaterialEditor::slotPressedButtonNavi()
 	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
 	navigator->show();
 	navigator->AllPrepared();
+}
+
+void cMaterialEditor::slotPressedButtonAlignIcRotation()
+{
+	if (!parameterContainer) return;
+
+	SynchronizeInterfaceWindow(this, parameterContainer, qInterface::read);
+
+	CVector3 camera = parameterContainer->Get<CVector3>("camera");
+	CVector3 target = parameterContainer->Get<CVector3>("target");
+	CVector3 cameraTopVector = parameterContainer->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, cameraTopVector);
+
+	parameterContainer->Set(cMaterial::Name("fractal_coloring_ic_rotation", materialIndex),
+		cameraTarget.GetRotationAlignedToCamera());
+	SynchronizeInterfaceWindow(this, parameterContainer, qInterface::write);
 }

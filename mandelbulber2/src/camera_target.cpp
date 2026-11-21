@@ -154,3 +154,33 @@ void cCameraTarget::SetTarget(CVector3 _target, enumRotationMode mode)
 		SetCameraTargetTop(camera, target, topVector);
 	}
 }
+
+CVector3 cCameraTarget::GetRotationAlignedToCamera() const
+{
+	CVector3 baseX = CVector3(1.0, 0.0, 0.0);
+	CVector3 baseY = CVector3(0.0, 1.0, 0.0);
+
+	// calculation of inverted rotation matrix
+	CRotationMatrix mRot;
+	mRot.RotateY(-yaw);
+	mRot.RotateX(-pitch);
+	mRot.RotateZ(-roll);
+
+	baseX = mRot.RotateVector(baseX);
+	baseY = mRot.RotateVector(baseY);
+
+	double alpha = atan2(baseY.z, baseY.y);
+	double beta = -atan2(baseY.x, sqrt(baseY.z * baseY.z + baseY.y * baseY.y));
+
+	CVector3 vectorTemp = baseX;
+	vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -alpha);
+	vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), -beta);
+
+	double gamma = -atan2(vectorTemp.z, vectorTemp.x);
+
+	alpha = CorrectAngle(alpha);
+	beta = CorrectAngle(beta);
+	gamma = CorrectAngle(gamma);
+
+	return CVector3(alpha * 180.0 / M_PI, beta * 180.0 / M_PI, gamma * 180.0 / M_PI);
+}

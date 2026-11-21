@@ -127,6 +127,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 
 			if (fractalColoring.icXYZFalse)
 			{
+				// rotate the initial condition axes (e.g. aligned to the camera)
+				xyzC = fractalColoring.icRotationMatrix.RotateVector(xyzC);
 				if (fractalColoring.icFabsFalse)
 				{
 					xyzC = xyzC * fractalColoring.xyzC111;
