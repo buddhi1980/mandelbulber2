@@ -587,10 +587,11 @@ void cAnimationFrames::RemoveAllAudioParameters(std::shared_ptr<cParameterContai
 	audioTracks.DeleteAllAudioTracks(params);
 }
 
-void cAnimationFrames::LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params)
+void cAnimationFrames::LoadAllAudioFiles(
+	std::shared_ptr<cParameterContainer> params, bool reportMissingFiles)
 {
 	if (!params) params = gPar;
-	audioTracks.LoadAllAudioFiles(params);
+	audioTracks.LoadAllAudioFiles(params, reportMissingFiles);
 }
 
 void cAnimationFrames::setAudioParameterPrefix()

@@ -128,7 +128,8 @@ public:
 		const sParameterDescription &parameter, std::shared_ptr<cParameterContainer> params = nullptr);
 
 	void RemoveAllAudioParameters(std::shared_ptr<cParameterContainer> params = nullptr);
-	void LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params = nullptr);
+	void LoadAllAudioFiles(
+		std::shared_ptr<cParameterContainer> params = nullptr, bool reportMissingFiles = false);
 
 	std::shared_ptr<cAudioTrack> GetAudioPtr(const QString fullParameterName) const;
 

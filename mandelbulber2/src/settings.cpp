@@ -926,8 +926,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 		// Load audio files referenced by animation/keyframe data
 		if (listOfParametersToProcess.isEmpty())
 		{
-			if (frames) frames->LoadAllAudioFiles(par);
-			if (keyframes) keyframes->LoadAllAudioFiles(par);
+			if (frames) frames->LoadAllAudioFiles(par, !quiet);
+			if (keyframes) keyframes->LoadAllAudioFiles(par, !quiet);
 		}
 
 		return true;

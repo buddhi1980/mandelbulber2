@@ -37,7 +37,9 @@
 #include <memory>
 
 #include "audio_track.h"
+#include "error_message.hpp"
 #include "global_data.hpp"
+#include "netrender.hpp"
 #include "one_parameter.hpp"
 #include "parameters.hpp"
 #include "resource_http_provider.hpp"
@@ -191,9 +193,11 @@ QString cAudioTrackCollection::FullParameterName(
 	return prefix + QString("_") + nameOfSoundParameter + "_" + parameterName;
 }
 
-void cAudioTrackCollection::LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params)
+void cAudioTrackCollection::LoadAllAudioFiles(
+	std::shared_ptr<cParameterContainer> params, bool reportMissingFiles)
 {
 	QStringList listOfAllParameters = audioTracks.keys();
+	QStringList notLoadedFiles;
 
 	for (int i = 0; i < listOfAllParameters.length(); i++)
 	{
@@ -210,7 +214,24 @@ void cAudioTrackCollection::LoadAllAudioFiles(std::shared_ptr<cParameterContaine
 			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(
 				params->Get<double>("keyframe_frames_per_second"));
 			audioTracks[listOfAllParameters[i]]->calculateFFT();
+
+			// an enabled sound animation without its audio file would render without any effect
+			if (!audioTracks[listOfAllParameters[i]]->isLoaded()
+					&& params->Get<bool>(FullParameterName("enable", listOfAllParameters.at(i))))
+			{
+				notLoadedFiles.append(
+					params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i))));
+			}
 		}
+	}
+
+	// a NetRender client gets the files from the server, which reports them itself
+	if (reportMissingFiles && !notLoadedFiles.isEmpty() && !gNetRender->IsClient())
+	{
+		notLoadedFiles.removeDuplicates();
+		cErrorMessage::showMessage(
+			QObject::tr("Can't load audio file for animation by sound!\n") + notLoadedFiles.join("\n"),
+			cErrorMessage::errorMessage);
 	}
 }
 

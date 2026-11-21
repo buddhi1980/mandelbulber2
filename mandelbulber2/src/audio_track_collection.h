@@ -65,7 +65,8 @@ public:
 	void RemoveParameters(
 		std::shared_ptr<cParameterContainer> params, const QString parameterName) const;
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName) const;
-	void LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params);
+	void LoadAllAudioFiles(
+		std::shared_ptr<cParameterContainer> params, bool reportMissingFiles = false);
 	void RefreshAllAudioTracks(std::shared_ptr<cParameterContainer> params);
 	void SetPrefix(QString _prefix) { prefix = _prefix; }
 
