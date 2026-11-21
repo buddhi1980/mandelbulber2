@@ -1800,6 +1800,26 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="12" column="0">
+                 <widget class="QLabel" name="label_png_compression_level">
+                  <property name="text">
+                   <string>PNG compression level:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_png_compression_level">
+                  <property name="toolTip">
+                   <string>&lt;p&gt;zlib compression level of the saved PNG images, from 0 (no compression, fastest saving, largest files) to 9 (smallest files, slowest saving). 6 is the libpng default. The image data is lossless at every level.&lt;/p&gt;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9</number>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -2606,6 +2626,7 @@ and will only be present after enabling and re-render.</string>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
+  <tabstop>spinboxInt_png_compression_level</tabstop>
   <tabstop>spinboxInt_jxl_effort</tabstop>
   <tabstop>spinbox_jxl_distance</tabstop>
   <tabstop>comboBox_jxl_hdr_mode</tabstop>
