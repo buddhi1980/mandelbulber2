@@ -11,8 +11,9 @@ The project should be kept updated and clean with the following steps (when nece
   - `mandelbulber2/tools/populateUiInformation.php # this makes a dry run, check output`
   - `mandelbulber2/tools/populateUiInformation.php nondry # this applies changes`
 - 3. Updating the opencl files with autogeneration from cpp code
-  - `mandelbulber2/tools/populateOpenCL.php # this makes a dry run, check output`
-  - `mandelbulber2/tools/populateOpenCL.php nondry # this applies changes`
+  - `mandelbulber2/tools/populate_opencl.py # this makes a dry run, check output`
+  - `mandelbulber2/tools/populate_opencl.py nondry # this applies changes`
+  - needs Python 3.6+ and clang-format; set `CLANG_FORMAT` to its path when it isn't on `PATH`
 - 4. `mandelbulber2/tools/dos2unix.sh # fix file formatting issues`
 - 5. Add new language snippets, see also "(3) language system"
 - 6. Add new formula images, see also "(4) formula images"
