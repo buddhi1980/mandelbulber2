@@ -57,6 +57,11 @@
 
 #include "formula/definition/all_fractal_list.hpp"
 
+#include <QScreen>
+#include <QScrollArea>
+#include <QScrollBar>
+#include <QStyle>
+
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
 {
@@ -183,6 +188,51 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	ui->checkBox_dont_randomize_camera->setChecked(
 		gPar->Get<bool>("randomizer_dont_randomize_camera"));
 	ui->checkBox_dont_randomize_camera->hide();
+
+	FitToScreen();
+}
+
+void cRandomizerDialog::FitToScreen()
+{
+	// put the grid of versions into a scroll area, so the dialog can be smaller than the screen
+	QWidget *versionsWidget = new QWidget();
+	ui->verticalLayout->removeItem(ui->gridLayout);
+	ui->gridLayout->setParent(nullptr);
+	ui->gridLayout->setContentsMargins(0, 0, 0, 0);
+	versionsWidget->setLayout(ui->gridLayout);
+
+	QScrollArea *scrollArea = new QScrollArea(this);
+	scrollArea->setObjectName("scrollArea_versions");
+	scrollArea->setFrameShape(QFrame::NoFrame);
+	scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	scrollArea->setWidgetResizable(true);
+	scrollArea->setWidget(versionsWidget);
+	ui->verticalLayout->addWidget(scrollArea, 1);
+
+	// the size the dialog would have without scrolling
+	const QSize versionsSize = versionsWidget->sizeHint();
+	const QMargins margins = ui->verticalLayout->contentsMargins();
+	const QSize topSize = ui->horizontalLayout->sizeHint();
+	int versionsWidth = versionsSize.width();
+	QSize fullSize(qMax(topSize.width(), versionsWidth) + margins.left() + margins.right(),
+		topSize.height() + ui->verticalLayout->spacing() + versionsSize.height() + margins.top()
+			+ margins.bottom());
+	fullSize = fullSize.expandedTo(size());
+
+	// limit it to the available screen area, keeping space for the vertical scroll bar
+	if (QScreen *actualScreen = screen())
+	{
+		QSize availableSize = actualScreen->availableGeometry().size();
+		availableSize.rheight() -= style()->pixelMetric(QStyle::PM_TitleBarHeight);
+		if (fullSize.height() > availableSize.height())
+		{
+			versionsWidth += scrollArea->verticalScrollBar()->sizeHint().width();
+			fullSize.setWidth(qMax(fullSize.width(), versionsWidth + margins.left() + margins.right()));
+		}
+		fullSize = fullSize.boundedTo(availableSize);
+	}
+	scrollArea->setMinimumWidth(versionsWidth);
+	resize(fullSize);
 }
 
 cRandomizerDialog::~cRandomizerDialog()
