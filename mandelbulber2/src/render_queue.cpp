@@ -257,6 +257,12 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 		config.DisableRefresh();
 	}
 	config.EnableNetRender();
+	// nebula settings are rendered by the nebula engine, as with the GUI and the command line
+	if (queuePar->Get<bool>("nebula_mode"))
+	{
+		config.SetNebulaMode();
+		queuePar->Set("objects_tree_enable", true);
+	}
 	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 
