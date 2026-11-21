@@ -54,7 +54,8 @@ public:
 
 #ifdef USE_OPENCL
 	void Reset();
-	void InitPlatfromAndDevices();
+	// reportDeviceFallback: warn when no selected OpenCL device is found and the first one is used
+	void InitPlatfromAndDevices(bool reportDeviceFallback = true);
 #endif
 
 	cOpenClEngineRenderFractal *openClEngineRenderFractal;
