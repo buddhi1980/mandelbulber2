@@ -98,6 +98,7 @@ typedef struct ALIGN16
 
 	// Doubles (as in OpenCL)
 	cl_float fakeLightsOrbitTrapSize;
+	cl_float fakeLightsOrbitTrapLineLength;
 	cl_float fakeLightsThickness;
 	cl_float linearDEOffset;
 
@@ -140,6 +141,7 @@ inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 	target.fractalRotation = toClFloat3(source.fractalRotation);
 	target.repeat = toClFloat3(source.repeat);
 	target.fakeLightsOrbitTrapSize = source.fakeLightsOrbitTrapSize;
+	target.fakeLightsOrbitTrapLineLength = source.fakeLightsOrbitTrapLineLength;
 	target.fakeLightsThickness = source.fakeLightsThickness;
 	target.linearDEOffset = source.linearDEOffset;
 	target.iterThreshMode = source.iterThreshMode;

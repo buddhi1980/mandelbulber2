@@ -339,6 +339,8 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	common.fakeLightsOrbitTrapShape =
 		params::enumFakeLightsShape(container->Get<int>("fake_lights_orbit_trap_shape"));
 	common.fakeLightsOrbitTrapSize = container->Get<double>("fake_lights_orbit_trap_size");
+	common.fakeLightsOrbitTrapLineLength =
+		container->Get<double>("fake_lights_orbit_trap_line_length");
 	common.fakeLightsThickness = container->Get<double>("fake_lights_thickness");
 	common.fakeLightsRelativeCenter = container->Get<bool>("fake_lights_relative_center");
 	common.fakeLightsRotation = container->Get<CVector3>("fake_lights_orbit_rotation");

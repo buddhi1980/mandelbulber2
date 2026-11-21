@@ -54,7 +54,11 @@ double OrbitTrapShapeDistance(CVector4 z4, const sCommonParams *par)
 		case params::fakeLightsShapeLine:
 		{
 			delta = par->mRotFakeLightsRotation.RotateVector(delta);
-			dist = sqrt(delta.y * delta.y + delta.z * delta.z);
+			// line length 0 means an infinite line, otherwise a segment centered on the trap point
+			double dx = 0.0;
+			if (par->fakeLightsOrbitTrapLineLength > 0.0)
+				dx = max(fabs(delta.x) - 0.5 * par->fakeLightsOrbitTrapLineLength, 0.0);
+			dist = sqrt(dx * dx + delta.y * delta.y + delta.z * delta.z);
 			break;
 		}
 		case params::fakeLightsShapeCircle:
