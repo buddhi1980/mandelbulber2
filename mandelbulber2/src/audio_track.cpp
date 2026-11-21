@@ -34,6 +34,8 @@
 
 #include "audio_track.h"
 
+#include <cstring>
+
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_fft_complex.h>
 
@@ -176,6 +178,7 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 #else
 		QAudioFormat desiredFormat;
 		desiredFormat.setChannelCount(1);
+		desiredFormat.setSampleFormat(QAudioFormat::Int16);
 		desiredFormat.setSampleRate(sampleRate);
 #endif
 
@@ -184,7 +187,7 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		decoder->setSourceFilename(filename);
 #else
-		decoder->setSource(QUrl(filename));
+		decoder->setSource(QUrl::fromLocalFile(filename));
 #endif
 
 		connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
@@ -213,6 +216,10 @@ void cAudioTrack::slotReadBuffer()
 {
 	QAudioBuffer audioBuffer = decoder->read();
 
+	// the decoder can deliver another sample rate than the requested one
+	const int bufferSampleRate = audioBuffer.format().sampleRate();
+	if (bufferSampleRate > 0) sampleRate = bufferSampleRate;
+
 	const qint64 duration = decoder->duration();
 	const quint64 totalSamplesApprox = quint64((duration + 1000) * sampleRate / 1000);
 
@@ -223,22 +230,115 @@ void cAudioTrack::slotReadBuffer()
 		memoryReserved = true;
 	}
 
-	const int frameCount = audioBuffer.frameCount();
-	if (frameCount > 0)
+	const size_t firstNewSample = rawAudio.size();
+	AppendMonoSamples(audioBuffer, rawAudio);
+	for (size_t i = firstNewSample; i < rawAudio.size(); i++)
 	{
-		qint16 *frames = audioBuffer.data<qint16>();
-
-		for (int i = 0; i < frameCount; i++)
-		{
-			float sample = frames[i] / 32768.0f;
-			rawAudio.push_back(sample);
-			maxVolume = qMax(sample, maxVolume);
-		}
+		maxVolume = qMax(rawAudio[i], maxVolume);
 	}
 	length = rawAudio.size();
 	double percent = double(length) / totalSamplesApprox * 100.0;
 	Q_UNUSED(percent);
 	// emit loadingProgress(percent);
+}
+
+namespace
+{
+// sample formats delivered by QAudioDecoder (the same set in Qt 5 and Qt 6)
+enum class enumSampleType
+{
+	unknown,
+	uint8,
+	int16,
+	int32,
+	float32
+};
+
+enumSampleType SampleType(const QAudioFormat &format)
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	const QAudioFormat::SampleType type = format.sampleType();
+	switch (format.sampleSize())
+	{
+		case 8:
+			return type == QAudioFormat::UnSignedInt ? enumSampleType::uint8 : enumSampleType::unknown;
+		case 16:
+			return type == QAudioFormat::SignedInt ? enumSampleType::int16 : enumSampleType::unknown;
+		case 32:
+			if (type == QAudioFormat::SignedInt) return enumSampleType::int32;
+			return type == QAudioFormat::Float ? enumSampleType::float32 : enumSampleType::unknown;
+		default: return enumSampleType::unknown;
+	}
+#else
+	switch (format.sampleFormat())
+	{
+		case QAudioFormat::UInt8: return enumSampleType::uint8;
+		case QAudioFormat::Int16: return enumSampleType::int16;
+		case QAudioFormat::Int32: return enumSampleType::int32;
+		case QAudioFormat::Float: return enumSampleType::float32;
+		default: return enumSampleType::unknown;
+	}
+#endif
+}
+
+// converts one sample to a float in the range -1..1
+float NormalizedSample(enumSampleType type, const char *sample)
+{
+	switch (type)
+	{
+		case enumSampleType::uint8:
+		{
+			quint8 value;
+			memcpy(&value, sample, sizeof(value));
+			return (int(value) - 128) / 128.0f;
+		}
+		case enumSampleType::int16:
+		{
+			qint16 value;
+			memcpy(&value, sample, sizeof(value));
+			return value / 32768.0f;
+		}
+		case enumSampleType::int32:
+		{
+			qint32 value;
+			memcpy(&value, sample, sizeof(value));
+			return float(value / 2147483648.0);
+		}
+		case enumSampleType::float32:
+		{
+			float value;
+			memcpy(&value, sample, sizeof(value));
+			return value;
+		}
+		default: return 0.0f;
+	}
+}
+} // namespace
+
+void cAudioTrack::AppendMonoSamples(const QAudioBuffer &buffer, std::vector<float> &samples)
+{
+	const QAudioFormat format = buffer.format();
+	const int channels = format.channelCount();
+	const qint64 frameCount = buffer.frameCount();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	const int bytesPerSample = format.sampleSize() / 8;
+#else
+	const int bytesPerSample = format.bytesPerSample();
+#endif
+	const enumSampleType type = SampleType(format);
+	if (channels <= 0 || frameCount <= 0 || bytesPerSample <= 0 || type == enumSampleType::unknown)
+		return;
+
+	const char *data = buffer.constData<char>();
+	for (qint64 frame = 0; frame < frameCount; frame++)
+	{
+		float sum = 0.0f;
+		for (int chan = 0; chan < channels; chan++)
+		{
+			sum += NormalizedSample(type, data + (frame * channels + chan) * bytesPerSample);
+		}
+		samples.push_back(sum / channels);
+	}
 }
 
 void cAudioTrack::slotFinished()

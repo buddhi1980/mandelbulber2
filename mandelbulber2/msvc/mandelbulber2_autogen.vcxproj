@@ -198,6 +198,8 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6UiTools.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6OpenGLWidgets.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6OpenGL.dll&quot; &quot;$(OutDir)&quot;" />
+    <MakeDir Directories="$(OutDir)multimedia" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\plugins\multimedia\windowsmediaplugin.dll&quot; &quot;$(OutDir)multimedia&quot;" />
   </Target>
   <Target Name="Copy-QTLIBS-Debug" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6Cored.dll&quot; &quot;$(OutDir)&quot;" />
@@ -214,5 +216,7 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6UiToolsd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6OpenGLWidgetsd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt6OpenGLd.dll&quot; &quot;$(OutDir)&quot;" />
+    <MakeDir Directories="$(OutDir)multimedia" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\plugins\multimedia\windowsmediaplugind.dll&quot; &quot;$(OutDir)multimedia&quot;" />
   </Target>
 </Project>

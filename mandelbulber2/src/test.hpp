@@ -80,6 +80,7 @@ private slots:
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
+	void audioBufferToMono() const;
 	void regressionScenesWrapper() const;
 	void animatedFileName() const;
 	void ensureFileExtension() const;
