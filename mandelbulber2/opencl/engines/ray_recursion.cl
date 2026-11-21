@@ -1015,10 +1015,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				resultShader.xyz = backgroundShader;
 				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;
-				shaderInputData.normal = shaderInputData.viewVector;
+				// same as the CPU engine: the background normal points back to the camera
+				shaderInputData.normal = Matrix33MulFloat3(renderData->mRot, (float3){0.0f, -1.0f, 0.0f});
 				recursionOut.outShadow = 1.0f;
 				recursionOut.outGlobalIllumination = 0.0f;
-				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 
 			float opacityOut = 0.0f;
