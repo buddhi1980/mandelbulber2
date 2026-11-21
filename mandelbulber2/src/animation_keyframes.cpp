@@ -127,6 +127,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			ui->pushButton_randomize, &QPushButton::clicked, this, &cKeyframeAnimation::slotRandomize);
 		connect(ui->pushButton_add_all_parameters, &QPushButton::clicked, this,
 			&cKeyframeAnimation::slotAddAllParameters);
+		// redraw the interpolated paths and values with the new end slopes (only on user clicks)
+		connect(ui->checkBox_keyframe_spline_ends_extrapolate, &QCheckBox::clicked, this,
+			&cKeyframeAnimation::slotRefreshTable);
 		connect(ui->pushButton_set_frames_per_keyframe_to_all, &QPushButton::clicked, this,
 			&cKeyframeAnimation::slotSetFramesPerKeyframeToAllKeyframes);
 

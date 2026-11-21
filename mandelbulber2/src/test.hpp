@@ -77,6 +77,7 @@ private slots:
 	void renderExamplesWrapper() const;
 	void netrender();
 	void testFlightWrapper() const;
+	void testMorphSplineEnds() const;
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;

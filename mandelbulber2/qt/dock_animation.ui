@@ -1390,6 +1390,22 @@
                         </property>
                        </widget>
                       </item>
+                      <item row="7" column="0" colspan="3">
+                       <widget class="MyCheckBox" name="checkBox_keyframe_spline_ends_extrapolate">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Catmull-Rom, Akima, cubic and Steffen interpolations continue the first and last segment in a straight line beyond the first and last keyframe, so values keep moving at the start and the end of the animation instead of starting and stopping with zero slope.&lt;/p&gt;&lt;p&gt;Not used for looped animations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <property name="text">
+                         <string>Non-zero slope at first and last keyframe</string>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </item>
                    </layout>

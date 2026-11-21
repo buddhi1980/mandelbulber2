@@ -96,6 +96,13 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 			looped = false;
 		}
 
+		// non-zero slope at the first and last keyframe (not needed for looped animation)
+		if (!looped && params && params->IfExists("keyframe_spline_ends_extrapolate"))
+		{
+			morph[morphTableItemIndex]->SetExtrapolateEnds(
+				params->Get<bool>("keyframe_spline_ends_extrapolate"));
+		}
+
 		// Create morph cache (pre-indexed - counting of number of subframes)
 		int numberOfSubFrames = 0;
 		// Determine the first keyframe index (index for cAnimationFrames) based on whether the
