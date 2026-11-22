@@ -1577,8 +1577,6 @@ void cInterface::SetQuickRenderParameters(const std::shared_ptr<cParameterContai
 
 void cInterface::OptimizeStepFactor(double qualityTarget)
 {
-	DisablePeriodicRefresh();
-
 	// check if main image is not used by other rendering process
 	if (mainImage->IsUsed())
 	{
@@ -1587,6 +1585,9 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 			cErrorMessage::errorMessage);
 		return;
 	}
+
+	// every return below has to restore auto refresh
+	DisablePeriodicRefresh();
 
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo->Store(gPar, gParFractal);
@@ -1629,7 +1630,11 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	for (int i = 0; i < 100; i++)
 	{
-		if (stopRequest || systemData.globalStopRequest) return;
+		if (stopRequest || systemData.globalStopRequest)
+		{
+			ReEnablePeriodicRefresh();
+			return;
+		}
 		scanCount++;
 		tempParam->Set("DE_factor", DEFactor);
 
@@ -1653,6 +1658,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 				}
 				else
 				{
+					ReEnablePeriodicRefresh();
 					return;
 				}
 			}
