@@ -36,6 +36,9 @@
 
 #include <memory>
 
+#include <QScreen>
+#include <QStyle>
+
 #include "ui_randomizer_dialog.h"
 
 #include "common_my_widget_wrapper.h"
@@ -91,6 +94,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	}
 	previewWidth = int(sizeMultiply * baseSize * 4.0 / 3.0);
 	previewHeight = int(sizeMultiply * baseSize);
+	FitPreviewsToScreen();
 
 	qualityMultiplier = qualitySetiing + 1;
 
@@ -183,6 +187,62 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	ui->checkBox_dont_randomize_camera->setChecked(
 		gPar->Get<bool>("randomizer_dont_randomize_camera"));
 	ui->checkBox_dont_randomize_camera->hide();
+}
+
+void cRandomizerDialog::FitPreviewsToScreen()
+{
+	// The previews have a fixed size, so the dialog can't be smaller than the grid of previews.
+	// Reduce the preview size once, before the previews are created, so the whole dialog fits on
+	// the screen. The size stays fixed afterwards, so moving or resizing the dialog doesn't change
+	// it.
+	QWidget *activeWindow = QApplication::activeWindow();
+	QScreen *actualScreen = activeWindow ? activeWindow->screen() : screen();
+	if (!actualScreen) return;
+	QSize availableSize = actualScreen->availableGeometry().size();
+	availableSize.rheight() -= style()->pixelMetric(QStyle::PM_TitleBarHeight);
+
+	QList<cThumbnailWidget *> previews;
+	previews.append(ui->previewwidget_actual);
+	for (int i = 0; i < numberOfVersions; i++)
+	{
+		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
+		previews.append(this->findChild<cThumbnailWidget *>(widgetName));
+	}
+
+	// the actual version is above the grid of versions
+	const int previewsInColumn = ui->gridLayout->rowCount() + 1;
+	const int previewsInRow = ui->gridLayout->columnCount();
+	const int minimumPreviewHeight = 32;
+
+	int width = previewWidth;
+	int height = previewHeight;
+	for (int iteration = 0; iteration < 4; iteration++)
+	{
+		for (cThumbnailWidget *preview : previews)
+			preview->setFixedSize(width, height);
+		// the dialog is not shown yet, so the cached layout sizes have to be dropped by hand
+		for (QWidget *child : findChildren<QWidget *>())
+			child->updateGeometry();
+		for (QLayout *childLayout : findChildren<QLayout *>())
+			childLayout->invalidate();
+		const QSize dialogSize = minimumSizeHint();
+		if (dialogSize.width() <= availableSize.width()
+				&& dialogSize.height() <= availableSize.height())
+			break;
+
+		// space for the previews when everything else keeps its size
+		const int otherHeight = dialogSize.height() - previewsInColumn * height;
+		const int otherWidth = dialogSize.width() - previewsInRow * width;
+		double scale = double(availableSize.height() - otherHeight) / (previewsInColumn * height);
+		scale = qMin(scale, double(availableSize.width() - otherWidth) / (previewsInRow * width));
+		const int newHeight = qMax(minimumPreviewHeight, int(height * scale));
+		if (newHeight >= height) break; // can't be reduced any more
+		height = newHeight;
+		width = height * previewWidth / previewHeight;
+	}
+	previewWidth = width;
+	previewHeight = height;
+	resize(size().boundedTo(availableSize));
 }
 
 cRandomizerDialog::~cRandomizerDialog()
