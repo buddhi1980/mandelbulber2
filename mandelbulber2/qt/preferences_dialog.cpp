@@ -97,8 +97,21 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 	else
 	{
-		int index = ui->comboboxLanguage->findText(systemData.locale.name());
-		ui->comboboxLanguage->setCurrentIndex(index);
+		// no language chosen yet: select the one of the system locale (e.g. de_AT -> de_DE), so the
+		// box is never empty and OK doesn't save an empty language; English if it isn't supported
+		const QString localeName = systemData.locale.name();
+		QString key = "en_EN";
+		for (const QString &language : systemData.supportedLanguages.keys())
+		{
+			if (language == localeName)
+			{
+				key = language;
+				break;
+			}
+			if (language.left(2) == localeName.left(2)) key = language;
+		}
+		ui->comboboxLanguage->setCurrentIndex(
+			ui->comboboxLanguage->findText(systemData.supportedLanguages.value(key)));
 	}
 
 	ui->label_path_to_logfile->setText(tr("Path to log file: %1").arg(systemData.logfileName));
