@@ -137,6 +137,7 @@ private slots:
 	void slotShowAnimation() const;
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
+	void slotExportCameraPath();
 	void slotMovedSliderFirstFrame() const;
 	void slotMovedSliderLastFrame();
 	void slotValidate();
