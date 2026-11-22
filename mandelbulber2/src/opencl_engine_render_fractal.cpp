@@ -2348,6 +2348,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		QElapsedTimer pureRenderingTime;
 		pureRenderingTime.start();
 
+		// periodic saving of the image rendered so far
+		QElapsedTimer timerAutosave;
+		timerAutosave.start();
+
 		// main image inOut collection loop
 		WriteLog(QString("Starting main rendering loop"), 2);
 		do
@@ -2441,6 +2445,22 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					lastRefreshTime = 0;
 					autoRefreshBlurResetDone = true;
 				}
+			}
+
+			// periodic saving of the image rendered so far. Tiles are written to the image only by
+			// blockingMap() above in this thread, so the image is not modified while it is saved
+			if (renderData->configuration.UseAutosave() && !*stopRequest
+					&& timerAutosave.elapsed() > renderData->configuration.GetAutosaveInterval())
+			{
+				// compile tiles rendered since the last refresh (they stay in the list for the refresh)
+				image->NullPostEffect(&tileSharedData.lastRenderedRects);
+				image->CompileImage(&tileSharedData.lastRenderedRects);
+				QString fileName = renderData->configuration.GetAutosaveFileName();
+				SaveImage(fileName,
+					ImageFileSave::enumImageFileType(renderData->configuration.GetAutosaveFileType()), image,
+					nullptr);
+				WriteLog(QString("Intermediate image saved to ") + fileName, 1);
+				timerAutosave.restart();
 			}
 
 			// processing application events

@@ -693,6 +693,17 @@ void cInterface::StartRender(bool noUndo)
 	config.EnableNetRender();
 	if (gPar->Get<bool>("nebula_mode")) config.SetNebulaMode();
 
+	// periodic saving of the image rendered so far to <settings name>_autosave.png
+	int autosaveMinutes = gPar->Get<int>("render_autosave_interval_minutes");
+	if (autosaveMinutes > 0)
+	{
+		QString baseName = QFileInfo(systemData.lastSettingsFile).completeBaseName();
+		if (baseName.isEmpty()) baseName = "render";
+		config.SetAutosave(
+			gPar->Get<QString>("default_image_path") + QDir::separator() + baseName + "_autosave.png",
+			int(ImageFileSave::IMAGE_FILE_TYPE_PNG), qint64(autosaveMinutes) * 60000);
+	}
+
 	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	if (!renderJob->Init(cRenderJob::still, config))
 	{

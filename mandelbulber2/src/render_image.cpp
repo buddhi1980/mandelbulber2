@@ -40,6 +40,7 @@
 #include "ao_modes.h"
 #include "cast.hpp"
 #include "dof.hpp"
+#include "files.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "netrender.hpp"
@@ -200,6 +201,23 @@ QSet<int> cRenderer::UpdateImageDuringRendering(QList<int> &listToRefresh, QList
 		updateImage();
 	}
 	return set_listToRefresh;
+}
+
+// saves the image rendered so far during a long render (periodic autosave)
+void cRenderer::AutosaveImage(QList<int> &listToCompile)
+{
+	// with image refresh the rendered lines are compiled already, otherwise the lines rendered
+	// since the last autosave are compiled here. Only finished lines are touched, as for the refresh
+	if (!listToCompile.isEmpty())
+	{
+		image->NullPostEffect(&listToCompile);
+		image->CompileImage(&listToCompile);
+		listToCompile.clear();
+	}
+	QString fileName = data->configuration.GetAutosaveFileName();
+	SaveImage(fileName, ImageFileSave::enumImageFileType(data->configuration.GetAutosaveFileType()),
+		image, nullptr);
+	WriteLog(QString("Intermediate image saved to ") + fileName, 1);
 }
 
 void cRenderer::SendRenderedLinesToNetRender(QList<int> &listToSend)
@@ -391,6 +409,11 @@ bool cRenderer::RenderImage()
 		QElapsedTimer pureRenderingTime;
 		pureRenderingTime.start();
 
+		// periodic saving of the image rendered so far
+		QElapsedTimer timerAutosave;
+		timerAutosave.start();
+		QList<int> listToAutosave;
+
 		WriteLog("Start rendering", 2);
 		do
 		{
@@ -416,6 +439,11 @@ bool cRenderer::RenderImage()
 					QList<int> list = scheduler->GetLastRenderedLines();
 					// create list of lines for image refresh
 					listToRefresh += list;
+				}
+				else if (data->configuration.UseAutosave())
+				{
+					// without image refresh the rendered lines are compiled only for the autosave
+					listToAutosave += scheduler->GetLastRenderedLines();
 				}
 
 				// status bar and progress bar
@@ -469,8 +497,15 @@ bool cRenderer::RenderImage()
 						timerRefresh.restart();
 						listToRefresh.clear();
 					} // timerRefresh
-				}		// isPreview
-			}			// while scheduler
+				} // isPreview
+
+				if (data->configuration.UseAutosave() && !*data->stopRequest
+						&& timerAutosave.elapsed() > data->configuration.GetAutosaveInterval())
+				{
+					AutosaveImage(listToAutosave);
+					timerAutosave.restart();
+				}
+			} // while scheduler
 
 			for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 			{

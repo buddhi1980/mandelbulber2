@@ -72,6 +72,7 @@ private:
 	double PeriodicUpdateStatusAndProgressBar(QString &statusText, QString &progressTxt,
 		cProgressText &progressText, QElapsedTimer &timerProgressRefresh);
 	QSet<int> UpdateImageDuringRendering(QList<int> &listToRefresh, QList<int> &listToSend);
+	void AutosaveImage(QList<int> &listToCompile);
 	void SendRenderedLinesToNetRender(QList<int> &listToSend);
 	void UpdateNetRenderToDoList();
 	void SendRenderedLinesToNetRenderAfterRendering(QList<int> listToSend);

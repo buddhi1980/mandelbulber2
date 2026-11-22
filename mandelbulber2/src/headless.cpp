@@ -96,11 +96,20 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		gPar->Set("objects_tree_enable", true);
 	}
 
+	QString filenameWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
+
+	// periodic saving of the image rendered so far to <output name>_autosave.<ext>
+	int autosaveMinutes = gPar->Get<int>("render_autosave_interval_minutes");
+	if (autosaveMinutes > 0)
+	{
+		QString autosaveFormat = imageFileFormat.startsWith("png") ? QString("png") : imageFileFormat;
+		config.SetAutosave(filenameWithoutExtension + "_autosave." + autosaveFormat,
+			int(ImageFileSave::ImageFileType(autosaveFormat)), qint64(autosaveMinutes) * 60000);
+	}
+
 	WriteLog(QString("Starting rendering of %1").arg(renderJob->settingsFile), 1);
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
-
-	QString filenameWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
 
 	QString ext;
 	if (imageFileFormat == "png16" || imageFileFormat == "png16alpha")
