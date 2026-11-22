@@ -38,6 +38,7 @@
 #include <QApplication>
 #include <QElapsedTimer>
 #include <QHostInfo>
+#include <QMutex>
 
 #include "error_message.hpp"
 #include "fractal_container.hpp"
@@ -47,6 +48,7 @@
 #include "interface.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "texture.hpp"
@@ -418,12 +420,22 @@ QString cNetRender::GetFileFromNetRender(QString requiredFileName, int frameInde
 	QString hashString = hash.toHex();
 	QString fileInCache = systemDirectories.GetNetrenderFolder() + QDir::separator() + hashString
 												+ "." + QFileInfo(requiredFileName).suffix();
+
+	// the mutex guarantees that a file found in the cache is marked as used before any cleanup
+	// can delete it
+	static QMutex cacheMutex;
+	QMutexLocker locker(&cacheMutex);
 	if (QFile::exists(fileInCache))
 	{
+		MarkFileAsUsed(fileInCache);
 		return fileInCache;
 	}
 	else
 	{
+		// delete cached files not used for more than one hour (e.g. old frames of animated textures)
+		DeleteFilesNotUsedFor(systemDirectories.GetNetrenderFolder(), 3600);
+		locker.unlock();
+
 		netRenderClient->RequestFileFromServer(requiredFileName, frameIndex);
 		return fileInCache;
 	}

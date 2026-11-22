@@ -82,6 +82,7 @@ private slots:
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
+	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
 	void ensureFileExtension() const;
 };
