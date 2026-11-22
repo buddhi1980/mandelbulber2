@@ -76,11 +76,13 @@ private slots:
 	static void cleanup();
 	void renderExamplesWrapper() const;
 	void netrender();
+	void netRenderFileDestination() const;
 	void testFlightWrapper() const;
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
+	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
 	void ensureFileExtension() const;
 };
