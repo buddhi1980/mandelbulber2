@@ -32,6 +32,7 @@
  * cRenderWorker::EnvMapping method - calculates enviroment mapping effect
  */
 #include "common_math.h"
+#include "fractparams.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
@@ -41,6 +42,7 @@ sRGBAFloat cRenderWorker::EnvMapping(const sShaderInputData &input) const
 	CVector3 reflect;
 	double dot = -input.viewVector.Dot(input.normal);
 	reflect = input.normal * 2.0 * dot + input.viewVector;
+	reflect = params->mRotEnvMappingRotation.RotateVector(reflect);
 
 	double alphaTexture = -reflect.GetAlpha() + M_PI;
 	double betaTexture = -reflect.GetBeta();
