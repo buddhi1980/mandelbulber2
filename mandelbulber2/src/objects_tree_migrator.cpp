@@ -1635,8 +1635,10 @@ void cObjectsTreeMigrator::FlattenBooleanAddGroups(
 	// IMPORTANT: Preserve operand order of booleanSub!
 	// booleanSub(firstChild, secondChild) means firstChild - secondChild.
 	// We must keep the first child of booleanSub as the first operand.
-	for (auto [targetParentId, group] : flattenGroups.asKeyValueRange())
+	for (auto groupIt = flattenGroups.cbegin(); groupIt != flattenGroups.cend(); ++groupIt)
 	{
+		const int targetParentId = groupIt.key();
+		const auto &group = groupIt.value();
 		// Find the first child of the booleanSub parent (this is the first operand).
 		// We need to check if the first child is part of the flatten group.
 		QList<sNodeInfo> parentChildren = getChildren(targetParentId);
@@ -1754,8 +1756,9 @@ void cObjectsTreeMigrator::FlattenBooleanAddGroups(
 	}
 
 	// Remove processed booleanAdd nodes from flattenableBoolAdds (they were handled in Phase 2)
-	for (auto [targetParentId, group] : flattenGroups.asKeyValueRange())
+	for (auto groupIt = flattenGroups.cbegin(); groupIt != flattenGroups.cend(); ++groupIt)
 	{
+		const auto &group = groupIt.value();
 		for (int boolAddId : group.boolAddIds)
 		{
 			flattenableBoolAdds.remove(boolAddId);

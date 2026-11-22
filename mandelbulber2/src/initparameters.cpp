@@ -235,6 +235,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
 	par->addParam("reflections_max", 5, 0, 1000, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
+	par->addParam("env_mapping_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), morphLinear, paramStandard);
 	par->addParam("glow_color", 2, sRGB(57192, 60888, 62408), morphLinear, paramStandard);
@@ -469,6 +470,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("net_render_client_IP", QString("10.0.0.4"), morphNone, paramApp);
 	par->addParam("net_render_server_port", QString("5555"), morphNone, paramApp);
 	par->addParam("aux_light_manual_placement_dist", 0.1, 1e-15, 1e15, morphNone, paramApp);
+	par->addParam("aux_light_auto_intensity", true, morphNone, paramApp);
 
 	par->addParam("camera_movement_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);
@@ -612,6 +614,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("append_alpha_jxl", true, morphNone, paramApp);
 	par->addParam("linear_colorspace", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
+	// zlib compression level for PNG files: 0 - none (fastest), 6 - libpng default, 9 - smallest
+	par->addParam("png_compression_level", 6, 0, 9, morphNone, paramApp);
 	par->addParam("jxl_effort", 7, 1, 9, morphNone, paramApp);
 	par->addParam("jxl_distance", 1.0, 0.0, 20.0, morphNone, paramApp);
 	par->addParam("jxl_lossless", false, morphNone, paramApp);
