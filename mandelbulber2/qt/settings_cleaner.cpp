@@ -145,6 +145,12 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName == "image_height") continue;
 			if (parameterName == "N") continue;
 			if (parameterName == "detail_level") continue;
+			// quality settings: the small preview doesn't show their effect
+			if (parameterName == "DE_factor") continue;
+			if (parameterName == "DE_thresh") continue;
+			if (parameterName == "constant_DE_threshold") continue;
+			// selects which background colours are used; its effect depends on the view direction
+			if (parameterName == "background_3_colors_enable") continue;
 			if (parameterName == "reflections_max") continue;
 			if (parameterName == "DOF_samples") continue;
 			if (parameterName == "DOF_min_samples") continue;
@@ -199,77 +205,94 @@ void cSettingsCleaner::runCleaner()
 	}
 
 	// checking all listed parameters if can be defaulted
+	// Defaulting one parameter can make another one irrelevant (e.g. disabling a feature hides
+	// its sub-parameters), so the parameters which were kept are checked again until a pass
+	// doesn't default anything more.
 
+	const int maxPasses = 4;
+	QList<sDefaultedParameter> listOfParametersToCheck = listOfAllModifiedParameters;
 	cProgressText progressText;
-	progressText.ResetTimer();
-	int count = 0;
 
-	for (sDefaultedParameter par : listOfAllModifiedParameters)
+	for (int pass = 1; pass <= maxPasses && !listOfParametersToCheck.isEmpty(); pass++)
 	{
+		progressText.ResetTimer();
+		int count = 0;
+		QList<sDefaultedParameter> listOfKeptParameters;
+
+		for (sDefaultedParameter par : listOfParametersToCheck)
+		{
+			if (stopRequest) break;
+
+			std::shared_ptr<cParameterContainer> container = par.actualContainer;
+			QString parameterName = par.parameterName;
+
+			//	qDebug() << container->GetContainerName() << parameterName;
+
+			cOneParameter settingBeforeClean = container->GetAsOneParameter(parameterName);
+
+			cOneParameter settingCleaned = settingBeforeClean;
+			settingCleaned.SetMultiVal(settingCleaned.GetMultiVal(valueDefault), valueActual);
+			container->SetFromOneParameter(parameterName, settingCleaned);
+
+			ui->label_parameterName->setText(
+				tr("Trying parameter: %1:%2").arg(container->GetContainerName()).arg(parameterName));
+
+			double distanceAfterCleaning = gMainInterface->GetDistanceForPoint(
+				actualParams->Get<CVector3>("camera"), actualParams, actualFractalParams);
+			bool changedDistance = false;
+			if (distanceAfterCleaning < referenceDistane * 0.9
+					|| distanceAfterCleaning > referenceDistane * 1.1)
+			{
+				changedDistance = true;
+				// qDebug() << "changed distance" << referenceDistane << distanceAfterCleaning;
+			}
+
+			if (!changedDistance)
+			{
+				ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
+				QApplication::processEvents();
+				ui->previewwidget_cleaned->slotRender();
+				QApplication::processEvents();
+				while (!ui->previewwidget_cleaned->IsRendered())
+				{
+					QApplication::processEvents();
+					Wait(10);
+				}
+			}
+
+			cleanedImage = ui->previewwidget_cleaned->GetImage();
+			double diff = cleanedImage->VisualCompare(actualImage, false);
+
+			if (diff > 1.5 * referenceNoise || changedDistance)
+			{
+				container->SetFromOneParameter(parameterName, settingBeforeClean);
+				listOfKeptParameters.append(par);
+			}
+			else
+			{
+				QString itemText = QString("%1_%2: %3 -> %4")
+														 .arg(container->GetContainerName())
+														 .arg(parameterName)
+														 .arg(settingBeforeClean.Get<QString>(valueActual))
+														 .arg(settingCleaned.Get<QString>(valueActual));
+				ui->listWidget->addItem(itemText);
+				listOfAllDefaultedParameters.append(par);
+			}
+
+			count++;
+			double progress = double(count) / listOfParametersToCheck.size();
+			QString progressBarText = tr("Pass %1: %2").arg(pass).arg(progressText.getText(progress));
+			ui->progressBar->setFormat(progressBarText);
+			ui->progressBar->setValue(progress * 1000);
+
+			QApplication::processEvents();
+		}
+
 		if (stopRequest) break;
 
-		std::shared_ptr<cParameterContainer> container = par.actualContainer;
-		QString parameterName = par.parameterName;
-
-		//	qDebug() << container->GetContainerName() << parameterName;
-
-		cOneParameter settingBeforeClean = container->GetAsOneParameter(parameterName);
-
-		cOneParameter settingCleaned = settingBeforeClean;
-		settingCleaned.SetMultiVal(settingCleaned.GetMultiVal(valueDefault), valueActual);
-		container->SetFromOneParameter(parameterName, settingCleaned);
-
-		ui->label_parameterName->setText(
-			tr("Trying parameter: %1:%2").arg(container->GetContainerName()).arg(parameterName));
-
-		double distanceAfterCleaning = gMainInterface->GetDistanceForPoint(
-			actualParams->Get<CVector3>("camera"), actualParams, actualFractalParams);
-		bool changedDistance = false;
-		if (distanceAfterCleaning < referenceDistane * 0.9
-				|| distanceAfterCleaning > referenceDistane * 1.1)
-		{
-			changedDistance = true;
-			// qDebug() << "changed distance" << referenceDistane << distanceAfterCleaning;
-		}
-
-		if (!changedDistance)
-		{
-			ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
-			QApplication::processEvents();
-			ui->previewwidget_cleaned->slotRender();
-			QApplication::processEvents();
-			while (!ui->previewwidget_cleaned->IsRendered())
-			{
-				QApplication::processEvents();
-				Wait(10);
-			}
-		}
-
-		cleanedImage = ui->previewwidget_cleaned->GetImage();
-		double diff = cleanedImage->VisualCompare(actualImage, false);
-
-		if (diff > 1.5 * referenceNoise || changedDistance)
-		{
-			container->SetFromOneParameter(parameterName, settingBeforeClean);
-		}
-		else
-		{
-			QString itemText = QString("%1_%2: %3 -> %4")
-													 .arg(container->GetContainerName())
-													 .arg(parameterName)
-													 .arg(settingBeforeClean.Get<QString>(valueActual))
-													 .arg(settingCleaned.Get<QString>(valueActual));
-			ui->listWidget->addItem(itemText);
-			listOfAllDefaultedParameters.append(par);
-		}
-
-		count++;
-		double progress = double(count) / listOfAllModifiedParameters.size();
-		QString progressBarText = progressText.getText(progress);
-		ui->progressBar->setFormat(progressBarText);
-		ui->progressBar->setValue(progress * 1000);
-
-		QApplication::processEvents();
+		bool nothingDefaulted = listOfKeptParameters.size() == listOfParametersToCheck.size();
+		listOfParametersToCheck = listOfKeptParameters;
+		if (nothingDefaulted) break;
 	}
 
 	// render last version of image
