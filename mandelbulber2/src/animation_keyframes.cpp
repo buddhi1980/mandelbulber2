@@ -40,6 +40,8 @@
 
 #include "animation_keyframes.hpp"
 
+#include <algorithm>
+#include <functional>
 #include <memory>
 
 #include <QFontMetrics>
@@ -298,7 +300,21 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 void cKeyframeAnimation::DeleteKeyframe(int index) const
 {
-	if (index < 0)
+	DeleteKeyframes(QList<int>({index}));
+}
+
+void cKeyframeAnimation::DeleteKeyframes(QList<int> indexes) const
+{
+	// keep only valid keyframe indexes, each once, and delete from the last one
+	// so the remaining indexes stay valid
+	const int numberOfKeyframes = keyframes->GetNumberOfFrames();
+	indexes.erase(std::remove_if(indexes.begin(), indexes.end(), [numberOfKeyframes](int index)
+									{ return index < 0 || index >= numberOfKeyframes; }),
+		indexes.end());
+	std::sort(indexes.begin(), indexes.end(), std::greater<int>());
+	indexes.erase(std::unique(indexes.begin(), indexes.end()), indexes.end());
+
+	if (indexes.isEmpty())
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
 			mainInterface->mainWindow->GetCentralWidget());
@@ -306,13 +322,30 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 	else
 	{
 		gUndo->Store(params, fractalParams, nullptr, keyframes);
-		keyframes->DeleteFrames(index, index);
-		table->removeColumn(index + reservedColumns);
+		for (int index : indexes)
+		{
+			keyframes->DeleteFrames(index, index);
+			table->removeColumn(index + reservedColumns);
+		}
 		keyframes->UpdateFramesIndexesTable();
 		UpdateLimitsForFrameRange();
 		UpdateAnimationPathCameraAndLights();
 		UpdateAnimationPathSingleParameter();
 	}
+}
+
+QList<int> cKeyframeAnimation::GetSelectedKeyframes() const
+{
+	// only whole selected columns count: selecting along a row (a row header, Ctrl+A or a drag)
+	// touches cells of many keyframes and must not select them all for deletion
+	QList<int> indexes;
+	for (const QModelIndex &modelIndex : table->selectionModel()->selectedColumns())
+	{
+		const int index = modelIndex.column() - reservedColumns;
+		if (index >= 0 && !indexes.contains(index)) indexes.append(index);
+	}
+	std::sort(indexes.begin(), indexes.end());
+	return indexes;
 }
 
 void cKeyframeAnimation::slotModifyKeyframe()
@@ -366,8 +399,10 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 void cKeyframeAnimation::slotDeleteKeyframe() const
 {
-	const int index = table->currentColumn() - reservedColumns;
-	DeleteKeyframe(index);
+	// delete all selected keyframes, or the current one if nothing is selected
+	QList<int> indexes = GetSelectedKeyframes();
+	if (indexes.isEmpty()) indexes.append(table->currentColumn() - reservedColumns);
+	DeleteKeyframes(indexes);
 
 	keyframes->UpdateFramesIndexesTable();
 }

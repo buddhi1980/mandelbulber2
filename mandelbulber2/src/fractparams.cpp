@@ -129,6 +129,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 	DOFMonteCarloCADispersionGain = container->Get<float>("DOF_MC_CA_dispersion_gain");
 	DOFMonteCarloCACameraDispersion = container->Get<float>("DOF_MC_CA_camera_dispersion");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
+	envMappingRotation = container->Get<CVector3>("env_mapping_rotation");
 	fakeLightsColor = toRGBFloat(container->Get<sRGB>("fake_lights_color"));
 	fakeLightsColor2 = toRGBFloat(container->Get<sRGB>("fake_lights_color_2"));
 	fakeLightsColor3 = toRGBFloat(container->Get<sRGB>("fake_lights_color_3"));
@@ -245,6 +246,7 @@ sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container,
 
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 	mRotCloudsRotation.SetRotation2(cloudsRotation * M_PI / 180.0);
+	mRotEnvMappingRotation.SetRotation(envMappingRotation * M_PI / 180.0);
 
 	nebulaXAxisColors.SetColorsFromString(container->Get<QString>("nebula_x_axis_colors"));
 	nebulaYAxisColors.SetColorsFromString(container->Get<QString>("nebula_y_axis_colors"));
