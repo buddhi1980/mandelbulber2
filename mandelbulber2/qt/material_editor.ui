@@ -1246,6 +1246,130 @@ direction vector:</string>
                     </property>
                    </widget>
                   </item>
+                  <item row="6" column="1">
+                   <widget class="QLabel" name="label_fractal_coloring_ic_rotation_x">
+                    <property name="text">
+                     <string>c_xyz rotation x:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_coloring_ic_rotation_x">
+                    <property name="toolTip">
+                     <string>&lt;p&gt;Rotation of the c_xyz axes around the X axis (degrees). c is rotated before the c.x, c.y and c.z scales are applied, so the components can follow any direction, e.g. the camera (see &quot;Align c_xyz rotation to the camera&quot;).&lt;/p&gt;</string>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-36000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>36000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLabel" name="label_fractal_coloring_ic_rotation_y">
+                    <property name="text">
+                     <string>c_xyz rotation y:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_coloring_ic_rotation_y">
+                    <property name="toolTip">
+                     <string>&lt;p&gt;Rotation of the c_xyz axes around the Y axis (degrees). c is rotated before the c.x, c.y and c.z scales are applied, so the components can follow any direction, e.g. the camera (see &quot;Align c_xyz rotation to the camera&quot;).&lt;/p&gt;</string>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-36000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>36000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QLabel" name="label_fractal_coloring_ic_rotation_z">
+                    <property name="text">
+                     <string>c_xyz rotation z:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_coloring_ic_rotation_z">
+                    <property name="toolTip">
+                     <string>&lt;p&gt;Rotation of the c_xyz axes around the Z axis (degrees). c is rotated before the c.x, c.y and c.z scales are applied, so the components can follow any direction, e.g. the camera (see &quot;Align c_xyz rotation to the camera&quot;).&lt;/p&gt;</string>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-36000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>36000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1" colspan="3">
+                   <widget class="QPushButton" name="pushButton_fractal_coloring_ic_align_rotation">
+                    <property name="toolTip">
+                     <string>&lt;p&gt;Sets the c_xyz rotation so that c.x follows the camera's right direction, c.y its viewing direction and c.z its up direction (same calculation as &quot;Align rotation to the camera&quot; for primitives). With only the c.z scale non-zero this gives vertical coloring aligned to the camera, e.g. for terrain-like images.&lt;/p&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Align c_xyz rotation to the camera</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </item>
                 <item>

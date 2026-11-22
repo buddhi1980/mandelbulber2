@@ -60,6 +60,8 @@ public:
 	CVector3 GetRightVector() const { return rightVector; }
 	double GetDistance() const { return distance; }
 	static double CorrectAngle(double angle) { return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI; }
+	// object rotation (degrees, as used with SetRotation2()) which aligns the axes to the camera
+	CVector3 GetRotationAlignedToCamera() const;
 
 private:
 	CVector3 camera;

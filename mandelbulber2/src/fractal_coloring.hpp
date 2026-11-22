@@ -58,6 +58,9 @@ struct sFractalColoring
 	CVector3 xyz000;
 	CVector3 xyzC111;
 
+	// CRotationMatrix (as in OpenCL)
+	CRotationMatrix icRotationMatrix;
+
 	// Doubles (as in OpenCL)
 	double addMax;
 	double addSpread;

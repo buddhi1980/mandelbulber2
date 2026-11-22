@@ -57,6 +57,8 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 
 			if (fractalColoring->icXYZFalse)
 			{
+				// rotate the initial condition axes (e.g. aligned to the camera)
+				xyzC = Matrix33MulFloat3(fractalColoring->icRotationMatrix, xyzC);
 				if (fractalColoring->icFabsFalse)
 				{
 					xyzC = xyzC * fractalColoring->xyzC111;

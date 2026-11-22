@@ -175,6 +175,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_ic_fabs_enabled_false",
 	"fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_rad_weight",
+	"fractal_coloring_ic_rotation",
 	"fractal_coloring_ic_xyz_enabled_false",
 	"fractal_coloring_init_cond_enabled_false",
 	"fractal_coloring_initial_color_value",
@@ -469,6 +470,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	fractalColoring.icRadWeight =
 		materialParam->Get<double>(Name("fractal_coloring_ic_rad_weight", id));
 	fractalColoring.xyzC111 = materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id));
+	fractalColoring.icRotationMatrix.SetRotation2(
+		materialParam->Get<CVector3>(Name("fractal_coloring_ic_rotation", id)) / 180.0 * M_PI);
 
 	// orbitTrap weight control
 	fractalColoring.orbitTrapTrue =

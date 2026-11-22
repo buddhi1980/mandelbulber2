@@ -75,6 +75,9 @@ typedef struct ALIGN16
 	cl_float3 xyz000;
 	cl_float3 xyzC111;
 
+	// matrix33 (as in OpenCL)
+	matrix33 icRotationMatrix;
+
 	// Doubles (as in OpenCL)
 	cl_float addMax;
 	cl_float addSpread;
@@ -152,6 +155,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.lineDirection = toClFloat4(source.lineDirection);
 	target.xyz000 = toClFloat3(source.xyz000);
 	target.xyzC111 = toClFloat3(source.xyzC111);
+	target.icRotationMatrix = toClMatrix33(source.icRotationMatrix);
 	target.addMax = source.addMax;
 	target.addSpread = source.addSpread;
 	target.addStartValue = source.addStartValue;

@@ -1559,6 +1559,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_weight", materialId), 1.0, -1e20, 1e20,
 		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_rotation", materialId),
+		CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_ic_xyz_enabled_false", materialId), false,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_init_cond_enabled_false", materialId), false,
