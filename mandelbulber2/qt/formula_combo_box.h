@@ -65,22 +65,35 @@ public:
 	QString getFullParameterName() override;
 	void UpdateScriptAppearance(bool hasScript) override;
 
+	static QStringList GetFavourites();
+	static void SetFavourites(const QStringList &favourites);
+
 protected:
 	void paintEvent(QPaintEvent *event) override;
 	void contextMenuEvent(QContextMenuEvent *event) override;
 
 private slots:
 	void onCompleterActivated(QString text);
+	void slotToggleFavourite();
 
 private:
 	QIcon GetIconFromCache(const QString &filename);
 	int GetDefault();
+	QString GetCurrentInternalName() const;
+	void InsertFavourites();
+	void RefreshItems();
 
 	QSortFilterProxyModel *pFilterModel;
 	QCompleter *completer;
 	int defaultValue;
 
+	// arguments of the last populateItemsFromFractalList() call, used to rebuild the list
+	QList<cAbstractFractal *> fractalList;
+	QList<QPair<int, QString> /* */> headerList;
+	int colorSeed;
+
 	static QMap<QString, QIcon> iconCache;
+	static QList<cFormulaComboBox *> instances;
 };
 
 #endif /* MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_ */
