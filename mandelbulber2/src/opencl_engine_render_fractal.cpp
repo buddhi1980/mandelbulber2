@@ -919,6 +919,12 @@ void cOpenClEngineRenderFractal::SetParametersForStereoscopic(sRenderData *rende
 	if (renderData->stereo.GetMode() == cStereo::stereoTopBottom)
 		definesCollector += " -DSTEREO_TOPBOTTOM";
 
+	if (renderData->stereo.GetMode() == cStereo::stereoLeftEyeOnly)
+		definesCollector += " -DSTEREO_LEFTEYEONLY";
+
+	if (renderData->stereo.GetMode() == cStereo::stereoRightEyeOnly)
+		definesCollector += " -DSTEREO_RIGHTEYEONLY";
+
 	if (renderData->stereo.GetForcedEye() == cStereo::eyeLeft)
 		definesCollector += " -DSTEREO_FORCEDEYELEFT";
 
