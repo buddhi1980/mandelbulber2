@@ -299,6 +299,11 @@ bool cOpenClEngineRenderSSAO::Render(std::shared_ptr<cImage> image, bool *stopRe
 					pixel.G = pixel.G + colour.G * shadeFactor * aoColor.G;
 					pixel.B = pixel.B + colour.B * shadeFactor * aoColor.B;
 					image->PutPixelPostImage(xx, yy, pixel);
+					if (image->GetImageOptional()->optionalAmbientOcclusion)
+					{
+						float ao = (image->GetPixelZBuffer(xx, yy) < 1e19f) ? total_ambient : 1.0f;
+						image->PutPixelAmbientOcclusion(xx, yy, sRGBFloat(ao, ao, ao));
+					}
 				}
 			}
 

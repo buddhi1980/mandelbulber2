@@ -159,6 +159,7 @@ private:
 		sRGBAFloat specular;
 		sRGBAFloat outShadow;
 		sRGBFloat outGlobalIllumination;
+		sRGBFloat outAmbientOcclusion;
 		CVector3 normal;
 		float fogOpacity;
 		bool found;
@@ -239,7 +240,8 @@ private:
 	// shaders
 	sRGBAFloat ObjectShader(const sShaderInputData &input, sRGBAFloat *surfaceColour,
 		sRGBAFloat *specularOut, sRGBFloat *iridescence, sRGBAFloat *outShadow,
-		sRGBFloat *luminosityEmissiveOut, sGradientsCollection *gradients) const;
+		sRGBFloat *outAmbientOcclusion, sRGBFloat *luminosityEmissiveOut,
+		sGradientsCollection *gradients) const;
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
 	sRGBAFloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
 		float specularWidth, float roughness, sRGBFloat diffuseGradient) const;

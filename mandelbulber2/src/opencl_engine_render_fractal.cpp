@@ -1491,7 +1491,7 @@ void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRG
 // put optional pixel data for optional image channels
 void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy,
 	const sRGBFloat &color, const sRGBFloat &normal, const sRGBFloat &specular,
-	const sRGBFloat &world, const sRGBFloat &shadows, const sRGBFloat &gi,
+	const sRGBFloat &world, const sRGBFloat &shadows, const sRGBFloat &gi, const sRGBFloat &ao,
 	const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image)
 {
 	if (image->GetImageOptional()->optionalDiffuse)
@@ -1506,6 +1506,8 @@ void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy,
 		image->PutPixelShadows(xx, yy, sRGBFloat(shadows.R, shadows.G, shadows.B));
 	if (image->GetImageOptional()->optionalGlobalIlluination)
 		image->PutPixelGlobalIllumination(xx, yy, sRGBFloat(gi.R, gi.G, gi.B));
+	if (image->GetImageOptional()->optionalAmbientOcclusion)
+		image->PutPixelAmbientOcclusion(xx, yy, sRGBFloat(ao.R, ao.G, ao.B));
 	if (image->GetImageOptional()->optionalNotDenoised)
 		image->PutPixelNotDenoised(xx, yy, sRGBFloat(notDenoised.R, notDenoised.G, notDenoised.B));
 }
@@ -1836,7 +1838,8 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 					PutMultiPixelOptional(xx, yy, clFloat3TosRGBFloat(pixelCl.diffuse),
 						clFloat3TosRGBFloat(pixelCl.normal), clFloat3TosRGBFloat(pixelCl.specular),
 						clFloat3TosRGBFloat(pixelCl.world), clFloat3TosRGBFloat(pixelCl.shadows),
-						clFloat3TosRGBFloat(pixelCl.globalIllumination), sRGBFloat(), image);
+						clFloat3TosRGBFloat(pixelCl.globalIllumination),
+						clFloat3TosRGBFloat(pixelCl.ambientOcclusion), sRGBFloat(), image);
 				}
 			}
 		} // next y
@@ -2031,6 +2034,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 {
 	sRGBFloat normalWorld;
 	sRGBFloat globalIlluminationOut;
+	sRGBFloat ambientOcclusionOut;
 	sRGBFloat notDenoisedOut;
 	sRGBFloat colorOut;
 	sRGBFloat normalOut;
@@ -2045,6 +2049,8 @@ void cOpenClEngineRenderFractal::MixChannels(
 			normalWorld = clFloat3TosRGBFloat(pixelCl.normalWorld);
 		if (image->GetImageOptional()->optionalGlobalIlluination)
 			globalIlluminationOut = clFloat3TosRGBFloat(pixelCl.globalIllumination);
+		if (image->GetImageOptional()->optionalAmbientOcclusion)
+			ambientOcclusionOut = clFloat3TosRGBFloat(pixelCl.ambientOcclusion);
 		if (image->GetImageOptional()->optionalNotDenoised) notDenoisedOut = pixel;
 		if (image->GetImageOptional()->optionalDiffuse) colorOut = clFloat3TosRGBFloat(pixelCl.diffuse);
 		if (image->GetImageOptional()->optionalNormal) normalOut = clFloat3TosRGBFloat(pixelCl.normal);
@@ -2082,6 +2088,16 @@ void cOpenClEngineRenderFractal::MixChannels(
 				globalIlluminationOutOld.G * k1 + pixelCl.globalIllumination.s1 * k2;
 			globalIlluminationOut.B =
 				globalIlluminationOutOld.B * k1 + pixelCl.globalIllumination.s2 * k2;
+		}
+
+		// mixing optional channels: ambient occlusion
+		if (image->GetImageOptional()->optionalAmbientOcclusion)
+		{
+			sRGBFloat ambientOcclusionOutOld = image->GetPixelAmbientOcclusion(xx, yy);
+
+			ambientOcclusionOut.R = ambientOcclusionOutOld.R * k1 + pixelCl.ambientOcclusion.s0 * k2;
+			ambientOcclusionOut.G = ambientOcclusionOutOld.G * k1 + pixelCl.ambientOcclusion.s1 * k2;
+			ambientOcclusionOut.B = ambientOcclusionOutOld.B * k1 + pixelCl.ambientOcclusion.s2 * k2;
 		}
 
 		// mixing optional channels: not denoised
@@ -2140,7 +2156,7 @@ void cOpenClEngineRenderFractal::MixChannels(
 	if (useOptionalChannels)
 	{
 		PutMultiPixelOptional(xx, yy, colorOut, normalOut, specularOut, normalWorld, shadowsOut,
-			globalIlluminationOut, notDenoisedOut, image);
+			globalIlluminationOut, ambientOcclusionOut, notDenoisedOut, image);
 	}
 }
 

@@ -52,6 +52,7 @@ typedef struct ALIGN16
 	cl_float3 world;
 	cl_float3 shadows;
 	cl_float3 globalIllumination;
+	cl_float3 ambientOcclusion;
 	cl_uchar3 color;
 	cl_float zBuffer;
 	cl_ushort opacity;

@@ -340,6 +340,13 @@
               </property>
              </widget>
             </item>
+            <item row="9" column="0">
+             <widget class="MyCheckBox" name="checkBox_ao_channel_enabled">
+              <property name="text">
+               <string>Ambient occlusion</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="2">
              <widget class="QLabel" name="label_image_postfix_optional">
               <property name="text">
@@ -474,6 +481,13 @@
               </property>
              </widget>
             </item>
+            <item row="9" column="2">
+             <widget class="MyLineEdit" name="text_ao_channel_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
             <item row="2" column="0">
              <widget class="MyCheckBox" name="checkBox_normal_enabled">
               <property name="text">
@@ -483,6 +497,25 @@
             </item>
             <item row="8" column="1">
              <widget class="MyComboBox" name="comboBox_gi_channel_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="MyComboBox" name="comboBox_ao_channel_quality">
               <item>
                <property name="text">
                 <string>8 bit</string>
@@ -572,14 +605,14 @@ and will only be present after enabling and re-render.</string>
               </item>
              </widget>
             </item>
-            <item row="9" column="0">
+            <item row="10" column="0">
              <widget class="MyCheckBox" name="checkBox_not_denoised_channel_enabled">
               <property name="text">
                <string>Not denoised</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="1">
+            <item row="10" column="1">
              <widget class="MyComboBox" name="comboBox_not_denoised_channel_quality">
               <item>
                <property name="text">
@@ -598,7 +631,7 @@ and will only be present after enabling and re-render.</string>
               </item>
              </widget>
             </item>
-            <item row="9" column="2">
+            <item row="10" column="2">
              <widget class="MyLineEdit" name="text_not_denoised_channel_postfix">
               <property name="text">
                <string/>
