@@ -43,12 +43,13 @@ Add path to repository into **HOUDINI_PATH** environment variable (e.g. in *houd
 	<MY_MENU>.addCommand("Import Mandelbulber Cam", "nuke_mandelbulber.createExrCamMandelbulber()")
 	```
 
-#### Git SVN
-* Optional: Git SVN
-Download SVN
-Run the following command:
+#### Git sparse checkout
+* Optional: download only this folder with Git
+Run the following commands:
 	```
-	svn export https://github.com/buddhi1980/mandelbulber2.git/trunk/contrib/vfx_tools
+	git clone --depth 1 --filter=blob:none --sparse https://github.com/buddhi1980/mandelbulber2.git
+	cd mandelbulber2
+	git sparse-checkout set contrib/vfx_tools
 	```
 
 <br>

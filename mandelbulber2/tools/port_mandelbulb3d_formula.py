@@ -11,12 +11,12 @@
 #
 # It is a port of the former portMandelbulb3dFormula.php and produces the same output.
 #
-# Requires Python 3.6 or newer, bin2hex.py from https://github.com/bialix/intelhex and
+# Requires Python 3.6 or newer, bin2hex.py from https://github.com/python-intelhex/intelhex and
 # retdec-decompiler.py from https://github.com/avast/retdec. Both are looked up in
 # /usr/local/bin; set BIN2HEX_PATH and RETDEC_PATH to the folders that contain them otherwise.
 #
 # The mandelbulb3d folder is the first argument; the formulas are read from its subfolder
-# M3Formulas (retrieve from here: https://github.com/coast77777777777/mb3d). The results are
+# M3Formulas (retrieve from here: https://github.com/thargor6/mb3d). The results are
 # written to mandelbulber2/formula/mb3dTemporaryFormulas, also without "nondry".
 #
 # usage: mandelbulber2/tools/port_mandelbulb3d_formula.py <mandelbulb3d folder>
@@ -31,7 +31,7 @@ import tempfile
 import time
 
 RETDEC_BIN_PATH = os.environ.get('RETDEC_PATH', '/usr/local/bin')  # from here: https://github.com/avast/retdec
-BIN2HEX_PATH = os.environ.get('BIN2HEX_PATH', '/usr/local/bin')  # from here https://github.com/bialix/intelhex
+BIN2HEX_PATH = os.environ.get('BIN2HEX_PATH', '/usr/local/bin')  # from here https://github.com/python-intelhex/intelhex
 TARGET_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'formula',
 	'mb3dTemporaryFormulas')
 START_TIME = time.time()

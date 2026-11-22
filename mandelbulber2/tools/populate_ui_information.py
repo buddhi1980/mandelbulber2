@@ -785,7 +785,7 @@ def parse_to_opencl(code, mode='single'):
 	pre_f = r'\s|\(|\{|-'  # these chars can occur befire a function
 	mult_chain = '(?:(?:' + rval + ')' + s + r'\*' + s + ')*(?:' + rval + ')'  # a chain of multiplicated expressions
 	single = mode == 'single'
-	# see here for all possible: https://www.khronos.org/registry/cl/sdk/1.0/docs/man/xhtml/mathFunctions.html
+	# see here for all possible: https://registry.khronos.org/OpenCL/sdk/1.0/docs/man/xhtml/mathFunctions.html
 	cpp_to_opencl_replace_lookup = [
 		(r'double', fod),  # all doubles to floats
 		(r'([\s\(\{])(' + double + r')([\s\)\};,])', '$1$2' + ('f' if single else '') + '$3'),  # double literals to float literals

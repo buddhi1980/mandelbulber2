@@ -62,7 +62,7 @@ cp -v "$SUPPORT/qmake/common.pri" "$RESOURCES/makefiles/"
 # copying documentation files into standard Resources subfolders
 mkdir -vp "$RESOURCES/doc"
 cp -v "$SUPPORT/deploy/NEWS" "$RESOURCES/doc/"
-DOCFILE="$(curl -s https://api.github.com/repos/mandelbulber/mandelbulber2/releases/latest | grep browser_download_url | grep -i '\.pdf' | head -n 1 | cut -d '"' -f 4 || true)"
+DOCFILE="$(curl -s https://api.github.com/repos/buddhi1980/mandelbulber_doc/releases/latest | grep browser_download_url | grep -i '\.pdf' | head -n 1 | cut -d '"' -f 4 || true)"
 echo "Downloading manual from: $DOCFILE"
 if [ -n "$DOCFILE" ]; then
   wget -O "$RESOURCES/doc/Mandelbulber_Manual.pdf" "$DOCFILE" || echo "PDF manual download failed, continuing"

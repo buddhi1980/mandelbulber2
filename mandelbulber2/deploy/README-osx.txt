@@ -27,8 +27,7 @@ DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
 DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
 COMMUNITY:       http://www.fractalforums.com/mandelbulber/
                  https://www.facebook.com/groups/mandelbulber/
-FANSITE:         http://www.mandelbulber.com
-                 http://www.mandelbulber.org
+FANSITE:         https://www.mandelbulber.com
 
 LICENCE:         GNU GPL v3.0
 
@@ -43,8 +42,8 @@ LICENCE:         GNU GPL v3.0
 ------------
 
 /Download and install the latest version of Xcode (and Developer Tools) from the Apple developer website or get it using the Mac App Store.
-//Download and install the latest version of Qt from http://www.qt.io/download-open-source/
-//download source from http://sourceforge.net/projects/libpng/files/libpng16/
+//Download and install the latest version of Qt from https://www.qt.io/download-open-source
+//download source from https://sourceforge.net/projects/libpng/files/libpng16/
 //Build the PNG library
 cd libpng-1.6.x
 ./configure --prefix=/usr/local/
@@ -60,7 +59,7 @@ make
 //Install the GSL library under /usr/local
 sudo make install
 //Build TIFF library
-curl --remote-name http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
+curl --remote-name https://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
 tar -xzvf tiff-4.0.6.tar.gz
 cd tiff-4.0.6
 ./configure --prefix=/usr/local/libtiff-4.0.6
@@ -100,7 +99,7 @@ Also you can open it from Mandelbulber under: [Menu > Help > User Manual]
 A lot of useful information you can find  in the tooltips.  Just hover with the
 mouse pointer over the edit fields.
 More useful material can be found in the wiki documentation for old
-Mandelbulber (v1) here: http://wiki.mandelbulber.com/index.php?title=Main_Page
+Mandelbulber (v1) here: https://web.archive.org/web/20180106221725/http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 8. COMMAND LINE INTERFACE
 -------------------------

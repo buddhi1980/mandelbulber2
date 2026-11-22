@@ -106,23 +106,23 @@ The system requires the QT5 framework in conjunction with LZO for real-time data
 
 ## Official partners
 
-[I-love-chaos](http://ilc.fractalforums.com)
+[I-love-chaos](https://ilc.fractalforums.com)
 
-[![I-love-chaos](http://ilc.fractalforums.com/img/thumbnail/img/ilc-128x128.png)](http://ilc.fractalforums.com)
+[![I-love-chaos](https://ilc.fractalforums.com/img/thumbnail/img/ilc-128x128.png)](https://ilc.fractalforums.com)
 
 ## Resources
 
 [Video tutorials](https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql)
 
-[Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
+[Image Gallery](https://www.deviantart.com/krzysztofmarczak/gallery)
 
 [Forum](https://fractalforums.org/mandelbulber/14)
 
 [Forum Gallery](http://www.fractalforums.com/index.php?action=gallery;cat=51)
 
-[Compiled Binaries](http://sourceforge.net/projects/mandelbulber/)
+[Compiled Binaries](https://sourceforge.net/projects/mandelbulber/)
 
-[Coverity Scan](http://scan.coverity.com/projects/4723?tab=overview)
+[Coverity Scan](https://scan.coverity.com/projects/mandelbulber-v2)
 
 ![Open Hub](https://www.openhub.net/p/mandelbulber2/widgets/project_thin_badge.gif)
 

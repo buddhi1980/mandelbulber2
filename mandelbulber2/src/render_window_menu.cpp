@@ -136,7 +136,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 		"mandelbulber/</a>";
 	text += "<br>for help<br>";
 	text += "<br>";
-	text += "<a href=\"http://www.mandelbulber.com\">www.mandelbulber.com</a>";
+	text += "<a href=\"https://www.mandelbulber.com\">www.mandelbulber.com</a>";
 
 	QMessageBox::about(this, "About Mandelbulber", text);
 }
@@ -360,12 +360,13 @@ void RenderWindow::slotMenuAboutThirdParty()
 	text += " <li><b>Export Mesh </b><br>Designed with<br>";
 	text +=
 		"		<a "
-		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format "
+		"href=\"https://web.archive.org/web/20170325122743/http://algoholic.eu/"
+		"export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format "
 		"Support</a><br>thanks to "
 		"Stanislaw Adaszewski</li>";
 	text += " <li><b>Fonts</b><br>";
 	text +=
-		"		<a href=\"http://typodermicfonts.com/\">Nasalization</a><br>"
+		"		<a href=\"https://typodermicfonts.com/\">Nasalization</a><br>"
 		"thanks to Typodermic Fonts Inc.<br>";
 	text += " For more information about font licenses, see README in fonts folder.</li>";
 	text += "</ul>";

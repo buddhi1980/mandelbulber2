@@ -27,8 +27,7 @@ DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
 DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
 COMMUNITY:       http://www.fractalforums.com/mandelbulber/
                  https://www.facebook.com/groups/mandelbulber/
-FANSITE:         http://www.mandelbulber.com
-                 http://www.mandelbulber.org
+FANSITE:         https://www.mandelbulber.com
 
 LICENCE:         GNU GPL v3.0
 
@@ -66,7 +65,7 @@ Also you can open it from Mandelbulber under: [Menu > Help > User Manual]
 A lot of useful information you can find  in the tooltips.  Just hover with the
 mouse pointer over the edit fields.
 More useful material can be found in the wiki documentation for old
-Mandelbulber (v1) here: http://wiki.mandelbulber.com/index.php?title=Main_Page
+Mandelbulber (v1) here: https://web.archive.org/web/20180106221725/http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 
 7. COMMAND LINE INTERFACE
