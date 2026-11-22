@@ -40,6 +40,7 @@ float3 EnvMappingShader(
 
 	float dotp = -dot(input->viewVector, input->normal);
 	float3 reflect = input->normal * 2.0f * dotp + input->viewVector;
+	reflect = Matrix33MulFloat3(consts->params.mRotEnvMappingRotation, reflect);
 
 	float alphaTexture = -GetAlpha(reflect) + M_PI_F;
 	float betaTexture = -GetBeta(reflect);

@@ -1459,6 +1459,151 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="1" column="0" rowspan="3">
+                 <widget class="QLabel" name="label_364">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Rotation:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_362">
+                  <property name="text">
+                   <string>Alpha:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="MyDoubleSpinBox" name="spinboxd3_env_mapping_rotation_x">
+                  <property name="toolTip">
+                   <string>&lt;p&gt;Rotation of the environment (reflection) map around the X axis (degrees). Changes which part of the map image is reflected by the surfaces.&lt;/p&gt;</string>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="accelerated">
+                   <bool>true</bool>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>-180.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>180.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLabel" name="label_363">
+                  <property name="text">
+                   <string>Beta:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="MyDoubleSpinBox" name="spinboxd3_env_mapping_rotation_y">
+                  <property name="toolTip">
+                   <string>&lt;p&gt;Rotation of the environment (reflection) map around the Y axis (degrees). Changes which part of the map image is reflected by the surfaces.&lt;/p&gt;</string>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="accelerated">
+                   <bool>true</bool>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>-180.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>180.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLabel" name="label_365">
+                  <property name="text">
+                   <string>Gamma:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="MyDoubleSpinBox" name="spinboxd3_env_mapping_rotation_z">
+                  <property name="toolTip">
+                   <string>&lt;p&gt;Rotation of the environment (reflection) map around the Z axis (degrees). Changes which part of the map image is reflected by the surfaces.&lt;/p&gt;</string>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="accelerated">
+                   <bool>true</bool>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>-180.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>180.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -4231,6 +4376,22 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_aux_light_auto_intensity">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, placing a light with the mouse also sets its intensity automatically from the distance between the light and the fractal surface.&lt;/p&gt;&lt;p&gt;When disabled, only the position of the light is changed and its intensity is kept.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Set light intensity automatically</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_134">
                   <property name="text">
@@ -5747,6 +5908,9 @@ of lights:</string>
   <tabstop>spinbox_ambient_occlusion_fast_tune</tabstop>
   <tabstop>checkBox_SSAO_random_mode</tabstop>
   <tabstop>groupCheck_env_mapping_enable</tabstop>
+  <tabstop>spinboxd3_env_mapping_rotation_x</tabstop>
+  <tabstop>spinboxd3_env_mapping_rotation_y</tabstop>
+  <tabstop>spinboxd3_env_mapping_rotation_z</tabstop>
   <tabstop>groupCheck_basic_fog_enabled</tabstop>
   <tabstop>logedit_basic_fog_visibility</tabstop>
   <tabstop>pushButton_set_fog_by_mouse</tabstop>
@@ -5767,6 +5931,8 @@ of lights:</string>
   <tabstop>comboBox_textured_background_map_type</tabstop>
   <tabstop>scrollArea_10</tabstop>
   <tabstop>logedit_aux_light_manual_placement_dist</tabstop>
+  <tabstop>checkBox_aux_light_place_behind</tabstop>
+  <tabstop>checkBox_aux_light_auto_intensity</tabstop>
   <tabstop>spinboxInt_random_lights_number</tabstop>
   <tabstop>spinboxInt_random_lights_random_seed</tabstop>
   <tabstop>logedit_random_lights_max_distance_from_fractal</tabstop>
