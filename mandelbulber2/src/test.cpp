@@ -49,12 +49,14 @@
 #include "keyframes.hpp"
 #include "image_comparison.hpp"
 #include "netrender.hpp"
+#include "netrender_file_receiver.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "regression_test.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
@@ -373,6 +375,45 @@ void Test::netrender()
 
 	QVERIFY2(netRenderServer->GetClientCount() == 1,
 		QString("client not connected to server.").toStdString().c_str());
+}
+
+void Test::netRenderFileDestination() const
+{
+	if (IsBenchmarking()) return;
+	// the frames which NetRender clients send to the server are saved in the output folder of the
+	// animation being rendered, also for a flight animation (issue #755)
+	const QString keyframeDir =
+		testFolder() + QDir::separator() + "netrenderKeyframes" + QDir::separator();
+	const QString flightDir =
+		testFolder() + QDir::separator() + "netrenderFlight" + QDir::separator();
+	CreateFolder(keyframeDir);
+	CreateFolder(flightDir);
+	const QString oldKeyframeDir = gPar->Get<QString>("anim_keyframe_dir");
+	const QString oldFlightDir = gPar->Get<QString>("anim_flight_dir");
+	gPar->Set("anim_keyframe_dir", keyframeDir);
+	gPar->Set("anim_flight_dir", flightDir);
+
+	const QByteArray data("frame data");
+	cNetRenderFileReceiver receiver;
+	auto receive = [&receiver, &data](int clientIndex, const QString &name)
+	{
+		receiver.ReceiveHeader(clientIndex, data.size(), name);
+		receiver.ReceiveChunk(clientIndex, 1, data);
+	};
+
+	receive(0, "1_keyframe00001.png"); // keyframe animation is the default
+	receiver.SetDestinationDirParameter("anim_flight_dir");
+	receive(0, "1_flight00001.png");
+	receive(1, "DIR[alpha]2_flight00002.png"); // optional image channel in a subfolder
+
+	gPar->Set("anim_keyframe_dir", oldKeyframeDir);
+	gPar->Set("anim_flight_dir", oldFlightDir);
+
+	QVERIFY(QFile::exists(keyframeDir + "keyframe00001.png"));
+	QVERIFY(QFile::exists(flightDir + "flight00001.png"));
+	QVERIFY(!QFile::exists(keyframeDir + "flight00001.png"));
+	QVERIFY(QFile::exists(flightDir + "alpha" + QDir::separator() + "flight00002.png"));
+	QVERIFY(!receiver.IsReceiving());
 }
 
 void Test::testFlightWrapper() const
@@ -749,6 +790,43 @@ void Test::regressionScenes() const
 
 		image.save(testFolder() + QDir::separator() + scene.name + ".png", "PNG");
 	}
+}
+
+void Test::netRenderCacheCleanup() const
+{
+	// NetRender cache files not used for more than one hour are deleted (issue #766)
+	QString dir = testFolder() + QDir::separator() + "netrender_cache_cleanup";
+	QDir(dir).removeRecursively();
+	QVERIFY(QDir().mkpath(dir));
+	QString oldFile = dir + QDir::separator() + "old.png";
+	QString newFile = dir + QDir::separator() + "new.png";
+	QString reusedFile = dir + QDir::separator() + "reused.png";
+	for (const QString &name : {oldFile, newFile, reusedFile})
+	{
+		QFile file(name);
+		QVERIFY(file.open(QIODevice::WriteOnly));
+		file.write("data");
+		file.close();
+	}
+	QDateTime twoHoursAgo = QDateTime::currentDateTime().addSecs(-7200);
+	for (const QString &name : {oldFile, reusedFile})
+	{
+		QFile file(name);
+		QVERIFY(file.open(QIODevice::ReadWrite));
+		QVERIFY(file.setFileTime(twoHoursAgo, QFileDevice::FileModificationTime));
+		file.close();
+	}
+
+	// reusing a cached file marks it as recently used
+	MarkFileAsUsed(reusedFile);
+	QVERIFY(QFileInfo(reusedFile).lastModified() > QDateTime::currentDateTime().addSecs(-60));
+
+	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 1);
+	QVERIFY(!QFile::exists(oldFile));
+	QVERIFY(QFile::exists(newFile));
+	QVERIFY(QFile::exists(reusedFile));
+	QCOMPARE(DeleteFilesNotUsedFor(dir, 3600), 0);
+	QDir(dir).removeRecursively();
 }
 
 void Test::animatedFileName() const

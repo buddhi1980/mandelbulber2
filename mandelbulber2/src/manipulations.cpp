@@ -555,6 +555,7 @@ void cManipulations::SetByMouse(
 					int lightIndex = mode.at(1).toInt();
 					double frontDist = par->Get<double>("aux_light_manual_placement_dist");
 					bool placeBehind = par->Get<bool>("aux_light_place_behind");
+					bool autoIntensity = par->Get<bool>("aux_light_auto_intensity");
 					double distanceLimit = par->Get<double>("view_distance_max");
 					bool relativePosition = par->Get<bool>(cLight::Name("relative_position", lightIndex));
 
@@ -586,7 +587,7 @@ void cManipulations::SetByMouse(
 					}
 
 					par->Set(cLight::Name("position", lightIndex), pointCorrected);
-					par->Set(cLight::Name("intensity", lightIndex), intensity);
+					if (autoIntensity) par->Set(cLight::Name("intensity", lightIndex), intensity);
 					emit signalWriteInterfaceLights(par);
 					emit signalRender();
 					break;
