@@ -53,6 +53,7 @@
 class cAutomatedWidgets;
 class cAudioTrack;
 class cAnimationFrames;
+class cParameterContainer;
 
 namespace Ui
 {
@@ -88,6 +89,7 @@ private:
 	void RenameWidget(QWidget *widget) const;
 	void SetStartStopButtonsPlayingStatus(QAudio::State state) const;
 	QString FullParameterName(const QString &parameterName) const;
+	QStringList GetAudioSettings(std::shared_ptr<cParameterContainer> par) const;
 
 	Ui::cAudioSelector *ui;
 
@@ -96,6 +98,10 @@ private:
 	std::shared_ptr<cAudioTrack> audio;
 	QString parameterName;
 	std::shared_ptr<cAnimationFrames> animationFrames;
+	// audio settings of the parameter when the window was opened
+	QStringList audioSettingsAtStart;
+	// an audio file was loaded or deleted
+	bool audioTrackChanged = false;
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	std::unique_ptr<QAudioOutput> audioOutput;
 #else
@@ -110,7 +116,7 @@ signals:
 	void audioLoaded();
 	void loadingProgress(QString progressText);
 	void playPositionChanged(qint64 milliseconds);
-	void closed(bool keyframesModified);
+	void closed(bool animationChanged);
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */

@@ -138,7 +138,7 @@ private slots:
 	void slotDeleteAllImages() const;
 	void slotShowAnimation() const;
 	void slotRefreshTable();
-	void slotAudioSelectorClosed(bool keyframesModified);
+	void slotAudioSelectorClosed(bool animationChanged);
 	void slotExportKeyframesToFlight();
 	void slotMovedSliderFirstFrame() const;
 	void slotMovedSliderLastFrame();

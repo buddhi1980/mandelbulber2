@@ -60,7 +60,7 @@ private slots:
 	void slotLoadAudio();
 
 signals:
-	void signalAudioSelectorClosed(bool keyframesModified);
+	void signalAudioSelectorClosed(bool animationChanged);
 
 private:
 	QString parameterName;

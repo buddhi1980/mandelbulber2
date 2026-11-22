@@ -1685,20 +1685,11 @@ void cKeyframeAnimation::slotRefreshTable()
 	RefreshTable();
 }
 
-void cKeyframeAnimation::slotAudioSelectorClosed(bool keyframesModified)
+void cKeyframeAnimation::slotAudioSelectorClosed(bool animationChanged)
 {
-	if (keyframesModified)
-	{
-		// frames per keyframe were changed on the time ruler: frame numbers and thumbnails are outdated
-		RefreshTable();
-	}
-	else
-	{
-		// audio settings don't change keyframe values or thumbnails, only the animation paths
-		keyframes->RefreshAllAudioTracks(params);
-		UpdateAnimationPathCameraAndLights();
-		UpdateAnimationPathSingleParameter();
-	}
+	// opening and closing the audio selector without changes doesn't need the slow refresh of all
+	// keyframes and thumbnails
+	if (animationChanged) RefreshTable();
 }
 
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const
