@@ -27,6 +27,8 @@
  *
  * ###########################################################################
  *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
  * camera path export - writes the interpolated camera of every keyframe animation frame
  * to a Nuke .chan or CSV file for use in compositing and 3D software
  */

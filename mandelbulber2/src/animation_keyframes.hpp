@@ -47,6 +47,7 @@
 
 #include <QThread>
 
+#include "camera_path_export.hpp"
 #include "error_message.hpp"
 #include "file_image.hpp"
 #include "keyframes.hpp"

@@ -48,7 +48,6 @@
 
 #include "animation_path_data.hpp"
 #include "cimage.hpp"
-#include "camera_path_export.hpp"
 #include "common_math.h"
 #include "files.h"
 #include "global_data.hpp"
