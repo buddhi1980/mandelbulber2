@@ -47,8 +47,8 @@
 #include "ui_dock_animation.h"
 
 #include "animation_path_data.hpp"
-#include "camera_path_export.hpp"
 #include "cimage.hpp"
+#include "camera_path_export.hpp"
 #include "common_math.h"
 #include "files.h"
 #include "global_data.hpp"

@@ -75,10 +75,10 @@ private slots:
 	static void init();
 	static void cleanup();
 	void renderExamplesWrapper() const;
+	void exportCameraPath() const;
 	void netrender();
 	void testFlightWrapper() const;
 	void testKeyframeWrapper() const;
-	void exportCameraPath() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
