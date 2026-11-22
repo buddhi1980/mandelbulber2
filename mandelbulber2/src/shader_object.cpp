@@ -149,7 +149,19 @@ sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloa
 
 	// luminosity
 	sRGBAFloat luminosity;
-	if (mat->useColorsFromPalette && mat->luminosityGradientEnable)
+	if (mat->luminosityTextureMultiply && mat->luminosityTexture.IsLoaded())
+	{
+		// multiply mode: the texture masks the luminosity colour or gradient (like the colour texture)
+		sRGBFloat lumColour = (mat->useColorsFromPalette && mat->luminosityGradientEnable)
+														? gradients->luminosity
+														: mat->luminosityColor;
+		float texLumInt = mat->luminosityTextureIntensity;
+		float texLumIntN = 1.0f - mat->luminosityTextureIntensity;
+		luminosity.R = mat->luminosity * lumColour.R * (input.texLuminosity.R * texLumInt + texLumIntN);
+		luminosity.G = mat->luminosity * lumColour.G * (input.texLuminosity.G * texLumInt + texLumIntN);
+		luminosity.B = mat->luminosity * lumColour.B * (input.texLuminosity.B * texLumInt + texLumIntN);
+	}
+	else if (mat->useColorsFromPalette && mat->luminosityGradientEnable)
 	{
 		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
 									 + mat->luminosity * gradients->luminosity.R;

@@ -132,6 +132,7 @@ typedef struct
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
 	cl_int useLuminosityTexture;
+	cl_int luminosityTextureMultiply;
 	cl_int useDisplacementTexture;
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
@@ -257,6 +258,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;
 	target.useLuminosityTexture = source.useLuminosityTexture;
+	target.luminosityTextureMultiply = source.luminosityTextureMultiply;
 	target.useDisplacementTexture = source.useDisplacementTexture;
 	target.useNormalMapTexture = source.useNormalMapTexture;
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;

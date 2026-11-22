@@ -151,6 +151,20 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		luminosity = input->material->luminosity * input->material->luminosityColor;
 	}
 
+#ifdef USE_TEXTURES
+#ifdef USE_LUMINOSITY_TEXTURE
+	// multiply mode: the texture masks the luminosity colour or gradient (like the colour texture)
+	bool luminosityTextureMultiply =
+		input->material->luminosityTextureMultiply && input->material->luminosityTextureIndex >= 0;
+	if (luminosityTextureMultiply)
+	{
+		float texLumInt = input->material->luminosityTextureIntensity;
+		float texLumIntN = 1.0f - input->material->luminosityTextureIntensity;
+		luminosity *= input->texLuminosity * texLumInt + texLumIntN;
+	}
+#endif
+#endif
+
 #if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_LUMINOSITY)
 	if (input->material->perlinNoiseEnable && input->material->perlinNoiseLuminosityEnable)
 	{
@@ -179,7 +193,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE
-	luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
+	if (!luminosityTextureMultiply)
+		luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
 #endif
 #endif
 

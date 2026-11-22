@@ -1648,6 +1648,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
 	par->addParam(
+		cMaterial::Name("luminosity_texture_multiply", materialId), false, morphLinear, paramStandard);
+	par->addParam(
 		cMaterial::Name("luminosity", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("luminosity_emissive", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
