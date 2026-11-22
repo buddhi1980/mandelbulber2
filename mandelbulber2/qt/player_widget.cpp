@@ -51,7 +51,6 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	fpsSpinBox = new MyDoubleSpinBox(this);
 
 	currentIndex = 0;
-	playTimer->setInterval(30);
 	playPauseButton->setEnabled(true);
 	playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 	stopButton->setEnabled(true);
@@ -61,7 +60,9 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	fpsSpinBox->setMinimum(0.01);
 	fpsSpinBox->setMaximum(100);
 	fpsSpinBox->setDecimals(2);
+	fpsSpinBox->SetDefaultValue(30);
 	fpsSpinBox->setValue(30);
+	setFPS(fpsSpinBox->value());
 
 	QLabel *fpsLabel = new QLabel("FPS", this);
 	QHBoxLayout *controlLayout = new QHBoxLayout;
@@ -88,7 +89,8 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	//	imageDir.setNameFilters(imageFileExtensions);
 	//	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
+	// valueChanged() also covers mouse wheel, arrow keys and PageUp/PageDown, not only dragging
+	connect(positionSlider, SIGNAL(valueChanged(int)), this, SLOT(setPosition(int)));
 	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
 	connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
 	connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
@@ -105,6 +107,11 @@ PlayerWidget::~PlayerWidget()
 void PlayerWidget::SetFilePath(QString filePath)
 {
 	dirPath = filePath;
+
+	// start at (and reset to) the frames per second chosen in the animation settings
+	const double animationFps = gPar->Get<double>("keyframe_frames_per_second");
+	fpsSpinBox->SetDefaultValue(animationFps);
+	fpsSpinBox->setValue(animationFps);
 
 	if (dirPath.right(1) == QString("/"))
 	{
@@ -129,7 +136,11 @@ void PlayerWidget::updateFromFolder()
 	}
 	else
 	{
-		positionSlider->setRange(0, imageFiles.size() - 1);
+		{
+			// the frame is loaded once below, not again from valueChanged() if setRange() clamps
+			QSignalBlocker blocker(positionSlider);
+			positionSlider->setRange(0, imageFiles.size() - 1);
+		}
 		setPosition(currentIndex);
 	}
 }
@@ -156,7 +167,11 @@ void PlayerWidget::stop()
 	playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 	playTimer->stop();
 	currentIndex = 0;
-	positionSlider->setSliderPosition(currentIndex);
+	{
+		// avoid loading the frame a second time through valueChanged()
+		QSignalBlocker blocker(positionSlider);
+		positionSlider->setSliderPosition(currentIndex);
+	}
 	setPosition(currentIndex);
 }
 
@@ -165,7 +180,11 @@ void PlayerWidget::nextFrame()
 	if (imageFiles.size() > 0)
 	{
 		currentIndex = (currentIndex + 1) % imageFiles.size();
-		positionSlider->setSliderPosition(currentIndex);
+		{
+			// avoid loading the frame a second time through valueChanged()
+			QSignalBlocker blocker(positionSlider);
+			positionSlider->setSliderPosition(currentIndex);
+		}
 		updateFrame();
 	}
 }
