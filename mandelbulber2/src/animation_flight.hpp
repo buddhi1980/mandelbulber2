@@ -125,8 +125,8 @@ private slots:
 	void slotRecordPause();
 	void slotRefreshTable();
 	void slotExportFlightToKeyframes() const;
-	void slotMovedSliderFirstFrame(int value) const;
-	void slotMovedSliderLastFrame(int value) const;
+	void slotMovedSliderFirstFrame() const;
+	void slotMovedSliderLastFrame() const;
 	void slotCellDoubleClicked(int row, int column) const;
 
 private:

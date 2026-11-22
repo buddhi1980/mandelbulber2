@@ -51,6 +51,13 @@ public:
 	// true while a file sent by any client is still being received
 	bool IsReceiving() const;
 
+	// name of the parameter with the folder where the received frames are saved
+	// (anim_keyframe_dir or anim_flight_dir, depending on the animation being rendered)
+	void SetDestinationDirParameter(const QString &parameterName)
+	{
+		destinationDirParameter = parameterName;
+	}
+
 public slots:
 	void ReceiveHeader(int clientIndex, qint64 size, QString fileName);
 	void ReceiveChunk(int clientIndex, int chunkIndex, QByteArray data);
@@ -67,6 +74,7 @@ private:
 	};
 
 	QMap<int, sFileInfo> fileInfos;
+	QString destinationDirParameter = "anim_keyframe_dir";
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_ */
