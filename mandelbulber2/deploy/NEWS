@@ -5,10 +5,9 @@ v2.35 (November 2026)
 - Added new fractal formulas
    aboxMb3d1
    chebyshevBulb
-   dualPowerMandelbox
-   mandelbarV3
-   mandelbulbPow2V4
-   pseudoKleinianTrig, pseudoKleinianTrigV2, pseudoKleinianTrigV3
+	 dualPowerMandelbox
+	 mandelbarV3
+	 pseudoKleinianTrig
 
 - modified fractal formulas
    mengerMod1, added aux.color
