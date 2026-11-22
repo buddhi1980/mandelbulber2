@@ -37,6 +37,7 @@
 
 #include <QElapsedTimer>
 #include <QLocale>
+#include <QMap>
 #include <QString>
 #include <QThread>
 
@@ -87,7 +88,8 @@ struct sSystem
 	QString lastImageFile;
 	QString lastImagePaletteFile;
 	QString lastGradientFile;
-	QHash<QString, QString> supportedLanguages;
+	// QMap keeps the languages in the same order in every run (QHash order is random)
+	QMap<QString, QString> supportedLanguages;
 	int numberOfThreads;
 	bool noGui;
 	bool silent;
