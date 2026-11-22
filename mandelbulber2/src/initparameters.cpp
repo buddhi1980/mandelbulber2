@@ -326,6 +326,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("DOF_HDR", false, morphLinear, paramStandard);
 	par->addParam("DOF_number_of_passes", 1, 1, 10, morphLinear, paramStandard);
 	par->addParam("DOF_blur_opacity", 4.0, 0.01, 10.0, morphLinear, paramStandard);
+	par->addParam("DOF_save_without_dof", false, morphNone, paramStandard);
 	par->addParam("DOF_monte_carlo", false, morphLinear, paramStandard);
 	par->addParam("DOF_samples", 100, morphLinear, paramStandard);
 	par->addParam("DOF_min_samples", 10, morphLinear, paramStandard);

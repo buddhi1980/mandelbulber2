@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_FILES_H_
 #define MANDELBULBER2_SRC_FILES_H_
 
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -56,6 +57,10 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // SaveImage() returns list of saved files
 QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType,
 	std::shared_ptr<cImage> image, QObject *updateReceiver = nullptr);
+// if the image from before the DOF effect was kept (option "DOF_save_without_dof"), calls
+// saveFunction with that image in place and the postfix for its file name, and returns its list
+QStringList SaveImageWithoutDof(std::shared_ptr<cImage> image,
+	const std::function<QStringList(const QString &postfix)> &saveFunction);
 std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight);
 
 bool FileExists(const QString &path);

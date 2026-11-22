@@ -102,6 +102,10 @@ cImage::cImage(cImage &source)
 	globalIllumination = source.globalIllumination;
 	notDenoised = source.notDenoised;
 
+	keepImageWithoutDof = source.keepImageWithoutDof;
+	postImageFloatWithoutDof = source.postImageFloatWithoutDof;
+	alphaBuffer16WithoutDof = source.alphaBuffer16WithoutDof;
+
 	previewAllocated = false;
 	imageWidget = nullptr;
 
@@ -301,6 +305,9 @@ void cImage::FreeImage()
 	shadows.clear();
 	globalIllumination.clear();
 	notDenoised.clear();
+
+	postImageFloatWithoutDof.clear();
+	alphaBuffer16WithoutDof.clear();
 
 	gammaTable.clear();
 	gammaTablePrepared = false;
@@ -1307,4 +1314,33 @@ double cImage::GetAverageBrightness() const
 		totalBrightness += (pixel.R + pixel.G + pixel.B);
 	}
 	return totalBrightness / 3.0 / pixelCount;
+}
+
+void cImage::SetKeepImageWithoutDof(bool keep)
+{
+	// a copy from an earlier render is never valid for the next one
+	keepImageWithoutDof = keep;
+	postImageFloatWithoutDof.clear();
+	postImageFloatWithoutDof.shrink_to_fit();
+	alphaBuffer16WithoutDof.clear();
+	alphaBuffer16WithoutDof.shrink_to_fit();
+}
+
+void cImage::StoreImageWithoutDof()
+{
+	// the DOF effect changes only the post image and the alpha channel
+	if (keepImageWithoutDof)
+	{
+		postImageFloatWithoutDof = postImageFloat;
+		alphaBuffer16WithoutDof = alphaBuffer16;
+	}
+}
+
+void cImage::SwapImageWithoutDof()
+{
+	if (IsImageWithoutDofAvailable())
+	{
+		postImageFloat.swap(postImageFloatWithoutDof);
+		alphaBuffer16.swap(alphaBuffer16WithoutDof);
+	}
 }

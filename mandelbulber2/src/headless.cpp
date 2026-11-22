@@ -114,6 +114,14 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		ImageFileSavePNG imageSaver(filenameWithoutExtension, image, imageConfig);
 		imageSaver.SetAppendAlphaCustom(appendAlpha);
 		imageSaver.SaveImage();
+		SaveImageWithoutDof(image,
+			[&](const QString &postfix)
+			{
+				ImageFileSavePNG imageSaverWithoutDof(
+					filenameWithoutExtension + postfix, image, imageConfig);
+				imageSaverWithoutDof.SetAppendAlphaCustom(appendAlpha);
+				return imageSaverWithoutDof.SaveImage();
+			});
 	}
 	else
 	{

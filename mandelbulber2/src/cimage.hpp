@@ -376,6 +376,12 @@ public:
 	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);
 	double GetAverageBrightness() const;
 
+	// copy of the image from before the DOF effect, kept only when it will be saved
+	void SetKeepImageWithoutDof(bool keep);
+	void StoreImageWithoutDof();
+	void SwapImageWithoutDof();
+	bool IsImageWithoutDofAvailable() const { return !postImageFloatWithoutDof.empty(); }
+
 private:
 	sRGB8 Interpolation(float x, float y) const;
 	bool AllocMem();
@@ -406,6 +412,11 @@ private:
 	std::vector<sRGBFloat> shadows;
 	std::vector<sRGBFloat> globalIllumination;
 	std::vector<sRGBFloat> notDenoised;
+
+	// image from before the DOF effect
+	bool keepImageWithoutDof{false};
+	std::vector<sRGBFloat> postImageFloatWithoutDof;
+	std::vector<quint16> alphaBuffer16WithoutDof;
 
 	std::vector<sRGB8> preview;
 	std::vector<sRGB8> preview2;

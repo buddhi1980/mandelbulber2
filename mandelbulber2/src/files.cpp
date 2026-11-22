@@ -253,8 +253,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
-QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType,
-	std::shared_ptr<cImage> image, QObject *updateReceiver)
+static QStringList SaveImageChannels(QString filename, ImageFileSave::enumImageFileType fileType,
+	std::shared_ptr<cImage> image, QObject *updateReceiver, const QString &withoutDofPostfix)
 {
 	QStringList listOfSavedFiles;
 
@@ -268,6 +268,10 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 		if (gPar->Get<bool>(imageChannelName + "_enabled"))
 		{
 			ImageFileSave::enumImageContentType contentType = ImageFileSave::enumImageContentType(i);
+			// the DOF effect changes only the color and alpha channels
+			if (!withoutDofPostfix.isEmpty() && contentType != ImageFileSave::IMAGE_CONTENT_COLOR
+					&& contentType != ImageFileSave::IMAGE_CONTENT_ALPHA)
+				continue;
 			ImageFileSave::enumImageChannelQualityType channelQuality =
 				ImageFileSave::enumImageChannelQualityType(gPar->Get<int>(imageChannelName + "_quality"));
 			QString postfix = gPar->Get<QString>(imageChannelName + "_postfix");
@@ -284,7 +288,8 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 
 		// save left
 		{
-			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_left";
+			QString fileWithoutExtension =
+				ImageFileSave::ImageNameWithoutExtension(filename) + withoutDofPostfix + "_left";
 			std::shared_ptr<ImageFileSave> imageFileSave =
 				ImageFileSave::create(fileWithoutExtension, fileType, leftImage, imageConfig);
 			if (updateReceiver != nullptr)
@@ -299,7 +304,8 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 
 		// save right
 		{
-			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_right";
+			QString fileWithoutExtension =
+				ImageFileSave::ImageNameWithoutExtension(filename) + withoutDofPostfix + "_right";
 			std::shared_ptr<ImageFileSave> imageFileSave =
 				ImageFileSave::create(fileWithoutExtension, fileType, rightImage, imageConfig);
 			if (updateReceiver != nullptr)
@@ -314,7 +320,8 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 	}
 	else
 	{
-		QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
+		QString fileWithoutExtension =
+			ImageFileSave::ImageNameWithoutExtension(filename) + withoutDofPostfix;
 		std::shared_ptr<ImageFileSave> imageFileSave =
 			ImageFileSave::create(fileWithoutExtension, fileType, image, imageConfig);
 		if (updateReceiver != nullptr)
@@ -327,6 +334,34 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 		listOfSavedFiles.append(list);
 	}
 
+	return listOfSavedFiles;
+}
+
+QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType,
+	std::shared_ptr<cImage> image, QObject *updateReceiver)
+{
+	QStringList listOfSavedFiles = SaveImageChannels(filename, fileType, image, updateReceiver, "");
+	listOfSavedFiles.append(SaveImageWithoutDof(image, [&](const QString &postfix)
+		{ return SaveImageChannels(filename, fileType, image, updateReceiver, postfix); }));
+	return listOfSavedFiles;
+}
+
+QStringList SaveImageWithoutDof(std::shared_ptr<cImage> image,
+	const std::function<QStringList(const QString &postfix)> &saveFunction)
+{
+	QStringList listOfSavedFiles;
+	if (image->IsImageWithoutDofAvailable())
+	{
+		image->SwapImageWithoutDof();
+		image->CompileImage();
+		listOfSavedFiles = saveFunction("_nodof");
+		image->SwapImageWithoutDof();
+
+		// the savers convert the image to 8 bits, so the main image is converted again
+		image->CompileImage();
+		image->ConvertTo8bitChar();
+		image->ConvertAlphaTo8bit();
+	}
 	return listOfSavedFiles;
 }
 

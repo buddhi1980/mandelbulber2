@@ -314,6 +314,8 @@ void cRenderer::RenderSSAO()
 
 void cRenderer::RenderDOF()
 {
+	image->StoreImageWithoutDof();
+
 	cPostRenderingDOF dof(image);
 	connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
@@ -514,6 +516,13 @@ bool cRenderer::RenderImage()
 
 			if (params->hdrBlurEnabled)
 			{
+				if (image->IsImageWithoutDofAvailable())
+				{
+					// the image without DOF gets the effect first, so the main image is shown at the end
+					image->SwapImageWithoutDof();
+					RenderHDRBlur();
+					image->SwapImageWithoutDof();
+				}
 				RenderHDRBlur();
 			}
 		}

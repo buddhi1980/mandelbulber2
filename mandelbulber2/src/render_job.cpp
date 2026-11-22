@@ -359,6 +359,13 @@ bool cRenderJob::Execute()
 
 	bool twoPassStereo = false;
 	int noOfRepeats = GetNumberOfRepeatsOfStereoLoop(&twoPassStereo);
+
+	// keep the image from before the DOF effect only when it will be saved
+	// (a red-cyan stereo image is mixed from two renders, so it has no single image without DOF)
+	image->SetKeepImageWithoutDof(
+		paramsContainer->Get<bool>("DOF_save_without_dof") && paramsContainer->Get<bool>("DOF_enabled")
+		&& !paramsContainer->Get<bool>("DOF_monte_carlo") && !twoPassStereo);
+
 	QElapsedTimer totalTime;
 	totalTime.start();
 
@@ -1063,6 +1070,13 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 					{
 						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
 						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						if (image->IsImageWithoutDofAvailable())
+						{
+							// the image without DOF gets the filter first, so the main image is shown at the end
+							image->SwapImageWithoutDof();
+							gOpenCl->openclEngineRenderPostFilter->Render(image, renderData->stopRequest);
+							image->SwapImageWithoutDof();
+						}
 						*result = gOpenCl->openclEngineRenderPostFilter->Render(image, renderData->stopRequest);
 					}
 					else
@@ -1087,6 +1101,8 @@ void cRenderJob::RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool 
 	{
 		if (params->DOFEnabled && !params->DOFMonteCarlo)
 		{
+			image->StoreImageWithoutDof();
+
 			connect(gOpenCl->openclEngineRenderDOF, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 			connect(gOpenCl->openclEngineRenderDOF,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
@@ -1244,6 +1260,11 @@ void cRenderJob::RefreshPostEffects()
 	{
 		image->NullPostEffect();
 
+		// keep the image from before the DOF effect only when it will be saved
+		image->SetKeepImageWithoutDof(paramsContainer->Get<bool>("DOF_save_without_dof")
+																	&& paramsContainer->Get<bool>("DOF_enabled")
+																	&& !paramsContainer->Get<bool>("DOF_monte_carlo"));
+
 		RefreshImageAdjustments();
 
 		// replace image size parameters in case if user changed image size just before image update
@@ -1309,6 +1330,8 @@ void cRenderJob::RefreshPostEffects()
 
 		if (paramsContainer->Get<bool>("DOF_enabled"))
 		{
+			image->StoreImageWithoutDof();
+
 			if (paramsContainer->Get<bool>("opencl_enabled")
 					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
 							 paramsContainer->Get<int>("opencl_mode"))
@@ -1382,6 +1405,13 @@ void cRenderJob::RefreshPostEffects()
 					{
 						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
 						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						if (image->IsImageWithoutDofAvailable())
+						{
+							// the image without DOF gets the filter first, so the main image is shown at the end
+							image->SwapImageWithoutDof();
+							gOpenCl->openclEngineRenderPostFilter->Render(image, stopRequest);
+							image->SwapImageWithoutDof();
+						}
 						gOpenCl->openclEngineRenderPostFilter->Render(image, stopRequest);
 					}
 					else
@@ -1407,6 +1437,13 @@ void cRenderJob::RefreshPostEffects()
 				QObject::connect(hdrBlur.get(),
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				if (image->IsImageWithoutDofAvailable())
+				{
+					// the image without DOF gets the same effect
+					image->SwapImageWithoutDof();
+					hdrBlur->Render(stopRequest);
+					image->SwapImageWithoutDof();
+				}
 				hdrBlur->Render(stopRequest);
 			}
 		}
