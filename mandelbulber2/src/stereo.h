@@ -54,7 +54,9 @@ public:
 		stereoDisabled = -1,
 		stereoLeftRight = 0,
 		stereoTopBottom = 1,
-		stereoRedCyan = 2
+		stereoRedCyan = 2,
+		stereoLeftEyeOnly = 3, // full image of the left eye only
+		stereoRightEyeOnly = 4 // full image of the right eye only
 	};
 
 	enum enumEye
