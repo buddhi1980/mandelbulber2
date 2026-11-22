@@ -57,7 +57,7 @@ to experiment with, make a fork and see how it works!
 We will exclude you from interaction if you insult, demean, or harass anyone.
 That is not welcome behavior. We interpret the term "harassment" as including
 the definition in the [Citizen Code of
-Conduct](http://citizencodeofconduct.org/); if you have any lack of clarity
+Conduct](https://web.archive.org/web/20180103021322/http://citizencodeofconduct.org/); if you have any lack of clarity
 about what exists in that concept, please read their definition.
 
 Whether you are a regular contributor or a newcomer, we care about making this

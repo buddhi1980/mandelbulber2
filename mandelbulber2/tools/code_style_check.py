@@ -3,7 +3,7 @@
 # this file checks the source and header files
 # It is a port of the former codeStyleCheck.php and behaves the same.
 # requires Python 3.6 or newer, clang-format and git
-# clang-format is required in version 3.8.1, get executable from here: http://releases.llvm.org/download.html
+# clang-format is required in version 3.8.1, get executable from here: https://releases.llvm.org/download.html
 # set CLANG_FORMAT to the path of clang-format when it is not on PATH
 #
 # on default this script runs dry,

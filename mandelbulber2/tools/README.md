@@ -74,7 +74,7 @@ The used icons are part of the tango theme.
 In order to add new icons those need to be shipped for non linux systems
 
 steps to take:
-- 1. Get the tango icon pack from here: http://tango.freedesktop.org/Tango_Icon_Library
+- 1. Get the tango icon pack from here: https://gitlab.freedesktop.org/tango/tango-icon-theme
 - 2. Get the desired icon from scalable folder and add it to mandelbulber2/qt/icons
 - 3. Add reference analog to other system icons in mandelbulber2/qt/icons.qrc
 - 4. Use icon analogue to other icons in ui file

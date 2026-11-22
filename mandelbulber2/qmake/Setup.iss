@@ -1,7 +1,7 @@
 ; This script requires Inno Setup Compiler 5.5.9 or later to compile
-; The Inno Setup Compiler (and IDE) can be found at http://www.jrsoftware.org/isinfo.php
+; The Inno Setup Compiler (and IDE) can be found at https://jrsoftware.org/isinfo.php
 
-; General documentation on how to use InnoSetup scripts: http://www.jrsoftware.org/ishelp/index.php
+; General documentation on how to use InnoSetup scripts: https://jrsoftware.org/ishelp/index.php
 
 ;#ifndef Platform
 ;  #error Platform undefined. Pass /DPlatform
@@ -14,7 +14,7 @@
 #define MyAppName "Mandelbulber2"
 #define MyAppInstallerVersion "2.35"
 #define MyAppPublisher "Mandelbulber Team"
-#define MyAppPublisherURL "http://www.mandelbulber.com"
+#define MyAppPublisherURL "https://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
 #define MyAppIcoName "mandelbulber2.ico"
