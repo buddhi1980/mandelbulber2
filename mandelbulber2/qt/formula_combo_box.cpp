@@ -41,19 +41,24 @@
 
 #include <QDebug>
 #include <QLineEdit>
+#include <QMenu>
 #include <QStandardItemModel>
 #include <QWidget>
 
 #include "src/common_math.h"
+#include "src/initparameters.hpp"
 #include "src/parameters.hpp"
 #include "src/random.hpp"
 #include "src/write_log.hpp"
 
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
+QList<cFormulaComboBox *> cFormulaComboBox::instances;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapper(this)
 {
 	defaultValue = 0;
+	colorSeed = 0;
+	instances.append(this);
 	QFontMetrics fm(font());
 	int pixelFontSize = fm.height();
 	int iconSize = pixelFontSize * 3;
@@ -83,6 +88,7 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonM
 cFormulaComboBox::~cFormulaComboBox()
 {
 	// iconCache.clear(); !!! it's is static member and shoudl be kept to the end of the universe
+	instances.removeAll(this);
 }
 
 void cFormulaComboBox::onCompleterActivated(QString text)
@@ -116,6 +122,10 @@ void cFormulaComboBox::setModel(QAbstractItemModel *model)
 void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fractals,
 	QList<QPair<int, QString> /* */> insertHeader, int randomSeedForColors)
 {
+	fractalList = fractals;
+	headerList = insertHeader;
+	colorSeed = randomSeedForColors;
+
 	clear();
 	for (int f = 0; f < fractals.size(); f++)
 	{
@@ -195,6 +205,90 @@ void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fr
 			insertSeparator(comboIndex);
 		}
 	}
+
+	InsertFavourites();
+}
+
+void cFormulaComboBox::InsertFavourites()
+{
+	// favourite formulas are listed once more under their own header at the top of the list
+	QList<int> favouriteIndexes;
+	for (const QString &name : GetFavourites())
+	{
+		for (int fIndex = 0; fIndex < fractalList.size(); fIndex++)
+		{
+			if (QString::fromStdString(fractalList.at(fIndex)->getInternalName()) == name)
+			{
+				favouriteIndexes.append(fIndex);
+				break;
+			}
+		}
+	}
+	if (favouriteIndexes.isEmpty()) return;
+
+	QFont fontHeading;
+	fontHeading.setBold(true);
+	insertItem(0, tr("*** Favourites ***"));
+	setItemData(0, fontHeading, Qt::FontRole);
+	setItemData(0, Qt::AlignCenter, Qt::TextAlignmentRole);
+	qobject_cast<QStandardItemModel *>(model())->item(0)->setEnabled(false);
+
+	for (int i = 0; i < favouriteIndexes.size(); i++)
+	{
+		int fIndex = favouriteIndexes.at(i);
+		insertItem(i + 1, GetIconFromCache(QString::fromStdString(fractalList[fIndex]->getIconName())),
+			QString::fromStdString(fractalList[fIndex]->getNameInComboBox()), fIndex);
+	}
+	insertSeparator(favouriteIndexes.size() + 1);
+}
+
+void cFormulaComboBox::RefreshItems()
+{
+	// rebuild the list and keep the selected formula without emitting a change
+	if (fractalList.isEmpty()) return;
+	int fractalIndex = -1;
+	if (currentIndex() >= 0 && itemData(currentIndex()).isValid())
+		fractalIndex = itemData(currentIndex()).toInt();
+
+	blockSignals(true);
+	populateItemsFromFractalList(fractalList, headerList, colorSeed);
+	if (fractalIndex >= 0) setCurrentIndex(findData(fractalIndex));
+	blockSignals(false);
+}
+
+QStringList cFormulaComboBox::GetFavourites()
+{
+	if (!gPar || !gPar->IfExists("favourite_formulas")) return QStringList();
+	return gPar->Get<QString>("favourite_formulas").split(',', Qt::SkipEmptyParts);
+}
+
+void cFormulaComboBox::SetFavourites(const QStringList &favourites)
+{
+	if (!gPar) return;
+	gPar->Set("favourite_formulas", favourites.join(','));
+	for (cFormulaComboBox *comboBox : instances)
+		comboBox->RefreshItems();
+}
+
+QString cFormulaComboBox::GetCurrentInternalName() const
+{
+	if (currentIndex() < 0 || !itemData(currentIndex()).isValid()) return QString();
+	int fIndex = itemData(currentIndex()).toInt();
+	if (fIndex < 0 || fIndex >= fractalList.size()) return QString();
+	if (fractalList.at(fIndex)->getInternalId() == fractal::none) return QString();
+	return QString::fromStdString(fractalList.at(fIndex)->getInternalName());
+}
+
+void cFormulaComboBox::slotToggleFavourite()
+{
+	QString name = GetCurrentInternalName();
+	if (name.isEmpty()) return;
+	QStringList favourites = GetFavourites();
+	if (favourites.contains(name))
+		favourites.removeAll(name);
+	else
+		favourites.append(name);
+	SetFavourites(favourites);
 }
 
 int cFormulaComboBox::GetDefault()
@@ -217,7 +311,16 @@ void cFormulaComboBox::paintEvent(QPaintEvent *event)
 
 void cFormulaComboBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	CommonMyWidgetWrapper::contextMenuEvent(event);
+	QMenu *menu = new QMenu;
+	QString name = GetCurrentInternalName();
+	if (!name.isEmpty())
+	{
+		QAction *actionFavourite = menu->addAction(
+			GetFavourites().contains(name) ? tr("Remove from favourites") : tr("Add to favourites"));
+		connect(actionFavourite, SIGNAL(triggered()), this, SLOT(slotToggleFavourite()));
+	}
+	// the menu is deleted by CommonMyWidgetWrapper::contextMenuEvent()
+	CommonMyWidgetWrapper::contextMenuEvent(event, menu);
 }
 
 QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
@@ -231,16 +334,14 @@ QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
 
 void cFormulaComboBox::resetToDefault()
 {
+	// the default is a formula id; map it to its item, because favourites shift the item indexes
 	int selection = defaultValue;
-	if (parameterName == QString("formula"))
+	for (int i = 0; i < newFractalList.size(); i++)
 	{
-		for (int i = 0; i < newFractalList.size(); i++)
+		if (newFractalList[i]->getInternalId() == selection)
 		{
-			if (newFractalList[i]->getInternalId() == selection)
-			{
-				selection = findData(i);
-				break;
-			}
+			selection = findData(i);
+			break;
 		}
 	}
 	setCurrentIndex(selection);
