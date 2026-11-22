@@ -47,6 +47,7 @@
 
 #include <QThread>
 
+#include "camera_path_export.hpp"
 #include "error_message.hpp"
 #include "file_image.hpp"
 #include "keyframes.hpp"
@@ -139,6 +140,7 @@ private slots:
 	void slotShowAnimation() const;
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
+	void slotExportCameraPath();
 	void slotMovedSliderFirstFrame() const;
 	void slotMovedSliderLastFrame();
 	void slotValidate();

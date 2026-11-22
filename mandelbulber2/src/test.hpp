@@ -75,6 +75,7 @@ private slots:
 	static void init();
 	static void cleanup();
 	void renderExamplesWrapper() const;
+	void exportCameraPath() const;
 	void netrender();
 	void netRenderFileDestination() const;
 	void testFlightWrapper() const;

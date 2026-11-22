@@ -119,6 +119,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotRefreshTable);
 		connect(ui->pushButton_keyframe_to_flight_export, &QPushButton::clicked, this,
 			&cKeyframeAnimation::slotExportKeyframesToFlight);
+		connect(ui->pushButton_export_camera_path, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotExportCameraPath);
 		connect(ui->pushButton_check_for_collisions, &QPushButton::clicked, this,
 			&cKeyframeAnimation::slotValidate);
 		connect(ui->pushButton_set_constant_target_distance, &QPushButton::clicked, this,
@@ -1761,6 +1763,51 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	mainInterface->progressBarAnimation->hide();
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(0);
 	ui->pushButton_flight_refresh_table->animateClick();
+}
+
+void cKeyframeAnimation::slotExportCameraPath()
+{
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
+	if (keyframes->GetNumberOfFrames() == 0)
+	{
+		emit showErrorMessage(QObject::tr("There are no keyframes to export"),
+			cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
+		return;
+	}
+
+	QFileDialog dialog(mainInterface->mainWindow);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilters(
+		{QObject::tr("Nuke camera channels (*.chan)"), QObject::tr("CSV files (*.csv)")});
+	dialog.setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_keyframe_dir")));
+	dialog.selectFile("camera_path.chan");
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(QObject::tr("Export camera path"));
+	dialog.setDefaultSuffix("chan");
+	connect(&dialog, &QFileDialog::filterSelected, &dialog, [&dialog](const QString &filter)
+		{ dialog.setDefaultSuffix(filter.contains("*.csv") ? "csv" : "chan"); });
+	if (!dialog.exec()) return;
+
+	const QString fileName = QDir::toNativeSeparators(dialog.selectedFiles().first());
+
+	keyframes->RefreshAllAudioTracks(params);
+	const std::vector<sCameraPathFrame> cameraPath =
+		CalculateCameraPath(keyframes, params, fractalParams);
+
+	QString errorMessage;
+	if (!ExportCameraPath(fileName, cameraPath,
+				params::enumPerspectiveType(params->Get<int>("perspective_type")), &errorMessage))
+	{
+		emit showErrorMessage(
+			QObject::tr("Can't write the camera path to %1\n%2").arg(fileName, errorMessage),
+			cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
+		return;
+	}
+
+	emit updateProgressAndStatus(QObject::tr("Camera path exported"),
+		QObject::tr("%1 frames written to %2").arg(cameraPath.size()).arg(fileName), 1.0,
+		cProgressText::progress_ANIMATION);
 }
 
 void cKeyframeAnimation::UpdateLimitsForFrameRange() const

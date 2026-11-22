@@ -40,6 +40,8 @@
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
+#include "camera_path_export.hpp"
+#include "camera_target.hpp"
 #include "files.h"
 #include "headless.h"
 #include "initparameters.hpp"
@@ -254,6 +256,101 @@ void Test::renderExamples() const
 			WriteLog(
 				QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(elapsedTime), 1);
 			testPar->PrintListOfParameters();
+		}
+	}
+}
+
+void Test::exportCameraPath() const
+{
+	// the exported camera path has one row per animation frame with the camera interpolated
+	// the same way as for rendering (issue #575)
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer);
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer);
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	for (int i = 0; i < testParFractal->size(); i++)
+	{
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
+	}
+	testPar->Set("camera_top", CVector3(0.0, 0.0, 1.0));
+
+	testKeyframes->AddAnimatedParameter("main_camera", testPar, testParFractal);
+	testKeyframes->AddAnimatedParameter("main_target", testPar, testParFractal);
+	testKeyframes->AddAnimatedParameter("main_fov", testPar, testParFractal);
+
+	// three keyframes: looking along +Y, along -X, and along +X and down by 45 degrees
+	const CVector3 cameras[] = {
+		CVector3(0.0, -5.0, 0.0), CVector3(5.0, 0.0, 0.0), CVector3(-5.0, 0.0, 5.0)};
+	const double fovs[] = {53.13, 40.0, 70.0};
+	const CVector3 rotations[] = {
+		CVector3(0.0, 0.0, 0.0), CVector3(90.0, 0.0, 0.0), CVector3(-90.0, -45.0, 0.0)};
+	const int framesPerKeyframe = 10;
+	for (int k = 0; k < 3; k++)
+	{
+		testPar->Set("camera", cameras[k]);
+		testPar->Set("target", CVector3(0.0, 0.0, 0.0));
+		testPar->Set("fov", fovs[k]);
+		testKeyframes->AddFrame(testPar, testParFractal, framesPerKeyframe);
+	}
+
+	const std::vector<sCameraPathFrame> cameraPath =
+		CalculateCameraPath(testKeyframes, testPar, testParFractal);
+	QCOMPARE(int(cameraPath.size()), testKeyframes->GetTotalNumberOfFrames());
+	QVERIFY(int(cameraPath.size()) >= 2 * framesPerKeyframe + 1);
+
+	// the keyframes themselves
+	for (int k = 0; k < 3; k++)
+	{
+		const sCameraPathFrame &frame = cameraPath[k * framesPerKeyframe];
+		QCOMPARE(frame.frame, k * framesPerKeyframe);
+		QVERIFY((frame.position - cameras[k]).Length() < 1e-9);
+		QVERIFY((frame.rotation - rotations[k]).Length() < 1e-6);
+		QVERIFY(qAbs(frame.verticalFov - fovs[k]) < 1e-9);
+	}
+
+	// the files contain the same values as a direct interpolation of each frame
+	for (const QString &extension : {QString("chan"), QString("csv")})
+	{
+		const QString fileName = testFolder() + QDir::separator() + "camera_path." + extension;
+		QString error;
+		QVERIFY2(
+			ExportCameraPath(fileName, cameraPath, params::perspThreePoint, &error), qPrintable(error));
+		QFile file(fileName);
+		QVERIFY(file.open(QIODevice::ReadOnly | QIODevice::Text));
+		QStringList rows = QString(file.readAll()).split('\n', Qt::SkipEmptyParts);
+		if (extension == "csv")
+		{
+			QVERIFY(rows.first().startsWith("#"));
+			while (rows.first().startsWith("#"))
+				rows.removeFirst();
+			QCOMPARE(rows.takeFirst(), QString("frame,x,y,z,yaw,pitch,roll,vfov"));
+		}
+		QCOMPARE(int(rows.size()), int(cameraPath.size()));
+
+		testKeyframes->ClearMorphCache();
+		for (int frameIndex = 0; frameIndex < rows.size(); frameIndex++)
+		{
+			const QStringList values = rows[frameIndex].split(extension == "csv" ? ',' : ' ');
+			QCOMPARE(values.size(), 8);
+			QCOMPARE(values[0].toInt(), frameIndex);
+
+			const cAnimationFrames::sAnimationFrame interpolated =
+				testKeyframes->GetInterpolatedFrame(frameIndex, testPar, testParFractal);
+			const CVector3 camera = interpolated.parameters.Get<CVector3>("main_camera");
+			const cCameraTarget cameraTarget(
+				camera, interpolated.parameters.Get<CVector3>("main_target"), CVector3(0.0, 0.0, 1.0));
+			const CVector3 rotation = cameraTarget.GetRotation() * (180.0 / M_PI);
+			const double expected[] = {camera.x, camera.y, camera.z, rotation.x, rotation.y, rotation.z,
+				interpolated.parameters.Get<double>("main_fov")};
+			for (int i = 0; i < 7; i++)
+				QVERIFY2(qAbs(values[i + 1].toDouble() - expected[i]) < 1e-9,
+					qPrintable(QString("frame %1 column %2: %3 != %4")
+							.arg(frameIndex)
+							.arg(i + 1)
+							.arg(values[i + 1])
+							.arg(expected[i], 0, 'g', 15)));
 		}
 	}
 }

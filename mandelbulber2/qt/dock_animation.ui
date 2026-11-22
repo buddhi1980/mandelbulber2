@@ -986,6 +986,22 @@
                  </property>
                 </widget>
                </item>
+               <item row="4" column="3">
+                <widget class="QPushButton" name="pushButton_export_camera_path">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export the interpolated camera of every animation frame (position, yaw/pitch/roll rotation and vertical field of view) to a Nuke .chan file or a CSV file, for matching the camera in compositing or 3D software.&lt;/p&gt;&lt;p&gt;The CSV file header describes the coordinate system and the rotation order.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text">
+                  <string>Export camera path...</string>
+                 </property>
+                </widget>
+               </item>
                <item row="3" column="2">
                 <widget class="QPushButton" name="pushButton_delete_all_keyframe_images">
                  <property name="sizePolicy">
@@ -1822,6 +1838,7 @@
   <tabstop>pushButton_show_keyframe_animation</tabstop>
   <tabstop>pushButton_delete_all_keyframe_images</tabstop>
   <tabstop>pushButton_keyframe_to_flight_export</tabstop>
+  <tabstop>pushButton_export_camera_path</tabstop>
   <tabstop>scrollArea_keyframe_animation_parameters</tabstop>
   <tabstop>spinboxInt_frames_per_keyframe</tabstop>
   <tabstop>text_anim_keyframe_dir</tabstop>
