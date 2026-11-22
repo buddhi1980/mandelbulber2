@@ -96,22 +96,24 @@ sRGBAFloat cRenderWorker::AuxShadow(
 		CVector3 point2 = input.point + lightVector * i;
 
 		float dist_thresh;
+		double detailSize = input.distThresh;
 		if (params->iterFogEnabled || light->volumetric || params->distanceFogShadows || cloudMode
 				|| goThrough)
 		{
 			dist_thresh = CalcDistThresh(point2);
+			// detailSize must follow the per-point threshold (like in the primary
+			// RayMarching and in the OpenCL AuxShadow). The boolean subtraction clamps
+			// the distance inside the cut-out zone to 1.5*detailSize; with the caller
+			// threshold (taken at the start point of the ray), that clamped distance
+			// could fall below dist_thresh calculated for a farther point2, and the
+			// invisible cutter object would cast a false shadow (e.g. volumetric light)
+			detailSize = dist_thresh;
 		}
 		else
 			dist_thresh = input.distThresh;
 
 		sDistanceOut distanceOut;
-		// detailSize must follow the shadow ray threshold (like in the primary
-		// RayMarching and in the OpenCL AuxShadow). The boolean subtraction clamps
-		// the distance inside the cut-out zone to 1.5*detailSize; with the caller
-		// threshold (taken at the start point of the ray), that clamped distance
-		// could fall below dist_thresh calculated for a farther point2, and the
-		// invisible cutter object would cast a false shadow (e.g. volumetric light)
-		sDistanceIn distanceIn(point2, dist_thresh, false);
+		sDistanceIn distanceIn(point2, detailSize, false);
 		double dist =
 			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
