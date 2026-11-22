@@ -53,6 +53,32 @@
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 
+namespace
+{
+// The camera rotation and the distance to the target are calculated from camera, target and
+// camera_top before every frame is rendered, so animating them has no effect. Animate the
+// parameters that define them instead.
+QStringList ParametersToAnimate(const QString &parameterName, const QString &containerName)
+{
+	if (containerName == "main"
+			&& (parameterName == "camera_rotation" || parameterName == "camera_distance_to_target"))
+	{
+		return {"camera", "target", "camera_top"};
+	}
+	return {parameterName};
+}
+
+bool AllAnimated(
+	cAnimationFrames *frames, const QStringList &parameterNames, const QString &containerName)
+{
+	for (const QString &name : parameterNames)
+	{
+		if (frames->IndexOnList(name, containerName) == -1) return false;
+	}
+	return true;
+}
+} // namespace
+
 const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 	QContextMenuEvent *event, QMenu *existingMenu)
 {
@@ -82,32 +108,37 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 		enumParameterType parameterType = parameterContainer->GetParameterType(getFullParameterName());
 		if (parameterType == parameterContainer::paramStandard)
 		{
-			if (gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
-					== -1)
-			{
-				actionAddToFlightAnimation = menu->addAction(
-					QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
-				actionAddToFlightAnimation->setIcon(iconAdd);
-			}
-			else
+			const QString containerName = parameterContainer->GetContainerName();
+			const QStringList parametersToAnimate =
+				ParametersToAnimate(getFullParameterName(), containerName);
+			const bool derivedParameter = parametersToAnimate.first() != getFullParameterName();
+
+			if (gAnimFrames->IndexOnList(getFullParameterName(), containerName) != -1)
 			{
 				actionRemoveFromFlightAnimation = menu->addAction(
 					QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
 				actionRemoveFromFlightAnimation->setIcon(iconDelete);
 			}
-
-			if (gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
-					== -1)
+			else if (!derivedParameter
+							 || !AllAnimated(gAnimFrames.get(), parametersToAnimate, containerName))
 			{
-				actionAddToKeyframeAnimation = menu->addAction(
-					QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
-				actionAddToKeyframeAnimation->setIcon(iconAdd);
+				actionAddToFlightAnimation = menu->addAction(
+					QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
+				actionAddToFlightAnimation->setIcon(iconAdd);
 			}
-			else
+
+			if (gKeyframes->IndexOnList(getFullParameterName(), containerName) != -1)
 			{
 				actionRemoveFromKeyframeAnimation = menu->addAction(
 					QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
 				actionRemoveFromKeyframeAnimation->setIcon(iconDelete);
+			}
+			else if (!derivedParameter
+							 || !AllAnimated(gKeyframes.get(), parametersToAnimate, containerName))
+			{
+				actionAddToKeyframeAnimation = menu->addAction(
+					QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
+				actionAddToKeyframeAnimation->setIcon(iconAdd);
 			}
 			actionEditScript =
 				menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Edit script"));
@@ -124,8 +155,12 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			else if (selectedItem == actionAddToFlightAnimation)
 			{
-				gAnimFrames->AddAnimatedParameter(
-					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
+				const QString containerName = parameterContainer->GetContainerName();
+				for (const QString &name : ParametersToAnimate(getFullParameterName(), containerName))
+				{
+					if (gAnimFrames->IndexOnList(name, containerName) == -1)
+						gAnimFrames->AddAnimatedParameter(name, parameterContainer->GetAsOneParameter(name));
+				}
 				gFlightAnimation->RefreshTable();
 			}
 			else if (selectedItem == actionRemoveFromFlightAnimation)
@@ -136,7 +171,12 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			else if (selectedItem == actionAddToKeyframeAnimation)
 			{
-				gKeyframeAnimation->AddAnimatedParameter(getFullParameterName(), parameterContainer);
+				const QString containerName = parameterContainer->GetContainerName();
+				for (const QString &name : ParametersToAnimate(getFullParameterName(), containerName))
+				{
+					if (gKeyframes->IndexOnList(name, containerName) == -1)
+						gKeyframeAnimation->AddAnimatedParameter(name, parameterContainer);
+				}
 				gKeyframeAnimation->RefreshTable();
 			}
 			else if (selectedItem == actionRemoveFromKeyframeAnimation)

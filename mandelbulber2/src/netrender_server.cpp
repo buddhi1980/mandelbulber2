@@ -382,6 +382,9 @@ void cNetRenderServer::SetCurrentAnimation(std::shared_ptr<const cParameterConta
 		else
 			msgCurrentJob.command = netRenderCmd_ANIM_KEY;
 
+		// frames rendered by the clients go to the output folder of this animation
+		fileReceiver->SetDestinationDirParameter(isFlight ? "anim_flight_dir" : "anim_keyframe_dir");
+
 		QDataStream stream(&msgCurrentJob.payload, QIODevice::WriteOnly);
 
 		// write settings
