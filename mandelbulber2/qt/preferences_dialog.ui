@@ -1800,6 +1800,26 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="12" column="0">
+                 <widget class="QLabel" name="label_png_compression_level">
+                  <property name="text">
+                   <string>PNG compression level:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_png_compression_level">
+                  <property name="toolTip">
+                   <string>&lt;p&gt;zlib compression level of the saved PNG images, from 0 (no compression, fastest saving, largest files) to 9 (smallest files, slowest saving). 6 is the libpng default. The image data is lossless at every level.&lt;/p&gt;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9</number>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -2612,6 +2632,7 @@ and will only be present after enabling and re-render.</string>
   <tabstop>spinbox_jxl_sdr_white_nits</tabstop>
   <tabstop>checkBox_jxl_lossless</tabstop>
   <tabstop>checkBox_append_alpha_jxl</tabstop>
+  <tabstop>spinboxInt_png_compression_level</tabstop>
   <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>
