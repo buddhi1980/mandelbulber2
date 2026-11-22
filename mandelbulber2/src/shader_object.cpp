@@ -39,7 +39,8 @@
 
 sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloat *surfaceColour,
 	sRGBAFloat *specularOut, sRGBFloat *iridescenceOut, sRGBAFloat *outShadow,
-	sRGBFloat *luminosityEmissiveOut, sGradientsCollection *gradients) const
+	sRGBFloat *outAmbientOcclusion, sRGBFloat *luminosityEmissiveOut,
+	sGradientsCollection *gradients) const
 {
 	sRGBAFloat output;
 	float alpha = 1.0f;
@@ -107,16 +108,20 @@ sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloa
 
 	// ambient occlusion
 	sRGBAFloat ambient(0.0, 0.0, 0.0, 0.0);
+	// AO image channel: unoccluded (1.0) unless the AO factor is calculated here
+	*outAmbientOcclusion = sRGBFloat(1.0, 1.0, 1.0);
 	if (params->ambientOcclusionEnabled)
 	{
 		// fast mode
 		if (params->ambientOcclusionMode == params::AOModeFast)
 		{
 			ambient = FastAmbientOcclusion(input);
+			*outAmbientOcclusion = sRGBFloat(ambient.R, ambient.G, ambient.B);
 		}
 		else if (params->ambientOcclusionMode == params::AOModeMultipleRays)
 		{
 			ambient = AmbientOcclusion(input);
+			*outAmbientOcclusion = sRGBFloat(ambient.R, ambient.G, ambient.B);
 		}
 	}
 	sRGBAFloat ambient2;

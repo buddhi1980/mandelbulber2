@@ -480,6 +480,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		float3 specularOut = 0.0f;
 		float3 shadowOut = 0.0f;
 		float3 globalIlluminationOut = 0.0f;
+		float3 ambientOcclusionOut = 0.0f;
 		float3 worldPositionRGB = 0.0f;
 
 		float opacity = 0.0f;
@@ -514,6 +515,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			normal = recursionOut.normal;
 			shadowOut = recursionOut.outShadow;
 			globalIlluminationOut = recursionOut.outGlobalIllumination;
+			ambientOcclusionOut = recursionOut.outAmbientOcclusion;
 			specularOut = recursionOut.specular;
 			worldPositionRGB = recursionOut.rayMarchingOut.point;
 
@@ -587,6 +589,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.specular = specularOut;
 	pixel.shadows = shadowOut;
 	pixel.globalIllumination = globalIlluminationOut;
+	pixel.ambientOcclusion = ambientOcclusionOut;
 	pixel.world = worldPositionRGB;
 	pixel.diffuse = objectColour;
 #endif

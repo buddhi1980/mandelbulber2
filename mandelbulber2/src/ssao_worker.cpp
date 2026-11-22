@@ -248,6 +248,11 @@ void cSSAOWorker::doWork()
 				pixel.G = pixel.G + colour.G * shadeFactor * aoColor.G;
 				pixel.B = pixel.B + colour.B * shadeFactor * aoColor.B;
 				image->PutPixelPostImage(x + xx, y, pixel);
+				if (image->GetImageOptional()->optionalAmbientOcclusion)
+				{
+					float ao = (z < 1e19) ? total_ambient : 1.0f;
+					image->PutPixelAmbientOcclusion(x + xx, y, sRGBFloat(ao, ao, ao));
+				}
 			}
 		}
 

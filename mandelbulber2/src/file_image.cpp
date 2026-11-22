@@ -169,6 +169,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_WORLD_POSITION: return "world";
 		case IMAGE_CONTENT_SHADOWS: return "shadow_channel";
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: return "gi_channel";
+		case IMAGE_CONTENT_AMBIENT_OCCLUSION: return "ao_channel";
 		case IMAGE_CONTENT_NOT_DENOISED: return "not_denoised_channel";
 	}
 	return "";
@@ -177,7 +178,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 QStringList ImageFileSave::ImageChannelNames()
 {
 	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world",
-		"normalWorld", "shadow_channel", "gi_channel", "not_denoised_channel"});
+		"normalWorld", "shadow_channel", "gi_channel", "ao_channel", "not_denoised_channel"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -323,6 +324,7 @@ QStringList ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 			case IMAGE_CONTENT_NOT_DENOISED:
 			default:
 			{
@@ -434,6 +436,7 @@ QStringList ImageFileSaveJPG::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 			case IMAGE_CONTENT_NOT_DENOISED:
 				SaveJPEGQt32(fullFilename, channel.value(), int(image->GetWidth()), int(image->GetHeight()),
 					gPar->Get<int>("jpeg_quality"), image->getMeta());
@@ -487,6 +490,7 @@ QStringList ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 			case IMAGE_CONTENT_NOT_DENOISED:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
@@ -558,6 +562,7 @@ QStringList ImageFileSaveJXL::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 			case IMAGE_CONTENT_NOT_DENOISED:
 			default: SaveJxlChannel(fullFilename, channel.value(), false); break;
 		}
@@ -773,6 +778,7 @@ bool ImageFileSaveJXL::SaveJxlChannel(
 		case IMAGE_CONTENT_WORLD_POSITION:
 		case IMAGE_CONTENT_SHADOWS:
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+		case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 		case IMAGE_CONTENT_NOT_DENOISED:
 		{
 			bool signedInput = (imageChannel.contentType == IMAGE_CONTENT_NORMAL_WORLD);
@@ -793,6 +799,7 @@ bool ImageFileSaveJXL::SaveJxlChannel(
 						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 							p = image->GetPixelGlobalIllumination(x, y);
 							break;
+						case IMAGE_CONTENT_AMBIENT_OCCLUSION: p = image->GetPixelAmbientOcclusion(x, y); break;
 						default: p = image->GetPixelNotDenoised(x, y); break;
 					}
 					if (signedInput)
@@ -1145,6 +1152,7 @@ bool ImageFileSaveHDR::SaveHdrChannel(
 		case IMAGE_CONTENT_WORLD_POSITION:
 		case IMAGE_CONTENT_SHADOWS:
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+		case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 		case IMAGE_CONTENT_NOT_DENOISED:
 		{
 			// RGBE cannot store negative values, so the signed input is remapped
@@ -1167,6 +1175,7 @@ bool ImageFileSaveHDR::SaveHdrChannel(
 						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 							p = image->GetPixelGlobalIllumination(x, y);
 							break;
+						case IMAGE_CONTENT_AMBIENT_OCCLUSION: p = image->GetPixelAmbientOcclusion(x, y); break;
 						default: p = image->GetPixelNotDenoised(x, y); break;
 					}
 					if (signedInput)
@@ -1267,6 +1276,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_SHADOWS: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_NOT_DENOISED: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
@@ -1293,6 +1303,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
 			case IMAGE_CONTENT_SHADOWS: pixelSize *= 3; break;
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: pixelSize *= 3; break;
+			case IMAGE_CONTENT_AMBIENT_OCCLUSION: pixelSize *= 3; break;
 			case IMAGE_CONTENT_NOT_DENOISED: pixelSize *= 3; break;
 		}
 
@@ -1339,6 +1350,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 				case IMAGE_CONTENT_WORLD_POSITION:
 				case IMAGE_CONTENT_SHADOWS:
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+				case IMAGE_CONTENT_AMBIENT_OCCLUSION:
 				case IMAGE_CONTENT_NOT_DENOISED:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
@@ -1488,6 +1500,10 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 							SavePngRgbPixel(
 								imageChannel, &colorPtr[ptr], sourceImage->GetPixelGlobalIllumination(x, y), false);
+							break;
+						case IMAGE_CONTENT_AMBIENT_OCCLUSION:
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelAmbientOcclusion(x, y), false);
 							break;
 						case IMAGE_CONTENT_NOT_DENOISED:
 							SavePngRgbPixel(
@@ -1836,6 +1852,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString outputFilename, structSaveImageChann
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					pixel = image->GetPixelGlobalIllumination(x, y);
 					break;
+				case IMAGE_CONTENT_AMBIENT_OCCLUSION: pixel = image->GetPixelAmbientOcclusion(x, y); break;
 				case IMAGE_CONTENT_NOT_DENOISED: pixel = image->GetPixelNotDenoised(x, y); break;
 				default: pixel = sRGBAFloat(); break;
 			}
@@ -1984,6 +2001,7 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 	std::vector<char> bufferWorldPos;
 	std::vector<char> bufferShadow;
 	std::vector<char> bufferGI;
+	std::vector<char> bufferAO;
 	std::vector<char> bufferNotDenoised;
 
 	// compress each scan line on its own. This gives a good compression / read performance tradeoff
@@ -2159,6 +2177,13 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 			&bufferGI);
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_AMBIENT_OCCLUSION))
+	{
+		SaveExrRgbChannel(QStringList{"ao.R", "ao.G", "ao.B"},
+			imageConfig[IMAGE_CONTENT_AMBIENT_OCCLUSION], &header, &frameBuffer, width, height,
+			&bufferAO);
+	}
+
 	if (imageConfig.contains(IMAGE_CONTENT_NOT_DENOISED))
 	{
 		SaveExrRgbChannel(QStringList{"nd.R", "nd.G", "nd.B"}, imageConfig[IMAGE_CONTENT_NOT_DENOISED],
@@ -2224,6 +2249,7 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					pixel = image->GetPixelGlobalIllumination(x, y);
 					break;
+				case IMAGE_CONTENT_AMBIENT_OCCLUSION: pixel = image->GetPixelAmbientOcclusion(x, y); break;
 				case IMAGE_CONTENT_NOT_DENOISED: pixel = image->GetPixelNotDenoised(x, y); break;
 
 				default: pixel = sRGBFloat(); break;
@@ -2301,6 +2327,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_SHADOWS: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_AMBIENT_OCCLUSION: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_NOT_DENOISED: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
@@ -2318,6 +2345,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_SHADOWS: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_AMBIENT_OCCLUSION: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_NOT_DENOISED: samplesPerPixel = 3; break;
 	}
 
@@ -2532,6 +2560,10 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 					break;
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelGlobalIllumination(x, y));
+					break;
+				case IMAGE_CONTENT_AMBIENT_OCCLUSION:
+					SaveTiffRgbPixel(
+						imageChannel, &colorPtr[ptr], sourceImage->GetPixelAmbientOcclusion(x, y));
 					break;
 				case IMAGE_CONTENT_NOT_DENOISED:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelNotDenoised(x, y));

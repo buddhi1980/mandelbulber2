@@ -132,6 +132,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBAFloat specular;
 			sRGBFloat iridescence;
 			sRGBAFloat outShadow;
+			sRGBFloat outAmbientOcclusion;
 			sRGBFloat outLuminosityEmissive;
 
 			// objectData snapshot kept for debugging; GI now uses material pointer directly
@@ -167,7 +168,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 			sGradientsCollection gradients;
 			sRGBAFloat objectShader = ObjectShader(inputCopy, &hitObjectColor, &specular, &iridescence,
-				&outShadow, &outLuminosityEmissive, &gradients);
+				&outShadow, &outAmbientOcclusion, &outLuminosityEmissive, &gradients);
 
 			newColor = hitObjectColor;
 			resultShader.R = objectShader.R + specular.R;

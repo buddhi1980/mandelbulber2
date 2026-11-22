@@ -220,8 +220,8 @@ private:
 		cImage *image);
 	static void PutMultiPixelOptional(quint64 xx, quint64 yy, const sRGBFloat &color,
 		const sRGBFloat &normal, const sRGBFloat &specular, const sRGBFloat &world,
-		const sRGBFloat &shadows, const sRGBFloat &gi, const sRGBFloat &notDenoised,
-		std::shared_ptr<cImage> &image);
+		const sRGBFloat &shadows, const sRGBFloat &gi, const sRGBFloat &ao,
+		const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image);
 	static void MixChannels(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sClPixel &pixelCl, std::shared_ptr<cImage> image, quint64 xx, quint64 yy,
 		const sRGBFloat &pixel, bool useOptionalChannels);

@@ -84,6 +84,7 @@ typedef struct
 	float3 specular;
 	float3 outShadow;
 	float3 outGlobalIllumination;
+	float3 outAmbientOcclusion;
 	float fogOpacity;
 	bool found;
 } sRayRecursionOut;
@@ -660,6 +661,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			recursionOut = rayStack[rayIndex].out;
 			recursionOut.specular = 0.0f;
 			recursionOut.outShadow = 0.0f;
+			recursionOut.outAmbientOcclusion = 0.0f;
 
 			sRayMarchingOut rayMarchingOut = recursionOut.rayMarchingOut;
 
@@ -820,7 +822,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				float3 outLuminosityEmissive = 0.0f;
 				objectShader =
 					ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular,
-						&iridescence, &recursionOut.outShadow, &outLuminosityEmissive, &alpha, &gradients);
+						&iridescence, &recursionOut.outShadow, &recursionOut.outAmbientOcclusion,
+						&outLuminosityEmissive, &alpha, &gradients);
 				recursionOut.specular = specular;
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
@@ -1017,6 +1020,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				rayMarchingOut.depth = 1e20f;
 				shaderInputData.normal = shaderInputData.viewVector;
 				recursionOut.outShadow = 1.0f;
+				recursionOut.outAmbientOcclusion = 1.0f;
 				recursionOut.outGlobalIllumination = 0.0f;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}

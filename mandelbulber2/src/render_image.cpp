@@ -596,6 +596,8 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 				lineOfImage[x].shadows = image->GetPixelShadows(x, y);
 			if (image->GetImageOptional()->optionalGlobalIlluination)
 				lineOfImage[x].globalIllumination = image->GetPixelGlobalIllumination(x, y);
+			if (image->GetImageOptional()->optionalAmbientOcclusion)
+				lineOfImage[x].ambientOcclusion = image->GetPixelAmbientOcclusion(x, y);
 		}
 		lineData->append(reinterpret_cast<char *>(lineOfImage.data()), CastSizeToInt(dataSize));
 	}
@@ -637,6 +639,8 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 					image->PutPixelShadows(x, y, lineOfImage[x].shadows);
 				if (image->GetImageOptional()->optionalGlobalIlluination)
 					image->PutPixelGlobalIllumination(x, y, lineOfImage[x].globalIllumination);
+				if (image->GetImageOptional()->optionalAmbientOcclusion)
+					image->PutPixelAmbientOcclusion(x, y, lineOfImage[x].ambientOcclusion);
 			}
 		}
 		else

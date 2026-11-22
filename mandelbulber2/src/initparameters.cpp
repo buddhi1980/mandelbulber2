@@ -574,6 +574,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("world_enabled", false, morphNone, paramApp);
 	par->addParam("shadow_channel_enabled", false, morphNone, paramApp);
 	par->addParam("gi_channel_enabled", false, morphNone, paramApp);
+	par->addParam("ao_channel_enabled", false, morphNone, paramApp);
 	par->addParam("not_denoised_channel_enabled", false, morphNone, paramApp);
 
 	par->addParam("color_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
@@ -593,6 +594,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		"shadow_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
 		"gi_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam(
+		"ao_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam("not_denoised_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32),
 		morphNone, paramApp);
 
@@ -606,6 +609,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("world_postfix", QString("_world"), morphNone, paramApp);
 	par->addParam("shadow_channel_postfix", QString("_shadow"), morphNone, paramApp);
 	par->addParam("gi_channel_postfix", QString("_gi"), morphNone, paramApp);
+	par->addParam("ao_channel_postfix", QString("_ao"), morphNone, paramApp);
 	par->addParam("not_denoised_channel_postfix", QString("_not_denoised"), morphNone, paramApp);
 
 	par->addParam("save_settings_with_image", true, morphNone, paramApp);

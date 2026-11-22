@@ -187,6 +187,7 @@ void cRenderWorker::doWork()
 			sRGBFloat worldPositionRGB;
 			sRGBFloat shadowsChannel;
 			sRGBFloat giChannel;
+			sRGBFloat aoChannel;
 			// Monte Carlo mode: each repeat is a DOF sample.
 			if (monteCarlo) repeats = params->DOFSamples;
 			// Anti-aliasing: each repeat is a sub-pixel sample position.
@@ -366,6 +367,9 @@ void cRenderWorker::doWork()
 					giChannel.R += recursionOut.outGlobalIllumination.R;
 					giChannel.G += recursionOut.outGlobalIllumination.G;
 					giChannel.B += recursionOut.outGlobalIllumination.B;
+					aoChannel.R += recursionOut.outAmbientOcclusion.R;
+					aoChannel.G += recursionOut.outAmbientOcclusion.G;
+					aoChannel.B += recursionOut.outAmbientOcclusion.B;
 				}
 
 				finalPixel.R = resultShader.R;
@@ -474,6 +478,9 @@ void cRenderWorker::doWork()
 					giChannel.R = giChannel.R / repeats;
 					giChannel.G = giChannel.G / repeats;
 					giChannel.B = giChannel.B / repeats;
+					aoChannel.R = aoChannel.R / repeats;
+					aoChannel.G = aoChannel.G / repeats;
+					aoChannel.B = aoChannel.B / repeats;
 				}
 				data->statistics.totalNumberOfDOFRepeats += repeats;
 				data->statistics.totalNoise += monteCarloNoise;
@@ -515,6 +522,8 @@ void cRenderWorker::doWork()
 								image->PutPixelShadows(xxx, yyy, shadowsChannel);
 							if (image->GetImageOptional()->optionalGlobalIlluination)
 								image->PutPixelGlobalIllumination(xxx, yyy, giChannel);
+							if (image->GetImageOptional()->optionalAmbientOcclusion)
+								image->PutPixelAmbientOcclusion(xxx, yyy, aoChannel);
 						}
 					}
 				}
@@ -1419,7 +1428,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				sGradientsCollection gradients;
 
 				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular,
-					&iridescence, &recursionOut.outShadow, &luminosityEmissiveOut, &gradients);
+					&iridescence, &recursionOut.outShadow, &recursionOut.outAmbientOcclusion,
+					&luminosityEmissiveOut, &gradients);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
@@ -1621,6 +1631,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				recursionOut.specular = sRGBAFloat();
 				recursionOut.outShadow = sRGBAFloat(1.0f, 1.0f, 1.0f, 1.0f);
 				recursionOut.outGlobalIllumination = sRGBFloat();
+				recursionOut.outAmbientOcclusion = sRGBFloat(1.0f, 1.0f, 1.0f);
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 				// rayStack[rayIndex].goDeeper = false;
 			}

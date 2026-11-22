@@ -135,6 +135,7 @@ public:
 	const QStringList listOfAppSettingToTransfer = {"opencl_mode", "color_enabled", "alpha_enabled",
 		"zbuffer_enabled", "normal_enabled", "normalWorld_enabled", "specular_enabled",
 		"diffuse_enabled", "world_enabled", "shadow_channel_enabled", "gi_channel_enabled",
+		"ao_channel_enabled", "ao_channel_quality", "ao_channel_postfix", // AO channel
 		"color_quality", "alpha_quality", "zbuffer_quality", "shadow_channel_quality",
 		"gi_channel_quality", "normal_postfix", "specular_postfix", "diffuse_postfix", "world_postfix",
 		"shadow_channel_postfix", "gi_channel_postfix", "append_alpha_png", "linear_colorspace",

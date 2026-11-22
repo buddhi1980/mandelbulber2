@@ -34,8 +34,8 @@
 
 float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular,
-	float3 *iridescenceOut, float3 *outShadow, float3 *outLuminosityEmissive, float *alphaOut,
-	sClGradientsCollection *gradients)
+	float3 *iridescenceOut, float3 *outShadow, float3 *outAmbientOcclusion,
+	float3 *outLuminosityEmissive, float *alphaOut, sClGradientsCollection *gradients)
 {
 	float3 color = 0.7f;
 
@@ -89,13 +89,17 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 
 	float3 AO = 0.0f;
+	// AO image channel: unoccluded (1.0) unless the AO factor is calculated here
+	*outAmbientOcclusion = 1.0f;
 	if (consts->params.ambientOcclusionEnabled)
 	{
 #ifdef AO_MODE_FAST
 		AO = FastAmbientOcclusion(consts, renderData, input, calcParam);
+		*outAmbientOcclusion = AO;
 #endif
 #ifdef AO_MODE_MULTIPLE_RAYS
 		AO = AmbientOcclusion(consts, renderData, input, calcParam);
+		*outAmbientOcclusion = AO;
 #endif
 		AO *= consts->params.ambientOcclusion * consts->params.ambientOcclusionColor;
 	}

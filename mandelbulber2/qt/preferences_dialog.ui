@@ -1265,7 +1265,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="0">
+                <item row="10" column="0">
                  <widget class="MyCheckBox" name="checkBox_not_denoised_channel_enabled">
                   <property name="toolTip">
                    <string>&lt;p&gt;Saves the image as it was before the denoiser was applied (available with Monte Carlo rendering).&lt;/p&gt;</string>
@@ -1289,6 +1289,16 @@ and will only be present after enabling and re-render.</string>
                   </property>
                   <property name="text">
                    <string>Global illumination</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0">
+                 <widget class="MyCheckBox" name="checkBox_ao_channel_enabled">
+                  <property name="toolTip">
+                   <string>Saves the ambient occlusion pass: the AO factor (white = unoccluded, darker in creases).</string>
+                  </property>
+                  <property name="text">
+                   <string>Ambient occlusion</string>
                   </property>
                  </widget>
                 </item>
@@ -1375,7 +1385,7 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="9" column="1">
+                <item row="10" column="1">
                  <widget class="MyComboBox" name="comboBox_not_denoised_channel_quality">
                   <property name="toolTip">
                    <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
@@ -1506,6 +1516,16 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="9" column="2">
+                 <widget class="MyLineEdit" name="text_ao_channel_postfix">
+                  <property name="toolTip">
+                   <string>Text appended to the file name of the saved 'ao_channel' channel image.</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                 <item row="7" column="0">
                  <widget class="MyCheckBox" name="checkBox_shadow_channel_enabled">
                   <property name="toolTip">
@@ -1570,7 +1590,29 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="9" column="2">
+                <item row="9" column="1">
+                 <widget class="MyComboBox" name="comboBox_ao_channel_quality">
+                  <property name="toolTip">
+                   <string>Bit precision of the saved image channel. Higher values increase the file size.</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>8 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>32 bit</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="10" column="2">
                  <widget class="MyLineEdit" name="text_not_denoised_channel_postfix">
                   <property name="toolTip">
                    <string>Text appended to the file name of the saved 'not_denoised_channel' channel image.</string>

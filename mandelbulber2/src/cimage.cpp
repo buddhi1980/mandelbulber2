@@ -100,6 +100,7 @@ cImage::cImage(cImage &source)
 	worldFloat = source.worldFloat;
 	shadows = source.shadows;
 	globalIllumination = source.globalIllumination;
+	ambientOcclusion = source.ambientOcclusion;
 	notDenoised = source.notDenoised;
 
 	previewAllocated = false;
@@ -155,6 +156,7 @@ bool cImage::AllocMem()
 				if (opt.optionalWorld) worldFloat.resize(width * height);
 				if (opt.optionalShadows) shadows.resize(width * height);
 				if (opt.optionalGlobalIlluination) globalIllumination.resize(width * height);
+				if (opt.optionalAmbientOcclusion) ambientOcclusion.resize(width * height);
 				if (opt.optionalNotDenoised) notDenoised.resize(width * height);
 
 				ClearImage();
@@ -265,6 +267,8 @@ void cImage::ClearImage()
 	if (opt.optionalShadows) std::fill(shadows.begin(), shadows.end(), sRGBFloat());
 	if (opt.optionalGlobalIlluination)
 		std::fill(globalIllumination.begin(), globalIllumination.end(), sRGBFloat());
+	if (opt.optionalAmbientOcclusion)
+		std::fill(ambientOcclusion.begin(), ambientOcclusion.end(), sRGBFloat());
 	if (opt.optionalNotDenoised) std::fill(notDenoised.begin(), notDenoised.end(), sRGBFloat());
 
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
@@ -300,6 +304,7 @@ void cImage::FreeImage()
 	worldFloat.clear();
 	shadows.clear();
 	globalIllumination.clear();
+	ambientOcclusion.clear();
 	notDenoised.clear();
 
 	gammaTable.clear();
@@ -438,6 +443,7 @@ int cImage::GetUsedMB() const
 	if (opt.optionalWorld) optionalChannels++;
 	if (opt.optionalShadows) optionalChannels++;
 	if (opt.optionalGlobalIlluination) optionalChannels++;
+	if (opt.optionalAmbientOcclusion) optionalChannels++;
 	if (opt.optionalNotDenoised) optionalChannels++;
 
 	optionalSize +=
@@ -1205,6 +1211,11 @@ void cImage::GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_
 				{
 					left->globalIllumination[ptrNew] = globalIllumination[ptrLeft];
 					right->globalIllumination[ptrNew] = globalIllumination[ptrRight];
+				}
+				if (opt.optionalAmbientOcclusion)
+				{
+					left->ambientOcclusion[ptrNew] = ambientOcclusion[ptrLeft];
+					right->ambientOcclusion[ptrNew] = ambientOcclusion[ptrRight];
 				}
 				if (opt.optionalNotDenoised)
 				{
