@@ -105,7 +105,13 @@ sRGBAFloat cRenderWorker::AuxShadow(
 			dist_thresh = input.distThresh;
 
 		sDistanceOut distanceOut;
-		sDistanceIn distanceIn(point2, input.distThresh, false);
+		// detailSize must follow the shadow ray threshold (like in the primary
+		// RayMarching and in the OpenCL AuxShadow). The boolean subtraction clamps
+		// the distance inside the cut-out zone to 1.5*detailSize; with the caller
+		// threshold (taken at the start point of the ray), that clamped distance
+		// could fall below dist_thresh calculated for a farther point2, and the
+		// invisible cutter object would cast a false shadow (e.g. volumetric light)
+		sDistanceIn distanceIn(point2, dist_thresh, false);
 		double dist =
 			CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data, &objectStack);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
