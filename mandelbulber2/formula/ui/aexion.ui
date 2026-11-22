@@ -224,7 +224,7 @@ Best quality Force Delta DE</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Aexion&#039;s Quadray Sets from FractalForums&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458&quot;&gt;http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;aexion001.fract&lt;br&gt;aexion002.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion01.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion02.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/aexion04.fract&lt;br&gt;...&lt;h3&gt;Code&lt;/h3&gt;</string>

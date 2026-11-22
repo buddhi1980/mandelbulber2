@@ -524,6 +524,26 @@ SIMPLE_REPLACE = [
 ]
 
 
+# fractalforums.com is only partly online (fractalforums.org has a read-only copy and the active
+# forum), so references to it are shown as text instead of links
+FRACTALFORUMS_COM = re.compile(r'(?<![\w-])fractalforums\.com(?![\w.-])', re.I)
+
+
+def is_text_reference(ref, previous_ref_is_text):
+	"""True for a fractalforums.com reference and for the lines that continue it: a long address is
+	wrapped over several comment lines, the next lines have no spaces and no scheme"""
+	if FRACTALFORUMS_COM.search(ref):
+		return True
+	continued = ref.strip()
+	return previous_ref_is_text and continued != '' and not re.search(r'\s|://', continued)
+
+
+def reference_html(ref, previous_ref_is_text):
+	if is_text_reference(ref, previous_ref_is_text):
+		return ref
+	return '<a href="' + ref + '">' + ref + '</a>'
+
+
 def update_info_boxes(index, formula, status):
 	"""update information boxes in the ui"""
 	if index == 'custom':
@@ -546,8 +566,10 @@ def update_info_boxes(index, formula, status):
 
 	if comment.get('reference'):
 		information_text += '<tr><th>Reference</th><td>'
+		previous_ref_is_text = False
 		for ref in comment['reference']:
-			information_text += '<a href="' + ref + '">' + ref + '<br>' + NL
+			information_text += reference_html(ref, previous_ref_is_text) + '<br>' + NL
+			previous_ref_is_text = is_text_reference(ref, previous_ref_is_text)
 		information_text += '</td></tr>' + NL
 	if comment.get('author'):
 		information_text += '<tr><th>Author</th><td>'

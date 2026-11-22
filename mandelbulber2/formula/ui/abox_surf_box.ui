@@ -1879,9 +1879,9 @@ offset:</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;ABoxSurfBox,&lt;br&gt;based on DarkBeam&#039;s code &quot;Mixed fold by Luca 2016&quot;.&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http:// http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/&quot;&gt;http:// http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/&lt;br&gt;
-&lt;a href=&quot;httpwww-shaperich-comproshred-elite-review/&quot;&gt;httpwww-shaperich-comproshred-elite-review/&lt;br&gt;
-&lt;a href=&quot;This formula contains aux.color and aux.actualScaleA&quot;&gt;This formula contains aux.color and aux.actualScaleA&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http:// http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/&lt;br&gt;
+httpwww-shaperich-comproshred-elite-review/&lt;br&gt;
+&lt;a href=&quot;This formula contains aux.color and aux.actualScaleA&quot;&gt;This formula contains aux.color and aux.actualScaleA&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox11_aboxSurfBox.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulbPow2_v2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

@@ -1,5 +1,5 @@
 <!--
-If you have a question rather than reporting a bug please go to http://www.fractalforums.com/mandelbulber/ where you get much faster responses.
+If you have a question rather than reporting a bug please go to https://fractalforums.org/ or https://www.facebook.com/groups/mandelbulber/ where you get much faster responses.
 
 This is a template helping you to create an issue which can be processed as quickly as possible. This is the bug reporting section for the mandelbulber2 system.
 -->

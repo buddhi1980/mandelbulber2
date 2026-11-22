@@ -721,8 +721,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;GeneralizedFoldBoxIteration - Prototype Tinker Towers&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/tinker-towers/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/tinker-towers/&lt;br&gt;
-&lt;a href=&quot;This formula contains aux.color&quot;&gt;This formula contains aux.color&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/new-theories-and-research/tinker-towers/&lt;br&gt;
+&lt;a href=&quot;This formula contains aux.color&quot;&gt;This formula contains aux.color&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

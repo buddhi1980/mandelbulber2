@@ -755,8 +755,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;RiemannSphereHobold multi powers&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/fractal-mathematics-and-new-theories/28/&quot;&gt;https://fractalforums.org/fractal-mathematics-and-new-theories/28/&lt;br&gt;
-&lt;a href=&quot;riemandelettuce-without-trigonometry/2996/msg16097#msg16097&quot;&gt;riemandelettuce-without-trigonometry/2996/msg16097#msg16097&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/fractal-mathematics-and-new-theories/28/&quot;&gt;https://fractalforums.org/fractal-mathematics-and-new-theories/28/&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;riemandelettuce-without-trigonometry/2996/msg16097#msg16097&quot;&gt;riemandelettuce-without-trigonometry/2996/msg16097#msg16097&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

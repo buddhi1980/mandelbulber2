@@ -547,7 +547,7 @@ fixed radius:</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Dual Power Mandelbox — Mandelbox with dual-power spherical folding.&lt;br&gt;Inside the inner sphere: power1 is applied.&lt;br&gt;Outside the outer sphere: power2 is applied.&lt;br&gt;Between the two radii: smooth interpolation between power1 and power2.&lt;br&gt;This creates distinct &quot;inner&quot; and &quot;outer&quot; fractal regimes in the same formula.&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;Inspired by Mandelbox (Tom Lowe, 2010) and Mandelbulb spherical power folding&quot;&gt;Inspired by Mandelbox (Tom Lowe, 2010) and Mandelbulb spherical power folding&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;Inspired by Mandelbox (Tom Lowe, 2010) and Mandelbulb spherical power folding&quot;&gt;Inspired by Mandelbox (Tom Lowe, 2010) and Mandelbulb spherical power folding&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

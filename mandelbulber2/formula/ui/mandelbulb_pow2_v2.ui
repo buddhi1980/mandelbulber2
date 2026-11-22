@@ -1627,8 +1627,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;MandelbulbPow2 v2  buffalo , Quick Dudley types and makin3D-2&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&quot;&gt;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&lt;br&gt;
-&lt;a href=&quot;and https://www.facebook.com/david.makin.7&quot;&gt;and https://www.facebook.com/david.makin.7&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&lt;br&gt;
+&lt;a href=&quot;and https://www.facebook.com/david.makin.7&quot;&gt;and https://www.facebook.com/david.makin.7&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulbPow2_v2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

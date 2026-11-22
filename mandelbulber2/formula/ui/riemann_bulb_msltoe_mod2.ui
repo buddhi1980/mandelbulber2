@@ -599,8 +599,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;RiemannBulbMsltoe Mod2&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/&lt;br&gt;
-&lt;a href=&quot;another-way-to-make-my-riemann-sphere-&#039;bulb&#039;-using-a-conformal-transformation/&quot;&gt;another-way-to-make-my-riemann-sphere-&#039;bulb&#039;-using-a-conformal-transformation/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/new-theories-and-research/&lt;br&gt;
+another-way-to-make-my-riemann-sphere-&#039;bulb&#039;-using-a-conformal-transformation/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;riemann bulb msltoe mod2 001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

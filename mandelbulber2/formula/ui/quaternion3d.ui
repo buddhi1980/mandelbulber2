@@ -475,8 +475,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Quaternion3DE - Quaternion fractal with extended controls&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation&quot;&gt;http://www.fractalforums.com/3d-fractal-generation&lt;br&gt;
-&lt;a href=&quot;/true-3d-mandlebrot-type-fractal/&quot;&gt;/true-3d-mandlebrot-type-fractal/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/3d-fractal-generation&lt;br&gt;
+/true-3d-mandlebrot-type-fractal/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;quaternion_3DE_001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

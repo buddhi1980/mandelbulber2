@@ -1261,7 +1261,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;ABoxModKaliV2, a formula from Mandelbulb3D&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v2 aa1.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v2 asurf mode.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v2 polfFoldSym.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
