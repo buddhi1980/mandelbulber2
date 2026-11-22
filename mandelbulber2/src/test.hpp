@@ -81,8 +81,8 @@ private slots:
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
-	void numberLocale() const;
 	void animatedFileName() const;
+	void numberLocale() const;
 	void ensureFileExtension() const;
 };
 
