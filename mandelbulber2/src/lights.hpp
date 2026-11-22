@@ -47,6 +47,7 @@
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
+class cRandom;
 
 // struct sLight
 //{
@@ -73,6 +74,22 @@ public:
 	int GetNumberOfLights() const { return numberOfLights; }
 	int IsAnyLightEnabled() const { return isAnyLight; };
 	static QList<int> GetListOfLights(std::shared_ptr<cParameterContainer> params);
+
+	// shape of the volume where random lights are placed (random_lights_distribution_shape)
+	enum class enumRandomLightsDistributionShape
+	{
+		cube = 0,
+		sphere = 1,
+		cylinder = 2,
+		torus = 3
+	};
+
+	// random point inside the distribution volume, relative to its centre and in units of the
+	// distribution radius. Cube: [-1, 1]^3. Sphere: unit ball. Cylinder: radius 1 around the
+	// z axis, z in [-1, 1]. Torus: ring of radius 1 around the z axis with a tube of radius
+	// torusMinorRadius. The cube uses exactly three random numbers per point.
+	static CVector3 RandomPointInDistributionVolume(
+		const cRandom &random, enumRandomLightsDistributionShape shape, double torusMinorRadius);
 
 private:
 	enum class enumRandomLightsColoringType

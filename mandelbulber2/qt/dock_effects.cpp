@@ -53,6 +53,7 @@
 #include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/lights.hpp"
 #include "src/primitives.h"
 #include "src/random.hpp"
 #include "src/render_window.hpp"
@@ -117,6 +118,8 @@ void cDockEffects::ConnectSignals() const
 
 	connect(ui->comboBox_random_lights_coloring_type, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotRandomLightColoringTypeChanged(int)));
+	connect(ui->comboBox_random_lights_distribution_shape, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotRandomLightDistributionShapeChanged(int)));
 
 	connect(ui->pushButton_clouds_randomize, &QPushButton::clicked, this,
 		&cDockEffects::slotPressedButtonCloudsRandomize);
@@ -369,6 +372,14 @@ void cDockEffects::slotRandomLightColoringTypeChanged(int index)
 	ui->colorButton_random_lights_color->setVisible(index > 0);
 	ui->label_random_lights_second_color->setVisible(index >= 2);
 	ui->colorButton_random_lights_color_2->setVisible(index >= 2);
+}
+
+void cDockEffects::slotRandomLightDistributionShapeChanged(int index)
+{
+	// the tube radius is used only by the torus shape
+	const bool torus = index == int(cLights::enumRandomLightsDistributionShape::torus);
+	ui->label_random_lights_distribution_minor_radius->setVisible(torus);
+	ui->logedit_random_lights_distribution_minor_radius->setVisible(torus);
 }
 
 void cDockEffects::slotUpdatePrimitivesCombos()

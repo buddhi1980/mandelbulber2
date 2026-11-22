@@ -45,10 +45,12 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "keyframes.hpp"
+#include "lights.hpp"
 #include "image_comparison.hpp"
 #include "netrender.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
+#include "random.hpp"
 #include "regression_test.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
@@ -466,6 +468,90 @@ void Test::renderSimple() const
 		renderJob->Execute();
 	else
 		QVERIFY2(renderJob->Execute(), "example render failed.");
+}
+
+void Test::randomLightsDistributionShape() const
+{
+	// shapes of the volume where random lights are placed (issue #941)
+	using shape = cLights::enumRandomLightsDistributionShape;
+	const int count = 5000;
+
+	// cube: the same three random numbers per light as before the shapes were added
+	{
+		cRandom random;
+		cRandom reference;
+		random.Initialize(1234);
+		reference.Initialize(1234);
+		for (int i = 0; i < count; i++)
+		{
+			const CVector3 point = cLights::RandomPointInDistributionVolume(random, shape::cube, 0.25);
+			const double x = reference.DoubleRandom(-1.0, 1.0);
+			const double y = reference.DoubleRandom(-1.0, 1.0);
+			const double z = reference.DoubleRandom(-1.0, 1.0);
+			QCOMPARE(point.x, x);
+			QCOMPARE(point.y, y);
+			QCOMPARE(point.z, z);
+		}
+	}
+
+	// other shapes: every point inside the volume, and the points fill it
+	struct sShapeCase
+	{
+		shape volumeShape;
+		double minorRadius;
+		CVector3 extent; // half size of the bounding box of the volume
+	};
+	const sShapeCase cases[] = {{shape::sphere, 0.25, CVector3(1.0, 1.0, 1.0)},
+		{shape::cylinder, 0.25, CVector3(1.0, 1.0, 1.0)},
+		{shape::torus, 0.25, CVector3(1.25, 1.25, 0.25)},
+		{shape::torus, 0.05, CVector3(1.05, 1.05, 0.05)}};
+
+	for (const sShapeCase &shapeCase : cases)
+	{
+		cRandom random;
+		random.Initialize(1234);
+		CVector3 sum(0.0, 0.0, 0.0);
+		CVector3 maxAbs(0.0, 0.0, 0.0);
+		double maxRadius = 0.0;
+		double minRadius = 1e10;
+		for (int i = 0; i < count; i++)
+		{
+			const CVector3 p = cLights::RandomPointInDistributionVolume(
+				random, shapeCase.volumeShape, shapeCase.minorRadius);
+			const double radiusXY = sqrt(p.x * p.x + p.y * p.y);
+			bool inside = false;
+			switch (shapeCase.volumeShape)
+			{
+				case shape::sphere: inside = p.Length() <= 1.0; break;
+				case shape::cylinder: inside = radiusXY <= 1.0 && fabs(p.z) <= 1.0; break;
+				case shape::torus:
+					inside = (radiusXY - 1.0) * (radiusXY - 1.0) + p.z * p.z
+									 <= shapeCase.minorRadius * shapeCase.minorRadius;
+					break;
+				default: break;
+			}
+			QVERIFY2(inside, qPrintable(QString("shape %1: point %2 %3 %4 outside the volume")
+													 .arg(int(shapeCase.volumeShape))
+													 .arg(p.x)
+													 .arg(p.y)
+													 .arg(p.z)));
+			sum += p;
+			maxAbs =
+				CVector3(qMax(maxAbs.x, fabs(p.x)), qMax(maxAbs.y, fabs(p.y)), qMax(maxAbs.z, fabs(p.z)));
+			maxRadius = qMax(maxRadius, p.Length());
+			minRadius = qMin(minRadius, p.Length());
+		}
+		// centred, and reaching close to the bounding box on every axis
+		QVERIFY((sum / count).Length() < 0.05);
+		QVERIFY(maxAbs.x > 0.9 * shapeCase.extent.x);
+		QVERIFY(maxAbs.y > 0.9 * shapeCase.extent.y);
+		QVERIFY(maxAbs.z > 0.9 * shapeCase.extent.z);
+		if (shapeCase.volumeShape == shape::torus)
+			QVERIFY(minRadius >= 1.0 - shapeCase.minorRadius); // nothing in the hole
+		else
+			QVERIFY(minRadius < 0.2); // points close to the centre as well
+		QVERIFY(maxRadius > 0.9);
+	}
 }
 
 void Test::testImageSaveWrapper() const

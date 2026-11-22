@@ -354,6 +354,10 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		"random_lights_max_distance_from_fractal", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("random_lights_distribution_radius", 3.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_distribution_shape", 0, morphNone, paramStandard,
+		QStringList({"cube", "sphere", "cylinder", "torus"}));
+	par->addParam(
+		"random_lights_distribution_minor_radius", 0.25, 1e-3, 1.0, morphLinear, paramStandard);
 	par->addParam(
 		"random_lights_distribution_center", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("random_lights_group", false, morphLinear, paramStandard);

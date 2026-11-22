@@ -79,6 +79,7 @@ private slots:
 	void testFlightWrapper() const;
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
+	void randomLightsDistributionShape() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;
 	void animatedFileName() const;
