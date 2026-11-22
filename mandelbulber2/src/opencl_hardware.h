@@ -78,7 +78,9 @@ public:
 
 	void EnableDevice(int index);
 	void DisableDevice(int index);
-	void EnableDevicesByHashList(const QString &list);
+	// reportFallback: show a warning when none of the listed devices is found and the first one
+	// is used instead
+	void EnableDevicesByHashList(const QString &list, bool reportFallback = true);
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }

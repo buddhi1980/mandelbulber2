@@ -34,6 +34,7 @@
 
 #include "opencl_hardware.h"
 
+#include <QApplication>
 #include <QCryptographicHash>
 #include <QDebug>
 #include <QSettings>
@@ -421,7 +422,7 @@ void cOpenClHardware::DisableDevice(int index)
 	clDeviceWorkers[index].Disable();
 }
 
-void cOpenClHardware::EnableDevicesByHashList(const QString &list)
+void cOpenClHardware::EnableDevicesByHashList(const QString &list, bool reportFallback)
 {
 	QStringList stringList = list.split("|");
 
@@ -454,12 +455,25 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 
 		if (selectedDevicesIndices.isEmpty())
 		{
-			QString errorMessage =
-				"No OpenCL devices selected or selected unknown devices!\n"
-				"Selected first available GPU device\n"
-				"Check program preferences to select correct OpenCL device"
-				"from list of available GPU devices";
-			cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage, nullptr);
+			// nothing is selected yet, or the selected devices are not available: use the first one
+			if (reportFallback)
+			{
+				QString message = list.isEmpty()
+														? QObject::tr("No OpenCL device is selected.")
+														: QObject::tr("The selected OpenCL devices are not available.");
+				message += "\n"
+									 + QObject::tr("Using the first available device: %1")
+											 .arg(clDeviceWorkers[0].getDeviceInformation().deviceName);
+				// without a GUI the program runs as a QCoreApplication, not a QApplication
+				if (!qobject_cast<QApplication *>(QCoreApplication::instance()))
+					message += "\n"
+										 + QObject::tr(
+											 "Use -g or -G to select GPU devices from the command line, or "
+											 "see --help-opencl to choose devices with opencl_device_list.");
+				else
+					message += "\n" + QObject::tr("Select the OpenCL devices in the program preferences.");
+				cErrorMessage::showMessage(message, cErrorMessage::warningMessage, nullptr);
+			}
 
 			EnableDevice(0);
 		}

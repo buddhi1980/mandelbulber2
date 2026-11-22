@@ -588,7 +588,8 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl(qApplication);
 	gPar->Set("opencl_enabled", true);
-	gOpenCl->InitPlatfromAndDevices();
+	// the devices are chosen or listed below, so a missing device selection is not reported
+	gOpenCl->InitPlatfromAndDevices(false);
 
 	out << QObject::tr(
 		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
@@ -1327,7 +1328,8 @@ void cCommandLineInterface::handleGpu()
 	QTextStream out(stdout);
 	gOpenCl->Reset();
 	gPar->Set("opencl_enabled", true);
-	gOpenCl->InitPlatfromAndDevices();
+	// the devices are chosen or listed below, so a missing device selection is not reported
+	gOpenCl->InitPlatfromAndDevices(false);
 
 	// print available platforms
 	const QList<cOpenClHardware::sPlatformInformation> platforms =
@@ -1364,7 +1366,8 @@ void cCommandLineInterface::handleGpuAll()
 	QTextStream out(stdout);
 	gOpenCl->Reset();
 	gPar->Set("opencl_enabled", true);
-	gOpenCl->InitPlatfromAndDevices();
+	// the devices are chosen or listed below, so a missing device selection is not reported
+	gOpenCl->InitPlatfromAndDevices(false);
 
 	// print available platforms
 	const QList<cOpenClHardware::sPlatformInformation> platforms =

@@ -73,7 +73,7 @@ void cGlobalOpenCl::Reset()
 	openclEngineRenderNebula->Reset();
 }
 
-void cGlobalOpenCl::InitPlatfromAndDevices()
+void cGlobalOpenCl::InitPlatfromAndDevices(bool reportDeviceFallback)
 {
 	if (gPar->Get<bool>("opencl_enabled"))
 	{
@@ -99,7 +99,8 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 					cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
 
 				openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
-				openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+				openClHardware->EnableDevicesByHashList(
+					gPar->Get<QString>("opencl_device_list"), reportDeviceFallback);
 
 				openClHardware->CreateAllContexts(selectedPlatformIndex, deviceType);
 			}
