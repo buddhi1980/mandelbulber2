@@ -110,6 +110,16 @@ else
 fi
 
 macdeployqt mandelbulber2.app -dmg -verbose=2
+# macdeployqt reports an hdiutil error ("create failed - Resource busy", seen on CI runners)
+# but still exits 0 and leaves no disk image; then make the image with hdiutil, a few tries
+for attempt in 1 2 3; do
+	[ -f "$BUILD/mandelbulber2.dmg" ] && break
+	echo "No disk image after macdeployqt, making it with hdiutil (try $attempt)"
+	sleep $((attempt * 10))
+	hdiutil create -volname mandelbulber2 -srcfolder mandelbulber2.app -ov -format UDZO \
+		"$BUILD/mandelbulber2.dmg" || true
+done
+[ -f "$BUILD/mandelbulber2.dmg" ] || { echo "FAIL no disk image"; exit 1; }
 
 # --------------------------------------------------------------------------
 # Checks: every program and library in the bundle
