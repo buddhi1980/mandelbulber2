@@ -83,6 +83,7 @@ typedef struct ALIGN16
 	matrix33 mRotBackgroundRotation;
 	matrix33 mRotCloudsRotation;
 	matrix33 mRotAmbientOcclusionLightMapRotation;
+	matrix33 mRotEnvMappingRotation;
 
 	// Vectors (as in OpenCL)
 	cl_float3 ambientOcclusionLightMapRotation;
@@ -90,6 +91,7 @@ typedef struct ALIGN16
 	cl_float3 cloudsCenter;
 	cl_float3 cloudsRotation;
 	cl_float3 cloudsSpeed;
+	cl_float3 envMappingRotation;
 	cl_float3 limitMin;
 	cl_float3 limitMax;
 	cl_float3 repeat;
@@ -297,11 +299,13 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
 	target.mRotAmbientOcclusionLightMapRotation =
 		toClMatrix33(source.mRotAmbientOcclusionLightMapRotation);
+	target.mRotEnvMappingRotation = toClMatrix33(source.mRotEnvMappingRotation);
 	target.ambientOcclusionLightMapRotation = toClFloat3(source.ambientOcclusionLightMapRotation);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);
 	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
+	target.envMappingRotation = toClFloat3(source.envMappingRotation);
 	target.limitMin = toClFloat3(source.limitMin);
 	target.limitMax = toClFloat3(source.limitMax);
 	target.repeat = toClFloat3(source.repeat);
