@@ -169,6 +169,7 @@ public:
 	bool useColorTexture;
 	bool useDiffusionTexture;
 	bool useLuminosityTexture;
+	bool luminosityTextureMultiply;
 	bool useDisplacementTexture;
 	bool useNormalMapTexture;
 	bool normalMapTextureFromBumpmap;

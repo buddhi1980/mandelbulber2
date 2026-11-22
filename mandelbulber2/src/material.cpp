@@ -63,6 +63,7 @@ cMaterial::cMaterial()
 	useColorTexture = false;
 	useDiffusionTexture = false;
 	useLuminosityTexture = false;
+	luminosityTextureMultiply = false;
 	useDisplacementTexture = false;
 	useNormalMapTexture = false;
 	useReflectanceTexture = false;
@@ -222,6 +223,7 @@ QStringList cMaterial::paramsList = {
 	"is_defined",
 	"luminosity_color",
 	"luminosity_texture_intensity",
+	"luminosity_texture_multiply",
 	"luminosity",
 	"luminosity_emissive",
 	"metallic",
@@ -404,6 +406,7 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	colorTextureIntensity = materialParam->Get<float>(Name("color_texture_intensity", id));
 	diffusionTextureIntensity = materialParam->Get<float>(Name("diffusion_texture_intensity", id));
 	luminosityTextureIntensity = materialParam->Get<float>(Name("luminosity_texture_intensity", id));
+	luminosityTextureMultiply = materialParam->Get<bool>(Name("luminosity_texture_multiply", id));
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
 	reflectanceTextureIntensity =

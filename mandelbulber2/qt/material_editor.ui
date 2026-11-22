@@ -3796,7 +3796,7 @@ direction vector:</string>
               <number>2</number>
              </property>
              <item>
-              <layout class="QGridLayout" name="gridLayout_96" rowstretch="0,0" columnstretch="0,0,1">
+              <layout class="QGridLayout" name="gridLayout_96" rowstretch="0,0,0" columnstretch="0,0,1">
                <property name="spacing">
                 <number>2</number>
                </property>
@@ -3852,6 +3852,16 @@ direction vector:</string>
                  </property>
                  <property name="singleStep">
                   <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="3">
+                <widget class="MyCheckBox" name="checkBox_luminosity_texture_multiply">
+                 <property name="toolTip">
+                  <string>&lt;p&gt;Multiply mode: the luminosity texture is multiplied with the luminosity color (or the luminosity gradient) instead of being added to it, so the texture masks the luminosity. Texture intensity blends between no masking (0) and full masking (1), as for the color texture.&lt;/p&gt;</string>
+                 </property>
+                 <property name="text">
+                  <string>Multiply texture with luminosity color / gradient</string>
                  </property>
                 </widget>
                </item>
@@ -6212,6 +6222,7 @@ rotation:</string>
   <tabstop>vect4_fractal_coloring_line_direction_z</tabstop>
   <tabstop>spinbox_color_texture_intensity</tabstop>
   <tabstop>spinbox_luminosity_texture_intensity</tabstop>
+  <tabstop>checkBox_luminosity_texture_multiply</tabstop>
   <tabstop>spinbox_diffusion_texture_intensity</tabstop>
   <tabstop>checkBox_normal_map_texture_from_bumpmap</tabstop>
   <tabstop>checkBox_normal_map_texture_invert_green</tabstop>
