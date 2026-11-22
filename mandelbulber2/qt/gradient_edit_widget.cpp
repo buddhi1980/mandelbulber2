@@ -588,6 +588,8 @@ void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 	menu->addSeparator();
 	QAction *actionClear = menu->addAction(tr("Delete all colors"));
 	QAction *actionChangeNumberOfColors = menu->addAction(tr("Change number of colors ..."));
+	QAction *actionShiftHue = nullptr;
+	if (!grayscale) actionShiftHue = menu->addAction(tr("Shift hue ..."));
 	QAction *actionGrabColors = menu->addAction(tr("Grab colors from image ..."));
 	QAction *actionLoad = menu->addAction(tr("Load colors from file ..."));
 	QAction *actionSave = menu->addAction(tr("Save colors to file ..."));
@@ -602,6 +604,7 @@ void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 		if (selectedItem == actionRemoveColor) RemoveColor(event);
 		if (selectedItem == actionClear) Clear();
 		if (selectedItem == actionChangeNumberOfColors) ChangeNumberOfColors();
+		if (actionShiftHue && selectedItem == actionShiftHue) ShiftHueDialog();
 		if (selectedItem == actionGrabColors) GrabColors();
 		if (selectedItem == actionLoad) LoadColors();
 		if (selectedItem == actionSave) SaveColors();
@@ -715,6 +718,33 @@ void cGradientEditWidget::pressedButtonInvert()
 		color.G = qBound(0, 255 - color.G, 255);
 		color.B = qBound(0, 255 - color.B, 255);
 
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::ShiftHueDialog()
+{
+	bool ok;
+	double degrees = QInputDialog::getDouble(this, tr("Shift hue"),
+		tr("Shift hue of all colors in gradient (degrees):"), 0.0, -180.0, 180.0, 1, &ok);
+	if (ok) ShiftHue(degrees);
+}
+
+void cGradientEditWidget::ShiftHue(double degrees)
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		QColor qColor(color.R, color.G, color.B);
+		if (qColor.hsvHue() >= 0) // grey colors have no hue and stay unchanged
+		{
+			double hue = fmod(qColor.hsvHueF() + degrees / 360.0, 1.0);
+			if (hue < 0.0) hue += 1.0;
+			qColor.setHsvF(hue, qColor.hsvSaturationF(), qColor.valueF());
+			color = sRGB(qColor.red(), qColor.green(), qColor.blue());
+		}
 		gradient.ModifyColor(i, color);
 		if (i == 1) gradient.ModifyColor(0, color);
 	}

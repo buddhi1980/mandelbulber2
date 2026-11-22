@@ -779,6 +779,43 @@ void DeleteOldChache(const QString &directoryPath, int maxDays)
 	}
 }
 
+// deletes files (not subfolders) from directoryPath whose modification time is more than
+// maxSeconds ago. Returns number of deleted files. Used for NetRender cache (issue #766), where
+// the modification time is updated with MarkFileAsUsed() every time a cached file is reused.
+int DeleteFilesNotUsedFor(const QString &directoryPath, qint64 maxSeconds)
+{
+	int counter = 0;
+	QDir dir(directoryPath);
+	if (!dir.exists()) return 0;
+
+	const QDateTime oldestAllowed = QDateTime::currentDateTime().addSecs(-maxSeconds);
+	QDirIterator it(directoryPath, QDir::Files | QDir::Hidden);
+	while (it.hasNext())
+	{
+		QString filePath = it.next();
+		if (QFileInfo(filePath).lastModified() < oldestAllowed)
+		{
+			if (QFile::remove(filePath))
+			{
+				WriteLog(QString("Removed unused cache file %1").arg(filePath), 2);
+				counter++;
+			}
+		}
+	}
+	return counter;
+}
+
+// sets file modification time to current time, so DeleteFilesNotUsedFor() treats it as used
+void MarkFileAsUsed(const QString &filePath)
+{
+	QFile file(filePath);
+	if (file.open(QIODevice::ReadWrite))
+	{
+		file.setFileTime(QDateTime::currentDateTime(), QFileDevice::FileModificationTime);
+		file.close();
+	}
+}
+
 bool PutClangFormatFileToDataDirectoryHidden()
 {
 	QFile file(systemDirectories.GetDataDirectoryHidden() + "/.clang-format");

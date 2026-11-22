@@ -99,6 +99,8 @@ CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution) const
 			newResolution.y = resolution.y * 2;
 			break;
 		case stereoRedCyan: newResolution = resolution; break;
+		case stereoLeftEyeOnly:
+		case stereoRightEyeOnly: newResolution = resolution; break;
 	}
 	return newResolution;
 }
@@ -118,6 +120,8 @@ CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint) const
 			newImagePoint.x = imagePoint.x;
 			break;
 		case stereoRedCyan: newImagePoint = imagePoint; break;
+		case stereoLeftEyeOnly:
+		case stereoRightEyeOnly: newImagePoint = imagePoint; break;
 	}
 	return newImagePoint;
 }
@@ -131,6 +135,9 @@ cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint) const
 		case stereoLeftRight: eye = imagePoint.x >= 0.0 ? eyeLeft : eyeRight; break;
 		case stereoTopBottom: eye = imagePoint.y >= 0.0 ? eyeLeft : eyeRight; break;
 		case stereoRedCyan: eye = eyeLeft; break;
+		// eyeRight is the view shown on the left half of a left-right image
+		case stereoLeftEyeOnly: eye = eyeRight; break;
+		case stereoRightEyeOnly: eye = eyeLeft; break;
 	}
 	return eye;
 }
@@ -145,6 +152,8 @@ double cStereo::ModifyAspectRatio(double aspectRatio) const
 		case stereoLeftRight: newAspectRatio = aspectRatio * 0.5; break;
 		case stereoTopBottom: newAspectRatio = aspectRatio * 2.0; break;
 		case stereoRedCyan: newAspectRatio = aspectRatio; break;
+		case stereoLeftEyeOnly:
+		case stereoRightEyeOnly: newAspectRatio = aspectRatio; break;
 	}
 	return newAspectRatio;
 }
@@ -195,7 +204,11 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye) cons
 			else
 				region = cRegion<int>(0, imageResolution.y / 2, imageResolution.x, imageResolution.y);
 			break;
-		case stereoRedCyan: region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y); break;
+		case stereoRedCyan:
+		case stereoLeftEyeOnly:
+		case stereoRightEyeOnly:
+			region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y);
+			break;
 	}
 	return region;
 }
