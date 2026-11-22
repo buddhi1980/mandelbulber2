@@ -55,6 +55,8 @@ public:
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
 	void UpdateScriptAppearance(bool hasScript) override;
+	// default for a spin box without a parameter container (used by "reset to default")
+	void SetDefaultValue(double value) { defaultValue = value; }
 
 private:
 	double GetDefault();
