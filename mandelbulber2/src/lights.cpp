@@ -117,6 +117,10 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 		double maxDistanceFromFractal = _params->Get<double>("random_lights_max_distance_from_fractal");
 		CVector3 randomLightsCenter = _params->Get<CVector3>("random_lights_distribution_center");
 		double distributionRadius = _params->Get<double>("random_lights_distribution_radius");
+		enumRandomLightsDistributionShape distributionShape =
+			enumRandomLightsDistributionShape(_params->Get<int>("random_lights_distribution_shape"));
+		double distributionMinorRadius =
+			_params->Get<double>("random_lights_distribution_minor_radius");
 		sRGBFloat commonColor = toRGBFloat(_params->Get<sRGB>("random_lights_color"));
 		sRGBFloat commonColor2 = toRGBFloat(_params->Get<sRGB>("random_lights_color_2"));
 		float lightsIntensity = _params->Get<double>("random_lights_intensity");
@@ -150,10 +154,8 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			// try random positioning of light, until distance to surface satisfies
 			while (distance <= 0 || distance >= maxDistanceFromFractal * radiusMultiplier)
 			{
-				CVector3 rv;
-				rv.x = random.DoubleRandom(-1.0, 1.0);
-				rv.y = random.DoubleRandom(-1.0, 1.0);
-				rv.z = random.DoubleRandom(-1.0, 1.0);
+				CVector3 rv =
+					RandomPointInDistributionVolume(random, distributionShape, distributionMinorRadius);
 				position = randomLightsCenter + rv * distributionRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
@@ -238,6 +240,44 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	lightsReady = true;
 
 	WriteLog("Preparation of lights finished", 2);
+}
+
+CVector3 cLights::RandomPointInDistributionVolume(
+	const cRandom &random, enumRandomLightsDistributionShape shape, double torusMinorRadius)
+{
+	// a box enclosing the shape, which is sampled until the point is inside the shape
+	CVector3 boxSize(1.0, 1.0, 1.0);
+	const double minorRadius = max(torusMinorRadius, 1e-3);
+	if (shape == enumRandomLightsDistributionShape::torus)
+	{
+		boxSize = CVector3(1.0 + minorRadius, 1.0 + minorRadius, minorRadius);
+	}
+
+	CVector3 point;
+	for (int trial = 0; trial < 100000; trial++)
+	{
+		point.x = random.DoubleRandom(-1.0, 1.0) * boxSize.x;
+		point.y = random.DoubleRandom(-1.0, 1.0) * boxSize.y;
+		point.z = random.DoubleRandom(-1.0, 1.0) * boxSize.z;
+
+		bool inside = true;
+		switch (shape)
+		{
+			case enumRandomLightsDistributionShape::sphere: inside = point.Length() <= 1.0; break;
+			case enumRandomLightsDistributionShape::cylinder:
+				inside = point.x * point.x + point.y * point.y <= 1.0;
+				break;
+			case enumRandomLightsDistributionShape::torus:
+			{
+				double ring = sqrt(point.x * point.x + point.y * point.y) - 1.0;
+				inside = ring * ring + point.z * point.z <= minorRadius * minorRadius;
+				break;
+			}
+			default: break;
+		}
+		if (inside) break;
+	}
+	return point;
 }
 
 const cLight *cLights::GetLight(const int index) const

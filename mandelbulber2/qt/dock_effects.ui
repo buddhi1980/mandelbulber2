@@ -4444,21 +4444,21 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="10" column="0">
+                <item row="12" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity_3">
                   <property name="text">
                    <string>Visibility:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="label_random_lights_center_of_distribution">
                   <property name="text">
                    <string>Center of distribution:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="2">
+                <item row="10" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_intensity">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Per‑light brightness for auto‑generated random lights.&lt;/p&gt;&lt;p&gt;Does not depend on “Number of random lights” — adding more lights does not auto‑scale intensity. Increase for brighter illumination; very high values can cause overexposure. Adjust together with Visibility and Size for desired look.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -4472,7 +4472,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0">
+                <item row="10" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity">
                   <property name="text">
                    <string>Intensity:</string>
@@ -4487,14 +4487,14 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="14" column="0">
+                <item row="16" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity_5">
                   <property name="text">
                    <string>Coloring type:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="2">
+                <item row="7" column="2">
                  <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4507,21 +4507,21 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="15" column="0">
+                <item row="17" column="0">
                  <widget class="QLabel" name="label_random_lights_first_color">
                   <property name="text">
                    <string>First color:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="0">
+                <item row="11" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity_2">
                   <property name="text">
                    <string>Size:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="0">
+                <item row="13" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity_4">
                   <property name="text">
                    <string>Soft shadow cone:</string>
@@ -4535,7 +4535,7 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="14" column="2">
+                <item row="16" column="2">
                  <widget class="MyComboBox" name="comboBox_random_lights_coloring_type">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose how auto‑generated random lights are colored.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Random colors&lt;/span&gt; — each light gets a random color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Single color&lt;/span&gt; — all lights use the First color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Two colors&lt;/span&gt; — each light randomly uses the First or Second color.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Two colors based on distance&lt;/span&gt; — color blends between First and Second color based on the light’s distance to the fractal surface (closer → First, farther → Second).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -4594,7 +4594,7 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="7" column="1">
                  <widget class="QLabel" name="label_distribution_y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -4607,7 +4607,7 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="0" colspan="3">
+                <item row="14" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_random_lights_cast_shadows">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4623,7 +4623,7 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="8" column="1">
                  <widget class="QLabel" name="label_distribution_z">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -4644,7 +4644,7 @@ lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="0" colspan="3">
+                <item row="9" column="0" colspan="3">
                  <widget class="QPushButton" name="pushButton_place_random_lights_by_mouse">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4660,7 +4660,7 @@ lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="16" column="0">
+                <item row="18" column="0">
                  <widget class="QLabel" name="label_random_lights_second_color">
                   <property name="text">
                    <string>Second color:</string>
@@ -4670,11 +4670,59 @@ lights:</string>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of the area around the Center of distribution where auto-generated random lights are placed (±radius along X/Y/Z).&lt;/p&gt;&lt;p&gt;Increase to spread lights wider; decrease to cluster them near the center. Works with “Maximum distance from fractal” to keep lights near the surface. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of the area around the Center of distribution where auto-generated random lights are placed. For the cube it is ±radius along X/Y/Z; for the sphere and cylinder it is their radius; for the torus it is the radius of its ring.&lt;/p&gt;&lt;p&gt;Increase to spread lights wider; decrease to cluster them near the center. Works with “Maximum distance from fractal” to keep lights near the surface. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_random_lights_distribution_shape">
+                  <property name="text">
+                   <string>Distribution shape:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="2">
+                 <widget class="MyComboBox" name="comboBox_random_lights_distribution_shape">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shape of the volume around the Center of distribution where auto-generated random lights are placed.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Cube&lt;/span&gt; — ±Distribution radius along X/Y/Z.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Sphere&lt;/span&gt; — a ball with the Distribution radius.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Cylinder&lt;/span&gt; — Distribution radius around the Z axis, ±Distribution radius along Z.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Torus&lt;/span&gt; — a ring with the Distribution radius in the XY plane, around the Z axis. The thickness of its tube is set by Torus tube radius.&lt;/p&gt;&lt;p&gt;Lights are still only placed within Maximum distance from fractal.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Cube</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sphere</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Cylinder</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Torus</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_random_lights_distribution_minor_radius">
+                  <property name="text">
+                   <string>Torus tube radius:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_minor_radius">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of the tube of the torus distribution shape, as a fraction of the Distribution radius (0.001–1).&lt;/p&gt;&lt;p&gt;Used only when Distribution shape is Torus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
                  <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_x">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4695,7 +4743,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="2">
+                <item row="8" column="2">
                  <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_z">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4708,7 +4756,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="6" column="1">
                  <widget class="QLabel" name="label_distribution_x">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -4721,14 +4769,14 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="2">
+                <item row="13" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Soft shadow cone angle for auto‑generated random lights (degrees).&lt;/p&gt;&lt;p&gt;Sets the angular radius used by Monte Carlo soft‑shadow sampling. 0 = hard, crisp shadows; higher values produce softer, blurrier shadows.&lt;/p&gt;&lt;p&gt;Effective when “Cast shadows” is on, and “Calculate MC soft shadows” is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="13" column="0" colspan="3">
+                <item row="15" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_random_lights_penetrating">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4744,21 +4792,21 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
+                <item row="11" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_size">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Emitter size (radius) of each auto‑generated random light.&lt;/p&gt;&lt;p&gt;Larger values behave more like area lights, producing softer shadows and broader highlights; smaller values approach point lights with sharper shadows. Very large sizes can flatten contrast.&lt;/p&gt;&lt;p&gt;Effective when “Random lights group” is enabled. Default: 0.1.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="2">
+                <item row="12" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_visibility">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of the visible light source (glow/halo) for each auto‑generated random light.&lt;/p&gt;&lt;p&gt;Affects only how strongly the emitter itself is drawn on screen; it does not change scene illumination (use “Intensity” for that). Works together with “Size” to define the halo’s radius. Not used for directional lights.&lt;/p&gt;&lt;p&gt;Higher values make brighter, more noticeable bulbs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="16" column="2">
+                <item row="18" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color_2" native="true">
                   <property name="toolTip">
                    <string>&lt;p&gt;Second color of the random lights. Used only when the coloring type is '&lt;i&gt;Two colors&lt;/i&gt;' or '&lt;i&gt;Two colors based on distance&lt;/i&gt;'.&lt;/p&gt;</string>
@@ -4768,7 +4816,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="15" column="2">
+                <item row="17" column="2">
                  <widget class="MyColorButton" name="colorButton_random_lights_color" native="true">
                   <property name="toolTip">
                    <string>&lt;p&gt;First color of the auto-generated random lights. Used by all lights for the '&lt;i&gt;Single color&lt;/i&gt;' type and as the first of two colors for the remaining colored types.&lt;/p&gt;</string>
@@ -5889,6 +5937,8 @@ of lights:</string>
   <tabstop>spinboxInt_random_lights_random_seed</tabstop>
   <tabstop>logedit_random_lights_max_distance_from_fractal</tabstop>
   <tabstop>logedit_random_lights_distribution_radius</tabstop>
+  <tabstop>comboBox_random_lights_distribution_shape</tabstop>
+  <tabstop>logedit_random_lights_distribution_minor_radius</tabstop>
   <tabstop>vect3_random_lights_distribution_center_x</tabstop>
   <tabstop>vect3_random_lights_distribution_center_y</tabstop>
   <tabstop>vect3_random_lights_distribution_center_z</tabstop>
