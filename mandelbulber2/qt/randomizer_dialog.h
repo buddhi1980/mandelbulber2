@@ -103,6 +103,7 @@ private:
 
 	void Randomize(enimRandomizeStrength strength);
 	void InitParameterContainers();
+	void FitPreviewsToScreen();
 	void RefreshReferenceImage();
 	void RefreshReferenceSkyImage();
 	void CalcReferenceNoise();
