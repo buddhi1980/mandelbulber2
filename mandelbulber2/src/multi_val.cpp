@@ -101,6 +101,15 @@ enumVarType cMultiVal::Store(const QString &val)
 				dVal[i] = QLocale::system().toDouble(split[i]);
 				iVal[i] = split[i].toInt();
 			}
+			// components missing in the text (e.g. a vector stored earlier as a single number) are zero
+			if (type == typeVector3 || type == typeVector4)
+			{
+				for (int i = size; i < 4; i++)
+				{
+					dVal[i] = 0.0;
+					iVal[i] = 0;
+				}
+			}
 			break;
 		}
 		case typeInt:
