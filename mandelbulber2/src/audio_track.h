@@ -36,7 +36,9 @@
 #define MANDELBULBER2_SRC_AUDIO_TRACK_H_
 
 #include <memory>
+#include <vector>
 
+#include <QAudioBuffer>
 #include <QAudioDecoder>
 #include <QObject>
 
@@ -74,6 +76,9 @@ public:
 	void smoothFilter(double strength);
 	void binaryFilter(double thresh, int length);
 	float *getRawAudio();
+
+	// appends the samples of a decoded buffer as mono floats (channels are averaged)
+	static void AppendMonoSamples(const QAudioBuffer &buffer, std::vector<float> &samples);
 
 private slots:
 	void slotReadBuffer();

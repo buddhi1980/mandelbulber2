@@ -39,6 +39,7 @@
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
+#include "audio_track.h"
 #include "cimage.hpp"
 #include "files.h"
 #include "headless.h"
@@ -664,6 +665,48 @@ void Test::renderImageSave() const
 			}
 		}
 	}
+}
+
+void Test::audioBufferToMono() const
+{
+	// cAudioTrack reads QAudioDecoder buffers in whatever format the decoder delivers
+	if (IsBenchmarking()) return;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	QSKIP("needs Qt 6 sample formats");
+#else
+	auto makeBuffer = [](QAudioFormat::SampleFormat sampleFormat, int channels, const auto &values)
+	{
+		QAudioFormat format;
+		format.setSampleFormat(sampleFormat);
+		format.setChannelCount(channels);
+		format.setSampleRate(48000);
+		const QByteArray data(
+			reinterpret_cast<const char *>(values.data()), int(values.size() * sizeof(values[0])));
+		return QAudioBuffer(data, format);
+	};
+
+	// two frames per buffer, expected mono values 0.5 and -0.25
+	const std::vector<float> expected = {0.5f, -0.25f};
+	const std::vector<qint16> int16Stereo = {16384, 16384, 0, -16384};
+	const std::vector<float> floatStereo = {1.0f, 0.0f, -0.25f, -0.25f};
+	const std::vector<quint8> uint8Mono = {192, 96};
+	const std::vector<qint32> int32Mono = {1073741824, -536870912};
+	const std::vector<QAudioBuffer> buffers = {makeBuffer(QAudioFormat::Int16, 2, int16Stereo),
+		makeBuffer(QAudioFormat::Float, 2, floatStereo), makeBuffer(QAudioFormat::UInt8, 1, uint8Mono),
+		makeBuffer(QAudioFormat::Int32, 1, int32Mono)};
+
+	std::vector<float> samples;
+	for (const QAudioBuffer &buffer : buffers)
+	{
+		cAudioTrack::AppendMonoSamples(buffer, samples);
+	}
+	QCOMPARE(samples.size(), buffers.size() * expected.size());
+	for (size_t i = 0; i < samples.size(); i++)
+	{
+		QVERIFY2(qAbs(samples[i] - expected[i % expected.size()]) < 1e-3f,
+			qPrintable(QString("sample %1 is %2").arg(i).arg(samples[i])));
+	}
+#endif
 }
 
 void Test::regressionScenesWrapper() const

@@ -100,6 +100,7 @@ Source: "{#MyQtBinDir}\..\plugins\platforms\*.dll"; Excludes: "*.pdb, *d.dll"; D
 Source: "{#MyQtBinDir}\..\plugins\platforms\qdirect2d.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\iconengines\qsvgicon.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\imageformats\*.dll"; Excludes: "*.pdb, *d.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+Source: "{#MyQtBinDir}\..\plugins\multimedia\windowsmediaplugin.dll"; DestDir: "{app}\multimedia"; Flags: ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "System\CurrentControlSet\Control\GraphicsDrivers"; ValueType: dword; ValueName: "TdrLevel"; ValueData: $00000000

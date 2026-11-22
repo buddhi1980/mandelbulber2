@@ -81,6 +81,7 @@ private slots:
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
+	void audioBufferToMono() const;
 	void regressionScenesWrapper() const;
 	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
