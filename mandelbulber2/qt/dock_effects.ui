@@ -513,6 +513,16 @@
                </layout>
               </item>
               <item>
+               <widget class="MyCheckBox" name="checkBox_DOF_save_without_dof">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When the image or animation frames are saved, also save the image from before the DOF effect was applied, with &amp;quot;_nodof&amp;quot; added to the file name (only the color and alpha channels).&lt;/p&gt;&lt;p&gt;Post filters applied after DOF (HDR blur, chromatic aberration) are applied to both images.&lt;/p&gt;&lt;p&gt;Not available for the Monte Carlo DOF and for red-cyan stereoscopic images. Needs additional memory for a copy of the image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Also save image without DOF</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton_DOF_update">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">

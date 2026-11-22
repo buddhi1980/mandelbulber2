@@ -746,6 +746,15 @@ void RenderWindow::slotMenuSaveImagePNG16()
 			ImageFileSave::ImageNameWithoutExtension(filename), gMainInterface->mainImage, imageConfig);
 		imageSaver.SetAppendAlphaCustom(false);
 		imageSaver.SaveImage();
+		SaveImageWithoutDof(gMainInterface->mainImage,
+			[&](const QString &postfix)
+			{
+				ImageFileSavePNG imageSaverWithoutDof(
+					ImageFileSave::ImageNameWithoutExtension(filename) + postfix, gMainInterface->mainImage,
+					imageConfig);
+				imageSaverWithoutDof.SetAppendAlphaCustom(false);
+				return imageSaverWithoutDof.SaveImage();
+			});
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
@@ -779,6 +788,15 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 			ImageFileSave::ImageNameWithoutExtension(filename), gMainInterface->mainImage, imageConfig);
 		imageSaver.SetAppendAlphaCustom(true);
 		imageSaver.SaveImage();
+		SaveImageWithoutDof(gMainInterface->mainImage,
+			[&](const QString &postfix)
+			{
+				ImageFileSavePNG imageSaverWithoutDof(
+					ImageFileSave::ImageNameWithoutExtension(filename) + postfix, gMainInterface->mainImage,
+					imageConfig);
+				imageSaverWithoutDof.SetAppendAlphaCustom(true);
+				return imageSaverWithoutDof.SaveImage();
+			});
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
