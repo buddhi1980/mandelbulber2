@@ -79,6 +79,7 @@
 #include <QApplication>
 #include <QElapsedTimer>
 #include <QFileInfo>
+#include <QLocale>
 #include <QRegularExpression>
 #include <QThread>
 
@@ -89,6 +90,8 @@
 
 using namespace std;
 
+QLocale UnambiguousNumberLocale(
+	const QLocale &locale, const QString &decimalPoint, const QString &groupSeparator);
 bool InitSystem();
 void handle_winch(int sig);
 int get_cpu_count();

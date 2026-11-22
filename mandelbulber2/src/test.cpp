@@ -46,6 +46,7 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "image_comparison.hpp"
+#include "multi_val.hpp"
 #include "netrender.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
@@ -53,6 +54,7 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
@@ -651,6 +653,56 @@ void Test::regressionScenes() const
 				QString("regression scene %1 is not a valid render: %2").arg(scene.name, validity.reason)));
 
 		image.save(testFolder() + QDir::separator() + scene.name + ".png", "PNG");
+	}
+}
+
+void Test::numberLocale() const
+{
+	// when the decimal point is the same as the group separator (possible with user overrides in
+	// Windows regional settings) the standard number format of the same language is used (issue #976)
+	const QLocale german(QLocale::German, QLocale::Germany);
+	QCOMPARE(UnambiguousNumberLocale(german, ",", "."), german);
+	const QLocale fallback = UnambiguousNumberLocale(german, ".", ".");
+	QVERIFY(fallback.decimalPoint() != fallback.groupSeparator());
+	QCOMPARE(fallback.language(), QLocale::German);
+
+	// numbers are parsed back to the same values in every locale
+	struct sRestoreDefaultLocale
+	{
+		QLocale locale;
+		~sRestoreDefaultLocale() { QLocale::setDefault(locale); }
+	} restoreDefaultLocale;
+	const double values[] = {0.5, -1234567.875, 1e-15, 3.14159265358979, 12345678901234.0};
+	for (QLocale locale : {QLocale::c(), german, QLocale(QLocale::French, QLocale::France),
+				 QLocale(QLocale::English, QLocale::UnitedStates)})
+	{
+		locale.setNumberOptions(QLocale::OmitGroupSeparator);
+		QLocale::setDefault(locale);
+		for (double value : values)
+		{
+			cMultiVal written;
+			written.Store(value);
+			QString text;
+			written.Get(text);
+			cMultiVal parsed;
+			parsed.Store(0.0);
+			parsed.Store(text);
+			double parsedValue;
+			parsed.Get(parsedValue);
+			QVERIFY2(parsedValue == value,
+				qPrintable(QString("%1: %2 parsed as %3").arg(locale.name(), text).arg(parsedValue)));
+		}
+		cMultiVal writtenVector;
+		writtenVector.Store(CVector3(0.25, -1e-15, 1234567.5));
+		QString text;
+		writtenVector.Get(text);
+		cMultiVal parsedVector;
+		parsedVector.Store(CVector3());
+		parsedVector.Store(text);
+		CVector3 vector;
+		parsedVector.Get(vector);
+		QVERIFY2(vector == CVector3(0.25, -1e-15, 1234567.5),
+			qPrintable(QString("%1: %2 parsed wrong").arg(locale.name(), text)));
 	}
 }
 

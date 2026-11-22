@@ -64,10 +64,30 @@
 sSystem systemData;
 sActualFileNames actualFileNames;
 
+QLocale UnambiguousNumberLocale(
+	const QLocale &locale, const QString &decimalPoint, const QString &groupSeparator)
+{
+	// User overrides (e.g. in Windows regional settings) can make the decimal point equal to the
+	// group separator. Numbers cannot be parsed back then, so use the standard number format of the
+	// same language and territory, or the C locale if that one is ambiguous too
+	if (decimalPoint != groupSeparator) return locale;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
+	QLocale standardLocale(locale.language(), locale.territory());
+#else
+	QLocale standardLocale(locale.language(), locale.country());
+#endif
+	if (standardLocale.decimalPoint() != standardLocale.groupSeparator()) return standardLocale;
+
+	return QLocale::c();
+}
+
 bool InitSystem()
 {
 	setlocale(LC_ALL, "");
-	systemData.locale = QLocale::system();
+	const QLocale systemLocale = QLocale::system();
+	systemData.locale = UnambiguousNumberLocale(
+		systemLocale, systemLocale.decimalPoint(), systemLocale.groupSeparator());
 	systemData.locale.setNumberOptions(QLocale::OmitGroupSeparator);
 	QLocale::setDefault(systemData.locale);
 
@@ -255,9 +275,16 @@ bool InitSystem()
 	systemData.lastGradientFile = QDir::toNativeSeparators(
 		systemDirectories.GetGradientsFolder() + QDir::separator() + "colors.gradient");
 
-	QLocale systemLocale = QLocale::system();
-	systemData.decimalPoint = systemLocale.decimalPoint();
+	// numbers are written and parsed with the same locale
+	systemData.decimalPoint = systemData.locale.decimalPoint();
 	WriteLogString("Decimal point", QString(systemData.decimalPoint), 2);
+	if (systemLocale.decimalPoint() == systemLocale.groupSeparator())
+	{
+		WriteLogString(
+			"Decimal point and group separator of system locale are the same. Using number "
+			"format of locale",
+			systemData.locale.name(), 1);
+	}
 
 	systemData.supportedLanguages.insert("en_EN", "English");
 	systemData.supportedLanguages.insert("pl_PL", "Polski");
