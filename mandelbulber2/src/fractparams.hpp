@@ -79,6 +79,7 @@ struct sParamRender
 	CRotationMatrix mRotBackgroundRotation;
 	CRotationMatrix mRotCloudsRotation;
 	CRotationMatrix mRotAmbientOcclusionLightMapRotation;
+	CRotationMatrix mRotEnvMappingRotation;
 
 	// Vectors (as in OpenCL)
 	CVector3 ambientOcclusionLightMapRotation;
@@ -86,6 +87,7 @@ struct sParamRender
 	CVector3 cloudsCenter;
 	CVector3 cloudsRotation;
 	CVector3 cloudsSpeed;
+	CVector3 envMappingRotation;
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 repeat;

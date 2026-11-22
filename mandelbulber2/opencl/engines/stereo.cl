@@ -128,6 +128,15 @@ int StereoWhichEye(float2 imagePoint)
 	eye = imagePoint.y >= 0.0f ? 0 : 1;
 #endif
 
+// eye 1 is the view shown on the left half of a left-right image
+#ifdef STEREO_LEFTEYEONLY
+	eye = 1;
+#endif
+
+#ifdef STEREO_RIGHTEYEONLY
+	eye = 0;
+#endif
+
 	return eye;
 }
 

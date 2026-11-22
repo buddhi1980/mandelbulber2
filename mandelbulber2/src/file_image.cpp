@@ -1234,6 +1234,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 		if (!info_ptr) throw QString("[write_png_file] png_create_info_struct failed");
 
 		if (!PngInitIo(png_ptr, fp)) throw QString("[write_png_file] Error during init_io");
+		png_set_compression_level(png_ptr, gPar->Get<int>("png_compression_level"));
 
 		if (imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_8
 				&& imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_16)
@@ -1555,6 +1556,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		if (!info_ptr) throw QString("[write_png_file] png_create_info_struct failed");
 
 		if (!PngInitIo(png_ptr, fp)) throw QString("[write_png_file] Error during init_io");
+		png_set_compression_level(png_ptr, gPar->Get<int>("png_compression_level"));
 
 		/* write header */
 		if (!PngWriteHeader(
@@ -1636,6 +1638,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 		fclose(fp);
 		return;
 	}
+	png_set_compression_level(png_ptr, gPar->Get<int>("png_compression_level"));
 
 	/* write header */
 	if (!PngWriteHeader(png_ptr, info_ptr, png_uint_32(width * tiles), png_uint_32(height * tiles),

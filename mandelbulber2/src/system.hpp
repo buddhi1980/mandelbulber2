@@ -95,6 +95,8 @@ int get_cpu_count();
 bool CreateDefaultFolders();
 void ClearNetRenderCache();
 void DeleteOldChache(const QString &directoryPath, int days);
+int DeleteFilesNotUsedFor(const QString &directoryPath, qint64 maxSeconds);
+void MarkFileAsUsed(const QString &filePath);
 bool CreateFolder(const QString &name);
 void DeleteAllFilesFromDirectory(
 	const QString &folder, QString filterExpression, bool useWildcart = true);

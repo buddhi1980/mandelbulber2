@@ -133,14 +133,15 @@ void cNetRenderFileReceiver::ReceiveChunk(int clientIndex, int chunkIndex, QByte
 					fileInfo.receivingStarted = false;
 
 					QString destFileName;
+					const QString destinationDir = gPar->Get<QString>(destinationDirParameter);
 
 					if (fileInfo.dirName.isEmpty())
 					{
-						destFileName = gPar->Get<QString>("anim_keyframe_dir") + fileInfo.fileName;
+						destFileName = destinationDir + fileInfo.fileName;
 					}
 					else
 					{
-						QDir dir(gPar->Get<QString>("anim_keyframe_dir"));
+						QDir dir(destinationDir);
 						if (dir.exists())
 						{
 							if (!dir.exists(fileInfo.dirName))
@@ -148,8 +149,8 @@ void cNetRenderFileReceiver::ReceiveChunk(int clientIndex, int chunkIndex, QByte
 								dir.mkdir(fileInfo.dirName);
 							}
 						}
-						destFileName = gPar->Get<QString>("anim_keyframe_dir") + fileInfo.dirName
-													 + QDir::separator() + fileInfo.fileName;
+						destFileName =
+							destinationDir + fileInfo.dirName + QDir::separator() + fileInfo.fileName;
 					}
 
 					file.copy(destFileName);
