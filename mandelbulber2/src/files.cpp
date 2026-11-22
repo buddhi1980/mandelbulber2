@@ -538,6 +538,10 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 
 QString FilePathHelperTextures(const QString &path)
 {
+	// a URL is downloaded later by cResourceHttpProvider; converting it to native
+	// separators would turn "https://" into "https:\\" on Windows
+	if (path.startsWith("http://") || path.startsWith("https://")) return path;
+
 	QString nativePath = path;
 	nativePath = nativePath.replace(QChar('\\'), QChar('/'));
 	nativePath = QDir::toNativeSeparators(nativePath);

@@ -90,7 +90,11 @@ void cResourceHttpProvider::loadOverInternet()
 	connect(reply, SIGNAL(readyRead()), this, SLOT(moreData()));
 	connect(reply, SIGNAL(finished()), this, SLOT(closeFile()));
 	connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+	connect(reply, SIGNAL(errorOccurred(QNetworkReply::NetworkError)), &loop, SLOT(quit()));
+#else
 	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), &loop, SLOT(quit()));
+#endif
 
 	// ssl error checking is disabled, otherwise throws error"SSL handshake failed"
 	// watch out: disabling of ssl errors means that the site identity is not checked,
