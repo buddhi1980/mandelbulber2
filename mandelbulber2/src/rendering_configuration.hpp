@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_RENDERING_CONFIGURATION_HPP_
 #define MANDELBULBER2_SRC_RENDERING_CONFIGURATION_HPP_
 
+#include <QString>
+
 class cRenderingConfiguration
 {
 public:
@@ -49,6 +51,13 @@ public:
 	void SetMaxRenderTime(double _maxRenderTime) { maxRenderTime = _maxRenderTime; }
 	void ForceFastPreview() { forceFastPreview = true; }
 	void SetNebulaMode() { nebulaMode = true; }
+	// periodic saving of the image rendered so far (fileType is ImageFileSave::enumImageFileType)
+	void SetAutosave(const QString &fileName, int fileType, qint64 intervalMs)
+	{
+		autosaveFileName = fileName;
+		autosaveFileType = fileType;
+		autosaveIntervalMs = intervalMs;
+	}
 
 	bool UseNetRender() const;
 	bool UseImageRefresh() const;
@@ -61,6 +70,10 @@ public:
 	double GetMaxRenderTime() const { return maxRenderTime; }
 	int GetRefreshRate() const;
 	bool IsNebulaMode() const;
+	bool UseAutosave() const { return autosaveIntervalMs > 0 && !autosaveFileName.isEmpty(); }
+	qint64 GetAutosaveInterval() const { return autosaveIntervalMs; }
+	QString GetAutosaveFileName() const { return autosaveFileName; }
+	int GetAutosaveFileType() const { return autosaveFileType; }
 
 private:
 	bool enableImageRefresh;
@@ -72,6 +85,9 @@ private:
 	bool nebulaMode;
 	double maxRenderTime;
 	int refreshRate;
+	QString autosaveFileName;
+	int autosaveFileType;
+	qint64 autosaveIntervalMs;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDERING_CONFIGURATION_HPP_ */

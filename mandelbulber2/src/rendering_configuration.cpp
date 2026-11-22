@@ -49,6 +49,8 @@ cRenderingConfiguration::cRenderingConfiguration()
 	nebulaMode = false;
 	refreshRate = 1000;
 	maxRenderTime = 1e50;
+	autosaveFileType = 0;
+	autosaveIntervalMs = 0;
 }
 
 bool cRenderingConfiguration::UseNetRender() const

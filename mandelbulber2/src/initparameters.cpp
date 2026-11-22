@@ -486,6 +486,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("auto_save_images", false, morphNone, paramApp);
 	par->addParam("save_image_format", 0, morphNone, paramApp);
+	par->addParam("render_autosave_interval_minutes", 0, 0, 10000, morphNone, paramApp);
 	par->addParam("image_preview_scale", 3, 0, 6, morphNone, paramApp);
 	par->addParam("netrender_mode", int(cNetRender::netRenderModeServer), morphNone, paramApp);
 	par->addParam("netrender_client_remote_address", QString("localhost"), morphNone, paramApp);
