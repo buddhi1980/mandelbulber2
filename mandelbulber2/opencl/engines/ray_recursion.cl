@@ -1020,8 +1020,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				rayMarchingOut.depth = 1e20f;
 				shaderInputData.normal = shaderInputData.viewVector;
 				recursionOut.outShadow = 1.0f;
-				recursionOut.outGlobalIllumination = 0.0f;
 				recursionOut.outAmbientOcclusion = 1.0f;
+				recursionOut.outGlobalIllumination = 0.0f;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 
