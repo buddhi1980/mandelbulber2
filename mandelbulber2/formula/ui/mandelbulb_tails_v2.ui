@@ -796,7 +796,7 @@ scale</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;code from post by Alef&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/index.php?topic=4675.msg33810#msg33810&quot;&gt;https://fractalforums.org/index.php?topic=4675.msg33810#msg33810&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/index.php?topic=4675.msg33810#msg33810&quot;&gt;https://fractalforums.org/index.php?topic=4675.msg33810#msg33810&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mbulbTailsV2_TaddSphericalInvert;.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

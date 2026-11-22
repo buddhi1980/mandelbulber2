@@ -427,8 +427,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Bristorbrot V2 formula&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/theory/bristorbrot-3d/&quot;&gt;http://www.fractalforums.com/theory/bristorbrot-3d/&lt;br&gt;
-&lt;a href=&quot;by Doug Bristor&quot;&gt;by Doug Bristor&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/theory/bristorbrot-3d/&lt;br&gt;
+&lt;a href=&quot;by Doug Bristor&quot;&gt;by Doug Bristor&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/bristorbrot v2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

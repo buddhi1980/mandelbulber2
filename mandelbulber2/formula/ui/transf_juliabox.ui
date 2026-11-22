@@ -1244,7 +1244,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;T&gt;Juliabox&lt;br&gt;Folds, scaling, rotation and offsets&lt;br&gt;from Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&quot;&gt;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transf_juliaBox.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transf_juliaBox_bxFld_scale_mgrM1.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

@@ -1913,7 +1913,7 @@ controls on which iters the color is added</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Pseudo Kleinian Trig, amoser&#039;s complex sine formula&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/index.php?topic=5591.0;topicseen&quot;&gt;https://fractalforums.org/index.php?topic=5591.0;topicseen&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/index.php?topic=5591.0;topicseen&quot;&gt;https://fractalforums.org/index.php?topic=5591.0;topicseen&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

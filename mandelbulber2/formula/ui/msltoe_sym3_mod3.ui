@@ -607,7 +607,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Msltoe_Julia_Bulb_Mod3&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320&quot;&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;msltoe_julia_bulb_mod3_001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

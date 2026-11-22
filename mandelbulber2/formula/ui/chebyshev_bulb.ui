@@ -129,7 +129,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Chebyshev Bulb — Mandelbulb with Chebyshev polynomial iteration.&lt;br&gt;Replaces z^power with T_degree(z/|z|) * |z| where T_n is the Chebyshev&lt;br&gt;polynomial of degree n. T_n(x) = cos(n * arccos(x)) for |x| &lt;= 1.&lt;br&gt;Creates sharp, polygonal-like fractal structures.&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://www.fractalforums.com/&quot;&gt;https://www.fractalforums.com/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;https://www.fractalforums.com/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

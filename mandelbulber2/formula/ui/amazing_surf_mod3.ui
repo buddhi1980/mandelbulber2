@@ -3149,7 +3149,7 @@ multiplier:</string>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;asurf mod3  beta&lt;br&gt;amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam&lt;br&gt;&lt;br&gt;Note for the original version apply a c.x c.y SWAP&lt;br&gt;&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS BoxV1 asurf.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/asurf3_mandalay.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

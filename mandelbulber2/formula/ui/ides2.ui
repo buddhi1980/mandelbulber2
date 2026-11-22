@@ -263,7 +263,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;From M3D. A formula made by Trafassel, the original Ide&#039;s Formula thread&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/&quot;&gt;http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;ides2_001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

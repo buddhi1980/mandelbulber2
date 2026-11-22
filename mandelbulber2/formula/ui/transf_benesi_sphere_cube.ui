@@ -164,7 +164,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Benesi Sphere to Cube transform&lt;br&gt;Warps a sphere to a cube; transform made by M.Benesi, optimized by&lt;br&gt;Luca.  Scavenged and edited from code optimized by Luca.&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mathematics/circle2square/&quot;&gt;http://www.fractalforums.com/mathematics/circle2square/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;http://www.fractalforums.com/mathematics/circle2square/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>

@@ -74,7 +74,7 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;quadratic iteration in real scator algebra&lt;br&gt;Use stop at maximum iteration (at maxiter)for the image to rendered correctly&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://luz.izt.uam.mx/drupal/en/fractals/hun&quot;&gt;https://luz.izt.uam.mx/drupal/en/fractals/hun&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://luz.izt.uam.mx/drupal/en/fractals/hun&quot;&gt;https://luz.izt.uam.mx/drupal/en/fractals/hun&lt;/a&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;th&gt;Author&lt;/th&gt;&lt;td&gt;Manuel Fernandez-Guasti&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
