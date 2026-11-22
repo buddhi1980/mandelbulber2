@@ -86,6 +86,8 @@ enumVarType cMultiVal::Store(long long val)
 
 enumVarType cMultiVal::Store(const QString &val)
 {
+	// numbers are parsed with the default locale (set in InitSystem()), the same one which is used
+	// by Get() to write them
 	switch (type)
 	{
 		case typeNull:
@@ -98,7 +100,7 @@ enumVarType cMultiVal::Store(const QString &val)
 			if (size >= 4) size = 4;
 			for (int i = 0; i < size; i++)
 			{
-				dVal[i] = QLocale::system().toDouble(split[i]);
+				dVal[i] = QLocale().toDouble(split[i]);
 				iVal[i] = split[i].toInt();
 			}
 			break;
@@ -106,7 +108,7 @@ enumVarType cMultiVal::Store(const QString &val)
 		case typeInt:
 		case typeDouble:
 		case typeBool:
-			dVal[0] = QLocale::system().toDouble(val);
+			dVal[0] = QLocale().toDouble(val);
 			iVal[0] = val.toInt();
 			break;
 

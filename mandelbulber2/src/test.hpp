@@ -84,6 +84,7 @@ private slots:
 	void regressionScenesWrapper() const;
 	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
+	void numberLocale() const;
 	void ensureFileExtension() const;
 };
 
