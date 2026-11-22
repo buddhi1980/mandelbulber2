@@ -52,6 +52,7 @@ public:
 	void SetViewModeOnly();
 	QString GetColors() { return gradient.GetColorsAsString(); }
 	void SetColors(const QString &colorsString);
+	void ShiftHue(double degrees);
 
 	// methods to define from CommonMyWidgetWrapper
 	void resetToDefault() override;
@@ -79,6 +80,7 @@ private:
 	bool DecodeGradientFromFile(QString string);
 	void LoadFromClipboard();
 	void SaveToClipboard();
+	void ShiftHueDialog();
 	void AddToolButton(QToolButton *button, int position, QString iconName);
 	QString GetDefault();
 
