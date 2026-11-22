@@ -52,4 +52,21 @@ typedef struct
 	cl_int i;
 } sSortedZBufferCl;
 
+// DOF phase 2: the image is split into square tiles; every tile gets the list of blur entries
+// whose disc can reach it, in the sorted order, and each pixel applies them in that order
+#define DOF_PHASE2_TILE_SIZE 16
+
+typedef struct
+{
+	cl_float colorR;
+	cl_float colorG;
+	cl_float colorB;
+	cl_float alpha;
+	cl_int x;
+	cl_int y;
+	cl_int size;
+	cl_float blur;
+	cl_float factor;
+} sDOFEntryCl;
+
 #endif /* MANDELBULBER2_OPENCL_DOF_CL_H_ */
