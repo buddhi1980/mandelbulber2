@@ -18,6 +18,10 @@ The project should be kept updated and clean with the following steps (when nece
 - 4. `mandelbulber2/tools/dos2unix.sh # fix file formatting issues`
 - 5. Add new language snippets, see also "(3) language system"
 - 6. Add new formula images, see also "(4) formula images"
+- 7. Check the examples for formulas left in disabled or unused formula slots
+  - `mandelbulber2/tools/find_disabled_formula_slots.py # read-only, lists the findings and a summary`
+  - `--empty` also lists unused slots without formula which still carry parameters,
+    `--csv <file>` also writes the findings as CSV; other files or folders can be given as arguments
 
 ### (2) Packaging for new version
 When a new version is prepared for release, the following steps should be taken:

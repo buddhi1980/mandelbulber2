@@ -110,6 +110,7 @@ class FractFile:
 	def __init__(self, path):
 		self.path = path
 		self.version = None
+		self.version_text = ""
 		self.main = {}
 		self.slots = {}
 
@@ -150,6 +151,7 @@ def parse_file(path):
 		if line.startswith('#'):
 			match = VERSION_RE.match(line)
 			if match and fract.version is None:
+				fract.version_text = match.group(1)
 				fract.version = float(match.group(1).replace(',', '.'))
 			continue
 		match = SECTION_RE.match(line)
@@ -334,14 +336,14 @@ def main():
 		display_path = os.path.relpath(path, args.paths[0]) \
 			if os.path.isdir(args.paths[0]) and len(args.paths) == 1 else path
 		if to_stdout:
-			print('{} (version {}, {})'.format(display_path, fract.version, mode))
+			print('{} (version {}, {})'.format(display_path, fract.version_text, mode))
 		for index, kind, formula, reason, slot in findings:
 			counts[kind] += 1
 			if to_stdout:
 				print('  slot {}: {:8s} {} - {}; {} formula parameter(s)'.format(index, kind,
 					formula_label(formula) if formula != FORMULA_NONE else 'no formula', reason,
 					len(slot.params)))
-			rows.append([display_path, fract.version, mode, index, kind, formula,
+			rows.append([display_path, fract.version_text, mode, index, kind, formula,
 				FORMULA_NAMES.get(formula, ''), len(slot.params), reason])
 
 	if args.csv:
