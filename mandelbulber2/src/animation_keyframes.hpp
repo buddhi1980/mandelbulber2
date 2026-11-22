@@ -103,6 +103,8 @@ public:
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);
 	void DeleteKeyframe(int index) const;
+	void DeleteKeyframes(QList<int> indexes) const;
+	QList<int> GetSelectedKeyframes() const;
 	void DeleteFramesFrom(int index) const;
 	void DeleteFramesTo(int index) const;
 	void InterpolateForward(int row, int column);
