@@ -354,7 +354,9 @@ void MyLineEdit::focusOutEvent(QFocusEvent *event)
 
 void MyLineEdit::slotSliderTimerUpdateValue()
 {
-	double value = systemData.locale.toDouble(text());
+	bool ok = false;
+	double value = systemData.locale.toDouble(text(), &ok);
+	if (!ok) return; // not a number (e.g. blank field)
 	int iDiff = slider->value() - 500;
 
 	if (iDiff != 0)
@@ -393,7 +395,9 @@ void MyLineEdit::slotZeroValue()
 
 void MyLineEdit::slotDoubleValue()
 {
-	const double value = systemData.locale.toDouble(text());
+	bool ok = false;
+	const double value = systemData.locale.toDouble(text(), &ok);
+	if (!ok) return; // not a number (e.g. blank field)
 	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
@@ -401,7 +405,9 @@ void MyLineEdit::slotDoubleValue()
 
 void MyLineEdit::slotHalfValue()
 {
-	const double value = systemData.locale.toDouble(text());
+	bool ok = false;
+	const double value = systemData.locale.toDouble(text(), &ok);
+	if (!ok) return; // not a number (e.g. blank field)
 	const QString text = QString("%L1").arg(value * 0.5, 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
@@ -409,7 +415,9 @@ void MyLineEdit::slotHalfValue()
 
 void MyLineEdit::slotRoundValue()
 {
-	const double value = systemData.locale.toDouble(text());
+	bool ok = false;
+	const double value = systemData.locale.toDouble(text(), &ok);
+	if (!ok) return; // not a number (e.g. blank field)
 	const QString text = QString("%L1").arg(MagicRound(value, 0.05), 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
@@ -417,7 +425,9 @@ void MyLineEdit::slotRoundValue()
 
 void MyLineEdit::slotInvertSign()
 {
-	const double value = systemData.locale.toDouble(text());
+	bool ok = false;
+	const double value = systemData.locale.toDouble(text(), &ok);
+	if (!ok) return; // not a number (e.g. blank field)
 	const QString text = QString("%L1").arg(value * (-1.0), 0, 'g', 15);
 	setText(text);
 	emit returnPressed();

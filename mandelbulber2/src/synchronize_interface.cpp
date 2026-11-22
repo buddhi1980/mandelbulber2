@@ -152,8 +152,19 @@ void SynchronizeInterfaceQLineEdit(
 
 				if (mode == qInterface::read)
 				{
-					double value = systemData.locale.toDouble(lineEdit->text());
-					SynchronizeInterfaceReadVect3d(nameVect, lastChar, value, par);
+					bool ok = false;
+					double value = systemData.locale.toDouble(lineEdit->text(), &ok);
+					if (ok)
+					{
+						SynchronizeInterfaceReadVect3d(nameVect, lastChar, value, par);
+					}
+					else
+					{
+						// not a number (e.g. blank): keep the parameter and restore the field
+						SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
+						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
+						lineEdit->setCursorPosition(0);
+					}
 				}
 				else if (mode == qInterface::write)
 				{
@@ -177,8 +188,19 @@ void SynchronizeInterfaceQLineEdit(
 
 				if (mode == qInterface::read)
 				{
-					double value = systemData.locale.toDouble(lineEdit->text());
-					SynchronizeInterfaceReadVect4d(nameVect, lastChar, value, par);
+					bool ok = false;
+					double value = systemData.locale.toDouble(lineEdit->text(), &ok);
+					if (ok)
+					{
+						SynchronizeInterfaceReadVect4d(nameVect, lastChar, value, par);
+					}
+					else
+					{
+						// not a number (e.g. blank): keep the parameter and restore the field
+						SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
+						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
+						lineEdit->setCursorPosition(0);
+					}
 				}
 				else if (mode == qInterface::write)
 				{
@@ -199,8 +221,19 @@ void SynchronizeInterfaceQLineEdit(
 			{
 				if (mode == qInterface::read)
 				{
-					double value = systemData.locale.toDouble(lineEdit->text());
-					par->Set(props.paramName, value);
+					bool ok = false;
+					double value = systemData.locale.toDouble(lineEdit->text(), &ok);
+					if (ok)
+					{
+						par->Set(props.paramName, value);
+					}
+					else
+					{
+						// not a number (e.g. blank): keep the parameter and restore the field
+						value = par->Get<double>(props.paramName);
+						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
+						lineEdit->setCursorPosition(0);
+					}
 				}
 				else if (mode == qInterface::write)
 				{
