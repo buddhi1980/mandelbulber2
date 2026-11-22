@@ -41,6 +41,8 @@
 
 #include <QAudioDecoder>
 #include <QAudioFormat>
+#include <QElapsedTimer>
+#include <QThread>
 #include <QUrl>
 
 #ifndef NO_QT_MULTIMEDIA_AUDIO
@@ -195,12 +197,36 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 		connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
 			SLOT(slotError(QAudioDecoder::Error)));
 
-		loadingInProgress = true;
-		decoder->start();
-
-		while (loadingInProgress)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		// without a Qt Multimedia backend the decoder can't start and sends no signal at all,
+		// so waiting for it would never end
+		if (!decoder->isSupported())
 		{
-			QApplication::processEvents();
+			qCritical() << "cAudioTrack::LoadAudio(): no audio decoder available for" << filename;
+		}
+		else
+#endif
+		{
+			loadingInProgress = true;
+			decoder->start();
+
+			QElapsedTimer idleTimer;
+			idleTimer.start();
+			while (loadingInProgress)
+			{
+				QApplication::processEvents();
+				QThread::msleep(1);
+
+				// stop waiting if the decoder failed or stopped without sending finished()
+				if (decoder->error() != QAudioDecoder::NoError) break;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+				if (decoder->isDecoding())
+					idleTimer.restart();
+				else if (idleTimer.elapsed() > 5000)
+					break;
+#endif
+			}
+			loadingInProgress = false;
 		}
 #endif
 	}
