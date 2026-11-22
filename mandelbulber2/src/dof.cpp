@@ -210,6 +210,25 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 		QuickSortZBuffer(temp_sort.data(), 1, sortBufferSize - 1);
 
+		// own seed, so the randomized order is the same in every render (the global generator is
+		// shared with the render threads and its state after rendering depends on thread timing)
+		unsigned int randomSeed = 1;
+
+		// blur entries of one batch, applied in their sorted order (see below)
+		struct sBlurEntry
+		{
+			int x;
+			int y;
+			int size; // -1 = skip
+			float blur;
+			float blur_2;
+			float factor;
+			sRGBFloat center;
+			unsigned short center_alpha;
+		};
+		std::vector<sBlurEntry> blurEntries(screenRegion.height);
+		const int numberOfBands = min(screenRegion.height, 128);
+
 		for (int pass = 0; pass < numberOfPasses; pass++)
 		{
 
@@ -237,7 +256,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 				qint64 ii;
 				do
 				{
-					ii = i - Random(int(randomStep));
+					ii = i - Random(int(randomStep), randomSeed);
 					if (ii <= 0) ii = 0;
 					sSortZ<float> temp2 = temp_sort[ii];
 					float z2 = temp2.z;
@@ -257,7 +276,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 						int intDiff = int((1.0f - sizeCompare) * 500);
 						intDiff *= intDiff;
-						if (intDiff < Random(10000))
+						if (intDiff < Random(10000, randomSeed))
 						{
 							done = true;
 						}
@@ -284,6 +303,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 #pragma omp parallel for schedule(dynamic, 1)
 				for (int j = 0; j < screenRegion.height; j++)
 				{
+					sBlurEntry &entry = blurEntries[j];
+					entry.size = -1;
 					quint64 index = quint64(i) * quint64(screenRegion.height) + quint64(j);
 					quint64 ii = temp_sort[sortBufferSize - index - 1].i;
 					int x = int(ii % quint64(imageWidth));
@@ -292,32 +313,59 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					if (z < 1e-14f) continue;
 					float blur = fabs(z - neutral) / z * deep + 1.0f;
 					if (blur > maxRadius) blur = maxRadius;
-					int size = int(blur);
-					sRGBFloat center = temp_image[x + y * imageWidth];
-					unsigned short center_alpha = temp_alpha[x + y * imageWidth];
-					float blur_2 = blur * blur;
-					float factor = (float(M_PI) * (blur_2 - blur) + 1.0f) / blurOpacity;
+					entry.x = x;
+					entry.y = y;
+					entry.size = int(blur);
+					entry.blur = blur;
+					entry.center = temp_image[x + y * imageWidth];
+					entry.center_alpha = temp_alpha[x + y * imageWidth];
+					entry.blur_2 = blur * blur;
+					entry.factor = (float(M_PI) * (entry.blur_2 - blur) + 1.0f) / blurOpacity;
+				}
 
-					for (int yy = y - size; yy <= y + size; yy++)
+				// Blurred discs of a batch overlap, so the batch is split into bands of output rows
+				// instead of entries: each band applies all entries in their sorted order. Every pixel is
+				// blended in the same order in every render, independent of thread count and timing.
+#pragma omp parallel for schedule(dynamic, 1)
+				for (int band = 0; band < numberOfBands; band++)
+				{
+					int bandY1 = screenRegion.y1 + int(qint64(screenRegion.height) * band / numberOfBands);
+					int bandY2 =
+						screenRegion.y1 + int(qint64(screenRegion.height) * (band + 1) / numberOfBands);
+
+					for (int j = 0; j < screenRegion.height; j++)
 					{
-						for (int xx = x - size; xx <= x + size; xx++)
+						const sBlurEntry &entry = blurEntries[j];
+						if (entry.size < 0) continue;
+						int x = entry.x;
+						int y = entry.y;
+						int size = entry.size;
+						float blur = entry.blur;
+						float blur_2 = entry.blur_2;
+						float factor = entry.factor;
+						int yStart = max(y - size, bandY1);
+						int yStop = min(y + size, bandY2 - 1);
+
+						for (int yy = yStart; yy <= yStop; yy++)
 						{
-							if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1
-									&& yy < screenRegion.y2)
+							for (int xx = x - size; xx <= x + size; xx++)
 							{
-								int dx = xx - x;
-								int dy = yy - y;
-								float r_2 = dx * dx + dy * dy;
-								if (blur_2 > r_2)
+								if (xx >= screenRegion.x1 && xx < screenRegion.x2)
 								{
-									float r = sqrt(r_2);
-									float op = (blur - r);
-									if (op < 0.0f) op = 0.0f;
-									if (op > 1.0f) op = 1.0f;
-									op /= factor;
-									if (op > 1.0f) op = 1.0f;
-									image->BlendPixelPostImage(xx, yy, op, center);
-									image->BlendPixelAlpha(xx, yy, op, center_alpha);
+									int dx = xx - x;
+									int dy = yy - y;
+									float r_2 = dx * dx + dy * dy;
+									if (blur_2 > r_2)
+									{
+										float r = sqrt(r_2);
+										float op = (blur - r);
+										if (op < 0.0f) op = 0.0f;
+										if (op > 1.0f) op = 1.0f;
+										op /= factor;
+										if (op > 1.0f) op = 1.0f;
+										image->BlendPixelPostImage(xx, yy, op, entry.center);
+										image->BlendPixelAlpha(xx, yy, op, entry.center_alpha);
+									}
 								}
 							}
 						}

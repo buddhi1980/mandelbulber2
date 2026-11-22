@@ -64,19 +64,30 @@ public:
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
-	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
+	bool ProcessQueue();
 	bool Render(std::shared_ptr<cImage> image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer,
 		bool *stopRequest);
 	size_t CalcNeededMemory() override;
 
 private:
-	const int zBufferIndex = 0;
-	const int imageIndex = 1;
+	bool WriteBatchToQueue(quint64 numberOfEntries, quint64 listLength);
+
+	const int entriesIndex = 0;
+	const int tileStartIndex = 1;
+	const int tileListIndex = 2;
 	const int outputIndex = 0;
 	QString GetKernelName() override;
 	sParamsDOF paramsDOF;
 	quint64 numberOfPixels;
 	cRegion<int> imageRegion;
+	int tilesX;
+	int tilesY;
+	quint64 numberOfTiles;
+	quint64 maxBatchEntries;
+	quint64 tileListCapacity;
+	// limits of the work per pixel in one kernel run
+	static constexpr quint64 maxTileListAverage = 256;
+	static constexpr int maxTileListLength = 1024;
 
 #endif
 

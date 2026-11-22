@@ -47,9 +47,14 @@
 unsigned int gRandomSeed = 1;
 int RandomInt()
 {
+	return RandomInt(gRandomSeed);
+}
+
+int RandomInt(unsigned int &seed)
+{
 	// After calculation below, (hi << 16) + lo = seed * 16807
-	unsigned int lo = 16807 * (gRandomSeed & 0xFFFF); // Multiply lower 16 bits by 16807
-	unsigned int hi = 16807 * (gRandomSeed >> 16);		// Multiply higher 16 bits by 16807
+	unsigned int lo = 16807 * (seed & 0xFFFF); // Multiply lower 16 bits by 16807
+	unsigned int hi = 16807 * (seed >> 16);		 // Multiply higher 16 bits by 16807
 
 	// After these lines, lo has the bottom 31 bits of result, hi has bits 32 and up
 	lo += (hi & 0x7FFF) << 16; // Combine lower 15 bits of hi with lo's upper bits
@@ -63,12 +68,17 @@ int RandomInt()
 	// No division required, since hi + lo is always < 232 - 2
 	if (lo > 2147483647) lo -= 2147483647;
 
-	return (int(gRandomSeed = lo));
+	return (int(seed = lo));
 }
 
 int Random(int max)
 {
 	return RandomInt() % (max + 1);
+}
+
+int Random(int max, unsigned int &seed)
+{
+	return RandomInt(seed) % (max + 1);
 }
 
 double dMax(double a, double b, double c)

@@ -56,6 +56,11 @@ cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_har
 	paramsDOF.radius = 0.0;
 	paramsDOF.blurOpacity = 0.0;
 	numberOfPixels = 0;
+	tilesX = 0;
+	tilesY = 0;
+	numberOfTiles = 0;
+	maxBatchEntries = 0;
+	tileListCapacity = 0;
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
 	optimalJob.optimalProcessingCycle = 0.5;
 #endif
@@ -87,6 +92,13 @@ void cOpenClEngineRenderDOFPhase2::SetParameters(
 	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
 	numberOfPixels = quint64(paramsDOF.width) * quint64(paramsDOF.height);
+
+	tilesX = (paramsDOF.width + DOF_PHASE2_TILE_SIZE - 1) / DOF_PHASE2_TILE_SIZE;
+	tilesY = (paramsDOF.height + DOF_PHASE2_TILE_SIZE - 1) / DOF_PHASE2_TILE_SIZE;
+	numberOfTiles = quint64(tilesX) * quint64(tilesY);
+	// every entry adds at least one item to the tile lists
+	tileListCapacity = numberOfTiles * maxTileListAverage;
+	maxBatchEntries = qMin(numberOfPixels, tileListCapacity);
 
 	definesCollector.clear();
 }
@@ -149,8 +161,9 @@ void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(
 	std::shared_ptr<const cParameterContainer> params)
 {
 	Q_UNUSED(params);
-	inputBuffers[0] << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
-	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(sDOFEntryCl), maxBatchEntries, "DOF entries");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_int), numberOfTiles + 1, "tile list starts");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_int), tileListCapacity, "tile lists");
 	inputAndOutputBuffers[0] << sClInputOutputBuffer(
 		sizeof(cl_float4), numberOfPixels, "image buffer");
 }
@@ -170,29 +183,41 @@ bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase2::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex)
+bool cOpenClEngineRenderDOFPhase2::WriteBatchToQueue(quint64 numberOfEntries, quint64 listLength)
 {
-	quint64 limitedWorkgroupSize = optimalJob.workGroupSize;
-	quint64 stepSize = optimalJob.stepSize;
+	const quint64 sizes[3] = {numberOfEntries * sizeof(sDOFEntryCl),
+		(numberOfTiles + 1) * sizeof(cl_int), listLength * sizeof(cl_int)};
+	const int indexes[3] = {entriesIndex, tileStartIndex, tileListIndex};
 
-	if (optimalJob.stepSize > pixelsLeft)
+	for (int n = 0; n < 3; n++)
 	{
-		quint64 mul = pixelsLeft / optimalJob.workGroupSize;
-		if (mul > 0)
+		sClInputOutputBuffer &buffer = inputBuffers[0][indexes[n]];
+		if (sizes[n] == 0) continue;
+		cl_int err =
+			clQueues.at(0)->enqueueWriteBuffer(*buffer.clPtr, CL_TRUE, 0, sizes[n], buffer.ptr.get());
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + buffer.name))
 		{
-			stepSize = mul * optimalJob.workGroupSize;
-		}
-		else
-		{
-			// in this case will be limited workGroupSize
-			stepSize = pixelsLeft;
-			limitedWorkgroupSize = pixelsLeft;
+			emit EmitErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1").arg(buffer.name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
 		}
 	}
-	optimalJob.stepSize = stepSize;
+	return true;
+}
 
-	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(*clKernels.at(0), cl::NDRange(pixelIndex),
-		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+bool cOpenClEngineRenderDOFPhase2::ProcessQueue()
+{
+	// one work-item per pixel, work groups cover whole tiles when the device allows it
+	cl::NDRange globalRange(
+		quint64(tilesX) * DOF_PHASE2_TILE_SIZE, quint64(tilesY) * DOF_PHASE2_TILE_SIZE);
+	cl::NDRange localRange = cl::NullRange;
+	if (optimalJob.workGroupSize >= DOF_PHASE2_TILE_SIZE * DOF_PHASE2_TILE_SIZE)
+		localRange = cl::NDRange(DOF_PHASE2_TILE_SIZE, DOF_PHASE2_TILE_SIZE);
+	else if (optimalJob.workGroupSize >= 64)
+		localRange = cl::NDRange(8, 8);
+
+	cl_int err =
+		clQueues.at(0)->enqueueNDRangeKernel(*clKernels.at(0), cl::NullRange, globalRange, localRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit EmitErrorMessage(
@@ -229,20 +254,14 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		QElapsedTimer timer;
 		timer.start();
 
-		// copy zBuffer and image to input and output buffers
+		// copy image to the output buffer
 		for (quint64 y = 0; y < height; y++)
 		{
 			for (quint64 x = 0; x < width; x++)
 			{
 				quint64 i = x + y * width;
-				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.get())[i].i =
-					sortedZBuffer[i].i;
-				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.get())[i].z =
-					sortedZBuffer[i].z;
 				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
 				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0f;
-				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.get())[i] =
-					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 				reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][outputIndex].ptr.get())[i] =
 					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 			}
@@ -251,17 +270,99 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		for (quint64 pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+		sDOFEntryCl *entries = reinterpret_cast<sDOFEntryCl *>(inputBuffers[0][entriesIndex].ptr.get());
+		cl_int *tileStart = reinterpret_cast<cl_int *>(inputBuffers[0][tileStartIndex].ptr.get());
+		cl_int *tileList = reinterpret_cast<cl_int *>(inputBuffers[0][tileListIndex].ptr.get());
+		std::vector<cl_int> tileCount(numberOfTiles);
+
+		// tiles covered by the bounding box of an entry's disc
+		auto entryTiles = [&](const sDOFEntryCl &entry, int &tx1, int &tx2, int &ty1, int &ty2)
 		{
-			quint64 pixelsLeft = width * height - pixelIndex;
+			tx1 = qMax(entry.x - entry.size, 0) / DOF_PHASE2_TILE_SIZE;
+			tx2 = qMin(entry.x + entry.size, int(width) - 1) / DOF_PHASE2_TILE_SIZE;
+			ty1 = qMax(entry.y - entry.size, 0) / DOF_PHASE2_TILE_SIZE;
+			ty2 = qMin(entry.y + entry.size, int(height) - 1) / DOF_PHASE2_TILE_SIZE;
+		};
+
+		// The entries are applied in their sorted order, in batches. Each batch gets for every tile
+		// the list of its entries that can reach the tile, in the same order, and every pixel applies
+		// them in that order. So every pixel is blended in the same order as in
+		// cPostRenderingDOF::Render() and in every render. The batch size limits the work per pixel
+		// and kernel run.
+		quint64 entryIndex = 0;
+		while (entryIndex < numberOfPixels)
+		{
+			quint64 batchEntries = 0;
+			quint64 listLength = 0;
+			std::fill(tileCount.begin(), tileCount.end(), 0);
+
+			for (; entryIndex < numberOfPixels && batchEntries < maxBatchEntries; entryIndex++)
+			{
+				const cPostRenderingDOF::sSortZ<float> &sorted =
+					sortedZBuffer[numberOfPixels - entryIndex - 1];
+				float z = sorted.z;
+				if (!(z > 1e-8f)) continue;
+
+				float blur = fabsf(z - paramsDOF.neutral) / z * paramsDOF.deep + 1.0f;
+				if (blur > paramsDOF.maxRadius) blur = paramsDOF.maxRadius;
+
+				sDOFEntryCl entry;
+				entry.x = int(sorted.i % width);
+				entry.y = int(sorted.i / width);
+				entry.size = int(blur);
+				entry.blur = blur;
+				entry.factor = (3.14f * (blur * blur - blur) + 1.0f) / paramsDOF.blurOpacity;
+
+				int tx1, tx2, ty1, ty2;
+				entryTiles(entry, tx1, tx2, ty1, ty2);
+				quint64 tilesCovered = quint64(tx2 - tx1 + 1) * quint64(ty2 - ty1 + 1);
+				bool full = listLength + tilesCovered > tileListCapacity;
+				for (int ty = ty1; ty <= ty2 && !full; ty++)
+					for (int tx = tx1; tx <= tx2 && !full; tx++)
+						if (tileCount[tx + ty * tilesX] >= maxTileListLength) full = true;
+				if (full && batchEntries > 0) break;
+
+				for (int ty = ty1; ty <= ty2; ty++)
+					for (int tx = tx1; tx <= tx2; tx++)
+						tileCount[tx + ty * tilesX]++;
+				listLength += tilesCovered;
+
+				sRGBFloat imagePixel =
+					image->GetPixelPostImage(imageRegion.x1 + entry.x, imageRegion.y1 + entry.y);
+				entry.colorR = imagePixel.R;
+				entry.colorG = imagePixel.G;
+				entry.colorB = imagePixel.B;
+				entry.alpha =
+					image->GetPixelAlpha(imageRegion.x1 + entry.x, imageRegion.y1 + entry.y) / 65535.0f;
+				entries[batchEntries++] = entry;
+			}
+			if (batchEntries == 0) break;
+
+			// tile lists: start offsets, then the entries in their order
+			tileStart[0] = 0;
+			for (quint64 t = 0; t < numberOfTiles; t++)
+			{
+				tileStart[t + 1] = tileStart[t] + tileCount[t];
+				tileCount[t] = tileStart[t];
+			}
+			for (quint64 e = 0; e < batchEntries; e++)
+			{
+				int tx1, tx2, ty1, ty2;
+				entryTiles(entries[e], tx1, tx2, ty1, ty2);
+				for (int ty = ty1; ty <= ty2; ty++)
+					for (int tx = tx1; tx <= tx2; tx++)
+						tileList[tileCount[tx + ty * tilesX]++] = cl_int(e);
+			}
+
+			if (!WriteBatchToQueue(batchEntries, listLength)) return false;
 
 			// assign parameters to kernel
 			if (!AssignParametersToKernel(0)) return false;
 
 			// processing queue
-			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
+			if (!ProcessQueue()) return false;
 
-			double percentDone = double(pixelIndex) / (width * height);
+			double percentDone = double(entryIndex) / numberOfPixels;
 			emit updateProgressAndStatus(
 				tr("OpenCL - rendering DOF - phase 2"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
@@ -323,7 +424,8 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 
 size_t cOpenClEngineRenderDOFPhase2::CalcNeededMemory()
 {
-	return numberOfPixels * sizeof(cl_float4);
+	return numberOfPixels * sizeof(cl_float4) + maxBatchEntries * sizeof(sDOFEntryCl)
+				 + (numberOfTiles + 1 + tileListCapacity) * sizeof(cl_int);
 }
 
 #endif // USE_OPENCL

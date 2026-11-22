@@ -164,6 +164,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 	cPostRenderingDOF::QuickSortZBuffer(tempSort.data(), 1, numberOfPixels - 1);
 
+	// own seed, the same as in cPostRenderingDOF::Render(), so the order is repeatable
+	unsigned int randomSeed = 1;
+
 	for (int pass = 0; pass < numberOfPasses; pass++)
 	{
 
@@ -173,8 +176,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
-// Randomize Z-buffer
-#pragma omp parallel for schedule(dynamic, 1)
+		// Randomize Z-buffer (sequential: each step swaps entries and draws from one generator)
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{
 			cPostRenderingDOF::sSortZ<float> temp;
@@ -188,7 +190,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			qint64 ii;
 			do
 			{
-				ii = i - Random(randomStep);
+				ii = i - Random(randomStep, randomSeed);
 				if (ii <= 0) ii = 0;
 				cPostRenderingDOF::sSortZ<float> temp2 = tempSort[ii];
 				float z2 = temp2.z;
@@ -208,7 +210,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 					int intDiff = int((1.0f - sizeCompare) * 500);
 					intDiff *= intDiff;
-					if (intDiff < Random(10000))
+					if (intDiff < Random(10000, randomSeed))
 					{
 						done = true;
 					}

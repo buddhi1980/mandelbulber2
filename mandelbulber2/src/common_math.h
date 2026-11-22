@@ -52,6 +52,9 @@ extern unsigned int gRandomSeed;
 // int abs(int v);
 int RandomInt();
 int Random(int max);
+// same generator with a caller-owned seed (repeatable, not shared between threads)
+int RandomInt(unsigned int &seed);
+int Random(int max, unsigned int &seed);
 
 // ---------------------------------------------------------------------------
 // Reflection / refraction — declared here, defined in common_math.cpp

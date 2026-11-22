@@ -33,49 +33,43 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void DOFPhase2(__global sSortedZBufferCl *sortedZBuffer, __global float4 *inImage,
-	__global float4 *out, sParamsDOF params)
+// One work-item per pixel. It applies the blur entries of its tile in their sorted order, so
+// every pixel is blended in the same order in every render (no work-items write the same pixel).
+kernel void DOFPhase2(__global sDOFEntryCl *entries, __global int *tileStart,
+	__global int *tileList, __global float4 *out, sParamsDOF params)
 {
-	const int index = get_global_id(0);
-	int sortBufferSize = params.width * params.height;
+	const int2 scr2 = (int2){get_global_id(0), get_global_id(1)};
+	if (scr2.x >= params.width || scr2.y >= params.height) return;
 
-	int ii = sortedZBuffer[sortBufferSize - index - 1].i;
-	int x = ii % params.width;
-	int y = ii / params.width;
-	int2 scr = (int2){x, y};
-	float z = sortedZBuffer[sortBufferSize - index - 1].z;
+	const int tilesX = (params.width + DOF_PHASE2_TILE_SIZE - 1) / DOF_PHASE2_TILE_SIZE;
+	const int tile = scr2.x / DOF_PHASE2_TILE_SIZE + (scr2.y / DOF_PHASE2_TILE_SIZE) * tilesX;
+	const int listStart = tileStart[tile];
+	const int listEnd = tileStart[tile + 1];
 
-	if (z > 1e-8f)
+	const uint address = scr2.x + scr2.y * params.width;
+	float4 pixel = out[address];
+
+	for (int n = listStart; n < listEnd; n++)
 	{
-		float blur = fabs(z - params.neutral) / z * params.deep + 1.0f;
-		if (blur > params.maxRadius) blur = params.maxRadius;
-		int size = (int)blur;
-		float4 center = inImage[x + y * params.width];
-		float factor = (3.14f * (blur * blur - blur) + 1.0f) / params.blurOpacity;
-
-		int2 scr2;
-
-		for (scr2.y = y - size; scr2.y <= y + size; scr2.y++)
+		sDOFEntryCl entry = entries[tileList[n]];
+		int2 scr = (int2){entry.x, entry.y};
+		int2 dInt = scr - scr2;
+		if (abs(dInt.x) <= entry.size && abs(dInt.y) <= entry.size)
 		{
-			for (scr2.x = x - size; scr2.x <= x + size; scr2.x++)
+			float2 d = convert_float2(dInt);
+			float r = length(d);
+			float blur = entry.blur;
+			if (blur > r)
 			{
-				if (scr2.x >= 0 && scr2.x < params.width && scr2.y >= 0 && scr2.y < params.height)
-				{
-					float2 d = convert_float2(scr - scr2);
-					float r = length(d);
-					if (blur > r)
-					{
-						float op = clamp(blur - r, 0.0f, 1.0f);
-						op /= factor;
-						op = min(1.0f, op);
-						float opN = 1.0f - op;
-
-						uint address = scr2.x + scr2.y * params.width;
-						float4 old = out[address];
-						out[address] = opN * old + op * center;
-					}
-				}
+				float4 center = (float4){entry.colorR, entry.colorG, entry.colorB, entry.alpha};
+				float op = clamp(blur - r, 0.0f, 1.0f);
+				op /= entry.factor;
+				op = min(1.0f, op);
+				float opN = 1.0f - op;
+				pixel = opN * pixel + op * center;
 			}
 		}
 	}
+
+	out[address] = pixel;
 }
