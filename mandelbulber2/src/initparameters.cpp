@@ -613,6 +613,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("append_alpha_jxl", true, morphNone, paramApp);
 	par->addParam("linear_colorspace", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
+	// zlib compression level for PNG files: 0 - none (fastest), 6 - libpng default, 9 - smallest
+	par->addParam("png_compression_level", 6, 0, 9, morphNone, paramApp);
 	par->addParam("jxl_effort", 7, 1, 9, morphNone, paramApp);
 	par->addParam("jxl_distance", 1.0, 0.0, 20.0, morphNone, paramApp);
 	par->addParam("jxl_lossless", false, morphNone, paramApp);
