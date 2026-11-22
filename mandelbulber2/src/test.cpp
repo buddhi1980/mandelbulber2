@@ -56,6 +56,7 @@
 #include "settings.hpp"
 #include "system.hpp"
 #include "system_directories.hpp"
+#include "texture.hpp"
 #include "write_log.hpp"
 
 QString Test::testFolder()
@@ -782,19 +783,105 @@ void Test::ensureFileExtension() const
 	QCOMPARE(EnsureFileExtension("", "ply"), QString(""));
 }
 
-void Test::animatedTextureFrame() const
+void Test::animatedTextureFrames() const
 {
-	// speed of animated textures (issue #704): 1.0 keeps the animation frame number
+	// speed of animated textures (issue #704): 1.0 keeps the animation frame number, with or
+	// without blending
 	for (int frame = 0; frame < 1000; frame++)
-		QCOMPARE(AnimatedTextureFrame(frame, 1.0), frame);
+	{
+		for (bool blend : {false, true})
+		{
+			const sAnimatedTextureFrames frames = AnimatedTextureFrames(frame, 1.0, blend);
+			QCOMPARE(frames.first, frame);
+			QCOMPARE(frames.second, frame);
+			QCOMPARE(frames.weight, 0.0);
+		}
+	}
 
+	// without blending: clean integer steps
 	const int half[] = {0, 0, 1, 1, 2, 2, 3, 3};
 	for (int frame = 0; frame < 8; frame++)
-		QCOMPARE(AnimatedTextureFrame(frame, 0.5), half[frame]);
+	{
+		const sAnimatedTextureFrames frames = AnimatedTextureFrames(frame, 0.5, false);
+		QCOMPARE(frames.first, half[frame]);
+		QCOMPARE(frames.second, half[frame]);
+		QCOMPARE(frames.weight, 0.0);
+	}
+	QCOMPARE(AnimatedTextureFrames(3, 2.0, false).first, 6);
+	QCOMPARE(AnimatedTextureFrames(5, 0.0, false).first, 0);
+	QCOMPARE(AnimatedTextureFrames(100, 0.29, false).first, 29);
+	QCOMPARE(AnimatedTextureFrames(9, 0.1, false).first, 0);
+	QCOMPARE(AnimatedTextureFrames(10, 0.1, false).first, 1);
 
-	QCOMPARE(AnimatedTextureFrame(3, 2.0), 6);
-	QCOMPARE(AnimatedTextureFrame(5, 0.0), 0);
-	QCOMPARE(AnimatedTextureFrame(100, 0.29), 29);
-	QCOMPARE(AnimatedTextureFrame(10, 0.1), 1);
-	QCOMPARE(AnimatedTextureFrame(9, 0.1), 0);
+	// with blending: the two neighbouring images, weighted by the fractional position
+	for (int frame = 0; frame < 8; frame++)
+	{
+		const sAnimatedTextureFrames frames = AnimatedTextureFrames(frame, 0.5, true);
+		QCOMPARE(frames.first, half[frame]);
+		if (frame % 2 == 0)
+		{
+			QCOMPARE(frames.second, frames.first);
+			QCOMPARE(frames.weight, 0.0);
+		}
+		else
+		{
+			QCOMPARE(frames.second, frames.first + 1);
+			QCOMPARE(frames.weight, 0.5);
+		}
+	}
+	sAnimatedTextureFrames frames = AnimatedTextureFrames(9, 0.25, true);
+	QCOMPARE(frames.first, 2);
+	QCOMPARE(frames.second, 3);
+	QCOMPARE(frames.weight, 0.25);
+	frames = AnimatedTextureFrames(100, 0.29, true); // 28.999... is image 29, not a blend
+	QCOMPARE(frames.first, 29);
+	QCOMPARE(frames.weight, 0.0);
+	frames = AnimatedTextureFrames(5, 0.0, true);
+	QCOMPARE(frames.first, 0);
+	QCOMPARE(frames.weight, 0.0);
+}
+
+void Test::textureBlend() const
+{
+	// blending two images of an animated texture (issue #704)
+	QString dir = testFolder() + QDir::separator() + "texture_blend";
+	QDir(dir).removeRecursively();
+	QVERIFY(QDir().mkpath(dir));
+	const QColor colors[] = {QColor(200, 0, 40), QColor(0, 100, 240)};
+	for (int i = 0; i < 2; i++)
+	{
+		QImage image(4, 4, QImage::Format_RGB888);
+		image.fill(colors[i]);
+		QVERIFY(image.save(dir + QDir::separator() + QString("tex%1.png").arg(i, 4, 10, QChar('0'))));
+	}
+	const QString pattern = dir + QDir::separator() + "tex%%%%.png";
+
+	cTexture first(pattern, cTexture::useMipmaps, 0, true, false);
+	const cTexture second(pattern, cTexture::useMipmaps, 1, true, false);
+	QVERIFY(first.IsLoaded());
+	QVERIFY(second.IsLoaded());
+	const QString firstName = first.GetFileName();
+
+	cTexture blended = first;
+	blended.Blend(second, 0.25f, cTexture::useMipmaps);
+	QVERIFY(blended.GetFileName() != firstName);
+	QVERIFY(blended.GetFileName() != second.GetFileName());
+	for (int y = 0; y < 4; y++)
+	{
+		for (int x = 0; x < 4; x++)
+		{
+			const sRGBFloat a = first.FastPixel(x, y);
+			const sRGBFloat b = second.FastPixel(x, y);
+			const sRGBFloat c = blended.FastPixel(x, y);
+			QVERIFY(qAbs(c.R - (a.R * 0.75f + b.R * 0.25f)) < 1e-6f);
+			QVERIFY(qAbs(c.G - (a.G * 0.75f + b.G * 0.25f)) < 1e-6f);
+			QVERIFY(qAbs(c.B - (a.B * 0.75f + b.B * 0.25f)) < 1e-6f);
+		}
+	}
+
+	// the same image (a texture which is not animated) is not changed
+	cTexture same = first;
+	same.Blend(first, 0.5f, cTexture::useMipmaps);
+	QCOMPARE(same.GetFileName(), firstName);
+	QCOMPARE(same.FastPixel(1, 1).R, first.FastPixel(1, 1).R);
 }

@@ -85,7 +85,8 @@ private slots:
 	void netRenderCacheCleanup() const;
 	void animatedFileName() const;
 	void ensureFileExtension() const;
-	void animatedTextureFrame() const;
+	void animatedTextureFrames() const;
+	void textureBlend() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

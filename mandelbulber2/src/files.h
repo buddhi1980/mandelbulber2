@@ -67,8 +67,15 @@ QByteArray LoadUtf8TextFromFile(const QString &fileName);
 QByteArray StripNonAscii(const QByteArray &data);
 QString AnimatedFileName(
 	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);
-// frame of an animated texture (image sequence) for the animation frame, at the given speed
-int AnimatedTextureFrame(int frameNo, double speed);
+// images of an animated texture (image sequence) used for an animation frame: the image "first",
+// or a mix of the images "first" and "second" when weight > 0 (weight of the second image)
+struct sAnimatedTextureFrames
+{
+	int first;
+	int second;
+	double weight;
+};
+sAnimatedTextureFrames AnimatedTextureFrames(int frameNo, double speed, bool blend);
 bool fileTouch(const QString &filePath);
 // file name with ".extension" appended unless it already ends with it (any letter case)
 QString EnsureFileExtension(const QString &fileName, const QString &extension);

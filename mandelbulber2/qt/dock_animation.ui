@@ -46,29 +46,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_help_pushButton_help_animation">
        <item>
-        <widget class="QLabel" name="label_textures_animation_speed">
-         <property name="text">
-          <string>Speed of animated textures:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MyDoubleSpinBox" name="spinbox_textures_animation_speed">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Speed of animated textures (image sequences with '%' in the file name) used by the background, environment map, light map, materials and lights.&lt;/p&gt;&lt;p&gt;1.0 uses the next image of the sequence for each animation frame, 0.5 shows every image for two frames, 2.0 skips every second image and 0 always uses the first image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-         <property name="maximum">
-          <double>1000.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="horizontalSpacer_help_pushButton_help_animation">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

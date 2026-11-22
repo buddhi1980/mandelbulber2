@@ -82,6 +82,9 @@ public:
 		CVector2<float> point, float bump, bool invertGreen, float pixelSize = 0.0) const;
 	size_t GetMemorySize() const;
 	const std::vector<sRGBA8> &GetHDRBitmap() const { return bitmapHDR; }
+	// mixes the other texture into this one (weight of the other texture 0...1), used to blend the
+	// images of an animated texture. Does nothing if the sizes are different.
+	void Blend(const cTexture &other, float weight, enumUseMipmaps mode);
 
 private:
 	sRGBFloat LinearInterpolation(float x, float y) const;

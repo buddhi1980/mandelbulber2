@@ -903,7 +903,7 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				if (parameterName == "image_height") continue;
 				if (parameterName == "random_lights_number") continue;
 				// changes only animations, which the preview doesn't show
-				if (parameterName == "textures_animation_speed") continue;
+				if (parameterName.contains("texture_animation_")) continue;
 
 				listOfParameters.insert(fullParameterName);
 

@@ -76,7 +76,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("flight_last_to_render", 9999999, 0, 9999999, morphNone, paramStandard);
 
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramOnlyForNet);
-	par->addParam("textures_animation_speed", 1.0, 0.0, 1000.0, morphNone, paramStandard);
 	par->addParam("flight_speed", 0.01, -1000.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
 	par->addParam(
@@ -1755,6 +1754,10 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		paramStandard);
 	par->addParam(
 		cMaterial::Name("surface_roughness", materialId), 0.01, 0.0, 1.0, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("texture_animation_blend", materialId), false, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("texture_animation_speed", materialId), 1.0, 0.0, 1000.0, morphNone,
+		paramStandard);
 	par->addParam(cMaterial::Name("texture_center", materialId), CVector3(0.0, 0.0, 0.0), morphAkima,
 		paramStandard);
 	par->addParam(cMaterial::Name("texture_fractalize_cube_size", materialId), 2.0, 1e-15, 1e5,
