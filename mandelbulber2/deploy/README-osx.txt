@@ -25,7 +25,7 @@ PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
 CONTACT:         buddhi1980@gmail.com
 DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
 DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
-COMMUNITY:       http://www.fractalforums.com/mandelbulber/
+COMMUNITY:       https://fractalforums.org/
                  https://www.facebook.com/groups/mandelbulber/
 FANSITE:         http://www.mandelbulber.com
                  http://www.mandelbulber.org
