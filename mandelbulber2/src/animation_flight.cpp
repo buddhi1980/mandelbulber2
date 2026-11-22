@@ -392,7 +392,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	double rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 	double inertia = params->Get<double>("flight_inertia");
 
-	recordPause = false;
+	// optionally start paused, so the user can prepare before the camera starts moving
+	recordPause = params->Get<bool>("flight_start_paused");
 
 	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
 	imageWidget->SetEnableClickModes(false);
@@ -413,6 +414,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 				tr("Paused. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 			if (mainInterface->stopRequest) break;
+			Wait(10); // don't spin the CPU while paused
 		}
 
 		if (wasPaused)

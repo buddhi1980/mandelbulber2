@@ -84,6 +84,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("flight_rotation_speed", 10.0, morphNone, paramStandard);
 	par->addParam("flight_show_thumbnails", false, morphNone, paramApp);
 	par->addParam("flight_add_speeds", true, morphNone, paramStandard);
+	par->addParam("flight_start_paused", false, morphNone, paramApp);
 	par->addParam("flight_movement_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);

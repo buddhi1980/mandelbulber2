@@ -478,6 +478,22 @@
                      </property>
                     </widget>
                    </item>
+                   <item row="12" column="0" colspan="3">
+                    <widget class="MyCheckBox" name="checkBox_flight_start_paused">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Recording starts in the paused state. The camera doesn't move and no frames are recorded until you press the space bar over the image. Press the space bar again to pause.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text">
+                      <string>Start recording paused (press space to start)</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="7" column="1" colspan="2">
                     <widget class="MyComboBox" name="comboBox_flight_animation_image_type">
                      <property name="sizePolicy">
@@ -1811,6 +1827,7 @@
   <tabstop>spinboxInt_flight_last_to_render</tabstop>
   <tabstop>checkBox_flight_show_thumbnails</tabstop>
   <tabstop>checkBox_flight_add_speeds</tabstop>
+  <tabstop>checkBox_flight_start_paused</tabstop>
   <tabstop>pushButton_render_keyframe_animation</tabstop>
   <tabstop>pushButton_check_for_collisions</tabstop>
   <tabstop>pushButton_refresh_keyframe_table</tabstop>
