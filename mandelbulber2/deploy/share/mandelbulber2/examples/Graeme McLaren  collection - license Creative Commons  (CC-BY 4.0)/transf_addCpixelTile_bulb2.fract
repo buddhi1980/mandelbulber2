@@ -1,0 +1,36 @@
+# Mandelbulber settings file
+# version 2.35
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 aa00 0000 ff00;
+camera 0 -11 1.95399252334029E-14;
+camera_distance_to_target 11;
+camera_rotation 0 -1.01777749806833E-13 0;
+camera_top 0 1.77635683940025E-15 1;
+DE_factor 0.5;
+detail_level 2;
+flight_last_to_render 0;
+fov 60;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 30;
+nebula_iterations_colors 0 000000 100 0000ff 999 ff0000 5000 ffff00 9999 ffffff;
+node_0001_definition hybrid 1,1,10,0,100,0;
+node_0002_definition T>Add Cpixel Tile,2,1,1,1,1;
+node_0003_definition Mandelbulb,3,1,1,2,2;
+view_distance_max 80;
+[fractal_1]
+formula 1137;
+transf_function_enabledAx_false true;
+transf_scale3D_444 6 6 6;
+transf_start_iterations_A 1;
+[fractal_2]
+dont_add_c_constant true;
+formula 2;
