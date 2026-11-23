@@ -118,7 +118,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractals)
 	fractals->append(new cFractalMandelbulbSinCosV2());
 	fractals->append(new cFractalMandelbulbSinCosV3());
 	fractals->append(new cFractalMandelbulbSinCosV4());
-	fractals->append(new cFractalChebyshevBulb());
+
 	fractals->append(new cFractalMandelbulbVaryPowerV1());
 	fractals->append(new cFractalMandelcup());
 	fractals->append(new cFractalMandelnest());
@@ -171,7 +171,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractals)
 
 	// Abox formulas
 	fractals->append(new cFractalAboxMod1());
-	fractals->append(new cFractalAboxMb3d1());
+
 	fractals->append(new cFractalAboxMod2());
 	fractals->append(new cFractalAboxMod11());
 	fractals->append(new cFractalAboxMod12());
@@ -228,7 +228,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractals)
 	fractals->append(new cFractalMandelbox());
 	fractals->append(new cFractalMandelboxFast());
 	fractals->append(new cFractalMandelboxMenger());
-	fractals->append(new cFractalDualPowerMandelbox());
+
 	fractals->append(new cFractalMandelboxSmooth());
 	fractals->append(new cFractalMandelboxVariable());
 	fractals->append(new cFractalMandelboxVaryScale4d());
@@ -602,6 +602,10 @@ void DefineFractalList(QList<cAbstractFractal *> *fractals)
 	fractals->append(new cFractalMandelbulbPow2V4());
 
 	fractals->append(new cFractalPseudoKleinianMod7());
+
+	fractals->append(new cFractalDualPowerMandelbox());
+	fractals->append(new cFractalChebyshevBulb());
+	fractals->append(new cFractalAboxMb3d1());
 
 
 	fractals->append(new cFractalPseudoKleinianTrigV2());
