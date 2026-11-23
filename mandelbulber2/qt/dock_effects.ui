@@ -4882,7 +4882,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="1">
+                <item row="13" column="1">
                  <widget class="QLabel" name="label_106">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -4905,6 +4905,20 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="12" column="0">
+                 <widget class="QLabel" name="label_fake_lights_orbit_trap_line_length">
+                  <property name="text">
+                   <string>Line length:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="2">
+                 <widget class="MyLineEdit" name="logedit_fake_lights_orbit_trap_line_length">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total length of the &lt;i&gt;Line&lt;/i&gt; orbit trap shape, centered on the Orbit trap center and oriented by Orbit rotation. Past the ends of the segment the distance is measured to the nearest end point.&lt;/p&gt;&lt;p&gt;0 means an infinite line (default). Used only by the &lt;i&gt;Line&lt;/i&gt; shape.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="5" column="2">
                  <widget class="MyLineEdit" name="logedit_fake_lights_thickness">
                   <property name="toolTip">
@@ -4915,7 +4929,7 @@ of lights:</string>
                 <item row="6" column="2">
                  <widget class="MyComboBox" name="comboBox_fake_lights_orbit_trap_shape">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Select the orbit‑trap shape used by Fake lights (lighting is driven by the distance to this shape).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Point&lt;/i&gt; — a single point source near the trap center (default).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Line&lt;/i&gt; — an infinite line through the center; use Orbit rotation to set its direction.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Circle&lt;/i&gt; — a circular ring around a central axis; Size = ring radius; Rotation sets the axis.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Square&lt;/i&gt; — a square ring; Size = half edge; Rotation sets orientation.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Sphere&lt;/i&gt; — a spherical shell; Size = radius.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Cube&lt;/i&gt; — a cubic shell; Size = half edge length.&lt;/p&gt; &lt;p&gt;Tip: Use Thickness to control falloff width, Visibility/Visibility size for reach, and set center/Relative center and Orbit rotation as needed. Effective when “Fake lights” is enabled.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt;Select the orbit‑trap shape used by Fake lights (lighting is driven by the distance to this shape).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Point&lt;/i&gt; — a single point source near the trap center (default).&lt;/p&gt; &lt;p&gt;&lt;i&gt;Line&lt;/i&gt; — a line through the center; Line length = total length (0 = infinite); use Orbit rotation to set its direction.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Circle&lt;/i&gt; — a circular ring around a central axis; Size = ring radius; Rotation sets the axis.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Square&lt;/i&gt; — a square ring; Size = half edge; Rotation sets orientation.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Sphere&lt;/i&gt; — a spherical shell; Size = radius.&lt;/p&gt; &lt;p&gt;&lt;i&gt;Cube&lt;/i&gt; — a cubic shell; Size = half edge length.&lt;/p&gt; &lt;p&gt;Tip: Use Thickness to control falloff width, Visibility/Visibility size for reach, and set center/Relative center and Orbit rotation as needed. Effective when “Fake lights” is enabled.&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <item>
                    <property name="text">
@@ -4966,7 +4980,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="14" column="1">
+                <item row="15" column="1">
                  <widget class="QLabel" name="label_108">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -5005,7 +5019,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="15" column="2">
+                <item row="16" column="2">
                  <widget class="MyColorButton" name="colorButton_fake_lights_color" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -5031,7 +5045,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="14" column="2">
+                <item row="15" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_fake_lights_orbit_rotation_z">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5062,7 +5076,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="2">
+                <item row="13" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_fake_lights_orbit_rotation_x">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5116,14 +5130,14 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="0" rowspan="3">
+                <item row="13" column="0" rowspan="3">
                  <widget class="QLabel" name="label_102">
                   <property name="text">
                    <string>Shape rotation:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="13" column="1">
+                <item row="14" column="1">
                  <widget class="QLabel" name="label_107">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -5146,14 +5160,14 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="15" column="0">
+                <item row="16" column="0">
                  <widget class="QLabel" name="label_45">
                   <property name="text">
                    <string>Color:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="13" column="2">
+                <item row="14" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_fake_lights_orbit_rotation_y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5184,7 +5198,7 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="16" column="0" colspan="3">
+                <item row="17" column="0" colspan="3">
                  <widget class="MyGroupBox" name="groupCheck_fake_lights_color_2_enabled">
                   <property name="toolTip">
                    <string>&lt;p&gt;Adds a second set of orbit trap lights. When enabled, color 1 is used only for the first captured iteration and color 2 for the second and further iterations.&lt;/p&gt;</string>

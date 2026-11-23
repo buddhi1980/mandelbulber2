@@ -81,6 +81,7 @@ struct sCommonParams
 
 	// Doubles (as in OpenCL)
 	double fakeLightsOrbitTrapSize;
+	double fakeLightsOrbitTrapLineLength;
 	double fakeLightsThickness;
 	double linearDEOffset;
 

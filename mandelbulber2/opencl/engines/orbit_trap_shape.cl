@@ -46,7 +46,11 @@ float OrbitTrapShapeDistance(float4 z4, __constant sClInConstants *consts)
 
 #ifdef FAKE_LIGHTS_LINE
 	delta = Matrix33MulFloat3(consts->params.common.mRotFakeLightsRotation, delta);
-	dist = length(delta.yz);
+	// line length 0 means an infinite line, otherwise a segment centered on the trap point
+	float dx = 0.0f;
+	float lineLength = consts->params.common.fakeLightsOrbitTrapLineLength;
+	if (lineLength > 0.0f) dx = max(fabs(delta.x) - 0.5f * lineLength, 0.0f);
+	dist = length((float3){dx, delta.y, delta.z});
 #endif
 
 #ifdef FAKE_LIGHTS_CIRCLE
