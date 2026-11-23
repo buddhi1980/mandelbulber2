@@ -34,6 +34,7 @@
 
 #include "material.h"
 
+#include "files.h"
 #include "initparameters.hpp"
 #include "netrender.hpp"
 #include "parameters.hpp"
@@ -272,6 +273,8 @@ QStringList cMaterial::paramsList = {
 	"subsurface_scattering",
 	"surface_color",
 	"surface_roughness",
+	"texture_animation_blend",
+	"texture_animation_speed",
 	"texture_center",
 	"texture_fractalize_cube_size",
 	"texture_fractalize_start_iteration",
@@ -319,7 +322,11 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 {
 	id = _id;
 
-	int frameNo = materialParam->Get<int>("frame_no");
+	// images of animated textures (image sequences) used for this frame
+	const sAnimatedTextureFrames textureFrames =
+		AnimatedTextureFrames(materialParam->Get<int>("frame_no"),
+			materialParam->Get<double>(Name("texture_animation_speed", id)),
+			materialParam->Get<bool>(Name("texture_animation_blend", id)));
 
 	shading = materialParam->Get<float>(Name("shading", id));
 	specular = materialParam->Get<float>(Name("specular", id));
@@ -608,6 +615,19 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	perlinNoiseTransparencyAlphaInvert =
 		materialParam->Get<bool>(Name("perlin_noise_transparency_alpha_invert", id));
 
+	// loads a texture, with blending of two images of an animated texture when needed
+	auto loadTexture = [&](const QString &fileParameter, cTexture::enumUseMipmaps mode)
+	{
+		const QString fileName = materialParam->Get<QString>(Name(fileParameter, id));
+		cTexture texture(fileName, mode, textureFrames.first, quiet, useNetRender);
+		if (textureFrames.weight > 0.0)
+		{
+			const cTexture secondTexture(fileName, mode, textureFrames.second, quiet, useNetRender);
+			texture.Blend(secondTexture, float(textureFrames.weight), mode);
+		}
+		return texture;
+	};
+
 	if (loadTextures)
 	{
 		//		if (gNetRender->IsClient())
@@ -662,45 +682,32 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		//		}
 		//		else
 		//		{
-		if (useColorTexture)
-			colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet, useNetRender);
+		if (useColorTexture) colorTexture = loadTexture("file_color_texture", cTexture::useMipmaps);
 
 		if (useDiffusionTexture)
-			diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			diffusionTexture = loadTexture("file_diffusion_texture", cTexture::useMipmaps);
 
 		if (useLuminosityTexture)
-			luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			luminosityTexture = loadTexture("file_luminosity_texture", cTexture::useMipmaps);
 
 		if (useDisplacementTexture)
-			displacementTexture =
-				cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)),
-					cTexture::doNotUseMipmaps, frameNo, quiet, useNetRender);
+			displacementTexture = loadTexture("file_displacement_texture", cTexture::doNotUseMipmaps);
 
 		if (useNormalMapTexture)
-			normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			normalMapTexture = loadTexture("file_normal_map_texture", cTexture::useMipmaps);
 
 		if (useReflectanceTexture)
-			reflectanceTexture =
-				cTexture(materialParam->Get<QString>(Name("file_reflectance_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			reflectanceTexture = loadTexture("file_reflectance_texture", cTexture::useMipmaps);
 
 		if (useTransparencyTexture)
-			transparencyTexture =
-				cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			transparencyTexture = loadTexture("file_transparency_texture", cTexture::useMipmaps);
 
 		if (useTransparencyAlphaTexture)
 			transparencyAlphaTexture =
-				cTexture(materialParam->Get<QString>(Name("file_transparency_alpha_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet, useNetRender);
+				loadTexture("file_transparency_alpha_texture", cTexture::useMipmaps);
 
 		if (useRoughnessTexture)
-			roughnessTexture = cTexture(materialParam->Get<QString>(Name("file_roughness_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet, useNetRender);
+			roughnessTexture = loadTexture("file_roughness_texture", cTexture::useMipmaps);
 		//		}
 	}
 

@@ -1754,6 +1754,10 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		paramStandard);
 	par->addParam(
 		cMaterial::Name("surface_roughness", materialId), 0.01, 0.0, 1.0, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("texture_animation_blend", materialId), false, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("texture_animation_speed", materialId), 1.0, 0.0, 1000.0, morphNone,
+		paramStandard);
 	par->addParam(cMaterial::Name("texture_center", materialId), CVector3(0.0, 0.0, 0.0), morphAkima,
 		paramStandard);
 	par->addParam(cMaterial::Name("texture_fractalize_cube_size", materialId), 2.0, 1e-15, 1e5,

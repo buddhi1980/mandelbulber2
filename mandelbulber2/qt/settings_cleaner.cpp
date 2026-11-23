@@ -162,6 +162,8 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName == "camera_rotation") continue;
 			if (parameterName == "view_distance_max") continue;
 			if (parameterName == "stereo_mode") continue;
+			// the test render shows frame 0, where the animation of textures has no effect
+			if (parameterName.contains("mat") && parameterName.contains("texture_animation_")) continue;
 			if (parameterName == "formula_code") continue;
 			if (parameterName.contains("flight_")) continue;
 			if (parameterName.contains("keyframe_")) continue;

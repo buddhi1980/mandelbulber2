@@ -530,6 +530,31 @@ void cTexture::CreateMipMaps()
 	}
 }
 
+void cTexture::Blend(const cTexture &other, float weight, enumUseMipmaps mode)
+{
+	if (!loaded || !other.loaded || weight <= 0.0f) return;
+	if (other.originalFileName == originalFileName) return; // the same image (not animated)
+	if (other.width != width || other.height != height) return;
+
+	const float weightThis = 1.0f - weight;
+	for (size_t i = 0; i < bitmapFloat.size(); i++)
+	{
+		const sRGBFloat a = bitmapFloat[i];
+		const sRGBFloat b = other.bitmapFloat[i];
+		bitmapFloat[i] = sRGBFloat(a.R * weightThis + b.R * weight, a.G * weightThis + b.G * weight,
+			a.B * weightThis + b.B * weight);
+	}
+
+	// unique name, because the name identifies the texture in the OpenCL texture data
+	originalFileName =
+		QString("%1|blend|%2|%3").arg(originalFileName, other.originalFileName).arg(weight, 0, 'g', 6);
+
+	mipmaps.clear();
+	mipmapSizes.clear();
+	if (mode == useMipmaps) CreateMipMaps();
+	ComputeHDRBItmap();
+}
+
 size_t cTexture::GetMemorySize() const
 {
 	size_t totalSize = bitmapFloat.size() * sizeof(sRGBFloat);

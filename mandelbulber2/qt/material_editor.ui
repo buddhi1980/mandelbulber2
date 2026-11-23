@@ -5338,6 +5338,60 @@ direction vector:</string>
            </widget>
           </item>
           <item>
+           <widget class="QGroupBox" name="groupBox_texture_animation">
+            <property name="title">
+             <string>Animated textures (image sequences)</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_texture_animation">
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_texture_animation_speed">
+               <property name="text">
+                <string>Speed (images per frame):</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="MyDoubleSpinBox" name="spinbox_texture_animation_speed">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Speed of animated textures of this material (image sequences with '%' in the file name, e.g. texture%%%%.png) in images per animation frame.&lt;/p&gt;&lt;p&gt;1.0 uses the next image for every animation frame, 0.5 moves by half an image per frame, 2.0 skips every second image and 0 always uses the first image.&lt;/p&gt;&lt;p&gt;Without blending, a speed below 1.0 holds each image for several frames; enable blending between texture frames for a smooth change.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="decimals">
+                <number>4</number>
+               </property>
+               <property name="maximum">
+                <double>1000.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="MyCheckBox" name="checkBox_texture_animation_blend">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When the speed of animated textures puts an animation frame between two images of the sequence, the two images are mixed linearly (e.g. at image position 2.25: 75% of image 2 and 25% of image 3), so the texture changes smoothly.&lt;/p&gt;&lt;p&gt;When disabled, the image with the position rounded down is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="text">
+                <string>Blend between texture frames</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <layout class="QGridLayout" name="gridLayout_99" rowstretch="0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0,1">
             <property name="spacing">
              <number>2</number>
