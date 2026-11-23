@@ -33,9 +33,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+# A new commit of a pull request cancels the test of the older one. A push to a branch
+# (master) lets the running test finish and waits for it: the test takes about an hour,
+# so when commits were merged faster than that, every test of master was cancelled and
+# master had no result. Commits pushed while one waits replace it, so the newest is tested.
 concurrency:
   group: regression-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
