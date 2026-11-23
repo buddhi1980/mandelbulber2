@@ -54,6 +54,7 @@ public:
 
 	void SetParameters(
 		std::shared_ptr<cAudioTrack> audioTrack, std::shared_ptr<cKeyframes> keyframes);
+	bool AreKeyframesModified() const { return keyframesModified; }
 
 private:
 	void paintEvent(QPaintEvent *event) override;
@@ -75,6 +76,7 @@ private:
 	bool mouseDragStarted = false;
 	int dragStartX = 0;
 	int pressedKeyIndex = 0;
+	bool keyframesModified = false;
 };
 
 #endif /* MANDELBULBER2_QT_TIME_RULER_H_ */

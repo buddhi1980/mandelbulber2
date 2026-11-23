@@ -62,6 +62,12 @@ cAudioSelector::~cAudioSelector()
 {
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 
+	// the animation is changed by any audio setting of the parameter, by loading or deleting the
+	// audio file and by dragging keyframes on the time ruler
+	const bool animationChanged = audioTrackChanged || ui->timeRuler->AreKeyframesModified()
+																|| GetAudioSettings(gPar) != audioSettingsAtStart;
+	emit closed(animationChanged);
+
 	if (audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT
@@ -113,6 +119,7 @@ void cAudioSelector::slotAudioLoaded()
 	slotFreqChanged();
 	audioSetup();
 	SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
+	audioTrackChanged = true;
 	emit audioLoaded();
 }
 
@@ -133,6 +140,25 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 	}
 
 	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
+
+	// read the settings back from the widgets (as the destructor does), so values rounded by the
+	// widgets are not taken as changes
+	auto settingsAtStart = std::make_shared<cParameterContainer>(*gPar);
+	SynchronizeInterfaceWindow(this, settingsAtStart, qInterface::read);
+	audioSettingsAtStart = GetAudioSettings(settingsAtStart);
+}
+
+QStringList cAudioSelector::GetAudioSettings(std::shared_ptr<cParameterContainer> par) const
+{
+	// all "animsound_<setting>_<parameter>" values of this parameter
+	QStringList settings;
+	const QString suffix = "_" + parameterName;
+	for (const QString &name : par->GetListOfParameters())
+	{
+		if (name.startsWith("animsound_") && name.endsWith(suffix))
+			settings.append(name + "=" + par->Get<QString>(name));
+	}
+	return settings;
 }
 
 void cAudioSelector::ConnectSignals() const
@@ -344,6 +370,7 @@ void cAudioSelector::slotDeleteAudioTrack()
 	ui->text_animsound_soundfile->setText("");
 	slotFreqChanged();
 	slotPlaybackStop();
+	audioTrackChanged = true;
 	emit audioLoaded();
 }
 

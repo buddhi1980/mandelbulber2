@@ -563,8 +563,10 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 
 	cPushButtonAnimSound *audioSelectorButton = new cPushButtonAnimSound(table);
 	table->setCellWidget(row, animSoundColumn, audioSelectorButton);
+	// queued: the signal comes from the destructor of the audio selector, which is a child of the
+	// button deleted by RefreshTable()
 	connect(audioSelectorButton, &cPushButtonAnimSound::signalAudioSelectorClosed, this,
-		&cKeyframeAnimation::slotRefreshTable);
+		&cKeyframeAnimation::slotAudioSelectorClosed, Qt::QueuedConnection);
 
 	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignParameterName(fullParameterName);
@@ -1681,6 +1683,13 @@ void cKeyframeAnimation::CopyToAllKeyframes(int row, int column)
 void cKeyframeAnimation::slotRefreshTable()
 {
 	RefreshTable();
+}
+
+void cKeyframeAnimation::slotAudioSelectorClosed(bool animationChanged)
+{
+	// opening and closing the audio selector without changes doesn't need the slow refresh of all
+	// keyframes and thumbnails
+	if (animationChanged) RefreshTable();
 }
 
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const
