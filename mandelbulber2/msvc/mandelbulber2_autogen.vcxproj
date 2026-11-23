@@ -167,6 +167,7 @@
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\iconengines&quot; &quot;$(OutDir)iconengines&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\imageformats&quot; &quot;$(OutDir)imageformats&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\platforms&quot; &quot;$(OutDir)platforms&quot;" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\plugins\tls\qschannelbackend*.dll&quot; &quot;$(OutDir)tls\&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)\mandelbulber2\language&quot; &quot;$(OutDir)language&quot;" />
     <Exec Command="xcopy /Y /Q /I /S &quot;$(SourceDir)\mandelbulber2\formula&quot; &quot;$(OutDir)formula&quot;" />
     <Exec Command="xcopy /Y /Q /I /S &quot;$(SourceDir)\mandelbulber2\opencl&quot; &quot;$(OutDir)opencl&quot;" />

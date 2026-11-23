@@ -98,6 +98,7 @@ Source: "{#MyQtBinDir}\Qt6Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6Concurrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\platforms\*.dll"; Excludes: "*.pdb, *d.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\platforms\qdirect2d.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "{#MyQtBinDir}\..\plugins\tls\qschannelbackend.dll"; DestDir: "{app}\tls"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\iconengines\qsvgicon.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\imageformats\*.dll"; Excludes: "*.pdb, *d.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
 
