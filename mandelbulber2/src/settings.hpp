@@ -49,6 +49,7 @@
 
 #include <memory>
 
+#include <QDateTime>
 #include <QString>
 #include <QStringList>
 
@@ -89,6 +90,8 @@ public:
 	void SetListOfParametersToProcess(const QStringList &list) { listOfParametersToProcess = list; }
 	void SetListAppSettings(const QStringList &list) { listOfAppSettings = list; }
 	void SetFractalFormulaIndex(int _formulaIndex) { forcedFractalFormulaIndex = _formulaIndex; }
+	static QString AddAuthorTextToDescription(
+		const QString &description, const QString &authorText, const QDateTime &dateTime);
 
 private:
 	QString CreateHeader() const;

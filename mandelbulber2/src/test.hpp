@@ -79,6 +79,7 @@ private slots:
 	void netRenderFileDestination() const;
 	void testFlightWrapper() const;
 	void testKeyframeWrapper() const;
+	void settingsAuthorText() const;
 	void renderSimpleWrapper() const;
 	void testImageSaveWrapper() const;
 	void regressionScenesWrapper() const;

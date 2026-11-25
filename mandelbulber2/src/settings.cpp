@@ -41,6 +41,7 @@
 
 #include <QClipboard>
 #include <QCryptographicHash>
+#include <QRegularExpression>
 #include <QSet>
 
 #include "animation_frames.hpp"
@@ -319,6 +320,48 @@ void cSettings::CreateAnimationString(
 			text += "\n";
 		}
 	}
+}
+
+/**
+ * Add the author text from the preferences as a line of the description (issue #299).
+ * %date% and %time% in authorText are replaced by the given date (yyyy-MM-dd) and time (hh:mm).
+ * When the description already has a line made from the same author text (with any date and
+ * time), that line is updated instead of adding a second one, so saving a file again only
+ * refreshes the date. Otherwise the line is added at the end. An empty author text leaves the
+ * description unchanged.
+ */
+QString cSettings::AddAuthorTextToDescription(
+	const QString &description, const QString &authorText, const QDateTime &dateTime)
+{
+	if (authorText.trimmed().isEmpty()) return description;
+
+	QString authorLine = authorText;
+	authorLine.replace("%date%", dateTime.toString("yyyy-MM-dd"));
+	authorLine.replace("%time%", dateTime.toString("hh:mm"));
+	// a line like "[CC BY 4.0]" would be read back as the start of a new section
+	QString section;
+	if (CheckSection(authorLine, section)) authorLine += " ";
+
+	// pattern of a line made earlier from the same author text
+	const QRegularExpression tokens("%date%|%time%");
+	QStringList fixedParts = authorText.split(tokens);
+	for (QString &part : fixedParts)
+		part = QRegularExpression::escape(part);
+	const QRegularExpression earlierLine("^" + fixedParts.join("[0-9:-]*") + " ?$");
+
+	QStringList lines = description.split('\n');
+	for (QString &line : lines)
+	{
+		if (!line.isEmpty() && earlierLine.match(line).hasMatch())
+		{
+			line = authorLine;
+			return lines.join('\n');
+		}
+	}
+
+	if (description.isEmpty()) return authorLine;
+	if (description.endsWith('\n')) return description + authorLine;
+	return description + '\n' + authorLine;
 }
 
 /**

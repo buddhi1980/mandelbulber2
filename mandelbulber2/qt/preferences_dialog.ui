@@ -827,6 +827,43 @@
             </widget>
            </item>
            <item>
+            <widget class="MyGroupBox" name="groupCheck_settings_author_text_enabled">
+             <property name="toolTip">
+              <string>&lt;p&gt;Adds the author text to the description of the scene when the settings are saved with &lt;b&gt;Save settings&lt;/b&gt; or &lt;b&gt;Save settings to clipboard&lt;/b&gt;. The text also appears in the &lt;b&gt;Description&lt;/b&gt; tab, where it can be edited for that file.&lt;/p&gt;</string>
+             </property>
+             <property name="title">
+              <string>Add author text to saved settings</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_settings_author_text">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="MyLineEdit" name="text_settings_author_text">
+                <property name="toolTip">
+                 <string>&lt;p&gt;Text added as a line of the description, e.g. the author name or a Creative Commons statement. &lt;b&gt;%date%&lt;/b&gt; and &lt;b&gt;%time%&lt;/b&gt; are replaced by the date and time of saving. Saving the same file again updates that line instead of adding a second one.&lt;/p&gt;</string>
+                </property>
+                <property name="placeholderText">
+                 <string>Settings by ... %date%</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="pushButton_retrieve_toolbar">
              <property name="toolTip">
               <string>&lt;p&gt;Restores the default toolbar presets. Existing files in the toolbar folder may be overwritten (the program asks for confirmation).&lt;/p&gt;</string>
@@ -2607,6 +2644,8 @@ and will only be present after enabling and re-render.</string>
   <tabstop>spinboxInt_logging_verbosity</tabstop>
   <tabstop>checkBox_quit_do_not_ask_again</tabstop>
   <tabstop>checkBox_description_popup_do_not_show_again</tabstop>
+  <tabstop>groupCheck_settings_author_text_enabled</tabstop>
+  <tabstop>text_settings_author_text</tabstop>
   <tabstop>pushButton_retrieve_toolbar</tabstop>
   <tabstop>pushButton_retrieve_materials</tabstop>
   <tabstop>scrollArea_image</tabstop>

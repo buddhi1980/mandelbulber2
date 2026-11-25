@@ -509,6 +509,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
 	par->addParam("upgrade_do_not_ask_again", false, morphNone, paramApp);
 	par->addParam("description_popup_do_not_show_again", false, morphNone, paramApp);
+	par->addParam("settings_author_text_enabled", false, morphNone, paramApp);
+	par->addParam("settings_author_text", QString(""), morphNone, paramApp);
 	par->addParam("system_tray_notify", false, morphNone, paramApp);
 
 	par->addParam("auto_refresh", false, morphNone, paramApp);
