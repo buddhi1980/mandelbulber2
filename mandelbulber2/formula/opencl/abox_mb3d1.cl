@@ -60,32 +60,31 @@ REAL4 AboxMb3d1Iteration(REAL4 z, __global sFractalCl *fractal, sExtendedAuxCl *
 	// elif rr < 1 then m = Scale/rr
 	// else m = 1
 	REAL rr = dot(z, z);
-	REAL m = 1.0f;
-	REAL minRSqr = fractal->mandelbox.foldingSphericalMin * fractal->mandelbox.foldingSphericalMin;
-
-	if (rr < minRSqr)
+	if (rr < fractal->transformCommon.minR0)
 	{
-		m = fractal->mandelbox.scale / minRSqr;
-		colorAdd += fractal->mandelbox.color.factorSp1;
+		z *= fractal->transformCommon.maxMinR0factor; // precaled
+		aux->DE *= fractal->transformCommon.maxMinR0factor;
+		aux->color += fractal->mandelbox.color.factorSp1;
 	}
-	else if (rr < 1.0f)
+	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m = fractal->mandelbox.scale / rr;
-		colorAdd += fractal->mandelbox.color.factorSp2;
+		REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux->DE *= tglad_factor2;
+		aux->color += fractal->mandelbox.color.factorSp2;
 	}
-
-	z *= m;
-	aux->DE *= fabs(m);
-
-	// Step 4: Scale by actualScale
 	z *= actualScale;
 	aux->DE = aux->DE * fabs(actualScale) + 1.0f;
+
+	// Step 4: Scale by actualScale
+//	z *= actualScale;
+//	aux->DE = aux->DE * fabs(actualScale) + 1.0f;
 
 	// Step 5: Add constant c (with Cx/Cy swap - key ABox feature)
 	// x = x * m + Cy  -> z.x += const_c.y
 	// y = y * m + Cx  -> z.y += const_c.x
 	// z = z * m + Cz  -> z.z += const_c.z
-	z.x += aux->const_c.y * fractal->transformCommon.constantMultiplier111.x;
+	z.x += aux->const_c.y * fractal->transformCommon.constantMultiplier111.x; // c.x c.y swap
 	z.y += aux->const_c.x * fractal->transformCommon.constantMultiplier111.y;
 	z.z += aux->const_c.z * fractal->transformCommon.constantMultiplier111.z;
 

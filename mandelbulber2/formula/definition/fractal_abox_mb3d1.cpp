@@ -29,7 +29,7 @@ cFractalAboxMb3d1::cFractalAboxMb3d1() : cAbstractFractal()
 	internalID = fractal::aboxMb3d1;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionIFS;
@@ -71,27 +71,35 @@ void cFractalAboxMb3d1::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	// if rr < sqr(Min_R) then m = Scale/sqr(Min_R)
 	// elif rr < 1 then m = Scale/rr
 	// else m = 1
+
+	//if (fractal->transformCommon.functionEnabledFalse
+	//		&& aux.i >= fractal->transformCommon.startIterationsK
+	//		&& aux.i < fractal->transformCommon.stopIterationsK)
+	//{
+
+
 	double rr = z.Dot(z);
-	double m = 1.0;
-	double minRSqr = fractal->mandelbox.foldingSphericalMin * fractal->mandelbox.foldingSphericalMin;
 
-	if (rr < minRSqr)
+	if (rr < fractal->transformCommon.minR0) // (rr < minRSqr)
 	{
-		m = fractal->mandelbox.scale / minRSqr;
-		colorAdd += fractal->mandelbox.color.factorSp1;
+		z *= fractal->transformCommon.maxMinR0factor;
+		aux.DE *= fractal->transformCommon.maxMinR0factor;
+		aux.color += fractal->mandelbox.color.factorSp1;
 	}
-	else if (rr < 1.0)
+	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m = fractal->mandelbox.scale / rr;
-		colorAdd += fractal->mandelbox.color.factorSp2;
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
-	z *= m;
-	aux.DE *= fabs(m);
-
-	// Step 4: Scale by actualScale
 	z *= actualScale;
 	aux.DE = aux.DE * fabs(actualScale) + 1.0;
+
+	// Step 4: Scale by actualScale
+//	z *= actualScale;
+//	aux.DE = aux.DE * fabs(actualScale) + 1.0;
 
 	// Step 5: Add constant c (with Cx/Cy swap - key ABox feature)
 	// x = x * m + Cy  -> z.x += const_c.y

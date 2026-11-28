@@ -74,8 +74,7 @@ void cFractalAboxMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 	if (rr < fractal->transformCommon.minR0)
 	{
-		//double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-		z *= fractal->transformCommon.maxMinR0factor;
+		z *= fractal->transformCommon.maxMinR0factor; // precalc maxRR / minRR
 		aux.DE *= fractal->transformCommon.maxMinR0factor;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
