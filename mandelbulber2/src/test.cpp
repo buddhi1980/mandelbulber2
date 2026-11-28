@@ -383,6 +383,140 @@ void Test::testFlight() const
 		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
 }
 
+// keyframe interpolation with linearly extrapolated end points (issue #695)
+void Test::testMorphSplineEnds() const
+{
+	using namespace parameterContainer;
+	if (IsBenchmarking()) return;
+
+	const int subFrames = 100;
+	const QList<double> plainValues = {-1.0, 1.0, 4.0, 0.0, 3.0, -2.0, 1.0};
+	const QList<double> angleValues = {170.0, -170.0, -150.0, -120.0, -100.0, -90.0, -80.0};
+	const int n = plainValues.size();
+	const int lastFrame = (n - 1) * subFrames;
+
+	struct sCase
+	{
+		enumMorphType type;
+		bool angular;
+		bool spline;
+		cMorph::gslSplineType gslType;
+	};
+	const QList<sCase> cases = {{morphCatMullRom, false, false, cMorph::gslSplineAkima},
+		{morphCatMullRomAngle, true, false, cMorph::gslSplineAkima},
+		{morphAkima, false, true, cMorph::gslSplineAkima},
+		{morphAkimaAngle, true, true, cMorph::gslSplineAkima},
+		{morphCubic, false, true, cMorph::gslSplineCubic},
+		{morphSteffen, false, true, cMorph::gslSplineSteffen},
+		{morphSteffenAngle, true, true, cMorph::gslSplineSteffen}};
+
+	for (const sCase &c : cases)
+	{
+		const QList<double> &values = c.angular ? angleValues : plainValues;
+
+		// the same data as cKeyframes::InterpolateSingleParameter() makes: the last keyframe has
+		// one sub-frame
+		auto fillMorph = [&](cMorph &morph, bool extrapolate)
+		{
+			morph.SetExtrapolateEnds(extrapolate);
+			for (int k = 0; k < n; k++)
+			{
+				cOneParameter par;
+				par.Set(0.0, valueDefault);
+				par.Set(values[k], valueActual);
+				par.SetMorphType(c.type);
+				morph.AddData(k, k < n - 1 ? subFrames : 1, par);
+			}
+		};
+		cMorph morphOff;
+		cMorph morphOn;
+		fillMorph(morphOff, false);
+		fillMorph(morphOn, true);
+		auto valueAt = [](cMorph &morph, int frame)
+		{ return morph.Interpolate(frame).Get<double>(valueActual); };
+
+		// option off: identical to the original algorithm, which repeats the end values
+		for (int frame = 0; frame <= lastFrame; frame++)
+		{
+			const int key = frame / subFrames;
+			const double factor = double(frame % subFrames) / subFrames;
+			auto v = [&](int k) { return values[qBound(0, k, n - 1)]; };
+			double expected;
+			if (!c.spline)
+			{
+				expected = cMorph::CatmullRomInterpolate(
+					factor, v(key - 1), v(key), v(key + 1), v(key + 2), c.angular);
+			}
+			else
+			{
+				auto sub = [&](int k) { return double(k == n - 1 ? 1 : subFrames); };
+				const double base = sub(key);
+				double x[6];
+				x[2] = 0.0;
+				x[3] = 1.0;
+				x[4] = x[3] + sub(qMin(key + 1, n - 1)) / base;
+				x[5] = x[4] + sub(qMin(key + 2, n - 1)) / base;
+				x[1] = x[2] - sub(qMax(key - 1, 0)) / base;
+				x[0] = x[1] - sub(qMax(key - 2, 0)) / base;
+				expected = morphOff.GslSplineInterpolate(factor, x, v(key - 2), v(key - 1), v(key),
+					v(key + 1), v(key + 2), v(key + 3), c.gslType, c.angular);
+			}
+			QVERIFY2(valueAt(morphOff, frame) == expected, QString("type %1 frame %2: %3 instead of %4")
+																											 .arg(c.type)
+																											 .arg(frame)
+																											 .arg(valueAt(morphOff, frame))
+																											 .arg(expected)
+																											 .toStdString()
+																											 .c_str());
+		}
+
+		// option on: interior segments which don't reach beyond the ends are unchanged
+		const int reach = c.spline ? 2 : 1; // keyframes needed before the segment start
+		for (int key = reach; key < n - 1 - reach; key++)
+		{
+			for (int frame = key * subFrames; frame < (key + 1) * subFrames; frame++)
+			{
+				QVERIFY2(valueAt(morphOn, frame) == valueAt(morphOff, frame),
+					QString("type %1 frame %2 changed").arg(c.type).arg(frame).toStdString().c_str());
+			}
+		}
+
+		// option on: the slope at the first and last keyframe is the slope of the end segment
+		auto angleDelta = [&](double a, double b)
+		{
+			double d = a - b;
+			if (c.angular) d = remainder(d, 360.0);
+			return d;
+		};
+		const double slopeFirst = angleDelta(valueAt(morphOn, 1), valueAt(morphOn, 0)) * subFrames;
+		const double slopeLast =
+			angleDelta(valueAt(morphOn, lastFrame), valueAt(morphOn, lastFrame - 1)) * subFrames;
+		const double segmentFirst = angleDelta(values[1], values[0]);
+		const double segmentLast = angleDelta(values[n - 1], values[n - 2]);
+		const double slopeFirstOff = angleDelta(valueAt(morphOff, 1), valueAt(morphOff, 0)) * subFrames;
+		qDebug() << "type" << c.type << "first slope off/on/segment" << slopeFirstOff << slopeFirst
+						 << segmentFirst << "last slope on/segment" << slopeLast << segmentLast;
+		// a natural cubic spline only approaches the segment slope; the others match it
+		const double tolerance = c.type == morphCubic ? 0.25 : 0.05;
+		if (c.type == morphCubic)
+			QVERIFY(fabs(slopeFirst - segmentFirst) < fabs(slopeFirstOff - segmentFirst));
+		QVERIFY2(fabs(slopeFirst - segmentFirst) < tolerance * fabs(segmentFirst),
+			QString("type %1 first slope %2, expected about %3")
+				.arg(c.type)
+				.arg(slopeFirst)
+				.arg(segmentFirst)
+				.toStdString()
+				.c_str());
+		QVERIFY2(fabs(slopeLast - segmentLast) < tolerance * fabs(segmentLast),
+			QString("type %1 last slope %2, expected about %3")
+				.arg(c.type)
+				.arg(slopeLast)
+				.arg(segmentLast)
+				.toStdString()
+				.c_str());
+	}
+}
+
 void Test::testKeyframeWrapper() const
 {
 	if (IsBenchmarking())

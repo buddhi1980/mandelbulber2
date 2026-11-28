@@ -76,6 +76,9 @@ public:
 	void AddData(const int keyframe, const int noOfSubFrames, const cOneParameter &val);
 	int findInMorph(const int keyframe);
 	void Clear() { dataSets.clear(); }
+	// use linearly extrapolated points beyond the first and last keyframe instead of repeating
+	// the end values, so splines don't have zero slope at the ends
+	void SetExtrapolateEnds(bool extrapolate) { extrapolateEnds = extrapolate; }
 	cOneParameter Interpolate(int frameIndex);
 	cOneParameter None(const int key) const;
 	cOneParameter Linear(const int key, const double factor, bool const angular);
@@ -89,7 +92,18 @@ public:
 		double v3, double v4, double v5, double v6, gslSplineType type, const bool angular) const;
 	static void NearestNeighbourAngle(QList<double *> vals);
 
+	struct sEndExtrapolation
+	{
+		int endSlot = -1; // slot of the end keyframe to extrapolate from; -1: real keyframe value
+		int adjSlot = -1; // slot of the keyframe next to the end keyframe
+		double t = 0.0;		// distance from the end keyframe, in lengths of the end segment
+	};
+
 private:
+	bool PrepareEndExtrapolation(
+		int key, int keySlot, int count, const double *x, sEndExtrapolation *out) const;
+
+	bool extrapolateEnds = false;
 	int listSize;
 	gsl_interp_accel *interpolationAccelerator;
 	gsl_spline *splineAkima;

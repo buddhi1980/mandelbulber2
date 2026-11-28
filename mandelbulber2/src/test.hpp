@@ -78,6 +78,7 @@ private slots:
 	void netrender();
 	void netRenderFileDestination() const;
 	void testFlightWrapper() const;
+	void testMorphSplineEnds() const;
 	void testKeyframeWrapper() const;
 	void settingsAuthorText() const;
 	void renderSimpleWrapper() const;

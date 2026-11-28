@@ -42,6 +42,57 @@
 #include "color_gradient.h"
 #include "common_math.h"
 
+namespace
+{
+// value on the straight line through vAdj and vEnd, t end segment lengths beyond vEnd
+double ExtrapolatedValue(double vEnd, double vAdj, double t, bool angular)
+{
+	double delta = vEnd - vAdj;
+	if (angular)
+	{
+		// shortest way around the circle
+		while (delta > 180.0)
+			delta -= 360.0;
+		while (delta < -180.0)
+			delta += 360.0;
+	}
+	return vEnd + t * delta;
+}
+
+CVector3 ExtrapolatedValue(const CVector3 &vEnd, const CVector3 &vAdj, double t, bool angular)
+{
+	return CVector3(ExtrapolatedValue(vEnd.x, vAdj.x, t, angular),
+		ExtrapolatedValue(vEnd.y, vAdj.y, t, angular), ExtrapolatedValue(vEnd.z, vAdj.z, t, angular));
+}
+
+CVector4 ExtrapolatedValue(const CVector4 &vEnd, const CVector4 &vAdj, double t, bool angular)
+{
+	return CVector4(ExtrapolatedValue(vEnd.x, vAdj.x, t, angular),
+		ExtrapolatedValue(vEnd.y, vAdj.y, t, angular), ExtrapolatedValue(vEnd.z, vAdj.z, t, angular),
+		ExtrapolatedValue(vEnd.w, vAdj.w, t, angular));
+}
+
+sRGB ExtrapolatedValue(const sRGB &vEnd, const sRGB &vAdj, double t, bool angular)
+{
+	auto component = [t, angular](int end, int adj)
+	{ return int(qBound(0.0, round(ExtrapolatedValue(end, adj, t, angular)), 65535.0)); };
+	return sRGB(component(vEnd.R, vAdj.R), component(vEnd.G, vAdj.G), component(vEnd.B, vAdj.B));
+}
+
+// replaces repeated end values with linearly extrapolated phantom points
+template <typename T>
+void ExtrapolateEnds(
+	T *v, const cMorph::sEndExtrapolation *ext, int count, bool enabled, bool angular)
+{
+	if (!enabled) return;
+	for (int s = 0; s < count; s++)
+	{
+		if (ext[s].endSlot >= 0)
+			v[s] = ExtrapolatedValue(v[ext[s].endSlot], v[ext[s].adjSlot], ext[s].t, angular);
+	}
+}
+} // namespace
+
 cMorph::cMorph()
 {
 	listSize = 6;
@@ -77,6 +128,7 @@ cMorph &cMorph::operator=(const cMorph &source)
 	if (this != &source)
 	{
 		listSize = source.listSize;
+		extrapolateEnds = source.extrapolateEnds;
 		interpolationAccelerator = gsl_interp_accel_alloc();
 		splineAkima = gsl_spline_alloc(gsl_interp_akima, size_t(listSize));
 		splineCubic = gsl_spline_alloc(gsl_interp_cspline, size_t(listSize));
@@ -250,6 +302,40 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 	return interpolated;
 }
 
+// Finds the slots of the interpolation window which lie before the first or after the last
+// keyframe. keySlot is the slot of 'key', x[] the positions of the slots. Returns false when
+// there is nothing to extrapolate.
+bool cMorph::PrepareEndExtrapolation(
+	int key, int keySlot, int count, const double *x, sEndExtrapolation *out) const
+{
+	const int lastKey = dataSets.size() - 1;
+	if (!extrapolateEnds || lastKey < 1) return false;
+
+	bool any = false;
+	for (int s = 0; s < count; s++)
+	{
+		const int virtualKey = key + s - keySlot;
+		if (virtualKey < 0)
+		{
+			out[s].endSlot = keySlot - key;
+			out[s].adjSlot = out[s].endSlot + 1;
+		}
+		else if (virtualKey > lastKey)
+		{
+			out[s].endSlot = keySlot + lastKey - key;
+			out[s].adjSlot = out[s].endSlot - 1;
+		}
+		else
+		{
+			continue;
+		}
+		const double xEnd = x[out[s].endSlot];
+		out[s].t = (x[s] - xEnd) / (xEnd - x[out[s].adjSlot]);
+		any = true;
+	}
+	return any;
+}
+
 cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const angular)
 {
 	int k[4];
@@ -273,6 +359,10 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		k[3] = key + 2;
 	else
 		k[3] = dataSets.size() - 1;
+
+	const double xSlots[4] = {0.0, 1.0, 2.0, 3.0};
+	sEndExtrapolation ext[4];
+	const bool extrapolate = PrepareEndExtrapolation(key, 1, 4, xSlots, ext);
 
 	cOneParameter interpolated = dataSets[key].parameter;
 	cMultiVal val;
@@ -338,6 +428,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			double v[4];
 			for (int ds = 0; ds < 4; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 4, extrapolate, angular);
 			val.Store(CatmullRomInterpolate(factor, v[0], v[1], v[2], v[3], angular));
 			break;
 		}
@@ -346,6 +437,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			sRGB v[4];
 			for (int ds = 0; ds < 4; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 4, extrapolate, angular);
 			val.Store(sRGB(int(CatmullRomInterpolate(factor, v[0].R, v[1].R, v[2].R, v[3].R, angular)),
 				int(CatmullRomInterpolate(factor, v[0].G, v[1].G, v[2].G, v[3].G, angular)),
 				int(CatmullRomInterpolate(factor, v[0].B, v[1].B, v[2].B, v[3].B, angular))));
@@ -356,6 +448,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			CVector3 v[4];
 			for (int ds = 0; ds < 4; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 4, extrapolate, angular);
 			val.Store(CVector3(CatmullRomInterpolate(factor, v[0].x, v[1].x, v[2].x, v[3].x, angular),
 				CatmullRomInterpolate(factor, v[0].y, v[1].y, v[2].y, v[3].y, angular),
 				CatmullRomInterpolate(factor, v[0].z, v[1].z, v[2].z, v[3].z, angular)));
@@ -366,6 +459,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			CVector4 v[4];
 			for (int ds = 0; ds < 4; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 4, extrapolate, angular);
 			val.Store(CVector4(CatmullRomInterpolate(factor, v[0].x, v[1].x, v[2].x, v[3].x, angular),
 				CatmullRomInterpolate(factor, v[0].y, v[1].y, v[2].y, v[3].y, angular),
 				CatmullRomInterpolate(factor, v[0].z, v[1].z, v[2].z, v[3].z, angular),
@@ -422,6 +516,9 @@ cOneParameter cMorph::Spline(
 	x[0] = x[1] - dataSets[k[0]].numberOfSubFrames / baseFramesPerKeyframe;
 
 	// double x[] = {-2, -1, 0, 1, 2, 3};
+
+	sEndExtrapolation ext[6];
+	const bool extrapolate = PrepareEndExtrapolation(key, 2, 6, x, ext);
 
 	cOneParameter interpolated = dataSets[key].parameter;
 	cMultiVal val;
@@ -491,6 +588,7 @@ cOneParameter cMorph::Spline(
 			double v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 6, extrapolate, angular);
 
 			val.Store(GslSplineInterpolate(factor, x, v[0], v[1], v[2], v[3], v[4], v[5], type, angular));
 			break;
@@ -500,6 +598,7 @@ cOneParameter cMorph::Spline(
 			sRGB v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 6, extrapolate, angular);
 
 			val.Store(sRGB(int(GslSplineInterpolate(
 											 factor, x, v[0].R, v[1].R, v[2].R, v[3].R, v[4].R, v[5].R, type, angular)),
@@ -514,6 +613,7 @@ cOneParameter cMorph::Spline(
 			CVector3 v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 6, extrapolate, angular);
 
 			val.Store(CVector3(GslSplineInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x,
 													 v[5].x, type, angular),
@@ -528,6 +628,7 @@ cOneParameter cMorph::Spline(
 			CVector4 v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
+			ExtrapolateEnds(v, ext, 6, extrapolate, angular);
 			val.Store(CVector4(GslSplineInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x,
 													 v[5].x, type, angular),
 				GslSplineInterpolate(
