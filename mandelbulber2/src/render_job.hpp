@@ -80,6 +80,10 @@ public:
 		flightAnimRecord
 	};
 
+	// Converts the "temporary_scale" parameter (power exponent) into a resolution
+	// reduction factor: 0 -> 1, 1 -> 2, 2 -> 4, ... Used as cRenderJob constructor argument.
+	static int GetTemporaryScaleFactor(const std::shared_ptr<cParameterContainer> &par);
+
 	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
 	std::shared_ptr<cImage> GetImagePtr() const { return image; }
@@ -105,6 +109,9 @@ public:
 
 private:
 	bool InitImage(int w, int h, const sImageOptional &optional);
+	// Scales down image resolution and scales up detail level according to
+	// resolutionReduceFactor; must be re-applied after every parameters copy
+	void ApplyResolutionReduction() const;
 	void PrepareData();
 	void ReduceDetail() const;
 	QStringList CreateListOfUsedTextures() const;
@@ -139,6 +146,7 @@ private:
 
 	enumMode mode;
 	int height;
+	int resolutionReduceFactor;
 	int totalNumberOfCPUs;
 	int width;
 	QWidget *imageWidget;

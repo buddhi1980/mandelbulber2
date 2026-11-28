@@ -670,7 +670,7 @@ void cInterface::StartRender(bool noUndo)
 
 	DisableJuliaPointMode();
 
-	int temporaryScale = int(pow(int(2), gPar->Get<int>("temporary_scale")));
+	int temporaryScale = cRenderJob::GetTemporaryScaleFactor(gPar);
 	timerForAbortWarnings.start();
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, temporaryScale, &stopRequest,

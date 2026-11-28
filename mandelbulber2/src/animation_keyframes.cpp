@@ -741,9 +741,12 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 
 std::shared_ptr<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopRequest)
 {
+	// honor the "Temporary scale" combo from the navigation dock, same as the RENDER button
+	int temporaryScale = cRenderJob::GetTemporaryScaleFactor(params);
+
 	// preparing Render Job
 	std::shared_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
+		new cRenderJob(params, fractalParams, image, temporaryScale, stopRequest, imageWidget));
 	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,

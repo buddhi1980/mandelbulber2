@@ -344,8 +344,11 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->renderedImage->setClickMode(clickMode);
 
 	// setup of rendering engine
+	// temporary scale is applied to the recording preview as well: it speeds up the
+	// live rendering loop; recorded camera parameters do not depend on resolution
 	std::unique_ptr<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
-		mainInterface->mainImage, 1, &mainInterface->stopRequest, mainInterface->renderedImage));
+		mainInterface->mainImage, cRenderJob::GetTemporaryScaleFactor(params),
+		&mainInterface->stopRequest, mainInterface->renderedImage));
 	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	renderJob->renderContext = "flight_anim_record";
 	connect(renderJob.get(),
@@ -760,8 +763,11 @@ int cFlightAnimation::AddColumn(
 
 std::shared_ptr<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest)
 {
+	// honor the "Temporary scale" combo from the navigation dock, same as the RENDER button
+	int temporaryScale = cRenderJob::GetTemporaryScaleFactor(params);
+
 	std::shared_ptr<cRenderJob> renderJob(
-		new cRenderJob(params, fractalParams, image, 1, stopRequest, imageWidget));
+		new cRenderJob(params, fractalParams, image, temporaryScale, stopRequest, imageWidget));
 	renderJob->settingsFile = QFileInfo(systemData.lastSettingsFile).fileName();
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,

@@ -75,6 +75,10 @@ cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 	WriteLog("cRenderJob::cRenderJob", 2);
 	image = _image;
 
+	// guard against invalid factors; 1 means no reduction
+	// (this-> is needed: the constructor parameter hides the member)
+	this->resolutionReduceFactor = resolutionReduceFactor > 1 ? resolutionReduceFactor : 1;
+
 	// create new copy of parameter container
 	paramsContainer.reset(new cParameterContainer());
 	*paramsContainer = *_params;
@@ -82,12 +86,7 @@ cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 	*fractalContainer = *_fractal;
 	canUseNetRender = false;
 
-	paramsContainer->Set(
-		"image_width", paramsContainer->Get<int>("image_width") / resolutionReduceFactor);
-	paramsContainer->Set(
-		"image_height", paramsContainer->Get<int>("image_height") / resolutionReduceFactor);
-	paramsContainer->Set(
-		"detail_level", paramsContainer->Get<double>("detail_level") * resolutionReduceFactor);
+	ApplyResolutionReduction();
 
 	width = 0;
 	height = 0;
@@ -222,6 +221,33 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	ready = true;
 
 	return true;
+}
+
+/**
+ * Converts the "temporary_scale" parameter (power of two exponent, set by the
+ * navigation dock combo box) into a resolution reduction factor.
+ * par: parameter container which must have the parameter registered (InitParams)
+ */
+int cRenderJob::GetTemporaryScaleFactor(const std::shared_ptr<cParameterContainer> &par)
+{
+	return int(pow(int(2), par->Get<int>("temporary_scale")));
+}
+
+/**
+ * Applies resolutionReduceFactor to the internal parameter container copy:
+ * smaller image and proportionally coarser detail. Called after every copy of
+ * the source container, because UpdateParameters() overwrites the previous values.
+ */
+void cRenderJob::ApplyResolutionReduction() const
+{
+	if (resolutionReduceFactor <= 1) return;
+
+	paramsContainer->Set(
+		"image_width", paramsContainer->Get<int>("image_width") / resolutionReduceFactor);
+	paramsContainer->Set(
+		"image_height", paramsContainer->Get<int>("image_height") / resolutionReduceFactor);
+	paramsContainer->Set(
+		"detail_level", paramsContainer->Get<double>("detail_level") * resolutionReduceFactor);
 }
 
 bool cRenderJob::InitImage(int w, int h, const sImageOptional &optional)
@@ -1168,6 +1194,10 @@ void cRenderJob::UpdateParameters(const std::shared_ptr<cParameterContainer> _pa
 {
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
+
+	// the copy restored full resolution, so reduce it again (needed for animations
+	// which update parameters before rendering each frame)
+	ApplyResolutionReduction();
 
 	if (renderData->stereo.isEnabled())
 	{
