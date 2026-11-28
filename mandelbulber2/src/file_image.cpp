@@ -93,6 +93,14 @@
 	&& JPEGXL_NUMERIC_VERSION >= JPEGXL_COMPUTE_NUMERIC_VERSION(0, 8, 0)
 #define JXL_HAS_EXTRA_CHANNEL_DISTANCE
 #endif
+// libjxl 0.9 removed the unused pixel format argument of
+// JxlDecoderGetColorAsEncodedProfile; 0.7 and 0.8 still need it
+#if defined(JPEGXL_NUMERIC_VERSION) \
+	&& JPEGXL_NUMERIC_VERSION >= JPEGXL_COMPUTE_NUMERIC_VERSION(0, 9, 0)
+#define JXL_COLOR_PROFILE_ARGS(target, encoding) target, encoding
+#else
+#define JXL_COLOR_PROFILE_ARGS(target, encoding) nullptr, target, encoding
+#endif
 #include <cmath>
 #include <cstring>
 #include <vector>
@@ -1154,7 +1162,8 @@ bool ImageFileLoadJXL(const QString &filename, QImage &image)
 			{
 				// the transfer function tells whether this is a PQ (HDR) coded frame
 				JxlColorEncoding ce;
-				if (JxlDecoderGetColorAsEncodedProfile(dec, JXL_COLOR_PROFILE_TARGET_DATA, &ce)
+				if (JxlDecoderGetColorAsEncodedProfile(
+							dec, JXL_COLOR_PROFILE_ARGS(JXL_COLOR_PROFILE_TARGET_DATA, &ce))
 						== JXL_DEC_SUCCESS)
 				{
 					isPq = ce.transfer_function == JXL_TRANSFER_FUNCTION_PQ;
