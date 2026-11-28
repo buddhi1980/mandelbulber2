@@ -41,6 +41,16 @@
 #include <QPainter>
 
 using std::max;
+using std::min;
+
+namespace
+{
+// cumulative probability thresholds used for the legend values; the upper one
+// also limits the plotted range, so a short tail of extreme samples does not
+// compress the histogram (the real maximum is still shown as "max")
+const double LOW_PERCENTILE = 0.003;
+const double HIGH_PERCENTILE = 0.997;
+} // namespace
 
 MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 {
@@ -64,9 +74,8 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 	update();
 }
 
-// index of the highest non-empty bin; used to scale the X axis and the bars
-// so that the empty tail of the histogram does not compress the plot.
-// Falls back to the full bin count when the histogram has no samples.
+// index of the highest non-empty bin; this is the real maximum of the collected
+// data. Falls back to the full bin count when the histogram has no samples.
 int MyHistogramLabel::GetVisibleMaxIndex() const
 {
 	int size = histData.GetSize();
@@ -83,13 +92,53 @@ int MyHistogramLabel::GetVisibleMaxIndex() const
 	return size;
 }
 
+// bin index at which the cumulative probability of the histogram reaches the
+// given percentile; the last bin (the overflow one) is included in the count
+int MyHistogramLabel::GetPercentileIndex(double percentile) const
+{
+	int size = histData.GetSize();
+	long long totalSum = histData.GetCount();
+	if (size <= 0 || totalSum <= 0)
+	{
+		return 0;
+	}
+
+	long long sum = 0;
+	int index = 0;
+	for (int i = 0; i <= size; i++)
+	{
+		sum += histData.GetHist(i);
+		if (double(sum) / double(totalSum) < percentile)
+		{
+			index = i + 1;
+		}
+	}
+	return min(index, size);
+}
+
+// right end of the X axis; when there are no samples yet the full bin range is
+// kept, which is also what the legend of an empty widget shows
+int MyHistogramLabel::GetAxisMaxIndex() const
+{
+	int size = histData.GetSize();
+	if (size <= 0)
+	{
+		return 0;
+	}
+	int percentileIndex = GetPercentileIndex(HIGH_PERCENTILE);
+	if (percentileIndex <= 0)
+	{
+		return size;
+	}
+	return max(1, percentileIndex);
+}
+
 void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 {
 	// get max Element
 	long maxH = 1; // 1 to prevent division by zero
 	int extremeIndex = 0;
 	int minIndex = 0;
-	int maxIndex = 0;
 
 	int size = histData.GetSize();
 
@@ -112,10 +161,14 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			}
 			sum += histData.GetHist(i);
 			double prob = double(sum) / totalSum;
-			if (prob < 0.003) minIndex = i + 1;
-			if (prob < 0.997) maxIndex = i + 1;
+			if (prob < LOW_PERCENTILE) minIndex = i + 1;
 		}
 		double average = double(histData.GetSum()) / totalSum;
+
+		// "max" is the real maximum of the data, while the plotted range stops at
+		// the high percentile; samples above the range are left out of the bars
+		int realMax = GetVisibleMaxIndex();
+		int axisMax = GetAxisMaxIndex();
 
 		if (histData.GetCount() > 0)
 		{
@@ -133,16 +186,17 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			painter.setPen(QPen(barColor));
 			painter.setBrush(QBrush(barColor));
 
-			// draw each column bar; the X axis is scaled to the last non-empty bin
+			// draw each column bar; the X axis is scaled to the high percentile
 			// (the overflow bin at index 'size' is not drawn, as before). Bar i is
-			// centered at axis position i, so the last bar touches the right edge
-			int visibleMax = max(1, GetVisibleMaxIndex());
-			int barWidth = max(1, int(floor(1.0 * drawWidth / (visibleMax + 1))));
+			// centered at axis position i, so the last bar in range touches the
+			// right edge of the plot
+			int axisRange = max(1, axisMax);
+			int barWidth = max(1, int(floor(1.0 * drawWidth / (axisRange + 1))));
 			int barSpan = max(1, drawWidth - barWidth);
-			for (int i = 0; i < size && i <= visibleMax; i++)
+			for (int i = 0; i < size && i <= axisRange; i++)
 			{
 				int height = int(double(drawHeight) * max(0L, histData.GetHist(i)) / maxH);
-				int x = legendWidthP1 + int(round(double(i) * barSpan / visibleMax));
+				int x = legendWidthP1 + int(round(double(i) * barSpan / axisRange));
 
 				painter.drawRect(QRect(x, drawHeight - height, barWidth, height));
 			}
@@ -154,7 +208,18 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			painter.drawText(10, legendWidthP1 + 5,
 				QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
 					+ GetShortNumberDisplay(extremeIndex) + QString(", max: ")
-					+ GetShortNumberDisplay(maxIndex) + QString(", avg: ") + QString::number(average));
+					+ GetShortNumberDisplay(realMax) + QString(", avg: ") + QString::number(average));
+
+			// a few samples may live beyond the plotted percentile range; mark the
+			// right end of the plot so the cut off tail is not mistaken for the end
+			// of the data
+			if (realMax > axisRange)
+			{
+				int markerX = legendWidthP1 + drawWidth - 1;
+				int markerY = drawHeight - 4;
+				painter.drawLine(markerX, markerY, markerX - 6, markerY - 4);
+				painter.drawLine(markerX, markerY, markerX - 6, markerY + 4);
+			}
 		}
 	} // totalSum > 0
 }
@@ -174,8 +239,9 @@ QString MyHistogramLabel::GetShortNumberDisplay(int val) const
 
 void MyHistogramLabel::DrawLegend(QPainter &painter)
 {
-	// X axis ends at the last non-empty bin, so the scale adapts to the data
-	legendX = GetVisibleMaxIndex();
+	// X axis ends at the high percentile of the data, so a short tail of extreme
+	// values does not squash the plot; the real maximum is shown in the text line
+	legendX = GetAxisMaxIndex();
 	painter.setPen(QPen(backgroundColor));
 	painter.setBrush(QBrush(backgroundColor));
 	painter.drawRect(QRect(0, 0, width(), height()));
