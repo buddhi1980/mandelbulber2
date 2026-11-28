@@ -109,6 +109,10 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	for (int i = 1; i <= 4; i++)
 		par->addParam("show_light_path", i, true, morphNone, paramApp);
 
+	// statistics of frame render times (keyframe and flight animation)
+	par->addParam("anim_save_render_times", false, morphNone, paramApp);
+	par->addParam("anim_render_time_threshold", 0.0, 0.0, 1.0e6, morphNone, paramApp);
+
 	// camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);

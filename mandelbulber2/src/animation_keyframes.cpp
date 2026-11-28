@@ -49,6 +49,7 @@
 #include "ui_dock_animation.h"
 
 #include "animation_path_data.hpp"
+#include "animation_render_times.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
 #include "files.h"
@@ -1098,6 +1099,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		keyframes->ClearMorphCache();
 
+		// optional statistics of frame render times (summary is written when it goes out of scope)
+		cAnimationRenderTimes renderTimes(
+			cAnimationRenderTimes::animKeyframe, params->Get<QString>("anim_keyframe_dir"));
+
 		// main loop for rendering of frames
 		renderedFramesCount = 0;
 		for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
@@ -1152,8 +1157,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			renderJob->UpdateParameters(params, fractalParams);
 			renderJob->renderContext =
 				QString("keyframe %1/%2").arg(frameIndex + 1).arg(frameRanges.totalFrames);
+			renderTimes.StartFrame();
 			result = renderJob->Execute();
 			if (!result) throw false;
+			renderTimes.FinishFrame(frameIndex, index, subIndex);
 
 			// save frame
 			QStringList listOfSavedFiles;
