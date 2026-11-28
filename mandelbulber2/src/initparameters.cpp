@@ -622,7 +622,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("jxl_effort", 7, 1, 9, morphNone, paramApp);
 	par->addParam("jxl_distance", 1.0, 0.0, 20.0, morphNone, paramApp);
 	par->addParam("jxl_lossless", false, morphNone, paramApp);
-	// 0 - SDR (8/16 bit, gamma corrected), 1 - float linear (scene HDR), 2 - PQ BT.2100 HDR
+	// 0 - SDR (8/16 bit, adjusted + gamma corrected), 1 - float HDR (screen matched,
+	// unclamped), 2 - PQ BT.2100 HDR (screen matched values encoded with ST 2084)
 	par->addParam("jxl_hdr_mode", 0, 0, 2, morphNone, paramApp);
 	par->addParam("jxl_sdr_white_nits", 203.0, 1.0, 10000.0, morphNone, paramApp);
 	par->addParam("stereoscopic_in_separate_files", false, morphNone, paramApp);

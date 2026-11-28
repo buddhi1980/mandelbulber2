@@ -80,6 +80,7 @@
 #ifdef USE_JXL
 #include <jxl/codestream_header.h>
 #include <jxl/color_encoding.h>
+#include <jxl/decode.h>
 #include <jxl/encode.h>
 #include <jxl/thread_parallel_runner.h>
 #include <jxl/types.h>
@@ -517,6 +518,45 @@ float JxlPqOetf(float relative, float sdrWhiteNits)
 	float v = powf((c1 + c2 * n) / (1.0f + c3 * n), m2);
 	return clamp(v, 0.0f, 1.0f);
 }
+
+// sRGB EOTF (decode): converts a display referred sRGB code value to relative
+// linear light where 1.0 is the SDR white. Values above 1.0 (HDR headroom from
+// the float buffer) follow the power part of the curve.
+float JxlSrgbEotf(float code)
+{
+	if (code <= 0.0f) return 0.0f;
+	if (code <= 0.04045f) return code / 12.92f;
+	return powf((code + 0.055f) / 1.055f, 2.4f);
+}
+
+// sRGB OETF (encode) for a relative linear value in [0, 1]
+float JxlSrgbOetf(float linear)
+{
+	if (linear <= 0.0031308f) return 12.92f * linear;
+	return 1.055f * powf(linear, 1.0f / 2.4f) - 0.055f;
+}
+
+// Inverse of the ST 2084 EOTF plus a light extended Reinhard curve, so that PQ
+// coded frames get a sane SDR preview: the SDR white stays at full range and
+// highlights up to the file intensity target are rolled off instead of clipped
+float JxlPqPreviewToneMap(float code, float sdrWhiteNits, float peakNits)
+{
+	const float m1 = 2610.0f / 16384.0f;
+	const float m2 = 2523.0f / 4096.0f * 128.0f;
+	const float c1 = 3424.0f / 4096.0f;
+	const float c2 = 2413.0f / 4096.0f * 32.0f;
+	const float c3 = 2392.0f / 4096.0f * 32.0f;
+	if (code <= 0.0f) return 0.0f;
+	float n = powf(code, 1.0f / m2);
+	float denom = c2 - c3 * n;
+	if (denom <= 0.0f) return 1.0f;
+	float nits = powf(qMax(0.0f, n - c1) / denom, 1.0f / m1) * 10000.0f;
+	float L = nits / qMax(1.0f, sdrWhiteNits);
+	float M = qMax(2.0f, peakNits / qMax(1.0f, sdrWhiteNits));
+	// extended Reinhard normalized so that the SDR white (L = 1) maps to 1.0
+	float out = L * (1.0f + L / (M * M)) / (1.0f + L) * 2.0f / (1.0f + 1.0f / (M * M));
+	return clamp(JxlSrgbOetf(clamp(out, 0.0f, 1.0f)), 0.0f, 1.0f);
+}
 } // namespace
 
 QStringList ImageFileSaveJXL::SaveImage()
@@ -610,7 +650,7 @@ bool ImageFileSaveJXL::SaveJxlChannel(
 			if (dataType == JXL_TYPE_FLOAT)
 			{
 				// float buffer cannot be taken directly from cImage, pack RGBA/RGB here;
-				// hdrMode decides between gamma code values, scene linear and PQ
+				// hdrMode decides between gamma code values, screen matched float and PQ
 				packed.resize(bufferSize);
 				float *f = reinterpret_cast<float *>(packed.data());
 				for (uint64_t y = 0; y < height; y++)
@@ -625,12 +665,15 @@ bool ImageFileSaveJXL::SaveJxlChannel(
 						}
 						else
 						{
-							// unclamped scene linear values from the float buffer
-							p = image->GetPixelImage(x, y);
+							// post effect image with brightness/contrast/saturation/hdr/gamma
+							// adjustments applied, unclamped like the screen but with headroom
+							p = image->GetPixelImageAdjusted(x, y);
 							if (hdrMode == 2)
 							{
-								p = sRGBFloat(
-									JxlPqOetf(p.R, sdrWhite), JxlPqOetf(p.G, sdrWhite), JxlPqOetf(p.B, sdrWhite));
+								// the float values are display referred code values, decode
+								// them to relative light before applying the PQ curve
+								p = sRGBFloat(JxlPqOetf(JxlSrgbEotf(p.R), sdrWhite),
+									JxlPqOetf(JxlSrgbEotf(p.G), sdrWhite), JxlPqOetf(JxlSrgbEotf(p.B), sdrWhite));
 							}
 						}
 						uint64_t i = (x + y * width) * channels;
@@ -902,9 +945,9 @@ bool ImageFileSaveJXL::EncodeJxl(const QString &fullFilename, uint64_t width, ui
 		colorEncoding.primaries = pqHdr ? JXL_PRIMARIES_2100 : JXL_PRIMARIES_SRGB;
 		if (pqHdr)
 			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_PQ;
-		else if (isColor && !isFloat)
-			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_SRGB;
-		else if (isColor && hdrMode == 0)
+		else if (isColor)
+			// both the 8/16 bit SDR path and the float HDR modes store screen
+			// matched code values (gamma applied), so declare sRGB, not linear
 			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_SRGB;
 		else
 			colorEncoding.transfer_function = JXL_TRANSFER_FUNCTION_LINEAR;
@@ -1032,6 +1075,180 @@ bool ImageFileSaveJXL::EncodeJxl(const QString &fullFilename, uint64_t width, ui
 	}
 	return ok;
 }
+
+bool ImageFileLoadJXL(const QString &filename, QImage &image)
+{
+	image = QImage();
+
+	QFile file(filename);
+	if (!file.open(QIODevice::ReadOnly)) return false;
+	const QByteArray data = file.readAll();
+	file.close();
+
+	bool ok = true;
+	uint32_t xsize = 0;
+	uint32_t ysize = 0;
+	bool hasAlpha = false;
+	// PQ coded frames need a tone mapping step for the SDR preview, everything
+	// else can be sampled directly as 8 bit code values
+	bool isPq = false;
+	float intensityTarget = 1000.0f;
+	std::vector<uint8_t> pixels;
+
+	// single preview frames do not benefit from the parallel runner, so the
+	// decoder runs on this thread with default settings
+	JxlDecoder *dec = JxlDecoderCreate(nullptr);
+	if (!dec)
+	{
+		qWarning() << "ImageFileLoadJXL: JxlDecoderCreate failed";
+		return false;
+	}
+
+	if (JxlDecoderSubscribeEvents(
+				dec, static_cast<JxlDecoderStatus>(
+							 JXL_DEC_BASIC_INFO | JXL_DEC_COLOR_ENCODING | JXL_DEC_FULL_IMAGE))
+			!= JXL_DEC_SUCCESS)
+	{
+		qWarning() << "ImageFileLoadJXL: JxlDecoderSubscribeEvents failed";
+		JxlDecoderDestroy(dec);
+		return false;
+	}
+
+	const uint8_t *next = reinterpret_cast<const uint8_t *>(data.constData());
+	size_t avail = static_cast<size_t>(data.size());
+	JxlDecoderSetInput(dec, next, avail);
+	JxlDecoderCloseInput(dec);
+
+	// read only the first frame; for animations the loop would simply continue
+	// with the next JXL_DEC_FRAME, but the player gets one image per file
+	bool frameDone = false;
+	while (ok && !frameDone)
+	{
+		JxlDecoderStatus st = JxlDecoderProcessInput(dec);
+		switch (st)
+		{
+			case JXL_DEC_ERROR:
+				qWarning() << "ImageFileLoadJXL: decode error in" << filename;
+				ok = false;
+				break;
+			case JXL_DEC_NEED_MORE_INPUT:
+				qWarning() << "ImageFileLoadJXL: truncated JPEG XL file" << filename;
+				ok = false;
+				break;
+			case JXL_DEC_BASIC_INFO:
+			{
+				JxlBasicInfo info;
+				if (JxlDecoderGetBasicInfo(dec, &info) != JXL_DEC_SUCCESS)
+				{
+					qWarning() << "ImageFileLoadJXL: JxlDecoderGetBasicInfo failed";
+					ok = false;
+					break;
+				}
+				xsize = info.xsize;
+				ysize = info.ysize;
+				hasAlpha = info.alpha_bits > 0;
+				if (info.intensity_target > 0.0f) intensityTarget = info.intensity_target;
+				break;
+			}
+			case JXL_DEC_COLOR_ENCODING:
+			{
+				// the transfer function tells whether this is a PQ (HDR) coded frame
+				JxlColorEncoding ce;
+				if (JxlDecoderGetColorAsEncodedProfile(dec, JXL_COLOR_PROFILE_TARGET_DATA, &ce)
+						== JXL_DEC_SUCCESS)
+				{
+					isPq = ce.transfer_function == JXL_TRANSFER_FUNCTION_PQ;
+				}
+				break;
+			}
+			case JXL_DEC_NEED_IMAGE_OUT_BUFFER:
+			{
+				// 8-bit output matches the QImage formats used by the player and
+				// lets libjxl clamp any HDR values above the display white; PQ
+				// frames are sampled as float first so they can be tone mapped
+				JxlPixelFormat format;
+				format.num_channels = hasAlpha ? 4 : 3;
+				format.data_type = isPq ? JXL_TYPE_FLOAT : JXL_TYPE_UINT8;
+				format.endianness = JXL_NATIVE_ENDIAN;
+				format.align = 0;
+				size_t bufferSize = 0;
+				if (JxlDecoderImageOutBufferSize(dec, &format, &bufferSize) != JXL_DEC_SUCCESS)
+				{
+					qWarning() << "ImageFileLoadJXL: JxlDecoderImageOutBufferSize failed";
+					ok = false;
+					break;
+				}
+				pixels.resize(bufferSize);
+				if (JxlDecoderSetImageOutBuffer(dec, &format, pixels.data(), bufferSize) != JXL_DEC_SUCCESS)
+				{
+					qWarning() << "ImageFileLoadJXL: JxlDecoderSetImageOutBuffer failed";
+					ok = false;
+					break;
+				}
+				break;
+			}
+			case JXL_DEC_FULL_IMAGE: frameDone = true; break;
+			case JXL_DEC_SUCCESS:
+				// end of stream without a full image means nothing was decoded
+				if (pixels.empty())
+				{
+					qWarning() << "ImageFileLoadJXL: no image in" << filename;
+					ok = false;
+				}
+				frameDone = true;
+				break;
+			default:
+				// other events (e.g. JXL_DEC_FRAME, JXL_DEC_COLOR_ENCODING) are
+				// not subscribed to and should never be returned
+				break;
+		}
+	}
+
+	JxlDecoderDestroy(dec);
+
+	if (!ok || pixels.empty()) return false;
+
+	// fold PQ code values back to 8 bit display values for the SDR preview
+	if (isPq)
+	{
+		double whiteParam = gPar ? gPar->Get<double>("jxl_sdr_white_nits") : 203.0;
+		float sdrWhite = float(whiteParam > 0.0 ? whiteParam : 203.0);
+		const size_t channels = hasAlpha ? 4 : 3;
+		// the decode buffer holds 32-bit samples, so the element count is a
+		// quarter of the byte size; indexing f[] with the byte count would
+		// read past the end of the buffer
+		const size_t count = pixels.size() / sizeof(float);
+		const float *f = reinterpret_cast<const float *>(pixels.data());
+		std::vector<uint8_t> mapped(count);
+		for (size_t i = 0; i < count; i++)
+		{
+			float v;
+			if (hasAlpha && (i % channels) == channels - 1)
+				// alpha is a mask, it is not affected by the display transfer
+				v = clamp(f[i], 0.0f, 1.0f);
+			else
+				v = JxlPqPreviewToneMap(f[i], sdrWhite, intensityTarget);
+			mapped[i] = uint8_t(clamp(v, 0.0f, 1.0f) * 255.0f + 0.5f);
+		}
+		pixels.swap(mapped);
+	}
+
+	if (hasAlpha)
+	{
+		image = QImage(pixels.data(), xsize, ysize, xsize * 4, QImage::Format_RGBA8888).copy();
+	}
+	else
+	{
+		// QImage scanlines are 32-bit aligned while the decoded buffer is
+		// tightly packed, so copy row by row
+		QImage img(static_cast<int>(xsize), static_cast<int>(ysize), QImage::Format_RGB888);
+		const size_t rowBytes = static_cast<size_t>(xsize) * 3;
+		for (uint32_t y = 0; y < ysize; ++y)
+			memcpy(img.scanLine(y), pixels.data() + static_cast<size_t>(y) * rowBytes, rowBytes);
+		image = img;
+	}
+	return !image.isNull();
+}
 #endif /* USE_JXL */
 
 QStringList ImageFileSaveHDR::SaveImage()
@@ -1076,9 +1293,17 @@ bool ImageFileSaveHDR::SaveHdrChannel(
 	switch (imageChannel.contentType)
 	{
 		case IMAGE_CONTENT_COLOR:
-			// the scene linear float buffer is stored directly, values above 1.0 are kept
-			src = &image->GetImageFloat();
+		{
+			// same rule as in the EXR path: post effects plus brightness/contrast/
+			// saturation/hdr, unclamped; the user gamma is skipped for linear files
+			bool applyGamma = !gPar->Get<bool>("linear_colorspace");
+			buffer.resize(width * height);
+			for (uint64_t y = 0; y < height; y++)
+				for (uint64_t x = 0; x < width; x++)
+					buffer[x + y * width] = image->GetPixelImageAdjusted(x, y, applyGamma);
+			src = &buffer;
 			break;
+		}
 
 		case IMAGE_CONTENT_ALPHA:
 		{
@@ -1272,8 +1497,8 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 		}
 
 		/* write header */
-		if (!PngWriteHeader(png_ptr, info_ptr, png_uint_32(width), png_uint_32(height), qualitySize,
-					colorType))
+		if (!PngWriteHeader(
+					png_ptr, info_ptr, png_uint_32(width), png_uint_32(height), qualitySize, colorType))
 			throw QString("[write_png_file] Error during writing header");
 
 		/* write bytes */
@@ -1468,22 +1693,28 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> so
 						}
 						break;
 						case IMAGE_CONTENT_NORMAL:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelNormal(x, y), false);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelNormal(x, y), false);
 							break;
 						case IMAGE_CONTENT_NORMAL_WORLD:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelNormalWorld(x, y), true);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelNormalWorld(x, y), true);
 							break;
 						case IMAGE_CONTENT_SPECULAR:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelSpecular(x, y), false);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelSpecular(x, y), false);
 							break;
 						case IMAGE_CONTENT_DIFFUSE:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelDiffuse(x, y), false);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelDiffuse(x, y), false);
 							break;
 						case IMAGE_CONTENT_WORLD_POSITION:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelWorld(x, y), false);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelWorld(x, y), false);
 							break;
 						case IMAGE_CONTENT_SHADOWS:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelShadows(x, y), false);
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], sourceImage->GetPixelShadows(x, y), false);
 							break;
 						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 							SavePngRgbPixel(
@@ -2013,16 +2244,18 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 			for (uint64_t x = 0; x < width; x++)
 			{
 				uint64_t ptr = x + y * width;
+				// apply the image adjustments (brightness, contrast, saturation, hdr)
+				// and the post effects; the user gamma is skipped when the file is
+				// tagged as linear so EXR keeps its scene referred convention
+				sRGBFloat pixel = image->GetPixelImageAdjusted(x, y, !linear);
 				if (imfQuality == Imf::FLOAT)
 				{
-					sRGBFloat pixel = image->GetPixelImage(x, y);
 					floatPointer[ptr].R = pixel.R;
 					floatPointer[ptr].G = pixel.G;
 					floatPointer[ptr].B = pixel.B;
 				}
 				else
 				{
-					sRGBFloat pixel = image->GetPixelImage(x, y);
 					halfPointer[ptr].R = pixel.R;
 					halfPointer[ptr].G = pixel.G;
 					halfPointer[ptr].B = pixel.B;
@@ -2531,7 +2764,8 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelShadows(x, y));
 					break;
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
-					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelGlobalIllumination(x, y));
+					SaveTiffRgbPixel(
+						imageChannel, &colorPtr[ptr], sourceImage->GetPixelGlobalIllumination(x, y));
 					break;
 				case IMAGE_CONTENT_NOT_DENOISED:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], sourceImage->GetPixelNotDenoised(x, y));

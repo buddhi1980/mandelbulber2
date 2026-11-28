@@ -356,6 +356,20 @@ public:
 	void Squares(quint64 y, int progressiveFactor);
 	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
+	/**
+	 * Same brightness/contrast/hdr/saturation/gamma chain as CalculatePixel (the one
+	 * used for the on screen image), but evaluated in full float precision and
+	 * without the [0,1] clamp, so float savers keep the highlights above the white
+	 * point while still matching what the user sees on screen.
+	 * @param applyUserGamma when false the 'gamma' adjustment is skipped and the
+	 *        values stay in the pre gamma (scene referred) domain
+	 */
+	sRGBFloat CalculatePixelFloat(const sRGBFloat &pixel, bool applyUserGamma = true) const;
+	/**
+	 * Post effect color pixel (the source of the screen image) with all image
+	 * adjustments applied in float precision, unclamped above 1.0.
+	 */
+	sRGBFloat GetPixelImageAdjusted(quint64 x, quint64 y, bool applyUserGamma = true) const;
 
 	void PutPixelAlfa(quint64 x, quint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer);
 	void AntiAliasedPoint(float x, float y, float z, sRGB8 color, sRGBFloat opacity, int layer);

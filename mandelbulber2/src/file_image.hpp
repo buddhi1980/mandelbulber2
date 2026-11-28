@@ -42,6 +42,7 @@
 #include <memory>
 #include <utility>
 
+#include <QImage>
 #include <QMap>
 #include <QObject>
 #include <QString>
@@ -245,10 +246,14 @@ public:
 /**
  * JPEG XL saver: 8/16 bit integer and 32 bit float output, alpha channel
  * (interleaved or as a separate file) and HDR transfer modes driven by the
- * jxl_hdr_mode application parameter:
- * 0 - SDR (sRGB transfer, gamma corrected buffers),
- * 1 - float linear (scene referred, values may exceed 1.0 like in EXR),
- * 2 - PQ (SMPTE ST 2084) with BT.2100 primaries for HDR displays
+ * jxl_hdr_mode application parameter. The float modes run the image through
+ * the same brightness/contrast/saturation/hdr adjustments as the screen, so
+ * they match what the user sees while keeping the values above 1.0:
+ * 0 - SDR (sRGB transfer, adjusted and gamma corrected buffers),
+ * 1 - float HDR (sRGB transfer, unclamped screen matched values),
+ * 2 - PQ (SMPTE ST 2084) with BT.2100 primaries for HDR displays; the screen
+ *     matched code values are decoded to light and then encoded with the PQ
+ *     curve, the SDR white sits at the jxl_sdr_white_nits luminance
  */
 class ImageFileSaveJXL : public ImageFileSave
 {
@@ -282,6 +287,17 @@ private:
 		bool alphaPresent, enumImageContentType contentType, int dataType, int bitsPerSample,
 		const void *buffer, size_t bufferSize);
 };
+
+/**
+ * Decodes a JPEG XL file into an 8-bit image for UI previews, e.g. the
+ * animation player (Qt has no built-in JPEG XL support). Only the first
+ * frame of the codestream is read; HDR values above the display white are
+ * clamped to full range. Alpha is kept when the frame stores one.
+ * @param filename path to a .jxl file
+ * @param image output image, Format_RGB888 or Format_RGBA8888 (cleared on failure)
+ * @return false when the file cannot be opened or decoded
+ */
+bool ImageFileLoadJXL(const QString &filename, QImage &image);
 #endif /* USE_JXL */
 
 /**

@@ -39,6 +39,9 @@
 #include "my_double_spin_box.h"
 
 #include "src/initparameters.hpp"
+#ifdef USE_JXL
+#include "src/file_image.hpp"
+#endif // USE_JXL
 
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
@@ -127,6 +130,10 @@ void PlayerWidget::updateFromFolder()
 {
 	QDir imageDir = QDir(dirPath);
 	QStringList imageFileExtensions({"*.jpg", "*.jpeg", "*.png", "*.tiff"});
+#ifdef USE_JXL
+	// JPEG XL frames are decoded through libjxl, Qt can not read them itself
+	imageFileExtensions << "*.jxl";
+#endif // USE_JXL
 	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
@@ -206,7 +213,17 @@ void PlayerWidget::updateFrame()
 	if (currentIndex < imageFiles.size())
 	{
 		QString fileName = dirPath + "/" + imageFiles.at(currentIndex);
-		QPixmap pix(fileName);
+		QPixmap pix;
+#ifdef USE_JXL
+		// Qt has no JPEG XL plugin, so such frames are decoded with libjxl
+		if (fileName.endsWith(".jxl", Qt::CaseInsensitive))
+		{
+			QImage frame;
+			if (ImageFileLoadJXL(fileName, frame)) pix = QPixmap::fromImage(frame);
+		}
+		else
+#endif // USE_JXL
+			pix = QPixmap(fileName);
 		if (pix.isNull())
 		{
 			qWarning() << "Image could not be loaded, " << fileName;

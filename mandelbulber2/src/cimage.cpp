@@ -375,6 +375,61 @@ void cImage::CalculateGammaTable()
 	}
 }
 
+sRGBFloat cImage::CalculatePixelFloat(const sRGBFloat &pixel, bool applyUserGamma) const
+{
+	// keep the same operation order and constants as CalculatePixel so the float
+	// savers produce the same look as the screen, but with HDR headroom
+	float R = pixel.R * adj.brightness;
+	float G = pixel.G * adj.brightness;
+	float B = pixel.B * adj.brightness;
+
+	R = (R - 0.5f) * adj.contrast + 0.5f;
+	G = (G - 0.5f) * adj.contrast + 0.5f;
+	B = (B - 0.5f) * adj.contrast + 0.5f;
+
+	if (R < 0.0f) R = 0.0f;
+	if (G < 0.0f) G = 0.0f;
+	if (B < 0.0f) B = 0.0f;
+
+	if (adj.hdrEnabled)
+	{
+		R = tanhf(R);
+		G = tanhf(G);
+		B = tanhf(B);
+	}
+
+	// saturation
+	float const rFactor = 0.299f;
+	float const gFactor = .587f;
+	float const bFactor = .114f;
+	float V = sqrtf(R * R * rFactor + G * G * gFactor + B * B * bFactor);
+	R = V + (R - V) * adj.saturation;
+	G = V + (G - V) * adj.saturation;
+	B = V + (B - V) * adj.saturation;
+
+	// NOTE: deliberately no clamp(R, 0, 1) here - float files must keep the
+	// values above the screen white point
+
+	// the user gamma, applied directly in float instead of the 16 bit LUT
+	if (applyUserGamma && adj.imageGamma != 1.0f)
+	{
+		R = powf(R, 1.0f / adj.imageGamma);
+		G = powf(G, 1.0f / adj.imageGamma);
+		B = powf(B, 1.0f / adj.imageGamma);
+	}
+
+	return sRGBFloat(R, G, B);
+}
+
+sRGBFloat cImage::GetPixelImageAdjusted(quint64 x, quint64 y, bool applyUserGamma) const
+{
+	// postImageFloat is the source used by CompileImage for the screen; fall back
+	// to the raw buffer in case no post effect stage ran
+	if (!postImageFloat.empty())
+		return CalculatePixelFloat(postImageFloat[getImageIndex(x, y)], applyUserGamma);
+	return CalculatePixelFloat(imageFloat[getImageIndex(x, y)], applyUserGamma);
+}
+
 void cImage::CompileImage(QList<int> *list)
 {
 	int listIndex = 0;
