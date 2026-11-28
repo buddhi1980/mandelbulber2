@@ -207,9 +207,12 @@ jobs:
 
       # program/packages.txt lists the packages the program links against, which the shard
       # jobs install to run it, and program/scenes.txt the names of its regression scenes (when
-      # it can list them), which the shard jobs split into shards
+      # it can list them), which the shard jobs split into shards. An older commit that doesn't
+      # build (a master that a pull request repairs) is not compared; head must build.
       - name: Build Application
+        id: build
         if: steps.program.outputs.cache-hit != 'true'
+        continue-on-error: ${{ matrix.side != 'head' }}
         run: |
           ccache -z
           cd mandelbulber2
@@ -226,6 +229,11 @@ jobs:
           program/mandelbulber2 --nogui --regression-list | sed -n "s/^scene: //p" > program/scenes.txt
           echo "$(grep -c . program/scenes.txt) regression scenes"
 
+      - name: Report Build Failure
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "::notice::Comparison with the ${{ matrix.side }} commit skipped: commit $(git rev-parse --short HEAD) doesn't build"
+
       - name: Save Compiler Cache
         if: steps.program.outputs.cache-hit != 'true' && matrix.side == 'head'
         uses: actions/cache/save@v6
@@ -234,13 +242,14 @@ jobs:
           key: ccache-linux-x86_64-${{ env.COMMIT }}
 
       - name: Save Program
-        if: steps.program.outputs.cache-hit != 'true'
+        if: steps.program.outputs.cache-hit != 'true' && steps.build.outcome == 'success'
         uses: actions/cache/save@v6
         with:
           path: program
           key: regression-program-linux-x86_64-${{ env.COMMIT }}
 
       - name: Upload Program
+        if: steps.build.outcome != 'failure'
         uses: actions/upload-artifact@v7
         with:
           name: program-linux-x86_64-${{ matrix.side }}
@@ -292,6 +301,11 @@ jobs:
           pairs=()
           balanced=1
           for side in head $COMPARISONS; do
+            # an older commit that didn't build has no program (its build job said so)
+            if [ "$side" != head ] && [ ! -f "programs/program-linux-x86_64-$side/mandelbulber2" ]; then
+              echo "No $side program: that commit doesn't build, so it isn't compared"
+              continue
+            fi
             mkdir -p "run-$side/bin" "run-$side/share"
             cp "programs/program-linux-x86_64-$side/mandelbulber2" "run-$side/bin/"
             chmod +x "run-$side/bin/mandelbulber2"
