@@ -60,8 +60,8 @@ cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 {
 	numberOfFrames = 0;
 	framesPerSecond = 30.0;
-	lowFreqY = 0;
-	highFreqY = 0;
+	lowFreq = 0.0;
+	highFreq = 0.0;
 	sampleRate = 0;
 	firstClickedFreqValue = 0.0;
 }
@@ -110,12 +110,41 @@ void cFFTView::AssignAudioTrack(const std::shared_ptr<cAudioTrack> audiotrack)
 			}
 		}
 
-		QPainter painter(&fftImage);
-		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		scaledFftImage =
-			fftImage.scaled(width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		UpdateScaledImage();
 		update();
 		WriteLog("FFTView created", 2);
+	}
+	else
+	{
+		fftImage = QImage();
+		scaledFftImage = QImage();
+	}
+}
+
+// the whole spectrum (0 Hz to the Nyquist frequency) is scaled to the height of the widget
+double cFFTView::MaxFrequency() const
+{
+	return double(sampleRate) * 0.5;
+}
+
+int cFFTView::FrequencyToY(double frequency) const
+{
+	if (sampleRate <= 0) return height();
+	return height() - int(frequency / MaxFrequency() * height());
+}
+
+double cFFTView::YToFrequency(int y) const
+{
+	if (height() <= 0) return 0.0;
+	return double(height() - y) / double(height()) * MaxFrequency();
+}
+
+void cFFTView::UpdateScaledImage()
+{
+	if (!fftImage.isNull() && width() > 0 && height() > 0)
+	{
+		scaledFftImage =
+			fftImage.scaled(width(), height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	}
 	else
 	{
@@ -125,53 +154,53 @@ void cFFTView::AssignAudioTrack(const std::shared_ptr<cAudioTrack> audiotrack)
 
 void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
 {
-	lowFreqY = int(double(cAudioFFTData::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5));
-	highFreqY =
-		int(double(cAudioFFTData::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
+	lowFreq = midFreq - bandwidth * 0.5;
+	highFreq = midFreq + bandwidth * 0.5;
 	update();
+}
+
+void cFFTView::resizeEvent(QResizeEvent *event)
+{
+	QWidget::resizeEvent(event);
+	UpdateScaledImage();
 }
 
 void cFFTView::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event);
 	QPainter painter(this);
-	painter.drawImage(0, height() - cAudioFFTData::fftSize / 2, scaledFftImage);
+	painter.drawImage(0, 0, scaledFftImage);
 
 	QBrush brush(QColor(255, 255, 255, 128));
 	painter.setBrush(brush);
 	painter.setPen(Qt::NoPen);
 	painter.drawRect(
-		QRect(QPoint(0, height() - highFreqY - 1), QPoint(width(), height() - lowFreqY - 1)));
+		QRect(QPoint(0, FrequencyToY(highFreq) - 1), QPoint(width(), FrequencyToY(lowFreq) - 1)));
 
 	painter.setPen(Qt::red);
 	QFont font = QApplication::font();
 	font.setPixelSize(10);
 	painter.setFont(font);
-	painter.drawText(
-		3, 13, QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTData::fftSize * height())));
-	painter.drawText(3, height() / 2,
-		QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTData::fftSize * height() * 0.5)));
+	painter.drawText(3, 13, QString("%1 Hz").arg(int(MaxFrequency())));
+	painter.drawText(3, height() / 2, QString("%1 Hz").arg(int(MaxFrequency() * 0.5)));
 	painter.drawText(3, height() - 3, QString("%1 Hz").arg(0));
 }
 
 void cFFTView::mousePressEvent(QMouseEvent *event)
 {
-	firstClickedFreqValue =
-		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
+	firstClickedFreqValue = YToFrequency(mouseLocalY(event));
 }
 
 void cFFTView::mouseReleaseEvent(QMouseEvent *event)
 {
-	double secondClickedFreqValue =
-		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
+	double secondClickedFreqValue = YToFrequency(mouseLocalY(event));
 
 	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
 }
 
 void cFFTView::mouseMoveEvent(QMouseEvent *event)
 {
-	double secondClickedFreqValue =
-		double(height() - mouseLocalY(event)) * double(sampleRate) / double(cAudioFFTData::fftSize);
+	double secondClickedFreqValue = YToFrequency(mouseLocalY(event));
 
 	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
 }

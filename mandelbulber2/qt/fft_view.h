@@ -60,8 +60,13 @@ private:
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
 
 	void emitNewFrequencyBand(double freq1, double freq2);
+	void UpdateScaledImage();
+	double MaxFrequency() const;
+	int FrequencyToY(double frequency) const;
+	double YToFrequency(int y) const;
 
 	QImage fftImage;
 	QImage scaledFftImage;
@@ -69,8 +74,8 @@ private:
 	double framesPerSecond;
 	int sampleRate;
 
-	int lowFreqY;
-	int highFreqY;
+	double lowFreq;
+	double highFreq;
 
 	double firstClickedFreqValue;
 signals:
